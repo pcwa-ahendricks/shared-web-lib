@@ -29,6 +29,7 @@
     "proptypes",
     "querystringify",
     "rasterization",
+    "todos",
     "unfetch",
     "workspaces",
     "zeit"
