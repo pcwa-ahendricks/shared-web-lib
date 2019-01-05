@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "neu-web",
+  "public": true,
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "builds": [
+    {
+      "src": "packages/next/package.json",
+      "use": "@now/next",
+      "config": {
+        "maxLambdaSize": "20mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/(.*)$",
+      "dest": "/packages/next/$1"
+    }
+  ]
+}

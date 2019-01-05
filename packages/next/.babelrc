@@ -1,0 +1,61 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "inline-react-svg",
+    [
+      "transform-assets-import-to-string",
+      {
+        "baseDir": "static",
+        "baseUri": "/"
+      }
+    ],
+    [
+      "transform-imports",
+      {
+        "@material-ui/core": {
+          "transform": "@material-ui/core/${member}",
+          "preventFullImport": true
+        },
+        "@material-ui/core/colors": {
+          "transform": "@material-ui/core/colors/${member}",
+          "preventFullImport": false
+        },
+        "mdi-material-ui": {
+          "transform": "mdi-material-ui/${member}",
+          "preventFullImport": true
+        }
+      }
+    ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "inline-dotenv",
+          {
+            "path": "./.env.production"
+          }
+        ],
+        "transform-flow-strip-types"
+      ]
+    },
+    "stage": {
+      "plugins": [
+        [
+          "inline-dotenv",
+          {
+            "path": "./.env.stage"
+          }
+        ],
+        "transform-flow-strip-types"
+      ]
+    },
+    "development": {
+      "plugins": [
+        "inline-dotenv",
+        "flow-react-proptypes",
+        "transform-flow-strip-types"
+      ]
+    }
+  }
+}

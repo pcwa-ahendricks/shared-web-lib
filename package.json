@@ -1,0 +1,25 @@
+{
+  "name": "neu-web",
+  "version": "1.0.0",
+  "description": "New PCWA website",
+  "main": "index.js",
+  "repository": "pcwa.net",
+  "author": "abe hendricks <ahendricks@pcwa.net>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n next 'npm run dev --prefix packages/next'",
+    "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
+    "now": "now",
+    "flow": "flow"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "flow-bin": "^0.89.0",
+    "now": "^12.1.14"
+  }
+}
