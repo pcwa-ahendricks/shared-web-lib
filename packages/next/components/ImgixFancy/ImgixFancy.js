@@ -1,4 +1,14 @@
+// @flow
+import React from 'react'
 import Imgix from 'react-imgix'
+
+type Props = {
+  src: string,
+  lqipSrc?: string,
+  sizes: string,
+  htmlAttributesProps: {},
+  paddingPercent: string
+}
 
 const ImgixFancy = ({
   src,
@@ -7,7 +17,7 @@ const ImgixFancy = ({
   htmlAttributesProps,
   paddingPercent,
   ...rest
-}) => {
+}: Props) => {
   return (
     <div className="mediabox" style={{paddingBottom: paddingPercent}}>
       <Imgix

@@ -8,6 +8,7 @@ import expand from 'jss-expand'
 import {jssPreset} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import getPageContext from '../lib/getPageContext'
+import {ParallaxProvider} from 'react-scroll-parallax'
 // import {Provider} from 'react-redux'
 // import withRedux from 'next-redux-wrapper'
 // import configureStore from '../store'
@@ -49,11 +50,13 @@ class MyApp extends App {
           >
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            {/* Pass pageContext to the _document though the renderPage enhancer
+            <ParallaxProvider>
+              {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-            {/* <Provider store={store}> */}
-            <Component pageContext={this.pageContext} {...pageProps} />
-            {/* </Provider> */}
+              {/* <Provider store={store}> */}
+              <Component pageContext={this.pageContext} {...pageProps} />
+              {/* </Provider> */}
+            </ParallaxProvider>
           </MuiThemeProvider>
         </JssProvider>
       </Container>
