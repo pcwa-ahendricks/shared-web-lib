@@ -60,32 +60,14 @@ class MyDocument extends Document {
           }
         `}</style>
         <style jsx global>{`
-          .fancyload {
-            opacity: 0;
-            -webkit-filter: blur(5px);
-            filter: blur(5px);
-            transition: filter 600ms, -webkit-filter 600ms, opacity 700ms;
-          }
-          .fancyload.lazyloading {
-            opacity: 0.8;
-          }
-          img.fancyload.lazyloaded {
-            -webkit-filter: blur(0);
-            filter: blur(0);
-            opacity: 1;
-          }
-           {
-            /* .fancyload.lazyload,
-           .fancyload.lazyloading {
-          } */
-          }
-        `}</style>
-        <style jsx global>{`
           .mediabox {
             position: relative;
             display: block;
             height: 0;
             width: 100%;
+            overflow: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
           }
 
           .ls-blur-up-img,
@@ -103,10 +85,13 @@ class MyDocument extends Document {
             object-fit: cover;
           }
 
+          /* Scaling the blur up image prevents visible loading of lazy loaded image at edges of blur effect. */
           .ls-blur-up-img {
-            filter: blur(10px);
+            filter: blur(15px);
             opacity: 1;
             transition: opacity 1000ms, filter 1500ms;
+            transform: scale(1.05);
+            -webkit-transform: scale(1.05);
           }
 
           .ls-blur-up-img.ls-inview.ls-original-loaded {
