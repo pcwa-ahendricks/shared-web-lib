@@ -13,14 +13,12 @@ type ImgixFancyProps = {
 }
 
 type Props = {
-  height: string | number,
   amount: number,
   imgixFancyProps: ImgixFancyProps,
   children?: Node
 }
 
 const ImgixFancyParallaxBanner = ({
-  height,
   amount,
   imgixFancyProps,
   children,
@@ -46,9 +44,6 @@ const ImgixFancyParallaxBanner = ({
         If a larger height is required consider creating a separate
         image on Imgix with a aspect ratio that is not a wide.
        */
-      style={{
-        height: height
-      }}
       {...rest}
     >
       {children}
@@ -57,7 +52,6 @@ const ImgixFancyParallaxBanner = ({
 }
 
 ImgixFancyParallaxBanner.defaultProps = {
-  height: '40vw',
   amount: 0.1
 }
 

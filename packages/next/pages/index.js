@@ -7,7 +7,9 @@ const index = () => {
   return (
     <React.Fragment>
       <ImgixFancyParallaxBanner
-        height="55vw"
+        style={{
+          height: '55vw'
+        }}
         amount={0.1}
         imgixFancyProps={{
           paddingPercent: '66.6495%',

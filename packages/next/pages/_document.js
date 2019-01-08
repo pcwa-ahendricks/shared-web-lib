@@ -90,8 +90,8 @@ class MyDocument extends Document {
             filter: blur(15px);
             opacity: 1;
             transition: opacity 1000ms, filter 1500ms;
-            transform: scale(1.05);
-            -webkit-transform: scale(1.05);
+            transform: scale(1.2);
+            -webkit-transform: scale(1.2);
           }
 
           .ls-blur-up-img.ls-inview.ls-original-loaded {
