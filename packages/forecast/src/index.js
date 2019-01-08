@@ -47,23 +47,20 @@ export const initForecast = (config?: {}) => {
   })
 }
 
-const getForecast = async (req: IncomingMessage, forecast) => {
+const getForecast = async (req: IncomingMessage, res, forecast) => {
   if (!forecast) {
     forecast = initForecast()
   }
 
   // Example request - https://api.darksky.net/forecast/12345678910111213141516171819/38.9221,-121.0559
-  // console.log(forecast.cache)
-  // console.log(forecast.expired())
   const {lat, lng} = parseUrl(req.url).query
   if (!lat || !lng) {
-    throw createError(204)
+    send(res, 204)
   }
-  const weather = new Promise((resolve) => {
+  const weather = new Promise((resolve, reject) => {
     return forecast.get([lat, lng], (err: any, weather: any) => {
       if (err) {
-        console.log(err)
-        throw createError(400)
+        reject(err)
       }
       resolve(weather)
     })
@@ -85,7 +82,7 @@ async function requestHandler(
         break
       }
       default: {
-        return await getForecast(req, forecast)
+        return await getForecast(req, res, forecast)
       }
     }
   } catch (error) {
