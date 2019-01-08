@@ -18,7 +18,7 @@
   ],
   "routes": [
     {
-      "src": "/lambda/forecast(.*)",
+      "src": "^/lambda/forecast(.*)$",
       "dest": "packages/forecast/dist/server.js$1"
     },
     {

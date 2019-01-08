@@ -12,7 +12,7 @@ const index = () => {
         imgixFancyProps={{
           paddingPercent: '66.6495%',
           src:
-            '//cosmic-s3.imgix.net/45960170-6294-11e7-8d46-7b261262b385-French_Meadows_Inlet_02.jpg'
+            '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
         }}
       />
       {/* <ImgixFancy

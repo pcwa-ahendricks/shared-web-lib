@@ -18,3 +18,9 @@ There is a note on [babel-plugin-flow-react-proptypes](https://www.npmjs.com/pac
 - [ ] Add some tests
 - [ ] Add custom 404
 - [ ] Fix vscode debugger
+
+### Convert Images
+
+Convert baseline jpeg images to progressive jpegs with the following.
+
+    jpegtran -copy none -progressive -outfile inlet-progressive.jpg inlet.jpg
