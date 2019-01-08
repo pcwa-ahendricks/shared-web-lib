@@ -3,7 +3,8 @@
   "name": "neu-web",
   "public": true,
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "DARKSKY_API_KEY": "@web-darksky-dev-api-key"
   },
   "builds": [
     {
@@ -12,12 +13,18 @@
       "config": {
         "maxLambdaSize": "20mb"
       }
-    }
+    },
+    { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" }
   ],
   "routes": [
+    {
+      "src": "/lambda/forecast(.*)",
+      "dest": "packages/forecast/dist/server.js$1"
+    },
     {
       "src": "^/(.*)$",
       "dest": "/packages/next/$1"
     }
-  ]
+  ],
+  "regions": ["sfo1"]
 }

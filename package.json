@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "concurrently -n next 'npm run dev --prefix packages/next'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
+    "prenow": "npm run build --prefix packages/forecast",
     "now": "now",
     "flow": "flow"
   },

@@ -10,9 +10,7 @@
     "watch": "babel src --watch --out-dir dist",
     "dev": "concurrently 'npm run watch' 'micro-dev -s -p 1337'",
     "inspect": "node --inspect node_modules/.bin/micro-dev",
-    "test": "ava",
-    "now:stage": "npm run build && now -A now.stage.json",
-    "now:prod": "npm run build && now && now alias"
+    "test": "ava"
   },
   "author": "<ahendricks@pcwa.net>",
   "license": "ISC",
