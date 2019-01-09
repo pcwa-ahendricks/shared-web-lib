@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "neu-web",
+  "alias": "dev-web.pcwa.net",
   "public": true,
   "env": {
     "NODE_ENV": "production",

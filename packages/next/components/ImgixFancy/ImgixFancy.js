@@ -1,13 +1,27 @@
 // @flow
 import React from 'react'
 import Imgix from 'react-imgix'
+import {withStyles} from '@material-ui/core/styles'
 
 type Props = {
+  classes: any,
   src: string,
   lqipSrc?: string,
   sizes: string,
   htmlAttributesProps: {},
   paddingPercent: string
+}
+
+const styles = {
+  mediabox: {
+    position: 'relative',
+    display: 'block',
+    height: 0,
+    width: '100%',
+    overflow: 'hidden',
+    '-webkit-transform': 'translate3d(0, 0, 0)',
+    transform: 'translate3d(0, 0, 0)'
+  }
 }
 
 const ImgixFancy = ({
@@ -16,10 +30,11 @@ const ImgixFancy = ({
   sizes,
   htmlAttributesProps,
   paddingPercent,
+  classes,
   ...rest
 }: Props) => {
   return (
-    <div className="mediabox" style={{paddingBottom: paddingPercent}}>
+    <div className={classes.mediabox} style={{paddingBottom: paddingPercent}}>
       <Imgix
         className="lazyload mediabox-img"
         src={src}
@@ -48,4 +63,4 @@ ImgixFancy.defaultProps = {
   paddingPercent: '66.6667%'
 }
 
-export default ImgixFancy
+export default withStyles(styles)(ImgixFancy)

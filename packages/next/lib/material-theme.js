@@ -1,5 +1,5 @@
 import {createMuiTheme} from '@material-ui/core/styles'
-import {brown, deepPurple, red} from '@material-ui/core/colors'
+// import {indigo, green, red} from '@material-ui/core/colors'
 
 // All the following keys are optional.
 // We try our best to provide a great default value.
@@ -8,26 +8,40 @@ const theme = createMuiTheme({
     useNextVariants: true
   },
   palette: {
-    primary: brown,
-    // primary: {
-    //   main: purple[400],
-    //   light: purple[200],
-    //   dark: purple[700]
-    // },
-    secondary: deepPurple,
-    // secondary: {
-    //   main: brown.A400,
-    //   light: brown.A200,
-    //   dark: brown.A700
-    // },
-    error: red,
-    // Used by `getContrastText()` to maximize the contrast between the background and
-    // the text.
-    contrastThreshold: 3,
-    // Used to shift a color's luminance by approximately
-    // two indexes within its tonal palette.
-    // E.g., shift from Red 500 to Red 300 or Red 700.
-    tonalOffset: 0.2
+    palette: {
+      common: {
+        black: '#000',
+        white: '#fff'
+      },
+      background: {
+        paper: '#fff',
+        default: '#fafafa'
+      },
+      primary: {
+        light: 'rgba(65, 131, 196, 1)',
+        main: 'rgba(0, 55, 104, 1)',
+        dark: 'rgba(1, 40, 73, 1)',
+        contrastText: '#fff'
+      },
+      secondary: {
+        light: 'rgba(126, 201, 80, 1)',
+        main: 'rgba(114, 181, 73, 1)',
+        dark: 'rgba(95, 150, 61, 1)',
+        contrastText: '#fff'
+      },
+      error: {
+        light: '#e57373',
+        main: '#f44336',
+        dark: '#d32f2f',
+        contrastText: '#fff'
+      },
+      text: {
+        primary: 'rgba(0, 0, 0, 0.87)',
+        secondary: 'rgba(0, 0, 0, 0.54)',
+        disabled: 'rgba(0, 0, 0, 0.38)',
+        hint: 'rgba(0, 0, 0, 0.38)'
+      }
+    }
   }
 })
 

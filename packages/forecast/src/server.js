@@ -1,6 +1,6 @@
 // @flow
-import micro from 'micro'
-import microCors from 'micro-cors'
+const micro = require('micro')
+const microCors = require('micro-cors')
 import {initForecast, mainHandler} from './index'
 
 const origin =

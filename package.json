@@ -11,10 +11,12 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently -n next 'npm run dev --prefix packages/next'",
+    "forecast:dev": "npm run dev --prefix packages/forecast",
+    "next:dev": "npm run dev --prefix packages/next",
+    "dev": "concurrently -n next,forecast 'npm run next:dev' 'npm run forecast:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
     "prenow": "npm run build --prefix packages/forecast",
-    "now": "now",
+    "now": "now && now alias",
     "flow": "flow"
   },
   "dependencies": {},

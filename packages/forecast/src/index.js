@@ -1,13 +1,19 @@
 // @flow
-if (process.env.NODE_ENV === 'development') {
+let cors
+const isDev = process.env.NODE_ENV === 'development'
+if (isDev) {
   require('dotenv-safe').config()
+  const microCors = require('micro-cors')
+  const origin = '*'
+  cors = microCors({allowMethods: ['GET', 'OPTIONS'], origin})
 }
 import {createError, send} from 'micro'
 import type {ServerResponse, IncomingMessage} from 'http'
 import {parseUrl} from 'query-string'
-const Forecast = require('forecast')
 
 const DARKSKY_API_KEY = process.env.DARKSKY_API_KEY || ''
+
+const Forecast = require('forecast')
 
 const defaultForecastConfig = {
   key: DARKSKY_API_KEY,
@@ -141,4 +147,4 @@ export async function sequenceArray(array: Array<any>, fn: Function) {
   return results // will be resolved value of promise
 }
 
-export default mainHandler
+export default (isDev && cors ? cors(mainHandler) : mainHandler)

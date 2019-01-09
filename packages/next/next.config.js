@@ -15,6 +15,8 @@ module.exports = (phase, {defaultConfig}) => {
   const {
     WebpackBundleSizeAnalyzerPlugin
   } = require('webpack-bundle-size-analyzer')
+  const path = require('path')
+  const Dotenv = require('dotenv-webpack')
   const {STATS} = process.env
 
   return withBundleAnalyzer({
@@ -31,10 +33,10 @@ module.exports = (phase, {defaultConfig}) => {
         reportFilename: '../bundles/client.html'
       }
     },
-    webpack: (cfg) => {
+    webpack: (config) => {
       // Polyfills - https://github.com/zeit/next.js/tree/master/examples/with-polyfills
-      const originalEntry = cfg.entry
-      cfg.entry = async () => {
+      const originalEntry = config.entry
+      config.entry = async () => {
         const entries = await originalEntry()
 
         if (
@@ -50,10 +52,29 @@ module.exports = (phase, {defaultConfig}) => {
 
       // Webpack Bundle Size Analyzer - https://github.com/zeit/next.js/tree/master/examples/with-webpack-bundle-size-analyzer
       if (STATS) {
-        cfg.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
+        config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
       }
 
-      return cfg
+      /**
+       * Dotenv
+       */
+      // Read the .env file
+      const envFilename =
+        process.env.NODE_ENV === 'production'
+          ? '.env.production'
+          : process.env.NODE_ENV === 'stage'
+          ? '.env.stage'
+          : '.env'
+      config.plugins.push(
+        new Dotenv({
+          path: path.join(__dirname, envFilename),
+          systemvars: true,
+          safe: true,
+          expand: true
+        })
+      )
+
+      return config
     }
   })
 }

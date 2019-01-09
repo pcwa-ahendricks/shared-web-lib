@@ -24,3 +24,9 @@ There is a note on [babel-plugin-flow-react-proptypes](https://www.npmjs.com/pac
 Convert baseline jpeg images to progressive jpegs with the following.
 
     jpegtran -copy none -progressive -outfile inlet-progressive.jpg inlet.jpg
+
+### Material Theme
+
+Theme generated with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/)
+
+See [this link](https://material-ui.com/style/color/#official-color-tool) for more info on Palette.

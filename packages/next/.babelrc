@@ -29,33 +29,13 @@
   ],
   "env": {
     "production": {
-      "plugins": [
-        [
-          "inline-dotenv",
-          {
-            "path": "./.env.production"
-          }
-        ],
-        "transform-flow-strip-types"
-      ]
+      "plugins": ["transform-flow-strip-types"]
     },
     "stage": {
-      "plugins": [
-        [
-          "inline-dotenv",
-          {
-            "path": "./.env.stage"
-          }
-        ],
-        "transform-flow-strip-types"
-      ]
+      "plugins": ["transform-flow-strip-types"]
     },
     "development": {
-      "plugins": [
-        "inline-dotenv",
-        "flow-react-proptypes",
-        "transform-flow-strip-types"
-      ]
+      "plugins": ["flow-react-proptypes", "transform-flow-strip-types"]
     }
   }
 }

@@ -59,17 +59,8 @@ class MyDocument extends Document {
             margin: 0;
           }
         `}</style>
+        {/* Used in conjunction with Lazysizes and ls.blur-up plugin. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */}
         <style jsx global>{`
-          .mediabox {
-            position: relative;
-            display: block;
-            height: 0;
-            width: 100%;
-            overflow: hidden;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-          }
-
           .ls-blur-up-img,
           .mediabox-img {
             position: absolute;
