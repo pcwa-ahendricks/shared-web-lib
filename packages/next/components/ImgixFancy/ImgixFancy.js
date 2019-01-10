@@ -22,7 +22,7 @@ const styles = {
     overflow: 'hidden',
     '-webkit-transform': 'translate3d(0, 0, 0)',
     transform: 'translate3d(0, 0, 0)',
-    ' & .ls-blur-up-img, .mediabox-img': {
+    '& .ls-blur-up-img, .mediabox-img': {
       position: 'absolute',
       top: 0,
       left: 0,

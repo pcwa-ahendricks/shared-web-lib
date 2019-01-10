@@ -19,3 +19,11 @@ export const maxInt = (
     return p > v[prop] ? p : v[prop]
   }, startWith)
 }
+
+export const openInNewTab = (url: string): void => {
+  if (!window || !window.open) {
+    return
+  }
+  // var win = window.open(url, '_blank', 'noopener').focus()
+  window.open(url, '_blank').focus()
+}

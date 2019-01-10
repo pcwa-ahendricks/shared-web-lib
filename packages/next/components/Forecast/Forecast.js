@@ -1,9 +1,10 @@
 // @flow
 
-import React from 'react'
+import React, {useState} from 'react'
 import ReactAnimatedWeather from 'react-animated-weather'
 import {withTheme, withStyles} from '@material-ui/core/styles'
-import {Typography} from '@material-ui/core'
+import {Popover, Typography} from '@material-ui/core'
+import {openInNewTab} from '../../lib/util'
 
 type Props = {
   forecast: ForecastData,
@@ -31,7 +32,8 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    cursor: 'pointer'
   },
   temp: {
     paddingLeft: 5,
@@ -42,6 +44,24 @@ const styles = (theme) => ({
     paddingLeft: 5,
     color: theme.palette.primary.main,
     fontWeight: 'bold'
+  },
+  popover: {
+    pointerEvents: 'none'
+  },
+  paper: {
+    padding: theme.spacing.unit,
+    backgroundColor: '#323234'
+  },
+  popoverContent: {
+    width: 150,
+    height: 20,
+    background: {
+      image: 'url(./static/images/darksky/poweredby-oneline-dark.png)',
+      repeat: 'no-repeat',
+      position: 'center',
+      size: 'cover',
+      color: '#323234'
+    }
   }
 })
 
@@ -52,7 +72,21 @@ const defaults = {
   animate: true
 }
 
+const handleClick = (evt, f) => {
+  const url = darkSkyHref(f)
+  openInNewTab(url)
+}
+
+const darkSkyHref = (f): string => {
+  if (!f) {
+    return '#'
+  }
+  return `https://darksky.net/forecast/${f.latitude},${f.longitude}/us12/en`
+}
+
 const Forecast = ({forecast, theme, classes}: Props) => {
+  const [anchorEl, setAnchorEl] = useState(null)
+
   const {temperature, icon = defaults.icon} =
     (forecast && forecast.data && forecast.data.currently) || {}
   // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
@@ -60,8 +94,25 @@ const Forecast = ({forecast, theme, classes}: Props) => {
   const validForecast = (): boolean => {
     return forecast && forecast.data && forecast.data.currently
   }
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl)
   return validForecast() ? (
-    <div className={classes.container}>
+    <div
+      className={classes.container}
+      onClick={(evt) => handleClick(evt, forecast.data)}
+      aria-owns={open ? 'mouse-over-popover' : undefined}
+      aria-haspopup="true"
+      onMouseEnter={handlePopoverOpen}
+      onMouseLeave={handlePopoverClose}
+    >
       <ReactAnimatedWeather
         icon={iconName}
         color={theme.palette.primary.main || defaults.color}
@@ -74,6 +125,27 @@ const Forecast = ({forecast, theme, classes}: Props) => {
       <Typography variant="body2" className={classes.locationTitle}>
         {forecast.title}
       </Typography>
+      <Popover
+        id="mouse-over-popover"
+        className={classes.popover}
+        classes={{
+          paper: classes.paper
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 30,
+          horizontal: 'left'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <div className={classes.popoverContent} />
+      </Popover>
     </div>
   ) : null
 }

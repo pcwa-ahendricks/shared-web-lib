@@ -2,8 +2,31 @@
 import React, {useEffect, useState} from 'react'
 import CycleForecast from '../CycleForecast/CycleForecast'
 import {fetchForecasts} from '../../lib/services/forecastService'
+import {withStyles} from '@material-ui/core/styles'
 import useInterval from '../../hooks/useInterval'
 import {type Location, type ForecastData} from '../Forecast/Forecast'
+
+type Props = {
+  classes: any
+}
+
+// Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
+const styles = {
+  root: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  forecastContainer: {
+    flex: '0 0 200px',
+    display: 'block'
+  },
+  forecast: {
+    width: '100%',
+    position: 'relative'
+  }
+}
 
 const REFETCH_INTERVAL = 1000 * 60 // One minute interval
 
@@ -35,7 +58,7 @@ const forecastLocations: Array<Location> = [
   }
 ]
 
-const HomeHeader = () => {
+const HomeHeader = ({classes}: Props) => {
   const [forecasts, setForecasts]: [Array<ForecastData>, any] = useState([])
   useEffect(() => {
     // console.log('useEffect - getting initial forecast data...')
@@ -53,7 +76,13 @@ const HomeHeader = () => {
     setForecasts(data)
   }
 
-  return <CycleForecast forecasts={forecasts} />
+  return (
+    <div className={classes.root}>
+      <div className={classes.forecastContainer}>
+        <CycleForecast className={classes.forecast} forecasts={forecasts} />
+      </div>
+    </div>
+  )
 }
 
-export default HomeHeader
+export default withStyles(styles)(HomeHeader)
