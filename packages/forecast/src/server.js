@@ -25,4 +25,4 @@ const forecastConfig = {
 const forecast = initForecast(forecastConfig)
 
 const server = micro(cors((req, res) => mainHandler(req, res, forecast)))
-server.listen(3000)
+server.listen(3001)

@@ -11,7 +11,7 @@
     "packages/*"
   ],
   "scripts": {
-    "forecast:dev": "npm run dev --prefix packages/forecast",
+    "forecast:dev": "npm run server:dev --prefix packages/forecast",
     "next:dev": "npm run dev --prefix packages/next",
     "dev": "concurrently -n next,forecast 'npm run next:dev' 'npm run forecast:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
