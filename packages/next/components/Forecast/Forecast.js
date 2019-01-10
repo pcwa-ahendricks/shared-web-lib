@@ -6,6 +6,8 @@ import {withTheme, withStyles} from '@material-ui/core/styles'
 import {Popover, Typography} from '@material-ui/core'
 import {openInNewTab} from '../../lib/util'
 
+const DARKSKY_BG_COLOR = '#313134'
+
 type Props = {
   forecast: ForecastData,
   theme: any,
@@ -50,7 +52,7 @@ const styles = (theme) => ({
   },
   paper: {
     padding: theme.spacing.unit,
-    backgroundColor: '#323234'
+    backgroundColor: DARKSKY_BG_COLOR
   },
   popoverContent: {
     width: 150,
@@ -59,8 +61,7 @@ const styles = (theme) => ({
       image: 'url(./static/images/darksky/poweredby-oneline-dark.png)',
       repeat: 'no-repeat',
       position: 'center',
-      size: 'cover',
-      color: '#323234'
+      size: 'cover'
     }
   }
 })
