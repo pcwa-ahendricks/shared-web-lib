@@ -59,37 +59,6 @@ class MyDocument extends Document {
             margin: 0;
           }
         `}</style>
-        {/* Used in conjunction with Lazysizes and ls.blur-up plugin. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */}
-        <style jsx global>{`
-          .ls-blur-up-img,
-          .mediabox-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-
-            /* only if you want to change the blur-up option from auto to always */
-            font-family: 'blur-up: always', 'object-fit: cover';
-
-            object-fit: cover;
-          }
-
-          /* Scaling the blur up image prevents visible loading of lazy loaded image at edges of blur effect. */
-          .ls-blur-up-img {
-            filter: blur(15px);
-            opacity: 1;
-            transition: opacity 1000ms, filter 1500ms;
-            transform: scale(1.2);
-            -webkit-transform: scale(1.2);
-          }
-
-          .ls-blur-up-img.ls-inview.ls-original-loaded {
-            opacity: 0;
-            filter: blur(5px);
-          }
-        `}</style>
       </html>
     )
   }
