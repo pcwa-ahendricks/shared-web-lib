@@ -53,7 +53,8 @@ const defaults = {
 }
 
 const Forecast = ({forecast, theme, classes}: Props) => {
-  const {temperature, icon = defaults.icon} = forecast.data.currently || {}
+  const {temperature, icon = defaults.icon} =
+    (forecast && forecast.data && forecast.data.currently) || {}
   // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
   const iconName = icon.toUpperCase().replace(/-/g, '_')
   const validForecast = (): boolean => {
