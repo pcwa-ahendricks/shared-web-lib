@@ -2,7 +2,10 @@
 import React, {useEffect, useState} from 'react'
 import CycleForecast from '../CycleForecast/CycleForecast'
 import {fetchForecasts} from '../../lib/services/forecastService'
+import useInterval from '../../hooks/useInterval'
 import {type Location, type ForecastData} from '../Forecast/Forecast'
+
+const REFETCH_INTERVAL = 1000 * 60 // One minute interval
 
 const forecastLocations: Array<Location> = [
   {
@@ -35,9 +38,15 @@ const forecastLocations: Array<Location> = [
 const HomeHeader = () => {
   const [forecasts, setForecasts]: [Array<ForecastData>, any] = useState([])
   useEffect(() => {
-    // console.log('useEffect - getting forecast data...')
+    // console.log('useEffect - getting initial forecast data...')
     getForecastData()
   }, [])
+  useInterval(handleInterval, REFETCH_INTERVAL, [])
+
+  function handleInterval() {
+    // console.log('useEffect - re-fetching forecast data...')
+    getForecastData()
+  }
 
   const getForecastData = async () => {
     const data = await fetchForecasts(forecastLocations)

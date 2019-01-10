@@ -1,6 +1,6 @@
 // @flow
-
 import {useEffect} from 'react'
+
 const useInterval = (
   cb: () => any,
   interval: number = 1000,

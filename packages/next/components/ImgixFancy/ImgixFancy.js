@@ -41,7 +41,6 @@ const styles = {
       transform: 'scale(1.2)',
       '-webkit-transform': 'scale(1.2)'
     },
-
     '& .ls-blur-up-img.ls-inview.ls-original-loaded': {
       opacity: 0,
       filter: 'blur(5px)'

@@ -33,6 +33,7 @@
     "proptypes",
     "querystringify",
     "rasterization",
+    "refetch",
     "rocklin",
     "skycons",
     "systemvars",
