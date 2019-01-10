@@ -5,7 +5,8 @@
   "public": true,
   "env": {
     "NODE_ENV": "stage",
-    "DARKSKY_API_KEY": "@web-darksky-dev-api-key"
+    "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
+    "FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
   },
   "builds": [
     {
