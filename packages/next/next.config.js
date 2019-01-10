@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 const {PHASE_PRODUCTION_SERVER} =
   process.env.NODE_ENV === 'development'
     ? {} // We're never in "production server" phase when in development mode
@@ -15,7 +17,6 @@ module.exports = (phase, {defaultConfig}) => {
   const {
     WebpackBundleSizeAnalyzerPlugin
   } = require('webpack-bundle-size-analyzer')
-  const path = require('path')
   const Dotenv = require('dotenv-webpack')
   const {STATS} = process.env
 
@@ -58,21 +59,16 @@ module.exports = (phase, {defaultConfig}) => {
       /**
        * Dotenv
        */
-      // Read the .env file
-      const envFilename =
-        process.env.NODE_ENV === 'production'
-          ? '.env.production'
-          : process.env.NODE_ENV === 'stage'
-          ? '.env.stage'
-          : '.env'
-      config.plugins.push(
-        new Dotenv({
-          path: path.join(__dirname, envFilename),
-          systemvars: true,
-          safe: true,
-          expand: true
-        })
-      )
+      // Read the .env file in development mode only. Now configurations store env variables for production and stage environments.
+      if (isDev) {
+        config.plugins.push(
+          new Dotenv({
+            systemvars: true,
+            safe: true,
+            expand: true
+          })
+        )
+      }
 
       return config
     }

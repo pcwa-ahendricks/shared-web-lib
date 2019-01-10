@@ -4,7 +4,7 @@
   "alias": "dev-web.pcwa.net",
   "public": true,
   "env": {
-    "NODE_ENV": "production",
+    "NODE_ENV": "stage",
     "DARKSKY_API_KEY": "@web-darksky-dev-api-key"
   },
   "builds": [
