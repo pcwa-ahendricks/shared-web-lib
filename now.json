@@ -9,10 +9,10 @@
   },
   "builds": [
     {
-      "src": "packages/next/package.json",
+      "src": "packages/next/next.config.js",
       "use": "@now/next",
       "config": {
-        "maxLambdaSize": "20mb"
+        "maxLambdaSize": "30mb"
       }
     },
     { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" }
