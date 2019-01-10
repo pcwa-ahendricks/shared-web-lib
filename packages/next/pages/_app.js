@@ -9,9 +9,9 @@ import {jssPreset} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import getPageContext from '../lib/getPageContext'
 import {ParallaxProvider} from 'react-scroll-parallax'
-// import {Provider} from 'react-redux'
-// import withRedux from 'next-redux-wrapper'
-// import configureStore from '../store'
+import {Provider} from 'react-redux'
+import withRedux from 'next-redux-wrapper'
+import configureStore from '../store'
 
 // Configure JSS - only needed to add plugins. This isn't needed to add the default set.
 const presets = [...jssPreset().plugins]
@@ -32,8 +32,7 @@ class MyApp extends App {
   }
 
   render() {
-    // const {Component, pageProps, store} = this.props
-    const {Component, pageProps} = this.props
+    const {Component, pageProps, store} = this.props
     return (
       <Container>
         {/* Wrap every page in Jss and Theme providers */}
@@ -53,9 +52,9 @@ class MyApp extends App {
             <ParallaxProvider>
               {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-              {/* <Provider store={store}> */}
-              <Component pageContext={this.pageContext} {...pageProps} />
-              {/* </Provider> */}
+              <Provider store={store}>
+                <Component pageContext={this.pageContext} {...pageProps} />
+              </Provider>
             </ParallaxProvider>
           </MuiThemeProvider>
         </JssProvider>
@@ -64,5 +63,4 @@ class MyApp extends App {
   }
 }
 
-// export default withRedux(configureStore)(MyApp)
-export default MyApp
+export default withRedux(configureStore)(MyApp)

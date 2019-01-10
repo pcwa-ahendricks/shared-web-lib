@@ -1,11 +1,18 @@
 // @flow
 
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import ReactAnimatedWeather from 'react-animated-weather'
-import fetch from 'isomorphic-unfetch'
-import {stringify} from 'querystringify'
+import {withTheme, withStyles} from '@material-ui/core/styles'
+import {Typography} from '@material-ui/core'
 
-type Location = {
+type Props = {
+  forecast: ForecastData,
+  theme: any,
+  classes: any
+}
+
+export type Location = {
+  id: number,
   title: string,
   queryParams: {
     lat: number,
@@ -13,74 +20,69 @@ type Location = {
   }
 }
 
-const FORECAST_URL = process.env.FORECAST_URL || ''
+export type ForecastData = {
+  id: number,
+  title: string,
+  data: any
+}
+
+const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  temp: {
+    paddingLeft: 5,
+    color: theme.palette.primary.main,
+    fontWeight: 'bold'
+  },
+  locationTitle: {
+    paddingLeft: 5,
+    color: theme.palette.primary.main,
+    fontWeight: 'bold'
+  }
+})
 
 const defaults = {
   icon: 'CLEAR_DAY',
-  // color: 'goldenrod',
-  // size: 512,
+  color: 'black',
+  size: 25,
   animate: true
 }
 
-const locations = [
-  {
-    title: 'Auburn',
-    queryParams: {lat: 38.9221, lng: -121.0559}
-  },
-  {
-    title: 'Rocklin',
-    queryParams: {lat: 38.7905, lng: -121.2353}
-  },
-  {
-    title: 'Colfax',
-    queryParams: {lat: 39.1007, lng: -120.9533}
-  },
-  {
-    title: 'Lincoln',
-    queryParams: {lat: 38.8916, lng: -121.293}
-  },
-  {
-    title: 'Dutch Flat',
-    queryParams: {lat: 39.206, lng: -120.8377}
+const Forecast = ({forecast, theme, classes}: Props) => {
+  const {temperature, icon = defaults.icon} = forecast.data.currently || {}
+  // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
+  const iconName = icon.toUpperCase().replace(/-/g, '_')
+  const validForecast = (): boolean => {
+    return forecast && forecast.data && forecast.data.currently
   }
-]
+  return validForecast() ? (
+    <div className={classes.container}>
+      <ReactAnimatedWeather
+        icon={iconName}
+        color={theme.palette.primary.main || defaults.color}
+        size={defaults.size}
+        animate={defaults.animate}
+      />
+      <Typography variant="body2" className={classes.temp}>
+        {parseInt(temperature, 10)}°
+      </Typography>
+      <Typography variant="body2" className={classes.locationTitle}>
+        {forecast.title}
+      </Typography>
+    </div>
+  ) : null
+}
 
-const fetchForecast = async (location: Location) => {
-  const url = `${FORECAST_URL}${stringify(location.queryParams, true)}`
-  try {
-    const response = await fetch(url)
-    const data = await response.json()
-    return data
-  } catch (error) {
-    console.log(error)
+Forecast.defaultProps = {
+  forecast: {
+    data: {
+      currently: null
+    }
   }
 }
 
-const Forecast = () => {
-  useEffect(() => {
-    console.log('useEffect - getting forecast data...')
-    getForecasts()
-  }, [])
-  const [forecasts, setForecasts] = useState([])
-
-  const getForecasts = async () => {
-    const forecastData = await Promise.all(
-      locations.map(async (location) => ({
-        title: location.title,
-        forecast: await fetchForecast(location)
-      }))
-    )
-    setForecasts(forecastData)
-  }
-
-  return (
-    <ReactAnimatedWeather
-      icon={defaults.icon}
-      // color={defaults.color}
-      // size={defaults.size}
-      animate={defaults.animate}
-    />
-  )
-}
-
-export default Forecast
+export default withTheme()(withStyles(styles)(Forecast))

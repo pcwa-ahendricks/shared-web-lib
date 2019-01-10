@@ -17,7 +17,8 @@ const Forecast = require('forecast')
 
 const defaultForecastConfig = {
   key: DARKSKY_API_KEY,
-  service: 'darksky'
+  service: 'darksky',
+  units: 'us'
 }
 
 /*

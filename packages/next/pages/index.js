@@ -2,12 +2,12 @@
 import React from 'react'
 import ImgixFancyParallaxBanner from '../components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
-import Forecast from '../components/Forecast/Forecast'
+import HomeHeader from '../components/HomeHeader/HomeHeader'
 
 const index = () => {
   return (
     <React.Fragment>
-      <Forecast />
+      <HomeHeader />
       <ImgixFancyParallaxBanner
         style={{
           height: '55vw'
