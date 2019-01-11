@@ -2,7 +2,7 @@
   "version": 2,
   "name": "neu-web",
   "alias": "dev-web.pcwa.net",
-  "public": true,
+  "public": false,
   "build": {
     "env": {
       "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
