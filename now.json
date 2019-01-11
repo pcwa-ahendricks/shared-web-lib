@@ -3,6 +3,13 @@
   "name": "neu-web",
   "alias": "dev-web.pcwa.net",
   "public": true,
+  "build": {
+    "env": {
+      "NODE_ENV": "stage",
+      "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
+      "FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
+    }
+  },
   "env": {
     "NODE_ENV": "stage",
     "DARKSKY_API_KEY": "@web-darksky-dev-api-key",

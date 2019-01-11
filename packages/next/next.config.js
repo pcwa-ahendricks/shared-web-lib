@@ -18,6 +18,7 @@ module.exports = (phase, {defaultConfig}) => {
     WebpackBundleSizeAnalyzerPlugin
   } = require('webpack-bundle-size-analyzer')
   const Dotenv = require('dotenv-webpack')
+  const path = require('path')
   const {STATS} = process.env
 
   return withBundleAnalyzer({
@@ -66,6 +67,20 @@ module.exports = (phase, {defaultConfig}) => {
             systemvars: true,
             safe: true,
             expand: true
+          })
+        )
+      } else {
+        // Don't look for .env file (safe=false) since it won't be used. System vars passed down for Now will be used instead.
+        const filename =
+          process.env.NODE_ENV === 'production'
+            ? '.env.production'
+            : '.env.stage'
+        config.plugins.push(
+          new Dotenv({
+            path: path.join(__dirname, filename),
+            systemvars: true,
+            safe: false,
+            expand: false
           })
         )
       }

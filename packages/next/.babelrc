@@ -1,5 +1,13 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    "next/babel",
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry"
+      }
+    ]
+  ],
   "plugins": [
     "inline-react-svg",
     [

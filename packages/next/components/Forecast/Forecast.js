@@ -58,7 +58,7 @@ const styles = (theme) => ({
     width: 150,
     height: 20,
     background: {
-      image: 'url(./static/images/darksky/poweredby-oneline-dark.png)',
+      image: 'url(./static/images/darksky/poweredby-oneline-dark-300.png)',
       repeat: 'no-repeat',
       position: 'center',
       size: 'cover'

@@ -1,10 +1,12 @@
 // @flow
 import React, {useEffect, useState} from 'react'
-import CycleForecast from '../CycleForecast/CycleForecast'
 import {fetchForecasts} from '../../lib/services/forecastService'
 import {withStyles} from '@material-ui/core/styles'
 import useInterval from '../../hooks/useInterval'
 import {type Location, type ForecastData} from '../Forecast/Forecast'
+import dynamic from 'next/dynamic'
+
+const DynamicCycleForecast = dynamic(import('../CycleForecast/CycleForecast'))
 
 type Props = {
   classes: any
@@ -28,7 +30,7 @@ const styles = {
   }
 }
 
-const REFETCH_INTERVAL = 1000 * 60 // One minute interval
+const REFETCH_INTERVAL = 1000 * 60 * 2 // Two minute interval.
 
 const forecastLocations: Array<Location> = [
   {
@@ -77,11 +79,14 @@ const HomeHeader = ({classes}: Props) => {
   }
 
   return (
-    <div className={classes.root}>
+    <header className={classes.root}>
       <div className={classes.forecastContainer}>
-        <CycleForecast className={classes.forecast} forecasts={forecasts} />
+        <DynamicCycleForecast
+          className={classes.forecast}
+          forecasts={forecasts}
+        />
       </div>
-    </div>
+    </header>
   )
 }
 
