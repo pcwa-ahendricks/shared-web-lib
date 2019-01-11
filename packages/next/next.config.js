@@ -70,11 +70,8 @@ module.exports = (phase, {defaultConfig}) => {
           })
         )
       } else {
-        // Don't look for .env file (safe=false) since it won't be used. System vars passed down for Now will be used instead.
-        const filename =
-          process.env.NODE_ENV === 'production'
-            ? '.env.production'
-            : '.env.stage'
+        // Don't use .env file and don't validate using .env.example (safe=false) since env file won't be used. System vars passed down for Now will be used instead.
+        const filename = '.env.SHOULD_NOT_EXIST'
         config.plugins.push(
           new Dotenv({
             path: path.join(__dirname, filename),
