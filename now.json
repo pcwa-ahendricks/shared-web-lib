@@ -5,13 +5,11 @@
   "public": true,
   "build": {
     "env": {
-      "NODE_ENV": "stage",
       "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
       "FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
     }
   },
   "env": {
-    "NODE_ENV": "stage",
     "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
     "FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
   },
@@ -20,7 +18,7 @@
       "src": "packages/next/next.config.js",
       "use": "@now/next",
       "config": {
-        "maxLambdaSize": "30mb"
+        "maxLambdaSize": "40mb"
       }
     },
     { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" }

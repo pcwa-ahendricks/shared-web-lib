@@ -10,10 +10,18 @@ const fetchForecast = async (location: Location) => {
   const url = `${FORECAST_URL}${stringify(location.queryParams, true)}`
   try {
     const response = await fetch(url)
-    const data = await response.json()
-    return data
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      const text = await response.text()
+      const error = new Error(text || response.statusText)
+      error.response = response
+      throw error
+    }
   } catch (error) {
-    console.log(error)
+    console.warn(error)
+    return {}
   }
 }
 

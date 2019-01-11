@@ -3,19 +3,12 @@ import App, {Container} from 'next/app'
 import React from 'react'
 import {MuiThemeProvider} from '@material-ui/core/styles'
 import JssProvider from 'react-jss/lib/JssProvider'
-import {create} from 'jss'
-import expand from 'jss-expand'
-import {jssPreset} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import getPageContext from '../lib/getPageContext'
 import {ParallaxProvider} from 'react-scroll-parallax'
 import {Provider} from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import configureStore from '../store'
-
-// Configure JSS - only needed to add plugins. This isn't needed to add the default set.
-const presets = [...jssPreset().plugins]
-const jss = create({plugins: [...presets, expand()]})
 
 class MyApp extends App {
   constructor(props: {}) {
@@ -37,7 +30,6 @@ class MyApp extends App {
       <Container>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
-          jss={jss}
           registry={this.pageContext.sheetsRegistry}
           generateClassName={this.pageContext.generateClassName}
         >

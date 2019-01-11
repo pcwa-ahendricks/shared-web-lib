@@ -41,7 +41,9 @@ class MyDocument extends Document {
           {/* PWA primary color */}
           <meta
             name="theme-color"
-            content={pageContext.theme.palette.primary.main}
+            content={
+              pageContext ? pageContext.theme.palette.primary.main : null
+            }
           />
 
           {/* IE compat.  */}
@@ -49,6 +51,12 @@ class MyDocument extends Document {
 
           {/* Favicon  */}
           {/* <link rel="icon" type="image/x-icon" href="/static/favicon.ico" /> */}
+
+          {/* Roboto Font */}
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+          />
         </Head>
         <body className="custom_class">
           <Main />
@@ -102,7 +110,11 @@ MyDocument.getInitialProps = async (ctx) => {
     return WrappedComponent
   })
 
-  const css = pageContext.sheetsRegistry.toString()
+  let css
+  // It might be undefined, e.g. after an error.
+  if (pageContext) {
+    css = pageContext.sheetsRegistry.toString()
+  }
 
   return {
     // ...initialProps,
