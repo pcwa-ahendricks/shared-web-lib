@@ -13,8 +13,8 @@ const theme = createMuiTheme({
       white: '#fff'
     },
     background: {
-      paper: '#fff',
-      default: '#fafafa'
+      paper: 'rgba(242, 242, 242, 0.9)',
+      default: 'rgba(250, 250, 250, 1)'
     },
     primary: {
       light: 'rgba(65, 131, 196, 1)',
