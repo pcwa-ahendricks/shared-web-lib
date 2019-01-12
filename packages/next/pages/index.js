@@ -2,7 +2,6 @@
 import React from 'react'
 import ImgixFancyParallaxBanner from '../components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
-import HomeHeader from '../components/HomeHeader/HomeHeader'
 import PageLayout from '../components/PageLayout/PageLayout'
 import {Typography} from '@material-ui/core'
 
@@ -14,7 +13,6 @@ const YEAR_END_IMG_SRC =
 const index = () => {
   return (
     <PageLayout>
-      <HomeHeader />
       <ImgixFancyParallaxBanner
         style={{
           height: '55vw'

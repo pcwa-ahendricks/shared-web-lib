@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import Head from 'next/head'
+import Header from '../Header/Header'
 
 type Props = {
   title: string,
@@ -16,6 +17,7 @@ const AppLayout = ({children, title, description}: Props) => {
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
+      <Header />
       {children}
     </React.Fragment>
   )
