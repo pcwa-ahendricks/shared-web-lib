@@ -1,7 +1,7 @@
 // @flow
 import App, {Container} from 'next/app'
 import React from 'react'
-import {MuiThemeProvider} from '@material-ui/core/styles'
+import {MuiThemeProvider, jssPreset} from '@material-ui/core/styles'
 import JssProvider from 'react-jss/lib/JssProvider'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import getPageContext from '../lib/getPageContext'
@@ -9,6 +9,11 @@ import {ParallaxProvider} from 'react-scroll-parallax'
 import {Provider} from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import configureStore from '../store'
+import expand from 'jss-plugin-expand'
+import {create} from 'jss'
+
+// Configure JSS
+const jss = create({plugins: [...jssPreset().plugins, expand()]})
 
 class MyApp extends App {
   constructor(props: {}) {
@@ -30,6 +35,7 @@ class MyApp extends App {
       <Container>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
+          jss={jss}
           registry={this.pageContext.sheetsRegistry}
           generateClassName={this.pageContext.generateClassName}
         >
