@@ -1,11 +1,32 @@
 import {createMuiTheme} from '@material-ui/core/styles'
 // import {indigo, green, red} from '@material-ui/core/colors'
 
+const systemFonts = [
+  '-apple-system',
+  'BlinkMacSystemFont',
+  '"Segoe UI"',
+  'Roboto',
+  '"Helvetica Neue"',
+  'Arial',
+  'sans-serif',
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"'
+]
+
 // All the following keys are optional.
 // We try our best to provide a great default value.
 const theme = createMuiTheme({
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    // Use the system font instead of the default Roboto font.
+    fontFamily: ['Asap', ...systemFonts].join(','),
+    body2: {
+      fontFamily: ['Open Sans', ...systemFonts].join(',')
+    },
+    body1: {
+      fontFamily: ['Open Sans', ...systemFonts].join(',')
+    }
   },
   palette: {
     common: {

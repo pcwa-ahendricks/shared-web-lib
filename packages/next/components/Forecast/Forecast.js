@@ -120,10 +120,10 @@ const Forecast = ({forecast, theme, classes}: Props) => {
         size={defaults.size}
         animate={defaults.animate}
       />
-      <Typography variant="body2" className={classes.temp}>
+      <Typography variant="subtitle1" className={classes.temp}>
         {parseInt(temperature, 10)}°
       </Typography>
-      <Typography variant="body2" className={classes.locationTitle}>
+      <Typography variant="subtitle1" className={classes.locationTitle}>
         {forecast.title}
       </Typography>
       <Popover

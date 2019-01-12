@@ -52,10 +52,14 @@ class MyDocument extends Document {
           {/* Favicon  */}
           {/* <link rel="icon" type="image/x-icon" href="/static/favicon.ico" /> */}
 
-          {/* Roboto Font */}
-          <link
+          {/* Typography / Font */}
+          {/* <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+          /> */}
+          <link
+            href="https://fonts.googleapis.com/css?family=Asap:400,500|Open+Sans"
+            rel="stylesheet"
           />
         </Head>
         <body className="custom_class">
