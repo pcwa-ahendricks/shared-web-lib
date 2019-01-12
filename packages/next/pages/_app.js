@@ -13,6 +13,7 @@ import expand from 'jss-plugin-expand'
 import {create} from 'jss'
 
 // Configure JSS
+// TODO - Plugin order matters. expand is last. Is that okay? See https://cssinjs.org/plugins?v=v10.0.0-alpha.7#order-does-matter
 const jss = create({plugins: [...jssPreset().plugins, expand()]})
 
 class MyApp extends App {
