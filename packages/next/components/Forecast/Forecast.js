@@ -3,7 +3,7 @@
 import React, {useState} from 'react'
 import ReactAnimatedWeather from 'react-animated-weather'
 import {withTheme, withStyles} from '@material-ui/core/styles'
-import {Popover, Typography} from '@material-ui/core'
+import {Popover, Typography as Type} from '@material-ui/core'
 import {openInNewTab} from '../../lib/util'
 
 const DARKSKY_BG_COLOR = '#313134'
@@ -120,12 +120,12 @@ const Forecast = ({forecast, theme, classes}: Props) => {
         size={defaults.size}
         animate={defaults.animate}
       />
-      <Typography variant="subtitle1" className={classes.temp}>
+      <Type variant="subtitle1" className={classes.temp}>
         {parseInt(temperature, 10)}°
-      </Typography>
-      <Typography variant="subtitle1" className={classes.locationTitle}>
+      </Type>
+      <Type variant="subtitle1" className={classes.locationTitle}>
         {forecast.title}
-      </Typography>
+      </Type>
       <Popover
         id="mouse-over-popover"
         className={classes.popover}

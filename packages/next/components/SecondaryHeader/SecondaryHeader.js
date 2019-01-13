@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/core/styles'
 import useInterval from '../../hooks/useInterval'
 import {type Location, type ForecastData} from '../Forecast/Forecast'
 import dynamic from 'next/dynamic'
-import {Button, Toolbar, Typography} from '@material-ui/core'
+import {Button, Toolbar, Typography as Type} from '@material-ui/core'
 // import classNames from 'classnames'
 
 const DynamicCycleForecast = dynamic(import('../CycleForecast/CycleForecast'))
@@ -101,9 +101,9 @@ const SecondaryHeader = ({classes}: Props) => {
         </div>
         <div className={classes.grow} />
 
-        <Typography variant="h6" color="inherit" className={classes.grow}>
+        <Type variant="h6" color="inherit" className={classes.grow}>
           News
-        </Typography>
+        </Type>
         <Button color="inherit">Login</Button>
       </Toolbar>
     </div>

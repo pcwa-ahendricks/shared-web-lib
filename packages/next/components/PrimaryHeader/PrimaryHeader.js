@@ -7,7 +7,7 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  Typography
+  Typography as Type
 } from '@material-ui/core'
 import {Menu as MenuIcon} from '@material-ui/icons'
 import {connect} from 'react-redux'
@@ -53,9 +53,9 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
               <MenuIcon />
             </IconButton>
           </Hidden>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Type variant="h6" color="inherit" className={classes.grow}>
             News
-          </Typography>
+          </Type>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

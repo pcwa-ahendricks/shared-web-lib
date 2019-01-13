@@ -3,7 +3,7 @@ import React from 'react'
 import ImgixFancyParallaxBanner from '../components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
 import PageLayout from '../components/PageLayout/PageLayout'
-import {Typography} from '@material-ui/core'
+import {Typography as Type} from '@material-ui/core'
 
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -24,15 +24,15 @@ const index = () => {
         }}
       />
       <title>Welcome</title>
-      <Typography variant="h4" color="primary" gutterBottom>
+      <Type variant="h4" color="primary" gutterBottom>
         Water Legislation FAQs
-      </Typography>
-      <Typography variant="body1">
+      </Type>
+      <Type variant="body1">
         The State of California has enacted into law two new bills that require
         urban water providers throughout California to set new permanent water
         use targets for their service areas by 2022. PCWA has put together some
         Frequently Asked Questions regarding this new legislation.
-      </Typography>
+      </Type>
       <div style={{backgroundColor: 'beige', height: 1500}}>
         the next website.
       </div>
