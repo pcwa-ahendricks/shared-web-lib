@@ -5,6 +5,8 @@ import {withStyles} from '@material-ui/core/styles'
 import useInterval from '../../hooks/useInterval'
 import {type Location, type ForecastData} from '../Forecast/Forecast'
 import dynamic from 'next/dynamic'
+import {Button, Toolbar, Typography} from '@material-ui/core'
+// import classNames from 'classnames'
 
 const DynamicCycleForecast = dynamic(import('../CycleForecast/CycleForecast'))
 
@@ -19,6 +21,16 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center'
+  },
+  grow: {
+    flexGrow: 1
+  },
+  toolbar: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexGrow: 1
   },
   forecastContainer: {
     flex: '0 0 200px',
@@ -60,7 +72,7 @@ const forecastLocations: Array<Location> = [
   }
 ]
 
-const HomeHeader = ({classes}: Props) => {
+const SecondaryHeader = ({classes}: Props) => {
   const [forecasts, setForecasts]: [Array<ForecastData>, any] = useState([])
   useEffect(() => {
     // console.log('useEffect - getting initial forecast data...')
@@ -79,15 +91,23 @@ const HomeHeader = ({classes}: Props) => {
   }
 
   return (
-    <header className={classes.root}>
-      <div className={classes.forecastContainer}>
-        <DynamicCycleForecast
-          className={classes.forecast}
-          forecasts={forecasts}
-        />
-      </div>
-    </header>
+    <div className={classes.root}>
+      <Toolbar variant="dense" className={classes.toolbar}>
+        <div className={classes.forecastContainer}>
+          <DynamicCycleForecast
+            className={classes.forecast}
+            forecasts={forecasts}
+          />
+        </div>
+        <div className={classes.grow} />
+
+        <Typography variant="h6" color="inherit" className={classes.grow}>
+          News
+        </Typography>
+        <Button color="inherit">Login</Button>
+      </Toolbar>
+    </div>
   )
 }
 
-export default withStyles(styles)(HomeHeader)
+export default withStyles(styles)(SecondaryHeader)

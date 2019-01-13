@@ -1,23 +1,15 @@
 // @flow
 import {createStore, applyMiddleware, combineReducers} from 'redux'
-// import {uiReducer} from './reducers/ui'
-// import type {State as UiState} from './reducers/ui'
+import {uiReducer} from './reducers/ui'
+import type {State as UiState} from './reducers/ui'
 // import thunkMiddleware from 'redux-thunk'
 
 export type State = {
-  // ui: UiState
-}
-
-export const blankReducer = (state: State = {}, action: any) => {
-  switch (action.type) {
-    default:
-      return state
-  }
+  ui: UiState
 }
 
 const rootReducer = combineReducers({
-  // ui: uiReducer
-  blank: blankReducer
+  ui: uiReducer
 })
 
 // const bindMiddleware = (middleware) => {
