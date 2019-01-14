@@ -106,26 +106,28 @@ const Forecast = ({forecast, theme, classes}: Props) => {
 
   const open = Boolean(anchorEl)
   return validForecast() ? (
-    <div
-      className={classes.container}
-      onClick={(evt) => handleClick(evt, forecast.data)}
-      aria-owns={open ? 'mouse-over-popover' : undefined}
-      aria-haspopup="true"
-      onMouseEnter={handlePopoverOpen}
-      onMouseLeave={handlePopoverClose}
-    >
-      <ReactAnimatedWeather
-        icon={iconName}
-        color={theme.palette.primary.main || defaults.color}
-        size={defaults.size}
-        animate={defaults.animate}
-      />
-      <Type variant="subtitle1" className={classes.temp}>
-        {parseInt(temperature, 10)}°
-      </Type>
-      <Type variant="subtitle1" className={classes.locationTitle}>
-        {forecast.title}
-      </Type>
+    <React.Fragment>
+      <div
+        className={classes.container}
+        onClick={(evt) => handleClick(evt, forecast.data)}
+        aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true"
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+      >
+        <ReactAnimatedWeather
+          icon={iconName}
+          color={theme.palette.primary.main || defaults.color}
+          size={defaults.size}
+          animate={defaults.animate}
+        />
+        <Type variant="subtitle1" className={classes.temp}>
+          {parseInt(temperature, 10)}°
+        </Type>
+        <Type variant="subtitle1" className={classes.locationTitle}>
+          {forecast.title}
+        </Type>
+      </div>
       <Popover
         id="mouse-over-popover"
         className={classes.popover}
@@ -147,7 +149,7 @@ const Forecast = ({forecast, theme, classes}: Props) => {
       >
         <div className={classes.popoverContent} />
       </Popover>
-    </div>
+    </React.Fragment>
   ) : null
 }
 

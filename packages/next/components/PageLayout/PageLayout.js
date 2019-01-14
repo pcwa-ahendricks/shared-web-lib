@@ -4,6 +4,7 @@ import * as React from 'react'
 import Head from 'next/head'
 import HeaderContainer from '../HeaderContainer/HeaderContainer'
 import Drawer from '../Drawer/Drawer'
+import {Hidden} from '@material-ui/core'
 
 type Props = {
   title: string,
@@ -18,7 +19,9 @@ const AppLayout = ({children, title, description}: Props) => {
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
-      <Drawer />
+      <Hidden smUp implementation="css">
+        <Drawer />
+      </Hidden>
       <HeaderContainer />
       {children}
     </React.Fragment>

@@ -78,7 +78,7 @@ const SecondaryHeader = ({classes}: Props) => {
     // console.log('useEffect - getting initial forecast data...')
     getForecastData()
   }, [])
-  useInterval(handleInterval, REFETCH_INTERVAL, [])
+  useInterval(handleInterval, [], REFETCH_INTERVAL)
 
   function handleInterval() {
     // console.log('useEffect - re-fetching forecast data...')

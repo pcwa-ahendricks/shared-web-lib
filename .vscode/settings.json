@@ -13,6 +13,8 @@
     "attrchange",
     "cosmicjs",
     "darksky",
+    "debounced",
+    "describedby",
     "fancylaod",
     "fancyload",
     "flowtype",

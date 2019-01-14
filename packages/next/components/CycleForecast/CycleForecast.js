@@ -47,7 +47,7 @@ const CycleForecast = ({
 }: Props) => {
   const [activeForecastId, setActiveForecastId]: [number, any] = useState(1)
 
-  useInterval(handleInterval, cycleInterval, [forecasts, activeForecastId])
+  useInterval(handleInterval, [forecasts, activeForecastId], cycleInterval)
 
   function handleInterval() {
     if (!forecasts) {
