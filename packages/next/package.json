@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "@material-ui/core": "^3.8.3",
+    "@material-ui/core": "^3.9.0",
     "@material-ui/icons": "^3.0.2",
     "dotenv-webpack": "^1.6.0",
     "immutable": "^4.0.0-rc.12",
@@ -57,7 +57,7 @@
     "babel-plugin-transform-imports": "^1.5.1",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^3.4.0",
     "eslint-plugin-flowtype": "^3.2.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.3",
