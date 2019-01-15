@@ -72,7 +72,12 @@ const styles = (theme) => ({
     justifyContent: 'center',
     height: '100%'
   },
-  mmLink: {}
+  mmLink: {
+    flex: '0 0 auto'
+  },
+  mmLinkBun: {
+    flex: '1 0 auto'
+  }
 })
 
 const PrimaryHeader = ({
@@ -130,13 +135,8 @@ Props) => {
             <Type variant="h6" color="inherit" className={classes.grow}>
               News
             </Type>
-            <div
-              className={classes.mmLinkContainer}
-              onMouseLeave={leaveMenuHandler}
-              onBlur={leaveMenuHandler}
-              onMouseEnter={popperOpenHandler}
-              onFocus={popperOpenHandler}
-            >
+            <div className={classes.mmLinkContainer}>
+              <div className={classes.mmLinkBun} />
               <Button
                 className={classes.mmLink}
                 aria-describedby={id}
@@ -144,9 +144,16 @@ Props) => {
                 onClick={handleClick}
                 onFocus={enterMenuHandler}
                 onMouseEnter={enterMenuHandler}
+                onMouseLeave={leaveMenuHandler}
+                onBlur={leaveMenuHandler}
               >
                 Toggle Popper
               </Button>
+              <div
+                className={classes.mmLinkBun}
+                onMouseEnter={popperOpenHandler}
+                onFocus={popperOpenHandler}
+              />
             </div>
             <Button color="inherit">Login</Button>
           </Toolbar>
