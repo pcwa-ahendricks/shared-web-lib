@@ -97,11 +97,11 @@ Props) => {
     popperTransCompleted,
     POPOVER_TRAN_EXIT_DURATION
   )
-  const [anchorEl, setAnchorEl] = useState(null)
-  const arrowRef = useRef(null)
   const [toolbarVariant, setToolbarVariant]: ToolbarVariantState = useState(
     'regular'
   )
+  const [anchorEl, setAnchorEl] = useState(null)
+  const arrowRef = useRef(null)
   useEffect(
     () => {
       fixedToggleHandler()
@@ -276,6 +276,10 @@ Props) => {
       </Popper>
     </React.Fragment>
   )
+}
+
+PrimaryHeader.defaultProps = {
+  parentFixed: false
 }
 
 // const mapStateToProps = (state) => ({

@@ -6,6 +6,7 @@ import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import useInterval from '../../hooks/useInterval'
 import {withStyles} from '@material-ui/core/styles'
 import {maxInt} from '../../lib/util'
+import ForecastPopover from '../ForecastPopover/ForecastPopover'
 
 type Props = {
   classes: any,
@@ -46,6 +47,7 @@ const CycleForecast = ({
   crossFadeDuration
 }: Props) => {
   const [activeForecastId, setActiveForecastId]: [number, any] = useState(1)
+  const [anchorEl, setAnchorEl] = useState(null)
 
   useInterval(handleInterval, [forecasts, activeForecastId], cycleInterval)
 
@@ -57,20 +59,39 @@ const CycleForecast = ({
       activeForecastId >= maxInt(forecasts, 'id') ? 1 : activeForecastId + 1
     )
   }
-
   const activeForecast = () =>
     forecasts.find((forecast) => forecast.id === activeForecastId)
 
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null)
+  }
+
   const forecast = activeForecast()
+  const open = Boolean(anchorEl)
   return forecast ? (
-    <ReactCSSTransitionReplace
-      className={classes.trans}
-      transitionName="cross-fade"
-      transitionEnterTimeout={crossFadeDuration}
-      transitionLeaveTimeout={crossFadeDuration}
+    <div
+      aria-owns={open ? 'forecast-popover' : undefined}
+      aria-haspopup="true"
+      onMouseEnter={handlePopoverOpen}
+      onMouseLeave={handlePopoverClose}
     >
-      <Forecast key={forecast.id} forecast={forecast} />
-    </ReactCSSTransitionReplace>
+      <ReactCSSTransitionReplace
+        className={classes.trans}
+        transitionName="cross-fade"
+        transitionEnterTimeout={crossFadeDuration}
+        transitionLeaveTimeout={crossFadeDuration}
+      >
+        <Forecast key={forecast.id} forecast={forecast} />
+      </ReactCSSTransitionReplace>
+      <ForecastPopover
+        anchorEl={anchorEl}
+        onPopoverClose={handlePopoverClose}
+      />
+    </div>
   ) : null
 }
 
