@@ -21,7 +21,7 @@ import type {ToolbarVariant} from '../HeaderContainer/HeaderContainer'
 type Props = {
   classes: any,
   toolbarVariant: ToolbarVariant,
-  open: boolean,
+  // drawerOpen: boolean,
   dispatch: any
 }
 
@@ -65,39 +65,53 @@ const styles = (theme) => ({
       height: 0,
       borderStyle: 'solid'
     }
-  }
+  },
+  mmLinkContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '100%'
+  },
+  mmLink: {}
 })
 
-const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
+const PrimaryHeader = ({
+  classes,
+  toolbarVariant,
+  dispatch
+}: // drawerOpen
+Props) => {
   const [popperOpen, setPopperOpen] = useState(false)
-  const debouncedPopperOpen = useDebounce(popperOpen, 180)
+  const debouncedPopperOpen = useDebounce(popperOpen, 10)
   const [anchorEl, setAnchorEl] = useState(null)
   const arrowRef = useRef(null)
 
   const handleMenuButtonClick = () => {
     dispatch(uiSetDrawerViz(!open))
   }
+
   const handleClick = (event) => {
     const {currentTarget} = event
     setAnchorEl(currentTarget)
     setPopperOpen(!popperOpen)
   }
 
-  const handleMenuEnter = (event) => {
+  const enterMenuHandler = (event) => {
     const {currentTarget} = event
     setAnchorEl(currentTarget)
     setPopperOpen(true)
   }
-  const handleMegaMenuEnter = () => {
-    setPopperOpen(true)
-  }
-  const handleMenuLeave = () => {
+
+  const leaveMenuHandler = () => {
     setAnchorEl(null)
     setPopperOpen(false)
   }
 
-  const id = open ? 'mega-menu-popper' : null
+  const popperOpenHandler = () => {
+    setPopperOpen(true)
+  }
 
+  const id = debouncedPopperOpen ? 'mega-menu-popper' : null
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -116,17 +130,24 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
             <Type variant="h6" color="inherit" className={classes.grow}>
               News
             </Type>
-            <Button
-              aria-describedby={id}
-              variant="contained"
-              onClick={handleClick}
-              onFocus={handleMenuEnter}
-              onMouseEnter={handleMenuEnter}
-              onMouseLeave={handleMenuLeave}
-              onBlur={handleMenuLeave}
+            <div
+              className={classes.mmLinkContainer}
+              onMouseLeave={leaveMenuHandler}
+              onBlur={leaveMenuHandler}
+              onMouseEnter={popperOpenHandler}
+              onFocus={popperOpenHandler}
             >
-              Toggle Popper
-            </Button>
+              <Button
+                className={classes.mmLink}
+                aria-describedby={id}
+                variant="contained"
+                onClick={handleClick}
+                onFocus={enterMenuHandler}
+                onMouseEnter={enterMenuHandler}
+              >
+                Toggle Popper
+              </Button>
+            </div>
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
@@ -136,7 +157,6 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
         id={id}
         className={classes.popper}
         open={debouncedPopperOpen}
-        // open={true}
         anchorEl={anchorEl}
         transition
         modifiers={{
@@ -157,10 +177,10 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
         {({TransitionProps}) => (
           <Collapse {...TransitionProps} timeout={{enter: 100, exit: 200}}>
             <div
-              onMouseLeave={handleMenuLeave}
-              onBlur={handleMenuLeave}
-              onMouseEnter={handleMegaMenuEnter}
-              onFocus={handleMegaMenuEnter}
+              onMouseLeave={leaveMenuHandler}
+              onBlur={leaveMenuHandler}
+              onMouseEnter={popperOpenHandler}
+              onFocus={popperOpenHandler}
             >
               <MegaMenuContent />
             </div>
@@ -194,7 +214,12 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
       >
         {({TransitionProps}) => (
           <Collapse {...TransitionProps} timeout={{enter: 100, exit: 200}}>
-            <span className={classes.arrow} ref={arrowRef} />
+            <span
+              className={classes.arrow}
+              ref={arrowRef}
+              onMouseEnter={popperOpenHandler}
+              onFocus={popperOpenHandler}
+            />
           </Collapse>
         )}
       </Popper>
@@ -202,8 +227,8 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  open: state.ui.drawerOpen
-})
+// const mapStateToProps = (state) => ({
+//   drawerOpen: state.ui.drawerOpen
+// })
 
-export default connect(mapStateToProps)(withStyles(styles)(PrimaryHeader))
+export default connect()(withStyles(styles)(PrimaryHeader))

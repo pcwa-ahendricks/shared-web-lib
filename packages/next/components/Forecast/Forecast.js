@@ -66,11 +66,6 @@ const defaults = {
   animate: true
 }
 
-// const handleClick = (evt, f) => {
-//   const url = darkSkyHref(f)
-//   openInNewTab(url)
-// }
-
 const getDarkSkyHref = (lngLat: [number, number]): string =>
   `https://darksky.net/forecast/${lngLat[1]},${lngLat[0]}/us12/en`
 
@@ -110,7 +105,6 @@ const Forecast = ({forecast, theme, classes}: Props) => {
     <React.Fragment>
       <div
         className={classes.container}
-        // onClick={(evt) => handleClick(evt, forecast.data)}
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
