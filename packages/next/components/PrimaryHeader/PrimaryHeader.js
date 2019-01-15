@@ -1,10 +1,11 @@
 // @flow
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {withStyles} from '@material-ui/core/styles'
+// TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {
   AppBar,
   Button,
-  Collapse,
+  Fade as Collapse,
   Hidden,
   IconButton,
   Toolbar,
@@ -16,14 +17,17 @@ import {connect} from 'react-redux'
 import {uiSetDrawerViz} from '../../store/actions'
 import MegaMenuContent from '../MegaMenu/MegaMenuContent'
 import useDebounce from '../../hooks/useDebounce'
-import type {ToolbarVariant} from '../HeaderContainer/HeaderContainer'
 
+type ToolbarVariant = 'regular' | 'dense'
+type ToolbarVariantState = [ToolbarVariant, (v: ToolbarVariant) => void]
 type Props = {
   classes: any,
-  toolbarVariant: ToolbarVariant,
+  parentFixed: boolean,
   open: boolean,
   dispatch: any
 }
+
+const POPOVER_TRAN_EXIT_DURATION = 150
 
 const styles = (theme) => ({
   root: {
@@ -68,11 +72,36 @@ const styles = (theme) => ({
   }
 })
 
-const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
+const PrimaryHeader = ({classes, parentFixed, dispatch, open}: Props) => {
   const [popperOpen, setPopperOpen] = useState(false)
   const debouncedPopperOpen = useDebounce(popperOpen, 180)
+  const [popperTransCompleted, setPopperTransCompleted] = useState(true)
+  const debouncedPopperTransCompleted = useDebounce(
+    popperTransCompleted,
+    POPOVER_TRAN_EXIT_DURATION
+  )
   const [anchorEl, setAnchorEl] = useState(null)
   const arrowRef = useRef(null)
+  const [toolbarVariant, setToolbarVariant]: ToolbarVariantState = useState(
+    'regular'
+  )
+  useEffect(
+    () => {
+      fixedToggleHandler()
+    },
+    [parentFixed, debouncedPopperTransCompleted]
+  )
+
+  const fixedToggleHandler = () => {
+    if (!debouncedPopperTransCompleted) {
+      return
+    }
+    if (parentFixed) {
+      setToolbarVariant('dense')
+    } else {
+      setToolbarVariant('regular')
+    }
+  }
 
   const handleMenuButtonClick = () => {
     dispatch(uiSetDrawerViz(!open))
@@ -94,6 +123,13 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
   const handleMenuLeave = () => {
     setAnchorEl(null)
     setPopperOpen(false)
+  }
+  const transitionExitHandler = () => {
+    setPopperTransCompleted(true)
+  }
+
+  const transitionEnterHandler = () => {
+    setPopperTransCompleted(false)
   }
 
   const id = open ? 'mega-menu-popper' : null
@@ -155,7 +191,12 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
         }}
       >
         {({TransitionProps}) => (
-          <Collapse {...TransitionProps} timeout={{enter: 100, exit: 200}}>
+          <Collapse
+            {...TransitionProps}
+            timeout={{enter: 100, exit: POPOVER_TRAN_EXIT_DURATION}}
+            onExit={transitionExitHandler}
+            onEntered={transitionEnterHandler}
+          >
             <div
               onMouseLeave={handleMenuLeave}
               onBlur={handleMenuLeave}
@@ -187,13 +228,16 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
             padding: 0
           },
           arrow: {
-            enabled: true,
+            enabled: arrowRef.current, // Check prevents popper.js console.log() msg.
             element: arrowRef.current
           }
         }}
       >
         {({TransitionProps}) => (
-          <Collapse {...TransitionProps} timeout={{enter: 100, exit: 200}}>
+          <Collapse
+            {...TransitionProps}
+            timeout={{enter: 100, exit: POPOVER_TRAN_EXIT_DURATION}}
+          >
             <span className={classes.arrow} ref={arrowRef} />
           </Collapse>
         )}
@@ -205,5 +249,9 @@ const PrimaryHeader = ({classes, toolbarVariant, dispatch, open}: Props) => {
 const mapStateToProps = (state) => ({
   open: state.ui.drawerOpen
 })
+
+PrimaryHeader.defaultProps = {
+  parentFixed: true
+}
 
 export default connect(mapStateToProps)(withStyles(styles)(PrimaryHeader))

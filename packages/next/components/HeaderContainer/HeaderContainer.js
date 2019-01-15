@@ -16,19 +16,14 @@ const styles = {
   }
 }
 
-export type ToolbarVariant = 'regular' | 'dense'
-type ToolbarVariantState = [ToolbarVariant, (v: ToolbarVariant) => void]
-
 const HeaderContainer = ({classes}: Props) => {
-  const [toolbarVariant, setToolbarVariant]: ToolbarVariantState = useState(
-    'regular'
-  )
+  const [parentFixed, setParentFixed] = useState(null)
 
   const fixedToggleHandler = (wasFixed: boolean) => {
     if (wasFixed) {
-      setToolbarVariant('regular')
+      setParentFixed(false)
     } else {
-      setToolbarVariant('dense')
+      setParentFixed(true)
     }
   }
 
@@ -38,7 +33,7 @@ const HeaderContainer = ({classes}: Props) => {
         <SecondaryHeader />
       </Hidden>
       <Sticky onFixedToggle={fixedToggleHandler} className={classes.sticky}>
-        <PrimaryHeader toolbarVariant={toolbarVariant} />
+        <PrimaryHeader parentFixed={parentFixed} />
       </Sticky>
     </React.Fragment>
   )

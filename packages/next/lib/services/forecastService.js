@@ -16,6 +16,7 @@ const fetchForecast = async (location: Location) => {
     } else {
       const text = await response.text()
       const error = new Error(text || response.statusText)
+      // $FlowFixMe
       error.response = response
       throw error
     }
