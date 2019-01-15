@@ -1,10 +1,9 @@
 // @flow
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactAnimatedWeather from 'react-animated-weather'
 import {withTheme, withStyles} from '@material-ui/core/styles'
-import {Popover, Typography as Type} from '@material-ui/core'
-import {openInNewTab} from '../../lib/util'
+import {Link, Popover, Typography as Type} from '@material-ui/core'
 
 const DARKSKY_BG_COLOR = '#313134'
 
@@ -37,14 +36,8 @@ const styles = (theme) => ({
     alignItems: 'center',
     cursor: 'pointer'
   },
-  temp: {
+  forecastType: {
     paddingLeft: 5,
-    color: theme.palette.primary.main,
-    fontWeight: 'bold'
-  },
-  locationTitle: {
-    paddingLeft: 5,
-    color: theme.palette.primary.main,
     fontWeight: 'bold'
   },
   popover: {
@@ -73,20 +66,23 @@ const defaults = {
   animate: true
 }
 
-const handleClick = (evt, f) => {
-  const url = darkSkyHref(f)
-  openInNewTab(url)
-}
-
-const darkSkyHref = (f): string => {
-  if (!f) {
-    return '#'
-  }
-  return `https://darksky.net/forecast/${f.latitude},${f.longitude}/us12/en`
-}
+const getDarkSkyHref = (lngLat: [number, number]): string =>
+  `https://darksky.net/forecast/${lngLat[1]},${lngLat[0]}/us12/en`
 
 const Forecast = ({forecast, theme, classes}: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
+  const [darkSkyHref, setDarkSkyHref] = useState('#')
+  useEffect(
+    () => {
+      const {latitude, longitude} = forecast.data || {}
+      if (latitude && longitude) {
+        setDarkSkyHref(getDarkSkyHref([longitude, latitude]))
+      } else {
+        setDarkSkyHref('#')
+      }
+    },
+    [forecast]
+  )
 
   const {temperature, icon = defaults.icon} =
     (forecast && forecast.data && forecast.data.currently) || {}
@@ -109,7 +105,6 @@ const Forecast = ({forecast, theme, classes}: Props) => {
     <React.Fragment>
       <div
         className={classes.container}
-        onClick={(evt) => handleClick(evt, forecast.data)}
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
@@ -121,11 +116,13 @@ const Forecast = ({forecast, theme, classes}: Props) => {
           size={defaults.size}
           animate={defaults.animate}
         />
-        <Type variant="subtitle1" className={classes.temp}>
-          {parseInt(temperature, 10)}°
-        </Type>
-        <Type variant="subtitle1" className={classes.locationTitle}>
-          {forecast.title}
+        <Type variant="subtitle1" className={classes.forecastType}>
+          <Link
+            target="_blank"
+            rel="noreferrer"
+            href={darkSkyHref}
+            underline="none"
+          >{`${parseInt(temperature, 10)}° ${forecast.title} `}</Link>
         </Type>
       </div>
       <Popover
