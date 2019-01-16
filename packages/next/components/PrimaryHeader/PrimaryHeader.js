@@ -108,6 +108,16 @@ Props) => {
     },
     [parentFixed, debouncedPopperTransCompleted]
   )
+  useEffect(
+    () => {
+      if (debouncedPopperOpen) {
+        return
+      }
+
+      setAnchorEl(null)
+    },
+    [debouncedPopperOpen]
+  )
 
   const fixedToggleHandler = () => {
     if (!debouncedPopperTransCompleted) {
@@ -137,7 +147,6 @@ Props) => {
   }
 
   const leaveMenuHandler = () => {
-    setAnchorEl(null)
     setPopperOpen(false)
   }
   const transitionExitHandler = () => {
