@@ -58,7 +58,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           /> */}
           <link
-            href="https://fonts.googleapis.com/css?family=Asap:400,500|Open+Sans"
+            href="https://fonts.googleapis.com/css?family=Asap+Condensed:600|Asap:400,500|Open+Sans"
             rel="stylesheet"
           />
         </Head>

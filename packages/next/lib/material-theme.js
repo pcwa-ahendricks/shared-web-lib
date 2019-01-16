@@ -26,6 +26,11 @@ const theme = createMuiTheme({
     },
     body1: {
       fontFamily: ['Open Sans', ...systemFonts].join(',')
+    },
+    button: {
+      fontFamily: ['Asap Condensed', ...systemFonts].join(','),
+      fontWeight: 600, // Default: 500
+      fontSize: '1rem' // Default: 0.875rem
     }
   },
   palette: {

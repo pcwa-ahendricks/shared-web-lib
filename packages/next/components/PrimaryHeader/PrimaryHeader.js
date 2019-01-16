@@ -16,6 +16,7 @@ import {Menu as MenuIcon} from '@material-ui/icons'
 import {connect} from 'react-redux'
 import {uiSetDrawerViz} from '../../store/actions'
 import MegaMenuContent from '../MegaMenu/MegaMenuContent'
+import MegaMenuLink from '../MegaMenuLink/MegaMenuLink'
 import useDebounce from '../../hooks/useDebounce'
 
 type ToolbarVariant = 'regular' | 'dense'
@@ -69,18 +70,6 @@ const styles = (theme) => ({
       height: 0,
       borderStyle: 'solid'
     }
-  },
-  mmLinkContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: '100%'
-  },
-  mmLink: {
-    flex: '0 0 auto'
-  },
-  mmLinkBun: {
-    flex: '1 0 auto'
   }
 })
 
@@ -101,12 +90,22 @@ Props) => {
     'regular'
   )
   const [anchorEl, setAnchorEl] = useState(null)
+  const [activeLinkEl, setActiveLinkEl] = useState(null)
   const arrowRef = useRef(null)
   useEffect(
     () => {
       fixedToggleHandler()
     },
     [parentFixed, debouncedPopperTransCompleted]
+  )
+  useEffect(
+    () => {
+      if (!debouncedPopperOpen) {
+        setAnchorEl(null)
+        setActiveLinkEl(null)
+      }
+    },
+    [debouncedPopperOpen]
   )
 
   const fixedToggleHandler = () => {
@@ -130,14 +129,14 @@ Props) => {
     setPopperOpen(!popperOpen)
   }
 
-  const enterMenuHandler = (event) => {
+  const enterMenuHandler = (event, el) => {
     const {currentTarget} = event
     setAnchorEl(currentTarget)
+    setActiveLinkEl(el)
     setPopperOpen(true)
   }
 
   const leaveMenuHandler = () => {
-    setAnchorEl(null)
     setPopperOpen(false)
   }
   const transitionExitHandler = () => {
@@ -156,7 +155,7 @@ Props) => {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <AppBar>
+        <AppBar color="default">
           <Toolbar variant={toolbarVariant}>
             <Hidden smUp implementation="css">
               <IconButton
@@ -171,26 +170,17 @@ Props) => {
             <Type variant="h6" color="inherit" className={classes.grow}>
               News
             </Type>
-            <div className={classes.mmLinkContainer}>
-              <div className={classes.mmLinkBun} />
-              <Button
-                className={classes.mmLink}
-                aria-describedby={id}
-                variant="contained"
-                onClick={handleClick}
-                onFocus={enterMenuHandler}
-                onMouseEnter={enterMenuHandler}
-                onMouseLeave={leaveMenuHandler}
-                onBlur={leaveMenuHandler}
-              >
-                Toggle Popper
-              </Button>
-              <div
-                className={classes.mmLinkBun}
-                onMouseEnter={popperOpenHandler}
-                onFocus={popperOpenHandler}
-              />
-            </div>
+            <MegaMenuLink
+              describedbyId={id}
+              onLinkClick={handleClick}
+              onLinkEnter={enterMenuHandler}
+              onLinkLeave={leaveMenuHandler}
+              onBottomBunEnter={popperOpenHandler}
+              parentActiveEl={activeLinkEl}
+            >
+              Customer Services
+            </MegaMenuLink>
+
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
