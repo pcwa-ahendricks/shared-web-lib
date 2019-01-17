@@ -3,7 +3,7 @@ import React, {useRef, type Node} from 'react'
 import {Link, Typography as Type} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
-import Overline from '../Overline/Overline'
+import Overline from '../../Overline/Overline'
 
 type Props = {
   describedbyId: string,
@@ -13,7 +13,8 @@ type Props = {
   onLinkLeave: () => any,
   onBottomBunEnter: () => any,
   parentActiveEl: any,
-  children: Node
+  children: Node,
+  tabIdx?: number
 }
 
 const styles = (theme) => ({
@@ -49,6 +50,7 @@ const MegaMenuLink = ({
   onLinkLeave,
   onBottomBunEnter,
   parentActiveEl,
+  tabIdx,
   ...rest
 }: Props) => {
   const typeRef = useRef(null)
@@ -79,6 +81,7 @@ const MegaMenuLink = ({
           onFocus={handleLinkEnter}
           onMouseEnter={handleLinkEnter}
           variant="button"
+          tabIndex={tabIdx}
         >
           <Link underline="none" href="#" color="inherit" {...rest}>
             {children}

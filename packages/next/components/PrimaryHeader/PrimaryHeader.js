@@ -1,39 +1,38 @@
 // @flow
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {
   AppBar,
   Button,
-  Fade as Collapse,
   Hidden,
   IconButton,
   Toolbar,
-  Popper,
-  Typography as Type
+  Typography as Type,
+  withWidth
 } from '@material-ui/core'
 import {Menu as MenuIcon} from '@material-ui/icons'
 import {connect} from 'react-redux'
 import {uiSetDrawerViz} from '../../store/actions'
-import MegaMenuContent from '../MegaMenu/MegaMenuContent'
-import MegaMenuLink from '../MegaMenuLink/MegaMenuLink'
+import MegaMenuLink from '../MegaMenu/MegaMenuLink/MegaMenuLink'
+import MegaMenuPopper from '../MegaMenu/MegaMenuPopper/MegaMenuPopper'
+import MMContent from '../MMContent/MMContent'
 import useDebounce from '../../hooks/useDebounce'
 
-type ToolbarVariant = 'regular' | 'dense'
-type ToolbarVariantState = [ToolbarVariant, (v: ToolbarVariant) => void]
+export type ToolbarVariant = 'regular' | 'dense'
+
 type Props = {
   classes: any,
   parentFixed: boolean,
-  // drawerOpen: boolean,
-  dispatch: any
+  drawerOpen: boolean,
+  dispatch: any,
+  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const POPOVER_TRAN_EXIT_DURATION = 150
-
 const menuLinkData = [
-  {key: 1, seq: 1, caption: 'About'},
-  {key: 2, seq: 2, caption: 'Customer Services'},
-  {key: 3, seq: 3, caption: 'Doing Business With PCWA'}
+  {key: 1, seq: 1, caption: 'About', tabIndex: 1},
+  {key: 2, seq: 2, caption: 'Customer Services', tabIndex: 2},
+  {key: 3, seq: 3, caption: 'Doing Business With PCWA', tabIndex: 3}
 ]
 
 const styles = (theme) => ({
@@ -79,8 +78,8 @@ const styles = (theme) => ({
       width: 0,
       height: 0,
       borderStyle: 'solid',
-      transform: 'translateX(-50%)', // Keep arrow centered.
-      '-webkit-transform': 'translateX(-50%)'
+      transform: 'translate3d(-50%, 0, 0)', // Keep arrow centered.
+      '-webkit-transform': 'translate3d(-50%, 0 ,0)'
     }
   },
   menuLinks: {
@@ -100,51 +99,37 @@ const styles = (theme) => ({
 const PrimaryHeader = ({
   classes,
   parentFixed,
-  dispatch
-}: // drawerOpen
-Props) => {
+  dispatch,
+  width,
+  drawerOpen
+}: Props) => {
+  const [anchorEl, setAnchorEl] = useState(null)
   const [popperOpen, setPopperOpen] = useState(false)
   const debouncedPopperOpen = useDebounce(popperOpen, 150)
-  const [popperTransCompleted, setPopperTransCompleted] = useState(true)
-  const debouncedPopperTransCompleted = useDebounce(
-    popperTransCompleted,
-    POPOVER_TRAN_EXIT_DURATION
-  )
-  const [toolbarVariant, setToolbarVariant]: ToolbarVariantState = useState(
-    'regular'
-  )
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [activeKey, setActiveKey] = useState(null)
   const [activeLinkEl, setActiveLinkEl] = useState(null)
-  const arrowRef = useRef(null)
-  useEffect(
-    () => {
-      fixedToggleHandler()
-    },
-    [parentFixed, debouncedPopperTransCompleted]
-  )
+
   useEffect(
     () => {
       if (!debouncedPopperOpen) {
         setAnchorEl(null)
         setActiveLinkEl(null)
+        setActiveKey(null)
       }
     },
     [debouncedPopperOpen]
   )
 
-  const fixedToggleHandler = () => {
-    if (!debouncedPopperTransCompleted) {
-      return
-    }
-    if (parentFixed) {
-      setToolbarVariant('dense')
-    } else {
-      setToolbarVariant('regular')
-    }
+  const handleMenuButtonClick = () => {
+    dispatch(uiSetDrawerViz(!drawerOpen))
   }
 
-  const handleMenuButtonClick = () => {
-    dispatch(uiSetDrawerViz(!open))
+  const enterMenuHandler = (event, el, key) => {
+    const {currentTarget} = event
+    setAnchorEl(currentTarget)
+    setActiveLinkEl(el)
+    setActiveKey(key)
+    setPopperOpen(true)
   }
 
   const handleClick = (event) => {
@@ -153,22 +138,8 @@ Props) => {
     setPopperOpen(!popperOpen)
   }
 
-  const enterMenuHandler = (event, el) => {
-    const {currentTarget} = event
-    setAnchorEl(currentTarget)
-    setActiveLinkEl(el)
-    setPopperOpen(true)
-  }
-
-  const leaveMenuHandler = () => {
+  const popperCloseHandler = () => {
     setPopperOpen(false)
-  }
-  const transitionExitHandler = () => {
-    setPopperTransCompleted(true)
-  }
-
-  const transitionEnterHandler = () => {
-    setPopperTransCompleted(false)
   }
 
   const popperOpenHandler = () => {
@@ -176,10 +147,15 @@ Props) => {
   }
 
   const id = debouncedPopperOpen ? 'mega-menu-popper' : null
+  const toolbarVariant = parentFixed ? 'dense' : 'regular'
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <AppBar color="default" className={classes.appBar} position="relative">
+        <AppBar
+          color={width === 'xs' ? 'primary' : 'default'}
+          className={classes.appBar}
+          position="relative"
+        >
           <Toolbar variant={toolbarVariant} className={classes.toolbar}>
             <Hidden smUp implementation="css">
               <IconButton
@@ -194,106 +170,42 @@ Props) => {
             <Type variant="h6" color="inherit" className={classes.grow}>
               News
             </Type>
-            <div className={classes.menuLinks}>
-              {menuLinkData.map((menuItem) => (
-                <div key={menuItem.key} className={classes.menuLink}>
-                  <MegaMenuLink
-                    describedbyId={id}
-                    onLinkClick={handleClick}
-                    onLinkEnter={enterMenuHandler}
-                    onLinkLeave={leaveMenuHandler}
-                    onBottomBunEnter={popperOpenHandler}
-                    parentActiveEl={activeLinkEl}
-                  >
-                    {menuItem.caption}
-                  </MegaMenuLink>
-                </div>
-              ))}
-            </div>
+            {width === 'xs' ? null : (
+              <div className={classes.menuLinks}>
+                {menuLinkData.map((menuItem) => (
+                  <div key={menuItem.key} className={classes.menuLink}>
+                    <MegaMenuLink
+                      describedbyId={id}
+                      tabIdx={menuItem.tabIndex}
+                      onLinkClick={handleClick}
+                      onLinkEnter={(event, el) =>
+                        enterMenuHandler(event, el, menuItem.key)
+                      }
+                      onLinkLeave={popperCloseHandler}
+                      onBottomBunEnter={popperOpenHandler}
+                      parentActiveEl={activeLinkEl}
+                    >
+                      {menuItem.caption}
+                    </MegaMenuLink>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </div>
-
-      <Popper
+      <MegaMenuPopper
         id={id}
-        className={classes.popper}
         open={debouncedPopperOpen}
+        toolbarVariant={toolbarVariant}
         anchorEl={anchorEl}
-        transition
-        modifiers={{
-          // flip: {
-          //   enabled: true
-          // },
-          offset: {
-            enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 14'}`
-          },
-          preventOverflow: {
-            enabled: true,
-            boundariesElement: 'window',
-            padding: 0
-          }
-        }}
+        onOpen={popperOpenHandler}
+        onClose={popperCloseHandler}
       >
-        {({TransitionProps}) => (
-          <Collapse
-            {...TransitionProps}
-            timeout={{enter: 100, exit: POPOVER_TRAN_EXIT_DURATION}}
-            onExit={transitionExitHandler}
-            onEntered={transitionEnterHandler}
-          >
-            <div
-              onMouseLeave={leaveMenuHandler}
-              onBlur={leaveMenuHandler}
-              onMouseEnter={popperOpenHandler}
-              onFocus={popperOpenHandler}
-            >
-              <MegaMenuContent />
-            </div>
-          </Collapse>
-        )}
-      </Popper>
-      <Popper
-        id={id}
-        open={debouncedPopperOpen && toolbarVariant === 'regular'}
-        className={classes.popper}
-        transition
-        anchorEl={anchorEl}
-        modifiers={{
-          // flip: {
-          //   enabled: true
-          // },
-          offset: {
-            enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 14'}`
-          },
-          preventOverflow: {
-            enabled: true,
-            boundariesElement: 'window',
-            padding: 0
-          },
-          arrow: {
-            enabled: arrowRef.current, // Check prevents popper.js console.log() msg.
-            element: arrowRef.current
-          }
-        }}
-      >
-        {({TransitionProps}) => (
-          <Collapse
-            {...TransitionProps}
-            timeout={{enter: 100, exit: POPOVER_TRAN_EXIT_DURATION}}
-          >
-            <span
-              className={classes.arrow}
-              ref={arrowRef}
-              onMouseEnter={popperOpenHandler}
-              onFocus={popperOpenHandler}
-            />
-          </Collapse>
-        )}
-      </Popper>
+        <MMContent contentKey={activeKey} />
+      </MegaMenuPopper>
     </React.Fragment>
   )
 }
@@ -302,8 +214,10 @@ PrimaryHeader.defaultProps = {
   parentFixed: false
 }
 
-// const mapStateToProps = (state) => ({
-//   drawerOpen: state.ui.drawerOpen
-// })
+const mapStateToProps = (state) => ({
+  drawerOpen: state.ui.drawerOpen
+})
 
-export default connect()(withStyles(styles)(PrimaryHeader))
+export default connect(mapStateToProps)(
+  withWidth()(withStyles(styles)(PrimaryHeader))
+)

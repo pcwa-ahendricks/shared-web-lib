@@ -19,8 +19,8 @@ const styles = (theme) => ({
   root: {
     display: 'inline-block',
     verticalAlign: 'middle',
-    '-webkit-transform': 'perspective(1px) translateZ(0)',
-    transform: 'perspective(1px) translateZ(0)',
+    '-webkit-transform': 'perspective(1px) translate3d(0, 0, 0)',
+    transform: 'perspective(1px) translate3d(0, 0, 0)',
     boxShadow: '0 0 1px rgba(0, 0, 0, 0)',
     position: 'relative',
     overflow: 'hidden',
