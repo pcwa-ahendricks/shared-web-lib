@@ -54,7 +54,10 @@ const MegaMenuLink = ({
   ...rest
 }: Props) => {
   const typeRef = useRef(null)
-  const isActive = Boolean(parentActiveEl === typeRef.current)
+  // Prevent null === null validity, resulting with a flash of Overline during initial page load.
+  const isActive = Boolean(
+    parentActiveEl === typeRef.current && parentActiveEl !== null
+  )
 
   const handleLinkEnter = (evt) => {
     onLinkEnter(evt, typeRef.current)
