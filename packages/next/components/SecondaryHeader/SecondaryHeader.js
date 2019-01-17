@@ -3,12 +3,17 @@ import React, {useEffect, useState} from 'react'
 import {fetchForecasts} from '../../lib/services/forecastService'
 import {withStyles} from '@material-ui/core/styles'
 import useInterval from '../../hooks/useInterval'
-import {type Location, type ForecastData} from '../Forecast/Forecast'
+import {
+  type Location,
+  type ForecastData
+} from '../Forecast/ForecastDisplay/ForecastDisplay'
 import dynamic from 'next/dynamic'
 import {Button, Toolbar, Typography as Type} from '@material-ui/core'
 // import classNames from 'classnames'
 
-const DynamicCycleForecast = dynamic(import('../CycleForecast/CycleForecast'))
+const DynamicCycleForecast = dynamic(
+  import('../Forecast/ForecastCycle/ForecastCycle')
+)
 
 type Props = {
   classes: any

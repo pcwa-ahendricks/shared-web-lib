@@ -50,7 +50,7 @@ const defaults = {
 const getDarkSkyHref = (lngLat: [number, number]): string =>
   `https://darksky.net/forecast/${lngLat[1]},${lngLat[0]}/us12/en`
 
-const Forecast = ({forecast, theme, classes}: Props) => {
+const ForecastDisplay = ({forecast, theme, classes}: Props) => {
   const [darkSkyHref, setDarkSkyHref] = useState('#')
 
   useEffect(
@@ -93,7 +93,7 @@ const Forecast = ({forecast, theme, classes}: Props) => {
   ) : null
 }
 
-Forecast.defaultProps = {
+ForecastDisplay.defaultProps = {
   forecast: {
     data: {
       currently: null
@@ -101,4 +101,4 @@ Forecast.defaultProps = {
   }
 }
 
-export default withTheme()(withStyles(styles)(Forecast))
+export default withTheme()(withStyles(styles)(ForecastDisplay))

@@ -1,11 +1,11 @@
 // @flow
 
 import React, {useState} from 'react'
-import Forecast, {type ForecastData} from '../Forecast/Forecast'
+import Forecast, {type ForecastData} from '../ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import useInterval from '../../hooks/useInterval'
+import useInterval from '../../../hooks/useInterval'
 import {withStyles} from '@material-ui/core/styles'
-import {maxInt} from '../../lib/util'
+import {maxInt} from '../../../lib/util'
 import ForecastPopover from '../ForecastPopover/ForecastPopover'
 
 type Props = {
@@ -40,7 +40,7 @@ const styles = {
   }
 }
 
-const CycleForecast = ({
+const ForecastCycle = ({
   classes,
   forecasts,
   cycleInterval,
@@ -95,10 +95,10 @@ const CycleForecast = ({
   ) : null
 }
 
-CycleForecast.defaultProps = {
+ForecastCycle.defaultProps = {
   forecasts: [],
   cycleInterval: 1000 * 10, // 10 seconds
   crossFadeDuration: 1000 * 1 // 1 seconds
 }
 
-export default withStyles(styles)(CycleForecast)
+export default withStyles(styles)(ForecastCycle)
