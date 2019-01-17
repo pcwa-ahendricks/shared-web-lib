@@ -1,6 +1,6 @@
 // @flow
 import React, {type Node} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import injectStyles from 'react-jss'
 import {Paper} from '@material-ui/core'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
@@ -9,6 +9,8 @@ type Props = {
   crossFadeDuration: number,
   children: Node
 }
+
+const DEFAULT_CROSS_FADE_DURATION = 200
 
 const styles = (theme) => ({
   root: {
@@ -27,17 +29,20 @@ const styles = (theme) => ({
     },
     '& .cross-fade-leave.cross-fade-leave-active': {
       opacity: 0,
-      transition: 'opacity 200ms ease-in'
+      transition: ({crossFadeDuration}) =>
+        `opacity ${crossFadeDuration}ms ease-in`
     },
     '& .cross-fade-enter': {
       opacity: 0
     },
     '& .cross-fade-enter.cross-fade-enter-active': {
       opacity: 1,
-      transition: 'opacity 200ms ease-in'
+      transition: ({crossFadeDuration}) =>
+        `opacity ${crossFadeDuration}ms ease-in`
     },
     '& .cross-fade-height': {
-      transition: 'height 200ms ease-in-out'
+      transition: ({crossFadeDuration}) =>
+        `height ${crossFadeDuration}ms ease-in-out`
     }
   }
 })
@@ -64,7 +69,7 @@ const MegaMenuContentContainer = ({
 }
 
 MegaMenuContentContainer.defaultProps = {
-  crossFadeDuration: 900
+  crossFadeDuration: DEFAULT_CROSS_FADE_DURATION
 }
 
-export default withStyles(styles)(MegaMenuContentContainer)
+export default injectStyles(styles)(MegaMenuContentContainer)
