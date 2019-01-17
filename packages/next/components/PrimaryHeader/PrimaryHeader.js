@@ -30,12 +30,22 @@ type Props = {
 
 const POPOVER_TRAN_EXIT_DURATION = 150
 
+const menuLinkData = [
+  {key: 1, seq: 1, caption: 'About'},
+  {key: 2, seq: 2, caption: 'Customer Services'},
+  {key: 3, seq: 3, caption: 'Doing Business With PCWA'}
+]
+
 const styles = (theme) => ({
   root: {
     flexGrow: 1
   },
   grow: {
     flexGrow: 1
+  },
+  appBar: {},
+  toolbar: {
+    height: '100%'
   },
   menuButton: {
     marginLeft: -12,
@@ -68,8 +78,22 @@ const styles = (theme) => ({
       display: 'block',
       width: 0,
       height: 0,
-      borderStyle: 'solid'
+      borderStyle: 'solid',
+      transform: 'translateX(-50%)', // Keep arrow centered.
+      '-webkit-transform': 'translateX(-50%)'
     }
+  },
+  menuLinks: {
+    flex: 'auto',
+    alignSelf: 'stretch',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-end'
+  },
+  menuLink: {
+    // marginLeft: '2vw',
+    flex: '0 0 auto'
   }
 })
 
@@ -80,7 +104,7 @@ const PrimaryHeader = ({
 }: // drawerOpen
 Props) => {
   const [popperOpen, setPopperOpen] = useState(false)
-  const debouncedPopperOpen = useDebounce(popperOpen, 10)
+  const debouncedPopperOpen = useDebounce(popperOpen, 150)
   const [popperTransCompleted, setPopperTransCompleted] = useState(true)
   const debouncedPopperTransCompleted = useDebounce(
     popperTransCompleted,
@@ -155,8 +179,8 @@ Props) => {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <AppBar color="default">
-          <Toolbar variant={toolbarVariant}>
+        <AppBar color="default" className={classes.appBar} position="relative">
+          <Toolbar variant={toolbarVariant} className={classes.toolbar}>
             <Hidden smUp implementation="css">
               <IconButton
                 className={classes.menuButton}
@@ -170,16 +194,22 @@ Props) => {
             <Type variant="h6" color="inherit" className={classes.grow}>
               News
             </Type>
-            <MegaMenuLink
-              describedbyId={id}
-              onLinkClick={handleClick}
-              onLinkEnter={enterMenuHandler}
-              onLinkLeave={leaveMenuHandler}
-              onBottomBunEnter={popperOpenHandler}
-              parentActiveEl={activeLinkEl}
-            >
-              Customer Services
-            </MegaMenuLink>
+            <div className={classes.menuLinks}>
+              {menuLinkData.map((menuItem) => (
+                <div key={menuItem.key} className={classes.menuLink}>
+                  <MegaMenuLink
+                    describedbyId={id}
+                    onLinkClick={handleClick}
+                    onLinkEnter={enterMenuHandler}
+                    onLinkLeave={leaveMenuHandler}
+                    onBottomBunEnter={popperOpenHandler}
+                    parentActiveEl={activeLinkEl}
+                  >
+                    {menuItem.caption}
+                  </MegaMenuLink>
+                </div>
+              ))}
+            </div>
 
             <Button color="inherit">Login</Button>
           </Toolbar>
@@ -198,7 +228,7 @@ Props) => {
           // },
           offset: {
             enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 5' : '0, 13'}`
+            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 14'}`
           },
           preventOverflow: {
             enabled: true,
@@ -237,7 +267,7 @@ Props) => {
           // },
           offset: {
             enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 5' : '0, 13'}`
+            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 14'}`
           },
           preventOverflow: {
             enabled: true,

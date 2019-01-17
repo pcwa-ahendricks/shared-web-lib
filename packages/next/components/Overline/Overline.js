@@ -10,7 +10,8 @@ type Props = {
   children?: Node,
   visible: boolean,
   transitionDuration: number,
-  lineHeight: number
+  lineHeight: number,
+  lineMargin: number | string
 }
 
 // See https://github.com/IanLunn/Hover/blob/5c9f92d2bcd6414f54b4f926fd4bb231e4ce9fd5/css/hover.css#L2264
@@ -44,7 +45,9 @@ const styles = (theme) => ({
     '-webkit-transition-duration': ({transitionDuration}) => transitionDuration,
     transitionDuration: ({transitionDuration}) => transitionDuration,
     '-webkit-transition-timing-function': 'ease-out',
-    transitionTimingFunction: 'ease-out'
+    transitionTimingFunction: 'ease-out',
+    marginLeft: ({lineMargin}) => lineMargin,
+    marginRight: ({lineMargin}) => lineMargin
   }
 })
 
@@ -57,6 +60,7 @@ const Overline = (props: Props) => {
     useFullHeight,
     transitionDuration,
     lineHeight,
+    lineMargin,
     ...rest
   } = props
   /* eslint-enable no-unused-vars */
@@ -103,7 +107,8 @@ Overline.defaultProps = {
   useFullHeight: false,
   visible: null,
   transitionDuration: 300,
-  lineHeight: 3
+  lineHeight: 3,
+  lineMargin: 0
 }
 
 export default injectStyles(styles)(Overline)

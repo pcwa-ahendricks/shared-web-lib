@@ -1,5 +1,5 @@
 // @flow
-import React, {useRef} from 'react'
+import React, {useRef, type Node} from 'react'
 import {Link, Typography as Type} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
@@ -12,7 +12,8 @@ type Props = {
   onLinkEnter: (any, any) => any,
   onLinkLeave: () => any,
   onBottomBunEnter: () => any,
-  parentActiveEl: any
+  parentActiveEl: any,
+  children: Node
 }
 
 const styles = (theme) => ({
@@ -28,6 +29,10 @@ const styles = (theme) => ({
     cursor: 'pointer',
     '&:hover,&:focus,&.mmLinkActive': {
       color: theme.palette.primary.dark
+    },
+    margin: {
+      left: '1vw', // Should match <Overline/> margin.
+      right: '1vw' // ""
     }
   },
   mmLinkBun: {
@@ -37,12 +42,14 @@ const styles = (theme) => ({
 
 const MegaMenuLink = ({
   classes,
+  children,
   describedbyId,
   onLinkClick,
   onLinkEnter,
   onLinkLeave,
   onBottomBunEnter,
-  parentActiveEl
+  parentActiveEl,
+  ...rest
 }: Props) => {
   const typeRef = useRef(null)
   const isActive = Boolean(parentActiveEl === typeRef.current)
@@ -52,7 +59,12 @@ const MegaMenuLink = ({
   }
 
   return (
-    <Overline useFullHeight visible={isActive} transitionDuration={200}>
+    <Overline
+      useFullHeight
+      visible={isActive}
+      transitionDuration={200}
+      lineMargin="1vw" // This should match .mmLink margin
+    >
       <div className={classes.root}>
         <div className={classes.mmLinkBun} />
         <Type
@@ -68,8 +80,8 @@ const MegaMenuLink = ({
           onMouseEnter={handleLinkEnter}
           variant="button"
         >
-          <Link underline="none" href="#" color="inherit">
-            Customer Services
+          <Link underline="none" href="#" color="inherit" {...rest}>
+            {children}
           </Link>
         </Type>
         <div
