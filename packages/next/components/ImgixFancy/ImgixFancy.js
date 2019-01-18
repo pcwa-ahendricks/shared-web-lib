@@ -8,12 +8,12 @@ type Props = {
   src: string,
   lqipSrc?: string,
   sizes: string,
-  width: string | number,
-  height: string | number,
   alt: string,
-  title: string,
   htmlAttributesProps: {},
-  paddingPercent: string
+  paddingPercent: string,
+  title?: string,
+  width?: string | number,
+  height?: string | number
 }
 
 /* Lazysizes and ls.blur-up plugin styles. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */

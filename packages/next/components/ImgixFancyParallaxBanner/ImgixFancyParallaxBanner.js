@@ -3,6 +3,22 @@ import React from 'react'
 import {type Node} from 'react'
 import {ParallaxBanner} from 'react-scroll-parallax'
 import ImgixFancy from '../ImgixFancy/ImgixFancy'
+import {withStyles} from '@material-ui/core/styles'
+
+const styles = {
+  root: {},
+  parallaxChildren: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+}
 
 type ImgixFancyProps = {
   src: string,
@@ -13,6 +29,7 @@ type ImgixFancyProps = {
 }
 
 type Props = {
+  classes: any,
   amount: number,
   imgixFancyProps: ImgixFancyProps,
   children?: Node
@@ -22,19 +39,21 @@ const ImgixFancyParallaxBanner = ({
   amount,
   imgixFancyProps,
   children,
+  classes,
   ...rest
 }: Props) => {
   return (
-    <ParallaxBanner
-      className="root"
-      layers={[
-        {
-          children: <ImgixFancy {...imgixFancyProps} />,
-          amount: amount,
-          slowerScrollRate: false
-        }
-      ]}
-      /**
+    <React.Fragment>
+      <ParallaxBanner
+        className={classes.root}
+        layers={[
+          {
+            children: <ImgixFancy {...imgixFancyProps} />,
+            amount: amount,
+            slowerScrollRate: false
+          }
+        ]}
+        /**
         With a 1800x1200 image, 56vw seems to be the max height
         when using an amount of 0.1 and 49vw when amount is 0.2.
         Debugging can be done with devtools by making the window
@@ -44,10 +63,11 @@ const ImgixFancyParallaxBanner = ({
         If a larger height is required consider creating a separate
         image on Imgix with a aspect ratio that is not a wide.
        */
-      {...rest}
-    >
-      {children}
-    </ParallaxBanner>
+        {...rest}
+      >
+        <div className={classes.parallaxChildren}>{children}</div>
+      </ParallaxBanner>
+    </React.Fragment>
   )
 }
 
@@ -55,4 +75,4 @@ ImgixFancyParallaxBanner.defaultProps = {
   amount: 0.1
 }
 
-export default ImgixFancyParallaxBanner
+export default withStyles(styles)(ImgixFancyParallaxBanner)

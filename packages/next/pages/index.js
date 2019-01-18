@@ -4,6 +4,7 @@ import ImgixFancyParallaxBanner from '../components/ImgixFancyParallaxBanner/Img
 import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
 import PageLayout from '../components/PageLayout/PageLayout'
 import {Typography as Type} from '@material-ui/core'
+import HeroOverlay from '../components/HeroOverlay/HeroOverlay'
 
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -21,9 +22,12 @@ const index = () => {
         imgixFancyProps={{
           paddingPercent: '66.6495%',
           src: HERO_IMG_SRC,
-          alt: 'A photo of French Meadows Reservoir inlet'
+          alt: 'A photo of French Meadows Reservoir inlet',
+          imgixParams: {bri: -5, high: -15}
         }}
-      />
+      >
+        <HeroOverlay style={{height: '100%'}} />
+      </ImgixFancyParallaxBanner>
       <title>Welcome</title>
       <Type variant="h4" color="primary" gutterBottom>
         Water Legislation FAQs
