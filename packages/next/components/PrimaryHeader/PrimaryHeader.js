@@ -2,15 +2,7 @@
 import React, {useState, useEffect} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
-import {
-  AppBar,
-  Button,
-  Hidden,
-  IconButton,
-  Toolbar,
-  Typography as Type,
-  withWidth
-} from '@material-ui/core'
+import {AppBar, Hidden, IconButton, Toolbar, withWidth} from '@material-ui/core'
 import {Menu as MenuIcon} from '@material-ui/icons'
 import {connect} from 'react-redux'
 import {uiSetDrawerViz} from '../../store/actions'
@@ -18,6 +10,8 @@ import MegaMenuLink from '../MegaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '../MegaMenu/MegaMenuPopper/MegaMenuPopper'
 import MMContent from '../MMContent/MMContent'
 import useDebounce from '../../hooks/useDebounce'
+import MatNextLink from '../MatNextLink/MatNextLink'
+import PcwaLogo from '../../components/PcwaLogo/PcwaLogo'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
@@ -30,9 +24,10 @@ type Props = {
 }
 
 const menuLinkData = [
-  {key: 1, seq: 1, caption: 'About', tabIndex: 1},
-  {key: 2, seq: 2, caption: 'Customer Services', tabIndex: 2},
-  {key: 3, seq: 3, caption: 'Doing Business With PCWA', tabIndex: 3}
+  {key: 1, caption: 'About', tabIndex: 1},
+  {key: 2, caption: 'Customer Services', tabIndex: 2},
+  {key: 3, caption: 'Doing Business With PCWA', tabIndex: 3},
+  {key: 4, caption: 'Newsroom', tabIndex: 4}
 ]
 
 const styles = (theme) => ({
@@ -43,6 +38,29 @@ const styles = (theme) => ({
     flexGrow: 1
   },
   appBar: {},
+  logoContainer: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    maxWidth: '30vw',
+    overflow: 'visible'
+  },
+  // Custom width defined by point at which menu links overlap svg logo.
+  '@media screen and (max-width: 660px)': {
+    logoContainer: {
+      display: 'none'
+    }
+  },
+  homeLink: {
+    flex: '0 0 auto',
+    alignSelf: 'center',
+    // Margin should match Overline and mmLink margin for consistency.
+    margin: {
+      left: '1vw',
+      right: '1vw'
+    }
+  },
   toolbar: {
     height: '100%'
   },
@@ -91,7 +109,6 @@ const styles = (theme) => ({
     justifyContent: 'flex-end'
   },
   menuLink: {
-    // marginLeft: '2vw',
     flex: '0 0 auto'
   }
 })
@@ -105,7 +122,7 @@ const PrimaryHeader = ({
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [popperOpen, setPopperOpen] = useState(false)
-  const debouncedPopperOpen = useDebounce(popperOpen, 150)
+  const debouncedPopperOpen = useDebounce(popperOpen, 100)
   const [activeKey, setActiveKey] = useState(null)
   const [activeLinkEl, setActiveLinkEl] = useState(null)
 
@@ -167,11 +184,26 @@ const PrimaryHeader = ({
                 <MenuIcon />
               </IconButton>
             </Hidden>
-            <Type variant="h6" color="inherit" className={classes.grow}>
-              News
-            </Type>
+            {/* See media query above for class logoContainer. */}
+            {/* <Hidden only="xs" implementation="css"> */}
+            <div className={classes.logoContainer}>
+              <PcwaLogo
+                height={width === 'sm' ? 'auto' : parentFixed ? 35 : 50} // Height should be <= Toolbar height.
+                width={width === 'sm' ? 100 : 'auto'}
+                missionStatementFill="rgba(0,0,0,0)"
+              />
+            </div>
+            {/* </Hidden> */}
             {width === 'xs' ? null : (
               <div className={classes.menuLinks}>
+                <div className={classes.homeLink}>
+                  <MatNextLink
+                    href="/"
+                    typeProps={{variant: 'button', color: 'primary'}}
+                  >
+                    Home
+                  </MatNextLink>
+                </div>
                 {menuLinkData.map((menuItem) => (
                   <div key={menuItem.key} className={classes.menuLink}>
                     <MegaMenuLink
@@ -191,8 +223,6 @@ const PrimaryHeader = ({
                 ))}
               </div>
             )}
-
-            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </div>

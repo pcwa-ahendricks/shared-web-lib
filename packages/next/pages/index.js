@@ -20,7 +20,8 @@ const index = () => {
         amount={0.1}
         imgixFancyProps={{
           paddingPercent: '66.6495%',
-          src: HERO_IMG_SRC
+          src: HERO_IMG_SRC,
+          alt: 'A photo of French Meadows Reservoir inlet'
         }}
       />
       <title>Welcome</title>
@@ -43,7 +44,11 @@ const index = () => {
           position: 'relative'
         }}
       >
-        <ImgixFancy paddingPercent="129.3737%" src={YEAR_END_IMG_SRC} />
+        <ImgixFancy
+          paddingPercent="129.3737%"
+          src={YEAR_END_IMG_SRC}
+          alt="Year End Image Thumbnail"
+        />
       </div>
       {/* <div style={{backgroundColor: 'beige', height: 1500}} /> */}
       <div style={{backgroundColor: 'blue', height: 1500}} />

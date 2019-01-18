@@ -15,6 +15,7 @@
     "darksky",
     "debounced",
     "describedby",
+    "evenodd",
     "fancylaod",
     "fancyload",
     "flowtype",
@@ -62,6 +63,8 @@
     "unfetch",
     "unmount",
     "workspaces",
+    "xlink",
+    "xmlns",
     "zeit"
   ]
 }

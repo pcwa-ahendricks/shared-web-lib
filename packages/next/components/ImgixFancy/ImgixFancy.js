@@ -8,6 +8,10 @@ type Props = {
   src: string,
   lqipSrc?: string,
   sizes: string,
+  width: string | number,
+  height: string | number,
+  alt: string,
+  title: string,
   htmlAttributesProps: {},
   paddingPercent: string
 }
@@ -52,8 +56,12 @@ const ImgixFancy = ({
   src,
   lqipSrc,
   sizes,
+  width,
+  height,
   htmlAttributesProps,
   paddingPercent,
+  alt,
+  title,
   classes,
   ...rest
 }: Props) => {
@@ -63,6 +71,8 @@ const ImgixFancy = ({
         className="lazyload mediabox-img"
         src={src}
         sizes={sizes}
+        width={width}
+        height={height}
         attributeConfig={{
           src: 'data-src',
           srcSet: 'data-srcset',
@@ -70,6 +80,8 @@ const ImgixFancy = ({
         }}
         htmlAttributes={{
           // 'data-expand': -400, // Debug
+          alt: alt,
+          title: title,
           'data-lowsrc':
             lqipSrc || `${src}?auto=format&fit=crop&ixlib=react-8.5.1&w=40`, // low quality image
           style: {width: '100%'},
