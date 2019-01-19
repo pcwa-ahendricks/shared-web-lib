@@ -50,12 +50,17 @@ const ForecastCycle = ({
 }: Props) => {
   const [activeForecastId, setActiveForecastId]: [number, any] = useState(1)
   const [anchorEl, setAnchorEl] = useState(null)
+  const [transitionEnter, setTransitionEnter] = useState(false)
 
   useInterval(handleInterval, [forecasts, activeForecastId], cycleInterval)
 
   function handleInterval() {
     if (!forecasts) {
       return
+    }
+    // Don't use enter transition during first enter (initial page load).
+    if (activeForecastId === 1 && !transitionEnter) {
+      setTransitionEnter(true)
     }
     setActiveForecastId(
       activeForecastId >= maxInt(forecasts, 'id') ? 1 : activeForecastId + 1
@@ -82,6 +87,7 @@ const ForecastCycle = ({
       onMouseLeave={handlePopoverClose}
     >
       <ReactCSSTransitionReplace
+        transitionEnter={transitionEnter}
         className={classes.trans}
         transitionName="cross-fade"
         transitionEnterTimeout={crossFadeDuration}
