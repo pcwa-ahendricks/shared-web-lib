@@ -13,7 +13,8 @@ type Props = {
   paddingPercent: string,
   title?: string,
   width?: string | number,
-  height?: string | number
+  height?: string | number,
+  onLoad?: () => any
 }
 
 /* Lazysizes and ls.blur-up plugin styles. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */
@@ -62,6 +63,7 @@ const ImgixFancy = ({
   paddingPercent,
   alt,
   title,
+  onLoad,
   classes,
   ...rest
 }: Props) => {
@@ -80,6 +82,7 @@ const ImgixFancy = ({
         }}
         htmlAttributes={{
           // 'data-expand': -400, // Debug
+          onLoad: onLoad,
           alt: alt,
           title: title,
           'data-lowsrc':

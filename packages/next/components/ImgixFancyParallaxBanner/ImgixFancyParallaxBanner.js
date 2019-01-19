@@ -32,7 +32,8 @@ type Props = {
   classes: any,
   amount: number,
   imgixFancyProps: ImgixFancyProps,
-  children?: Node
+  children?: Node,
+  onImgLoad?: () => any
 }
 
 const ImgixFancyParallaxBanner = ({
@@ -40,20 +41,20 @@ const ImgixFancyParallaxBanner = ({
   imgixFancyProps,
   children,
   classes,
+  onImgLoad,
   ...rest
 }: Props) => {
   return (
-    <React.Fragment>
-      <ParallaxBanner
-        className={classes.root}
-        layers={[
-          {
-            children: <ImgixFancy {...imgixFancyProps} />,
-            amount: amount,
-            slowerScrollRate: false
-          }
-        ]}
-        /**
+    <ParallaxBanner
+      className={classes.root}
+      layers={[
+        {
+          children: <ImgixFancy {...imgixFancyProps} onLoad={onImgLoad} />,
+          amount: amount,
+          slowerScrollRate: false
+        }
+      ]}
+      /**
         With a 1800x1200 image, 56vw seems to be the max height
         when using an amount of 0.1 and 49vw when amount is 0.2.
         Debugging can be done with devtools by making the window
@@ -63,11 +64,10 @@ const ImgixFancyParallaxBanner = ({
         If a larger height is required consider creating a separate
         image on Imgix with a aspect ratio that is not a wide.
        */
-        {...rest}
-      >
-        <div className={classes.parallaxChildren}>{children}</div>
-      </ParallaxBanner>
-    </React.Fragment>
+      {...rest}
+    >
+      <div className={classes.parallaxChildren}>{children}</div>
+    </ParallaxBanner>
   )
 }
 

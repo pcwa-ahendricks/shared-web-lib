@@ -43,8 +43,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    maxWidth: '30vw',
-    overflow: 'visible'
+    alignItems: 'flex-start'
   },
   // Custom width defined by point at which menu links overlap svg logo.
   '@media screen and (max-width: 660px)': {
@@ -188,8 +187,10 @@ const PrimaryHeader = ({
             {/* <Hidden only="xs" implementation="css"> */}
             <div className={classes.logoContainer}>
               <PcwaLogo
-                height={width === 'sm' ? 'auto' : parentFixed ? 35 : 50} // Height should be <= Toolbar height.
-                width={width === 'sm' ? 100 : 'auto'}
+                height="70%"
+                // Setting max width/height prevents strange jank'ing when toolbar variant changes.
+                maxHeight={parentFixed ? 48 : 64}
+                maxWidth={width === 'sm' ? 100 : parentFixed ? 140 : 200}
                 missionStatementFill="rgba(0,0,0,0)"
               />
             </div>

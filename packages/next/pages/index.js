@@ -1,9 +1,9 @@
 // @flow
-import React from 'react'
+import React, {useState} from 'react'
 import ImgixFancyParallaxBanner from '../components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
 import PageLayout from '../components/PageLayout/PageLayout'
-import {Typography as Type} from '@material-ui/core'
+import {Fade, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '../components/HeroOverlay/HeroOverlay'
 
 const HERO_IMG_SRC =
@@ -12,6 +12,10 @@ const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
 const index = () => {
+  const [heroOverlayIn, setHeroOverlayIn]: [
+    boolean,
+    (v: boolean) => any
+  ] = useState(false)
   return (
     <PageLayout>
       <ImgixFancyParallaxBanner
@@ -25,8 +29,11 @@ const index = () => {
           alt: 'A photo of French Meadows Reservoir inlet',
           imgixParams: {bri: -5, high: -15}
         }}
+        onImgLoad={() => setHeroOverlayIn(true)}
       >
-        <HeroOverlay style={{height: '100%'}} />
+        <Fade timeout={2500} in={heroOverlayIn}>
+          <HeroOverlay height="100%" />
+        </Fade>
       </ImgixFancyParallaxBanner>
       <title>Welcome</title>
       <Type variant="h4" color="primary" gutterBottom>

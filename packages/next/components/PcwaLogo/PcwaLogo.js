@@ -7,33 +7,35 @@ import React from 'react'
  */
 
 type Props = {
-  height: string | number,
-  width: string | number,
-  maxHeight: string | number,
-  maxWidth: string | number,
   preserveAspectRatio: string,
   brandFill: string,
   missionStatementFill: string,
   logoRightFill: string,
-  logoLeftFill: string
+  logoLeftFill: string,
+  height?: string | number,
+  width?: string | number,
+  maxHeight?: string | number,
+  maxWidth?: string | number,
+  style?: any
 }
 
 const PcwaLogo = ({
   height,
-  width,
   maxHeight,
+  width,
   maxWidth,
   preserveAspectRatio,
   brandFill,
   missionStatementFill,
   logoLeftFill,
-  logoRightFill
+  logoRightFill,
+  style
 }: Props) => {
   return (
     <React.Fragment>
       {/* <?xml version="1.0" encoding="UTF-8" standalone="no"?>  */}
       <svg
-        style={{maxWidth: maxWidth, maxHeight: maxHeight}}
+        style={{...style, maxWidth: maxWidth, maxHeight: maxHeight}}
         width={width}
         height={height}
         viewBox="0 0 586 157"
@@ -103,11 +105,7 @@ const PcwaLogo = ({
 }
 
 PcwaLogo.defaultProps = {
-  height: '157px',
-  width: '586px',
-  maxHeight: '157px',
-  maxWidth: '586px',
-  preserveAspectRatio: 'xMinYMin meet',
+  preserveAspectRatio: 'xMinYMid meet',
   brandFill: '#12456E',
   missionStatementFill: '#72B549',
   logoRightFill: '#72B549',

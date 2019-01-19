@@ -10,14 +10,16 @@ export async function sequenceArray(array: Array<any>, fn: Function) {
   return results // will be resolved value of promise
 }
 
-export const maxInt = (
-  array: Array<any>,
-  prop: string,
-  startWith: number = -1
-) => {
+export const maxInt = (array: Array<any>, prop: string) => {
   return array.reduce((p: number, v) => {
     return p > v[prop] ? p : v[prop]
-  }, startWith)
+  }, NaN)
+}
+
+export const minInt = (array: Array<any>, prop: string) => {
+  return array.reduce((p: number, v) => {
+    return p < v[prop] ? p : v[prop]
+  }, NaN)
 }
 
 export const openInNewTab = (url: string): void => {

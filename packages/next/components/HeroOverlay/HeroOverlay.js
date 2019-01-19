@@ -7,33 +7,30 @@ import React from 'react'
  */
 
 type Props = {
-  preserveAspectRatio: string
-  // height: string | number,
-  // width: string | number,
-  // maxHeight: string | number,
-  // maxWidth: string | number,
-  // brandFill: string,
-  // missionStatementFill: string,
-  // logoRightFill: string,
-  // logoLeftFill: string
+  preserveAspectRatio: string,
+  height?: string | number,
+  width?: string | number,
+  maxHeight?: string | number,
+  maxWidth?: string | number,
+  style?: any
 }
 
 const HeroOverlay = ({
-  // height,
-  // width,
-  // maxHeight,
-  // maxWidth,
+  height,
+  width,
+  maxHeight,
+  maxWidth,
+  style,
   preserveAspectRatio
-}: // brandFill,
-// missionStatementFill,
-// logoLeftFill,
-// logoRightFill
-Props) => {
+}: Props) => {
   return (
     <React.Fragment>
       {/* <?xml version="1.0" encoding="UTF-8"?> */}
       <svg
+        style={{...style, maxWidth: maxWidth, maxHeight: maxHeight}}
         preserveAspectRatio={preserveAspectRatio}
+        width={width}
+        height={height}
         viewBox="0 0 1796 1289"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
