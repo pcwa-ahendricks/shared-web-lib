@@ -36,7 +36,7 @@ const styles = {
   },
   forecastType: {
     paddingLeft: 5,
-    fontWeight: 'bold'
+    fontWeight: 600
   }
 }
 

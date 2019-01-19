@@ -31,7 +31,7 @@ const index = () => {
         }}
         onImgLoad={() => setHeroOverlayIn(true)}
       >
-        <Fade timeout={2500} in={heroOverlayIn}>
+        <Fade timeout={2000} in={heroOverlayIn}>
           <HeroOverlay height="100%" />
         </Fade>
       </ImgixFancyParallaxBanner>

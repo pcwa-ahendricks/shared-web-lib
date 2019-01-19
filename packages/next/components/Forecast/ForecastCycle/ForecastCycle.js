@@ -1,7 +1,9 @@
 // @flow
 
 import React, {useState} from 'react'
-import Forecast, {type ForecastData} from '../ForecastDisplay/ForecastDisplay'
+import ForecastDisplay, {
+  type ForecastData
+} from '../ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import useInterval from '../../../hooks/useInterval'
 import {withStyles} from '@material-ui/core/styles'
@@ -70,9 +72,9 @@ const ForecastCycle = ({
     setAnchorEl(null)
   }
 
-  const forecast = activeForecast()
+  const forecast = activeForecast() || {}
   const open = Boolean(anchorEl)
-  return forecast ? (
+  return (
     <div
       aria-owns={open ? 'forecast-popover' : undefined}
       aria-haspopup="true"
@@ -85,14 +87,14 @@ const ForecastCycle = ({
         transitionEnterTimeout={crossFadeDuration}
         transitionLeaveTimeout={crossFadeDuration}
       >
-        <Forecast key={forecast.id} forecast={forecast} />
+        <ForecastDisplay key={forecast.id} forecast={forecast} />
       </ReactCSSTransitionReplace>
       <ForecastPopover
         anchorEl={anchorEl}
         onPopoverClose={handlePopoverClose}
       />
     </div>
-  ) : null
+  )
 }
 
 ForecastCycle.defaultProps = {

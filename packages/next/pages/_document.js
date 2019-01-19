@@ -8,6 +8,7 @@ import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import flush from 'styled-jsx/server'
 import PropTypes from 'prop-types'
+import webFontConfig from '../lib/webFontConfig'
 
 class MyDocument extends Document {
   // static async getInitialProps(ctx) {
@@ -57,9 +58,30 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           /> */}
-          <link
-            href="https://fonts.googleapis.com/css?family=Asap+Condensed:600|Asap:400,500|Open+Sans"
+          {/* <link
+            href="https://fonts.googleapis.com/css?family=Asap+Condensed:600|Asap:400,500,600|Open+Sans"
             rel="stylesheet"
+          /> */}
+
+          {/* Use Google Web Font Loader for font loading. */}
+          {/* <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" /> */}
+          {/* <script
+            dangerouslySetInnerHTML={{
+              __html: `WebFont.load(${JSON.stringify(webFontConfig)})`
+            }}
+          /> */}
+          {/* Async Web Font Loader */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `WebFontConfig = ${JSON.stringify(webFontConfig)};
+                (function(d) {
+                    var wf = d.createElement('script'), s = d.scripts[0];
+                    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+                    wf.async = true;
+                    s.parentNode.insertBefore(wf, s);
+                })(document);
+              `
+            }}
           />
         </Head>
         <body className="custom_class">
