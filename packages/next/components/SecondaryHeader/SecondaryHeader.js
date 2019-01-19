@@ -1,22 +1,23 @@
 // @flow
-import React, {useEffect, useState} from 'react'
-import {fetchForecasts} from '../../lib/services/forecastService'
+import React, {useEffect} from 'react'
 import {withStyles} from '@material-ui/core/styles'
-import useInterval from '../../hooks/useInterval'
 import {
   type Location,
   type ForecastData
 } from '../Forecast/ForecastDisplay/ForecastDisplay'
 import dynamic from 'next/dynamic'
 import {Button, Toolbar, Typography as Type} from '@material-ui/core'
-// import classNames from 'classnames'
+import {startForecastTimer} from '../../store/actions'
+import {connect} from 'react-redux'
 
 const DynamicCycleForecast = dynamic(
   import('../Forecast/ForecastCycle/ForecastCycle')
 )
 
 type Props = {
-  classes: any
+  classes: any,
+  dispatch: any,
+  forecasts: Array<ForecastData>
 }
 
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
@@ -77,23 +78,10 @@ const forecastLocations: Array<Location> = [
   }
 ]
 
-const SecondaryHeader = ({classes}: Props) => {
-  const [forecasts, setForecasts]: [Array<ForecastData>, any] = useState([])
+const SecondaryHeader = ({classes, forecasts, dispatch}: Props) => {
   useEffect(() => {
-    // console.log('useEffect - getting initial forecast data...')
-    getForecastData()
+    dispatch(startForecastTimer(forecastLocations, REFETCH_INTERVAL))
   }, [])
-  useInterval(handleInterval, [], REFETCH_INTERVAL)
-
-  function handleInterval() {
-    // console.log('useEffect - re-fetching forecast data...')
-    getForecastData()
-  }
-
-  const getForecastData = async () => {
-    const data = await fetchForecasts(forecastLocations)
-    setForecasts(data)
-  }
 
   return (
     <div className={classes.root}>
@@ -115,4 +103,8 @@ const SecondaryHeader = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(SecondaryHeader)
+const mapStateToProps = (state) => ({
+  forecasts: state.forecast.forecasts
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(SecondaryHeader))

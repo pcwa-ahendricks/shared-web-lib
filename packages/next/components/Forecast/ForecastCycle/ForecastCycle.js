@@ -1,20 +1,22 @@
 // @flow
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ForecastDisplay, {
   type ForecastData
 } from '../ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import useInterval from '../../../hooks/useInterval'
+import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
-import {maxInt} from '../../../lib/util'
 import ForecastPopover from '../ForecastPopover/ForecastPopover'
+import {startCycleForecastTimer} from '../../../store/actions'
 
 type Props = {
   classes: any,
+  dispatch: any,
   forecasts: Array<ForecastData>,
   cycleInterval: number,
-  crossFadeDuration: number
+  crossFadeDuration: number,
+  activeCycleForecastId: ?number // redux
 }
 // type State = {
 //   forecasts: Array<ForecastData>,
@@ -44,30 +46,30 @@ const styles = {
 
 const ForecastCycle = ({
   classes,
+  dispatch,
   forecasts,
   cycleInterval,
-  crossFadeDuration
+  crossFadeDuration,
+  activeCycleForecastId
 }: Props) => {
-  const [activeForecastId, setActiveForecastId]: [number, any] = useState(1)
   const [anchorEl, setAnchorEl] = useState(null)
   const [transitionEnter, setTransitionEnter] = useState(false)
+  useEffect(
+    () => {
+      if (!forecasts || forecasts.length === 0 || !cycleInterval) {
+        return
+      }
+      dispatch(startCycleForecastTimer(forecasts, cycleInterval))
+      // Don't use enter transition during first enter (every page load).
+      if (!transitionEnter) {
+        setTransitionEnter(true)
+      }
+    },
+    [forecasts]
+  )
 
-  useInterval(handleInterval, [forecasts, activeForecastId], cycleInterval)
-
-  function handleInterval() {
-    if (!forecasts) {
-      return
-    }
-    // Don't use enter transition during first enter (initial page load).
-    if (activeForecastId === 1 && !transitionEnter) {
-      setTransitionEnter(true)
-    }
-    setActiveForecastId(
-      activeForecastId >= maxInt(forecasts, 'id') ? 1 : activeForecastId + 1
-    )
-  }
   const activeForecast = () =>
-    forecasts.find((forecast) => forecast.id === activeForecastId)
+    forecasts.find((forecast) => forecast.id === activeCycleForecastId)
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget)
@@ -103,10 +105,14 @@ const ForecastCycle = ({
   )
 }
 
+const mapStateToProps = (state) => ({
+  activeCycleForecastId: state.forecast.activeCycleForecastId
+})
+
 ForecastCycle.defaultProps = {
   forecasts: [],
   cycleInterval: 1000 * 10, // 10 seconds
   crossFadeDuration: 1000 * 1 // 1 seconds
 }
 
-export default withStyles(styles)(ForecastCycle)
+export default connect(mapStateToProps)(withStyles(styles)(ForecastCycle))
