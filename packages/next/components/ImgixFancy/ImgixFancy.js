@@ -12,8 +12,8 @@ type Props = {
   htmlAttributesProps: {},
   paddingPercent: string,
   title?: string,
-  width?: string | number,
-  height?: string | number,
+  width?: number,
+  height?: number,
   onLoad?: () => any
 }
 
@@ -97,7 +97,7 @@ const ImgixFancy = ({
 }
 
 ImgixFancy.defaultProps = {
-  sizes: 'auto',
+  sizes: 'auto', // This is a Lazysizes feature, not an react-imgix feature.
   htmlAttributesProps: {},
   paddingPercent: '66.6667%'
 }
