@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import {Paper} from '@material-ui/core'
+import {Paper, Tooltip} from '@material-ui/core'
 import TrendingLink from '../TrendingLink/TrendingLink'
 import {TrendingUp} from '@material-ui/icons'
 import {withStyles} from '@material-ui/core/styles'
@@ -27,12 +27,14 @@ const styles = (theme) => ({
 const TrendingBar = ({classes}: Props) => {
   return (
     <Paper square className={classes.root}>
-      <TrendingUp fontSize="small" />
-      <TrendingLink> Careers</TrendingLink>
+      <Tooltip title="Trending Links" placement="top">
+        <TrendingUp fontSize="small" />
+      </Tooltip>
       <TrendingLink>Smart Water Use</TrendingLink>
       <TrendingLink>Customer Service</TrendingLink>
       <TrendingLink>Rebates</TrendingLink>
       <TrendingLink>Outages</TrendingLink>
+      <TrendingLink>Careers</TrendingLink>
       <TrendingLink>Recruitment Video</TrendingLink>
     </Paper>
   )

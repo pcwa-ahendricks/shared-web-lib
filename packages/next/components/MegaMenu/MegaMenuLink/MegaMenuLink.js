@@ -27,6 +27,7 @@ const styles = (theme) => ({
   mmLink: {
     flex: '0 0 auto',
     color: theme.palette.primary.main,
+    fontWeight: 600,
     cursor: 'pointer',
     '&:hover,&:focus,&.mmLinkActive': {
       color: theme.palette.primary.dark

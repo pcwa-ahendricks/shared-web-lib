@@ -60,6 +60,9 @@ const styles = (theme) => ({
       right: '1vw'
     }
   },
+  homeLinkType: {
+    fontWeight: 600 // Should match MegaMenuLink.
+  },
   toolbar: {
     height: '100%'
   },
@@ -197,7 +200,11 @@ const PrimaryHeader = ({
                 <div className={classes.homeLink}>
                   <MatNextLink
                     href="/"
-                    typeProps={{variant: 'button', color: 'primary'}}
+                    typeProps={{
+                      variant: 'button',
+                      color: 'primary',
+                      classes: {button: classes.homeLinkType}
+                    }}
                   >
                     Home
                   </MatNextLink>

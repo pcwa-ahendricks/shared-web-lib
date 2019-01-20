@@ -29,7 +29,7 @@ const theme = createMuiTheme({
     },
     button: {
       fontFamily: ['Asap Condensed', ...systemFonts].join(','),
-      fontWeight: 600, // Default: 500
+      // fontWeight: 600, // Default: 500
       fontSize: '1rem' // Default: 0.875rem
     }
   },
