@@ -61,6 +61,8 @@ const styles = (theme) => ({
     }
   },
   homeLinkType: {
+    // fontFamily: 'Asap Condensed', // Should match MegaMenuLink.
+    // fontSize: '1rem', // // Default: 0.875rem. Should match MegaMenuLink.
     fontWeight: 600 // Should match MegaMenuLink.
   },
   toolbar: {

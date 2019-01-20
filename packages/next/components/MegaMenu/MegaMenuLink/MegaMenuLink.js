@@ -27,7 +27,9 @@ const styles = (theme) => ({
   mmLink: {
     flex: '0 0 auto',
     color: theme.palette.primary.main,
-    fontWeight: 600,
+    // fontFamily: 'Asap Condensed', // Should match MegaMenuLink.
+    // fontSize: '1rem', // // Default: 0.875rem. Should match MegaMenuLink.
+    fontWeight: 600, // Should match MegaMenuLink.
     cursor: 'pointer',
     '&:hover,&:focus,&.mmLinkActive': {
       color: theme.palette.primary.dark

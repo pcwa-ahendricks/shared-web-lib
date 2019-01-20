@@ -9,7 +9,9 @@ type Props = {
 }
 
 const styles = {
-  root: {}
+  root: {
+    fontSize: '0.85rem' // Small size defaults to "0.8125rem" which is a bit too small.
+  }
 }
 
 const TrendingLink = ({classes, children}: Props) => {
