@@ -60,7 +60,7 @@ const ForecastCycle = ({
         return
       }
       dispatch(startCycleForecastTimer(forecasts, cycleInterval))
-      // Don't use enter transition during first enter (every page load).
+      // Shorten the "Enter" transition during first enter (every page load). See below.
       if (!transitionEnter) {
         setTransitionEnter(true)
       }
@@ -78,7 +78,6 @@ const ForecastCycle = ({
   const handlePopoverClose = () => {
     setAnchorEl(null)
   }
-
   const forecast = activeForecast() || {}
   const open = Boolean(anchorEl)
   return (
@@ -89,10 +88,11 @@ const ForecastCycle = ({
       onMouseLeave={handlePopoverClose}
     >
       <ReactCSSTransitionReplace
-        transitionEnter={transitionEnter}
         className={classes.trans}
         transitionName="cross-fade"
-        transitionEnterTimeout={crossFadeDuration}
+        transitionEnterTimeout={
+          !transitionEnter ? crossFadeDuration * 0.2 : crossFadeDuration
+        }
         transitionLeaveTimeout={crossFadeDuration}
       >
         <ForecastDisplay key={forecast.id} forecast={forecast} />

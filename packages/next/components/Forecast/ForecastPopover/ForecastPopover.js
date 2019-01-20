@@ -3,6 +3,7 @@
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import {Popover} from '@material-ui/core'
+import ImgixFancy from '../../ImgixFancy/ImgixFancy'
 
 const DARKSKY_BG_COLOR = '#313134'
 
@@ -23,12 +24,17 @@ const styles = (theme) => ({
   popoverContent: {
     width: 150,
     height: 20,
-    background: {
-      image: 'url(./static/images/darksky/poweredby-oneline-dark-300.png)',
-      repeat: 'no-repeat',
-      position: 'center',
-      size: 'cover'
-    }
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+    /// Image display was inconsistent in production. Using ImgixFancy instead.
+    // background: {
+    //   image: 'url(./static/images/darksky/poweredby-oneline-dark-300.png)',
+    //   repeat: 'no-repeat',
+    //   position: 'center',
+    //   size: 'cover'
+    // }
   }
 })
 
@@ -54,7 +60,14 @@ const ForecastPopover = ({onPopoverClose, classes, anchorEl}: Props) => {
       onClose={onPopoverClose}
       disableRestoreFocus
     >
-      <div className={classes.popoverContent} />
+      <div className={classes.popoverContent}>
+        <ImgixFancy
+          height={20}
+          paddingPercent="22.5610%"
+          src="https://cosmic-s3.imgix.net/da7f8630-1c51-11e9-bf46-8b88c19621e9-poweredby-oneline-dark-300.png"
+          alt="Powered by Dark Sky Logo"
+        />
+      </div>
     </Popover>
   )
 }
