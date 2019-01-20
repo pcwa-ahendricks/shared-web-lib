@@ -28,8 +28,8 @@ const bindMiddleware = (middleware) => {
     return composeEnhancers(applyMiddleware(...middleware))
     // return composeEnhancers(applyMiddleware())
   }
-  // return applyMiddleware(...middleware)
-  return applyMiddleware()
+  return applyMiddleware(...middleware)
+  // return applyMiddleware()
 }
 
 // TODO - State type

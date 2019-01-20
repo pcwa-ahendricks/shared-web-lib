@@ -43,7 +43,7 @@ const setCycleTimeoutId = (cycleTimeoutId: IntervalID) => {
 export const startForecastTimer = (
   forecastLocations: Array<any>,
   interval: number
-) => async (dispatch: any, getState: () => State) => {
+) => (dispatch: any, getState: () => State) => {
   const {forecast} = getState()
   const {timeoutId} = forecast || {}
   // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
@@ -51,31 +51,33 @@ export const startForecastTimer = (
     return
   }
   // Get initial forecasts before starting timer.
-  const data = await getForecastData(forecastLocations)
-  dispatch(setForecasts(data))
-  const newTimeoutId = setInterval(async () => {
-    const data = await getForecastData(forecastLocations)
-    dispatch(setForecasts(data))
+  const getDataAndSetData = async () => {
+    try {
+      const data = await fetchForecasts(forecastLocations)
+      dispatch(setForecasts(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  getDataAndSetData()
+  const newTimeoutId = setInterval(() => {
+    getDataAndSetData()
   }, interval)
-  return dispatch(setTimeoutId(newTimeoutId))
-}
-
-const getForecastData = async (forecastLocations) => {
-  return await fetchForecasts(forecastLocations)
+  dispatch(setTimeoutId(newTimeoutId))
 }
 
 export const startCycleForecastTimer = (
   forecasts: Array<any>,
   interval: number
-) => async (dispatch: any, getState: () => State) => {
+) => (dispatch: any, getState: () => State) => {
   const {forecast} = getState()
   const {cycleTimeoutId} = forecast || {}
   // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
   if (cycleTimeoutId) {
     return
   }
-  const newTimeoutId = setInterval(async () => {
-    // We need to get the current state each time.
+  const newTimeoutId = setInterval(() => {
+    // We need to get the current state each time to properly increment active forecast.
     const {forecast} = getState()
     const {activeCycleForecastId} = forecast || {}
     dispatch(
@@ -86,5 +88,5 @@ export const startCycleForecastTimer = (
       )
     )
   }, interval)
-  return dispatch(setCycleTimeoutId(newTimeoutId))
+  dispatch(setCycleTimeoutId(newTimeoutId))
 }
