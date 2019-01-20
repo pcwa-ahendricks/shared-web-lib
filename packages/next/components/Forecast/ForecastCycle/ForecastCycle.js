@@ -54,19 +54,16 @@ const ForecastCycle = ({
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [transitionEnter, setTransitionEnter] = useState(false)
-  useEffect(
-    () => {
-      if (!forecasts || forecasts.length === 0 || !cycleInterval) {
-        return
-      }
-      dispatch(startCycleForecastTimer(forecasts, cycleInterval))
-      // Shorten the "Enter" transition during first enter (every page load). See below.
-      if (!transitionEnter) {
-        setTransitionEnter(true)
-      }
-    },
-    [forecasts]
-  )
+  useEffect(() => {
+    if (!forecasts || forecasts.length === 0 || !cycleInterval) {
+      return
+    }
+    dispatch(startCycleForecastTimer(forecasts, cycleInterval))
+    // Shorten the "Enter" transition during first enter (every page load). See below.
+    if (!transitionEnter) {
+      setTransitionEnter(true)
+    }
+  }, [forecasts])
 
   const activeForecast = () =>
     forecasts.find((forecast) => forecast.id === activeCycleForecastId)

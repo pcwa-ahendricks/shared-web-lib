@@ -125,16 +125,13 @@ const PrimaryHeader = ({
   const [activeKey, setActiveKey] = useState(null)
   const [activeLinkEl, setActiveLinkEl] = useState(null)
 
-  useEffect(
-    () => {
-      if (!debouncedPopperOpen) {
-        setAnchorEl(null)
-        setActiveLinkEl(null)
-        setActiveKey(null)
-      }
-    },
-    [debouncedPopperOpen]
-  )
+  useEffect(() => {
+    if (!debouncedPopperOpen) {
+      setAnchorEl(null)
+      setActiveLinkEl(null)
+      setActiveKey(null)
+    }
+  }, [debouncedPopperOpen])
 
   const handleMenuButtonClick = () => {
     dispatch(uiSetDrawerViz(!drawerOpen))

@@ -68,14 +68,11 @@ const Overline = (props: Props) => {
   /**
    * visible prop is essentially a manual override to the hover functionality. If it's not specified (ie. null) then component falls back to overline on hover. If it's specified (ie. true or false) then hover functionality is ignored.
    */
-  useEffect(
-    () => {
-      if (visible !== null) {
-        setOverlineVisible(visible)
-      }
-    },
-    [visible]
-  )
+  useEffect(() => {
+    if (visible !== null) {
+      setOverlineVisible(visible)
+    }
+  }, [visible])
   const mouseEnterHandler = () => {
     if (visible === null) {
       setOverlineVisible(true)

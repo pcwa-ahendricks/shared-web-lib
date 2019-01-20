@@ -72,12 +72,9 @@ const MegaMenuPopper = ({
     POPOVER_TRAN_EXIT_DURATION
   )
 
-  useEffect(
-    () => {
-      onTransitionChange && onTransitionChange(debouncedPopperTransActive)
-    },
-    [debouncedPopperTransActive]
-  )
+  useEffect(() => {
+    onTransitionChange && onTransitionChange(debouncedPopperTransActive)
+  }, [debouncedPopperTransActive])
   const transitionExitHandler = () => {
     setPopperTransActive(true)
   }

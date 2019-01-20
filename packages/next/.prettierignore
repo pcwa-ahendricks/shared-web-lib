@@ -1,1 +1,6 @@
 package.json
+.next/
+out/
+static/
+bundles/
+node_modules/
