@@ -53,17 +53,14 @@ const getDarkSkyHref = (lngLat: [number, number]): string =>
 const ForecastDisplay = ({forecast, theme, classes}: Props) => {
   const [darkSkyHref, setDarkSkyHref] = useState('#')
 
-  useEffect(
-    () => {
-      const {latitude, longitude} = forecast.data || {}
-      if (latitude && longitude) {
-        setDarkSkyHref(getDarkSkyHref([longitude, latitude]))
-      } else {
-        setDarkSkyHref('#')
-      }
-    },
-    [forecast]
-  )
+  useEffect(() => {
+    const {latitude, longitude} = forecast.data || {}
+    if (latitude && longitude) {
+      setDarkSkyHref(getDarkSkyHref([longitude, latitude]))
+    } else {
+      setDarkSkyHref('#')
+    }
+  }, [forecast])
 
   const {temperature, icon = defaults.icon} =
     (forecast && forecast.data && forecast.data.currently) || {}

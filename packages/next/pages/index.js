@@ -5,6 +5,7 @@ import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
 import PageLayout from '../components/PageLayout/PageLayout'
 import {Fade, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '../components/HeroOverlay/HeroOverlay'
+import TrendingBar from '../components/Trending/TrendingBar/TrendingBar'
 
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -12,10 +13,7 @@ const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
 const index = () => {
-  const [heroOverlayIn, setHeroOverlayIn]: [
-    boolean,
-    (v: boolean) => any
-  ] = useState(false)
+  const [heroOverlayIn, setHeroOverlayIn]: [boolean, any] = useState(false)
   return (
     <PageLayout>
       <ImgixFancyParallaxBanner
@@ -35,6 +33,7 @@ const index = () => {
           <HeroOverlay height="100%" />
         </Fade>
       </ImgixFancyParallaxBanner>
+      <TrendingBar />
       <title>Welcome</title>
       <Type variant="h4" color="primary" gutterBottom>
         Water Legislation FAQs
