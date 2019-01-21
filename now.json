@@ -18,7 +18,7 @@
       "src": "packages/next/next.config.js",
       "use": "@now/next",
       "config": {
-        "maxLambdaSize": "40mb"
+        "maxLambdaSize": "50mb"
       }
     },
     { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" }

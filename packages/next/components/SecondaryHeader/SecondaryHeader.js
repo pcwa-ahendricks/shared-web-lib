@@ -8,7 +8,11 @@ import {
 import dynamic from 'next/dynamic'
 import {Button, Toolbar, Typography as Type} from '@material-ui/core'
 import {startForecastTimer} from '../../store/actions'
+import FacebookIcon from 'mdi-material-ui/Facebook'
+import TwitterIcon from 'mdi-material-ui/Twitter'
+import YoutubeIcon from 'mdi-material-ui/Youtube'
 import {connect} from 'react-redux'
+import SocialIconButton from './SocialIconButton'
 
 const DynamicCycleForecast = dynamic(
   import('../Forecast/ForecastCycle/ForecastCycle')
@@ -97,6 +101,15 @@ const SecondaryHeader = ({classes, forecasts, dispatch}: Props) => {
         <Type variant="h6" color="inherit" className={classes.grow}>
           News
         </Type>
+        <SocialIconButton href="https://twitter.com/PlacerWater">
+          <FacebookIcon />
+        </SocialIconButton>
+        <SocialIconButton href="https://www.facebook.com/ThePCWA">
+          <TwitterIcon />
+        </SocialIconButton>
+        <SocialIconButton href="https://www.youtube.com/user/ThePCWA">
+          <YoutubeIcon />
+        </SocialIconButton>
         <Button color="inherit">Login</Button>
       </Toolbar>
     </div>

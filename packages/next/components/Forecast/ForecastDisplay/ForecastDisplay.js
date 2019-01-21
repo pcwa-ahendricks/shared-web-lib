@@ -81,7 +81,7 @@ const ForecastDisplay = ({forecast, theme, classes}: Props) => {
       <Type variant="subtitle1" className={classes.forecastType}>
         <Link
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           href={darkSkyHref}
           underline="none"
         >{`${parseInt(temperature, 10)}° ${forecast.title} `}</Link>

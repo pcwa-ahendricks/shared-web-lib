@@ -2,10 +2,12 @@
 import React, {type Node} from 'react'
 import {Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
+import Link from 'next/link'
 
 type Props = {
   classes: any,
-  children: Node
+  children: Node,
+  href: string
 }
 
 const styles = {
@@ -14,11 +16,13 @@ const styles = {
   }
 }
 
-const TrendingLink = ({classes, children}: Props) => {
+const TrendingLink = ({classes, children, href}: Props) => {
   return (
-    <Button size="small" color="inherit" className={classes.root}>
-      {children}
-    </Button>
+    <Link href={href} passHref>
+      <Button size="small" color="inherit" className={classes.root}>
+        {children}
+      </Button>
+    </Link>
   )
 }
 

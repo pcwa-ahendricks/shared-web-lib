@@ -31,6 +31,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "jss-plugin-expand": "^10.0.0-alpha.7",
     "lazysizes": "^4.1.5",
+    "mdi-material-ui": "^5.8.0",
     "next": "^7.0.2",
     "next-redux-wrapper": "^2.1.0",
     "prop-types": "^15.6.2",
