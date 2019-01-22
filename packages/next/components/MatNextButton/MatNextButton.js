@@ -6,14 +6,13 @@ import NextLink from 'next/link'
 type Props = {
   children: Node,
   href: string,
-  buttonProps?: any,
-  nextLinkProps?: any
+  linkProps?: any
 }
 
-const MatNextButton = ({children, href, nextLinkProps, buttonProps}: Props) => {
+const MatNextButton = ({children, href, linkProps, ...rest}: Props) => {
   return (
-    <NextLink href={href} passHref {...nextLinkProps}>
-      <Button color="inherit" {...buttonProps}>
+    <NextLink href={href} passHref {...linkProps}>
+      <Button color="inherit" {...rest}>
         {children}
       </Button>
     </NextLink>

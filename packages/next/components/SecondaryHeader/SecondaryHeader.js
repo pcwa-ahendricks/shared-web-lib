@@ -105,10 +105,8 @@ const SecondaryHeader = ({classes, forecasts, dispatch}: Props) => {
         <ENewsButton>E-News</ENewsButton>
         <MatNextButton
           href="/about-pcwa/board-agenda"
-          buttonProps={{
-            'aria-label': 'Link',
-            color: 'primary'
-          }}
+          aria-label="Link"
+          color="primary"
         >
           Board Meetings
         </MatNextButton>

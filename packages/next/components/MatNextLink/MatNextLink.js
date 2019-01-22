@@ -7,21 +7,20 @@ type Props = {
   children: Node,
   href: string,
   typeProps?: any,
-  nextLinkProps?: any,
-  matLinkProps?: any
+  linkProps?: any
 }
 
 const MatNextLink = ({
   children,
   href,
   typeProps,
-  nextLinkProps,
-  matLinkProps
+  linkProps,
+  ...rest
 }: Props) => {
   return (
     <Type {...typeProps}>
-      <NextLink href={href} passHref {...nextLinkProps}>
-        <Link color="inherit" underline="none" {...matLinkProps}>
+      <NextLink href={href} passHref {...linkProps}>
+        <Link color="inherit" underline="none" {...rest}>
           {children}
         </Link>
       </NextLink>
