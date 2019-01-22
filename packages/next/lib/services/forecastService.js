@@ -2,7 +2,7 @@
 
 import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
-import {type Location} from '../../components/Forecast/ForecastDisplay/ForecastDisplay'
+import {type Location} from '../../components/forecast/ForecastDisplay/ForecastDisplay'
 
 const FORECAST_URL = process.env.FORECAST_URL || ''
 

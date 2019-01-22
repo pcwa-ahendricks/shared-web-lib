@@ -4,18 +4,22 @@ import {withStyles} from '@material-ui/core/styles'
 import {
   type Location,
   type ForecastData
-} from '../Forecast/ForecastDisplay/ForecastDisplay'
+} from '../forecast/ForecastDisplay/ForecastDisplay'
 import dynamic from 'next/dynamic'
-import {Button, Toolbar, Typography as Type} from '@material-ui/core'
+import {Button, Toolbar} from '@material-ui/core'
 import {startForecastTimer} from '../../store/actions'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
 import {connect} from 'react-redux'
 import SocialIconButton from './SocialIconButton'
+import ENewsButton from '../eNews/ENewsButton/ENewsButton'
+import EspanolButton from '../EspanolButton/EspanolButton'
+import SearchInput from '../search/SearchInput/SearchInput'
+import MatNextButton from '../MatNextButton/MatNextButton'
 
 const DynamicCycleForecast = dynamic(
-  import('../Forecast/ForecastCycle/ForecastCycle')
+  import('../forecast/ForecastCycle/ForecastCycle')
 )
 
 type Props = {
@@ -98,9 +102,25 @@ const SecondaryHeader = ({classes, forecasts, dispatch}: Props) => {
         </div>
         <div className={classes.grow} />
 
-        <Type variant="h6" color="inherit" className={classes.grow}>
-          News
-        </Type>
+        <ENewsButton>E-News</ENewsButton>
+        <MatNextButton
+          href="/about-pcwa/board-agenda"
+          buttonProps={{
+            'aria-label': 'Link',
+            color: 'primary'
+          }}
+        >
+          Board Meetings
+        </MatNextButton>
+        <Button
+          aria-label="Link"
+          color="primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://ipn.paymentus.com/cp/plco"
+        >
+          Pay My Bill
+        </Button>
         <SocialIconButton href="https://twitter.com/PlacerWater">
           <FacebookIcon />
         </SocialIconButton>
@@ -110,7 +130,8 @@ const SecondaryHeader = ({classes, forecasts, dispatch}: Props) => {
         <SocialIconButton href="https://www.youtube.com/user/ThePCWA">
           <YoutubeIcon />
         </SocialIconButton>
-        <Button color="inherit">Login</Button>
+        <EspanolButton>Español</EspanolButton>
+        <SearchInput />
       </Toolbar>
     </div>
   )

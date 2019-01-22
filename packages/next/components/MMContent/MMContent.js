@@ -2,7 +2,7 @@
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import {Typography as Type} from '@material-ui/core'
-import MegaMenuContentContainer from '../MegaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
+import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import NavLink from '../MMNavLink/MMNavLink'
 
 type Props = {

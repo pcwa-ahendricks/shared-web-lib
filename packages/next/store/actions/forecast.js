@@ -7,7 +7,7 @@ import {
   SET_CYCLE_TIMEOUT_ID
 } from './actionTypes'
 import {type State} from '../index'
-import {type ForecastData} from '../../components/Forecast/ForecastDisplay/ForecastDisplay'
+import {type ForecastData} from '../../components/forecast/ForecastDisplay/ForecastDisplay'
 import {maxInt} from '../../lib/util'
 
 const setForecasts = (forecasts: Array<ForecastData>) => {
