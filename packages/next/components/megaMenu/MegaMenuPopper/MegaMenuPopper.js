@@ -97,7 +97,7 @@ const MegaMenuPopper = ({
           // },
           offset: {
             enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 15'}`
+            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 17'}`
           },
           preventOverflow: {
             enabled: true,
@@ -136,7 +136,7 @@ const MegaMenuPopper = ({
           // },
           offset: {
             enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 16'}`
+            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 18'}`
           },
           preventOverflow: {
             enabled: true,
