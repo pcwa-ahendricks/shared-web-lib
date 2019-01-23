@@ -22,14 +22,14 @@ const styles = (theme) => ({
   },
   inputWithFocus: {},
   input: {
-    width: 150,
-    '-webkit-transition': 'width 500ms ease',
+    maxWidth: 100,
+    '-webkit-transition': 'max-width 500ms ease',
     transition: 'width 500ms ease',
     '&$inputWithFocus': {
-      width: 225
+      maxWidth: 175
     },
     marginLeft: theme.spacing.unit * 2,
-    flex: 1
+    flex: '1 1 auto'
   }
   // withStartAdornment: {
   //   paddingLeft: theme.spacing.unit * 1

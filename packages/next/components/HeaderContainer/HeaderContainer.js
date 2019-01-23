@@ -27,10 +27,9 @@ const HeaderContainer = ({classes}: Props) => {
     }
   }
 
-  // Don't use CSS implementation of hide cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast.
   return (
     <React.Fragment>
-      <Hidden only="xs">
+      <Hidden only="xs" implementation="css">
         <SecondaryHeader />
       </Hidden>
       <Sticky onFixedToggle={fixedToggleHandler} className={classes.sticky}>
