@@ -1,26 +1,17 @@
 // @flow
 import React, {type Node} from 'react'
-// import {withStyles} from '@material-ui/core/styles'
-import {Button} from '@material-ui/core'
+import GlowButton from '../GlowButton/GlowButton'
 
 type Props = {
-  // classes: any,
   children?: Node
 }
 
-// const styles = () => ({
-//   root: {}
-// })
-
 const EspanolButton = ({children}: Props) => {
   return (
-    <Button size="small" color="primary">
+    <GlowButton size="small" color="primary">
       {children}
-    </Button>
+    </GlowButton>
   )
 }
 
-// EnewsButton.defaultProps = {}
-
-// export default withStyles(styles)(EnewsButton)
 export default EspanolButton

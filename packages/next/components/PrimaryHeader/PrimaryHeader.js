@@ -10,7 +10,7 @@ import MegaMenuLink from '../megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '../megaMenu/MegaMenuPopper/MegaMenuPopper'
 import MMContent from '../MMContent/MMContent'
 import useDebounce from '../../hooks/useDebounce'
-import MatNextLink from '../MatNextLink/MatNextLink'
+import NextLink from '../NextLink/NextLink'
 import PcwaLogo from '../../components/PcwaLogo/PcwaLogo'
 
 export type ToolbarVariant = 'regular' | 'dense'
@@ -60,7 +60,7 @@ const styles = (theme) => ({
       right: '1vw'
     }
   },
-  homeLinkType: {
+  homeLinkButtonClass: {
     // fontFamily: 'Asap Condensed', // Should match MegaMenuLink.
     // fontSize: '1rem', // // Default: 0.875rem. Should match MegaMenuLink.
     fontWeight: 600 // Should match MegaMenuLink.
@@ -200,16 +200,16 @@ const PrimaryHeader = ({
             {width === 'xs' ? null : (
               <div className={classes.menuLinks}>
                 <div className={classes.homeLink}>
-                  <MatNextLink
+                  <NextLink
                     href="/"
                     typeProps={{
                       variant: 'button',
                       color: 'primary',
-                      classes: {button: classes.homeLinkType}
+                      classes: {button: classes.homeLinkButtonClass}
                     }}
                   >
                     Home
-                  </MatNextLink>
+                  </NextLink>
                 </div>
                 {menuLinkData.map((menuItem) => (
                   <div key={menuItem.key} className={classes.menuLink}>

@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
+import colorAlpha from 'color-alpha'
 
 type Props = {
   classes: any
@@ -12,6 +13,7 @@ type Props = {
 
 const styles = (theme) => ({
   root: {
+    backgroundColor: colorAlpha(theme.palette.primary.main, 0.07),
     margin: theme.spacing.unit * 1,
     height: theme.spacing.unit * 4,
     display: 'flex',

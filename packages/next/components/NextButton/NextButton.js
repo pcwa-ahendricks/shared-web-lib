@@ -1,7 +1,7 @@
 // @flow
 import React, {type Node} from 'react'
 import {Button} from '@material-ui/core'
-import NextLink from 'next/link'
+import Link from 'next/link'
 
 type Props = {
   children: Node,
@@ -9,16 +9,14 @@ type Props = {
   linkProps?: any
 }
 
-const MatNextButton = ({children, href, linkProps, ...rest}: Props) => {
+const NextButton = ({children, href, linkProps, ...rest}: Props) => {
   return (
-    <NextLink href={href} passHref {...linkProps}>
+    <Link href={href} passHref {...linkProps}>
       <Button color="inherit" {...rest}>
         {children}
       </Button>
-    </NextLink>
+    </Link>
   )
 }
 
-// MatNextButton.defaultProps = {
-// }
-export default MatNextButton
+export default NextButton

@@ -16,7 +16,7 @@ import SocialIconButton from './SocialIconButton'
 import ENewsButton from '../eNews/ENewsButton/ENewsButton'
 import EspanolButton from '../EspanolButton/EspanolButton'
 import SearchInput from '../search/SearchInput/SearchInput'
-import MatNextButton from '../MatNextButton/MatNextButton'
+import GlowButton, {NextGlowButton} from '../GlowButton/GlowButton'
 
 const DynamicCycleForecast = dynamic(
   import('../forecast/ForecastCycle/ForecastCycle')
@@ -103,22 +103,22 @@ const SecondaryHeader = ({classes, forecasts, dispatch}: Props) => {
         <div className={classes.grow} />
 
         <ENewsButton>E-News</ENewsButton>
-        <MatNextButton
-          href="/about-pcwa/board-agenda"
+        <NextGlowButton
           aria-label="Link"
           color="primary"
+          href="/about-pcwa/board-agenda"
         >
           Board Meetings
-        </MatNextButton>
-        <Button
+        </NextGlowButton>
+        <GlowButton
           aria-label="Link"
           color="primary"
+          href="https://ipn.paymentus.com/cp/plco"
           target="_blank"
           rel="noopener noreferrer"
-          href="https://ipn.paymentus.com/cp/plco"
         >
           Pay My Bill
-        </Button>
+        </GlowButton>
         <SocialIconButton href="https://twitter.com/PlacerWater">
           <FacebookIcon />
         </SocialIconButton>
