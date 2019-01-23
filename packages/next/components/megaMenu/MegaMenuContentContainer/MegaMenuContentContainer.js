@@ -10,7 +10,7 @@ type Props = {
   children: Node
 }
 
-const DEFAULT_CROSS_FADE_DURATION = 200
+const DEFAULT_CROSS_FADE_DURATION = 250
 
 const styles = (theme) => ({
   root: {

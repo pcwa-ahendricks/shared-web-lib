@@ -9,7 +9,6 @@ import {uiSetDrawerViz} from '../../store/actions'
 import MegaMenuLink from '../megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '../megaMenu/MegaMenuPopper/MegaMenuPopper'
 import MMContent from '../MMContent/MMContent'
-import useDebounce from '../../hooks/useDebounce'
 import NextLink from '../NextLink/NextLink'
 import PcwaLogo from '../../components/PcwaLogo/PcwaLogo'
 
@@ -126,17 +125,16 @@ const PrimaryHeader = ({
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [popperOpen, setPopperOpen] = useState(false)
-  const debouncedPopperOpen = useDebounce(popperOpen, 100)
   const [activeKey, setActiveKey] = useState(null)
   const [activeLinkEl, setActiveLinkEl] = useState(null)
 
   useEffect(() => {
-    if (!debouncedPopperOpen) {
+    if (!popperOpen) {
       setAnchorEl(null)
       setActiveLinkEl(null)
       setActiveKey(null)
     }
-  }, [debouncedPopperOpen])
+  }, [popperOpen])
 
   const handleMenuButtonClick = () => {
     dispatch(uiSetDrawerViz(!drawerOpen))
@@ -164,7 +162,7 @@ const PrimaryHeader = ({
     setPopperOpen(true)
   }
 
-  const id = debouncedPopperOpen ? 'mega-menu-popper' : null
+  const id = popperOpen ? 'mega-menu-popper' : null
   const toolbarVariant = parentFixed ? 'dense' : 'regular'
   return (
     <React.Fragment>
@@ -223,6 +221,7 @@ const PrimaryHeader = ({
                       onLinkLeave={popperCloseHandler}
                       onBottomBunEnter={popperOpenHandler}
                       parentActiveEl={activeLinkEl}
+                      debug={menuItem.caption}
                     >
                       {menuItem.caption}
                     </MegaMenuLink>
@@ -235,7 +234,7 @@ const PrimaryHeader = ({
       </div>
       <MegaMenuPopper
         id={id}
-        open={debouncedPopperOpen}
+        open={popperOpen}
         toolbarVariant={toolbarVariant}
         anchorEl={anchorEl}
         onOpen={popperOpenHandler}

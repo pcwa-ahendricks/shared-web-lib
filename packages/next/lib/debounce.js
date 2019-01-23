@@ -1,5 +1,5 @@
 // @flow
-function debounce(fn: () => void, delay: number) {
+function debounce(fn: () => void, delay: number = 100) {
   let timeoutID: any = null
   return () => {
     clearTimeout(timeoutID)

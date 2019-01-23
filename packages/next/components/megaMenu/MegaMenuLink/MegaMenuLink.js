@@ -34,7 +34,8 @@ const styles = (theme) => ({
     '&:hover,&:focus,&.mmLinkActive': {
       color: theme.palette.primary.dark
     },
-    margin: {
+    // Use padding over margin to prevent mega menu popover from closing when cursor moves between links.
+    padding: {
       left: '1vw', // Should match <Overline/> margin.
       right: '1vw' // ""
     }

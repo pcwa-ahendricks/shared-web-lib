@@ -97,7 +97,7 @@ const MegaMenuPopper = ({
           // },
           offset: {
             enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 14'}`
+            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 15'}`
           },
           preventOverflow: {
             enabled: true,
@@ -109,7 +109,7 @@ const MegaMenuPopper = ({
         {({TransitionProps}) => (
           <Collapse
             {...TransitionProps}
-            timeout={{enter: 100, exit: POPOVER_TRAN_EXIT_DURATION}}
+            timeout={{enter: 150, exit: POPOVER_TRAN_EXIT_DURATION}}
             onExit={transitionExitHandler}
             onEntered={transitionEnterHandler}
           >
@@ -126,7 +126,7 @@ const MegaMenuPopper = ({
       </Popper>
       <Popper
         id={id}
-        open={open && toolbarVariant === 'regular'}
+        open={open && toolbarVariant === 'regular'} // Check prevents popper.js console.log() msg.}
         className={classes.popper}
         transition
         anchorEl={anchorEl}
@@ -136,7 +136,7 @@ const MegaMenuPopper = ({
           // },
           offset: {
             enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 14'}`
+            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 16'}`
           },
           preventOverflow: {
             enabled: true,
@@ -144,7 +144,7 @@ const MegaMenuPopper = ({
             padding: 0
           },
           arrow: {
-            enabled: arrowRef.current, // Check prevents popper.js console.log() msg.
+            enabled: arrowRef.current,
             element: arrowRef.current
           }
         }}
@@ -152,7 +152,7 @@ const MegaMenuPopper = ({
         {({TransitionProps}) => (
           <Collapse
             {...TransitionProps}
-            timeout={{enter: 100, exit: POPOVER_TRAN_EXIT_DURATION}}
+            timeout={{enter: 300, exit: POPOVER_TRAN_EXIT_DURATION}}
           >
             <span
               className={classes.arrow}
