@@ -53,16 +53,16 @@ const styles = (theme) => ({
   homeLink: {
     flex: '0 0 auto',
     alignSelf: 'center',
-    // Margin should match Overline and mmLink margin for consistency.
+    // Margin should match <MegaMenuLink/> linkMargin prop for consistency.
     margin: {
       left: '1vw',
       right: '1vw'
     }
   },
-  homeLinkButtonClass: {
-    // fontFamily: 'Asap Condensed', // Should match MegaMenuLink.
-    // fontSize: '1rem', // // Default: 0.875rem. Should match MegaMenuLink.
-    fontWeight: 600 // Should match MegaMenuLink.
+  megaMenuLink: {
+    fontSize: '1.1rem', // Default: 1rem.
+    fontWeight: 600,
+    textTransform: 'capitalize'
   },
   toolbar: {
     height: '100%'
@@ -203,7 +203,7 @@ const PrimaryHeader = ({
                     typeProps={{
                       variant: 'button',
                       color: 'primary',
-                      classes: {button: classes.homeLinkButtonClass}
+                      classes: {button: classes.megaMenuLink}
                     }}
                   >
                     Home
@@ -221,7 +221,8 @@ const PrimaryHeader = ({
                       onLinkLeave={popperCloseHandler}
                       onBottomBunEnter={popperOpenHandler}
                       parentActiveEl={activeLinkEl}
-                      debug={menuItem.caption}
+                      typographyClass={classes.megaMenuLink}
+                      linkMargin="1vw"
                     >
                       {menuItem.caption}
                     </MegaMenuLink>

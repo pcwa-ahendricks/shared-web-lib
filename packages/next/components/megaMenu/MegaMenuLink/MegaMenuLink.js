@@ -8,13 +8,15 @@ import Overline from '../../Overline/Overline'
 type Props = {
   describedbyId: string,
   classes: any,
+  typographyClass?: any,
   onLinkClick: () => any,
   onLinkEnter: (any, any) => any,
   onLinkLeave: () => any,
   onBottomBunEnter: () => any,
   parentActiveEl: any,
   children: Node,
-  tabIdx?: number
+  tabIdx?: number,
+  linkMargin?: string | number
 }
 
 const styles = (theme) => ({
@@ -24,23 +26,15 @@ const styles = (theme) => ({
     justifyContent: 'center',
     height: '100%'
   },
-  mmLink: {
+  typography: {
     flex: '0 0 auto',
     color: theme.palette.primary.main,
-    // fontFamily: 'Asap Condensed', // Should match MegaMenuLink.
-    // fontSize: '1rem', // // Default: 0.875rem. Should match MegaMenuLink.
-    fontWeight: 600, // Should match MegaMenuLink.
     cursor: 'pointer',
-    '&:hover,&:focus,&.mmLinkActive': {
+    '&:hover,&:focus,&.linkActive': {
       color: theme.palette.primary.dark
-    },
-    // Use padding over margin to prevent mega menu popover from closing when cursor moves between links.
-    padding: {
-      left: '1vw', // Should match <Overline/> margin.
-      right: '1vw' // ""
     }
   },
-  mmLinkBun: {
+  linkBun: {
     flex: '1 0 auto'
   }
 })
@@ -55,6 +49,8 @@ const MegaMenuLink = ({
   onBottomBunEnter,
   parentActiveEl,
   tabIdx,
+  typographyClass,
+  linkMargin,
   ...rest
 }: Props) => {
   const typeRef = useRef(null)
@@ -72,15 +68,17 @@ const MegaMenuLink = ({
       useFullHeight
       visible={isActive}
       transitionDuration={200}
-      lineMargin="1vw" // This should match .mmLink margin
+      lineMargin={linkMargin}
     >
       <div className={classes.root}>
-        <div className={classes.mmLinkBun} />
+        <div className={classes.linkBun} />
         <Type
           ref={typeRef}
-          className={classNames(classes.mmLink, {
-            mmLinkActive: isActive
+          className={classNames(classes.typography, typographyClass, {
+            linkActive: isActive
           })}
+          // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.
+          style={{paddingLeft: linkMargin, paddingRight: linkMargin}}
           aria-describedby={describedbyId}
           onClick={onLinkClick}
           onBlur={onLinkLeave}
@@ -95,7 +93,7 @@ const MegaMenuLink = ({
           </Link>
         </Type>
         <div
-          className={classes.mmLinkBun}
+          className={classes.linkBun}
           onMouseEnter={onBottomBunEnter}
           onFocus={onBottomBunEnter}
           onMouseLeave={onLinkLeave}

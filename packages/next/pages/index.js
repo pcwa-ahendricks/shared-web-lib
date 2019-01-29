@@ -46,6 +46,9 @@ const index = () => {
         use targets for their service areas by 2022. PCWA has put together some
         Frequently Asked Questions regarding this new legislation.
       </Type>
+      <Type variant="body1" style={{fontStyle: 'italic'}}>
+        Read more...
+      </Type>
       <div style={{backgroundColor: 'beige', height: 1500}}>
         the next website.
       </div>

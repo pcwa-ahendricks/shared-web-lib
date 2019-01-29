@@ -92,6 +92,55 @@ class MyDocument extends Document {
           body {
             margin: 0;
           }
+          @font-face {
+            font-family: 'Malva';
+            font-weight: 400;
+            src: url('/static/font/Malva/Malva-Regular.eot?#iefix')
+                format('embedded-opentype'),
+              url('/static/font/Malva/Malva-Regular.woff2') format('woff2'),
+              url('/static/font/Malva/Malva-Regular.woff') format('woff');
+            font-display: 'swap';
+          }
+          @font-face {
+            font-family: 'Malva';
+            font-weight: 500;
+            src: url('/static/font/Malva/Malva-Medium.eot?#iefix')
+                format('embedded-opentype'),
+              url('/static/font/Malva/Malva-Medium.woff2') format('woff2'),
+              url('/static/font/Malva/Malva-Medium.woff') format('woff');
+            font-display: 'swap';
+          }
+          @font-face {
+            font-family: 'Malva';
+            font-weight: 600;
+            src: url('/static/font/Malva/Malva-Bold.eot?#iefix')
+                format('embedded-opentype'),
+              url('/static/font/Malva/Malva-Bold.woff2') format('woff2'),
+              url('/static/font/Malva/Malva-Bold.woff') format('woff');
+            font-display: 'swap';
+          }
+          @font-face {
+            font-family: 'Kiperman';
+            font-weight: 400;
+            src: url('/static/font/Kiperman/Kiperman-Regular-1d65e07959.eot?#iefix')
+                format('embedded-opentype'),
+              url('/static/font/Kiperman/Kiperman-Regular-c63eb9630d.woff2')
+                format('woff2'),
+              url('/static/font/Kiperman/Kiperman-Regular-ea04447b25.woff')
+                format('woff');
+            font-display: 'swap';
+          }
+          @font-face {
+            font-family: 'Kiperman';
+            font-weight: 400;
+            font-style: italic;
+            src: url('/static/font/Kiperman/Kiperman-Italic-7a53a9f0ea.eot?#iefix')
+                format('embedded-opentype'),
+              url('/static/font/Kiperman/Kiperman-Italic-8c53b21454.woff2')
+                format('woff2'),
+              url('/static/font/Kiperman/Kiperman-Italic-5f3ffbc219.woff')
+                format('woff');
+            font-display: 'swap';
         `}</style>
       </html>
     )
