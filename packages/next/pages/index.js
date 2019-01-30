@@ -40,7 +40,7 @@ const index = () => {
       <Type variant="h4" color="primary" gutterBottom>
         Water Legislation FAQs
       </Type>
-      <Type variant="body1">
+      <Type variant="body2">
         The State of California has enacted into law two new bills that require
         urban water providers throughout California to set new permanent water
         use targets for their service areas by 2022. PCWA has put together some
