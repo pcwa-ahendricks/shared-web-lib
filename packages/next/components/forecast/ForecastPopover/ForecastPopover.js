@@ -3,7 +3,7 @@
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import {Popover} from '@material-ui/core'
-import ImgixFancy from '../../ImgixFancy/ImgixFancy'
+import Imgix from 'react-imgix'
 
 const DARKSKY_BG_COLOR = '#313134'
 
@@ -28,7 +28,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
-    /// Image display was inconsistent in production. Using ImgixFancy instead.
+    /// Image display was inconsistent in production. Using react-imgix instead.
     // background: {
     //   image: 'url(./static/images/darksky/poweredby-oneline-dark-300.png)',
     //   repeat: 'no-repeat',
@@ -61,11 +61,15 @@ const ForecastPopover = ({onPopoverClose, classes, anchorEl}: Props) => {
       disableRestoreFocus
     >
       <div className={classes.popoverContent}>
-        <ImgixFancy
+        {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
+        <Imgix
           height={20}
-          paddingPercent="22.5610%"
+          width={150}
           src="https://cosmic-s3.imgix.net/da7f8630-1c51-11e9-bf46-8b88c19621e9-poweredby-oneline-dark-300.png"
-          alt="Powered by Dark Sky Logo"
+          htmlAttributes={{
+            alt: 'Powered by Dark Sky Logo',
+            style: {width: '100%'}
+          }}
         />
       </div>
     </Popover>
