@@ -5,13 +5,11 @@
   "public": false,
   "build": {
     "env": {
-      "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
-      "FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
+      "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
     }
   },
   "env": {
-    "DARKSKY_API_KEY": "@web-darksky-dev-api-key",
-    "FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
+    "NODE_DARKSKY_API_KEY": "@web-darksky-dev-api-key"
   },
   "builds": [
     {

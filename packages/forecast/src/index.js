@@ -11,7 +11,7 @@ import {createError, send} from 'micro'
 import type {ServerResponse, IncomingMessage} from 'http'
 import {parseUrl} from 'query-string'
 
-const DARKSKY_API_KEY = process.env.DARKSKY_API_KEY || ''
+const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY || ''
 
 // Only accept requests for the following longitudes and latitudes.
 const ACCEPT_LATITUDES = [38, 39]

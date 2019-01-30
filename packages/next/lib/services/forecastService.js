@@ -4,7 +4,7 @@ import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 import {type Location} from '../../components/forecast/ForecastDisplay/ForecastDisplay'
 
-const FORECAST_URL = process.env.FORECAST_URL || ''
+const FORECAST_URL = process.env.NEXT_FORECAST_URL || ''
 
 const fetchForecast = async (location: Location) => {
   const url = `${FORECAST_URL}${stringify(location.queryParams, true)}`
