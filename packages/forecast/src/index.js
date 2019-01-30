@@ -13,6 +13,10 @@ import {parseUrl} from 'query-string'
 
 const DARKSKY_API_KEY = process.env.DARKSKY_API_KEY || ''
 
+// Only accept requests for the following longitudes and latitudes.
+const ACCEPT_LATITUDES = [38, 39]
+const ACCEPT_LONGITUDES = [-121, -120]
+
 const Forecast = require('forecast')
 
 const defaultForecastConfig = {
@@ -63,6 +67,14 @@ const getForecast = async (req: IncomingMessage, res, forecast) => {
   const {lat, lng} = parseUrl(req.url).query
   if (!lat || !lng) {
     send(res, 204)
+    return
+  }
+  if (
+    !ACCEPT_LATITUDES.includes(parseInt(lat)) ||
+    !ACCEPT_LONGITUDES.includes(parseInt(lng))
+  ) {
+    send(res, 406)
+    return
   }
   const weather = new Promise((resolve, reject) => {
     return forecast.get([lat, lng], (err: any, weather: any) => {
