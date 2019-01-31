@@ -141,6 +141,7 @@ class MyDocument extends Document {
               url('/static/font/Kiperman/Kiperman-Italic-5f3ffbc219.woff')
                 format('woff');
             font-display: 'swap';
+          }
         `}</style>
       </html>
     )
