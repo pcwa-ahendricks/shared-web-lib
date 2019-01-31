@@ -76,14 +76,18 @@ module.exports = (phase, {defaultConfig}) => {
        * want to keep them secret from the repo, the following code will allow you
        * to share some variables with the client, configured at compile time.
        * See https://github.com/zeit/next.js/blob/canary/examples/with-now-env/next.config.js
+       * Only using Now Secrets in non-development environments. Development environments will
+       * utilize dotenv file. See above.
        */
-      config.plugins.push(
-        new webpack.EnvironmentPlugin(['NEXT_FORECAST_URL'])
-        // Same as above
-        // new webpack.DefinePlugin({
-        //   'process.env.NEXT_FORECAST_URL': JSON.stringify(process.env.NEXT_FORECAST_URL)
-        // })
-      )
+      if (!isDev) {
+        config.plugins.push(
+          new webpack.EnvironmentPlugin(['NEXT_FORECAST_URL'])
+          // Same as above
+          // new webpack.DefinePlugin({
+          //   'process.env.NEXT_FORECAST_URL': JSON.stringify(process.env.NEXT_FORECAST_URL)
+          // })
+        )
+      }
 
       return config
     }
