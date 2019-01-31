@@ -3,7 +3,7 @@ import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import {Typography as Type} from '@material-ui/core'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
-import NavLink from '../MMNavLink/MMNavLink'
+import MMNavLink from '../MMNavLink/MMNavLink'
 
 type Props = {
   classes: any,
@@ -41,9 +41,9 @@ const MMContent = ({classes, contentKey}: Props) => {
         </Type>
       ) : (
         <nav key={contentKey}>
-          <NavLink href="/services/irrigation-canal">
+          <MMNavLink href="/services/irrigation-canal">
             Irrigation Canal Information
-          </NavLink>
+          </MMNavLink>
         </nav>
       )}
     </MegaMenuContentContainer>
