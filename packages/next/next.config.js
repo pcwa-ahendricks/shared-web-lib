@@ -18,7 +18,7 @@ module.exports = (phase, {defaultConfig}) => {
     WebpackBundleSizeAnalyzerPlugin
   } = require('webpack-bundle-size-analyzer')
   const Dotenv = require('dotenv-webpack')
-  const path = require('path')
+  const webpack = require('webpack')
   const {STATS} = process.env
 
   return withBundleAnalyzer({
@@ -69,18 +69,21 @@ module.exports = (phase, {defaultConfig}) => {
             expand: true
           })
         )
-      } else {
-        // Don't use .env file and don't validate using .env.example (safe=false) since env file won't be used. System vars passed down for Now will be used instead.
-        const filename = '.env.SHOULD_NOT_EXIST'
-        config.plugins.push(
-          new Dotenv({
-            path: path.join(__dirname, filename),
-            systemvars: true,
-            safe: false,
-            expand: false
-          })
-        )
       }
+
+      /**
+       * If some of the envs are public, like a google maps key, but you still
+       * want to keep them secret from the repo, the following code will allow you
+       * to share some variables with the client, configured at compile time.
+       * See https://github.com/zeit/next.js/blob/canary/examples/with-now-env/next.config.js
+       */
+      config.plugins.push(
+        new webpack.EnvironmentPlugin(['NEXT_FORECAST_URL'])
+        // Same as above
+        // new webpack.DefinePlugin({
+        //   'process.env.NEXT_FORECAST_URL': JSON.stringify(process.env.NEXT_FORECAST_URL)
+        // })
+      )
 
       return config
     }
