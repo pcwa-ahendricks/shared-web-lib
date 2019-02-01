@@ -60,9 +60,24 @@ const styles = (theme) => ({
     }
   },
   megaMenuLink: {
-    fontSize: '1.1rem', // Default: 1rem.
     fontWeight: 600,
     textTransform: 'capitalize'
+  },
+  // Responsive font size for Mega Menu links. Default fontSize is 1rem.
+  '@media screen and (max-width: 680px)': {
+    megaMenuLink: {
+      fontSize: '0.85rem'
+    }
+  },
+  '@media screen and (min-width: 681px) and (max-width: 750px)': {
+    megaMenuLink: {
+      fontSize: '0.9rem'
+    }
+  },
+  '@media screen and (min-width: 1400px)': {
+    megaMenuLink: {
+      fontSize: '1.1rem'
+    }
   },
   toolbar: {
     height: '100%'
