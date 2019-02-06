@@ -22,7 +22,7 @@
   "dependencies": {},
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "flow-bin": "^0.91.0",
-    "now": "^13.1.2"
+    "flow-bin": "^0.92.1",
+    "now": "^13.1.3"
   }
 }

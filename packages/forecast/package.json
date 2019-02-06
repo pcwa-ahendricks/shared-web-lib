@@ -29,7 +29,7 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-flow": "^7.0.0",
-    "ava": "^1.2.0",
+    "ava": "^1.2.1",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "eslint-config-prettier": "^4.0.0",
@@ -37,7 +37,7 @@
     "eslint-plugin-prettier": "^3.0.0",
     "micro-dev": "^3.0.0",
     "nodemon": "^1.18.9",
-    "prettier": "^1.16.3",
+    "prettier": "^1.16.4",
     "test-listen": "^1.1.0"
   }
 }
