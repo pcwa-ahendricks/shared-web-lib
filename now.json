@@ -13,7 +13,7 @@
   },
   "builds": [
     {
-      "src": "packages/next/next.config.js",
+      "src": "packages/next/package.json",
       "use": "@now/next",
       "config": {
         "maxLambdaSize": "50mb"

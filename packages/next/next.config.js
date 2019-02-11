@@ -23,6 +23,7 @@ module.exports = (phase, {defaultConfig}) => {
 
   return withBundleAnalyzer({
     ...defaultConfig,
+    target: 'serverless',
     analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
     analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
     bundleAnalyzerConfig: {
@@ -81,7 +82,7 @@ module.exports = (phase, {defaultConfig}) => {
        */
       if (!isDev) {
         config.plugins.push(
-          new webpack.EnvironmentPlugin(['NEXT_FORECAST_URL'])
+          new webpack.EnvironmentPlugin({NEXT_FORECAST_URL: null})
           // Same as above
           // new webpack.DefinePlugin({
           //   'process.env.NEXT_FORECAST_URL': JSON.stringify(process.env.NEXT_FORECAST_URL)

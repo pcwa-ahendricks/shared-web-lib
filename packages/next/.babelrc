@@ -37,6 +37,12 @@
           "preventFullImport": true
         }
       }
+    ],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": 2
+      }
     ]
   ],
   "env": {

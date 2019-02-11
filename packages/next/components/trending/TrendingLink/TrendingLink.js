@@ -26,7 +26,9 @@ const styles = {
 
 const mouseEnterHandler = (href: string) => () => {
   // Only works in production mode.
-  Router.prefetch(href)
+  if (href) {
+    Router.prefetch(href)
+  }
 }
 
 const TrendingLink = ({classes, children, href}: Props) => {

@@ -20,7 +20,9 @@ const styles = (theme) => ({
 
 const mouseEnterHandler = (href: string) => () => {
   // Only works in production.
-  Router.prefetch(href)
+  if (href) {
+    Router.prefetch(href)
+  }
 }
 
 const MMNavLink = ({classes, children, href}: Props) => {

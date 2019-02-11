@@ -30,3 +30,23 @@ Convert baseline jpeg images to progressive jpegs with the following.
 Theme generated with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/)
 
 See [this link](https://material-ui.com/style/color/#official-color-tool) for more info on Palette.
+
+### Package Dependencies
+
+#### Next.js
+
+In order to suppress errors when deploying to Now. The following dependencies have been added explicitly. Future versions of Now/now-builder(s) may not require these to be added explicitly.
+
+- styled-jsx
+- webpack
+- @babel/runtime-corejs2
+- @babel/plugin-transform-runtime **_(dev)_**
+
+Relating to `@babel/plugin-transform-runtime` the following code was added to `.babelrc`
+
+    [
+        "@babel/plugin-transform-runtime",
+        {
+            "corejs": 2
+        }
+    ]
