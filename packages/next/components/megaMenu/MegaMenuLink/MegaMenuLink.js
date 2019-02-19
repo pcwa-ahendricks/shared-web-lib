@@ -1,4 +1,5 @@
 // @flow
+// $FlowFixMe
 import React, {useRef, type Node} from 'react'
 import {Link, Typography as Type} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'

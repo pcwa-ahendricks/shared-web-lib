@@ -1,4 +1,5 @@
 // @flow
+// $FlowFixMe
 import React, {useState} from 'react'
 import Sticky from 'react-sticky-el'
 import {withStyles} from '@material-ui/core/styles'

@@ -1,4 +1,5 @@
 // @flow
+// $FlowFixMe
 import {useEffect} from 'react'
 
 const useTimeout = (

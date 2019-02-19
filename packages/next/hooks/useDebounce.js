@@ -3,6 +3,7 @@
  *  https://github.com/xnimorz/use-debounce
  */
 
+// $FlowFixMe
 import {useState, useEffect} from 'react'
 
 const useDebounce = (value: any, delay: number = 100) => {

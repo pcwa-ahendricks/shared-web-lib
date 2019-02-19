@@ -8,7 +8,7 @@ if (isDev) {
   cors = microCors({allowMethods: ['GET', 'OPTIONS'], origin})
 }
 import {createError, send} from 'micro'
-import type {ServerResponse, IncomingMessage} from 'http'
+import {type ServerResponse, type IncomingMessage} from 'http'
 import {parseUrl} from 'query-string'
 
 const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY || ''

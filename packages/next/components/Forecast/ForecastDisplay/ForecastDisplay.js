@@ -1,5 +1,5 @@
 // @flow
-
+// $FlowFixMe
 import React, {useState, useEffect} from 'react'
 import ReactAnimatedWeather from 'react-animated-weather'
 import {withTheme, withStyles} from '@material-ui/core/styles'

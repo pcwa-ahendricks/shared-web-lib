@@ -1,5 +1,5 @@
 // @flow
-
+// $FlowFixMe
 import React, {useState, useEffect} from 'react'
 import ForecastDisplay, {
   type ForecastData

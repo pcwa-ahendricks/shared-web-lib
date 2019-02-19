@@ -26,7 +26,7 @@ const styles = {
 
 const mouseEnterHandler = (href: string) => () => {
   // Only works in production mode.
-  if (href) {
+  if (href && href.trim() !== '#') {
     Router.prefetch(href)
   }
 }

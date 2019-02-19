@@ -6,15 +6,19 @@ import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import Link from 'next/link'
 
-type GlowButtonProps = {
-  classes: any,
+export type BaseGlowButtonProps = {
   children: Node,
   size: 'small' | 'medium' | 'large',
   color?: string
 }
 
+// Prevents flow error when using intersecting types with <ENewsButton/> by extending non-exported type.
+type GlowButtonProps = {
+  classes: any
+} & BaseGlowButtonProps
+
 // No classes = No Union Type w/ GlowButtonProps
-type NextGlowButtonProps = {
+export type NextGlowButtonProps = {
   children: Node,
   href: string,
   linkProps?: any,

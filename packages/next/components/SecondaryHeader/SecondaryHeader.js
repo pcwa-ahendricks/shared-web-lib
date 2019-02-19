@@ -59,15 +59,20 @@ const SecondaryHeader = ({classes}: Props) => {
           <DynamicForecast />
         </Hidden>
         <span className={classes.grow} />
-        <ENewsButton>E-News</ENewsButton>
+        <NextGlowButton aria-label="Link" color="primary" size="small" href="#">
+          Outages
+        </NextGlowButton>
+        <ENewsButton size="small">E-News</ENewsButton>
         <NextGlowButton
           aria-label="Link"
           color="primary"
+          size="small"
           href="/about-pcwa/board-agenda"
         >
           Board Meetings
         </NextGlowButton>
         <GlowButton
+          size="small"
           aria-label="Link"
           color="primary"
           href="https://ipn.paymentus.com/cp/plco"
