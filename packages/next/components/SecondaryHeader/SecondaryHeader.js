@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
-import {Hidden, Toolbar} from '@material-ui/core'
+import {Hidden, Toolbar, CircularProgress} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
@@ -13,7 +13,11 @@ import GlowButton, {NextGlowButton} from '../GlowButton/GlowButton'
 import dynamic from 'next/dynamic'
 
 const DynamicForecast = dynamic(
-  import('../ForecastContainer/ForecastContainer')
+  import('../ForecastContainer/ForecastContainer'),
+  {
+    // eslint-disable-next-line react/display-name
+    loading: () => <CircularProgress size={30} />
+  }
 )
 
 type Props = {
