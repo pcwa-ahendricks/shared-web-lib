@@ -5,12 +5,12 @@ const {
 } = require('webpack-bundle-size-analyzer')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
-const {STATS} = process.env
+const {STATS, NEXT_TARGET = 'server'} = process.env
 
 module.exports = (phase, {defaultConfig}) => {
   return withBundleAnalyzer({
     ...defaultConfig,
-    target: 'serverless',
+    target: NEXT_TARGET,
     analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
     analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
     bundleAnalyzerConfig: {

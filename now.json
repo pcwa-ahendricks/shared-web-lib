@@ -5,7 +5,8 @@
   "public": false,
   "build": {
     "env": {
-      "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast"
+      "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast",
+      "NEXT_TARGET": "serverless"
     }
   },
   "env": {

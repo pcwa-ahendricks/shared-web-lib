@@ -8,7 +8,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "now-build": "next build",
     "dev": "npm run next",
     "start": "npm run next",
     "next": "next",
@@ -45,7 +44,7 @@
     "react-dom": "^16.8.2",
     "react-imgix": "^8.5.1",
     "react-jss": "^8.6.1",
-    "react-redux": "^6.0.0",
+    "react-redux": "^6.0.1",
     "react-scroll-parallax": "^1.3.5",
     "react-sticky-el": "^1.0.20",
     "redux": "^4.0.1",
