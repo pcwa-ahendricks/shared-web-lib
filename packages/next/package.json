@@ -31,7 +31,7 @@
     "dotenv-webpack": "^1.7.0",
     "immutable": "^4.0.0-rc.12",
     "isomorphic-unfetch": "^3.0.0",
-    "jss-plugin-expand": "^10.0.0-alpha.7",
+    "jss-plugin-expand": "10.0.0-alpha.11",
     "lazysizes": "^4.1.6",
     "mdi-material-ui": "^5.9.0",
     "next": "^8.0.3",
