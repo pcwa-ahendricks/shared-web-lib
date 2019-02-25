@@ -17,7 +17,7 @@ const DynamicForecast = dynamic(
   {
     // eslint-disable-next-line react/display-name
     loading: () => (
-      <CircularProgress size={30} disableShrink={true} color="secondary" />
+      <CircularProgress size={20} disableShrink={true} color="secondary" />
     )
   }
 )
