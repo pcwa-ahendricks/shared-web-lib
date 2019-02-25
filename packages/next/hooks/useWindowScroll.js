@@ -1,5 +1,4 @@
 // @flow
-// $FlowFixMe
 import {useEffect} from 'react'
 import debounce from '../lib/debounce'
 

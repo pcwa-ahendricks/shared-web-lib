@@ -1,5 +1,4 @@
 // @flow
-// $FlowFixMe
 import React, {useState, type Node} from 'react'
 import {ButtonBase, Typography as Type} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'

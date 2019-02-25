@@ -4,7 +4,7 @@ import GlowButton, {type BaseGlowButtonProps} from '../../GlowButton/GlowButton'
 // import {type ButtonProps} from '@material-ui/core/Button'
 
 type Props = {
-  children?: Node
+  children: Node
 } & BaseGlowButtonProps
 
 const EnewsButton = ({children, ...rest}: Props) => {

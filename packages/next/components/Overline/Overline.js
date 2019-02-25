@@ -1,5 +1,4 @@
 // @flow
-// $FlowFixMe
 import React, {useState, useEffect, type Node} from 'react'
 // import {withStyles} from '@material-ui/core/styles'
 import injectStyles from 'react-jss'

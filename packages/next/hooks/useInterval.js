@@ -1,5 +1,4 @@
 // @flow
-// $FlowFixMe
 import {useEffect} from 'react'
 
 const useInterval = (

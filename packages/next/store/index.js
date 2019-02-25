@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 // States
 import {uiReducer} from './reducers/ui'
 import {forecastReducer, type State as ForecastState} from './reducers/forecast'
-import type {State as UiState} from './reducers/ui'
+import {type State as UiState} from './reducers/ui'
 
 export type State = {
   ui: UiState,
