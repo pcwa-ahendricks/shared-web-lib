@@ -12,8 +12,10 @@
   ],
   "scripts": {
     "forecast:dev": "npm run server:dev --prefix packages/forecast",
+    "mailjet:dev": "npm run dev --prefix packages/mailjet",
     "next:dev": "npm run dev --prefix packages/next",
-    "dev": "concurrently -n next,forecast 'npm run next:dev' 'npm run forecast:dev'",
+    "util:dev": "npm run dev --prefix packages/util",
+    "dev": "concurrently -n util,next,forecast,mailjet 'npm run util:dev' 'npm run next:dev' 'npm run forecast:dev' 'npm run mailjet:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
     "prenow": "npm run build --prefix packages/forecast",
     "now": "now && now alias",
@@ -24,6 +26,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "flow-bin": "^0.93.0",
-    "now": "^14.0.0"
+    "now": "^14.0.1"
   }
 }

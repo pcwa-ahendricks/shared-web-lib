@@ -1,4 +1,6 @@
 [ignore]
+<PROJECT_ROOT>/node_modules/@types/jss/.*
+<PROJECT_ROOT>/node_modules/.*/node_modules/.*
 
 [include]
 

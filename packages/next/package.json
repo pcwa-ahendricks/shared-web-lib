@@ -57,6 +57,7 @@
     "@babel/core": "^7.3.4",
     "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
+    "@types/jss": "^9.5.7",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-eslint": "^10.0.1",
     "babel-plugin-flow-react-proptypes": "^25.0.0",

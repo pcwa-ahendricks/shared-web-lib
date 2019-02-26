@@ -1,0 +1,18 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended",
+    "prettier/flowtype"
+  ],
+  "plugins": ["flowtype", "prettier"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "no-console": 0,
+    "linebreak-style": ["error", "unix"]
+  }
+}
