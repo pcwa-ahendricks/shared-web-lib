@@ -21,7 +21,7 @@
     "forecast": "^0.3.2",
     "micro": "^9.3.3",
     "micro-cors": "^0.1.1",
-    "query-string": "^6.2.0"
+    "micro-fork": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",

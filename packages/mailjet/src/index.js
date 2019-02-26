@@ -3,11 +3,15 @@ const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
-import {createError, send} from 'micro'
+import {createError, send, json} from 'micro'
 import {type ServerResponse, type IncomingMessage} from 'http'
-// import {parseUrl} from 'query-string'
 import {noCache} from '../../util/dist'
-import {json} from 'micro'
+import {router, get} from 'micro-fork'
+
+const hello = (req, res) => send(res, 200, `Hello ${req.params.who}`)
+const notfound = (req, res) => send(res, 404)
+
+module.exports = router()(get('/hello/:who', hello), get('/*', notfound))
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
@@ -118,7 +122,7 @@ const mainHandler = async (req: IncomingMessage, res: ServerResponse) => {
   }
 }
 
-export default mainHandler
+// export default mainHandler
 
 // type MailJetAttachment = {
 //   'Content-type': string,
