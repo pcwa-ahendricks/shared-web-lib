@@ -53,10 +53,12 @@ export const initForecast = (config?: {}) => {
   })
 }
 
-const getForecast = (req: MicroForKRequest, res: ServerResponse, forecast) => {
-  if (!forecast) {
-    forecast = initForecast()
-  }
+const getForecast = (
+  req: MicroForKRequest,
+  res: ServerResponse,
+  store: {forecast: any}
+) => {
+  const {forecast = initForecast()} = store || {}
 
   // Example request - https://api.darksky.net/forecast/12345678910111213141516171819/38.9221,-121.0559
   const {lat, lng} = req.query // query property is courtesy of micro-fork.
@@ -85,7 +87,7 @@ const getForecast = (req: MicroForKRequest, res: ServerResponse, forecast) => {
 export const requestHandler = async (
   req: MicroForKRequest,
   res: ServerResponse,
-  forecast: any
+  store: {forecast: any}
 ) => {
   try {
     needsApiKey(DARKSKY_API_KEY)
@@ -97,7 +99,7 @@ export const requestHandler = async (
         break
       }
       default: {
-        return await getForecast(req, res, forecast)
+        return await getForecast(req, res, store)
       }
     }
   } catch (error) {

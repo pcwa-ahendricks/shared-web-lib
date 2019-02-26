@@ -26,9 +26,7 @@ const forecastConfig = {
 
 const forecast = initForecast(forecastConfig)
 
-const routeHandler = router()(
-  get('/*', (req, res) => indexRoute(req, res, forecast))
-)
+const routeHandler = router()(get('/*', indexRoute, {forecast}))
 
 // "If an error is thrown and not caught by you, the response will automatically be 500. Important: Error stacks will be printed as console.error and during development mode (if the env variable NODE_ENV is 'development'), they will also be included in the responses.". --zeit
 const server = micro(cors(routeHandler))
