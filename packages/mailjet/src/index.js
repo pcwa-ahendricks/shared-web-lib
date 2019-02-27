@@ -1,7 +1,7 @@
 // @flow
 import {router, get, post} from 'micro-fork'
 import {send} from 'micro'
-import {hecpEmailRoute, waterWasteRoute} from './routes'
+import {hecpEmailRoute, waterWasteRoute} from './routes/index'
 import noCache from './lib/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 

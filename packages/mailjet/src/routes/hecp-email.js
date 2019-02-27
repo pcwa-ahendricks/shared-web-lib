@@ -116,24 +116,3 @@ const needsApiKey = (key: string) => {
     throw createError(401, 'Unauthorized - Invalid API key')
   }
 }
-
-// export default mainHandler
-
-// type MailJetAttachment = {
-//   'Content-type': string,
-//   Filename: string,
-//   content: string
-// }
-
-// type MailJetEmail = {
-//   FromEmail: string,
-//   FromName: string,
-//   Subject: string,
-//   'MJ-TemplateLanguage'?: boolean,
-//   'MJ-TemplateID'?: string,
-//   Vars?: {},
-//   Recipients: Array<{Email: string}>,
-//   Inline_attachments?: Array<MailJetAttachment>,
-//   Attachments?: Array<MailJetAttachment>,
-//   Headers?: {[headerKey: string]: string}
-// }

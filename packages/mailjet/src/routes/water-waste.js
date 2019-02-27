@@ -66,43 +66,93 @@ const waterWasteHandler = async (req: IncomingMessage) => {
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
 
-  const {recipients} = body
-  const {reviewLink, title, email, score} = body.formData
+  const {recipients, formData} = body
+  const variables = flatten({...formData})
 
-  const requestBody = {
+  const requestBody: MailJetSendRequest = {
     Messages: [
       {
         From: {
           Email: MAILJET_SENDER,
-          Name: 'PCWA Forms'
+          Name: 'PCWA Mailjet'
         },
-        To: recipients,
-        ReplyTo: {
-          Email: email,
-          Name: `${title} Examinee`
-        },
-        Headers: {
-          'PCWA-No-Spam': 'webmaster@pcwa.net'
-        },
-        Subject: `${title} Exam Submitted`,
-        TextPart: `${title} Exam Submitted\n${email} completed the ${title} Exam.\nScore: ${score}%\nYou can review this exam at ${reviewLink}`,
-        HTMLPart: `<h2>${title} Exam Submitted</h2><br /><p>${email} completed the ${title} Exam.</p><br /><h3>Score: ${score}%</h3><br /><p>You can review this exam at <a href='${reviewLink}' target='blank'>${reviewLink}</a>.</p>`
+        To: [...recipients],
+        Subject: 'Water Waste Notification - PCWA.net',
+        TemplateLanguage: true,
+        TemplateID: 82714,
+        Variables: variables,
+        InlinedAttachments: [],
+        Headers: {'PCWA-No-Spam': 'webmaster@pcwa.net'}
       }
     ]
   }
 
+  // Conditionally add ReplyTo to Mailjet request body if user supplied an email address, name is optional.
+  const name =
+    variables.firstName || variables.lastName
+      ? `${variables.firstName || ''} ${variables.lastName || ''}`.trim()
+      : null
+  if (variables.email) {
+    requestBody.Messages[0].ReplyTo = {
+      Email: variables.email
+    }
+    // Name is not required. Add it if it is supplied.
+    if (name) {
+      requestBody.Messages[0].ReplyTo = {
+        ...requestBody.Messages[0].ReplyTo,
+        Name: name
+      }
+    }
+  }
+
+  // Use Reply-To if email address was submitted in post request.
+  // if (formData && formData.userInfo && formData.userInfo.email) {
+  //   if (requestBody.Headers) {
+  //     requestBody.Headers['Reply-To'] = formData.userInfo.email
+  //   } else {
+  //     requestBody.Headers = {}
+  //     requestBody.Headers['Reply-To'] = formData.userInfo.email
+  //   }
+  // }
+
+  // const requestBody = {
+  //   Messages: [
+  //     {
+  //       From: {
+  //         Email: MAILJET_SENDER,
+  //         Name: 'PCWA Forms'
+  //       },
+  //       To: recipients,
+  //       ReplyTo: {
+  //         Email: email,
+  //         Name: `${title} Examinee`
+  //       },
+  //       Headers: {
+  //         'PCWA-No-Spam': 'webmaster@pcwa.net'
+  //       },
+  //       Subject: `${title} Exam Submitted`,
+  //       TextPart: `${title} Exam Submitted\n${email} completed the ${title} Exam.\nScore: ${score}%\nYou can review this exam at ${reviewLink}`,
+  //       HTMLPart: `<h2>${title} Exam Submitted</h2><br /><p>${email} completed the ${title} Exam.</p><br /><h3>Score: ${score}%</h3><br /><p>You can review this exam at <a href='${reviewLink}' target='blank'>${reviewLink}</a>.</p>`
+  //     }
+  //   ]
+  // }
+
   try {
-    isDev && console.log('emailData: ', JSON.stringify(requestBody, null, 2))
+    isDev &&
+      console.log(
+        'Mailjet Request Body: ',
+        JSON.stringify(requestBody, null, 2)
+      )
     const result = await sendEmail.request(requestBody)
     isDev &&
       console.log(
-        'sendMail post response: ',
+        'Mailjet sendMail post response: ',
         JSON.stringify(result.body, null, 2)
       )
     return result.body
   } catch (error) {
-    // console.log(error)
-    console.error('sendMail error status: ', error.statusCode)
+    isDev && console.log(error)
+    console.error('Mailjet sendMail error status: ', error.statusCode)
     throw error
   }
 }
@@ -124,21 +174,44 @@ const needsApiKey = (key: string) => {
 
 // export default mainHandler
 
-// type MailJetAttachment = {
-//   'Content-type': string,
-//   Filename: string,
-//   content: string
-// }
+type MailJetAttachment = {
+  'Content-type': string,
+  Filename: string,
+  content: string
+}
 
-// type MailJetEmail = {
-//   FromEmail: string,
-//   FromName: string,
-//   Subject: string,
-//   'MJ-TemplateLanguage'?: boolean,
-//   'MJ-TemplateID'?: string,
-//   Vars?: {},
-//   Recipients: Array<{Email: string}>,
-//   Inline_attachments?: Array<MailJetAttachment>,
-//   Attachments?: Array<MailJetAttachment>,
-//   Headers?: {[headerKey: string]: string}
-// }
+type MailJetMessage = {|
+  From: {
+    Name: string,
+    Email: string
+  },
+  Subject: string,
+  ReplyTo?: {
+    Name?: string,
+    Email: string
+  },
+  TemplateLanguage?: boolean,
+  TemplateID?: number,
+  Variables?: {},
+  To: Array<{Email: string, Name: string}>,
+  InlinedAttachments?: Array<MailJetAttachment>,
+  Attachments?: Array<MailJetAttachment>,
+  Headers?: {[headerKey: string]: string}
+|}
+
+type MailJetSendRequest = {
+  Messages: Array<MailJetMessage>
+}
+
+function flatten(obj: any) {
+  return Object.keys(obj).reduce((acc, current) => {
+    const _key = `${current}`
+    const currentValue = obj[current]
+    if (Array.isArray(currentValue) || Object(currentValue) === currentValue) {
+      Object.assign(acc, flatten(currentValue))
+    } else {
+      acc[_key] = currentValue
+    }
+    return acc
+  }, {})
+}
