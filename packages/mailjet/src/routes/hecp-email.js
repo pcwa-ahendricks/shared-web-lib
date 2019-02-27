@@ -13,44 +13,44 @@ const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
 
+const bodySchema = yup
+  .object()
+  .required()
+  .shape({
+    formData: yup
+      .object()
+      .required()
+      .shape({
+        score: yup.string().required(),
+        email: yup
+          .string()
+          .email()
+          .required(),
+        reviewLink: yup
+          .string()
+          .url()
+          .required(),
+        title: yup.string().required()
+      }),
+    recipients: yup
+      .array()
+      .required()
+      .of(
+        yup
+          .object()
+          .required()
+          .shape({
+            Name: yup.string().required(),
+            Email: yup
+              .string()
+              .email()
+              .required()
+          })
+      )
+  })
+
 const postFormExamSubmit = async (req: IncomingMessage) => {
   const body = await json(req)
-
-  const bodySchema = yup
-    .object()
-    .required()
-    .shape({
-      formData: yup
-        .object()
-        .required()
-        .shape({
-          score: yup.string().required(),
-          email: yup
-            .string()
-            .email()
-            .required(),
-          reviewLink: yup
-            .string()
-            .url()
-            .required(),
-          title: yup.string().required()
-        }),
-      recipients: yup
-        .array()
-        .required()
-        .of(
-          yup
-            .object()
-            .required()
-            .shape({
-              Name: yup.string().required(),
-              Email: yup
-                .string()
-                .email()
-                .required()
-            })
-        )
-    })
 
   const isValid = await bodySchema.isValid(body)
   if (!isValid) {

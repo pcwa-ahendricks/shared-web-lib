@@ -21,6 +21,7 @@
     "micro-fork": "^1.0.0",
     "micro-middleware": "^0.1.0",
     "mime": "^2.4.0",
+    "multer": "^1.4.1",
     "node-mailjet": "^3.3.1",
     "yup": "^0.26.10"
   },

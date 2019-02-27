@@ -6,53 +6,59 @@ if (isDev) {
 import {createError, json} from 'micro'
 import {type IncomingMessage} from 'http'
 import * as yup from 'yup'
+import * as Jimp from 'jimp'
+import {join, parse} from 'path'
+import {existsSync} from 'fs'
+import {getType} from 'mime'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
+const UPLOADS_DIR = join('/tmp', 'uploads')
+const ATTACHMENT_DIR = 'waste_wtr_attachment'
+
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
+
+const bodySchema = yup
+  .object()
+  .required()
+  .shape({
+    formData: yup
+      .object()
+      .required()
+      .shape({
+        location: yup.string().required(),
+        description: yup.string().required(),
+        userInfo: yup.object().shape({
+          email: yup.string(),
+          phone: yup.string(),
+          firstName: yup.string(),
+          lastName: yup.string()
+        })
+      }),
+    attachments: yup.array().of(yup.string()),
+    recipients: yup
+      .array()
+      .required()
+      .of(
+        yup
+          .object()
+          .required()
+          .shape({
+            Name: yup.string().required(),
+            Email: yup
+              .string()
+              .email()
+              .required()
+          })
+      )
+  })
 
 const waterWasteHandler = async (req: IncomingMessage) => {
   const body = await json(req)
 
-  const bodySchema = yup
-    .object()
-    .required()
-    .shape({
-      formData: yup
-        .object()
-        .required()
-        .shape({
-          location: yup.string().required(),
-          description: yup.string().required(),
-          userInfo: yup.object().shape({
-            email: yup.string(),
-            phone: yup.string(),
-            firstName: yup.string(),
-            lastName: yup.string()
-          })
-        }),
-      attachments: yup.array().of(yup.string()),
-      recipients: yup
-        .array()
-        .required()
-        .of(
-          yup
-            .object()
-            .required()
-            .shape({
-              Name: yup.string().required(),
-              Email: yup
-                .string()
-                .email()
-                .required()
-            })
-        )
-    })
-
   const isValid = await bodySchema.isValid(body)
-  console.log('is valid', isValid)
   if (!isValid) {
     isDev && console.log('Body is not valid', JSON.stringify(body, null, 2))
     throw createError(400)
@@ -66,8 +72,12 @@ const waterWasteHandler = async (req: IncomingMessage) => {
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
 
-  const {recipients, formData} = body
+  const {recipients, formData, attachments} = body
   const variables = flatten({...formData})
+
+  // incoming attachments should be array of strings
+  // console.log("Request Parameter for "attachments": ", reqAttachments)
+  // let sendAttachments: Array<MailJetAttachment> = [] // array container for MailJet attachments.
 
   const requestBody: MailJetSendRequest = {
     Messages: [
@@ -81,7 +91,6 @@ const waterWasteHandler = async (req: IncomingMessage) => {
         TemplateLanguage: true,
         TemplateID: 82714,
         Variables: variables,
-        InlinedAttachments: [],
         Headers: {'PCWA-No-Spam': 'webmaster@pcwa.net'}
       }
     ]
@@ -138,6 +147,18 @@ const waterWasteHandler = async (req: IncomingMessage) => {
   // }
 
   try {
+    const sendAttachments = await attach(attachments)
+    // console.log("Promise resolved: ", val)
+    // Just add the Inline_attachments property if we have attachments (seems optional, but more explicit).
+    if (sendAttachments.length > 0) {
+      requestBody.Messages[0].InlinedAttachments = sendAttachments
+    }
+  } catch (error) {
+    isDev && console.log(error)
+    throw createError(500, 'Error processing attachments.')
+  }
+
+  try {
     isDev &&
       console.log(
         'Mailjet Request Body: ',
@@ -175,9 +196,9 @@ const needsApiKey = (key: string) => {
 // export default mainHandler
 
 type MailJetAttachment = {
-  'Content-type': string,
+  ContentType: string,
   Filename: string,
-  content: string
+  Base64Content: string
 }
 
 type MailJetMessage = {|
@@ -214,4 +235,83 @@ function flatten(obj: any) {
     }
     return acc
   }, {})
+}
+
+const attach = (reqAttachments) => {
+  const attachments: Array<MailJetAttachment> = []
+  return new Promise((resolve) => {
+    // end immediately if attachments were not provided in body
+    if (!reqAttachments || reqAttachments.length === 0) {
+      resolve(attachments)
+    }
+    let resolveAtLength = reqAttachments.length
+
+    function pushAttachment(filename: string, mimeType: string, b64: string) {
+      const attachment = {
+        Filename: parse(filename).base,
+        ContentType: mimeType,
+        Base64Content: b64
+      }
+      console.log('pushing attachment', attachment)
+      attachments.push(attachment)
+      return true
+    }
+    function checkResolve() {
+      // console.log("comparing attachment length to supplied request attachments length: ", attachments.length, resolveAtLength)
+      if (attachments.length === resolveAtLength) {
+        resolve(attachments)
+      }
+    }
+    /* We work around bad/not-found images, instead of ending the response */
+    function handleError(err: string) {
+      // res.status(403).send("Specified file attachment(s) not found.")
+      // res.status(500).send("Problem encountered during image processing.")
+      console.warn(err)
+      resolveAtLength--
+      checkResolve()
+    }
+    function bufferToBase64(
+      err: Error,
+      buffer: Buffer,
+      val: string,
+      mimeType: string
+    ) {
+      if (err) {
+        console.log(err)
+        handleError('Problem during resize/file -> buffer operation: ')
+        return // return from this function (ie. don"t call toString() on invalid buffer and so on) on error.
+      }
+      const b64 = buffer.toString('base64')
+      // console.log(b64)
+      pushAttachment(val, mimeType, b64)
+      checkResolve()
+    }
+
+    reqAttachments.forEach(async (filename: string) => {
+      const localFilePath = join(UPLOADS_DIR, ATTACHMENT_DIR, filename)
+      // console.log("filePath: ", localFilePath)
+      if (!existsSync(localFilePath)) {
+        handleError(
+          `Can't find specified file attachment at "${localFilePath}".`
+        )
+        return
+      }
+
+      const mimeType = getType(localFilePath)
+
+      // Jimp works with Now. GM and Sharp didn't.
+      try {
+        const image = await Jimp.read(localFilePath)
+        image.resize(800, Jimp.AUTO).getBuffer(mimeType, (err, buffer) => {
+          bufferToBase64(err, buffer, filename, mimeType)
+        })
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
+      // .resize(800, 800)
+      // .max()
+      // .toBuffer((err, buffer) =>
+    }) // forEach
+  })
 }
