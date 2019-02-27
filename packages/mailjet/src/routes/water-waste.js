@@ -13,7 +13,7 @@ const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
 
-const postFormExamSubmit = async (req: IncomingMessage) => {
+const waterWasteHandler = async (req: IncomingMessage) => {
   const body = await json(req)
 
   const bodySchema = yup
@@ -24,17 +24,16 @@ const postFormExamSubmit = async (req: IncomingMessage) => {
         .object()
         .required()
         .shape({
-          score: yup.string().required(),
-          email: yup
-            .string()
-            .email()
-            .required(),
-          reviewLink: yup
-            .string()
-            .url()
-            .required(),
-          title: yup.string().required()
+          location: yup.string().required(),
+          description: yup.string().required(),
+          userInfo: yup.object().shape({
+            email: yup.string(),
+            phone: yup.string(),
+            firstName: yup.string(),
+            lastName: yup.string()
+          })
         }),
+      attachments: yup.array().of(yup.string()),
       recipients: yup
         .array()
         .required()
@@ -53,6 +52,7 @@ const postFormExamSubmit = async (req: IncomingMessage) => {
     })
 
   const isValid = await bodySchema.isValid(body)
+  console.log('is valid', isValid)
   if (!isValid) {
     isDev && console.log('Body is not valid', JSON.stringify(body, null, 2))
     throw createError(400)
@@ -92,11 +92,16 @@ const postFormExamSubmit = async (req: IncomingMessage) => {
   }
 
   try {
-    const response = await sendEmail.request(requestBody)
-    isDev && console.log('sendMail post response: ', response.body)
-    return response.body
+    isDev && console.log('emailData: ', JSON.stringify(requestBody, null, 2))
+    const result = await sendEmail.request(requestBody)
+    isDev &&
+      console.log(
+        'sendMail post response: ',
+        JSON.stringify(result.body, null, 2)
+      )
+    return result.body
   } catch (error) {
-    isDev && console.log(error)
+    // console.log(error)
     console.error('sendMail error status: ', error.statusCode)
     throw error
   }
@@ -105,7 +110,7 @@ const postFormExamSubmit = async (req: IncomingMessage) => {
 export const requestHandler = async (req: IncomingMessage) => {
   try {
     needsApiKey(MAILJET_KEY)
-    return await postFormExamSubmit(req)
+    return await waterWasteHandler(req)
   } catch (error) {
     throw error
   }

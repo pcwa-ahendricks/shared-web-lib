@@ -1,16 +1,17 @@
 // @flow
 import {router, get, post} from 'micro-fork'
 import {send} from 'micro'
-import {hecpEmailRoute} from './routes'
+import {hecpEmailRoute, waterWasteRoute} from './routes'
 import noCache from './lib/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 
-const hello = (req, res) => send(res, 200, `Hello ${req.params.who}`)
 const notfound = (req, res) => send(res, 404)
+const noFavicon = (req, res) => send(res, 204)
 
 const routeHandler = router()(
-  get('/hello/:who', hello),
   post('/mail/form-exam-submit', hecpEmailRoute),
+  post('/mail/water-waste', waterWasteRoute),
+  get('/favicon.ico', noFavicon),
   get('/*', notfound)
 )
 
