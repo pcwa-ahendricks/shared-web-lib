@@ -2,9 +2,10 @@
 import micro from 'micro'
 import microCors from 'micro-cors'
 import {router, get} from 'micro-fork'
-import {initForecast, indexRoute, noCache} from './routes'
+import {initForecast, indexRoute} from './routes'
 import {allowMethods} from './index'
 import {applyMiddleware} from 'micro-middleware'
+import noCache from './lib/micro-no-cache'
 
 const origin =
   process.env.NODE_ENV === 'production'

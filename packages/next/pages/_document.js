@@ -10,6 +10,7 @@ import flush from 'styled-jsx/server'
 import PropTypes from 'prop-types'
 import webFontConfig from '../lib/webFontConfig'
 
+// $FlowFixMe
 class MyDocument extends Document {
   // static async getInitialProps(ctx) {
   //   const initialProps = await Document.getInitialProps(ctx)

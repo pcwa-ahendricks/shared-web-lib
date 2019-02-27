@@ -1,4 +1,4 @@
 // @flow
-import {requestHandler as indexRoute, initForecast, noCache} from './main'
+import {requestHandler as indexRoute, initForecast} from './main'
 
-export {indexRoute, initForecast, noCache}
+export {indexRoute, initForecast}
