@@ -4,7 +4,8 @@
  * Server.js will skill routeHandler export entirely. Index.js can be used in serverless environments or in development environments using micro-dev.
  */
 import {router, get} from 'micro-fork'
-import {indexRoute, initForecast} from './routes'
+import {indexRoute, initForecast, noCache} from './routes'
+import {applyMiddleware} from 'micro-middleware'
 const isDev = process.env.NODE_ENV === 'development'
 // CORS wouldn't be needed in serverless environments such as Now v2 since CORS Headers can be controlled via now.json. CORS is needed in
 // development environments that use micro-dev however.
@@ -21,5 +22,7 @@ if (isDev) {
 
 const routeHandler = router()(get('/*', indexRoute, {forecast}))
 
-export default (isDev && cors ? cors(routeHandler) : routeHandler)
+const middlewareHandler = applyMiddleware(routeHandler, [noCache])
+
+export default (isDev && cors ? cors(middlewareHandler) : middlewareHandler)
 export {allowMethods}

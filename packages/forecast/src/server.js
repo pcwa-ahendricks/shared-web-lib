@@ -2,8 +2,9 @@
 import micro from 'micro'
 import microCors from 'micro-cors'
 import {router, get} from 'micro-fork'
-import {initForecast, indexRoute} from './routes'
+import {initForecast, indexRoute, noCache} from './routes'
 import {allowMethods} from './index'
+import {applyMiddleware} from 'micro-middleware'
 
 const origin =
   process.env.NODE_ENV === 'production'
@@ -28,6 +29,8 @@ const forecast = initForecast(forecastConfig)
 
 const routeHandler = router()(get('/*', indexRoute, {forecast}))
 
+const middlewareHandler = applyMiddleware(routeHandler, [noCache])
+
 // "If an error is thrown and not caught by you, the response will automatically be 500. Important: Error stacks will be printed as console.error and during development mode (if the env variable NODE_ENV is 'development'), they will also be included in the responses.". --zeit
-const server = micro(cors(routeHandler))
+const server = micro(cors(middlewareHandler))
 server.listen(3001)

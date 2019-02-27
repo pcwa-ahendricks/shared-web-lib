@@ -34,17 +34,26 @@ const defaultForecastConfig = {
   We should set the cache accordingly at a value slightly greater than 7 min, 12 seconds
 */
 
-// Don't allow clients to cache responses.
-const noCache = (res: ServerResponse) => {
-  res.setHeader('Surrogate-Control', 'no-store')
-  res.setHeader(
-    'Cache-Control',
-    'no-store, no-cache, must-revalidate, proxy-revalidate'
-  )
-  res.setHeader('Pragma', 'no-cache')
-  res.setHeader('Expires', '0')
-  return res
-}
+// Don't allow clients to cache responses by setting no cache headers.
+export const noCache = (fn: Function) =>
+  function process(req: IncomingMessage, res: ServerResponse, ...args: any) {
+    res.setHeader('Surrogate-Control', 'no-store')
+    res.setHeader(
+      'Cache-Control',
+      'no-store, no-cache, must-revalidate, proxy-revalidate'
+    )
+    res.setHeader('Pragma', 'no-cache')
+    res.setHeader('Expires', '0')
+    return fn.apply(null, [req, res, args])
+  }
+
+// // a simple middleware should look like this
+// const logging = fn => async function process (...args) {
+//   console.log(`log args: ${args}`)
+//   let data = await fn.apply(null, args)
+//   console.log(`log returned data: ${data}`)
+//   return data
+// }
 
 export const initForecast = (config?: {}) => {
   return new Forecast({
@@ -91,7 +100,6 @@ export const requestHandler = async (
 ) => {
   try {
     needsApiKey(DARKSKY_API_KEY)
-    res = noCache(res) // set no cache headers
     switch (true) {
       // Don't do anything with favicon request.
       case /\/favicon(\.ico)?($|\?)/i.test(req.url): {
