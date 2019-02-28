@@ -90,14 +90,14 @@ export const photoUploadHandler = (
   const busboy = new Busboy({headers})
   let fileName: any
   busboy.on('file', (fieldname, file, filename, encoding, mimeType) => {
-    console.log(file)
     // only allow image types to by processed
     if (!mimeType.startsWith('image/')) {
       isDev && console.log('Tried to upload file with mime type: ', mimeType)
       throw createError(415, 'The uploaded file must be an image')
     }
     fileName = filename
-    console.log('File [' + fieldname + ']: filename: ' + fileName)
+    isDev &&
+      console.log(`Fieldname [${fieldname}] will use filename "${fileName}"`)
     // create sub-directory using fieldname and ensure it exists
     if (!existsSync(join(UPLOADS_DIR, fieldname))) {
       mkdirSync(join(UPLOADS_DIR, fieldname))
@@ -106,10 +106,10 @@ export const photoUploadHandler = (
     file.on('data', (data: Buffer) => {
       totalData += data.length
       // Log file progress when in development
-      isDev && console.log('File [' + fieldname + '] got ' + pretty(totalData)) // log progress
+      isDev && console.log(`File [${fieldname}] got ${pretty(totalData)}`) // log progress
     })
     file.on('end', () => {
-      console.log('File [' + fieldname + '] Finished') // log finish
+      console.log(`File [${fieldname}] Finished`) // log finish
     })
 
     // save file
@@ -117,7 +117,7 @@ export const photoUploadHandler = (
 
     file.pipe(createWriteStream(saveTo))
 
-    console.log('File saved to: ' + saveTo) // log success
+    console.log(`File saved to: ${saveTo}`) // log success
   })
 
   busboy.on('finish', () => {
