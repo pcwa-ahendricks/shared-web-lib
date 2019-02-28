@@ -10,12 +10,12 @@ import * as Jimp from 'jimp'
 import {join, parse} from 'path'
 import {existsSync} from 'fs'
 import {getType} from 'mime'
+import {UPLOADS_DIR} from '../index'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const UPLOADS_DIR = join('/tmp', 'uploads')
 const ATTACHMENT_DIR = 'waste_wtr_attachment'
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
@@ -55,7 +55,8 @@ const bodySchema = yup
       )
   })
 
-const waterWasteHandler = async (req: IncomingMessage) => {
+export const waterWasteHandler = async (req: IncomingMessage) => {
+  needsApiKey(MAILJET_KEY)
   const body = await json(req)
 
   const isValid = await bodySchema.isValid(body)
@@ -174,15 +175,6 @@ const waterWasteHandler = async (req: IncomingMessage) => {
   } catch (error) {
     isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
-    throw error
-  }
-}
-
-export const requestHandler = async (req: IncomingMessage) => {
-  try {
-    needsApiKey(MAILJET_KEY)
-    return await waterWasteHandler(req)
-  } catch (error) {
     throw error
   }
 }

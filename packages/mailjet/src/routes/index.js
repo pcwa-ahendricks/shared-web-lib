@@ -1,5 +1,6 @@
 // @flow
-import {requestHandler as hecpEmailRoute} from './hecp-email'
-import {requestHandler as waterWasteRoute} from './water-waste'
+import {postFormExamSubmit as hecpEmailRoute} from './hecp-email'
+import {waterWasteHandler as waterWasteRoute} from './water-waste'
+import {photoFileHandler as photoFileRoute} from './uploads'
 
-export {hecpEmailRoute, waterWasteRoute}
+export {hecpEmailRoute, waterWasteRoute, photoFileRoute}

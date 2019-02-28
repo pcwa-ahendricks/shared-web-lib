@@ -23,6 +23,8 @@
     "mime": "^2.4.0",
     "multer": "^1.4.1",
     "node-mailjet": "^3.3.1",
+    "prettysize": "^2.0.0",
+    "urlencoded-body-parser": "^2.0.1",
     "yup": "^0.26.10"
   },
   "devDependencies": {

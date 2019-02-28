@@ -49,7 +49,8 @@ const bodySchema = yup
       )
   })
 
-const postFormExamSubmit = async (req: IncomingMessage) => {
+export const postFormExamSubmit = async (req: IncomingMessage) => {
+  needsApiKey(MAILJET_KEY)
   const body = await json(req)
 
   const isValid = await bodySchema.isValid(body)
@@ -98,15 +99,6 @@ const postFormExamSubmit = async (req: IncomingMessage) => {
   } catch (error) {
     isDev && console.log(error)
     console.error('sendMail error status: ', error.statusCode)
-    throw error
-  }
-}
-
-export const requestHandler = async (req: IncomingMessage) => {
-  try {
-    needsApiKey(MAILJET_KEY)
-    return await postFormExamSubmit(req)
-  } catch (error) {
     throw error
   }
 }
