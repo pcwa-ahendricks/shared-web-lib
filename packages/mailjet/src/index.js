@@ -5,7 +5,8 @@ import {
   hecpEmailRoute,
   waterWasteRoute,
   photoFileRoute,
-  photoB64Route
+  photoB64Route,
+  photoUploadRoute
 } from './routes/index'
 import noCache from './lib/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
@@ -22,6 +23,7 @@ const routeHandler = router()(
   post('/mail/water-waste', waterWasteRoute),
   get('/uploads/:filename', photoFileRoute),
   get('/uploads/b64/:filename', photoB64Route),
+  post('/uploads', photoUploadRoute),
   get('/favicon.ico', noFavicon),
   get('/*', notfound)
 )
