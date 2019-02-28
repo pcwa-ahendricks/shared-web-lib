@@ -90,10 +90,11 @@ export const photoUploadHandler = (
   const busboy = new Busboy({headers: req.headers})
   let fileName: any
   busboy.on('file', (fieldname, file, filename, encoding, mimeType) => {
+    console.log(file)
     // only allow image types to by processed
     if (!mimeType.startsWith('image/')) {
       isDev && console.log('Tried to upload file with mime type: ', mimeType)
-      throw createError(422, 'The uploaded file must be an image')
+      throw createError(415, 'The uploaded file must be an image')
     }
     fileName = filename
     console.log('File [' + fieldname + ']: filename: ' + fileName)
@@ -120,6 +121,10 @@ export const photoUploadHandler = (
   })
 
   busboy.on('finish', () => {
+    if (!fileName) {
+      send(res, 400, 'File was not uploaded.')
+      return
+    }
     send(res, 200, {
       status: 'File uploaded.',
       fileName: fileName
