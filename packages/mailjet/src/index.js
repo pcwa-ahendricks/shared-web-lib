@@ -1,7 +1,12 @@
 // @flow
 import {router, get, post} from 'micro-fork'
 import {send} from 'micro'
-import {hecpEmailRoute, waterWasteRoute, photoFileRoute} from './routes/index'
+import {
+  hecpEmailRoute,
+  waterWasteRoute,
+  photoFileRoute,
+  photoB64Route
+} from './routes/index'
 import noCache from './lib/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage} from 'http'
@@ -16,6 +21,7 @@ const routeHandler = router()(
   post('/mail/form-exam-submit', hecpEmailRoute),
   post('/mail/water-waste', waterWasteRoute),
   get('/uploads/:filename', photoFileRoute),
+  get('/uploads/b64/:filename', photoB64Route),
   get('/favicon.ico', noFavicon),
   get('/*', notfound)
 )
