@@ -86,8 +86,8 @@ export const photoUploadHandler = (
   if (!existsSync(UPLOADS_DIR)) {
     mkdirSync(UPLOADS_DIR)
   }
-  // console.log(req.headers)
-  const busboy = new Busboy({headers: req.headers})
+  const {headers} = req
+  const busboy = new Busboy({headers})
   let fileName: any
   busboy.on('file', (fieldname, file, filename, encoding, mimeType) => {
     console.log(file)
