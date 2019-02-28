@@ -19,7 +19,6 @@ import {UPLOADS_DIR} from '../index'
 import {getType} from 'mime'
 import {createError, send} from 'micro'
 import Busboy from 'busboy'
-// import parse from 'urlencoded-body-parser'
 
 export const photoFileHandler = (
   req: MicroForKRequest,
