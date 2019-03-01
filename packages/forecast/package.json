@@ -9,7 +9,7 @@
     "server:dev": "cross-env NODE_ENV=development concurrently 'npm run watch' 'nodemon dist/server.js'",
     "build": "babel src --out-dir dist --ignore src/**/*.spec.js,src/**/*.test.js",
     "watch": "babel src --watch --out-dir dist",
-    "dev": "concurrently 'npm run watch' 'micro-dev -s -p 1337'",
+    "dev": "concurrently 'npm run watch' 'micro-dev -s -p 3001'",
     "inspect": "node --inspect node_modules/.bin/micro-dev",
     "test": "ava"
   },

@@ -29,6 +29,7 @@
     "classnames": "^2.2.6",
     "color-alpha": "^1.0.3",
     "dotenv-webpack": "^1.7.0",
+    "formik": "^1.5.1",
     "immutable": "^4.0.0-rc.12",
     "isomorphic-unfetch": "^3.0.0",
     "jss-plugin-expand": "10.0.0-alpha.11",
@@ -42,6 +43,7 @@
     "react-animated-weather": "^2.0.0",
     "react-css-transition-replace": "^3.0.3",
     "react-dom": "^16.8.3",
+    "react-dropzone": "^9.0.0",
     "react-imgix": "^8.5.1",
     "react-jss": "^8.6.1",
     "react-redux": "^6.0.1",
@@ -51,7 +53,8 @@
     "redux-thunk": "^2.3.0",
     "serve": "^10.1.2",
     "styled-jsx": "^3.2.1",
-    "webpack": "^4.29.5"
+    "webpack": "^4.29.5",
+    "yup": "^0.26.10"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

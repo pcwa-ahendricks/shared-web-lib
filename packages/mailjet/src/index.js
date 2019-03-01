@@ -13,7 +13,19 @@ import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage} from 'http'
 import {join} from 'path'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 export const UPLOADS_DIR = join('/tmp', 'uploads')
+
+// CORS wouldn't be needed in serverless environments such as Now v2 since CORS Headers can be controlled via now.json. CORS is needed in
+// development environments that use micro-dev however.
+let cors
+
+if (isDev) {
+  const microCors = require('micro-cors')
+  const origin = '*'
+  cors = microCors({origin})
+}
 
 const notfound = (req, res) => send(res, 404)
 const noFavicon = (req, res) => send(res, 204)
@@ -30,7 +42,7 @@ const routeHandler = router()(
 
 const middlewareHandler = applyMiddleware(routeHandler, [noCache])
 
-export default middlewareHandler
+export default (isDev && cors ? cors(middlewareHandler) : middlewareHandler)
 
 export type MicroForKRequest = {
   params: any,

@@ -19,6 +19,12 @@ import {UPLOADS_DIR} from '../index'
 import {getType} from 'mime'
 import {createError, send} from 'micro'
 import Busboy from 'busboy'
+import BusboyError, {
+  type BusboyErrorCode,
+  type BusboyErrorType
+} from '../lib/busboy-error'
+
+const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 
 export const photoFileHandler = (
   req: MicroForKRequest,
@@ -88,14 +94,22 @@ export const photoUploadHandler = (
   }
   const {headers} = req
   const busboy = new Busboy({headers})
-  let fileName: any
-  busboy.on('file', (fieldname, file, filename, encoding, mimeType) => {
+  let fileName: string
+  let fieldName: string
+  let filePath: string
+
+  busboy.on('file', (fieldname, filestream, filename, encoding, mimetype) => {
+    // don't attach to the files object, if there is no file
+    if (!filename) return filestream.resume()
     // only allow image types to by processed
-    if (!mimeType.startsWith('image/')) {
-      isDev && console.log('Tried to upload file with mime type: ', mimeType)
-      throw createError(415, 'The uploaded file must be an image')
+    if (!ACCEPTING_MIME_TYPES_RE.test(mimetype)) {
+      isDev && console.log('Tried to upload file with mime type: ', mimetype)
+      // Don't throw createError() inside busboy event callbacks.
+      return abortWithCode('BAD_MIME_TYPE')
     }
-    fileName = filename
+    fileName = filename // Used with response.
+    fieldName = fieldname // Used with response.
+    filePath = join(UPLOADS_DIR, fieldname, fileName) // Used with response.
     isDev &&
       console.log(`Fieldname [${fieldname}] will use filename "${fileName}"`)
     // create sub-directory using fieldname and ensure it exists
@@ -103,33 +117,54 @@ export const photoUploadHandler = (
       mkdirSync(join(UPLOADS_DIR, fieldname))
     }
     let totalData = 0 // reset file size counter
-    file.on('data', (data: Buffer) => {
+    filestream.on('data', (data: Buffer) => {
       totalData += data.length
       // Log file progress when in development
       isDev && console.log(`File [${fieldname}] got ${pretty(totalData)}`) // log progress
     })
-    file.on('end', () => {
+    filestream.on('end', () => {
       console.log(`File [${fieldname}] Finished`) // log finish
+      console.log(`File saved to: "${filePath}"`) // log success
     })
 
-    // save file
-    const saveTo = join(UPLOADS_DIR, fieldname, fileName)
-
-    file.pipe(createWriteStream(saveTo))
-
-    console.log(`File saved to: ${saveTo}`) // log success
+    filestream.pipe(createWriteStream(filePath))
   })
 
   busboy.on('finish', () => {
     if (!fileName) {
-      send(res, 400, 'File was not uploaded.')
-      return
+      return abortWithCode('NO_FILENAME')
     }
     send(res, 200, {
-      status: 'File uploaded.',
-      fileName: fileName
+      status: 'success',
+      fileName,
+      fieldName,
+      filePath
     })
   })
+
+  busboy.on('error', (err: BusboyErrorType) => {
+    console.log('AN ERROR WAS LOGGED HERE!!!')
+    done(err)
+  })
+
+  function abortWithCode(code: BusboyErrorCode, optionalField) {
+    done(new BusboyError(code, optionalField))
+  }
+
+  function done(err: BusboyErrorType) {
+    req.unpipe(busboy)
+    drainStream(req)
+    busboy.removeAllListeners()
+    send(res, 500, err.message)
+  }
+
+  /*
+   * Draining the stream is important. If this is not performed, sometimes the request will not send back a response code. This can be tested by sending an un-accepted mime type at the same time as acceptable mime types in batch.
+   */
+  function drainStream(stream) {
+    isDev && console.log('Draining stream...')
+    stream.on('readable', stream.read.bind(stream))
+  }
 
   req.pipe(busboy)
 }

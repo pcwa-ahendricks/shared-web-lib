@@ -7,7 +7,7 @@
     "start": "dev",
     "build": "babel src --out-dir dist --ignore src/**/*.spec.js,src/**/*.test.js",
     "watch": "babel src --watch --out-dir dist",
-    "dev": "concurrently 'npm run watch' 'micro-dev -s -p 1338'",
+    "dev": "concurrently 'npm run watch' 'micro-dev -s -p 3002'",
     "inspect": "node --inspect node_modules/.bin/micro-dev",
     "test": "ava"
   },
@@ -19,6 +19,7 @@
     "dotenv-safe": "^6.1.0",
     "jimp": "^0.6.0",
     "micro": "^9.3.3",
+    "micro-cors": "^0.1.1",
     "micro-fork": "^1.0.0",
     "micro-middleware": "^0.1.0",
     "mime": "^2.4.0",
