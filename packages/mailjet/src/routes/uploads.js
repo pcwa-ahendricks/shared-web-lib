@@ -116,12 +116,14 @@ export const photoUploadHandler = (
     if (!existsSync(join(UPLOADS_DIR, fieldname))) {
       mkdirSync(join(UPLOADS_DIR, fieldname))
     }
-    let totalData = 0 // reset file size counter
-    filestream.on('data', (data: Buffer) => {
-      totalData += data.length
-      // Log file progress when in development
-      isDev && console.log(`File [${fieldname}] got ${pretty(totalData)}`) // log progress
-    })
+    if (isDev) {
+      let totalData = 0 // reset file size counter
+      filestream.on('data', (data: Buffer) => {
+        totalData += data.length
+        // Log file progress when in development
+        console.log(`File [${fieldname}] got ${pretty(totalData)}`) // log progress
+      })
+    }
     filestream.on('end', () => {
       console.log(`File [${fieldname}] Finished`) // log finish
       console.log(`File saved to: "${filePath}"`) // log success

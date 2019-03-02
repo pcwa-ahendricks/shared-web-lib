@@ -3,18 +3,17 @@
 import fetch from 'isomorphic-unfetch'
 
 const UPLOADS_URL = process.env.NEXT_UPLOADS_URL || ''
+export const UPLOAD_SERVICE_BASE_URL = `${UPLOADS_URL}/uploads`
 
 const uploadFile = async (file: any, subFolder: string = '') => {
-  const url = `${UPLOADS_URL}/uploads`
   const formData = new FormData()
   formData.append(subFolder, file, file.name)
   try {
     // Don't set headers manually. See https://stackoverflow.com/questions/39280438/fetch-missing-boundary-in-multipart-form-data-post for more info.
-    const response = await fetch(url, {
+    const response = await fetch(UPLOAD_SERVICE_BASE_URL, {
       method: 'POST',
       body: formData
     })
-    console.log(response.ok)
     if (response.ok) {
       const data: UploadResponse = await response.json()
       return data

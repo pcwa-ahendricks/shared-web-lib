@@ -8,7 +8,11 @@ import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form} from 'formik'
 import {string, object} from 'yup'
-import {uploadFile} from '../../lib/services/uploadService'
+import {
+  uploadFile,
+  UPLOAD_SERVICE_BASE_URL
+} from '../../lib/services/uploadService'
+import {Document, Page} from 'react-pdf'
 
 type Props = {
   classes: any
@@ -25,7 +29,6 @@ const formSchema = object()
   })
 
 const initialFormValues = {
-  // attachments: [],
   email: ''
 }
 
@@ -39,7 +42,35 @@ const styles = {
       backgroundColor: 'purple'
     }
   },
-  isActive: {}
+  isActive: {},
+  thumbsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 16
+  },
+  thumb: {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginBottom: 8,
+    marginRight: 8,
+    width: 150,
+    height: 150,
+    padding: 4,
+    boxSizing: 'border-box'
+  },
+  thumbInner: {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden',
+    width: '100%',
+    '& img': {
+      display: 'block',
+      width: 'auto',
+      height: '100%'
+    }
+  }
 }
 
 const Rebate = ({classes}: Props) => {
@@ -55,34 +86,41 @@ const Rebate = ({classes}: Props) => {
   ) => {
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
-    setDroppedFiles((prevDroppedFiles) => [
-      ...prevDroppedFiles,
-      ...acceptedFiles
-    ])
-    // acceptedFiles.forEach(uploadFileHandler)
-    for (var i = 0; i <= acceptedFiles.length; i++) {
-      console.log('array length', i)
-      uploadFileHandler(acceptedFiles[i])
-    }
+    // Add image preview urls.
+    const newFiles = acceptedFiles.map((file) => ({
+      path: file.path,
+      lastModified: file.lastModified,
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      preview: URL.createObjectURL(file)
+    }))
+    setDroppedFiles((prevDroppedFiles) => [...prevDroppedFiles, ...newFiles])
+    // Upload dropped files.
+    acceptedFiles.forEach(uploadFileHandler)
   }
 
   const uploadFileHandler = async (file) => {
     try {
-      console.log('about to upload file', file.name)
-      const response = await uploadFile(file, 'device rebate')
+      const response = await uploadFile(file, 'device-rebate')
       if (
         response &&
         response.status &&
         response.status.toLowerCase() === 'success'
       ) {
-        console.log(`about to attach ${response.filePath}`)
         setAttachFiles((prevAttachedFiles) => [
           ...prevAttachedFiles,
-          response.filePath
+          {
+            ...response,
+            fileType: extension(response.fileName),
+            url: `${UPLOAD_SERVICE_BASE_URL}/${response.fileName}?folder=${
+              response.fieldName
+            }`
+          }
         ])
       }
     } catch (error) {
-      console.log('we caught it. No biggie.')
+      console.log(error)
     }
   }
 
@@ -91,15 +129,30 @@ const Rebate = ({classes}: Props) => {
   //   alert('Canceling...')
   //   setFiles([])
   // }
-
   const fileList = droppedFiles.map((file, idx) => (
     <li key={idx}>
       {file.name} - {file.size} bytes
     </li>
   ))
   const attachmentList = attachFiles.map((file, idx) => (
-    <li key={idx}>{file}</li>
+    <li key={idx}>{file.url}</li>
   ))
+  const thumbs = attachFiles.map((file, idx) => {
+    return (
+      <div className={classes.thumb} key={idx}>
+        <div className={classes.thumbInner}>
+          {file.fileType === 'pdf' ? (
+            // <img src="/static/images/pdf.svg" />
+            <Document file={{url: `${file.url}`}}>
+              <Page pageNumber={1} width={150} />
+            </Document>
+          ) : (
+            <img src={file.url} />
+          )}
+        </div>
+      </div>
+    )
+  })
 
   // <PageLayout title="Irrigation Canal Information">
   return (
@@ -147,6 +200,7 @@ const Rebate = ({classes}: Props) => {
             return (
               <Form>
                 <div className={classes.dropzoneContainer}>
+                  {/* Mime types are also checked on the back-end. */}
                   <Dropzone
                     onDrop={dropHandler}
                     accept="image/*, application/pdf"
@@ -179,6 +233,7 @@ const Rebate = ({classes}: Props) => {
                   <h4>Attachments</h4>
                   <ul>{attachmentList}</ul>
                 </aside>
+                <aside className={classes.thumbsContainer}>{thumbs}</aside>
               </Form>
             )
           }}
@@ -190,3 +245,18 @@ const Rebate = ({classes}: Props) => {
 /* </PageLayout> */
 
 export default withStyles(styles)(Rebate)
+
+function extension(filename: string, lowercase = true) {
+  if (!filename || typeof filename !== 'string') {
+    return null
+  }
+  const ext = filename
+    .split('.')
+    .pop()
+    .trim()
+  if (lowercase) {
+    return ext.toLowerCase()
+  } else {
+    return ext
+  }
+}
