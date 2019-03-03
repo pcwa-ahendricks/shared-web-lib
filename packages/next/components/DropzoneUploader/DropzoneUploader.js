@@ -8,12 +8,13 @@ import {
   UPLOAD_SERVICE_BASE_URL
 } from '../../lib/services/uploadService'
 import {Document, Page} from 'react-pdf'
+import UploadStatusIndicator from './UploadStatusIndicator'
 
 type Props = {
   classes: any
 }
 
-const styles = {
+const styles = () => ({
   dropzoneContainer: {
     backgroundColor: '#eee'
   },
@@ -48,10 +49,19 @@ const styles = {
     width: '100%',
     '& img': {
       display: 'block',
-      width: 'auto',
-      height: '100%'
+      width: '100%',
+      objectFit: 'cover'
+      // height: '100%'
     }
   }
+})
+
+const responseTempUrl = (response: any) => {
+  return response.status && response.status.toLowerCase() === 'success'
+    ? `${UPLOAD_SERVICE_BASE_URL}/${response.fileName}?folder=${
+        response.fieldName
+      }`
+    : ''
 }
 
 const DropzoneUploader = ({classes}: Props) => {
@@ -59,41 +69,36 @@ const DropzoneUploader = ({classes}: Props) => {
   const [uploadedFiles, setUploadedFiles] = useState<Array<any>>([])
 
   const dropHandler = async (
-    acceptedFiles: Array<any>
+    files: Array<any>
     // rejectedFiles: Array<any>
   ) => {
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
     // Add image preview urls.
-    const newFiles = acceptedFiles.map((file) => ({
+    const newFiles = files.map((file) => ({
       path: file.path,
       lastModified: file.lastModified,
       name: file.name,
       type: file.type,
       size: file.size,
-      preview: URL.createObjectURL(file)
+      fileType: extension(file.name),
+      previewUrl: URL.createObjectURL(file)
     }))
     setDroppedFiles((prevDroppedFiles) => [...prevDroppedFiles, ...newFiles])
     // Upload dropped files.
-    acceptedFiles.forEach(uploadFileHandler)
+    files.forEach(uploadFileHandler)
   }
 
   const uploadFileHandler = async (file) => {
     try {
       const response = await uploadFile(file, 'device-rebate')
-      if (
-        response &&
-        response.status &&
-        response.status.toLowerCase() === 'success'
-      ) {
+      if (response) {
         setUploadedFiles((prevUploadedFiles) => [
           ...prevUploadedFiles,
           {
             ...response,
             fileType: extension(response.fileName),
-            url: `${UPLOAD_SERVICE_BASE_URL}/${response.fileName}?folder=${
-              response.fieldName
-            }`
+            tempUrl: responseTempUrl(response)
           }
         ])
       }
@@ -113,21 +118,25 @@ const DropzoneUploader = ({classes}: Props) => {
     </li>
   ))
   const attachmentList = uploadedFiles.map((file, idx) => (
-    <li key={idx}>{file.url}</li>
+    <li key={idx}>{file.tempUrl}</li>
   ))
-  const thumbs = uploadedFiles.map((file, idx) => {
+
+  const thumbs = droppedFiles.map((file, idx) => {
     return (
       <div className={classes.thumb} key={idx}>
-        <div className={classes.thumbInner}>
-          {file.fileType === 'pdf' ? (
-            // <img src="/static/images/pdf.svg" />
-            <Document file={{url: `${file.url}`}}>
-              <Page pageNumber={1} width={150} />
-            </Document>
-          ) : (
-            <img src={file.url} />
-          )}
-        </div>
+        <UploadStatusIndicator uploadedFiles={uploadedFiles} file={file}>
+          <div className={classes.thumbInner}>
+            {file.fileType === 'pdf' ? (
+              // <img src="/static/images/pdf.svg" />
+              <Document file={file.previewUrl}>
+                {/* Since Border-box sizing is used width needs to be calculated. */}
+                <Page pageNumber={1} width={108} scale={1} />
+              </Document>
+            ) : (
+              <img src={file.previewUrl} />
+            )}
+          </div>
+        </UploadStatusIndicator>
       </div>
     )
   })
@@ -159,6 +168,7 @@ const DropzoneUploader = ({classes}: Props) => {
             )
           }}
         </Dropzone>
+        <aside className={classes.thumbsContainer}>{thumbs}</aside>
       </div>
       <aside>
         <h4>Files</h4>
@@ -166,7 +176,6 @@ const DropzoneUploader = ({classes}: Props) => {
         <h4>Attachments</h4>
         <ul>{attachmentList}</ul>
       </aside>
-      <aside className={classes.thumbsContainer}>{thumbs}</aside>
     </div>
   )
 }

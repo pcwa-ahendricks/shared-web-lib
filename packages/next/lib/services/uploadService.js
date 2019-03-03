@@ -18,17 +18,40 @@ const uploadFile = async (file: any, subFolder: string = '') => {
       const data: UploadResponse = await response.json()
       return data
     } else {
-      const text = await response.text()
-      const error = new Error(text || response.statusText)
-      // $FlowFixMe
-      error.response = response
-      throw error
+      return errorHandler(response, file, subFolder)
     }
   } catch (error) {
-    console.warn(error)
-    // return {}
-    throw error
+    console.warn('An unexpected error occurred.', error)
+    return errorHandler(null, file, subFolder)
   }
+}
+
+const errorHandler = async (res, file, subFolder, err) => {
+  // Instead of throwing the error we want to set data response accordingly so progress/status indicators know what to do.
+  // const error = new Error(text || response.statusText)
+  // error.response = response
+  // throw error
+  let reason
+  if (res) {
+    try {
+      const text = await res.text()
+      reason = text || res.statusText
+    } catch (error) {
+      reason = 'An Error Occurred.'
+    }
+  } else if (err && err.message) {
+    reason = err.message
+  } else {
+    reason = 'An Error Occurred.'
+  }
+  const data = {
+    fieldName: subFolder,
+    fileName: file.name,
+    filePath: '',
+    status: 'failed',
+    reason: reason
+  }
+  return data
 }
 
 type UploadResponse = {
