@@ -22,7 +22,8 @@ import {type UploadResponse} from '../../lib/services/uploadService'
 type Props = {
   classes: any,
   onUploaded?: (files: any) => void,
-  height: number | string
+  height: number | string,
+  allowClearUploads: boolean
 }
 
 const styles = (theme) => ({
@@ -105,7 +106,12 @@ const responseTempUrl = (response: any) => {
     : ''
 }
 
-const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
+const DropzoneUploader = ({
+  classes,
+  onUploaded,
+  height,
+  allowClearUploads
+}: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
   const [rejectedFiles, setRejectedFiles] = useState<Array<DroppedFile>>([])
   const [uploadedFiles, setUploadedFiles] = useState<Array<UploadedFile>>([])
@@ -259,7 +265,9 @@ const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
     )
   })
 
-  const showClearUploadsButton = Boolean(uploadedFiles.length > 0)
+  const showClearUploadsButton = Boolean(
+    allowClearUploads && uploadedFiles.length >= 2
+  )
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
   // <PageLayout title="Irrigation Canal Information">
@@ -348,7 +356,8 @@ const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
 export default withStyles(styles)(DropzoneUploader)
 
 DropzoneUploader.defaultProps = {
-  height: '100%'
+  height: '100%',
+  allowClearUploads: false
 }
 
 function extension(filename: string, lowercase = true) {
