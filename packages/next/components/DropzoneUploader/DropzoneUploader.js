@@ -21,7 +21,8 @@ type Props = {
   classes: any,
   onUploaded?: (files: any) => void,
   height: number | string,
-  allowClearUploads: boolean
+  allowClearUploads: boolean,
+  uploadFolder: string
 }
 
 const styles = (theme) => ({
@@ -85,7 +86,8 @@ const DropzoneUploader = ({
   classes,
   onUploaded,
   height,
-  allowClearUploads
+  allowClearUploads,
+  uploadFolder
 }: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
   const [rejectedFiles, setRejectedFiles] = useState<Array<DroppedFile>>([])
@@ -135,13 +137,11 @@ const DropzoneUploader = ({
   ) => {
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
-    // Add image preview urls.
     files.forEach((file) => {
-      const fileNamePrefix = `${nanoid(10)}__`
-      const newFileName = `${fileNamePrefix}${file.name}`
-      const newFile = new File([file], newFileName, {
+      const newFile = new File([file], uniqueFilename(file.name), {
         type: file.type
       })
+      // Add image preview urls.
       setDroppedFiles((prevDroppedFiles) => [
         ...prevDroppedFiles,
         {
@@ -150,7 +150,7 @@ const DropzoneUploader = ({
           size: newFile.size,
           lastModified: newFile.lastModified,
           previewUrl: URL.createObjectURL(newFile),
-          ext: extension(newFileName)
+          ext: extension(newFile.name)
         }
       ])
       // Upload dropped files.
@@ -160,7 +160,7 @@ const DropzoneUploader = ({
 
   const uploadFileHandler = async (file) => {
     try {
-      const response = await uploadFile(file, 'device-rebate')
+      const response = await uploadFile(file, uploadFolder)
       if (response) {
         // Destructuring File objects doesn't produce any properties. Need to specify those 4 explicitly.
         const uploadedFile = {
@@ -306,7 +306,8 @@ export default withStyles(styles)(DropzoneUploader)
 
 DropzoneUploader.defaultProps = {
   height: '100%',
-  allowClearUploads: false
+  allowClearUploads: false,
+  uploadFolder: ''
 }
 
 function extension(filename: string, lowercase = true) {
@@ -342,4 +343,9 @@ export type DroppedFile = {
   size: number,
   ext: ?string,
   previewUrl: ?string
+}
+
+function uniqueFilename(fileName: string) {
+  const fileNamePrefix = `${nanoid(10)}__`
+  return `${fileNamePrefix}${fileName}`
 }

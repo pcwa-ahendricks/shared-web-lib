@@ -84,7 +84,11 @@ const Rebate = () => {
 
             return (
               <Form>
-                <DropzoneUploader onUploaded={uploadedHandler} height={200} />
+                <DropzoneUploader
+                  uploadFolder="device-rebate"
+                  onUploaded={uploadedHandler}
+                  height={200}
+                />
               </Form>
             )
           }}
