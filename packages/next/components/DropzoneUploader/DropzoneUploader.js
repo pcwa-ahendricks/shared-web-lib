@@ -3,15 +3,7 @@ import React, {useState, useEffect} from 'react'
 import Dropzone from 'react-dropzone'
 import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography as Type
-} from '@material-ui/core'
+import {Button, Typography as Type} from '@material-ui/core'
 import {
   uploadFile,
   UPLOAD_SERVICE_BASE_URL
@@ -21,8 +13,10 @@ import UploadStatusIndicator from './UploadStatusIndicator'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import DeleteIcon from '@material-ui/icons/Delete'
 import RemoveUploadFab from './RemoveUploadFab'
-import Slide from '@material-ui/core/Slide'
 import nanoid from 'nanoid'
+import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
+import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
+import UploadRejectedDialog from './UploadRejectedDialog'
 import {type UploadResponse} from '../../lib/services/uploadService'
 
 type Props = {
@@ -113,21 +107,23 @@ const responseTempUrl = (response: any) => {
 
 const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
+  const [rejectedFiles, setRejectedFiles] = useState<Array<DroppedFile>>([])
   const [uploadedFiles, setUploadedFiles] = useState<Array<UploadedFile>>([])
   const [thumbHover, setThumbHover] = useState<string | null>(null)
   const [
     confirmRemoveUpload,
     setConfirmRemoveUpload
   ] = useState<DroppedFile | null>(null)
+  const [
+    showConfirmClearUploads,
+    setShowConfirmClearUploads
+  ] = useState<boolean>(false)
   useEffect(() => {
     onUploaded && onUploaded(uploadedFiles)
   }, [uploadedFiles])
 
-  // const confirmRemoveUploadHandler = () => {
-  // setConfirmRemoveUpload(true)
-  // }
-
   const clearUploadsHandler = () => {
+    setShowConfirmClearUploads(false) // Hide dialog.
     setUploadedFiles([])
     // Resetting dropped files is required for removing thumbs previews.
     setDroppedFiles([])
@@ -206,6 +202,18 @@ const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
     }
   }
 
+  /*
+   * rejectedFiles doesn't contain all the rejected files. Just the files rejected since
+   * last onRejected called.
+   */
+  const rejectHandler = (files: Array<DroppedFile>) => {
+    setRejectedFiles([...files])
+  }
+
+  const uploadRejectCloseHandler = () => {
+    setRejectedFiles([])
+  }
+
   // onFileDialogCancel property handler doesn't fire correctly in Firefox. Will avoid using this for now.
   // const cancelHandler = () => {
   //   alert('Canceling...')
@@ -253,12 +261,17 @@ const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
 
   const showClearUploadsButton = Boolean(uploadedFiles.length > 0)
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
+  const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
   // <PageLayout title="Irrigation Canal Information">
   return (
     <div>
       <div className={classes.dropzoneContainer}>
         {/* Mime types are also checked on the back-end. */}
-        <Dropzone onDrop={dropHandler} accept="image/*, application/pdf">
+        <Dropzone
+          onDrop={dropHandler}
+          accept="image/*, application/pdf"
+          onDropRejected={rejectHandler}
+        >
           {({getRootProps, getInputProps, isDragActive}) => {
             return (
               <div
@@ -297,7 +310,7 @@ const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
               variant="outlined"
               fullWidth={true}
               className={classes.clearUploadsButton}
-              onClick={clearUploadsHandler}
+              onClick={() => setShowConfirmClearUploads(true)}
               size="small"
             >
               Clear Uploads
@@ -312,24 +325,21 @@ const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
         <h4>Attachments</h4>
         <ul>{attachmentList}</ul>
       </aside>
-      <Dialog
+      <ConfirmRemoveUploadDialog
         open={showConfirmRemoveUpload}
         onClose={() => setConfirmRemoveUpload(null)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        TransitionComponent={Transition}
-      >
-        <DialogTitle id="alert-dialog-title">Confirm Removal</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to remove this upload?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setConfirmRemoveUpload(null)}>Cancel</Button>
-          <Button onClick={removeUploadHandler}>Remove</Button>
-        </DialogActions>
-      </Dialog>
+        onRemove={removeUploadHandler}
+      />
+      <ConfirmClearUploadsDialog
+        open={showConfirmClearUploads}
+        onClose={() => setShowConfirmClearUploads(false)}
+        onClear={clearUploadsHandler}
+      />
+      <UploadRejectedDialog
+        open={showRejectedFilesDialog}
+        rejectedFiles={rejectedFiles}
+        onClose={uploadRejectCloseHandler}
+      />
     </div>
   )
 }
@@ -356,10 +366,6 @@ function extension(filename: string, lowercase = true) {
   }
 }
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />
-}
-
 export type UploadedFile = {
   name: string,
   type: string,
@@ -370,11 +376,12 @@ export type UploadedFile = {
   ext: string
 }
 
+// Marking ext and previewUrl as maybe null helps with prop type checking in <UploadRejectedDialog/>.
 export type DroppedFile = {
   name: string,
   type: string,
   lastModified: number,
   size: number,
-  previewUrl: string,
-  ext: string
+  ext: ?string,
+  previewUrl: ?string
 }
