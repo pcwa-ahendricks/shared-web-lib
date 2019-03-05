@@ -10,7 +10,12 @@
     }
   },
   "env": {
-    "NODE_DARKSKY_API_KEY": "@web-darksky-dev-api-key"
+    "NODE_DARKSKY_API_KEY": "@web-darksky-dev-api-key",
+    "NODE_DARKSKY_ROUTE_PREFIX": "/lambda/forecast",
+    "NODE_MAILJET_KEY": "@web-mailjet-key",
+    "NODE_MAILJET_SECRET": "@web-mailjet-secret",
+    "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
+    "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail"
   },
   "builds": [
     {
@@ -20,12 +25,17 @@
         "maxLambdaSize": "50mb"
       }
     },
-    { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" }
+    { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" },
+    { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" }
   ],
   "routes": [
     {
       "src": "^/lambda/forecast(.*)$",
-      "dest": "packages/forecast/dist/server.js$1"
+      "dest": "packages/forecast/dist/server.js"
+    },
+    {
+      "src": "^/lambda/mail(.*)$",
+      "dest": "packages/mailjet/dist/index.js"
     },
     {
       "src": "^/(.*)$",

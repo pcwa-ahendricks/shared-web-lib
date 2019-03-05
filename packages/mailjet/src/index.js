@@ -13,6 +13,7 @@ import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage} from 'http'
 import {join} from 'path'
 
+const rtePre = process.env.NODE_MAILJET_ROUTE_PREFIX || ''
 const isDev = process.env.NODE_ENV === 'development'
 
 export const UPLOADS_DIR = join('/tmp', 'uploads')
@@ -31,13 +32,13 @@ const notfound = (req, res) => send(res, 404)
 const noFavicon = (req, res) => send(res, 204)
 
 const routeHandler = router()(
-  post('/mail/form-exam-submit', hecpEmailRoute),
-  post('/mail/water-waste', waterWasteRoute),
-  get('/uploads/:filename', photoFileRoute),
-  get('/uploads/b64/:filename', photoB64Route),
-  post('/uploads', photoUploadRoute),
-  get('/favicon.ico', noFavicon),
-  get('/*', notfound)
+  post(`${rtePre}/form-exam-submit`, hecpEmailRoute),
+  post(`${rtePre}/water-waste-submit`, waterWasteRoute),
+  get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
+  get(`${rtePre}/uploads/:filename`, photoFileRoute),
+  post(`${rtePre}/uploads`, photoUploadRoute),
+  get(`${rtePre}/favicon.ico`, noFavicon),
+  get(`${rtePre}/*`, notfound)
 )
 
 const middlewareHandler = applyMiddleware(routeHandler, [noCache])

@@ -16,7 +16,7 @@
     "next:dev": "npm run dev --prefix packages/next",
     "dev": "concurrently -n next,forecast,mailjet 'npm run next:dev' 'npm run forecast:dev' 'npm run mailjet:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
-    "prenow": "npm run build --prefix packages/forecast",
+    "prenow": "npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet",
     "now": "now && now alias",
     "now-build": "next build",
     "flow": "flow"
@@ -24,7 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "flow-bin": "^0.93.0",
-    "now": "^14.0.1"
+    "flow-bin": "^0.94.0",
+    "now": "^14.0.3"
   }
 }

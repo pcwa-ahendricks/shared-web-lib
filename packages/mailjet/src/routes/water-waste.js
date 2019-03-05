@@ -3,8 +3,8 @@ const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
-import {createError, json} from 'micro'
-import {type IncomingMessage} from 'http'
+import {createError, json, send} from 'micro'
+import {type IncomingMessage, type ServerResponse} from 'http'
 import * as yup from 'yup'
 import * as Jimp from 'jimp'
 import {join, parse} from 'path'
@@ -55,7 +55,10 @@ const bodySchema = yup
       )
   })
 
-export const waterWasteHandler = async (req: IncomingMessage) => {
+export const waterWasteHandler = async (
+  req: IncomingMessage,
+  res: ServerResponse
+) => {
   needsApiKey(MAILJET_KEY)
   const body = await json(req)
 
@@ -171,7 +174,8 @@ export const waterWasteHandler = async (req: IncomingMessage) => {
         'Mailjet sendMail post response: ',
         JSON.stringify(result.body, null, 2)
       )
-    return result.body
+    // Returning result.body doesn't work with Now. send() does. Not sure why.
+    send(res, 200, result.body)
   } catch (error) {
     isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
@@ -254,8 +258,8 @@ const attach = (reqAttachments) => {
         resolve(attachments)
       }
     }
-    /* We work around bad/not-found images, instead of ending the response */
     function handleError(err: string) {
+      /* We work around bad/not-found images by proceeding w/out instead of ending the response. */
       // res.status(403).send("Specified file attachment(s) not found.")
       // res.status(500).send("Problem encountered during image processing.")
       console.warn(err)
@@ -274,14 +278,12 @@ const attach = (reqAttachments) => {
         return // return from this function (ie. don"t call toString() on invalid buffer and so on) on error.
       }
       const b64 = buffer.toString('base64')
-      // console.log(b64)
       pushAttachment(val, mimeType, b64)
       checkResolve()
     }
 
     reqAttachments.forEach(async (filename: string) => {
       const localFilePath = join(UPLOADS_DIR, ATTACHMENT_DIR, filename)
-      // console.log("filePath: ", localFilePath)
       if (!existsSync(localFilePath)) {
         handleError(
           `Can't find specified file attachment at "${localFilePath}".`
@@ -301,9 +303,6 @@ const attach = (reqAttachments) => {
         console.log(error)
         throw error
       }
-      // .resize(800, 800)
-      // .max()
-      // .toBuffer((err, buffer) =>
     }) // forEach
   })
 }

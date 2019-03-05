@@ -54,8 +54,9 @@ const errorHandler = async (res, file, subFolder, err) => {
   return data
 }
 
-type UploadResponse = {
-  status: string,
+type UploadStatus = 'unknown' | 'success' | 'failed'
+export type UploadResponse = {
+  status: UploadStatus,
   fileName: string,
   fieldName: string,
   filePath: string

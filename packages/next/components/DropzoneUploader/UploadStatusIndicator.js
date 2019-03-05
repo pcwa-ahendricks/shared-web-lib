@@ -4,15 +4,20 @@ import {Badge, LinearProgress} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
-
-type UploadStatus = 'unknown' | 'success' | 'failed'
+import {type DroppedFile, type UploadedFile} from './DropzoneUploader'
 
 type Props = {
   children: Node,
   classes: any,
-  uploadedFiles: Array<any>,
-  file: any
+  uploadedFiles: Array<UploadedFile>,
+  file: DroppedFile
 }
+
+// Use nested type
+type UploadStatus = $PropertyType<
+  $PropertyType<UploadedFile, 'serverResponse'>,
+  'status'
+>
 
 const styles = (theme) => ({
   margin: {
@@ -35,13 +40,17 @@ const UploadStatusIndicator = ({
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>('unknown')
   useEffect(() => {
     const matchingFile = uploadedFiles.find(
-      (uploadedFile) => uploadedFile.fileName === file.name
+      (uploadedFile) => uploadedFile.name === file.name
     )
-    if (!matchingFile || !matchingFile.status) {
+    if (
+      !matchingFile ||
+      !matchingFile.serverResponse ||
+      !matchingFile.serverResponse.status
+    ) {
       setUploadStatus('unknown')
       return
     }
-    setUploadStatus(matchingFile.status)
+    setUploadStatus(matchingFile.serverResponse.status)
   }, [uploadedFiles, file])
 
   const fileStatusBadgeContent = () => {

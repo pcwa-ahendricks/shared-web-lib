@@ -7,6 +7,7 @@ import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form} from 'formik'
 import {string, object} from 'yup'
+import {type UploadedFile} from '../../components/DropzoneUploader/DropzoneUploader'
 
 // type Props = {
 //   classes: any
@@ -32,6 +33,15 @@ const Rebate = () => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
+  const [attachments, setAttachments] = useState<Array<UploadedFile>>([])
+
+  const uploadedHandler = (file: any) => {
+    setAttachments((prevAttachments) => [...prevAttachments, {...file}])
+  }
+
+  const clearAttachmentsHandler = () => {
+    setAttachments([])
+  }
 
   // <PageLayout title="Irrigation Canal Information">
   return (
@@ -78,11 +88,19 @@ const Rebate = () => {
 
             return (
               <Form>
-                <DropzoneUploader />
+                <DropzoneUploader
+                  onUploaded={uploadedHandler}
+                  onClearUploads={clearAttachmentsHandler}
+                  height={200}
+                />
               </Form>
             )
           }}
         </Formik>
+
+        {attachments.map((attach) => (
+          <div key={attach.name}>{attach.name}</div>
+        ))}
       </main>
     </React.Fragment>
   )
