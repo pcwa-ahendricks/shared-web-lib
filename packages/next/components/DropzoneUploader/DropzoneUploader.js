@@ -1,5 +1,5 @@
 // @flow
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Dropzone from 'react-dropzone'
 import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
@@ -28,7 +28,6 @@ import {type UploadResponse} from '../../lib/services/uploadService'
 type Props = {
   classes: any,
   onUploaded?: (files: any) => void,
-  onClearUploads?: () => void,
   height: number | string
 }
 
@@ -112,12 +111,7 @@ const responseTempUrl = (response: any) => {
     : ''
 }
 
-const DropzoneUploader = ({
-  classes,
-  onUploaded,
-  onClearUploads,
-  height
-}: Props) => {
+const DropzoneUploader = ({classes, onUploaded, height}: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
   const [uploadedFiles, setUploadedFiles] = useState<Array<UploadedFile>>([])
   const [thumbHover, setThumbHover] = useState<string | null>(null)
@@ -125,6 +119,9 @@ const DropzoneUploader = ({
     confirmRemoveUpload,
     setConfirmRemoveUpload
   ] = useState<DroppedFile | null>(null)
+  useEffect(() => {
+    onUploaded && onUploaded(uploadedFiles)
+  }, [uploadedFiles])
 
   // const confirmRemoveUploadHandler = () => {
   // setConfirmRemoveUpload(true)
@@ -134,7 +131,6 @@ const DropzoneUploader = ({
     setUploadedFiles([])
     // Resetting dropped files is required for removing thumbs previews.
     setDroppedFiles([])
-    onClearUploads && onClearUploads()
   }
 
   const tryRemoveUploadHandler = (file: DroppedFile) => {
@@ -204,7 +200,6 @@ const DropzoneUploader = ({
           ...prevUploadedFiles,
           uploadedFile
         ])
-        onUploaded && onUploaded({...uploadedFile})
       }
     } catch (error) {
       console.log(error)
@@ -256,9 +251,7 @@ const DropzoneUploader = ({
     )
   })
 
-  const showClearUploadsButton = Boolean(
-    uploadedFiles.length > 0 && onClearUploads
-  )
+  const showClearUploadsButton = Boolean(uploadedFiles.length > 0)
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
   // <PageLayout title="Irrigation Canal Information">
   return (

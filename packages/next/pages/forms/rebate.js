@@ -35,12 +35,8 @@ const Rebate = () => {
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<Array<UploadedFile>>([])
 
-  const uploadedHandler = (file: any) => {
-    setAttachments((prevAttachments) => [...prevAttachments, {...file}])
-  }
-
-  const clearAttachmentsHandler = () => {
-    setAttachments([])
+  const uploadedHandler = (files: Array<UploadedFile>) => {
+    setAttachments([...files])
   }
 
   // <PageLayout title="Irrigation Canal Information">
@@ -88,11 +84,7 @@ const Rebate = () => {
 
             return (
               <Form>
-                <DropzoneUploader
-                  onUploaded={uploadedHandler}
-                  onClearUploads={clearAttachmentsHandler}
-                  height={200}
-                />
+                <DropzoneUploader onUploaded={uploadedHandler} height={200} />
               </Form>
             )
           }}
