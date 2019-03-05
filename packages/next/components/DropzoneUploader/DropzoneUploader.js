@@ -199,14 +199,11 @@ const DropzoneUploader = ({
   //   alert('Canceling...')
   //   setFiles([])
   // }
-  const fileList = droppedFiles.map((file) => (
-    <li key={file.name}>
-      {file.name} - {file.size} bytes
-    </li>
-  ))
-  const attachmentList = uploadedFiles.map((file) => (
-    <li key={file.name}>{file.tempUrl}</li>
-  ))
+  // const fileList = droppedFiles.map((file) => (
+  //   <li key={file.name}>
+  //     {file.name} - {file.size} bytes
+  //   </li>
+  // ))
 
   const showClearUploadsButton = Boolean(
     allowClearUploads && uploadedFiles.length >= 2
@@ -215,7 +212,7 @@ const DropzoneUploader = ({
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
   // <PageLayout title="Irrigation Canal Information">
   return (
-    <div>
+    <React.Fragment>
       <div className={classes.dropzoneContainer}>
         {/* Mime types are also checked on the back-end. */}
         <Dropzone
@@ -276,12 +273,6 @@ const DropzoneUploader = ({
           </div>
         ) : null}
       </div>
-      <aside>
-        <h4>Files</h4>
-        <ul>{fileList}</ul>
-        <h4>Attachments</h4>
-        <ul>{attachmentList}</ul>
-      </aside>
       <ConfirmRemoveUploadDialog
         open={showConfirmRemoveUpload}
         onClose={() => setConfirmRemoveUpload(null)}
@@ -297,7 +288,7 @@ const DropzoneUploader = ({
         rejectedFiles={rejectedFiles}
         onClose={uploadRejectCloseHandler}
       />
-    </div>
+    </React.Fragment>
   )
 }
 /* </PageLayout> */
