@@ -8,15 +8,13 @@ import {
   uploadFile,
   UPLOAD_SERVICE_BASE_URL
 } from '../../lib/services/uploadService'
-import {Document, Page} from 'react-pdf'
-import UploadStatusIndicator from './UploadStatusIndicator'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import DeleteIcon from '@material-ui/icons/Delete'
-import RemoveUploadFab from './RemoveUploadFab'
 import nanoid from 'nanoid'
 import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
+import ThumbPreviews from './ThumbPreviews'
 import {type UploadResponse} from '../../lib/services/uploadService'
 
 type Props = {
@@ -51,29 +49,6 @@ const styles = (theme) => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 16
-  },
-  thumb: {
-    display: 'inline-flex',
-    borderRadius: 2,
-    // border: '1px solid #eaeaea',
-    marginBottom: 8,
-    marginRight: 8,
-    width: 150,
-    height: 150,
-    padding: 4,
-    boxSizing: 'border-box'
-  },
-  thumbInner: {
-    display: 'flex',
-    minWidth: 0,
-    overflow: 'hidden',
-    width: '100%',
-    '& img': {
-      display: 'block',
-      width: '100%',
-      objectFit: 'cover'
-      // height: '100%'
-    }
   },
   captionContainer: {
     display: 'flex',
@@ -115,7 +90,6 @@ const DropzoneUploader = ({
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
   const [rejectedFiles, setRejectedFiles] = useState<Array<DroppedFile>>([])
   const [uploadedFiles, setUploadedFiles] = useState<Array<UploadedFile>>([])
-  const [thumbHover, setThumbHover] = useState<string | null>(null)
   const [
     confirmRemoveUpload,
     setConfirmRemoveUpload
@@ -234,37 +208,6 @@ const DropzoneUploader = ({
     <li key={file.name}>{file.tempUrl}</li>
   ))
 
-  const thumbs = droppedFiles.map((file) => {
-    return (
-      <div className={classes.thumb} key={file.name}>
-        <UploadStatusIndicator uploadedFiles={uploadedFiles} file={file}>
-          <div
-            className={classes.thumbInner}
-            onMouseEnter={() => setThumbHover(file.name)}
-            onMouseLeave={() => setThumbHover(null)}
-          >
-            {file.ext === 'pdf' ? (
-              // <img src="/static/images/pdf.svg" />
-              <Document file={file.previewUrl}>
-                {/* Since Border-box sizing is used width needs to be calculated. */}
-                <Page pageNumber={1} width={110} scale={1} />
-              </Document>
-            ) : (
-              <img src={file.previewUrl} />
-            )}
-          </div>
-        </UploadStatusIndicator>
-        <div style={{zIndex: 11, position: 'absolute'}}>
-          <RemoveUploadFab
-            thumbName={file.name}
-            thumbHover={thumbHover}
-            onRemove={() => tryRemoveUploadHandler(file)}
-          />
-        </div>
-      </div>
-    )
-  })
-
   const showClearUploadsButton = Boolean(
     allowClearUploads && uploadedFiles.length >= 2
   )
@@ -311,7 +254,13 @@ const DropzoneUploader = ({
             )
           }}
         </Dropzone>
-        <aside className={classes.thumbsContainer}>{thumbs}</aside>
+        <aside className={classes.thumbsContainer}>
+          <ThumbPreviews
+            uploadedFiles={uploadedFiles}
+            droppedFiles={droppedFiles}
+            onRemoveUpload={tryRemoveUploadHandler}
+          />
+        </aside>
         {showClearUploadsButton ? (
           <div className={classes.clearUploadsContainer}>
             <Button

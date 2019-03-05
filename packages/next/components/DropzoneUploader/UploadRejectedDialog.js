@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -44,8 +45,8 @@ const UploadRejectedDialog = ({open, onClose, rejectedFiles}: Props) => {
         <DialogContentText paragraph>
           If you feel you have reached this in error please contact us by
           sending an email to{' '}
-          <a href="mailto:webmaster@pcwa.net">webmaster@pcwa.net</a> with a
-          description of the problem and an attachments with the files you are
+          <Link href="mailto:webmaster@pcwa.net">webmaster@pcwa.net</Link> with
+          a description of the problem and an attachments with the files you are
           trying to submit. Thank you.
         </DialogContentText>
       </DialogContent>
