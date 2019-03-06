@@ -1,6 +1,6 @@
 // @flow
-import React, {useState, useEffect} from 'react'
-import Dropzone from 'react-dropzone'
+import React, {useState, useEffect, useCallback} from 'react'
+import {useDropzone} from 'react-dropzone'
 import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
@@ -105,34 +105,7 @@ const DropzoneUploader = ({
     onUploaded && onUploaded(uploadedFiles)
   }, [uploadedFiles])
 
-  const clearUploadsHandler = () => {
-    setShowConfirmClearUploads(false) // Hide dialog.
-    setUploadedFiles([])
-    // Resetting dropped files is required for removing thumbs previews.
-    setDroppedFiles([])
-  }
-
-  const tryRemoveUploadHandler = (file: DroppedFile) => {
-    setConfirmRemoveUpload(file)
-  }
-
-  const removeUploadHandler = () => {
-    if (!confirmRemoveUpload) {
-      return
-    }
-    const removeUploadWithName = confirmRemoveUpload.name
-    setConfirmRemoveUpload(null)
-    const newUploadedFiles = uploadedFiles.filter(
-      (file) => file.name !== removeUploadWithName
-    )
-    const newDroppedFiles = droppedFiles.filter(
-      (file) => file.name !== removeUploadWithName
-    )
-    setUploadedFiles(newUploadedFiles)
-    setDroppedFiles(newDroppedFiles)
-  }
-
-  const dropHandler = async (
+  const dropHandler = useCallback((
     files: Array<any>
     // rejectedFiles: Array<any>
   ) => {
@@ -158,6 +131,33 @@ const DropzoneUploader = ({
       // Upload dropped files.
       uploadFileHandler(newFile)
     })
+  })
+
+  const clearUploadsHandler = () => {
+    setShowConfirmClearUploads(false) // Hide dialog.
+    setUploadedFiles([])
+    // Resetting dropped files is required for removing thumbs previews.
+    setDroppedFiles([])
+  }
+
+  const tryRemoveUploadHandler = (file: DroppedFile) => {
+    setConfirmRemoveUpload(file)
+  }
+
+  const removeUploadHandler = () => {
+    if (!confirmRemoveUpload) {
+      return
+    }
+    const removeUploadWithName = confirmRemoveUpload.name
+    setConfirmRemoveUpload(null)
+    const newUploadedFiles = uploadedFiles.filter(
+      (file) => file.name !== removeUploadWithName
+    )
+    const newDroppedFiles = droppedFiles.filter(
+      (file) => file.name !== removeUploadWithName
+    )
+    setUploadedFiles(newUploadedFiles)
+    setDroppedFiles(newDroppedFiles)
   }
 
   const uploadFileHandler = async (file) => {
@@ -213,47 +213,42 @@ const DropzoneUploader = ({
   )
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    dropHandler,
+    accept: 'image/*, application/pdf',
+    onDropRejected: rejectHandler
+  })
   // <PageLayout title="Irrigation Canal Information">
   return (
     <React.Fragment>
       <div className={classes.dropzoneContainer}>
         {/* Mime types are also checked on the back-end. */}
-        <Dropzone
-          onDrop={dropHandler}
-          accept="image/*, application/pdf"
-          onDropRejected={rejectHandler}
+        <div
+          {...getRootProps()}
+          className={classNames(classes.dropzone, {
+            [classes.isActive]: isDragActive
+          })}
+          style={{height: height}}
         >
-          {({getRootProps, getInputProps, isDragActive}) => {
-            return (
-              <div
-                {...getRootProps()}
-                className={classNames(classes.dropzone, {
-                  [classes.isActive]: isDragActive
-                })}
-                style={{height: height}}
-              >
-                <input {...getInputProps()} />
-                <div className={classes.captionContainer}>
-                  {isDragActive ? (
-                    <Type variant="h4" className={classes.primaryLight}>
-                      Drop files here...
-                    </Type>
-                  ) : (
-                    <React.Fragment>
-                      <CloudUploadIcon fontSize="large" color="action" />
-                      <Type variant="h4" color="secondary">
-                        Drag & drop
-                      </Type>
-                      <Type variant="subtitle1" color="textSecondary">
-                        your file(s) here or click to browse
-                      </Type>
-                    </React.Fragment>
-                  )}
-                </div>
-              </div>
-            )
-          }}
-        </Dropzone>
+          <input {...getInputProps()} />
+          <div className={classes.captionContainer}>
+            {isDragActive ? (
+              <Type variant="h4" className={classes.primaryLight}>
+                Drop files here...
+              </Type>
+            ) : (
+              <React.Fragment>
+                <CloudUploadIcon fontSize="large" color="action" />
+                <Type variant="h4" color="secondary">
+                  Drag & drop
+                </Type>
+                <Type variant="subtitle1" color="textSecondary">
+                  your file(s) here or click to browse
+                </Type>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
         <aside className={classes.thumbsContainer}>
           <ThumbPreviews
             uploadedFiles={uploadedFiles}
