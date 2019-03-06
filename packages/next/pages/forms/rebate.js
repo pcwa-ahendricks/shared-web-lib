@@ -1,6 +1,6 @@
 // @flow
 import React, {useState} from 'react'
-import {Typography as Type} from '@material-ui/core'
+import {Fade, Typography as Type} from '@material-ui/core'
 // import PageLayout from '../../components/PageLayout/PageLayout'
 import DropzoneUploader from '../../components/DropzoneUploader/DropzoneUploader'
 import {withStyles} from '@material-ui/core/styles'
@@ -33,13 +33,27 @@ const Rebate = () => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [attachments, setAttachments] = useState<Array<UploadedFile>>([])
+  const [attachments, setAttachments] = useState<Array<string>>([])
+  const [unsuccessfulAttachments, setUnsuccessfulAttachments] = useState<
+    Array<UploadedFile>
+  >([])
 
   const uploadedHandler = (files: Array<UploadedFile>) => {
-    setAttachments([...files])
+    console.log(files)
+    // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
+    const successfulAttachments = files
+      .filter((file) => file.serverResponse.status === 'success')
+      .map((file) => file.serverResponse.filePath)
+    setAttachments([...successfulAttachments])
+    const unsuccessfulAttachments = files.filter(
+      (file) => file.serverResponse.status !== 'success'
+    )
+    setUnsuccessfulAttachments([...unsuccessfulAttachments])
   }
 
+  console.log(unsuccessfulAttachments)
   // <PageLayout title="Irrigation Canal Information">
+  const hasBadAttachments = Boolean(unsuccessfulAttachments.length > 0)
   return (
     <React.Fragment>
       <Head>
@@ -83,19 +97,25 @@ const Rebate = () => {
             }
 
             return (
-              <Form>
+              <div>
+                <Form />
                 <DropzoneUploader
                   uploadFolder="device-rebate"
                   onUploaded={uploadedHandler}
                   height={200}
                 />
-              </Form>
+                <Fade in={hasBadAttachments}>
+                  <Type variant="subtitle2" color="error" gutterBottom>
+                    Remove and/or retry un-successful uploads.
+                  </Type>
+                </Fade>
+              </div>
             )
           }}
         </Formik>
 
-        {attachments.map((attach) => (
-          <div key={attach.name}>{attach.name}</div>
+        {attachments.map((attach, idx) => (
+          <div key={idx}>{attach}</div>
         ))}
       </main>
     </React.Fragment>

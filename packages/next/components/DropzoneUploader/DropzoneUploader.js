@@ -15,6 +15,7 @@ import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
+// import ThumbPreviewList from './ThumbPreviewList'
 import {type UploadResponse} from '../../lib/services/uploadService'
 
 type Props = {
@@ -148,6 +149,7 @@ const DropzoneUploader = ({
           name: newFile.name,
           type: newFile.type,
           size: newFile.size,
+          originalName: file.name,
           lastModified: newFile.lastModified,
           previewUrl: URL.createObjectURL(newFile),
           ext: extension(newFile.name)
@@ -167,6 +169,7 @@ const DropzoneUploader = ({
           name: file.name,
           type: file.type,
           size: file.size,
+          originalName: file.name.substring(12), // File prefix is 10 random characters + 2 underscores.
           lastModified: file.lastModified,
           tempUrl: responseTempUrl({...response}),
           serverResponse: {...response},
@@ -258,6 +261,13 @@ const DropzoneUploader = ({
             onRemoveUpload={tryRemoveUploadHandler}
           />
         </aside>
+        {/* <aside className={classes.thumbsContainer}>
+          <ThumbPreviewList
+            uploadedFiles={uploadedFiles}
+            droppedFiles={droppedFiles}
+            onRemoveUpload={tryRemoveUploadHandler}
+          />
+        </aside> */}
         {showClearUploadsButton ? (
           <div className={classes.clearUploadsContainer}>
             <Button
@@ -323,7 +333,8 @@ export type UploadedFile = {
   size: number,
   tempUrl: string,
   serverResponse: UploadResponse,
-  ext: string
+  originalName?: string,
+  ext?: string
 }
 
 // Marking ext and previewUrl as maybe null helps with prop type checking in <UploadRejectedDialog/>.
@@ -332,6 +343,7 @@ export type DroppedFile = {
   type: string,
   lastModified: number,
   size: number,
+  originalName?: string,
   ext: ?string,
   previewUrl: ?string
 }

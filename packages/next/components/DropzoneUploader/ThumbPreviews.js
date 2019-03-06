@@ -1,9 +1,8 @@
 // @flow
 import React, {useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
-import {withWidth} from '@material-ui/core'
+import {withWidth, Tooltip} from '@material-ui/core'
 import {type DroppedFile, type UploadedFile} from './DropzoneUploader'
-// import {Typography as Type} from '@material-ui/core'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
@@ -76,34 +75,38 @@ const ThumbPreviews = ({
     <React.Fragment>
       {droppedFiles.map((file) => (
         <div
-          className={classNames(classes.thumb, {[classes.xs]: width === 'xs'})}
+          className={classNames(classes.thumb, {
+            [classes.xs]: width === 'xs'
+          })}
           key={file.name}
         >
           <UploadStatusIndicator uploadedFiles={uploadedFiles} file={file}>
-            <div
-              className={classes.thumbInner}
-              onMouseEnter={() => setThumbHover(file.name)}
-              onMouseLeave={() => setThumbHover(null)}
-            >
-              {file.ext === 'pdf' ? (
-                // <img src="/static/images/pdf.svg" />
-                <Document file={file.previewUrl}>
-                  {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
-                  <Page
-                    pageNumber={1}
-                    width={width === 'xs' ? 64 : 110}
-                    scale={1}
-                  />
-                </Document>
-              ) : (
-                <img src={file.previewUrl} />
-              )}
-            </div>
-            {/* <div className={classes.fileNameOverlay}>
+            <Tooltip title={file.originalName} enterDelay={500}>
+              <div
+                className={classes.thumbInner}
+                onMouseEnter={() => setThumbHover(file.name)}
+                onMouseLeave={() => setThumbHover(null)}
+              >
+                {file.ext === 'pdf' ? (
+                  // <img src="/static/images/pdf.svg" />
+                  <Document file={file.previewUrl}>
+                    {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
+                    <Page
+                      pageNumber={1}
+                      width={width === 'xs' ? 64 : 110}
+                      scale={1}
+                    />
+                  </Document>
+                ) : (
+                  <img src={file.previewUrl} />
+                )}
+              </div>
+              {/* <div className={classes.fileNameOverlay}>
               <Type color="inherit" variant="caption">
                 {file.name}
               </Type>
             </div> */}
+            </Tooltip>
           </UploadStatusIndicator>
           <div className={classes.removeUploadFabContainer}>
             <RemoveUploadFab
