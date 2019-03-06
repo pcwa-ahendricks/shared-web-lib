@@ -10,7 +10,7 @@ import {
 } from './routes/index'
 import noCache from './lib/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
-import {IncomingMessage} from 'http'
+import {IncomingMessage, ServerResponse} from 'http'
 import {join} from 'path'
 
 const rtePre = process.env.NODE_MAILJET_ROUTE_PREFIX || ''
@@ -43,7 +43,11 @@ const routeHandler = router()(
 
 const middlewareHandler = applyMiddleware(routeHandler, [noCache])
 
-export default (isDev && cors ? cors(middlewareHandler) : middlewareHandler)
+const mainHandler = isDev && cors ? cors(middlewareHandler) : middlewareHandler
+
+// Use this until @now/micro cors is available. See https://spectrum.chat/zeit/now/now-micro~d4c8d94d-0bec-4166-b2af-d1a3c0bf7534?m=MTU1MTQxNjY5Njc1MQ== for more info.
+export default (req: IncomingMessage, res: ServerResponse) =>
+  require('micro').run(req, res, mainHandler)
 
 export type MicroForKRequest = {
   params: any,

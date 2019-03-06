@@ -39,7 +39,6 @@ const Rebate = () => {
   >([])
 
   const uploadedHandler = (files: Array<UploadedFile>) => {
-    console.log(files)
     // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
     const successfulAttachments = files
       .filter((file) => file.serverResponse.status === 'success')
@@ -51,7 +50,6 @@ const Rebate = () => {
     setUnsuccessfulAttachments([...unsuccessfulAttachments])
   }
 
-  console.log(unsuccessfulAttachments)
   // <PageLayout title="Irrigation Canal Information">
   const hasBadAttachments = Boolean(unsuccessfulAttachments.length > 0)
   return (

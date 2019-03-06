@@ -3,8 +3,8 @@ const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
-import {createError, json, send} from 'micro'
-import {type IncomingMessage, type ServerResponse} from 'http'
+import {createError, json} from 'micro'
+import {type IncomingMessage} from 'http'
 import * as yup from 'yup'
 import * as Jimp from 'jimp'
 import {join, parse} from 'path'
@@ -55,10 +55,7 @@ const bodySchema = yup
       )
   })
 
-export const waterWasteHandler = async (
-  req: IncomingMessage,
-  res: ServerResponse
-) => {
+export const waterWasteHandler = async (req: IncomingMessage) => {
   needsApiKey(MAILJET_KEY)
   const body = await json(req)
 
@@ -174,8 +171,7 @@ export const waterWasteHandler = async (
         'Mailjet sendMail post response: ',
         JSON.stringify(result.body, null, 2)
       )
-    // Returning result.body doesn't work with Now. send() does. Not sure why.
-    send(res, 200, result.body)
+    return result.body
   } catch (error) {
     isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)

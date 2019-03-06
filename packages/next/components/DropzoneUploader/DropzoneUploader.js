@@ -133,18 +133,18 @@ const DropzoneUploader = ({
     })
   })
 
-  const clearUploadsHandler = () => {
+  const clearUploadsHandler = useCallback(() => {
     setShowConfirmClearUploads(false) // Hide dialog.
     setUploadedFiles([])
     // Resetting dropped files is required for removing thumbs previews.
     setDroppedFiles([])
-  }
+  }, [])
 
-  const tryRemoveUploadHandler = (file: DroppedFile) => {
+  const tryRemoveUploadHandler = useCallback((file: DroppedFile) => {
     setConfirmRemoveUpload(file)
-  }
+  }, [])
 
-  const removeUploadHandler = () => {
+  const removeUploadHandler = useCallback(() => {
     if (!confirmRemoveUpload) {
       return
     }
@@ -158,44 +158,47 @@ const DropzoneUploader = ({
     )
     setUploadedFiles(newUploadedFiles)
     setDroppedFiles(newDroppedFiles)
-  }
+  }, [confirmRemoveUpload, uploadedFiles, droppedFiles])
 
-  const uploadFileHandler = async (file) => {
-    try {
-      const response = await uploadFile(file, uploadFolder)
-      if (response) {
-        // Destructuring File objects doesn't produce any properties. Need to specify those 4 explicitly.
-        const uploadedFile = {
-          name: file.name,
-          type: file.type,
-          size: file.size,
-          originalName: file.name.substring(12), // File prefix is 10 random characters + 2 underscores.
-          lastModified: file.lastModified,
-          tempUrl: responseTempUrl({...response}),
-          serverResponse: {...response},
-          ext: extension(file.name)
+  const uploadFileHandler = useCallback(
+    async (file) => {
+      try {
+        const response = await uploadFile(file, uploadFolder)
+        if (response) {
+          // Destructuring File objects doesn't produce any properties. Need to specify those 4 explicitly.
+          const uploadedFile = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            originalName: file.name.substring(12), // File prefix is 10 random characters + 2 underscores.
+            lastModified: file.lastModified,
+            tempUrl: responseTempUrl({...response}),
+            serverResponse: {...response},
+            ext: extension(file.name)
+          }
+          setUploadedFiles((prevUploadedFiles) => [
+            ...prevUploadedFiles,
+            uploadedFile
+          ])
         }
-        setUploadedFiles((prevUploadedFiles) => [
-          ...prevUploadedFiles,
-          uploadedFile
-        ])
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+    },
+    [uploadFolder]
+  )
 
   /*
    * rejectedFiles doesn't contain all the rejected files. Just the files rejected since
    * last onRejected called.
    */
-  const rejectHandler = (files: Array<DroppedFile>) => {
+  const rejectHandler = useCallback((files: Array<DroppedFile>) => {
     setRejectedFiles([...files])
-  }
+  }, [])
 
-  const uploadRejectCloseHandler = () => {
+  const uploadRejectCloseHandler = useCallback(() => {
     setRejectedFiles([])
-  }
+  }, [])
 
   // onFileDialogCancel property handler doesn't fire correctly in Firefox. Will avoid using this for now.
   // const cancelHandler = () => {
@@ -214,7 +217,7 @@ const DropzoneUploader = ({
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    dropHandler,
+    onDrop: dropHandler,
     accept: 'image/*, application/pdf',
     onDropRejected: rejectHandler
   })
