@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import ForecastDisplay, {
   type ForecastData
 } from '../ForecastDisplay/ForecastDisplay'
@@ -64,16 +64,19 @@ const ForecastCycle = ({
     }
   }, [forecasts])
 
-  const activeForecast = () =>
-    forecasts.find((forecast) => forecast.id === activeCycleForecastId)
+  const activeForecast = useCallback(
+    () => forecasts.find((forecast) => forecast.id === activeCycleForecastId),
+    [forecasts, activeCycleForecastId]
+  )
 
-  const handlePopoverOpen = (event) => {
+  const handlePopoverOpen = useCallback((event) => {
     setAnchorEl(event.currentTarget)
-  }
+  }, [])
 
-  const handlePopoverClose = () => {
+  const handlePopoverClose = useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [])
+
   const forecast = activeForecast() || {}
   const open = Boolean(anchorEl)
   return (

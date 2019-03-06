@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useEffect, type Node} from 'react'
+import React, {useState, useEffect, useCallback, type Node} from 'react'
 // import {withStyles} from '@material-ui/core/styles'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
@@ -73,16 +73,18 @@ const Overline = (props: Props) => {
       setOverlineVisible(visible)
     }
   }, [visible])
-  const mouseEnterHandler = () => {
+
+  const mouseEnterHandler = useCallback(() => {
     if (visible === null) {
       setOverlineVisible(true)
     }
-  }
-  const mouseLeaveHandler = () => {
+  }, [visible])
+
+  const mouseLeaveHandler = useCallback(() => {
     if (visible === null) {
       setOverlineVisible(false)
     }
-  }
+  }, [visible])
 
   const height = useFullHeight ? '100%' : 'unset'
   return (

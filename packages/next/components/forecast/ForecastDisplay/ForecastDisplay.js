@@ -64,11 +64,12 @@ const ForecastDisplay = ({forecast, theme, classes}: Props) => {
     (forecast && forecast.data && forecast.data.currently) || {}
   // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
   const iconName = icon.toUpperCase().replace(/-/g, '_')
-  const validForecast = (): boolean => {
-    return forecast && forecast.data && forecast.data.currently
-  }
 
-  return validForecast() ? (
+  const isValidForecast = Boolean(
+    forecast && forecast.data && forecast.data.currently
+  )
+
+  return isValidForecast ? (
     <div className={classes.container}>
       <ReactAnimatedWeather
         icon={iconName}

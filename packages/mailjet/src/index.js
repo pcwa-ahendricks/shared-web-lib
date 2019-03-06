@@ -1,6 +1,6 @@
 // @flow
 import {router, get, post} from 'micro-fork'
-import {send} from 'micro'
+import {send, run} from 'micro'
 import {
   hecpEmailRoute,
   waterWasteRoute,
@@ -47,7 +47,7 @@ const mainHandler = isDev && cors ? cors(middlewareHandler) : middlewareHandler
 
 // Use this until @now/micro cors is available. See https://spectrum.chat/zeit/now/now-micro~d4c8d94d-0bec-4166-b2af-d1a3c0bf7534?m=MTU1MTQxNjY5Njc1MQ== for more info.
 export default (req: IncomingMessage, res: ServerResponse) =>
-  require('micro').run(req, res, mainHandler)
+  run(req, res, mainHandler)
 
 export type MicroForKRequest = {
   params: any,

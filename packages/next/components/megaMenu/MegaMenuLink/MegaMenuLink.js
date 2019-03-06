@@ -1,5 +1,5 @@
 // @flow
-import React, {useRef, type Node} from 'react'
+import React, {useRef, useCallback, type Node} from 'react'
 import {Link, Typography as Type} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
@@ -59,9 +59,12 @@ const MegaMenuLink = ({
     parentActiveEl === typeRef.current && parentActiveEl !== null
   )
 
-  const handleLinkEnter = (evt) => {
-    onLinkEnter(evt, typeRef.current)
-  }
+  const handleLinkEnter = useCallback(
+    (evt) => {
+      onLinkEnter(evt, typeRef.current)
+    },
+    [onLinkEnter, typeRef]
+  )
 
   return (
     <Overline

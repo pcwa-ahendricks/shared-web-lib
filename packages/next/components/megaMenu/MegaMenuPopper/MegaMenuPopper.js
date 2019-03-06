@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useRef, useEffect, type Node} from 'react'
+import React, {useState, useRef, useEffect, useCallback, type Node} from 'react'
 import {Popper, Fade as Collapse} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import useDebounce from '../../../hooks/useDebounce'
@@ -75,13 +75,14 @@ const MegaMenuPopper = ({
   useEffect(() => {
     onTransitionChange && onTransitionChange(debouncedPopperTransActive)
   }, [debouncedPopperTransActive])
-  const transitionExitHandler = () => {
-    setPopperTransActive(true)
-  }
 
-  const transitionEnterHandler = () => {
+  const transitionExitHandler = useCallback(() => {
+    setPopperTransActive(true)
+  }, [])
+
+  const transitionEnterHandler = useCallback(() => {
     setPopperTransActive(false)
-  }
+  }, [])
 
   return (
     <React.Fragment>

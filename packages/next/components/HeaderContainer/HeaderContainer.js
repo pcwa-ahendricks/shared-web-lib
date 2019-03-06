@@ -1,5 +1,5 @@
 // @flow
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import Sticky from 'react-sticky-el'
 import {withStyles} from '@material-ui/core/styles'
 import SecondaryHeader from '../SecondaryHeader/SecondaryHeader'
@@ -19,13 +19,13 @@ const styles = {
 const HeaderContainer = ({classes}: Props) => {
   const [parentFixed, setParentFixed] = useState(null)
 
-  const fixedToggleHandler = (wasFixed: boolean) => {
+  const fixedToggleHandler = useCallback((wasFixed: boolean) => {
     if (wasFixed) {
       setParentFixed(false)
     } else {
       setParentFixed(true)
     }
-  }
+  }, [])
 
   return (
     <React.Fragment>

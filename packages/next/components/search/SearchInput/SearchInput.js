@@ -1,5 +1,5 @@
 // @flow
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
@@ -39,19 +39,19 @@ const styles = (theme) => ({
 const CustomizedInputBase = ({classes}: Props) => {
   const [searchValue, setSearchValue] = useState('')
 
-  const inputChangeHandler = (e) => {
+  const inputChangeHandler = useCallback((e) => {
     setSearchValue(e.target.value)
-  }
+  }, [])
 
-  const searchHandler = (e) => {
+  const searchHandler = useCallback((e) => {
     console.log(e)
-  }
+  }, [])
 
-  const keyPressHandler = (e) => {
+  const keyPressHandler = useCallback((e) => {
     if (e.key.toLowerCase() === 'enter') {
       searchHandler()
     }
-  }
+  }, [])
 
   const inputHasValue = searchValue && searchValue.length > 0
   return (

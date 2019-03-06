@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, {useCallback} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
@@ -26,9 +26,12 @@ const styles = {
 }
 
 const SwipeableTemporaryDrawer = ({classes, open, dispatch}: Props) => {
-  const toggleDrawer = (open: boolean) => () => {
-    dispatch(uiSetDrawerViz(open))
-  }
+  const toggleDrawer = useCallback(
+    (openDrawer: boolean) => () => {
+      dispatch(uiSetDrawerViz(openDrawer))
+    },
+    [dispatch]
+  )
 
   const sideList = (
     <div className={classes.list}>
