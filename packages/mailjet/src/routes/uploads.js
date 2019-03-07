@@ -25,7 +25,7 @@ import BusboyError, {
 } from '../lib/busboy-error'
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
-// const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // For debugging.
+// const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
 
 export const photoFileHandler = (
   req: MicroForKRequest,

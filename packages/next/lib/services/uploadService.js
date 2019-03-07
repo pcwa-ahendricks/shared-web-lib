@@ -2,8 +2,8 @@
 
 import fetch from 'isomorphic-unfetch'
 
-const UPLOADS_URL = process.env.NEXT_UPLOADS_URL || ''
-export const UPLOAD_SERVICE_BASE_URL = `${UPLOADS_URL}/uploads`
+const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
+export const UPLOAD_SERVICE_BASE_URL = `${MAILJET_URL}/uploads`
 
 const uploadFile = async (file: any, subFolder: string = '') => {
   const formData = new FormData()

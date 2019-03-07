@@ -98,7 +98,13 @@ const ThumbPreviews = ({
                     />
                   </Document>
                 ) : (
-                  <img src={file.previewUrl} />
+                  <img
+                    data-sizes="auto"
+                    src="/static/images/placeholder-camera.png"
+                    data-srcset={file.previewUrl}
+                    className="lazyload"
+                    alt={`Thumbnail for ${file.name} upload`}
+                  />
                 )}
               </div>
               {/* <div className={classes.fileNameOverlay}>

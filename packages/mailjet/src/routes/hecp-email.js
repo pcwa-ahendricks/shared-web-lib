@@ -70,7 +70,7 @@ export const postFormExamSubmit = async (req: IncomingMessage) => {
   const {recipients} = body
   const {reviewLink, title, email, score} = body.formData
 
-  const requestBody = {
+  const requestBody: MailJetSendRequest = {
     Messages: [
       {
         From: {
@@ -107,4 +107,35 @@ const needsApiKey = (key: string) => {
   if (!key) {
     throw createError(401, 'Unauthorized - Invalid API key')
   }
+}
+
+type MailJetAttachment = {
+  ContentType: string,
+  Filename: string,
+  Base64Content: string
+}
+
+type MailJetMessage = {|
+  From: {
+    Name: string,
+    Email: string
+  },
+  Subject: string,
+  ReplyTo?: {
+    Name?: string,
+    Email: string
+  },
+  TemplateLanguage?: boolean,
+  TemplateID?: number,
+  Variables?: {},
+  To: Array<{Email: string, Name: string}>,
+  InlinedAttachments?: Array<MailJetAttachment>,
+  Attachments?: Array<MailJetAttachment>,
+  Headers?: {[headerKey: string]: string},
+  HTMLPart?: string,
+  TextPart?: string
+|}
+
+type MailJetSendRequest = {
+  Messages: Array<MailJetMessage>
 }

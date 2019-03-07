@@ -77,6 +77,9 @@ module.exports = (phase, {defaultConfig}) => {
         )
       }
 
+      // Example. See https://github.com/zeit/next.js/blob/42d656050dca98f4eae58fa0ed29f784400cd048/examples/with-absolute-imports/next.config.js#L5 for more info.
+      // config.resolve.alias['components'] = path.join(__dirname, 'components')
+
       return config
     }
   })

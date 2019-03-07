@@ -29,6 +29,7 @@ type Props = {
 const styles = (theme) => ({
   dropzoneContainer: {},
   dropzone: {
+    padding: 20,
     backgroundColor: '#eee',
     borderRadius: 10,
     border: {
@@ -75,14 +76,6 @@ const styles = (theme) => ({
   }
 })
 
-const responseTempUrl = (response: any) => {
-  return response.status && response.status.toLowerCase() === 'success'
-    ? `${UPLOAD_SERVICE_BASE_URL}/${response.fileName}?folder=${
-        response.fieldName
-      }`
-    : ''
-}
-
 const DropzoneUploader = ({
   classes,
   onUploaded,
@@ -101,6 +94,7 @@ const DropzoneUploader = ({
     showConfirmClearUploads,
     setShowConfirmClearUploads
   ] = useState<boolean>(false)
+
   useEffect(() => {
     onUploaded && onUploaded(uploadedFiles)
   }, [uploadedFiles])
@@ -131,7 +125,7 @@ const DropzoneUploader = ({
       // Upload dropped files.
       uploadFileHandler(newFile)
     })
-  })
+  }, [])
 
   const clearUploadsHandler = useCallback(() => {
     setShowConfirmClearUploads(false) // Hide dialog.
@@ -349,4 +343,12 @@ export type DroppedFile = {
 function uniqueFilename(fileName: string) {
   const fileNamePrefix = `${nanoid(10)}__`
   return `${fileNamePrefix}${fileName}`
+}
+
+function responseTempUrl(response: any) {
+  return response.status && response.status.toLowerCase() === 'success'
+    ? `${UPLOAD_SERVICE_BASE_URL}/${response.fileName}?folder=${
+        response.fieldName
+      }`
+    : ''
 }

@@ -6,7 +6,8 @@ import {
   waterWasteRoute,
   photoFileRoute,
   photoB64Route,
-  photoUploadRoute
+  photoUploadRoute,
+  irrigCntrlRebateRoute
 } from './routes/index'
 import noCache from './lib/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
@@ -34,6 +35,7 @@ const noFavicon = (req, res) => send(res, 204)
 const routeHandler = router()(
   post(`${rtePre}/form-exam-submit`, hecpEmailRoute),
   post(`${rtePre}/water-waste-submit`, waterWasteRoute),
+  post(`${rtePre}/irrigation-controller-rebate`, irrigCntrlRebateRoute),
   get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
   get(`${rtePre}/uploads/:filename`, photoFileRoute),
   post(`${rtePre}/uploads`, photoUploadRoute),
