@@ -12,6 +12,8 @@ import {join, parse} from 'path'
 import {existsSync} from 'fs'
 import {getType} from 'mime'
 import {UPLOADS_DIR} from '../index'
+import {applyMiddleware} from 'micro-middleware'
+import unauthorized from '../lib/micro-unauthorized'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
@@ -51,8 +53,7 @@ const bodySchema = object()
       )
   })
 
-export const waterWasteHandler = async (req: IncomingMessage) => {
-  needsApiKey(MAILJET_KEY)
+const waterWasteHandler = async (req: IncomingMessage) => {
   const body = await json(req)
 
   const isValid = await bodySchema.isValid(body)
@@ -175,12 +176,6 @@ export const waterWasteHandler = async (req: IncomingMessage) => {
   }
 }
 
-const needsApiKey = (key: string) => {
-  if (!key) {
-    throw createError(401, 'Unauthorized - Invalid API key')
-  }
-}
-
 function flatten(obj: any) {
   return Object.keys(obj).reduce((acc, current) => {
     const _key = `${current}`
@@ -267,3 +262,7 @@ const attach = (reqAttachments) => {
     }) // forEach
   })
 }
+
+export default applyMiddleware(waterWasteHandler, [
+  unauthorized(MAILJET_KEY, 'Invalid API key')
+])

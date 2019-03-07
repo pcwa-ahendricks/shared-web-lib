@@ -11,8 +11,11 @@ import Jimp from 'jimp'
 import {parse} from 'path'
 import {existsSync} from 'fs'
 import {getType} from 'mime'
+import {applyMiddleware} from 'micro-middleware'
+import unauthorized from '../lib/micro-unauthorized'
 
-const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
+// const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
+const MAILJET_KEY = ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
@@ -52,8 +55,7 @@ const bodySchema = object()
       .required()
   })
 
-export const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
-  needsApiKey(MAILJET_KEY)
+const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   const body: {
     formData: FormData,
     attachments: Array<string>,
@@ -126,12 +128,6 @@ export const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     throw error
-  }
-}
-
-const needsApiKey = (key: string) => {
-  if (!key) {
-    throw createError(401, 'Unauthorized - Invalid API key')
   }
 }
 
@@ -209,3 +205,7 @@ const attach = (reqAttachments) => {
     }) // forEach
   })
 }
+
+export default applyMiddleware(irrigCntrlRebateHandler, [
+  unauthorized(MAILJET_KEY, 'Invalid API key')
+])

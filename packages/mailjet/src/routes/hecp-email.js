@@ -5,6 +5,8 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 import {string, object, array} from 'yup'
+import {applyMiddleware} from 'micro-middleware'
+import unauthorized from '../lib/micro-unauthorized'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest} from '../lib/types'
 
@@ -43,8 +45,7 @@ const bodySchema = object()
       )
   })
 
-export const postFormExamSubmit = async (req: IncomingMessage) => {
-  needsApiKey(MAILJET_KEY)
+const postFormExamSubmit = async (req: IncomingMessage) => {
   const body = await json(req)
 
   const isValid = await bodySchema.isValid(body)
@@ -97,8 +98,6 @@ export const postFormExamSubmit = async (req: IncomingMessage) => {
   }
 }
 
-const needsApiKey = (key: string) => {
-  if (!key) {
-    throw createError(401, 'Unauthorized - Invalid API key')
-  }
-}
+export default applyMiddleware(postFormExamSubmit, [
+  unauthorized(MAILJET_KEY, 'Invalid API key')
+])
