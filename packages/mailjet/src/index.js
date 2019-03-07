@@ -6,7 +6,7 @@ import {
   waterWasteRoute,
   photoFileRoute,
   photoB64Route,
-  photoUploadRoute,
+  uploadRoute,
   irrigCntrlRebateRoute
 } from './routes/index'
 import noCache from './lib/micro-no-cache'
@@ -38,7 +38,7 @@ const routeHandler = router()(
   post(`${rtePre}/irrigation-controller-rebate`, irrigCntrlRebateRoute),
   get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
   get(`${rtePre}/uploads/:filename`, photoFileRoute),
-  post(`${rtePre}/uploads`, photoUploadRoute),
+  post(`${rtePre}/uploads`, uploadRoute),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)
 )

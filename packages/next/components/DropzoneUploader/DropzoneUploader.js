@@ -22,12 +22,13 @@ type Props = {
   classes: any,
   onUploaded?: (files: any) => void,
   height: number | string,
+  width: number | string,
   allowClearUploads: boolean,
   uploadFolder: string
 }
 
 const styles = (theme) => ({
-  dropzoneContainer: {},
+  root: {},
   dropzone: {
     padding: 20,
     backgroundColor: '#eee',
@@ -37,7 +38,6 @@ const styles = (theme) => ({
       style: 'dashed',
       color: 'grey'
     },
-    margin: theme.spacing.unit * 2,
     '&$isActive': {
       border: {
         width: 2,
@@ -80,6 +80,7 @@ const DropzoneUploader = ({
   classes,
   onUploaded,
   height,
+  width,
   allowClearUploads,
   uploadFolder
 }: Props) => {
@@ -218,7 +219,7 @@ const DropzoneUploader = ({
   // <PageLayout title="Irrigation Canal Information">
   return (
     <React.Fragment>
-      <div className={classes.dropzoneContainer}>
+      <div className={classes.root} style={{width: width}}>
         {/* Mime types are also checked on the back-end. */}
         <div
           {...getRootProps()}
@@ -298,7 +299,8 @@ const DropzoneUploader = ({
 export default withStyles(styles)(DropzoneUploader)
 
 DropzoneUploader.defaultProps = {
-  height: '100%',
+  height: 'unset',
+  width: 'unset',
   allowClearUploads: false,
   uploadFolder: ''
 }

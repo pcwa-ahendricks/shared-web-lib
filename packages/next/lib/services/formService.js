@@ -14,7 +14,8 @@ export type RebateFormData = {|
 export type RequestBody = {|
   attachments: Array<string>,
   // recipients: Array<{Name: string, Email: string}>,
-  formData: RebateFormData
+  formData: RebateFormData,
+  recaptchaKey: string
 |}
 
 const postIrrigCntrlRebateForm = async (body: RequestBody) => {

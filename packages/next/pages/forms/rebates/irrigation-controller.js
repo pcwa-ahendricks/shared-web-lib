@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useRef} from 'react'
 import {
   Button,
   CircularProgress,
@@ -19,6 +19,10 @@ import {
   type RequestBody,
   type RebateFormData
 } from '../../../lib/services/formService'
+import Recaptcha from 'react-recaptcha'
+import classNames from 'classnames'
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 
 type Props = {
   classes: any
@@ -69,8 +73,19 @@ const styles = (theme) => ({
   formControlRow: {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%'
+    width: '100%',
+    margin: {
+      bottom: theme.spacing.unit * 1,
+      top: theme.spacing.unit * 1
+    },
+    '&$dropzoneContainer': {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginBottom: theme.spacing.unit * 3
+    }
   },
+  dropzoneContainer: {},
   formControlsContainer: {
     margin: theme.spacing.unit * 8,
     display: 'flex',
@@ -79,7 +94,11 @@ const styles = (theme) => ({
     alignItems: 'flex-start'
   },
   buttonWrapper: {
-    position: 'relative'
+    position: 'relative',
+    margin: {
+      top: theme.spacing.unit * 3,
+      bottom: theme.spacing.unit * 3
+    }
   },
   buttonProgress: {
     color: theme.palette.primary.main,
@@ -88,7 +107,14 @@ const styles = (theme) => ({
     left: '50%',
     marginTop: -12,
     marginLeft: -12
+  },
+  // Don't let <TextField/> label cover <Header/>.
+  inputLabel: {
+    zIndex: 0
   }
+  // dropzoneUploader: {
+  //   marginBottom: theme.spacing.unit * 2
+  // }
 })
 
 const Rebate = ({classes}: Props) => {
@@ -99,6 +125,8 @@ const Rebate = ({classes}: Props) => {
   const [unsuccessfulAttachments, setUnsuccessfulAttachments] = useState<
     Array<UploadedFile>
   >([])
+  const [recaptchaKey, setRecaptchaKey] = useState<string>('')
+  const recaptchaRef = useRef(null)
 
   const uploadedHandler = useCallback((files: Array<UploadedFile>) => {
     // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
@@ -112,7 +140,26 @@ const Rebate = ({classes}: Props) => {
     setUnsuccessfulAttachments([...newUnsuccessfulAttachments])
   }, [])
 
+  const recaptchaVerifyHandler = useCallback((response) => {
+    setRecaptchaKey(response)
+  }, [])
+  // const recaptchaLoadHandler = useCallback(() => {
+  //   console.log('Done')
+  // }, [])
+  const recaptchaExpiredHandler = useCallback(() => {
+    setRecaptchaKey('')
+  }, [])
+
+  const resetForm = () => {
+    const recaptchaInstance = recaptchaRef.current
+    recaptchaInstance && recaptchaInstance.reset()
+  }
+
   const hasBadAttachments = Boolean(unsuccessfulAttachments.length > 0)
+  const hasValidAttachments = Boolean(
+    attachments.length > 0 && !hasBadAttachments
+  )
+  const hasRecaptchaKey = Boolean(recaptchaKey)
   return (
     // <React.Fragment>
     <PageLayout title="Irrigation Controller Rebate Form">
@@ -133,10 +180,12 @@ const Rebate = ({classes}: Props) => {
                 console.log(values, actions)
                 const body: RequestBody = {
                   formData: {...values},
-                  attachments
+                  attachments,
+                  recaptchaKey
                 }
                 const data = await postIrrigCntrlRebateForm(body)
                 actions.setSubmitting(false)
+                resetForm()
                 alert(JSON.stringify(data, null, 2))
               } catch (error) {
                 console.log('An error occurred submitting form.')
@@ -194,6 +243,11 @@ const Rebate = ({classes}: Props) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           disabled={isSubmitting}
+                          InputLabelProps={{
+                            classes: {
+                              root: classes.inputLabel
+                            }
+                          }}
                         />
 
                         <TextField
@@ -218,23 +272,44 @@ const Rebate = ({classes}: Props) => {
                         />
                       </div>
 
-                      <DropzoneUploader
-                        uploadFolder="irrigation-controller"
-                        onUploaded={uploadedHandler}
-                        height={200}
-                      />
-                      <Fade in={hasBadAttachments}>
-                        <Type variant="caption" color="error" gutterBottom>
-                          Remove and/or retry un-successful uploads.
-                        </Type>
-                      </Fade>
+                      <div
+                        className={classNames(
+                          classes.formControlRow,
+                          classes.dropzoneContainer
+                        )}
+                      >
+                        <DropzoneUploader
+                          uploadFolder="irrigation-controller"
+                          onUploaded={uploadedHandler}
+                          height={200}
+                          width="100%"
+                        />
+                        <Fade in={hasBadAttachments}>
+                          <Type variant="caption" color="error" gutterBottom>
+                            Remove and/or retry un-successful uploads.
+                          </Type>
+                        </Fade>
+                      </div>
 
+                      <div className={classes.formControlRow}>
+                        <Recaptcha
+                          sitekey={RECAPTCHA_SITE_KEY}
+                          verifyCallback={recaptchaVerifyHandler}
+                          // onloadCallback={recaptchaLoadHandler}
+                          expiredCallback={recaptchaExpiredHandler}
+                          ref={recaptchaRef}
+                        />
+                      </div>
                       <div className={classes.buttonWrapper}>
                         <Button
                           variant="outlined"
                           type="submit"
                           disabled={
-                            isSubmitting || !isValid || (!formTouched && !dirty)
+                            isSubmitting ||
+                            !isValid ||
+                            (!formTouched && !dirty) ||
+                            !hasValidAttachments ||
+                            !hasRecaptchaKey
                           }
                         >
                           Submit Form

@@ -14,15 +14,17 @@ import {
   createWriteStream
 } from 'fs'
 import pretty from 'prettysize'
-import {type MicroForKRequest} from '../index'
 import {UPLOADS_DIR} from '../index'
 import {getType} from 'mime'
 import {createError, send} from 'micro'
 import Busboy from 'busboy'
+import {applyMiddleware} from 'micro-middleware'
+import checkReferrer from '../lib/micro-check-referrer'
 import BusboyError, {
   type BusboyErrorCode,
   type BusboyErrorType
 } from '../lib/busboy-error'
+import {type MicroForKRequest} from '../index'
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
@@ -85,10 +87,7 @@ export const photoB64Handler = (req: MicroForKRequest) => {
   }
 }
 
-export const photoUploadHandler = (
-  req: MicroForKRequest,
-  res: ServerResponse
-) => {
+const uploadHandler = (req: MicroForKRequest, res: ServerResponse) => {
   // ensure upload directory exists
   if (!existsSync(UPLOADS_DIR)) {
     mkdirSync(UPLOADS_DIR)
@@ -170,3 +169,10 @@ export const photoUploadHandler = (
 
   req.pipe(busboy)
 }
+
+const acceptReferrer = isDev ? /.+/ : /^https.*\.pcwa\.net\/.*/i
+const uploadWithMiddleware = applyMiddleware(uploadHandler, [
+  checkReferrer(acceptReferrer, 'Reporting abuse')
+])
+
+export {uploadWithMiddleware as uploadHandler}

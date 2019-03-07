@@ -9,14 +9,22 @@ import {string, object, array} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '../lib/micro-unauthorized'
 import checkReferrer from '../lib/micro-check-referrer'
+import reCAPTCHA from 'recaptcha2'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest, type MailJetMessage} from '../lib/types'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
+const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
+const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
+
+const recaptcha = new reCAPTCHA({
+  siteKey: RECAPTCHA_SITE_KEY,
+  secretKey: RECAPTCHA_SECRET_KEY
+})
 
 const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
@@ -41,7 +49,8 @@ const bodySchema = object()
       }),
     attachments: array()
       .of(string())
-      .required()
+      .required(),
+    recaptchaKey: string().required()
     // recipients: array()
     //   .of(
     //     object()
@@ -60,7 +69,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   const body: {
     formData: FormData,
     attachments: Array<string>,
-    recipients: Array<{Name: string, Email: string}>
+    recipients: Array<{Name: string, Email: string}>,
+    recaptchaKey: string
   } = await json(req)
 
   const isValid = await bodySchema.isValid(body)
@@ -73,8 +83,17 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     version: 'v3.1'
   })
 
-  const {formData, attachments} = body
+  const {formData, attachments, recaptchaKey} = body
   const {email, accountNo} = formData
+
+  try {
+    await recaptcha.validate(recaptchaKey)
+    isDev && console.log('Recaptcha key validated')
+  } catch (error) {
+    const translatedErrors = recaptcha.translateErrors(error) // translate error codes to human readable text
+    isDev && console.log('Recaptcha key is invalid', translatedErrors)
+    throw createError(400, translatedErrors)
+  }
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -113,17 +132,17 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   }
 
   try {
-    isDev &&
-      console.log(
-        'Mailjet Request Body: ',
-        JSON.stringify(requestBody, null, 2)
-      )
-    const result = await sendEmail.request(requestBody)
     // isDev &&
     //   console.log(
-    //     'Mailjet sendMail post response: ',
-    //     JSON.stringify(result.body, null, 2)
+    //     'Mailjet Request Body: ',
+    //     JSON.stringify(requestBody, null, 2)
     //   )
+    const result = await sendEmail.request(requestBody)
+    isDev &&
+      console.log(
+        'Mailjet sendMail post response: ',
+        JSON.stringify(result.body, null, 2)
+      )
     return result.body
   } catch (error) {
     isDev && console.log(error)

@@ -5,7 +5,7 @@ import irrigCntrlRebateRoute from './irrigation-controller-rebate'
 import {
   photoFileHandler as photoFileRoute,
   photoB64Handler as photoB64Route,
-  photoUploadHandler as photoUploadRoute
+  uploadHandler as uploadRoute
 } from './uploads'
 
 export {
@@ -13,6 +13,6 @@ export {
   waterWasteRoute,
   photoFileRoute,
   photoB64Route,
-  photoUploadRoute,
+  uploadRoute,
   irrigCntrlRebateRoute
 }

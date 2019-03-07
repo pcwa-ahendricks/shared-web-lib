@@ -7,7 +7,8 @@
     "env": {
       "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast",
       "NEXT_MAILJET_URL": "https://dev-web.pcwa.net/lambda/mail",
-      "NEXT_TARGET": "serverless"
+      "NEXT_TARGET": "serverless",
+      "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
     }
   },
   "env": {
@@ -16,7 +17,9 @@
     "NODE_MAILJET_KEY": "@web-mailjet-key",
     "NODE_MAILJET_SECRET": "@web-mailjet-secret",
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
-    "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail"
+    "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail",
+    "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
+    "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key"
   },
   "builds": [
     {
