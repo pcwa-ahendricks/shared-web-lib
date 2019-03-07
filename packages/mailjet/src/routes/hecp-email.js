@@ -4,8 +4,9 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
+import {string, object, array} from 'yup'
 import {type IncomingMessage} from 'http'
-import * as yup from 'yup'
+import {type MailJetSendRequest} from '../lib/types'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
@@ -13,36 +14,29 @@ const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
 
-const bodySchema = yup
-  .object()
+const bodySchema = object()
   .required()
   .shape({
-    formData: yup
-      .object()
+    formData: object()
       .required()
       .shape({
-        score: yup.string().required(),
-        email: yup
-          .string()
+        score: string().required(),
+        email: string()
           .email()
           .required(),
-        reviewLink: yup
-          .string()
+        reviewLink: string()
           .url()
           .required(),
-        title: yup.string().required()
+        title: string().required()
       }),
-    recipients: yup
-      .array()
+    recipients: array()
       .required()
       .of(
-        yup
-          .object()
+        object()
           .required()
           .shape({
-            Name: yup.string().required(),
-            Email: yup
-              .string()
+            Name: string().required(),
+            Email: string()
               .email()
               .required()
           })
@@ -107,35 +101,4 @@ const needsApiKey = (key: string) => {
   if (!key) {
     throw createError(401, 'Unauthorized - Invalid API key')
   }
-}
-
-type MailJetAttachment = {
-  ContentType: string,
-  Filename: string,
-  Base64Content: string
-}
-
-type MailJetMessage = {|
-  From: {
-    Name: string,
-    Email: string
-  },
-  Subject: string,
-  ReplyTo?: {
-    Name?: string,
-    Email: string
-  },
-  TemplateLanguage?: boolean,
-  TemplateID?: number,
-  Variables?: {},
-  To: Array<{Email: string, Name: string}>,
-  InlinedAttachments?: Array<MailJetAttachment>,
-  Attachments?: Array<MailJetAttachment>,
-  Headers?: {[headerKey: string]: string},
-  HTMLPart?: string,
-  TextPart?: string
-|}
-
-type MailJetSendRequest = {
-  Messages: Array<MailJetMessage>
 }

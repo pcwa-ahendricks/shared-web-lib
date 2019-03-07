@@ -5,8 +5,9 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 import {type IncomingMessage} from 'http'
-import * as yup from 'yup'
-import * as Jimp from 'jimp'
+import {type MailJetSendRequest, type MailJetAttachment} from '../lib/types'
+import {object, string, array} from 'yup'
+import Jimp from 'jimp'
 import {join, parse} from 'path'
 import {existsSync} from 'fs'
 import {getType} from 'mime'
@@ -20,35 +21,30 @@ const ATTACHMENT_DIR = 'waste_wtr_attachment'
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
 
-const bodySchema = yup
-  .object()
+const bodySchema = object()
   .required()
   .shape({
-    formData: yup
-      .object()
+    formData: object()
       .required()
       .shape({
-        location: yup.string().required(),
-        description: yup.string().required(),
-        userInfo: yup.object().shape({
-          email: yup.string(),
-          phone: yup.string(),
-          firstName: yup.string(),
-          lastName: yup.string()
+        location: string().required(),
+        description: string().required(),
+        userInfo: object().shape({
+          email: string(),
+          phone: string(),
+          firstName: string(),
+          lastName: string()
         })
       }),
-    attachments: yup.array().of(yup.string()),
-    recipients: yup
-      .array()
+    attachments: array().of(string()),
+    recipients: array()
       .required()
       .of(
-        yup
-          .object()
+        object()
           .required()
           .shape({
-            Name: yup.string().required(),
-            Email: yup
-              .string()
+            Name: string().required(),
+            Email: string()
               .email()
               .required()
           })
@@ -183,37 +179,6 @@ const needsApiKey = (key: string) => {
   if (!key) {
     throw createError(401, 'Unauthorized - Invalid API key')
   }
-}
-
-// export default mainHandler
-
-type MailJetAttachment = {
-  ContentType: string,
-  Filename: string,
-  Base64Content: string
-}
-
-type MailJetMessage = {|
-  From: {
-    Name: string,
-    Email: string
-  },
-  Subject: string,
-  ReplyTo?: {
-    Name?: string,
-    Email: string
-  },
-  TemplateLanguage?: boolean,
-  TemplateID?: number,
-  Variables?: {},
-  To: Array<{Email: string, Name: string}>,
-  InlinedAttachments?: Array<MailJetAttachment>,
-  Attachments?: Array<MailJetAttachment>,
-  Headers?: {[headerKey: string]: string}
-|}
-
-type MailJetSendRequest = {
-  Messages: Array<MailJetMessage>
 }
 
 function flatten(obj: any) {

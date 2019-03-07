@@ -5,8 +5,9 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 import {type IncomingMessage} from 'http'
+import {type MailJetAttachment, type MailJetSendRequest} from '../lib/types'
 import {string, object, array} from 'yup'
-import * as Jimp from 'jimp'
+import Jimp from 'jimp'
 import {parse} from 'path'
 import {existsSync} from 'fs'
 import {getType} from 'mime'
@@ -132,39 +133,6 @@ const needsApiKey = (key: string) => {
   if (!key) {
     throw createError(401, 'Unauthorized - Invalid API key')
   }
-}
-
-// export default mainHandler
-
-type MailJetAttachment = {
-  ContentType: string,
-  Filename: string,
-  Base64Content: string
-}
-
-type MailJetMessage = {|
-  From: {
-    Name: string,
-    Email: string
-  },
-  Subject: string,
-  ReplyTo?: {
-    Name?: string,
-    Email: string
-  },
-  TemplateLanguage?: boolean,
-  TemplateID?: number,
-  Variables?: {},
-  To: Array<{Email: string, Name: string}>,
-  InlinedAttachments?: Array<MailJetAttachment>,
-  Attachments?: Array<MailJetAttachment>,
-  Headers?: {[headerKey: string]: string},
-  HTMLPart?: string,
-  TextPart?: string
-|}
-
-type MailJetSendRequest = {
-  Messages: Array<MailJetMessage>
 }
 
 const attach = (reqAttachments) => {
