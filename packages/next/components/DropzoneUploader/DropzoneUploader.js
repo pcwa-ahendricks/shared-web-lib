@@ -82,7 +82,8 @@ const DropzoneUploader = ({
   height,
   width,
   allowClearUploads,
-  uploadFolder
+  uploadFolder,
+  ...rest
 }: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
   const [rejectedFiles, setRejectedFiles] = useState<Array<DroppedFile>>([])
@@ -95,6 +96,7 @@ const DropzoneUploader = ({
     showConfirmClearUploads,
     setShowConfirmClearUploads
   ] = useState<boolean>(false)
+  const {maxSize} = rest
 
   useEffect(() => {
     onUploaded && onUploaded(uploadedFiles)
@@ -213,8 +215,8 @@ const DropzoneUploader = ({
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop: dropHandler,
-    accept: 'image/*, application/pdf',
-    onDropRejected: rejectHandler
+    onDropRejected: rejectHandler,
+    ...rest
   })
   // <PageLayout title="Irrigation Canal Information">
   return (
@@ -290,6 +292,7 @@ const DropzoneUploader = ({
         open={showRejectedFilesDialog}
         rejectedFiles={rejectedFiles}
         onClose={uploadRejectCloseHandler}
+        maxSize={maxSize}
       />
     </React.Fragment>
   )
