@@ -42,10 +42,6 @@ const initialFormValues: RebateFormData = {
   accountNo: ''
 }
 
-const recipients: $PropertyType<RequestBody, 'recipients'> = [
-  {Name: 'Abe', Email: 'ahendricks@pcwa.net'}
-]
-
 const styles = (theme) => ({
   formikContainer: {
     height: '100%',
@@ -137,8 +133,7 @@ const Rebate = ({classes}: Props) => {
                 console.log(values, actions)
                 const body: RequestBody = {
                   formData: {...values},
-                  attachments,
-                  recipients
+                  attachments
                 }
                 const data = await postIrrigCntrlRebateForm(body)
                 actions.setSubmitting(false)

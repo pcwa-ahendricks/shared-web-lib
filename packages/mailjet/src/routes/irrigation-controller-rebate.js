@@ -4,22 +4,23 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {type IncomingMessage} from 'http'
-import {type MailJetAttachment, type MailJetSendRequest} from '../lib/types'
+import {attach} from '../lib/mailjet-attachments'
 import {string, object, array} from 'yup'
-import Jimp from 'jimp'
-import {parse} from 'path'
-import {existsSync} from 'fs'
-import {getType} from 'mime'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '../lib/micro-unauthorized'
+import checkReferrer from '../lib/micro-check-referrer'
+import {type IncomingMessage} from 'http'
+import {type MailJetSendRequest, type MailJetMessage} from '../lib/types'
 
-// const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
-const MAILJET_KEY = ''
+const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
+
+const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
+  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
+  : [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
 
 type FormData = {|
   email: string,
@@ -40,19 +41,19 @@ const bodySchema = object()
       }),
     attachments: array()
       .of(string())
-      .required(),
-    recipients: array()
-      .of(
-        object()
-          .required()
-          .shape({
-            Name: string().required(),
-            Email: string()
-              .email()
-              .required()
-          })
-      )
       .required()
+    // recipients: array()
+    //   .of(
+    //     object()
+    //       .required()
+    //       .shape({
+    //         Name: string().required(),
+    //         Email: string()
+    //           .email()
+    //           .required()
+    //       })
+    //   )
+    //   .required()
   })
 
 const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
@@ -72,7 +73,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     version: 'v3.1'
   })
 
-  const {recipients, formData, attachments} = body
+  const {formData, attachments} = body
   const {email, accountNo} = formData
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
@@ -85,7 +86,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: recipients,
+        To: RECIPIENTS,
         ReplyTo: {
           Email: email,
           Name: `John Doe`
@@ -118,11 +119,11 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         JSON.stringify(requestBody, null, 2)
       )
     const result = await sendEmail.request(requestBody)
-    isDev &&
-      console.log(
-        'Mailjet sendMail post response: ',
-        JSON.stringify(result.body, null, 2)
-      )
+    // isDev &&
+    //   console.log(
+    //     'Mailjet sendMail post response: ',
+    //     JSON.stringify(result.body, null, 2)
+    //   )
     return result.body
   } catch (error) {
     isDev && console.log(error)
@@ -131,81 +132,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   }
 }
 
-const attach = (reqAttachments) => {
-  const attachments: Array<MailJetAttachment> = []
-  return new Promise((resolve) => {
-    // end immediately if attachments were not provided in body
-    if (!reqAttachments || reqAttachments.length === 0) {
-      resolve(attachments)
-    }
-    let resolveAtLength = reqAttachments.length
-
-    function pushAttachment(filename: string, mimeType: string, b64: string) {
-      const attachment = {
-        Filename: parse(filename).base,
-        ContentType: mimeType,
-        Base64Content: b64
-      }
-      console.log('pushing attachment', attachment)
-      attachments.push(attachment)
-      return true
-    }
-    function checkResolve() {
-      // console.log("comparing attachment length to supplied request attachments length: ", attachments.length, resolveAtLength)
-      if (attachments.length === resolveAtLength) {
-        resolve(attachments)
-      }
-    }
-    function handleError(err: string) {
-      /* We work around bad/not-found images by proceeding w/out instead of ending the response. */
-      // res.status(403).send("Specified file attachment(s) not found.")
-      // res.status(500).send("Problem encountered during image processing.")
-      console.warn(err)
-      resolveAtLength--
-      checkResolve()
-    }
-    function bufferToBase64(
-      err: Error,
-      buffer: Buffer,
-      val: string,
-      mimeType: string
-    ) {
-      if (err) {
-        console.log(err)
-        handleError('Problem during resize/file -> buffer operation: ')
-        return // return from this function (ie. don"t call toString() on invalid buffer and so on) on error.
-      }
-      const b64 = buffer.toString('base64')
-      pushAttachment(val, mimeType, b64)
-      checkResolve()
-    }
-
-    reqAttachments.forEach(async (localFilePath: string) => {
-      // We are supplying full path in attachments. So this isn't needed.
-      // const localFilePath = join(UPLOADS_DIR, ATTACHMENT_DIR, filename)
-      if (!existsSync(localFilePath)) {
-        handleError(
-          `Can't find specified file attachment at "${localFilePath}".`
-        )
-        return
-      }
-
-      const mimeType = getType(localFilePath)
-
-      // Jimp works with Now. GM and Sharp didn't.
-      try {
-        const image = await Jimp.read(localFilePath)
-        image.resize(800, Jimp.AUTO).getBuffer(mimeType, (err, buffer) => {
-          bufferToBase64(err, buffer, parse(localFilePath).base, mimeType)
-        })
-      } catch (error) {
-        console.log(error)
-        throw error
-      }
-    }) // forEach
-  })
-}
-
+const acceptReferrer = isDev ? /.+/ : /^https.*\.pcwa\.net\/.*/i
 export default applyMiddleware(irrigCntrlRebateHandler, [
-  unauthorized(MAILJET_KEY, 'Invalid API key')
+  unauthorized(MAILJET_KEY, 'Invalid API key'),
+  checkReferrer(acceptReferrer, 'Reporting abuse')
 ])

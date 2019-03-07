@@ -13,7 +13,7 @@ export type RebateFormData = {|
 
 export type RequestBody = {|
   attachments: Array<string>,
-  recipients: Array<{Name: string, Email: string}>,
+  // recipients: Array<{Name: string, Email: string}>,
   formData: RebateFormData
 |}
 
