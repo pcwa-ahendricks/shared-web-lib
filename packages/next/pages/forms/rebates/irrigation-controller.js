@@ -24,6 +24,7 @@ import classNames from 'classnames'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
+const UPLOAD_FILE_LIMIT = 5
 
 type Props = {
   classes: any
@@ -286,6 +287,7 @@ const Rebate = ({classes}: Props) => {
                           width="100%"
                           accept="image/*, application/pdf"
                           maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT} // 15MB limit (bytes to MB). Note - Will accept multiple files totaling over 15MB.
+                          disabled={attachments.length >= UPLOAD_FILE_LIMIT}
                         />
                         <Fade in={hasBadAttachments}>
                           <Type variant="caption" color="error" gutterBottom>

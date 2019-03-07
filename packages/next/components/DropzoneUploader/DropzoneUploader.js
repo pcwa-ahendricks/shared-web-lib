@@ -9,6 +9,7 @@ import {
   UPLOAD_SERVICE_BASE_URL
 } from '../../lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import CloudDoneIcon from '@material-ui/icons/CloudDone'
 import DeleteIcon from '@material-ui/icons/Delete'
 import nanoid from 'nanoid'
 import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
@@ -73,7 +74,20 @@ const styles = (theme) => ({
   },
   primaryLight: {
     color: theme.palette.primary.light
-  }
+  },
+  dropzoneTitle: {
+    color: theme.palette.secondary.main,
+    '&$disabled': {
+      color: theme.palette.text.disabled
+    }
+  },
+  dropzoneSubTitle: {
+    color: theme.palette.text.secondary,
+    '&$disabled': {
+      color: theme.palette.text.disabled
+    }
+  },
+  disabled: {}
 })
 
 const DropzoneUploader = ({
@@ -96,7 +110,8 @@ const DropzoneUploader = ({
     showConfirmClearUploads,
     setShowConfirmClearUploads
   ] = useState<boolean>(false)
-  const {maxSize} = rest
+  // $FlowFixMe
+  const {maxSize, disabled} = rest || {}
 
   useEffect(() => {
     onUploaded && onUploaded(uploadedFiles)
@@ -238,12 +253,28 @@ const DropzoneUploader = ({
               </Type>
             ) : (
               <React.Fragment>
-                <CloudUploadIcon fontSize="large" color="action" />
-                <Type variant="h4" color="secondary">
+                {disabled ? (
+                  <CloudDoneIcon fontSize="large" color="disabled" />
+                ) : (
+                  <CloudUploadIcon fontSize="large" color="action" />
+                )}
+                <Type
+                  variant="h4"
+                  className={classNames(classes.dropzoneTitle, {
+                    [classes.disabled]: disabled
+                  })}
+                >
                   Drag & drop
                 </Type>
-                <Type variant="subtitle1" color="textSecondary">
-                  your file(s) here or click to browse
+                <Type
+                  variant="subtitle1"
+                  className={classNames(classes.dropzoneSubTitle, {
+                    [classes.disabled]: disabled
+                  })}
+                >
+                  {disabled
+                    ? 'uploading has been disabled'
+                    : 'your file(s) here or click to browse'}
                 </Type>
               </React.Fragment>
             )}
