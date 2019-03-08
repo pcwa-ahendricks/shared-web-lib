@@ -5,7 +5,7 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 import {attach} from '../lib/mailjet-attachments'
-import {string, object, array} from 'yup'
+import {string, object, array, boolean} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '../lib/micro-unauthorized'
 import checkReferrer from '../lib/micro-check-referrer'
@@ -53,24 +53,15 @@ const bodySchema = object()
           .required(),
         accountNo: string().required(),
         address: string().required(),
-        city: string().required()
+        city: string().required(),
+        signature: boolean()
+          .required()
+          .oneOf([true])
       }),
     attachments: array()
       .of(string())
       .required(),
-    recaptchaKey: string().required()
-    // recipients: array()
-    //   .of(
-    //     object()
-    //       .required()
-    //       .shape({
-    //         Name: string().required(),
-    //         Email: string()
-    //           .email()
-    //           .required()
-    //       })
-    //   )
-    //   .required()
+    captcha: string().required()
   })
 
 const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
@@ -78,7 +69,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     formData: FormData,
     attachments: Array<string>,
     recipients: Array<{Name: string, Email: string}>,
-    recaptchaKey: string
+    captcha: string
   } = await json(req)
 
   const validateOptions = {
@@ -99,13 +90,13 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     version: 'v3.1'
   })
 
-  const {formData, attachments, recaptchaKey} = body
+  const {formData, attachments, captcha} = body
   const {email, accountNo, firstName, lastName, address, city} = formData
 
   // Only validate recaptcha key in production.
   if (!isDev) {
     try {
-      await recaptcha.validate(recaptchaKey)
+      await recaptcha.validate(captcha)
     } catch (error) {
       const translatedErrors = recaptcha.translateErrors(error) // translate error codes to human readable text
       console.log('Recaptcha key is invalid', translatedErrors)

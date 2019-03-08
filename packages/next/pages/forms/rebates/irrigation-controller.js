@@ -3,8 +3,11 @@ import React, {useState, useCallback, useRef} from 'react'
 import {
   Button,
   CircularProgress,
+  Checkbox,
   InputLabel,
   Fade,
+  FormControlLabel,
+  // FormLabel,
   OutlinedInput,
   FormControl,
   FormHelperText,
@@ -18,7 +21,7 @@ import DropzoneUploader from '../../../components/DropzoneUploader/DropzoneUploa
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form} from 'formik'
-import {string, object} from 'yup'
+import {string, object, boolean} from 'yup'
 import {type UploadedFile} from '../../../components/DropzoneUploader/DropzoneUploader'
 import {
   postIrrigCntrlRebateForm,
@@ -56,6 +59,7 @@ type Props = {
 
 const formSchema = object()
   .camelCase()
+  .strict()
   .shape({
     // attachments: array().of(string()),
     firstName: string()
@@ -76,7 +80,11 @@ const formSchema = object()
       .label('Billing Address'),
     city: string()
       .required()
-      .label('City')
+      .label('City'),
+    signature: boolean()
+      .required()
+      .oneOf([true], 'Must provide signature by checking this box')
+      .label('Signature Check')
   })
 
 const initialFormValues: RebateFormData = {
@@ -85,7 +93,8 @@ const initialFormValues: RebateFormData = {
   email: '',
   accountNo: '',
   address: '',
-  city: ''
+  city: '',
+  signature: false
 }
 
 const styles = (theme) => ({
@@ -170,7 +179,7 @@ const Rebate = ({classes}: Props) => {
   const [unsuccessfulAttachments, setUnsuccessfulAttachments] = useState<
     Array<UploadedFile>
   >([])
-  const [recaptchaKey, setRecaptchaKey] = useState<string>('')
+  const [captcha, setCaptcha] = useState<string>('')
   const recaptchaRef = useRef(null)
 
   const uploadedHandler = useCallback((files: Array<UploadedFile>) => {
@@ -186,25 +195,25 @@ const Rebate = ({classes}: Props) => {
   }, [])
 
   const recaptchaVerifyHandler = useCallback((response) => {
-    setRecaptchaKey(response)
+    setCaptcha(response)
   }, [])
   // const recaptchaLoadHandler = useCallback(() => {
   //   console.log('Done')
   // }, [])
   const recaptchaExpiredHandler = useCallback(() => {
-    setRecaptchaKey('')
+    setCaptcha('')
   }, [])
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     const recaptchaInstance = recaptchaRef.current
     recaptchaInstance && recaptchaInstance.reset()
-  }
+  }, [recaptchaRef])
 
   const hasBadAttachments = Boolean(unsuccessfulAttachments.length > 0)
   const hasValidAttachments = Boolean(
     attachments.length > 0 && !hasBadAttachments
   )
-  const hasRecaptchaKey = Boolean(recaptchaKey)
+  const hasCaptcha = Boolean(captcha)
   return (
     // <React.Fragment>
     <PageLayout title="Irrigation Controller Rebate Form">
@@ -226,7 +235,7 @@ const Rebate = ({classes}: Props) => {
                 const body: RequestBody = {
                   formData: {...values},
                   attachments,
-                  recaptchaKey
+                  captcha
                 }
                 const data = await postIrrigCntrlRebateForm(body)
                 actions.setSubmitting(false)
@@ -246,7 +255,8 @@ const Rebate = ({classes}: Props) => {
               handleChange,
               handleBlur,
               isSubmitting,
-              isValid
+              isValid,
+              setFieldTouched
             }) => {
               if (dirty !== formIsDirty) {
                 setFormIsDirty(dirty)
@@ -258,6 +268,12 @@ const Rebate = ({classes}: Props) => {
               const formTouched = Object.keys(touched).length > 0
               if (formTouched !== formIsTouched) {
                 setFormIsTouched(formTouched)
+              }
+
+              // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
+              const checkboxChangeHandler = (...args) => {
+                setFieldTouched('signature', true)
+                handleChange(...args)
               }
 
               return (
@@ -277,7 +293,7 @@ const Rebate = ({classes}: Props) => {
                           label="First Name"
                           className={classes.textField}
                           autoComplete="given-name"
-                          autoFocus
+                          // autoFocus
                           variant="outlined"
                           margin="normal"
                           helperText={
@@ -367,6 +383,11 @@ const Rebate = ({classes}: Props) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           disabled={isSubmitting}
+                          InputLabelProps={{
+                            classes: {
+                              root: classes.inputLabel
+                            }
+                          }}
                         />
                       </div>
 
@@ -410,6 +431,9 @@ const Rebate = ({classes}: Props) => {
                           <InputLabel
                             htmlFor="city-select"
                             error={errors.city && touched.city}
+                            classes={{
+                              root: classes.inputLabel
+                            }}
                           >
                             City
                           </InputLabel>
@@ -467,6 +491,42 @@ const Rebate = ({classes}: Props) => {
                       </div>
 
                       <div className={classes.formControlRow}>
+                        <FormControl
+                          className={classes.formControl}
+                          required
+                          variant="outlined"
+                          margin="normal"
+                          error={errors.signature && touched.signature}
+                          disabled={isSubmitting}
+                          component="fieldset"
+                        >
+                          <FormControlLabel
+                            required
+                            label="Check here to sign"
+                            control={
+                              <Checkbox
+                                checked={values.signature}
+                                value="signature"
+                                color="primary"
+                                inputProps={{
+                                  name: 'signature'
+                                }}
+                                onChange={checkboxChangeHandler}
+                                onBlur={handleBlur}
+                              />
+                            }
+                          />
+                          <FormHelperText
+                            error={errors.signature && touched.signature}
+                          >
+                            {errors.signature && touched.signature
+                              ? errors.signature
+                              : null}
+                          </FormHelperText>
+                        </FormControl>
+                      </div>
+
+                      <div className={classes.formControlRow}>
                         <Recaptcha
                           sitekey={RECAPTCHA_SITE_KEY}
                           verifyCallback={recaptchaVerifyHandler}
@@ -484,7 +544,7 @@ const Rebate = ({classes}: Props) => {
                             !isValid ||
                             (!formTouched && !dirty) ||
                             !hasValidAttachments ||
-                            !hasRecaptchaKey
+                            !hasCaptcha
                           }
                         >
                           Submit Form
