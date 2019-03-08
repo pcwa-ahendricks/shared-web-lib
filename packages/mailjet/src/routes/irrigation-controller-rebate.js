@@ -38,6 +38,8 @@ type FormData = {|
   address: string,
   city: string,
   otherCity: string,
+  phone: string,
+  propertyType: string,
   signature: boolean
 |}
 
@@ -61,6 +63,10 @@ const bodySchema = object()
             ? passSchema.required()
             : passSchema
         ),
+        phone: string()
+          .min(10)
+          .required(),
+        propertyType: string().required(),
         signature: boolean()
           .required()
           .oneOf([true])

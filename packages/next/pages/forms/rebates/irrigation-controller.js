@@ -55,6 +55,14 @@ const CITY_LIST = [
   'Weimar',
   'Other'
 ]
+const PROPERTY_TYPE_LIST = [
+  'Single Family Residential',
+  'Multi-family Residential',
+  'Dedicated Landscape',
+  'Commercial',
+  'Industrial',
+  'Institutional'
+]
 
 type Props = {
   classes: any
@@ -91,6 +99,13 @@ const formSchema = object()
           ? passSchema.required()
           : passSchema
       ),
+    phone: string()
+      .required()
+      .min(10)
+      .label('Phone Number'),
+    propertyType: string()
+      .required()
+      .label('Property Type'),
     signature: boolean()
       .required()
       .oneOf([true], 'Must provide signature by checking this box')
@@ -105,6 +120,8 @@ const initialFormValues: RebateFormData = {
   address: '',
   city: '',
   otherCity: '',
+  phone: '',
+  propertyType: '',
   signature: false
 }
 
@@ -322,7 +339,7 @@ const Rebate = ({classes}: Props) => {
                           value={values.firstName}
                           label="First Name"
                           className={classes.textField}
-                          autoComplete="given-name"
+                          autoComplete="billing given-name"
                           // autoFocus
                           variant="outlined"
                           margin="normal"
@@ -348,7 +365,7 @@ const Rebate = ({classes}: Props) => {
                           value={values.lastName}
                           label="Last Name"
                           className={classes.textField}
-                          autoComplete="family-name"
+                          autoComplete="billing family-name"
                           variant="outlined"
                           margin="normal"
                           helperText={
@@ -432,7 +449,7 @@ const Rebate = ({classes}: Props) => {
                             classes.textField,
                             classes.grow
                           )}
-                          autoComplete="street-address"
+                          autoComplete="billing street-address"
                           variant="outlined"
                           margin="normal"
                           helperText={
@@ -475,8 +492,8 @@ const Rebate = ({classes}: Props) => {
                               <OutlinedInput
                                 id="city-select"
                                 name="city"
-                                autoComplete="address-level2"
-                                labelWidth={40}
+                                autoComplete="billing address-level2"
+                                labelWidth={36}
                                 error={errors.city && touched.city}
                               />
                             }
@@ -514,7 +531,7 @@ const Rebate = ({classes}: Props) => {
                                 classes.textField,
                                 classes.grow
                               )}
-                              autoComplete="street-address"
+                              autoComplete="billing address-level2"
                               variant="outlined"
                               margin="normal"
                               helperText={
@@ -535,6 +552,86 @@ const Rebate = ({classes}: Props) => {
                           </div>
                         </Grow>
                       ) : null}
+
+                      <div className={classes.formControlRow}>
+                        <TextField
+                          name="phone"
+                          type="tel"
+                          required
+                          value={values.phone}
+                          label="Phone Number"
+                          // placeholder="jane.doe@pcwa.net"
+                          className={classes.textField}
+                          autoComplete="tel-national"
+                          variant="outlined"
+                          margin="normal"
+                          helperText={
+                            errors.phone && touched.phone ? errors.phone : null
+                          }
+                          error={errors.phone && touched.phone}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          InputLabelProps={{
+                            classes: {
+                              root: classes.inputLabel
+                            }
+                          }}
+                        />
+                      </div>
+
+                      <div className={classes.formControlRow}>
+                        <FormControl
+                          className={classes.formControl}
+                          required
+                          variant="outlined"
+                          margin="normal"
+                          disabled={isSubmitting}
+                        >
+                          <InputLabel
+                            htmlFor="property-type-select"
+                            error={errors.propertyType && touched.propertyType}
+                            classes={{
+                              root: classes.inputLabel
+                            }}
+                          >
+                            Property Type
+                          </InputLabel>
+                          <Select
+                            value={values.propertyType || ''}
+                            autoWidth={true}
+                            variant="outlined"
+                            input={
+                              <OutlinedInput
+                                id="property-type-select"
+                                name="propertyType"
+                                labelWidth={110}
+                                error={
+                                  errors.propertyType && touched.propertyType
+                                }
+                              />
+                            }
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          >
+                            {/* <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem> */}
+                            {PROPERTY_TYPE_LIST.map((propertyType) => (
+                              <MenuItem key={propertyType} value={propertyType}>
+                                {propertyType}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText
+                            error={errors.propertyType && touched.propertyType}
+                          >
+                            {errors.propertyType && touched.propertyType
+                              ? errors.propertyType
+                              : null}
+                          </FormHelperText>
+                        </FormControl>
+                      </div>
 
                       <div
                         className={classNames(
