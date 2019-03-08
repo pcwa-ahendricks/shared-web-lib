@@ -13,6 +13,7 @@ export type RebateFormData = {|
   accountNo: string,
   address: string,
   city: string,
+  otherCity: string,
   signature: boolean
 |}
 

@@ -16,7 +16,6 @@ import {create} from 'jss'
 // TODO - Order of JSS plugins is important. See https://cssinjs.org/plugins/?v=v10.0.0-alpha.7#order-does-matter. Not sure if my order breaks anything but I currently do not have a work around.
 const jss = create({plugins: [...jssPreset().plugins, expand()]})
 
-// $FlowFixMe
 class MyApp extends App {
   constructor(props: {}) {
     super(props)

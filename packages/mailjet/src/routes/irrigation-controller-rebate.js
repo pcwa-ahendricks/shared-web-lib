@@ -36,7 +36,9 @@ type FormData = {|
   email: string,
   accountNo: string,
   address: string,
-  city: string
+  city: string,
+  otherCity: string,
+  signature: boolean
 |}
 
 const bodySchema = object()
@@ -54,6 +56,11 @@ const bodySchema = object()
         accountNo: string().required(),
         address: string().required(),
         city: string().required(),
+        otherCity: string().when('city', (city, passSchema) =>
+          city && city.toLowerCase() === 'other'
+            ? passSchema.required()
+            : passSchema
+        ),
         signature: boolean()
           .required()
           .oneOf([true])
@@ -91,7 +98,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   })
 
   const {formData, attachments, captcha} = body
-  const {email, accountNo, firstName, lastName, address, city} = formData
+  const {email, accountNo, firstName, lastName, address, otherCity} = formData
+  let {city = ''} = formData
 
   // Only validate recaptcha key in production.
   if (!isDev) {
@@ -102,6 +110,11 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
       console.log('Recaptcha key is invalid', translatedErrors)
       throw createError(400, translatedErrors)
     }
+  }
+
+  // Overwrite "city" with "otherCity" if another city was specified.
+  if (city.toLowerCase() === 'other') {
+    city = otherCity
   }
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.

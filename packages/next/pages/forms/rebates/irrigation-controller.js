@@ -8,6 +8,7 @@ import {
   Fade,
   FormControlLabel,
   // FormLabel,
+  Grow,
   OutlinedInput,
   FormControl,
   FormHelperText,
@@ -17,12 +18,10 @@ import {
   Typography as Type
 } from '@material-ui/core'
 import PageLayout from '../../../components/PageLayout/PageLayout'
-import DropzoneUploader from '../../../components/DropzoneUploader/DropzoneUploader'
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form} from 'formik'
 import {string, object, boolean} from 'yup'
-import {type UploadedFile} from '../../../components/DropzoneUploader/DropzoneUploader'
 import {
   postIrrigCntrlRebateForm,
   type RequestBody,
@@ -30,6 +29,9 @@ import {
 } from '../../../lib/services/formService'
 import Recaptcha from 'react-recaptcha'
 import classNames from 'classnames'
+import DropzoneUploader, {
+  type UploadedFile
+} from '../../../components/DropzoneUploader/DropzoneUploader'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
@@ -50,7 +52,8 @@ const CITY_LIST = [
   'Penryn',
   'Rocklin',
   'Roseville',
-  'Weimar'
+  'Weimar',
+  'Other'
 ]
 
 type Props = {
@@ -81,6 +84,13 @@ const formSchema = object()
     city: string()
       .required()
       .label('City'),
+    otherCity: string()
+      .label('City')
+      .when('city', (city, passSchema) =>
+        city && city.toLowerCase() === 'other'
+          ? passSchema.required()
+          : passSchema
+      ),
     signature: boolean()
       .required()
       .oneOf([true], 'Must provide signature by checking this box')
@@ -94,6 +104,7 @@ const initialFormValues: RebateFormData = {
   accountNo: '',
   address: '',
   city: '',
+  otherCity: '',
   signature: false
 }
 
@@ -180,6 +191,9 @@ const Rebate = ({classes}: Props) => {
     Array<UploadedFile>
   >([])
   const [captcha, setCaptcha] = useState<string>('')
+  const [showOtherCityTextField, setShowOtherCityTextField] = useState<boolean>(
+    false
+  )
   const recaptchaRef = useRef(null)
 
   const uploadedHandler = useCallback((files: Array<UploadedFile>) => {
@@ -208,6 +222,14 @@ const Rebate = ({classes}: Props) => {
     const recaptchaInstance = recaptchaRef.current
     recaptchaInstance && recaptchaInstance.reset()
   }, [recaptchaRef])
+
+  const enteringOtherCityTransHandler = useCallback(() => {
+    setShowOtherCityTextField(true)
+  }, [])
+
+  const exitedOtherCityTransHandler = useCallback(() => {
+    setShowOtherCityTextField(false)
+  }, [])
 
   const hasBadAttachments = Boolean(unsuccessfulAttachments.length > 0)
   const hasValidAttachments = Boolean(
@@ -256,7 +278,8 @@ const Rebate = ({classes}: Props) => {
               handleBlur,
               isSubmitting,
               isValid,
-              setFieldTouched
+              setFieldTouched,
+              setFieldValue
             }) => {
               if (dirty !== formIsDirty) {
                 setFormIsDirty(dirty)
@@ -269,10 +292,17 @@ const Rebate = ({classes}: Props) => {
               if (formTouched !== formIsTouched) {
                 setFormIsTouched(formTouched)
               }
+              const otherCitySelected = values.city.toLowerCase() === 'other'
 
               // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
               const checkboxChangeHandler = (...args) => {
                 setFieldTouched('signature', true)
+                handleChange(...args)
+              }
+
+              // If city field is updated clear out otherCity field.
+              const cityChangeHandler = (...args) => {
+                setFieldValue('otherCity', '')
                 handleChange(...args)
               }
 
@@ -450,7 +480,7 @@ const Rebate = ({classes}: Props) => {
                                 error={errors.city && touched.city}
                               />
                             }
-                            onChange={handleChange}
+                            onChange={cityChangeHandler}
                             onBlur={handleBlur}
                           >
                             {/* <MenuItem value="">
@@ -467,6 +497,44 @@ const Rebate = ({classes}: Props) => {
                           </FormHelperText>
                         </FormControl>
                       </div>
+
+                      {showOtherCityTextField || otherCitySelected ? (
+                        <Grow
+                          in={otherCitySelected}
+                          onEntering={enteringOtherCityTransHandler}
+                          onExited={exitedOtherCityTransHandler}
+                        >
+                          <div className={classes.formControlRow}>
+                            <TextField
+                              name="otherCity"
+                              type="text"
+                              value={values.otherCity}
+                              label="City"
+                              className={classNames(
+                                classes.textField,
+                                classes.grow
+                              )}
+                              autoComplete="street-address"
+                              variant="outlined"
+                              margin="normal"
+                              helperText={
+                                errors.otherCity && touched.otherCity
+                                  ? errors.otherCity
+                                  : null
+                              }
+                              error={errors.otherCity && touched.otherCity}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              disabled={!otherCitySelected || isSubmitting}
+                              InputLabelProps={{
+                                classes: {
+                                  root: classes.inputLabel
+                                }
+                              }}
+                            />
+                          </div>
+                        </Grow>
+                      ) : null}
 
                       <div
                         className={classNames(
