@@ -3,7 +3,13 @@ import React, {useState, useCallback, useRef} from 'react'
 import {
   Button,
   CircularProgress,
+  InputLabel,
   Fade,
+  OutlinedInput,
+  FormControl,
+  FormHelperText,
+  MenuItem,
+  Select,
   TextField,
   Typography as Type
 } from '@material-ui/core'
@@ -25,6 +31,24 @@ import classNames from 'classnames'
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
 const UPLOAD_FILE_LIMIT = 5
+const CITY_LIST = [
+  'Alta',
+  'Applegate',
+  'Auburn',
+  'Baxter',
+  'Colfax',
+  'Dutch Flat',
+  'Gold Run',
+  'Granite Bay',
+  'Lincoln',
+  'Loomis',
+  'Meadow Vista',
+  'Newcastle',
+  'Penryn',
+  'Rocklin',
+  'Roseville',
+  'Weimar'
+]
 
 type Props = {
   classes: any
@@ -34,18 +58,34 @@ const formSchema = object()
   .camelCase()
   .shape({
     // attachments: array().of(string()),
+    firstName: string()
+      .required()
+      .label('First Name'),
+    lastName: string()
+      .required()
+      .label('Last Name'),
     email: string()
       .email()
       .required()
       .label('Email'),
     accountNo: string()
       .required()
-      .label('Account Number')
+      .label('Account Number'),
+    address: string()
+      .required()
+      .label('Billing Address'),
+    city: string()
+      .required()
+      .label('City')
   })
 
 const initialFormValues: RebateFormData = {
+  firstName: '',
+  lastName: '',
   email: '',
-  accountNo: ''
+  accountNo: '',
+  address: '',
+  city: ''
 }
 
 const styles = (theme) => ({
@@ -64,14 +104,14 @@ const styles = (theme) => ({
       marginLeft: theme.spacing.unit * 4
     }
   },
-  // formControl: {
-  //   marginTop: theme.spacing.unit * 1,
-  //   marginBottom: theme.spacing.unit * 4,
-  //   minWidth: 150,
-  //   '&:not(:first-child)': {
-  //     marginLeft: theme.spacing.unit * 4
-  //   }
-  // },
+  formControl: {
+    marginTop: theme.spacing.unit * 1,
+    marginBottom: theme.spacing.unit * 4,
+    minWidth: 150,
+    '&:not(:first-child)': {
+      marginLeft: theme.spacing.unit * 4
+    }
+  },
   formControlRow: {
     display: 'flex',
     flexDirection: 'row',
@@ -113,6 +153,9 @@ const styles = (theme) => ({
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0
+  },
+  grow: {
+    flexGrow: 1
   }
   // dropzoneUploader: {
   //   marginBottom: theme.spacing.unit * 2
@@ -227,6 +270,60 @@ const Rebate = ({classes}: Props) => {
 
                       <div className={classes.formControlRow}>
                         <TextField
+                          name="firstName"
+                          type="text"
+                          required
+                          value={values.firstName}
+                          label="First Name"
+                          className={classes.textField}
+                          autoComplete="given-name"
+                          autoFocus
+                          variant="outlined"
+                          margin="normal"
+                          helperText={
+                            errors.firstName && touched.firstName
+                              ? errors.firstName
+                              : null
+                          }
+                          error={errors.firstName && touched.firstName}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          InputLabelProps={{
+                            classes: {
+                              root: classes.inputLabel
+                            }
+                          }}
+                        />
+                        <TextField
+                          name="lastName"
+                          type="text"
+                          required
+                          value={values.lastName}
+                          label="Last Name"
+                          className={classes.textField}
+                          autoComplete="family-name"
+                          variant="outlined"
+                          margin="normal"
+                          helperText={
+                            errors.lastName && touched.lastName
+                              ? errors.lastName
+                              : null
+                          }
+                          error={errors.lastName && touched.lastName}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          InputLabelProps={{
+                            classes: {
+                              root: classes.inputLabel
+                            }
+                          }}
+                        />
+                      </div>
+
+                      <div className={classes.formControlRow}>
+                        <TextField
                           name="email"
                           type="email"
                           required
@@ -235,7 +332,6 @@ const Rebate = ({classes}: Props) => {
                           // placeholder="jane.doe@pcwa.net"
                           className={classes.textField}
                           autoComplete="email"
-                          autoFocus
                           variant="outlined"
                           margin="normal"
                           helperText={
@@ -272,6 +368,80 @@ const Rebate = ({classes}: Props) => {
                           onBlur={handleBlur}
                           disabled={isSubmitting}
                         />
+                      </div>
+
+                      <div className={classes.formControlRow}>
+                        <TextField
+                          name="address"
+                          type="text"
+                          required
+                          value={values.address}
+                          label="Address (as it appears on bill)"
+                          className={classNames(
+                            classes.textField,
+                            classes.grow
+                          )}
+                          autoComplete="street-address"
+                          variant="outlined"
+                          margin="normal"
+                          helperText={
+                            errors.address && touched.address
+                              ? errors.address
+                              : null
+                          }
+                          error={errors.address && touched.address}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          InputLabelProps={{
+                            classes: {
+                              root: classes.inputLabel
+                            }
+                          }}
+                        />
+
+                        <FormControl
+                          className={classes.formControl}
+                          required
+                          variant="outlined"
+                          margin="normal"
+                          disabled={isSubmitting}
+                        >
+                          <InputLabel
+                            htmlFor="city-select"
+                            error={errors.city && touched.city}
+                          >
+                            City
+                          </InputLabel>
+                          <Select
+                            value={values.city || ''}
+                            autoWidth={true}
+                            variant="outlined"
+                            input={
+                              <OutlinedInput
+                                id="city-select"
+                                name="city"
+                                autoComplete="address-level2"
+                                labelWidth={40}
+                                error={errors.city && touched.city}
+                              />
+                            }
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          >
+                            {/* <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem> */}
+                            {CITY_LIST.map((city) => (
+                              <MenuItem key={city} value={city}>
+                                {city}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText error={errors.city && touched.city}>
+                            {errors.city && touched.city ? errors.city : null}
+                          </FormHelperText>
+                        </FormControl>
                       </div>
 
                       <div

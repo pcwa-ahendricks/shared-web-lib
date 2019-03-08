@@ -8,8 +8,8 @@ import {
   uploadFile,
   UPLOAD_SERVICE_BASE_URL
 } from '../../lib/services/uploadService'
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import CloudDoneIcon from '@material-ui/icons/CloudDone'
+import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
+import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
 import nanoid from 'nanoid'
 import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'

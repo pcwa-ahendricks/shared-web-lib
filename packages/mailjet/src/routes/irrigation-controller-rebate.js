@@ -31,8 +31,12 @@ const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
   : [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
 
 type FormData = {|
+  firstName: string,
+  lastName: string,
   email: string,
-  accountNo: string
+  accountNo: string,
+  address: string,
+  city: string
 |}
 
 const bodySchema = object()
@@ -42,10 +46,14 @@ const bodySchema = object()
       .camelCase()
       .required()
       .shape({
+        firstName: string().required(),
+        lastName: string().required(),
         email: string()
           .email()
           .required(),
-        accountNo: string().required()
+        accountNo: string().required(),
+        address: string().required(),
+        city: string().required()
       }),
     attachments: array()
       .of(string())
@@ -73,10 +81,18 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     recaptchaKey: string
   } = await json(req)
 
-  const isValid = await bodySchema.isValid(body)
-  if (!isValid) {
-    isDev && console.log('Body is not valid', JSON.stringify(body, null, 2))
-    throw createError(400)
+  const validateOptions = {
+    abortEarly: isDev ? false : true
+  }
+  try {
+    await bodySchema.validate(body, validateOptions)
+  } catch (error) {
+    const {errors = []} = error || {}
+    if (isDev) {
+      throw createError(400, errors.join(', '))
+    } else {
+      throw createError(400)
+    }
   }
 
   const sendEmail = Mailjet.post('send', {
@@ -84,15 +100,17 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   })
 
   const {formData, attachments, recaptchaKey} = body
-  const {email, accountNo} = formData
+  const {email, accountNo, firstName, lastName, address, city} = formData
 
-  try {
-    await recaptcha.validate(recaptchaKey)
-    isDev && console.log('Recaptcha key validated')
-  } catch (error) {
-    const translatedErrors = recaptcha.translateErrors(error) // translate error codes to human readable text
-    isDev && console.log('Recaptcha key is invalid', translatedErrors)
-    throw createError(400, translatedErrors)
+  // Only validate recaptcha key in production.
+  if (!isDev) {
+    try {
+      await recaptcha.validate(recaptchaKey)
+    } catch (error) {
+      const translatedErrors = recaptcha.translateErrors(error) // translate error codes to human readable text
+      console.log('Recaptcha key is invalid', translatedErrors)
+      throw createError(400, translatedErrors)
+    }
   }
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
@@ -115,7 +133,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         },
         Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
         TextPart: `This is just a test for Account Number ${accountNo}`,
-        HTMLPart: `<h2>This is just a test</h2><br /><p>for Account Number ${accountNo}</p><br />`,
+        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />`,
         TemplateLanguage: false
       }
     ]

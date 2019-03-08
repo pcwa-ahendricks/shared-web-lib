@@ -7,8 +7,12 @@ const IRRIG_CNTRL_REBATE_BASE_URL = 'irrigation-controller-rebate'
 const URL = `${MAILJET_URL}/${IRRIG_CNTRL_REBATE_BASE_URL}`
 
 export type RebateFormData = {|
+  firstName: string,
+  lastName: string,
   email: string,
-  accountNo: string
+  accountNo: string,
+  address: string,
+  city: string
 |}
 
 export type RequestBody = {|
