@@ -69,11 +69,13 @@ module.exports = (phase, {defaultConfig}) => {
        */
       if (!isDev) {
         config.plugins.push(
-          new webpack.EnvironmentPlugin({NEXT_FORECAST_URL: null})
+          new webpack.EnvironmentPlugin({NEXT_FORECAST_URL: null}),
           // Same as above
           // new webpack.DefinePlugin({
           //   'process.env.NEXT_FORECAST_URL': JSON.stringify(process.env.NEXT_FORECAST_URL)
           // })
+          new webpack.EnvironmentPlugin({NEXT_MAILJET_URL: null}),
+          new webpack.EnvironmentPlugin({NEXT_RECAPTCHA_SITE_KEY: null})
         )
       }
 
