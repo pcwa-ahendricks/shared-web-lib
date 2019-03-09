@@ -20,8 +20,8 @@ import {
 import PageLayout from '../../../components/PageLayout/PageLayout'
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
-import {Formik, Form} from 'formik'
-import {string, object, boolean} from 'yup'
+import {Formik, Form, Field} from 'formik'
+import {string, object, boolean, date} from 'yup'
 import {
   postIrrigCntrlRebateForm,
   type RequestBody,
@@ -32,6 +32,7 @@ import classNames from 'classnames'
 import DropzoneUploader, {
   type UploadedFile
 } from '../../../components/DropzoneUploader/DropzoneUploader'
+import PurchaseDateField from './formFields/purchaseDateField'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
@@ -106,6 +107,7 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
+    purchaseDate: date().required(),
     signature: boolean()
       .required()
       .oneOf([true], 'Must provide signature by checking this box')
@@ -122,6 +124,7 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
+  purchaseDate: new Date(),
   signature: false
 }
 
@@ -578,6 +581,10 @@ const Rebate = ({classes}: Props) => {
                             }
                           }}
                         />
+                      </div>
+
+                      <div className={classes.formControlRow}>
+                        <Field name="date" component={PurchaseDateField} />
                       </div>
 
                       <div className={classes.formControlRow}>
