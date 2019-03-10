@@ -3,7 +3,7 @@ import React, {useRef, useCallback, type Node} from 'react'
 import {Link, Typography as Type} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
-import Overline from '../../Overline/Overline'
+import Overline from '@components/Overline/Overline'
 
 type Props = {
   describedbyId: string,

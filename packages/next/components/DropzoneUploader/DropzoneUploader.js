@@ -6,8 +6,9 @@ import {withStyles} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
 import {
   uploadFile,
-  UPLOAD_SERVICE_BASE_URL
-} from '../../lib/services/uploadService'
+  UPLOAD_SERVICE_BASE_URL,
+  type UploadResponse
+} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -17,7 +18,6 @@ import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
 // import ThumbPreviewList from './ThumbPreviewList'
-import {type UploadResponse} from '../../lib/services/uploadService'
 
 type Props = {
   classes: any,

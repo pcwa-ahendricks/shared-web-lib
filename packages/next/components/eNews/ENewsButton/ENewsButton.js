@@ -1,6 +1,8 @@
 // @flow
 import React, {type Node} from 'react'
-import GlowButton, {type BaseGlowButtonProps} from '../../GlowButton/GlowButton'
+import GlowButton, {
+  type BaseGlowButtonProps
+} from '@components/GlowButton/GlowButton'
 // import {type ButtonProps} from '@material-ui/core/Button'
 
 type Props = {

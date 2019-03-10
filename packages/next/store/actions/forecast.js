@@ -1,5 +1,5 @@
 // @flow
-import {fetchForecasts} from '../../lib/services/forecastService'
+import {fetchForecasts} from '@lib/services/forecastService'
 import {
   SET_FORECASTS,
   SET_TIMEOUT_ID,
@@ -7,8 +7,8 @@ import {
   SET_CYCLE_TIMEOUT_ID
 } from './actionTypes'
 import {type State} from '../index'
-import {type ForecastData} from '../../components/forecast/ForecastDisplay/ForecastDisplay'
-import {maxInt} from '../../lib/util'
+import {type ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
+import {maxInt} from '@lib/util'
 
 const setForecasts = (forecasts: Array<ForecastData>) => {
   return {

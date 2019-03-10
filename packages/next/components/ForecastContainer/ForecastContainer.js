@@ -4,10 +4,10 @@ import {withStyles} from '@material-ui/core/styles'
 import {
   type Location,
   type ForecastData
-} from '../forecast/ForecastDisplay/ForecastDisplay'
+} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {connect} from 'react-redux'
-import {startForecastTimer} from '../../store/actions'
-import ForecastCycle from '../forecast/ForecastCycle/ForecastCycle'
+import {startForecastTimer} from '@store/actions'
+import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 
 type Props = {
   classes: any,

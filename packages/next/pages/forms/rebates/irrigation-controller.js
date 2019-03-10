@@ -3,67 +3,40 @@ import React, {useState, useCallback, useRef} from 'react'
 import {
   Button,
   CircularProgress,
-  Checkbox,
-  InputLabel,
   Fade,
-  FormControlLabel,
-  // FormLabel,
   Grow,
-  OutlinedInput,
-  FormControl,
-  FormHelperText,
-  MenuItem,
-  Select,
-  TextField,
   Typography as Type
 } from '@material-ui/core'
-import PageLayout from '../../../components/PageLayout/PageLayout'
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
 import {string, object, boolean, date} from 'yup'
+import Recaptcha from 'react-recaptcha'
+import classNames from 'classnames'
 import {
   postIrrigCntrlRebateForm,
   type RequestBody,
   type RebateFormData
-} from '../../../lib/services/formService'
-import Recaptcha from 'react-recaptcha'
-import classNames from 'classnames'
+} from '@lib/services/formService'
+import PageLayout from '@components/PageLayout/PageLayout'
 import DropzoneUploader, {
   type UploadedFile
-} from '../../../components/DropzoneUploader/DropzoneUploader'
-import PurchaseDateField from './formFields/purchaseDateField'
+} from '@components/DropzoneUploader/DropzoneUploader'
+import PurchaseDateField from '@components/formFields/PurchaseDateField'
+import FirstNameField from '@components/formFields/FirstNameField'
+import LastNameField from '@components/formFields/LastNameField'
+import EmailField from '@components/formFields/EmailField'
+import AccountNoField from '@components/formFields/AccountNoField'
+import CitySelectField from '@components/formFields/CitySelectField'
+import OtherCityField from '@components/formFields/OtherCityField'
+import StreetAddressField from '@components/formFields/StreetAddressField'
+import PhoneNoField from '@components/formFields/PhoneNoField'
+import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
+import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
 const UPLOAD_FILE_LIMIT = 5
-const CITY_LIST = [
-  'Alta',
-  'Applegate',
-  'Auburn',
-  'Baxter',
-  'Colfax',
-  'Dutch Flat',
-  'Gold Run',
-  'Granite Bay',
-  'Lincoln',
-  'Loomis',
-  'Meadow Vista',
-  'Newcastle',
-  'Penryn',
-  'Rocklin',
-  'Roseville',
-  'Weimar',
-  'Other'
-]
-const PROPERTY_TYPE_LIST = [
-  'Single Family Residential',
-  'Multi-family Residential',
-  'Dedicated Landscape',
-  'Commercial',
-  'Industrial',
-  'Institutional'
-]
 
 type Props = {
   classes: any
@@ -137,21 +110,21 @@ const styles = (theme) => ({
     alignItems: 'center',
     width: '100%'
   },
-  textField: {
-    marginTop: theme.spacing.unit * 1,
-    marginBottom: theme.spacing.unit * 4,
-    '&:not(:first-child)': {
-      marginLeft: theme.spacing.unit * 4
-    }
-  },
-  formControl: {
-    marginTop: theme.spacing.unit * 1,
-    marginBottom: theme.spacing.unit * 4,
-    minWidth: 150,
-    '&:not(:first-child)': {
-      marginLeft: theme.spacing.unit * 4
-    }
-  },
+  // textField: {
+  //   marginTop: theme.spacing.unit * 1,
+  //   marginBottom: theme.spacing.unit * 4,
+  //   '&:not(:first-child)': {
+  //     marginLeft: theme.spacing.unit * 4
+  //   }
+  // },
+  // formControl: {
+  //   marginTop: theme.spacing.unit * 1,
+  //   marginBottom: theme.spacing.unit * 4,
+  //   minWidth: 150,
+  //   '&:not(:first-child)': {
+  //     marginLeft: theme.spacing.unit * 4
+  //   }
+  // },
   formControlRow: {
     display: 'flex',
     flexDirection: 'row',
@@ -293,9 +266,6 @@ const Rebate = ({classes}: Props) => {
               values,
               touched = {},
               dirty,
-              errors = {},
-              handleChange,
-              handleBlur,
               isSubmitting,
               isValid,
               setFieldTouched,
@@ -315,15 +285,13 @@ const Rebate = ({classes}: Props) => {
               const otherCitySelected = values.city.toLowerCase() === 'other'
 
               // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
-              const checkboxChangeHandler = (...args) => {
+              const checkboxChangeHandler = () => {
                 setFieldTouched('signature', true)
-                handleChange(...args)
               }
 
               // If city field is updated clear out otherCity field.
-              const cityChangeHandler = (...args) => {
+              const cityChangeHandler = () => {
                 setFieldValue('otherCity', '')
-                handleChange(...args)
               }
 
               return (
@@ -335,187 +303,28 @@ const Rebate = ({classes}: Props) => {
                       </Type>
 
                       <div className={classes.formControlRow}>
-                        <TextField
-                          name="firstName"
-                          type="text"
-                          required
-                          value={values.firstName}
-                          label="First Name"
-                          className={classes.textField}
-                          autoComplete="billing given-name"
-                          // autoFocus
-                          variant="outlined"
-                          margin="normal"
-                          helperText={
-                            errors.firstName && touched.firstName
-                              ? errors.firstName
-                              : null
-                          }
-                          error={errors.firstName && touched.firstName}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          disabled={isSubmitting}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.inputLabel
-                            }
-                          }}
-                        />
-                        <TextField
-                          name="lastName"
-                          type="text"
-                          required
-                          value={values.lastName}
-                          label="Last Name"
-                          className={classes.textField}
-                          autoComplete="billing family-name"
-                          variant="outlined"
-                          margin="normal"
-                          helperText={
-                            errors.lastName && touched.lastName
-                              ? errors.lastName
-                              : null
-                          }
-                          error={errors.lastName && touched.lastName}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          disabled={isSubmitting}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.inputLabel
-                            }
-                          }}
-                        />
+                        <Field name="firstName" component={FirstNameField} />
+                        <Field name="lastName" component={LastNameField} />
                       </div>
 
                       <div className={classes.formControlRow}>
-                        <TextField
-                          name="email"
-                          type="email"
-                          required
-                          value={values.email}
-                          label="Email"
-                          // placeholder="jane.doe@pcwa.net"
-                          className={classes.textField}
-                          autoComplete="email"
-                          variant="outlined"
-                          margin="normal"
-                          helperText={
-                            errors.email && touched.email ? errors.email : null
-                          }
-                          error={errors.email && touched.email}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          disabled={isSubmitting}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.inputLabel
-                            }
-                          }}
-                        />
-
-                        <TextField
-                          name="accountNo"
-                          type="text"
-                          required
-                          value={values.accountNo}
-                          label="Account Number"
-                          // placeholder="XXXX-XXXXX"
-                          className={classes.textField}
-                          variant="outlined"
-                          margin="normal"
-                          helperText={
-                            errors.accountNo && touched.accountNo
-                              ? errors.accountNo
-                              : null
-                          }
-                          error={errors.accountNo && touched.accountNo}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          disabled={isSubmitting}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.inputLabel
-                            }
-                          }}
-                        />
+                        <Field name="email" component={EmailField} />
+                        <Field name="accountNo" component={AccountNoField} />
                       </div>
 
                       <div className={classes.formControlRow}>
-                        <TextField
-                          name="address"
-                          type="text"
-                          required
-                          value={values.address}
-                          label="Address (as it appears on bill)"
-                          className={classNames(
-                            classes.textField,
-                            classes.grow
+                        <Field name="address" component={StreetAddressField} />
+
+                        <Field
+                          name="city"
+                          render={({field, form}) => (
+                            <CitySelectField
+                              form={form}
+                              field={field}
+                              onChange={cityChangeHandler}
+                            />
                           )}
-                          autoComplete="billing street-address"
-                          variant="outlined"
-                          margin="normal"
-                          helperText={
-                            errors.address && touched.address
-                              ? errors.address
-                              : null
-                          }
-                          error={errors.address && touched.address}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          disabled={isSubmitting}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.inputLabel
-                            }
-                          }}
                         />
-
-                        <FormControl
-                          className={classes.formControl}
-                          required
-                          variant="outlined"
-                          margin="normal"
-                          disabled={isSubmitting}
-                        >
-                          <InputLabel
-                            htmlFor="city-select"
-                            error={errors.city && touched.city}
-                            classes={{
-                              root: classes.inputLabel
-                            }}
-                          >
-                            City
-                          </InputLabel>
-                          <Select
-                            value={values.city || ''}
-                            autoWidth={true}
-                            variant="outlined"
-                            input={
-                              <OutlinedInput
-                                id="city-select"
-                                name="city"
-                                autoComplete="billing address-level2"
-                                labelWidth={36}
-                                error={errors.city && touched.city}
-                              />
-                            }
-                            onChange={cityChangeHandler}
-                            onBlur={handleBlur}
-                          >
-                            {/* <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem> */}
-                            {CITY_LIST.map((city) => (
-                              <MenuItem key={city} value={city}>
-                                {city}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          <FormHelperText error={errors.city && touched.city}>
-                            {errors.city && touched.city ? errors.city : null}
-                          </FormHelperText>
-                        </FormControl>
                       </div>
 
                       {showOtherCityTextField || otherCitySelected ? (
@@ -525,62 +334,22 @@ const Rebate = ({classes}: Props) => {
                           onExited={exitedOtherCityTransHandler}
                         >
                           <div className={classes.formControlRow}>
-                            <TextField
+                            <Field
                               name="otherCity"
-                              type="text"
-                              value={values.otherCity}
-                              label="City"
-                              className={classNames(
-                                classes.textField,
-                                classes.grow
+                              render={({field, form}) => (
+                                <OtherCityField
+                                  form={form}
+                                  field={field}
+                                  disabled={!otherCitySelected}
+                                />
                               )}
-                              autoComplete="billing address-level2"
-                              variant="outlined"
-                              margin="normal"
-                              helperText={
-                                errors.otherCity && touched.otherCity
-                                  ? errors.otherCity
-                                  : null
-                              }
-                              error={errors.otherCity && touched.otherCity}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              disabled={!otherCitySelected || isSubmitting}
-                              InputLabelProps={{
-                                classes: {
-                                  root: classes.inputLabel
-                                }
-                              }}
                             />
                           </div>
                         </Grow>
                       ) : null}
 
                       <div className={classes.formControlRow}>
-                        <TextField
-                          name="phone"
-                          type="tel"
-                          required
-                          value={values.phone}
-                          label="Phone Number"
-                          // placeholder="jane.doe@pcwa.net"
-                          className={classes.textField}
-                          autoComplete="tel-national"
-                          variant="outlined"
-                          margin="normal"
-                          helperText={
-                            errors.phone && touched.phone ? errors.phone : null
-                          }
-                          error={errors.phone && touched.phone}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          disabled={isSubmitting}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.inputLabel
-                            }
-                          }}
-                        />
+                        <Field name="phone" component={PhoneNoField} />
                       </div>
 
                       <div className={classes.formControlRow}>
@@ -588,56 +357,10 @@ const Rebate = ({classes}: Props) => {
                       </div>
 
                       <div className={classes.formControlRow}>
-                        <FormControl
-                          className={classes.formControl}
-                          required
-                          variant="outlined"
-                          margin="normal"
-                          disabled={isSubmitting}
-                        >
-                          <InputLabel
-                            htmlFor="property-type-select"
-                            error={errors.propertyType && touched.propertyType}
-                            classes={{
-                              root: classes.inputLabel
-                            }}
-                          >
-                            Property Type
-                          </InputLabel>
-                          <Select
-                            value={values.propertyType || ''}
-                            autoWidth={true}
-                            variant="outlined"
-                            input={
-                              <OutlinedInput
-                                id="property-type-select"
-                                name="propertyType"
-                                labelWidth={110}
-                                error={
-                                  errors.propertyType && touched.propertyType
-                                }
-                              />
-                            }
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          >
-                            {/* <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem> */}
-                            {PROPERTY_TYPE_LIST.map((propertyType) => (
-                              <MenuItem key={propertyType} value={propertyType}>
-                                {propertyType}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          <FormHelperText
-                            error={errors.propertyType && touched.propertyType}
-                          >
-                            {errors.propertyType && touched.propertyType
-                              ? errors.propertyType
-                              : null}
-                          </FormHelperText>
-                        </FormControl>
+                        <Field
+                          name="propertyType"
+                          component={PropertyTypeSelectField}
+                        />
                       </div>
 
                       <div
@@ -663,39 +386,16 @@ const Rebate = ({classes}: Props) => {
                       </div>
 
                       <div className={classes.formControlRow}>
-                        <FormControl
-                          className={classes.formControl}
-                          required
-                          variant="outlined"
-                          margin="normal"
-                          error={errors.signature && touched.signature}
-                          disabled={isSubmitting}
-                          component="fieldset"
-                        >
-                          <FormControlLabel
-                            required
-                            label="Check here to sign"
-                            control={
-                              <Checkbox
-                                checked={values.signature}
-                                value="signature"
-                                color="primary"
-                                inputProps={{
-                                  name: 'signature'
-                                }}
-                                onChange={checkboxChangeHandler}
-                                onBlur={handleBlur}
-                              />
-                            }
-                          />
-                          <FormHelperText
-                            error={errors.signature && touched.signature}
-                          >
-                            {errors.signature && touched.signature
-                              ? errors.signature
-                              : null}
-                          </FormHelperText>
-                        </FormControl>
+                        <Field
+                          name="signature"
+                          render={({field, form}) => (
+                            <SignatureCheckbox
+                              form={form}
+                              field={field}
+                              onChange={checkboxChangeHandler}
+                            />
+                          )}
+                        />
                       </div>
 
                       <div className={classes.formControlRow}>

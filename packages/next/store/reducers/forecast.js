@@ -5,7 +5,7 @@ import {
   SET_ACTIVE_CYCLE_FORECAST_ID,
   SET_CYCLE_TIMEOUT_ID
 } from '../actions/actionTypes'
-import {type ForecastData} from '../../components/forecast/ForecastDisplay/ForecastDisplay'
+import {type ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 
 export type State = {
   forecasts: Array<ForecastData>,

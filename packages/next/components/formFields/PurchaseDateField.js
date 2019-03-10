@@ -9,21 +9,23 @@ type Props = {
 }
 
 const PurchaseDateField = ({field, form, ...other}: Props) => {
-  const currentError = form.errors[field.name]
+  const {name, value} = field
+  const {errors, setFieldError, setFieldValue} = form
+  const currentError = errors[name]
   return (
     <DatePicker
       keyboard
       clearable
       disableFuture
-      name={field.name}
-      value={field.value}
+      name={name}
+      value={value}
       format="MM/dd/yyyy"
       variant="outlined"
       label="Purchase Date"
       helperText={currentError}
       error={Boolean(currentError)}
-      onError={(_, error) => form.setFieldError(field.name, error)}
-      onChange={(date) => form.setFieldValue(field.name, date, true)}
+      onError={(_, error) => setFieldError(name, error)}
+      onChange={(date) => setFieldValue(name, date, true)}
       mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
       {...other}
     />

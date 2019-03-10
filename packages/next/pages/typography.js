@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import {Typography as Type} from '@material-ui/core'
-import PageLayout from '../components/PageLayout/PageLayout'
+import PageLayout from '@components/PageLayout/PageLayout'
 
 const Typography = () => {
   return (

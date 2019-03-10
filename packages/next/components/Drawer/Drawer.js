@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import {Mail as MailIcon, Inbox as InboxIcon} from '@material-ui/icons'
 import {connect} from 'react-redux'
-import {uiSetDrawerViz} from '../../store/actions'
+import {uiSetDrawerViz} from '@store/actions'
 
 type Props = {
   classes: any,

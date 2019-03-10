@@ -5,6 +5,7 @@ const {
 } = require('webpack-bundle-size-analyzer')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
+const path = require('path')
 const {STATS, NEXT_TARGET = 'server'} = process.env
 
 module.exports = (phase, {defaultConfig}) => {
@@ -80,7 +81,11 @@ module.exports = (phase, {defaultConfig}) => {
       }
 
       // Example. See https://github.com/zeit/next.js/blob/42d656050dca98f4eae58fa0ed29f784400cd048/examples/with-absolute-imports/next.config.js#L5 for more info.
-      // config.resolve.alias['components'] = path.join(__dirname, 'components')
+      // eslintrc and flowconfig will require similar configurations to support the following.
+      config.resolve.alias['@components'] = path.join(__dirname, 'components')
+      config.resolve.alias['@lib'] = path.join(__dirname, 'lib')
+      config.resolve.alias['@store'] = path.join(__dirname, 'store')
+      config.resolve.alias['@hooks'] = path.join(__dirname, 'hooks')
 
       return config
     }

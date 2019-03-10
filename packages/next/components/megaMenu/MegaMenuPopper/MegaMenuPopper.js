@@ -2,8 +2,8 @@
 import React, {useState, useRef, useEffect, useCallback, type Node} from 'react'
 import {Popper, Fade as Collapse} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import useDebounce from '../../../hooks/useDebounce'
-import {type ToolbarVariant} from '../../PrimaryHeader/PrimaryHeader'
+import useDebounce from '@hooks/useDebounce'
+import {type ToolbarVariant} from '@components/PrimaryHeader/PrimaryHeader'
 
 const POPOVER_TRAN_EXIT_DURATION = 150
 

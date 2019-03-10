@@ -2,12 +2,12 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import ForecastDisplay, {
   type ForecastData
-} from '../ForecastDisplay/ForecastDisplay'
+} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
-import ForecastPopover from '../ForecastPopover/ForecastPopover'
-import {startCycleForecastTimer} from '../../../store/actions'
+import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
+import {startCycleForecastTimer} from '@store/actions'
 
 type Props = {
   classes: any,

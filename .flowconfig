@@ -9,5 +9,13 @@
 [lints]
 
 [options]
+module.name_mapper='^@components\/\(.*\)$' -> '<PROJECT_ROOT>/packages/next/components/\1'
+module.name_mapper='^@components$' -> '<PROJECT_ROOT>/packages/next/components'
+module.name_mapper='^@lib\/\(.*\)$' -> '<PROJECT_ROOT>/packages/next/lib/\1'
+module.name_mapper='^@lib$' -> '<PROJECT_ROOT>/packages/next/lib'
+module.name_mapper='^@store\/\(.*\)$' -> '<PROJECT_ROOT>/packages/next/store/\1'
+module.name_mapper='^@store$' -> '<PROJECT_ROOT>/packages/next/store'
+module.name_mapper='^@hooks\/\(.*\)$' -> '<PROJECT_ROOT>/packages/next/hooks/\1'
+module.name_mapper='^@hooks$' -> '<PROJECT_ROOT>/packages/next/hooks'
 
 [strict]

@@ -6,14 +6,14 @@ import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from './SocialIconButton'
-import ENewsButton from '../eNews/ENewsButton/ENewsButton'
-import EspanolButton from '../EspanolButton/EspanolButton'
-import SearchInput from '../search/SearchInput/SearchInput'
-import GlowButton, {NextGlowButton} from '../GlowButton/GlowButton'
+import ENewsButton from '@components/eNews/ENewsButton/ENewsButton'
+import EspanolButton from '@components/EspanolButton/EspanolButton'
+import SearchInput from '@components/search/SearchInput/SearchInput'
+import GlowButton, {NextGlowButton} from '@components/GlowButton/GlowButton'
 import dynamic from 'next/dynamic'
 
 const DynamicForecast = dynamic(
-  import('../ForecastContainer/ForecastContainer'),
+  import('@components/ForecastContainer/ForecastContainer'),
   {
     // eslint-disable-next-line react/display-name
     loading: () => (

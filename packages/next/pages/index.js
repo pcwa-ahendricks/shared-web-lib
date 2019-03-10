@@ -1,12 +1,12 @@
 // @flow
 import React, {useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
-import ImgixFancyParallaxBanner from '../components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
-import ImgixFancy from '../components/ImgixFancy/ImgixFancy'
-import PageLayout from '../components/PageLayout/PageLayout'
+import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
+import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
+import PageLayout from '@components/PageLayout/PageLayout'
 import {Fade, Hidden, Typography as Type} from '@material-ui/core'
-import HeroOverlay from '../components/HeroOverlay/HeroOverlay'
-import TrendingBar from '../components/trending/TrendingBar/TrendingBar'
+import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
+import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 
 type Props = {
   classes: any
