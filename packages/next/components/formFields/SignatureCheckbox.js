@@ -28,9 +28,6 @@ const AccountNoField = ({field, form, onChange, ...other}: Props) => {
     [handleChange, onChange]
   )
 
-  console.log(name)
-  console.log(value)
-
   return (
     <FormControl
       required

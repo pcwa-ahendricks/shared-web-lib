@@ -4,6 +4,7 @@ import {
   Button,
   CircularProgress,
   Fade,
+  Grid,
   Grow,
   Typography as Type
 } from '@material-ui/core'
@@ -141,13 +142,13 @@ const styles = (theme) => ({
     }
   },
   dropzoneContainer: {},
-  formControlsContainer: {
-    margin: theme.spacing.unit * 8,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
-  },
+  // formControlsContainer: {
+  //   margin: theme.spacing.unit * 8,
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'flex-start',
+  //   alignItems: 'flex-start'
+  // },
   buttonWrapper: {
     position: 'relative',
     margin: {
@@ -297,35 +298,52 @@ const Rebate = ({classes}: Props) => {
               return (
                 <div>
                   <Form>
-                    <div className={classes.formControlsContainer}>
+                    <div>
                       <Type variant="h4" color="primary" gutterBottom>
                         Form
                       </Type>
 
-                      <div className={classes.formControlRow}>
-                        <Field name="firstName" component={FirstNameField} />
-                        <Field name="lastName" component={LastNameField} />
-                      </div>
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="firstName" component={FirstNameField} />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="lastName" component={LastNameField} />
+                        </Grid>
+                      </Grid>
 
-                      <div className={classes.formControlRow}>
-                        <Field name="email" component={EmailField} />
-                        <Field name="accountNo" component={AccountNoField} />
-                      </div>
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="email" component={EmailField} />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="accountNo" component={AccountNoField} />
+                        </Grid>
+                      </Grid>
 
-                      <div className={classes.formControlRow}>
-                        <Field name="address" component={StreetAddressField} />
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={8}>
+                          <Field
+                            name="address"
+                            render={({field, form}) => (
+                              <StreetAddressField form={form} field={field} />
+                            )}
+                          />
+                        </Grid>
 
-                        <Field
-                          name="city"
-                          render={({field, form}) => (
-                            <CitySelectField
-                              form={form}
-                              field={field}
-                              onChange={cityChangeHandler}
-                            />
-                          )}
-                        />
-                      </div>
+                        <Grid item xs={12} sm={4}>
+                          <Field
+                            name="city"
+                            render={({field, form}) => (
+                              <CitySelectField
+                                form={form}
+                                field={field}
+                                onChange={cityChangeHandler}
+                              />
+                            )}
+                          />
+                        </Grid>
+                      </Grid>
 
                       {showOtherCityTextField || otherCitySelected ? (
                         <Grow

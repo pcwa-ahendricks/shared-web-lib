@@ -43,6 +43,7 @@ const StreetAddressField = ({field, form, classes, ...other}: Props) => {
           root: classes.inputLabel
         }
       }}
+      InputProps={{style: {minWidth: 275}}}
       {...other}
     />
   )

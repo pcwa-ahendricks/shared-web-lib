@@ -91,6 +91,7 @@ const CitySelectField = ({field, form, classes, onChange, ...other}: Props) => {
         }
         onChange={changeHandler}
         onBlur={handleBlur}
+        SelectDisplayProps={{style: {minWidth: 50}}}
       >
         {/* <MenuItem value="">
                           <em>None</em>
