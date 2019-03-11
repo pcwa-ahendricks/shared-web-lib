@@ -10,7 +10,7 @@ type Props = {
 
 const PurchaseDateField = ({field, form, ...other}: Props) => {
   const {name, value} = field
-  const {errors, setFieldError, setFieldValue} = form
+  const {errors, setFieldError, setFieldValue, isSubmitting} = form
   const currentError = errors[name]
   return (
     <DatePicker
@@ -18,6 +18,7 @@ const PurchaseDateField = ({field, form, ...other}: Props) => {
       clearable
       disableFuture
       name={name}
+      disabled={isSubmitting}
       value={value}
       format="MM/dd/yyyy"
       variant="outlined"
