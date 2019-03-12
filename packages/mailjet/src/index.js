@@ -9,7 +9,7 @@ import {
   uploadRoute,
   irrigCntrlRebateRoute
 } from './routes/index'
-import noCache from './lib/micro-no-cache'
+import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage, ServerResponse} from 'http'
 import {join} from 'path'
