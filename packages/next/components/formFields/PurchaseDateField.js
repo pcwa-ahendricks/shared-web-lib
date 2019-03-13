@@ -29,19 +29,21 @@ const PurchaseDateField = ({field, form, ...other}: Props) => {
     [name, setFieldValue]
   )
 
+  const disabled = Boolean(isSubmitting)
   return (
     <FormControl
       required
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled}
+      // Since we are not using FormHelperText error prop is not required.
       // error={currentError && fieldTouched}
     >
       <DatePicker
         keyboard
-        clearable
+        // clearable
         disableFuture
         name={name}
-        disabled={isSubmitting}
+        disabled={disabled}
         value={value}
         format="MM/dd/yyyy"
         variant="outlined"
