@@ -1,8 +1,9 @@
 // @flow
-import React from 'react'
+import React, {useCallback} from 'react'
 import {DatePicker} from 'material-ui-pickers'
-import {FormControl, FormHelperText} from '@material-ui/core'
+import {FormControl} from '@material-ui/core'
 import {type Form, type Field} from 'formik'
+import {isDate} from 'date-fns'
 
 type Props = {
   field: Field,
@@ -11,16 +12,29 @@ type Props = {
 
 const PurchaseDateField = ({field, form, ...other}: Props) => {
   const {name, value} = field
-  const {errors, setFieldError, setFieldValue, touched, isSubmitting} = form
+  const {
+    errors,
+    setFieldError,
+    setFieldValue,
+    touched,
+    isSubmitting,
+    handleBlur
+  } = form
   const currentError = errors[name]
   const fieldTouched = touched[name]
+
+  // Save date as string in form (may be null).
+  const changeHandler = useCallback(
+    (date) => setFieldValue(name, isDate(date) ? date.toJSON() : null, true),
+    [name, setFieldValue]
+  )
 
   return (
     <FormControl
       required
       margin="normal"
       disabled={isSubmitting}
-      error={Boolean(currentError)}
+      // error={currentError && fieldTouched}
     >
       <DatePicker
         keyboard
@@ -32,16 +46,19 @@ const PurchaseDateField = ({field, form, ...other}: Props) => {
         format="MM/dd/yyyy"
         variant="outlined"
         label="Purchase Date"
-        helperText={currentError}
-        error={Boolean(currentError)}
+        helperText={currentError && fieldTouched ? currentError : null}
+        error={currentError && fieldTouched}
         onError={(_, error) => setFieldError(name, error)}
-        onChange={(date) => setFieldValue(name, date, true)}
+        onChange={changeHandler}
+        onInputChange={changeHandler}
+        disableOpenOnEnter
+        onBlur={handleBlur}
         mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         {...other}
       />
-      <FormHelperText error={currentError && fieldTouched}>
+      {/* <FormHelperText error={currentError && fieldTouched}>
         {currentError && fieldTouched ? currentError : null}
-      </FormHelperText>
+      </FormHelperText> */}
     </FormControl>
   )
 }

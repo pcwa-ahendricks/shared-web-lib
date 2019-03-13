@@ -12,7 +12,7 @@ import {
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, boolean, date} from 'yup'
+import {string, object, boolean} from 'yup'
 import Recaptcha from 'react-recaptcha'
 import classNames from 'classnames'
 import {
@@ -82,7 +82,9 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
-    purchaseDate: date().required(),
+    purchaseDate: string()
+      .required('A valid purchase date is required')
+      .typeError('A valid purchase date is required'),
     signature: boolean()
       .required()
       .oneOf([true], 'Must provide signature by checking this box')
@@ -99,7 +101,7 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
-  purchaseDate: new Date(),
+  purchaseDate: '',
   signature: false
 }
 
@@ -420,7 +422,10 @@ const Rebate = ({classes}: Props) => {
 
                         <Grid container spacing={40}>
                           <Grid item xs={12} sm={6}>
-                            <Field name="date" component={PurchaseDateField} />
+                            <Field
+                              name="purchaseDate"
+                              component={PurchaseDateField}
+                            />
                           </Grid>
                           {/* <Grid item xs={12} sm={6}> */}
                           {/* <Field name="email" component={EmailField} /> */}
