@@ -31,6 +31,7 @@ const PurchaseDateField = ({field, form, ...other}: Props) => {
 
   const disabled = Boolean(isSubmitting)
   return (
+    // TODO - It would be nice if there was a way to automatically validate the field when the correct input is finally entered with keyboard. Currently, the user has to hit enter or blur the field in order to trigger the validation.
     <FormControl
       required
       margin="normal"
