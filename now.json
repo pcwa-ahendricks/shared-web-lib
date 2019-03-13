@@ -43,8 +43,16 @@
       "dest": "packages/mailjet/dist/index.js"
     },
     {
+      "src": "^/(services|forms|forms/rebates|typography)/?",
+      "dest": "/404",
+      "status": 404
+    },
+    {
       "src": "^/(.*)$",
-      "dest": "/packages/next/$1"
+      "dest": "/packages/next/$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
     }
   ],
   "regions": ["sfo1"]

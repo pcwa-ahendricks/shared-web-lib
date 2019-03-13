@@ -22,6 +22,21 @@ const theme = createMuiTheme({
     // Use the system font instead of the default Roboto font.
     // fontFamily: ['Asap', ...systemFonts].join(','),
     fontFamily: ['Malva', ...systemFonts].join(','),
+    h1: {
+      fontSize: '2.5rem' // Default: 6rem
+    },
+    h2: {
+      fontSize: '1.75rem', // Default: 3.75rem
+      fontWeight: 400 // Default: 300
+    },
+    h3: {
+      fontSize: '1.55rem', // Default: 3rem
+      fontWeight: 400 // Default: 400
+    },
+    h4: {
+      fontSize: '1.25rem', // Default: 2.125rem
+      fontWeight: 400 // Default: 400
+    },
     body2: {
       // fontFamily: ['Open Sans', ...systemFonts].join(',')
       fontFamily: ['Kiperman', ...systemFonts].join(','),

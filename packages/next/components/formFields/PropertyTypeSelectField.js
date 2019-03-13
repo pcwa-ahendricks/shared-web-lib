@@ -46,11 +46,11 @@ const CitySelectField = ({field, form, classes, ...other}: Props) => {
       variant="outlined"
       margin="normal"
       disabled={isSubmitting}
+      error={currentError && fieldTouched}
       {...other}
     >
       <InputLabel
         htmlFor="property-type-select"
-        error={currentError && fieldTouched}
         classes={{
           root: classes.inputLabel
         }}

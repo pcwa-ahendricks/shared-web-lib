@@ -3,6 +3,7 @@ import React, {useState, useCallback, useRef} from 'react'
 import {
   Button,
   CircularProgress,
+  Divider,
   Fade,
   Grid,
   Grow,
@@ -103,6 +104,14 @@ const initialFormValues: RebateFormData = {
 }
 
 const styles = (theme) => ({
+  main: {
+    margin: {
+      left: '20vw',
+      right: '20vw',
+      top: theme.spacing.unit * 5,
+      bottom: theme.spacing.unit * 5
+    }
+  },
   formikContainer: {
     height: '100%',
     display: 'flex',
@@ -126,22 +135,27 @@ const styles = (theme) => ({
   //     marginLeft: theme.spacing.unit * 4
   //   }
   // },
-  formControlRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    margin: {
-      bottom: theme.spacing.unit * 1,
-      top: theme.spacing.unit * 1
-    },
-    '&$dropzoneContainer': {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing.unit * 3
-    }
+  // formControlRow: {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   width: '100%',
+  //   margin: {
+  //     bottom: theme.spacing.unit * 1,
+  //     top: theme.spacing.unit * 1
+  //   },
+  //   '&$dropzoneContainer': {
+  //     flexDirection: 'column',
+  //     justifyContent: 'flex-start',
+  //     alignItems: 'flex-start',
+  //     marginBottom: theme.spacing.unit * 3
+  //   }
+  // },
+  dropzoneContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginBottom: theme.spacing.unit * 3
   },
-  dropzoneContainer: {},
   // formControlsContainer: {
   //   margin: theme.spacing.unit * 8,
   //   display: 'flex',
@@ -164,13 +178,15 @@ const styles = (theme) => ({
     marginTop: -12,
     marginLeft: -12
   },
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  },
-  grow: {
-    flexGrow: 1
+  formGroup: {
+    margin: {
+      top: theme.spacing.unit * 5,
+      bottom: theme.spacing.unit * 5
+    }
   }
+  // grow: {
+  //   flexGrow: 1
+  // }
   // dropzoneUploader: {
   //   marginBottom: theme.spacing.unit * 2
   // }
@@ -237,8 +253,14 @@ const Rebate = ({classes}: Props) => {
         <title>Rebate Form</title>
         <meta name="description" content="PCWA Water Efficiency Rebate Form" />
       </Head>
-      <main>
-        <Type variant="h3">Rebate Form</Type>
+      <main className={classes.main}>
+        <Type variant="h1" color="primary" gutterBottom>
+          Water Efficiency Rebates
+        </Type>
+
+        <Type variant="h2" color="primary" gutterBottom>
+          Weather Based Irrigation Controller Rebate Form
+        </Type>
 
         <div className={classes.formikContainer}>
           <Formik
@@ -299,86 +321,111 @@ const Rebate = ({classes}: Props) => {
                 <div>
                   <Form>
                     <div>
-                      <Type variant="h4" color="primary" gutterBottom>
-                        Form
-                      </Type>
+                      {/* <Type variant="h3" color="primary" gutterBottom>
+                        Weather Based Irrigation Controller Rebate Form
+                      </Type> */}
 
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="firstName" component={FirstNameField} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="lastName" component={LastNameField} />
-                        </Grid>
-                      </Grid>
-
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="email" component={EmailField} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="accountNo" component={AccountNoField} />
-                        </Grid>
-                      </Grid>
-
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={8}>
-                          <Field
-                            name="address"
-                            render={({field, form}) => (
-                              <StreetAddressField form={form} field={field} />
-                            )}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                          <Field
-                            name="city"
-                            render={({field, form}) => (
-                              <CitySelectField
-                                form={form}
-                                field={field}
-                                onChange={cityChangeHandler}
-                              />
-                            )}
-                          />
-                        </Grid>
-                      </Grid>
-
-                      {showOtherCityTextField || otherCitySelected ? (
-                        <Grow
-                          in={otherCitySelected}
-                          onEntering={enteringOtherCityTransHandler}
-                          onExited={exitedOtherCityTransHandler}
-                        >
-                          <div className={classes.formControlRow}>
+                      <div className={classes.formGroup}>
+                        <Type color="textSecondary" variant="h4" gutterBottom>
+                          Contact Information
+                        </Type>
+                        <Grid container spacing={40}>
+                          <Grid item xs={12} sm={6}>
                             <Field
-                              name="otherCity"
+                              name="firstName"
+                              component={FirstNameField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="lastName" component={LastNameField} />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={40}>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="accountNo"
+                              component={AccountNoField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="propertyType"
+                              component={PropertyTypeSelectField}
+                            />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={40}>
+                          <Grid item xs={12} sm={8}>
+                            <Field
+                              name="address"
                               render={({field, form}) => (
-                                <OtherCityField
+                                <StreetAddressField form={form} field={field} />
+                              )}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} sm={4}>
+                            <Field
+                              name="city"
+                              render={({field, form}) => (
+                                <CitySelectField
                                   form={form}
                                   field={field}
-                                  disabled={!otherCitySelected}
+                                  onChange={cityChangeHandler}
                                 />
                               )}
                             />
-                          </div>
-                        </Grow>
-                      ) : null}
+                          </Grid>
+                        </Grid>
 
-                      <div className={classes.formControlRow}>
-                        <Field name="phone" component={PhoneNoField} />
+                        {showOtherCityTextField || otherCitySelected ? (
+                          <Grow
+                            in={otherCitySelected}
+                            onEntering={enteringOtherCityTransHandler}
+                            onExited={exitedOtherCityTransHandler}
+                          >
+                            <div className={classes.formControlRow}>
+                              <Field
+                                name="otherCity"
+                                render={({field, form}) => (
+                                  <OtherCityField
+                                    form={form}
+                                    field={field}
+                                    disabled={!otherCitySelected}
+                                  />
+                                )}
+                              />
+                            </div>
+                          </Grow>
+                        ) : null}
+
+                        <Grid container spacing={40}>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="phone" component={PhoneNoField} />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="email" component={EmailField} />
+                          </Grid>
+                        </Grid>
                       </div>
 
-                      <div className={classes.formControlRow}>
-                        <Field name="date" component={PurchaseDateField} />
-                      </div>
+                      <Divider variant="middle" />
 
-                      <div className={classes.formControlRow}>
-                        <Field
-                          name="propertyType"
-                          component={PropertyTypeSelectField}
-                        />
+                      <div className={classes.formGroup}>
+                        <Type variant="h4" color="textSecondary" gutterBottom>
+                          Rebate Information
+                        </Type>
+
+                        <Grid container spacing={40}>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="date" component={PurchaseDateField} />
+                          </Grid>
+                          {/* <Grid item xs={12} sm={6}> */}
+                          {/* <Field name="email" component={EmailField} /> */}
+                          {/* </Grid> */}
+                        </Grid>
                       </div>
 
                       <div
