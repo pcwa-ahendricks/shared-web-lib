@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
-import {withWidth} from '@material-ui/core'
 import {type DroppedFile, type UploadedFile} from './DropzoneUploader'
 import {
   Avatar,
@@ -9,7 +8,8 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Paper
+  Paper,
+  withWidth
   // Typography as Type
 } from '@material-ui/core'
 

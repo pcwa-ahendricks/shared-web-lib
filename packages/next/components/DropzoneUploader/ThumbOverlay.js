@@ -1,8 +1,6 @@
 // @flow
 import React from 'react'
-// import {Fab, Grow as Transition} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-// import CloseIcon from '@material-ui/icons/Close'
 
 type Props = {
   classes: any,

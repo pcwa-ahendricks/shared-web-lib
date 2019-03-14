@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Fab, Grow as Transition} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 // import CloseIcon from '@material-ui/icons/Close'
-import DeleteIcon from '@material-ui/icons/CloseRounded'
+import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
 
 type Props = {
   classes: any,

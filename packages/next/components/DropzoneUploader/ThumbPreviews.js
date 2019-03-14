@@ -7,6 +7,7 @@ import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
 import classNames from 'classnames'
+import ThumbPreviewDialog from './ThumbPreviewDialog'
 
 type Props = {
   classes: any,
@@ -39,13 +40,14 @@ const styles = (theme) => ({
   xs: {},
   thumbInner: {
     display: 'flex',
+    cursor: 'pointer',
     minWidth: 0,
     overflow: 'hidden',
     width: '100%',
     '& img': {
       display: 'block',
       width: '100%',
-      objectFit: 'cover'
+      objectFit: 'contain'
       // height: '100%'
     }
   },
@@ -71,6 +73,17 @@ const ThumbPreviews = ({
   width
 }: Props) => {
   const [thumbHover, setThumbHover] = useState<string | null>(null)
+  const [showThumbDialog, setShowThumbDialog] = useState<boolean>(false)
+  const [
+    showThumbDialogFile,
+    setShowThumbDialogFile
+  ] = useState<DroppedFile | null>(null)
+
+  const clickHandler = (file: DroppedFile) => () => {
+    setShowThumbDialog(true)
+    setShowThumbDialogFile(file)
+  }
+
   return (
     <React.Fragment>
       {droppedFiles.map((file) => (
@@ -86,6 +99,7 @@ const ThumbPreviews = ({
                 className={classes.thumbInner}
                 onMouseEnter={() => setThumbHover(file.name)}
                 onMouseLeave={() => setThumbHover(null)}
+                onClick={clickHandler(file)}
               >
                 {file.ext === 'pdf' ? (
                   // <img src="/static/images/pdf.svg" />
@@ -123,6 +137,11 @@ const ThumbPreviews = ({
           </div>
         </div>
       ))}
+      <ThumbPreviewDialog
+        file={showThumbDialogFile}
+        open={showThumbDialog}
+        onClose={() => setShowThumbDialog(false)}
+      />
     </React.Fragment>
   )
 }

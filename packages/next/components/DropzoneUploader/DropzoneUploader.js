@@ -16,10 +16,7 @@ import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
-// import {useDropzone} from 'react-dropzone'
-import dynamic from 'next/dynamic'
-const Dropzone = dynamic(() => import('react-dropzone'), {ssr: false})
-// import ThumbPreviewList from './ThumbPreviewList'
+import {useDropzone} from 'react-dropzone'
 
 type Props = {
   classes: any,
@@ -214,78 +211,64 @@ const DropzoneUploader = ({
     setRejectedFiles([])
   }, [])
 
-  // onFileDialogCancel property handler doesn't fire correctly in Firefox. Will avoid using this for now.
-  // const cancelHandler = () => {
-  //   alert('Canceling...')
-  //   setFiles([])
-  // }
-  // const fileList = droppedFiles.map((file) => (
-  //   <li key={file.name}>
-  //     {file.name} - {file.size} bytes
-  //   </li>
-  // ))
-
   const showClearUploadsButton = Boolean(
     allowClearUploads && uploadedFiles.length >= 2
   )
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
-  // const {getRootProps, getInputProps, isDragActive} = useDropzone({
-  //   onDrop: dropHandler,
-  //   onDropRejected: rejectHandler,
-  //   ...rest
-  // })
+  // /* Mime types are also checked on the back-end. */
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    accept: 'image/*, application/pdf',
+    onDrop: dropHandler,
+    onDropRejected: rejectHandler,
+    ...rest
+  })
   // <PageLayout title="Irrigation Canal Information">
   return (
     <React.Fragment>
       <div className={classes.root} style={{width: width}}>
-        <Dropzone onDrop={dropHandler} onDropRejected={rejectHandler}>
-          {({getRootProps, getInputProps, isDragActive}) => (
-            /* Mime types are also checked on the back-end. */
-            <div
-              {...getRootProps()}
-              className={classNames(classes.dropzone, {
-                [classes.isActive]: isDragActive
-              })}
-              style={{height: height}}
-            >
-              <input {...getInputProps()} />
-              <div className={classes.captionContainer}>
-                {isDragActive ? (
-                  <Type variant="h4" className={classes.primaryLight}>
-                    Drop files here...
-                  </Type>
+        <div
+          {...getRootProps()}
+          className={classNames(classes.dropzone, {
+            [classes.isActive]: isDragActive
+          })}
+          style={{height: height}}
+        >
+          <input {...getInputProps()} />
+          <div className={classes.captionContainer}>
+            {isDragActive ? (
+              <Type variant="h4" className={classes.primaryLight}>
+                Drop files here...
+              </Type>
+            ) : (
+              <React.Fragment>
+                {disabled ? (
+                  <CloudDoneIcon fontSize="large" color="disabled" />
                 ) : (
-                  <React.Fragment>
-                    {disabled ? (
-                      <CloudDoneIcon fontSize="large" color="disabled" />
-                    ) : (
-                      <CloudUploadIcon fontSize="large" color="action" />
-                    )}
-                    <Type
-                      variant="h3"
-                      className={classNames(classes.dropzoneTitle, {
-                        [classes.disabled]: disabled
-                      })}
-                    >
-                      Drag & drop
-                    </Type>
-                    <Type
-                      variant="subtitle1"
-                      className={classNames(classes.dropzoneSubTitle, {
-                        [classes.disabled]: disabled
-                      })}
-                    >
-                      {disabled
-                        ? 'uploading has been disabled'
-                        : 'your file(s) here or click to browse'}
-                    </Type>
-                  </React.Fragment>
+                  <CloudUploadIcon fontSize="large" color="action" />
                 )}
-              </div>
-            </div>
-          )}
-        </Dropzone>
+                <Type
+                  variant="h3"
+                  className={classNames(classes.dropzoneTitle, {
+                    [classes.disabled]: disabled
+                  })}
+                >
+                  Drag & drop
+                </Type>
+                <Type
+                  variant="subtitle1"
+                  className={classNames(classes.dropzoneSubTitle, {
+                    [classes.disabled]: disabled
+                  })}
+                >
+                  {disabled
+                    ? 'uploading has been disabled'
+                    : 'your file(s) here or click to browse'}
+                </Type>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
         <aside className={classes.thumbsContainer}>
           <ThumbPreviews
             uploadedFiles={uploadedFiles}
