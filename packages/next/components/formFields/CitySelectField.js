@@ -15,7 +15,8 @@ type Props = {
   field: Field,
   form: Form,
   classes: any,
-  onChange?: (Array<any>) => void
+  onChange?: (Array<any>) => void,
+  fullWidth: boolean
 }
 
 const styles = {
@@ -45,7 +46,14 @@ const CITY_LIST = [
   'Other'
 ]
 
-const CitySelectField = ({field, form, classes, onChange, ...other}: Props) => {
+const CitySelectField = ({
+  field,
+  form,
+  classes,
+  onChange,
+  fullWidth,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -66,6 +74,7 @@ const CitySelectField = ({field, form, classes, onChange, ...other}: Props) => {
       margin="normal"
       disabled={isSubmitting}
       error={currentError && fieldTouched}
+      fullWidth={fullWidth}
       {...other}
     >
       <InputLabel
@@ -107,6 +116,10 @@ const CitySelectField = ({field, form, classes, onChange, ...other}: Props) => {
       </FormHelperText>
     </FormControl>
   )
+}
+
+CitySelectField.defaultProps = {
+  fullWidth: true
 }
 
 export default withStyles(styles)(CitySelectField)

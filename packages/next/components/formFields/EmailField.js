@@ -7,7 +7,8 @@ import {type Form, type Field} from 'formik'
 type Props = {
   field: Field,
   form: Form,
-  classes: any
+  classes: any,
+  fullWidth: boolean
 }
 
 const styles = {
@@ -17,7 +18,7 @@ const styles = {
   }
 }
 
-const EmailField = ({field, form, classes, ...other}: Props) => {
+const EmailField = ({field, form, classes, fullWidth, ...other}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -44,9 +45,14 @@ const EmailField = ({field, form, classes, ...other}: Props) => {
           root: classes.inputLabel
         }
       }}
+      fullWidth={fullWidth}
       {...other}
     />
   )
+}
+
+EmailField.defaultProps = {
+  fullWidth: true
 }
 
 export default withStyles(styles)(EmailField)

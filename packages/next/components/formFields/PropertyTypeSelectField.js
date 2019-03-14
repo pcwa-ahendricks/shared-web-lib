@@ -15,7 +15,8 @@ type Props = {
   field: Field,
   form: Form,
   classes: any,
-  onChange?: (Array<any>) => void
+  onChange?: (Array<any>) => void,
+  fullWidth: boolean
 }
 
 const styles = {
@@ -34,7 +35,13 @@ const PROPERTY_TYPE_LIST = [
   'Institutional'
 ]
 
-const CitySelectField = ({field, form, classes, ...other}: Props) => {
+const PropertyTypeSelectField = ({
+  field,
+  form,
+  classes,
+  fullWidth,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -47,6 +54,7 @@ const CitySelectField = ({field, form, classes, ...other}: Props) => {
       margin="normal"
       disabled={isSubmitting}
       error={currentError && fieldTouched}
+      fullWidth={fullWidth}
       {...other}
     >
       <InputLabel
@@ -89,4 +97,8 @@ const CitySelectField = ({field, form, classes, ...other}: Props) => {
   )
 }
 
-export default withStyles(styles)(CitySelectField)
+PropertyTypeSelectField.defaultProps = {
+  fullWidth: true
+}
+
+export default withStyles(styles)(PropertyTypeSelectField)

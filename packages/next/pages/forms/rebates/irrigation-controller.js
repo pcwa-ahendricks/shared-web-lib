@@ -60,7 +60,7 @@ const formSchema = object()
       .required()
       .label('Email'),
     accountNo: string()
-      .required()
+      .required('An Account Number is required (leading zeros are optional)')
       .label('Account Number'),
     address: string()
       .required()
@@ -107,9 +107,12 @@ const initialFormValues: RebateFormData = {
 
 const styles = (theme) => ({
   main: {
+    maxWidth: 600,
     margin: {
-      left: '20vw',
-      right: '20vw',
+      // left: '20vw',
+      // right: '20vw',
+      left: 'auto',
+      right: 'auto',
       top: theme.spacing.unit * 5,
       bottom: theme.spacing.unit * 5
     }
@@ -118,8 +121,8 @@ const styles = (theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     width: '100%'
   },
   // textField: {
@@ -358,7 +361,7 @@ const Rebate = ({classes}: Props) => {
                           </Grid>
                         </Grid>
 
-                        <Grid container spacing={40}>
+                        <Grid container spacing={40} justify="space-between">
                           <Grid item xs={12} sm={8}>
                             <Field
                               name="address"
@@ -421,7 +424,7 @@ const Rebate = ({classes}: Props) => {
                         </Type>
 
                         <Grid container spacing={40}>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={5}>
                             <Field
                               name="purchaseDate"
                               component={PurchaseDateField}

@@ -7,10 +7,11 @@ import {isDate} from 'date-fns'
 
 type Props = {
   field: Field,
-  form: Form
+  form: Form,
+  fullWidth: boolean
 }
 
-const PurchaseDateField = ({field, form, ...other}: Props) => {
+const PurchaseDateField = ({field, form, fullWidth, ...other}: Props) => {
   const {name, value} = field
   const {
     errors,
@@ -38,6 +39,7 @@ const PurchaseDateField = ({field, form, ...other}: Props) => {
       disabled={disabled}
       // Since we are not using FormHelperText error prop is not required.
       // error={currentError && fieldTouched}
+      fullWidth={fullWidth}
     >
       <DatePicker
         keyboard
@@ -64,6 +66,10 @@ const PurchaseDateField = ({field, form, ...other}: Props) => {
       </FormHelperText> */}
     </FormControl>
   )
+}
+
+PurchaseDateField.defaultProps = {
+  fullWidth: true
 }
 
 export default PurchaseDateField

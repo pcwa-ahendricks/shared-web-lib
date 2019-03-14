@@ -4,6 +4,7 @@ import {
   Fade as Transition,
   Popover,
   IconButton,
+  Tooltip,
   Typography as Type
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
@@ -44,15 +45,17 @@ const styles = (theme) => ({
     bottom: 0,
     top: 0,
     textAlign: 'center',
-    background: `radial-gradient(rgba(40, 44, 47, 0.92), rgba(40, 44, 47, 0.8), rgba(40, 44, 47, 0.6), rgba(0, 0, 0, 0.2))`
+    background: `radial-gradient(rgba(40, 44, 47, 0.95), rgba(40, 44, 47, 0.85), rgba(40, 44, 47, 0.7), rgba(0, 0, 0, 0.2))`
   }
 })
 
 const ShowMeAccountInfo = ({classes}: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
+  const [tooltipOpen, setTooltipOpen] = useState(false)
   const [showTextOverlay, setShowTextOverlay] = useState<boolean>(true)
 
   const handleClick = useCallback((event) => {
+    setTooltipOpen(false)
     setAnchorEl(event.currentTarget)
   }, [])
 
@@ -72,53 +75,58 @@ const ShowMeAccountInfo = ({classes}: Props) => {
 
   const open = Boolean(anchorEl)
   return (
-    <div>
-      <IconButton
-        size="small"
-        aria-owns={open ? 'simple-popper' : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <AccountQuestion color="action" />
-      </IconButton>
-      <Popover
-        id="simple-popper"
-        open={open}
-        anchorEl={anchorEl}
-        onClose={closeHandler}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center'
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        onEntering={popoverEnteringHandler}
-        onExited={popoverExitedHandler}
-      >
-        <div className={classes.popoverContent}>
-          <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
-            <div className={classes.textOverlay}>
-              <Type className={classes.typography} variant="h5">
-                Find your account number on the upper right of your printed bill
-                statement. Entering leading zeros on this form is optional.
-              </Type>
-            </div>
-          </Transition>
-          {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
-          <Imgix
-            height={200}
-            width={500}
-            src={IMAGE_URL}
-            htmlAttributes={{
-              alt: 'Find My Account Number',
-              style: {width: '100%'}
-            }}
-          />
-        </div>
-      </Popover>
-    </div>
+    <Tooltip title="Where can I find my account number?" open={tooltipOpen}>
+      <div>
+        <IconButton
+          size="small"
+          aria-owns={open ? 'simple-popper' : undefined}
+          aria-haspopup="true"
+          onClick={handleClick}
+          onMouseEnter={() => setTooltipOpen(true)}
+          onMouseLeave={() => setTooltipOpen(false)}
+        >
+          <AccountQuestion color="action" />
+        </IconButton>
+        <Popover
+          id="simple-popper"
+          open={open}
+          anchorEl={anchorEl}
+          onClose={closeHandler}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          onEntering={popoverEnteringHandler}
+          onExited={popoverExitedHandler}
+        >
+          <div className={classes.popoverContent}>
+            <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
+              <div className={classes.textOverlay}>
+                <Type className={classes.typography} variant="h5">
+                  Find your account number on the upper right of your printed
+                  bill statement. Entering leading zeros on this form is
+                  optional.
+                </Type>
+              </div>
+            </Transition>
+            {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
+            <Imgix
+              height={200}
+              width={500}
+              src={IMAGE_URL}
+              htmlAttributes={{
+                alt: 'Find My Account Number',
+                style: {width: '100%'}
+              }}
+            />
+          </div>
+        </Popover>
+      </div>
+    </Tooltip>
   )
 }
 

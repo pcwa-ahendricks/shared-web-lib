@@ -11,10 +11,17 @@ import {type Form, type Field} from 'formik'
 type Props = {
   field: Field,
   form: Form,
-  onChange?: (Array<any>) => void
+  onChange?: (Array<any>) => void,
+  fullWidth: boolean
 }
 
-const AccountNoField = ({field, form, onChange, ...other}: Props) => {
+const AccountNoField = ({
+  field,
+  form,
+  onChange,
+  fullWidth,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -36,6 +43,7 @@ const AccountNoField = ({field, form, onChange, ...other}: Props) => {
       error={currentError && fieldTouched}
       disabled={isSubmitting}
       component="fieldset"
+      fullWidth={fullWidth}
       {...other}
     >
       <FormControlLabel
@@ -59,6 +67,10 @@ const AccountNoField = ({field, form, onChange, ...other}: Props) => {
       </FormHelperText>
     </FormControl>
   )
+}
+
+AccountNoField.defaultProps = {
+  fullWidth: true
 }
 
 export default AccountNoField

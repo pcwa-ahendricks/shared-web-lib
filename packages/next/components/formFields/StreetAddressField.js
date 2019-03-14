@@ -7,7 +7,8 @@ import {type Form, type Field} from 'formik'
 type Props = {
   field: Field,
   form: Form,
-  classes: any
+  classes: any,
+  fullWidth: boolean
 }
 
 const styles = {
@@ -17,7 +18,13 @@ const styles = {
   }
 }
 
-const StreetAddressField = ({field, form, classes, ...other}: Props) => {
+const StreetAddressField = ({
+  field,
+  form,
+  classes,
+  fullWidth,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -44,9 +51,14 @@ const StreetAddressField = ({field, form, classes, ...other}: Props) => {
         }
       }}
       InputProps={{style: {minWidth: 275}}}
+      fullWidth={fullWidth}
       {...other}
     />
   )
+}
+
+StreetAddressField.defaultProps = {
+  fullWidth: true
 }
 
 export default withStyles(styles)(StreetAddressField)

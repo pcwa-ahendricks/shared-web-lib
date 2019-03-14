@@ -8,7 +8,8 @@ type Props = {
   field: Field,
   form: Form,
   classes: any,
-  disabled?: boolean
+  disabled?: boolean,
+  fullWidth: boolean
 }
 
 const styles = {
@@ -18,7 +19,14 @@ const styles = {
   }
 }
 
-const OtherCityField = ({field, form, classes, disabled, ...other}: Props) => {
+const OtherCityField = ({
+  field,
+  form,
+  classes,
+  disabled,
+  fullWidth,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -43,9 +51,14 @@ const OtherCityField = ({field, form, classes, disabled, ...other}: Props) => {
           root: classes.inputLabel
         }
       }}
+      fullWidth={fullWidth}
       {...other}
     />
   )
+}
+
+OtherCityField.defaultProps = {
+  fullWidth: true
 }
 
 export default withStyles(styles)(OtherCityField)

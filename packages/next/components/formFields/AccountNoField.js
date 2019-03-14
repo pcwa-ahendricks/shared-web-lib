@@ -9,7 +9,8 @@ import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
 type Props = {
   field: Field,
   form: Form,
-  classes: any
+  classes: any,
+  fullWidth: boolean
 }
 
 const styles = {
@@ -19,7 +20,7 @@ const styles = {
   }
 }
 
-const AccountNoField = ({field, form, classes, ...other}: Props) => {
+const AccountNoField = ({field, form, classes, fullWidth, ...other}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -52,9 +53,14 @@ const AccountNoField = ({field, form, classes, ...other}: Props) => {
           </InputAdornment>
         )
       }}
+      fullWidth={fullWidth}
       {...other}
     />
   )
+}
+
+AccountNoField.defaultFields = {
+  fullWidth: true
 }
 
 export default withStyles(styles)(AccountNoField)
