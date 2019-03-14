@@ -18,7 +18,7 @@ const styles = (theme) => ({
   },
   fab: {
     backgroundColor: theme.palette.error.main,
-    color: theme.palette.grey['100'],
+    color: theme.palette.grey[100],
     '&:hover': {
       backgroundColor: theme.palette.error.main
     }

@@ -1,6 +1,5 @@
 // @flow
 import React, {useState, useEffect, useCallback} from 'react'
-import {useDropzone} from 'react-dropzone'
 import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
@@ -17,6 +16,9 @@ import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
+// import {useDropzone} from 'react-dropzone'
+import dynamic from 'next/dynamic'
+const Dropzone = dynamic(() => import('react-dropzone'), {ssr: false})
 // import ThumbPreviewList from './ThumbPreviewList'
 
 type Props = {
@@ -228,58 +230,62 @@ const DropzoneUploader = ({
   )
   const showConfirmRemoveUpload = Boolean(confirmRemoveUpload)
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    onDrop: dropHandler,
-    onDropRejected: rejectHandler,
-    ...rest
-  })
+  // const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  //   onDrop: dropHandler,
+  //   onDropRejected: rejectHandler,
+  //   ...rest
+  // })
   // <PageLayout title="Irrigation Canal Information">
   return (
     <React.Fragment>
       <div className={classes.root} style={{width: width}}>
-        {/* Mime types are also checked on the back-end. */}
-        <div
-          {...getRootProps()}
-          className={classNames(classes.dropzone, {
-            [classes.isActive]: isDragActive
-          })}
-          style={{height: height}}
-        >
-          <input {...getInputProps()} />
-          <div className={classes.captionContainer}>
-            {isDragActive ? (
-              <Type variant="h4" className={classes.primaryLight}>
-                Drop files here...
-              </Type>
-            ) : (
-              <React.Fragment>
-                {disabled ? (
-                  <CloudDoneIcon fontSize="large" color="disabled" />
+        <Dropzone onDrop={dropHandler} onDropRejected={rejectHandler}>
+          {({getRootProps, getInputProps, isDragActive}) => (
+            /* Mime types are also checked on the back-end. */
+            <div
+              {...getRootProps()}
+              className={classNames(classes.dropzone, {
+                [classes.isActive]: isDragActive
+              })}
+              style={{height: height}}
+            >
+              <input {...getInputProps()} />
+              <div className={classes.captionContainer}>
+                {isDragActive ? (
+                  <Type variant="h4" className={classes.primaryLight}>
+                    Drop files here...
+                  </Type>
                 ) : (
-                  <CloudUploadIcon fontSize="large" color="action" />
+                  <React.Fragment>
+                    {disabled ? (
+                      <CloudDoneIcon fontSize="large" color="disabled" />
+                    ) : (
+                      <CloudUploadIcon fontSize="large" color="action" />
+                    )}
+                    <Type
+                      variant="h3"
+                      className={classNames(classes.dropzoneTitle, {
+                        [classes.disabled]: disabled
+                      })}
+                    >
+                      Drag & drop
+                    </Type>
+                    <Type
+                      variant="subtitle1"
+                      className={classNames(classes.dropzoneSubTitle, {
+                        [classes.disabled]: disabled
+                      })}
+                    >
+                      {disabled
+                        ? 'uploading has been disabled'
+                        : 'your file(s) here or click to browse'}
+                    </Type>
+                  </React.Fragment>
                 )}
-                <Type
-                  variant="h4"
-                  className={classNames(classes.dropzoneTitle, {
-                    [classes.disabled]: disabled
-                  })}
-                >
-                  Drag & drop
-                </Type>
-                <Type
-                  variant="subtitle1"
-                  className={classNames(classes.dropzoneSubTitle, {
-                    [classes.disabled]: disabled
-                  })}
-                >
-                  {disabled
-                    ? 'uploading has been disabled'
-                    : 'your file(s) here or click to browse'}
-                </Type>
-              </React.Fragment>
-            )}
-          </div>
-        </div>
+              </div>
+            </div>
+          )}
+        </Dropzone>
         <aside className={classes.thumbsContainer}>
           <ThumbPreviews
             uploadedFiles={uploadedFiles}

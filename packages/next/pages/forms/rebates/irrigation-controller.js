@@ -260,7 +260,7 @@ const Rebate = ({classes}: Props) => {
           Water Efficiency Rebates
         </Type>
 
-        <Type variant="h2" color="primary" gutterBottom>
+        <Type variant="h3" color="primary" gutterBottom>
           Weather Based Irrigation Controller Rebate Form
         </Type>
 
@@ -344,13 +344,13 @@ const Rebate = ({classes}: Props) => {
                         </Grid>
 
                         <Grid container spacing={40}>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={7}>
                             <Field
                               name="accountNo"
                               component={AccountNoField}
                             />
                           </Grid>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={5}>
                             <Field
                               name="propertyType"
                               component={PropertyTypeSelectField}

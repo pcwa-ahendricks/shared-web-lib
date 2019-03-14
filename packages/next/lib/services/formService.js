@@ -16,7 +16,7 @@ export type RebateFormData = {|
   otherCity: string,
   phone: string,
   propertyType: string,
-  purchaseDate: Date,
+  purchaseDate: string,
   signature: boolean
 |}
 

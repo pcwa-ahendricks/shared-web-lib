@@ -3,6 +3,8 @@ import React from 'react'
 import {TextField} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
 
 type Props = {
   field: Field,
@@ -42,6 +44,13 @@ const AccountNoField = ({field, form, classes, ...other}: Props) => {
         classes: {
           root: classes.inputLabel
         }
+      }}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <ShowMeAccountInfo />
+          </InputAdornment>
+        )
       }}
       {...other}
     />

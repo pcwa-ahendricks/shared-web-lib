@@ -9,6 +9,7 @@ import {string, object, array, boolean} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '../lib/micro-unauthorized'
 import checkReferrer from '../lib/micro-check-referrer'
+import {format} from 'date-fns'
 import reCAPTCHA from 'recaptcha2'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest, type MailJetMessage} from '../lib/types'
@@ -40,6 +41,7 @@ type FormData = {|
   otherCity: string,
   phone: string,
   propertyType: string,
+  purchaseDate: string,
   signature: boolean
 |}
 
@@ -67,6 +69,7 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
+        purchaseDate: string().required('A valid purchase date is required'),
         signature: boolean()
           .required()
           .oneOf([true])
@@ -105,7 +108,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
 
   const {formData, attachments, captcha} = body
   const {email, accountNo, firstName, lastName, address, otherCity} = formData
-  let {city = ''} = formData
+  let {city = '', purchaseDate} = formData
 
   // Only validate recaptcha key in production.
   if (!isDev) {
@@ -122,6 +125,9 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   if (city.toLowerCase() === 'other') {
     city = otherCity
   }
+
+  purchaseDate = new Date(purchaseDate)
+  purchaseDate = format(purchaseDate, 'MM/dd/YYYY')
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -143,7 +149,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         },
         Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
         TextPart: `This is just a test for Account Number ${accountNo}`,
-        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />`,
+        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br />`,
         TemplateLanguage: false
       }
     ]
