@@ -60,6 +60,10 @@ const formSchema = object()
       .required()
       .label('Email'),
     accountNo: string()
+      .matches(
+        /^\d+-\d+$/,
+        'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+      )
       .required('An Account Number is required (leading zeros are optional)')
       .label('Account Number'),
     address: string()

@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
@@ -22,9 +22,25 @@ const styles = {
 
 const AccountNoField = ({field, form, classes, fullWidth, ...other}: Props) => {
   const {name, value} = field
-  const {errors, handleChange, isSubmitting, handleBlur, touched} = form
+  const {
+    errors,
+    // handleChange,
+    isSubmitting,
+    handleBlur,
+    touched,
+    setFieldValue
+  } = form
   const currentError = errors[name]
   const fieldTouched = touched[name]
+
+  // Trim whitespace.
+  const changeHandler = useCallback(
+    (evt) => {
+      const {value = ''} = evt.target || {}
+      setFieldValue(name, value.trim())
+    },
+    [name, setFieldValue]
+  )
 
   return (
     <TextField
@@ -38,7 +54,7 @@ const AccountNoField = ({field, form, classes, fullWidth, ...other}: Props) => {
       margin="normal"
       helperText={currentError && fieldTouched ? currentError : null}
       error={currentError && fieldTouched}
-      onChange={handleChange}
+      onChange={changeHandler}
       onBlur={handleBlur}
       disabled={isSubmitting}
       InputLabelProps={{
@@ -59,7 +75,7 @@ const AccountNoField = ({field, form, classes, fullWidth, ...other}: Props) => {
   )
 }
 
-AccountNoField.defaultFields = {
+AccountNoField.defaultProps = {
   fullWidth: true
 }
 

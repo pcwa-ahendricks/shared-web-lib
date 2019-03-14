@@ -57,7 +57,9 @@ const bodySchema = object()
         email: string()
           .email()
           .required(),
-        accountNo: string().required(),
+        accountNo: string()
+          .matches(/^\d+-\d+$/)
+          .required(),
         address: string().required(),
         city: string().required(),
         otherCity: string().when('city', (city, passSchema) =>
@@ -107,8 +109,14 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   })
 
   const {formData, attachments, captcha} = body
-  const {email, accountNo, firstName, lastName, address, otherCity} = formData
-  let {city = '', purchaseDate} = formData
+  const {email, firstName, lastName, address, otherCity} = formData
+  let {city = '', purchaseDate, accountNo} = formData
+
+  // Remove leading zeros from account number.
+  accountNo = accountNo
+    .split('-')
+    .map((part) => part.replace(/^[0]+/g, ''))
+    .join('-')
 
   // Only validate recaptcha key in production.
   if (!isDev) {
