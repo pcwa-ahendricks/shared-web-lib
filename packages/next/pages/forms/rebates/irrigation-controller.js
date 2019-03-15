@@ -38,7 +38,7 @@ import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
-const UPLOAD_FILE_LIMIT = 5
+const UPLOAD_FILE_LIMIT = 5 // 15MB limit (bytes to MB). This is a hard limit imposed by Mailjet API. TODO - Will Mailjet accept multiple files totaling over 15MB? Can server resize images and pdfs to a certain file size limit?
 
 type Props = {
   classes: any
@@ -452,7 +452,7 @@ const Rebate = ({classes}: Props) => {
                           height={200}
                           width="100%"
                           accept="image/*, application/pdf"
-                          maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT} // 15MB limit (bytes to MB). Note - Will accept multiple files totaling over 15MB.
+                          maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
                           disabled={attachments.length >= UPLOAD_FILE_LIMIT}
                         />
                         <Fade in={hasBadAttachments}>
