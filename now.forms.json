@@ -43,7 +43,7 @@
       "status": 404
     },
     {
-      "src": "^/rebate(.*)$",
+      "src": "^/irrigation-controller-rebate(.*)$",
       "dest": "/packages/next/forms/rebates/irrigation-controller$1",
       "headers": {
         "x-request-path": "$1"
