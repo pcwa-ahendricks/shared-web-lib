@@ -135,7 +135,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   }
 
   purchaseDate = new Date(purchaseDate)
-  purchaseDate = format(purchaseDate, 'MM/dd/YYYY')
+  purchaseDate = format(purchaseDate, 'MM/dd/yyyy')
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the

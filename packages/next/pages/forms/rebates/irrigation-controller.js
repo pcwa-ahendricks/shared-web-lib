@@ -39,7 +39,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15
-const UPLOAD_FILE_LIMIT = 5
+const UPLOAD_FILE_LIMIT = 5 // 15MB limit (bytes to MB). This is a hard limit imposed by Mailjet API. TODO - Will Mailjet accept multiple files totaling over 15MB? Can server resize images and pdfs to a certain file size limit?
 
 type Props = {
   classes: any

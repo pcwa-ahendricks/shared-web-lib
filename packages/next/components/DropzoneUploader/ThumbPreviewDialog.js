@@ -1,17 +1,26 @@
 // @flow
 import React from 'react'
 import {Document, Page} from 'react-pdf'
-import {Dialog, Fab, Zoom, withWidth} from '@material-ui/core'
+// import 'react-pdf/dist/Page/AnnotationLayer.css'
+import {
+  Dialog,
+  Fab,
+  Zoom,
+  withWidth,
+  CircularProgress,
+  Typography as Type
+} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import {type DroppedFile} from './DropzoneUploader'
 
-const styles = () => ({
+const styles = (theme) => ({
   imageContainer: {
     // Not sure where the extra white-space is coming from but make it go away.
     marginBottom: '-6px',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    minHeight: 100 // Useful when PDF is loading.
   },
   img: {
     width: '100%'
@@ -25,6 +34,13 @@ const styles = () => ({
     overflow: 'unset',
     overflowY: 'unset',
     overflowX: 'unset'
+  },
+  loadingPDF: {
+    margin: theme.spacing.unit * 4,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 
@@ -37,6 +53,17 @@ type Props = {
 }
 
 const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
+  const renderLoadingHandler = () => {
+    console.log(new Date().toDateString())
+    return (
+      <div className={classes.loadingPDF}>
+        <Type variant="h4" paragraph>
+          Loading PDF...
+        </Type>
+        <CircularProgress variant="indeterminate" disableShrink={true} />
+      </div>
+    )
+  }
   return !file ? null : (
     <Dialog
       open={open}
@@ -49,7 +76,7 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
         paper: classes.paper
       }}
     >
-      <div>
+      <React.Fragment>
         <Fab
           size="small"
           className={classes.fab}
@@ -58,30 +85,29 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
         >
           <DeleteIcon />
         </Fab>
-        <div classes={{root: classes.dialogContent}}>
-          <div className={classes.imageContainer}>
-            {file.ext === 'pdf' ? (
-              // <img src="/static/images/pdf.svg" />
-              <Document file={file.previewUrl}>
-                {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
-                <Page
-                  pageNumber={1}
-                  width={width === 'xs' ? 200 : 450}
-                  scale={1}
-                />
-              </Document>
-            ) : (
-              <img
-                className={classNames('lazyload', classes.img)}
-                data-sizes="auto"
-                // src="/static/images/placeholder-camera.png"
-                data-srcset={file.previewUrl}
-                alt={`Image ${file.name} for upload`}
+        <div className={classes.imageContainer}>
+          {file.ext === 'pdf' ? (
+            // <img src="/static/images/pdf.svg" />
+            <Document file={file.previewUrl} loading={renderLoadingHandler()}>
+              {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
+              <Page
+                pageNumber={1}
+                width={width === 'xs' ? 200 : 450}
+                scale={1}
+                renderAnnotationLayer={false} // Prevents large blank <div/> appearing below certain PDFs.
               />
-            )}
-          </div>
+            </Document>
+          ) : (
+            <img
+              className={classNames('lazyload', classes.img)}
+              data-sizes="auto"
+              // src="/static/images/placeholder-camera.png"
+              data-srcset={file.previewUrl}
+              alt={`Image ${file.name} for upload`}
+            />
+          )}
         </div>
-      </div>
+      </React.Fragment>
     </Dialog>
   )
 }
