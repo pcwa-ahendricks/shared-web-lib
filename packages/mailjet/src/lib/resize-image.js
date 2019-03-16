@@ -32,16 +32,30 @@ export default async (localFilePath: string): Promise<void> => {
     return
   }
 
+  const image = await getImage(localFilePath)
+  // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
+  if (!image) {
+    return
+  }
+  try {
+    await image.resize(WIDTH_THRESHOLD, Jimp.AUTO).writeAsync(localFilePath)
+  } catch (error) {
+    console.log(error)
+    throw new Error('Error during JIMP processing.')
+  }
+}
+
+const getImage = async (localFilePath: string) => {
   try {
     const image = await Jimp.read(localFilePath)
     const width = image.getWidth()
     // Don't resize image if it's already smaller than the target dimension we are resizing to.
     if (width <= WIDTH_THRESHOLD) {
-      return
+      return null
     }
-    await image.resize(WIDTH_THRESHOLD, Jimp.AUTO).writeAsync(localFilePath)
+    return image
   } catch (error) {
-    console.log(error)
-    throw new Error('Error during JIMP processing.')
+    //  Don't throw read errors.
+    return null
   }
 }
