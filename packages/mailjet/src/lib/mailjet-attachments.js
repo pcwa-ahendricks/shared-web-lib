@@ -1,8 +1,6 @@
 // @flow
-
-import Jimp from 'jimp'
 import {parse} from 'path'
-import {existsSync} from 'fs'
+import {existsSync, readFileSync} from 'fs'
 import {getType} from 'mime'
 import {type MailJetAttachment} from './types'
 
@@ -15,9 +13,9 @@ const attach = (reqAttachments: Array<string>) => {
     }
     let resolveAtLength = reqAttachments.length
 
-    function pushAttachment(filename: string, mimeType: string, b64: string) {
+    function pushAttachment(basePath: string, mimeType: string, b64: string) {
       const attachment = {
-        Filename: parse(filename).base,
+        Filename: basePath,
         ContentType: mimeType,
         Base64Content: b64
       }
@@ -40,22 +38,18 @@ const attach = (reqAttachments: Array<string>) => {
       checkResolve()
     }
     function bufferToBase64(
-      err: Error,
       buffer: Buffer,
-      val: string,
+      localFilePath: string,
       mimeType: string
     ) {
-      if (err) {
-        console.log(err)
-        handleError('Problem during resize/file -> buffer operation: ')
-        return // return from this function (ie. don"t call toString() on invalid buffer and so on) on error.
-      }
+      //encode contents into base64
       const b64 = buffer.toString('base64')
-      pushAttachment(val, mimeType, b64)
+      const basePath = parse(localFilePath).base
+      pushAttachment(basePath, mimeType, b64)
       checkResolve()
     }
 
-    reqAttachments.forEach(async (localFilePath: string) => {
+    reqAttachments.forEach((localFilePath: string) => {
       // We are supplying full path in attachments. So this isn't needed.
       // const localFilePath = join(UPLOADS_DIR, ATTACHMENT_DIR, filename)
       if (!existsSync(localFilePath)) {
@@ -67,16 +61,9 @@ const attach = (reqAttachments: Array<string>) => {
 
       const mimeType = getType(localFilePath)
 
-      // Jimp works with Now. GM and Sharp didn't.
-      try {
-        const image = await Jimp.read(localFilePath)
-        image.resize(800, Jimp.AUTO).getBuffer(mimeType, (err, buffer) => {
-          bufferToBase64(err, buffer, parse(localFilePath).base, mimeType)
-        })
-      } catch (error) {
-        console.log(error)
-        throw error
-      }
+      //read the file
+      const buffer = readFileSync(localFilePath)
+      bufferToBase64(buffer, localFilePath, mimeType)
     }) // forEach
   })
 }

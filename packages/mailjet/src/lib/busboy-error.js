@@ -4,7 +4,8 @@ const util = require('util')
 const errorMessages = {
   BAD_MIME_TYPE: 'Unexpected File type',
   UNKNOWN_ERROR: 'An Error Occurred',
-  NO_FILENAME: 'Filename is absent'
+  NO_FILENAME: 'Filename is absent',
+  PROCESSING_ERROR: 'Error during image processing'
   // LIMIT_FILE_SIZE: 'File too large',
   // LIMIT_FILE_COUNT: 'Too many files',
   // LIMIT_FIELD_KEY: 'Field name too long',

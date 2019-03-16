@@ -20,11 +20,18 @@ import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
 import checkReferrer from '../lib/micro-check-referrer'
+import resizeImage from '../lib/resize-image'
 import BusboyError, {
   type BusboyErrorCode,
   type BusboyErrorType
 } from '../lib/busboy-error'
+import Limiter from 'lambda-rate-limiter'
 import {type MicroForKRequest} from '../index'
+
+const limiter = Limiter({
+  interval: 30 * 1000, // rate limit interval in ms, starts on first request
+  uniqueTokenPerInterval: 500 // excess causes earliest seen to drop, per instantiation
+})
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
@@ -87,7 +94,20 @@ export const photoB64Handler = (req: MicroForKRequest) => {
   }
 }
 
-const uploadHandler = (req: MicroForKRequest, res: ServerResponse) => {
+const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
+  // Headers are case sensitive.
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  if (!ip) {
+    throw createError(403, "Can't determine client IP address")
+  }
+  try {
+    await limiter.check(3, ip) // define maximum of 3 requests per interval
+  } catch (error) {
+    console.log(`IP Address: ${ip} has made too many requests.`)
+    // rate limit exceeded: 429
+    throw createError(429)
+  }
+
   // ensure upload directory exists
   if (!existsSync(UPLOADS_DIR)) {
     mkdirSync(UPLOADS_DIR)
@@ -132,16 +152,22 @@ const uploadHandler = (req: MicroForKRequest, res: ServerResponse) => {
     filestream.pipe(createWriteStream(filePath))
   })
 
-  busboy.on('finish', () => {
+  busboy.on('finish', async () => {
     if (!fileName) {
       return abortWithCode('NO_FILENAME')
     }
-    send(res, 200, {
-      status: 'success',
-      fileName,
-      fieldName,
-      filePath
-    })
+
+    try {
+      await resizeImage(filePath)
+      send(res, 200, {
+        status: 'success',
+        fileName,
+        fieldName,
+        filePath
+      })
+    } catch (error) {
+      return abortWithCode('PROCESSING_ERROR')
+    }
   })
 
   busboy.on('error', (err: BusboyErrorType) => {
@@ -170,7 +196,7 @@ const uploadHandler = (req: MicroForKRequest, res: ServerResponse) => {
   req.pipe(busboy)
 }
 
-const acceptReferrer = isDev ? /.+/ : /^https.*\.pcwa\.net\/.*/i
+const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const uploadWithMiddleware = applyMiddleware(uploadHandler, [
   checkReferrer(acceptReferrer, 'Reporting abuse')
 ])

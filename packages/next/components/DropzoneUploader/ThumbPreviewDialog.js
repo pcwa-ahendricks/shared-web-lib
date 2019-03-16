@@ -53,17 +53,15 @@ type Props = {
 }
 
 const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
-  const renderLoadingHandler = () => {
-    console.log(new Date().toDateString())
-    return (
-      <div className={classes.loadingPDF}>
-        <Type variant="h4" paragraph>
-          Loading PDF...
-        </Type>
-        <CircularProgress variant="indeterminate" disableShrink={true} />
-      </div>
-    )
-  }
+  const renderLoadingHandler = () => (
+    <div className={classes.loadingPDF}>
+      <Type variant="h4" paragraph>
+        Loading PDF...
+      </Type>
+      <CircularProgress variant="indeterminate" disableShrink={true} />
+    </div>
+  )
+
   return !file ? null : (
     <Dialog
       open={open}

@@ -4,7 +4,7 @@ import {createError} from 'micro'
 
 // Don't allow clients to cache responses by setting no cache headers.
 const checkReferrer = (
-  checkRe: RegExp = /^https.*\.pcwa\.net\/.*/i,
+  checkRe: RegExp = /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i,
   responseMsg?: string
 ) => (next: Function) => (
   req: IncomingMessage,
