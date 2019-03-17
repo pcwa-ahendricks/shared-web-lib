@@ -4,7 +4,7 @@ import {stat, readFile} from 'then-fs'
 import {getType} from 'mime'
 import {type MailJetAttachment} from './types'
 
-const attach = (reqAttachments: Array<string>) => {
+const attach = async (reqAttachments: Array<string>) => {
   const attachments = reqAttachments.map(async (localFilePath: string) => {
     try {
       // We are supplying full path in attachments. So this isn't needed.
@@ -32,10 +32,12 @@ const attach = (reqAttachments: Array<string>) => {
       return attachment
     } catch (error) {
       console.log(error)
+      return null
     }
   })
 
-  return Promise.all(attachments)
+  const allPromises = await Promise.all(attachments)
+  return await [...allPromises.filter(Boolean)]
 }
 
 export {attach}
