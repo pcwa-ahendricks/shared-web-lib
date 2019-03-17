@@ -13,7 +13,7 @@ import {existsSync} from 'fs'
 import {getType} from 'mime'
 import {UPLOADS_DIR} from '../index'
 import {applyMiddleware} from 'micro-middleware'
-import unauthorized from '../lib/micro-unauthorized'
+import unauthorized from '@pcwa/micro-unauthorized'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''

@@ -6,7 +6,7 @@ if (isDev) {
 import {createError, json} from 'micro'
 import {string, object, array} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
-import unauthorized from '../lib/micro-unauthorized'
+import unauthorized from '@pcwa/micro-unauthorized'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest} from '../lib/types'
 

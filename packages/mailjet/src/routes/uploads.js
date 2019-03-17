@@ -19,7 +19,7 @@ import {getType} from 'mime'
 import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
-import checkReferrer from '../lib/micro-check-referrer'
+import checkReferrer from '@pcwa/micro-check-referrer'
 import resizeImage from '../lib/resize-image'
 import BusboyError, {
   type BusboyErrorCode,
