@@ -36,6 +36,7 @@ const attach = async (reqAttachments: Array<string>) => {
     }
   })
 
+  // Avoid flow type hell.
   const allPromises = await Promise.all(attachments)
   return await [...allPromises.filter(Boolean)]
 }
