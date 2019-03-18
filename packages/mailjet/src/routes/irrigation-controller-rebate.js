@@ -4,23 +4,29 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {attach} from '../lib/mailjet-attachments'
+import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
 import {string, object, array, boolean} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
-import unauthorized from '../lib/micro-unauthorized'
-import checkReferrer from '../lib/micro-check-referrer'
+import unauthorized from '@pcwa/micro-unauthorized'
+import checkReferrer from '@pcwa/micro-check-referrer'
 import {format} from 'date-fns'
 import reCAPTCHA from 'recaptcha2'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest, type MailJetMessage} from '../lib/types'
+import fetch from 'isomorphic-unfetch'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
+// const UPLOAD_MB_LIMIT = 15
 
-const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
+const basicAuth = new Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString(
+  'base64'
+)
+
+// const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
 
 const recaptcha = new reCAPTCHA({
   siteKey: RECAPTCHA_SITE_KEY,
@@ -31,7 +37,7 @@ const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
 
-type FormData = {|
+type FormDataObj = {|
   firstName: string,
   lastName: string,
   email: string,
@@ -77,14 +83,14 @@ const bodySchema = object()
           .oneOf([true])
       }),
     attachments: array()
-      .of(string())
-      .required(),
+      .required()
+      .of(string()),
     captcha: string().required()
   })
 
 const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   const body: {
-    formData: FormData,
+    formData: FormDataObj,
     attachments: Array<string>,
     recipients: Array<{Name: string, Email: string}>,
     captcha: string
@@ -93,8 +99,11 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   const validateOptions = {
     abortEarly: isDev ? false : true
   }
+
+  console.log(new Date().toLocaleTimeString(), '- Validating Schema.')
   try {
     await bodySchema.validate(body, validateOptions)
+    console.log(new Date().toLocaleTimeString(), '- Done validating Schema.')
   } catch (error) {
     const {errors = []} = error || {}
     if (isDev) {
@@ -104,9 +113,9 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     }
   }
 
-  const sendEmail = Mailjet.post('send', {
-    version: 'v3.1'
-  })
+  // const sendEmail = Mailjet.post('send', {
+  //   version: 'v3.1'
+  // })
 
   const {formData, attachments, captcha} = body
   const {email, firstName, lastName, address, otherCity} = formData
@@ -134,8 +143,12 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     city = otherCity
   }
 
-  purchaseDate = new Date(purchaseDate)
-  purchaseDate = format(purchaseDate, 'MM/dd/yyyy')
+  try {
+    purchaseDate = new Date(purchaseDate)
+    purchaseDate = format(purchaseDate, 'MM/dd/yyyy')
+  } catch (error) {
+    throw createError(400, 'Invalid Date')
+  }
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -164,36 +177,91 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   }
 
   try {
-    const sendAttachments = await attach(attachments)
-    if (sendAttachments.length > 0) {
+    console.log(
+      new Date().toLocaleTimeString(),
+      '- Starting attachment processing...'
+    )
+    if (attachments && attachments.length > 0) {
+      const sendAttachments = await attach(attachments)
       requestBody.Messages[0].Attachments = sendAttachments
     }
+    console.log(new Date().toLocaleTimeString(), '- Done.')
   } catch (error) {
     isDev && console.log(error)
     throw createError(500, 'Error processing attachments.')
   }
 
   try {
+    /// Prints base64 encoded string (too verbose).
     // isDev &&
     //   console.log(
     //     'Mailjet Request Body: ',
     //     JSON.stringify(requestBody, null, 2)
     //   )
-    const result = await sendEmail.request(requestBody)
-    isDev &&
-      console.log(
-        'Mailjet sendMail post response: ',
-        JSON.stringify(result.body, null, 2)
-      )
-    return result.body
+    // console.log(JSON.stringify(requestBody))
+
+    const splitMessages = splitUpLargeMessage(requestBody.Messages[0])
+    requestBody.Messages = [...splitMessages]
+    console.log(requestBody.Messages.length)
+    const messageSendRequests: Array<MailJetSendRequest> = splitMessages.map(
+      (msg) => ({
+        Messages: [{...msg}]
+      })
+    )
+
+    const allPromises = await messageSendRequests.map((request) =>
+      postMailJetRequest(request)
+    )
+    const data = await Promise.all(allPromises)
+    return data
   } catch (error) {
-    isDev && console.log(error)
+    // isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     throw error
   }
 }
 
-const acceptReferrer = isDev ? /.+/ : /^https.*\.pcwa\.net\/.*/i
+async function postMailJetRequest(requestBody: MailJetSendRequest) {
+  // const result = await sendEmail.request(requestBody)
+  // const {body} = result || {}
+  console.log(`${new Date().toLocaleTimeString()} - Send Request started.`)
+  const response = await fetch('https://api.mailjet.com/v3.1/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${basicAuth}`
+    },
+    body: JSON.stringify(requestBody)
+  })
+
+  if (!response.ok) {
+    // console.log('Bad response: ', response)
+    try {
+      const text = await response.text()
+      console.log('Message Text: ', text)
+    } catch (error) {
+      throw error
+    }
+    if (response.status) {
+      throw createError(response.status, response.statusText)
+    } else {
+      throw createError(500, 'Mailjet send request failed.')
+    }
+  }
+  const data = await response.json()
+  console.log(data)
+
+  console.log(`${new Date().toLocaleTimeString()} - Send Request completed.`)
+  // isDev &&
+  //   console.log(
+  //     'Mailjet sendMail post response: ',
+  //     JSON.stringify(data, null, 2)
+  //   )
+  // return result // node-mailjet
+  return data
+}
+
+const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 export default applyMiddleware(irrigCntrlRebateHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse')
