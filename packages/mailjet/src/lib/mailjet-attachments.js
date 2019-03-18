@@ -2,7 +2,7 @@
 import {parse} from 'path'
 import {stat, readFile} from 'then-fs'
 import {getType} from 'mime'
-import {type MailJetAttachment} from './types'
+import {type MailJetAttachment, type MailJetMessage} from './types'
 
 const attach = async (reqAttachments: Array<string>) => {
   const attachments = reqAttachments.map(async (localFilePath: string) => {
@@ -41,4 +41,47 @@ const attach = async (reqAttachments: Array<string>) => {
   return await [...allPromises.filter(Boolean)]
 }
 
-export {attach}
+const splitUpLargeMessage = (
+  message: MailJetMessage,
+  maxMsgSize: number = 15 * 1024 * 1024
+): Array<MailJetMessage> => {
+  const attachments =
+    message.Attachments && message.Attachments.length > 0
+      ? message.Attachments
+      : null
+  if (!attachments) {
+    return [{...message}]
+  }
+
+  const totalSize = attachments
+    .map<number>((attachment) => {
+      const buffer = Buffer.from(attachment.Base64Content, 'base64')
+      return Buffer.byteLength(buffer)
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
+  if (totalSize < maxMsgSize) {
+    return [{...message}]
+  }
+
+  console.log('overboard', totalSize / 1024 / 1024)
+  let newMessages: Array<MailJetMessage> = []
+  attachments.forEach((attachment, index) => {
+    // $FlowFixMe
+    const a = {...message.Attachments[index]}
+    a.Base64Content = a.Base64Content.substr(0, 100)
+    console.log(JSON.stringify(a, null, 2))
+    const messagePart: MailJetMessage = {
+      ...message,
+      Subject: `${message.Subject} (Part ${index + 1}/${attachments.length})`,
+      // $FlowFixMe
+      Attachments: [{...message.Attachments[index]}]
+    }
+
+    newMessages = newMessages.concat(messagePart)
+  })
+
+  return newMessages
+}
+
+export {attach, splitUpLargeMessage}
