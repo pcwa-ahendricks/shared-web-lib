@@ -13,10 +13,11 @@
   "scripts": {
     "forecast:dev": "npm run server:dev --prefix packages/forecast",
     "mailjet:dev": "npm run dev --prefix packages/mailjet",
+    "cosmic:dev": "npm run dev --prefix packages/cosmic",
     "next:dev": "npm run dev --prefix packages/next",
-    "dev": "concurrently -n next,forecast,mailjet 'npm run next:dev' 'npm run forecast:dev' 'npm run mailjet:dev'",
+    "dev": "concurrently -n next,forecast,mailjet,cosmic 'npm run next:dev' 'npm run forecast:dev' 'npm run mailjet:dev' 'npm run cosmic:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
-    "prenow": "npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet",
+    "prenow": "npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
     "now": "now && now alias",
     "now:forms": "npm run prenow && now -A now.forms.json && now -A now.forms.json alias",
     "now-build": "next build",
