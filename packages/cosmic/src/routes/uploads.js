@@ -63,11 +63,13 @@ export const getMediaHandler = async (req: MicroForKRequest) => {
 }
 
 const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
-  const {headers} = req
+  const {headers, socket} = req
   const busboy = new Busboy({headers})
   let buffer: Buffer
   const data = []
   let fileName: string
+  let fieldName: string
+  const ip = headers['x-forwarded-for'] || socket.remoteAddress
 
   busboy.on('file', (fieldname, filestream, filename, encoding, mimetype) => {
     // don't attach to the files object, if there is no file
@@ -92,6 +94,7 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
       console.log(`File [${fieldname}] Finished`) // log finish
       buffer = Buffer.concat(data)
       fileName = filename
+      fieldName = fieldname
     })
   })
 
@@ -109,16 +112,16 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
 
     try {
       const formData = new FormData()
+      const metadata = {
+        environment: isDev ? 'development' : 'production',
+        formFieldName: fieldName,
+        ip,
+        uploadRoute: 'irrigation-controller-rebate'
+      }
       formData.append('media', buffer, fileName)
       formData.append('write_key', COSMIC_WRITE_ACCESS_KEY)
       formData.append('folder', COSMIC_UPLOAD_DIR)
-      formData.append(
-        'metadata',
-        JSON.stringify({
-          caption: 'Beautiful picture of the water',
-          credit: 'Abe H.'
-        })
-      )
+      formData.append('metadata', JSON.stringify(metadata))
       const response = await fetch(
         `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media`,
         {
