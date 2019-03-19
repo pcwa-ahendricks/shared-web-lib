@@ -8,6 +8,7 @@
       "NPM_TOKEN": "@npm-token",
       "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast",
       "NEXT_MAILJET_URL": "https://dev-web.pcwa.net/lambda/mail",
+      "NEXT_COSMIC_URL": "https://dev-web.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
       "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
     }
@@ -20,7 +21,9 @@
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
     "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail",
     "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
-    "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key"
+    "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key",
+    "NODE_COSMIC_READ_ACCESS_KEY": "@web-cosmic-read-key",
+    "NODE_COSMIC_WRITE_ACCESS_KEY": "@web-cosmic-write-key"
   },
   "builds": [
     {
@@ -36,6 +39,10 @@
     {
       "src": "^/lambda/mail(.*)$",
       "dest": "packages/mailjet/dist/index.js"
+    },
+    {
+      "src": "^/lambda/cosmic(.*)$",
+      "dest": "packages/cosmic/dist/index.js"
     },
     {
       "src": "^/(services|forms|forms/rebates|typography)/?",

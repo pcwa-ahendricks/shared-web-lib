@@ -9,6 +9,7 @@ import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
 import checkReferrer from '@pcwa/micro-check-referrer'
+import limiter from '@pcwa/micro-limiter'
 import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
 import fetch from 'isomorphic-unfetch'
@@ -16,7 +17,6 @@ import BusboyError, {
   type BusboyErrorCode,
   type BusboyErrorType
 } from '../lib/busboy-error'
-import Limiter from 'lambda-rate-limiter'
 import {type MicroForKRequest} from '../index'
 import {stringify} from 'querystringify'
 import {type CosmicGetMediaResponse, type GetMedia} from '../lib/types'
@@ -26,11 +26,6 @@ const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
-
-const limiter = Limiter({
-  interval: 30 * 1000, // rate limit interval in ms, starts on first request
-  uniqueTokenPerInterval: 500 // excess causes earliest seen to drop, per instantiation
-})
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
@@ -68,19 +63,6 @@ export const getMediaHandler = async (req: MicroForKRequest) => {
 }
 
 const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
-  // Headers are case sensitive.
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-  if (!ip) {
-    throw createError(403, "Can't determine client IP address")
-  }
-  try {
-    await limiter.check(3, ip) // define maximum of 3 requests per interval
-  } catch (error) {
-    console.log(`IP Address: ${ip} has made too many requests.`)
-    // rate limit exceeded: 429
-    throw createError(429)
-  }
-
   const {headers} = req
   const busboy = new Busboy({headers})
   let buffer: Buffer
@@ -182,8 +164,11 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
 }
 
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
+const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
+const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
 const uploadWithMiddleware = applyMiddleware(uploadHandler, [
-  checkReferrer(acceptReferrer, 'Reporting abuse')
+  checkReferrer(acceptReferrer, 'Reporting abuse'),
+  limiter(limiterMaxRequests, limiterInterval)
 ])
 
 export {uploadWithMiddleware as uploadHandler}

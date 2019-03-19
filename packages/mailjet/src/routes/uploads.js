@@ -20,18 +20,13 @@ import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
 import checkReferrer from '@pcwa/micro-check-referrer'
+import limiter from '@pcwa/micro-limiter'
 import resizeImage from '../lib/resize-image'
 import BusboyError, {
   type BusboyErrorCode,
   type BusboyErrorType
 } from '../lib/busboy-error'
-import Limiter from 'lambda-rate-limiter'
 import {type MicroForKRequest} from '../index'
-
-const limiter = Limiter({
-  interval: 30 * 1000, // rate limit interval in ms, starts on first request
-  uniqueTokenPerInterval: 500 // excess causes earliest seen to drop, per instantiation
-})
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
@@ -197,8 +192,11 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
 }
 
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
+const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
+const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
 const uploadWithMiddleware = applyMiddleware(uploadHandler, [
-  checkReferrer(acceptReferrer, 'Reporting abuse')
+  checkReferrer(acceptReferrer, 'Reporting abuse'),
+  limiter(limiterMaxRequests, limiterInterval)
 ])
 
 export {uploadWithMiddleware as uploadHandler}

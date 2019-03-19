@@ -4,7 +4,7 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
+// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
 import {string, object, array, boolean} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
@@ -150,6 +150,13 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     throw createError(400, 'Invalid Date')
   }
 
+  const htmlImages = attachments
+    .map(
+      (img) =>
+        `<a href="${img}" rel="noopener noreferrer" target="_blank" ><img src="${img}?fm=auto&w=400" style="width:400px;" alt="Image Attachment"/></a>`
+    )
+    .join('<br />')
+
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
@@ -170,49 +177,45 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         },
         Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
         TextPart: `This is just a test for Account Number ${accountNo}`,
-        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br />`,
+        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br />${htmlImages}`,
         TemplateLanguage: false
       }
     ]
   }
 
-  try {
-    console.log(
-      new Date().toLocaleTimeString(),
-      '- Starting attachment processing...'
-    )
-    if (attachments && attachments.length > 0) {
-      const sendAttachments = await attach(attachments)
-      requestBody.Messages[0].Attachments = sendAttachments
-    }
-    console.log(new Date().toLocaleTimeString(), '- Done.')
-  } catch (error) {
-    isDev && console.log(error)
-    throw createError(500, 'Error processing attachments.')
-  }
+  // We are not actually attaching the attachments, but rather displaying the images inline in the email using the provided URI strings.
+  // try {
+  //   if (attachments && attachments.length > 0) {
+  //     const sendAttachments = await attach(attachments)
+  //     requestBody.Messages[0].Attachments = sendAttachments
+  //   }
+  // } catch (error) {
+  //   isDev && console.log(error)
+  //   throw createError(500, 'Error processing attachments.')
+  // }
 
   try {
-    /// Prints base64 encoded string (too verbose).
-    // isDev &&
-    //   console.log(
-    //     'Mailjet Request Body: ',
-    //     JSON.stringify(requestBody, null, 2)
-    //   )
-    // console.log(JSON.stringify(requestBody))
+    isDev &&
+      console.log(
+        'Mailjet Request Body: ',
+        JSON.stringify(requestBody, null, 2)
+      )
 
-    const splitMessages = splitUpLargeMessage(requestBody.Messages[0])
-    requestBody.Messages = [...splitMessages]
-    console.log(requestBody.Messages.length)
-    const messageSendRequests: Array<MailJetSendRequest> = splitMessages.map(
-      (msg) => ({
-        Messages: [{...msg}]
-      })
-    )
+    // See note above about Attachments.
+    // const splitMessages = splitUpLargeMessage(requestBody.Messages[0])
+    // requestBody.Messages = [...splitMessages]
+    // console.log(requestBody.Messages.length)
+    // const messageSendRequests: Array<MailJetSendRequest> = splitMessages.map(
+    //   (msg) => ({
+    //     Messages: [{...msg}]
+    //   })
+    // )
+    // const allPromises = await messageSendRequests.map((request) =>
+    //   postMailJetRequest(request)
+    // )
+    // const data = await Promise.all(allPromises)
 
-    const allPromises = await messageSendRequests.map((request) =>
-      postMailJetRequest(request)
-    )
-    const data = await Promise.all(allPromises)
+    const data = await postMailJetRequest(requestBody)
     return data
   } catch (error) {
     // isDev && console.log(error)
@@ -224,7 +227,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
 async function postMailJetRequest(requestBody: MailJetSendRequest) {
   // const result = await sendEmail.request(requestBody)
   // const {body} = result || {}
-  console.log(`${new Date().toLocaleTimeString()} - Send Request started.`)
+  isDev &&
+    console.log(`${new Date().toLocaleTimeString()} - Send Request started.`)
   const response = await fetch('https://api.mailjet.com/v3.1/send', {
     method: 'POST',
     headers: {
@@ -249,9 +253,9 @@ async function postMailJetRequest(requestBody: MailJetSendRequest) {
     }
   }
   const data = await response.json()
-  console.log(data)
 
-  console.log(`${new Date().toLocaleTimeString()} - Send Request completed.`)
+  isDev &&
+    console.log(`${new Date().toLocaleTimeString()} - Send Request completed.`)
   // isDev &&
   //   console.log(
   //     'Mailjet sendMail post response: ',

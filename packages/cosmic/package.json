@@ -16,6 +16,7 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "@pcwa/micro-check-referrer": "^0.1.8",
+    "@pcwa/micro-limiter": "^0.1.7",
     "@pcwa/micro-no-cache": "^0.1.4",
     "@pcwa/micro-unauthorized": "^0.1.9",
     "busboy": "^0.3.0",
@@ -23,7 +24,6 @@
     "form-data": "^2.3.3",
     "isomorphic-unfetch": "^3.0.0",
     "jimp": "^0.6.0",
-    "lambda-rate-limiter": "^2.4.9",
     "micro": "^9.3.3",
     "micro-cors": "^0.1.1",
     "micro-fork": "^1.0.0",

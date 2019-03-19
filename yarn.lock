@@ -1399,6 +1399,13 @@
   resolved "https://registry.yarnpkg.com/@pcwa/micro-check-referrer/-/micro-check-referrer-0.1.8.tgz#d5cfc1124e9bdbfb4a1e62999d5f951adae495f1"
   integrity sha512-evrUx1IcXDtVHinbn5tAb3z9snmxCrNNGIEIfQTFg2kuF3B/lzh5NLMbrK81MRY3XLrENb4C80i1gEU6iPeAEw==
 
+"@pcwa/micro-limiter@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@pcwa/micro-limiter/-/micro-limiter-0.1.7.tgz#f5d45ee6152c5b5328a28f590393cb92ee86a695"
+  integrity sha512-99i+S712Kdx0UurkMTHTc791tpVlAubjnT6sybZkxzE7wf0iD0m2+mf2WSPiXJOlLiPtT90575nyoGBmQrA9vg==
+  dependencies:
+    lambda-rate-limiter "^2.4.9"
+
 "@pcwa/micro-no-cache@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@pcwa/micro-no-cache/-/micro-no-cache-0.1.4.tgz#fde85a7fe2224794725d857f70e0cc4a12c27237"
@@ -6929,10 +6936,10 @@ normalize-scroll-left@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.1.2.tgz#6b79691ba79eb5fb107fa5edfbdc06b55caee2aa"
   integrity sha512-F9YMRls0zCF6BFIE2YnXDRpHPpfd91nOIaNdDgrx5YMoPLo8Wqj+6jNXHQsYBavJeXP4ww8HCt0xQAKc5qk2Fg==
 
-now@^14.1.1:
-  version "14.1.1"
-  resolved "https://registry.yarnpkg.com/now/-/now-14.1.1.tgz#d13430388ffae57e5cf1985482a5d3f71443d2a6"
-  integrity sha512-VNl3J8UfpytdVMoq0iS8Yv2yiEOP0xt/ycPIg3l90U+MEHVEcJoqAWk+3dGRVbgbf66MynN/Pz+Xj8LtmJmXxg==
+now@^14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/now/-/now-14.2.0.tgz#326afe3b18d20b327c4fec330978b858dee019b7"
+  integrity sha512-4NPhK3A3C8CCI9dFKlby4LZOPvICQHD/8p5FXvzk0on2izvKAtm5GtU8NHJzxtZNjsxaF1Jv8qXtD2/aTAUAiw==
 
 npm-bundled@^1.0.1:
   version "1.0.5"

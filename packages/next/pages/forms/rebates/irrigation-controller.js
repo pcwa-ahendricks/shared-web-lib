@@ -244,6 +244,7 @@ const Rebate = ({classes}: Props) => {
   const resetForm = useCallback(() => {
     const recaptchaInstance = recaptchaRef.current
     recaptchaInstance && recaptchaInstance.reset()
+    setCaptcha('') // Need to reset state too to disable submit button.
   }, [recaptchaRef])
 
   const enteringOtherCityTransHandler = useCallback(() => {
