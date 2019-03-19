@@ -3,11 +3,7 @@ import React, {useState, useEffect, useCallback} from 'react'
 import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
-import {
-  uploadFile,
-  UPLOAD_SERVICE_BASE_URL,
-  type UploadResponse
-} from '@lib/services/uploadService'
+import {uploadFile, type UploadResponse} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -183,7 +179,6 @@ const DropzoneUploader = ({
             size: file.size,
             originalName: file.name.substring(12), // File prefix is 10 random characters + 2 underscores.
             lastModified: file.lastModified,
-            tempUrl: responseTempUrl({...response}),
             serverResponse: {...response},
             ext: extension(file.name)
           }
@@ -348,7 +343,6 @@ export type UploadedFile = {
   type: string,
   lastModified: number,
   size: number,
-  tempUrl: string,
   serverResponse: UploadResponse,
   originalName?: string,
   ext?: string
@@ -368,12 +362,4 @@ export type DroppedFile = {
 function uniqueFilename(fileName: string) {
   const fileNamePrefix = `${nanoid(10)}__`
   return `${fileNamePrefix}${fileName}`
-}
-
-function responseTempUrl(response: any) {
-  return response.status && response.status.toLowerCase() === 'success'
-    ? `${UPLOAD_SERVICE_BASE_URL}/${response.fileName}?folder=${
-        response.fieldName
-      }`
-    : ''
 }

@@ -19,7 +19,7 @@ import BusboyError, {
 import Limiter from 'lambda-rate-limiter'
 import {type MicroForKRequest} from '../index'
 import {stringify} from 'querystringify'
-import {type CosmicResponse, type Media} from '../lib/types'
+import {type CosmicGetMediaResponse, type GetMedia} from '../lib/types'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'
 const COSMIC_BUCKET = 'pcwa'
@@ -54,9 +54,9 @@ export const getMediaHandler = async (req: MicroForKRequest) => {
     if (!response.ok) {
       throw new Error('Response not ok')
     }
-    const data: CosmicResponse = await response.json()
+    const data: CosmicGetMediaResponse = await response.json()
     const {media = []} = data || {}
-    const result: Array<Media> = media.filter((doc) => doc._id === cosmicId)
+    const result: Array<GetMedia> = media.filter((doc) => doc._id === cosmicId)
     if (!result || !(result.length > 0)) {
       throw createError(204)
     }

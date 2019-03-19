@@ -49,11 +49,4 @@ const postIrrigCntrlRebateForm = async (body: RequestBody) => {
   }
 }
 
-// export type Response = {
-// status: UploadStatus,
-// fileName: string,
-// fieldName: string,
-// filePath: string
-// }
-
 export {postIrrigCntrlRebateForm}

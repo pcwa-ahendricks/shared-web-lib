@@ -1,9 +1,13 @@
 // @flow
-export type CosmicResponse = {
-  media: Media[]
+export type CosmicGetMediaResponse = {
+  media: GetMedia[]
 }
 
-export type Media = {
+export type CosmicAddMediaResponse = {
+  media: AddMedia
+}
+
+export type GetMedia = {
   _id: string,
   name: string,
   original_name: string,
@@ -16,6 +20,20 @@ export type Media = {
   imgix_url: string,
   folder: string,
   metadata?: Metadata
+}
+
+export type AddMedia = {
+  name: string,
+  original_name: string,
+  size: number,
+  type: string,
+  bucket: string,
+  created: string,
+  location: string,
+  url: string,
+  imgix_url: string,
+  folder: string,
+  metadata: Metadata
 }
 
 type Metadata = {

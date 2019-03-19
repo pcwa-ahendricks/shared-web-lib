@@ -220,7 +220,10 @@ const Rebate = ({classes}: Props) => {
     // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
     const successfulAttachments = files
       .filter((file) => file.serverResponse.status === 'success')
-      .map((file) => file.serverResponse.filePath)
+      .map((file) =>
+        file.serverResponse.media ? file.serverResponse.media.imgix_url : null
+      )
+      .filter(Boolean)
     setAttachments([...successfulAttachments])
     const newUnsuccessfulAttachments = files.filter(
       (file) => file.serverResponse.status !== 'success'
