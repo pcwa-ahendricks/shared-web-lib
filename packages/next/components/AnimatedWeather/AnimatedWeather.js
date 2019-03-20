@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useEffect, useRef, useCallback} from 'react'
-import Skycons from 'skycons'
+import Skycons from './skycons'
 
 type Props = {
   animate: boolean,
@@ -11,18 +11,19 @@ type Props = {
 
 const ReactAnimatedWeather = ({icon, animate, size, color}: Props) => {
   const [skyconIcon, setSkyconIcon] = useState(null)
-  const skyconIconRef = useRef()
+  const canvasRef = useRef()
   const prevColorRef = useRef()
+  const prevAnimateRef = useRef()
 
-  const removeSkyconIcon = useCallback((si, siCurrentRef) => {
-    if (si && si.remove && siCurrentRef) {
-      si.remove(siCurrentRef)
+  const removeSkyconIcon = useCallback((si, cRef) => {
+    if (si && si.remove && cRef) {
+      si.remove(cRef)
     }
   }, [])
 
   useEffect(() => {
     if (color !== prevColorRef.current) {
-      removeSkyconIcon(skyconIcon, skyconIconRef.current)
+      removeSkyconIcon(skyconIcon, canvasRef.current)
       setSkyconIcon(
         new Skycons({
           color
@@ -31,24 +32,25 @@ const ReactAnimatedWeather = ({icon, animate, size, color}: Props) => {
     }
     prevColorRef.current = color
     return () => {
-      removeSkyconIcon(skyconIcon, skyconIconRef.current)
+      removeSkyconIcon(skyconIcon, canvasRef.current)
     }
-  }, [skyconIconRef, skyconIcon, color])
+  }, [canvasRef, skyconIcon, color])
 
   useEffect(() => {
     if (!skyconIcon) {
       return
     }
-    skyconIcon.add(skyconIconRef.current, Skycons[icon])
+    skyconIcon.add(canvasRef.current, Skycons[icon])
 
-    if (animate) {
+    if (animate !== prevAnimateRef.current) {
       skyconIcon.play()
     } else {
       skyconIcon.pause()
     }
-  }, [icon, animate, skyconIcon, skyconIconRef])
+    prevAnimateRef.current = animate
+  }, [icon, animate, skyconIcon, canvasRef])
 
-  return <canvas ref={skyconIconRef} width={size} height={size} />
+  return <canvas ref={canvasRef} width={size} height={size} />
 }
 
 ReactAnimatedWeather.defaultProps = {
