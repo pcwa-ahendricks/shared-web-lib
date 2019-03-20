@@ -1,6 +1,8 @@
 // @flow
 import React, {useState, useEffect} from 'react'
-import ReactAnimatedWeather from 'react-animated-weather'
+import AnimatedWeather, {
+  type IconName
+} from '@components/AnimatedWeather/AnimatedWeather'
 import {withTheme, withStyles} from '@material-ui/core/styles'
 import {Link, Typography as Type} from '@material-ui/core'
 
@@ -63,7 +65,8 @@ const ForecastDisplay = ({forecast, theme, classes}: Props) => {
   const {temperature, icon = defaults.icon} =
     (forecast && forecast.data && forecast.data.currently) || {}
   // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
-  const iconName = icon.toUpperCase().replace(/-/g, '_')
+  // $FlowFixMe
+  const iconName: IconName = icon.toUpperCase().replace(/-/g, '_')
 
   const isValidForecast = Boolean(
     forecast && forecast.data && forecast.data.currently
@@ -71,7 +74,7 @@ const ForecastDisplay = ({forecast, theme, classes}: Props) => {
 
   return isValidForecast ? (
     <div className={classes.container}>
-      <ReactAnimatedWeather
+      <AnimatedWeather
         icon={iconName}
         color={theme.palette.primary.main || defaults.color}
         size={defaults.size}

@@ -7835,11 +7835,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-animated-weather@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-animated-weather/-/react-animated-weather-2.0.0.tgz#60d08b4a4b16dcbae385fc8dacab3660975a2fa4"
-  integrity sha512-F3suvdN1a0h5iG2NV1e0B6gJW+Bxy3CiZNnXIxuIn3XBWOd1GfhYBpSj9gDiShjfVk9FyxF6FtnuEykG+d0GRw==
-
 react-css-transition-replace@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/react-css-transition-replace/-/react-css-transition-replace-3.0.3.tgz#23d3ed17f54e41435c0485300adb75d2e6e24aad"
@@ -8705,6 +8700,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+skycons@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/skycons/-/skycons-1.0.0.tgz#afb160c5901470aae84676fbc38bbd7dd5b69d8f"
+  integrity sha1-r7FgxZAUcKroRnb7w4u9fdW2nY8=
 
 slash@^1.0.0:
   version "1.0.0"
