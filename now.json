@@ -15,11 +15,12 @@
   },
   "env": {
     "NODE_DARKSKY_API_KEY": "@web-darksky-dev-api-key",
-    "NODE_DARKSKY_ROUTE_PREFIX": "/lambda/forecast",
     "NODE_MAILJET_KEY": "@web-mailjet-key",
     "NODE_MAILJET_SECRET": "@web-mailjet-secret",
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
+    "NODE_DARKSKY_ROUTE_PREFIX": "/lambda/forecast",
     "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail",
+    "NODE_COSMIC_ROUTE_PREFIX": "/lambda/cosmic",
     "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
     "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key",
     "NODE_COSMIC_READ_ACCESS_KEY": "@web-cosmic-read-key",
