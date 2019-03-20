@@ -35,7 +35,8 @@
       }
     },
     { "src": "packages/forecast/dist/*.js", "use": "@now/node-server" },
-    { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" }
+    { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" },
+    { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" }
   ],
   "routes": [
     {

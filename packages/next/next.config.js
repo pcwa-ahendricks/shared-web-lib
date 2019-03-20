@@ -76,6 +76,7 @@ module.exports = (phase, {defaultConfig}) => {
           //   'process.env.NEXT_FORECAST_URL': JSON.stringify(process.env.NEXT_FORECAST_URL)
           // })
           new webpack.EnvironmentPlugin({NEXT_MAILJET_URL: null}),
+          new webpack.EnvironmentPlugin({NEXT_COSMIC_URL: null}),
           new webpack.EnvironmentPlugin({NEXT_RECAPTCHA_SITE_KEY: null})
         )
       }

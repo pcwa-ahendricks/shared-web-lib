@@ -35,6 +35,7 @@ import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
 import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
+import nanoid from 'nanoid'
 const isDev = process.env.NODE_ENV === 'development'
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
@@ -215,6 +216,8 @@ const Rebate = ({classes}: Props) => {
     false
   )
   const recaptchaRef = useRef(null)
+  // See https://github.com/appleboy/react-recaptcha/issues/229 for more info.
+  const recaptchaID = nanoid()
 
   const uploadedHandler = useCallback((files: Array<UploadedFile>) => {
     // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
@@ -234,9 +237,10 @@ const Rebate = ({classes}: Props) => {
   const recaptchaVerifyHandler = useCallback((response) => {
     setCaptcha(response)
   }, [])
-  // const recaptchaLoadHandler = useCallback(() => {
-  //   console.log('Done')
-  // }, [])
+  const recaptchaLoadHandler = useCallback(() => {
+    // See https://github.com/appleboy/react-recaptcha/issues/181#issuecomment-280800414 for more info.
+    console.log('Recaptcha loaded.')
+  }, [])
   const recaptchaExpiredHandler = useCallback(() => {
     setCaptcha('')
   }, [])
@@ -470,9 +474,11 @@ const Rebate = ({classes}: Props) => {
 
                     <div className={classes.formControlRow}>
                       <Recaptcha
+                        elementID={recaptchaID}
                         sitekey={RECAPTCHA_SITE_KEY}
                         verifyCallback={recaptchaVerifyHandler}
-                        // onloadCallback={recaptchaLoadHandler}
+                        render="explicit"
+                        onloadCallback={recaptchaLoadHandler}
                         expiredCallback={recaptchaExpiredHandler}
                         ref={recaptchaRef}
                       />

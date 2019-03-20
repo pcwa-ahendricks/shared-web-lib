@@ -18,7 +18,7 @@
     "dev": "concurrently -n next,forecast,mailjet,cosmic 'npm run next:dev' 'npm run forecast:dev' 'npm run mailjet:dev' 'npm run cosmic:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
     "prenow": "npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
-    "now": "now && now alias",
+    "now": "now --target production",
     "now:forms": "npm run prenow && now -A now.forms.json && now -A now.forms.json alias",
     "now-build": "next build",
     "flow": "flow"
