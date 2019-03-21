@@ -13,7 +13,7 @@ const useWindowScroll = (
     return () => {
       window.removeEventListener('scroll', fn)
     }
-  }, inputs)
+  }, [cbFunc, timeout, ...inputs])
 }
 
 export default useWindowScroll

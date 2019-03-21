@@ -13,7 +13,7 @@ const useWindowResize = (
     return () => {
       window.removeEventListener('resize', fn)
     }
-  }, inputs)
+  }, [cbFunc, timeout, ...inputs])
 }
 
 export default useWindowResize

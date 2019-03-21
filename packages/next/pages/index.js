@@ -24,7 +24,8 @@ const styles = (theme) => ({
 })
 
 const index = ({classes}: Props) => {
-  const [heroOverlayIn, setHeroOverlayIn]: [boolean, any] = useState(false)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
   return (
     <PageLayout>
       <ImgixFancyParallaxBanner

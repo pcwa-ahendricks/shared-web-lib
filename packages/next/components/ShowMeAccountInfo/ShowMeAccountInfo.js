@@ -67,11 +67,11 @@ const ShowMeAccountInfo = ({classes}: Props) => {
     setShowTextOverlay(true)
     await delay(4500)
     setShowTextOverlay(false)
-  }, [showTextOverlay])
+  }, [setShowTextOverlay])
 
   const popoverExitedHandler = useCallback(async () => {
     setShowTextOverlay(true)
-  }, [showTextOverlay])
+  }, [setShowTextOverlay])
 
   const open = Boolean(anchorEl)
   return (

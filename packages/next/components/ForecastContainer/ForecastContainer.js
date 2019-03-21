@@ -59,7 +59,8 @@ const styles = () => ({
 const ForecastContainer = ({classes, forecasts, dispatch}: Props) => {
   useEffect(() => {
     dispatch(startForecastTimer(forecastLocations, REFETCH_INTERVAL))
-  }, [])
+  }, [dispatch])
+
   return (
     <div className={classes.root}>
       <ForecastCycle className={classes.forecast} forecasts={forecasts} />

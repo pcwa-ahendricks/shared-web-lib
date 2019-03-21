@@ -53,6 +53,7 @@ const ForecastCycle = ({
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [transitionEnter, setTransitionEnter] = useState(false)
+
   useEffect(() => {
     if (!forecasts || forecasts.length === 0 || !cycleInterval) {
       return
@@ -62,7 +63,7 @@ const ForecastCycle = ({
     if (!transitionEnter) {
       setTransitionEnter(true)
     }
-  }, [forecasts])
+  }, [forecasts, dispatch, cycleInterval, transitionEnter])
 
   const activeForecast = useCallback(
     () => forecasts.find((forecast) => forecast.id === activeCycleForecastId),

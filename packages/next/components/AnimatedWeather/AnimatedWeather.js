@@ -22,8 +22,9 @@ const ReactAnimatedWeather = ({icon, animate, size, color}: Props) => {
   }, [])
 
   useEffect(() => {
+    const currentCanvasRef = canvasRef.current
     if (color !== prevColorRef.current) {
-      removeSkyconIcon(skyconIcon, canvasRef.current)
+      removeSkyconIcon(skyconIcon, currentCanvasRef)
       setSkyconIcon(
         new Skycons({
           color
@@ -32,9 +33,9 @@ const ReactAnimatedWeather = ({icon, animate, size, color}: Props) => {
     }
     prevColorRef.current = color
     return () => {
-      removeSkyconIcon(skyconIcon, canvasRef.current)
+      removeSkyconIcon(skyconIcon, currentCanvasRef)
     }
-  }, [canvasRef, skyconIcon, color])
+  }, [canvasRef, skyconIcon, color, removeSkyconIcon])
 
   useEffect(() => {
     if (!skyconIcon) {

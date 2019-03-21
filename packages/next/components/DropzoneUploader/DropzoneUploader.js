@@ -110,62 +110,7 @@ const DropzoneUploader = ({
 
   useEffect(() => {
     onUploaded && onUploaded(uploadedFiles)
-  }, [uploadedFiles])
-
-  const dropHandler = useCallback((
-    files: Array<any>
-    // rejectedFiles: Array<any>
-  ) => {
-    // console.log('accepted files: ', acceptedFiles)
-    // console.log('rejected files: ', rejectedFiles)
-    files.forEach((file) => {
-      const newFile = new File([file], uniqueFilename(file.name), {
-        type: file.type
-      })
-      // Add image preview urls.
-      setDroppedFiles((prevDroppedFiles) => [
-        ...prevDroppedFiles,
-        {
-          name: newFile.name,
-          type: newFile.type,
-          size: newFile.size,
-          originalName: file.name,
-          lastModified: newFile.lastModified,
-          previewUrl: URL.createObjectURL(newFile),
-          ext: extension(newFile.name)
-        }
-      ])
-      // Upload dropped files.
-      uploadFileHandler(newFile)
-    })
-  }, [])
-
-  const clearUploadsHandler = useCallback(() => {
-    setShowConfirmClearUploads(false) // Hide dialog.
-    setUploadedFiles([])
-    // Resetting dropped files is required for removing thumbs previews.
-    setDroppedFiles([])
-  }, [])
-
-  const tryRemoveUploadHandler = useCallback((file: DroppedFile) => {
-    setConfirmRemoveUpload(file)
-  }, [])
-
-  const removeUploadHandler = useCallback(() => {
-    if (!confirmRemoveUpload) {
-      return
-    }
-    const removeUploadWithName = confirmRemoveUpload.name
-    setConfirmRemoveUpload(null)
-    const newUploadedFiles = uploadedFiles.filter(
-      (file) => file.name !== removeUploadWithName
-    )
-    const newDroppedFiles = droppedFiles.filter(
-      (file) => file.name !== removeUploadWithName
-    )
-    setUploadedFiles(newUploadedFiles)
-    setDroppedFiles(newDroppedFiles)
-  }, [confirmRemoveUpload, uploadedFiles, droppedFiles])
+  }, [uploadedFiles, onUploaded])
 
   const uploadFileHandler = useCallback(
     async (file) => {
@@ -193,6 +138,63 @@ const DropzoneUploader = ({
     },
     [uploadFolder]
   )
+  const dropHandler = useCallback(
+    (
+      files: Array<any>
+      // rejectedFiles: Array<any>
+    ) => {
+      // console.log('accepted files: ', acceptedFiles)
+      // console.log('rejected files: ', rejectedFiles)
+      files.forEach((file) => {
+        const newFile = new File([file], uniqueFilename(file.name), {
+          type: file.type
+        })
+        // Add image preview urls.
+        setDroppedFiles((prevDroppedFiles) => [
+          ...prevDroppedFiles,
+          {
+            name: newFile.name,
+            type: newFile.type,
+            size: newFile.size,
+            originalName: file.name,
+            lastModified: newFile.lastModified,
+            previewUrl: URL.createObjectURL(newFile),
+            ext: extension(newFile.name)
+          }
+        ])
+        // Upload dropped files.
+        uploadFileHandler(newFile)
+      })
+    },
+    [uploadFileHandler]
+  )
+
+  const clearUploadsHandler = useCallback(() => {
+    setShowConfirmClearUploads(false) // Hide dialog.
+    setUploadedFiles([])
+    // Resetting dropped files is required for removing thumbs previews.
+    setDroppedFiles([])
+  }, [])
+
+  const tryRemoveUploadHandler = useCallback((file: DroppedFile) => {
+    setConfirmRemoveUpload(file)
+  }, [])
+
+  const removeUploadHandler = useCallback(() => {
+    if (!confirmRemoveUpload) {
+      return
+    }
+    const removeUploadWithName = confirmRemoveUpload.name
+    setConfirmRemoveUpload(null)
+    const newUploadedFiles = uploadedFiles.filter(
+      (file) => file.name !== removeUploadWithName
+    )
+    const newDroppedFiles = droppedFiles.filter(
+      (file) => file.name !== removeUploadWithName
+    )
+    setUploadedFiles(newUploadedFiles)
+    setDroppedFiles(newDroppedFiles)
+  }, [confirmRemoveUpload, uploadedFiles, droppedFiles])
 
   /*
    * rejectedFiles doesn't contain all the rejected files. Just the files rejected since

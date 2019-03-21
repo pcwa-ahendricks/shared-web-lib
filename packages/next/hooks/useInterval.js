@@ -13,6 +13,6 @@ const useInterval = (
     return () => {
       clearInterval(id)
     }
-  }, inputs)
+  }, [cb, interval, ...inputs])
 }
 export default useInterval

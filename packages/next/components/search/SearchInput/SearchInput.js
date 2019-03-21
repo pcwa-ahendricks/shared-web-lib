@@ -47,11 +47,14 @@ const CustomizedInputBase = ({classes}: Props) => {
     console.log(e)
   }, [])
 
-  const keyPressHandler = useCallback((e) => {
-    if (e.key.toLowerCase() === 'enter') {
-      searchHandler()
-    }
-  }, [])
+  const keyPressHandler = useCallback(
+    (e) => {
+      if (e.key.toLowerCase() === 'enter') {
+        searchHandler()
+      }
+    },
+    [searchHandler]
+  )
 
   const inputHasValue = searchValue && searchValue.length > 0
   return (

@@ -16,7 +16,7 @@ const useTimeout = (
     return () => {
       clearTimeout(timeoutId)
     }
-  }, inputs)
+  }, [cb, timeout, ...inputs])
 }
 
 export default useTimeout

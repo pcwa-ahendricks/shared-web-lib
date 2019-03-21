@@ -1,6 +1,5 @@
 // @flow
-import React from 'react'
-import {type Node} from 'react'
+import React, {type Node} from 'react'
 import {ParallaxBanner} from 'react-scroll-parallax'
 import ImgixFancy from '../ImgixFancy/ImgixFancy'
 import {withStyles} from '@material-ui/core/styles'
