@@ -23,8 +23,7 @@ const styles = (theme) => ({
   }
 })
 
-const index = ({classes}: Props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Index = ({classes}: Props) => {
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
   return (
     <PageLayout>
@@ -85,4 +84,4 @@ const index = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(index)
+export default withStyles(styles)(Index)
