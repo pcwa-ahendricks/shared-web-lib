@@ -5,12 +5,9 @@ import {getMediaRoute, uploadRoute} from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage, ServerResponse} from 'http'
-import {join} from 'path'
 
 const rtePre = process.env.NODE_COSMIC_ROUTE_PREFIX || ''
 const isDev = process.env.NODE_ENV === 'development'
-
-export const UPLOADS_DIR = join('/tmp', 'uploads')
 
 // CORS wouldn't be needed in serverless environments such as Now v2 since CORS Headers can be controlled via now.json. CORS is needed in
 // development environments that use micro-dev however.

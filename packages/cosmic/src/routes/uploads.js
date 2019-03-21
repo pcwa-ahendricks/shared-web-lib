@@ -66,10 +66,11 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
   const {headers, socket} = req
   const busboy = new Busboy({headers})
   let buffer: Buffer
-  const data = []
+  const data = [] // Also used as a file size counter for logging.
   let fileName: string
   let fieldName: string
   const ip = headers['x-forwarded-for'] || socket.remoteAddress
+  console.log(ip)
 
   busboy.on('file', (fieldname, filestream, filename, encoding, mimetype) => {
     // don't attach to the files object, if there is no file
@@ -80,15 +81,11 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
       // Don't throw createError() inside busboy event callbacks.
       return abortWithCode('BAD_MIME_TYPE')
     }
-    if (isDev) {
-      let totalData = 0 // reset file size counter
-      filestream.on('data', (chunk: Buffer) => {
-        totalData += chunk.length
-        data.push(chunk)
-        // Log file progress when in development
-        console.log(`File [${fieldname}] got ${pretty(totalData)}`) // log progress
-      })
-    }
+    filestream.on('data', (chunk: Buffer) => {
+      data.push(chunk)
+      // Log file progress when in development
+      isDev && console.log(`File [${fieldname}] got ${pretty(data.length)}`) // log progress
+    })
 
     filestream.on('end', () => {
       console.log(`File [${fieldname}] Finished`) // log finish
@@ -99,7 +96,7 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
   })
 
   busboy.on('finish', async () => {
-    if (!buffer.byteLength || !fileName) {
+    if (!buffer || !buffer.byteLength || !fileName) {
       return abortWithCode('NO_FILENAME')
     }
 

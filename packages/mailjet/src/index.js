@@ -4,9 +4,9 @@ import {send, run} from 'micro'
 import {
   hecpEmailRoute,
   waterWasteRoute,
-  photoFileRoute,
-  photoB64Route,
-  uploadRoute,
+  // photoFileRoute,
+  // photoB64Route,
+  // uploadRoute,
   irrigCntrlRebateRoute
 } from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
@@ -36,9 +36,10 @@ const routeHandler = router()(
   post(`${rtePre}/form-exam-submit`, hecpEmailRoute),
   post(`${rtePre}/water-waste-submit`, waterWasteRoute),
   post(`${rtePre}/irrigation-controller-rebate`, irrigCntrlRebateRoute),
-  get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
-  get(`${rtePre}/uploads/:filename`, photoFileRoute),
-  post(`${rtePre}/uploads`, uploadRoute),
+  // File uploads handled by Cosmicjs and cosmic package..
+  // get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
+  // get(`${rtePre}/uploads/:filename`, photoFileRoute),
+  // post(`${rtePre}/uploads`, uploadRoute),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)
 )

@@ -19,7 +19,7 @@
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
     "prenow": "npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
     "now": "now --target production",
-    "now:forms": "npm run prenow && now -A now.forms.json && now -A now.forms.json alias",
+    "now:forms": "npm run prenow && now --target production -A now.forms.json",
     "now-build": "next build",
     "flow": "flow"
   },
@@ -27,6 +27,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "flow-bin": "^0.95.1",
-    "now": "^14.2.0"
+    "now": "^14.2.2"
   }
 }
