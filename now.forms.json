@@ -47,7 +47,7 @@
       "dest": "packages/cosmic/dist/index.js"
     },
     {
-      "src": "^/(services|forms|forms/rebates|typography)/?",
+      "src": "^/($|services|forms|forms/rebates|typography)/?",
       "dest": "/404",
       "status": 404
     },
