@@ -34,9 +34,9 @@ import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
 import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
-// Loading Recaptcha with Next dynamic isn't necessary. Merely preference.
-import dynamic from 'next/dynamic'
-const Recaptcha = dynamic(import('react-google-recaptcha'), {ssr: false})
+import Recaptcha from 'react-google-recaptcha'
+// Loading Recaptcha with Next dynamic isn't necessary.
+// import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -288,7 +288,7 @@ const Rebate = ({classes}: Props) => {
               resetForm()
               alert(JSON.stringify(data, null, 2))
             } catch (error) {
-              console.log('An error occurred submitting form.')
+              console.log('An error occurred submitting form.', error)
               actions.setSubmitting(false)
             }
           }}

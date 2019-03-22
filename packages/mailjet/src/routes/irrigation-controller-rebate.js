@@ -11,6 +11,7 @@ import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
 import {format} from 'date-fns'
 import reCAPTCHA from 'recaptcha2'
+import limiter from '@pcwa/micro-limiter'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest, type MailJetMessage} from '../lib/types'
 import fetch from 'isomorphic-unfetch'
@@ -266,7 +267,10 @@ async function postMailJetRequest(requestBody: MailJetSendRequest) {
 }
 
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
+const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
+const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
 export default applyMiddleware(irrigCntrlRebateHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
-  checkReferrer(acceptReferrer, 'Reporting abuse')
+  checkReferrer(acceptReferrer, 'Reporting abuse'),
+  limiter(limiterMaxRequests, limiterInterval)
 ])

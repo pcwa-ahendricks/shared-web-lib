@@ -9,6 +9,7 @@ import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
 import checkReferrer from '@pcwa/micro-check-referrer'
+import unauthorized from '@pcwa/micro-unauthorized'
 import limiter from '@pcwa/micro-limiter'
 import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
@@ -167,6 +168,7 @@ const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
 const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
 const uploadWithMiddleware = applyMiddleware(uploadHandler, [
+  unauthorized(COSMIC_READ_ACCESS_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse'),
   limiter(limiterMaxRequests, limiterInterval)
 ])

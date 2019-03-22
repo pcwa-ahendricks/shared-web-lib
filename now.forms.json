@@ -6,9 +6,9 @@
   "build": {
     "env": {
       "NPM_TOKEN": "@npm-token",
-      "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast",
-      "NEXT_MAILJET_URL": "https://dev-web.pcwa.net/lambda/mail",
-      "NEXT_COSMIC_URL": "https://dev-web.pcwa.net/lambda/cosmic",
+      "NEXT_FORECAST_URL": "https://forms.pcwa.net/lambda/forecast",
+      "NEXT_MAILJET_URL": "https://forms.pcwa.net/lambda/mail",
+      "NEXT_COSMIC_URL": "https://forms.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
       "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
     }
@@ -40,11 +40,24 @@
   "routes": [
     {
       "src": "^/lambda/mail(.*)$",
-      "dest": "packages/mailjet/dist/index.js"
+      "dest": "packages/mailjet/dist/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://forms.pcwa.net"
+      }
     },
     {
       "src": "^/lambda/cosmic(.*)$",
-      "dest": "packages/cosmic/dist/index.js"
+      "dest": "packages/cosmic/dist/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://forms.pcwa.net"
+      }
+    },
+    {
+      "src": "^/irrigation-controller-rebate(.*)$",
+      "dest": "/packages/next/forms/rebates/irrigation-controller$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
     },
     {
       "src": "^/($|services|forms|forms/rebates|typography)/?",
@@ -52,8 +65,8 @@
       "status": 404
     },
     {
-      "src": "^/irrigation-controller-rebate(.*)$",
-      "dest": "/packages/next/forms/rebates/irrigation-controller$1",
+      "src": "^/(.+)$",
+      "dest": "/packages/next/$1",
       "headers": {
         "x-request-path": "$1"
       }
