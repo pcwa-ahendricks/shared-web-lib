@@ -21,7 +21,10 @@ type Props = {
   height: number | string,
   width: number | string,
   allowClearUploads: boolean,
-  uploadFolder: string
+  uploadFolder: string,
+  maxSize: number,
+  disabled: boolean,
+  accept: string
 }
 
 const WIDTH_THRESHOLD = 1600
@@ -95,6 +98,9 @@ const DropzoneUploader = ({
   width,
   allowClearUploads,
   uploadFolder,
+  maxSize,
+  accept,
+  disabled,
   ...rest
 }: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
@@ -108,8 +114,6 @@ const DropzoneUploader = ({
     showConfirmClearUploads,
     setShowConfirmClearUploads
   ] = useState<boolean>(false)
-  // $FlowFixMe
-  const {maxSize, disabled} = rest || {}
 
   useEffect(() => {
     onUploaded && onUploaded(uploadedFiles)
@@ -261,9 +265,11 @@ const DropzoneUploader = ({
   const showRejectedFilesDialog = Boolean(rejectedFiles.length > 0)
   // /* Mime types are also checked on the back-end. */
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    accept: 'image/*, application/pdf',
     onDrop: dropHandler,
     onDropRejected: rejectHandler,
+    accept,
+    maxSize,
+    disabled,
     ...rest
   })
   // <PageLayout title="Irrigation Canal Information">
@@ -355,7 +361,7 @@ const DropzoneUploader = ({
         open={showRejectedFilesDialog}
         rejectedFiles={rejectedFiles}
         onClose={uploadRejectCloseHandler}
-        maxSize={maxSize}
+        // maxSize={maxSize}
       />
     </React.Fragment>
   )

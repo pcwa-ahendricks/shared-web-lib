@@ -445,8 +445,8 @@ const Rebate = ({classes}: Props) => {
                         height={200}
                         width="100%"
                         accept="image/*, application/pdf"
-                        maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT} // 15MB limit (bytes to MB). Note - Will accept multiple files totaling over 15MB.
                         disabled={attachments.length >= UPLOAD_FILE_LIMIT}
+                        maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
                       />
                       <Fade in={hasBadAttachments}>
                         <Type variant="caption" color="error" gutterBottom>

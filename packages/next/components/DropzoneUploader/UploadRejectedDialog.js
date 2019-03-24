@@ -14,21 +14,21 @@ import {
   Slide
 } from '@material-ui/core'
 import {type DroppedFile} from './DropzoneUploader'
-import prettysize from 'prettysize'
+// import prettysize from 'prettysize'
 
 type Props = {
   open: boolean,
   onClose: () => void,
-  rejectedFiles: Array<DroppedFile>,
-  maxSize?: number
+  rejectedFiles: Array<DroppedFile>
+  // maxSize?: number
 }
 
 const UploadRejectedDialog = ({
   open,
   onClose,
-  rejectedFiles,
-  maxSize
-}: Props) => {
+  rejectedFiles
+}: // maxSize
+Props) => {
   return (
     <Dialog
       open={open}
@@ -51,13 +51,10 @@ const UploadRejectedDialog = ({
         </List>
         <DialogContentText paragraph>
           Please verify that the file you are attempting to upload is an image
-          or a PDF.{' '}
-          {maxSize
-            ? `If the file is larger than ${prettysize(maxSize)} 
-          try resizing the image prior to uploading.`
-            : ''}{' '}
-          If you feel you have reached this in error please contact us by
-          sending an email to{' '}
+          or a PDF. If the file is larger than 5MB it may fail to upload.
+          Consider resizing the attachment to a smaller size prior to upload
+          attempt if the file is larger than 5MB. If you feel you have reached
+          this message in error please contact us by sending an email to{' '}
           <Link href="mailto:webmaster@pcwa.net">webmaster@pcwa.net</Link> with
           a description of the problem and an attachments with the files you are
           trying to submit. Thank you.
