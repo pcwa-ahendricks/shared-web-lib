@@ -11,7 +11,7 @@ import {applyMiddleware} from 'micro-middleware'
 import checkReferrer from '@pcwa/micro-check-referrer'
 import unauthorized from '@pcwa/micro-unauthorized'
 import limiter from '@pcwa/micro-limiter'
-import resizeImage from '../lib/resize-image'
+// import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
 import fetch from 'isomorphic-unfetch'
 import BusboyError, {
@@ -101,12 +101,13 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
       return abortWithCode('NO_FILENAME')
     }
 
-    try {
-      buffer = await resizeImage(buffer)
-    } catch (error) {
-      // In the event of a JIMP error we will simply post the un-processed image.
-      console.log('Error resizing image')
-    }
+    // Resizing image in client due to Now lambda payload size restrictions.
+    // try {
+    //   buffer = await resizeImage(buffer)
+    // } catch (error) {
+    //   // In the event of a JIMP error we will simply post the un-processed image.
+    //   console.log('Error resizing image')
+    // }
 
     try {
       const formData = new FormData()

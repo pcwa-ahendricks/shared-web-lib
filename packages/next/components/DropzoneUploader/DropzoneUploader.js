@@ -13,6 +13,7 @@ import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
 import {useDropzone} from 'react-dropzone'
+import Jimp from 'jimp'
 
 type Props = {
   classes: any,
@@ -22,6 +23,8 @@ type Props = {
   allowClearUploads: boolean,
   uploadFolder: string
 }
+
+const WIDTH_THRESHOLD = 1600
 
 const styles = (theme) => ({
   root: {},
@@ -138,15 +141,55 @@ const DropzoneUploader = ({
     },
     [uploadFolder]
   )
+
+  const resizeHandler = useCallback((file, fileNamePrefix) => {
+    const promise = new Promise<File>((resolve) => {
+      const reader = new FileReader()
+      reader.onabort = () => console.log('file reading was aborted')
+      reader.onerror = () => console.log('file reading has failed')
+      reader.onload = async () => {
+        try {
+          const imgArrBuff = reader.result
+          const resizedImgBuff =
+            imgArrBuff instanceof ArrayBuffer
+              ? await resizeImage(imgArrBuff, file.type)
+              : null
+          const resizedFile = new File(
+            [resizedImgBuff || file],
+            `${fileNamePrefix}${file.name}`,
+            {
+              type: file.type
+            }
+          )
+          // Upload resized dropped files.
+          resolve(resizedFile)
+        } catch (error) {
+          // Upload original file on error.
+          console.log(error)
+          const origFile = new File([file], `${fileNamePrefix}${file.name}`, {
+            type: file.type
+          })
+          resolve(origFile)
+        }
+      }
+
+      // reader.readAsBinaryString(file)
+      reader.readAsArrayBuffer(file)
+    })
+    return promise
+  }, [])
+
   const dropHandler = useCallback(
     (
       files: Array<any>
       // rejectedFiles: Array<any>
     ) => {
+      const fileNamePrefix = nanoid(10)
       // console.log('accepted files: ', acceptedFiles)
       // console.log('rejected files: ', rejectedFiles)
-      files.forEach((file) => {
-        const newFile = new File([file], uniqueFilename(file.name), {
+      const sd = [...files]
+      sd.forEach((file) => {
+        const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
           type: file.type
         })
         // Add image preview urls.
@@ -162,11 +205,14 @@ const DropzoneUploader = ({
             ext: extension(newFile.name)
           }
         ])
-        // Upload dropped files.
-        uploadFileHandler(newFile)
+      })
+      const uf = [...files]
+      uf.forEach(async (file) => {
+        const resizedFile = await resizeHandler(file, fileNamePrefix)
+        uploadFileHandler(resizedFile)
       })
     },
-    [uploadFileHandler]
+    [uploadFileHandler, resizeHandler]
   )
 
   const clearUploadsHandler = useCallback(() => {
@@ -361,7 +407,51 @@ export type DroppedFile = {
   previewUrl: ?string
 }
 
-function uniqueFilename(fileName: string) {
-  const fileNamePrefix = `${nanoid(10)}__`
-  return `${fileNamePrefix}${fileName}`
+const supportedJimpTypes = [
+  Jimp.MIME_BMP,
+  Jimp.MIME_GIF,
+  Jimp.MIME_JGD,
+  Jimp.MIME_JPEG,
+  Jimp.MIME_PNG,
+  Jimp.MIME_TIFF,
+  Jimp.MIME_X_MS_BMP
+]
+
+async function resizeImage(
+  imageBuffer: ArrayBuffer,
+  mimeType: string
+): Promise<ArrayBuffer | Buffer> {
+  try {
+    const image = await getImage(imageBuffer, mimeType)
+    const newImageBuffer = await image
+      .resize(WIDTH_THRESHOLD, Jimp.AUTO)
+      .getBufferAsync(Jimp.AUTO)
+    return newImageBuffer
+  } catch (error) {
+    // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
+    console.log(error)
+    return imageBuffer
+  }
+}
+
+async function getImage(imageBuffer: ArrayBuffer, mimeType: string) {
+  try {
+    // Only resize images Jimp can load.
+    if (
+      supportedJimpTypes.findIndex(
+        (supportedType) => supportedType === mimeType
+      ) <= 0
+    ) {
+      throw `File type ${mimeType} not supported.`
+    }
+    const image = await Jimp.read(imageBuffer)
+    const width = image.getWidth()
+    // Don't resize image if it's already smaller than the target dimension we are resizing to.
+    if (width <= WIDTH_THRESHOLD) {
+      throw 'Image resize not necessary'
+    }
+    return image
+  } catch (error) {
+    throw error
+  }
 }
