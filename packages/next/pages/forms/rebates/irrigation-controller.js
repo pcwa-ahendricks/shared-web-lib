@@ -261,255 +261,271 @@ const Rebate = ({classes}: Props) => {
   )
   const hasCaptcha = Boolean(captcha)
   const mainEl = (
-    <main className={classes.main}>
-      <Type variant="h1" color="primary" gutterBottom>
-        Water Efficiency Rebates
-      </Type>
+    <Grid container justify="space-around" direction="row">
+      <Grid item xs={11} sm={12}>
+        <main className={classes.main}>
+          <Type variant="h1" color="primary" gutterBottom>
+            Water Efficiency Rebates
+          </Type>
 
-      <Type variant="h3" color="primary" gutterBottom>
-        Weather Based Irrigation Controller Rebate Form
-      </Type>
+          <Type variant="h3" color="primary" gutterBottom>
+            Weather Based Irrigation Controller Rebate Form
+          </Type>
 
-      <div className={classes.formikContainer}>
-        <Formik
-          initialValues={initialFormValues}
-          validationSchema={formSchema}
-          onSubmit={async (values: RebateFormData, actions) => {
-            try {
-              // Dispatch submit
-              console.log(values, actions)
-              const body: RequestBody = {
-                formData: {...values},
-                attachments,
-                captcha
-              }
-              const data = await postIrrigCntrlRebateForm(body)
-              actions.setSubmitting(false)
-              resetForm()
-              alert(JSON.stringify(data, null, 2))
-            } catch (error) {
-              console.log('An error occurred submitting form.', error)
-              actions.setSubmitting(false)
-            }
-          }}
-        >
-          {({
-            values,
-            touched = {},
-            dirty,
-            isSubmitting,
-            isValid,
-            setFieldTouched,
-            setFieldValue
-          }) => {
-            if (dirty !== formIsDirty) {
-              setFormIsDirty(dirty)
-            }
-            if (values !== formValues) {
-              setFormValues(values)
-            }
-            // Use state to save a boolean version of 'touched'.
-            const formTouched = Object.keys(touched).length > 0
-            if (formTouched !== formIsTouched) {
-              setFormIsTouched(formTouched)
-            }
-            const otherCitySelected = values.city.toLowerCase() === 'other'
+          <div className={classes.formikContainer}>
+            <Formik
+              initialValues={initialFormValues}
+              validationSchema={formSchema}
+              onSubmit={async (values: RebateFormData, actions) => {
+                try {
+                  // Dispatch submit
+                  console.log(values, actions)
+                  const body: RequestBody = {
+                    formData: {...values},
+                    attachments,
+                    captcha
+                  }
+                  const data = await postIrrigCntrlRebateForm(body)
+                  actions.setSubmitting(false)
+                  resetForm()
+                  alert(JSON.stringify(data, null, 2))
+                } catch (error) {
+                  console.log('An error occurred submitting form.', error)
+                  actions.setSubmitting(false)
+                }
+              }}
+            >
+              {({
+                values,
+                touched = {},
+                dirty,
+                isSubmitting,
+                isValid,
+                setFieldTouched,
+                setFieldValue
+              }) => {
+                if (dirty !== formIsDirty) {
+                  setFormIsDirty(dirty)
+                }
+                if (values !== formValues) {
+                  setFormValues(values)
+                }
+                // Use state to save a boolean version of 'touched'.
+                const formTouched = Object.keys(touched).length > 0
+                if (formTouched !== formIsTouched) {
+                  setFormIsTouched(formTouched)
+                }
+                const otherCitySelected = values.city.toLowerCase() === 'other'
 
-            // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
-            const checkboxChangeHandler = () => {
-              setFieldTouched('signature', true)
-            }
+                // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
+                const checkboxChangeHandler = () => {
+                  setFieldTouched('signature', true)
+                }
 
-            // If city field is updated clear out otherCity field.
-            const cityChangeHandler = () => {
-              setFieldValue('otherCity', '')
-            }
+                // If city field is updated clear out otherCity field.
+                const cityChangeHandler = () => {
+                  setFieldValue('otherCity', '')
+                }
 
-            return (
-              <div>
-                <Form>
+                return (
                   <div>
-                    {/* <Type variant="h3" color="primary" gutterBottom>
+                    <Form>
+                      <div>
+                        {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
 
-                    <div className={classes.formGroup}>
-                      <Type color="textSecondary" variant="h4" gutterBottom>
-                        Contact Information
-                      </Type>
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="firstName" component={FirstNameField} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="lastName" component={LastNameField} />
-                        </Grid>
-                      </Grid>
+                        <div className={classes.formGroup}>
+                          <Type color="textSecondary" variant="h4" gutterBottom>
+                            Contact Information
+                          </Type>
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="firstName"
+                                component={FirstNameField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="lastName"
+                                component={LastNameField}
+                              />
+                            </Grid>
+                          </Grid>
 
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={7}>
-                          <Field name="accountNo" component={AccountNoField} />
-                        </Grid>
-                        <Grid item xs={12} sm={5}>
-                          <Field
-                            name="propertyType"
-                            component={PropertyTypeSelectField}
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={7}>
+                              <Field
+                                name="accountNo"
+                                component={AccountNoField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={5}>
+                              <Field
+                                name="propertyType"
+                                component={PropertyTypeSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={40} justify="space-between">
+                            <Grid item xs={12} sm={8}>
+                              <Field
+                                name="address"
+                                render={({field, form}) => (
+                                  <StreetAddressField
+                                    form={form}
+                                    field={field}
+                                  />
+                                )}
+                              />
+                            </Grid>
+
+                            <Grid item xs={12} sm={4}>
+                              <Field
+                                name="city"
+                                render={({field, form}) => (
+                                  <CitySelectField
+                                    form={form}
+                                    field={field}
+                                    onChange={cityChangeHandler}
+                                  />
+                                )}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          {showOtherCityTextField || otherCitySelected ? (
+                            <Grow
+                              in={otherCitySelected}
+                              onEntering={enteringOtherCityTransHandler}
+                              onExited={exitedOtherCityTransHandler}
+                            >
+                              <div className={classes.formControlRow}>
+                                <Field
+                                  name="otherCity"
+                                  render={({field, form}) => (
+                                    <OtherCityField
+                                      form={form}
+                                      field={field}
+                                      disabled={!otherCitySelected}
+                                    />
+                                  )}
+                                />
+                              </div>
+                            </Grow>
+                          ) : null}
+
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={6}>
+                              <Field name="phone" component={PhoneNoField} />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field name="email" component={EmailField} />
+                            </Grid>
+                          </Grid>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type variant="h4" color="textSecondary" gutterBottom>
+                            Rebate Information
+                          </Type>
+
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={5}>
+                              <Field
+                                name="purchaseDate"
+                                component={PurchaseDateField}
+                              />
+                            </Grid>
+                            {/* <Grid item xs={12} sm={6}> */}
+                            {/* <Field name="email" component={EmailField} /> */}
+                            {/* </Grid> */}
+                          </Grid>
+                        </div>
+
+                        <div
+                          className={classNames(
+                            classes.formControlRow,
+                            classes.dropzoneContainer
+                          )}
+                        >
+                          <DropzoneUploader
+                            uploadFolder="irrigation-controller"
+                            onUploaded={uploadedHandler}
+                            height={200}
+                            width="100%"
+                            accept="image/*, application/pdf"
+                            disabled={attachments.length >= UPLOAD_FILE_LIMIT}
+                            maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
                           />
-                        </Grid>
-                      </Grid>
+                          <Fade in={hasBadAttachments}>
+                            <Type variant="caption" color="error" gutterBottom>
+                              Remove and/or retry un-successful uploads.
+                            </Type>
+                          </Fade>
+                        </div>
 
-                      <Grid container spacing={40} justify="space-between">
-                        <Grid item xs={12} sm={8}>
+                        <div className={classes.formControlRow}>
                           <Field
-                            name="address"
+                            name="signature"
                             render={({field, form}) => (
-                              <StreetAddressField form={form} field={field} />
-                            )}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                          <Field
-                            name="city"
-                            render={({field, form}) => (
-                              <CitySelectField
+                              <SignatureCheckbox
                                 form={form}
                                 field={field}
-                                onChange={cityChangeHandler}
+                                onChange={checkboxChangeHandler}
                               />
                             )}
                           />
-                        </Grid>
-                      </Grid>
+                        </div>
 
-                      {showOtherCityTextField || otherCitySelected ? (
-                        <Grow
-                          in={otherCitySelected}
-                          onEntering={enteringOtherCityTransHandler}
-                          onExited={exitedOtherCityTransHandler}
-                        >
-                          <div className={classes.formControlRow}>
-                            <Field
-                              name="otherCity"
-                              render={({field, form}) => (
-                                <OtherCityField
-                                  form={form}
-                                  field={field}
-                                  disabled={!otherCitySelected}
-                                />
-                              )}
+                        <div className={classes.formControlRow}>
+                          <Recaptcha
+                            sitekey={RECAPTCHA_SITE_KEY}
+                            onChange={recaptchaChangeHandler}
+                            onExpired={recaptchaExpiredHandler}
+                            size="normal"
+                            ref={recaptchaRef}
+                          />
+                        </div>
+                        <div className={classes.buttonWrapper}>
+                          <Button
+                            variant="outlined"
+                            type="submit"
+                            disabled={
+                              isSubmitting ||
+                              !isValid ||
+                              (!formTouched && !dirty) ||
+                              !hasValidAttachments ||
+                              !hasCaptcha
+                            }
+                          >
+                            Submit Form
+                          </Button>
+                          {isSubmitting && (
+                            <CircularProgress
+                              size={24}
+                              className={classes.buttonProgress}
                             />
-                          </div>
-                        </Grow>
-                      ) : null}
-
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="phone" component={PhoneNoField} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="email" component={EmailField} />
-                        </Grid>
-                      </Grid>
-                    </div>
-
-                    <Divider variant="middle" />
-
-                    <div className={classes.formGroup}>
-                      <Type variant="h4" color="textSecondary" gutterBottom>
-                        Rebate Information
-                      </Type>
-
-                      <Grid container spacing={40}>
-                        <Grid item xs={12} sm={5}>
-                          <Field
-                            name="purchaseDate"
-                            component={PurchaseDateField}
-                          />
-                        </Grid>
-                        {/* <Grid item xs={12} sm={6}> */}
-                        {/* <Field name="email" component={EmailField} /> */}
-                        {/* </Grid> */}
-                      </Grid>
-                    </div>
-
-                    <div
-                      className={classNames(
-                        classes.formControlRow,
-                        classes.dropzoneContainer
-                      )}
-                    >
-                      <DropzoneUploader
-                        uploadFolder="irrigation-controller"
-                        onUploaded={uploadedHandler}
-                        height={200}
-                        width="100%"
-                        accept="image/*, application/pdf"
-                        disabled={attachments.length >= UPLOAD_FILE_LIMIT}
-                        maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
-                      />
-                      <Fade in={hasBadAttachments}>
-                        <Type variant="caption" color="error" gutterBottom>
-                          Remove and/or retry un-successful uploads.
-                        </Type>
-                      </Fade>
-                    </div>
-
-                    <div className={classes.formControlRow}>
-                      <Field
-                        name="signature"
-                        render={({field, form}) => (
-                          <SignatureCheckbox
-                            form={form}
-                            field={field}
-                            onChange={checkboxChangeHandler}
-                          />
-                        )}
-                      />
-                    </div>
-
-                    <div className={classes.formControlRow}>
-                      <Recaptcha
-                        sitekey={RECAPTCHA_SITE_KEY}
-                        onChange={recaptchaChangeHandler}
-                        onExpired={recaptchaExpiredHandler}
-                        size="normal"
-                        ref={recaptchaRef}
-                      />
-                    </div>
-                    <div className={classes.buttonWrapper}>
-                      <Button
-                        variant="outlined"
-                        type="submit"
-                        disabled={
-                          isSubmitting ||
-                          !isValid ||
-                          (!formTouched && !dirty) ||
-                          !hasValidAttachments ||
-                          !hasCaptcha
-                        }
-                      >
-                        Submit Form
-                      </Button>
-                      {isSubmitting && (
-                        <CircularProgress
-                          size={24}
-                          className={classes.buttonProgress}
-                        />
-                      )}
-                    </div>
+                          )}
+                        </div>
+                      </div>
+                    </Form>
                   </div>
-                </Form>
-              </div>
-            )
-          }}
-        </Formik>
-      </div>
+                )
+              }}
+            </Formik>
+          </div>
 
-      {attachments.map((attach, idx) => (
-        <div key={idx}>{attach}</div>
-      ))}
-    </main>
+          {attachments.map((attach, idx) => (
+            <div key={idx}>{attach}</div>
+          ))}
+        </main>
+      </Grid>
+    </Grid>
   )
 
   return !isDev ? (
