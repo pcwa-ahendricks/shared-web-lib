@@ -4,6 +4,7 @@ import {Document, Page} from 'react-pdf'
 // import 'react-pdf/dist/Page/AnnotationLayer.css'
 import {
   Dialog,
+  DialogContent,
   Fab,
   Zoom,
   withWidth,
@@ -16,9 +17,10 @@ import DeleteIcon from '@material-ui/icons/CloseRounded'
 import {type DroppedFile} from './DropzoneUploader'
 
 const styles = (theme) => ({
-  imageContainer: {
+  dialogContent: {
+    padding: 0,
     // Not sure where the extra white-space is coming from but make it go away.
-    marginBottom: '-6px',
+    marginBottom: '-4px',
     overflow: 'hidden',
     minHeight: 100 // Useful when PDF is loading.
   },
@@ -83,7 +85,7 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
         >
           <DeleteIcon />
         </Fab>
-        <div className={classes.imageContainer}>
+        <DialogContent classes={{root: classes.dialogContent}}>
           {file.ext === 'pdf' ? (
             // <img src="/static/images/pdf.svg" />
             <Document file={file.previewUrl} loading={renderLoadingHandler()}>
@@ -104,7 +106,7 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
               alt={`Image ${file.name} for upload`}
             />
           )}
-        </div>
+        </DialogContent>
       </React.Fragment>
     </Dialog>
   )
