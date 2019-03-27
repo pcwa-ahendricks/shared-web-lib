@@ -7,9 +7,7 @@ import {
   Fade,
   Grid,
   Grow,
-  Hidden,
-  Typography as Type,
-  withWidth
+  Typography as Type
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
@@ -26,7 +24,7 @@ import DropzoneUploader, {
   type UploadedFile
 } from '@components/DropzoneUploader/DropzoneUploader'
 import PurchaseDateField from '@components/formFields/PurchaseDateField'
-import PurchaseDateNativeField from '@components/formFields/PurchaseDateNativeField'
+// import PurchaseDateNativeField from '@components/formFields/PurchaseDateNativeField'
 import FirstNameField from '@components/formFields/FirstNameField'
 import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
@@ -222,7 +220,7 @@ const styles = (theme) => ({
   // }
 })
 
-const Rebate = ({classes, width}: Props) => {
+const Rebate = ({classes}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
@@ -474,19 +472,20 @@ const Rebate = ({classes, width}: Props) => {
                               />
                             </Grid>
                             <Grid item xs={12} sm={5}>
-                              <Hidden only="xs" implementation="css">
-                                <Field
-                                  name="purchaseDate"
-                                  render={({field, form}) => (
-                                    <PurchaseDateField
-                                      form={form}
-                                      field={field}
-                                      required={width !== 'xs'}
-                                    />
-                                  )}
-                                />
-                              </Hidden>
-                              <Hidden smUp implementation="css">
+                              {/* <Hidden only="xs" implementation="css"> */}
+                              <Field
+                                name="purchaseDate"
+                                render={({field, form}) => (
+                                  <PurchaseDateField
+                                    form={form}
+                                    field={field}
+                                    // required={width !== 'xs'}
+                                    required={true}
+                                  />
+                                )}
+                              />
+                              {/* </Hidden> */}
+                              {/* <Hidden smUp implementation="css">
                                 <Field
                                   name="purchaseDate"
                                   render={({field, form}) => (
@@ -497,7 +496,7 @@ const Rebate = ({classes, width}: Props) => {
                                     />
                                   )}
                                 />
-                              </Hidden>
+                              </Hidden> */}
                             </Grid>
                           </Grid>
                         </div>
@@ -597,4 +596,4 @@ const Rebate = ({classes, width}: Props) => {
   )
 }
 
-export default withWidth()(withStyles(styles)(Rebate))
+export default withStyles(styles)(Rebate)
