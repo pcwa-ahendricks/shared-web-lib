@@ -7,7 +7,9 @@ import {
   Fade,
   Grid,
   Grow,
-  Typography as Type
+  Hidden,
+  Typography as Type,
+  withWidth
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
@@ -24,6 +26,7 @@ import DropzoneUploader, {
   type UploadedFile
 } from '@components/DropzoneUploader/DropzoneUploader'
 import PurchaseDateField from '@components/formFields/PurchaseDateField'
+import PurchaseDateNativeField from '@components/formFields/PurchaseDateNativeField'
 import FirstNameField from '@components/formFields/FirstNameField'
 import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
@@ -33,6 +36,9 @@ import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
+import IrrigCntrlAddtlField from '@components/formFields/IrrigCntrlAddtlField'
+import IrrigCntrlModelField from '@components/formFields/IrrigCntrlModelField'
+import IrrigCntrlMnfgField from '@components/formFields/IrrigCntrlMnfgField'
 import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
 import Recaptcha from 'react-google-recaptcha'
 // Loading Recaptcha with Next dynamic isn't necessary.
@@ -45,7 +51,8 @@ const UPLOAD_MB_LIMIT = 15 // Now lambda functions must be less than 5MB, but we
 const UPLOAD_FILE_LIMIT = 5
 
 type Props = {
-  classes: any
+  classes: any,
+  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
 const formSchema = object()
@@ -90,6 +97,13 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
+    manufacturer: string()
+      .required()
+      .label('Irrigation Controller Manufacturer'),
+    model: string()
+      .required()
+      .label('Irrigation Controller Model'),
+    additional: string().label('Additional Sensor or Outdoor Cover'),
     purchaseDate: string()
       .required('A valid purchase date is required')
       .typeError('A valid purchase date is required'),
@@ -109,6 +123,9 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
+  manufacturer: '',
+  model: '',
+  additional: '',
   purchaseDate: '',
   signature: false
 }
@@ -205,7 +222,7 @@ const styles = (theme) => ({
   // }
 })
 
-const Rebate = ({classes}: Props) => {
+const Rebate = ({classes, width}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
@@ -435,15 +452,53 @@ const Rebate = ({classes}: Props) => {
                           </Type>
 
                           <Grid container spacing={40}>
-                            <Grid item xs={12} sm={5}>
+                            <Grid item xs={12} sm={6}>
                               <Field
-                                name="purchaseDate"
-                                component={PurchaseDateField}
+                                name="manufacturer"
+                                component={IrrigCntrlMnfgField}
                               />
                             </Grid>
-                            {/* <Grid item xs={12} sm={6}> */}
-                            {/* <Field name="email" component={EmailField} /> */}
-                            {/* </Grid> */}
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="model"
+                                component={IrrigCntrlModelField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={7}>
+                              <Field
+                                name="additional"
+                                component={IrrigCntrlAddtlField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={5}>
+                              <Hidden only="xs" implementation="css">
+                                <Field
+                                  name="purchaseDate"
+                                  render={({field, form}) => (
+                                    <PurchaseDateField
+                                      form={form}
+                                      field={field}
+                                      required={width !== 'xs'}
+                                    />
+                                  )}
+                                />
+                              </Hidden>
+                              <Hidden smUp implementation="css">
+                                <Field
+                                  name="purchaseDate"
+                                  render={({field, form}) => (
+                                    <PurchaseDateNativeField
+                                      form={form}
+                                      field={field}
+                                      required={width === 'xs'}
+                                    />
+                                  )}
+                                />
+                              </Hidden>
+                            </Grid>
                           </Grid>
                         </div>
 
@@ -542,4 +597,4 @@ const Rebate = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(Rebate)
+export default withWidth()(withStyles(styles)(Rebate))

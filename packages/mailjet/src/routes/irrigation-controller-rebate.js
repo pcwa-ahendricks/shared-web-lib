@@ -48,6 +48,9 @@ type FormDataObj = {|
   otherCity: string,
   phone: string,
   propertyType: string,
+  manufacturer: string,
+  model: string,
+  additional?: string,
   purchaseDate: string,
   signature: boolean
 |}
@@ -78,6 +81,9 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
+        manufacturer: string().required(),
+        model: string().required(),
+        additional: string(),
         purchaseDate: string().required('A valid purchase date is required'),
         signature: boolean()
           .required()
@@ -119,7 +125,16 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   // })
 
   const {formData, attachments, captcha} = body
-  const {email, firstName, lastName, address, otherCity} = formData
+  const {
+    email,
+    firstName,
+    lastName,
+    address,
+    otherCity,
+    manufacturer,
+    model,
+    additional
+  } = formData
   let {city = '', purchaseDate, accountNo} = formData
 
   // Remove leading zeros from account number.
@@ -178,7 +193,9 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         },
         Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
         TextPart: `This is just a test for Account Number ${accountNo}`,
-        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br />${htmlImages}`,
+        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br/>Manufacturer: ${manufacturer}<br/>Model: ${model}<br />Additional Sensor or Outdoor Cover: ${
+          additional ? additional : ''
+        }<br/>${htmlImages}`,
         TemplateLanguage: false
       }
     ]

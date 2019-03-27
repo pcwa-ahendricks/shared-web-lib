@@ -8,10 +8,17 @@ import {isDate} from 'date-fns'
 type Props = {
   field: Field,
   form: Form,
-  fullWidth: boolean
+  fullWidth: boolean,
+  required: boolean
 }
 
-const PurchaseDateField = ({field, form, fullWidth, ...other}: Props) => {
+const PurchaseDateField = ({
+  field,
+  form,
+  fullWidth,
+  required,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {
     errors,
@@ -34,7 +41,7 @@ const PurchaseDateField = ({field, form, fullWidth, ...other}: Props) => {
   return (
     // TODO - It would be nice if there was a way to automatically validate the field when the correct input is finally entered with keyboard. Currently, the user has to hit enter or blur the field in order to trigger the validation.
     <FormControl
-      required
+      required={required}
       margin="normal"
       disabled={disabled}
       // Since we are not using FormHelperText error prop is not required.
@@ -42,6 +49,7 @@ const PurchaseDateField = ({field, form, fullWidth, ...other}: Props) => {
       fullWidth={fullWidth}
     >
       <DatePicker
+        required={required}
         keyboard
         // clearable
         disableFuture
@@ -49,6 +57,7 @@ const PurchaseDateField = ({field, form, fullWidth, ...other}: Props) => {
         disabled={disabled}
         value={value}
         format="MM/dd/yyyy"
+        placeholder="mm/dd/yyyy"
         variant="outlined"
         label="Purchase Date"
         helperText={currentError && fieldTouched ? currentError : null}
@@ -69,7 +78,8 @@ const PurchaseDateField = ({field, form, fullWidth, ...other}: Props) => {
 }
 
 PurchaseDateField.defaultProps = {
-  fullWidth: true
+  fullWidth: true,
+  required: true
 }
 
 export default PurchaseDateField
