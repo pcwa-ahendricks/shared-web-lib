@@ -52,7 +52,8 @@ type FormDataObj = {|
   model: string,
   additional?: string,
   purchaseDate: string,
-  signature: boolean
+  signature: boolean,
+  captcha: string
 |}
 
 const bodySchema = object()
@@ -87,12 +88,12 @@ const bodySchema = object()
         purchaseDate: string().required('A valid purchase date is required'),
         signature: boolean()
           .required()
-          .oneOf([true])
+          .oneOf([true]),
+        captcha: string().required()
       }),
     receipts: array()
       .required()
-      .of(string()),
-    captcha: string().required()
+      .of(string())
   })
 
 const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
@@ -124,7 +125,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   //   version: 'v3.1'
   // })
 
-  const {formData, receipts, captcha} = body
+  const {formData, receipts} = body
   const {
     email,
     firstName,
@@ -133,7 +134,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     otherCity,
     manufacturer,
     model,
-    additional
+    additional,
+    captcha
   } = formData
   let {city = '', purchaseDate, accountNo} = formData
 

@@ -23,16 +23,25 @@ const AccountNoField = ({
   ...other
 }: Props) => {
   const {name, value} = field
-  const {errors, handleChange, isSubmitting, handleBlur, touched} = form
+  const {
+    errors,
+    handleChange,
+    isSubmitting,
+    handleBlur,
+    touched,
+    setFieldTouched
+  } = form
   const currentError = errors[name]
   const fieldTouched = touched[name]
 
+  // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
   const changeHandler = useCallback(
     (...args) => {
       handleChange(...args)
+      setFieldTouched(name, true)
       onChange && onChange(...args)
     },
-    [handleChange, onChange]
+    [handleChange, onChange, setFieldTouched, name]
   )
 
   return (
@@ -55,7 +64,7 @@ const AccountNoField = ({
             value="signed signature"
             color="primary"
             inputProps={{
-              name: name
+              name
             }}
             onChange={changeHandler}
             onBlur={handleBlur}

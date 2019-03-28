@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useCallback, useRef} from 'react'
+import React, {useState, useCallback} from 'react'
 import {
   Button,
   CircularProgress,
@@ -39,13 +39,12 @@ import IrrigCntrlAddtlField from '@components/formFields/IrrigCntrlAddtlField'
 import IrrigCntrlModelField from '@components/formFields/IrrigCntrlModelField'
 import IrrigCntrlMnfgField from '@components/formFields/IrrigCntrlMnfgField'
 import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
-import Recaptcha from 'react-google-recaptcha'
+import RecaptchaField from '@components/formFields/RecaptchaField'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
 const UPLOAD_MB_LIMIT = 15 // Now lambda functions must be less than 5MB, but we are resizing dropped files using Jimp to roughly 3MB.
 const UPLOAD_FILE_LIMIT = 5
 
@@ -108,7 +107,10 @@ const formSchema = object()
     signature: boolean()
       .required()
       .oneOf([true], 'Must provide signature by checking this box')
-      .label('Signature Check')
+      .label('Signature Check'),
+    captcha: string()
+      .required('Checking this box is required for security purposes')
+      .label('This checkbox')
   })
 
 const initialFormValues: RebateFormData = {
@@ -125,7 +127,8 @@ const initialFormValues: RebateFormData = {
   model: '',
   additional: '',
   purchaseDate: '',
-  signature: false
+  signature: false,
+  captcha: ''
 }
 
 const styles = (theme) => ({
@@ -234,11 +237,9 @@ const IrrigationController = ({classes}: Props) => {
     unsuccessfulInstalledPhotos,
     setUnsuccessfulInstalledPhotos
   ] = useState<Array<UploadedFile>>([])
-  const [captcha, setCaptcha] = useState<string>('')
   const [showOtherCityTextField, setShowOtherCityTextField] = useState<boolean>(
     false
   )
-  const recaptchaRef = useRef(null)
 
   const uploadedReceiptsHandler = useCallback((files: Array<UploadedFile>) => {
     // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
@@ -270,19 +271,6 @@ const IrrigationController = ({classes}: Props) => {
     setUnsuccessfulInstalledPhotos([...newUnsuccessfulAttachments])
   }, [])
 
-  const recaptchaChangeHandler = useCallback((response) => {
-    setCaptcha(response)
-  }, [])
-  const recaptchaExpiredHandler = useCallback(() => {
-    setCaptcha('')
-  }, [])
-
-  const resetForm = useCallback(() => {
-    const recaptchaInstance = recaptchaRef.current
-    recaptchaInstance && recaptchaInstance.reset()
-    setCaptcha('') // Need to reset state too to disable submit button.
-  }, [recaptchaRef])
-
   const enteringOtherCityTransHandler = useCallback(() => {
     setShowOtherCityTextField(true)
   }, [])
@@ -298,7 +286,6 @@ const IrrigationController = ({classes}: Props) => {
     installedPhotos.length > 0 && !hasBadInstalledPhotos
   )
 
-  const hasCaptcha = Boolean(captcha)
   const mainEl = (
     <Grid container justify="space-around" direction="row">
       <Grid item xs={11} sm={12}>
@@ -321,12 +308,12 @@ const IrrigationController = ({classes}: Props) => {
                   console.log(values, actions)
                   const body: RequestBody = {
                     formData: {...values},
-                    receipts,
-                    captcha
+                    receipts
                   }
                   const data = await postIrrigCntrlRebateForm(body)
                   actions.setSubmitting(false)
-                  resetForm()
+                  // resetForm()
+                  actions.resetForm() // Strictly Formik
                   alert(JSON.stringify(data, null, 2))
                 } catch (error) {
                   console.log('An error occurred submitting form.', error)
@@ -340,8 +327,8 @@ const IrrigationController = ({classes}: Props) => {
                 dirty,
                 isSubmitting,
                 isValid,
-                setFieldTouched,
                 setFieldValue
+                // handleReset
               }) => {
                 if (dirty !== formIsDirty) {
                   setFormIsDirty(dirty)
@@ -354,12 +341,8 @@ const IrrigationController = ({classes}: Props) => {
                 if (formTouched !== formIsTouched) {
                   setFormIsTouched(formTouched)
                 }
-                const otherCitySelected = values.city.toLowerCase() === 'other'
-
-                // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
-                const checkboxChangeHandler = () => {
-                  setFieldTouched('signature', true)
-                }
+                const otherCitySelected =
+                  values.city && values.city.toLowerCase() === 'other'
 
                 // If city field is updated clear out otherCity field.
                 const cityChangeHandler = () => {
@@ -607,25 +590,28 @@ const IrrigationController = ({classes}: Props) => {
                           </div>
                         </div>
 
-                        <Field
-                          name="signature"
-                          render={({field, form}) => (
-                            <SignatureCheckbox
-                              form={form}
-                              field={field}
-                              onChange={checkboxChangeHandler}
+                        <Grid container spacing={40}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="signature"
+                              component={SignatureCheckbox}
                             />
-                          )}
-                        />
+                          </Grid>
+                        </Grid>
 
-                        <Recaptcha
-                          sitekey={RECAPTCHA_SITE_KEY}
-                          onChange={recaptchaChangeHandler}
-                          onExpired={recaptchaExpiredHandler}
-                          size="normal"
-                          ref={recaptchaRef}
-                        />
+                        <Grid container spacing={40}>
+                          <Grid item xs={12}>
+                            <Field name="captcha" component={RecaptchaField} />
+                          </Grid>
+                        </Grid>
 
+                        {/* <Button
+                          variant="outlined"
+                          type="submit"
+                          onClick={handleReset}
+                        >
+                          Reset Form
+                        </Button> */}
                         <div className={classes.buttonWrapper}>
                           <Button
                             variant="outlined"
@@ -635,8 +621,7 @@ const IrrigationController = ({classes}: Props) => {
                               !isValid ||
                               (!formTouched && !dirty) ||
                               !hasValidReceipts ||
-                              !hasValidInstalledPhotos ||
-                              !hasCaptcha
+                              !hasValidInstalledPhotos
                             }
                           >
                             Submit Form

@@ -20,14 +20,14 @@ export type RebateFormData = {|
   model: string,
   additional: string,
   purchaseDate: string,
-  signature: boolean
+  signature: boolean,
+  captcha: string
 |}
 
 export type RequestBody = {|
   receipts: Array<string>,
   // recipients: Array<{Name: string, Email: string}>,
-  formData: RebateFormData,
-  captcha: string
+  formData: RebateFormData
 |}
 
 const postIrrigCntrlRebateForm = async (body: RequestBody) => {
