@@ -5,6 +5,7 @@ import {
   CircularProgress,
   Divider,
   Fade,
+  FormHelperText,
   Grid,
   Grow,
   Typography as Type
@@ -49,15 +50,14 @@ const UPLOAD_MB_LIMIT = 15 // Now lambda functions must be less than 5MB, but we
 const UPLOAD_FILE_LIMIT = 5
 
 type Props = {
-  classes: any,
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  classes: any
 }
 
 const formSchema = object()
   .camelCase()
   .strict()
   .shape({
-    // attachments: array().of(string()),
+    // receipts: array().of(string()),
     firstName: string()
       .required()
       .label('First Name'),
@@ -182,7 +182,8 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    marginBottom: theme.spacing.unit * 3
+    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   },
   // formControlsContainer: {
   //   margin: theme.spacing.unit * 8,
@@ -220,21 +221,26 @@ const styles = (theme) => ({
   // }
 })
 
-const Rebate = ({classes}: Props) => {
+const IrrigationController = ({classes}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [attachments, setAttachments] = useState<Array<string>>([])
-  const [unsuccessfulAttachments, setUnsuccessfulAttachments] = useState<
+  const [receipts, setReceipts] = useState<Array<string>>([])
+  const [installedPhotos, setInstalledPhotos] = useState<Array<string>>([])
+  const [unsuccessfulReceipts, setUnsuccessfulReceipts] = useState<
     Array<UploadedFile>
   >([])
+  const [
+    unsuccessfulInstalledPhotos,
+    setUnsuccessfulInstalledPhotos
+  ] = useState<Array<UploadedFile>>([])
   const [captcha, setCaptcha] = useState<string>('')
   const [showOtherCityTextField, setShowOtherCityTextField] = useState<boolean>(
     false
   )
   const recaptchaRef = useRef(null)
 
-  const uploadedHandler = useCallback((files: Array<UploadedFile>) => {
+  const uploadedReceiptsHandler = useCallback((files: Array<UploadedFile>) => {
     // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
     const successfulAttachments = files
       .filter((file) => file.serverResponse.status === 'success')
@@ -242,11 +248,26 @@ const Rebate = ({classes}: Props) => {
         file.serverResponse.media ? file.serverResponse.media.imgix_url : null
       )
       .filter(Boolean)
-    setAttachments([...successfulAttachments])
+    setReceipts([...successfulAttachments])
     const newUnsuccessfulAttachments = files.filter(
       (file) => file.serverResponse.status !== 'success'
     )
-    setUnsuccessfulAttachments([...newUnsuccessfulAttachments])
+    setUnsuccessfulReceipts([...newUnsuccessfulAttachments])
+  }, [])
+
+  const uploadedPhotosHandler = useCallback((files: Array<UploadedFile>) => {
+    // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
+    const successfulAttachments = files
+      .filter((file) => file.serverResponse.status === 'success')
+      .map((file) =>
+        file.serverResponse.media ? file.serverResponse.media.imgix_url : null
+      )
+      .filter(Boolean)
+    setInstalledPhotos([...successfulAttachments])
+    const newUnsuccessfulAttachments = files.filter(
+      (file) => file.serverResponse.status !== 'success'
+    )
+    setUnsuccessfulInstalledPhotos([...newUnsuccessfulAttachments])
   }, [])
 
   const recaptchaChangeHandler = useCallback((response) => {
@@ -270,10 +291,13 @@ const Rebate = ({classes}: Props) => {
     setShowOtherCityTextField(false)
   }, [])
 
-  const hasBadAttachments = Boolean(unsuccessfulAttachments.length > 0)
-  const hasValidAttachments = Boolean(
-    attachments.length > 0 && !hasBadAttachments
+  const hasBadReceipts = Boolean(unsuccessfulReceipts.length > 0)
+  const hasValidReceipts = Boolean(receipts.length > 0 && !hasBadReceipts)
+  const hasBadInstalledPhotos = Boolean(unsuccessfulInstalledPhotos.length > 0)
+  const hasValidInstalledPhotos = Boolean(
+    installedPhotos.length > 0 && !hasBadInstalledPhotos
   )
+
   const hasCaptcha = Boolean(captcha)
   const mainEl = (
     <Grid container justify="space-around" direction="row">
@@ -297,7 +321,7 @@ const Rebate = ({classes}: Props) => {
                   console.log(values, actions)
                   const body: RequestBody = {
                     formData: {...values},
-                    attachments,
+                    receipts,
                     captcha
                   }
                   const data = await postIrrigCntrlRebateForm(body)
@@ -417,18 +441,20 @@ const Rebate = ({classes}: Props) => {
                               onEntering={enteringOtherCityTransHandler}
                               onExited={exitedOtherCityTransHandler}
                             >
-                              <div className={classes.formControlRow}>
-                                <Field
-                                  name="otherCity"
-                                  render={({field, form}) => (
-                                    <OtherCityField
-                                      form={form}
-                                      field={field}
-                                      disabled={!otherCitySelected}
-                                    />
-                                  )}
-                                />
-                              </div>
+                              <Grid container spacing={40}>
+                                <Grid item xs={12}>
+                                  <Field
+                                    name="otherCity"
+                                    render={({field, form}) => (
+                                      <OtherCityField
+                                        form={form}
+                                        field={field}
+                                        disabled={!otherCitySelected}
+                                      />
+                                    )}
+                                  />
+                                </Grid>
+                              </Grid>
                             </Grow>
                           ) : null}
 
@@ -501,50 +527,105 @@ const Rebate = ({classes}: Props) => {
                           </Grid>
                         </div>
 
-                        <div
-                          className={classNames(
-                            classes.formControlRow,
-                            classes.dropzoneContainer
-                          )}
-                        >
-                          <DropzoneUploader
-                            uploadFolder="irrigation-controller"
-                            onUploaded={uploadedHandler}
-                            height={200}
-                            width="100%"
-                            accept="image/*, application/pdf"
-                            disabled={attachments.length >= UPLOAD_FILE_LIMIT}
-                            maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
-                          />
-                          <Fade in={hasBadAttachments}>
-                            <Type variant="caption" color="error" gutterBottom>
-                              Remove and/or retry un-successful uploads.
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type variant="h4" color="textSecondary" gutterBottom>
+                            Provide Attachments
+                          </Type>
+
+                          <div
+                            className={classNames(classes.dropzoneContainer)}
+                          >
+                            <Type
+                              variant="caption"
+                              color="textSecondary"
+                              gutterBottom
+                            >
+                              Attach Receipt(s)
                             </Type>
-                          </Fade>
+                            <DropzoneUploader
+                              subtitle="your receipt(s) here or click to browse"
+                              uploadFolder="irrigation-controller"
+                              onUploaded={uploadedReceiptsHandler}
+                              height={200}
+                              width="100%"
+                              accept="image/*, application/pdf"
+                              disabled={receipts.length >= UPLOAD_FILE_LIMIT}
+                              maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
+                            />
+                            <FormHelperText error={!hasValidReceipts}>
+                              {!hasValidReceipts
+                                ? 'Must provide receipt(s) or proof of purchase'
+                                : ''}
+                            </FormHelperText>
+                            <Fade in={hasBadReceipts}>
+                              <Type
+                                variant="caption"
+                                color="error"
+                                gutterBottom
+                              >
+                                Remove and/or retry un-successful uploads.
+                              </Type>
+                            </Fade>
+                          </div>
+
+                          <div
+                            className={classNames(classes.dropzoneContainer)}
+                          >
+                            <Type
+                              variant="caption"
+                              color="textSecondary"
+                              gutterBottom
+                            >
+                              Attach Installed Irrigation Controller Photo(s)
+                            </Type>
+                            <DropzoneUploader
+                              subtitle="your photo(s) here or click to browse"
+                              uploadFolder="irrigation-controller"
+                              onUploaded={uploadedPhotosHandler}
+                              height={200}
+                              width="100%"
+                              accept="image/*, application/pdf"
+                              disabled={receipts.length >= UPLOAD_FILE_LIMIT}
+                              maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
+                            />
+                            <FormHelperText error={!hasValidInstalledPhotos}>
+                              {!hasValidInstalledPhotos
+                                ? 'Must provide photo(s) of installed irrigation controller(s)'
+                                : ''}
+                            </FormHelperText>
+                            <Fade in={hasBadInstalledPhotos}>
+                              <Type
+                                variant="caption"
+                                color="error"
+                                gutterBottom
+                              >
+                                Remove and/or retry un-successful uploads.
+                              </Type>
+                            </Fade>
+                          </div>
                         </div>
 
-                        <div className={classes.formControlRow}>
-                          <Field
-                            name="signature"
-                            render={({field, form}) => (
-                              <SignatureCheckbox
-                                form={form}
-                                field={field}
-                                onChange={checkboxChangeHandler}
-                              />
-                            )}
-                          />
-                        </div>
+                        <Field
+                          name="signature"
+                          render={({field, form}) => (
+                            <SignatureCheckbox
+                              form={form}
+                              field={field}
+                              onChange={checkboxChangeHandler}
+                            />
+                          )}
+                        />
 
-                        <div className={classes.formControlRow}>
-                          <Recaptcha
-                            sitekey={RECAPTCHA_SITE_KEY}
-                            onChange={recaptchaChangeHandler}
-                            onExpired={recaptchaExpiredHandler}
-                            size="normal"
-                            ref={recaptchaRef}
-                          />
-                        </div>
+                        <Recaptcha
+                          sitekey={RECAPTCHA_SITE_KEY}
+                          onChange={recaptchaChangeHandler}
+                          onExpired={recaptchaExpiredHandler}
+                          size="normal"
+                          ref={recaptchaRef}
+                        />
+
                         <div className={classes.buttonWrapper}>
                           <Button
                             variant="outlined"
@@ -553,7 +634,8 @@ const Rebate = ({classes}: Props) => {
                               isSubmitting ||
                               !isValid ||
                               (!formTouched && !dirty) ||
-                              !hasValidAttachments ||
+                              !hasValidReceipts ||
+                              !hasValidInstalledPhotos ||
                               !hasCaptcha
                             }
                           >
@@ -574,9 +656,9 @@ const Rebate = ({classes}: Props) => {
             </Formik>
           </div>
 
-          {attachments.map((attach, idx) => (
+          {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
-          ))}
+          ))} */}
         </main>
       </Grid>
     </Grid>
@@ -596,4 +678,4 @@ const Rebate = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(Rebate)
+export default withStyles(styles)(IrrigationController)

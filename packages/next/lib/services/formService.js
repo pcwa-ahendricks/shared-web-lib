@@ -24,7 +24,7 @@ export type RebateFormData = {|
 |}
 
 export type RequestBody = {|
-  attachments: Array<string>,
+  receipts: Array<string>,
   // recipients: Array<{Name: string, Email: string}>,
   formData: RebateFormData,
   captcha: string

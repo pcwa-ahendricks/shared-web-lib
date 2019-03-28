@@ -45,6 +45,10 @@ const theme = createMuiTheme({
       fontSize: '1rem' // Default: 1.25rem
       // fontWeight: 500 // Default: 500
     },
+    caption: {
+      fontSize: '0.9rem' // Default: 0.75rem
+      // fontWeight: xxx // Default: 400
+    },
     body2: {
       // fontFamily: ['Open Sans', ...systemFonts].join(',')
       fontFamily: ['Kiperman', ...systemFonts].join(','),

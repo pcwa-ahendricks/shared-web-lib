@@ -24,7 +24,8 @@ type Props = {
   uploadFolder: string,
   maxSize: number,
   disabled: boolean,
-  accept: string
+  accept: string,
+  subtitle: string
 }
 
 const WIDTH_THRESHOLD = 1600
@@ -101,6 +102,7 @@ const DropzoneUploader = ({
   maxSize,
   accept,
   disabled,
+  subtitle,
   ...rest
 }: Props) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
@@ -310,9 +312,7 @@ const DropzoneUploader = ({
                     [classes.disabled]: disabled
                   })}
                 >
-                  {disabled
-                    ? 'uploading has been disabled'
-                    : 'your file(s) here or click to browse'}
+                  {disabled ? 'uploading has been disabled' : subtitle}
                 </Type>
               </React.Fragment>
             )}
@@ -374,7 +374,8 @@ DropzoneUploader.defaultProps = {
   height: 'unset',
   width: 'unset',
   allowClearUploads: false,
-  uploadFolder: ''
+  uploadFolder: '',
+  subtitle: 'your file(s) here or click to browse'
 }
 
 function extension(filename: string, lowercase = true) {
