@@ -22,7 +22,7 @@
     "busboy": "^0.3.0",
     "dotenv-safe": "^6.1.0",
     "isomorphic-unfetch": "^3.0.0",
-    "jimp": "^0.6.0",
+    "jimp": "^0.6.1",
     "micro": "^9.3.3",
     "micro-cors": "^0.1.1",
     "micro-fork": "^1.0.0",

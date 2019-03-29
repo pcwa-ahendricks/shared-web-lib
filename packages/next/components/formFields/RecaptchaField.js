@@ -64,7 +64,6 @@ const RecaptchaField = ({
   // const disabled = Boolean(isSubmitting)
   const isError = Boolean(currentError)
   return (
-    // TODO - It would be nice if there was a way to automatically validate the field when the correct input is finally entered with keyboard. Currently, the user has to hit enter or blur the field in order to trigger the validation.
     <FormControl
       required={required}
       margin="normal"
@@ -84,7 +83,7 @@ const RecaptchaField = ({
       />
 
       <FormHelperText error={isError}>
-        {currentError ? currentError : ''}
+        {isError ? currentError : ''}
       </FormHelperText>
     </FormControl>
   )

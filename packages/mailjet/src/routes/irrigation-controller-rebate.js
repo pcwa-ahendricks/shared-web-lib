@@ -38,6 +38,11 @@ const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
 
+type AttachmentFieldValue = {|
+  status: string,
+  url: string
+|}
+
 type FormDataObj = {|
   firstName: string,
   lastName: string,
@@ -53,7 +58,9 @@ type FormDataObj = {|
   additional?: string,
   purchaseDate: string,
   signature: boolean,
-  captcha: string
+  captcha: string,
+  receipts: Array<AttachmentFieldValue>,
+  cntrlPhotos: Array<AttachmentFieldValue>
 |}
 
 const bodySchema = object()
@@ -93,15 +100,36 @@ const bodySchema = object()
       }),
     receipts: array()
       .required()
-      .of(string())
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string()
+            .required()
+            .url()
+        })
+      ),
+    cntrlPhotos: array()
+      .required()
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string()
+            .required()
+            .url()
+        })
+      )
   })
 
 const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   const body: {
     formData: FormDataObj,
-    receipts: Array<string>,
-    recipients: Array<{Name: string, Email: string}>,
-    captcha: string
+    recipients: Array<{Name: string, Email: string}>
   } = await json(req)
 
   const validateOptions = {
@@ -125,7 +153,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   //   version: 'v3.1'
   // })
 
-  const {formData, receipts} = body
+  const {formData} = body
   const {
     email,
     firstName,
@@ -135,6 +163,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     manufacturer,
     model,
     additional,
+    receipts,
+    cntrlPhotos,
     captcha
   } = formData
   let {city = '', purchaseDate, accountNo} = formData
@@ -170,8 +200,23 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
 
   const htmlReceiptImages = receipts
     .map(
-      (img) =>
-        `<a href="${img}" rel="noopener noreferrer" target="_blank" ><img src="${img}?fm=auto&w=400" style="width:400px;" alt="Receipt Image Attachment"/></a>`
+      (attachment) =>
+        `<a href="${
+          attachment.url
+        }" rel="noopener noreferrer" target="_blank" ><img src="${
+          attachment.url
+        }?fm=auto&w=400" style="width:400px;" alt="Receipt Image Attachment"/></a>`
+    )
+    .join('<br />')
+
+  const htmlCntrlPhotos = cntrlPhotos
+    .map(
+      (attachment) =>
+        `<a href="${
+          attachment.url
+        }" rel="noopener noreferrer" target="_blank" ><img src="${
+          attachment.url
+        }?fm=auto&w=400" style="width:400px;" alt="Receipt Image Attachment"/></a>`
     )
     .join('<br />')
 
@@ -197,7 +242,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         TextPart: `This is just a test for Account Number ${accountNo}`,
         HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br/>Manufacturer: ${manufacturer}<br/>Model: ${model}<br />Additional Sensor or Outdoor Cover: ${
           additional ? additional : ''
-        }<br/>${htmlReceiptImages}`,
+        }<br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}`,
         TemplateLanguage: false
       }
     ]

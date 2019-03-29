@@ -84,6 +84,7 @@ const styles = (theme) => ({
     }
   },
   dropzoneSubTitle: {
+    textAlign: 'center',
     color: theme.palette.text.secondary,
     '&$disabled': {
       color: theme.palette.text.disabled
@@ -436,7 +437,7 @@ async function resizeImage(
     return newImageBuffer
   } catch (error) {
     // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
-    console.log(error)
+    console.log('Uploading original attachment: ', error)
     return imageBuffer
   }
 }
@@ -449,7 +450,7 @@ async function getImage(imageBuffer: ArrayBuffer, mimeType: string) {
         (supportedType) => supportedType === mimeType
       ) <= 0
     ) {
-      throw `File type ${mimeType} not supported.`
+      throw `File type ${mimeType} not supported by Jimp.`
     }
     const image = await Jimp.read(imageBuffer)
     const width = image.getWidth()

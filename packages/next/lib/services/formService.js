@@ -21,11 +21,12 @@ export type RebateFormData = {|
   additional: string,
   purchaseDate: string,
   signature: boolean,
-  captcha: string
+  captcha: string,
+  receipts: Array<string>,
+  cntrlPhotos: Array<string>
 |}
 
 export type RequestBody = {|
-  receipts: Array<string>,
   // recipients: Array<{Name: string, Email: string}>,
   formData: RebateFormData
 |}
