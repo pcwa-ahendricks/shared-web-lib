@@ -96,34 +96,34 @@ const bodySchema = object()
         signature: boolean()
           .required()
           .oneOf([true]),
-        captcha: string().required()
-      }),
-    receipts: array()
-      .required()
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/),
-          url: string()
-            .required()
-            .url()
-        })
-      ),
-    cntrlPhotos: array()
-      .required()
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/),
-          url: string()
-            .required()
-            .url()
-        })
-      )
+        captcha: string().required(),
+        receipts: array()
+          .required()
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(/success/),
+              url: string()
+                .required()
+                .url()
+            })
+          ),
+        cntrlPhotos: array()
+          .required()
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(/success/),
+              url: string()
+                .required()
+                .url()
+            })
+          )
+      })
   })
 
 const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
