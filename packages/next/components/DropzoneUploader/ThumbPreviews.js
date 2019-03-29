@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import {withWidth, Tooltip} from '@material-ui/core'
-import {type DroppedFile, type UploadedFile} from './DropzoneUploader'
+import {type DroppedFile, type UploadedFile} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'

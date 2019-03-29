@@ -13,7 +13,7 @@ import {
   ListItemText,
   Slide
 } from '@material-ui/core'
-import {type DroppedFile} from './DropzoneUploader'
+import {type DroppedFile} from './types'
 // import prettysize from 'prettysize'
 
 type Props = {

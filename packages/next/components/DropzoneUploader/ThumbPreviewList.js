@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
-import {type DroppedFile, type UploadedFile} from './DropzoneUploader'
+import {type DroppedFile, type UploadedFile} from './types'
 import {
   Avatar,
   List,

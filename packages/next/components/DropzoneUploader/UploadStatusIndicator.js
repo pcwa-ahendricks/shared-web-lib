@@ -4,7 +4,7 @@ import {Badge, LinearProgress} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
-import {type DroppedFile, type UploadedFile} from './DropzoneUploader'
+import {type DroppedFile, type UploadedFile} from './types'
 
 type Props = {
   children: Node,

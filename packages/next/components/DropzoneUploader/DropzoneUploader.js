@@ -1,9 +1,17 @@
 // @flow
-import React, {useState, useEffect, useCallback} from 'react'
+// use of forwardRef doesn't support PropTypes or defaultProps.
+'no babel-plugin-flow-react-proptypes'
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  forwardRef,
+  useImperativeHandle
+} from 'react'
 import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
-import {uploadFile, type UploadResponse} from '@lib/services/uploadService'
+import {uploadFile} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -14,10 +22,11 @@ import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
 import {useDropzone} from 'react-dropzone'
 import Jimp from 'jimp'
+import {type DroppedFile, type UploadedFile} from './types'
 
 type Props = {
   classes: any,
-  onUploaded?: (files: any) => void,
+  onUploadedChange?: (files: any) => void,
   height: number | string,
   width: number | string,
   allowClearUploads: boolean,
@@ -93,19 +102,25 @@ const styles = (theme) => ({
   disabled: {}
 })
 
-const DropzoneUploader = ({
-  classes,
-  onUploaded,
-  height,
-  width,
-  allowClearUploads,
-  uploadFolder,
-  maxSize,
-  accept,
-  disabled,
-  subtitle,
-  ...rest
-}: Props) => {
+// use of forwardRef doesn't support PropTypes or defaultProps.
+const DropzoneUploader = (
+  {
+    classes,
+    onUploadedChange,
+    // $FlowFixMe
+    height = 'unset',
+    // $FlowFixMe
+    width = 'unset',
+    allowClearUploads = false,
+    uploadFolder = '',
+    maxSize,
+    accept,
+    disabled,
+    subtitle = 'your file(s) here or click to browse',
+    ...rest
+  }: Props,
+  ref
+) => {
   const [droppedFiles, setDroppedFiles] = useState<Array<DroppedFile>>([])
   const [rejectedFiles, setRejectedFiles] = useState<Array<DroppedFile>>([])
   const [uploadedFiles, setUploadedFiles] = useState<Array<UploadedFile>>([])
@@ -119,8 +134,8 @@ const DropzoneUploader = ({
   ] = useState<boolean>(false)
 
   useEffect(() => {
-    onUploaded && onUploaded(uploadedFiles)
-  }, [uploadedFiles, onUploaded])
+    onUploadedChange && onUploadedChange(uploadedFiles)
+  }, [uploadedFiles, onUploadedChange])
 
   const uploadFileHandler = useCallback(
     async (file) => {
@@ -229,6 +244,15 @@ const DropzoneUploader = ({
     setDroppedFiles([])
   }, [])
 
+  // clearUploads method is used by <AttachmentField/> for form resets.
+  useImperativeHandle(
+    ref,
+    () => ({
+      clearUploads: () => clearUploadsHandler()
+    }),
+    [clearUploadsHandler]
+  )
+
   const tryRemoveUploadHandler = useCallback((file: DroppedFile) => {
     setConfirmRemoveUpload(file)
   }, [])
@@ -277,7 +301,7 @@ const DropzoneUploader = ({
   })
   // <PageLayout title="Irrigation Canal Information">
   return (
-    <React.Fragment>
+    <div>
       <div className={classes.root} style={{width: width}}>
         <div
           {...getRootProps()}
@@ -364,20 +388,12 @@ const DropzoneUploader = ({
         onClose={uploadRejectCloseHandler}
         // maxSize={maxSize}
       />
-    </React.Fragment>
+    </div>
   )
 }
 /* </PageLayout> */
 
-export default withStyles(styles)(DropzoneUploader)
-
-DropzoneUploader.defaultProps = {
-  height: 'unset',
-  width: 'unset',
-  allowClearUploads: false,
-  uploadFolder: '',
-  subtitle: 'your file(s) here or click to browse'
-}
+export default withStyles(styles)(forwardRef(DropzoneUploader))
 
 function extension(filename: string, lowercase = true) {
   if (!filename || typeof filename !== 'string') {
@@ -393,28 +409,6 @@ function extension(filename: string, lowercase = true) {
     return ext
   }
 }
-
-export type UploadedFile = {
-  name: string,
-  type: string,
-  lastModified: number,
-  size: number,
-  serverResponse: UploadResponse,
-  originalName?: string,
-  ext?: string
-}
-
-// Marking ext and previewUrl as maybe null helps with prop type checking in <UploadRejectedDialog/>.
-export type DroppedFile = {
-  name: string,
-  type: string,
-  lastModified: number,
-  size: number,
-  originalName?: string,
-  ext: ?string,
-  previewUrl: ?string
-}
-
 const supportedJimpTypes = [
   Jimp.MIME_BMP,
   Jimp.MIME_GIF,

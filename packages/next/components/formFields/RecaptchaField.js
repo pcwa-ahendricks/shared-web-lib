@@ -39,9 +39,9 @@ const RecaptchaField = ({
     const recaptchaInstance = recaptchaRef.current
     recaptchaInstance && recaptchaInstance.reset()
     setFieldValue(name, '') // Need to reset form value too to disable submit button.
-  }, [name, recaptchaRef, setFieldValue])
+  }, [name, setFieldValue])
 
-  // Seems like there would be a way to accomplish this with Formik (w/out useEffect) but nothing I tried worked.
+  // Seems like there would be a way to accomplish this with Formik (w/out useEffect) but nothing I've tried has worked.
   useEffect(() => {
     // Don't need to reset the captcha on initial render or redundantly, hence use of useRef hook.
     if (!value && prevCaptchaRef.current !== value) {

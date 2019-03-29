@@ -14,7 +14,7 @@ import {
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
-import {type DroppedFile} from './DropzoneUploader'
+import {type DroppedFile} from './types'
 
 const styles = (theme) => ({
   dialogContent: {

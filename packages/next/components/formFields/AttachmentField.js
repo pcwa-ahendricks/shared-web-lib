@@ -1,14 +1,13 @@
 // @flow
-import React, {useCallback} from 'react'
+import React, {useCallback, useRef, useEffect} from 'react'
 import {
   FormControl,
   FormHelperText,
   Typography as Type
 } from '@material-ui/core'
-import DropzoneUploader, {
-  type UploadedFile
-} from '@components/DropzoneUploader/DropzoneUploader'
+import DropzoneUploader from '@components/DropzoneUploader/DropzoneUploader'
 import {type Form, type Field} from 'formik'
+import {type UploadedFile} from '@components/DropzoneUploader/types'
 
 type Props = {
   field: Field,
@@ -29,6 +28,8 @@ const AttachmentField = ({
   attachmentTitle,
   ...other
 }: Props) => {
+  const dropzoneUploaderRef = useRef()
+  const prevUploads = useRef()
   const {name, value} = field
   const {
     errors,
@@ -53,11 +54,39 @@ const AttachmentField = ({
       ? currentError.map((err) => err.url)[0]
       : null
 
+  const resetDropzoneUploader = useCallback(() => {
+    const dzUploaderInstance = dropzoneUploaderRef.current
+    dzUploaderInstance &&
+      dzUploaderInstance.clearUploads &&
+      dzUploaderInstance.clearUploads()
+    // Resetting of form value is unnecessary since change will get triggered via handler.
+  }, [])
+
+  // Seems like there would be a way to accomplish this with Formik (w/out useEffect) and forwardRef in <DropzoneUploader/> but nothing I've tried has worked.
+  useEffect(() => {
+    // Don't need to reset uploads on initial render or redundantly, hence use of useRef hook.
+    /** Only run reset if:
+     *    we have a new value
+     *    and the new value is an array with no items
+     *    and there is a previous value
+     *    and that previous value is different than the new value (ie changed)
+     */
+    if (
+      Array.isArray(value) &&
+      value.length === 0 &&
+      prevUploads.current &&
+      prevUploads.current.length !== value.length
+    ) {
+      resetDropzoneUploader()
+    }
+    prevUploads.current = value
+  }, [value, resetDropzoneUploader])
+
   // const fieldTouched = touched[name]
 
   const uploadedAttachmentsHandler = useCallback(
     (files: Array<UploadedFile>) => {
-      // onUploaded files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads.
+      // onUploadedChange files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads. Uploads removed via thumbnails will also be handled by this handler.
       const attachments = files
         .map((file) => ({
           url: file.serverResponse.media
@@ -67,7 +96,6 @@ const AttachmentField = ({
         }))
         .filter(Boolean)
 
-      console.log(attachments)
       setFieldValue(name, [...attachments])
     },
     [setFieldValue, name]
@@ -75,6 +103,7 @@ const AttachmentField = ({
 
   const disabled = Boolean(isSubmitting)
   const isError = Boolean(currentError)
+  console.log('attachments: ', value)
   return (
     <FormControl
       required={required}
@@ -86,10 +115,12 @@ const AttachmentField = ({
       <Type variant="caption" color="textSecondary" gutterBottom>
         Attach {`${attachmentTitle}(s)`}
       </Type>
+      {/* withStyles (used in <DropzoneUploader/>) produces a higher order component. To access clearUploads() method use innerRef over ref prop. See https://github.com/mui-org/material-ui/issues/10106 and https://material-ui.com/customization/css-in-js/ for more info. */}
       <DropzoneUploader
+        innerRef={dropzoneUploaderRef}
         subtitle={`your ${attachmentTitle.toLowerCase()}(s) here or click to browse`}
         uploadFolder="irrigation-controller"
-        onUploaded={uploadedAttachmentsHandler}
+        onUploadedChange={uploadedAttachmentsHandler}
         height={200}
         width="100%"
         accept="image/*, application/pdf"
