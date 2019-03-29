@@ -103,7 +103,6 @@ const AttachmentField = ({
 
   const disabled = Boolean(isSubmitting)
   const isError = Boolean(currentError)
-  console.log('attachments: ', value)
   return (
     <FormControl
       required={required}

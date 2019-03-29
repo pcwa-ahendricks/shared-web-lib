@@ -248,6 +248,10 @@ const IrrigationController = ({classes}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
+  const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
+  const [cntrlPhotosIsUploading, setCntrlPhotosIsUploading] = useState<boolean>(
+    false
+  )
   const [showOtherCityTextField, setShowOtherCityTextField] = useState<boolean>(
     false
   )
@@ -258,6 +262,14 @@ const IrrigationController = ({classes}: Props) => {
 
   const exitedOtherCityTransHandler = useCallback(() => {
     setShowOtherCityTextField(false)
+  }, [])
+
+  const receiptIsUploadingHandler = useCallback((isUploading) => {
+    setReceiptIsUploading(isUploading)
+  }, [])
+
+  const cntrlPhotosIsUploadingHandler = useCallback((isUploading) => {
+    setCntrlPhotosIsUploading(isUploading)
   }, [])
 
   const mainEl = (
@@ -501,6 +513,9 @@ const IrrigationController = ({classes}: Props) => {
                                   field={field}
                                   attachmentTitle="Receipt"
                                   uploadFolder="irrigation-controller"
+                                  onIsUploadingChange={
+                                    receiptIsUploadingHandler
+                                  }
                                 />
                               )}
                             />
@@ -517,6 +532,9 @@ const IrrigationController = ({classes}: Props) => {
                                   field={field}
                                   attachmentTitle="Installed Irrigation Controller Photo"
                                   uploadFolder="irrigation-controller"
+                                  onIsUploadingChange={
+                                    cntrlPhotosIsUploadingHandler
+                                  }
                                 />
                               )}
                             />
@@ -552,7 +570,9 @@ const IrrigationController = ({classes}: Props) => {
                             disabled={
                               isSubmitting ||
                               !isValid ||
-                              (!formTouched && !dirty)
+                              (!formTouched && !dirty) ||
+                              receiptIsUploading ||
+                              cntrlPhotosIsUploading
                             }
                           >
                             Submit Form

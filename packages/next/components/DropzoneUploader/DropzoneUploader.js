@@ -27,6 +27,7 @@ import {type DroppedFile, type UploadedFile} from './types'
 type Props = {
   classes: any,
   onUploadedChange?: (files: any) => void,
+  onIsUploadingChange?: (isUploading: boolean) => void,
   height: number | string,
   width: number | string,
   allowClearUploads: boolean,
@@ -107,6 +108,7 @@ const DropzoneUploader = (
   {
     classes,
     onUploadedChange,
+    onIsUploadingChange,
     // $FlowFixMe
     height = 'unset',
     // $FlowFixMe
@@ -132,10 +134,15 @@ const DropzoneUploader = (
     showConfirmClearUploads,
     setShowConfirmClearUploads
   ] = useState<boolean>(false)
+  const [isUploading, setIsUploading] = useState<boolean>(false)
 
   useEffect(() => {
     onUploadedChange && onUploadedChange(uploadedFiles)
   }, [uploadedFiles, onUploadedChange])
+
+  useEffect(() => {
+    onIsUploadingChange && onIsUploadingChange(isUploading)
+  }, [isUploading, onIsUploadingChange])
 
   const uploadFileHandler = useCallback(
     async (file) => {
@@ -152,6 +159,7 @@ const DropzoneUploader = (
             serverResponse: {...response},
             ext: extension(file.name)
           }
+
           setUploadedFiles((prevUploadedFiles) => [
             ...prevUploadedFiles,
             uploadedFile
@@ -202,22 +210,22 @@ const DropzoneUploader = (
   }, [])
 
   const dropHandler = useCallback(
-    (
+    async (
       files: Array<any>
       // rejectedFiles: Array<any>
     ) => {
-      const fileNamePrefix = nanoid(10)
-      // console.log('accepted files: ', acceptedFiles)
-      // console.log('rejected files: ', rejectedFiles)
-      const sd = [...files]
-      sd.forEach((file) => {
-        const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
-          type: file.type
-        })
-        // Add image preview urls.
-        setDroppedFiles((prevDroppedFiles) => [
-          ...prevDroppedFiles,
-          {
+      setIsUploading(true)
+      try {
+        const fileNamePrefix = nanoid(10)
+        // console.log('accepted files: ', acceptedFiles)
+        // console.log('rejected files: ', rejectedFiles)
+        const sd = [...files]
+        const newDroppedFiles = sd.map((file) => {
+          const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
+            type: file.type
+          })
+          // Add image preview urls.
+          return {
             name: newFile.name,
             type: newFile.type,
             size: newFile.size,
@@ -226,13 +234,29 @@ const DropzoneUploader = (
             previewUrl: URL.createObjectURL(newFile),
             ext: extension(newFile.name)
           }
+        })
+
+        setDroppedFiles((prevDroppedFiles) => [
+          ...prevDroppedFiles,
+          ...newDroppedFiles
         ])
-      })
-      const uf = [...files]
-      uf.forEach(async (file) => {
-        const resizedFile = await resizeHandler(file, fileNamePrefix)
-        uploadFileHandler(resizedFile)
-      })
+
+        const uf = [...files]
+        const uploadedFilePromises = uf.map(async (file) => {
+          try {
+            const resizedFile = await resizeHandler(file, fileNamePrefix)
+            const uploadedFile = await uploadFileHandler(resizedFile)
+            return uploadedFile
+          } catch (error) {
+            // Since we are using Promise.all to resolve all promises we don't want to quit prematurely due to an error since it's an all or nothing affair.
+            return
+          }
+        })
+        await Promise.all(uploadedFilePromises)
+        setIsUploading(false)
+      } catch (error) {
+        setIsUploading(false)
+      }
     },
     [uploadFileHandler, resizeHandler]
   )
