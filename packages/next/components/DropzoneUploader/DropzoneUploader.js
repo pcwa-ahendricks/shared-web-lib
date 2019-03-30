@@ -23,6 +23,7 @@ import ThumbPreviews from './ThumbPreviews'
 import {useDropzone} from 'react-dropzone'
 import Jimp from 'jimp'
 import {type DroppedFile, type UploadedFile} from './types'
+import extension from '@lib/fileExtension'
 
 type Props = {
   classes: any,
@@ -419,20 +420,6 @@ const DropzoneUploader = (
 
 export default withStyles(styles)(forwardRef(DropzoneUploader))
 
-function extension(filename: string, lowercase = true) {
-  if (!filename || typeof filename !== 'string') {
-    return ''
-  }
-  const ext = filename
-    .split('.')
-    .pop()
-    .trim()
-  if (lowercase) {
-    return ext.toLowerCase()
-  } else {
-    return ext
-  }
-}
 const supportedJimpTypes = [
   Jimp.MIME_BMP,
   Jimp.MIME_GIF,

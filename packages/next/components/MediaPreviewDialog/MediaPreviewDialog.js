@@ -14,13 +14,13 @@ import {
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
-import {type DroppedFile} from './types'
+import extension from '@lib/fileExtension'
 
 const styles = (theme) => ({
   dialogContent: {
     padding: 0,
     // Not sure where the extra white-space is coming from but make it go away.
-    marginBottom: '-4px',
+    marginBottom: '-6px',
     overflow: 'hidden',
     minHeight: 100 // Useful when PDF is loading.
   },
@@ -47,14 +47,24 @@ const styles = (theme) => ({
 })
 
 type Props = {
+  name: string,
+  url: string,
+  ext?: string,
   open: boolean,
   onClose: () => void,
-  file: ?DroppedFile,
   classes: any,
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
+const MediaPreviewDialog = ({
+  open,
+  onClose,
+  width,
+  classes,
+  name,
+  ext = extension(name),
+  url
+}: Props) => {
   const renderLoadingHandler = () => (
     <div className={classes.loadingPDF}>
       <Type variant="h4" paragraph>
@@ -64,7 +74,7 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
     </div>
   )
 
-  return !file ? null : (
+  return (
     <Dialog
       open={open}
       onClose={onClose}
@@ -86,9 +96,9 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
           <DeleteIcon />
         </Fab>
         <DialogContent classes={{root: classes.dialogContent}}>
-          {file.ext === 'pdf' ? (
+          {ext === 'pdf' ? (
             // <img src="/static/images/pdf.svg" />
-            <Document file={file.previewUrl} loading={renderLoadingHandler()}>
+            <Document file={url} loading={renderLoadingHandler()}>
               {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
               <Page
                 pageNumber={1}
@@ -99,11 +109,11 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
             </Document>
           ) : (
             <img
-              className={classNames('lazyload', classes.img)}
+              className={classNames({['lazyload']: true}, classes.img)}
               data-sizes="auto"
               // src="/static/images/placeholder-camera.png"
-              data-srcset={file.previewUrl}
-              alt={`Image ${file.name} for upload`}
+              data-srcset={url}
+              alt={`Image ${name} for upload`}
             />
           )}
         </DialogContent>
@@ -112,11 +122,11 @@ const ThumbPreviewDialog = ({open, onClose, file, width, classes}: Props) => {
   )
 }
 
-ThumbPreviewDialog.defaultProps = {
+MediaPreviewDialog.defaultProps = {
   open: false
 }
 
-export default withWidth()(withStyles(styles)(ThumbPreviewDialog))
+export default withWidth()(withStyles(styles)(MediaPreviewDialog))
 
 function Transition(props) {
   return <Zoom {...props} />

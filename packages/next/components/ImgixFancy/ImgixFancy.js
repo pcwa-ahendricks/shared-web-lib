@@ -71,7 +71,7 @@ const ImgixFancy = ({
   return (
     <div className={classes.mediabox} style={{paddingBottom: paddingPercent}}>
       <Imgix
-        className={classNames('lazyload', 'mediabox-img')}
+        className={classNames({['lazyload']: true, ['mediabox-img']: true})}
         src={src}
         sizes={sizes}
         width={width}

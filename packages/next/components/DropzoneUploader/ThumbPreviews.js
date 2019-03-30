@@ -1,5 +1,5 @@
 // @flow
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import {withWidth, Tooltip} from '@material-ui/core'
 import {type DroppedFile, type UploadedFile} from './types'
@@ -7,7 +7,7 @@ import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
 import classNames from 'classnames'
-import ThumbPreviewDialog from './ThumbPreviewDialog'
+import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 
 type Props = {
   classes: any,
@@ -79,6 +79,18 @@ const ThumbPreviews = ({
     setShowThumbDialogFile
   ] = useState<DroppedFile | null>(null)
 
+  const thumbDialogMemo = useMemo(() => {
+    return showThumbDialogFile ? (
+      <MediaPreviewDialog
+        url={showThumbDialogFile.previewUrl}
+        name={showThumbDialogFile.name}
+        ext={showThumbDialogFile.ext}
+        open={showThumbDialog}
+        onClose={() => setShowThumbDialog(false)}
+      />
+    ) : null
+  }, [showThumbDialogFile, showThumbDialog])
+
   const clickHandler = (file: DroppedFile) => () => {
     setShowThumbDialog(true)
     setShowThumbDialogFile(file)
@@ -137,11 +149,8 @@ const ThumbPreviews = ({
           </div>
         </div>
       ))}
-      <ThumbPreviewDialog
-        file={showThumbDialogFile}
-        open={showThumbDialog}
-        onClose={() => setShowThumbDialog(false)}
-      />
+
+      {thumbDialogMemo}
     </React.Fragment>
   )
 }

@@ -36,6 +36,7 @@ import IrrigCntrlMnfgField from '@components/formFields/IrrigCntrlMnfgField'
 import SignatureCheckbox from '@components/formFields/SignatureCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
+import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -547,6 +548,12 @@ const IrrigationController = ({classes}: Props) => {
                               name="signature"
                               component={SignatureCheckbox}
                             />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={40}>
+                          <Grid item xs={12}>
+                            <IrrigEffTermsConditions />
                           </Grid>
                         </Grid>
 
