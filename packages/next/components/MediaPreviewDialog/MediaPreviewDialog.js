@@ -1,10 +1,12 @@
 // @flow
-import React from 'react'
+import React, {useMemo, useCallback} from 'react'
 import {Document, Page} from 'react-pdf'
 // import 'react-pdf/dist/Page/AnnotationLayer.css'
 import {
+  Button,
   Dialog,
-  DialogContent,
+  DialogContent as MuiDialogContent,
+  DialogActions,
   Fab,
   Zoom,
   withWidth,
@@ -17,13 +19,6 @@ import DeleteIcon from '@material-ui/icons/CloseRounded'
 import extension from '@lib/fileExtension'
 
 const styles = (theme) => ({
-  dialogContent: {
-    padding: 0,
-    // Not sure where the extra white-space is coming from but make it go away.
-    marginBottom: '-6px',
-    overflow: 'hidden',
-    minHeight: 100 // Useful when PDF is loading.
-  },
   img: {
     width: '100%'
   },
@@ -48,13 +43,27 @@ const styles = (theme) => ({
 
 type Props = {
   name: string,
-  url: string,
+  url: string | Array<string>,
   ext?: string,
   open: boolean,
   onClose: () => void,
   classes: any,
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
+  showActions: boolean,
+  dlUrl?: string
+  // imgPlaceholder: string
 }
+
+const DialogContent = withStyles(() => ({
+  root: {
+    margin: 0,
+    padding: 0,
+    marginBottom: -6, // HACK - Not sure why there is a blank space at bottom of DialogContent.
+    // padding: theme.spacing.unit * 2,
+    overflowX: 'hidden',
+    minHeight: 100 // Useful when PDF is loading.
+  }
+}))(MuiDialogContent)
 
 const MediaPreviewDialog = ({
   open,
@@ -63,15 +72,59 @@ const MediaPreviewDialog = ({
   classes,
   name,
   ext = extension(name),
-  url
+  // imgPlaceholder,
+  url,
+  showActions,
+  dlUrl,
+  ...rest
 }: Props) => {
-  const renderLoadingHandler = () => (
-    <div className={classes.loadingPDF}>
-      <Type variant="h4" paragraph>
-        Loading PDF...
-      </Type>
-      <CircularProgress variant="indeterminate" disableShrink={true} />
-    </div>
+  const renderLoadingHandler = useMemo(
+    () => (
+      <div className={classes.loadingPDF}>
+        <Type variant="h4" paragraph>
+          Loading PDF...
+        </Type>
+        <CircularProgress variant="indeterminate" disableShrink={true} />
+      </div>
+    ),
+    [classes]
+  )
+
+  const getImgEl = useCallback(
+    (url: string, key?: string | number) => (
+      <img
+        key={key ? key : null}
+        className={classNames({['lazyload']: true}, classes.img)}
+        data-sizes="auto"
+        // src={imgPlaceholder}
+        data-srcset={url}
+        alt={`Image ${name} for upload`}
+      />
+    ),
+    [name, classes]
+  )
+
+  const imgEl = useMemo(
+    () =>
+      Array.isArray(url)
+        ? url.map((urlItem, idx) => getImgEl(urlItem, idx))
+        : getImgEl(url),
+    [url, getImgEl]
+  )
+
+  const dialogActions = useMemo(
+    () =>
+      showActions ? (
+        <DialogActions>
+          <Button color="default" href={dlUrl}>
+            Download Copy
+          </Button>
+          <Button color="primary" onClick={onClose}>
+            Done
+          </Button>
+        </DialogActions>
+      ) : null,
+    [showActions, dlUrl, onClose]
   )
 
   return (
@@ -85,6 +138,7 @@ const MediaPreviewDialog = ({
       classes={{
         paper: classes.paper
       }}
+      {...rest}
     >
       <React.Fragment>
         <Fab
@@ -95,10 +149,10 @@ const MediaPreviewDialog = ({
         >
           <DeleteIcon />
         </Fab>
-        <DialogContent classes={{root: classes.dialogContent}}>
+        <DialogContent>
           {ext === 'pdf' ? (
             // <img src="/static/images/pdf.svg" />
-            <Document file={url} loading={renderLoadingHandler()}>
+            <Document file={url} loading={renderLoadingHandler}>
               {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
               <Page
                 pageNumber={1}
@@ -108,22 +162,19 @@ const MediaPreviewDialog = ({
               />
             </Document>
           ) : (
-            <img
-              className={classNames({['lazyload']: true}, classes.img)}
-              data-sizes="auto"
-              // src="/static/images/placeholder-camera.png"
-              data-srcset={url}
-              alt={`Image ${name} for upload`}
-            />
+            <div>{imgEl}</div>
           )}
         </DialogContent>
+        {dialogActions}
       </React.Fragment>
     </Dialog>
   )
 }
 
 MediaPreviewDialog.defaultProps = {
-  open: false
+  open: false,
+  showActions: false
+  // imgPlaceholder: '/static/images/placeholder-camera.png'
 }
 
 export default withWidth()(withStyles(styles)(MediaPreviewDialog))

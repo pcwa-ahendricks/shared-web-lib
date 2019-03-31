@@ -164,13 +164,18 @@ const styles = (theme) => ({
       bottom: theme.spacing.unit * 5
     }
   },
-  formikContainer: {
-    height: '100%',
+  // formikContainer: {
+  //   height: '100%',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   width: '100%'
+  // },
+  form: {
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    width: '100%'
+    margin: 'auto',
+    width: 'fit-content' // IE doesn't support
+    // width: '100%'
   },
   // textField: {
   //   marginTop: theme.spacing.unit * 1,
@@ -285,202 +290,188 @@ const IrrigationController = ({classes}: Props) => {
             Weather Based Irrigation Controller Rebate Form
           </Type>
 
-          <div className={classes.formikContainer}>
-            <Formik
-              initialValues={initialFormValues}
-              validationSchema={formSchema}
-              onSubmit={async (values: RebateFormData, actions) => {
-                try {
-                  // Dispatch submit
-                  console.log(values, actions)
-                  const body: RequestBody = {
-                    formData: {...values}
-                  }
-                  const data = await postIrrigCntrlRebateForm(body)
-                  actions.setSubmitting(false)
-                  // resetForm()
-                  actions.resetForm() // Strictly Formik
-                  alert(JSON.stringify(data, null, 2))
-                } catch (error) {
-                  console.log('An error occurred submitting form.', error)
-                  actions.setSubmitting(false)
+          <Formik
+            initialValues={initialFormValues}
+            validationSchema={formSchema}
+            onSubmit={async (values: RebateFormData, actions) => {
+              try {
+                // Dispatch submit
+                console.log(values, actions)
+                const body: RequestBody = {
+                  formData: {...values}
                 }
-              }}
-            >
-              {({
-                values,
-                touched = {},
-                dirty,
-                isSubmitting,
-                isValid,
-                setFieldValue,
-                handleReset
-              }) => {
-                if (dirty !== formIsDirty) {
-                  setFormIsDirty(dirty)
-                }
-                if (values !== formValues) {
-                  setFormValues(values)
-                }
-                // Use state to save a boolean version of 'touched'.
-                const formTouched = Object.keys(touched).length > 0
-                if (formTouched !== formIsTouched) {
-                  setFormIsTouched(formTouched)
-                }
-                const otherCitySelected =
-                  values.city && values.city.toLowerCase() === 'other'
+                const data = await postIrrigCntrlRebateForm(body)
+                actions.setSubmitting(false)
+                // resetForm()
+                actions.resetForm() // Strictly Formik
+                alert(JSON.stringify(data, null, 2))
+              } catch (error) {
+                console.log('An error occurred submitting form.', error)
+                actions.setSubmitting(false)
+              }
+            }}
+          >
+            {({
+              values,
+              touched = {},
+              dirty,
+              isSubmitting,
+              isValid,
+              setFieldValue,
+              handleReset
+            }) => {
+              if (dirty !== formIsDirty) {
+                setFormIsDirty(dirty)
+              }
+              if (values !== formValues) {
+                setFormValues(values)
+              }
+              // Use state to save a boolean version of 'touched'.
+              const formTouched = Object.keys(touched).length > 0
+              if (formTouched !== formIsTouched) {
+                setFormIsTouched(formTouched)
+              }
+              const otherCitySelected =
+                values.city && values.city.toLowerCase() === 'other'
 
-                // If city field is updated clear out otherCity field.
-                const cityChangeHandler = () => {
-                  setFieldValue('otherCity', '')
-                }
+              // If city field is updated clear out otherCity field.
+              const cityChangeHandler = () => {
+                setFieldValue('otherCity', '')
+              }
 
-                return (
+              return (
+                <Form className={classes.form}>
                   <div>
-                    <Form>
-                      <div>
-                        {/* <Type variant="h3" color="primary" gutterBottom>
+                    {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
 
-                        <div className={classes.formGroup}>
-                          <Type color="textSecondary" variant="h4" gutterBottom>
-                            Contact Information
-                          </Type>
-                          <Grid container spacing={40}>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="firstName"
-                                component={FirstNameField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="lastName"
-                                component={LastNameField}
-                              />
-                            </Grid>
-                          </Grid>
+                    <div className={classes.formGroup}>
+                      <Type color="textSecondary" variant="h4" gutterBottom>
+                        Contact Information
+                      </Type>
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="firstName" component={FirstNameField} />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="lastName" component={LastNameField} />
+                        </Grid>
+                      </Grid>
 
-                          <Grid container spacing={40}>
-                            <Grid item xs={12} sm={7}>
-                              <Field
-                                name="accountNo"
-                                component={AccountNoField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                              <Field
-                                name="propertyType"
-                                component={PropertyTypeSelectField}
-                              />
-                            </Grid>
-                          </Grid>
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={7}>
+                          <Field name="accountNo" component={AccountNoField} />
+                        </Grid>
+                        <Grid item xs={12} sm={5}>
+                          <Field
+                            name="propertyType"
+                            component={PropertyTypeSelectField}
+                          />
+                        </Grid>
+                      </Grid>
 
-                          <Grid container spacing={40} justify="space-between">
-                            <Grid item xs={12} sm={8}>
+                      <Grid container spacing={40} justify="space-between">
+                        <Grid item xs={12} sm={8}>
+                          <Field
+                            name="address"
+                            render={({field, form}) => (
+                              <StreetAddressField form={form} field={field} />
+                            )}
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                          <Field
+                            name="city"
+                            render={({field, form}) => (
+                              <CitySelectField
+                                form={form}
+                                field={field}
+                                onChange={cityChangeHandler}
+                              />
+                            )}
+                          />
+                        </Grid>
+                      </Grid>
+
+                      {showOtherCityTextField || otherCitySelected ? (
+                        <Grow
+                          in={otherCitySelected}
+                          onEntering={enteringOtherCityTransHandler}
+                          onExited={exitedOtherCityTransHandler}
+                        >
+                          <Grid container spacing={40}>
+                            <Grid item xs={12}>
                               <Field
-                                name="address"
+                                name="otherCity"
                                 render={({field, form}) => (
-                                  <StreetAddressField
+                                  <OtherCityField
                                     form={form}
                                     field={field}
+                                    disabled={!otherCitySelected}
                                   />
                                 )}
                               />
                             </Grid>
-
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                name="city"
-                                render={({field, form}) => (
-                                  <CitySelectField
-                                    form={form}
-                                    field={field}
-                                    onChange={cityChangeHandler}
-                                  />
-                                )}
-                              />
-                            </Grid>
                           </Grid>
+                        </Grow>
+                      ) : null}
 
-                          {showOtherCityTextField || otherCitySelected ? (
-                            <Grow
-                              in={otherCitySelected}
-                              onEntering={enteringOtherCityTransHandler}
-                              onExited={exitedOtherCityTransHandler}
-                            >
-                              <Grid container spacing={40}>
-                                <Grid item xs={12}>
-                                  <Field
-                                    name="otherCity"
-                                    render={({field, form}) => (
-                                      <OtherCityField
-                                        form={form}
-                                        field={field}
-                                        disabled={!otherCitySelected}
-                                      />
-                                    )}
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grow>
-                          ) : null}
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="phone" component={PhoneNoField} />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field name="email" component={EmailField} />
+                        </Grid>
+                      </Grid>
+                    </div>
 
-                          <Grid container spacing={40}>
-                            <Grid item xs={12} sm={6}>
-                              <Field name="phone" component={PhoneNoField} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field name="email" component={EmailField} />
-                            </Grid>
-                          </Grid>
-                        </div>
+                    <Divider variant="middle" />
 
-                        <Divider variant="middle" />
+                    <div className={classes.formGroup}>
+                      <Type variant="h4" color="textSecondary" gutterBottom>
+                        Rebate Information
+                      </Type>
 
-                        <div className={classes.formGroup}>
-                          <Type variant="h4" color="textSecondary" gutterBottom>
-                            Rebate Information
-                          </Type>
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                          <Field
+                            name="manufacturer"
+                            component={IrrigCntrlMnfgField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field
+                            name="model"
+                            component={IrrigCntrlModelField}
+                          />
+                        </Grid>
+                      </Grid>
 
-                          <Grid container spacing={40}>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="manufacturer"
-                                component={IrrigCntrlMnfgField}
+                      <Grid container spacing={40}>
+                        <Grid item xs={12} sm={7}>
+                          <Field
+                            name="additional"
+                            component={IrrigCntrlAddtlField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={5}>
+                          {/* <Hidden only="xs" implementation="css"> */}
+                          <Field
+                            name="purchaseDate"
+                            render={({field, form}) => (
+                              <PurchaseDateField
+                                form={form}
+                                field={field}
+                                // required={width !== 'xs'}
+                                required={true}
                               />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="model"
-                                component={IrrigCntrlModelField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={40}>
-                            <Grid item xs={12} sm={7}>
-                              <Field
-                                name="additional"
-                                component={IrrigCntrlAddtlField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                              {/* <Hidden only="xs" implementation="css"> */}
-                              <Field
-                                name="purchaseDate"
-                                render={({field, form}) => (
-                                  <PurchaseDateField
-                                    form={form}
-                                    field={field}
-                                    // required={width !== 'xs'}
-                                    required={true}
-                                  />
-                                )}
-                              />
-                              {/* </Hidden> */}
-                              {/* <Hidden smUp implementation="css">
+                            )}
+                          />
+                          {/* </Hidden> */}
+                          {/* <Hidden smUp implementation="css">
                                 <Field
                                   name="purchaseDate"
                                   render={({field, form}) => (
@@ -492,112 +483,101 @@ const IrrigationController = ({classes}: Props) => {
                                   )}
                                 />
                               </Hidden> */}
-                            </Grid>
-                          </Grid>
-                        </div>
-
-                        <Divider variant="middle" />
-
-                        <div className={classes.formGroup}>
-                          <Type variant="h4" color="textSecondary" gutterBottom>
-                            Provide Attachments
-                          </Type>
-
-                          <div
-                            className={classNames(classes.dropzoneContainer)}
-                          >
-                            <Field
-                              name="receipts"
-                              render={({field, form}) => (
-                                <AttachmentField
-                                  form={form}
-                                  field={field}
-                                  attachmentTitle="Receipt"
-                                  uploadFolder="irrigation-controller"
-                                  onIsUploadingChange={
-                                    receiptIsUploadingHandler
-                                  }
-                                />
-                              )}
-                            />
-                          </div>
-
-                          <div
-                            className={classNames(classes.dropzoneContainer)}
-                          >
-                            <Field
-                              name="cntrlPhotos"
-                              render={({field, form}) => (
-                                <AttachmentField
-                                  form={form}
-                                  field={field}
-                                  attachmentTitle="Installed Irrigation Controller Photo"
-                                  uploadFolder="irrigation-controller"
-                                  onIsUploadingChange={
-                                    cntrlPhotosIsUploadingHandler
-                                  }
-                                />
-                              )}
-                            />
-                          </div>
-                        </div>
-
-                        <Grid container spacing={40}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="signature"
-                              component={SignatureCheckbox}
-                            />
-                          </Grid>
                         </Grid>
+                      </Grid>
+                    </div>
 
-                        <Grid container spacing={40}>
-                          <Grid item xs={12}>
-                            <IrrigEffTermsConditions />
-                          </Grid>
-                        </Grid>
+                    <Divider variant="middle" />
 
-                        <Grid container spacing={40}>
-                          <Grid item xs={12}>
-                            <Field name="captcha" component={RecaptchaField} />
-                          </Grid>
-                        </Grid>
+                    <div className={classes.formGroup}>
+                      <Type variant="h4" color="textSecondary" gutterBottom>
+                        Provide Attachments
+                      </Type>
 
-                        <Button
-                          variant="outlined"
-                          type="submit"
-                          onClick={handleReset}
-                        >
-                          Reset Form
-                        </Button>
-                        <div className={classes.buttonWrapper}>
-                          <Button
-                            variant="outlined"
-                            type="submit"
-                            disabled={
-                              isSubmitting ||
-                              !isValid ||
-                              (!formTouched && !dirty) ||
-                              receiptIsUploading ||
-                              cntrlPhotosIsUploading
-                            }
-                          >
-                            Submit Form
-                          </Button>
-                          {isSubmitting && (
-                            <CircularProgress
-                              size={24}
-                              className={classes.buttonProgress}
+                      <div className={classNames(classes.dropzoneContainer)}>
+                        <Field
+                          name="receipts"
+                          render={({field, form}) => (
+                            <AttachmentField
+                              form={form}
+                              field={field}
+                              attachmentTitle="Receipt"
+                              uploadFolder="irrigation-controller"
+                              onIsUploadingChange={receiptIsUploadingHandler}
                             />
                           )}
-                        </div>
+                        />
                       </div>
-                    </Form>
+
+                      <div className={classNames(classes.dropzoneContainer)}>
+                        <Field
+                          name="cntrlPhotos"
+                          render={({field, form}) => (
+                            <AttachmentField
+                              form={form}
+                              field={field}
+                              attachmentTitle="Installed Irrigation Controller Photo"
+                              uploadFolder="irrigation-controller"
+                              onIsUploadingChange={
+                                cntrlPhotosIsUploadingHandler
+                              }
+                            />
+                          )}
+                        />
+                      </div>
+                    </div>
+
+                    <Grid container spacing={40}>
+                      <Grid item xs={12}>
+                        <Field name="signature" component={SignatureCheckbox} />
+                      </Grid>
+                    </Grid>
+
+                    <Grid container spacing={40}>
+                      <Grid item xs={12}>
+                        <IrrigEffTermsConditions />
+                      </Grid>
+                    </Grid>
+
+                    <Grid container spacing={40}>
+                      <Grid item xs={12}>
+                        <Field name="captcha" component={RecaptchaField} />
+                      </Grid>
+                    </Grid>
+
+                    <Button
+                      variant="outlined"
+                      type="submit"
+                      onClick={handleReset}
+                    >
+                      Reset Form
+                    </Button>
+                    <div className={classes.buttonWrapper}>
+                      <Button
+                        variant="outlined"
+                        type="submit"
+                        disabled={
+                          isSubmitting ||
+                          !isValid ||
+                          (!formTouched && !dirty) ||
+                          receiptIsUploading ||
+                          cntrlPhotosIsUploading
+                        }
+                      >
+                        Submit Form
+                      </Button>
+                      {isSubmitting && (
+                        <CircularProgress
+                          size={24}
+                          className={classes.buttonProgress}
+                        />
+                      )}
+                    </div>
                   </div>
-                )
-              }}
-            </Formik>
-          </div>
+                </Form>
+              )
+            }}
+          </Formik>
 
           {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
