@@ -15,7 +15,7 @@ type Props = {
   fullWidth: boolean
 }
 
-const AccountNoField = ({
+const AgreeTermsCheckbox = ({
   field,
   form,
   onChange,
@@ -57,11 +57,11 @@ const AccountNoField = ({
     >
       <FormControlLabel
         required
-        label="Check here to sign"
+        label="Check here to acknowledge terms and conditions"
         control={
           <Checkbox
             checked={value}
-            value="signed signature"
+            value="acknowledgement"
             color="primary"
             inputProps={{
               name
@@ -78,8 +78,8 @@ const AccountNoField = ({
   )
 }
 
-AccountNoField.defaultProps = {
+AgreeTermsCheckbox.defaultProps = {
   fullWidth: true
 }
 
-export default AccountNoField
+export default AgreeTermsCheckbox

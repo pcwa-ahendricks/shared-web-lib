@@ -93,9 +93,10 @@ const bodySchema = object()
         model: string().required(),
         additional: string(),
         purchaseDate: string().required('A valid purchase date is required'),
-        signature: boolean()
+        termsAgree: boolean()
           .required()
           .oneOf([true]),
+        signature: string().required(),
         captcha: string().required(),
         receipts: array()
           .required()
