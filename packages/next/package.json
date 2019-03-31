@@ -48,7 +48,7 @@
     "react": "^16.8.6",
     "react-css-transition-replace": "^3.0.3",
     "react-dom": "^16.8.6",
-    "react-dropzone": "^10.0.6",
+    "react-dropzone": "^10.1.0",
     "react-google-recaptcha": "^1.0.5",
     "react-imgix": "^8.5.1",
     "react-jss": "^8.6.1",

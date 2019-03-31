@@ -24,7 +24,9 @@ export type RebateFormData = {|
   signature: string,
   captcha: string,
   receipts: Array<string>,
-  cntrlPhotos: Array<string>
+  cntrlPhotos: Array<string>,
+  // cspell:disable-next-line
+  addtlSensorPhotos: Array<string>
 |}
 
 export type RequestBody = {|

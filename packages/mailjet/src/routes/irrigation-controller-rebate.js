@@ -50,7 +50,7 @@ type FormDataObj = {|
   accountNo: string,
   address: string,
   city: string,
-  otherCity: string,
+  otherCity?: string,
   phone: string,
   propertyType: string,
   manufacturer: string,
@@ -60,7 +60,8 @@ type FormDataObj = {|
   signature: boolean,
   captcha: string,
   receipts: Array<AttachmentFieldValue>,
-  cntrlPhotos: Array<AttachmentFieldValue>
+  cntrlPhotos: Array<AttachmentFieldValue>,
+  addtlPhotos?: Array<AttachmentFieldValue>
 |}
 
 const bodySchema = object()
@@ -123,6 +124,21 @@ const bodySchema = object()
                 .required()
                 .url()
             })
+          ),
+        addtlSensorPhotos: array()
+          .when('additional', (additional, passSchema) =>
+            additional ? passSchema.required() : passSchema
+          )
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(/success/),
+              url: string()
+                .required()
+                .url()
+            })
           )
       })
   })
@@ -160,12 +176,13 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     firstName,
     lastName,
     address,
-    otherCity,
+    otherCity = '',
     manufacturer,
     model,
     additional,
     receipts,
     cntrlPhotos,
+    addtlPhotos = [],
     captcha
   } = formData
   let {city = '', purchaseDate, accountNo} = formData
@@ -217,7 +234,18 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           attachment.url
         }" rel="noopener noreferrer" target="_blank" ><img src="${
           attachment.url
-        }?fm=auto&w=400" style="width:400px;" alt="Receipt Image Attachment"/></a>`
+        }?fm=auto&w=400" style="width:400px;" alt="Installed Controller Image Attachment"/></a>`
+    )
+    .join('<br />')
+
+  const htmlAddtlPhotos = addtlPhotos
+    .map(
+      (attachment) =>
+        `<a href="${
+          attachment.url
+        }" rel="noopener noreferrer" target="_blank" ><img src="${
+          attachment.url
+        }?fm=auto&w=400" style="width:400px;" alt="Additional Sensor or Outdoor Cover Image Attachment"/></a>`
     )
     .join('<br />')
 
@@ -243,7 +271,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         TextPart: `This is just a test for Account Number ${accountNo}`,
         HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br/>Manufacturer: ${manufacturer}<br/>Model: ${model}<br />Additional Sensor or Outdoor Cover: ${
           additional ? additional : ''
-        }<br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}`,
+        }<br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}<br/>${htmlAddtlPhotos}`,
         TemplateLanguage: false
       }
     ]

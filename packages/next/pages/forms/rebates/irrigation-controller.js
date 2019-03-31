@@ -5,7 +5,6 @@ import {
   CircularProgress,
   Divider,
   Grid,
-  Grow,
   Typography as Type
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
@@ -38,6 +37,7 @@ import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
 import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
+import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -133,6 +133,25 @@ const formSchema = object()
             .required('Attachment URL is not available')
             .url()
         })
+      ),
+    addtlSensorPhotos: array()
+      .when('additional', (additional, passSchema) =>
+        additional
+          ? passSchema.required(
+              'Must provide photo(s) of installed sensor/outdoor cover'
+            )
+          : passSchema
+      )
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/, 'Remove and/or retry un-successful uploads'),
+          url: string()
+            .required('Attachment URL is not available')
+            .url()
+        })
       )
   })
 
@@ -154,7 +173,9 @@ const initialFormValues: RebateFormData = {
   signature: '',
   captcha: '',
   receipts: [],
-  cntrlPhotos: []
+  cntrlPhotos: [],
+  // cspell:disable-next-line
+  addtlSensorPhotos: []
 }
 
 const styles = (theme) => ({
@@ -266,17 +287,10 @@ const IrrigationController = ({classes}: Props) => {
   const [cntrlPhotosIsUploading, setCntrlPhotosIsUploading] = useState<boolean>(
     false
   )
-  const [showOtherCityTextField, setShowOtherCityTextField] = useState<boolean>(
-    false
-  )
-
-  const enteringOtherCityTransHandler = useCallback(() => {
-    setShowOtherCityTextField(true)
-  }, [])
-
-  const exitedOtherCityTransHandler = useCallback(() => {
-    setShowOtherCityTextField(false)
-  }, [])
+  const [
+    addtlSensorPhotosIsUploading,
+    setAddtlSensorPhotosIsUploading
+  ] = useState<boolean>(false)
 
   const receiptIsUploadingHandler = useCallback((isUploading) => {
     setReceiptIsUploading(isUploading)
@@ -284,6 +298,10 @@ const IrrigationController = ({classes}: Props) => {
 
   const cntrlPhotosIsUploadingHandler = useCallback((isUploading) => {
     setCntrlPhotosIsUploading(isUploading)
+  }, [])
+
+  const addtlSensorPhotosIsUploadingHandler = useCallback((isUploading) => {
+    setAddtlSensorPhotosIsUploading(isUploading)
   }, [])
 
   const mainEl = (
@@ -339,14 +357,21 @@ const IrrigationController = ({classes}: Props) => {
               if (formTouched !== formIsTouched) {
                 setFormIsTouched(formTouched)
               }
-              const otherCitySelected =
+              const otherCitySelected = Boolean(
                 values.city && values.city.toLowerCase() === 'other'
+              )
+
+              const hasAddtlSensor = Boolean(values.additional)
 
               // If city field is updated clear out otherCity field.
               const cityChangeHandler = () => {
                 setFieldValue('otherCity', '')
               }
 
+              const attachmentsAreUploading =
+                receiptIsUploading ||
+                cntrlPhotosIsUploading ||
+                addtlSensorPhotosIsUploading
               return (
                 <Form className={classes.form}>
                   {/* <Type variant="h3" color="primary" gutterBottom>
@@ -402,28 +427,22 @@ const IrrigationController = ({classes}: Props) => {
                       </Grid>
                     </Grid>
 
-                    {showOtherCityTextField || otherCitySelected ? (
-                      <Grow
-                        in={otherCitySelected}
-                        onEntering={enteringOtherCityTransHandler}
-                        onExited={exitedOtherCityTransHandler}
-                      >
-                        <Grid container spacing={40}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="otherCity"
-                              render={({field, form}) => (
-                                <OtherCityField
-                                  form={form}
-                                  field={field}
-                                  disabled={!otherCitySelected}
-                                />
-                              )}
-                            />
-                          </Grid>
+                    <WaitToGrow isIn={otherCitySelected}>
+                      <Grid container spacing={40}>
+                        <Grid item xs={12}>
+                          <Field
+                            name="otherCity"
+                            render={({field, form}) => (
+                              <OtherCityField
+                                form={form}
+                                field={field}
+                                disabled={!otherCitySelected}
+                              />
+                            )}
+                          />
                         </Grid>
-                      </Grow>
-                    ) : null}
+                      </Grid>
+                    </WaitToGrow>
 
                     <Grid container spacing={40}>
                       <Grid item xs={12} sm={6}>
@@ -527,6 +546,25 @@ const IrrigationController = ({classes}: Props) => {
                         )}
                       />
                     </div>
+
+                    <WaitToGrow isIn={hasAddtlSensor}>
+                      <div className={classNames(classes.dropzoneContainer)}>
+                        <Field
+                          name="addtlSensorPhotos"
+                          render={({field, form}) => (
+                            <AttachmentField
+                              form={form}
+                              field={field}
+                              attachmentTitle="Additional Sensor/Outdoor Cover Photo"
+                              uploadFolder="irrigation-controller"
+                              onIsUploadingChange={
+                                addtlSensorPhotosIsUploadingHandler
+                              }
+                            />
+                          )}
+                        />
+                      </div>
+                    </WaitToGrow>
                   </div>
 
                   <div className={classes.formGroup}>
@@ -577,8 +615,7 @@ const IrrigationController = ({classes}: Props) => {
                         isSubmitting ||
                         !isValid ||
                         (!formTouched && !dirty) ||
-                        receiptIsUploading ||
-                        cntrlPhotosIsUploading
+                        attachmentsAreUploading
                       }
                     >
                       Submit Application

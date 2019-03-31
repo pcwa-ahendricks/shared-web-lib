@@ -79,17 +79,19 @@ const ThumbPreviews = ({
     setShowThumbDialogFile
   ] = useState<DroppedFile | null>(null)
 
-  const thumbDialogMemo = useMemo(() => {
-    return showThumbDialogFile ? (
-      <MediaPreviewDialog
-        url={showThumbDialogFile.previewUrl}
-        name={showThumbDialogFile.name}
-        ext={showThumbDialogFile.ext}
-        open={showThumbDialog}
-        onClose={() => setShowThumbDialog(false)}
-      />
-    ) : null
-  }, [showThumbDialogFile, showThumbDialog])
+  const thumbDialogMemo = useMemo(
+    () =>
+      showThumbDialogFile ? (
+        <MediaPreviewDialog
+          url={showThumbDialogFile.previewUrl}
+          name={showThumbDialogFile.name}
+          ext={showThumbDialogFile.ext}
+          open={showThumbDialog}
+          onClose={() => setShowThumbDialog(false)}
+        />
+      ) : null,
+    [showThumbDialogFile, showThumbDialog]
+  )
 
   const clickHandler = (file: DroppedFile) => () => {
     setShowThumbDialog(true)
