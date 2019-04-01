@@ -1,5 +1,5 @@
 // @flow
-import React, {useEffect, useState, type Node} from 'react'
+import React, {useEffect, useState, useMemo, type Node} from 'react'
 import {Badge, LinearProgress} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
@@ -53,27 +53,37 @@ const UploadStatusIndicator = ({
     setUploadStatus(matchingFile.serverResponse.status)
   }, [uploadedFiles, file])
 
-  const fileStatusBadgeContent = () => {
-    return uploadStatus === 'success' ? (
-      <CheckIcon fontSize="inherit" />
-    ) : uploadStatus === 'failed' ? (
-      <BlockIcon fontSize="inherit" />
-    ) : (
-      <span />
-    )
-  }
+  const fileStatusBadgeContentEl = useMemo(
+    () =>
+      uploadStatus === 'success' ? (
+        <CheckIcon fontSize="inherit" />
+      ) : uploadStatus === 'failed' ? (
+        <BlockIcon fontSize="inherit" />
+      ) : (
+        <span />
+      ),
+    [uploadStatus]
+  )
+
+  const progressEl = useMemo(
+    () =>
+      uploadStatus === 'unknown' ? (
+        <LinearProgress className={classes.progress} color="secondary" />
+      ) : null,
+    [uploadStatus, classes]
+  )
 
   return (
     <Badge
       className={classes.margin}
-      badgeContent={fileStatusBadgeContent()}
+      badgeContent={fileStatusBadgeContentEl}
       color={uploadStatus === 'success' ? 'secondary' : 'error'}
       invisible={uploadStatus === 'unknown'}
     >
-      {uploadStatus === 'unknown' ? (
-        <LinearProgress className={classes.progress} color="secondary" />
-      ) : null}
-      {children}
+      <React.Fragment>
+        {progressEl}
+        {children}
+      </React.Fragment>
     </Badge>
   )
 }

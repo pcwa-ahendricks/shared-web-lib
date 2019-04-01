@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback, useMemo} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {AppBar, Hidden, IconButton, Toolbar, withWidth} from '@material-ui/core'
@@ -151,33 +151,85 @@ const PrimaryHeader = ({
     }
   }, [popperOpen])
 
-  const handleMenuButtonClick = () => {
+  const handleMenuButtonClick = useCallback(() => {
     dispatch(uiSetDrawerViz(!drawerOpen))
-  }
+  }, [dispatch, drawerOpen])
 
-  const enterMenuHandler = (event, el, key) => {
+  const enterMenuHandler = useCallback((event, el, key) => {
     const {currentTarget} = event
     setAnchorEl(currentTarget)
     setActiveLinkEl(el)
     setActiveKey(key)
     setPopperOpen(true)
-  }
+  }, [])
 
-  const handleClick = (event) => {
-    const {currentTarget} = event
-    setAnchorEl(currentTarget)
-    setPopperOpen(!popperOpen)
-  }
+  const handleClick = useCallback(
+    (event) => {
+      const {currentTarget} = event
+      setAnchorEl(currentTarget)
+      setPopperOpen(!popperOpen)
+    },
+    [popperOpen]
+  )
 
-  const popperCloseHandler = () => {
+  const popperCloseHandler = useCallback(() => {
     setPopperOpen(false)
-  }
+  }, [])
 
-  const popperOpenHandler = () => {
+  const popperOpenHandler = useCallback(() => {
     setPopperOpen(true)
-  }
+  }, [])
 
   const id = popperOpen ? 'mega-menu-popper' : null
+  const megaMenuLinksEl = useMemo(
+    () =>
+      width === 'xs' ? null : (
+        <div className={classes.menuLinks}>
+          <div className={classes.homeLink}>
+            <NextLink
+              href="/"
+              typeProps={{
+                variant: 'button',
+                color: 'primary',
+                classes: {button: classes.megaMenuLink}
+              }}
+            >
+              Home
+            </NextLink>
+          </div>
+          {menuLinkData.map((menuItem) => (
+            <div key={menuItem.key} className={classes.menuLink}>
+              <MegaMenuLink
+                describedbyId={id}
+                tabIdx={menuItem.tabIndex}
+                onLinkClick={handleClick}
+                onLinkEnter={(event, el) =>
+                  enterMenuHandler(event, el, menuItem.key)
+                }
+                onLinkLeave={popperCloseHandler}
+                onBottomBunEnter={popperOpenHandler}
+                parentActiveEl={activeLinkEl}
+                typographyClass={classes.megaMenuLink}
+                linkMargin="1vw"
+              >
+                {menuItem.caption}
+              </MegaMenuLink>
+            </div>
+          ))}
+        </div>
+      ),
+    [
+      activeLinkEl,
+      classes,
+      handleClick,
+      enterMenuHandler,
+      popperOpenHandler,
+      popperCloseHandler,
+      id,
+      width
+    ]
+  )
+
   const toolbarVariant = parentFixed ? 'dense' : 'regular'
   return (
     <React.Fragment>
@@ -209,42 +261,7 @@ const PrimaryHeader = ({
                 missionStatementFill="rgba(0,0,0,0)"
               />
             </div>
-            {/* </Hidden> */}
-            {width === 'xs' ? null : (
-              <div className={classes.menuLinks}>
-                <div className={classes.homeLink}>
-                  <NextLink
-                    href="/"
-                    typeProps={{
-                      variant: 'button',
-                      color: 'primary',
-                      classes: {button: classes.megaMenuLink}
-                    }}
-                  >
-                    Home
-                  </NextLink>
-                </div>
-                {menuLinkData.map((menuItem) => (
-                  <div key={menuItem.key} className={classes.menuLink}>
-                    <MegaMenuLink
-                      describedbyId={id}
-                      tabIdx={menuItem.tabIndex}
-                      onLinkClick={handleClick}
-                      onLinkEnter={(event, el) =>
-                        enterMenuHandler(event, el, menuItem.key)
-                      }
-                      onLinkLeave={popperCloseHandler}
-                      onBottomBunEnter={popperOpenHandler}
-                      parentActiveEl={activeLinkEl}
-                      typographyClass={classes.megaMenuLink}
-                      linkMargin="1vw"
-                    >
-                      {menuItem.caption}
-                    </MegaMenuLink>
-                  </div>
-                ))}
-              </div>
-            )}
+            {megaMenuLinksEl}
           </Toolbar>
         </AppBar>
       </div>

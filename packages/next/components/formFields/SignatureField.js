@@ -30,7 +30,7 @@ const SignatureField = ({field, form, classes, fullWidth, ...other}: Props) => {
       required
       name={name}
       value={value}
-      label="Signature"
+      label="Name"
       // autoComplete="name" // Seems that user should type this explicitly
       // autoFocus
       variant="filled"

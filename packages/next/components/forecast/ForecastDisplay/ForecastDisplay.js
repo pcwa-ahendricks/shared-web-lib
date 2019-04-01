@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import AnimatedWeather, {
   type IconName
 } from '@components/AnimatedWeather/AnimatedWeather'
@@ -72,24 +72,38 @@ const ForecastDisplay = ({forecast, theme, classes}: Props) => {
     forecast && forecast.data && forecast.data.currently
   )
 
-  return isValidForecast ? (
-    <div className={classes.container}>
-      <AnimatedWeather
-        icon={iconName}
-        color={theme.palette.primary.main || defaults.color}
-        size={defaults.size}
-        animate={defaults.animate}
-      />
-      <Type variant="subtitle1" className={classes.forecastType}>
-        <Link
-          target="_blank"
-          rel="noopener noreferrer"
-          href={darkSkyHref}
-          underline="none"
-        >{`${parseInt(temperature, 10)}° ${forecast.title} `}</Link>
-      </Type>
-    </div>
-  ) : null
+  const animatedWeatherEl = useMemo(
+    () =>
+      isValidForecast ? (
+        <div className={classes.container}>
+          <AnimatedWeather
+            icon={iconName}
+            color={theme.palette.primary.main || defaults.color}
+            size={defaults.size}
+            animate={defaults.animate}
+          />
+          <Type variant="subtitle1" className={classes.forecastType}>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={darkSkyHref}
+              underline="none"
+            >{`${parseInt(temperature, 10)}° ${forecast.title} `}</Link>
+          </Type>
+        </div>
+      ) : null,
+    [
+      isValidForecast,
+      classes,
+      iconName,
+      darkSkyHref,
+      temperature,
+      theme,
+      forecast
+    ]
+  )
+
+  return <React.Fragment>{animatedWeatherEl}</React.Fragment>
 }
 
 ForecastDisplay.defaultProps = {

@@ -28,21 +28,24 @@ const OtherCityField = ({
   ...other
 }: Props) => {
   const {name, value} = field
-  const {errors, handleChange, isSubmitting, handleBlur, touched} = form
+  // const {errors, handleChange, isSubmitting, handleBlur, touched} = form
+  const {errors, handleChange, isSubmitting, handleBlur} = form
   const currentError = errors[name]
-  const fieldTouched = touched[name]
+  // const fieldTouched = touched[name]
 
   return (
     <TextField
       type="text"
       name={name}
       value={value}
-      label="City"
+      label="City (other)"
       autoComplete="billing address-level2"
       variant="outlined"
       margin="normal"
-      helperText={currentError && fieldTouched ? currentError : null}
-      error={currentError && fieldTouched}
+      // helperText={currentError && fieldTouched ? currentError : null}
+      helperText={currentError ? currentError : null}
+      // error={currentError && fieldTouched}
+      error={Boolean(currentError)}
       onChange={handleChange}
       onBlur={handleBlur}
       disabled={disabled || isSubmitting}

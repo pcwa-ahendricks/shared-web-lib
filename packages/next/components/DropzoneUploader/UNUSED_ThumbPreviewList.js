@@ -25,13 +25,11 @@ const styles = () => ({})
 
 const ThumbPreviewList = ({
   // classes,
-  droppedFiles,
-  uploadedFiles
+  droppedFiles
 }: //
 // onRemoveUpload,
 // width
 Props) => {
-  console.log(uploadedFiles)
   // const [thumbHover, setThumbHover] = useState<string | null>(null)
   return (
     <Paper>
