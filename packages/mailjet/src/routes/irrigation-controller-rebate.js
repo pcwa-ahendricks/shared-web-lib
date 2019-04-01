@@ -81,10 +81,8 @@ const bodySchema = object()
           .required(),
         address: string().required(),
         city: string().required(),
-        otherCity: string().when('city', (city, passSchema) =>
-          city && city.toLowerCase() === 'other'
-            ? passSchema.required()
-            : passSchema
+        otherCity: string().when('city', (city, schema) =>
+          city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
         phone: string()
           .min(10)
@@ -126,8 +124,8 @@ const bodySchema = object()
             })
           ),
         addtlSensorPhotos: array()
-          .when('additional', (additional, passSchema) =>
-            additional ? passSchema.required() : passSchema
+          .when('additional', (additional, schema) =>
+            additional ? schema.required() : schema
           )
           .of(
             object({

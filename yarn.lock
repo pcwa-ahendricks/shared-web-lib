@@ -1515,11 +1515,6 @@
   resolved "https://registry.yarnpkg.com/@pcwa/micro-unauthorized/-/micro-unauthorized-0.1.9.tgz#27e33010050d3244b4cbe95b8005282edbacc0bc"
   integrity sha512-8Ypce/HLKW5kK18fOWxUsUuN7VM2ORKUEF9Cvmrvr4dExPWnLdOcIWZdOnqJajWCcLjabSWm//y6abr1DsKzVg==
 
-"@types/bytes@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/bytes/-/bytes-3.0.0.tgz#549eeacd0a8fecfaa459334583a4edcee738e6db"
-  integrity sha512-ZF43+CIIlzngQe8/Zo7L1kpY9W8O6rO006VDz3c5iM21ddtXWxCEyOXyft+q4pVF2tGqvrVuVrEDH1+gJEi1fQ==
-
 "@types/jss@^9.5.6":
   version "9.5.7"
   resolved "https://registry.yarnpkg.com/@types/jss/-/jss-9.5.7.tgz#fa57a6d0b38a3abef8a425e3eb6a53495cb9d5a0"
@@ -7104,12 +7099,10 @@ normalize-scroll-left@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.1.2.tgz#6b79691ba79eb5fb107fa5edfbdc06b55caee2aa"
   integrity sha512-F9YMRls0zCF6BFIE2YnXDRpHPpfd91nOIaNdDgrx5YMoPLo8Wqj+6jNXHQsYBavJeXP4ww8HCt0xQAKc5qk2Fg==
 
-now@^14.2.4:
-  version "14.2.4"
-  resolved "https://registry.yarnpkg.com/now/-/now-14.2.4.tgz#f7768954cf242886bb5c618b9b63b9d8f6c7438b"
-  integrity sha512-HfMwF7iwGvv/pBzu9snIwe9r70G7FaA3BBvgChMey5s0HeSfvOJYCP16WC11/ANyV4OOkGHWPSGlMwYCaPRFww==
-  dependencies:
-    "@types/bytes" "3.0.0"
+now@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/now/-/now-15.0.0.tgz#fcf1f66be66ba0ecb6f19185b3d7f8622db56d78"
+  integrity sha512-zGOnprwuGxlPx7Mj5DVZUcfXk//BeTW0H5MMmEjpmzhZ4JC8uG/gwMuR1rQ78azZux4/hX4EHVyHKl1S2B0mQA==
 
 npm-bundled@^1.0.1:
   version "1.0.5"
@@ -8159,10 +8152,10 @@ react-redux@^6.0.1:
     prop-types "^15.7.2"
     react-is "^16.8.2"
 
-react-scroll-parallax@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.0.4.tgz#13285f735b12b3cad5ee65842300e188c386eeed"
-  integrity sha512-BBpHiHLX0OD+5rPep3exRu5ZyZTLj7PFcP1PO2nPwVCOZKY+smhR8nyTsvkBHQEucS3gjRr8iITNWxiB4oTTCw==
+react-scroll-parallax@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.0.5.tgz#db7715b705aea4e5daaa8a09f629ae3185c1857c"
+  integrity sha512-FMz9T1a0wv3klHPFk4XyBlCB5tTJwqL0HW+OFRJrj8IQNGZLPIL7ZhJuZaOMEicedHL6+QR/EVnayaWXTjGsiw==
   dependencies:
     prop-types "^15.5.10"
 

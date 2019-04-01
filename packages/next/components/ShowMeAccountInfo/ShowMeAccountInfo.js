@@ -5,12 +5,14 @@ import {
   Popover,
   IconButton,
   Tooltip,
-  Typography as Type
+  Typography as Type,
+  withWidth
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import Imgix from 'react-imgix'
 import delay from 'then-sleep'
+import classNames from 'classnames'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
 
@@ -18,22 +20,32 @@ const IMAGE_URL =
   '//cosmic-s3.imgix.net/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png'
 
 type Props = {
-  classes: any
+  classes: any,
+  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
 const styles = (theme) => ({
   typography: {
     margin: theme.spacing.unit * 4,
-    color: theme.palette.grey[50]
+    color: theme.palette.grey[50],
+    '&$xsTypography': {
+      fontSize: '0.9em'
+    }
   },
+  xsTypography: {},
   popoverContent: {
     width: 500,
     height: 200,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    '&$xsPopoverContent': {
+      width: 300,
+      height: 125
+    }
   },
+  xsPopoverContent: {},
   textOverlay: {
     position: 'absolute',
     // backgroundColor: '#000',
@@ -49,7 +61,7 @@ const styles = (theme) => ({
   }
 })
 
-const ShowMeAccountInfo = ({classes}: Props) => {
+const ShowMeAccountInfo = ({classes, width}: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [tooltipOpen, setTooltipOpen] = useState(false)
   const [showTextOverlay, setShowTextOverlay] = useState<boolean>(true)
@@ -103,10 +115,19 @@ const ShowMeAccountInfo = ({classes}: Props) => {
           onEntering={popoverEnteringHandler}
           onExited={popoverExitedHandler}
         >
-          <div className={classes.popoverContent}>
+          <div
+            className={classNames(classes.popoverContent, {
+              [classes.xsPopoverContent]: width === 'xs'
+            })}
+          >
             <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
               <div className={classes.textOverlay}>
-                <Type className={classes.typography} variant="h5">
+                <Type
+                  className={classNames(classes.typography, {
+                    [classes.xsTypography]: width === 'xs'
+                  })}
+                  variant="h5"
+                >
                   Find your account number on the upper right of your printed
                   bill statement. Entering leading zeros on this form is
                   optional.
@@ -115,12 +136,21 @@ const ShowMeAccountInfo = ({classes}: Props) => {
             </Transition>
             {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
             <Imgix
-              height={200}
+              // height={200}
               width={500}
+              className={classNames({['lazyload']: true})}
+              size="auto"
               src={IMAGE_URL}
               htmlAttributes={{
                 alt: 'Find My Account Number',
                 style: {width: '100%'}
+              }}
+              imgixParams={{
+                crop: 'focalpoint', // cspell:disable-line
+                'fp-x': 1,
+                'fp-y': 0,
+                'fp-z': width !== 'xs' ? 1 : 1.5,
+                fit: 'crop'
               }}
             />
           </div>
@@ -130,4 +160,4 @@ const ShowMeAccountInfo = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(ShowMeAccountInfo)
+export default withWidth()(withStyles(styles)(ShowMeAccountInfo))

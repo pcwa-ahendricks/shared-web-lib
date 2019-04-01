@@ -76,10 +76,8 @@ const formSchema = object()
       .label('City'),
     otherCity: string()
       .label('City')
-      .when('city', (city, passSchema) =>
-        city && city.toLowerCase() === 'other'
-          ? passSchema.required()
-          : passSchema
+      .when('city', (city, schema) =>
+        city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string()
       .required()
@@ -135,12 +133,12 @@ const formSchema = object()
         })
       ),
     addtlSensorPhotos: array()
-      .when('additional', (additional, passSchema) =>
+      .when('additional', (additional, schema) =>
         additional
-          ? passSchema.required(
+          ? schema.required(
               'Must provide photo(s) of installed sensor/outdoor cover'
             )
-          : passSchema
+          : schema
       )
       .of(
         object({
@@ -169,7 +167,7 @@ const initialFormValues: RebateFormData = {
   model: '',
   additional: '',
   purchaseDate: '',
-  agreeTerms: false,
+  termsAgree: false,
   signature: '',
   captcha: '',
   receipts: [],

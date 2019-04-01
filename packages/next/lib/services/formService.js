@@ -20,7 +20,7 @@ export type RebateFormData = {|
   model: string,
   additional: string,
   purchaseDate: string,
-  agreeTerms: boolean,
+  termsAgree: boolean,
   signature: string,
   captcha: string,
   receipts: Array<string>,
