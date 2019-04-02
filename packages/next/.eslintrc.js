@@ -7,7 +7,15 @@ module.exports = {
     'jest/globals': true,
     node: true
   },
-  plugins: ['react', 'flowtype', 'jest', 'prettier', 'import', 'react-hooks'],
+  plugins: [
+    'react',
+    'flowtype',
+    'jest',
+    'prettier',
+    'import',
+    'react-hooks',
+    'compat'
+  ],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -33,7 +41,8 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     radix: 1,
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/exhaustive-deps': 'warn',
+    'compat/compat': 'error'
   },
   settings: {
     'import/resolver': {

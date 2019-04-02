@@ -12,7 +12,10 @@
 // String.prototype.repeat = repeat
 // Object.assign = assign
 
-import '@babel/polyfill'
+// import '@babel/polyfill'
+
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 import 'lazysizes/plugins/attrchange/ls.attrchange'
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'

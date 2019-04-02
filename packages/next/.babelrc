@@ -5,7 +5,7 @@
       "@babel/preset-env",
       {
         "useBuiltIns": "entry",
-        "corejs": 2
+        "corejs": 3
       }
     ]
   ],
@@ -37,12 +37,6 @@
           "transform": "mdi-material-ui/${member}",
           "preventFullImport": true
         }
-      }
-    ],
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "corejs": 2
       }
     ]
   ],
