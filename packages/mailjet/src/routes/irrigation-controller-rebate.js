@@ -1,4 +1,5 @@
 // @flow
+// cspell:ignore addtl
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
@@ -151,10 +152,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     abortEarly: isDev ? false : true
   }
 
-  console.log(new Date().toLocaleTimeString(), '- Validating Schema.')
   try {
     await bodySchema.validate(body, validateOptions)
-    console.log(new Date().toLocaleTimeString(), '- Done validating Schema.')
   } catch (error) {
     const {errors = []} = error || {}
     if (isDev) {
@@ -266,7 +265,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
         },
         Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
-        TextPart: `This is just a test for Account Number ${accountNo}`,
+        TextPart: `Your email client must support HTML in order to view this email.`,
         HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br/>Manufacturer: ${manufacturer}<br/>Model: ${model}<br />Additional Sensor or Outdoor Cover: ${
           additional ? additional : ''
         }<br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}<br/>${htmlAddtlPhotos}`,
