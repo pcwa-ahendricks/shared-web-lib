@@ -37,6 +37,7 @@ const styles = (theme) => ({
     width: 500,
     height: 200,
     display: 'flex',
+    overflow: 'hidden',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

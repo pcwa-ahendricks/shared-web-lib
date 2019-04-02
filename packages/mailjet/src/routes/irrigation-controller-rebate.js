@@ -58,11 +58,12 @@ type FormDataObj = {|
   model: string,
   additional?: string,
   purchaseDate: string,
-  signature: boolean,
+  termsAgree: boolean,
+  signature: string,
   captcha: string,
   receipts: Array<AttachmentFieldValue>,
   cntrlPhotos: Array<AttachmentFieldValue>,
-  addtlPhotos?: Array<AttachmentFieldValue>
+  addtlSensorPhotos?: Array<AttachmentFieldValue>
 |}
 
 const bodySchema = object()
@@ -174,12 +175,16 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     lastName,
     address,
     otherCity = '',
+    phone,
+    propertyType,
     manufacturer,
     model,
     additional,
     receipts,
     cntrlPhotos,
-    addtlPhotos = [],
+    addtlSensorPhotos = [],
+    termsAgree,
+    signature,
     captcha
   } = formData
   let {city = '', purchaseDate, accountNo} = formData
@@ -235,7 +240,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     )
     .join('<br />')
 
-  const htmlAddtlPhotos = addtlPhotos
+  const htmlAddtlPhotos = addtlSensorPhotos
     .map(
       (attachment) =>
         `<a href="${
@@ -266,9 +271,16 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         },
         Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
         TextPart: `Your email client must support HTML in order to view this email.`,
-        HTMLPart: `<h2>This is just a test</h2><br /><p>for ${firstName} ${lastName}, Account Number ${accountNo}</p><br />${address} ${city}<br />. Device was purchased ${purchaseDate}.<br/>Manufacturer: ${manufacturer}<br/>Model: ${model}<br />Additional Sensor or Outdoor Cover: ${
-          additional ? additional : ''
-        }<br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}<br/>${htmlAddtlPhotos}`,
+        HTMLPart: `<h2>Application for Weather Based Irrigation Controller Rebate Submitted</h2><br /><p>account no: ${accountNo}</p><p>name: ${firstName} ${lastName}</p><p>email: ${email}</p><p>phone no: ${phone}</p><p>${address} ${city}<p/><p>property type: ${propertyType}</p><p>purchase date: ${purchaseDate}<p/><p>manufacturer: ${manufacturer}<p/><p>model: ${model}<p/>${
+          additional
+            ? '<p>additional sensor/outdoor cover: ' + additional + '</p>'
+            : ''
+        } 
+        <br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}<br/>${
+          htmlAddtlPhotos ? htmlAddtlPhotos : ''
+        }</br><p>customer agreed terms: ${
+          termsAgree ? 'yes' : 'no'
+        }</p><p>signature: ${signature}</p>`,
         TemplateLanguage: false
       }
     ]
