@@ -1,4 +1,5 @@
 // @flow
+// cspell:ignore addtl mnfg
 import React, {useState, useCallback, useMemo} from 'react'
 import {
   Button,
@@ -38,6 +39,7 @@ import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
 import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
+import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -172,7 +174,6 @@ const initialFormValues: RebateFormData = {
   captcha: '',
   receipts: [],
   cntrlPhotos: [],
-  // cspell:disable-next-line
   addtlSensorPhotos: []
 }
 
@@ -294,6 +295,10 @@ const IrrigationController = ({classes}: Props) => {
     addtlSensorPhotosIsUploading,
     setAddtlSensorPhotosIsUploading
   ] = useState<boolean>(false)
+  const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
+    false
+  )
+  const [providedEmail, setProvidedEmail] = useState<string>('')
 
   const receiptIsUploadingHandler = useCallback((isUploading) => {
     setReceiptIsUploading(isUploading)
@@ -305,6 +310,11 @@ const IrrigationController = ({classes}: Props) => {
 
   const addtlSensorPhotosIsUploadingHandler = useCallback((isUploading) => {
     setAddtlSensorPhotosIsUploading(isUploading)
+  }, [])
+
+  const dialogCloseHandler = useCallback(() => {
+    setFormSubmitDialogOpen(false)
+    setProvidedEmail('')
   }, [])
 
   const mainEl = useMemo(
@@ -326,16 +336,19 @@ const IrrigationController = ({classes}: Props) => {
               onSubmit={async (values: RebateFormData, actions) => {
                 try {
                   // Dispatch submit
-                  console.log(values, actions)
+                  // console.log(values, actions)
+                  setProvidedEmail(values.email)
                   const body: RequestBody = {
                     formData: {...values}
                   }
-                  const data = await postIrrigCntrlRebateForm(body)
+                  await postIrrigCntrlRebateForm(body)
                   actions.setSubmitting(false)
                   // resetForm()
                   actions.resetForm() // Strictly Formik
-                  alert(JSON.stringify(data, null, 2))
+                  // alert(JSON.stringify(data, null, 2))
+                  setFormSubmitDialogOpen(true)
                 } catch (error) {
+                  // TODO - form error dialog here
                   console.log('An error occurred submitting form.', error)
                   actions.setSubmitting(false)
                 }
@@ -673,12 +686,23 @@ const IrrigationController = ({classes}: Props) => {
 
                     {/* For debugging form reset */}
                     {/* <Button
-                    variant="outlined"
-                    type="submit"
-                    onClick={handleReset}
-                  >
-                    Reset Form
-                  </Button> */}
+                      variant="outlined"
+                      type="submit"
+                      onClick={handleReset}
+                    >
+                      Reset Form
+                    </Button> */}
+                    {/* For debugging dialog */}
+                    {/* <Button
+                      variant="outlined"
+                      type="submit"
+                      onClick={() => {
+                        setProvidedEmail(values.email)
+                        setFormSubmitDialogOpen(true)
+                      }}
+                    >
+                      Show Dialog
+                    </Button> */}
                     <div className={classes.buttonWrapper}>
                       <Button
                         fullWidth
@@ -749,7 +773,18 @@ const IrrigationController = ({classes}: Props) => {
     [mainEl]
   )
 
-  return <React.Fragment>{irrigControllerEl}</React.Fragment>
+  return (
+    <React.Fragment>
+      {irrigControllerEl}
+      <FormSubmissionDialog
+        providedEmail={providedEmail}
+        open={formSubmitDialogOpen}
+        onClose={dialogCloseHandler}
+        description="Weather Based Irrigation Controller Rebate Application"
+        dialogTitle="Your Rebate Application Has Been Submitted"
+      />
+    </React.Fragment>
+  )
 }
 
 export default withStyles(styles)(IrrigationController)

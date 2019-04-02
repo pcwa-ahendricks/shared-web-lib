@@ -49,6 +49,8 @@ const PurchaseDateField = ({
       fullWidth={fullWidth}
     >
       <DatePicker
+        // Don't let label cover <Header/>.
+        style={{zIndex: 0}}
         required={required}
         keyboard
         // clearable
