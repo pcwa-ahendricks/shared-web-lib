@@ -39,11 +39,13 @@ In order to suppress errors when deploying to Now. The following dependencies ha
 
 - styled-jsx
 - webpack
-- @babel/runtime-corejs2
-- @babel/plugin-transform-runtime **_(dev)_**
+- @babel/runtime-corejs2 **_(dev)_**
 
-Relating to `@babel/plugin-transform-runtime` the following code was added to `.babelrc`
+~~@babel/plugin-transform-runtime **_(dev)_**~~
 
+~~Relating to `@babel/plugin-transform-runtime` the following code was added to `.babelrc`~~
+
+    // DEPRECATED
     [
         "@babel/plugin-transform-runtime",
         {
