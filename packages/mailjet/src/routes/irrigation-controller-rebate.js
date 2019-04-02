@@ -1,5 +1,5 @@
 // @flow
-// cspell:ignore addtl
+// cspell:ignore addtl cbarnhill
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
@@ -37,7 +37,10 @@ const recaptcha = new reCAPTCHA({
 
 const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
+  : [
+      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'Cassandra', Email: 'cbarnhill@pcwa.net'}
+    ]
 
 type AttachmentFieldValue = {|
   status: string,
