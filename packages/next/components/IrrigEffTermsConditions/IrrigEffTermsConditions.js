@@ -86,7 +86,7 @@ const IrrigEffTermsConditions = ({classes, width}: Props) => {
     [scrollSnackOpen]
   )
 
-  const smDown = ['xs', 'sm'].indexOf(width) >= 0
+  const smDown = new Set(['xs', 'sm']).has(width)
   return (
     <React.Fragment>
       <Button
@@ -113,7 +113,7 @@ const IrrigEffTermsConditions = ({classes, width}: Props) => {
           ext="jpg"
           scroll="body"
           fullWidth={false}
-          maxWidth="lg"
+          maxWidth="xl"
           showActions
           dlUrl={`${termsConditionsUrl}${qsDl}`}
           onEntered={() => setScrollSnackOpen(true)}

@@ -5,13 +5,14 @@ import {Document, Page} from 'react-pdf'
 import {
   Button,
   Dialog,
-  DialogContent as MuiDialogContent,
+  DialogContent,
   DialogActions,
   Fab,
   Zoom,
   withWidth,
   CircularProgress,
   Typography as Type
+  // withMobileDialog
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import classNames from 'classnames'
@@ -38,7 +39,21 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  dialogContent: {
+    margin: 0,
+    padding: 0,
+    marginBottom: -6, // HACK - Not sure why there is a blank space at bottom of DialogContent.
+    // padding: theme.spacing.unit * 2,
+    overflowX: 'hidden',
+    minHeight: 100 // Useful when PDF is loading.
   }
+  // Override strange Material UI styling when withMobileDialog is used.
+  // dialogContentRoot: {
+  //   '&:first-child': {
+  //     paddingTop: 0
+  //   }
+  // }
 })
 
 type Props = {
@@ -53,17 +68,6 @@ type Props = {
   dlUrl?: string
   // imgPlaceholder: string
 }
-
-const DialogContent = withStyles(() => ({
-  root: {
-    margin: 0,
-    padding: 0,
-    marginBottom: -6, // HACK - Not sure why there is a blank space at bottom of DialogContent.
-    // padding: theme.spacing.unit * 2,
-    overflowX: 'hidden',
-    minHeight: 100 // Useful when PDF is loading.
-  }
-}))(MuiDialogContent)
 
 const MediaPreviewDialog = ({
   open,
@@ -112,19 +116,61 @@ const MediaPreviewDialog = ({
     [url, getImgEl]
   )
 
-  const dialogActions = useMemo(
+  const dialogContentEl = useMemo(
+    () => (
+      <DialogContent
+        className={classes.dialogContent}
+        classes={{root: classes.dialogContentRoot}}
+      >
+        {ext === 'pdf' ? ( // <img src="/static/images/pdf.svg" />
+          <Document file={url} loading={renderLoadingHandler}>
+            {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
+            <Page
+              pageNumber={1}
+              width={width === 'xs' ? 200 : 450}
+              scale={1}
+              renderAnnotationLayer={false} // Prevents large blank <div/> appearing below certain PDFs.
+            />
+          </Document>
+        ) : (
+          <div>{imgEl}</div>
+        )}
+      </DialogContent>
+    ),
+    [ext, imgEl, url, width, renderLoadingHandler, classes]
+  )
+
+  const dialogActionsEl = useMemo(
     () =>
+      // showActions || width === 'xs' || width === 'sm' ? (
       showActions ? (
         <DialogActions>
-          <Button color="default" href={dlUrl}>
-            Download Copy
-          </Button>
+          {dlUrl ? (
+            <Button color="default" href={dlUrl}>
+              Download Copy
+            </Button>
+          ) : null}
           <Button color="primary" onClick={onClose}>
             Done
           </Button>
         </DialogActions>
       ) : null,
     [showActions, dlUrl, onClose]
+  )
+
+  const fabEl = useMemo(
+    () => (
+      // width === 'xs' || width === 'sm' ? null : (
+      <Fab
+        size="small"
+        className={classes.fab}
+        onClick={onClose}
+        aria-label="Close Dialog"
+      >
+        <DeleteIcon />
+      </Fab>
+    ),
+    [classes, onClose]
   )
 
   return (
@@ -141,31 +187,9 @@ const MediaPreviewDialog = ({
       {...rest}
     >
       <React.Fragment>
-        <Fab
-          size="small"
-          className={classes.fab}
-          onClick={onClose}
-          aria-label="Close Dialog"
-        >
-          <DeleteIcon />
-        </Fab>
-        <DialogContent>
-          {ext === 'pdf' ? (
-            // <img src="/static/images/pdf.svg" />
-            <Document file={url} loading={renderLoadingHandler}>
-              {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
-              <Page
-                pageNumber={1}
-                width={width === 'xs' ? 200 : 450}
-                scale={1}
-                renderAnnotationLayer={false} // Prevents large blank <div/> appearing below certain PDFs.
-              />
-            </Document>
-          ) : (
-            <div>{imgEl}</div>
-          )}
-        </DialogContent>
-        {dialogActions}
+        {fabEl}
+        {dialogContentEl}
+        {dialogActionsEl}
       </React.Fragment>
     </Dialog>
   )
@@ -177,7 +201,10 @@ MediaPreviewDialog.defaultProps = {
   // imgPlaceholder: '/static/images/placeholder-camera.png'
 }
 
-export default withWidth()(withStyles(styles)(MediaPreviewDialog))
+export default withWidth()(
+  // withMobileDialog()(withStyles(styles)(MediaPreviewDialog))
+  withStyles(styles)(MediaPreviewDialog)
+)
 
 function Transition(props) {
   return <Zoom {...props} />
