@@ -14,7 +14,7 @@
   "author": "<ahendricks@pcwa.net>",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime": "^7.4.2",
+    "@babel/runtime": "^7.4.3",
     "@pcwa/micro-check-referrer": "^0.1.8",
     "@pcwa/micro-limiter": "^0.1.7",
     "@pcwa/micro-no-cache": "^0.1.4",
@@ -33,10 +33,10 @@
     "querystringify": "^2.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-flow": "^7.0.0",
     "ava": "^1.4.1",
     "concurrently": "^4.1.0",

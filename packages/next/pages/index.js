@@ -73,7 +73,7 @@ const Index = ({classes}: Props) => {
         }}
       >
         <ImgixFancy
-          paddingPercent="129.3737%"
+          paddingPercent="129.4118%"
           src={YEAR_END_IMG_SRC}
           alt="Year End Image Thumbnail"
         />

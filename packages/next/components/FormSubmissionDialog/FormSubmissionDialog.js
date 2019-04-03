@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import MainPhone from '@components/Links/MainPhone'
+import PcwaWeb from '@components/Links/PcwaWeb'
 
 type Props = {
   open: boolean,
@@ -61,13 +62,16 @@ const FormSubmissionDialog = ({
     >
       <DialogTitle id="form-submit-dialog-title">{dialogTitle}</DialogTitle>
       <DialogContent>
+        {/* GO-LIVE - Don't need sentence regarding "closing browser tab". */}
         <DialogContentText paragraph variant="body1">
           Thank you for submitting your {description}. You should receive an
           automatically generated email immediately {providedEmailEl} confirming
           the information you provided in this application. You will receive
           another email once your application has been approved. If you have any
           questions and/or you do not receive your automatic confirmation email
-          please contact our Customer Services Department at <MainPhone />.
+          please contact our Customer Services Department at <MainPhone />. You
+          can now close this web browser tab to return to the <PcwaWeb />{' '}
+          website.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

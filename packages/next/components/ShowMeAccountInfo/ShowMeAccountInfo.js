@@ -135,12 +135,11 @@ const ShowMeAccountInfo = ({classes, width}: Props) => {
                 </Type>
               </div>
             </Transition>
-            {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
             <Imgix
               // height={200}
               width={500}
               className={classNames({['lazyload']: true})}
-              size="auto"
+              sizes="auto"
               src={IMAGE_URL}
               htmlAttributes={{
                 alt: 'Find My Account Number',

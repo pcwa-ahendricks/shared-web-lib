@@ -31,7 +31,7 @@
     "core-js": "^3.0.0",
     "date-fns": "^2.0.0-alpha.27",
     "dotenv-webpack": "^1.7.0",
-    "formik": "^1.5.1",
+    "formik": "^1.5.2",
     "immutable": "^4.0.0-rc.12",
     "isomorphic-unfetch": "^3.0.0",
     "jimp": "^0.6.1",
@@ -40,7 +40,7 @@
     "material-ui-pickers": "^2.2.4",
     "mdi-material-ui": "^5.10.0",
     "nanoid": "^2.0.1",
-    "next": "^8.0.3",
+    "next": "^8.0.4",
     "next-redux-wrapper": "^3.0.0-alpha.2",
     "prettysize": "^2.0.0",
     "prop-types": "^15.7.2",
@@ -64,9 +64,9 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/runtime-corejs2": "^7.4.2",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/runtime-corejs2": "^7.4.3",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-eslint": "^10.0.1",
     "babel-plugin-flow-react-proptypes": "^25.0.0",
@@ -87,7 +87,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "prettier": "^1.16.4",
     "redux-devtools-extension": "^2.13.8",
-    "serve": "^10.1.2",
+    "serve": "^11.0.0",
     "webpack-bundle-size-analyzer": "^3.0.0"
   }
 }
