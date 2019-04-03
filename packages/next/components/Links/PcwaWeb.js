@@ -7,7 +7,12 @@ type Props = {}
 
 const PcwaWeb = ({...rest}: Props) => {
   return (
-    <Link href="https://www.pcwa.net" {...rest}>
+    <Link
+      href="https://www.pcwa.net"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...rest}
+    >
       PCWA.net
     </Link>
   )
