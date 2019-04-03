@@ -815,14 +815,6 @@ const IrrigationController = ({classes}: Props) => {
       ) : (
         // <React.Fragment>
         <PageLayout title="Irrigation Controller Rebate Form">
-          <div className={classes.logoContainer}>
-            <PcwaLogo
-              height="70%"
-              maxHeight={48}
-              maxWidth={200}
-              missionStatementFill="rgba(0,0,0,0)"
-            />
-          </div>
           {mainEl}
         </PageLayout>
       ),
