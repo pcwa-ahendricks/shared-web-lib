@@ -291,7 +291,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2
   },
-  // IE Fix - IE will shrink Flex Column layouts. Need to override any defaults.
+  // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
   ieFixFlexColumnDirection: {
     flexBasis: 'auto',
     flexGrow: 0,

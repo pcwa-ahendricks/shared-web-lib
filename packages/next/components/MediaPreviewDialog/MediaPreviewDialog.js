@@ -47,6 +47,12 @@ const styles = (theme) => ({
     // padding: theme.spacing.unit * 2,
     overflowX: 'hidden',
     minHeight: 100 // Useful when PDF is loading.
+  },
+  // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+  ieFixFlexColumnDirection: {
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0
   }
   // Override strange Material UI styling when withMobileDialog is used.
   // dialogContentRoot: {
@@ -85,10 +91,18 @@ const MediaPreviewDialog = ({
   const renderLoadingHandler = useMemo(
     () => (
       <div className={classes.loadingPDF}>
-        <Type variant="h4" paragraph>
+        <Type
+          variant="h4"
+          paragraph
+          className={classes.ieFixFlexColumnDirection}
+        >
           Loading PDF...
         </Type>
-        <CircularProgress variant="indeterminate" disableShrink={true} />
+        <CircularProgress
+          variant="indeterminate"
+          disableShrink={true}
+          className={classes.ieFixFlexColumnDirection}
+        />
       </div>
     ),
     [classes]
@@ -96,12 +110,13 @@ const MediaPreviewDialog = ({
 
   const getImgEl = useCallback(
     (url: string, key?: string | number) => (
+      // TODO - It doesn't appear that lazy loading of images is working in this component.
       <img
         key={key ? key : null}
         className={classNames({['lazyload']: true}, classes.img)}
         data-sizes="auto"
-        // src={imgPlaceholder}
-        data-srcset={url}
+        data-src={url}
+        src={url} // IE fix - src attribute may be required for displaying img.
         alt={`Image ${name} for upload`}
       />
     ),
