@@ -29,9 +29,9 @@ const styles = (theme) => ({
     transform: 'translate(-50%, -50%)'
   },
   paper: {
-    overflow: 'unset',
-    overflowY: 'unset',
-    overflowX: 'unset'
+    overflow: 'visible',
+    overflowY: 'visible',
+    overflowX: 'visible'
   },
   loadingPDF: {
     margin: theme.spacing.unit * 4,
