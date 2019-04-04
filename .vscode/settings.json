@@ -2,9 +2,9 @@
   "javascript.validate.enable": false,
   "search.exclude": {
     "**/node_modules": true,
-    "**/bower_components": true,
     "packages/next/.next": true,
-    "packages/next/out": true
+    "packages/next/out": true,
+    "packages/next/bundles": true
   },
   "cSpell.words": [
     "ahendricks",

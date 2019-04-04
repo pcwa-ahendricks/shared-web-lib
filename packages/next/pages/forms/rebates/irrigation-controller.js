@@ -182,6 +182,7 @@ const initialFormValues: RebateFormData = {
 const styles = (theme) => ({
   main: {
     maxWidth: 650,
+    display: 'block', // IE fix
     margin: {
       // left: '20vw',
       // right: '20vw',
@@ -206,8 +207,8 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: 'auto',
-    // width: 'fit-content' // IE doesn't support
-    width: '100%'
+    width: 'fit-content' // IE doesn't support
+    // width: '100%'
   },
   // textField: {
   //   marginTop: theme.spacing.unit * 1,
@@ -254,6 +255,7 @@ const styles = (theme) => ({
   //   alignItems: 'flex-start'
   // },
   buttonWrapper: {
+    flex: '0 0 auto', // IE fix
     position: 'relative',
     margin: {
       top: theme.spacing.unit * 3,
@@ -269,6 +271,7 @@ const styles = (theme) => ({
     marginLeft: -12
   },
   formGroup: {
+    flex: '0 0 auto', // IE fix
     margin: {
       top: theme.spacing.unit * 5,
       bottom: theme.spacing.unit * 5
@@ -287,6 +290,12 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2
+  },
+  // IE Fix - IE will shrink Flex Column layouts. Need to override any defaults.
+  ieFixFlexColumnDirection: {
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0
   }
   // grow: {
   //   flexGrow: 1
@@ -638,16 +647,19 @@ const IrrigationController = ({classes}: Props) => {
                         >
                           Acknowledge Terms & Conditions
                         </Type>
-                        <Grid
-                          container
-                          direction="column"
-                          style={{flexGrow: 0}}
-                          spacing={32}
-                        >
-                          <Grid item xs={12}>
+                        <Grid container direction="column" spacing={32}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
                             <IrrigEffTermsConditions />
                           </Grid>
-                          <Grid item xs={12}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
                             <Type variant="body1" paragraph>
                               <em>
                                 PCWA reserves the right to verify the
@@ -678,13 +690,12 @@ const IrrigationController = ({classes}: Props) => {
                           Release of Liability & Signature
                         </Type>
 
-                        <Grid
-                          container
-                          direction="column"
-                          style={{flexGrow: 0}}
-                          spacing={32}
-                        >
-                          <Grid item xs={12}>
+                        <Grid container direction="column" spacing={32}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
                             <Type variant="body1" paragraph color="primary">
                               PCWA may deny any application that does not meet
                               all of the Program requirements. PCWA reserves the
@@ -704,7 +715,11 @@ const IrrigationController = ({classes}: Props) => {
                             </Type>
                           </Grid>
 
-                          <Grid item xs={12}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
                             <Type variant="caption">
                               You must sign this form by typing your name
                             </Type>
@@ -714,7 +729,11 @@ const IrrigationController = ({classes}: Props) => {
                             />
                           </Grid>
 
-                          <Grid item xs={12}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
                             <Field name="captcha" component={RecaptchaField} />
                           </Grid>
                         </Grid>
