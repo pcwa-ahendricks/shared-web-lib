@@ -8,7 +8,7 @@ type Props = {}
 
 const MainPhoneNo = ({...rest}: Props) => {
   return (
-    <Link href="mailto:waterefficiency@pcwa.net " {...rest}>
+    <Link href="mailto:waterefficiency@pcwa.net" {...rest}>
       waterefficiency@pcwa.net
     </Link>
   )

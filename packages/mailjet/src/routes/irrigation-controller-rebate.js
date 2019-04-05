@@ -221,38 +221,11 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     throw createError(400, 'Invalid Date')
   }
 
-  const htmlReceiptImages = receipts
-    .map(
-      (attachment) =>
-        `<a href="${
-          attachment.url
-        }" rel="noopener noreferrer" target="_blank" ><img src="${
-          attachment.url
-        }?fm=auto&w=400" style="width:400px;" alt="Receipt Image Attachment"/></a>`
-    )
-    .join('<br />')
-
-  const htmlCntrlPhotos = cntrlPhotos
-    .map(
-      (attachment) =>
-        `<a href="${
-          attachment.url
-        }" rel="noopener noreferrer" target="_blank" ><img src="${
-          attachment.url
-        }?fm=auto&w=400" style="width:400px;" alt="Installed Controller Image Attachment"/></a>`
-    )
-    .join('<br />')
-
-  const htmlAddtlPhotos = addtlSensorPhotos
-    .map(
-      (attachment) =>
-        `<a href="${
-          attachment.url
-        }" rel="noopener noreferrer" target="_blank" ><img src="${
-          attachment.url
-        }?fm=auto&w=400" style="width:400px;" alt="Additional Sensor or Outdoor Cover Image Attachment"/></a>`
-    )
-    .join('<br />')
+  const receiptImages = receipts.map((attachment) => attachment.url)
+  const cntrlImages = cntrlPhotos.map((attachment) => attachment.url)
+  const addtlSensorImages = addtlSensorPhotos.map(
+    (attachment) => attachment.url
+  )
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -272,19 +245,32 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         Headers: {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
         },
-        Subject: 'Weather Based Irrigation Controller Rebate - PCWA.net',
-        TextPart: `Your email client must support HTML in order to view this email.`,
-        HTMLPart: `<h2>Application for Weather Based Irrigation Controller Rebate Submitted</h2><br /><p>account no: ${accountNo}</p><p>name: ${firstName} ${lastName}</p><p>email: ${email}</p><p>phone no: ${phone}</p><p>${address} ${city}<p/><p>property type: ${propertyType}</p><p>purchase date: ${purchaseDate}<p/><p>manufacturer: ${manufacturer}<p/><p>model: ${model}<p/>${
-          additional
-            ? '<p>additional sensor/outdoor cover: ' + additional + '</p>'
-            : ''
-        } 
-        <br/>${htmlReceiptImages}<br/>${htmlCntrlPhotos}<br/>${
-          htmlAddtlPhotos ? htmlAddtlPhotos : ''
-        }</br><p>customer agreed terms: ${
-          termsAgree ? 'yes' : 'no'
-        }</p><p>signature: ${signature}</p>`,
-        TemplateLanguage: false
+        Subject: 'PCWA - Water Efficiency Rebate Submitted',
+        TemplateID: 755362,
+        TemplateLanguage: true,
+        Variables: {
+          firstName,
+          lastName,
+          accountNo,
+          city,
+          address,
+          email,
+          phone,
+          propertyType,
+          purchaseDate,
+          manufacturer,
+          model,
+          additional,
+          submitDate: format(new Date(), 'MMMM do, yyyy'),
+          receiptImages,
+          cntrlImages,
+          addtlSensorImages,
+          termsAgree,
+          signature,
+          // Mailjet Template language errors will occur and the message will be "blocked" if template attempts to conditionally show section using boolean. Comparing strings works so boolean values are cast to string.
+          hasAddtlSensorImages:
+            addtlSensorImages && addtlSensorImages.length > 0 ? 'true' : 'false'
+        }
       }
     ]
   }
