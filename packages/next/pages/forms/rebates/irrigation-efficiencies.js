@@ -1,5 +1,4 @@
 // @flow
-// cspell:ignore addtl mnfg
 import React, {useState, useCallback, useMemo} from 'react'
 import {
   Button,
@@ -15,8 +14,8 @@ import {string, object, boolean, array} from 'yup'
 import classNames from 'classnames'
 import {
   postRebateForm,
-  type IrrigationControllerRebateFormData as RebateFormData,
-  type IrrigationControllerRequestBody as RequestBody
+  type IrrigationEfficienciesRequestBody as RequestBody,
+  type IrrigationEfficienciesRebateFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import PurchaseDateField from '@components/formFields/PurchaseDateField'
@@ -29,7 +28,6 @@ import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import IrrigCntrlAddtlField from '@components/formFields/IrrigCntrlAddtlField'
 import IrrigCntrlModelField from '@components/formFields/IrrigCntrlModelField'
 import IrrigCntrlMnfgField from '@components/formFields/IrrigCntrlMnfgField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
@@ -41,8 +39,9 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
-// Loading Recaptcha with Next dynamic isn't necessary.
-// import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
+import IrrigSysUpgradeOptsCheckboxes, {
+  formControlItems as initialIrrigSysUpgradeOpts
+} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -109,6 +108,16 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
+    upgradeOpts: object({
+      key: boolean()
+    })
+      .required()
+      .test(
+        'has-one-upgrade-option',
+        'You must select at least one upgrade option',
+        (value) =>
+          Object.keys(value).find((chkBoxVal) => value[chkBoxVal] === true)
+      ),
     receipts: array()
       .required('Must provide receipt(s) or proof of purchase')
       .of(
@@ -134,25 +143,6 @@ const formSchema = object()
             .required('Attachment URL is not available')
             .url()
         })
-      ),
-    addtlSensorPhotos: array()
-      .when('additional', (additional, schema) =>
-        additional
-          ? schema.required(
-              'Must provide photo(s) of installed sensor/outdoor cover'
-            )
-          : schema
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
-        })
       )
   })
 
@@ -168,14 +158,13 @@ const initialFormValues: RebateFormData = {
   propertyType: '',
   manufacturer: '',
   model: '',
-  additional: '',
   purchaseDate: '',
   termsAgree: false,
   signature: '',
   captcha: '',
   receipts: [],
   cntrlPhotos: [],
-  addtlSensorPhotos: []
+  upgradeOpts: {...initialIrrigSysUpgradeOpts}
 }
 
 const styles = (theme) => ({
@@ -183,8 +172,6 @@ const styles = (theme) => ({
     maxWidth: 650,
     display: 'block', // IE fix
     margin: {
-      // left: '20vw',
-      // right: '20vw',
       left: 'auto',
       right: 'auto',
       top: theme.spacing.unit * 5,
@@ -196,12 +183,6 @@ const styles = (theme) => ({
       maxWidth: '90%'
     }
   },
-  // formikContainer: {
-  //   height: '100%',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   width: '100%'
-  // },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -209,36 +190,6 @@ const styles = (theme) => ({
     width: 'fit-content' // IE doesn't support
     // width: '100%'
   },
-  // textField: {
-  //   marginTop: theme.spacing.unit * 1,
-  //   marginBottom: theme.spacing.unit * 4,
-  //   '&:not(:first-child)': {
-  //     marginLeft: theme.spacing.unit * 4
-  //   }
-  // },
-  // formControl: {
-  //   marginTop: theme.spacing.unit * 1,
-  //   marginBottom: theme.spacing.unit * 4,
-  //   minWidth: 150,
-  //   '&:not(:first-child)': {
-  //     marginLeft: theme.spacing.unit * 4
-  //   }
-  // },
-  // formControlRow: {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   width: '100%',
-  //   margin: {
-  //     bottom: theme.spacing.unit * 1,
-  //     top: theme.spacing.unit * 1
-  //   },
-  //   '&$dropzoneContainer': {
-  //     flexDirection: 'column',
-  //     justifyContent: 'flex-start',
-  //     alignItems: 'flex-start',
-  //     marginBottom: theme.spacing.unit * 3
-  //   }
-  // },
   dropzoneContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -246,13 +197,6 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 3,
     marginTop: theme.spacing.unit * 3
   },
-  // formControlsContainer: {
-  //   margin: theme.spacing.unit * 8,
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'flex-start',
-  //   alignItems: 'flex-start'
-  // },
   buttonWrapper: {
     flex: '0 0 auto', // IE fix
     position: 'relative',
@@ -296,15 +240,9 @@ const styles = (theme) => ({
     flexGrow: 0,
     flexShrink: 0
   }
-  // grow: {
-  //   flexGrow: 1
-  // }
-  // dropzoneUploader: {
-  //   marginBottom: theme.spacing.unit * 2
-  // }
 })
 
-const IrrigationController = ({classes}: Props) => {
+const IrrigationEfficiencies = ({classes}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
@@ -312,10 +250,6 @@ const IrrigationController = ({classes}: Props) => {
   const [cntrlPhotosIsUploading, setCntrlPhotosIsUploading] = useState<boolean>(
     false
   )
-  const [
-    addtlSensorPhotosIsUploading,
-    setAddtlSensorPhotosIsUploading
-  ] = useState<boolean>(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
@@ -327,10 +261,6 @@ const IrrigationController = ({classes}: Props) => {
 
   const cntrlPhotosIsUploadingHandler = useCallback((isUploading) => {
     setCntrlPhotosIsUploading(isUploading)
-  }, [])
-
-  const addtlSensorPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setAddtlSensorPhotosIsUploading(isUploading)
   }, [])
 
   const dialogCloseHandler = useCallback(() => {
@@ -350,7 +280,7 @@ const IrrigationController = ({classes}: Props) => {
               </Type>
 
               <Type variant="h3" color="primary" gutterBottom>
-                Weather Based Irrigation Controller
+                Irrigation Efficiencies
               </Type>
 
               <Formik
@@ -401,17 +331,13 @@ const IrrigationController = ({classes}: Props) => {
                     values.city && values.city.toLowerCase() === 'other'
                   )
 
-                  const hasAddtlSensor = Boolean(values.additional)
-
                   // If city field is updated clear out otherCity field.
                   const cityChangeHandler = () => {
                     setFieldValue('otherCity', '')
                   }
 
                   const attachmentsAreUploading =
-                    receiptIsUploading ||
-                    cntrlPhotosIsUploading ||
-                    addtlSensorPhotosIsUploading
+                    receiptIsUploading || cntrlPhotosIsUploading
                   return (
                     <Form className={classes.form}>
                       {/* <Type variant="h3" color="primary" gutterBottom>
@@ -518,6 +444,12 @@ const IrrigationController = ({classes}: Props) => {
                         </Type>
 
                         <Grid container spacing={40}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="upgradeOpts"
+                              component={IrrigSysUpgradeOptsCheckboxes}
+                            />
+                          </Grid>
                           <Grid item xs={12} sm={6}>
                             <Field
                               name="manufacturer"
@@ -533,12 +465,6 @@ const IrrigationController = ({classes}: Props) => {
                         </Grid>
 
                         <Grid container spacing={40}>
-                          <Grid item xs={12} sm={7}>
-                            <Field
-                              name="additional"
-                              component={IrrigCntrlAddtlField}
-                            />
-                          </Grid>
                           <Grid item xs={12} sm={5}>
                             {/* <Hidden only="xs" implementation="css"> */}
                             <Field
@@ -612,27 +538,6 @@ const IrrigationController = ({classes}: Props) => {
                             )}
                           />
                         </div>
-
-                        <WaitToGrow isIn={hasAddtlSensor}>
-                          <div
-                            className={classNames(classes.dropzoneContainer)}
-                          >
-                            <Field
-                              name="addtlSensorPhotos"
-                              render={({field, form}) => (
-                                <AttachmentField
-                                  form={form}
-                                  field={field}
-                                  attachmentTitle="Additional Sensor/Outdoor Cover Photo"
-                                  uploadFolder="irrigation-controller"
-                                  onIsUploadingChange={
-                                    addtlSensorPhotosIsUploadingHandler
-                                  }
-                                />
-                              )}
-                            />
-                          </div>
-                        </WaitToGrow>
                       </div>
 
                       <Divider variant="middle" />
@@ -802,9 +707,7 @@ const IrrigationController = ({classes}: Props) => {
       receiptIsUploading,
       receiptIsUploadingHandler,
       cntrlPhotosIsUploading,
-      cntrlPhotosIsUploadingHandler,
-      addtlSensorPhotosIsUploading,
-      addtlSensorPhotosIsUploadingHandler
+      cntrlPhotosIsUploadingHandler
     ]
   )
 
@@ -853,4 +756,4 @@ const IrrigationController = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(IrrigationController)
+export default withStyles(styles)(IrrigationEfficiencies)

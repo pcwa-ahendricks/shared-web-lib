@@ -1,12 +1,13 @@
 // @flow
-
+// cspell:ignore addtl
 import fetch from 'isomorphic-unfetch'
+import {type IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
 const IRRIG_CNTRL_REBATE_BASE_URL = 'irrigation-controller-rebate'
 const URL = `${MAILJET_URL}/${IRRIG_CNTRL_REBATE_BASE_URL}`
 
-export type RebateFormData = {|
+export type IrrigationControllerRebateFormData = {|
   firstName: string,
   lastName: string,
   email: string,
@@ -25,16 +26,45 @@ export type RebateFormData = {|
   captcha: string,
   receipts: Array<string>,
   cntrlPhotos: Array<string>,
-  // cspell:disable-next-line
   addtlSensorPhotos: Array<string>
 |}
 
-export type RequestBody = {|
+export type IrrigationControllerRequestBody = {|
   // recipients: Array<{Name: string, Email: string}>,
-  formData: RebateFormData
+  formData: IrrigationControllerRebateFormData
 |}
 
-const postIrrigCntrlRebateForm = async (body: RequestBody) => {
+export type IrrigationEfficienciesRebateFormData = {|
+  firstName: string,
+  lastName: string,
+  email: string,
+  accountNo: string,
+  address: string,
+  city: string,
+  otherCity: string,
+  phone: string,
+  propertyType: string,
+  manufacturer: string,
+  model: string,
+  purchaseDate: string,
+  termsAgree: boolean,
+  signature: string,
+  captcha: string,
+  receipts: Array<string>,
+  cntrlPhotos: Array<string>,
+  upgradeOpts: IrrigSysUpgradeOpts
+|}
+
+export type IrrigationEfficienciesRequestBody = {|
+  // recipients: Array<{Name: string, Email: string}>,
+  formData: IrrigationEfficienciesRebateFormData
+|}
+
+type RequestBody =
+  | IrrigationControllerRequestBody
+  | IrrigationEfficienciesRequestBody
+
+async function postRebateForm(body: RequestBody) {
   try {
     const response = await fetch(URL, {
       method: 'POST',
@@ -56,4 +86,4 @@ const postIrrigCntrlRebateForm = async (body: RequestBody) => {
   }
 }
 
-export {postIrrigCntrlRebateForm}
+export {postRebateForm}

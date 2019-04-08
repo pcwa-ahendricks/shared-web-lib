@@ -11,37 +11,38 @@ import {type Form, type Field} from 'formik'
 type Props = {
   field: Field,
   form: Form,
-  onChange?: (Array<any>) => void,
+  // onChange?: (Array<any>) => void,
   fullWidth: boolean
 }
 
 const AgreeTermsCheckbox = ({
   field,
   form,
-  onChange,
+  // onChange,
   fullWidth,
   ...other
 }: Props) => {
   const {name, value} = field
   const {
     errors,
-    handleChange,
+    // handleChange,
     isSubmitting,
     handleBlur,
     touched,
-    setFieldTouched
+    setFieldTouched,
+    setFieldValue
   } = form
   const currentError = errors[name]
   const fieldTouched = touched[name]
 
-  // Checkbox is not setting touched on handleChange. Touched will be triggered explicitly using this custom change handler which additionally calls handleChange.
+  // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched.
   const changeHandler = useCallback(
-    (...args) => {
-      handleChange(...args)
+    (evt) => {
+      setFieldValue(name, evt.target.checked, true)
       setFieldTouched(name, true)
-      onChange && onChange(...args)
+      // onChange && onChange(...args)
     },
-    [handleChange, onChange, setFieldTouched, name]
+    [setFieldValue, setFieldTouched, name]
   )
 
   return (

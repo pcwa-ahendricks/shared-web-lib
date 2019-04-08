@@ -2848,10 +2848,10 @@ builtin-status-codes@^3.0.0:
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
 
-busboy@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/busboy/-/busboy-0.3.0.tgz#6ee3cb1c844fc1f691d8f9d824f70128b3b5e485"
-  integrity sha512-e+kzZRAbbvJPLjQz2z+zAyr78BSi9IFeBTyLwF76g78Q2zRt/RZ1NtS3MS17v2yLqYfLz69zHdC+1L4ja8PwqQ==
+busboy@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/busboy/-/busboy-0.3.1.tgz#170899274c5bf38aae27d5c62b71268cd585fd1b"
+  integrity sha512-y7tTxhGKXcyBxRKAni+awqx8uqaJKrSFSNFSeRG5CsWNdmy2BIK+6VGWEW7TZnIO/533mtMEA4rOevQV815YJw==
   dependencies:
     dicer "0.3.0"
 
@@ -3522,7 +3522,7 @@ core-js-pure@3.0.0:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.0.0.tgz#a5679adb4875427c8c0488afc93e6f5b7125859b"
   integrity sha512-yPiS3fQd842RZDgo/TAKGgS0f3p2nxssF1H65DIZvZv0Od5CygP8puHXn3IQiM/39VAvgCbdaMQpresrbGgt9g==
 
-core-js@3.0.0, core-js@^3.0.0:
+core-js@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.0.0.tgz#a8dbfa978d29bfc263bfb66c556d0ca924c28957"
   integrity sha512-WBmxlgH2122EzEJ6GH8o9L/FeoUKxxxZ6q6VUxoTlsE4EvbTWKJb447eyVxTEuq0LpXjlq/kCB2qgBvsYRkLvQ==
@@ -3541,6 +3541,11 @@ core-js@^2.5.0, core-js@^2.6.5:
   version "2.6.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
   integrity sha512-klh/kDpwX8hryYL14M9w/xei6vrv6sE8gTHDG7/T/+SEovB/G4ejwcfE/CBzO6Edsu+OETZMZ3wcX/EjUkrl5A==
+
+core-js@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.0.1.tgz#1343182634298f7f38622f95e73f54e48ddf4738"
+  integrity sha512-sco40rF+2KlE0ROMvydjkrVMMG1vYilP2ALoRXcYR4obqbYIuV3Bg+51GEDW+HF8n7NRA+iaA4qD0nD9lo9mew==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -4313,10 +4318,10 @@ eslint-module-utils@^2.3.0:
     debug "^2.6.8"
     pkg-dir "^2.0.0"
 
-eslint-plugin-compat@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-3.1.0.tgz#3a0a0490bd8cb08eb06cbbe840ad612227ccadf2"
-  integrity sha512-N+FiugxY5Y8CKp6/sk76KtIFlA2fMx8Ogb3FqbwOePND6mnnkxZL/iPMC/3QhPtuq10RVNduYOmKU9laqna5+A==
+eslint-plugin-compat@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-3.1.1.tgz#5ec367dbaec422928894e6b4f708aa623f23a198"
+  integrity sha512-pqy5LBy4ZPhSVwb2p0+jUozdnoGX+qc1NRIcK+Yfg99149ncqZVc8gP5u637vwVC/nLQP6X6zTpnHwsZCdvluQ==
   dependencies:
     "@babel/runtime" "^7.4.2"
     ast-metadata-inferer "^0.1.1"
@@ -4325,10 +4330,10 @@ eslint-plugin-compat@^3.1.0:
     mdn-browser-compat-data "^0.0.72"
     semver "^5.6.0"
 
-eslint-plugin-flowtype@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.4.2.tgz#55475e10b05fd714d60bceebbbed596cb8706b16"
-  integrity sha512-sv6O6fiN3dIwhU4qRxfcyIpbKGVvsxwIQ6vgBLudpQKjH1rEyEFEOjGzGEUBTQP9J8LdTZm37OjiqZ0ZeFOa6g==
+eslint-plugin-flowtype@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.5.1.tgz#903c542c33039bc1db16355fff2d26733903bb0b"
+  integrity sha512-mIhq7jhBSWNMp3ECmlWK+b9EFmLE+3Jd9axk05LB+snbRPkc3/lYTgb4Bu9lgt1QLmrxFDWsASdKj9CAIehckg==
   dependencies:
     lodash "^4.17.11"
 
@@ -6787,10 +6792,15 @@ mime@^1.3.4, mime@^1.4.1:
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
 
-mime@^2.3.1, mime@^2.4.0:
+mime@^2.3.1:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-2.4.0.tgz#e051fd881358585f3279df333fe694da0bcffdd6"
   integrity sha512-ikBcWwyqXQSHKtciCcctu9YfPbFYZ4+gbHEmE0Q8jzcTYQg5dHCr3g2wwAZjPoJfQVXZq6KXAjpXOTf5/cjT7w==
+
+mime@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-2.4.1.tgz#19eb7357bebbda37df585b14038347721558c715"
+  integrity sha512-VRUfmQO0rCd3hKwBymAn3kxYzBHr3I/wdVMywgG3HhXOwrCQgN84ZagpdTm2tZ4TNtwsSmyJWYO88mb5XvzGqQ==
 
 mimic-fn@^1.0.0:
   version "1.2.0"
@@ -7220,10 +7230,10 @@ normalize-scroll-left@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.1.2.tgz#6b79691ba79eb5fb107fa5edfbdc06b55caee2aa"
   integrity sha512-F9YMRls0zCF6BFIE2YnXDRpHPpfd91nOIaNdDgrx5YMoPLo8Wqj+6jNXHQsYBavJeXP4ww8HCt0xQAKc5qk2Fg==
 
-now@^15.0.1:
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/now/-/now-15.0.1.tgz#a0694e2777a93e1c5e814663fe066cc036a0d564"
-  integrity sha512-iAxrNlQKprwTauZFNI8eWgloWn45792qumF/ItEh8Pjv8+xfs8qAWHtRsyK8q5tCmToY3d70uu0ASvVGTmVrwQ==
+now@^15.0.2:
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/now/-/now-15.0.2.tgz#11d7804fbd466ebc52a38bc74a811c2f7bf0a522"
+  integrity sha512-kloJ7sT1QnUvpslRtrKbcP+AdS6ymSuDK+oVh8d9399T2v388Ngk5OZBWjsDq8/58e9I3k2Xu5Hpk1P1dDpa3A==
 
 npm-bundled@^1.0.1:
   version "1.0.5"
@@ -8154,10 +8164,10 @@ react-dom@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-dropzone@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-10.1.0.tgz#ad2872e31b61649f0ecd8d0f5980f6c895338030"
-  integrity sha512-rbo4yJFi04XkMkxZgYruFNg0ZqUB+1gjH+ycONpDfQz9Ql+YxsDfcgiHvAmVgqYIJzIk7qs5fH2RilFkY1T/0Q==
+react-dropzone@^10.1.3:
+  version "10.1.3"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-10.1.3.tgz#e45a395b19f440b934484b9b4c416318433e2c90"
+  integrity sha512-ry17scg+B/itdBJn0Qd2UxYQIeQyuTgLDyb1o+BM1jQ6CAgtuaYo4W/UA+UK9VnzwvFuwMcmZJjjju2rMFPMLg==
   dependencies:
     attr-accept "^1.1.3"
     file-selector "^0.1.11"
@@ -8199,10 +8209,10 @@ react-google-recaptcha@^1.0.5:
     prop-types "^15.5.0"
     react-async-script "^1.0.0"
 
-react-imgix@^8.5.1:
-  version "8.5.1"
-  resolved "https://registry.yarnpkg.com/react-imgix/-/react-imgix-8.5.1.tgz#679671d5501f5b4b74aab56d4709f1fa3afa3b30"
-  integrity sha512-V1Y8+yiKCvIWDnwWC0OrS/f4JWkmPv83M5VElmi8RwTsl5cyl2/bufhQKH0zLcyyTw5Q+Uv/cdhKKF7981OSCw==
+react-imgix@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/react-imgix/-/react-imgix-8.6.0.tgz#ede183d6e8fca3b5878ffb228b45b29257cbd2fa"
+  integrity sha512-vPA40EQ5rHWoIzY2U6x4q0zPNKu3RruybF3P7A0Fa8MBUunHXqOjRDilGFjiqPi9AI4DWTLOSyf9U07JVh9AMQ==
   dependencies:
     js-base64 "^2.3.2"
     jsuri "^1.3.1"
@@ -8280,10 +8290,10 @@ react-redux@^6.0.1:
     prop-types "^15.7.2"
     react-is "^16.8.2"
 
-react-scroll-parallax@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.0.5.tgz#db7715b705aea4e5daaa8a09f629ae3185c1857c"
-  integrity sha512-FMz9T1a0wv3klHPFk4XyBlCB5tTJwqL0HW+OFRJrj8IQNGZLPIL7ZhJuZaOMEicedHL6+QR/EVnayaWXTjGsiw==
+react-scroll-parallax@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.1.0.tgz#6a2a13ee21a908f36752fc720b75e523da1f6ade"
+  integrity sha512-fkY1uMjBnXV4hTuzbJCV/igKR4btlaqYMmYgfEkVwc2IH57tTvG/+k06y7N1FfM324dreeqFwrPhLrm8UKAkEg==
   dependencies:
     prop-types "^15.5.10"
 
