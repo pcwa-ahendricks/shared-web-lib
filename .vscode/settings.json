@@ -1,7 +1,6 @@
 {
   "javascript.validate.enable": false,
   "typescript.validate.enable": false,
-  "flow.enabled": true,
   "search.exclude": {
     "**/node_modules": true,
     "packages/next/.next": true,
@@ -17,6 +16,7 @@
     "browserslist",
     "checkboxes",
     "cntrl",
+    "compat",
     "corejs",
     "cosmicjs",
     "darksky",

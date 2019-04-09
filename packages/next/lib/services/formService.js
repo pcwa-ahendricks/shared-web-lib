@@ -50,8 +50,6 @@ export type IrrigationEfficienciesRebateFormData = {|
   termsAgree: boolean,
   signature: string,
   captcha: string,
-  receipts: Array<string>,
-  cntrlPhotos: Array<string>,
   upgradeOpts: IrrigSysUpgradeOpts
 |}
 

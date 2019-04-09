@@ -10,8 +10,7 @@ import {
 import {withStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, boolean, array} from 'yup'
-import classNames from 'classnames'
+import {string, object, boolean} from 'yup'
 import {
   postRebateForm,
   type IrrigationEfficienciesRequestBody as RequestBody,
@@ -32,7 +31,6 @@ import IrrigCntrlModelField from '@components/formFields/IrrigCntrlModelField'
 import IrrigCntrlMnfgField from '@components/formFields/IrrigCntrlMnfgField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
-import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
 import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
@@ -117,32 +115,6 @@ const formSchema = object()
         'You must select at least one upgrade option',
         (value) =>
           Object.keys(value).find((chkBoxVal) => value[chkBoxVal] === true)
-      ),
-    receipts: array()
-      .required('Must provide receipt(s) or proof of purchase')
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
-        })
-      ),
-    cntrlPhotos: array()
-      .required('Must provide photo(s) of installed irrigation controller')
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
-        })
       )
   })
 
@@ -162,8 +134,6 @@ const initialFormValues: RebateFormData = {
   termsAgree: false,
   signature: '',
   captcha: '',
-  receipts: [],
-  cntrlPhotos: [],
   upgradeOpts: {...initialIrrigSysUpgradeOpts}
 }
 
@@ -189,13 +159,6 @@ const styles = (theme) => ({
     margin: 'auto',
     width: 'fit-content' // IE doesn't support
     // width: '100%'
-  },
-  dropzoneContainer: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginBottom: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 3
   },
   buttonWrapper: {
     flex: '0 0 auto', // IE fix
@@ -246,22 +209,10 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [cntrlPhotosIsUploading, setCntrlPhotosIsUploading] = useState<boolean>(
-    false
-  )
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
   const [providedEmail, setProvidedEmail] = useState<string>('')
-
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
-    setReceiptIsUploading(isUploading)
-  }, [])
-
-  const cntrlPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setCntrlPhotosIsUploading(isUploading)
-  }, [])
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -336,8 +287,6 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                     setFieldValue('otherCity', '')
                   }
 
-                  const attachmentsAreUploading =
-                    receiptIsUploading || cntrlPhotosIsUploading
                   return (
                     <Form className={classes.form}>
                       {/* <Type variant="h3" color="primary" gutterBottom>
@@ -499,51 +448,6 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 
                       <div className={classes.formGroup}>
                         <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Provide Attachments
-                        </Type>
-
-                        <div className={classNames(classes.dropzoneContainer)}>
-                          <Field
-                            name="receipts"
-                            render={({field, form}) => (
-                              <AttachmentField
-                                form={form}
-                                field={field}
-                                attachmentTitle="Receipt"
-                                uploadFolder="irrigation-controller"
-                                onIsUploadingChange={receiptIsUploadingHandler}
-                              />
-                            )}
-                          />
-                        </div>
-
-                        <div className={classNames(classes.dropzoneContainer)}>
-                          <Field
-                            name="cntrlPhotos"
-                            render={({field, form}) => (
-                              <AttachmentField
-                                form={form}
-                                field={field}
-                                attachmentTitle="Installed Irrigation Controller Photo"
-                                uploadFolder="irrigation-controller"
-                                onIsUploadingChange={
-                                  cntrlPhotosIsUploadingHandler
-                                }
-                              />
-                            )}
-                          />
-                        </div>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
                           color="textSecondary"
                           variant="h4"
                           gutterBottom
@@ -671,10 +575,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                           color="primary"
                           type="submit"
                           disabled={
-                            isSubmitting ||
-                            !isValid ||
-                            (!formTouched && !dirty) ||
-                            attachmentsAreUploading
+                            isSubmitting || !isValid || (!formTouched && !dirty)
                           }
                         >
                           Submit Application
@@ -699,16 +600,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
         </Grid>
       </React.Fragment>
     ),
-    [
-      classes,
-      formIsDirty,
-      formValues,
-      formIsTouched,
-      receiptIsUploading,
-      receiptIsUploadingHandler,
-      cntrlPhotosIsUploading,
-      cntrlPhotosIsUploadingHandler
-    ]
+    [classes, formIsDirty, formValues, formIsTouched]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
