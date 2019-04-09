@@ -377,15 +377,17 @@ const IrrigationController = ({classes}: Props) => {
                   }
                 }}
               >
-                {({
-                  values,
-                  touched = {},
-                  dirty,
-                  isSubmitting,
-                  isValid,
-                  setFieldValue
-                  // handleReset
-                }) => {
+                {(formik) => {
+                  const {
+                    values,
+                    touched = {},
+                    dirty,
+                    isSubmitting,
+                    isValid,
+                    setFieldValue
+                  }: // handleReset
+                  {values: RebateFormData} & * = formik
+
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
                   }

@@ -258,21 +258,25 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                   }
                 }}
               >
-                {({
-                  values,
-                  touched = {},
-                  dirty,
-                  isSubmitting,
-                  isValid,
-                  setFieldValue
-                  // handleReset
-                }) => {
+                {(formik) => {
+                  const {
+                    values,
+                    touched = {},
+                    dirty,
+                    isSubmitting,
+                    isValid,
+                    setFieldValue
+                  }: // handleReset
+                  {values: RebateFormData} & * = formik
+
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
                   }
+
                   if (values !== formValues) {
                     setFormValues(values)
                   }
+
                   // Use state to save a boolean version of 'touched'.
                   const formTouched = Object.keys(touched).length > 0
                   if (formTouched !== formIsTouched) {
