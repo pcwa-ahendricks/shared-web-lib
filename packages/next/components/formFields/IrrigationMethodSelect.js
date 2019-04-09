@@ -15,8 +15,7 @@ type Props = {
   field: Field,
   form: Form,
   classes: any,
-  onChange?: (Array<any>) => void,
-  fullWidth: boolean
+  fullWidth?: boolean
 }
 
 const styles = {
@@ -26,45 +25,38 @@ const styles = {
   }
 }
 
-const CITY_LIST = [
-  'Alta',
-  'Applegate',
-  'Auburn',
-  'Baxter',
-  'Colfax',
-  'Dutch Flat',
-  'Gold Run',
-  'Granite Bay',
-  'Lincoln',
-  'Loomis',
-  'Meadow Vista',
-  'Newcastle',
-  'Penryn',
-  'Rocklin',
-  'Roseville',
-  'Weimar',
-  'Other'
+const IRRIGATION_METHODS = [
+  'Hand water',
+  'Sprinkler System operated manually',
+  'Sprinkler system operated by irrigation controller'
 ]
 
-const CitySelectField = ({
+const IrrigationTypesSelect = ({
   field,
   form,
   classes,
-  onChange,
-  fullWidth,
+  fullWidth = true,
   ...other
 }: Props) => {
   const {name, value} = field
-  const {errors, handleChange, isSubmitting, handleBlur, touched} = form
+  const {
+    errors,
+    handleChange,
+    isSubmitting,
+    handleBlur,
+    touched,
+    setFieldTouched
+  } = form
   const currentError = errors[name]
   const fieldTouched = touched[name]
 
+  // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
     (...args) => {
       handleChange(...args)
-      onChange && onChange(...args)
+      setFieldTouched(name, true, true)
     },
-    [handleChange, onChange]
+    [handleChange, setFieldTouched, name]
   )
 
   return (
@@ -78,12 +70,12 @@ const CitySelectField = ({
       {...other}
     >
       <InputLabel
-        htmlFor="city-select"
+        htmlFor="irrigation-method-select"
         classes={{
           root: classes.inputLabel
         }}
       >
-        City
+        Irrigation Method
       </InputLabel>
       <Select
         value={value}
@@ -91,10 +83,9 @@ const CitySelectField = ({
         variant="outlined"
         input={
           <OutlinedInput
-            id="city-select"
+            id="irrigation-method-select"
             name={name}
-            autoComplete="billing address-level2"
-            labelWidth={36}
+            labelWidth={140}
             error={currentError && fieldTouched}
           />
         }
@@ -105,7 +96,7 @@ const CitySelectField = ({
         {/* <MenuItem value="">
                           <em>None</em>
                         </MenuItem> */}
-        {CITY_LIST.map((city) => (
+        {IRRIGATION_METHODS.map((city) => (
           <MenuItem key={city} value={city}>
             {city}
           </MenuItem>
@@ -118,8 +109,4 @@ const CitySelectField = ({
   )
 }
 
-CitySelectField.defaultProps = {
-  fullWidth: true
-}
-
-export default withStyles(styles)(CitySelectField)
+export default withStyles(styles)(IrrigationTypesSelect)

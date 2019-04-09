@@ -2,6 +2,7 @@
 // cspell:ignore addtl
 import fetch from 'isomorphic-unfetch'
 import {type IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
+import {type IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
 const IRRIG_CNTRL_REBATE_BASE_URL = 'irrigation-controller-rebate'
@@ -44,12 +45,12 @@ export type IrrigationEfficienciesRebateFormData = {|
   otherCity: string,
   phone: string,
   propertyType: string,
-  manufacturer: string,
-  model: string,
-  purchaseDate: string,
   termsAgree: boolean,
+  inspectAgree: boolean,
   signature: string,
   captcha: string,
+  irrigMethod: string,
+  upgradeLocations: IrrigUpgradeLocationOpts,
   upgradeOpts: IrrigSysUpgradeOpts
 |}
 

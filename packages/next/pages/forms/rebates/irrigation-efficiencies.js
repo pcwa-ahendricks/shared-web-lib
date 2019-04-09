@@ -17,18 +17,17 @@ import {
   type IrrigationEfficienciesRebateFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
-import PurchaseDateField from '@components/formFields/PurchaseDateField'
+import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
 import FirstNameField from '@components/formFields/FirstNameField'
 import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
+import IrrigationMethodSelect from '@components/formFields/IrrigationMethodSelect'
 import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import IrrigCntrlModelField from '@components/formFields/IrrigCntrlModelField'
-import IrrigCntrlMnfgField from '@components/formFields/IrrigCntrlMnfgField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
@@ -41,6 +40,9 @@ import FormSubmissionDialogError from '@components/FormSubmissionDialogError/For
 import IrrigSysUpgradeOptsCheckboxes, {
   formControlItems as initialIrrigSysUpgradeOpts
 } from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
+import IrrigUpgradeLocationCheckboxes, {
+  formControlItems as initialIrrigUpgradeLocationOpts
+} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -87,26 +89,40 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
-    manufacturer: string()
-      .required()
-      .label('Irrigation Controller Manufacturer'),
-    model: string()
-      .required()
-      .label('Irrigation Controller Model'),
-    additional: string().label('Additional Sensor or Outdoor Cover'),
-    purchaseDate: string()
-      .required('A valid purchase date is required')
-      .typeError('A valid purchase date is required'),
     termsAgree: boolean()
       .required()
-      .oneOf([true], 'Must agree to terms and conditions by checking this box')
-      .label('Agree to Terms Check'),
+      .oneOf([true], 'Must agree to Terms and Conditions by checking this box')
+      .label('Agree to Terms'),
+    inspectAgree: boolean()
+      .required()
+      .oneOf(
+        [true],
+        'Must agree to a scheduled site inspection by checking this box'
+      )
+      .label('Agree to Site Inspection'),
     signature: string()
       .required()
       .label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
+    irrigMethod: string()
+      .required()
+      .label('Irrigation Method')
+      .notOneOf(
+        ['Hand water'],
+        'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
+      ),
+    upgradeLocations: object({
+      key: boolean()
+    })
+      .required()
+      .test(
+        'has-one-location-option',
+        'You must select at least one location option',
+        (value) =>
+          Object.keys(value).find((chkBoxVal) => value[chkBoxVal] === true)
+      ),
     upgradeOpts: object({
       key: boolean()
     })
@@ -129,12 +145,12 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
-  manufacturer: '',
-  model: '',
-  purchaseDate: '',
   termsAgree: false,
+  inspectAgree: false,
   signature: '',
   captcha: '',
+  irrigMethod: '',
+  upgradeLocations: {...initialIrrigUpgradeLocationOpts},
   upgradeOpts: {...initialIrrigSysUpgradeOpts}
 }
 
@@ -300,10 +316,6 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 
                   return (
                     <Form className={classes.form}>
-                      {/* <Type variant="h3" color="primary" gutterBottom>
-                        Weather Based Irrigation Controller Rebate Form
-                      </Type> */}
-
                       <div className={classes.formGroup}>
                         <Type
                           color="textSecondary"
@@ -406,51 +418,31 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                         <Grid container spacing={40}>
                           <Grid item xs={12}>
                             <Field
+                              name="irrigMethod"
+                              component={IrrigationMethodSelect}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Type variant="h5" color="textPrimary" gutterBottom>
+                              Location of the irrigation equipment you plan to
+                              upgrade
+                            </Type>
+
+                            <Field
+                              name="upgradeLocations"
+                              component={IrrigUpgradeLocationCheckboxes}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Type variant="h5" color="textPrimary" gutterBottom>
+                              Please specify how you would like to upgrade your
+                              irrigation system
+                            </Type>
+
+                            <Field
                               name="upgradeOpts"
                               component={IrrigSysUpgradeOptsCheckboxes}
                             />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="manufacturer"
-                              component={IrrigCntrlMnfgField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="model"
-                              component={IrrigCntrlModelField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={40}>
-                          <Grid item xs={12} sm={5}>
-                            {/* <Hidden only="xs" implementation="css"> */}
-                            <Field
-                              name="purchaseDate"
-                              render={({field, form}) => (
-                                <PurchaseDateField
-                                  form={form}
-                                  field={field}
-                                  // required={width !== 'xs'}
-                                  required={true}
-                                />
-                              )}
-                            />
-                            {/* </Hidden> */}
-                            {/* <Hidden smUp implementation="css">
-                                <Field
-                                  name="purchaseDate"
-                                  render={({field, form}) => (
-                                    <PurchaseDateNativeField
-                                      form={form}
-                                      field={field}
-                                      required={width === 'xs'}
-                                    />
-                                  )}
-                                />
-                              </Hidden> */}
                           </Grid>
                         </Grid>
                       </div>
@@ -479,19 +471,20 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
-                            <Type variant="body1" paragraph>
-                              <em>
-                                PCWA reserves the right to verify the
-                                installation of the product(s) at the service
-                                address on the application. You will be
-                                contacted by a Water Efficiency Specialist to
-                                schedule an appointment if you are selected for
-                                an installation verification.
-                              </em>
-                            </Type>
                             <Field
                               name="termsAgree"
                               component={AgreeTermsCheckbox}
+                            />
+                            <Type variant="body1">
+                              You must agree to participate in a post-conversion
+                              site inspection conducted by PCWA to verify that
+                              all irrigation equipment is installed. You may not
+                              be required to be present; arrangements will be
+                              made with your Water Efficiency Specialist.
+                            </Type>
+                            <Field
+                              name="inspectAgree"
+                              component={AgreeInspectionCheckbox}
                             />
                           </Grid>
                         </Grid>
@@ -615,7 +608,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const irrigControllerEl = useMemo(
+  const irrigEfficienciesEl = useMemo(
     () =>
       !isDev ? (
         <React.Fragment>
@@ -638,7 +631,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Irrigation Controller Rebate Form">
+        <PageLayout title="Irrigation Efficiencies Rebate Form">
           {mainEl}
         </PageLayout>
       ),
@@ -647,12 +640,12 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 
   return (
     <React.Fragment>
-      {irrigControllerEl}
+      {irrigEfficienciesEl}
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Weather Based Irrigation Controller Rebate Application"
+        description="Irrigation Efficiencies Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError

@@ -102,8 +102,8 @@ const formSchema = object()
       .typeError('A valid purchase date is required'),
     termsAgree: boolean()
       .required()
-      .oneOf([true], 'Must agree to terms and conditions by checking this box')
-      .label('Agree to Terms Check'),
+      .oneOf([true], 'Must agree to Terms and Conditions by checking this box')
+      .label('Agree to Terms'),
     signature: string()
       .required()
       .label('Your signature'),
