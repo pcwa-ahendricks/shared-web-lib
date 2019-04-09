@@ -37,6 +37,7 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
+import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import IrrigSysUpgradeOptsCheckboxes, {
   formControlItems as initialIrrigSysUpgradeOpts
 } from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
@@ -212,11 +213,19 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
+  const [
+    formSubmitDialogErrorOpen,
+    setFormSubmitDialogErrorOpen
+  ] = useState<boolean>(false)
   const [providedEmail, setProvidedEmail] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
     setProvidedEmail('')
+  }, [])
+  const errorDialogCloseHandler = useCallback(() => {
+    setFormSubmitDialogErrorOpen(false)
   }, [])
 
   const mainEl = useMemo(
@@ -239,7 +248,6 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                 validationSchema={formSchema}
                 onSubmit={async (values: RebateFormData, actions) => {
                   try {
-                    // Dispatch submit
                     // console.log(values, actions)
                     setProvidedEmail(values.email)
                     const body: RequestBody = {
@@ -247,13 +255,13 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                     }
                     await postRebateForm(body)
                     actions.setSubmitting(false)
-                    // resetForm()
+                    // Reset Form
                     actions.resetForm() // Strictly Formik
-                    // alert(JSON.stringify(data, null, 2))
                     setFormSubmitDialogOpen(true)
                   } catch (error) {
-                    // TODO - form error dialog here
-                    console.log('An error occurred submitting form.', error)
+                    console.warn('An error occurred submitting form.', error)
+                    setErrorMessage(error.message)
+                    setFormSubmitDialogErrorOpen(true)
                     actions.setSubmitting(false)
                   }
                 }}
@@ -266,8 +274,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                     isSubmitting,
                     isValid,
                     setFieldValue
-                  }: // handleReset
-                  {values: RebateFormData} & * = formik
+                  }: {values: RebateFormData} & * = formik
 
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
@@ -647,6 +654,11 @@ const IrrigationEfficiencies = ({classes}: Props) => {
         onClose={dialogCloseHandler}
         description="Weather Based Irrigation Controller Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
+      />
+      <FormSubmissionDialogError
+        open={formSubmitDialogErrorOpen}
+        onClose={errorDialogCloseHandler}
+        errorMessage={errorMessage}
       />
     </React.Fragment>
   )

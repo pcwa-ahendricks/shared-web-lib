@@ -21,8 +21,8 @@ type Props = {
 
 const styles = {
   fcLabel: {
-    marginBottom: 2,
-    marginTop: 2
+    marginBottom: 1,
+    marginTop: 1
   }
 }
 
