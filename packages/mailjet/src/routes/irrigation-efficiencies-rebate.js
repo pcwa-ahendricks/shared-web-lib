@@ -1,5 +1,5 @@
 // @flow
-// cspell:ignore addtl cbarnhill
+// cspell:ignore addtl cbarnhill truthy
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
@@ -22,6 +22,8 @@ const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
+const MAILJET_TEMPLATE_ID = 762551
+
 const basicAuth = new Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString(
   'base64'
 )
@@ -38,11 +40,6 @@ const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
       {Name: 'Cassandra', Email: 'cbarnhill@pcwa.net'}
     ]
 
-type AttachmentFieldValue = {|
-  status: string,
-  url: string
-|}
-
 type FormDataObj = {|
   firstName: string,
   lastName: string,
@@ -53,16 +50,16 @@ type FormDataObj = {|
   otherCity?: string,
   phone: string,
   propertyType: string,
-  manufacturer: string,
-  model: string,
-  additional?: string,
-  purchaseDate: string,
+  irrigMethod: string,
+  upgradeLocations: {
+    [key: string]: boolean
+  },
+  upgradeOpts: {
+    [key: string]: boolean
+  },
   termsAgree: boolean,
   signature: string,
-  captcha: string,
-  receipts: Array<AttachmentFieldValue>,
-  cntrlPhotos: Array<AttachmentFieldValue>,
-  addtlSensorPhotos?: Array<AttachmentFieldValue>
+  captcha: string
 |}
 
 const bodySchema = object()
@@ -152,6 +149,9 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
+    irrigMethod,
+    upgradeLocations,
+    upgradeOpts,
     termsAgree,
     signature,
     captcha
@@ -180,6 +180,9 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     city = otherCity
   }
 
+  const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
+  const mappedUpgradeOpts = mapTruthyKeys(upgradeOpts)
+
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
@@ -199,7 +202,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
         },
         Subject: 'PCWA - Water Efficiency Rebate Submitted',
-        TemplateID: 755362,
+        TemplateID: MAILJET_TEMPLATE_ID,
         TemplateLanguage: true,
         Variables: {
           firstName,
@@ -210,6 +213,9 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           email,
           phone,
           propertyType,
+          irrigMethod,
+          upgradeLocations: mappedUpgradeLocations,
+          upgradeOpts: mappedUpgradeOpts,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
           termsAgree,
           signature
@@ -283,4 +289,16 @@ function hasTrueValue(value): boolean {
     typeof value === 'object' &&
     Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
   )
+}
+
+function mapTruthyKeys(obj: any) {
+  return Object.keys(obj)
+    .map((key) => {
+      if (obj[key] === true) {
+        return key
+      } else {
+        return null
+      }
+    })
+    .filter(Boolean)
 }

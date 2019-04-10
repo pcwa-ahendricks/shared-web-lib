@@ -27,7 +27,7 @@ const styles = {
 
 const IRRIGATION_METHODS = [
   'Hand water',
-  'Sprinkler System operated manually',
+  'Sprinkler system operated manually',
   'Sprinkler system operated by irrigation controller'
 ]
 

@@ -22,7 +22,8 @@ const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
-// const UPLOAD_MB_LIMIT = 15
+
+const MAILJET_TEMPLATE_ID = 755362
 
 const basicAuth = new Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString(
   'base64'
@@ -246,7 +247,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
         },
         Subject: 'PCWA - Water Efficiency Rebate Submitted',
-        TemplateID: 755362,
+        TemplateID: MAILJET_TEMPLATE_ID,
         TemplateLanguage: true,
         Variables: {
           firstName,
