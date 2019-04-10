@@ -7,7 +7,8 @@ import {
   // photoFileRoute,
   // photoB64Route,
   // uploadRoute,
-  irrigCntrlRebateRoute
+  irrigCntrlRebateRoute,
+  irrigEffRebateRoute
 } from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
@@ -36,6 +37,7 @@ const routeHandler = router()(
   post(`${rtePre}/form-exam-submit`, hecpEmailRoute),
   post(`${rtePre}/water-waste-submit`, waterWasteRoute),
   post(`${rtePre}/irrigation-controller-rebate`, irrigCntrlRebateRoute),
+  post(`${rtePre}/irrigation-efficiencies-rebate`, irrigEffRebateRoute),
   // File uploads handled by Cosmicjs and cosmic package..
   // get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
   // get(`${rtePre}/uploads/:filename`, photoFileRoute),

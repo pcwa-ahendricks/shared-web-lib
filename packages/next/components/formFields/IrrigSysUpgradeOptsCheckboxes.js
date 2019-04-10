@@ -6,7 +6,8 @@ import {
   FormControlLabel,
   FormHelperText,
   FormGroup,
-  FormLabel
+  FormLabel,
+  withWidth
 } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
@@ -16,13 +17,14 @@ type Props = {
   form: Form,
   onChange?: (Array<any>) => void,
   fullWidth: boolean,
-  classes: any
+  classes: any,
+  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
 const styles = {
-  fcLabel: {
-    marginBottom: 1,
-    marginTop: 1
+  fcXsLabel: {
+    marginBottom: 2,
+    marginTop: 2
   }
 }
 
@@ -42,6 +44,7 @@ const IrrigSysUpgradeOptsCheckboxes = ({
   field,
   form,
   fullWidth,
+  width,
   classes,
   ...other
 }: Props) => {
@@ -84,10 +87,10 @@ const IrrigSysUpgradeOptsCheckboxes = ({
               onBlur={handleBlur}
             />
           }
-          classes={{root: classes.fcLabel}}
+          classes={{root: width === 'xs' ? classes.fcXsLabel : null}}
         />
       )),
-    [handleBlur, handleChange, value, classes]
+    [handleBlur, handleChange, value, classes, width]
   )
 
   return (
@@ -116,4 +119,4 @@ IrrigSysUpgradeOptsCheckboxes.defaultProps = {
   fullWidth: true
 }
 
-export default withStyles(styles)(IrrigSysUpgradeOptsCheckboxes)
+export default withWidth()(withStyles(styles)(IrrigSysUpgradeOptsCheckboxes))

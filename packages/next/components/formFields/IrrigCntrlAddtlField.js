@@ -1,5 +1,6 @@
 // @flow
-import React from 'react'
+// cspell:ignore addtl
+import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
@@ -8,6 +9,7 @@ type Props = {
   field: Field,
   form: Form,
   classes: any,
+  onChange?: (Array<any>) => void,
   fullWidth: boolean
 }
 
@@ -23,12 +25,21 @@ const IrrigCntrlAddtlField = ({
   form,
   classes,
   fullWidth,
+  onChange,
   ...other
 }: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
   const fieldTouched = touched[name]
+
+  const changeHandler = useCallback(
+    (...args) => {
+      handleChange(...args)
+      onChange && onChange(...args)
+    },
+    [handleChange, onChange]
+  )
 
   return (
     <TextField
@@ -40,7 +51,7 @@ const IrrigCntrlAddtlField = ({
       margin="normal"
       helperText={currentError && fieldTouched ? currentError : null}
       error={currentError && fieldTouched}
-      onChange={handleChange}
+      onChange={changeHandler}
       onBlur={handleBlur}
       disabled={isSubmitting}
       InputLabelProps={{

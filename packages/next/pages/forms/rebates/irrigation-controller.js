@@ -296,6 +296,9 @@ const styles = (theme) => ({
     flexBasis: 'auto',
     flexGrow: 0,
     flexShrink: 0
+  },
+  reserveRight: {
+    marginTop: theme.spacing.unit * 3
   }
   // grow: {
   //   flexGrow: 1
@@ -415,8 +418,18 @@ const IrrigationController = ({classes}: Props) => {
                   const hasAddtlSensor = Boolean(values.additional)
 
                   // If city field is updated clear out otherCity field.
-                  const cityChangeHandler = () => {
-                    setFieldValue('otherCity', '')
+                  const cityChangeHandler = (evt) => {
+                    // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
+                    if (evt.target.value.toLowerCase() !== 'other') {
+                      setFieldValue('otherCity', '')
+                    }
+                  }
+
+                  // If additional field is updated and is blank clear out additional photos.
+                  const additionalChangeHandler = (evt) => {
+                    if (evt.target.value.length === 0) {
+                      setFieldValue('addtlSensorPhotos', [])
+                    }
                   }
 
                   const attachmentsAreUploading =
@@ -547,7 +560,13 @@ const IrrigationController = ({classes}: Props) => {
                           <Grid item xs={12} sm={7}>
                             <Field
                               name="additional"
-                              component={IrrigCntrlAddtlField}
+                              render={({field, form}) => (
+                                <IrrigCntrlAddtlField
+                                  form={form}
+                                  field={field}
+                                  onChange={additionalChangeHandler}
+                                />
+                              )}
                             />
                           </Grid>
                           <Grid item xs={12} sm={5}>
@@ -664,13 +683,11 @@ const IrrigationController = ({classes}: Props) => {
                             className={classes.ieFixFlexColumnDirection}
                           >
                             <IrrigEffTermsConditions />
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="body1" paragraph>
+                            <Type
+                              variant="body1"
+                              paragraph
+                              className={classes.reserveRight}
+                            >
                               <em>
                                 PCWA reserves the right to verify the
                                 installation of the product(s) at the service

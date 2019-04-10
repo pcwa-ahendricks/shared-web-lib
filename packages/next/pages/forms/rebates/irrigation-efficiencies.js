@@ -110,28 +110,22 @@ const formSchema = object()
       .required()
       .label('Irrigation Method')
       .notOneOf(
-        ['Hand water'],
+        ['Hand water'], // Case sensitive
         'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
       ),
-    upgradeLocations: object({
-      key: boolean()
-    })
+    upgradeLocations: object()
       .required()
       .test(
         'has-one-location-option',
         'You must select at least one location option',
-        (value) =>
-          Object.keys(value).find((chkBoxVal) => value[chkBoxVal] === true)
+        hasTrueValue
       ),
-    upgradeOpts: object({
-      key: boolean()
-    })
+    upgradeOpts: object()
       .required()
       .test(
         'has-one-upgrade-option',
         'You must select at least one upgrade option',
-        (value) =>
-          Object.keys(value).find((chkBoxVal) => value[chkBoxVal] === true)
+        hasTrueValue
       )
   })
 
@@ -459,18 +453,18 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                           Acknowledge Terms & Conditions
                         </Type>
                         <Grid container direction="column" spacing={32}>
+                          {/* <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                          </Grid> */}
                           <Grid
                             item
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
                             <IrrigEffTermsConditions />
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
                             <Field
                               name="termsAgree"
                               component={AgreeTermsCheckbox}
@@ -658,3 +652,11 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 }
 
 export default withStyles(styles)(IrrigationEfficiencies)
+
+function hasTrueValue(value): boolean {
+  return (
+    value &&
+    typeof value === 'object' &&
+    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
+  )
+}
