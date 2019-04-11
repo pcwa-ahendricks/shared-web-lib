@@ -47,7 +47,7 @@ import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialo
 import delay from 'then-sleep'
 
 const isDev = process.env.NODE_ENV === 'development'
-const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
+const SERVICE_URI_PATH = 'lawn-replacement-rebate'
 
 type Props = {
   classes: any
@@ -115,20 +115,6 @@ const formSchema = object()
       .notOneOf(
         ['Hand water'], // Case sensitive
         'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
-      ),
-    upgradeLocations: object()
-      .required()
-      .test(
-        'has-one-location-option',
-        'You must select at least one location option',
-        hasTrueValue
-      ),
-    upgradeOpts: object()
-      .required()
-      .test(
-        'has-one-upgrade-option',
-        'You must select at least one upgrade option',
-        hasTrueValue
       )
   })
 

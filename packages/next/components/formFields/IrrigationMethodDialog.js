@@ -106,7 +106,7 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
                     Unfortunately you do not qualify for the Irrigation
                     Efficiencies Rebate. The Irrigation Efficiencies Rebates are
                     only available to improve existing in-ground irrigation
-                    systems. Please close this web browser tab to go back to the
+                    systems. Please close this web browser tab to go back to the{' '}
                     <a href="https://www.pcwa.net">PCWA.net</a> website.
                   </DialogContentText>
                 </WaitToGrow>
@@ -117,7 +117,7 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
                     className={classes.qualifyMsg}
                   >
                     Excellent. You qualify for the Irrigation Efficiencies
-                    Rebate. Please close this message now to continue to rebate
+                    Rebate. Please close this message now to continue the rebate
                     application process.
                   </DialogContentText>
                 </WaitToGrow>
