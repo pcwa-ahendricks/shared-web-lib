@@ -482,22 +482,15 @@ const IrrigationController = ({classes}: Props) => {
                           <Grid item xs={12} sm={8}>
                             <Field
                               name="address"
-                              render={({field, form}) => (
-                                <StreetAddressField form={form} field={field} />
-                              )}
+                              component={StreetAddressField}
                             />
                           </Grid>
 
                           <Grid item xs={12} sm={4}>
                             <Field
                               name="city"
-                              render={({field, form}) => (
-                                <CitySelectField
-                                  form={form}
-                                  field={field}
-                                  onChange={cityChangeHandler}
-                                />
-                              )}
+                              onChange={cityChangeHandler}
+                              component={CitySelectField}
                             />
                           </Grid>
                         </Grid>
@@ -507,13 +500,8 @@ const IrrigationController = ({classes}: Props) => {
                             <Grid item xs={12}>
                               <Field
                                 name="otherCity"
-                                render={({field, form}) => (
-                                  <OtherCityField
-                                    form={form}
-                                    field={field}
-                                    disabled={!otherCitySelected}
-                                  />
-                                )}
+                                disabled={!otherCitySelected}
+                                component={OtherCityField}
                               />
                             </Grid>
                           </Grid>
@@ -560,27 +548,15 @@ const IrrigationController = ({classes}: Props) => {
                           <Grid item xs={12} sm={7}>
                             <Field
                               name="additional"
-                              render={({field, form}) => (
-                                <IrrigCntrlAddtlField
-                                  form={form}
-                                  field={field}
-                                  onChange={additionalChangeHandler}
-                                />
-                              )}
+                              onChange={additionalChangeHandler}
+                              component={IrrigCntrlAddtlField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={5}>
                             {/* <Hidden only="xs" implementation="css"> */}
                             <Field
                               name="purchaseDate"
-                              render={({field, form}) => (
-                                <PurchaseDateField
-                                  form={form}
-                                  field={field}
-                                  // required={width !== 'xs'}
-                                  required={true}
-                                />
-                              )}
+                              component={PurchaseDateField}
                             />
                             {/* </Hidden> */}
                             {/* <Hidden smUp implementation="css">
@@ -614,32 +590,20 @@ const IrrigationController = ({classes}: Props) => {
                         <div className={classNames(classes.dropzoneContainer)}>
                           <Field
                             name="receipts"
-                            render={({field, form}) => (
-                              <AttachmentField
-                                form={form}
-                                field={field}
-                                attachmentTitle="Receipt"
-                                uploadFolder="irrigation-controller"
-                                onIsUploadingChange={receiptIsUploadingHandler}
-                              />
-                            )}
+                            attachmentTitle="Receipt"
+                            uploadFolder="irrigation-controller"
+                            onIsUploadingChange={receiptIsUploadingHandler}
+                            component={AttachmentField}
                           />
                         </div>
 
                         <div className={classNames(classes.dropzoneContainer)}>
                           <Field
                             name="cntrlPhotos"
-                            render={({field, form}) => (
-                              <AttachmentField
-                                form={form}
-                                field={field}
-                                attachmentTitle="Installed Irrigation Controller Photo"
-                                uploadFolder="irrigation-controller"
-                                onIsUploadingChange={
-                                  cntrlPhotosIsUploadingHandler
-                                }
-                              />
-                            )}
+                            attachmentTitle="Installed Irrigation Controller Photo"
+                            uploadFolder="irrigation-controller"
+                            onIsUploadingChange={cntrlPhotosIsUploadingHandler}
+                            component={AttachmentField}
                           />
                         </div>
 
@@ -649,17 +613,12 @@ const IrrigationController = ({classes}: Props) => {
                           >
                             <Field
                               name="addtlSensorPhotos"
-                              render={({field, form}) => (
-                                <AttachmentField
-                                  form={form}
-                                  field={field}
-                                  attachmentTitle="Additional Sensor/Outdoor Cover Photo"
-                                  uploadFolder="irrigation-controller"
-                                  onIsUploadingChange={
-                                    addtlSensorPhotosIsUploadingHandler
-                                  }
-                                />
-                              )}
+                              attachmentTitle="Additional Sensor/Outdoor Cover Photo"
+                              uploadFolder="irrigation-controller"
+                              onIsUploadingChange={
+                                addtlSensorPhotosIsUploadingHandler
+                              }
+                              component={AttachmentField}
                             />
                           </div>
                         </WaitToGrow>

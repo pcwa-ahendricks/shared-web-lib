@@ -8,7 +8,7 @@ type Props = {
   field: Field,
   form: Form,
   classes: any,
-  fullWidth: boolean
+  fullWidth?: boolean
 }
 
 const styles = {
@@ -18,7 +18,13 @@ const styles = {
   }
 }
 
-const EmailField = ({field, form, classes, fullWidth, ...other}: Props) => {
+const EmailField = ({
+  field,
+  form,
+  classes,
+  fullWidth = true,
+  ...other
+}: Props) => {
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -49,10 +55,6 @@ const EmailField = ({field, form, classes, fullWidth, ...other}: Props) => {
       {...other}
     />
   )
-}
-
-EmailField.defaultProps = {
-  fullWidth: true
 }
 
 export default withStyles(styles)(EmailField)

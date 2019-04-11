@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useCallback, useMemo} from 'react'
+import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {
   Button,
   CircularProgress,
@@ -43,6 +43,8 @@ import IrrigSysUpgradeOptsCheckboxes, {
 import IrrigUpgradeLocationCheckboxes, {
   formControlItems as initialIrrigUpgradeLocationOpts
 } from '@components/formFields/IrrigUpgradeLocationCheckboxes'
+import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialog'
+import delay from 'then-sleep'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -227,8 +229,12 @@ const IrrigationEfficiencies = ({classes}: Props) => {
     formSubmitDialogErrorOpen,
     setFormSubmitDialogErrorOpen
   ] = useState<boolean>(false)
+  const [irrigMethodDialogOpen, setIrrigMethodDialogOpen] = useState<boolean>(
+    false
+  )
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [ineligible, setIneligible] = useState<boolean>(false)
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -236,6 +242,14 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   }, [])
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
+  }, [])
+
+  useEffect(() => {
+    const fn = async () => {
+      await delay(1000)
+      setIrrigMethodDialogOpen(true)
+    }
+    fn()
   }, [])
 
   const mainEl = useMemo(
@@ -283,6 +297,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                     dirty,
                     isSubmitting,
                     isValid,
+                    errors,
                     setFieldValue
                   }: {values: RebateFormData} & * = formik
 
@@ -292,6 +307,12 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 
                   if (values !== formValues) {
                     setFormValues(values)
+                  }
+
+                  // Check if user is in-eligible for rebate and disable all form controls if so.
+                  const rebateIneligibility = Boolean(errors['irrigMethod'])
+                  if (rebateIneligibility !== ineligible) {
+                    setIneligible(rebateIneligibility)
                   }
 
                   // Use state to save a boolean version of 'touched'.
@@ -309,244 +330,270 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                   }
 
                   return (
-                    <Form className={classes.form}>
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Contact Information
-                        </Type>
-                        <Grid container spacing={40}>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="firstName"
-                              component={FirstNameField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field name="lastName" component={LastNameField} />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={40}>
-                          <Grid item xs={12} sm={7}>
-                            <Field
-                              name="accountNo"
-                              component={AccountNoField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={5}>
-                            <Field
-                              name="propertyType"
-                              component={PropertyTypeSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={40} justify="space-between">
-                          <Grid item xs={12} sm={8}>
-                            <Field
-                              name="address"
-                              render={({field, form}) => (
-                                <StreetAddressField form={form} field={field} />
-                              )}
-                            />
-                          </Grid>
-
-                          <Grid item xs={12} sm={4}>
-                            <Field
-                              name="city"
-                              render={({field, form}) => (
-                                <CitySelectField
-                                  form={form}
-                                  field={field}
-                                  onChange={cityChangeHandler}
-                                />
-                              )}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <WaitToGrow isIn={otherCitySelected}>
+                    <React.Fragment>
+                      <Form className={classes.form}>
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Contact Information
+                          </Type>
                           <Grid container spacing={40}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={6}>
                               <Field
-                                name="otherCity"
-                                render={({field, form}) => (
-                                  <OtherCityField
-                                    form={form}
-                                    field={field}
-                                    disabled={!otherCitySelected}
-                                  />
-                                )}
+                                disabled={ineligible}
+                                name="firstName"
+                                component={FirstNameField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled={ineligible}
+                                name="lastName"
+                                component={LastNameField}
                               />
                             </Grid>
                           </Grid>
-                        </WaitToGrow>
 
-                        <Grid container spacing={40}>
-                          <Grid item xs={12} sm={6}>
-                            <Field name="phone" component={PhoneNoField} />
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={7}>
+                              <Field
+                                disabled={ineligible}
+                                name="accountNo"
+                                component={AccountNoField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={5}>
+                              <Field
+                                disabled={ineligible}
+                                name="propertyType"
+                                component={PropertyTypeSelectField}
+                              />
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field name="email" component={EmailField} />
+
+                          <Grid container spacing={40} justify="space-between">
+                            <Grid item xs={12} sm={8}>
+                              <Field
+                                name="address"
+                                disabled={ineligible}
+                                component={StreetAddressField}
+                              />
+                            </Grid>
+
+                            <Grid item xs={12} sm={4}>
+                              <Field
+                                name="city"
+                                disabled={ineligible}
+                                onChange={cityChangeHandler}
+                                component={CitySelectField}
+                              />
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </div>
 
-                      <Divider variant="middle" />
+                          <WaitToGrow isIn={otherCitySelected}>
+                            <Grid container spacing={40}>
+                              <Grid item xs={12}>
+                                <Field
+                                  name="otherCity"
+                                  disabled={!otherCitySelected || ineligible}
+                                  component={OtherCityField}
+                                />
+                              </Grid>
+                            </Grid>
+                          </WaitToGrow>
 
-                      <div className={classes.formGroup}>
-                        <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Rebate Information
-                        </Type>
-
-                        <Grid container spacing={40}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="irrigMethod"
-                              component={IrrigationMethodSelect}
-                            />
+                          <Grid container spacing={40}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="phone"
+                                component={PhoneNoField}
+                                disabled={ineligible}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="email"
+                                component={EmailField}
+                                disabled={ineligible}
+                              />
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12}>
-                            <Type variant="h5" color="textPrimary" gutterBottom>
-                              Location of the irrigation equipment you plan to
-                              upgrade
-                            </Type>
+                        </div>
 
-                            <Field
-                              name="upgradeLocations"
-                              component={IrrigUpgradeLocationCheckboxes}
-                            />
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            variant="h4"
+                            color="textSecondary"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Rebate Information
+                          </Type>
+
+                          <Grid container spacing={40}>
+                            <Grid item xs={12}>
+                              <Field
+                                disabled
+                                name="irrigMethod"
+                                component={IrrigationMethodSelect}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Type
+                                variant="h5"
+                                color="textPrimary"
+                                gutterBottom
+                              >
+                                Location of the irrigation equipment you plan to
+                                upgrade
+                              </Type>
+
+                              <Field
+                                name="upgradeLocations"
+                                disabled={ineligible}
+                                component={IrrigUpgradeLocationCheckboxes}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Type
+                                variant="h5"
+                                color="textPrimary"
+                                gutterBottom
+                              >
+                                Please specify how you would like to upgrade
+                                your irrigation system
+                              </Type>
+
+                              <Field
+                                name="upgradeOpts"
+                                disabled={ineligible}
+                                component={IrrigSysUpgradeOptsCheckboxes}
+                              />
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12}>
-                            <Type variant="h5" color="textPrimary" gutterBottom>
-                              Please specify how you would like to upgrade your
-                              irrigation system
-                            </Type>
+                        </div>
 
-                            <Field
-                              name="upgradeOpts"
-                              component={IrrigSysUpgradeOptsCheckboxes}
-                            />
-                          </Grid>
-                        </Grid>
-                      </div>
+                        <Divider variant="middle" />
 
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Acknowledge Terms & Conditions
-                        </Type>
-                        <Grid container direction="column" spacing={32}>
-                          {/* <Grid
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Acknowledge Terms & Conditions
+                          </Type>
+                          <Grid container direction="column" spacing={32}>
+                            {/* <Grid
                             item
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
                           </Grid> */}
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <IrrigEffTermsConditions />
-                            <Field
-                              name="termsAgree"
-                              component={AgreeTermsCheckbox}
-                            />
-                            <Type variant="body1">
-                              You must agree to participate in a post-conversion
-                              site inspection conducted by PCWA to verify that
-                              all irrigation equipment is installed. You may not
-                              be required to be present; arrangements will be
-                              made with your Water Efficiency Specialist.
-                            </Type>
-                            <Field
-                              name="inspectAgree"
-                              component={AgreeInspectionCheckbox}
-                            />
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <IrrigEffTermsConditions />
+                              <Field
+                                name="termsAgree"
+                                disabled={ineligible}
+                                component={AgreeTermsCheckbox}
+                              />
+                              <Type variant="body1">
+                                You must agree to participate in a
+                                post-conversion site inspection conducted by
+                                PCWA to verify that all irrigation equipment is
+                                installed. You may not be required to be
+                                present; arrangements will be made with your
+                                Water Efficiency Specialist.
+                              </Type>
+                              <Field
+                                name="inspectAgree"
+                                disabled={ineligible}
+                                component={AgreeInspectionCheckbox}
+                              />
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </div>
+                        </div>
 
-                      <Divider variant="middle" />
+                        <Divider variant="middle" />
 
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Release of Liability & Signature
-                        </Type>
-
-                        <Grid container direction="column" spacing={32}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
                           >
-                            <Type variant="body1" paragraph color="primary">
-                              PCWA may deny any application that does not meet
-                              all of the Program requirements. PCWA reserves the
-                              right to alter the Program at any time. PCWA does
-                              not warrant or guarantee lower water bills as a
-                              result of participating in the Program. PCWA is
-                              not responsible for any damage that may occur to
-                              participants' property as a result of this
-                              Program. The undersigned agrees to hold harmless
-                              PCWA, its directors, officers, and employees from
-                              and against all loss, damage, expense and
-                              liability resulting from or otherwise relating to
-                              the installation of the Weather Based Irrigation
-                              Controller. By signing this form I agree that I
-                              have read, understand, and agree to the Terms and
-                              Conditions of this rebate program.
-                            </Type>
-                          </Grid>
+                            Release of Liability & Signature
+                          </Type>
 
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="caption">
-                              You must sign this form by typing your name
-                            </Type>
-                            <Field
-                              name="signature"
-                              component={SignatureField}
-                            />
-                          </Grid>
+                          <Grid container direction="column" spacing={32}>
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Type variant="body1" paragraph color="primary">
+                                PCWA may deny any application that does not meet
+                                all of the Program requirements. PCWA reserves
+                                the right to alter the Program at any time. PCWA
+                                does not warrant or guarantee lower water bills
+                                as a result of participating in the Program.
+                                PCWA is not responsible for any damage that may
+                                occur to participants' property as a result of
+                                this Program. The undersigned agrees to hold
+                                harmless PCWA, its directors, officers, and
+                                employees from and against all loss, damage,
+                                expense and liability resulting from or
+                                otherwise relating to the installation of the
+                                Weather Based Irrigation Controller. By signing
+                                this form I agree that I have read, understand,
+                                and agree to the Terms and Conditions of this
+                                rebate program.
+                              </Type>
+                            </Grid>
 
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Field name="captcha" component={RecaptchaField} />
-                          </Grid>
-                        </Grid>
-                      </div>
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Type variant="caption">
+                                You must sign this form by typing your name
+                              </Type>
+                              <Field
+                                name="signature"
+                                disabled={ineligible}
+                                component={SignatureField}
+                              />
+                            </Grid>
 
-                      {/* For debugging form reset */}
-                      {/* <Button
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Field
+                                name="captcha"
+                                disabled={ineligible}
+                                component={RecaptchaField}
+                              />
+                            </Grid>
+                          </Grid>
+                        </div>
+
+                        {/* For debugging form reset */}
+                        {/* <Button
                       variant="outlined"
                       type="submit"
                       onClick={handleReset}
@@ -554,8 +601,8 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                       Reset Form
                     </Button> */}
 
-                      {/* For debugging dialog */}
-                      {/* <Button
+                        {/* For debugging dialog */}
+                        {/* <Button
                         variant="outlined"
                         type="submit"
                         onClick={() => {
@@ -566,26 +613,35 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                         Show Dialog
                       </Button> */}
 
-                      <div className={classes.buttonWrapper}>
-                        <Button
-                          fullWidth
-                          variant="outlined"
-                          color="primary"
-                          type="submit"
-                          disabled={
-                            isSubmitting || !isValid || (!formTouched && !dirty)
-                          }
-                        >
-                          Submit Application
-                        </Button>
-                        {isSubmitting && (
-                          <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                          />
-                        )}
-                      </div>
-                    </Form>
+                        <div className={classes.buttonWrapper}>
+                          <Button
+                            fullWidth
+                            variant="outlined"
+                            color="primary"
+                            type="submit"
+                            disabled={
+                              isSubmitting ||
+                              !isValid ||
+                              ineligible ||
+                              (!formTouched && !dirty)
+                            }
+                          >
+                            Submit Application
+                          </Button>
+                          {isSubmitting && (
+                            <CircularProgress
+                              size={24}
+                              className={classes.buttonProgress}
+                            />
+                          )}
+                        </div>
+                      </Form>
+
+                      <IrrigationMethodDialog
+                        open={irrigMethodDialogOpen}
+                        onClose={() => setIrrigMethodDialogOpen(false)}
+                      />
+                    </React.Fragment>
                   )
                 }}
               </Formik>
@@ -598,7 +654,14 @@ const IrrigationEfficiencies = ({classes}: Props) => {
         </Grid>
       </React.Fragment>
     ),
-    [classes, formIsDirty, formValues, formIsTouched]
+    [
+      classes,
+      formIsDirty,
+      formValues,
+      formIsTouched,
+      irrigMethodDialogOpen,
+      ineligible
+    ]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
@@ -635,6 +698,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   return (
     <React.Fragment>
       {irrigEfficienciesEl}
+
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}

@@ -16,7 +16,7 @@ type Props = {
   field: Field,
   form: Form,
   onChange?: (Array<any>) => void,
-  fullWidth: boolean,
+  fullWidth?: boolean,
   classes: any,
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
@@ -43,7 +43,7 @@ export type IrrigSysUpgradeOpts = typeof formControlItems
 const IrrigSysUpgradeOptsCheckboxes = ({
   field,
   form,
-  fullWidth,
+  fullWidth = true,
   width,
   classes,
   ...other
@@ -113,10 +113,6 @@ const IrrigSysUpgradeOptsCheckboxes = ({
       </FormHelperText>
     </FormControl>
   )
-}
-
-IrrigSysUpgradeOptsCheckboxes.defaultProps = {
-  fullWidth: true
 }
 
 export default withWidth()(withStyles(styles)(IrrigSysUpgradeOptsCheckboxes))

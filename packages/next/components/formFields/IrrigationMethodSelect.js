@@ -25,7 +25,7 @@ const styles = {
   }
 }
 
-const IRRIGATION_METHODS = [
+export const IRRIGATION_METHODS = [
   'Hand water',
   'Sprinkler system operated manually',
   'Sprinkler system operated by irrigation controller'
@@ -96,9 +96,9 @@ const IrrigationTypesSelect = ({
         {/* <MenuItem value="">
                           <em>None</em>
                         </MenuItem> */}
-        {IRRIGATION_METHODS.map((city) => (
-          <MenuItem key={city} value={city}>
-            {city}
+        {IRRIGATION_METHODS.map((method) => (
+          <MenuItem key={method} value={method}>
+            {method}
           </MenuItem>
         ))}
       </Select>

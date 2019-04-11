@@ -8,15 +8,15 @@ import {isDate} from 'date-fns'
 type Props = {
   field: Field,
   form: Form,
-  fullWidth: boolean,
-  required: boolean
+  fullWidth?: boolean,
+  required?: boolean
 }
 
 const PurchaseDateField = ({
   field,
   form,
-  fullWidth,
-  required,
+  fullWidth = true,
+  required = true,
   ...other
 }: Props) => {
   const {name, value} = field
@@ -77,11 +77,6 @@ const PurchaseDateField = ({
       </FormHelperText> */}
     </FormControl>
   )
-}
-
-PurchaseDateField.defaultProps = {
-  fullWidth: true,
-  required: true
 }
 
 export default PurchaseDateField
