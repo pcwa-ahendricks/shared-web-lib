@@ -5,8 +5,6 @@ import {type IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOp
 import {type IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
-const IRRIG_CNTRL_REBATE_BASE_URL = 'irrigation-controller-rebate'
-const URL = `${MAILJET_URL}/${IRRIG_CNTRL_REBATE_BASE_URL}`
 
 export type IrrigationControllerRebateFormData = {|
   firstName: string,
@@ -63,7 +61,8 @@ type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
 
-async function postRebateForm(body: RequestBody) {
+async function postRebateForm(serviceUriPath: string, body: RequestBody) {
+  const URL = `${MAILJET_URL}/${serviceUriPath}`
   try {
     const response = await fetch(URL, {
       method: 'POST',

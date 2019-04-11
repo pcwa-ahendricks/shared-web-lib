@@ -102,10 +102,12 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
                     color="textPrimary"
                     className={classes.qualifyMsg}
                   >
-                    Unfortunately you do not qualify for the irrigation
-                    efficiencies rebate. The Irrigation Efficiencies Rebates are
+                    {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+                    Unfortunately you do not qualify for the Irrigation
+                    Efficiencies Rebate. The Irrigation Efficiencies Rebates are
                     only available to improve existing in-ground irrigation
-                    systems.
+                    systems. Please close this web browser tab to go back to the
+                    <a href="https://www.pcwa.net">PCWA.net</a> website.
                   </DialogContentText>
                 </WaitToGrow>
                 <WaitToGrow isIn={!hasError && formIsDirty}>
@@ -114,8 +116,8 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
                     color="textPrimary"
                     className={classes.qualifyMsg}
                   >
-                    Excellent. You qualify for the irrigation efficiencies
-                    rebate. Please close this dialog now to continue the
+                    Excellent. You qualify for the Irrigation Efficiencies
+                    Rebate. Please close this message now to continue to rebate
                     application process.
                   </DialogContentText>
                 </WaitToGrow>

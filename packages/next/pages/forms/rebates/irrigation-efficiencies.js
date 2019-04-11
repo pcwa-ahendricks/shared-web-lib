@@ -47,6 +47,7 @@ import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialo
 import delay from 'then-sleep'
 
 const isDev = process.env.NODE_ENV === 'development'
+const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
 
 type Props = {
   classes: any
@@ -277,9 +278,10 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                     const body: RequestBody = {
                       formData: {...values}
                     }
-                    await postRebateForm(body)
+                    await postRebateForm(SERVICE_URI_PATH, body)
                     actions.setSubmitting(false)
                     // Reset Form
+                    setIneligible(false)
                     actions.resetForm() // Strictly Formik
                     setFormSubmitDialogOpen(true)
                   } catch (error) {

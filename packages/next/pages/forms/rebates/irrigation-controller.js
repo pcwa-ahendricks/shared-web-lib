@@ -46,6 +46,7 @@ import FormSubmissionDialogError from '@components/FormSubmissionDialogError/For
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
 const isDev = process.env.NODE_ENV === 'development'
+const SERVICE_URI_PATH = 'irrigation-controller-rebate'
 
 type Props = {
   classes: any
@@ -376,7 +377,7 @@ const IrrigationController = ({classes}: Props) => {
                     const body: RequestBody = {
                       formData: {...values}
                     }
-                    await postRebateForm(body)
+                    await postRebateForm(SERVICE_URI_PATH, body)
                     actions.setSubmitting(false)
                     // Reset Form
                     actions.resetForm() // Strictly Formik

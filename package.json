@@ -27,6 +27,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "flow-bin": "^0.96.0",
-    "now": "^15.0.3"
+    "now": "^15.0.4"
   }
 }
