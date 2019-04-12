@@ -36,7 +36,7 @@ import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
-import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
+import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
@@ -642,7 +642,11 @@ const IrrigationController = ({classes}: Props) => {
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
-                            <IrrigEffTermsConditions />
+                            <ReviewTermsConditions
+                              pageCount={3}
+                              fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                              termsConditionsUrl="https://cosmic-s3.imgix.net/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                            />
                             <Type
                               variant="body1"
                               paragraph

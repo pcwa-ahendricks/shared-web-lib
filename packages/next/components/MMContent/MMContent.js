@@ -50,6 +50,9 @@ const MMContent = ({classes, contentKey}: Props) => {
           <MMNavLink href="/forms/rebates/irrigation-efficiencies">
             Irrigation Efficiencies Rebate Form
           </MMNavLink>
+          <MMNavLink href="/forms/rebates/lawn-replacement">
+            Lawn Replacement Rebate Form
+          </MMNavLink>
         </nav>
       )}
     </MegaMenuContentContainer>

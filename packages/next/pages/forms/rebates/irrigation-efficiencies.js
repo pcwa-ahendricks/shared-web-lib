@@ -31,7 +31,7 @@ import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectFi
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
-import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
+import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
@@ -504,7 +504,11 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
-                              <IrrigEffTermsConditions />
+                              <ReviewTermsConditions
+                                pageCount={3}
+                                fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://cosmic-s3.imgix.net/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                              />
                               <Field
                                 name="termsAgree"
                                 disabled={ineligible}
@@ -515,7 +519,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                                 post-conversion site inspection conducted by
                                 PCWA to verify that all irrigation equipment is
                                 installed. You may not be required to be
-                                present; arrangements will be made with your
+                                present; arrangements will be made by a PCWA
                                 Water Efficiency Specialist.
                               </Type>
                               <Field

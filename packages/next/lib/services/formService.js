@@ -57,9 +57,32 @@ export type IrrigationEfficienciesRequestBody = {|
   formData: IrrigationEfficienciesRebateFormData
 |}
 
+export type LawnReplacementRebateFormData = {|
+  firstName: string,
+  lastName: string,
+  email: string,
+  accountNo: string,
+  address: string,
+  city: string,
+  otherCity: string,
+  phone: string,
+  propertyType: string,
+  termsAgree: boolean,
+  inspectAgree: boolean,
+  signature: string,
+  captcha: string,
+  irrigMethod: string
+|}
+
+export type LawnReplacementRequestBody = {|
+  // recipients: Array<{Name: string, Email: string}>,
+  formData: LawnReplacementRebateFormData
+|}
+
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
+  | LawnReplacementRequestBody
 
 async function postRebateForm(serviceUriPath: string, body: RequestBody) {
   const URL = `${MAILJET_URL}/${serviceUriPath}`

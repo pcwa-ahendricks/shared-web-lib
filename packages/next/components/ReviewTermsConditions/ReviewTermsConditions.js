@@ -1,5 +1,5 @@
 // @flow
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import {Button, Slide, Snackbar, withWidth} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew'
@@ -8,6 +8,9 @@ import {stringify} from 'querystringify'
 import classNames from 'classnames'
 
 type Props = {
+  fileName: string,
+  pageCount: number,
+  termsConditionsUrl: string,
   classes: any,
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
@@ -31,47 +34,46 @@ const styles = (theme) => ({
 // const termsConditionsUrl =
 //   '/static/docs/Irrigation Efficiency Terms and Conditions.pdf'
 
-const fileName = 'Irrigation-Efficiency-Terms-and-Conditions.pdf'
-const termsConditionsUrl =
-  'https://cosmic-s3.imgix.net/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf'
-
 const baseOpts = {
   fm: 'jpg',
   w: 1400
 }
 
-const qs1 = stringify(
-  {
-    ...baseOpts,
-    page: 1
-  },
-  true
-)
-const qs2 = stringify(
-  {
-    ...baseOpts,
-    page: 2
-  },
-  true
-)
-const qs3 = stringify(
-  {
-    ...baseOpts,
-    page: 3
-  },
-  true
-)
-
-const qsDl = stringify(
-  {
-    dl: fileName
-  },
-  true
-)
-
-const IrrigEffTermsConditions = ({classes, width}: Props) => {
+const IrrigEffTermsConditions = ({
+  classes,
+  pageCount,
+  width,
+  termsConditionsUrl,
+  fileName
+}: Props) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
   const [scrollSnackOpen, setScrollSnackOpen] = useState<boolean>(false)
+
+  const qsDownloadUrl = useMemo(
+    () =>
+      stringify(
+        {
+          dl: fileName
+        },
+        true
+      ),
+    [fileName]
+  )
+
+  const usePreviewUrls = useMemo(
+    () =>
+      [...Array(pageCount).keys()].map((pageIndex) => {
+        const qs = stringify(
+          {
+            ...baseOpts,
+            page: pageIndex + 1 // pageIndex is 0 based.
+          },
+          true
+        )
+        return `${termsConditionsUrl}${qs}`
+      }),
+    [pageCount, termsConditionsUrl]
+  )
 
   const buttonClickHandler = useCallback(() => {
     setDialogOpen(true)
@@ -105,17 +107,13 @@ const IrrigEffTermsConditions = ({classes, width}: Props) => {
           open={dialogOpen}
           onClose={() => setDialogOpen(false)}
           name={fileName}
-          url={[
-            `${termsConditionsUrl}${qs1}`,
-            `${termsConditionsUrl}${qs2}`,
-            `${termsConditionsUrl}${qs3}`
-          ]}
+          url={usePreviewUrls}
           ext="jpg"
           scroll="body"
           fullWidth={false}
           maxWidth="xl"
           showActions
-          dlUrl={`${termsConditionsUrl}${qsDl}`}
+          dlUrl={`${termsConditionsUrl}${qsDownloadUrl}`}
           onEntered={() => setScrollSnackOpen(true)}
           onExiting={() => setScrollSnackOpen(false)}
         />

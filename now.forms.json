@@ -67,6 +67,13 @@
       }
     },
     {
+      "src": "^/lawn-replacement-rebate(.*)$",
+      "dest": "/packages/next/forms/rebates/lawn-replacement$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
+    },
+    {
       "src": "^/($|services|forms|forms/rebates|typography)/?",
       "dest": "/404",
       "status": 404

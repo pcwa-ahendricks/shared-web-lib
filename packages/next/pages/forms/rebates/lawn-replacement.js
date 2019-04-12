@@ -13,8 +13,8 @@ import {Formik, Form, Field} from 'formik'
 import {string, object, boolean} from 'yup'
 import {
   postRebateForm,
-  type IrrigationEfficienciesRequestBody as RequestBody,
-  type IrrigationEfficienciesRebateFormData as RebateFormData
+  type LawnReplacementRequestBody as RequestBody,
+  type LawnReplacementRebateFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
@@ -31,20 +31,14 @@ import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectFi
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
-import IrrigEffTermsConditions from '@components/IrrigEffTermsConditions/IrrigEffTermsConditions'
+import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import IrrigSysUpgradeOptsCheckboxes, {
-  formControlItems as initialIrrigSysUpgradeOpts
-} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
-import IrrigUpgradeLocationCheckboxes, {
-  formControlItems as initialIrrigUpgradeLocationOpts
-} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialog'
-import delay from 'then-sleep'
+// import delay from 'then-sleep'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
@@ -132,9 +126,7 @@ const initialFormValues: RebateFormData = {
   inspectAgree: false,
   signature: '',
   captcha: '',
-  irrigMethod: '',
-  upgradeLocations: {...initialIrrigUpgradeLocationOpts},
-  upgradeOpts: {...initialIrrigSysUpgradeOpts}
+  irrigMethod: ''
 }
 
 const styles = (theme) => ({
@@ -205,7 +197,7 @@ const styles = (theme) => ({
   }
 })
 
-const IrrigationEfficiencies = ({classes}: Props) => {
+const LawnReplacement = ({classes}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState(null)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
@@ -232,11 +224,11 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   }, [])
 
   useEffect(() => {
-    const fn = async () => {
-      await delay(900)
-      setIrrigMethodDialogOpen(true)
-    }
-    fn()
+    // const fn = async () => {
+    //   await delay(900)
+    //   setIrrigMethodDialogOpen(true)
+    // }
+    // fn()
   }, [])
 
   const mainEl = useMemo(
@@ -251,7 +243,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
               </Type>
 
               <Type variant="h3" color="primary" gutterBottom>
-                Irrigation Efficiencies
+                Lawn Replacement
               </Type>
 
               <Formik
@@ -427,41 +419,9 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                           <Grid container spacing={40}>
                             <Grid item xs={12}>
                               <Field
-                                disabled
+                                // disabled
                                 name="irrigMethod"
                                 component={IrrigationMethodSelect}
-                              />
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Type
-                                variant="h5"
-                                color="textPrimary"
-                                gutterBottom
-                              >
-                                Location of the irrigation equipment you plan to
-                                upgrade
-                              </Type>
-
-                              <Field
-                                name="upgradeLocations"
-                                disabled={ineligible}
-                                component={IrrigUpgradeLocationCheckboxes}
-                              />
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Type
-                                variant="h5"
-                                color="textPrimary"
-                                gutterBottom
-                              >
-                                Please specify how you would like to upgrade
-                                your irrigation system
-                              </Type>
-
-                              <Field
-                                name="upgradeOpts"
-                                disabled={ineligible}
-                                component={IrrigSysUpgradeOptsCheckboxes}
                               />
                             </Grid>
                           </Grid>
@@ -490,7 +450,11 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
-                              <IrrigEffTermsConditions />
+                              <ReviewTermsConditions
+                                pageCount={3}
+                                fileName="Lawn-Replacement-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://cosmic-s3.imgix.net/93981d50-5cb0-11e9-a4cc-a11f01bf5985-Lawn-Replacement-Terms-and-Conditions.pdf"
+                              />
                               <Field
                                 name="termsAgree"
                                 disabled={ineligible}
@@ -498,11 +462,10 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                               />
                               <Type variant="body1">
                                 You must agree to participate in a
-                                post-conversion site inspection conducted by
-                                PCWA to verify that all irrigation equipment is
-                                installed. You may not be required to be
-                                present; arrangements will be made with your
-                                Water Efficiency Specialist.
+                                pre-conversion site inspection conducted by PCWA
+                                prior to the removal of any lawn. You may not be
+                                required to be present; arrangements will be
+                                made by a PCWA Water Efficiency Specialist.
                               </Type>
                               <Field
                                 name="inspectAgree"
@@ -531,6 +494,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
+                              {/* TODO - Need new wording from Cassandra. */}
                               <Type variant="body1" paragraph color="primary">
                                 PCWA may deny any application that does not meet
                                 all of the Program requirements. PCWA reserves
@@ -653,7 +617,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const irrigEfficienciesEl = useMemo(
+  const lawnReplacementEl = useMemo(
     () =>
       !isDev ? (
         <React.Fragment>
@@ -685,7 +649,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 
   return (
     <React.Fragment>
-      {irrigEfficienciesEl}
+      {lawnReplacementEl}
 
       <FormSubmissionDialog
         providedEmail={providedEmail}
@@ -703,12 +667,4 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(IrrigationEfficiencies)
-
-function hasTrueValue(value): boolean {
-  return (
-    value &&
-    typeof value === 'object' &&
-    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
-  )
-}
+export default withStyles(styles)(LawnReplacement)
