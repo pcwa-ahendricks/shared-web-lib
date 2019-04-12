@@ -1,6 +1,6 @@
 // @flow
 import React, {type Node} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {IconButton} from '@material-ui/core'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   children: Node
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     padding: theme.spacing.unit * 1 // Defaults to 12px
   }

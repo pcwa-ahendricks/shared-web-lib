@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Imgix from 'react-imgix'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import classNames from 'classnames'
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 }
 
 /* Lazysizes and ls.blur-up plugin styles. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */
-const styles = {
+const styles: StyleRulesCallback = {
   mediabox: {
     position: 'relative',
     display: 'block',

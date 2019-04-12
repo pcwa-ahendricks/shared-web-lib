@@ -27,7 +27,7 @@ export type ForecastData = {
   data: any
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   container: {
     display: 'flex',
     flexDirection: 'row',

@@ -9,7 +9,7 @@ import React, {
   useImperativeHandle
 } from 'react'
 import classNames from 'classnames'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
 import {uploadFile} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
@@ -41,7 +41,7 @@ type Props = {
 
 const WIDTH_THRESHOLD = 1600
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {},
   dropzone: {
     padding: 20,

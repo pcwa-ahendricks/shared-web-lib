@@ -1,13 +1,13 @@
 // @flow
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 
 type Props = {
   classes: any,
   src: string
 }
 
-const styles = () => ({
+const styles: StyleRulesCallback = () => ({
   box: {
     cursor: 'pointer',
     height: '300',

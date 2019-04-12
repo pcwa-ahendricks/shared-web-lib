@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useEffect, useCallback, type Node} from 'react'
-// import {withStyles} from '@material-ui/core/styles'
+import {type StyleRulesCallback} from '@material-ui/core/styles'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
 
@@ -15,7 +15,7 @@ type Props = {
 }
 
 // See https://github.com/IanLunn/Hover/blob/5c9f92d2bcd6414f54b4f926fd4bb231e4ce9fd5/css/hover.css#L2264
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     display: 'inline-block',
     verticalAlign: 'middle',

@@ -15,7 +15,7 @@ import {
   ListSubheader,
   Slide
 } from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
 import {Field} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
@@ -28,7 +28,7 @@ type Props = {
 }
 
 // Text importance dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   paper: {
     backgroundColor: theme.palette.grey[200]
   },

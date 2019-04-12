@@ -1,7 +1,7 @@
 // @flow
 import React, {useState, useRef, useEffect, useCallback, type Node} from 'react'
 import {Popper, Fade as Collapse} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import useDebounce from '@hooks/useDebounce'
 import {type ToolbarVariant} from '@components/PrimaryHeader/PrimaryHeader'
 
@@ -19,7 +19,7 @@ type Props = {
   toolbarVariant: ToolbarVariant
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   popper: {
     zIndex: 1,
     '& $arrow': {

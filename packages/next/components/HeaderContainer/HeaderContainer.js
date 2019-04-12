@@ -1,7 +1,7 @@
 // @flow
 import React, {useState, useCallback} from 'react'
 import Sticky from 'react-sticky-el'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import SecondaryHeader from '../SecondaryHeader/SecondaryHeader'
 import PrimaryHeader from '../PrimaryHeader/PrimaryHeader'
 import {Hidden} from '@material-ui/core'
@@ -10,7 +10,7 @@ type Props = {
   classes: any
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   sticky: {
     zIndex: 1
   }

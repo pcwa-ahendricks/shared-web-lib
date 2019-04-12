@@ -3,13 +3,13 @@ import React from 'react'
 import {Paper, Tooltip} from '@material-ui/core'
 import TrendingLink from '../TrendingLink/TrendingLink'
 import {TrendingUp} from '@material-ui/icons'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 
 type Props = {
   classes: any
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',

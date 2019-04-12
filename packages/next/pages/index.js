@@ -1,6 +1,6 @@
 // @flow
 import React, {useState} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -17,7 +17,7 @@ const HERO_IMG_SRC =
 const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   trendingBarContainer: {
     marginBottom: theme.spacing.unit * 1
   }

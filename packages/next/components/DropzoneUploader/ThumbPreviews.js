@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useMemo} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {withWidth, Tooltip} from '@material-ui/core'
 import {type DroppedFile, type UploadedFile} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
@@ -17,7 +17,7 @@ type Props = {
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   thumb: {
     display: 'inline-flex',
     borderRadius: 2,

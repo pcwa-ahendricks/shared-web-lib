@@ -1,7 +1,7 @@
 // @flow
 import React, {useState, useCallback, useMemo} from 'react'
 import {Button, Slide, Snackbar, withWidth} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'
@@ -15,7 +15,7 @@ type Props = {
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   snackbar: {
     marginBottom: theme.spacing.unit * 2,
     '&$fullWidth': {

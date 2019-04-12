@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {Popover} from '@material-ui/core'
 import Imgix from 'react-imgix'
 
@@ -13,7 +13,7 @@ type Props = {
   anchorEl: any
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   popover: {
     pointerEvents: 'none'
   },

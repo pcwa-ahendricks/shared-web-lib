@@ -7,7 +7,7 @@ import {
   Grid,
   Typography as Type
 } from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
 import {string, object, boolean} from 'yup'
@@ -151,7 +151,7 @@ const initialFormValues: RebateFormData = {
   upgradeOpts: {...initialIrrigSysUpgradeOpts}
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   main: {
     maxWidth: 650,
     display: 'block', // IE fix

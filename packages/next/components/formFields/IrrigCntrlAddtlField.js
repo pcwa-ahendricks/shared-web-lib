@@ -2,7 +2,7 @@
 // cspell:ignore addtl
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   fullWidth: boolean
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0

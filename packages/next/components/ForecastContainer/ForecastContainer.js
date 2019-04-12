@@ -1,6 +1,6 @@
 // @flow
 import React, {useEffect} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {
   type Location,
   type ForecastData
@@ -45,7 +45,7 @@ const forecastLocations: Array<Location> = [
   }
 ]
 
-const styles = () => ({
+const styles: StyleRulesCallback = () => ({
   root: {
     flex: '0 0 200px',
     display: 'block'

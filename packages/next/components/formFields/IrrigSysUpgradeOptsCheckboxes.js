@@ -9,7 +9,7 @@ import {
   FormLabel,
   withWidth
 } from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
 
 type Props = {
@@ -21,7 +21,7 @@ type Props = {
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   fcXsLabel: {
     marginBottom: 2,
     marginTop: 2

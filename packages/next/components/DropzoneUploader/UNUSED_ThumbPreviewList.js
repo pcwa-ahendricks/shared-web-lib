@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {type DroppedFile, type UploadedFile} from './types'
 import {
   Avatar,
@@ -21,7 +21,7 @@ type Props = {
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const styles = () => ({})
+const styles: StyleRulesCallback = () => ({})
 
 const ThumbPreviewList = ({
   // classes,

@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useCallback} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
@@ -11,7 +11,7 @@ type Props = {
   classes: any
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     backgroundColor: colorAlpha(theme.palette.primary.main, 0.07),
     margin: theme.spacing.unit * 1,

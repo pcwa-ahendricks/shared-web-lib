@@ -1,5 +1,6 @@
 // @flow
 import React, {type Node} from 'react'
+import {type StyleRulesCallback} from '@material-ui/core/styles'
 import injectStyles from 'react-jss'
 import {Paper} from '@material-ui/core'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
@@ -12,7 +13,7 @@ type Props = {
 
 const DEFAULT_CROSS_FADE_DURATION = 250
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     zIndex: 10
   },

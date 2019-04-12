@@ -5,7 +5,7 @@ import ForecastDisplay, {
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {connect} from 'react-redux'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
 import {startCycleForecastTimer} from '@store/actions'
 
@@ -21,7 +21,7 @@ type Props = {
 //   forecasts: Array<ForecastData>,
 // }
 
-const styles = {
+const styles: StyleRulesCallback = {
   trans: {
     '& .cross-fade-leave': {
       opacity: 1

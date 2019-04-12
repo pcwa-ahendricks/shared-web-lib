@@ -1,6 +1,6 @@
 // @flow
 import React, {useCallback, useMemo} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
   Divider,
@@ -19,7 +19,7 @@ type Props = {
   dispatch: any
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   list: {
     width: 250
   }

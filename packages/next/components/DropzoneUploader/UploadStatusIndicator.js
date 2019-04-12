@@ -1,7 +1,7 @@
 // @flow
 import React, {useEffect, useState, useMemo, type Node} from 'react'
 import {Badge, LinearProgress} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
 import {type DroppedFile, type UploadedFile} from './types'
@@ -19,7 +19,7 @@ type UploadStatus = $PropertyType<
   'status'
 >
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   margin: {
     margin: theme.spacing.unit * 2
   },

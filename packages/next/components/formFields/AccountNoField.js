@@ -1,7 +1,7 @@
 // @flow
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {type Form, type Field} from 'formik'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
@@ -13,7 +13,7 @@ type Props = {
   fullWidth: boolean
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {Hidden, Toolbar, CircularProgress} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -27,7 +27,7 @@ type Props = {
 }
 
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
-const styles = {
+const styles: StyleRulesCallback = {
   root: {
     display: 'flex',
     flexDirection: 'row',

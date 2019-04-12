@@ -10,7 +10,7 @@ import {
   DialogTitle,
   Slide
 } from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import MainPhone from '@components/Links/MainPhone'
 import PcwaWeb from '@components/Links/PcwaWeb'
 
@@ -24,7 +24,7 @@ type Props = {
 }
 
 // Text heavy dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   paper: {
     backgroundColor: theme.palette.grey[200]
   }

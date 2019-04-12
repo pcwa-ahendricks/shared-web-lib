@@ -8,7 +8,7 @@ import {
   Typography as Type,
   withWidth
 } from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import Imgix from 'react-imgix'
 import delay from 'then-sleep'
@@ -24,7 +24,7 @@ type Props = {
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   typography: {
     margin: theme.spacing.unit * 4,
     color: theme.palette.grey[50],

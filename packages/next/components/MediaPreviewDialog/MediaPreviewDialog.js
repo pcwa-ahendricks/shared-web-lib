@@ -14,12 +14,12 @@ import {
   Typography as Type
   // withMobileDialog
 } from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import extension from '@lib/fileExtension'
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   img: {
     width: '100%'
   },

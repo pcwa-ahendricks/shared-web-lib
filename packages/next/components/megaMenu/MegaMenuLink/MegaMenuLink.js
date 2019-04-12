@@ -1,7 +1,7 @@
 // @flow
 import React, {useRef, useCallback, type Node} from 'react'
 import {Link, Typography as Type} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import Overline from '@components/Overline/Overline'
 
@@ -19,7 +19,7 @@ type Props = {
   linkMargin?: string | number
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',

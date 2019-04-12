@@ -1,7 +1,7 @@
 // @flow
 import React, {type Node} from 'react'
 import {Button} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import Link from 'next/link'
 import Router from 'next/router'
 
@@ -11,7 +11,7 @@ type Props = {
   href: string
 }
 
-const styles = {
+const styles: StyleRulesCallback = {
   root: {},
   // Responsive font size for links. Small size defaults to 0.8125rem.
   '@media screen and (max-width: 700px)': {

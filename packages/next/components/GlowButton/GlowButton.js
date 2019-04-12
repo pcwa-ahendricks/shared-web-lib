@@ -1,7 +1,7 @@
 // @flow
 import React, {useState, type Node} from 'react'
 import {ButtonBase, Typography as Type} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import Link from 'next/link'
 
@@ -25,7 +25,7 @@ export type NextGlowButtonProps = {
   color?: string
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     color: theme.palette.primary.light,
     boxSizing: 'border-box',

@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useEffect, useCallback, useMemo} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {AppBar, Hidden, IconButton, Toolbar, withWidth} from '@material-ui/core'
 import {Menu as MenuIcon} from '@material-ui/icons'
@@ -29,7 +29,7 @@ const menuLinkData = [
   {key: 4, caption: 'Newsroom', tabIndex: 4}
 ]
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   root: {
     flexGrow: 1
   },

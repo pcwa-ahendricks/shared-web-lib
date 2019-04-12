@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {Typography as Type} from '@material-ui/core'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
@@ -10,7 +10,7 @@ type Props = {
   contentKey: number
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   text: {
     color: theme.palette.grey[50],
     opacity: '0.85',

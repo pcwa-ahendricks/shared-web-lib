@@ -2,7 +2,7 @@
 // cspell:ignore imgix's
 import React from 'react'
 import {buildURL} from 'react-imgix'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 
 /**
  * Notes:
@@ -17,7 +17,7 @@ const IMAGE_URL =
   '//cosmic-s3.imgix.net/80212870-8e98-11e8-b9a6-bb6cb34bfd65-bg-water-surface_80.jpg'
 const HEIGHT = 100
 
-const styles = {
+const styles: StyleRulesCallback = {
   root: {
     height: HEIGHT,
     minHeight: HEIGHT,

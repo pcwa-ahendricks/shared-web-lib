@@ -1,6 +1,6 @@
 // @flow
 import React, {type Node} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {Link, Typography as Type} from '@material-ui/core'
 import NextLink from 'next/link'
 import Router from 'next/router'
@@ -11,7 +11,7 @@ type Props = {
   href: string
 }
 
-const styles = (theme) => ({
+const styles: StyleRulesCallback = (theme) => ({
   text: {
     color: theme.palette.grey[50],
     opacity: '0.85'
