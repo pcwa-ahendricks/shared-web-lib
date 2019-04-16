@@ -94,7 +94,7 @@ const LawnReplEligibilityDialog = ({
 }: Props) => {
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
-  const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 900)
+  const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps(), [])
   const maxSteps = useMemo(() => getSteps().length, [])
   const prevTouched = useRef()

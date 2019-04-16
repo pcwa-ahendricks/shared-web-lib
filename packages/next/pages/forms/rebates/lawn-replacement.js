@@ -141,7 +141,7 @@ const formSchema = object()
       .label('Irrigation Method')
       .notOneOf(
         ['Hand water'], // Case sensitive
-        'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
+        'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
       )
   })
 
@@ -702,9 +702,7 @@ const LawnReplacement = ({classes}: Props) => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Irrigation Efficiencies Rebate Form">
-          {mainEl}
-        </PageLayout>
+        <PageLayout title="Lawn Replacement Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )
@@ -717,7 +715,7 @@ const LawnReplacement = ({classes}: Props) => {
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Irrigation Efficiencies Rebate Application"
+        description="Lawn Replacement Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError
