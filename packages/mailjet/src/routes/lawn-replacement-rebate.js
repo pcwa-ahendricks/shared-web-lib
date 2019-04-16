@@ -1,12 +1,11 @@
 // @flow
-// cspell:ignore addtl cbarnhill
+// cspell:ignore addtl cbarnhill truthy
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, boolean} from 'yup'
+import {string, object, boolean} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -16,6 +15,7 @@ import limiter from '@pcwa/micro-limiter'
 import {type IncomingMessage} from 'http'
 import {type MailJetSendRequest, type MailJetMessage} from '../lib/types'
 import fetch from 'isomorphic-unfetch'
+import isNumber from 'is-number'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
@@ -23,13 +23,11 @@ const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
-const MAILJET_TEMPLATE_ID = 755362
+const MAILJET_TEMPLATE_ID = 765489
 
 const basicAuth = new Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString(
   'base64'
 )
-
-// const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
 
 const recaptcha = new reCAPTCHA({
   siteKey: RECAPTCHA_SITE_KEY,
@@ -43,11 +41,6 @@ const RECIPIENTS: $PropertyType<MailJetMessage, 'To'> = isDev
       {Name: 'Cassandra', Email: 'cbarnhill@pcwa.net'}
     ]
 
-type AttachmentFieldValue = {|
-  status: string,
-  url: string
-|}
-
 type FormDataObj = {|
   firstName: string,
   lastName: string,
@@ -58,16 +51,13 @@ type FormDataObj = {|
   otherCity?: string,
   phone: string,
   propertyType: string,
-  manufacturer: string,
-  model: string,
-  additional?: string,
-  purchaseDate: string,
+  irrigMethod: string,
   termsAgree: boolean,
   signature: string,
   captcha: string,
-  receipts: Array<AttachmentFieldValue>,
-  cntrlPhotos: Array<AttachmentFieldValue>,
-  addtlSensorPhotos?: Array<AttachmentFieldValue>
+  useArtTurf: boolean,
+  alreadyStarted: boolean,
+  approxSqFeet: string
 |}
 
 const bodySchema = object()
@@ -94,60 +84,42 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
-        manufacturer: string().required(),
-        model: string().required(),
-        additional: string(),
-        purchaseDate: string().required(),
         termsAgree: boolean()
+          .required()
+          .oneOf([true]),
+        inspectAgree: boolean()
           .required()
           .oneOf([true]),
         signature: string().required(),
         captcha: string().required(),
-        receipts: array()
+        irrigMethod: string()
           .required()
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string()
-                .required()
-                .url()
-            })
-          ),
-        cntrlPhotos: array()
+          .label('Irrigation Method')
+          .notOneOf(['Hand water']), // Case sensitive
+        useArtTurf: boolean()
           .required()
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string()
-                .required()
-                .url()
-            })
-          ),
-        addtlSensorPhotos: array()
-          .when('additional', (additional, schema) =>
-            additional ? schema.required() : schema
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string()
-                .required()
-                .url()
-            })
+          .oneOf([false]),
+        alreadyStarted: boolean()
+          .required()
+          .oneOf([false]),
+        approxSqFeet: string()
+          .required()
+          .test(
+            'min-sq-feet',
+            'A minimum of 300 square feet of lawn must be converted',
+            (val): boolean => {
+              const stripped = val && val.replace(/[^0-9.]/, '')
+              if (isNumber(stripped)) {
+                const valAsNo = Math.round(parseFloat(stripped))
+                return valAsNo >= 300
+              }
+              return false
+            }
           )
       })
   })
 
-const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
+const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
   const body: {
     formData: FormDataObj,
     recipients: Array<{Name: string, Email: string}>
@@ -181,17 +153,15 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
-    manufacturer,
-    model,
-    additional,
-    receipts,
-    cntrlPhotos,
-    addtlSensorPhotos = [],
+    irrigMethod,
+    useArtTurf,
+    approxSqFeet,
+    alreadyStarted,
     termsAgree,
     signature,
     captcha
   } = formData
-  let {city = '', purchaseDate, accountNo} = formData
+  let {city = '', accountNo} = formData
 
   // Remove leading zeros from account number.
   accountNo = accountNo
@@ -214,19 +184,6 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
   if (city.toLowerCase() === 'other') {
     city = otherCity
   }
-
-  try {
-    purchaseDate = new Date(purchaseDate)
-    purchaseDate = format(purchaseDate, 'MM/dd/yyyy')
-  } catch (error) {
-    throw createError(400, 'Invalid Date')
-  }
-
-  const receiptImages = receipts.map((attachment) => attachment.url)
-  const cntrlImages = cntrlPhotos.map((attachment) => attachment.url)
-  const addtlSensorImages = addtlSensorPhotos.map(
-    (attachment) => attachment.url
-  )
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -258,34 +215,17 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           email,
           phone,
           propertyType,
-          purchaseDate,
-          manufacturer,
-          model,
-          additional,
+          irrigMethod,
+          useArtTurf,
+          approxSqFeet,
+          alreadyStarted,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
-          receiptImages,
-          cntrlImages,
-          addtlSensorImages,
           termsAgree,
-          signature,
-          // Mailjet Template language errors will occur and the message will be "blocked" if template attempts to conditionally show section using boolean. Comparing strings works so boolean values are cast to string.
-          hasAddtlSensorImages:
-            addtlSensorImages && addtlSensorImages.length > 0 ? 'true' : 'false'
+          signature
         }
       }
     ]
   }
-
-  // We are not actually attaching the attachments, but rather displaying the images inline in the email using the provided URI strings.
-  // try {
-  //   if (attachments && attachments.length > 0) {
-  //     const sendAttachments = await attach(attachments)
-  //     requestBody.Messages[0].Attachments = sendAttachments
-  //   }
-  // } catch (error) {
-  //   isDev && console.log(error)
-  //   throw createError(500, 'Error processing attachments.')
-  // }
 
   try {
     isDev &&
@@ -293,20 +233,6 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         'Mailjet Request Body: ',
         JSON.stringify(requestBody, null, 2)
       )
-
-    // See note above about Attachments.
-    // const splitMessages = splitUpLargeMessage(requestBody.Messages[0])
-    // requestBody.Messages = [...splitMessages]
-    // console.log(requestBody.Messages.length)
-    // const messageSendRequests: Array<MailJetSendRequest> = splitMessages.map(
-    //   (msg) => ({
-    //     Messages: [{...msg}]
-    //   })
-    // )
-    // const allPromises = await messageSendRequests.map((request) =>
-    //   postMailJetRequest(request)
-    // )
-    // const data = await Promise.all(allPromises)
 
     const data = await postMailJetRequest(requestBody)
     return data
@@ -318,8 +244,6 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
 }
 
 async function postMailJetRequest(requestBody: MailJetSendRequest) {
-  // const result = await sendEmail.request(requestBody)
-  // const {body} = result || {}
   isDev &&
     console.log(`${new Date().toLocaleTimeString()} - Send Request started.`)
   const response = await fetch('https://api.mailjet.com/v3.1/send', {
@@ -349,19 +273,14 @@ async function postMailJetRequest(requestBody: MailJetSendRequest) {
 
   isDev &&
     console.log(`${new Date().toLocaleTimeString()} - Send Request completed.`)
-  // isDev &&
-  //   console.log(
-  //     'Mailjet sendMail post response: ',
-  //     JSON.stringify(data, null, 2)
-  //   )
-  // return result // node-mailjet
+
   return data
 }
 
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
 const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
-export default applyMiddleware(irrigCntrlRebateHandler, [
+export default applyMiddleware(lawnReplacementRebateHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse'),
   limiter(limiterMaxRequests, limiterInterval)

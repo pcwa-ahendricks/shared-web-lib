@@ -37,8 +37,12 @@ import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissio
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialog'
-// import delay from 'then-sleep'
+import LawnReplEligibilityDialog from '@components/formFields/LawnReplEligibilityDialog'
+import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
+import ArtTurfSelect from '@components/formFields/ArtTurfSelect'
+import AlreadyStartedSelect from '@components/formFields/AlreadyStartedSelect'
+import isNumber from 'is-number'
+import delay from 'then-sleep'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
@@ -103,6 +107,35 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
+    useArtTurf: boolean()
+      .required()
+      .oneOf(
+        [false],
+        'Artificial grass is not allowed in the rebated portion of the converted landscape'
+      )
+      .label('Replace lawn with artificial turf'),
+    alreadyStarted: boolean()
+      .required()
+      .oneOf(
+        [false],
+        "Conversions that are initiated prior to PCWA's approval are ineligible"
+      )
+      .label('Already started replacement of lawn'),
+    approxSqFeet: string()
+      .required()
+      .test(
+        'min-sq-feet',
+        'A minimum of 300 square feet of lawn must be converted',
+        (val): boolean => {
+          const stripped = val && val.replace(/[^0-9.]/, '')
+          if (isNumber(stripped)) {
+            const valAsNo = Math.round(parseFloat(stripped))
+            return valAsNo >= 300
+          }
+          return false
+        }
+      )
+      .label('Approximate Square Feet of Existing Lawn'),
     irrigMethod: string()
       .required()
       .label('Irrigation Method')
@@ -126,7 +159,10 @@ const initialFormValues: RebateFormData = {
   inspectAgree: false,
   signature: '',
   captcha: '',
-  irrigMethod: ''
+  irrigMethod: '',
+  approxSqFeet: '',
+  useArtTurf: false,
+  alreadyStarted: false
 }
 
 const styles: StyleRulesCallback = (theme) => ({
@@ -208,7 +244,7 @@ const LawnReplacement = ({classes}: Props) => {
     formSubmitDialogErrorOpen,
     setFormSubmitDialogErrorOpen
   ] = useState<boolean>(false)
-  const [irrigMethodDialogOpen, setIrrigMethodDialogOpen] = useState<boolean>(
+  const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
     false
   )
   const [providedEmail, setProvidedEmail] = useState<string>('')
@@ -224,11 +260,11 @@ const LawnReplacement = ({classes}: Props) => {
   }, [])
 
   useEffect(() => {
-    // const fn = async () => {
-    //   await delay(900)
-    //   setIrrigMethodDialogOpen(true)
-    // }
-    // fn()
+    const fn = async () => {
+      await delay(900)
+      setEligibilityDialogOpen(true)
+    }
+    fn()
   }, [])
 
   const mainEl = useMemo(
@@ -290,7 +326,12 @@ const LawnReplacement = ({classes}: Props) => {
                   }
 
                   // Check if user is in-eligible for rebate and disable all form controls if so.
-                  const rebateIneligibility = Boolean(errors['irrigMethod'])
+                  const rebateIneligibility = [
+                    errors['alreadyStarted'],
+                    errors['useArtTurf'],
+                    errors['approxSqFeet'],
+                    errors['irrigMethod']
+                  ].some(Boolean)
                   if (rebateIneligibility !== ineligible) {
                     setIneligible(rebateIneligibility)
                   }
@@ -417,9 +458,30 @@ const LawnReplacement = ({classes}: Props) => {
                           </Type>
 
                           <Grid container spacing={40}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="alreadyStarted"
+                                component={AlreadyStartedSelect}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="useArtTurf"
+                                component={ArtTurfSelect}
+                              />
+                            </Grid>
                             <Grid item xs={12}>
                               <Field
-                                // disabled
+                                disabled
+                                name="approxSqFeet"
+                                component={LawnApproxSqFootField}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Field
+                                disabled
                                 name="irrigMethod"
                                 component={IrrigationMethodSelect}
                               />
@@ -589,9 +651,9 @@ const LawnReplacement = ({classes}: Props) => {
                         </div>
                       </Form>
 
-                      <IrrigationMethodDialog
-                        open={irrigMethodDialogOpen}
-                        onClose={() => setIrrigMethodDialogOpen(false)}
+                      <LawnReplEligibilityDialog
+                        open={eligibilityDialogOpen}
+                        onClose={() => setEligibilityDialogOpen(false)}
                       />
                     </React.Fragment>
                   )
@@ -611,7 +673,7 @@ const LawnReplacement = ({classes}: Props) => {
       formIsDirty,
       formValues,
       formIsTouched,
-      irrigMethodDialogOpen,
+      eligibilityDialogOpen,
       ineligible
     ]
   )

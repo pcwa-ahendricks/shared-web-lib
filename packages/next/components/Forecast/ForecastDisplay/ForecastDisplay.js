@@ -3,7 +3,11 @@ import React, {useState, useEffect, useMemo} from 'react'
 import AnimatedWeather, {
   type IconName
 } from '@components/AnimatedWeather/AnimatedWeather'
-import {withTheme, withStyles} from '@material-ui/core/styles'
+import {
+  withTheme,
+  withStyles,
+  type StyleRulesCallback
+} from '@material-ui/core/styles'
 import {Link, Typography as Type} from '@material-ui/core'
 
 type Props = {

@@ -3,6 +3,7 @@ import hecpEmailRoute from './hecp-email'
 import waterWasteRoute from './water-waste'
 import irrigCntrlRebateRoute from './irrigation-controller-rebate'
 import irrigEffRebateRoute from './irrigation-efficiencies-rebate'
+import lawnReplacementRebateRoute from './lawn-replacement-rebate'
 // File uploads handled by Cosmicjs and cosmic package..
 // import {
 //   photoFileHandler as photoFileRoute,
@@ -17,5 +18,6 @@ export {
   // photoB64Route,
   // uploadRoute,
   irrigCntrlRebateRoute,
-  irrigEffRebateRoute
+  irrigEffRebateRoute,
+  lawnReplacementRebateRoute
 }

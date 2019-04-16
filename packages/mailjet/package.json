@@ -21,6 +21,7 @@
     "@pcwa/micro-unauthorized": "^0.1.9",
     "busboy": "^0.3.1",
     "dotenv-safe": "^6.1.0",
+    "is-number": "^7.0.0",
     "isomorphic-unfetch": "^3.0.0",
     "jimp": "^0.6.1",
     "micro": "^9.3.3",
@@ -46,7 +47,7 @@
     "eslint-plugin-flowtype": "^3.6.1",
     "eslint-plugin-prettier": "^3.0.0",
     "micro-dev": "^3.0.0",
-    "prettier": "^1.16.4",
+    "prettier": "^1.17.0",
     "test-listen": "^1.1.0"
   }
 }

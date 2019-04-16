@@ -67,11 +67,14 @@ export type LawnReplacementRebateFormData = {|
   otherCity: string,
   phone: string,
   propertyType: string,
+  approxSqFeet: string,
   termsAgree: boolean,
   inspectAgree: boolean,
   signature: string,
   captcha: string,
-  irrigMethod: string
+  irrigMethod: string,
+  useArtTurf: boolean,
+  alreadyStarted: boolean
 |}
 
 export type LawnReplacementRequestBody = {|

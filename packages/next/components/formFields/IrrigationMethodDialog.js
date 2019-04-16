@@ -1,6 +1,6 @@
 // @flow
 // cspell:ignore Subheader
-import React, {useState} from 'react'
+import React from 'react'
 
 import {
   Button,
@@ -17,14 +17,15 @@ import {
 } from '@material-ui/core'
 import {withStyles, type StyleRulesCallback} from '@material-ui/core/styles'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
-import {Field} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
+import {Field, connect, type Formik} from 'formik'
 
 type Props = {
   open: boolean,
   onClose: () => void,
   fullWidth?: boolean,
-  classes: any
+  classes: any,
+  formik: Formik
 }
 
 // Text importance dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
@@ -37,8 +38,13 @@ const styles: StyleRulesCallback = (theme) => ({
   }
 })
 
-const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
-  const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
+const IrrigationMethodDialog = ({
+  open = false,
+  onClose,
+  classes,
+  formik
+}: Props) => {
+  const eligibleFieldsTouched = [formik.touched.irrigMethod].every(Boolean)
 
   return (
     <Dialog
@@ -60,21 +66,17 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
         </DialogContentText>
         <Field name="irrigMethod">
           {({field, form}) => {
-            const {setFieldValue, errors, dirty} = form
+            const {setFieldValue, errors, setFieldTouched, touched} = form
             const {name} = field
             const currentError = errors[name]
 
             const clickHandler = (irrigMethod: string) => () => {
               setFieldValue(name, irrigMethod, true)
-              // Don't touch form field here cause we don't want to show the red error message behind dialog on form page.
-              // setFieldTouched(name, true)
-            }
-
-            if (dirty !== formIsDirty) {
-              setFormIsDirty(dirty)
+              setFieldTouched(name, true)
             }
 
             const hasError = Boolean(currentError)
+            const fieldTouched = Boolean(touched[name])
             return (
               <div>
                 <List
@@ -89,7 +91,7 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
                       key={method}
                       button
                       divider
-                      disabled={hasError || formIsDirty}
+                      disabled={hasError || fieldTouched}
                       onClick={clickHandler(method)}
                     >
                       <ListItemText primary={method} />
@@ -110,7 +112,7 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
                     <a href="https://www.pcwa.net">PCWA.net</a> website.
                   </DialogContentText>
                 </WaitToGrow>
-                <WaitToGrow isIn={!hasError && formIsDirty}>
+                <WaitToGrow isIn={!hasError && fieldTouched}>
                   <DialogContentText
                     variant="body1"
                     color="textPrimary"
@@ -127,7 +129,11 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
         </Field>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary" disabled={!formIsDirty}>
+        <Button
+          onClick={onClose}
+          color="primary"
+          disabled={!eligibleFieldsTouched}
+        >
           Close
         </Button>
       </DialogActions>
@@ -135,7 +141,7 @@ const IrrigationMethodDialog = ({open = false, onClose, classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(IrrigationMethodDialog)
+export default connect(withStyles(styles)(IrrigationMethodDialog))
 
 function Transition(props) {
   return <Slide direction="up" {...props} />

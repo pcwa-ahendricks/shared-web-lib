@@ -7,7 +7,7 @@ type Props = {
   children: Node
 }
 
-const WaitToGrow = ({isIn, children}: Props) => {
+const WaitToGrow = ({isIn, children, ...rest}: Props) => {
   const [show, setShow] = useState<boolean>(false)
   const enteringTransHandler = useCallback(() => {
     setShow(true)
@@ -17,20 +17,22 @@ const WaitToGrow = ({isIn, children}: Props) => {
     setShow(false)
   }, [])
 
+  // Spreading rest params in <Grow/> in conjunction with using <React.Fragment/> allows for easily making component use the full width of it's parent.
   const waitToGrowEl = useMemo(
     () =>
       show || isIn ? (
-        <div>
+        <React.Fragment>
           <Grow
             in={isIn}
             onEntering={enteringTransHandler}
             onExited={exitedTransHandler}
+            {...rest}
           >
             {children}
           </Grow>
-        </div>
+        </React.Fragment>
       ) : null,
-    [show, isIn, enteringTransHandler, exitedTransHandler, children]
+    [show, isIn, enteringTransHandler, exitedTransHandler, children, rest]
   )
 
   return <React.Fragment>{waitToGrowEl}</React.Fragment>
