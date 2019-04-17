@@ -45,6 +45,7 @@ import IrrigUpgradeLocationCheckboxes, {
 } from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialog'
 import delay from 'then-sleep'
+import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
@@ -236,6 +237,10 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
+  const [
+    shouldConfirmRouteChange,
+    setShouldConfirmRouteChange
+  ] = useState<boolean>(false)
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -305,6 +310,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
 
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
+                    setShouldConfirmRouteChange(Boolean(dirty))
                   }
 
                   if (values !== formValues) {
@@ -702,7 +708,11 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   )
 
   return (
-    <React.Fragment>
+    <ConfirmPageLeaveLayout
+      onDialogCancel={() => setShouldConfirmRouteChange(true)}
+      onDialogLeave={() => setShouldConfirmRouteChange(false)}
+      shouldConfirmRouteChange={shouldConfirmRouteChange}
+    >
       {irrigEfficienciesEl}
 
       <FormSubmissionDialog
@@ -717,7 +727,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}
       />
-    </React.Fragment>
+    </ConfirmPageLeaveLayout>
   )
 }
 

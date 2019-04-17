@@ -43,6 +43,7 @@ import ArtTurfSelect from '@components/formFields/ArtTurfSelect'
 import AlreadyStartedSelect from '@components/formFields/AlreadyStartedSelect'
 import isNumber from 'is-number'
 import delay from 'then-sleep'
+import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
@@ -250,6 +251,10 @@ const LawnReplacement = ({classes}: Props) => {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
+  const [
+    shouldConfirmRouteChange,
+    setShouldConfirmRouteChange
+  ] = useState<boolean>(false)
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -319,6 +324,7 @@ const LawnReplacement = ({classes}: Props) => {
 
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
+                    setShouldConfirmRouteChange(Boolean(dirty))
                   }
 
                   if (values !== formValues) {
@@ -708,7 +714,11 @@ const LawnReplacement = ({classes}: Props) => {
   )
 
   return (
-    <React.Fragment>
+    <ConfirmPageLeaveLayout
+      onDialogCancel={() => setShouldConfirmRouteChange(true)}
+      onDialogLeave={() => setShouldConfirmRouteChange(false)}
+      shouldConfirmRouteChange={shouldConfirmRouteChange}
+    >
       {lawnReplacementEl}
 
       <FormSubmissionDialog
@@ -723,7 +733,7 @@ const LawnReplacement = ({classes}: Props) => {
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}
       />
-    </React.Fragment>
+    </ConfirmPageLeaveLayout>
   )
 }
 

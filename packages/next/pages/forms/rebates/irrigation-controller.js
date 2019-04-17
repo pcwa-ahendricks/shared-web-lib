@@ -42,6 +42,7 @@ import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissio
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
+import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -330,6 +331,10 @@ const IrrigationController = ({classes}: Props) => {
   ] = useState<boolean>(false)
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [
+    shouldConfirmRouteChange,
+    setShouldConfirmRouteChange
+  ] = useState<boolean>(false)
 
   const receiptIsUploadingHandler = useCallback((isUploading) => {
     setReceiptIsUploading(isUploading)
@@ -403,6 +408,7 @@ const IrrigationController = ({classes}: Props) => {
 
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
+                    setShouldConfirmRouteChange(Boolean(dirty))
                   }
                   if (values !== formValues) {
                     setFormValues(values)
@@ -832,7 +838,11 @@ const IrrigationController = ({classes}: Props) => {
   )
 
   return (
-    <React.Fragment>
+    <ConfirmPageLeaveLayout
+      onDialogCancel={() => setShouldConfirmRouteChange(true)}
+      onDialogLeave={() => setShouldConfirmRouteChange(false)}
+      shouldConfirmRouteChange={shouldConfirmRouteChange}
+    >
       {irrigControllerEl}
       <FormSubmissionDialog
         providedEmail={providedEmail}
@@ -846,7 +856,7 @@ const IrrigationController = ({classes}: Props) => {
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}
       />
-    </React.Fragment>
+    </ConfirmPageLeaveLayout>
   )
 }
 
