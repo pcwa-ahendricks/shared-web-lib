@@ -11,7 +11,7 @@ type Props = {
 
 const ReactAnimatedWeather = ({icon, animate, size, color}: Props) => {
   const [skyconIcon, setSkyconIcon] = useState(null)
-  const canvasRef = useRef()
+  const canvasRef = useRef(null)
   const prevColorRef = useRef()
   const prevAnimateRef = useRef()
 

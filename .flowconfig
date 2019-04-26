@@ -1,6 +1,6 @@
 [ignore]
 <PROJECT_ROOT>/node_modules/@types/jss/.*
-<PROJECT_ROOT>/node_modules/.*/node_modules/.*
+<PROJECT_ROOT>/node_modules/.*/spec/.*
 
 [include]
 
@@ -19,3 +19,6 @@ module.name_mapper='^@hooks\/\(.*\)$' -> '<PROJECT_ROOT>/packages/next/hooks/\1'
 module.name_mapper='^@hooks$' -> '<PROJECT_ROOT>/packages/next/hooks'
 
 [strict]
+
+[version]
+^0.93.0
