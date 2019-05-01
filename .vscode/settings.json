@@ -1,5 +1,5 @@
 {
-  "javascript.validate.enable": false,
+  "editor.formatOnSave": true,
   "search.exclude": {
     "**/node_modules": true,
     "packages/next/.next": true,

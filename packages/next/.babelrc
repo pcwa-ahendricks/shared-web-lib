@@ -1,6 +1,7 @@
 {
   "presets": [
     "next/babel",
+    "@zeit/next-typescript/babel",
     [
       "@babel/preset-env",
       {
@@ -42,13 +43,13 @@
   ],
   "env": {
     "production": {
-      "plugins": ["transform-flow-strip-types"]
+      "plugins": []
     },
     "stage": {
-      "plugins": ["transform-flow-strip-types"]
+      "plugins": ["babel-plugin-typescript-to-proptypes"]
     },
     "development": {
-      "plugins": ["flow-react-proptypes", "transform-flow-strip-types"]
+      "plugins": ["babel-plugin-typescript-to-proptypes"]
     }
   }
 }
