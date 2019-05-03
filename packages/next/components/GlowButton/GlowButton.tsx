@@ -1,23 +1,17 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import {ButtonBase, Typography as Type} from '@material-ui/core'
+import {ButtonBaseProps} from '@material-ui/core/ButtonBase'
 import {TypographyProps} from '@material-ui/core/Typography'
-import {ButtonProps} from '@material-ui/core/Button'
 import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 import classNames from 'classnames'
-import Link from 'next/link'
 
-type GlowButtonProps = {
+// color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
+export type GlowButtonProps = {
   children: React.ReactNode
-  classes: any
-} & ButtonProps
-
-type NextGlowButtonProps = {
-  children: React.ReactNode
-  href: string
-  linkProps?: any
-  size?: 'small' | 'medium' | 'large'
-  color?: TypographyProps['color']
-}
+  classes?: any // Optional flag appeases type-checking in <NextGlowButton/>.
+  color: TypographyProps['color']
+  size: 'small' | 'medium' | 'large'
+} & ButtonBaseProps
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -65,18 +59,29 @@ const GlowButton = ({
   ...rest
 }: GlowButtonProps) => {
   const [active, setActive] = useState(false)
-  const buttonEnterHandler = () => {
-    setActive(true)
-  }
-  const buttonLeaveHandler = () => {
-    setActive(false)
-  }
 
-  const buttonClass = classNames(classes.root, {
-    hover: active,
-    [`${size}Button`]: true
-  })
-  const typeRootClass = classNames(classes.type, {[`${size}Button`]: true})
+  const buttonEnterHandler = useCallback(() => {
+    setActive(true)
+  }, [])
+
+  const buttonLeaveHandler = useCallback(() => {
+    setActive(false)
+  }, [])
+
+  const buttonClass = useMemo(
+    () =>
+      classNames(classes.root, {
+        hover: active,
+        [`${size}Button`]: true
+      }),
+    [classes, size, active]
+  )
+
+  const typeRootClass = useMemo(
+    () => classNames(classes.type, {[`${size}Button`]: true}),
+    [classes, size]
+  )
+
   return (
     <ButtonBase
       onMouseEnter={buttonEnterHandler}
@@ -91,23 +96,4 @@ const GlowButton = ({
   )
 }
 
-const NextGlowButton = ({
-  href,
-  linkProps,
-  children,
-  color = 'default',
-  size = 'medium',
-  ...rest
-}: NextGlowButtonProps) => {
-  return (
-    <Link href={href} passHref {...linkProps}>
-      <StyledGlowButton {...rest} color={color} size={size}>
-        {children}
-      </StyledGlowButton>
-    </Link>
-  )
-}
-
-const StyledGlowButton = withStyles(styles)(GlowButton)
-export default StyledGlowButton
-export {NextGlowButton}
+export default withStyles(styles)(GlowButton)
