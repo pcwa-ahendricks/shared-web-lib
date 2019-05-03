@@ -46,7 +46,6 @@
     "nanoid": "^2.0.1",
     "next": "^8.1.0",
     "next-redux-wrapper": "^3.0.0-alpha.2",
-    "prettysize": "^2.0.0",
     "prop-types": "^15.7.2",
     "querystringify": "^2.1.1",
     "react": "^16.8.6",

@@ -13,7 +13,6 @@ import {
   Slide
 } from '@material-ui/core'
 import {DroppedFile} from './types'
-// import prettysize from 'prettysize'
 
 type Props = {
   onClose: () => void

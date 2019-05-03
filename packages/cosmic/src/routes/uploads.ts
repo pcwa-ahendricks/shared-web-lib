@@ -3,7 +3,7 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {ServerResponse} from 'http'
-import pretty from 'prettysize'
+import pretty from 'pretty-bytes'
 import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'

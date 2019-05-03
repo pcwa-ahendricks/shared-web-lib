@@ -12,7 +12,7 @@ import {
   mkdirSync,
   createWriteStream
 } from 'fs'
-import pretty from 'prettysize'
+import pretty from 'pretty-bytes'
 import {UPLOADS_DIR} from '../index'
 import {getType} from 'mime'
 import {createError, send} from 'micro'
