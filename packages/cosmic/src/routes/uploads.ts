@@ -3,7 +3,7 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {ServerResponse} from 'http'
-import pretty from 'pretty-bytes'
+import prettyBytes from 'pretty-bytes'
 import {createError, send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
@@ -84,7 +84,8 @@ const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
     filestream.on('data', (chunk: Buffer) => {
       data.push(chunk)
       // Log file progress when in development
-      isDev && console.log(`File [${fieldname}] got ${pretty(data.length)}`) // log progress
+      isDev &&
+        console.log(`File [${fieldname}] got ${prettyBytes(data.length)}`) // log progress
     })
 
     filestream.on('end', () => {

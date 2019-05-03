@@ -6,19 +6,12 @@ import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 import classNames from 'classnames'
 import Link from 'next/link'
 
-export type BaseGlowButtonProps = {
-  children: React.ReactNode
-  size?: ButtonProps['size']
-  color?: TypographyProps['color']
-}
-
-// Prevents flow error when using intersecting types with <ENewsButton/> by extending non-exported type.
 type GlowButtonProps = {
+  children: React.ReactNode
   classes: any
-} & BaseGlowButtonProps
+} & ButtonProps
 
-// No classes = No Union Type w/ GlowButtonProps
-export type NextGlowButtonProps = {
+type NextGlowButtonProps = {
   children: React.ReactNode
   href: string
   linkProps?: any
@@ -67,7 +60,7 @@ const styles = (theme: Theme) =>
 const GlowButton = ({
   classes,
   children,
-  color = 'textPrimary',
+  color = 'default',
   size = 'medium',
   ...rest
 }: GlowButtonProps) => {
@@ -102,7 +95,7 @@ const NextGlowButton = ({
   href,
   linkProps,
   children,
-  color = 'textPrimary',
+  color = 'default',
   size = 'medium',
   ...rest
 }: NextGlowButtonProps) => {

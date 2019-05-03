@@ -1,12 +1,9 @@
 import React from 'react'
-import GlowButton, {
-  BaseGlowButtonProps
-} from '@components/GlowButton/GlowButton'
-// import {type ButtonProps} from '@material-ui/core/Button'
+import GlowButton from '@components/GlowButton/GlowButton'
 
 type Props = {
   children: React.ReactNode
-} & BaseGlowButtonProps
+}
 
 const EnewsButton = ({children, ...rest}: Props) => {
   return (
