@@ -73,7 +73,6 @@ const uploadFile = async (
 //   filePath: string
 // }
 
-// @flow
 // type CosmicGetMediaResponse = {
 //   media: GetMedia[]
 // }

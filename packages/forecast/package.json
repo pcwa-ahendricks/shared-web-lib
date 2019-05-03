@@ -7,20 +7,25 @@
     "start": "micro",
     "server": "node dist/server.js",
     "server:dev": "cross-env NODE_ENV=development concurrently 'npm run watch' 'nodemon dist/server.js'",
-    "build": "babel src --out-dir dist --ignore src/**/*.spec.js,src/**/*.test.js",
     "watch": "babel src --watch --out-dir dist",
     "dev": "concurrently 'npm run watch' 'micro-dev -s -p 3001'",
     "inspect": "node --inspect node_modules/.bin/micro-dev",
-    "test": "ava"
+    "test": "ava",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly --declaration true --allowJs false",
+    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\"  --ignore src/**/*.spec.js,src/**/*.test.js",
+    "build:js-src-map": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
   },
   "author": "<ahendricks@pcwa.net>",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "@pcwa/micro-no-cache": "^0.1.4",
+    "@pcwa/micro-no-cache": "^0.1.10",
     "dotenv-safe": "^6.1.0",
     "forecast": "^0.3.2",
-    "micro": "^9.3.3",
+    "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "micro-fork": "^2.0.0",
     "micro-middleware": "^0.1.0"
@@ -30,16 +35,20 @@
     "@babel/core": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
-    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/micro": "^7.3.3",
+    "@types/node": "^11.13.9",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
     "ava": "^1.4.1",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "eslint-config-prettier": "^4.2.0",
-    "eslint-plugin-flowtype": "^3.6.1",
     "eslint-plugin-prettier": "^3.0.0",
     "micro-dev": "^3.0.0",
     "nodemon": "^1.19.0",
     "prettier": "^1.17.0",
-    "test-listen": "^1.1.0"
+    "test-listen": "^1.1.0",
+    "typescript": "^3.4.5"
   }
 }

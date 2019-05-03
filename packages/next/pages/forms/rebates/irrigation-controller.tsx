@@ -138,12 +138,14 @@ const formSchema = object()
         })
       ),
     addtlSensorPhotos: array()
-      .when('additional', (additional: [] | null, schema: Schema<string>) =>
-        additional
-          ? schema.required(
-              'Must provide photo(s) of installed sensor/outdoor cover'
-            )
-          : schema
+      .when(
+        'additional',
+        (additional: string[] | undefined, schema: Schema<string>) =>
+          additional
+            ? schema.required(
+                'Must provide photo(s) of installed sensor/outdoor cover'
+              )
+            : schema
       )
       .of(
         object({

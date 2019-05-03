@@ -173,7 +173,7 @@ MyDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext = {} // Initialize to satisfy flow.
+  let pageContext = {} // Initialize to satisfy Typescript.
   const page = ctx.renderPage((Component) => {
     const WrappedComponent = (props) => {
       pageContext = props.pageContext

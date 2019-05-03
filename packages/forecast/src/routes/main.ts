@@ -1,0 +1,132 @@
+const isDev = process.env.NODE_ENV === 'development'
+if (isDev) {
+  require('dotenv-safe').config()
+}
+import {send} from 'micro'
+import {ServerResponse, IncomingMessage} from 'http'
+import Forecast from 'forecast'
+import {applyMiddleware} from 'micro-middleware'
+import unauthorized from '@pcwa/micro-unauthorized'
+
+const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY || ''
+
+// Only accept requests for the following longitudes and latitudes.
+const ACCEPT_LATITUDES = [38, 39]
+const ACCEPT_LONGITUDES = [-121, -120]
+
+const defaultForecastConfig = {
+  key: DARKSKY_API_KEY,
+  service: 'darksky',
+  units: 'us'
+}
+
+/*
+  NPM - https://www.npmjs.com/package/forecast
+  Github - https://github.com/jameswyse/forecast
+*/
+/*
+  There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.
+  We want to make 5 different requests all day long.
+  We can only make 1,000 requests for free in a day (or 1,440 minutes).
+  1,000 / 5 = 200 requests a day for all 5 locations
+  1,440 / 200 = 7.2 minutes apart
+  60 * .2 = 12 seconds
+  We should set the cache accordingly at a value slightly greater than 7 min, 12 seconds
+*/
+
+// // a simple middleware should look like this
+// const logging = fn => async function process (...args) {
+//   console.log(`log args: ${args}`)
+//   let data = await fn.apply(null, args)
+//   console.log(`log returned data: ${data}`)
+//   return data
+// }
+
+export const initForecast = (config?: {}) => {
+  return new Forecast({
+    ...defaultForecastConfig,
+    ...config
+  })
+}
+
+const getForecast = (
+  req: MicroForKRequest,
+  res: ServerResponse,
+  store: {forecast: any}
+) => {
+  const {forecast = initForecast()} = store || {}
+
+  // Example request - https://api.darksky.net/forecast/12345678910111213141516171819/38.9221,-121.0559
+  const {lat, lng} = req.query // query property is courtesy of micro-fork.
+  if (!lat || !lng) {
+    send(res, 204)
+    return
+  }
+  if (
+    !ACCEPT_LATITUDES.includes(parseInt(lat)) ||
+    !ACCEPT_LONGITUDES.includes(parseInt(lng))
+  ) {
+    send(res, 406)
+    return
+  }
+  const weather = new Promise((resolve, reject) => {
+    return forecast.get([lat, lng], (err: any, weather: any) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(weather)
+    })
+  })
+  return weather
+}
+
+const requestHandler = async (
+  req: MicroForKRequest,
+  res: ServerResponse,
+  store: {forecast: any}
+) => {
+  try {
+    switch (true) {
+      // Don't do anything with favicon request.
+      case req.url && /\/favicon(\.ico)?($|\?)/i.test(req.url): {
+        send(res, 204)
+        break
+      }
+      default: {
+        return await getForecast(req, res, store)
+      }
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * Check the request method and use postHandler or getHandler (or other method handlers)
+ */
+// const methodHandler = async (
+//   req: IncomingMessage,
+//   res: ServerResponse,
+//   forecast: any
+// ) => {
+//   try {
+//     switch (req.method) {
+//       case 'GET':
+//         return await requestHandler(req, res, forecast)
+//       default:
+//         send(res, 405, 'Method Not Allowed')
+//         break
+//     }
+//   } catch (error) {
+//     throw error
+//   }
+// }
+
+type MicroForKRequest = {
+  params: any
+  query: any
+} & IncomingMessage
+
+export default applyMiddleware(requestHandler, [
+  unauthorized(DARKSKY_API_KEY, 'Unauthorized - Invalid API key')
+])
