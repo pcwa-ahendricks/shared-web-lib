@@ -9,8 +9,8 @@ import classNames from 'classnames'
 export type GlowButtonProps = {
   children: React.ReactNode
   classes?: any // Optional flag appeases type-checking in <NextGlowButton/>.
-  color: TypographyProps['color']
-  size: 'small' | 'medium' | 'large'
+  color?: TypographyProps['color']
+  size?: 'small' | 'medium' | 'large'
 } & ButtonBaseProps
 
 const styles = (theme: Theme) =>

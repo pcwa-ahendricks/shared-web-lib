@@ -1,12 +1,7 @@
 import React from 'react'
-import GlowButton from '@components/GlowButton/GlowButton'
-import {ButtonProps} from '@material-ui/core/Button'
+import GlowButton, {GlowButtonProps} from '@components/GlowButton/GlowButton'
 
-type Props = {
-  children: React.ReactNode
-} & ButtonProps
-
-const EnewsButton = ({children, ...rest}: Props) => {
+const EnewsButton = ({children, ...rest}: GlowButtonProps) => {
   return (
     <GlowButton color="primary" aria-label="Open Dialog" {...rest}>
       {children}
