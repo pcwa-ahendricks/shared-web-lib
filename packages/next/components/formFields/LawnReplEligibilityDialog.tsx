@@ -29,7 +29,7 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import {Field, connect, FormikProps, FieldProps} from 'formik'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
 
@@ -239,7 +239,7 @@ const LawnReplEligibilityDialog = ({
                       <DialogContentText
                         variant="h4"
                         color="textSecondary"
-                        className={classNames({
+                        className={clsx({
                           [classes.stepLabelError]: stepHasError(fieldName),
                           [classes.stepLabelActive]: activeStep === index
                         })}

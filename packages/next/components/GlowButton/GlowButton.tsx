@@ -3,7 +3,7 @@ import {ButtonBase, Typography as Type} from '@material-ui/core'
 import {ButtonBaseProps} from '@material-ui/core/ButtonBase'
 import {TypographyProps} from '@material-ui/core/Typography'
 import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 // color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
 export type GlowButtonProps = {
@@ -70,7 +70,7 @@ const GlowButton = ({
 
   const buttonClass = useMemo(
     () =>
-      classNames(classes.root, {
+      clsx(classes.root, {
         hover: active,
         [`${size}Button`]: true
       }),
@@ -78,7 +78,7 @@ const GlowButton = ({
   )
 
   const typeRootClass = useMemo(
-    () => classNames(classes.type, {[`${size}Button`]: true}),
+    () => clsx(classes.type, {[`${size}Button`]: true}),
     [classes, size]
   )
 

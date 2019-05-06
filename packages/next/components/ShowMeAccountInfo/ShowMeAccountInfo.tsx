@@ -11,7 +11,7 @@ import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import Imgix from 'react-imgix'
 import delay from 'then-sleep'
-import classNames from 'classnames'
+import clsx from 'clsx'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
 
@@ -117,14 +117,14 @@ const ShowMeAccountInfo = ({classes, width}: Props) => {
           onExited={popoverExitedHandler}
         >
           <div
-            className={classNames(classes.popoverContent, {
+            className={clsx(classes.popoverContent, {
               [classes.xsPopoverContent]: width === 'xs'
             })}
           >
             <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
               <div className={classes.textOverlay}>
                 <Type
-                  className={classNames(classes.typography, {
+                  className={clsx(classes.typography, {
                     [classes.xsTypography]: width === 'xs'
                   })}
                   variant="h5"
@@ -138,7 +138,7 @@ const ShowMeAccountInfo = ({classes, width}: Props) => {
             <Imgix
               // height={200}
               width={500}
-              className={classNames({['lazyload']: true})}
+              className={clsx({['lazyload']: true})}
               sizes="auto"
               src={IMAGE_URL}
               htmlAttributes={{

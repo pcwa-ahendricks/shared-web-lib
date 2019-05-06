@@ -5,7 +5,7 @@ import React, {
   forwardRef,
   useImperativeHandle
 } from 'react'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 import {Button, Typography as Type} from '@material-ui/core'
 import {uploadFile} from '@lib/services/uploadService'
@@ -291,7 +291,7 @@ const DropzoneUploader: React.RefForwardingComponent<
       <div className={classes.root} style={{width: width}}>
         <div
           {...getRootProps()}
-          className={classNames(classes.dropzone, {
+          className={clsx(classes.dropzone, {
             [classes.isActive]: isDragActive
           })}
           style={{height: height}}
@@ -311,7 +311,7 @@ const DropzoneUploader: React.RefForwardingComponent<
                 )}
                 <Type
                   variant="h3"
-                  className={classNames(classes.dropzoneTitle, {
+                  className={clsx(classes.dropzoneTitle, {
                     [classes.disabled]: disabled
                   })}
                 >
@@ -319,7 +319,7 @@ const DropzoneUploader: React.RefForwardingComponent<
                 </Type>
                 <Type
                   variant="subtitle1"
-                  className={classNames(classes.dropzoneSubTitle, {
+                  className={clsx(classes.dropzoneSubTitle, {
                     [classes.disabled]: disabled
                   })}
                 >

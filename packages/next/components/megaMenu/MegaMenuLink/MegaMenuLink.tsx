@@ -1,7 +1,7 @@
 import React, {useRef, useCallback} from 'react'
 import {Link, Typography as Type, RootRef} from '@material-ui/core'
 import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
 
 type Props = {
@@ -77,7 +77,7 @@ const MegaMenuLink = ({
         <div className={classes.linkBun} />
         <RootRef rootRef={typeRef}>
           <Type
-            className={classNames(classes.typography, typographyClass, {
+            className={clsx(classes.typography, typographyClass, {
               linkActive: isActive
             })}
             // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.

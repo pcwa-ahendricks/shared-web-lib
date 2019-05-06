@@ -4,7 +4,7 @@ import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 type Props = {
   fileName: string
@@ -119,7 +119,7 @@ const IrrigEffTermsConditions = ({
         />
       </div>
       <Snackbar
-        className={classNames(classes.snackbar, {
+        className={clsx(classes.snackbar, {
           [classes.fullWidth]: smDown
         })}
         anchorOrigin={{

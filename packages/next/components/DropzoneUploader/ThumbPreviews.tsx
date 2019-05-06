@@ -5,7 +5,7 @@ import {DroppedFile, UploadedFile} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 
 type Props = {
@@ -109,7 +109,7 @@ const ThumbPreviews = ({
     <React.Fragment>
       {droppedFiles.map((file) => (
         <div
-          className={classNames(classes.thumb, {
+          className={clsx(classes.thumb, {
             [classes.xs]: width === 'xs'
           })}
           key={file.name}

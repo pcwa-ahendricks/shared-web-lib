@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {Theme, createStyles, withStyles} from '@material-ui/core/styles'
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 type Props = {
   classes: any
@@ -83,7 +83,7 @@ const Overline = (props: Props) => {
   const height = useFullHeight ? '100%' : 'unset'
   return (
     <div
-      className={classNames(classes.root, {overlineVisible})}
+      className={clsx(classes.root, {overlineVisible})}
       style={{height}}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}

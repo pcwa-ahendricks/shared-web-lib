@@ -11,7 +11,7 @@ import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
 import {string, object, boolean, array, Schema} from 'yup'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import {
   postRebateForm,
   IrrigationControllerRebateFormData as RebateFormData,
@@ -589,7 +589,7 @@ const IrrigationController = ({classes}: Props) => {
                           Provide Attachments
                         </Type>
 
-                        <div className={classNames(classes.dropzoneContainer)}>
+                        <div className={clsx(classes.dropzoneContainer)}>
                           <Field
                             name="receipts"
                             attachmentTitle="Receipt"
@@ -599,7 +599,7 @@ const IrrigationController = ({classes}: Props) => {
                           />
                         </div>
 
-                        <div className={classNames(classes.dropzoneContainer)}>
+                        <div className={clsx(classes.dropzoneContainer)}>
                           <Field
                             name="cntrlPhotos"
                             attachmentTitle="Installed Irrigation Controller Photo"
@@ -610,9 +610,7 @@ const IrrigationController = ({classes}: Props) => {
                         </div>
 
                         <WaitToGrow isIn={hasAddtlSensor}>
-                          <div
-                            className={classNames(classes.dropzoneContainer)}
-                          >
+                          <div className={clsx(classes.dropzoneContainer)}>
                             <Field
                               name="addtlSensorPhotos"
                               attachmentTitle="Additional Sensor/Outdoor Cover Photo"

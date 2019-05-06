@@ -10,7 +10,7 @@ const path = require('path')
 const withTypescript = require('@zeit/next-typescript')
 const {STATS, NEXT_TARGET = 'server'} = process.env
 
-module.exports = (phase, {defaultConfig}) => {
+module.exports = (_phase, {defaultConfig}) => {
   return withTypescript(
     withBundleAnalyzer({
       ...defaultConfig,

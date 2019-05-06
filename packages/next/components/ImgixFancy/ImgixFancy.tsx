@@ -1,7 +1,7 @@
 import React from 'react'
 import Imgix from 'react-imgix'
 import {withStyles, createStyles} from '@material-ui/core/styles'
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 type Props = {
   classes: any
@@ -70,7 +70,7 @@ const ImgixFancy = ({
   return (
     <div className={classes.mediabox} style={{paddingBottom: paddingPercent}}>
       <Imgix
-        className={classNames({['lazyload']: true, ['mediabox-img']: true})}
+        className={clsx({['lazyload']: true, ['mediabox-img']: true})}
         src={src}
         sizes={sizes}
         width={width}

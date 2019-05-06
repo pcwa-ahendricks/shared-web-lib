@@ -189,7 +189,8 @@ const PrimaryHeader = ({
               href="/"
               color="primary"
               variant="button"
-              classes={{button: classes.megaMenuLink}}
+              classes={{root: classes.megaMenuLink}}
+              underline="none"
             >
               Home
             </NextLink>

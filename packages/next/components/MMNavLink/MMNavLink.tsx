@@ -1,8 +1,8 @@
 import React from 'react'
 import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import {Link, Typography as Type} from '@material-ui/core'
-import NextLink from 'next/link'
+import {Typography as Type} from '@material-ui/core'
 import Router from 'next/router'
+import NextLink from '@components/NextLink/NextLink'
 
 type Props = {
   classes: any
@@ -18,27 +18,28 @@ const styles = (theme: Theme) =>
     }
   })
 
-const mouseEnterHandler = (href: string) => () => {
-  // Only works in production.
-  if (href) {
-    Router.prefetch(href)
-  }
-}
-
 const MMNavLink = ({classes, children, href}: Props) => {
   return (
     <Type className={classes.text}>
-      <NextLink href={href} passHref>
-        <Link
-          color="inherit"
-          underline="none"
-          onMouseEnter={mouseEnterHandler(href)}
-        >
-          {children}
-        </Link>
+      <NextLink
+        href={href}
+        color="inherit"
+        underline="none"
+        onMouseEnter={mouseEnterHandler(href)}
+      >
+        {children}
       </NextLink>
     </Type>
   )
 }
 
 export default withStyles(styles)(MMNavLink)
+
+function mouseEnterHandler(href: string) {
+  return () => {
+    // Only works in production.
+    if (href) {
+      Router.prefetch(href)
+    }
+  }
+}

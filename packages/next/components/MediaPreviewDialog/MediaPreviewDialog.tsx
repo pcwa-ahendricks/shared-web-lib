@@ -14,7 +14,7 @@ import {
   // withMobileDialog
 } from '@material-ui/core'
 import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import extension from '@lib/fileExtension'
 
@@ -113,7 +113,7 @@ const MediaPreviewDialog = ({
       // TODO - It doesn't appear that lazy loading of images is working in this component.
       <img
         key={key}
-        className={classNames({['lazyload']: true}, classes.img)}
+        className={clsx({['lazyload']: true}, classes.img)}
         data-sizes="auto"
         data-src={url}
         src={url} // IE fix - src attribute may be required for displaying img.
