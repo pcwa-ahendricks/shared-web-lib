@@ -1,24 +1,58 @@
 import React from 'react'
-import {Link as MatLink, Typography as Type} from '@material-ui/core'
-import Link from 'next/link'
+import clsx from 'clsx'
+import {withRouter, RouterProps} from 'next/router'
+import NextLink from 'next/link'
+import MuiLink, {LinkProps as MuiLinkProps} from '@material-ui/core/Link'
 
-type Props = {
-  children: React.ReactNode
+type NextComposedProps = {
   href: string
-  typeProps?: any
-  linkProps?: any
+  prefetch?: boolean
+  as?: string
 }
 
-const NextLink = ({children, href, typeProps, linkProps, ...rest}: Props) => {
+const NextComposed = ({
+  as,
+  href,
+  prefetch,
+  ...other
+}: NextComposedProps & React.HTMLProps<HTMLAnchorElement>) => {
   return (
-    <Type {...typeProps}>
-      <Link href={href} passHref {...linkProps}>
-        <MatLink color="inherit" underline="none" {...rest}>
-          {children}
-        </MatLink>
-      </Link>
-    </Type>
+    <NextLink href={href} prefetch={prefetch} as={as}>
+      <a {...other} />
+    </NextLink>
   )
 }
 
-export default NextLink
+type LinkProps = {
+  activeClassName?: string
+  as?: string
+  className?: string
+  href: string
+  naked?: boolean
+  onClick?: any
+  prefetch?: boolean
+  router: RouterProps
+}
+
+// A styled version of the Next.js Link component:
+// https://nextjs.org/docs/#with-link
+const Link = ({
+  activeClassName = 'active',
+  router,
+  className,
+  naked,
+  href,
+  ...other
+}: LinkProps & MuiLinkProps) => {
+  const classNames = clsx(className, {
+    [activeClassName]: router.pathname === href && activeClassName
+  })
+
+  if (naked) {
+    return <NextComposed className={className} href={href} {...other} />
+  }
+
+  return <MuiLink component={NextComposed} className={classNames} {...other} />
+}
+
+export default withRouter(Link)

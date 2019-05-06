@@ -15,6 +15,7 @@
     "browserslist",
     "camelcase",
     "checkboxes",
+    "clsx",
     "cntrl",
     "compat",
     "corejs",

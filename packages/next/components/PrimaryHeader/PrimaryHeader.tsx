@@ -187,11 +187,9 @@ const PrimaryHeader = ({
           <div className={classes.homeLink}>
             <NextLink
               href="/"
-              typeProps={{
-                variant: 'button',
-                color: 'primary',
-                classes: {button: classes.megaMenuLink}
-              }}
+              color="primary"
+              variant="button"
+              classes={{button: classes.megaMenuLink}}
             >
               Home
             </NextLink>
