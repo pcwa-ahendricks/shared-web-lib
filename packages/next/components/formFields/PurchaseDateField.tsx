@@ -46,6 +46,7 @@ const PurchaseDateField = ({
       // Since we are not using FormHelperText error prop is not required.
       // error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
+      variant="outlined"
     >
       <DatePicker
         // Don't let label cover <Header/>.
@@ -63,7 +64,7 @@ const PurchaseDateField = ({
         label="Purchase Date"
         helperText={fieldIsTouchedWithError ? currentError : null}
         error={fieldIsTouchedWithError}
-        onError={(_, error) => setFieldError(name, error)}
+        onError={() => setFieldError(name, 'Error with Start Date')}
         onChange={changeHandler}
         onInputChange={changeHandler}
         disableOpenOnEnter
