@@ -3,7 +3,7 @@ import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {AppBar, Hidden, IconButton, Toolbar, withWidth} from '@material-ui/core'
 import {Menu as MenuIcon} from '@material-ui/icons'
-import {connect} from 'react-redux'
+import {useDispatch, useMappedState} from 'redux-react-hook'
 import {uiSetDrawerViz} from '@store/actions'
 import MegaMenuLink from '@components/megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '@components/megaMenu/MegaMenuPopper/MegaMenuPopper'
@@ -16,8 +16,6 @@ export type ToolbarVariant = 'regular' | 'dense'
 
 type Props = {
   classes: any
-  drawerOpen: boolean
-  dispatch: any
   width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   parentFixed?: boolean
 }
@@ -130,17 +128,20 @@ const styles = (theme: Theme) =>
     }
   })
 
-const PrimaryHeader = ({
-  classes,
-  dispatch,
-  width,
-  drawerOpen,
-  parentFixed = false
-}: Props) => {
+const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [popperOpen, setPopperOpen] = useState(false)
   const [activeKey, setActiveKey] = useState(null)
   const [activeLinkEl, setActiveLinkEl] = useState(null)
+
+  const uiState = useCallback(
+    (state: State) => ({
+      drawerOpen: state.ui.drawerOpen
+    }),
+    []
+  )
+  const {drawerOpen} = useMappedState(uiState)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!popperOpen) {
@@ -277,10 +278,4 @@ const PrimaryHeader = ({
   )
 }
 
-const mapStateToProps = (state: State) => ({
-  drawerOpen: state.ui.drawerOpen
-})
-
-export default connect(mapStateToProps)(
-  withWidth()(withStyles(styles)(PrimaryHeader))
-)
+export default withWidth()(withStyles(styles)(PrimaryHeader))

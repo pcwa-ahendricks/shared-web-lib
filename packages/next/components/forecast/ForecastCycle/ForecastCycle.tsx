@@ -3,16 +3,15 @@ import ForecastDisplay, {
   ForecastData
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {connect} from 'react-redux'
 import {withStyles, createStyles} from '@material-ui/core/styles'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
 import {startCycleForecastTimer} from '@store/actions'
-import {State} from '../../../store'
+import {State} from '@store/index'
+import {useDispatch, useMappedState} from 'redux-react-hook'
 
 type Props = {
   classes: any
   dispatch: any
-  activeCycleForecastId: number | null // redux
   cycleInterval?: number
   crossFadeDuration?: number
   forecasts?: ForecastData[]
@@ -45,14 +44,21 @@ const styles = createStyles({
 
 const ForecastCycle = ({
   classes,
-  dispatch,
   forecasts = [],
   cycleInterval = 1000 * 10, // 10 seconds
-  crossFadeDuration = 1000 * 1, // 1 second
-  activeCycleForecastId
+  crossFadeDuration = 1000 * 1 // 1 second
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [transitionEnter, setTransitionEnter] = useState(false)
+
+  const forecastState = useCallback(
+    (state: State) => ({
+      activeCycleForecastId: state.forecast.activeCycleForecastId
+    }),
+    []
+  )
+  const {activeCycleForecastId} = useMappedState(forecastState)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!forecasts || forecasts.length === 0 || !cycleInterval) {
@@ -113,8 +119,4 @@ const ForecastCycle = ({
   )
 }
 
-const mapStateToProps = (state: State) => ({
-  activeCycleForecastId: state.forecast.activeCycleForecastId
-})
-
-export default connect(mapStateToProps)(withStyles(styles)(ForecastCycle))
+export default withStyles(styles)(ForecastCycle)

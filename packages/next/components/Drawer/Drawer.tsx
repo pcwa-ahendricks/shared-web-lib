@@ -9,13 +9,12 @@ import {
   ListItemText
 } from '@material-ui/core'
 import {Mail as MailIcon, Inbox as InboxIcon} from '@material-ui/icons'
-import {connect} from 'react-redux'
 import {uiSetDrawerViz} from '@store/actions'
+import {useDispatch, useMappedState} from 'redux-react-hook'
+import {State} from '@store/index'
 
 type Props = {
   classes: any
-  open: boolean
-  dispatch: any
 }
 
 const styles = {
@@ -24,7 +23,16 @@ const styles = {
   }
 }
 
-const SwipeableTemporaryDrawer = ({classes, open, dispatch}: Props) => {
+const SwipeableTemporaryDrawer = ({classes}: Props) => {
+  const uiState = useCallback(
+    (state: State) => ({
+      open: state.ui.drawerOpen
+    }),
+    []
+  )
+  const {open} = useMappedState(uiState)
+  const dispatch = useDispatch()
+
   const toggleDrawer = useCallback(
     (openDrawer: boolean) => () => {
       dispatch(uiSetDrawerViz(openDrawer))
@@ -82,10 +90,4 @@ const SwipeableTemporaryDrawer = ({classes, open, dispatch}: Props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  open: state.ui.drawerOpen
-})
-
-export default connect(mapStateToProps)(
-  withStyles(styles)(SwipeableTemporaryDrawer)
-)
+export default withStyles(styles)(SwipeableTemporaryDrawer)

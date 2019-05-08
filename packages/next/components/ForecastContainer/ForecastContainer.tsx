@@ -1,18 +1,13 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {withStyles, createStyles} from '@material-ui/core/styles'
-import {
-  Location,
-  ForecastData
-} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import {connect} from 'react-redux'
+import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {startForecastTimer} from '@store/actions'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import {State} from '@store/index'
+import {useDispatch, useMappedState} from 'redux-react-hook'
 
 type Props = {
   classes: any
-  forecasts: ForecastData[]
-  dispatch: any
 }
 
 const REFETCH_INTERVAL = 1000 * 60 * 2 // Two minute interval.
@@ -57,7 +52,16 @@ const styles = () =>
     }
   })
 
-const ForecastContainer = ({classes, forecasts, dispatch}: Props) => {
+const ForecastContainer = ({classes}: Props) => {
+  const forecastState = useCallback(
+    (state: State) => ({
+      forecasts: state.forecast.forecasts
+    }),
+    []
+  )
+  const {forecasts} = useMappedState(forecastState)
+  const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(startForecastTimer(forecastLocations, REFETCH_INTERVAL))
   }, [dispatch])
@@ -69,8 +73,4 @@ const ForecastContainer = ({classes, forecasts, dispatch}: Props) => {
   )
 }
 
-const mapStateToProps = (state: State) => ({
-  forecasts: state.forecast.forecasts
-})
-
-export default connect(mapStateToProps)(withStyles(styles)(ForecastContainer))
+export default withStyles(styles)(ForecastContainer)

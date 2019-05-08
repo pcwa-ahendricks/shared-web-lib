@@ -5,11 +5,12 @@ import JssProvider from 'react-jss/lib/JssProvider'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import getPageContext from '@lib/getPageContext'
 import {ParallaxProvider} from 'react-scroll-parallax'
-import {Provider} from 'react-redux'
 import {MuiPickersUtilsProvider} from 'material-ui-pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import withRedux from 'next-redux-wrapper'
-import configureStore from '@store'
+import configureStore from '@store/index'
+import {StoreContext} from 'redux-react-hook'
+
+const store = configureStore()
 
 class MyApp extends App {
   constructor(props: {}) {
@@ -25,8 +26,9 @@ class MyApp extends App {
     }
   }
 
+  /* eslint-disable @typescript-eslint/explicit-member-accessibility */
   render() {
-    const {Component, pageProps, store} = this.props
+    const {Component, pageProps} = this.props
     return (
       <Container>
         {/* Wrap every page in Jss and Theme providers */}
@@ -42,20 +44,21 @@ class MyApp extends App {
           >
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <ParallaxProvider>
-                {/* Pass pageContext to the _document though the renderPage enhancer
+            <StoreContext.Provider value={store}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ParallaxProvider>
+                  {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                <Provider store={store}>
                   <Component pageContext={this.pageContext} {...pageProps} />
-                </Provider>
-              </ParallaxProvider>
-            </MuiPickersUtilsProvider>
+                </ParallaxProvider>
+              </MuiPickersUtilsProvider>
+            </StoreContext.Provider>
           </MuiThemeProvider>
         </JssProvider>
       </Container>
     )
   }
+  /* eslint-enable @typescript-eslint/explicit-member-accessibility */
 }
 
-export default withRedux(configureStore)(MyApp)
+export default MyApp

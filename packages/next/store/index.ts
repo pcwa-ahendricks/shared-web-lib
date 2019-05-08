@@ -30,7 +30,7 @@ const bindMiddleware = (middleware) => {
   // return applyMiddleware()
 }
 
-function configureStore(initialState: State) {
+function configureStore(initialState?: State) {
   const store = createStore(
     rootReducer,
     initialState,
