@@ -11,7 +11,6 @@ import {useDispatch, useMappedState} from 'redux-react-hook'
 
 type Props = {
   classes: any
-  dispatch: any
   cycleInterval?: number
   crossFadeDuration?: number
   forecasts?: ForecastData[]
