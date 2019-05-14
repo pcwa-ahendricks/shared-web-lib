@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {Button} from '@material-ui/core'
 import {withStyles, createStyles} from '@material-ui/core/styles'
 import Link from 'next/link'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 
 type Props = {
   classes: any
@@ -23,14 +23,18 @@ const styles = createStyles({
   }
 })
 
-const mouseEnterHandler = (href: string) => () => {
-  // Only works in production mode.
-  if (href && href.trim() !== '#') {
-    Router.prefetch(href)
-  }
-}
-
 const TrendingLink = ({classes, children, href}: Props) => {
+  const router = useRouter()
+
+  const mouseEnterHandler = useCallback(
+    (href: string) => () => {
+      // Only works in production mode.
+      if (href && href.trim() !== '#') {
+        router.prefetch(href)
+      }
+    },
+    [router]
+  )
   return (
     <Link href={href} passHref>
       <Button

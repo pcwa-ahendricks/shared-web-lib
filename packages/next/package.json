@@ -62,7 +62,7 @@
     "regenerator-runtime": "^0.13.2",
     "styled-jsx": "^3.2.1",
     "then-sleep": "^1.0.1",
-    "webpack": "^4.30.0",
+    "webpack": "^4.31.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
@@ -81,8 +81,8 @@
     "@types/react-jss": "^8.6.3",
     "@types/react-sticky-el": "^1.0.2",
     "@types/yup": "^0.26.13",
-    "@typescript-eslint/eslint-plugin": "^1.7.0",
-    "@typescript-eslint/parser": "^1.7.0",
+    "@typescript-eslint/eslint-plugin": "^1.8.0",
+    "@typescript-eslint/parser": "^1.8.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-transform-assets-import-to-string": "^1.2.0",
