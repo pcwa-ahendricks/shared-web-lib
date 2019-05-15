@@ -1,6 +1,6 @@
 import React from 'react'
 import {withStyles, createStyles} from '@material-ui/core/styles'
-import {Hidden, Toolbar, CircularProgress} from '@material-ui/core'
+import {Hidden, Toolbar} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
@@ -10,17 +10,18 @@ import EspanolButton from '@components/EspanolButton/EspanolButton'
 import SearchInput from '@components/search/SearchInput/SearchInput'
 import GlowButton from '@components/GlowButton/GlowButton'
 import NextGlowButton from '@components/NextGlowButton/NextGlowButton'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
+import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
 
-const DynamicForecast = dynamic(
-  import('@components/ForecastContainer/ForecastContainer'),
-  {
-    /* eslint-disable-next-line react/display-name */
-    loading: () => (
-      <CircularProgress size={20} disableShrink={true} color="secondary" />
-    )
-  }
-)
+// const DynamicForecast = dynamic(
+//   import('@components/ForecastContainer/ForecastContainer'),
+//   {
+//     /* eslint-disable-next-line react/display-name */
+//     loading: () => (
+//       <CircularProgress size={20} disableShrink={true} color="secondary" />
+//     )
+//   }
+// )
 
 type Props = {
   classes: any
@@ -62,7 +63,8 @@ const SecondaryHeader = ({classes}: Props) => {
       <Toolbar variant="dense" className={classes.toolbar}>
         {/* Don't use CSS implementation of hide cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
         <Hidden smDown implementation="js">
-          <DynamicForecast />
+          {/* <DynamicForecast /> */}
+          <ForecastContainer />
         </Hidden>
         <span className={classes.grow} />
         <NextGlowButton aria-label="Link" color="primary" size="small" href="#">

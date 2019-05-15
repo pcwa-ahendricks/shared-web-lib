@@ -27,6 +27,11 @@ const styles = createStyles({
     overflow: 'hidden',
     '-webkit-transform': 'translate3d(0, 0, 0)',
     transform: 'translate3d(0, 0, 0)',
+
+    '& .mediabox-img.ls-blur-up-is-loading, .mediabox-img.lazyload:not([src])': {
+      visibility: 'hidden'
+    },
+
     '& .ls-blur-up-img, .mediabox-img': {
       position: 'absolute',
       top: 0,
@@ -34,13 +39,13 @@ const styles = createStyles({
       width: '100%',
       height: '100%',
       display: 'block',
-      /* only if you want to change the blur-up option from auto to always */
-      fontFamily: "'blur-up: always', 'object-fit: cover'",
+      /* only if you want to change the blur-up option from always to auto or want to use blur up effect without a lowsrc image. */
+      // font-family: "blur-up: auto", "object-fit: cover";
       objectFit: 'cover'
     },
     /* Scaling the blur up image prevents visible loading of lazy loaded image at edges of blur effect. */
     '& .ls-blur-up-img': {
-      filter: 'blur(15px)',
+      filter: 'blur(10px)',
       opacity: 1,
       transition: 'opacity 1000ms, filter 1500ms',
       transform: 'scale(1.2)',
