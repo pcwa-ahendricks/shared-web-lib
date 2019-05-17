@@ -18,7 +18,6 @@ const systemFonts = [
 // We try our best to provide a great default value.
 const theme = createMuiTheme({
   typography: {
-    useNextVariants: true,
     // Use the system font instead of the default Roboto font.
     // fontFamily: ['Asap', ...systemFonts].join(','),
     fontFamily: ['Malva', ...systemFonts].join(','),

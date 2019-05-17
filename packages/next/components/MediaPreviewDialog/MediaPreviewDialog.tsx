@@ -7,18 +7,20 @@ import {
   DialogContent,
   DialogActions,
   Fab,
-  Zoom,
-  withWidth,
   CircularProgress,
+  Theme,
   Typography as Type
   // withMobileDialog
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {DialogProps} from '@material-ui/core/Dialog'
+import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import extension from '@lib/fileExtension'
+import {ZoomTransition as Transition} from '@components/Transition/Transition'
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     img: {
       width: '100%'
@@ -34,7 +36,7 @@ const styles = (theme: Theme) =>
       overflowX: 'visible'
     },
     loadingPDF: {
-      margin: theme.spacing.unit * 4,
+      margin: theme.spacing(4),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -44,7 +46,7 @@ const styles = (theme: Theme) =>
       margin: 0,
       padding: 0,
       marginBottom: -6, // HACK - Not sure why there is a blank space at bottom of DialogContent.
-      // padding: theme.spacing.unit * 2,
+      // padding: theme.spacing(2),
       overflowX: 'hidden',
       minHeight: 100 // Useful when PDF is loading.
     },
@@ -61,24 +63,20 @@ const styles = (theme: Theme) =>
     //   }
     // }
   })
-
+)
 type Props = {
   name: string
   ext?: string
   open: boolean
   onClose: () => void
-  classes: any
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   showActions?: boolean
   url: string | string[]
   dlUrl?: string
   // imgPlaceholder: string
-}
+} & DialogProps
 
 const MediaPreviewDialog = ({
   onClose,
-  width,
-  classes,
   name,
   ext = extension(name),
   // imgPlaceholder,
@@ -88,6 +86,10 @@ const MediaPreviewDialog = ({
   open = false,
   ...rest
 }: Props) => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+
   const renderLoadingHandler = useMemo(
     () => (
       <div className={classes.loadingPDF}>
@@ -135,14 +137,14 @@ const MediaPreviewDialog = ({
     () => (
       <DialogContent
         className={classes.dialogContent}
-        classes={{root: classes.dialogContentRoot}}
+        // classes={{root: classes.dialogContentRoot}}
       >
         {ext === 'pdf' ? ( // <img src="/static/images/pdf.svg" />
           <Document file={url} loading={renderLoadingHandler}>
             {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
             <Page
               pageNumber={1}
-              width={width === 'xs' ? 200 : 450}
+              width={isXS ? 200 : 450}
               scale={1}
               renderAnnotationLayer={false} // Prevents large blank <div/> appearing below certain PDFs.
             />
@@ -152,12 +154,12 @@ const MediaPreviewDialog = ({
         )}
       </DialogContent>
     ),
-    [ext, imgEl, url, width, renderLoadingHandler, classes]
+    [ext, imgEl, url, isXS, renderLoadingHandler, classes]
   )
 
   const dialogActionsEl = useMemo(
     () =>
-      // showActions || width === 'xs' || width === 'sm' ? (
+      // showActions || isXS || width === 'sm' ? (
       showActions ? (
         <DialogActions>
           {dlUrl ? (
@@ -169,7 +171,9 @@ const MediaPreviewDialog = ({
             Done
           </Button>
         </DialogActions>
-      ) : null,
+      ) : (
+        <div />
+      ),
     [showActions, dlUrl, onClose]
   )
 
@@ -210,11 +214,5 @@ const MediaPreviewDialog = ({
   )
 }
 
-export default withWidth()(
-  // withMobileDialog()(withStyles(styles)(MediaPreviewDialog))
-  withStyles(styles)(MediaPreviewDialog)
-)
-
-function Transition(props: any) {
-  return <Zoom {...props} />
-}
+// withMobileDialog()((MediaPreviewDialog))
+export default MediaPreviewDialog

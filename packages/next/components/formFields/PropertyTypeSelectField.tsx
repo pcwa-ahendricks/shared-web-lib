@@ -7,16 +7,15 @@ import {
   OutlinedInput,
   Select
 } from '@material-ui/core'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
-  classes: any
   onChange?: (event: React.FormEvent<HTMLDivElement>) => void
   fullWidth?: boolean
 } & FieldProps<any>
 
-const styles = createStyles({
+const useStyles = makeStyles({
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0
@@ -35,10 +34,10 @@ const PROPERTY_TYPE_LIST = [
 const PropertyTypeSelectField = ({
   field,
   form,
-  classes,
   fullWidth = true,
   ...other
 }: Props) => {
+  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -96,4 +95,4 @@ const PropertyTypeSelectField = ({
   )
 }
 
-export default withStyles(styles)(PropertyTypeSelectField)
+export default PropertyTypeSelectField

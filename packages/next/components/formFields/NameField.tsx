@@ -1,11 +1,13 @@
 import React from 'react'
 import {TextField} from '@material-ui/core'
+import {OutlinedTextFieldProps} from '@material-ui/core/TextField'
 import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
-} & FieldProps<any>
+} & FieldProps<any> &
+  OutlinedTextFieldProps
 
 const useStyles = makeStyles({
   // Don't let <TextField/> label cover <Header/>.
@@ -14,9 +16,10 @@ const useStyles = makeStyles({
   }
 })
 
-const IrrigCntrlModelField = ({
+const LastNameField = ({
   field,
   form,
+  required = false,
   fullWidth = true,
   ...other
 }: Props) => {
@@ -31,10 +34,11 @@ const IrrigCntrlModelField = ({
   return (
     <TextField
       type="text"
-      required
+      required={required}
       name={name}
       value={value}
-      label="Model"
+      label="Name (optional)"
+      autoComplete="name"
       variant="outlined"
       margin="normal"
       helperText={fieldIsTouchedWithError ? currentError : null}
@@ -53,4 +57,4 @@ const IrrigCntrlModelField = ({
   )
 }
 
-export default IrrigCntrlModelField
+export default LastNameField

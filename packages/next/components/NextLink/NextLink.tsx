@@ -3,14 +3,14 @@ import clsx from 'clsx'
 import {withRouter, RouterProps} from 'next/router'
 import NextLink, {LinkProps} from 'next/link'
 import MuiLink, {LinkProps as MuiLinkProps} from '@material-ui/core/Link'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 
 type NextComposedProps = {
   children: React.ReactNode
 } & LinkProps &
   React.HTMLProps<HTMLAnchorElement>
 
-const styles = createStyles({
+const useStyles = makeStyles({
   root: {
     cursor: 'pointer'
   }
@@ -31,7 +31,6 @@ const NextComposed = ({
 }
 
 type NextLinkProps = {
-  classes: any
   activeClassName?: string
   as?: string
   className?: string
@@ -46,7 +45,6 @@ type NextLinkProps = {
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
 const Link = ({
-  classes,
   activeClassName = 'active',
   router,
   className,
@@ -55,6 +53,7 @@ const Link = ({
   children,
   ...other
 }: NextLinkProps & MuiLinkProps) => {
+  const classes = useStyles()
   const classNames = clsx(className, classes.root, {
     [activeClassName]: router.pathname === href && activeClassName
   })
@@ -79,4 +78,4 @@ const Link = ({
   )
 }
 
-export default withStyles(styles)(withRouter(Link))
+export default withRouter(Link)

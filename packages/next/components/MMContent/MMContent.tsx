@@ -1,15 +1,14 @@
 import React from 'react'
-import {withStyles, Theme, createStyles} from '@material-ui/core/styles'
-import {Typography as Type} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
+import {Theme, Typography as Type} from '@material-ui/core'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
 
 type Props = {
-  classes: any
-  contentKey?: number
+  contentKey?: number | null
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     text: {
       color: theme.palette.grey[50],
@@ -19,8 +18,10 @@ const styles = (theme: Theme) =>
       }
     }
   })
+)
 
-const MMContent = ({classes, contentKey = 1}: Props) => {
+const MMContent = ({contentKey = 1}: Props) => {
+  const classes = useStyles()
   return (
     <MegaMenuContentContainer>
       {contentKey === 1 ? (
@@ -40,7 +41,8 @@ const MMContent = ({classes, contentKey = 1}: Props) => {
           asperiores repellat."
         </Type>
       ) : (
-        <nav key={contentKey}>
+        // Logical Or operator for type checking only.
+        <nav key={contentKey || undefined}>
           <MMNavLink href="/services/irrigation-canal">
             Irrigation Canal Information
           </MMNavLink>
@@ -59,4 +61,4 @@ const MMContent = ({classes, contentKey = 1}: Props) => {
   )
 }
 
-export default withStyles(styles)(MMContent)
+export default MMContent

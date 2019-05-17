@@ -3,30 +3,26 @@ import {
   Fade as Transition,
   Popover,
   IconButton,
+  Theme,
   Tooltip,
-  Typography as Type,
-  withWidth
+  Typography as Type
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import Imgix from 'react-imgix'
 import delay from 'then-sleep'
 import clsx from 'clsx'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
 
 const IMAGE_URL =
   '//cosmic-s3.imgix.net/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png'
 
-type Props = {
-  classes: any
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-}
-
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
-      margin: theme.spacing.unit * 4,
+      margin: theme.spacing(4),
       color: theme.palette.grey[50],
       '&$xsTypography': {
         fontSize: '0.9em'
@@ -61,8 +57,11 @@ const styles = (theme: Theme) =>
       background: `radial-gradient(rgba(40, 44, 47, 0.95), rgba(40, 44, 47, 0.85), rgba(40, 44, 47, 0.7), rgba(0, 0, 0, 0.2))`
     }
   })
-
-const ShowMeAccountInfo = ({classes, width}: Props) => {
+)
+const ShowMeAccountInfo = () => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [anchorEl, setAnchorEl] = useState(null)
   const [tooltipOpen, setTooltipOpen] = useState(false)
   const [showTextOverlay, setShowTextOverlay] = useState<boolean>(true)
@@ -118,14 +117,14 @@ const ShowMeAccountInfo = ({classes, width}: Props) => {
         >
           <div
             className={clsx(classes.popoverContent, {
-              [classes.xsPopoverContent]: width === 'xs'
+              [classes.xsPopoverContent]: isXS
             })}
           >
             <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
               <div className={classes.textOverlay}>
                 <Type
                   className={clsx(classes.typography, {
-                    [classes.xsTypography]: width === 'xs'
+                    [classes.xsTypography]: isXS
                   })}
                   variant="h5"
                 >
@@ -149,7 +148,7 @@ const ShowMeAccountInfo = ({classes, width}: Props) => {
                 crop: 'focalpoint', // cspell:disable-line
                 'fp-x': 1,
                 'fp-y': 0,
-                'fp-z': width !== 'xs' ? 1 : 1.5,
+                'fp-z': isXS ? 1 : 1.5,
                 fit: 'crop'
               }}
             />
@@ -160,4 +159,4 @@ const ShowMeAccountInfo = ({classes, width}: Props) => {
   )
 }
 
-export default withWidth()(withStyles(styles)(ShowMeAccountInfo))
+export default ShowMeAccountInfo

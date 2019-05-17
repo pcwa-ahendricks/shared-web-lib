@@ -1,16 +1,15 @@
 import React, {useCallback} from 'react'
 import {Button} from '@material-ui/core'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
 type Props = {
-  classes: any
   children: React.ReactNode
   href: string
 }
 
-const styles = createStyles({
+const useStyles = makeStyles({
   root: {},
   // Responsive font size for links. Small size defaults to 0.8125rem.
   '@media screen and (max-width: 700px)': {
@@ -23,8 +22,9 @@ const styles = createStyles({
   }
 })
 
-const TrendingLink = ({classes, children, href}: Props) => {
+const TrendingLink = ({children, href}: Props) => {
   const router = useRouter()
+  const classes = useStyles()
 
   const mouseEnterHandler = useCallback(
     (href: string) => () => {
@@ -50,4 +50,4 @@ const TrendingLink = ({classes, children, href}: Props) => {
   )
 }
 
-export default withStyles(styles)(TrendingLink)
+export default TrendingLink

@@ -12,38 +12,34 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  Slide
+  Theme
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  classes: any
   formik?: FormikProps<any>
 }
 
 // Text importance dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       backgroundColor: theme.palette.grey[200]
     },
     qualifyMsg: {
-      marginTop: theme.spacing.unit * 3
+      marginTop: theme.spacing(3)
     }
   })
-
-const IrrigationMethodDialog = ({
-  open = false,
-  onClose,
-  classes,
-  formik
-}: Props) => {
+)
+const IrrigationMethodDialog = ({open = false, onClose, formik}: Props) => {
+  const classes = useStyles()
   const eligibleFieldsTouched =
     formik && [formik.touched.irrigMethod].every(Boolean)
 
@@ -143,8 +139,4 @@ const IrrigationMethodDialog = ({
   )
 }
 
-export default withStyles(styles)(connect(IrrigationMethodDialog))
-
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />
-}
+export default connect(IrrigationMethodDialog)

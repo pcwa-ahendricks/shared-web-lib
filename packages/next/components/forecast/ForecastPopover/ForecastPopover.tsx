@@ -1,23 +1,22 @@
 import React from 'react'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import {Popover} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
+import {Popover, Theme} from '@material-ui/core'
 import Imgix from 'react-imgix'
 
 const DARKSKY_BG_COLOR = '#313134'
 
 type Props = {
-  classes: any
   anchorEl?: HTMLElement
   onPopoverClose?: () => any
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     popover: {
       pointerEvents: 'none'
     },
     paper: {
-      padding: theme.spacing.unit,
+      padding: theme.spacing(1),
       backgroundColor: DARKSKY_BG_COLOR
     },
     popoverContent: {
@@ -36,8 +35,10 @@ const styles = (theme: Theme) =>
       // }
     }
   })
+)
 
-const ForecastPopover = ({onPopoverClose, classes, anchorEl}: Props) => {
+const ForecastPopover = ({onPopoverClose, anchorEl}: Props) => {
+  const classes = useStyles()
   const open = Boolean(anchorEl)
   return (
     <Popover
@@ -75,4 +76,4 @@ const ForecastPopover = ({onPopoverClose, classes, anchorEl}: Props) => {
   )
 }
 
-export default withStyles(styles)(ForecastPopover)
+export default ForecastPopover

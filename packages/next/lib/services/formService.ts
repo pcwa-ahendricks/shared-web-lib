@@ -81,10 +81,26 @@ export interface LawnReplacementRequestBody {
   formData: LawnReplacementRebateFormData
 }
 
+export interface ContactUsRebateFormData {
+  name: string
+  message: string
+  email: string
+  subject: string
+  reason: string
+  phone: string
+  captcha: string
+}
+
+export interface ContactUsRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: ContactUsRebateFormData
+}
+
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
   | LawnReplacementRequestBody
+  | ContactUsRequestBody
 
 async function postRebateForm(serviceUriPath: string, body: RequestBody) {
   const URL = `${MAILJET_URL}/${serviceUriPath}`

@@ -2,14 +2,12 @@ import React, {useState, useEffect, useMemo} from 'react'
 import AnimatedWeather, {
   IconName
 } from '@components/AnimatedWeather/AnimatedWeather'
-import {withTheme, withStyles, createStyles} from '@material-ui/core/styles'
-import {Link, Typography as Type} from '@material-ui/core'
+import {useTheme, makeStyles} from '@material-ui/styles'
+import {Link, Theme, Typography as Type} from '@material-ui/core'
 import {DarkSkyData} from '../types'
 
 type Props = {
   forecast: ForecastData
-  theme: any
-  classes: any
 }
 
 export type Location = {
@@ -27,7 +25,7 @@ export type ForecastData = {
   data: DarkSkyData
 }
 
-const styles = createStyles({
+const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -51,7 +49,9 @@ const defaults = {
 const getDarkSkyHref = (lngLat: [number, number]): string =>
   `https://darksky.net/forecast/${lngLat[1]},${lngLat[0]}/us12/en`
 
-const ForecastDisplay = ({forecast, theme, classes}: Props) => {
+const ForecastDisplay = ({forecast}: Props) => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
   const [darkSkyHref, setDarkSkyHref] = useState('#')
   useEffect(() => {
     const {latitude = null, longitude = null} =
@@ -100,4 +100,4 @@ const ForecastDisplay = ({forecast, theme, classes}: Props) => {
   return <React.Fragment>{animatedWeatherEl}</React.Fragment>
 }
 
-export default withTheme()(withStyles(styles)(ForecastDisplay))
+export default ForecastDisplay

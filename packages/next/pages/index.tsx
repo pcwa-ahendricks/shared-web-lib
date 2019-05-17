@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles, Theme} from '@material-ui/styles'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -7,23 +7,21 @@ import {Fade, Hidden, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 
-type Props = {
-  classes: any
-}
-
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
 const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     trendingBarContainer: {
-      marginBottom: theme.spacing.unit * 1
+      marginBottom: theme.spacing(1)
     }
   })
+)
 
-const Index = ({classes}: Props) => {
+const Index = () => {
+  const classes = useStyles()
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
   return (
     <PageLayout>
@@ -84,4 +82,4 @@ const Index = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(Index)
+export default Index

@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react'
-import {Popper, Fade as Collapse} from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {Popper, Fade as Collapse, Theme} from '@material-ui/core'
+import {PopperProps} from '@material-ui/core/Popper'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import useDebounce from '@hooks/useDebounce'
 import {ToolbarVariant} from '@components/PrimaryHeader/PrimaryHeader'
 
@@ -13,12 +14,11 @@ type Props = {
   onOpen: () => any
   onClose: () => any
   onTransitionChange?: (active: boolean) => any
-  classes: any
   toolbarVariant: ToolbarVariant
-  anchorEl?: any
+  anchorEl: PopperProps['anchorEl']
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     popper: {
       zIndex: 1,
@@ -53,10 +53,10 @@ const styles = (theme: Theme) =>
       }
     }
   })
+)
 
 const MegaMenuPopper = ({
   children,
-  classes,
   anchorEl,
   toolbarVariant,
   onOpen,
@@ -65,6 +65,7 @@ const MegaMenuPopper = ({
   id,
   open = false
 }: Props) => {
+  const classes = useStyles()
   const arrowRef = useRef(null)
   const [popperTransActive, setPopperTransActive] = useState(false)
   const debouncedPopperTransActive = useDebounce(
@@ -87,7 +88,8 @@ const MegaMenuPopper = ({
   return (
     <React.Fragment>
       <Popper
-        id={id}
+        // Logical Or for type checking only.
+        id={id || undefined}
         className={classes.popper}
         open={open}
         anchorEl={anchorEl}
@@ -126,7 +128,8 @@ const MegaMenuPopper = ({
         )}
       </Popper>
       <Popper
-        id={id}
+        // Logical Or for type checking only.
+        id={id || undefined}
         open={open && toolbarVariant === 'regular'} // Check prevents popper.js console.log() msg.}
         className={classes.popper}
         transition
@@ -170,4 +173,4 @@ const MegaMenuPopper = ({
   )
 }
 
-export default withStyles(styles)(MegaMenuPopper)
+export default MegaMenuPopper

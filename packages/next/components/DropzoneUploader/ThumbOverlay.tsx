@@ -1,12 +1,11 @@
 import React from 'react'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 
 type Props = {
-  classes: any
   src: string
 }
 
-const styles = () =>
+const useStyles = makeStyles(() =>
   createStyles({
     box: {
       cursor: 'pointer',
@@ -26,8 +25,11 @@ const styles = () =>
     },
     img: {}
   })
+)
 
-const ThumbOverlay = ({classes, src}: Props) => {
+const ThumbOverlay = ({src}: Props) => {
+  const classes = useStyles()
+
   return (
     <div className={classes.box}>
       <img src={src} className={classes.img} />
@@ -39,4 +41,4 @@ const ThumbOverlay = ({classes, src}: Props) => {
   )
 }
 
-export default withStyles(styles)(ThumbOverlay)
+export default ThumbOverlay

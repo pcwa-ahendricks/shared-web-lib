@@ -12,7 +12,7 @@ const NextGlowButton = ({
   href,
   linkProps,
   children,
-  color = 'default',
+  color = 'initial',
   size = 'medium',
   ...rest
 }: NextGlowButtonProps) => {

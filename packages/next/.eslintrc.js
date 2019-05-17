@@ -72,5 +72,8 @@ module.exports = {
         extensions: ['.ts', '.js', '.tsx', '.jsx', '.json']
       }
     }
+  },
+  globals: {
+    Modernizr: true
   }
 }

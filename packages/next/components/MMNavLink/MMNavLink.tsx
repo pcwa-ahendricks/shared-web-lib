@@ -1,24 +1,25 @@
 import React, {useCallback} from 'react'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import {Typography as Type} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
+import {Typography as Type, Theme} from '@material-ui/core'
 import {useRouter} from 'next/router'
 import NextLink from '@components/NextLink/NextLink'
 
 type Props = {
-  classes: any
   children: React.ReactNode
   href: string
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     text: {
       color: theme.palette.grey[50],
       opacity: 0.85
     }
   })
+)
 
-const MMNavLink = ({classes, children, href}: Props) => {
+const MMNavLink = ({children, href}: Props) => {
+  const classes = useStyles()
   const router = useRouter()
 
   const mouseEnterHandler = useCallback(
@@ -47,4 +48,4 @@ const MMNavLink = ({classes, children, href}: Props) => {
   )
 }
 
-export default withStyles(styles)(MMNavLink)
+export default MMNavLink

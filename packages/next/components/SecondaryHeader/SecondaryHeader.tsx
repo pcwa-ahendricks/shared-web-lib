@@ -1,5 +1,5 @@
 import React from 'react'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import {Hidden, Toolbar} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -23,12 +23,8 @@ import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
 //   }
 // )
 
-type Props = {
-  classes: any
-}
-
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
-const styles = createStyles({
+const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'row',
@@ -57,7 +53,8 @@ const styles = createStyles({
   }
 })
 
-const SecondaryHeader = ({classes}: Props) => {
+const SecondaryHeader = () => {
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <Toolbar variant="dense" className={classes.toolbar}>
@@ -107,4 +104,4 @@ const SecondaryHeader = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(SecondaryHeader)
+export default SecondaryHeader

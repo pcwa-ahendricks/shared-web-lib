@@ -1,32 +1,27 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Button, Slide, Snackbar, withWidth} from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {Button, Snackbar, SnackbarContent, Theme} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'
-import clsx from 'clsx'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   fileName: string
   pageCount: number
   termsConditionsUrl: string
-  classes: any
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     snackbar: {
-      marginBottom: theme.spacing.unit * 2,
-      '&$fullWidth': {
-        marginBottom: 0
-      }
+      marginBottom: theme.spacing(2)
     },
-    fullWidth: {}
-    // rightIcon: {
-    //   marginLeft: theme.spacing.unit
-    // }
+    snackbarContentRoot: {
+      justifyContent: 'center'
+    }
   })
+)
 
 // const termsConditionsUrl =
 //   'https://s3-us-west-2.amazonaws.com/cosmicjs/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf'
@@ -40,12 +35,11 @@ const baseOpts = {
 }
 
 const IrrigEffTermsConditions = ({
-  classes,
   pageCount,
-  width,
   termsConditionsUrl,
   fileName
 }: Props) => {
+  const classes = useStyles()
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
   const [scrollSnackOpen, setScrollSnackOpen] = useState<boolean>(false)
 
@@ -88,7 +82,6 @@ const IrrigEffTermsConditions = ({
     [scrollSnackOpen]
   )
 
-  const smDown = new Set(['xs', 'sm']).has(width)
   return (
     <React.Fragment>
       <Button
@@ -119,9 +112,7 @@ const IrrigEffTermsConditions = ({
         />
       </div>
       <Snackbar
-        className={clsx(classes.snackbar, {
-          [classes.fullWidth]: smDown
-        })}
+        className={classes.snackbar}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center'
@@ -129,18 +120,18 @@ const IrrigEffTermsConditions = ({
         open={scrollSnackOpen}
         // autoHideDuration={6000}
         onClose={() => setScrollSnackOpen(false)}
-        TransitionComponent={TransitionUp}
+        TransitionComponent={Transition}
         ContentProps={{
           'aria-describedby': 'message-id'
         }}
-        message={<span id="message-id">Scroll down to continue</span>}
-      />
+      >
+        <SnackbarContent
+          message={<span id="message-id">Scroll down to continue</span>}
+          classes={{root: classes.snackbarContentRoot}}
+        />
+      </Snackbar>
     </React.Fragment>
   )
 }
 
-export default withWidth()(withStyles(styles)(IrrigEffTermsConditions))
-
-function TransitionUp(props: any) {
-  return <Slide {...props} direction="up" />
-}
+export default IrrigEffTermsConditions

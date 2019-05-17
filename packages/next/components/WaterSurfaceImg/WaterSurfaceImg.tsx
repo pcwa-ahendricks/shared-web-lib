@@ -1,7 +1,7 @@
 // cspell:ignore imgix's
 import React from 'react'
 import {buildURL} from 'react-imgix'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 
 /**
  * Notes:
@@ -16,7 +16,7 @@ const IMAGE_URL =
   '//cosmic-s3.imgix.net/80212870-8e98-11e8-b9a6-bb6cb34bfd65-bg-water-surface_80.jpg'
 const HEIGHT = 100
 
-const styles = createStyles({
+const useStyles = makeStyles({
   root: {
     height: HEIGHT,
     minHeight: HEIGHT,
@@ -27,10 +27,9 @@ const styles = createStyles({
   }
 })
 
-type Props = {
-  classes: any
+const WaterSurfaceImg = () => {
+  const classes = useStyles()
+  return <div className={classes.root} />
 }
 
-const WaterSurfaceImg = ({classes}: Props) => <div className={classes.root} />
-
-export default withStyles(styles)(WaterSurfaceImg)
+export default WaterSurfaceImg

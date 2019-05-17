@@ -1,14 +1,10 @@
 import React from 'react'
-import {Paper, Tooltip} from '@material-ui/core'
+import {Paper, Theme, Tooltip} from '@material-ui/core'
 import TrendingLink from '../TrendingLink/TrendingLink'
 import {TrendingUp} from '@material-ui/icons'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 
-type Props = {
-  classes: any
-}
-
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -17,14 +13,15 @@ const styles = (theme: Theme) =>
       justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: theme.palette.primary.main,
-      height: theme.spacing.unit * 6, // 48px (dense <Toolbar/>)
+      height: theme.spacing(6), // 48px (dense <Toolbar/>)
       boxSizing: 'border-box',
-      padding: theme.spacing.unit * 1,
+      padding: theme.spacing(1),
       color: theme.palette.grey[300]
     }
   })
-
-const TrendingBar = ({classes}: Props) => {
+)
+const TrendingBar = () => {
+  const classes = useStyles()
   return (
     <Paper square className={classes.root}>
       <Tooltip title="Trending Links" placement="top">
@@ -42,4 +39,4 @@ const TrendingBar = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(TrendingBar)
+export default TrendingBar

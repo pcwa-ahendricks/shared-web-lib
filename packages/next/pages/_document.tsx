@@ -5,9 +5,11 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import flush from 'styled-jsx/server'
-import PropTypes from 'prop-types'
-import webFontConfig from '../lib/webFontConfig'
+import {ServerStyleSheets} from '@material-ui/styles'
+import webFontConfig from '@lib/webFontConfig'
+import theme from '@lib/material-theme'
 
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 class MyDocument extends Document {
   // static async getInitialProps(ctx) {
   //   const initialProps = await Document.getInitialProps(ctx)
@@ -15,7 +17,6 @@ class MyDocument extends Document {
   // }
 
   render() {
-    const {pageContext} = this.props
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -38,12 +39,7 @@ class MyDocument extends Document {
           />
 
           {/* PWA primary color */}
-          <meta
-            name="theme-color"
-            content={
-              pageContext ? pageContext.theme.palette.primary.main : null
-            }
-          />
+          <meta name="theme-color" content={theme.palette.primary.main} />
 
           {/* IE compat.  */}
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -173,44 +169,27 @@ MyDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext = {} // Initialize to satisfy Typescript.
-  const page = ctx.renderPage((Component) => {
-    const WrappedComponent = (props) => {
-      pageContext = props.pageContext
-      return <Component {...props} />
-    }
+  const sheets = new ServerStyleSheets()
+  const originalRenderPage = ctx.renderPage
 
-    WrappedComponent.propTypes = {
-      pageContext: PropTypes.object.isRequired
-    }
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
+    })
 
-    return WrappedComponent
-  })
-
-  let css
-  // It might be undefined, e.g. after an error.
-  if (pageContext) {
-    css = pageContext.sheetsRegistry.toString()
-  }
+  const initialProps = await Document.getInitialProps(ctx)
 
   return {
-    // ...initialProps,
-    ...page,
-    pageContext,
+    ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: (
       <React.Fragment>
-        <style
-          id="jss-server-side"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: css
-          }}
-        />
+        {sheets.getStyleElement()}
         {flush() || null}
       </React.Fragment>
     )
   }
 }
+/* eslint-enable @typescript-eslint/explicit-member-accessibility */
 
 export default MyDocument

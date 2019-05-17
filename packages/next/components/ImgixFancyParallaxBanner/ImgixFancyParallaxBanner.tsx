@@ -1,9 +1,9 @@
 import React from 'react'
 import {ParallaxBanner} from 'react-scroll-parallax'
 import ImgixFancy from '../ImgixFancy/ImgixFancy'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 
-const styles = createStyles({
+const useStyles = makeStyles({
   root: {},
   parallaxChildren: {
     position: 'absolute',
@@ -28,7 +28,6 @@ type ImgixFancyProps = {
 }
 
 type Props = {
-  classes: any
   imgixFancyProps: ImgixFancyProps
   children?: Node
   onImgLoad?: () => any
@@ -39,10 +38,10 @@ const ImgixFancyParallaxBanner = ({
   amount = 0.1,
   imgixFancyProps,
   children,
-  classes,
   onImgLoad,
   ...rest
 }: Props) => {
+  const classes = useStyles()
   return (
     <ParallaxBanner
       className={classes.root}
@@ -69,4 +68,4 @@ const ImgixFancyParallaxBanner = ({
   )
 }
 
-export default withStyles(styles)(ImgixFancyParallaxBanner)
+export default ImgixFancyParallaxBanner

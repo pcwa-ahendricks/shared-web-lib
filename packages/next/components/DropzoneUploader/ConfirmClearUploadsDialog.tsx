@@ -5,9 +5,9 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  Slide
+  DialogTitle
 } from '@material-ui/core'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   onClose: () => void
@@ -39,7 +39,3 @@ const ConfirmClearUploadsDialog = ({open = false, onClose, onClear}: Props) => {
 }
 
 export default ConfirmClearUploadsDialog
-
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />
-}

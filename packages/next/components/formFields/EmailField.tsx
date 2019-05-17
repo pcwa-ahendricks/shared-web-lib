@@ -1,27 +1,21 @@
 import React from 'react'
 import {TextField} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
-  classes: any
   fullWidth?: boolean
 } & FieldProps<any>
 
-const styles = {
+const useStyles = makeStyles({
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0
   }
-}
+})
 
-const EmailField = ({
-  field,
-  form,
-  classes,
-  fullWidth = true,
-  ...other
-}: Props) => {
+const EmailField = ({field, form, fullWidth = true, ...other}: Props) => {
+  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -56,4 +50,4 @@ const EmailField = ({
   )
 }
 
-export default withStyles(styles)(EmailField)
+export default EmailField

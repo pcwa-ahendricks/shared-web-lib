@@ -13,14 +13,14 @@ import {
   ListItemText,
   ListSubheader,
   MobileStepper,
-  Slide,
   Stepper,
   Step,
   StepLabel,
-  StepContent
+  StepContent,
+  Theme
   // Typography as Type
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
 import {ANSWERS as q1Answers} from '@components/formFields/AlreadyStartedSelect'
 import {ANSWERS as q2Answers} from '@components/formFields/ArtTurfSelect'
@@ -32,24 +32,23 @@ import {Field, connect, FormikProps, FieldProps} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  classes: any
-  theme: Theme
   formik?: FormikProps<any>
 }
 
 // Text importance dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       backgroundColor: theme.palette.grey[200]
     },
     qualifyMsg: {
-      marginTop: theme.spacing.unit * 3
+      marginTop: theme.spacing(3)
     },
     stepperContainer: {
       width: '90%'
@@ -64,7 +63,7 @@ const styles = (theme: Theme) =>
       backgroundColor: 'unset'
     },
     stepLabelLabel: {
-      marginLeft: theme.spacing.unit * 1,
+      marginLeft: theme.spacing(1),
       cursor: 'pointer',
       '& $stepLabelActive': {
         color: theme.palette.primary.main
@@ -79,14 +78,11 @@ const styles = (theme: Theme) =>
       cursor: 'pointer'
     }
   })
+)
 
-const LawnReplEligibilityDialog = ({
-  open = false,
-  onClose,
-  classes,
-  theme,
-  formik
-}: Props) => {
+const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 800)
@@ -318,13 +314,7 @@ const LawnReplEligibilityDialog = ({
   )
 }
 
-export default withStyles(styles, {withTheme: true})(
-  connect(LawnReplEligibilityDialog)
-)
-
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />
-}
+export default connect(LawnReplEligibilityDialog)
 
 function getSteps() {
   return [
@@ -365,14 +355,16 @@ function getStepIndex(fieldName: string) {
   return found ? found.index : null
 }
 
-const questionStyles = (theme: Theme) =>
+const useQuestionStyles = makeStyles((theme: Theme) =>
   createStyles({
     qualifyMsg: {
-      marginTop: theme.spacing.unit * 3
+      marginTop: theme.spacing(3)
     }
   })
+)
 
-const QuestionOne = withStyles(questionStyles)(({classes}: {classes: any}) => {
+const QuestionOne = () => {
+  const classes = useQuestionStyles()
   return (
     <Field name="alreadyStarted">
       {({field, form}: FieldProps<any>) => {
@@ -427,9 +419,10 @@ const QuestionOne = withStyles(questionStyles)(({classes}: {classes: any}) => {
       }}
     </Field>
   )
-})
+}
 
-const QuestionTwo = withStyles(questionStyles)(({classes}: {classes: any}) => {
+const QuestionTwo = () => {
+  const classes = useQuestionStyles()
   return (
     <Field name="useArtTurf">
       {({field, form}: FieldProps<any>) => {
@@ -484,44 +477,44 @@ const QuestionTwo = withStyles(questionStyles)(({classes}: {classes: any}) => {
       }}
     </Field>
   )
-})
+}
 
-const QuestionThree = withStyles(questionStyles)(
-  ({classes}: {classes: any}) => {
-    return (
-      <Field name="approxSqFeet">
-        {({field, form}: FieldProps<any>) => {
-          const {touched, errors} = form
-          const {name} = field
-          const currentError = errors[name]
+const QuestionThree = () => {
+  const classes = useQuestionStyles()
+  return (
+    <Field name="approxSqFeet">
+      {({field, form}: FieldProps<any>) => {
+        const {touched, errors} = form
+        const {name} = field
+        const currentError = errors[name]
 
-          const hasError = Boolean(currentError)
-          const fieldTouched = Boolean(touched[name])
-          return (
-            <div>
-              <LawnApproxSqFootField form={form} field={field} />
-              <WaitToGrow isIn={hasError && fieldTouched}>
-                <DialogContentText
-                  variant="body1"
-                  color="textPrimary"
-                  className={classes.qualifyMsg}
-                >
-                  {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                  Unfortunately you do not qualify for the lawn replacement
-                  rebate. A minimum of 300 square feet of lawn must be
-                  converted. Please close this web browser tab to go back to the{' '}
-                  <a href="https://www.pcwa.net">PCWA.net</a> website.
-                </DialogContentText>
-              </WaitToGrow>
-            </div>
-          )
-        }}
-      </Field>
-    )
-  }
-)
+        const hasError = Boolean(currentError)
+        const fieldTouched = Boolean(touched[name])
+        return (
+          <div>
+            <LawnApproxSqFootField form={form} field={field} />
+            <WaitToGrow isIn={hasError && fieldTouched}>
+              <DialogContentText
+                variant="body1"
+                color="textPrimary"
+                className={classes.qualifyMsg}
+              >
+                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+                Unfortunately you do not qualify for the lawn replacement
+                rebate. A minimum of 300 square feet of lawn must be converted.
+                Please close this web browser tab to go back to the{' '}
+                <a href="https://www.pcwa.net">PCWA.net</a> website.
+              </DialogContentText>
+            </WaitToGrow>
+          </div>
+        )
+      }}
+    </Field>
+  )
+}
 
-const QuestionFour = withStyles(questionStyles)(({classes}: {classes: any}) => {
+const QuestionFour = () => {
+  const classes = useQuestionStyles()
   return (
     <Field name="irrigMethod">
       {({field, form}: FieldProps<any>) => {
@@ -576,4 +569,4 @@ const QuestionFour = withStyles(questionStyles)(({classes}: {classes: any}) => {
       }}
     </Field>
   )
-})
+}

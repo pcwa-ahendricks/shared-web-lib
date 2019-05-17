@@ -6,8 +6,8 @@ import React, {
   useImperativeHandle
 } from 'react'
 import clsx from 'clsx'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import {Button, Typography as Type} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
+import {Button, Typography as Type, Theme} from '@material-ui/core'
 import {uploadFile} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
@@ -23,7 +23,6 @@ import {DroppedFile, UploadedFile} from './types'
 import extension from '@lib/fileExtension'
 
 type Props = {
-  classes: any
   onUploadedChange?: (files: any) => void
   onIsUploadingChange?: (isUploading: boolean) => void
   height: number | string
@@ -42,7 +41,7 @@ export interface DropzoneUploaderHandles {
 
 const WIDTH_THRESHOLD = 1600
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     dropzone: {
@@ -73,15 +72,15 @@ const styles = (theme: Theme) =>
       height: '100%'
     },
     leftIcon: {
-      marginLeft: theme.spacing.unit * 1
+      marginLeft: theme.spacing(1)
     },
     clearUploadsButton: {
       // margin & width: 100% won't play well together. Using padding w/ container instead.
-      // margin: theme.spacing.unit * 1
+      // margin: theme.spacing( 1)
       color: theme.palette.error.main
     },
     clearUploadsContainer: {
-      padding: theme.spacing.unit * 2
+      padding: theme.spacing(2)
     },
     primaryLight: {
       color: theme.palette.primary.light
@@ -101,13 +100,13 @@ const styles = (theme: Theme) =>
     },
     disabled: {}
   })
+)
 
 const DropzoneUploader: React.RefForwardingComponent<
   DropzoneUploaderHandles,
   Props
 > = (
   {
-    classes,
     onUploadedChange,
     onIsUploadingChange,
     height = 'unset',
@@ -122,6 +121,7 @@ const DropzoneUploader: React.RefForwardingComponent<
   },
   ref
 ) => {
+  const classes = useStyles()
   const [droppedFiles, setDroppedFiles] = useState<DroppedFile[]>([])
   const [rejectedFiles, setRejectedFiles] = useState<DroppedFile[]>([])
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
@@ -381,7 +381,7 @@ const DropzoneUploader: React.RefForwardingComponent<
 
 // use of forwardRef doesn't support propTypes or defaultProps. babel-plugin-typescript-to-proptypes package is adding them for us automatically. Remove them here to prevent a console warning.
 delete DropzoneUploader['propTypes']
-export default withStyles(styles)(forwardRef(DropzoneUploader))
+export default forwardRef(DropzoneUploader)
 
 const supportedJimpTypes = [
   Jimp.MIME_BMP,

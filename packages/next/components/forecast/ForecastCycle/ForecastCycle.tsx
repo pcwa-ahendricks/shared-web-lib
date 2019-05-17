@@ -3,14 +3,13 @@ import ForecastDisplay, {
   ForecastData
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
 import {startCycleForecastTimer} from '@store/actions'
 import {State} from '@store/index'
 import {useDispatch, useMappedState} from 'redux-react-hook'
 
 type Props = {
-  classes: any
   cycleInterval?: number
   crossFadeDuration?: number
   forecasts?: ForecastData[]
@@ -19,7 +18,7 @@ type Props = {
 //   forecasts: Array<ForecastData>,
 // }
 
-const styles = createStyles({
+const useStyles = makeStyles({
   trans: {
     '& .cross-fade-leave': {
       opacity: 1
@@ -42,13 +41,13 @@ const styles = createStyles({
 })
 
 const ForecastCycle = ({
-  classes,
   forecasts = [],
   cycleInterval = 1000 * 10, // 10 seconds
   crossFadeDuration = 1000 * 1 // 1 second
 }: Props) => {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [transitionEnter, setTransitionEnter] = useState(false)
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+  const [transitionEnter, setTransitionEnter] = useState<boolean>(false)
 
   const forecastState = useCallback(
     (state: State) => ({
@@ -111,11 +110,11 @@ const ForecastCycle = ({
         {forecastDisplay}
       </ReactCSSTransitionReplace>
       <ForecastPopover
-        anchorEl={anchorEl}
+        anchorEl={anchorEl ? anchorEl : undefined} // Ternary is just for typechecking.
         onPopoverClose={handlePopoverClose}
       />
     </div>
   )
 }
 
-export default withStyles(styles)(ForecastCycle)
+export default ForecastCycle

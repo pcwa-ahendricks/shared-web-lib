@@ -1,24 +1,24 @@
 import React, {useEffect, useState, useMemo} from 'react'
-import {Badge, LinearProgress} from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {Badge, LinearProgress, Theme} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
 import {DroppedFile, UploadedFile} from './types'
 
 type Props = {
   children: React.ReactNode
-  classes: any
-  uploadedFiles: Array<UploadedFile>
+  uploadedFiles: UploadedFile[]
   file: DroppedFile
+  onSuccess?: () => void
 }
 
 // Use nested type
 type UploadStatus = UploadedFile['serverResponse']['status']
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     margin: {
-      margin: theme.spacing.unit * 2
+      margin: theme.spacing(2)
     },
     progress: {
       position: 'absolute',
@@ -27,13 +27,15 @@ const styles = (theme: Theme) =>
       top: 0
     }
   })
+)
 
 const UploadStatusIndicator = ({
-  classes,
   children,
   uploadedFiles,
-  file
+  file,
+  onSuccess
 }: Props) => {
+  const classes = useStyles()
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>('unknown')
   useEffect(() => {
     const matchingFile = uploadedFiles.find(
@@ -49,6 +51,12 @@ const UploadStatusIndicator = ({
     }
     setUploadStatus(matchingFile.serverResponse.status)
   }, [uploadedFiles, file])
+
+  useEffect(() => {
+    if (uploadStatus === 'success') {
+      onSuccess && onSuccess()
+    }
+  }, [uploadStatus, onSuccess])
 
   const fileStatusBadgeContentEl = useMemo(
     () =>
@@ -85,4 +93,4 @@ const UploadStatusIndicator = ({
   )
 }
 
-export default withStyles(styles)(UploadStatusIndicator)
+export default UploadStatusIndicator

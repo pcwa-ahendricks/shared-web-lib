@@ -1,11 +1,10 @@
 import React, {useRef, useCallback} from 'react'
-import {Link, Typography as Type, RootRef} from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {Link, Theme, Typography as Type, RootRef} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
 
 type Props = {
-  classes: any
   typographyClass?: any
   onLinkClick: () => any
   onLinkEnter: (e: any, target: any) => any
@@ -15,10 +14,10 @@ type Props = {
   tabIdx?: number
   linkMargin?: string | number
   describedbyId?: string
-  parentActiveEl?: any
+  parentActiveEl?: HTMLElement | null
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -38,9 +37,8 @@ const styles = (theme: Theme) =>
       flex: '1 0 auto'
     }
   })
-
+)
 const MegaMenuLink = ({
-  classes,
   children,
   describedbyId,
   onLinkClick,
@@ -53,6 +51,7 @@ const MegaMenuLink = ({
   linkMargin,
   ...rest
 }: Props) => {
+  const classes = useStyles()
   const typeRef = useRef()
   // Prevent null === null validity, resulting with a flash of Overline during initial page load.
   const isActive = Boolean(
@@ -108,4 +107,4 @@ const MegaMenuLink = ({
   )
 }
 
-export default withStyles(styles)(MegaMenuLink)
+export default MegaMenuLink

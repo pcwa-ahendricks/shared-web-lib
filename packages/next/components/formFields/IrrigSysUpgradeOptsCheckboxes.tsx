@@ -6,12 +6,13 @@ import {
   FormHelperText,
   FormGroup,
   FormLabel,
-  withWidth
+  Theme
 } from '@material-ui/core'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles, useTheme} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import {FormControlProps} from '@material-ui/core/FormControl'
 import {FormLabelProps} from '@material-ui/core/FormLabel'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 /**
  * This is used to correct Types so "legend" and "fieldset" can be used.
@@ -28,11 +29,9 @@ const MyFormLabel: React.ComponentType<MyFormLabelProps> = FormLabel
 type Props = {
   onChange?: (e: React.ChangeEvent<any>) => void
   fullWidth?: boolean
-  classes: any
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 } & FieldProps<any>
 
-const styles = createStyles({
+const useStyles = makeStyles({
   fcXsLabel: {
     marginBottom: 2,
     marginTop: 2
@@ -55,10 +54,11 @@ const IrrigSysUpgradeOptsCheckboxes = ({
   field,
   form,
   fullWidth = true,
-  width,
-  classes,
   ...other
 }: Props) => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const {name, value = formControlItems} = field
   const {
     errors,
@@ -100,10 +100,10 @@ const IrrigSysUpgradeOptsCheckboxes = ({
               onBlur={handleBlur}
             />
           }
-          classes={{root: width === 'xs' ? classes.fcXsLabel : null}}
+          classes={{root: isXS ? classes.fcXsLabel : null}}
         />
       )),
-    [handleBlur, handleChange, value, classes, width]
+    [handleBlur, handleChange, value, classes, isXS]
   )
 
   return (
@@ -128,4 +128,4 @@ const IrrigSysUpgradeOptsCheckboxes = ({
   )
 }
 
-export default withWidth()(withStyles(styles)(IrrigSysUpgradeOptsCheckboxes))
+export default IrrigSysUpgradeOptsCheckboxes

@@ -4,9 +4,10 @@ import {
   CircularProgress,
   Divider,
   Grid,
+  Theme,
   Typography as Type
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
 import {string, object, boolean, Schema} from 'yup'
@@ -48,10 +49,6 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
-
-type Props = {
-  classes: any
-}
 
 const formSchema = object()
   .camelCase()
@@ -151,15 +148,15 @@ const initialFormValues: RebateFormData = {
   upgradeOpts: {...initialIrrigSysUpgradeOpts}
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
       maxWidth: 650,
       display: 'block', // IE fix
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: theme.spacing.unit * 5,
-      marginBottom: theme.spacing.unit * 5
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5)
     },
     '@media screen and (min-width: 600px) and (max-width: 725px)': {
       main: {
@@ -176,8 +173,8 @@ const styles = (theme: Theme) =>
     buttonWrapper: {
       flex: '0 0 auto', // IE fix
       position: 'relative',
-      marginTop: theme.spacing.unit * 3,
-      marginBottom: theme.spacing.unit * 3
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3)
     },
     buttonProgress: {
       color: theme.palette.primary.main,
@@ -189,11 +186,11 @@ const styles = (theme: Theme) =>
     },
     formGroup: {
       flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing.unit * 5,
-      marginBottom: theme.spacing.unit * 5
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5)
     },
     formGroupTitle: {
-      marginBottom: theme.spacing.unit * 3
+      marginBottom: theme.spacing(3)
     },
     // GO-LIVE remove logoContainer.
     logoContainer: {
@@ -202,9 +199,9 @@ const styles = (theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'flex-start',
-      marginTop: theme.spacing.unit * 2,
-      marginLeft: theme.spacing.unit * 2,
-      marginRight: theme.spacing.unit * 2
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2)
     },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
@@ -213,8 +210,10 @@ const styles = (theme: Theme) =>
       flexShrink: 0
     }
   })
+)
 
-const IrrigationEfficiencies = ({classes}: Props) => {
+const IrrigationEfficiencies = () => {
+  const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<RebateFormData>(
     initialFormValues
@@ -343,7 +342,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                           >
                             Contact Information
                           </Type>
-                          <Grid container spacing={40}>
+                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled={ineligible}
@@ -360,7 +359,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                             </Grid>
                           </Grid>
 
-                          <Grid container spacing={40}>
+                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={7}>
                               <Field
                                 disabled={ineligible}
@@ -377,7 +376,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                             </Grid>
                           </Grid>
 
-                          <Grid container spacing={40} justify="space-between">
+                          <Grid container spacing={5} justify="space-between">
                             <Grid item xs={12} sm={8}>
                               <Field
                                 name="address"
@@ -397,7 +396,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                           </Grid>
 
                           <WaitToGrow isIn={otherCitySelected}>
-                            <Grid container spacing={40}>
+                            <Grid container spacing={5}>
                               <Grid item xs={12}>
                                 <Field
                                   name="otherCity"
@@ -408,7 +407,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                             </Grid>
                           </WaitToGrow>
 
-                          <Grid container spacing={40}>
+                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 name="phone"
@@ -438,7 +437,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                             Rebate Information
                           </Type>
 
-                          <Grid container spacing={40}>
+                          <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Field
                                 disabled
@@ -492,7 +491,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                           >
                             Acknowledge Terms & Conditions
                           </Type>
-                          <Grid container direction="column" spacing={32}>
+                          <Grid container direction="column" spacing={1}>
                             {/* <Grid
                             item
                             xs={12}
@@ -543,7 +542,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
                             Release of Liability & Signature
                           </Type>
 
-                          <Grid container direction="column" spacing={32}>
+                          <Grid container direction="column" spacing={1}>
                             <Grid
                               item
                               xs={12}
@@ -725,7 +724,7 @@ const IrrigationEfficiencies = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(IrrigationEfficiencies)
+export default IrrigationEfficiencies
 
 function hasTrueValue(value: any): boolean {
   return (

@@ -1,21 +1,22 @@
 import React from 'react'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
-import {IconButton} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
+import {IconButton, Theme} from '@material-ui/core'
 
 type Props = {
-  classes: any
   href: string
   children: React.ReactNode
 }
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing.unit * 1 // Defaults to 12px
+      padding: theme.spacing(1) // Defaults to 12px
     }
   })
+)
 
-const SocialIconButton = ({classes, href, children}: Props) => {
+const SocialIconButton = ({href, children}: Props) => {
+  const classes = useStyles()
   return (
     <IconButton
       aria-label="Link"
@@ -32,4 +33,4 @@ const SocialIconButton = ({classes, href, children}: Props) => {
   )
 }
 
-export default withStyles(styles)(SocialIconButton)
+export default SocialIconButton

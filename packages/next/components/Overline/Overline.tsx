@@ -1,19 +1,19 @@
 import React, {useState, useEffect, useCallback} from 'react'
-import {Theme, createStyles, withStyles} from '@material-ui/core/styles'
+import {createStyles, makeStyles} from '@material-ui/styles'
+import {Theme} from '@material-ui/core'
 import clsx from 'clsx'
 
 type Props = {
-  classes: any
   children?: React.ReactNode
   lineHeight?: number
   lineMargin?: number | string
-  visible?: boolean
+  visible?: boolean | null
   useFullHeight?: boolean
   transitionDuration?: string
 }
 
 // See https://github.com/IanLunn/Hover/blob/5c9f92d2bcd6414f54b4f926fd4bb231e4ce9fd5/css/hover.css#L2264
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'inline-block',
@@ -30,7 +30,7 @@ const styles = (theme: Theme) =>
         }
       }
     },
-    overline: {
+    overline: ({lineHeight, lineMargin, transitionDuration}: Props) => ({
       content: '',
       position: 'absolute',
       zIndex: -1,
@@ -41,23 +41,33 @@ const styles = (theme: Theme) =>
       '-webkit-transition-property': 'left, right',
       transitionProperty: 'left, right',
       '-webkit-transition-timing-function': 'ease-out',
-      transitionTimingFunction: 'ease-out'
-    }
+      transitionTimingFunction: 'ease-out',
+      height: lineHeight,
+      marginRight: lineMargin,
+      marginLeft: lineMargin,
+      transitionDuration
+    }),
+    dynamicHeight: ({useFullHeight}: Props) => ({
+      height: useFullHeight ? '100%' : 'unset'
+    })
   })
+)
 
-const Overline = (props: Props) => {
-  /* eslint-disable no-unused-vars */
-  const {
-    children,
-    classes,
-    lineHeight = 3,
-    lineMargin = 0,
-    transitionDuration = '300ms',
-    visible = null,
-    useFullHeight = false,
-    ...rest
-  } = props
-  /* eslint-enable no-unused-vars */
+const Overline = ({
+  children,
+  lineHeight = 3,
+  lineMargin = 0,
+  transitionDuration = '300ms',
+  visible = null,
+  useFullHeight = false,
+  ...rest
+}: Props) => {
+  const classes = useStyles({
+    lineHeight,
+    lineMargin,
+    transitionDuration,
+    useFullHeight
+  })
   const [overlineVisible, setOverlineVisible] = useState(false)
   /**
    * visible prop is essentially a manual override to the hover functionality. If it's not specified (ie. null) then component falls back to overline on hover. If it's specified (ie. true or false) then hover functionality is ignored.
@@ -80,28 +90,18 @@ const Overline = (props: Props) => {
     }
   }, [visible])
 
-  const height = useFullHeight ? '100%' : 'unset'
   return (
     <div
-      className={clsx(classes.root, {overlineVisible})}
-      style={{height}}
+      className={clsx(classes.root, classes.dynamicHeight, {overlineVisible})}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
     >
-      <div
-        className={classes.overline}
-        style={{
-          marginRight: lineMargin,
-          marginLeft: lineMargin,
-          transitionDuration,
-          height: lineHeight
-        }}
-      />
-      <div {...rest} style={{height}}>
+      <div className={classes.overline} />
+      <div {...rest} className={classes.dynamicHeight}>
         {children}
       </div>
     </div>
   )
 }
 
-export default withStyles(styles)(Overline)
+export default Overline

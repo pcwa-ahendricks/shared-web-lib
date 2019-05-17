@@ -9,10 +9,10 @@ import {
   Link,
   List,
   ListItem,
-  ListItemText,
-  Slide
+  ListItemText
 } from '@material-ui/core'
 import {DroppedFile} from './types'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   onClose: () => void
@@ -66,7 +66,3 @@ Props) => {
 }
 
 export default UploadRejectedDialog
-
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />
-}

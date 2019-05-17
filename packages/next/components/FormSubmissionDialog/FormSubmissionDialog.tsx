@@ -7,11 +7,12 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Slide
+  Theme
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import MainPhone from '@components/Links/MainPhone'
 import PcwaWeb from '@components/Links/PcwaWeb'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open: boolean
@@ -19,25 +20,25 @@ type Props = {
   providedEmail: string
   description?: string
   dialogTitle?: string
-  classes: any
 }
 
 // Text heavy dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       backgroundColor: theme.palette.grey[200]
     }
   })
+)
 
 const FormSubmissionDialog = ({
   open = false,
   onClose,
   description = 'Form',
   dialogTitle = 'Form Submitted',
-  providedEmail,
-  classes
+  providedEmail
 }: Props) => {
+  const classes = useStyles()
   const providedEmailEl = useMemo(
     () =>
       providedEmail ? (
@@ -83,8 +84,4 @@ const FormSubmissionDialog = ({
   )
 }
 
-export default withStyles(styles)(FormSubmissionDialog)
-
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />
-}
+export default FormSubmissionDialog

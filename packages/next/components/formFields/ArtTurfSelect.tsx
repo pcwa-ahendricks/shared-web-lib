@@ -5,39 +5,34 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
-  Select
+  Select,
+  Theme
 } from '@material-ui/core'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
-  classes: any
   fullWidth?: boolean
 } & FieldProps<any>
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     // Don't let <TextField/> label cover <Header/>.
     inputLabel: {
       zIndex: 0
     },
     menuItem: {
-      minWidth: theme.spacing.unit * 8
+      minWidth: theme.spacing(8)
     }
   })
-
+)
 export const ANSWERS = [
   {caption: 'Yes', value: true},
   {caption: 'No', value: false}
 ]
 
-const ArtTurfSelect = ({
-  field,
-  form,
-  classes,
-  fullWidth = true,
-  ...other
-}: Props) => {
+const ArtTurfSelect = ({field, form, fullWidth = true, ...other}: Props) => {
+  const classes = useStyles()
   const {name, value} = field
   const {
     errors,
@@ -112,4 +107,4 @@ const ArtTurfSelect = ({
   )
 }
 
-export default withStyles(styles)(ArtTurfSelect)
+export default ArtTurfSelect

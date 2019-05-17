@@ -1,22 +1,19 @@
 import React, {useState, useCallback} from 'react'
 import Sticky from 'react-sticky-el'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import SecondaryHeader from '../SecondaryHeader/SecondaryHeader'
 import PrimaryHeader from '../PrimaryHeader/PrimaryHeader'
 import {Hidden} from '@material-ui/core'
 
-type Props = {
-  classes: any
-}
-
-const styles = createStyles({
+const useStyles = makeStyles({
   sticky: {
     zIndex: 1
   }
 })
 
-const HeaderContainer = ({classes}: Props) => {
-  const [parentFixed, setParentFixed] = useState(null)
+const HeaderContainer = () => {
+  const classes = useStyles()
+  const [parentFixed, setParentFixed] = useState<boolean>()
 
   const fixedToggleHandler = useCallback((wasFixed: boolean) => {
     if (wasFixed) {
@@ -38,4 +35,4 @@ const HeaderContainer = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(HeaderContainer)
+export default HeaderContainer

@@ -1,15 +1,14 @@
 import React from 'react'
 import {TextField} from '@material-ui/core'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
-  classes: any
   disabled?: boolean
   fullWidth?: boolean
 } & FieldProps<any>
 
-const styles = createStyles({
+const useStyles = makeStyles({
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0
@@ -19,12 +18,12 @@ const styles = createStyles({
 const OtherCityField = ({
   field,
   form,
-  classes,
   disabled,
   fullWidth = true,
   ...other
 }: Props) => {
   const {name, value} = field
+  const classes = useStyles()
   // const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const {errors, handleChange, isSubmitting, handleBlur} = form
   const currentError = errors[name]
@@ -59,4 +58,4 @@ const OtherCityField = ({
   )
 }
 
-export default withStyles(styles)(OtherCityField)
+export default OtherCityField

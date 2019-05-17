@@ -5,9 +5,9 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  Slide
+  DialogTitle
 } from '@material-ui/core'
+import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open?: boolean
@@ -39,7 +39,3 @@ const ConfirmPageLeaveDialog = ({open = false, onCancel, onLeave}: Props) => {
 }
 
 export default ConfirmPageLeaveDialog
-
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />
-}

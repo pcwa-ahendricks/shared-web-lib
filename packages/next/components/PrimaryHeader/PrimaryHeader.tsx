@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useCallback, useMemo} from 'react'
-import {withStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
-import {AppBar, Hidden, IconButton, Toolbar, withWidth} from '@material-ui/core'
+import {AppBar, Hidden, IconButton, Toolbar, Theme} from '@material-ui/core'
+import {PopperProps} from '@material-ui/core/Popper'
 import {Menu as MenuIcon} from '@material-ui/icons'
 import {useDispatch, useMappedState} from 'redux-react-hook'
 import {uiSetDrawerViz} from '@store/actions'
@@ -11,12 +12,11 @@ import MMContent from '@components/MMContent/MMContent'
 import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import {State} from '@store/index'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
 type Props = {
-  classes: any
-  width: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   parentFixed?: boolean
 }
 
@@ -27,7 +27,7 @@ const menuLinkData = [
   {key: 4, caption: 'Newsroom', tabIndex: 4}
 ]
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1
@@ -127,12 +127,17 @@ const styles = (theme: Theme) =>
       flex: '0 0 auto'
     }
   })
+)
 
-const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [popperOpen, setPopperOpen] = useState(false)
-  const [activeKey, setActiveKey] = useState(null)
-  const [activeLinkEl, setActiveLinkEl] = useState(null)
+const PrimaryHeader = ({parentFixed = false}: Props) => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)
+  const [popperOpen, setPopperOpen] = useState<boolean>(false)
+  const [activeKey, setActiveKey] = useState<number | null>(null)
+  const [activeLinkEl, setActiveLinkEl] = useState<HTMLElement | null>(null)
 
   const uiState = useCallback(
     (state: State) => ({
@@ -164,7 +169,7 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
   }, [])
 
   const handleClick = useCallback(
-    (event) => {
+    (event: any) => {
       const {currentTarget} = event
       setAnchorEl(currentTarget)
       setPopperOpen(!popperOpen)
@@ -183,7 +188,7 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
   const id = popperOpen ? 'mega-menu-popper' : null
   const megaMenuLinksEl = useMemo(
     () =>
-      width === 'xs' ? null : (
+      isXS ? null : (
         <div className={classes.menuLinks}>
           <div className={classes.homeLink}>
             <NextLink
@@ -199,7 +204,8 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
           {menuLinkData.map((menuItem) => (
             <div key={menuItem.key} className={classes.menuLink}>
               <MegaMenuLink
-                describedbyId={id}
+                // Logical Or for type checking only.
+                describedbyId={id || undefined}
                 tabIdx={menuItem.tabIndex}
                 onLinkClick={handleClick}
                 onLinkEnter={(event, el) =>
@@ -225,7 +231,7 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
       popperOpenHandler,
       popperCloseHandler,
       id,
-      width
+      isXS
     ]
   )
 
@@ -234,7 +240,7 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
     <React.Fragment>
       <div className={classes.root}>
         <AppBar
-          color={width === 'xs' ? 'primary' : 'default'}
+          color={isXS ? 'primary' : 'default'}
           className={classes.appBar}
           position="relative"
         >
@@ -256,7 +262,7 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
                 height="70%"
                 // Setting max width/height prevents strange jank'ing when toolbar variant changes.
                 maxHeight={parentFixed ? 48 : 64}
-                maxWidth={width === 'sm' ? 100 : parentFixed ? 140 : 200}
+                maxWidth={isSM ? 100 : parentFixed ? 140 : 200}
                 missionStatementFill="rgba(0,0,0,0)"
               />
             </div>
@@ -265,7 +271,8 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
         </AppBar>
       </div>
       <MegaMenuPopper
-        id={id}
+        // Logical Or for type checking only.
+        id={id || undefined}
         open={popperOpen}
         toolbarVariant={toolbarVariant}
         anchorEl={anchorEl}
@@ -278,4 +285,4 @@ const PrimaryHeader = ({classes, width, parentFixed = false}: Props) => {
   )
 }
 
-export default withWidth()(withStyles(styles)(PrimaryHeader))
+export default PrimaryHeader

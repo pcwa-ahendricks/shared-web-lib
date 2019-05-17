@@ -1,29 +1,23 @@
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {withStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
 
 type Props = {
-  classes: any
   fullWidth?: boolean
 } & FieldProps<any>
 
-const styles = createStyles({
+const useStyles = makeStyles({
   // Don't let <TextField/> label cover <Header/>.
   inputLabel: {
     zIndex: 0
   }
 })
 
-const AccountNoField = ({
-  field,
-  form,
-  classes,
-  fullWidth = true,
-  ...other
-}: Props) => {
+const AccountNoField = ({field, form, fullWidth = true, ...other}: Props) => {
+  const classes = useStyles()
   const {name, value} = field
   const {
     errors,
@@ -80,4 +74,4 @@ const AccountNoField = ({
   )
 }
 
-export default withStyles(styles)(AccountNoField)
+export default AccountNoField

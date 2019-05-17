@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo} from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
   Divider,
@@ -13,17 +13,15 @@ import {uiSetDrawerViz} from '@store/actions'
 import {useDispatch, useMappedState} from 'redux-react-hook'
 import {State} from '@store/index'
 
-type Props = {
-  classes: any
-}
-
-const styles = {
+const useStyles = makeStyles({
   list: {
     width: 250
   }
-}
+})
 
-const SwipeableTemporaryDrawer = ({classes}: Props) => {
+const SwipeableTemporaryDrawer = () => {
+  const classes = useStyles()
+
   const uiState = useCallback(
     (state: State) => ({
       open: state.ui.drawerOpen
@@ -90,4 +88,4 @@ const SwipeableTemporaryDrawer = ({classes}: Props) => {
   )
 }
 
-export default withStyles(styles)(SwipeableTemporaryDrawer)
+export default SwipeableTemporaryDrawer
