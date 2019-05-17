@@ -2,7 +2,6 @@ import React, {useCallback, useState, useEffect, useRef} from 'react'
 import {DatePicker} from '@material-ui/pickers'
 import {FormControl} from '@material-ui/core'
 import {FieldProps} from 'formik'
-import {isDate} from 'date-fns'
 
 type Props = {
   fullWidth?: boolean
@@ -30,11 +29,11 @@ const PurchaseDateField = ({
   const fieldWasTouched = Boolean(touched[name])
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
 
-  // Save date as string in form (may be null).
-  const changeHandler = useCallback(
-    (date) => setFieldValue(name, isDate(date) ? date.toJSON() : null, true),
-    [name, setFieldValue]
-  )
+  // Save date as Date in form (not null).
+  const changeHandler = useCallback((date) => setFieldValue(name, date, true), [
+    name,
+    setFieldValue
+  ])
 
   // To prevent onError from calling a bunch and halting the execution of the app due to infinite re-renders we are using a ref to store the previous error, then comparing the incoming error to the previous, and only calling setFieldError() when error changes. This may not be necessary with future versions of @material-ui/pickers.
   const prevDatePickerErrorRef = useRef<any>()

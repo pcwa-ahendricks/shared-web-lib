@@ -5,7 +5,7 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, boolean, Schema} from 'yup'
+import {string, object, array, boolean, Schema, date} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -61,7 +61,7 @@ interface FormDataObj {
   manufacturer: string
   model: string
   additional?: string
-  purchaseDate: string | Date
+  purchaseDate: Date
   termsAgree: boolean
   signature: string
   captcha: string
@@ -99,7 +99,7 @@ const bodySchema = object()
         manufacturer: string().required(),
         model: string().required(),
         additional: string(),
-        purchaseDate: string().required(),
+        purchaseDate: date().required(),
         termsAgree: boolean()
           .required()
           .oneOf([true]),
@@ -220,9 +220,10 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     city = otherCity
   }
 
+  let purchaseDateStr = ''
   try {
-    purchaseDate = new Date(purchaseDate)
-    purchaseDate = format(purchaseDate, 'MM/dd/yyyy')
+    // purchaseDate = new Date(purchaseDate)
+    purchaseDateStr = format(purchaseDate, 'MM/dd/yyyy')
   } catch (error) {
     throw createError(400, 'Invalid Date')
   }
@@ -263,7 +264,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           email,
           phone,
           propertyType,
-          purchaseDate,
+          purchaseDateStr,
           manufacturer,
           model,
           additional,

@@ -18,7 +18,7 @@ export interface IrrigationControllerRebateFormData {
   manufacturer: string
   model: string
   additional: string
-  purchaseDate: string
+  purchaseDate: Date
   termsAgree: boolean
   signature: string
   captcha: string

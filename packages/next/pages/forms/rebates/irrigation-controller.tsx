@@ -11,7 +11,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, boolean, array, Schema} from 'yup'
+import {string, object, boolean, array, Schema, date} from 'yup'
 import clsx from 'clsx'
 import {
   postRebateForm,
@@ -95,7 +95,7 @@ const formSchema = object()
       .required()
       .label('Irrigation Controller Model'),
     additional: string().label('Additional Sensor or Outdoor Cover'),
-    purchaseDate: string()
+    purchaseDate: date()
       .required('A valid purchase date is required')
       .typeError('A valid purchase date is required'),
     termsAgree: boolean()
@@ -170,7 +170,7 @@ const initialFormValues: RebateFormData = {
   manufacturer: '',
   model: '',
   additional: '',
-  purchaseDate: '',
+  purchaseDate: new Date(),
   termsAgree: false,
   signature: '',
   captcha: '',
