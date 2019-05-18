@@ -1,10 +1,7 @@
 // cspell:ignore touchevents
 import React, {useState, useMemo, useCallback} from 'react'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
-import {Theme} from '@material-ui/core'
 import {DroppedFile, UploadedFile} from './types'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import ThumbPreview from './ThumbPreview'
 
 type Props = {

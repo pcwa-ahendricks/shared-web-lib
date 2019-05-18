@@ -27,7 +27,7 @@ const AttachmentField = ({
   required = true,
   ...other
 }: Props) => {
-  const dropzoneUploaderRef = useRef<DropzoneUploaderHandles>()
+  const dropzoneUploaderRef = useRef<DropzoneUploaderHandles>(null)
   const prevUploads = useRef<string[]>()
   const {name, value} = field
   const {
@@ -113,7 +113,7 @@ const AttachmentField = ({
       </Type>
       {/* withStyles (used in <DropzoneUploader/>) produces a higher order component. To access clearUploads() method use innerRef over ref prop. See https://github.com/mui-org/material-ui/issues/10106 and https://material-ui.com/customization/css-in-js/ for more info. */}
       <DropzoneUploader
-        innerRef={dropzoneUploaderRef}
+        ref={dropzoneUploaderRef}
         subtitle={`your ${attachmentTitle.toLowerCase()}(s) here or click to browse`}
         uploadFolder="irrigation-controller"
         onUploadedChange={uploadedAttachmentsHandler}
