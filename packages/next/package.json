@@ -34,11 +34,11 @@
     "@zeit/next-typescript": "^1.1.1",
     "clsx": "^1.0.4",
     "color-alpha": "^1.0.3",
-    "core-js": "3.0.1",
+    "core-js": "3.1.0",
     "date-fns": "^2.0.0-alpha.27",
     "deep-object-diff": "^1.1.0",
     "dotenv-webpack": "^1.7.0",
-    "formik": "^1.5.4",
+    "formik": "^1.5.7",
     "is-number": "^7.0.0",
     "isomorphic-unfetch": "^3.0.0",
     "jimp": "^0.6.4",
@@ -63,7 +63,7 @@
     "regenerator-runtime": "^0.13.2",
     "styled-jsx": "^3.2.1",
     "then-sleep": "^1.0.1",
-    "webpack": "^4.31.0",
+    "webpack": "^4.32.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
