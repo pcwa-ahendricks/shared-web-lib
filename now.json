@@ -14,7 +14,7 @@
     }
   },
   "env": {
-    "NODE_DARKSKY_API_KEY": "@web-darksky-dev-api-key",
+    "NODE_DARKSKY_API_KEY": "@web-darksky-api-key-dev",
     "NODE_MAILJET_KEY": "@web-mailjet-key",
     "NODE_MAILJET_SECRET": "@web-mailjet-secret",
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
