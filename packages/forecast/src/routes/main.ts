@@ -3,8 +3,8 @@ const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
-import {send, createError} from 'micro'
-import {ServerResponse, IncomingMessage} from 'http'
+import {createError} from 'micro'
+import {IncomingMessage} from 'http'
 import fetch from 'node-fetch'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
@@ -54,20 +54,17 @@ const darkskyUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}`
 */
 
 const requestHandler = async (
-  req: MicroForKRequest,
-  res: ServerResponse
+  req: MicroForKRequest
 ): Promise<RedisForecast | undefined> => {
   const {lat, lng} = req.query // query property is courtesy of micro-fork.
   if (!lat || !lng) {
-    send(res, 204)
-    return
+    throw createError(204, HttpStat.getStatusText(204))
   }
   if (
     !ACCEPT_LATITUDES.includes(parseInt(lat)) ||
     !ACCEPT_LONGITUDES.includes(parseInt(lng))
   ) {
-    send(res, 406)
-    return
+    throw createError(406, HttpStat.getStatusText(406))
   }
 
   const latLngStr = `${lat},${lng}`
