@@ -6,7 +6,6 @@
   "build": {
     "env": {
       "NPM_TOKEN": "@npm-token",
-      "NEXT_FORECAST_URL": "https://forms.pcwa.net/lambda/forecast",
       "NEXT_MAILJET_URL": "https://forms.pcwa.net/lambda/mail",
       "NEXT_COSMIC_URL": "https://forms.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
@@ -14,11 +13,9 @@
     }
   },
   "env": {
-    "NODE_DARKSKY_API_KEY": "@web-darksky-dev-api-key",
     "NODE_MAILJET_KEY": "@web-mailjet-key",
     "NODE_MAILJET_SECRET": "@web-mailjet-secret",
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
-    "NODE_DARKSKY_ROUTE_PREFIX": "/lambda/forecast",
     "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail",
     "NODE_COSMIC_ROUTE_PREFIX": "/lambda/cosmic",
     "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
