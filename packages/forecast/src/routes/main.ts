@@ -9,7 +9,7 @@ import fetch from 'node-fetch'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import HttpStat from 'http-status-codes'
-import redis, {RedisError} from 'redis'
+import {RedisError, createClient} from 'redis'
 import {promisify} from 'util'
 import {DarkSkyResponse} from '../types'
 
@@ -22,7 +22,7 @@ const redisOpts = {
   password: REDISLABS_CACHE_PASSWORD
 }
 
-const client = redis.createClient(redisOpts)
+const client = createClient(redisOpts)
 const hgetallAsync = promisify(client.hgetall).bind(client)
 const hmsetAsync = promisify(client.hmset).bind(client)
 const expireAsync = promisify(client.expire).bind(client)
