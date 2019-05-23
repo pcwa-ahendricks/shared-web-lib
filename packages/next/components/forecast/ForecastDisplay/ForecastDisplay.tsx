@@ -1,10 +1,11 @@
+// cspell:ignore frmt
 import React, {useState, useEffect, useMemo} from 'react'
 import AnimatedWeather, {
   IconName
 } from '@components/AnimatedWeather/AnimatedWeather'
 import {useTheme, makeStyles} from '@material-ui/styles'
 import {Link, Theme, Typography as Type} from '@material-ui/core'
-import {DarkSkyData} from '../types'
+// import {DarkSkyData} from '../types'
 
 type Props = {
   forecast: ForecastData
@@ -22,7 +23,13 @@ export type Location = {
 export type ForecastData = {
   id: number
   title: string
-  data: DarkSkyData
+  // data: DarkSkyData
+  data: {
+    temperature: string
+    icon: string
+    latitude: string
+    longitude: string
+  }
 }
 
 const useStyles = makeStyles({
@@ -46,13 +53,14 @@ const defaults = {
   animate: true
 }
 
-const getDarkSkyHref = (lngLat: [number, number]): string =>
+const getDarkSkyHref = (lngLat: [string, string]): string =>
   `https://darksky.net/forecast/${lngLat[1]},${lngLat[0]}/us12/en`
 
 const ForecastDisplay = ({forecast}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
-  const [darkSkyHref, setDarkSkyHref] = useState('#')
+  const [darkSkyHref, setDarkSkyHref] = useState<string>('#')
+
   useEffect(() => {
     const {latitude = null, longitude = null} =
       forecast && forecast.data ? forecast.data : {}
@@ -64,16 +72,17 @@ const ForecastDisplay = ({forecast}: Props) => {
   }, [forecast])
 
   const {title} = forecast
-  const {temperature = null, icon = defaults.icon} =
-    (forecast && forecast.data && forecast.data.currently) || {}
+  // const {temperature = null, icon = defaults.icon} =
+  //   (forecast && forecast.data && forecast.data.currently) || {}
+  const {temperature = '', icon = defaults.icon} =
+    (forecast && forecast.data) || {}
 
   // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
   const iconName = icon.toUpperCase().replace(/-/g, '_') as IconName
 
-  const isValidForecast = Boolean(
-    forecast && forecast.data && forecast.data.currently
-  )
+  const isValidForecast = Boolean(forecast && forecast.data)
 
+  const temperatureFrmt = Math.round(parseFloat(temperature))
   const animatedWeatherEl = useMemo(
     () =>
       isValidForecast && temperature ? (
@@ -90,11 +99,20 @@ const ForecastDisplay = ({forecast}: Props) => {
               rel="noopener noreferrer"
               href={darkSkyHref}
               underline="none"
-            >{`${Math.round(temperature)}° ${title} `}</Link>
+            >{`${temperatureFrmt}° ${title} `}</Link>
           </Type>
         </div>
       ) : null,
-    [isValidForecast, classes, iconName, darkSkyHref, temperature, theme, title]
+    [
+      isValidForecast,
+      classes,
+      iconName,
+      darkSkyHref,
+      temperature,
+      theme,
+      title,
+      temperatureFrmt
+    ]
   )
 
   return <React.Fragment>{animatedWeatherEl}</React.Fragment>

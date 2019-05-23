@@ -8,9 +8,9 @@ import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay
 
 export type State = {
   forecasts: ForecastData[]
-  timeoutId: number | null
+  timeoutId: NodeJS.Timeout | null
   activeCycleForecastId: number
-  cycleTimeoutId: number | null
+  cycleTimeoutId: NodeJS.Timeout | null
 }
 
 export const initialState = {

@@ -5,32 +5,35 @@ import {
   SET_ACTIVE_CYCLE_FORECAST_ID,
   SET_CYCLE_TIMEOUT_ID
 } from './actionTypes'
-import {State} from '../index'
-import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {maxInt} from '@lib/util'
+import {State} from '@store/index'
+import {State as ForecastState} from '@store/reducers/forecast'
+import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 
-const setForecasts = (forecasts: Array<ForecastData>) => {
+const setForecasts = (forecasts: ForecastState['forecasts']) => {
   return {
     type: SET_FORECASTS,
     forecasts
   }
 }
 
-const setTimeoutId = (timeoutId: number) => {
+const setTimeoutId = (timeoutId: ForecastState['timeoutId']) => {
   return {
     type: SET_TIMEOUT_ID,
     timeoutId
   }
 }
 
-const setActiveCycleForecastId = (activeCycleForecastId: number) => {
+const setActiveCycleForecastId = (
+  activeCycleForecastId: ForecastState['activeCycleForecastId']
+) => {
   return {
     type: SET_ACTIVE_CYCLE_FORECAST_ID,
     activeCycleForecastId
   }
 }
 
-const setCycleTimeoutId = (cycleTimeoutId: number) => {
+const setCycleTimeoutId = (cycleTimeoutId: ForecastState['cycleTimeoutId']) => {
   return {
     type: SET_CYCLE_TIMEOUT_ID,
     cycleTimeoutId
@@ -40,11 +43,11 @@ const setCycleTimeoutId = (cycleTimeoutId: number) => {
 // Thunks
 
 export const startForecastTimer = (
-  forecastLocations: Array<any>,
+  forecastLocations: Location[],
   interval: number
 ) => (dispatch: any, getState: () => State) => {
   const {forecast} = getState()
-  const {timeoutId} = forecast || {}
+  const {timeoutId} = forecast
   // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
   if (timeoutId) {
     return
@@ -65,12 +68,12 @@ export const startForecastTimer = (
   dispatch(setTimeoutId(newTimeoutId))
 }
 
-export const startCycleForecastTimer = (
-  forecasts: Array<any>,
-  interval: number
-) => (dispatch: any, getState: () => State) => {
+export const startCycleForecastTimer = (forecasts: any[], interval: number) => (
+  dispatch: any,
+  getState: () => State
+) => {
   const {forecast} = getState()
-  const {cycleTimeoutId} = forecast || {}
+  const {cycleTimeoutId} = forecast
   // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
   if (cycleTimeoutId) {
     return
@@ -78,10 +81,11 @@ export const startCycleForecastTimer = (
   const newTimeoutId = setInterval(() => {
     // We need to get the current state each time to properly increment active forecast.
     const {forecast} = getState()
-    const {activeCycleForecastId} = forecast || {}
+    const {activeCycleForecastId} = forecast
     dispatch(
       setActiveCycleForecastId(
-        activeCycleForecastId >= maxInt(forecasts, 'id')
+        !activeCycleForecastId ||
+          activeCycleForecastId >= maxInt(forecasts, 'id')
           ? 1
           : activeCycleForecastId + 1
       )
