@@ -8,7 +8,8 @@ import {
   // uploadRoute,
   irrigCntrlRebateRoute,
   irrigEffRebateRoute,
-  lawnReplacementRebateRoute
+  lawnReplacementRebateRoute,
+  contactUsRoute
 } from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
@@ -40,6 +41,7 @@ const routeHandler = router()(
   post(`${rtePre}/irrigation-controller-rebate`, irrigCntrlRebateRoute),
   post(`${rtePre}/irrigation-efficiencies-rebate`, irrigEffRebateRoute),
   post(`${rtePre}/lawn-replacement-rebate`, lawnReplacementRebateRoute),
+  post(`${rtePre}/contact-us`, contactUsRoute),
   // File uploads handled by Cosmicjs and cosmic package..
   // get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
   // get(`${rtePre}/uploads/:filename`, photoFileRoute),

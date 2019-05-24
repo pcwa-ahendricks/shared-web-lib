@@ -96,7 +96,6 @@ const bodySchema = object()
         captcha: string().required(),
         irrigMethod: string()
           .required()
-          .label('Irrigation Method')
           .notOneOf(['Hand water']), // Case sensitive
         useArtTurf: boolean()
           .required()
@@ -188,6 +187,8 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
     city = otherCity
   }
 
+  const replyToName = `${firstName} ${lastName}`
+
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
@@ -201,7 +202,7 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
         To: RECIPIENTS,
         ReplyTo: {
           Email: email,
-          Name: `John Doe`
+          Name: replyToName
         },
         Headers: {
           'PCWA-No-Spam': 'webmaster@pcwa.net'

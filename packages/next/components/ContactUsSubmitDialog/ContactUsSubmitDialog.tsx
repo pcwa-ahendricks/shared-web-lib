@@ -9,13 +9,11 @@ import {
   Theme
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import WaterEfficiencyEmail from '@components/Links/WaterEfficiencyEmail'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open: boolean
   onClose: () => void
-  errorMessage: string
 }
 
 // Text heavy dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
@@ -27,12 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const FormSubmissionDialogError = ({
-  open = false,
-  onClose,
-  errorMessage = 'A General Error Has Occurred'
-}: Props) => {
+const ContactUsSubmitDialog = ({open = false, onClose}: Props) => {
   const classes = useStyles()
+
   return (
     <Dialog
       disableBackdropClick={true}
@@ -46,17 +41,16 @@ const FormSubmissionDialogError = ({
       }}
     >
       <DialogTitle id="form-submit-dialog-title">
-        An Error Has Occurred
+        Thanks for Contacting PCWA
       </DialogTitle>
       <DialogContent>
+        {/* GO-LIVE - Don't need sentence regarding "closing browser tab". */}
         <DialogContentText paragraph variant="body1">
-          An error occurred while submitting this form. Please check your
-          network connection and re-submit application. If you continue to
-          receive this error please contact our Water Efficiency Department at{' '}
-          <WaterEfficiencyEmail /> and refer to the error message below.
-        </DialogContentText>
-        <DialogContentText paragraph variant="body2" color="textSecondary">
-          {errorMessage}
+          The information you provided has been submitted to PCWA. Our Customer
+          Services department will route this email to an appropriate point of
+          contact. If you submitted a question or provided any type of feedback
+          requiring a response that point of contact will follow up with a email
+          reply or phone call.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -68,4 +62,4 @@ const FormSubmissionDialogError = ({
   )
 }
 
-export default FormSubmissionDialogError
+export default ContactUsSubmitDialog

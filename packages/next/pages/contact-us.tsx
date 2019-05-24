@@ -20,15 +20,15 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import NameField from '@components/formFields/NameField'
-import AccountNoField from '@components/formFields/AccountNoField'
-import StreetAddressField from '@components/formFields/StreetAddressField'
+import ContactUsMessageField from '@components/formFields/ContactUsMessageField'
+import ContactUsSubjectField from '@components/formFields/ContactUsSubjectField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
-import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
+import ReasonForContactSelectField from '@components/formFields/ReasonForContactSelectField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
-import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
+import ContactUsSubmitDialog from '@components/ContactUsSubmitDialog/ContactUsSubmitDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
-import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
+import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErrorDialog'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -54,16 +54,18 @@ const formSchema = object()
     phone: string()
       .min(10)
       .label('Phone Number'),
-    subject: string().label('City')
+    subject: string()
+      .required()
+      .label('Subject')
   })
 
 const initialFormValues: RebateFormData = {
+  reason: '',
   name: '',
   email: '',
-  message: '',
-  subject: '',
   phone: '',
-  reason: '',
+  subject: '',
+  message: '',
   captcha: ''
 }
 
@@ -89,6 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       margin: 'auto',
       width: 'fit-content'
+      // width: '100%'
     },
     buttonWrapper: {
       flex: '0 0 auto', // IE fix
@@ -149,7 +152,6 @@ const ContactUs = () => {
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
     boolean
   >(false)
-  const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [shouldConfirmRouteChange, setShouldConfirmRouteChange] = useState<
     boolean
@@ -157,7 +159,6 @@ const ContactUs = () => {
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
-    setProvidedEmail('')
   }, [])
 
   const errorDialogCloseHandler = useCallback(() => {
@@ -185,7 +186,6 @@ const ContactUs = () => {
                 onSubmit={async (values: RebateFormData, actions) => {
                   try {
                     // console.log(values, actions)
-                    setProvidedEmail(values.email)
                     const body: RequestBody = {
                       formData: {...values}
                     }
@@ -239,6 +239,17 @@ const ContactUs = () => {
                         >
                           Contact Information
                         </Type>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="reason"
+                              component={ReasonForContactSelectField}
+                              required={true}
+                            />
+                          </Grid>
+                        </Grid>
+
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
                             <Field
@@ -248,37 +259,44 @@ const ContactUs = () => {
                             />
                           </Grid>
                         </Grid>
+                        {/* <Grid container>
+                        </Grid>
+
+                        <Grid container>
+                        </Grid> */}
 
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={7}>
                             <Field
-                              name="accountNo"
-                              component={AccountNoField}
+                              name="email"
+                              component={EmailField}
+                              required={false}
                             />
                           </Grid>
                           <Grid item xs={12} sm={5}>
                             <Field
-                              name="propertyType"
-                              component={PropertyTypeSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={8}>
-                            <Field
-                              name="address"
-                              component={StreetAddressField}
+                              name="phone"
+                              component={PhoneNoField}
+                              required={false}
                             />
                           </Grid>
                         </Grid>
 
                         <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <Field name="phone" component={PhoneNoField} />
+                          <Grid item xs={12}>
+                            <Field
+                              name="subject"
+                              component={ContactUsSubjectField}
+                            />
                           </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field name="email" component={EmailField} />
+                        </Grid>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="message"
+                              component={ContactUsMessageField}
+                            />
                           </Grid>
                         </Grid>
                       </div>
@@ -286,85 +304,7 @@ const ContactUs = () => {
                       <Divider variant="middle" />
 
                       <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Acknowledge Terms & Conditions
-                        </Type>
                         <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
-                            >
-                              <em>
-                                PCWA reserves the right to verify the
-                                installation of the product(s) at the service
-                                address on the application. You will be
-                                contacted by a Water Efficiency Specialist to
-                                schedule an appointment if you are selected for
-                                an installation verification.
-                              </em>
-                            </Type>
-                          </Grid>
-                        </Grid>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Release of Liability & Signature
-                        </Type>
-
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="body1" paragraph color="primary">
-                              PCWA may deny any application that does not meet
-                              all of the Program requirements. PCWA reserves the
-                              right to alter the Program at any time. PCWA does
-                              not warrant or guarantee lower water bills as a
-                              result of participating in the Program. PCWA is
-                              not responsible for any damage that may occur to
-                              participants' property as a result of this
-                              Program. The undersigned agrees to hold harmless
-                              PCWA, its directors, officers, and employees from
-                              and against all loss, damage, expense and
-                              liability resulting from or otherwise relating to
-                              the installation of the Weather Based Irrigation
-                              Controller. By signing this form I agree that I
-                              have read, understand, and agree to the Terms and
-                              Conditions of this rebate program.
-                            </Type>
-                          </Grid>
-
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="caption">
-                              You must sign this form by typing your name
-                            </Type>
-                          </Grid>
-
                           <Grid
                             item
                             xs={12}
@@ -437,11 +377,8 @@ const ContactUs = () => {
       !isDev ? (
         <React.Fragment>
           <Head>
-            <title>Rebate Form</title>
-            <meta
-              name="description"
-              content="PCWA Water Efficiency Rebate Form"
-            />
+            <title>Contact Us Form</title>
+            <meta name="description" content="PCWA Contact Form" />
           </Head>
           <div className={classes.logoContainer}>
             <PcwaLogo
@@ -455,9 +392,7 @@ const ContactUs = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Irrigation Controller Rebate Form">
-          {mainEl}
-        </PageLayout>
+        <PageLayout title="Contact Us Form">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )
@@ -469,14 +404,11 @@ const ContactUs = () => {
       shouldConfirmRouteChange={shouldConfirmRouteChange}
     >
       {contactUsEl}
-      <FormSubmissionDialog
-        providedEmail={providedEmail}
+      <ContactUsSubmitDialog
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Weather Based Irrigation Controller Rebate Application"
-        dialogTitle="Your Rebate Application Has Been Submitted"
       />
-      <FormSubmissionDialogError
+      <ContactUsErrorDialog
         open={formSubmitDialogErrorOpen}
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}

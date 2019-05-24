@@ -7,8 +7,8 @@ import {
   OutlinedInput,
   Select
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FormControlProps} from '@material-ui/core/FormControl'
+import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
@@ -29,27 +29,21 @@ const useStyles = makeStyles({
   }
 })
 
-const CITY_LIST = [
-  'Alta',
-  'Applegate',
-  'Auburn',
-  'Baxter',
-  'Colfax',
-  'Dutch Flat',
-  'Gold Run',
-  'Granite Bay',
-  'Lincoln',
-  'Loomis',
-  'Meadow Vista',
-  'Newcastle',
-  'Penryn',
-  'Rocklin',
-  'Roseville',
-  'Weimar',
+const REASON_LIST = [
+  'Billing',
+  'Water service',
+  'Water quality',
+  'Water efficiency',
+  'Employment',
+  'Clerk to the Board',
+  'Purchasing',
+  'Engineering',
+  'Rebate',
+  'Website',
   'Other'
 ]
 
-const CitySelectField = ({
+const ReasonForContactSelectField = ({
   field,
   form,
   onChange,
@@ -89,12 +83,12 @@ const CitySelectField = ({
       {...other}
     >
       <InputLabel
-        htmlFor="city-select"
+        htmlFor="reason-select"
         classes={{
           root: classes.inputLabel
         }}
       >
-        City
+        Reason for Contacting PCWA
       </InputLabel>
       <Select
         required={required}
@@ -103,23 +97,19 @@ const CitySelectField = ({
         variant="outlined"
         input={
           <OutlinedInput
-            id="city-select"
+            id="reason-select"
             name={name}
-            autoComplete="billing address-level2"
-            labelWidth={36}
+            labelWidth={228}
             error={fieldIsTouchedWithError}
           />
         }
         onChange={changeHandler}
         onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 50}}}
+        SelectDisplayProps={{style: {minWidth: 70}}}
       >
-        {/* <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem> */}
-        {CITY_LIST.map((city) => (
-          <MenuItem key={city} value={city}>
-            {city}
+        {REASON_LIST.map((reason) => (
+          <MenuItem key={reason} value={reason}>
+            {reason}
           </MenuItem>
         ))}
       </Select>
@@ -130,4 +120,4 @@ const CitySelectField = ({
   )
 }
 
-export default CitySelectField
+export default ReasonForContactSelectField

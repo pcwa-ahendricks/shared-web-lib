@@ -234,6 +234,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     (attachment) => attachment.url
   )
 
+  const replyToName = `${firstName} ${lastName}`
+
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
@@ -247,7 +249,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
         To: RECIPIENTS,
         ReplyTo: {
           Email: email,
-          Name: `John Doe`
+          Name: replyToName
         },
         Headers: {
           'PCWA-No-Spam': 'webmaster@pcwa.net'

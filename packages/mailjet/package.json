@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "dev",
-    "watch": "babel src --watch --out-dir dist",
+    "watch": "babel src --watch --out-dir dist --extensions \".ts,.tsx\"",
     "dev": "concurrently 'npm run watch' 'micro-dev -s -p 3002'",
     "inspect": "node --inspect node_modules/.bin/micro-dev",
     "test": "ava",

@@ -1,10 +1,10 @@
-// cspell:ignore addtl cbarnhill truthy
+// cspell:ignore customerservices
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {string, object, boolean, Schema} from 'yup'
+import {string, object} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -22,7 +22,7 @@ const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
-const MAILJET_TEMPLATE_ID = 762551
+const MAILJET_TEMPLATE_ID = 848345
 
 const basicAuth = Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString(
   'base64'
@@ -33,32 +33,18 @@ const recaptcha = new reCAPTCHA({
   secretKey: RECAPTCHA_SECRET_KEY
 })
 
-const RECIPIENTS: MailJetMessage['To'] = isDev
+// Additional email addresses are added to array below.
+const SA_RECIPIENTS: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
-      {Name: 'Cassandra', Email: 'cbarnhill@pcwa.net'}
-    ]
+  : [{Name: 'Abe', Email: 'webmaster@pcwa.net'}]
 
 interface FormDataObj {
-  firstName: string
-  lastName: string
+  name: string
+  message: string
   email: string
-  accountNo: string
-  address: string
-  city: string
-  otherCity?: string
+  subject: string
+  reason: string
   phone: string
-  propertyType: string
-  irrigMethod: string
-  upgradeLocations: {
-    [key: string]: boolean
-  }
-  upgradeOpts: {
-    [key: string]: boolean
-  }
-  termsAgree: boolean
-  signature: string
   captcha: string
 }
 
@@ -69,58 +55,23 @@ const bodySchema = object()
       .camelCase()
       .required()
       .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string()
-          .email()
-          .required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | undefined, schema: Schema<string>) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
+        reason: string().required(),
+        message: string().required(),
+        captcha: string().required(
+          'Checking this box is required for security purposes'
         ),
-        phone: string()
-          .min(10)
-          .required(),
-        propertyType: string().required(),
-        termsAgree: boolean()
-          .required()
-          .oneOf([true]),
-        inspectAgree: boolean()
-          .required()
-          .oneOf([true]),
-        signature: string().required(),
-        captcha: string().required(),
-        irrigMethod: string()
-          .required()
-          .notOneOf(['Hand water']), // Case sensitive
-        upgradeLocations: object()
-          .required()
-          .test(
-            'has-one-location-option',
-            'upgradeLocations has no truth',
-            hasTrueValue
-          ),
-        upgradeOpts: object()
-          .required()
-          .test(
-            'has-one-upgrade-option',
-            'upgradeOpts has no truth',
-            hasTrueValue
-          )
+        subject: string().required(),
+        name: string(),
+        email: string().email(),
+        phone: string().min(10)
       })
   })
 
-const irrigEffRebateHandler = async (req: IncomingMessage) => {
+const ContactUsHandler = async (req: IncomingMessage) => {
   const data: any = await json(req)
   const body: {
     formData: FormDataObj
-    recipients: MailJetMessage['To']
+    recipients: {Name: string; Email: string}[]
   } = data
 
   const validateOptions = {
@@ -143,28 +94,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
   // })
 
   const {formData} = body
-  const {
-    email,
-    firstName,
-    lastName,
-    address,
-    otherCity = '',
-    phone,
-    propertyType,
-    irrigMethod,
-    upgradeLocations,
-    upgradeOpts,
-    termsAgree,
-    signature,
-    captcha
-  } = formData
-  let {city = '', accountNo} = formData
-
-  // Remove leading zeros from account number.
-  accountNo = accountNo
-    .split('-')
-    .map((part) => part.replace(/^[0]+/g, ''))
-    .join('-')
+  const {email, name, phone, reason, message, subject = '', captcha} = formData
 
   // Only validate recaptcha key in production.
   if (!isDev) {
@@ -177,15 +107,21 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     }
   }
 
-  // Overwrite "city" with "otherCity" if another city was specified.
-  if (city.toLowerCase() === 'other') {
-    city = otherCity
-  }
+  const mainRecipients: MailJetMessage['To'] = isDev
+    ? []
+    : subject.toLowerCase() === 'clerk to the board'
+    ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
+    : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
 
-  const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
-  const mappedUpgradeOpts = mapTruthyKeys(upgradeOpts)
-
-  const replyToName = `${firstName} ${lastName}`
+  // If user specified an email address include it as a cc.
+  const ccRecipients: MailJetMessage['To'] = email
+    ? [{Email: email, Name: name ? name : email}]
+    : []
+  const toRecipients: MailJetMessage['To'] = [
+    ...SA_RECIPIENTS,
+    ...mainRecipients,
+    ...ccRecipients
+  ]
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -197,32 +133,27 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: RECIPIENTS,
-        ReplyTo: {
-          Email: email,
-          Name: replyToName
-        },
+        To: toRecipients,
+        ReplyTo: email
+          ? {
+              Email: email,
+              Name: name ? name : email
+            }
+          : undefined,
         Headers: {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
         },
-        Subject: 'PCWA - Water Efficiency Rebate Submitted',
+        Subject: 'Contact Us - PCWA.net',
         TemplateID: MAILJET_TEMPLATE_ID,
         TemplateLanguage: true,
         Variables: {
-          firstName,
-          lastName,
-          accountNo,
-          city,
-          address,
           email,
+          name,
           phone,
-          propertyType,
-          irrigMethod,
-          upgradeLocations: mappedUpgradeLocations,
-          upgradeOpts: mappedUpgradeOpts,
-          submitDate: format(new Date(), 'MMMM do, yyyy'),
-          termsAgree,
-          signature
+          reason,
+          message,
+          subject,
+          submitDate: format(new Date(), 'MMMM do, yyyy')
         }
       }
     ]
@@ -281,28 +212,9 @@ async function postMailJetRequest(requestBody: MailJetSendRequest) {
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
 const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
-export default applyMiddleware(irrigEffRebateHandler, [
+
+export default applyMiddleware(ContactUsHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse'),
   limiter(limiterMaxRequests, limiterInterval)
 ])
-
-function hasTrueValue(value: any): boolean {
-  return (
-    value &&
-    typeof value === 'object' &&
-    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
-  )
-}
-
-function mapTruthyKeys(obj: any) {
-  return Object.keys(obj)
-    .map((key) => {
-      if (obj[key] === true) {
-        return key
-      } else {
-        return null
-      }
-    })
-    .filter(Boolean)
-}

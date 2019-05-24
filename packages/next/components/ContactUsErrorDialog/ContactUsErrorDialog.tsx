@@ -9,7 +9,7 @@ import {
   Theme
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import WaterEfficiencyEmail from '@components/Links/WaterEfficiencyEmail'
+import CustomerServicesEmail from '@components/Links/CustomerServicesEmail'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
@@ -52,8 +52,8 @@ const FormSubmissionDialogError = ({
         <DialogContentText paragraph variant="body1">
           An error occurred while submitting this form. Please check your
           network connection and re-submit application. If you continue to
-          receive this error please contact our Water Efficiency Department at{' '}
-          <WaterEfficiencyEmail /> and refer to the error message below.
+          receive this error please contact our Customer Services Department at{' '}
+          <CustomerServicesEmail /> and refer to the error message below.
         </DialogContentText>
         <DialogContentText paragraph variant="body2" color="textSecondary">
           {errorMessage}
