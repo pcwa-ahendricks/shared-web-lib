@@ -1,6 +1,12 @@
 import {router, get, post} from 'micro-fork'
 import {send, run} from 'micro'
-import {getMediaRoute, uploadRoute} from './routes/index'
+import {
+  getMediaRoute,
+  uploadRoute,
+  getObjectsRoute,
+  getObjectTypesRoute,
+  getObjectTypeRoute
+} from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage, ServerResponse} from 'http'
@@ -26,6 +32,9 @@ const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 const routeHandler = router()(
   get(`${rtePre}/media`, getMediaRoute),
   get(`${rtePre}/media/:cosmicId`, getMediaRoute),
+  get(`${rtePre}/objects`, getObjectsRoute),
+  get(`${rtePre}/object-types`, getObjectTypesRoute),
+  get(`${rtePre}/object-type/:slug`, getObjectTypeRoute),
   post(`${rtePre}/uploads`, uploadRoute),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)
