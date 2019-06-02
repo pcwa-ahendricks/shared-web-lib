@@ -1,5 +1,5 @@
 import {stringify} from 'querystringify'
-import {CosmicGetMediaResponse, GetMedia} from '../lib/types'
+import {CosmicGetMediaResponse} from '../lib/types'
 import HttpStat from 'http-status-codes'
 import {createError} from 'micro'
 import {MicroForKRequest} from '../index'
@@ -36,9 +36,7 @@ export const getMediaHandler = async (req: MicroForKRequest) => {
     if (!cosmicId) {
       return media
     }
-    const filteredMedia: GetMedia[] = media.filter(
-      (doc) => doc._id === cosmicId
-    )
+    const filteredMedia = media.filter((doc) => doc._id === cosmicId)
     if (!filteredMedia || !(filteredMedia.length > 0)) {
       throw createError(204, 'No Content')
     }

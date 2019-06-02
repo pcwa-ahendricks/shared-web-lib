@@ -5,11 +5,17 @@ import {
   getObjectTypes as getObjectTypesRoute,
   getObjectType as getObjectTypeRoute
 } from './objects'
+import {
+  salaryScheduleHandler as salaryScheduleRoute,
+  salaryScheduleCsvHandler as salaryScheduleCsvRoute
+} from './csv'
 
 export {
   uploadRoute,
   getMediaRoute,
   getObjectsRoute,
   getObjectTypesRoute,
-  getObjectTypeRoute
+  getObjectTypeRoute,
+  salaryScheduleRoute,
+  salaryScheduleCsvRoute
 }
