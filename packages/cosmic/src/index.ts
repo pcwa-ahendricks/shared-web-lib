@@ -24,7 +24,8 @@ const notfound = (_req: IncomingMessage, res: ServerResponse) => send(res, 404)
 const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 
 const routeHandler = router()(
-  get(`${rtePre}/uploads/:id`, getMediaRoute),
+  get(`${rtePre}/media`, getMediaRoute),
+  get(`${rtePre}/media/:cosmicId`, getMediaRoute),
   post(`${rtePre}/uploads`, uploadRoute),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)

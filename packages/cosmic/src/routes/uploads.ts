@@ -4,7 +4,7 @@ if (isDev) {
 }
 import {ServerResponse} from 'http'
 import prettyBytes from 'pretty-bytes'
-import {createError, send} from 'micro'
+import {send} from 'micro'
 import Busboy from 'busboy'
 import {applyMiddleware} from 'micro-middleware'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -12,14 +12,10 @@ import unauthorized from '@pcwa/micro-unauthorized'
 import limiter from '@pcwa/micro-limiter'
 // import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
-// import fetch from 'isomorphic-unfetch'
-// Importing node-fetch suppress typescript warning with posting body: FormData.
+// Importing node-fetch (over isomorphic-unfetch) suppress typescript warning with posting body: FormData.
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../lib/busboy-error'
 import {MicroForKRequest} from '../index'
-import {stringify} from 'querystringify'
-import {CosmicGetMediaResponse, GetMedia} from '../lib/types'
-import HttpStat from 'http-status-codes'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'
 const COSMIC_BUCKET = 'pcwa'
@@ -29,39 +25,6 @@ const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
-
-export const getMediaHandler = async (req: MicroForKRequest) => {
-  const cosmicId = req.params.id // using request parameter
-  if (!cosmicId) {
-    throw createError(400, HttpStat.getStatusText(400))
-  }
-  try {
-    const qs = stringify(
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      {read_key: COSMIC_READ_ACCESS_KEY, folder: COSMIC_UPLOAD_DIR},
-      true
-    )
-    const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media${qs}`,
-      {
-        method: 'GET'
-      }
-    )
-    if (!response.ok) {
-      throw new Error('Response not ok')
-    }
-    const data: CosmicGetMediaResponse = await response.json()
-    const {media = []} = data || {}
-    const result: GetMedia[] = media.filter((doc) => doc._id === cosmicId)
-    if (!result || !(result.length > 0)) {
-      throw createError(204, 'No Content')
-    }
-    return result
-  } catch (error) {
-    console.log(error)
-    throw error // Remember to throw error so response finishes.
-  }
-}
 
 const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
   const {headers, socket} = req
