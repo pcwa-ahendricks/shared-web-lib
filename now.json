@@ -19,9 +19,12 @@
     "NODE_MAILJET_KEY": "@web-mailjet-key",
     "NODE_MAILJET_SECRET": "@web-mailjet-secret",
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
+    "NODE_GOOGLE_CSE_CX": "@web-google-cse-cx",
+    "NODE_GOOGLE_CSE_KEY": "@web-google-cse-key",
     "NODE_DARKSKY_ROUTE_PREFIX": "/lambda/forecast",
     "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail",
     "NODE_COSMIC_ROUTE_PREFIX": "/lambda/cosmic",
+    "NODE_GOOGLE_SEARCH_ROUTE_PREFIX": "/lambda/search",
     "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
     "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key",
     "NODE_COSMIC_READ_ACCESS_KEY": "@web-cosmic-read-key",
@@ -37,14 +40,16 @@
     },
     { "src": "packages/forecast/dist/index.js", "use": "@now/node" },
     { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" },
-    { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" }
+    { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" },
+    { "src": "packages/google-search/dist/**/*.js", "use": "@now/node" }
   ],
   "routes": [
     {
       "src": "^/lambda/forecast(.*)$",
       "dest": "packages/forecast/dist/index.js",
       "headers": {
-        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "GET"
       }
     },
     {
@@ -57,6 +62,13 @@
     {
       "src": "^/lambda/cosmic(.*)$",
       "dest": "packages/cosmic/dist/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "^/lambda/search(.*)$",
+      "dest": "packages/google-search/dist/index.js",
       "headers": {
         "Access-Control-Allow-Origin": "https://www.pcwa.net"
       }
