@@ -2,14 +2,14 @@ import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../lib/types'
 import HttpStat from 'http-status-codes'
 import {createError} from 'micro'
-import {MicroForKRequest} from '../index'
+import {MicroForkRequest} from '../index'
 import fetch from 'isomorphic-unfetch'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
-export const getMediaHandler = async (req: MicroForKRequest) => {
+export const getMediaHandler = async (req: MicroForkRequest) => {
   const {cosmicId} = req.params // using request parameter
   const {folder} = req.query // using request query
   // 'folder' is a required query parameter

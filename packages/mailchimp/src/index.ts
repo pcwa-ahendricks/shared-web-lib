@@ -1,20 +1,16 @@
-import {router, get, post} from 'micro-fork'
+import {router, get} from 'micro-fork'
 import {send, run} from 'micro'
-import {
-  getMediaRoute,
-  uploadRoute,
-  getObjectsRoute,
-  getObjectTypesRoute,
-  getObjectTypeRoute,
-  salaryScheduleRoute,
-  salaryScheduleCsvRoute
-} from './routes/index'
+import {campaignsHandler} from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage, ServerResponse} from 'http'
+import unauthorized from '@pcwa/micro-unauthorized'
 
-const rtePre = process.env.NODE_COSMIC_ROUTE_PREFIX || ''
+const rtePre = process.env.NODE_MAILCHIMP_ROUTE_PREFIX || ''
 const isDev = process.env.NODE_ENV === 'development'
+
+const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME || ''
+const MAILCHIMP_API_KEY = process.env.NODE_MAILCHIMP_API_KEY || ''
 
 // CORS wouldn't be needed in serverless environments such as Now v2 since CORS Headers can be controlled via now.json. CORS is needed in
 // development environments that use micro-dev however.
@@ -32,19 +28,18 @@ const notfound = (_req: IncomingMessage, res: ServerResponse) => send(res, 404)
 const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 
 const routeHandler = router()(
-  get(`${rtePre}/salary-schedule`, salaryScheduleRoute),
-  get(`${rtePre}/salary-schedule-csv`, salaryScheduleCsvRoute),
-  get(`${rtePre}/media`, getMediaRoute),
-  get(`${rtePre}/media/:cosmicId`, getMediaRoute),
-  get(`${rtePre}/objects`, getObjectsRoute),
-  get(`${rtePre}/object-types`, getObjectTypesRoute),
-  get(`${rtePre}/object-type/:slug`, getObjectTypeRoute),
-  post(`${rtePre}/uploads`, uploadRoute),
+  get(`${rtePre}/campaigns`, campaignsHandler),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)
 )
 
-const middlewareHandler = applyMiddleware(routeHandler, [noCache])
+const middlewareHandler = applyMiddleware(routeHandler, [
+  noCache,
+  unauthorized(
+    MAILCHIMP_USERNAME && MAILCHIMP_API_KEY ? 'authorized' : '',
+    'Invalid API key'
+  )
+])
 
 const mainHandler = isDev && cors ? cors(middlewareHandler) : middlewareHandler
 

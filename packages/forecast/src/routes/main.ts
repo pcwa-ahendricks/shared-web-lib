@@ -54,7 +54,7 @@ const darkskyUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}`
 */
 
 const requestHandler = async (
-  req: MicroForKRequest
+  req: MicroForkRequest
 ): Promise<RedisForecast | undefined> => {
   const {lat, lng} = req.query // query property is courtesy of micro-fork.
   if (!lat || !lng) {
@@ -109,7 +109,7 @@ const requestHandler = async (
   }
 }
 
-type MicroForKRequest = {
+type MicroForkRequest = {
   params: any
   query: any
 } & IncomingMessage

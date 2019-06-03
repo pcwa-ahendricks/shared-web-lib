@@ -1,28 +1,33 @@
 import {stringify} from 'querystringify'
 import HttpStat from 'http-status-codes'
 import {createError} from 'micro'
-import {MicroForKRequest} from '../index'
+import {MicroForkRequest, MicroForkStore} from '../index'
 import fetch from 'isomorphic-unfetch'
 import {CseResponse} from '../lib/types'
+import {ServerResponse} from 'http'
 
 const BASE_URL = 'https://www.googleapis.com/customsearch/v1'
-const GOOGLE_CSE_CX = process.env.NODE_GOOGLE_CSE_CX || ''
-const GOOGLE_CSE_KEY = process.env.NODE_GOOGLE_CSE_KEY || ''
 
-export const searchHandler = async (req: MicroForKRequest) => {
-  const {searchTerm} = req.params // using request parameter
+export const searchHandler = async (
+  req: MicroForkRequest,
+  _res: ServerResponse,
+  store: MicroForkStore
+) => {
+  const {q} = req.params // using request parameter
   const {...rest} = req.query // using request query
+  const key = store.cseKey || ''
+  const cx = store.cseCx || ''
   // 'searchTerm' is a required query parameter
-  if (!searchTerm) {
+  if (!q) {
     throw createError(400, HttpStat.getStatusText(400))
   }
   try {
     const qs = stringify(
       // eslint-disable-next-line @typescript-eslint/camelcase
       {
-        key: GOOGLE_CSE_KEY,
-        cx: GOOGLE_CSE_CX,
-        q: searchTerm,
+        key,
+        cx,
+        q,
         ...rest
       },
       true

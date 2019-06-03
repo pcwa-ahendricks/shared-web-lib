@@ -1,12 +1,12 @@
 import {stringify} from 'querystringify'
-import {MicroForKRequest} from '../index'
+import {MicroForkRequest} from '../index'
 import fetch from 'isomorphic-unfetch'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
-export const getObjects = async (_req: MicroForKRequest) => {
+export const getObjects = async (_req: MicroForkRequest) => {
   try {
     const qs = stringify(
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -30,7 +30,7 @@ export const getObjects = async (_req: MicroForKRequest) => {
   }
 }
 
-export const getObjectTypes = async (_req: MicroForKRequest) => {
+export const getObjectTypes = async (_req: MicroForkRequest) => {
   try {
     const qs = stringify(
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -54,7 +54,7 @@ export const getObjectTypes = async (_req: MicroForKRequest) => {
   }
 }
 
-export const getObjectType = async (req: MicroForKRequest) => {
+export const getObjectType = async (req: MicroForkRequest) => {
   const {slug} = req.params // using request parameter
   const {...rest} = req.query // using request query
   try {

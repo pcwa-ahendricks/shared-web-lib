@@ -58,7 +58,7 @@ const mainHandler = isDev && cors ? cors(middlewareHandler) : middlewareHandler
 export default (req: IncomingMessage, res: ServerResponse) =>
   run(req, res, mainHandler)
 
-export type MicroForKRequest = {
+export type MicroForkRequest = {
   params: any
   query: any
 } & IncomingMessage

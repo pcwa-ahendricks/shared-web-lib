@@ -31,7 +31,10 @@ const notfound = (_req: IncomingMessage, res: ServerResponse) => send(res, 404)
 const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 
 const routeHandler = router()(
-  get(`${rtePre}/search/:searchTerm`, searchHandler),
+  get(`${rtePre}/:q`, searchHandler, {
+    cseCx: GOOGLE_CSE_CX,
+    cseKey: GOOGLE_CSE_KEY
+  }),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)
 )
@@ -51,9 +54,14 @@ const mainHandler = isDev && cors ? cors(middlewareHandler) : middlewareHandler
 export default (req: IncomingMessage, res: ServerResponse) =>
   run(req, res, mainHandler)
 
-export type MicroForKRequest = {
+export type MicroForkRequest = {
   params: any
   query: any
 } & IncomingMessage
 
 // "If an error is thrown and not caught by you, the response will automatically be 500. Important: Error stacks will be printed as console.error and during development mode (if the env variable NODE_ENV is 'development'), they will also be included in the responses.". --zeit
+
+export interface MicroForkStore {
+  cseKey: string
+  cseCx: string
+}

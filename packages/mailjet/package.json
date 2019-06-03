@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "@pcwa/micro-check-referrer": "^0.1.12",
+    "@pcwa/micro-check-referrer": "^0.1.13",
     "@pcwa/micro-limiter": "^0.1.13",
     "@pcwa/micro-no-cache": "^0.1.10",
     "@pcwa/micro-unauthorized": "^0.1.14",
@@ -54,7 +54,7 @@
     "@types/yup": "^0.26.13",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
-    "ava": "^1.4.1",
+    "ava": "^2.0.0",
     "concurrently": "^4.1.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",

@@ -15,7 +15,7 @@ import FormData from 'form-data'
 // Importing node-fetch (over isomorphic-unfetch) suppress typescript warning with posting body: FormData.
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../lib/busboy-error'
-import {MicroForKRequest} from '../index'
+import {MicroForkRequest} from '../index'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'
 const COSMIC_BUCKET = 'pcwa'
@@ -26,7 +26,7 @@ const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
 
-const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
+const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
   const {headers, socket} = req
   const busboy = new Busboy({headers})
   let buffer: Buffer

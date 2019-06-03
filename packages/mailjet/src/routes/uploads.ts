@@ -22,14 +22,14 @@ import checkReferrer from '@pcwa/micro-check-referrer'
 import limiter from '@pcwa/micro-limiter'
 import resizeImage from '../lib/resize-image'
 import BusboyError, {BusboyErrorCode} from '../lib/busboy-error'
-import {MicroForKRequest} from '../index'
+import {MicroForkRequest} from '../index'
 import HttpStat from 'http-status-codes'
 
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
 
 export const photoFileHandler = (
-  req: MicroForKRequest,
+  req: MicroForkRequest,
   res: ServerResponse
 ) => {
   const filename = req.params.filename // using request parameter
@@ -62,7 +62,7 @@ export const photoFileHandler = (
   }
 }
 
-export const photoB64Handler = (req: MicroForKRequest) => {
+export const photoB64Handler = (req: MicroForkRequest) => {
   const filename = req.params.filename // using request parameter
   const folder = req.query.folder || '' // using query parameter
   if (!filename) {
@@ -86,7 +86,7 @@ export const photoB64Handler = (req: MicroForKRequest) => {
   }
 }
 
-const uploadHandler = async (req: MicroForKRequest, res: ServerResponse) => {
+const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
   const {headers} = req
   // Headers are case sensitive.
 

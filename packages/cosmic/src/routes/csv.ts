@@ -1,5 +1,5 @@
 import {createError} from 'micro'
-import {MicroForKRequest} from '../index'
+import {MicroForkRequest} from '../index'
 import fetch from 'isomorphic-unfetch'
 import {compareDesc} from 'date-fns'
 import {ServerResponse} from 'http'
@@ -9,7 +9,7 @@ import {getMediaHandler} from './media'
 const MEDIA_FOLDER = 'csv'
 
 export const salaryScheduleCsvHandler = async (
-  req: MicroForKRequest,
+  req: MicroForkRequest,
   res: ServerResponse
 ) => {
   try {
@@ -49,7 +49,7 @@ export const salaryScheduleCsvHandler = async (
 }
 
 export const salaryScheduleHandler = async (
-  req: MicroForKRequest,
+  req: MicroForkRequest,
   res: ServerResponse
 ) => {
   try {
