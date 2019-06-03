@@ -1,6 +1,6 @@
-import {router, get} from 'micro-fork'
+import {router, get, post, put} from 'micro-fork'
 import {send, run} from 'micro'
-import {campaignsHandler} from './routes/index'
+import {campaignsHandler, subscribeHandler, updateHandler} from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
 import {IncomingMessage, ServerResponse} from 'http'
@@ -29,6 +29,8 @@ const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 
 const routeHandler = router()(
   get(`${rtePre}/campaigns`, campaignsHandler),
+  post(`${rtePre}/subscribe`, subscribeHandler),
+  put(`${rtePre}/update/:userHashId`, updateHandler),
   get(`${rtePre}/favicon.ico`, noFavicon),
   get(`${rtePre}/*`, notfound)
 )
