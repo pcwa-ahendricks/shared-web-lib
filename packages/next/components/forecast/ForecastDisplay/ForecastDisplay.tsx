@@ -23,12 +23,11 @@ export type Location = {
 export type ForecastData = {
   id: number
   title: string
-  // data: DarkSkyData
-  data: {
-    temperature: string
-    icon: string
-    latitude: string
-    longitude: string
+  data?: {
+    temperature?: string
+    icon?: string
+    latitude?: string
+    longitude?: string
   }
 }
 

@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import useModernizr from '@hooks/useModernizr'
 import useUploadStatus from './useUploadStatus'
+import {UploadStatus} from '@lib/services/uploadService'
 
 type Props = {
   file: DroppedFile
@@ -24,10 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
     rightIcon: {
       marginLeft: theme.spacing(1)
     },
-    buttonLabel: ({uploadSuccess}: {uploadSuccess?: boolean}) => ({
-      color: uploadSuccess
-        ? theme.palette.error.main
-        : theme.palette.text.disabled
+    buttonLabel: ({uploadStatus}: {uploadStatus?: UploadStatus}) => ({
+      color:
+        uploadStatus === 'success'
+          ? theme.palette.error.main
+          : uploadStatus === 'unknown'
+          ? theme.palette.text.disabled
+          : theme.palette.text.primary
     }),
     thumb: {
       display: 'inline-flex',
@@ -83,14 +87,14 @@ const ThumbPreview = ({
   file,
   onClick
 }: Props) => {
-  const [uploadSuccess, setUploadSuccess] = useState<boolean>()
-  const classes = useStyles({uploadSuccess})
+  // const [uploadSuccess, setUploadSuccess] = useState<boolean>()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [thumbHover, setThumbHover] = useState<string | null>()
   const {touchevents} = useModernizr()
 
   const uploadStatus = useUploadStatus(uploadedFiles, file)
+  const classes = useStyles({uploadStatus})
   const isLoading = uploadStatus === 'unknown'
 
   const clickHandler = useCallback(
@@ -108,7 +112,7 @@ const ThumbPreview = ({
   )
 
   const uploadSuccessHandler = useCallback(() => {
-    setUploadSuccess(true)
+    // setUploadSuccess(true)
   }, [])
 
   // Just show Remove Upload Button on Mobile Devices since the Fab on hover will likely be impossible to click.
@@ -123,13 +127,14 @@ const ThumbPreview = ({
             disabled={isLoading}
             classes={{label: classes.buttonLabel}}
           >
-            Remove Upload
+            {uploadStatus === 'failed'
+              ? 'Remove Failed Upload'
+              : 'Remove Upload'}
             <DeleteIcon className={classes.rightIcon} color="inherit" />
           </Button>
         </Box>
       ) : null,
-
-    [classes, file, uploadSuccess, touchevents, removeUploadHandler]
+    [classes, file, uploadStatus, touchevents, removeUploadHandler, isLoading]
   )
 
   return (
