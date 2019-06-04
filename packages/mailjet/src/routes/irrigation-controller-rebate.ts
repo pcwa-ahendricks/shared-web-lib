@@ -9,7 +9,7 @@ import {string, object, array, boolean, Schema, date} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
-import {format} from 'date-fns'
+import {format, parseISO} from 'date-fns'
 import reCAPTCHA from 'recaptcha2'
 import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
@@ -61,7 +61,7 @@ interface FormDataObj {
   manufacturer: string
   model: string
   additional?: string
-  purchaseDate: Date
+  purchaseDate: string // Incoming date will be type 'string', not a Date Object.
   termsAgree: boolean
   signature: string
   captcha: string
@@ -222,8 +222,9 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
 
   let purchaseDateStr = ''
   try {
-    // purchaseDate = new Date(purchaseDate)
-    purchaseDateStr = format(purchaseDate, 'MM/dd/yyyy')
+    // Must convert string to Date prior to format() using Date() constructor or parseISO()
+    const parsedDate = parseISO(purchaseDate)
+    purchaseDateStr = format(parsedDate, 'MM/dd/yyyy')
   } catch (error) {
     throw createError(400, 'Invalid Date')
   }
@@ -328,8 +329,6 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
 async function postMailJetRequest(requestBody: MailJetSendRequest) {
   // const result = await sendEmail.request(requestBody)
   // const {body} = result || {}
-  isDev &&
-    console.log(`${new Date().toLocaleTimeString()} - Send Request started.`)
   const response = await fetch('https://api.mailjet.com/v3.1/send', {
     method: 'POST',
     headers: {
@@ -355,14 +354,6 @@ async function postMailJetRequest(requestBody: MailJetSendRequest) {
   }
   const data = await response.json()
 
-  isDev &&
-    console.log(`${new Date().toLocaleTimeString()} - Send Request completed.`)
-  // isDev &&
-  //   console.log(
-  //     'Mailjet sendMail post response: ',
-  //     JSON.stringify(data, null, 2)
-  //   )
-  // return result // node-mailjet
   return data
 }
 
