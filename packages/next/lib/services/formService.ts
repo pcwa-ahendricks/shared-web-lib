@@ -103,9 +103,9 @@ type RequestBody =
   | ContactUsRequestBody
 
 async function postRebateForm(serviceUriPath: string, body: RequestBody) {
-  const URL = `${MAILJET_URL}/${serviceUriPath}`
+  const url = `${MAILJET_URL}/${serviceUriPath}`
   try {
-    const response = await fetch(URL, {
+    const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body)
     })
