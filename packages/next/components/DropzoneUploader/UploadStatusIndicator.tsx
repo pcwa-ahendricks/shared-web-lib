@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useMemo} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {Badge, LinearProgress, Theme} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
 import {DroppedFile, UploadedFile} from './types'
+import useUploadStatus from './useUploadStatus'
 
 type Props = {
   children: React.ReactNode
@@ -11,9 +12,6 @@ type Props = {
   file: DroppedFile
   onSuccess?: () => void
 }
-
-// Use nested type
-type UploadStatus = UploadedFile['serverResponse']['status']
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,21 +34,8 @@ const UploadStatusIndicator = ({
   onSuccess
 }: Props) => {
   const classes = useStyles()
-  const [uploadStatus, setUploadStatus] = useState<UploadStatus>('unknown')
-  useEffect(() => {
-    const matchingFile = uploadedFiles.find(
-      (uploadedFile) => uploadedFile.name === file.name
-    )
-    if (
-      !matchingFile ||
-      !matchingFile.serverResponse ||
-      !matchingFile.serverResponse.status
-    ) {
-      setUploadStatus('unknown')
-      return
-    }
-    setUploadStatus(matchingFile.serverResponse.status)
-  }, [uploadedFiles, file])
+
+  const uploadStatus = useUploadStatus(uploadedFiles, file)
 
   useEffect(() => {
     if (uploadStatus === 'success') {

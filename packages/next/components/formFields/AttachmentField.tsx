@@ -47,11 +47,11 @@ const AttachmentField = ({
   // Status and URL errors will store the sub-level (matches and required) error messages if errors are found in form.
   const statusError =
     fieldHasError && Array.isArray(currentError) && currentError.length > 0
-      ? currentError.map((err) => err.status)[0]
+      ? currentError.map((err) => err && err.status)[0]
       : null
   const urlError =
     fieldHasError && Array.isArray(currentError) && currentError.length > 0
-      ? currentError.map((err) => err.url)[0]
+      ? currentError.map((err) => err && err.url)[0]
       : null
 
   const resetDropzoneUploader = useCallback(() => {

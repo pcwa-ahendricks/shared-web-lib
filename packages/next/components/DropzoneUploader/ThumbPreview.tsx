@@ -10,6 +10,7 @@ import {Document, Page} from 'react-pdf'
 import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import useModernizr from '@hooks/useModernizr'
+import useUploadStatus from './useUploadStatus'
 
 type Props = {
   file: DroppedFile
@@ -89,6 +90,9 @@ const ThumbPreview = ({
   const [thumbHover, setThumbHover] = useState<string | null>()
   const {touchevents} = useModernizr()
 
+  const uploadStatus = useUploadStatus(uploadedFiles, file)
+  const isLoading = uploadStatus === 'unknown'
+
   const clickHandler = useCallback(
     (file: DroppedFile) => () => {
       onClick(file)
@@ -116,7 +120,7 @@ const ThumbPreview = ({
             size="small"
             aria-label="Remove Upload"
             onClick={removeUploadHandler(file)}
-            disabled={!uploadSuccess}
+            disabled={isLoading}
             classes={{label: classes.buttonLabel}}
           >
             Remove Upload
@@ -176,7 +180,7 @@ const ThumbPreview = ({
             thumbName={file.name}
             thumbHover={thumbHover}
             onRemove={removeUploadHandler(file)}
-            disabled={!uploadSuccess}
+            disabled={isLoading}
           />
         </div>
       </Box>
