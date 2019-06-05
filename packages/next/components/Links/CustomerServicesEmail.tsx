@@ -5,7 +5,7 @@ import {Link} from '@material-ui/core'
 
 type Props = {}
 
-const MainPhoneNo = ({...rest}: Props) => {
+const CustomerServicesEmail = ({...rest}: Props) => {
   return (
     <Link href="mailto:customerservices@pcwa.net" {...rest}>
       customerservices@pcwa.net
@@ -13,4 +13,4 @@ const MainPhoneNo = ({...rest}: Props) => {
   )
 }
 
-export default MainPhoneNo
+export default CustomerServicesEmail
