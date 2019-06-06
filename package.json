@@ -27,6 +27,6 @@
   "dependencies": {},
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "now": "^15.3.0"
+    "now": "^15.4.0"
   }
 }
