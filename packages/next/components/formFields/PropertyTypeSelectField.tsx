@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
+import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
   onChange?: (event: React.FormEvent<HTMLDivElement>) => void
@@ -88,9 +89,11 @@ const PropertyTypeSelectField = ({
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      <WaitToGrow isIn={fieldIsTouchedWithError}>
+        <FormHelperText error={fieldIsTouchedWithError}>
+          {fieldIsTouchedWithError ? currentError : null}
+        </FormHelperText>
+      </WaitToGrow>
     </FormControl>
   )
 }

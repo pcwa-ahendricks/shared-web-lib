@@ -10,6 +10,7 @@ import {
 import {FormControlProps} from '@material-ui/core/FormControl'
 import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
+import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
   onChange?: (
@@ -113,9 +114,11 @@ const ReasonForContactSelectField = ({
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      <WaitToGrow isIn={fieldIsTouchedWithError}>
+        <FormHelperText error={fieldIsTouchedWithError}>
+          {fieldIsTouchedWithError ? currentError : null}
+        </FormHelperText>
+      </WaitToGrow>
     </FormControl>
   )
 }

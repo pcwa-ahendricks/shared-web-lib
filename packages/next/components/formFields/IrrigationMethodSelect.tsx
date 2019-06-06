@@ -100,9 +100,11 @@ const IrrigationTypesSelect = ({
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      <WaitToGrow isIn={fieldIsTouchedWithError}>
+        <FormHelperText error={fieldIsTouchedWithError}>
+          {fieldIsTouchedWithError ? currentError : null}
+        </FormHelperText>
+      </WaitToGrow>
     </FormControl>
   )
 }
