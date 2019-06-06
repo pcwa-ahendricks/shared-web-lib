@@ -7,11 +7,10 @@ import {DroppedFile, UploadedFile} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
-import clsx from 'clsx'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import useModernizr from '@hooks/useModernizr'
 import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 type Props = {
   file: DroppedFile
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       padding: 4,
       boxSizing: 'border-box',
-      '&$xs': {
+      [theme.breakpoints.down('xs')]: {
         borderRadius: 1,
         width: 100,
         height: 100,
@@ -52,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: 2
       }
     },
-    xs: {},
     thumbInner: {
       display: 'flex',
       cursor: 'pointer',
@@ -139,12 +137,7 @@ const ThumbPreview = ({
 
   return (
     <Box display="flex" flexDirection="column">
-      <Box
-        flexGrow={0}
-        className={clsx(classes.thumb, {
-          [classes.xs]: isXS
-        })}
-      >
+      <Box flexGrow={0} className={classes.thumb}>
         <UploadStatusIndicator
           uploadedFiles={uploadedFiles}
           file={file}

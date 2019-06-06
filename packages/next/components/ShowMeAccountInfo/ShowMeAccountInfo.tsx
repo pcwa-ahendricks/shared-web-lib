@@ -8,11 +8,11 @@ import {
   Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import Imgix from 'react-imgix'
 import delay from 'then-sleep'
 import clsx from 'clsx'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
 
@@ -24,11 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
     typography: {
       margin: theme.spacing(4),
       color: theme.palette.grey[50],
-      '&$xsTypography': {
+      [theme.breakpoints.down('xs')]: {
         fontSize: '0.9em'
       }
     },
-    xsTypography: {},
     popoverContent: {
       width: 500,
       height: 200,
@@ -37,12 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      '&$xsPopoverContent': {
+      [theme.breakpoints.down('xs')]: {
         width: 300,
         height: 125
       }
     },
-    xsPopoverContent: {},
     textOverlay: {
       position: 'absolute',
       // backgroundColor: '#000',
@@ -115,19 +113,10 @@ const ShowMeAccountInfo = () => {
           onEntering={popoverEnteringHandler}
           onExited={popoverExitedHandler}
         >
-          <div
-            className={clsx(classes.popoverContent, {
-              [classes.xsPopoverContent]: isXS
-            })}
-          >
+          <div className={classes.popoverContent}>
             <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
               <div className={classes.textOverlay}>
-                <Type
-                  className={clsx(classes.typography, {
-                    [classes.xsTypography]: isXS
-                  })}
-                  variant="h5"
-                >
+                <Type className={classes.typography} variant="h5">
                   Find your account number on the upper right of your printed
                   bill statement. Entering leading zeros on this form is
                   optional.
