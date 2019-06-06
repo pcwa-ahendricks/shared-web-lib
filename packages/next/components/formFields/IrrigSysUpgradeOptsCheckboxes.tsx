@@ -8,11 +8,10 @@ import {
   FormLabel,
   Theme
 } from '@material-ui/core'
-import {makeStyles, useTheme} from '@material-ui/styles'
+import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import {FormControlProps} from '@material-ui/core/FormControl'
 import {FormLabelProps} from '@material-ui/core/FormLabel'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 /**
  * This is used to correct Types so "legend" and "fieldset" can be used.
@@ -31,12 +30,14 @@ type Props = {
   fullWidth?: boolean
 } & FieldProps<any>
 
-const useStyles = makeStyles({
-  fcXsLabel: {
-    marginBottom: 2,
-    marginTop: 2
+const useStyles = makeStyles((theme: Theme) => ({
+  fcLabel: {
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: 2,
+      marginTop: 2
+    }
   }
-})
+}))
 
 export const formControlItems = {
   'Conversion of existing high volume sprinkler systems to low volume drip irrigation systems': false,
@@ -57,8 +58,6 @@ const IrrigSysUpgradeOptsCheckboxes = ({
   ...other
 }: Props) => {
   const classes = useStyles()
-  const theme = useTheme<Theme>()
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const {name, value = formControlItems} = field
   const {
     errors,
@@ -100,10 +99,10 @@ const IrrigSysUpgradeOptsCheckboxes = ({
               onBlur={handleBlur}
             />
           }
-          classes={{root: isXS ? classes.fcXsLabel : null}}
+          classes={{root: classes.fcLabel}}
         />
       )),
-    [handleBlur, handleChange, value, classes, isXS]
+    [handleBlur, handleChange, value, classes]
   )
 
   return (
