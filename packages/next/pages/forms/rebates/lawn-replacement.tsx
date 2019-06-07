@@ -10,7 +10,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, boolean, Schema} from 'yup'
+import {string, object, Schema} from 'yup'
 import {
   postRebateForm,
   LawnReplacementRequestBody as RequestBody,
@@ -87,14 +87,17 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
-    termsAgree: boolean()
-      .required()
-      .oneOf([true], 'Must agree to Terms and Conditions by checking this box')
-      .label('Agree to Terms'),
-    inspectAgree: boolean()
+    termsAgree: string()
       .required()
       .oneOf(
-        [true],
+        ['true'],
+        'Must agree to Terms and Conditions by checking this box'
+      )
+      .label('Agree to Terms'),
+    inspectAgree: string()
+      .required()
+      .oneOf(
+        ['true'],
         'Must agree to a scheduled site inspection by checking this box'
       )
       .label('Agree to Site Inspection'),
@@ -104,17 +107,17 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
-    useArtTurf: boolean()
+    useArtTurf: string()
       .required()
       .oneOf(
-        [false],
+        ['false'],
         'Artificial grass is not allowed in the rebated portion of the converted landscape'
       )
       .label('Replace lawn with artificial turf'),
-    alreadyStarted: boolean()
+    alreadyStarted: string()
       .required()
       .oneOf(
-        [false],
+        ['false'],
         "Conversions that are initiated prior to PCWA's approval are ineligible"
       )
       .label('Already started replacement of lawn'),
@@ -152,14 +155,14 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
-  termsAgree: false,
-  inspectAgree: false,
+  termsAgree: '',
+  inspectAgree: '',
   signature: '',
   captcha: '',
   irrigMethod: '',
   approxSqFeet: '',
-  useArtTurf: false,
-  alreadyStarted: false
+  useArtTurf: '',
+  alreadyStarted: ''
 }
 
 const useStyles = makeStyles((theme: Theme) =>

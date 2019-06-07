@@ -4,7 +4,7 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {string, object, boolean, Schema} from 'yup'
+import {string, object, Schema} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -52,11 +52,12 @@ interface FormDataObj {
   phone: string
   propertyType: string
   irrigMethod: string
-  termsAgree: boolean
+  inspectAgree: string
+  termsAgree: string
   signature: string
   captcha: string
-  useArtTurf: boolean
-  alreadyStarted: boolean
+  useArtTurf: string
+  alreadyStarted: string
   approxSqFeet: string
 }
 
@@ -86,23 +87,23 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
-        termsAgree: boolean()
+        termsAgree: string()
           .required()
-          .oneOf([true]),
-        inspectAgree: boolean()
+          .oneOf(['true']),
+        inspectAgree: string()
           .required()
-          .oneOf([true]),
+          .oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         irrigMethod: string()
           .required()
           .notOneOf(['Hand water']), // Case sensitive
-        useArtTurf: boolean()
+        useArtTurf: string()
           .required()
-          .oneOf([false]),
-        alreadyStarted: boolean()
+          .oneOf(['false']),
+        alreadyStarted: string()
           .required()
-          .oneOf([false]),
+          .oneOf(['false']),
         approxSqFeet: string()
           .required()
           .test(

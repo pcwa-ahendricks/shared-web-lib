@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 export const ANSWERS = [
-  {caption: 'Yes', value: true},
-  {caption: 'No', value: false}
+  {caption: 'Yes', value: 'true'},
+  {caption: 'No', value: 'false'}
 ]
 
 const ArtTurfSelect = ({
@@ -57,7 +57,12 @@ const ArtTurfSelect = ({
 
   // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
-    (e: React.ChangeEvent) => {
+    (
+      e: React.ChangeEvent<{
+        name?: string | undefined
+        value: unknown
+      }>
+    ) => {
       handleChange(e)
       setFieldTouched(name, true, true)
     },

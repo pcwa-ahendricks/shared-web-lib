@@ -53,7 +53,7 @@ const IrrigationTypesSelect = ({
 
   // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
-    (evt: React.ChangeEvent) => {
+    (evt: React.ChangeEvent<any>) => {
       handleChange(evt)
       setFieldTouched(name, true, true)
     },

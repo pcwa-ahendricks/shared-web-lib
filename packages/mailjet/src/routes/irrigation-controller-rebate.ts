@@ -5,7 +5,7 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, boolean, Schema, date} from 'yup'
+import {string, object, array, Schema, date} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -62,7 +62,7 @@ interface FormDataObj {
   model: string
   additional?: string
   purchaseDate: string // Incoming date will be type 'string', not a Date Object.
-  termsAgree: boolean
+  termsAgree: string
   signature: string
   captcha: string
   receipts: AttachmentFieldValue[]
@@ -100,9 +100,9 @@ const bodySchema = object()
         model: string().required(),
         additional: string(),
         purchaseDate: date().required(),
-        termsAgree: boolean()
+        termsAgree: string()
           .required()
-          .oneOf([true]),
+          .oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         receipts: array()

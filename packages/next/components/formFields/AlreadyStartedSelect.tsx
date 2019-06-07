@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const ANSWERS = [
-  {caption: 'Yes', value: true},
-  {caption: 'No', value: false}
+  {caption: 'Yes', value: 'true'},
+  {caption: 'No', value: 'false'}
 ]
 
 const AlreadyStartedSelect = ({

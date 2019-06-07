@@ -6,6 +6,7 @@ import {
   FormHelperText
 } from '@material-ui/core'
 import {FieldProps} from 'formik'
+import {safeCastBooleanToStr, safeCastStrToBoolean} from '@lib/safeCastBoolean'
 
 type Props = {
   fullWidth?: boolean
@@ -23,12 +24,12 @@ const AgreeInspectionCheckbox = ({
   const {name, value} = field
   const {
     errors,
-    handleChange,
+    // handleChange,
     isSubmitting,
     handleBlur,
     touched,
-    setFieldTouched
-    // setFieldValue
+    setFieldTouched,
+    setFieldValue
   } = form
   const currentError = errors[name]
   const fieldHasError = Boolean(currentError)
@@ -37,13 +38,16 @@ const AgreeInspectionCheckbox = ({
 
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched.
   const changeHandler = useCallback(
-    (...args) => {
-      handleChange(...args)
+    (e: React.ChangeEvent<any>) => {
+      const checked: boolean = e.target.checked
+      const checkedStr = safeCastBooleanToStr(checked)
+      setFieldValue(name, checkedStr, true)
       setFieldTouched(name, true)
     },
-    [handleChange, setFieldTouched, name]
+    [setFieldValue, setFieldTouched, name]
   )
 
+  const isChecked = safeCastStrToBoolean(value)
   return (
     <FormControl
       required
@@ -56,11 +60,10 @@ const AgreeInspectionCheckbox = ({
       {...other}
     >
       <FormControlLabel
-        required
         label="Check here to agree to an inspection"
         control={
           <Checkbox
-            checked={value}
+            checked={isChecked}
             value="acknowledgement"
             color="primary"
             inputProps={{

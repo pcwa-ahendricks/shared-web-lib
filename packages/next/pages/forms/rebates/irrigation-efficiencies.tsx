@@ -10,7 +10,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, boolean, Schema} from 'yup'
+import {string, object, Schema} from 'yup'
 import {
   postRebateForm,
   IrrigationEfficienciesRequestBody as RequestBody,
@@ -89,14 +89,17 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
-    termsAgree: boolean()
-      .required()
-      .oneOf([true], 'Must agree to Terms and Conditions by checking this box')
-      .label('Agree to Terms'),
-    inspectAgree: boolean()
+    termsAgree: string()
       .required()
       .oneOf(
-        [true],
+        ['true'],
+        'Must agree to Terms and Conditions by checking this box'
+      )
+      .label('Agree to Terms'),
+    inspectAgree: string()
+      .required()
+      .oneOf(
+        ['true'],
         'Must agree to a scheduled site inspection by checking this box'
       )
       .label('Agree to Site Inspection'),
@@ -139,8 +142,8 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
-  termsAgree: false,
-  inspectAgree: false,
+  termsAgree: '',
+  inspectAgree: '',
   signature: '',
   captcha: '',
   irrigMethod: '',

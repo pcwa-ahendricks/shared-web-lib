@@ -11,7 +11,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, boolean, array, Schema, date} from 'yup'
+import {string, object, array, Schema, date} from 'yup'
 import clsx from 'clsx'
 import {
   postRebateForm,
@@ -98,9 +98,12 @@ const formSchema = object()
     purchaseDate: date()
       .required('A valid purchase date is required')
       .typeError('A valid purchase date is required'),
-    termsAgree: boolean()
+    termsAgree: string()
       .required()
-      .oneOf([true], 'Must agree to Terms and Conditions by checking this box')
+      .oneOf(
+        ['true'],
+        'Must agree to Terms and Conditions by checking this box'
+      )
       .label('Agree to Terms'),
     signature: string()
       .required()
@@ -171,7 +174,7 @@ const initialFormValues: RebateFormData = {
   model: '',
   additional: '',
   purchaseDate: new Date(),
-  termsAgree: false,
+  termsAgree: '',
   signature: '',
   captcha: '',
   receipts: [],

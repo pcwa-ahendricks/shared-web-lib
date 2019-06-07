@@ -6,6 +6,7 @@ import {
   FormHelperText
 } from '@material-ui/core'
 import {FieldProps} from 'formik'
+import {safeCastBooleanToStr, safeCastStrToBoolean} from '@lib/safeCastBoolean'
 
 type Props = {
   // onChange?: (Array<any>) => void,
@@ -39,13 +40,16 @@ const AgreeTermsCheckbox = ({
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched.
   const changeHandler = useCallback(
     (e: React.ChangeEvent<any>) => {
-      setFieldValue(name, e.target.checked, true)
+      const checked: boolean = e.target.checked
+      const checkedStr = safeCastBooleanToStr(checked)
+      setFieldValue(name, checkedStr, true)
       setFieldTouched(name, true)
       // onChange && onChange(...args)
     },
     [setFieldValue, setFieldTouched, name]
   )
 
+  const isChecked = safeCastStrToBoolean(value)
   return (
     <FormControl
       required
@@ -58,11 +62,10 @@ const AgreeTermsCheckbox = ({
       {...other}
     >
       <FormControlLabel
-        required
         label="Check here to acknowledge terms and conditions"
         control={
           <Checkbox
-            checked={value}
+            checked={isChecked}
             value="acknowledgement"
             color="primary"
             inputProps={{

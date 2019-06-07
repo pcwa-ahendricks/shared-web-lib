@@ -2,6 +2,7 @@
 import fetch from 'isomorphic-unfetch'
 import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
+import {BooleanAsString} from '@lib/safeCastBoolean'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
 
@@ -19,7 +20,7 @@ export interface IrrigationControllerRebateFormData {
   model: string
   additional: string
   purchaseDate: Date
-  termsAgree: boolean
+  termsAgree: BooleanAsString
   signature: string
   captcha: string
   receipts: string[]
@@ -42,8 +43,8 @@ export interface IrrigationEfficienciesRebateFormData {
   otherCity: string
   phone: string
   propertyType: string
-  termsAgree: boolean
-  inspectAgree: boolean
+  termsAgree: BooleanAsString
+  inspectAgree: BooleanAsString
   signature: string
   captcha: string
   irrigMethod: string
@@ -67,13 +68,13 @@ export interface LawnReplacementRebateFormData {
   phone: string
   propertyType: string
   approxSqFeet: string
-  termsAgree: boolean
-  inspectAgree: boolean
+  termsAgree: BooleanAsString
+  inspectAgree: BooleanAsString
   signature: string
   captcha: string
   irrigMethod: string
-  useArtTurf: boolean
-  alreadyStarted: boolean
+  useArtTurf: BooleanAsString
+  alreadyStarted: BooleanAsString
 }
 
 export interface LawnReplacementRequestBody {

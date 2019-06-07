@@ -4,7 +4,7 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {string, object, boolean, Schema} from 'yup'
+import {string, object, Schema} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -57,7 +57,8 @@ interface FormDataObj {
   upgradeOpts: {
     [key: string]: boolean
   }
-  termsAgree: boolean
+  termsAgree: string
+  inspectAgree: string
   signature: string
   captcha: string
 }
@@ -88,12 +89,12 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
-        termsAgree: boolean()
+        termsAgree: string()
           .required()
-          .oneOf([true]),
-        inspectAgree: boolean()
+          .oneOf(['true']),
+        inspectAgree: string()
           .required()
-          .oneOf([true]),
+          .oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         irrigMethod: string()
