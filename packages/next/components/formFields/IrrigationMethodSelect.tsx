@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
+import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
   fullWidth?: boolean
