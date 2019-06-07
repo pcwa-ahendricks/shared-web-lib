@@ -9,6 +9,7 @@ const HTML_DATE_INPUT_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -22,6 +23,7 @@ const PurchaseDateNativeField = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -63,7 +65,7 @@ const PurchaseDateNativeField = ({
       error={fieldIsTouchedWithError}
       onChange={changeHandler}
       onBlur={handleBlur}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       InputLabelProps={{
         shrink: true,
         classes: {

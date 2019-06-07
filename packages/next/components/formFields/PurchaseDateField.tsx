@@ -6,6 +6,7 @@ import {FieldProps} from 'formik'
 type Props = {
   fullWidth?: boolean
   required?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const PurchaseDateField = ({
@@ -13,6 +14,7 @@ const PurchaseDateField = ({
   form,
   fullWidth = true,
   required = true,
+  disabled = false,
   ...other
 }: Props) => {
   const {name, value} = field as {value: string; name: string}
@@ -49,13 +51,14 @@ const PurchaseDateField = ({
     prevDatePickerErrorRef.current = datePickerError
   }, [datePickerError, name, setFieldError])
 
-  const disabled = Boolean(isSubmitting)
+  // Need to specify disabled prop on both <FormControl/> and <DatePicker/>. Future versions of <DatePicker/> may not have this requirement.
+  const disabledControl = disabled || isSubmitting
   return (
     // TODO - It would be nice if there was a way to automatically validate the field when the correct input is finally entered with keyboard. Currently, the user has to hit enter or blur the field in order to trigger the validation.
     <FormControl
       required={required}
       margin="normal"
-      disabled={disabled}
+      disabled={disabledControl}
       // Since we are not using FormHelperText error prop is not required.
       // error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
@@ -71,7 +74,7 @@ const PurchaseDateField = ({
         // clearable
         disableFuture
         name={name}
-        disabled={disabled}
+        disabled={disabledControl}
         value={value}
         format="MM/dd/yyyy"
         placeholder="mm/dd/yyyy"

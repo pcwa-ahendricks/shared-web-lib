@@ -85,13 +85,14 @@ const MegaMenuPopper = ({
     setPopperTransActive(false)
   }, [])
 
+  const hasAnchorEl = Boolean(anchorEl)
   return (
     <React.Fragment>
       <Popper
         // Logical Or for type checking only.
         id={id || undefined}
         className={classes.popper}
-        open={open}
+        open={open && hasAnchorEl}
         anchorEl={anchorEl}
         transition
         modifiers={{
@@ -130,7 +131,7 @@ const MegaMenuPopper = ({
       <Popper
         // Logical Or for type checking only.
         id={id || undefined}
-        open={open && toolbarVariant === 'regular'} // Check prevents popper.js console.log() msg.}
+        open={open && toolbarVariant === 'regular' && hasAnchorEl}
         className={classes.popper}
         transition
         anchorEl={anchorEl}

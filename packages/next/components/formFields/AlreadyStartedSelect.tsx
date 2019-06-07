@@ -14,6 +14,7 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,6 +38,7 @@ const AlreadyStartedSelect = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -68,7 +70,7 @@ const AlreadyStartedSelect = ({
       required
       variant="outlined"
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
       {...other}

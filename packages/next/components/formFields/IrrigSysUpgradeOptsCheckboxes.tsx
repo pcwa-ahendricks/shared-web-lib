@@ -28,6 +28,7 @@ const MyFormLabel: React.ComponentType<MyFormLabelProps> = FormLabel
 type Props = {
   onChange?: (e: React.ChangeEvent<any>) => void
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,6 +56,7 @@ const IrrigSysUpgradeOptsCheckboxes = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -111,7 +113,7 @@ const IrrigSysUpgradeOptsCheckboxes = ({
       variant="outlined"
       margin="normal"
       error={fieldIsTouchedWithError}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       component="fieldset"
       fullWidth={fullWidth}
       {...other}

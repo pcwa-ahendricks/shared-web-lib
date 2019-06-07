@@ -369,7 +369,7 @@ const QuestionOne = () => {
     <Field name="alreadyStarted">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name} = field
+        const {name, value} = field
         const currentError = errors[name]
 
         const clickHandler = (alreadyStarted: boolean) => () => {
@@ -388,15 +388,16 @@ const QuestionOne = () => {
                 </ListSubheader>
               }
             >
-              {q1Answers.map(({caption, value}) => (
+              {q1Answers.map((answer) => (
                 <ListItem
-                  key={caption}
+                  key={answer.caption}
                   button
                   divider
+                  selected={answer.value === value}
                   disabled={fieldTouched}
-                  onClick={clickHandler(value)}
+                  onClick={clickHandler(answer.value)}
                 >
-                  <ListItemText primary={caption} />
+                  <ListItemText primary={answer.caption} />
                 </ListItem>
               ))}
             </List>
@@ -427,7 +428,7 @@ const QuestionTwo = () => {
     <Field name="useArtTurf">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name} = field
+        const {name, value} = field
         const currentError = errors[name]
 
         const clickHandler = (useArtTurf: boolean) => () => {
@@ -446,15 +447,16 @@ const QuestionTwo = () => {
                 </ListSubheader>
               }
             >
-              {q2Answers.map(({caption, value}) => (
+              {q2Answers.map((answer) => (
                 <ListItem
-                  key={caption}
+                  key={answer.caption}
                   button
                   divider
+                  selected={answer.value === value}
                   disabled={fieldTouched}
-                  onClick={clickHandler(value)}
+                  onClick={clickHandler(answer.value)}
                 >
-                  <ListItemText primary={caption} />
+                  <ListItemText primary={answer.caption} />
                 </ListItem>
               ))}
             </List>
@@ -519,7 +521,7 @@ const QuestionFour = () => {
     <Field name="irrigMethod">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, touched, errors, setFieldTouched} = form
-        const {name} = field
+        const {name, value} = field
         const currentError = errors[name]
 
         const clickHandler = (irrigMethod: string) => () => {
@@ -543,6 +545,7 @@ const QuestionFour = () => {
                   key={method}
                   button
                   divider
+                  selected={method === value}
                   disabled={fieldTouched}
                   onClick={clickHandler(method)}
                 >

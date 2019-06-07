@@ -343,7 +343,9 @@ const ContactUs = () => {
                           color="primary"
                           type="submit"
                           disabled={
-                            isSubmitting || !isValid || (!formTouched && !dirty)
+                            isSubmitting ||
+                            // || !isValid
+                            (!formTouched && !dirty)
                           }
                         >
                           Submit

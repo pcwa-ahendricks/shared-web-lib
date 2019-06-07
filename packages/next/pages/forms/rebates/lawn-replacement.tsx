@@ -259,7 +259,7 @@ const LawnReplacement = () => {
 
   useEffect(() => {
     const fn = async () => {
-      await delay(900)
+      await delay(800)
       setEligibilityDialogOpen(true)
     }
     fn()
@@ -310,7 +310,7 @@ const LawnReplacement = () => {
                     touched = {},
                     dirty,
                     isSubmitting,
-                    isValid,
+                    // isValid,
                     errors,
                     setFieldValue
                   } = formik
@@ -634,7 +634,7 @@ const LawnReplacement = () => {
                             type="submit"
                             disabled={
                               isSubmitting ||
-                              !isValid ||
+                              // !isValid ||
                               ineligible ||
                               (!formTouched && !dirty)
                             }

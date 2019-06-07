@@ -221,6 +221,7 @@ const CityAutoSelectField = ({
   onChange,
   fullWidth = true,
   required = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -259,7 +260,7 @@ const CityAutoSelectField = ({
       required={required}
       variant="outlined"
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
       {...other}

@@ -395,7 +395,7 @@ const IrrigationController = () => {
                     touched = {},
                     dirty,
                     isSubmitting,
-                    isValid,
+                    // isValid,
                     setFieldValue
                   } = formik
 
@@ -756,7 +756,7 @@ const IrrigationController = () => {
                           type="submit"
                           disabled={
                             isSubmitting ||
-                            !isValid ||
+                            // !isValid ||
                             (!formTouched && !dirty) ||
                             attachmentsAreUploading
                           }

@@ -6,6 +6,7 @@ import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any> &
   OutlinedTextFieldProps
 
@@ -21,6 +22,7 @@ const ContactUsMessageField = ({
   form,
   required = true,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -45,7 +47,7 @@ const ContactUsMessageField = ({
       error={fieldIsTouchedWithError}
       onChange={handleChange}
       onBlur={handleBlur}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       InputLabelProps={{
         classes: {
           root: classes.inputLabel

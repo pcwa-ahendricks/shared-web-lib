@@ -7,6 +7,7 @@ import {FieldProps} from 'formik'
 type Props = {
   onChange?: (e: React.ChangeEvent<any>) => void
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -20,6 +21,7 @@ const IrrigCntrlAddtlField = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   onChange,
   ...other
 }: Props) => {
@@ -51,7 +53,7 @@ const IrrigCntrlAddtlField = ({
       error={fieldIsTouchedWithError}
       onChange={changeHandler}
       onBlur={handleBlur}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       InputLabelProps={{
         classes: {
           root: classes.inputLabel

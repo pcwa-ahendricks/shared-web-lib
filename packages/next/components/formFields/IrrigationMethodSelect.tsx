@@ -13,6 +13,7 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -32,6 +33,7 @@ const IrrigationTypesSelect = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -63,7 +65,7 @@ const IrrigationTypesSelect = ({
       required
       variant="outlined"
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
       {...other}

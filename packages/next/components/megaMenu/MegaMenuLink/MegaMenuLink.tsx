@@ -6,7 +6,7 @@ import Overline from '@components/Overline/Overline'
 
 type Props = {
   typographyClass?: any
-  onLinkClick: () => any
+  onLinkClick: (event: any) => any
   onLinkEnter: (e: any, target: any) => any
   onLinkLeave: () => any
   onBottomBunEnter: () => any

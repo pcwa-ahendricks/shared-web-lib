@@ -14,6 +14,7 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 type Props = {
   onChange?: (event: React.FormEvent<HTMLDivElement>) => void
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -36,6 +37,7 @@ const PropertyTypeSelectField = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -51,7 +53,7 @@ const PropertyTypeSelectField = ({
       required
       variant="outlined"
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
       {...other}

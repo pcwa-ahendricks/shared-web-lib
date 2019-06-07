@@ -14,6 +14,7 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,7 +33,13 @@ export const ANSWERS = [
   {caption: 'No', value: false}
 ]
 
-const ArtTurfSelect = ({field, form, fullWidth = true, ...other}: Props) => {
+const ArtTurfSelect = ({
+  field,
+  form,
+  fullWidth = true,
+  disabled = false,
+  ...other
+}: Props) => {
   const classes = useStyles()
   const {name, value} = field
   const {
@@ -62,7 +69,7 @@ const ArtTurfSelect = ({field, form, fullWidth = true, ...other}: Props) => {
       required
       variant="outlined"
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
       {...other}

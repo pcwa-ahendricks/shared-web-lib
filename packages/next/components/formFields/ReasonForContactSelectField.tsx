@@ -20,6 +20,7 @@ type Props = {
     }>
   ) => void
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any> &
   FormControlProps
 
@@ -50,6 +51,7 @@ const ReasonForContactSelectField = ({
   onChange,
   fullWidth = true,
   required = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -78,7 +80,7 @@ const ReasonForContactSelectField = ({
       required={required}
       variant="outlined"
       margin="normal"
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}
       {...other}

@@ -83,13 +83,13 @@ const ShowMeAccountInfo = () => {
     setShowTextOverlay(true)
   }, [setShowTextOverlay])
 
-  const open = Boolean(anchorEl)
+  const hasAnchorEl = Boolean(anchorEl)
   return (
     <Tooltip title="Where can I find my account number?" open={tooltipOpen}>
       <div>
         <IconButton
           size="small"
-          aria-owns={open ? 'simple-popper' : undefined}
+          aria-owns={hasAnchorEl ? 'simple-popper' : undefined}
           aria-haspopup="true"
           onClick={handleClick}
           onMouseEnter={() => setTooltipOpen(true)}
@@ -99,7 +99,7 @@ const ShowMeAccountInfo = () => {
         </IconButton>
         <Popover
           id="simple-popper"
-          open={open}
+          open={hasAnchorEl}
           anchorEl={anchorEl}
           onClose={closeHandler}
           anchorOrigin={{

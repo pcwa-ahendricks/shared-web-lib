@@ -14,6 +14,7 @@ type Props = {
   attachmentTitle?: string
   required?: boolean
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const UPLOAD_MB_LIMIT = 15 // Now lambda functions must be less than 5MB, but we are resizing dropped files using Jimp to roughly 3MB.
@@ -25,6 +26,7 @@ const AttachmentField = ({
   attachmentTitle = 'attachment',
   fullWidth = true,
   required = true,
+  disabled = false,
   ...other
 }: Props) => {
   const dropzoneUploaderRef = useRef<DropzoneUploaderHandles>(null)
@@ -99,7 +101,6 @@ const AttachmentField = ({
     [setFieldValue, name]
   )
 
-  const disabled = Boolean(isSubmitting)
   return (
     <FormControl
       required={required}
@@ -120,7 +121,7 @@ const AttachmentField = ({
         height={200}
         width="100%"
         accept="image/*, application/pdf"
-        disabled={disabled || value.length >= UPLOAD_FILE_LIMIT}
+        disabled={disabled || isSubmitting || value.length >= UPLOAD_FILE_LIMIT}
         maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
         {...other}
       />

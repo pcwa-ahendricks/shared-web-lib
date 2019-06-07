@@ -10,6 +10,7 @@ import {FieldProps} from 'formik'
 type Props = {
   // onChange?: (Array<any>) => void,
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const AgreeTermsCheckbox = ({
@@ -17,6 +18,7 @@ const AgreeTermsCheckbox = ({
   form,
   // onChange,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const {name, value} = field
@@ -50,7 +52,7 @@ const AgreeTermsCheckbox = ({
       variant="outlined"
       margin="normal"
       error={fieldIsTouchedWithError}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       component="fieldset"
       fullWidth={fullWidth}
       {...other}

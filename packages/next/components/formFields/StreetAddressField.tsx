@@ -5,6 +5,7 @@ import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -18,6 +19,7 @@ const StreetAddressField = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -42,7 +44,7 @@ const StreetAddressField = ({
       error={fieldIsTouchedWithError}
       onChange={handleChange}
       onBlur={handleBlur}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       InputLabelProps={{
         classes: {
           root: classes.inputLabel

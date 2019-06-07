@@ -14,6 +14,7 @@ import {FormLabelProps} from '@material-ui/core/FormLabel'
 type Props = {
   onChange?: (e: React.ChangeEvent) => void
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 /**
@@ -41,6 +42,7 @@ const IrrigUpgradeLocationCheckboxes = ({
   field,
   form,
   fullWidth = true,
+  disabled = false,
   ...other
 }: Props) => {
   const {name, value = formControlItems} = field
@@ -94,7 +96,7 @@ const IrrigUpgradeLocationCheckboxes = ({
       variant="outlined"
       margin="normal"
       error={fieldIsTouchedWithError}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       component="fieldset"
       fullWidth={fullWidth}
       {...other}

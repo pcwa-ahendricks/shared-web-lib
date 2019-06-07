@@ -64,7 +64,7 @@ const IrrigationMethodDialog = ({open = false, onClose, formik}: Props) => {
         <Field name="irrigMethod">
           {({field, form}: FieldProps<any>) => {
             const {setFieldValue, errors, setFieldTouched, touched} = form
-            const {name} = field
+            const {name, value} = field
             const currentError = errors[name]
             const fieldHasError = Boolean(currentError)
             const fieldWasTouched = Boolean(touched[name])
@@ -89,6 +89,7 @@ const IrrigationMethodDialog = ({open = false, onClose, formik}: Props) => {
                       key={method}
                       button
                       divider
+                      selected={method === value}
                       disabled={fieldIsTouchedWithError}
                       onClick={clickHandler(method)}
                     >

@@ -83,8 +83,8 @@ const ForecastCycle = ({
   }, [])
 
   const forecast = activeForecast()
-  const open = Boolean(anchorEl)
 
+  const hasAnchorEl = Boolean(anchorEl)
   const forecastDisplay = useMemo(
     () =>
       forecast && forecast.id ? (
@@ -94,7 +94,7 @@ const ForecastCycle = ({
   )
   return (
     <div
-      aria-owns={open ? 'forecast-popover' : undefined}
+      aria-owns={hasAnchorEl ? 'forecast-popover' : undefined}
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
       onMouseLeave={handlePopoverClose}
@@ -110,7 +110,8 @@ const ForecastCycle = ({
         {forecastDisplay}
       </ReactCSSTransitionReplace>
       <ForecastPopover
-        anchorEl={anchorEl ? anchorEl : undefined} // Ternary is just for typechecking.
+        open={hasAnchorEl}
+        anchorEl={anchorEl}
         onPopoverClose={handlePopoverClose}
       />
     </div>

@@ -5,6 +5,7 @@ import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -14,7 +15,13 @@ const useStyles = makeStyles({
   }
 })
 
-const SignatureField = ({field, form, fullWidth = true, ...other}: Props) => {
+const SignatureField = ({
+  field,
+  form,
+  fullWidth = true,
+  disabled = false,
+  ...other
+}: Props) => {
   const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
@@ -38,7 +45,7 @@ const SignatureField = ({field, form, fullWidth = true, ...other}: Props) => {
       error={fieldIsTouchedWithError}
       onChange={handleChange}
       onBlur={handleBlur}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       InputLabelProps={{
         classes: {
           root: classes.inputLabel

@@ -7,6 +7,7 @@ import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
 
 type Props = {
   fullWidth?: boolean
+  disabled?: boolean
 } & FieldProps<any>
 
 const useStyles = makeStyles({
@@ -16,7 +17,13 @@ const useStyles = makeStyles({
   }
 })
 
-const AccountNoField = ({field, form, fullWidth = true, ...other}: Props) => {
+const AccountNoField = ({
+  field,
+  form,
+  fullWidth = true,
+  disabled = false,
+  ...other
+}: Props) => {
   const classes = useStyles()
   const {name, value} = field
   const {
@@ -55,7 +62,7 @@ const AccountNoField = ({field, form, fullWidth = true, ...other}: Props) => {
       error={fieldIsTouchedWithError}
       onChange={changeHandler}
       onBlur={handleBlur}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
       InputLabelProps={{
         classes: {
           root: classes.inputLabel

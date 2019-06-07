@@ -245,7 +245,7 @@ const IrrigationEfficiencies = () => {
 
   useEffect(() => {
     const fn = async () => {
-      await delay(900)
+      await delay(800)
       setIrrigMethodDialogOpen(true)
     }
     fn()
@@ -296,7 +296,7 @@ const IrrigationEfficiencies = () => {
                     touched = {},
                     dirty,
                     isSubmitting,
-                    isValid,
+                    // isValid,
                     errors,
                     setFieldValue
                   } = formik
@@ -626,7 +626,7 @@ const IrrigationEfficiencies = () => {
                             type="submit"
                             disabled={
                               isSubmitting ||
-                              !isValid ||
+                              // !isValid ||
                               ineligible ||
                               (!formTouched && !dirty)
                             }

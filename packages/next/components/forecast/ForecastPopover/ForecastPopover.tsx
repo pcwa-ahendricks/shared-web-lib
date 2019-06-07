@@ -6,8 +6,9 @@ import Imgix from 'react-imgix'
 const DARKSKY_BG_COLOR = '#313134'
 
 type Props = {
-  anchorEl?: HTMLElement
+  anchorEl?: HTMLElement | null
   onPopoverClose?: () => any
+  open?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,9 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ForecastPopover = ({onPopoverClose, anchorEl}: Props) => {
+const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
   const classes = useStyles()
-  const open = Boolean(anchorEl)
+  const hasAnchorEl = Boolean(anchorEl)
   return (
     <Popover
       id="mouse-over-popover"
@@ -47,7 +48,7 @@ const ForecastPopover = ({onPopoverClose, anchorEl}: Props) => {
       classes={{
         paper: classes.paper
       }}
-      open={open}
+      open={open && hasAnchorEl}
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 30,
