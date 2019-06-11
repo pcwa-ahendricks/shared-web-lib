@@ -1,9 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import ConfirmPageLeaveDialog from '@components/ConfirmPageLeaveDialog/ConfirmPageLeaveDialog'
-import {withRouter, RouterProps} from 'next/router'
+import {useRouter} from 'next/router'
 
 type Props = {
-  router: RouterProps
   shouldConfirmRouteChange?: boolean
   onDialogLeave: () => void
   onDialogCancel: () => void
@@ -11,12 +10,12 @@ type Props = {
 }
 
 const ConfirmPageLeaveLayout = ({
-  router,
   shouldConfirmRouteChange = false,
   children,
   onDialogCancel,
   onDialogLeave
 }: Props) => {
+  const router = useRouter()
   const [confirmPgLeaveDialogOpen, setConfirmPgLeaveDialogOpen] = useState<
     boolean
   >(false)
@@ -72,4 +71,4 @@ const ConfirmPageLeaveLayout = ({
   )
 }
 
-export default withRouter(ConfirmPageLeaveLayout)
+export default ConfirmPageLeaveLayout

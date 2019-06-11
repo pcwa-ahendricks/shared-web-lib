@@ -1,13 +1,13 @@
 import React from 'react'
 import clsx from 'clsx'
-import {withRouter, RouterProps} from 'next/router'
-import NextLink, {LinkProps} from 'next/link'
+import {useRouter} from 'next/router'
+import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import MuiLink, {LinkProps as MuiLinkProps} from '@material-ui/core/Link'
 import {makeStyles} from '@material-ui/styles'
 
 type NextComposedProps = {
   children: React.ReactNode
-} & LinkProps &
+} & NextLinkProps &
   React.HTMLProps<HTMLAnchorElement>
 
 const useStyles = makeStyles({
@@ -30,45 +30,52 @@ const NextComposed = ({
   )
 }
 
-type NextLinkProps = {
+// Using React.forwardRef made Typescript warnings and console error warnings go away. Not clear if this is implemented correctly.
+const ForwardNextComposed = React.forwardRef(
+  (props: NextComposedProps, ref: React.Ref<any>) => (
+    <NextComposed {...props} {...ref} />
+  )
+)
+ForwardNextComposed.displayName = 'NextComposed'
+
+type NextMuiLinkProps = {
   activeClassName?: string
   as?: string
-  className?: string
   href: string
   naked?: boolean
   onClick?: any
   prefetch?: boolean
-  router: RouterProps
   children: React.ReactNode
-}
+} & MuiLinkProps &
+  NextComposedProps
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
 const Link = ({
   activeClassName = 'active',
-  router,
   className,
   naked,
   href,
   children,
   ...other
-}: NextLinkProps & MuiLinkProps) => {
+}: NextMuiLinkProps) => {
   const classes = useStyles()
+  const router = useRouter()
   const classNames = clsx(className, classes.root, {
     [activeClassName]: router.pathname === href && activeClassName
   })
 
   if (naked) {
     return (
-      <NextComposed className={className} href={href} {...other}>
+      <ForwardNextComposed className={className} href={href} {...other}>
         {children}
-      </NextComposed>
+      </ForwardNextComposed>
     )
   }
 
   return (
     <MuiLink
-      component={NextComposed}
+      component={ForwardNextComposed}
       className={classNames}
       href={href}
       {...other}
@@ -78,4 +85,4 @@ const Link = ({
   )
 }
 
-export default withRouter(Link)
+export default Link
