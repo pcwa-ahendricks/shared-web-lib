@@ -5,10 +5,7 @@ import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import MuiLink, {LinkProps as MuiLinkProps} from '@material-ui/core/Link'
 import {makeStyles} from '@material-ui/styles'
 
-type NextComposedProps = {
-  children: React.ReactNode
-} & NextLinkProps &
-  React.HTMLProps<HTMLAnchorElement>
+type NextComposedProps = NextLinkProps & React.HTMLProps<HTMLAnchorElement>
 
 const useStyles = makeStyles({
   root: {
@@ -45,9 +42,9 @@ type NextMuiLinkProps = {
   naked?: boolean
   onClick?: any
   prefetch?: boolean
-  children: React.ReactNode
-} & MuiLinkProps &
-  NextComposedProps
+  children: any // Not sure how to fix this using any other type than any, and the Omit helpers below. See <PrimaryHeader/> for type errors when another type is used here, such as ReactElement.
+} & Omit<MuiLinkProps, 'children'> &
+  Omit<NextComposedProps, 'children'>
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
