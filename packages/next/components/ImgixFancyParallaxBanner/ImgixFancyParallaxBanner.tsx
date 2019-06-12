@@ -1,10 +1,9 @@
 import React from 'react'
-import {ParallaxBanner} from 'react-scroll-parallax'
-import ImgixFancy from '../ImgixFancy/ImgixFancy'
+import {ParallaxBanner, ParallaxBannerProps} from 'react-scroll-parallax'
+import ImgixFancy, {ImgixFancyProps} from '../ImgixFancy/ImgixFancy'
 import {makeStyles} from '@material-ui/styles'
 
 const useStyles = makeStyles({
-  root: {},
   parallaxChildren: {
     position: 'absolute',
     top: 0,
@@ -18,21 +17,12 @@ const useStyles = makeStyles({
   }
 })
 
-type ImgixFancyProps = {
-  src: string
-  alt: string
-  lqipSrc?: string
-  sizes?: string
-  htmlAttributesProps?: {}
-  paddingPercent?: string
-}
-
 type Props = {
   imgixFancyProps: ImgixFancyProps
-  children?: Node
+  children?: React.ReactNode
   onImgLoad?: () => any
   amount?: number
-}
+} & Partial<ParallaxBannerProps>
 
 const ImgixFancyParallaxBanner = ({
   amount = 0.1,

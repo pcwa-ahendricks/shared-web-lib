@@ -3,7 +3,7 @@ import Imgix from 'react-imgix'
 import {makeStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
-type Props = {
+export type ImgixFancyProps = {
   src: string
   lqipSrc?: string
   alt: string
@@ -14,6 +14,7 @@ type Props = {
   height?: number
   sizes?: string
   onLoad?: () => any
+  imgixParams?: any
 }
 
 /* Lazysizes and ls.blur-up plugin styles. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */
@@ -69,7 +70,7 @@ const ImgixFancy = ({
   paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
   sizes = 'auto', // This is a Lazysizes feature, not an react-imgix feature.
   ...rest
-}: Props) => {
+}: ImgixFancyProps) => {
   const classes = useStyles()
   return (
     <div className={classes.mediabox} style={{paddingBottom: paddingPercent}}>

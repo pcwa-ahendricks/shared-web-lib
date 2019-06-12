@@ -203,13 +203,7 @@ const ContactUs = () => {
                 }}
               >
                 {(formik) => {
-                  const {
-                    values,
-                    touched = {},
-                    dirty,
-                    isSubmitting,
-                    isValid
-                  } = formik
+                  const {values, touched = {}, dirty, isSubmitting} = formik
 
                   if (dirty !== formIsDirty) {
                     setFormIsDirty(dirty)
