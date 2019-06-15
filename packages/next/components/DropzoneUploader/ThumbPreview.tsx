@@ -90,6 +90,7 @@ const ThumbPreview = ({
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [thumbHover, setThumbHover] = useState<string | null>()
   const {touchevents} = useModernizr()
+  console.log('Touchevents should not be null', touchevents)
 
   const uploadStatus = useUploadStatus(uploadedFiles, file)
   const classes = useStyles({uploadStatus})

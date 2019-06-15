@@ -6,14 +6,15 @@ const useModernizr = () => {
 
   useEffect(() => {
     try {
-      if (Modernizr) {
+      // Just set touchevents once.
+      if (Modernizr && !touchevents) {
         setTouchevents(Modernizr.touchevents)
       }
     } catch (error) {
       console.log(error)
       setTouchevents(null)
     }
-  }, [])
+  }, [touchevents])
 
   return {touchevents}
 }
