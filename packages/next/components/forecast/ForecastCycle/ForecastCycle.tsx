@@ -4,6 +4,8 @@ import ForecastDisplay, {
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {makeStyles} from '@material-ui/styles'
+import {Box} from '@material-ui/core'
+import {BoxProps} from '@material-ui/core/Box'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
 import {startCycleForecastTimer} from '@store/actions'
 import {State} from '@store/index'
@@ -13,7 +15,7 @@ type Props = {
   cycleInterval?: number
   crossFadeDuration?: number
   forecasts?: ForecastData[]
-}
+} & BoxProps
 // type State = {
 //   forecasts: Array<ForecastData>,
 // }
@@ -43,7 +45,8 @@ const useStyles = makeStyles({
 const ForecastCycle = ({
   forecasts = [],
   cycleInterval = 1000 * 10, // 10 seconds
-  crossFadeDuration = 1000 * 1 // 1 second
+  crossFadeDuration = 1000 * 1, // 1 second
+  ...rest
 }: Props) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -93,11 +96,12 @@ const ForecastCycle = ({
     [forecast]
   )
   return (
-    <div
+    <Box
       aria-owns={hasAnchorEl ? 'forecast-popover' : undefined}
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
       onMouseLeave={handlePopoverClose}
+      {...rest}
     >
       <ReactCSSTransitionReplace
         className={classes.trans}
@@ -114,7 +118,7 @@ const ForecastCycle = ({
         anchorEl={anchorEl}
         onPopoverClose={handlePopoverClose}
       />
-    </div>
+    </Box>
   )
 }
 

@@ -11,9 +11,14 @@ export type GlowButtonProps = {
   size?: 'small' | 'medium' | 'large'
 } & ButtonBaseProps
 
+type StyleProps = {
+  size: GlowButtonProps['size']
+  active: boolean
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: ({size, active}: Partial<GlowButtonProps> & {active: boolean}) => ({
+    root: ({size, active}: StyleProps) => ({
       color: theme.palette.primary.main,
       boxSizing: 'border-box',
       minWidth: 64,
@@ -30,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: active ? theme.palette.secondary.main : 'unset'
       }
     }),
-    type: ({size}: Partial<GlowButtonProps>) => ({
+    type: ({size}: StyleProps) => ({
       whiteSpace: 'nowrap',
       '-webkit-transition': 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
       transition: 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
