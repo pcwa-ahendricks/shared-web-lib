@@ -9,7 +9,8 @@ export type GlowButtonProps = {
   children: React.ReactNode
   color?: TypographyProps['color']
   size?: 'small' | 'medium' | 'large'
-} & ButtonBaseProps
+} & ButtonBaseProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 type StyleProps = {
   size: GlowButtonProps['size']
