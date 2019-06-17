@@ -2,14 +2,13 @@ function fileExtension(filename: string, lowercase: boolean = true) {
   if (!filename || typeof filename !== 'string') {
     return ''
   }
-  const ext = filename
-    .split('.')
-    .pop()
-    .trim()
+  const fileName = filename.split('.')
+  const ext = fileName.pop() || ''
+  const extTrimmed = ext.trim()
   if (lowercase) {
-    return ext.toLowerCase()
+    return extTrimmed.toLowerCase()
   } else {
-    return ext
+    return extTrimmed
   }
 }
 
