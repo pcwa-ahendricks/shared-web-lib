@@ -1,13 +1,11 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Grow} from '@material-ui/core'
+import {GrowProps} from '@material-ui/core/Grow'
 
 type Props = {
   isIn: boolean
   children: React.ReactNode
-} & React.DetailedHTMLProps<
-  React.StyleHTMLAttributes<HTMLStyleElement>,
-  HTMLStyleElement
->
+} & GrowProps
 
 const WaitToGrow = ({isIn, children, ...rest}: Props) => {
   const [show, setShow] = useState<boolean>(false)
