@@ -6,6 +6,8 @@ import {BooleanAsString} from '@lib/safeCastBoolean'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
 
+type ErrorResponse = Error & {response?: Response}
+
 export interface IrrigationControllerRebateFormData {
   firstName: string
   lastName: string
@@ -97,11 +99,40 @@ export interface ContactUsRequestBody {
   formData: ContactUsRebateFormData
 }
 
+export interface WashingMachineRebateFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
+  existingHigh: '' | 'Yes' | 'No'
+  newConstruction: '' | 'Yes' | 'No'
+  manufacturer: string
+  model: string
+  ceeQualify: string
+  termsAgree: BooleanAsString
+  signature: string
+  captcha: string
+  receipts: string[]
+  installPhotos: string[]
+}
+
+export interface WashingMachineRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: WashingMachineRebateFormData
+}
+
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
   | LawnReplacementRequestBody
   | ContactUsRequestBody
+  | WashingMachineRequestBody
 
 async function postRebateForm(serviceUriPath: string, body: RequestBody) {
   const url = `${MAILJET_URL}/${serviceUriPath}`
@@ -115,7 +146,7 @@ async function postRebateForm(serviceUriPath: string, body: RequestBody) {
       return data
     } else {
       const text = await response.text()
-      const error = new Error(text || response.statusText)
+      const error: ErrorResponse = new Error(text || response.statusText)
       error.response = response
       throw error
     }

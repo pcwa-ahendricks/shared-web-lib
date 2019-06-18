@@ -23,12 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-// const termsConditionsUrl =
-//   'https://s3-us-west-2.amazonaws.com/cosmicjs/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf'
-
-// const termsConditionsUrl =
-//   '/static/docs/Irrigation Efficiency Terms and Conditions.pdf'
-
+// Imgix API query parameters.
 const baseOpts = {
   fm: 'jpg',
   w: 1400
@@ -43,6 +38,7 @@ const IrrigEffTermsConditions = ({
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
   const [scrollSnackOpen, setScrollSnackOpen] = useState<boolean>(false)
 
+  // Imgix API query parameter for downloading image.
   const qsDownloadUrl = useMemo(
     () =>
       stringify(

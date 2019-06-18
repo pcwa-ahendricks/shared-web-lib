@@ -1,43 +1,42 @@
-// cspell:ignore addtl mnfg
+// cspell:ignore addtl mnfg USBR
 import React, {useState, useCallback, useMemo} from 'react'
 import {
   Button,
   CircularProgress,
   Divider,
   Grid,
+  Link,
   Theme,
   Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, array, Schema, date} from 'yup'
+import {string, object, array, Schema} from 'yup'
 import clsx from 'clsx'
 import {
   postRebateForm,
-  IrrigationControllerRebateFormData as RebateFormData,
-  IrrigationControllerRequestBody as RequestBody
+  WashingMachineRebateFormData as RebateFormData,
+  WashingMachineRequestBody as RequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
-import PurchaseDateField from '@components/formFields/PurchaseDateField'
-import FirstNameField from '@components/formFields/FirstNameField'
-import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
 import OtherCityField from '@components/formFields/OtherCityField'
+import WashMachineCeeRadioField from '@components/formFields/WashMachineCeeRadioField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import IrrigCntrlAddtlField from '@components/formFields/IrrigCntrlAddtlField'
 import FormTextField from '@components/formFields/FormTextField'
+import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
+import FormSubmissionWashingMachineDialog from '@components/FormSubmissionWashingMachineDialog/FormSubmissionWashingMachineDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
@@ -46,7 +45,7 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
 const isDev = process.env.NODE_ENV === 'development'
-const SERVICE_URI_PATH = 'irrigation-controller-rebate'
+const SERVICE_URI_PATH = 'washing-machine-rebate'
 
 const formSchema = object()
   .camelCase()
@@ -87,16 +86,36 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
+    treatedCustomer: string()
+      .required()
+      .label('Treated Customer')
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'You must be a current Placer County Water Agency treated water customer'
+      ),
+    existingHigh: string()
+      .required()
+      .label('Replacing Existing High-Efficiency Washer')
+      .oneOf(
+        ['No'], // "Yes", "No"
+        'Replacement of an existing high efficiency washer is not covered by rebate'
+      ),
+    newConstruction: string()
+      .required()
+      .label('New Construction')
+      .oneOf(
+        ['No'], // "Yes", "No"
+        'New constructions are not eligible for rebate'
+      ),
     manufacturer: string()
       .required()
-      .label('Irrigation Controller Manufacturer'),
+      .label('Washing Machine Manufacturer'),
     model: string()
       .required()
-      .label('Irrigation Controller Model'),
-    additional: string().label('Additional Sensor or Outdoor Cover'),
-    purchaseDate: date()
-      .required('A valid purchase date is required')
-      .typeError('A valid purchase date is required'),
+      .label('Washing Machine Model'),
+    ceeQualify: string()
+      .required()
+      .label('CEE Tier 3 Water Factor'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -123,29 +142,8 @@ const formSchema = object()
             .url()
         })
       ),
-    cntrlPhotos: array()
-      .required('Must provide photo(s) of installed irrigation controller')
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
-        })
-      ),
-    addtlSensorPhotos: array()
-      .when(
-        'additional',
-        (additional: string[] | undefined, schema: Schema<string>) =>
-          additional
-            ? schema.required(
-                'Must provide photo(s) of installed sensor/outdoor cover'
-              )
-            : schema
-      )
+    installPhotos: array()
+      .required('Must provide photo(s) of installed washing machine')
       .of(
         object({
           status: string()
@@ -169,16 +167,17 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
+  treatedCustomer: '',
+  existingHigh: '',
+  newConstruction: '',
   manufacturer: '',
   model: '',
-  additional: '',
-  purchaseDate: new Date(),
+  ceeQualify: '',
   termsAgree: '',
   signature: '',
   captcha: '',
   receipts: [],
-  cntrlPhotos: [],
-  addtlSensorPhotos: []
+  installPhotos: []
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -211,36 +210,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'fit-content' // IE doesn't support
       // width: '100%'
     },
-    // textField: {
-    //   marginTop: theme.spacing(1),
-    //   marginBottom: theme.spacing(4),
-    //   '&:not(:first-child)': {
-    //     marginLeft: theme.spacing(4)
-    //   }
-    // },
-    // formControl: {
-    //   marginTop: theme.spacing(1),
-    //   marginBottom: theme.spacing(4),
-    //   minWidth: 150,
-    //   '&:not(:first-child)': {
-    //     marginLeft: theme.spacing(4)
-    //   }
-    // },
-    // formControlRow: {
-    //   display: 'flex',
-    //   flexDirection: 'row',
-    //   width: '100%',
-    //   margin: {
-    //     bottom: theme.spacing(1),
-    //     top: theme.spacing(1)
-    //   },
-    //   '&$dropzoneContainer': {
-    //     flexDirection: 'column',
-    //     justifyContent: 'flex-start',
-    //     alignItems: 'flex-start',
-    //     marginBottom: theme.spacing(3)
-    //   }
-    // },
     dropzoneContainer: {
       flexDirection: 'column',
       justifyContent: 'flex-start',
@@ -248,13 +217,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(3),
       marginTop: theme.spacing(3)
     },
-    // formControlsContainer: {
-    //   margin: theme.spacing( 8),
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   justifyContent: 'flex-start',
-    //   alignItems: 'flex-start'
-    // },
     buttonWrapper: {
       flex: '0 0 auto', // IE fix
       position: 'relative',
@@ -297,15 +259,9 @@ const useStyles = makeStyles((theme: Theme) =>
     reserveRight: {
       marginTop: theme.spacing(3)
     }
-    // grow: {
-    //   flexGrow: 1
-    // }
-    // dropzoneUploader: {
-    //   marginBottom: theme.spacing(2)
-    // }
   })
 )
-const IrrigationController = () => {
+const WashingMachine = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<RebateFormData>(
@@ -313,13 +269,9 @@ const IrrigationController = () => {
   )
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [cntrlPhotosIsUploading, setCntrlPhotosIsUploading] = useState<boolean>(
-    false
-  )
-  const [
-    addtlSensorPhotosIsUploading,
-    setAddtlSensorPhotosIsUploading
-  ] = useState<boolean>(false)
+  const [installPhotosIsUploading, setInstallPhotosIsUploading] = useState<
+    boolean
+  >(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
@@ -336,12 +288,8 @@ const IrrigationController = () => {
     setReceiptIsUploading(isUploading)
   }, [])
 
-  const cntrlPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setCntrlPhotosIsUploading(isUploading)
-  }, [])
-
-  const addtlSensorPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setAddtlSensorPhotosIsUploading(isUploading)
+  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
+    setInstallPhotosIsUploading(isUploading)
   }, [])
 
   const dialogCloseHandler = useCallback(() => {
@@ -365,7 +313,8 @@ const IrrigationController = () => {
               </Type>
 
               <Type variant="h3" color="primary" gutterBottom>
-                Weather Based Irrigation Controller
+                PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient
+                Clothes Washing Machine
               </Type>
 
               <Formik
@@ -417,8 +366,6 @@ const IrrigationController = () => {
                     values.city && values.city.toLowerCase() === 'other'
                   )
 
-                  const hasAddtlSensor = Boolean(values.additional)
-
                   // If city field is updated clear out otherCity field.
                   const cityChangeHandler = (evt: any) => {
                     // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
@@ -427,23 +374,11 @@ const IrrigationController = () => {
                     }
                   }
 
-                  // If additional field is updated and is blank clear out additional photos.
-                  const additionalChangeHandler = (evt: any) => {
-                    if (evt.target.value.length === 0) {
-                      setFieldValue('addtlSensorPhotos', [])
-                    }
-                  }
-
                   const attachmentsAreUploading =
-                    receiptIsUploading ||
-                    cntrlPhotosIsUploading ||
-                    addtlSensorPhotosIsUploading
+                    receiptIsUploading || installPhotosIsUploading
+
                   return (
                     <Form className={classes.form}>
-                      {/* <Type variant="h3" color="primary" gutterBottom>
-                        Weather Based Irrigation Controller Rebate Form
-                      </Type> */}
-
                       <div className={classes.formGroup}>
                         <Type
                           color="textSecondary"
@@ -457,11 +392,18 @@ const IrrigationController = () => {
                           <Grid item xs={12} sm={6}>
                             <Field
                               name="firstName"
-                              component={FirstNameField}
+                              label="First Name"
+                              autoComplete="billing given-name"
+                              component={FormTextField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
-                            <Field name="lastName" component={LastNameField} />
+                            <Field
+                              name="lastName"
+                              label="Last Name"
+                              autoComplete="billing family-name"
+                              component={FormTextField}
+                            />
                           </Grid>
                         </Grid>
 
@@ -535,46 +477,58 @@ const IrrigationController = () => {
                           <Grid item xs={12} sm={6}>
                             <Field
                               name="manufacturer"
-                              label="Controller Manufacturer"
+                              label="Washing Machine Manufacturer"
                               component={FormTextField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <Field
                               name="model"
-                              label="Controller Model"
+                              label="Washing Machine Model"
                               component={FormTextField}
                             />
                           </Grid>
                         </Grid>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={7}>
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12}>
                             <Field
-                              name="additional"
-                              onChange={additionalChangeHandler}
-                              component={IrrigCntrlAddtlField}
+                              name="ceeQualify"
+                              component={WashMachineCeeRadioField}
                             />
                           </Grid>
-                          <Grid item xs={12} sm={5}>
-                            {/* <Hidden only="xs" implementation="css"> */}
+                        </Grid>
+
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12} sm={6}>
                             <Field
-                              name="purchaseDate"
-                              component={PurchaseDateField}
+                              name="treatedCustomer"
+                              inputLabel="PCWA Treated Customer"
+                              inputId="treated-water-select"
+                              labelWidth={200}
+                              component={YesNoSelectField}
                             />
-                            {/* </Hidden> */}
-                            {/* <Hidden smUp implementation="css">
-                                <Field
-                                  name="purchaseDate"
-                                  render={({field, form}) => (
-                                    <PurchaseDateNativeField
-                                      form={form}
-                                      field={field}
-                                      required={width === 'xs'}
-                                    />
-                                  )}
-                                />
-                              </Hidden> */}
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="existingHigh"
+                              inputLabel="Existing High Efficiency Washer"
+                              inputId="existing-high-efficiency-washer-select"
+                              labelWidth={255}
+                              component={YesNoSelectField}
+                            />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="newConstruction"
+                              inputLabel="For New Construction"
+                              inputId="for-new-construction-select"
+                              labelWidth={178}
+                              component={YesNoSelectField}
+                            />
                           </Grid>
                         </Grid>
                       </div>
@@ -595,7 +549,7 @@ const IrrigationController = () => {
                           <Field
                             name="receipts"
                             attachmentTitle="Receipt"
-                            uploadFolder="irrigation-controller"
+                            uploadFolder="washing-machine"
                             onIsUploadingChange={receiptIsUploadingHandler}
                             component={AttachmentField}
                           />
@@ -603,27 +557,15 @@ const IrrigationController = () => {
 
                         <div className={clsx(classes.dropzoneContainer)}>
                           <Field
-                            name="cntrlPhotos"
-                            attachmentTitle="Installed Irrigation Controller Photo"
-                            uploadFolder="irrigation-controller"
-                            onIsUploadingChange={cntrlPhotosIsUploadingHandler}
+                            name="installPhotos"
+                            attachmentTitle="Installed Washing Machine Photo"
+                            uploadFolder="washing-machine"
+                            onIsUploadingChange={
+                              installPhotosIsUploadingHandler
+                            }
                             component={AttachmentField}
                           />
                         </div>
-
-                        <WaitToGrow isIn={hasAddtlSensor}>
-                          <div className={clsx(classes.dropzoneContainer)}>
-                            <Field
-                              name="addtlSensorPhotos"
-                              attachmentTitle="Additional Sensor/Outdoor Cover Photo"
-                              uploadFolder="irrigation-controller"
-                              onIsUploadingChange={
-                                addtlSensorPhotosIsUploadingHandler
-                              }
-                              component={AttachmentField}
-                            />
-                          </div>
-                        </WaitToGrow>
                       </div>
 
                       <Divider variant="middle" />
@@ -644,9 +586,9 @@ const IrrigationController = () => {
                             className={classes.ieFixFlexColumnDirection}
                           >
                             <ReviewTermsConditions
-                              pageCount={3}
-                              fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://cosmic-s3.imgix.net/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                              pageCount={2}
+                              fileName="Washing-Machine-Terms-and-Conditions.pdf"
+                              termsConditionsUrl="https://cosmic-s3.imgix.net/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
                             />
                             <Type
                               variant="body1"
@@ -654,12 +596,29 @@ const IrrigationController = () => {
                               className={classes.reserveRight}
                             >
                               <em>
-                                PCWA reserves the right to verify the
+                                I have read, understand, and agree to the{' '}
+                                <Link
+                                  variant="inherit"
+                                  href="https://cdn.cosmicjs.com/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  PCWA/USBR Energy Star® Residential/Multi
+                                  Family Water-Efficient Clothes Washing Machine
+                                  Rebate Terms and Conditions.
+                                </Link>
+                              </em>
+                            </Type>
+                            <Type
+                              variant="body1"
+                              paragraph
+                              className={classes.reserveRight}
+                            >
+                              <em>
+                                I understand that PCWA reserves the right to
+                                have an Agency representative verify the
                                 installation of the product(s) at the service
-                                address on the application. You will be
-                                contacted by a Water Efficiency Specialist to
-                                schedule an appointment if you are selected for
-                                an installation verification.
+                                address on the application.
                               </em>
                             </Type>
                             <Field
@@ -688,22 +647,24 @@ const IrrigationController = () => {
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
+                            <Type
+                              variant="body1"
+                              paragraph
+                              color="primary"
+                            ></Type>
                             <Type variant="body1" paragraph color="primary">
-                              PCWA may deny any application that does not meet
-                              all of the Program requirements. PCWA reserves the
-                              right to alter the Program at any time. PCWA does
-                              not warrant or guarantee lower water bills as a
-                              result of participating in the Program. PCWA is
-                              not responsible for any damage that may occur to
-                              participants' property as a result of this
-                              Program. The undersigned agrees to hold harmless
-                              PCWA, its directors, officers, and employees from
-                              and against all loss, damage, expense and
-                              liability resulting from or otherwise relating to
-                              the installation of the Weather Based Irrigation
-                              Controller. By signing this form I agree that I
-                              have read, understand, and agree to the Terms and
-                              Conditions of this rebate program.
+                              Placer County Water Agency (PCWA) reserves the
+                              right to deny an application of any participant
+                              who does not meet all requirements as outlined.
+                              PCWA reserves the right to change the terms of
+                              this program at their discretion. PCWA cannot
+                              guarantee that the installation of the product(s)
+                              will result in lower water utility costs. The
+                              number of rebates is dependent upon the
+                              availability of program funds. Applications will
+                              be processed when all required information is
+                              provided by the applicant on a first-come,
+                              first-served basis.
                             </Type>
                           </Grid>
 
@@ -730,27 +691,6 @@ const IrrigationController = () => {
                           </Grid>
                         </Grid>
                       </div>
-
-                      {/* For debugging form reset */}
-                      {/* <Button
-                      variant="outlined"
-                      type="submit"
-                      onClick={handleReset}
-                    >
-                      Reset Form
-                    </Button> */}
-
-                      {/* For debugging dialog */}
-                      {/* <Button
-                        variant="outlined"
-                        type="submit"
-                        onClick={() => {
-                          setProvidedEmail(values.email)
-                          setFormSubmitDialogOpen(true)
-                        }}
-                      >
-                        Show Dialog
-                      </Button> */}
 
                       <div className={classes.buttonWrapper}>
                         <Button
@@ -794,15 +734,13 @@ const IrrigationController = () => {
       formIsTouched,
       receiptIsUploading,
       receiptIsUploadingHandler,
-      cntrlPhotosIsUploading,
-      cntrlPhotosIsUploadingHandler,
-      addtlSensorPhotosIsUploading,
-      addtlSensorPhotosIsUploadingHandler
+      installPhotosIsUploading,
+      installPhotosIsUploadingHandler
     ]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const irrigControllerEl = useMemo(
+  const washingMachineEl = useMemo(
     () =>
       !isDev ? (
         <React.Fragment>
@@ -825,9 +763,7 @@ const IrrigationController = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Irrigation Controller Rebate Form">
-          {mainEl}
-        </PageLayout>
+        <PageLayout title="Washing Machine Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )
@@ -838,12 +774,12 @@ const IrrigationController = () => {
       onDialogLeave={() => setShouldConfirmRouteChange(false)}
       shouldConfirmRouteChange={shouldConfirmRouteChange}
     >
-      {irrigControllerEl}
-      <FormSubmissionDialog
+      {washingMachineEl}
+      <FormSubmissionWashingMachineDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Weather Based Irrigation Controller Rebate Application"
+        description="PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient Clothes Washing Machine Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError
@@ -855,4 +791,4 @@ const IrrigationController = () => {
   )
 }
 
-export default IrrigationController
+export default WashingMachine

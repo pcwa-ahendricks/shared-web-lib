@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 })
 
-const IrrigCntrlModelField = ({
+const FormTextField = ({
   field,
   form,
   fullWidth = true,
@@ -33,10 +33,8 @@ const IrrigCntrlModelField = ({
   return (
     <TextField
       type="text"
-      required
       name={name}
       value={value}
-      label="Model"
       variant="outlined"
       margin="normal"
       helperText={fieldIsTouchedWithError ? currentError : null}
@@ -55,4 +53,4 @@ const IrrigCntrlModelField = ({
   )
 }
 
-export default IrrigCntrlModelField
+export default FormTextField
