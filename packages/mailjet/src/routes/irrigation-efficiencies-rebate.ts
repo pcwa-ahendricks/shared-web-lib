@@ -9,36 +9,20 @@ import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
 import {format} from 'date-fns'
-import reCAPTCHA from 'recaptcha2'
 import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
 import {MailJetSendRequest, MailJetMessage} from '../lib/types'
-import fetch from 'isomorphic-unfetch'
-import HttpStat from 'http-status-codes'
+import {
+  getRecaptcha,
+  emailRecipients,
+  validateSchema
+} from '../lib/rebate-forms'
+import {postMailJetRequest} from '../lib/mailjet'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
-const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
-const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
-const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
 const MAILJET_TEMPLATE_ID = 762551
-
-const basicAuth = Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString(
-  'base64'
-)
-
-const recaptcha = new reCAPTCHA({
-  siteKey: RECAPTCHA_SITE_KEY,
-  secretKey: RECAPTCHA_SECRET_KEY
-})
-
-const RECIPIENTS: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
-      {Name: 'Cassandra', Email: 'cbarnhill@pcwa.net'}
-    ]
 
 interface FormDataObj {
   firstName: string
@@ -124,20 +108,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     recipients: MailJetMessage['To']
   } = data
 
-  const validateOptions = {
-    abortEarly: isDev ? false : true
-  }
-
-  try {
-    await bodySchema.validate(body, validateOptions)
-  } catch (error) {
-    const {errors = []} = error || {}
-    if (isDev) {
-      throw createError(400, errors.join(', '))
-    } else {
-      throw createError(400, HttpStat.getStatusText(400))
-    }
-  }
+  await validateSchema(bodySchema, body)
 
   // const sendEmail = Mailjet.post('send', {
   //   version: 'v3.1'
@@ -169,6 +140,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
 
   // Only validate recaptcha key in production.
   if (!isDev) {
+    const recaptcha = getRecaptcha()
     try {
       await recaptcha.validate(captcha)
     } catch (error) {
@@ -198,7 +170,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: RECIPIENTS,
+        To: [...emailRecipients],
         ReplyTo: {
           Email: email,
           Name: replyToName
@@ -243,40 +215,6 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     console.error('Mailjet sendMail error status: ', error.statusCode)
     throw error
   }
-}
-
-async function postMailJetRequest(requestBody: MailJetSendRequest) {
-  isDev &&
-    console.log(`${new Date().toLocaleTimeString()} - Send Request started.`)
-  const response = await fetch('https://api.mailjet.com/v3.1/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Basic ${basicAuth}`
-    },
-    body: JSON.stringify(requestBody)
-  })
-
-  if (!response.ok) {
-    // console.log('Bad response: ', response)
-    try {
-      const text = await response.text()
-      console.log('Message Text: ', text)
-    } catch (error) {
-      throw error
-    }
-    if (response.status) {
-      throw createError(response.status, response.statusText)
-    } else {
-      throw createError(500, 'Mailjet send request failed.')
-    }
-  }
-  const data = await response.json()
-
-  isDev &&
-    console.log(`${new Date().toLocaleTimeString()} - Send Request completed.`)
-
-  return data
 }
 
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i

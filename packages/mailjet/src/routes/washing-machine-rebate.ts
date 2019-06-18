@@ -14,12 +14,12 @@ import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
 import {MailJetSendRequest} from '../lib/types'
 import {
-  postMailJetRequest,
   getRecaptcha,
   AttachmentFieldValue,
   emailRecipients,
   validateSchema
 } from '../lib/rebate-forms'
+import {postMailJetRequest} from '../lib/mailjet'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
