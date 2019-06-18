@@ -547,7 +547,7 @@ const WashingMachine = () => {
                           <Grid container spacing={5} justify="space-between">
                             <Grid item xs={12} sm={6}>
                               <Field
-                                disabled={ineligible}
+                                disabled
                                 name="treatedCustomer"
                                 inputLabel="PCWA Treated Customer"
                                 inputId="treated-water-select"
@@ -557,7 +557,7 @@ const WashingMachine = () => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Field
-                                disabled={ineligible}
+                                disabled
                                 name="existingHigh"
                                 inputLabel="Existing High Efficiency Washer"
                                 inputId="existing-high-efficiency-washer-select"
@@ -570,7 +570,7 @@ const WashingMachine = () => {
                           <Grid container spacing={5} justify="space-between">
                             <Grid item xs={12} sm={6}>
                               <Field
-                                disabled={ineligible}
+                                disabled
                                 name="newConstruction"
                                 inputLabel="For New Construction"
                                 inputId="for-new-construction-select"
