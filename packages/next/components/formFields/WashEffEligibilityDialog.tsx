@@ -248,8 +248,8 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
               color="textPrimary"
               className={classes.qualifyMsg}
             >
-              Excellent. You qualify for the Lawn Replacement Rebate. Please
-              close this message now to continue the rebate application process.
+              Excellent, you may continue to apply for the rebate. Please close
+              this message to continue to the rebate application.
             </DialogContentText>
           </WaitToGrow>
         </div>
