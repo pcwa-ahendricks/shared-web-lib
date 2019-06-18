@@ -5,7 +5,7 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, Schema, date} from 'yup'
+import {string, object, array, Schema} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'

@@ -608,7 +608,7 @@ const WashingMachine = () => {
                             <Field
                               disabled={ineligible}
                               name="installPhotos"
-                              attachmentTitle="Installed Washing Machine Photo"
+                              attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
                               uploadFolder="washing-machine"
                               onIsUploadingChange={
                                 installPhotosIsUploadingHandler
