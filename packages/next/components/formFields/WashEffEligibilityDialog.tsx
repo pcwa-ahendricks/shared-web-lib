@@ -1,4 +1,4 @@
-// cspell:ignore Subheader
+// cspell:ignore subheader USBR
 import React, {useState, useMemo, useCallback, useRef, useEffect} from 'react'
 
 import {
@@ -18,13 +18,9 @@ import {
   StepLabel,
   StepContent,
   Theme
-  // Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
-import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
-import {ANSWERS as q1Answers} from '@components/formFields/AlreadyStartedSelect'
-import {ANSWERS as q2Answers} from '@components/formFields/ArtTurfSelect'
-import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
+import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
@@ -80,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -96,22 +92,16 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const eligibleFieldsTouched = useMemo(
     () =>
       [
-        touched.alreadyStarted,
-        touched.useArtTurf,
-        touched.approxSqFeet,
-        touched.irrigMethod
+        touched.treatedCustomer,
+        touched.existingHigh,
+        touched.newConstruction
       ].every(Boolean),
     [touched]
   )
 
   const eligibleFieldsHaveError = useMemo(
     () =>
-      [
-        errors.alreadyStarted,
-        errors.useArtTurf,
-        errors.approxSqFeet,
-        errors.irrigMethod
-      ]
+      [errors.treatedCustomer, errors.existingHigh, errors.newConstruction]
         .filter(
           (error) =>
             error && typeof error === 'string' && !/required/i.test(error)
@@ -314,33 +304,28 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 }
 
-export default connect(LawnReplEligibilityDialog)
+export default connect(WashEffEligibilityDialog)
 
 function getSteps() {
   return [
     {
       index: 0,
-      label: 'Have you already started the Lawn Replacement project?',
-      fieldName: 'alreadyStarted',
+      label: 'Are you a Placer County Water Agency treated water customer?',
+      fieldName: 'treatedCustomer',
       content: <QuestionOne />
     },
     {
       index: 1,
-      label: 'Do you plan on replacing your lawn with artificial turf?',
-      fieldName: 'useArtTurf',
+      label:
+        'Are you replacing an existing high efficiency clothes washing machine with another new high efficiency clothes washing machine?',
+      fieldName: 'existingHigh',
       content: <QuestionTwo />
     },
     {
       index: 2,
-      label: 'What is the approximate square footage of existing lawn?',
-      fieldName: 'approxSqFeet',
+      label: 'Is this home New Construction?',
+      fieldName: 'newConstruction',
       content: <QuestionThree />
-    },
-    {
-      index: 3,
-      label: 'How is the existing lawn currently irrigated?',
-      fieldName: 'irrigMethod',
-      content: <QuestionFour />
     }
   ]
 }
@@ -366,14 +351,14 @@ const useQuestionStyles = makeStyles((theme: Theme) =>
 const QuestionOne = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="alreadyStarted">
+    <Field name="treatedCustomer">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
         const currentError = errors[name]
 
-        const clickHandler = (newValue: string) => () => {
-          setFieldValue(name, newValue, true)
+        const clickHandler = (alreadyStarted: string) => () => {
+          setFieldValue(name, alreadyStarted, true)
           setFieldTouched(name, true)
         }
 
@@ -388,16 +373,16 @@ const QuestionOne = () => {
                 </ListSubheader>
               }
             >
-              {q1Answers.map((answer) => (
+              {yesNoAnswers.map((answer) => (
                 <ListItem
-                  key={answer.caption}
+                  key={answer}
                   button
                   divider
-                  selected={answer.value === value}
+                  selected={answer === value}
                   disabled={fieldTouched}
-                  onClick={clickHandler(answer.value)}
+                  onClick={clickHandler(answer)}
                 >
-                  <ListItemText primary={answer.caption} />
+                  <ListItemText primary={answer} />
                 </ListItem>
               ))}
             </List>
@@ -408,11 +393,11 @@ const QuestionOne = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. Conversions that are initiated prior to PCWA's approval
-                are ineligible. No exceptions will be made. Please close this
-                web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
+                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
+                Residential/Multi Family Water-Efficient Clothes Washing Machine
+                Rebate. You must be a current Placer County Water Agency treated
+                water customer. Please close this web browser tab to go back to
+                the <a href="https://www.pcwa.net">PCWA.net</a> website.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -425,7 +410,7 @@ const QuestionOne = () => {
 const QuestionTwo = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="useArtTurf">
+    <Field name="existingHigh">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
@@ -447,16 +432,16 @@ const QuestionTwo = () => {
                 </ListSubheader>
               }
             >
-              {q2Answers.map((answer) => (
+              {yesNoAnswers.map((answer) => (
                 <ListItem
-                  key={answer.caption}
+                  key={answer}
                   button
                   divider
-                  selected={answer.value === value}
+                  selected={answer === value}
                   disabled={fieldTouched}
-                  onClick={clickHandler(answer.value)}
+                  onClick={clickHandler(answer)}
                 >
-                  <ListItemText primary={answer.caption} />
+                  <ListItemText primary={answer} />
                 </ListItem>
               ))}
             </List>
@@ -467,11 +452,13 @@ const QuestionTwo = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. Artificial grass is not allowed in the rebated portion
-                of the converted landscape. Please close this web browser tab to
-                go back to the <a href="https://www.pcwa.net">PCWA.net</a>{' '}
-                website.
+                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
+                Residential/Multi Family Water-Efficient Clothes Washing Machine
+                Rebate. Rebates are not available for the replacement of an
+                existing high efficiency clothes washing machine with another
+                new high efficiency clothes washing machine. Please close this
+                web browser tab to go back to the{' '}
+                <a href="https://www.pcwa.net">PCWA.net</a> website.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -484,43 +471,9 @@ const QuestionTwo = () => {
 const QuestionThree = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="approxSqFeet">
+    <Field name="newConstruction">
       {({field, form}: FieldProps<any>) => {
-        const {touched, errors} = form
-        const {name} = field
-        const currentError = errors[name]
-
-        const hasError = Boolean(currentError)
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <LawnApproxSqFootField form={form} field={field} />
-            <WaitToGrow isIn={hasError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. A minimum of 300 square feet of lawn must be converted.
-                Please close this web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
-  )
-}
-
-const QuestionFour = () => {
-  const classes = useQuestionStyles()
-  return (
-    <Field name="irrigMethod">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, touched, errors, setFieldTouched} = form
+        const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
         const currentError = errors[name]
 
@@ -531,6 +484,7 @@ const QuestionFour = () => {
 
         const hasError = Boolean(currentError)
         const fieldTouched = Boolean(touched[name])
+
         return (
           <div>
             <List
@@ -540,16 +494,16 @@ const QuestionFour = () => {
                 </ListSubheader>
               }
             >
-              {IRRIGATION_METHODS.map((method) => (
+              {yesNoAnswers.map((answer) => (
                 <ListItem
-                  key={method}
+                  key={answer}
                   button
                   divider
-                  selected={method === value}
+                  selected={answer === value}
                   disabled={fieldTouched}
-                  onClick={clickHandler(method)}
+                  onClick={clickHandler(answer)}
                 >
-                  <ListItemText primary={method} />
+                  <ListItemText primary={answer} />
                 </ListItem>
               ))}
             </List>
@@ -560,10 +514,10 @@ const QuestionFour = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. Lawn areas to be converted must be currently maintained
-                and irrigated by an operating sprinkler system. Please close
-                this web browser tab to go back to the{' '}
+                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
+                Residential/Multi Family Water-Efficient Clothes Washing Machine
+                Rebate. New construction is not eligible for a rebate under this
+                program. Please close this web browser tab to go back to the{' '}
                 <a href="https://www.pcwa.net">PCWA.net</a> website.
               </DialogContentText>
             </WaitToGrow>
