@@ -16,7 +16,7 @@ import {MailJetSendRequest} from '../lib/types'
 import {
   getRecaptcha,
   AttachmentFieldValue,
-  emailRecipients,
+  emailRecipientsAppliance,
   validateSchema
 } from '../lib/rebate-forms'
 import {postMailJetRequest} from '../lib/mailjet'
@@ -197,7 +197,7 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [...emailRecipients],
+        To: [...emailRecipientsAppliance],
         ReplyTo: {
           Email: email,
           Name: replyToName

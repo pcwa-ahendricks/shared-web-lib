@@ -15,7 +15,7 @@ import {MailJetSendRequest} from '../lib/types'
 import isNumber from 'is-number'
 import {
   getRecaptcha,
-  emailRecipients,
+  emailRecipientsIrrigation,
   validateSchema
 } from '../lib/rebate-forms'
 import {postMailJetRequest} from '../lib/mailjet'
@@ -172,7 +172,7 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [...emailRecipients],
+        To: [...emailRecipientsIrrigation],
         ReplyTo: {
           Email: email,
           Name: replyToName

@@ -113,17 +113,18 @@ const formSchema = object()
         'Old toilets replaced must be rated at 3.0 (GPF) or more'
       ),
     manufacturerModel: array()
-      .required('Must provide Manufacturer and Model')
+      .required()
+      .label('Manufacturer and Model')
       .min(MIN_TOILETS)
       .max(MAX_TOILETS)
       .of(
         object({
           manufacturer: string()
             .required()
-            .label('Toilet Manufacturer'),
+            .label('Toilet/Urinal Manufacturer'),
           model: string()
             .required()
-            .label('Toilet Model')
+            .label('Toilet/Urinal Model')
         })
       ),
     watersenseApproved: string()
@@ -896,18 +897,14 @@ const Toilet = () => {
                         </div>
                       </Form>
 
-                      {/* <ToiletEffEligibilityDialog
+                      <ToiletEffEligibilityDialog
                         open={eligibilityDialogOpen}
                         onClose={() => setEligibilityDialogOpen(false)}
-                      /> */}
+                      />
                     </React.Fragment>
                   )
                 }}
               </Formik>
-
-              {/* {receipts.map((attach, idx) => (
-            <div key={idx}>{attach}</div>
-          ))} */}
             </main>
           </Grid>
         </Grid>

@@ -1,20 +1,22 @@
-// cspell:ignore addtl cbarnhill truthy
+// cspell:ignore cbarnhill watersense
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {string, object, Schema} from 'yup'
+// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
+import {string, object, array, Schema} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
 import {format} from 'date-fns'
 import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
-import {MailJetSendRequest, MailJetMessage} from '../lib/types'
+import {MailJetSendRequest} from '../lib/types'
 import {
   getRecaptcha,
-  emailRecipientsIrrigation,
+  AttachmentFieldValue,
+  emailRecipientsAppliance,
   validateSchema
 } from '../lib/rebate-forms'
 import {postMailJetRequest} from '../lib/mailjet'
@@ -22,7 +24,7 @@ import {postMailJetRequest} from '../lib/mailjet'
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 762551
+const MAILJET_TEMPLATE_ID = 879852
 
 interface FormDataObj {
   firstName: string
@@ -34,17 +36,18 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
-  irrigMethod: string
-  upgradeLocations: {
-    [key: string]: boolean
-  }
-  upgradeOpts: {
-    [key: string]: boolean
-  }
+  treatedCustomer: '' | 'Yes' | 'No'
+  builtPriorCutoff: '' | 'Yes' | 'No'
+  manufacturerModel: {
+    manufacturer: string
+    model: string
+  }[]
+  watersenseApproved: string
   termsAgree: string
-  inspectAgree: string
   signature: string
   captcha: string
+  receipts: AttachmentFieldValue[]
+  installPhotos: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -73,46 +76,67 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
-        termsAgree: string()
+        treatedCustomer: string()
           .required()
-          .oneOf(['true']),
-        inspectAgree: string()
+          .oneOf(
+            ['Yes'] // "Yes", "No"
+          ),
+        builtPriorCutoff: string()
+          .required()
+          .oneOf(
+            ['Yes'] // "Yes", "No"
+          ),
+        manufacturerModel: array()
+          .required()
+          .of(
+            object({
+              manufacturer: string().required(),
+              model: string().required()
+            })
+          ),
+        watersenseApproved: string().required(),
+        termsAgree: string()
           .required()
           .oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
-        irrigMethod: string()
+        receipts: array()
           .required()
-          .notOneOf(['Hand water']), // Case sensitive
-        upgradeLocations: object()
-          .required()
-          .test(
-            'has-one-location-option',
-            'upgradeLocations has no truth',
-            hasTrueValue
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(/success/),
+              url: string()
+                .required()
+                .url()
+            })
           ),
-        upgradeOpts: object()
+        installPhotos: array()
           .required()
-          .test(
-            'has-one-upgrade-option',
-            'upgradeOpts has no truth',
-            hasTrueValue
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(/success/),
+              url: string()
+                .required()
+                .url()
+            })
           )
       })
   })
 
-const irrigEffRebateHandler = async (req: IncomingMessage) => {
+const washingMachineRebateHandler = async (req: IncomingMessage) => {
   const data: any = await json(req)
   const body: {
     formData: FormDataObj
-    recipients: MailJetMessage['To']
+    recipients: {Name: string; Email: string}[]
   } = data
 
   await validateSchema(bodySchema, body)
-
-  // const sendEmail = Mailjet.post('send', {
-  //   version: 'v3.1'
-  // })
 
   const {formData} = body
   const {
@@ -123,12 +147,15 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
-    irrigMethod,
-    upgradeLocations,
-    upgradeOpts,
+    receipts,
+    installPhotos,
     termsAgree,
     signature,
-    captcha
+    captcha,
+    treatedCustomer,
+    builtPriorCutoff,
+    manufacturerModel,
+    watersenseApproved
   } = formData
   let {city = '', accountNo} = formData
 
@@ -155,8 +182,8 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     city = otherCity
   }
 
-  const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
-  const mappedUpgradeOpts = mapTruthyKeys(upgradeOpts)
+  const receiptImages = receipts.map((attachment) => attachment.url)
+  const installImages = installPhotos.map((attachment) => attachment.url)
 
   const replyToName = `${firstName} ${lastName}`
 
@@ -170,7 +197,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [...emailRecipientsIrrigation],
+        To: [...emailRecipientsAppliance],
         ReplyTo: {
           Email: email,
           Name: replyToName
@@ -190,10 +217,13 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           email,
           phone,
           propertyType,
-          irrigMethod,
-          upgradeLocations: mappedUpgradeLocations,
-          upgradeOpts: mappedUpgradeOpts,
+          treatedCustomer,
+          builtPriorCutoff,
+          manufacturerModel,
+          watersenseApproved,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
+          receiptImages,
+          installImages,
           termsAgree,
           signature
         }
@@ -211,7 +241,6 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     const data = await postMailJetRequest(requestBody)
     return data
   } catch (error) {
-    // isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     throw error
   }
@@ -220,28 +249,9 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
 const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
-export default applyMiddleware(irrigEffRebateHandler, [
+
+export default applyMiddleware(washingMachineRebateHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse'),
   limiter(limiterMaxRequests, limiterInterval)
 ])
-
-function hasTrueValue(value: any): boolean {
-  return (
-    value &&
-    typeof value === 'object' &&
-    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
-  )
-}
-
-function mapTruthyKeys(obj: any) {
-  return Object.keys(obj)
-    .map((key) => {
-      if (obj[key] === true) {
-        return key
-      } else {
-        return null
-      }
-    })
-    .filter(Boolean)
-}

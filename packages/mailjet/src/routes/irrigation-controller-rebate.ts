@@ -15,7 +15,7 @@ import {IncomingMessage} from 'http'
 import {MailJetSendRequest} from '../lib/types'
 import {
   getRecaptcha,
-  emailRecipients,
+  emailRecipientsIrrigation,
   validateSchema
 } from '../lib/rebate-forms'
 import {postMailJetRequest} from '../lib/mailjet'
@@ -219,7 +219,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [...emailRecipients],
+        To: [...emailRecipientsIrrigation],
         ReplyTo: {
           Email: email,
           Name: replyToName

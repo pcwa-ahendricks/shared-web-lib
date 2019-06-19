@@ -92,6 +92,7 @@ const ContactUsHandler = async (req: IncomingMessage) => {
   const ccRecipients: MailJetMessage['To'] = email
     ? [{Email: email, Name: name ? name : email}]
     : []
+
   const toRecipients: MailJetMessage['To'] = [
     ...SA_RECIPIENTS,
     ...mainRecipients,

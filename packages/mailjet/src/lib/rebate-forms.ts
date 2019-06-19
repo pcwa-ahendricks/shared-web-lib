@@ -1,4 +1,4 @@
-// cspell:ignore cbarnhill
+// cspell:ignore cbarnhill waterefficiency
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
@@ -17,11 +17,18 @@ export interface AttachmentFieldValue {
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
-const emailRecipients: MailJetMessage['To'] = isDev
+const emailRecipientsIrrigation: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
       {Name: 'Abe', Email: 'webmaster@pcwa.net'},
-      {Name: 'Cassandra', Email: 'cbarnhill@pcwa.net'}
+      {Name: 'Water Efficiency', Email: 'waterefficiency@pcwa.net'}
+    ]
+
+const emailRecipientsAppliance: MailJetMessage['To'] = isDev
+  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
+  : [
+      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'Water Efficiency', Email: 'rebates@pcwa.net'}
     ]
 
 const getRecaptcha = () =>
@@ -50,4 +57,9 @@ async function validateSchema(
   }
 }
 
-export {getRecaptcha, emailRecipients, validateSchema}
+export {
+  getRecaptcha,
+  emailRecipientsIrrigation,
+  emailRecipientsAppliance,
+  validateSchema
+}
