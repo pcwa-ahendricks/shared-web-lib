@@ -1,4 +1,4 @@
-// cspell:ignore addtl
+// cspell:ignore addtl watersenseApproved
 import fetch from 'isomorphic-unfetch'
 import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
@@ -127,12 +127,43 @@ export interface WashingMachineRequestBody {
   formData: WashingMachineRebateFormData
 }
 
+export interface ToiletRebateFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  propertyType: string
+  // noOfToilets: number
+  treatedCustomer: '' | 'Yes' | 'No'
+  builtPriorCutoff: '' | 'Yes' | 'No'
+  manufacturerModel: {
+    manufacturer: string
+    model: string
+  }[]
+  watersenseApproved: string
+  termsAgree: BooleanAsString
+  signature: string
+  captcha: string
+  receipts: string[]
+  installPhotos: string[]
+}
+
+export interface ToiletRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: ToiletRebateFormData
+}
+
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
   | LawnReplacementRequestBody
   | ContactUsRequestBody
   | WashingMachineRequestBody
+  | ToiletRequestBody
 
 async function postRebateForm(serviceUriPath: string, body: RequestBody) {
   const url = `${MAILJET_URL}/${serviceUriPath}`

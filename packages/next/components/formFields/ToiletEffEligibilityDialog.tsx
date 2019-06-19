@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -90,18 +90,13 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const {touched = {}, errors = {}} = formik || {}
 
   const eligibleFieldsTouched = useMemo(
-    () =>
-      [
-        touched.treatedCustomer,
-        touched.existingHigh,
-        touched.newConstruction
-      ].every(Boolean),
+    () => [touched.treatedCustomer, touched.builtPriorCutoff].every(Boolean),
     [touched]
   )
 
   const eligibleFieldsHaveError = useMemo(
     () =>
-      [errors.treatedCustomer, errors.existingHigh, errors.newConstruction]
+      [errors.treatedCustomer, errors.builtPriorCutoff]
         .filter(
           (error) =>
             error && typeof error === 'string' && !/required/i.test(error)
@@ -304,28 +299,21 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 }
 
-export default connect(WashEffEligibilityDialog)
+export default connect(ToiletEffEligibilityDialog)
 
 function getSteps() {
   return [
     {
       index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer?',
+      label: 'Are you a Placer County Water Agency treated water customer? ',
       fieldName: 'treatedCustomer',
       content: <QuestionOne />
     },
     {
       index: 1,
-      label:
-        'Are you replacing an existing high efficiency clothes washing machine with another new high efficiency clothes washing machine?',
-      fieldName: 'existingHigh',
+      label: 'Was the house built prior to 1994?',
+      fieldName: 'builtPriorCutoff',
       content: <QuestionTwo />
-    },
-    {
-      index: 2,
-      label: 'Is this home New Construction?',
-      fieldName: 'newConstruction',
-      content: <QuestionThree />
     }
   ]
 }
@@ -398,11 +386,11 @@ const QuestionOne = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
-                Residential/Multi Family Water-Efficient Clothes Washing Machine
-                Rebate. You must be a current Placer County Water Agency treated
-                water customer. Please close this web browser tab to go back to
-                the <a href="https://www.pcwa.net">PCWA.net</a> website.
+                Unfortunately, you do not qualify for the High Efficiency
+                Toilet/Urinal Rebate. You must be a current Placer County Water
+                Agency treated water customer. Please close this web browser tab
+                to go back to the <a href="https://www.pcwa.net">PCWA.net</a>{' '}
+                website.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -415,7 +403,7 @@ const QuestionOne = () => {
 const QuestionTwo = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="existingHigh">
+    <Field name="builtPriorCutoff">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
@@ -462,77 +450,10 @@ const QuestionTwo = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
-                Residential/Multi Family Water-Efficient Clothes Washing Machine
-                Rebate. Rebates are not available for the replacement of an
-                existing high efficiency clothes washing machine with another
-                new high efficiency clothes washing machine. Please close this
-                web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
-  )
-}
-
-const QuestionThree = () => {
-  const classes = useQuestionStyles()
-  return (
-    <Field name="newConstruction">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name, value} = field
-        const currentError = errors[name]
-
-        const clickHandler = (newValue: string) => () => {
-          setFieldValue(name, newValue, true)
-          setFieldTouched(name, true)
-        }
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-
-        return (
-          <div>
-            <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
-            >
-              {yesNoAnswers.map((answer) => (
-                <ListItem
-                  key={answer}
-                  button
-                  divider
-                  selected={answer === value}
-                  disabled={fieldTouched}
-                  onClick={clickHandler(answer)}
-                >
-                  <ListItemText primary={answer} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
-                Residential/Multi Family Water-Efficient Clothes Washing Machine
-                Rebate. New construction is not eligible for a rebate under this
-                program. Please close this web browser tab to go back to the{' '}
+                Unfortunately, you do not qualify for the High Efficiency Toilet
+                Rebate. Old toilets replaced must be rated at 3.0 (GPF) or more.
+                Most qualifying models were installed in homes built prior to
+                1994. Please close this web browser tab to go back to the{' '}
                 <a href="https://www.pcwa.net">PCWA.net</a> website.
               </DialogContentText>
             </WaitToGrow>

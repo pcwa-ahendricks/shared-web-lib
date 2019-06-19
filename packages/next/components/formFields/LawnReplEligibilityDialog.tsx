@@ -377,7 +377,12 @@ const QuestionOne = () => {
           setFieldTouched(name, true)
         }
 
-        const hasError = Boolean(currentError)
+        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+        const hasApplicableError =
+          Boolean(currentError) &&
+          typeof currentError === 'string' &&
+          !/required field/i.test(currentError)
+
         const fieldTouched = Boolean(touched[name])
         return (
           <div>
@@ -401,7 +406,7 @@ const QuestionOne = () => {
                 </ListItem>
               ))}
             </List>
-            <WaitToGrow isIn={hasError && fieldTouched}>
+            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
@@ -436,7 +441,12 @@ const QuestionTwo = () => {
           setFieldTouched(name, true)
         }
 
-        const hasError = Boolean(currentError)
+        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+        const hasApplicableError =
+          Boolean(currentError) &&
+          typeof currentError === 'string' &&
+          !/required field/i.test(currentError)
+
         const fieldTouched = Boolean(touched[name])
         return (
           <div>
@@ -460,7 +470,7 @@ const QuestionTwo = () => {
                 </ListItem>
               ))}
             </List>
-            <WaitToGrow isIn={hasError && fieldTouched}>
+            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
@@ -490,12 +500,17 @@ const QuestionThree = () => {
         const {name} = field
         const currentError = errors[name]
 
-        const hasError = Boolean(currentError)
+        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+        const hasApplicableError =
+          Boolean(currentError) &&
+          typeof currentError === 'string' &&
+          !/required field/i.test(currentError)
+
         const fieldTouched = Boolean(touched[name])
         return (
           <div>
             <LawnApproxSqFootField form={form} field={field} />
-            <WaitToGrow isIn={hasError && fieldTouched}>
+            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
@@ -529,7 +544,12 @@ const QuestionFour = () => {
           setFieldTouched(name, true)
         }
 
-        const hasError = Boolean(currentError)
+        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+        const hasApplicableError =
+          Boolean(currentError) &&
+          typeof currentError === 'string' &&
+          !/required field/i.test(currentError)
+
         const fieldTouched = Boolean(touched[name])
         return (
           <div>
@@ -553,7 +573,7 @@ const QuestionFour = () => {
                 </ListItem>
               ))}
             </List>
-            <WaitToGrow isIn={hasError && fieldTouched}>
+            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"

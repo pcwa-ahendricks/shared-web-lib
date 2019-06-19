@@ -1,30 +1,35 @@
-// cspell:ignore addtl mnfg USBR
+// cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {
+  Box,
   Button,
   CircularProgress,
   Divider,
+  Fab,
   Grid,
   Link,
   Theme,
+  Tooltip,
   Typography as Type
 } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@material-ui/icons/DeleteForever'
+import ClearIcon from '@material-ui/icons/Clear'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field} from 'formik'
+import {Formik, Form, Field, FieldArray} from 'formik'
 import {string, object, array, Schema} from 'yup'
 import clsx from 'clsx'
 import {
   postRebateForm,
-  WashingMachineRebateFormData as RebateFormData,
-  WashingMachineRequestBody as RequestBody
+  ToiletRebateFormData as RebateFormData,
+  ToiletRequestBody as RequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
 import OtherCityField from '@components/formFields/OtherCityField'
-import WashMachineCeeRadioField from '@components/formFields/WashMachineCeeRadioField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
@@ -34,7 +39,7 @@ import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
-import WashEffEligibilityDialog from '@components/formFields/WashEffEligibilityDialog'
+import ToiletEffEligibilityDialog from '@components/formFields/ToiletEffEligibilityDialog'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionApplianceDialog from '@components/FormSubmissionApplianceDialog/FormSubmissionApplianceDialog'
@@ -43,11 +48,12 @@ import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import delay from 'then-sleep'
-// Loading Recaptcha with Next dynamic isn't necessary.
-// import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
+import ToiletWatersenseRadioField from '@components/formFields/ToiletWatersenseRadioField'
 
 const isDev = process.env.NODE_ENV === 'development'
-const SERVICE_URI_PATH = 'washing-machine-rebate'
+const SERVICE_URI_PATH = 'toilet-rebate'
+const MAX_TOILETS = 25
+const MIN_TOILETS = 1
 
 const formSchema = object()
   .camelCase()
@@ -88,6 +94,10 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
+    // noOfToilets: number()
+    //   .required()
+    //   .moreThan(0)
+    //   .label('Number of toilets/urinals installed'),
     treatedCustomer: string()
       .required()
       .label('Treated Customer')
@@ -95,29 +105,34 @@ const formSchema = object()
         ['Yes'], // "Yes", "No"
         'You must be a current Placer County Water Agency treated water customer'
       ),
-    existingHigh: string()
+    builtPriorCutoff: string()
       .required()
-      .label('Replacing Existing High-Efficiency Washer')
+      .label('House Built prior to 1994')
       .oneOf(
-        ['No'], // "Yes", "No"
-        'Replacement of an existing high efficiency washer is not covered by rebate'
+        ['Yes'], // "Yes", "No"
+        'Old toilets replaced must be rated at 3.0 (GPF) or more'
       ),
-    newConstruction: string()
-      .required()
-      .label('New Construction')
-      .oneOf(
-        ['No'], // "Yes", "No"
-        'New constructions are not eligible for rebate'
+    manufacturerModel: array()
+      .required('Must provide Manufacturer and Model')
+      .min(MIN_TOILETS)
+      .max(MAX_TOILETS)
+      .of(
+        object({
+          manufacturer: string()
+            .required()
+            .label('Toilet Manufacturer'),
+          model: string()
+            .required()
+            .label('Toilet Model')
+        })
       ),
-    manufacturer: string()
+    watersenseApproved: string()
       .required()
-      .label('Washing Machine Manufacturer'),
-    model: string()
-      .required()
-      .label('Washing Machine Model'),
-    ceeQualify: string()
-      .required()
-      .label('CEE Tier 3 Water Factor'),
+      .label('Watersense Approved'),
+    // .oneOf(
+    //   [''], // "Yes", "No"
+    //   ''
+    // ),
     termsAgree: string()
       .required()
       .oneOf(
@@ -145,7 +160,7 @@ const formSchema = object()
         })
       ),
     installPhotos: array()
-      .required('Must provide photo(s) of installed washing machine')
+      .required('Must provide photo(s) of installed toilet')
       .of(
         object({
           status: string()
@@ -170,11 +185,9 @@ const initialFormValues: RebateFormData = {
   phone: '',
   propertyType: '',
   treatedCustomer: '',
-  existingHigh: '',
-  newConstruction: '',
-  manufacturer: '',
-  model: '',
-  ceeQualify: '',
+  builtPriorCutoff: '',
+  manufacturerModel: [{manufacturer: '', model: ''}],
+  watersenseApproved: '',
   termsAgree: '',
   signature: '',
   captcha: '',
@@ -263,7 +276,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-const WashingMachine = () => {
+const Toilet = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<RebateFormData>(
@@ -315,6 +328,22 @@ const WashingMachine = () => {
     fn()
   }, [])
 
+  // Wasn't able to get this to work with React Hooks API. Likely due to use of Formik's use of render props function.
+  // const getRows = (values: RebateFormData) => {
+  //   if (!values || !(values.noOfToilets > 0)) {
+  //     return []
+  //   }
+  //   const tempX: {key: number}[] = [],
+  //     endInt = values.noOfToilets,
+  //     maxInt = MAX_TOILETS
+  //   let i = 1
+  //   while (i <= endInt && i <= maxInt) {
+  //     tempX.push({key: i})
+  //     i++
+  //   }
+  //   return [...tempX]
+  // }
+
   const mainEl = useMemo(
     () => (
       <React.Fragment>
@@ -327,8 +356,7 @@ const WashingMachine = () => {
               </Type>
 
               <Type variant="h3" color="primary" gutterBottom>
-                PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient
-                Clothes Washing Machine
+                High Efficiency Toilet
               </Type>
 
               <Formik
@@ -377,8 +405,7 @@ const WashingMachine = () => {
                   // Check if user is in-eligible for rebate and disable all form controls if so.
                   const rebateIneligibility = [
                     errors['treatedCustomer'],
-                    errors['existingHigh'],
-                    errors['newConstruction']
+                    errors['builtPriorCutoff']
                   ].some(Boolean)
                   if (rebateIneligibility !== ineligible) {
                     setIneligible(rebateIneligibility)
@@ -400,6 +427,8 @@ const WashingMachine = () => {
                       setFieldValue('otherCity', '')
                     }
                   }
+
+                  console.log(formValues.manufacturerModel)
 
                   const attachmentsAreUploading =
                     receiptIsUploading || installPhotosIsUploading
@@ -514,36 +543,143 @@ const WashingMachine = () => {
                           >
                             Rebate Information
                           </Type>
-
-                          <Grid container spacing={5}>
+                          {/* <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
-                                disabled={ineligible}
-                                name="manufacturer"
-                                label="Washing Machine Manufacturer"
+                                // disabled={ineligible}
+                                name="noOfToilets"
+                                label="Number of Toilets/Urinals Installed"
                                 component={FormTextField}
+                                type="number"
+                                inputProps={{
+                                  min: MIN_TOILETS,
+                                  max: MAX_TOILETS
+                                }}
                               />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled={ineligible}
-                                name="model"
-                                label="Washing Machine Model"
-                                component={FormTextField}
-                              />
-                            </Grid>
-                          </Grid>
+                          </Grid> */}
+                          <FieldArray
+                            name="manufacturerModel"
+                            render={(arrayHelpers) => (
+                              <div>
+                                {values.manufacturerModel &&
+                                values.manufacturerModel.length > 0
+                                  ? values.manufacturerModel.map(
+                                      (item, index, items) => (
+                                        <div key={index}>
+                                          <Grid
+                                            container
+                                            spacing={5}
+                                            justify="center"
+                                            alignContent="center"
+                                          >
+                                            <Grid item xs={12} sm={5}>
+                                              <Field
+                                                // disabled={ineligible}
+                                                name={`manufacturerModel[${index}].manufacturer`}
+                                                label={`Toilet/Urinal Manufacturer ${
+                                                  index > 1 ? index : ''
+                                                }`}
+                                                component={FormTextField}
+                                              />
+                                            </Grid>
+                                            <Grid item xs={12} sm={5}>
+                                              <Field
+                                                // disabled={ineligible}
+                                                name={`manufacturerModel[${index}].model`}
+                                                label={`Toilet/Urinal Model ${
+                                                  index > 1 ? index : ''
+                                                }`}
+                                                component={FormTextField}
+                                              />
+                                            </Grid>
+                                            <Grid item xs={12} sm={2}>
+                                              {items.length - index === 1 &&
+                                              (item.model ||
+                                                item.manufacturer ||
+                                                index === 0) ? (
+                                                <Box
+                                                  display="flex"
+                                                  height="100%"
+                                                  alignItems="center"
+                                                >
+                                                  <Box flex="0 0 auto">
+                                                    <Tooltip
+                                                      title="Add additional toilet/urinal"
+                                                      aria-label="Add row"
+                                                    >
+                                                      <Fab
+                                                        size="medium"
+                                                        color="secondary"
+                                                        onClick={() =>
+                                                          arrayHelpers.push({
+                                                            manufacturer: '',
+                                                            model: ''
+                                                          })
+                                                        }
+                                                      >
+                                                        <AddIcon />
+                                                      </Fab>
+                                                    </Tooltip>
+                                                  </Box>
+                                                </Box>
+                                              ) : null}
+                                              {items.length - index !== 1 ||
+                                              (!item.model &&
+                                                !item.manufacturer &&
+                                                index !== 0) ? (
+                                                <Box
+                                                  display="flex"
+                                                  height="100%"
+                                                  alignItems="center"
+                                                >
+                                                  <Box flex="0 0 auto">
+                                                    <Tooltip
+                                                      title="Remove toilet/urinal"
+                                                      aria-label="Remove row"
+                                                    >
+                                                      <Fab
+                                                        size="medium"
+                                                        onClick={() =>
+                                                          arrayHelpers.remove(
+                                                            index
+                                                          )
+                                                        }
+                                                      >
+                                                        {!item.model &&
+                                                        !item.manufacturer &&
+                                                        index !== 0 ? (
+                                                          <ClearIcon></ClearIcon>
+                                                        ) : (
+                                                          <DeleteIcon />
+                                                        )}
+                                                      </Fab>
+                                                    </Tooltip>
+                                                  </Box>
+                                                </Box>
+                                              ) : null}
+                                            </Grid>
+                                          </Grid>
+                                        </div>
+                                      )
+                                    )
+                                  : null}
+                              </div>
+                            )}
+                          />
 
                           <Grid container spacing={5} justify="space-between">
                             <Grid item xs={12}>
                               <Field
                                 disabled={ineligible}
-                                name="ceeQualify"
-                                component={WashMachineCeeRadioField}
+                                name="watersenseApproved"
+                                toiletCount={
+                                  formValues.manufacturerModel.length
+                                }
+                                component={ToiletWatersenseRadioField}
                               />
                             </Grid>
                           </Grid>
-
                           <Grid container spacing={5} justify="space-between">
                             <Grid item xs={12} sm={6}>
                               <Field
@@ -558,23 +694,10 @@ const WashingMachine = () => {
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
-                                name="existingHigh"
-                                inputLabel="Existing High Efficiency Washer"
-                                inputId="existing-high-efficiency-washer-select"
+                                name="builtPriorCutoff"
+                                inputLabel="Was House Built Prior to 1994"
+                                inputId="house-built-prior-select"
                                 labelWidth={255}
-                                component={YesNoSelectField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5} justify="space-between">
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="newConstruction"
-                                inputLabel="For New Construction"
-                                inputId="for-new-construction-select"
-                                labelWidth={178}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -598,7 +721,7 @@ const WashingMachine = () => {
                               disabled={ineligible}
                               name="receipts"
                               attachmentTitle="Receipt"
-                              uploadFolder="washing-machine"
+                              uploadFolder="toilet"
                               onIsUploadingChange={receiptIsUploadingHandler}
                               component={AttachmentField}
                             />
@@ -608,8 +731,8 @@ const WashingMachine = () => {
                             <Field
                               disabled={ineligible}
                               name="installPhotos"
-                              attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
-                              uploadFolder="washing-machine"
+                              attachmentTitle="Water-Efficient Toilet installed photo"
+                              uploadFolder="toilet"
                               onIsUploadingChange={
                                 installPhotosIsUploadingHandler
                               }
@@ -637,8 +760,8 @@ const WashingMachine = () => {
                             >
                               <ReviewTermsConditions
                                 pageCount={2}
-                                fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://cosmic-s3.imgix.net/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
+                                fileName="Toilet-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://cosmic-s3.imgix.net/310eda20-921b-11e9-b0fd-bf44dce96b6c-Toilet-program-requirements-3-3-17.pdf"
                               />
                               <Type
                                 variant="body1"
@@ -649,13 +772,13 @@ const WashingMachine = () => {
                                   I have read, understand, and agree to the{' '}
                                   <Link
                                     variant="inherit"
-                                    href="https://cdn.cosmicjs.com/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
+                                    href="https://cdn.cosmicjs.com/310eda20-921b-11e9-b0fd-bf44dce96b6c-Toilet-program-requirements-3-3-17.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   >
-                                    PCWA/USBR Energy Star® Residential/Multi
-                                    Family Water-Efficient Clothes Washing
-                                    Machine Rebate Terms and Conditions.
+                                    Placer County Water Agency High Efficiency
+                                    Toilet and Waterless Urinal Retrofit Rebate
+                                    Terms and Conditions.
                                   </Link>
                                 </em>
                               </Type>
@@ -773,10 +896,10 @@ const WashingMachine = () => {
                         </div>
                       </Form>
 
-                      <WashEffEligibilityDialog
+                      {/* <ToiletEffEligibilityDialog
                         open={eligibilityDialogOpen}
                         onClose={() => setEligibilityDialogOpen(false)}
-                      />
+                      /> */}
                     </React.Fragment>
                   )
                 }}
@@ -805,7 +928,7 @@ const WashingMachine = () => {
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const washingMachineEl = useMemo(
+  const toiletEl = useMemo(
     () =>
       !isDev ? (
         <React.Fragment>
@@ -828,7 +951,7 @@ const WashingMachine = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Washing Machine Rebate Form">{mainEl}</PageLayout>
+        <PageLayout title="Toilet Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )
@@ -839,12 +962,12 @@ const WashingMachine = () => {
       onDialogLeave={() => setShouldConfirmRouteChange(false)}
       shouldConfirmRouteChange={shouldConfirmRouteChange}
     >
-      {washingMachineEl}
+      {toiletEl}
       <FormSubmissionApplianceDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient Clothes Washing Machine Rebate Application"
+        description="High Efficiency Toilet and Waterless Urinal Retrofit Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError
@@ -856,4 +979,4 @@ const WashingMachine = () => {
   )
 }
 
-export default WashingMachine
+export default Toilet
