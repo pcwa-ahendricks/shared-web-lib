@@ -429,8 +429,6 @@ const Toilet = () => {
                     }
                   }
 
-                  console.log(formValues.manufacturerModel)
-
                   const attachmentsAreUploading =
                     receiptIsUploading || installPhotosIsUploading
 
@@ -449,6 +447,7 @@ const Toilet = () => {
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
+                                required
                                 disabled={ineligible}
                                 name="firstName"
                                 label="First Name"
@@ -458,6 +457,7 @@ const Toilet = () => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Field
+                                required
                                 disabled={ineligible}
                                 name="lastName"
                                 label="Last Name"
@@ -548,6 +548,7 @@ const Toilet = () => {
                             <Grid item xs={12} sm={6}>
                               <Field
                                 // disabled={ineligible}
+                                required
                                 name="noOfToilets"
                                 label="Number of Toilets/Urinals Installed"
                                 component={FormTextField}
@@ -576,7 +577,8 @@ const Toilet = () => {
                                           >
                                             <Grid item xs={12} sm={5}>
                                               <Field
-                                                // disabled={ineligible}
+                                                disabled={ineligible}
+                                                required
                                                 name={`manufacturerModel[${index}].manufacturer`}
                                                 label={`Toilet/Urinal Manufacturer ${
                                                   index > 1 ? index : ''
@@ -586,7 +588,8 @@ const Toilet = () => {
                                             </Grid>
                                             <Grid item xs={12} sm={5}>
                                               <Field
-                                                // disabled={ineligible}
+                                                disabled={ineligible}
+                                                required
                                                 name={`manufacturerModel[${index}].model`}
                                                 label={`Toilet/Urinal Model ${
                                                   index > 1 ? index : ''
@@ -610,6 +613,7 @@ const Toilet = () => {
                                                       aria-label="Add row"
                                                     >
                                                       <Fab
+                                                        disabled={ineligible}
                                                         size="medium"
                                                         color="secondary"
                                                         onClick={() =>
@@ -640,6 +644,7 @@ const Toilet = () => {
                                                       aria-label="Remove row"
                                                     >
                                                       <Fab
+                                                        disabled={ineligible}
                                                         size="medium"
                                                         onClick={() =>
                                                           arrayHelpers.remove(

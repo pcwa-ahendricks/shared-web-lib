@@ -534,6 +534,7 @@ const IrrigationController = () => {
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={6}>
                             <Field
+                              required
                               name="manufacturer"
                               label="Controller Manufacturer"
                               component={FormTextField}
@@ -541,6 +542,7 @@ const IrrigationController = () => {
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <Field
+                              required
                               name="model"
                               label="Controller Model"
                               component={FormTextField}

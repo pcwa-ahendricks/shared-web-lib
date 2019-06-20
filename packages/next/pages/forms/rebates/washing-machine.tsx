@@ -419,6 +419,7 @@ const WashingMachine = () => {
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
+                                required
                                 disabled={ineligible}
                                 name="firstName"
                                 label="First Name"
@@ -428,6 +429,7 @@ const WashingMachine = () => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Field
+                                required
                                 disabled={ineligible}
                                 name="lastName"
                                 label="Last Name"
