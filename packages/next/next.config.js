@@ -4,7 +4,7 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
-const Dotenv = require('dotenv-webpack')
+const Dotenv = isDev ? require('dotenv-webpack') : null
 const webpack = require('webpack')
 const path = require('path')
 const withTypescript = require('@zeit/next-typescript')

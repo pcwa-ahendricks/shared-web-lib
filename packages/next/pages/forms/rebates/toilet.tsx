@@ -1,21 +1,15 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {
-  Box,
   Button,
   CircularProgress,
   Divider,
-  Fab,
   Grid,
   Link,
   Theme,
-  Tooltip,
   Typography as Type
 } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
-import DeleteIcon from '@material-ui/icons/DeleteForever'
-import ClearIcon from '@material-ui/icons/Clear'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field, FieldArray} from 'formik'
 import {string, object, array, Schema} from 'yup'
@@ -49,6 +43,7 @@ import FormSubmissionDialogError from '@components/FormSubmissionDialogError/For
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import delay from 'then-sleep'
 import ToiletWatersenseRadioField from '@components/formFields/ToiletWatersenseRadioField'
+import ToiletMfgModelsField from '@components/formFields/ToiletMfgModelsField'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -432,6 +427,7 @@ const Toilet = () => {
                   const attachmentsAreUploading =
                     receiptIsUploading || installPhotosIsUploading
 
+                  console.log(values.manufacturerModel)
                   return (
                     <React.Fragment>
                       <Form className={classes.form}>
@@ -563,114 +559,7 @@ const Toilet = () => {
                           <FieldArray
                             name="manufacturerModel"
                             render={(arrayHelpers) => (
-                              <div>
-                                {values.manufacturerModel &&
-                                values.manufacturerModel.length > 0
-                                  ? values.manufacturerModel.map(
-                                      (item, index, items) => (
-                                        <div key={index}>
-                                          <Grid
-                                            container
-                                            spacing={5}
-                                            justify="center"
-                                            alignContent="center"
-                                          >
-                                            <Grid item xs={12} sm={5}>
-                                              <Field
-                                                disabled={ineligible}
-                                                required
-                                                name={`manufacturerModel[${index}].manufacturer`}
-                                                label={`Toilet/Urinal Manufacturer ${
-                                                  index > 1 ? index : ''
-                                                }`}
-                                                component={FormTextField}
-                                              />
-                                            </Grid>
-                                            <Grid item xs={12} sm={5}>
-                                              <Field
-                                                disabled={ineligible}
-                                                required
-                                                name={`manufacturerModel[${index}].model`}
-                                                label={`Toilet/Urinal Model ${
-                                                  index > 1 ? index : ''
-                                                }`}
-                                                component={FormTextField}
-                                              />
-                                            </Grid>
-                                            <Grid item xs={12} sm={2}>
-                                              {items.length - index === 1 &&
-                                              (item.model ||
-                                                item.manufacturer ||
-                                                index === 0) ? (
-                                                <Box
-                                                  display="flex"
-                                                  height="100%"
-                                                  alignItems="center"
-                                                >
-                                                  <Box flex="0 0 auto">
-                                                    <Tooltip
-                                                      title="Add additional toilet/urinal"
-                                                      aria-label="Add row"
-                                                    >
-                                                      <Fab
-                                                        disabled={ineligible}
-                                                        size="medium"
-                                                        color="secondary"
-                                                        onClick={() =>
-                                                          arrayHelpers.push({
-                                                            manufacturer: '',
-                                                            model: ''
-                                                          })
-                                                        }
-                                                      >
-                                                        <AddIcon />
-                                                      </Fab>
-                                                    </Tooltip>
-                                                  </Box>
-                                                </Box>
-                                              ) : null}
-                                              {items.length - index !== 1 ||
-                                              (!item.model &&
-                                                !item.manufacturer &&
-                                                index !== 0) ? (
-                                                <Box
-                                                  display="flex"
-                                                  height="100%"
-                                                  alignItems="center"
-                                                >
-                                                  <Box flex="0 0 auto">
-                                                    <Tooltip
-                                                      title="Remove toilet/urinal"
-                                                      aria-label="Remove row"
-                                                    >
-                                                      <Fab
-                                                        disabled={ineligible}
-                                                        size="medium"
-                                                        onClick={() =>
-                                                          arrayHelpers.remove(
-                                                            index
-                                                          )
-                                                        }
-                                                      >
-                                                        {!item.model &&
-                                                        !item.manufacturer &&
-                                                        index !== 0 ? (
-                                                          <ClearIcon></ClearIcon>
-                                                        ) : (
-                                                          <DeleteIcon />
-                                                        )}
-                                                      </Fab>
-                                                    </Tooltip>
-                                                  </Box>
-                                                </Box>
-                                              ) : null}
-                                            </Grid>
-                                          </Grid>
-                                        </div>
-                                      )
-                                    )
-                                  : null}
-                              </div>
+                              <ToiletMfgModelsField {...arrayHelpers} />
                             )}
                           />
 
