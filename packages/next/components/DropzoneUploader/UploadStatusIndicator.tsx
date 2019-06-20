@@ -10,6 +10,7 @@ type Props = {
   children: React.ReactNode
   uploadedFiles: UploadedFile[]
   file: DroppedFile
+  isUploading?: boolean
   onSuccess?: () => void
 }
 
@@ -31,7 +32,8 @@ const UploadStatusIndicator = ({
   children,
   uploadedFiles,
   file,
-  onSuccess
+  onSuccess,
+  isUploading = false
 }: Props) => {
   const classes = useStyles()
 
@@ -57,10 +59,10 @@ const UploadStatusIndicator = ({
 
   const progressEl = useMemo(
     () =>
-      uploadStatus === 'unknown' ? (
+      isUploading ? (
         <LinearProgress className={classes.progress} color="secondary" />
       ) : null,
-    [uploadStatus, classes]
+    [classes, isUploading]
   )
 
   return (

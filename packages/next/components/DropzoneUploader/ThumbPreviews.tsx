@@ -6,6 +6,7 @@ import ThumbPreview from './ThumbPreview'
 
 type Props = {
   onRemoveUpload?: (file: DroppedFile) => void
+  isUploading?: boolean
   droppedFiles?: DroppedFile[]
   uploadedFiles?: UploadedFile[]
 }
@@ -13,7 +14,8 @@ type Props = {
 const ThumbPreviews = ({
   droppedFiles = [],
   uploadedFiles = [],
-  onRemoveUpload
+  onRemoveUpload,
+  isUploading = false
 }: Props) => {
   const [showThumbDialog, setShowThumbDialog] = useState<boolean>(false)
   const [showThumbDialogFile, setShowThumbDialogFile] = useState<DroppedFile>()
@@ -53,6 +55,7 @@ const ThumbPreviews = ({
           uploadedFiles={uploadedFiles}
           onClick={clickHandler}
           onRemoveUpload={removeUploadHandler}
+          isUploading={isUploading}
         />
       ))}
 

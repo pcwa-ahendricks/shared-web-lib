@@ -1,6 +1,7 @@
 import React, {
   useState,
   useEffect,
+  useMemo,
   useCallback,
   forwardRef,
   useImperativeHandle
@@ -124,6 +125,10 @@ const DropzoneUploader: React.RefForwardingComponent<
   const classes = useStyles()
   const [droppedFiles, setDroppedFiles] = useState<DroppedFile[]>([])
   const [rejectedFiles, setRejectedFiles] = useState<DroppedFile[]>([])
+  const [uploadDroppedFiles, setUploadDroppedFiles] = useState<{
+    fileNamePrefix: string
+    files: File[]
+  }>()
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [
     confirmRemoveUpload,
@@ -141,6 +146,102 @@ const DropzoneUploader: React.RefForwardingComponent<
   useEffect(() => {
     onIsUploadingChange && onIsUploadingChange(isUploading)
   }, [isUploading, onIsUploadingChange])
+
+  const supportedJimpTypes = useMemo(
+    () => [
+      Jimp.MIME_BMP,
+      Jimp.MIME_GIF,
+      Jimp.MIME_JGD,
+      Jimp.MIME_JPEG,
+      Jimp.MIME_PNG,
+      Jimp.MIME_TIFF,
+      Jimp.MIME_X_MS_BMP
+    ],
+    []
+  )
+
+  const getImage = useCallback(
+    async (imageBuffer: Buffer, mimeType: string) => {
+      try {
+        // Only resize images Jimp can load.
+        if (
+          supportedJimpTypes.findIndex(
+            (supportedType) => supportedType === mimeType
+          ) <= 0
+        ) {
+          throw `File type ${mimeType} not supported by Jimp.`
+        }
+        const image = await Jimp.read(imageBuffer)
+        const width = image.getWidth()
+        // Don't resize image if it's already smaller than the target dimension we are resizing to.
+        if (width <= WIDTH_THRESHOLD) {
+          throw 'Image resize not necessary'
+        }
+        return image
+      } catch (error) {
+        throw error
+      }
+    },
+    [supportedJimpTypes]
+  )
+
+  const resizeImage = useCallback(
+    async (imageArryBuffer: ArrayBuffer, mimeType: string): Promise<Buffer> => {
+      // Don't catch errors since they will be caught by function calling resizeImage()
+      const imageBuffer = Buffer.from(imageArryBuffer)
+      const image = await getImage(imageBuffer, mimeType)
+      const newImageBuffer = await image
+        .resize(WIDTH_THRESHOLD, Jimp.AUTO)
+        .getBufferAsync(mimeType)
+      return newImageBuffer
+    },
+    [getImage]
+  )
+
+  /* eslint-disable compat/compat */
+  const resizeHandler = useCallback(
+    (file: File, fileNamePrefix: string) => {
+      const promise = new Promise<File>((resolve) => {
+        const origFile = new File([file], `${fileNamePrefix}${file.name}`, {
+          type: file.type
+        })
+        const reader = new FileReader()
+        reader.onabort = () => console.log('file reading was aborted')
+        reader.onerror = () => console.log('file reading has failed')
+        reader.onload = async () => {
+          try {
+            const imgArrBuff = reader.result
+            const resizedImgBuff =
+              imgArrBuff instanceof ArrayBuffer
+                ? await resizeImage(imgArrBuff, file.type)
+                : null
+            if (!resizedImgBuff) {
+              throw new Error('Could not resize image.')
+            }
+            const resizedFile = new File(
+              [resizedImgBuff || file],
+              `${fileNamePrefix}${file.name}`,
+              {
+                type: file.type
+              }
+            )
+            // Upload resized dropped files.
+            resolve(resizedFile)
+          } catch (error) {
+            // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
+            console.log('Uploading original attachment: ', error)
+            resolve(origFile)
+          }
+        }
+
+        // reader.readAsBinaryString(file)
+        reader.readAsArrayBuffer(file)
+      })
+      return promise
+    },
+    [resizeImage]
+  )
+  /* eslint-enable compat/compat */
 
   const uploadFileHandler = useCallback(
     async (file) => {
@@ -170,40 +271,15 @@ const DropzoneUploader: React.RefForwardingComponent<
     [uploadFolder]
   )
 
-  const dropHandler = useCallback(
-    async (
-      files: any[]
-      // rejectedFiles: Array<any>
-    ) => {
-      setIsUploading(true)
+  useEffect(() => {
+    const asyncFn = async () => {
       try {
-        const fileNamePrefix = nanoid(10)
-        // console.log('accepted files: ', acceptedFiles)
-        // console.log('rejected files: ', rejectedFiles)
-        const sd = [...files]
-        const newDroppedFiles = sd.map((file) => {
-          const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
-            type: file.type
-          })
-          // Add image preview urls.
-          return {
-            name: newFile.name,
-            type: newFile.type,
-            size: newFile.size,
-            originalName: file.name,
-            lastModified: newFile.lastModified,
-            previewUrl: URL.createObjectURL(newFile),
-            ext: extension(newFile.name)
-          }
-        })
-
-        setDroppedFiles((prevDroppedFiles) => [
-          ...prevDroppedFiles,
-          ...newDroppedFiles
-        ])
-
-        const uf = [...files]
-        const uploadedFilePromises = uf.map(async (file) => {
+        if (!uploadDroppedFiles) {
+          return
+        }
+        setIsUploading(true)
+        const {files = [], fileNamePrefix = ''} = uploadDroppedFiles
+        const uploadedFilePromises = files.map(async (file) => {
           try {
             const resizedFile = await resizeHandler(file, fileNamePrefix)
             const uploadedFile = await uploadFileHandler(resizedFile)
@@ -219,9 +295,45 @@ const DropzoneUploader: React.RefForwardingComponent<
       } catch (error) {
         setIsUploading(false)
       }
-    },
-    [uploadFileHandler]
-  )
+    }
+
+    asyncFn()
+    return () => {}
+  }, [uploadDroppedFiles, resizeHandler, uploadFileHandler])
+
+  /* eslint-disable compat/compat */
+  const dropHandler = useCallback((
+    files: File[]
+    // rejectedFiles: Array<any>
+  ) => {
+    const fileNamePrefix = nanoid(10)
+    // console.log('accepted files: ', acceptedFiles)
+    // console.log('rejected files: ', rejectedFiles)
+    const sd = [...files]
+    const newDroppedFiles = sd.map((file) => {
+      const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
+        type: file.type
+      })
+      // Add image preview urls.
+      return {
+        name: newFile.name,
+        type: newFile.type,
+        size: newFile.size,
+        originalName: file.name,
+        lastModified: newFile.lastModified,
+        previewUrl: URL.createObjectURL(newFile),
+        ext: extension(newFile.name)
+      }
+    })
+
+    setDroppedFiles((prevDroppedFiles) => [
+      ...prevDroppedFiles,
+      ...newDroppedFiles
+    ])
+
+    setUploadDroppedFiles({fileNamePrefix, files: [...files]})
+  }, [])
+  /* eslint-enable compat/compat */
 
   const clearUploadsHandler = useCallback(() => {
     setShowConfirmClearUploads(false) // Hide dialog.
@@ -331,6 +443,7 @@ const DropzoneUploader: React.RefForwardingComponent<
         </div>
         <aside className={classes.thumbsContainer}>
           <ThumbPreviews
+            isUploading={isUploading}
             uploadedFiles={uploadedFiles}
             droppedFiles={droppedFiles}
             onRemoveUpload={tryRemoveUploadHandler}
@@ -382,89 +495,3 @@ const DropzoneUploader: React.RefForwardingComponent<
 // use of forwardRef doesn't support propTypes or defaultProps. babel-plugin-typescript-to-proptypes package is adding them for us automatically. Remove them here to prevent a console warning.
 delete DropzoneUploader['propTypes']
 export default forwardRef(DropzoneUploader)
-
-const supportedJimpTypes = [
-  Jimp.MIME_BMP,
-  Jimp.MIME_GIF,
-  Jimp.MIME_JGD,
-  Jimp.MIME_JPEG,
-  Jimp.MIME_PNG,
-  Jimp.MIME_TIFF,
-  Jimp.MIME_X_MS_BMP
-]
-
-async function resizeImage(
-  imageArryBuffer: ArrayBuffer,
-  mimeType: string
-): Promise<Buffer> {
-  // Don't catch errors since they will be caught by function calling resizeImage()
-  const imageBuffer = Buffer.from(imageArryBuffer)
-  const image = await getImage(imageBuffer, mimeType)
-  const newImageBuffer = await image
-    .resize(WIDTH_THRESHOLD, Jimp.AUTO)
-    .getBufferAsync(mimeType)
-  return newImageBuffer
-}
-
-async function getImage(imageBuffer: Buffer, mimeType: string) {
-  try {
-    // Only resize images Jimp can load.
-    if (
-      supportedJimpTypes.findIndex(
-        (supportedType) => supportedType === mimeType
-      ) <= 0
-    ) {
-      throw `File type ${mimeType} not supported by Jimp.`
-    }
-    const image = await Jimp.read(imageBuffer)
-    const width = image.getWidth()
-    // Don't resize image if it's already smaller than the target dimension we are resizing to.
-    if (width <= WIDTH_THRESHOLD) {
-      throw 'Image resize not necessary'
-    }
-    return image
-  } catch (error) {
-    throw error
-  }
-}
-/* eslint-disable compat/compat */
-function resizeHandler(file: File, fileNamePrefix: string) {
-  const promise = new Promise<File>((resolve) => {
-    const origFile = new File([file], `${fileNamePrefix}${file.name}`, {
-      type: file.type
-    })
-    const reader = new FileReader()
-    reader.onabort = () => console.log('file reading was aborted')
-    reader.onerror = () => console.log('file reading has failed')
-    reader.onload = async () => {
-      try {
-        const imgArrBuff = reader.result
-        const resizedImgBuff =
-          imgArrBuff instanceof ArrayBuffer
-            ? await resizeImage(imgArrBuff, file.type)
-            : null
-        if (!resizedImgBuff) {
-          throw new Error('Could not resize image.')
-        }
-        const resizedFile = new File(
-          [resizedImgBuff || file],
-          `${fileNamePrefix}${file.name}`,
-          {
-            type: file.type
-          }
-        )
-        // Upload resized dropped files.
-        resolve(resizedFile)
-      } catch (error) {
-        // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
-        console.log('Uploading original attachment: ', error)
-        resolve(origFile)
-      }
-    }
-
-    // reader.readAsBinaryString(file)
-    reader.readAsArrayBuffer(file)
-  })
-  return promise
-}
-/* eslint-enable compat/compat */

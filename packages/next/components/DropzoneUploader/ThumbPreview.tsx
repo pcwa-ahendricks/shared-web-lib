@@ -14,6 +14,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 type Props = {
   file: DroppedFile
+  isUploading?: boolean
   onClick: (file: DroppedFile) => void
   onRemoveUpload?: (file: DroppedFile) => void
   uploadedFiles?: UploadedFile[]
@@ -83,7 +84,8 @@ const ThumbPreview = ({
   uploadedFiles = [],
   onRemoveUpload,
   file,
-  onClick
+  onClick,
+  isUploading = false
 }: Props) => {
   // const [uploadSuccess, setUploadSuccess] = useState<boolean>()
   const theme = useTheme<Theme>()
@@ -142,6 +144,7 @@ const ThumbPreview = ({
           uploadedFiles={uploadedFiles}
           file={file}
           onSuccess={uploadSuccessHandler}
+          isUploading={isUploading}
         >
           <Tooltip title={file.originalName} enterDelay={500}>
             <div
