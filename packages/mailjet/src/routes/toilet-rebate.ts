@@ -24,7 +24,7 @@ import {postMailJetRequest} from '../lib/mailjet'
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 879852
+const MAILJET_TEMPLATE_ID = 881955
 
 interface FormDataObj {
   firstName: string
@@ -129,7 +129,7 @@ const bodySchema = object()
       })
   })
 
-const washingMachineRebateHandler = async (req: IncomingMessage) => {
+const toiletRebateHandler = async (req: IncomingMessage) => {
   const data: any = await json(req)
   const body: {
     formData: FormDataObj
@@ -154,7 +154,7 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
     captcha,
     treatedCustomer,
     builtPriorCutoff,
-    manufacturerModel,
+    manufacturerModel = [],
     watersenseApproved
   } = formData
   let {city = '', accountNo} = formData
@@ -186,6 +186,8 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
   const installImages = installPhotos.map((attachment) => attachment.url)
 
   const replyToName = `${firstName} ${lastName}`
+
+  const noOfAppliances = manufacturerModel.length.toString()
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -220,6 +222,7 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
           treatedCustomer,
           builtPriorCutoff,
           manufacturerModel,
+          noOfAppliances,
           watersenseApproved,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
           receiptImages,
@@ -250,7 +253,7 @@ const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
 const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
 
-export default applyMiddleware(washingMachineRebateHandler, [
+export default applyMiddleware(toiletRebateHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse'),
   limiter(limiterMaxRequests, limiterInterval)

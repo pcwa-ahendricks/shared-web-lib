@@ -4,6 +4,7 @@ import irrigCntrlRebateRoute from './irrigation-controller-rebate'
 import irrigEffRebateRoute from './irrigation-efficiencies-rebate'
 import lawnReplacementRebateRoute from './lawn-replacement-rebate'
 import washingMachineRebateRoute from './washing-machine-rebate'
+import toiletRebateRoute from './toilet-rebate'
 import contactUsRoute from './contact-us'
 // File uploads handled by Cosmicjs and cosmic package..
 // import {
@@ -22,5 +23,6 @@ export {
   irrigEffRebateRoute,
   lawnReplacementRebateRoute,
   washingMachineRebateRoute,
+  toiletRebateRoute,
   contactUsRoute
 }
