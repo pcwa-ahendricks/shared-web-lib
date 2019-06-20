@@ -427,7 +427,6 @@ const Toilet = () => {
                   const attachmentsAreUploading =
                     receiptIsUploading || installPhotosIsUploading
 
-                  console.log(values.manufacturerModel)
                   return (
                     <React.Fragment>
                       <Form className={classes.form}>
