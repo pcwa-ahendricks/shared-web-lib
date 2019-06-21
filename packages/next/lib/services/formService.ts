@@ -70,6 +70,7 @@ export interface LawnReplacementRebateFormData {
   otherCity: string
   phone: string
   propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
   approxSqFeet: string
   termsAgree: BooleanAsString
   inspectAgree: BooleanAsString

@@ -35,6 +35,7 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
   irrigMethod: string
   inspectAgree: string
   termsAgree: string
@@ -71,6 +72,11 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
+        treatedCustomer: string()
+          .required()
+          .oneOf(
+            ['Yes'] // "Yes", "No"
+          ),
         termsAgree: string()
           .required()
           .oneOf(['true']),
@@ -127,6 +133,7 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
+    treatedCustomer,
     irrigMethod,
     useArtTurf,
     approxSqFeet,
@@ -192,6 +199,7 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
           email,
           phone,
           propertyType,
+          treatedCustomer,
           irrigMethod,
           useArtTurf,
           approxSqFeet,

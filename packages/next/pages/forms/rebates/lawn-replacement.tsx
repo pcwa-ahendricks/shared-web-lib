@@ -44,6 +44,7 @@ import AlreadyStartedSelect from '@components/formFields/AlreadyStartedSelect'
 import isNumber from 'is-number'
 import delay from 'then-sleep'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
+import YesNoSelectField from '@components/formFields/YesNoSelectField'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
@@ -87,6 +88,13 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
+    treatedCustomer: string()
+      .required()
+      .label('Treated Customer')
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'You must be a current Placer County Water Agency treated water customer'
+      ),
     termsAgree: string()
       .required()
       .oneOf(
@@ -155,6 +163,7 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
+  treatedCustomer: '',
   termsAgree: '',
   inspectAgree: '',
   signature: '',
@@ -329,6 +338,7 @@ const LawnReplacement = () => {
 
                   // Check if user is in-eligible for rebate and disable all form controls if so.
                   const rebateIneligibility = [
+                    errors['treatedCustomer'],
                     errors['alreadyStarted'],
                     errors['useArtTurf'],
                     errors['approxSqFeet'],
@@ -463,6 +473,16 @@ const LawnReplacement = () => {
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
+                                name="treatedCustomer"
+                                inputLabel="PCWA Treated Customer"
+                                inputId="treated-water-select"
+                                labelWidth={200}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
                                 name="alreadyStarted"
                                 component={AlreadyStartedSelect}
                               />
@@ -571,11 +591,10 @@ const LawnReplacement = () => {
                                 harmless PCWA, its directors, officers, and
                                 employees from and against all loss, damage,
                                 expense and liability resulting from or
-                                otherwise relating to the installation of the
-                                Weather Based Irrigation Controller. By signing
-                                this form I agree that I have read, understand,
-                                and agree to the Terms and Conditions of this
-                                rebate program.
+                                otherwise relating to the installation of water
+                                efficient landscape. By signing this form I
+                                agree that I have read, understand, and agree to
+                                the Terms and Conditions of this rebate program.
                               </Type>
                             </Grid>
 

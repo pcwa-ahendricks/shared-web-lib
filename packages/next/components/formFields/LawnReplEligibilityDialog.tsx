@@ -33,6 +33,7 @@ import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
+import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 
 type Props = {
   open: boolean
@@ -96,6 +97,7 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const eligibleFieldsTouched = useMemo(
     () =>
       [
+        touched.treatedCustomer,
         touched.alreadyStarted,
         touched.useArtTurf,
         touched.approxSqFeet,
@@ -107,6 +109,7 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const eligibleFieldsHaveError = useMemo(
     () =>
       [
+        errors.treatedCustomer,
         errors.alreadyStarted,
         errors.useArtTurf,
         errors.approxSqFeet,
@@ -258,8 +261,9 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
               color="textPrimary"
               className={classes.qualifyMsg}
             >
-              Excellent. You qualify for the Lawn Replacement Rebate. Please
-              close this message now to continue the rebate application process.
+              Excellent. You may now submit your application for the Lawn
+              Replacement Rebate. Please close this message now to continue the
+              rebate application process.
             </DialogContentText>
           </WaitToGrow>
         </div>
@@ -320,27 +324,34 @@ function getSteps() {
   return [
     {
       index: 0,
-      label: 'Have you already started the Lawn Replacement project?',
-      fieldName: 'alreadyStarted',
+      label: 'Are you a Placer County Water Agency treated water customer? ',
+      fieldName: 'treatedCustomer',
       content: <QuestionOne />
     },
     {
-      index: 1,
-      label: 'Do you plan on replacing your lawn with artificial turf?',
-      fieldName: 'useArtTurf',
+      index: 0,
+      label: 'Have you already started the Lawn Replacement project?',
+      fieldName: 'alreadyStarted',
       content: <QuestionTwo />
     },
     {
-      index: 2,
-      label: 'What is the approximate square footage of existing lawn?',
-      fieldName: 'approxSqFeet',
+      index: 1,
+      label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
+      fieldName: 'useArtTurf',
       content: <QuestionThree />
+    },
+    {
+      index: 2,
+      label:
+        'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
+      fieldName: 'approxSqFeet',
+      content: <QuestionFour />
     },
     {
       index: 3,
       label: 'How is the existing lawn currently irrigated?',
       fieldName: 'irrigMethod',
-      content: <QuestionFour />
+      content: <QuestionFive />
     }
   ]
 }
@@ -364,6 +375,69 @@ const useQuestionStyles = makeStyles((theme: Theme) =>
 )
 
 const QuestionOne = () => {
+  const classes = useQuestionStyles()
+  return (
+    <Field name="treatedCustomer">
+      {({field, form}: FieldProps<any>) => {
+        const {setFieldValue, errors, setFieldTouched, touched} = form
+        const {name, value} = field
+        const currentError = errors[name]
+
+        const clickHandler = (alreadyStarted: string) => () => {
+          setFieldValue(name, alreadyStarted, true)
+          setFieldTouched(name, true)
+        }
+
+        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+        const hasApplicableError =
+          Boolean(currentError) &&
+          typeof currentError === 'string' &&
+          !/required field/i.test(currentError)
+
+        const fieldTouched = Boolean(touched[name])
+        return (
+          <div>
+            <List
+              subheader={
+                <ListSubheader component="div">
+                  Choose one of the following
+                </ListSubheader>
+              }
+            >
+              {yesNoAnswers.map((answer) => (
+                <ListItem
+                  key={answer}
+                  button
+                  divider
+                  selected={answer === value}
+                  disabled={fieldTouched}
+                  onClick={clickHandler(answer)}
+                >
+                  <ListItemText primary={answer} />
+                </ListItem>
+              ))}
+            </List>
+            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
+              <DialogContentText
+                variant="body1"
+                color="textPrimary"
+                className={classes.qualifyMsg}
+              >
+                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+                Unfortunately, you do not qualify for the Lawn Replacement
+                Rebate. Lawn Replacement Rebates are only available for PCWA
+                treated water customers. Please close this web browser tab to go
+                back to the <a href="https://www.pcwa.net">PCWA.net</a> website.
+              </DialogContentText>
+            </WaitToGrow>
+          </div>
+        )
+      }}
+    </Field>
+  )
+}
+
+const QuestionTwo = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="alreadyStarted">
@@ -413,8 +487,8 @@ const QuestionOne = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. Conversions that are initiated prior to PCWA's approval
+                Unfortunately you do not qualify for the Lawn Replacement
+                Rebate. Conversions that are initiated prior to PCWA's approval
                 are ineligible. No exceptions will be made. Please close this
                 web browser tab to go back to the{' '}
                 <a href="https://www.pcwa.net">PCWA.net</a> website.
@@ -427,7 +501,7 @@ const QuestionOne = () => {
   )
 }
 
-const QuestionTwo = () => {
+const QuestionThree = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="useArtTurf">
@@ -478,10 +552,11 @@ const QuestionTwo = () => {
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately you do not qualify for the lawn replacement
-                rebate. Artificial grass is not allowed in the rebated portion
-                of the converted landscape. Please close this web browser tab to
-                go back to the <a href="https://www.pcwa.net">PCWA.net</a>{' '}
-                website.
+                rebate. To qualify, you must have at least 300 square feet of
+                lawn being replaced by water efficient landscape as defined in
+                the program’s terms and conditions. Please close this web
+                browser tab to go back to the{' '}
+                <a href="https://www.pcwa.net">PCWA.net</a> website.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -491,7 +566,7 @@ const QuestionTwo = () => {
   )
 }
 
-const QuestionThree = () => {
+const QuestionFour = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="approxSqFeet">
@@ -517,8 +592,8 @@ const QuestionThree = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. A minimum of 300 square feet of lawn must be converted.
+                Unfortunately you do not qualify for the Lawn Replacement
+                Rebate. A minimum of 300 square feet of lawn must be converted.
                 Please close this web browser tab to go back to the{' '}
                 <a href="https://www.pcwa.net">PCWA.net</a> website.
               </DialogContentText>
@@ -530,7 +605,7 @@ const QuestionThree = () => {
   )
 }
 
-const QuestionFour = () => {
+const QuestionFive = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="irrigMethod">
@@ -580,8 +655,8 @@ const QuestionFour = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. Lawn areas to be converted must be currently maintained
+                Unfortunately you do not qualify for the Lawn Replacement
+                Rebate. Lawn areas to be converted must be currently maintained
                 and irrigated by an operating sprinkler system. Please close
                 this web browser tab to go back to the{' '}
                 <a href="https://www.pcwa.net">PCWA.net</a> website.
