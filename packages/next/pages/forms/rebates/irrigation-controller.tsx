@@ -11,7 +11,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, array, Schema, date} from 'yup'
+import {string, object, array, ArraySchema, date, StringSchema} from 'yup'
 import clsx from 'clsx'
 import {
   postRebateForm,
@@ -77,7 +77,7 @@ const formSchema = object()
       .label('City'),
     otherCity: string()
       .label('City')
-      .when('city', (city: string | null, schema: Schema<string>) =>
+      .when('city', (city: string | null, schema: StringSchema) =>
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string()
@@ -139,7 +139,7 @@ const formSchema = object()
     addtlSensorPhotos: array()
       .when(
         'additional',
-        (additional: string[] | undefined, schema: Schema<string>) =>
+        (additional: string[] | undefined, schema: ArraySchema<string>) =>
           additional
             ? schema.required(
                 'Must provide photo(s) of installed sensor/outdoor cover'

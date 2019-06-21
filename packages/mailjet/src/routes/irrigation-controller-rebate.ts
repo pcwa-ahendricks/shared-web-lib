@@ -5,7 +5,7 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, Schema, date} from 'yup'
+import {string, object, array, date, StringSchema, ArraySchema} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -73,7 +73,7 @@ const bodySchema = object()
         city: string().required(),
         otherCity: string().when(
           'city',
-          (city: string | undefined, schema: Schema<string>) =>
+          (city: string | undefined, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
         phone: string()
@@ -118,7 +118,7 @@ const bodySchema = object()
         addtlSensorPhotos: array()
           .when(
             'additional',
-            (additional: string[] | undefined, schema: Schema<string[]>) =>
+            (additional: string[] | undefined, schema: ArraySchema<string>) =>
               additional ? schema.required() : schema
           )
           .of(

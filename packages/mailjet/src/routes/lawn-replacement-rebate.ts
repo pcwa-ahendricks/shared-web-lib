@@ -4,7 +4,7 @@ if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {string, object, Schema} from 'yup'
+import {string, object, StringSchema} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -65,7 +65,7 @@ const bodySchema = object()
         city: string().required(),
         otherCity: string().when(
           'city',
-          (city: string | undefined, schema: Schema<string>) =>
+          (city: string | undefined, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
         phone: string()

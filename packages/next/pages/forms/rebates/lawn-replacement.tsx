@@ -10,7 +10,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Form, Field} from 'formik'
-import {string, object, Schema} from 'yup'
+import {string, object, StringSchema} from 'yup'
 import {
   postRebateForm,
   LawnReplacementRequestBody as RequestBody,
@@ -78,7 +78,7 @@ const formSchema = object()
       .label('City'),
     otherCity: string()
       .label('City')
-      .when('city', (city: string | null, schema: Schema<string>) =>
+      .when('city', (city: string | null, schema: StringSchema) =>
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string()
