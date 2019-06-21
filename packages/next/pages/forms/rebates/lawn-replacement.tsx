@@ -483,18 +483,18 @@ const LawnReplacement = () => {
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
-                                name="alreadyStarted"
-                                component={AlreadyStartedSelect}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
                                 name="useArtTurf"
                                 component={ArtTurfSelect}
                               />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={8}>
+                              <Field
+                                disabled
+                                name="alreadyStarted"
+                                component={AlreadyStartedSelect}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={8}>
                               <Field
                                 disabled
                                 name="approxSqFeet"

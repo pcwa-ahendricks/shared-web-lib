@@ -91,7 +91,7 @@ const AlreadyStartedSelect = ({
           <OutlinedInput
             id="irrigation-method-select"
             name={name}
-            labelWidth={268}
+            labelWidth={276}
             error={fieldIsTouchedWithError}
           />
         }

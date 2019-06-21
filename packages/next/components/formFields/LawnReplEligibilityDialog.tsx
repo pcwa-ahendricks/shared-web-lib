@@ -22,8 +22,8 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
-import {ANSWERS as q1Answers} from '@components/formFields/AlreadyStartedSelect'
-import {ANSWERS as q2Answers} from '@components/formFields/ArtTurfSelect'
+import {ANSWERS as q2Answers} from '@components/formFields/AlreadyStartedSelect'
+import {ANSWERS as q3Answers} from '@components/formFields/ArtTurfSelect'
 import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
@@ -329,26 +329,26 @@ function getSteps() {
       content: <QuestionOne />
     },
     {
-      index: 0,
+      index: 1,
       label: 'Have you already started the Lawn Replacement project?',
       fieldName: 'alreadyStarted',
       content: <QuestionTwo />
     },
     {
-      index: 1,
+      index: 2,
       label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
       fieldName: 'useArtTurf',
       content: <QuestionThree />
     },
     {
-      index: 2,
+      index: 3,
       label:
         'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
       fieldName: 'approxSqFeet',
       content: <QuestionFour />
     },
     {
-      index: 3,
+      index: 4,
       label: 'How is the existing lawn currently irrigated?',
       fieldName: 'irrigMethod',
       content: <QuestionFive />
@@ -467,7 +467,7 @@ const QuestionTwo = () => {
                 </ListSubheader>
               }
             >
-              {q1Answers.map((answer) => (
+              {q2Answers.map((answer) => (
                 <ListItem
                   key={answer.caption}
                   button
@@ -531,7 +531,7 @@ const QuestionThree = () => {
                 </ListSubheader>
               }
             >
-              {q2Answers.map((answer) => (
+              {q3Answers.map((answer) => (
                 <ListItem
                   key={answer.caption}
                   button

@@ -86,7 +86,7 @@ const IrrigationTypesSelect = ({
           <OutlinedInput
             id="irrigation-method-select"
             name={name}
-            labelWidth={140}
+            labelWidth={147}
             error={fieldIsTouchedWithError}
           />
         }

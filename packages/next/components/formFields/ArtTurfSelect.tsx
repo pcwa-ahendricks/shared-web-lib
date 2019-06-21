@@ -95,7 +95,7 @@ const ArtTurfSelect = ({
           <OutlinedInput
             id="irrigation-method-select"
             name={name}
-            labelWidth={209}
+            labelWidth={221}
             error={fieldIsTouchedWithError}
           />
         }
