@@ -648,7 +648,7 @@ const IrrigationController = () => {
                             <ReviewTermsConditions
                               pageCount={3}
                               fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://cosmic-s3.imgix.net/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                              termsConditionsUrl="https://cosmic-s3.imgix.net/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
                             />
                             <Type
                               variant="body1"

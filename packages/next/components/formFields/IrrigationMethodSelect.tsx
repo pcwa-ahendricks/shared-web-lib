@@ -25,8 +25,8 @@ const useStyles = makeStyles({
 
 export const IRRIGATION_METHODS = [
   'Hand water',
-  'Sprinkler system operated manually',
-  'Sprinkler system operated by irrigation controller'
+  'In-ground sprinkler system operated manually',
+  'In-ground sprinkler system operated by irrigation controller'
 ]
 
 const IrrigationTypesSelect = ({

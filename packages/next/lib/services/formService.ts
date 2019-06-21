@@ -45,6 +45,7 @@ export interface IrrigationEfficienciesRebateFormData {
   otherCity: string
   phone: string
   propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
   termsAgree: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string

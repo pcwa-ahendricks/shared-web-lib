@@ -43,9 +43,10 @@ import IrrigSysUpgradeOptsCheckboxes, {
 import IrrigUpgradeLocationCheckboxes, {
   formControlItems as initialIrrigUpgradeLocationOpts
 } from '@components/formFields/IrrigUpgradeLocationCheckboxes'
-import IrrigationMethodDialog from '@components/formFields/IrrigationMethodDialog'
 import delay from 'then-sleep'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
+import YesNoSelectField from '@components/formFields/YesNoSelectField'
+import IrrigationEffEligibilityDialog from '@components/formFields/IrrigationEffEligibilityDialog'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
@@ -89,6 +90,13 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
+    treatedCustomer: string()
+      .required()
+      .label('Treated Customer')
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'You must be a current Placer County Water Agency treated water customer'
+      ),
     termsAgree: string()
       .required()
       .oneOf(
@@ -142,6 +150,7 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
+  treatedCustomer: '',
   termsAgree: '',
   inspectAgree: '',
   signature: '',
@@ -228,7 +237,7 @@ const IrrigationEfficiencies = () => {
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
     boolean
   >(false)
-  const [irrigMethodDialogOpen, setIrrigMethodDialogOpen] = useState<boolean>(
+  const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
     false
   )
   const [providedEmail, setProvidedEmail] = useState<string>('')
@@ -249,7 +258,7 @@ const IrrigationEfficiencies = () => {
   useEffect(() => {
     const fn = async () => {
       await delay(800)
-      setIrrigMethodDialogOpen(true)
+      setEligibilityDialogOpen(true)
     }
     fn()
   }, [])
@@ -314,7 +323,10 @@ const IrrigationEfficiencies = () => {
                   }
 
                   // Check if user is in-eligible for rebate and disable all form controls if so.
-                  const rebateIneligibility = Boolean(errors['irrigMethod'])
+                  const rebateIneligibility = [
+                    errors['treatedCustomer'],
+                    errors['irrigMethod']
+                  ].some(Boolean)
                   if (rebateIneligibility !== ineligible) {
                     setIneligible(rebateIneligibility)
                   }
@@ -441,7 +453,17 @@ const IrrigationEfficiencies = () => {
                           </Type>
 
                           <Grid container spacing={5}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="treatedCustomer"
+                                inputLabel="PCWA Treated Customer"
+                                inputId="treated-water-select"
+                                labelWidth={200}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
                                 name="irrigMethod"
@@ -509,7 +531,7 @@ const IrrigationEfficiencies = () => {
                               <ReviewTermsConditions
                                 pageCount={3}
                                 fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://cosmic-s3.imgix.net/003f0ec0-5273-11e9-bcdc-03bbac853653-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://cosmic-s3.imgix.net/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
                               />
                               <Field
                                 name="termsAgree"
@@ -563,8 +585,8 @@ const IrrigationEfficiencies = () => {
                                 harmless PCWA, its directors, officers, and
                                 employees from and against all loss, damage,
                                 expense and liability resulting from or
-                                otherwise relating to the installation of the
-                                Weather Based Irrigation Controller. By signing
+                                otherwise relating to the installation of
+                                irrigation efficiencies equipment. By signing
                                 this form I agree that I have read, understand,
                                 and agree to the Terms and Conditions of this
                                 rebate program.
@@ -645,9 +667,9 @@ const IrrigationEfficiencies = () => {
                         </div>
                       </Form>
 
-                      <IrrigationMethodDialog
-                        open={irrigMethodDialogOpen}
-                        onClose={() => setIrrigMethodDialogOpen(false)}
+                      <IrrigationEffEligibilityDialog
+                        open={eligibilityDialogOpen}
+                        onClose={() => setEligibilityDialogOpen(false)}
                       />
                     </React.Fragment>
                   )
@@ -667,7 +689,7 @@ const IrrigationEfficiencies = () => {
       formIsDirty,
       formValues,
       formIsTouched,
-      irrigMethodDialogOpen,
+      eligibilityDialogOpen,
       ineligible
     ]
   )

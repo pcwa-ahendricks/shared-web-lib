@@ -37,7 +37,7 @@ import SignatureField from '@components/formFields/SignatureField'
 import WashEffEligibilityDialog from '@components/formFields/WashEffEligibilityDialog'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import FormSubmissionApplianceDialog from '@components/FormSubmissionApplianceDialog/FormSubmissionApplianceDialog'
+import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
@@ -842,7 +842,7 @@ const WashingMachine = () => {
       shouldConfirmRouteChange={shouldConfirmRouteChange}
     >
       {washingMachineEl}
-      <FormSubmissionApplianceDialog
+      <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}

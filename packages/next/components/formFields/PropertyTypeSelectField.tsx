@@ -30,7 +30,8 @@ const PROPERTY_TYPE_LIST = [
   'Dedicated Landscape',
   'Commercial',
   'Industrial',
-  'Institutional'
+  'Institutional',
+  'Tenant Occupied'
 ]
 
 const PropertyTypeSelectField = ({

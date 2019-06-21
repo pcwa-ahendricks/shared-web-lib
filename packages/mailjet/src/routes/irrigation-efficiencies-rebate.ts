@@ -34,6 +34,7 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
   irrigMethod: string
   upgradeLocations: {
     [key: string]: boolean
@@ -73,6 +74,11 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
+        treatedCustomer: string()
+          .required()
+          .oneOf(
+            ['Yes'] // "Yes", "No"
+          ),
         termsAgree: string()
           .required()
           .oneOf(['true']),
@@ -123,6 +129,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
+    treatedCustomer,
     irrigMethod,
     upgradeLocations,
     upgradeOpts,
@@ -190,6 +197,7 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
           email,
           phone,
           propertyType,
+          treatedCustomer,
           irrigMethod,
           upgradeLocations: mappedUpgradeLocations,
           upgradeOpts: mappedUpgradeOpts,

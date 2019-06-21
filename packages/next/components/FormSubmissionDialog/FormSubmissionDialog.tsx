@@ -63,16 +63,18 @@ const FormSubmissionDialog = ({
     >
       <DialogTitle id="form-submit-dialog-title">{dialogTitle}</DialogTitle>
       <DialogContent>
+        {/* Message is slightly different than <FormSubmissionDialog/> */}
         {/* GO-LIVE - Don't need sentence regarding "closing browser tab". */}
         <DialogContentText paragraph variant="body1">
           Thank you for submitting your {description}. You should receive an
-          automatically generated email immediately {providedEmailEl} confirming
-          the information you provided in this application. You will receive
-          another email once your application has been approved. If you have any
-          questions and/or you do not receive your automatic confirmation email
-          please contact our Customer Services Department at <MainPhone />. You
-          can now close this web browser tab to return to the <PcwaWeb />{' '}
-          website.
+          automatically generated email at {providedEmailEl} confirming
+          information you provided in this application. A PCWA water efficiency
+          staff member will email you within 7 business days with the status of
+          your application. Please note, incomplete or inaccurate application
+          may cause a delay. If you have any questions and/or you do not receive
+          your automatic confirmation email please contact our Customer Service
+          Department at <MainPhone />. You can now close this web browser tab to
+          return to the <PcwaWeb /> website.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
