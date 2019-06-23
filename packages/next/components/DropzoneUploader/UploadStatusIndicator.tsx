@@ -57,12 +57,13 @@ const UploadStatusIndicator = ({
     [uploadStatus]
   )
 
+  // isUploading will always be true for all thumbnails; Check status too to only show uploading when it's not already uploaded.
   const progressEl = useMemo(
     () =>
-      isUploading ? (
+      isUploading && uploadStatus === 'unknown' ? (
         <LinearProgress className={classes.progress} color="secondary" />
       ) : null,
-    [classes, isUploading]
+    [classes, isUploading, uploadStatus]
   )
 
   return (

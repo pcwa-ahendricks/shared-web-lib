@@ -25,3 +25,24 @@ import 'lazysizes/plugins/attrchange/ls.attrchange'
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 import 'lazysizes/plugins/object-fit/ls.object-fit'
 import 'lazysizes/plugins/blur-up/ls.blur-up'
+
+// https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
+// if (!HTMLCanvasElement.prototype.toBlob) {
+//   Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
+//     value: function(callback, type, quality) {
+//       var dataURL = this.toDataURL(type, quality).split(',')[1]
+//       setTimeout(function() {
+//         var binStr = atob(dataURL),
+//           len = binStr.length,
+//           // eslint-disable-next-line compat/compat
+//           arr = new Uint8Array(len)
+
+//         for (var i = 0; i < len; i++) {
+//           arr[i] = binStr.charCodeAt(i)
+//         }
+
+//         callback(new Blob([arr], {type: type || 'image/png'}))
+//       })
+//     }
+//   })
+// }

@@ -1,7 +1,6 @@
 import React, {
   useState,
   useEffect,
-  useMemo,
   useCallback,
   forwardRef,
   useImperativeHandle
@@ -19,7 +18,6 @@ import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
 import {useDropzone} from 'react-dropzone'
-import Jimp from 'jimp'
 import {DroppedFile, UploadedFile} from './types'
 import extension from '@lib/fileExtension'
 
@@ -40,7 +38,7 @@ export interface DropzoneUploaderHandles {
   clearUploads(): void
 }
 
-const WIDTH_THRESHOLD = 1600
+const IMG_PX_THRESHOLD = 1600
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -147,100 +145,89 @@ const DropzoneUploader: React.RefForwardingComponent<
     onIsUploadingChange && onIsUploadingChange(isUploading)
   }, [isUploading, onIsUploadingChange])
 
-  const supportedJimpTypes = useMemo(
-    () => [
-      Jimp.MIME_BMP,
-      Jimp.MIME_GIF,
-      Jimp.MIME_JGD,
-      Jimp.MIME_JPEG,
-      Jimp.MIME_PNG,
-      Jimp.MIME_TIFF,
-      Jimp.MIME_X_MS_BMP
-    ],
-    []
-  )
-
-  const getImage = useCallback(
-    async (imageBuffer: Buffer, mimeType: string) => {
-      try {
-        // Only resize images Jimp can load.
-        if (
-          supportedJimpTypes.findIndex(
-            (supportedType) => supportedType === mimeType
-          ) <= 0
-        ) {
-          throw `File type ${mimeType} not supported by Jimp.`
-        }
-        const image = await Jimp.read(imageBuffer)
-        const width = image.getWidth()
-        // Don't resize image if it's already smaller than the target dimension we are resizing to.
-        if (width <= WIDTH_THRESHOLD) {
-          throw 'Image resize not necessary'
-        }
-        return image
-      } catch (error) {
-        throw error
-      }
-    },
-    [supportedJimpTypes]
-  )
-
-  const resizeImage = useCallback(
-    async (imageArryBuffer: ArrayBuffer, mimeType: string): Promise<Buffer> => {
-      // Don't catch errors since they will be caught by function calling resizeImage()
-      const imageBuffer = Buffer.from(imageArryBuffer)
-      const image = await getImage(imageBuffer, mimeType)
-      const newImageBuffer = await image
-        .resize(WIDTH_THRESHOLD, Jimp.AUTO)
-        .getBufferAsync(mimeType)
-      return newImageBuffer
-    },
-    [getImage]
-  )
-
   /* eslint-disable compat/compat */
-  const resizeHandler = useCallback(
-    (file: File, fileNamePrefix: string) => {
-      const promise = new Promise<File>((resolve) => {
-        const origFile = new File([file], `${fileNamePrefix}${file.name}`, {
-          type: file.type
-        })
-        const reader = new FileReader()
-        reader.onabort = () => console.log('file reading was aborted')
-        reader.onerror = () => console.log('file reading has failed')
-        reader.onload = async () => {
-          try {
-            const imgArrBuff = reader.result
-            const resizedImgBuff =
-              imgArrBuff instanceof ArrayBuffer
-                ? await resizeImage(imgArrBuff, file.type)
-                : null
-            if (!resizedImgBuff) {
-              throw new Error('Could not resize image.')
-            }
-            const resizedFile = new File(
-              [resizedImgBuff || file],
-              `${fileNamePrefix}${file.name}`,
-              {
-                type: file.type
-              }
-            )
-            // Upload resized dropped files.
-            resolve(resizedFile)
-          } catch (error) {
-            // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
-            console.log('Uploading original attachment: ', error)
-            resolve(origFile)
-          }
-        }
-
-        // reader.readAsBinaryString(file)
-        reader.readAsArrayBuffer(file)
+  const resizeHandler = useCallback((file: File, fileNamePrefix: string) => {
+    const promise = new Promise<File>((resolve) => {
+      const origFile = new File([file], `${fileNamePrefix}${file.name}`, {
+        type: file.type
       })
-      return promise
-    },
-    [resizeImage]
-  )
+      const reader = new FileReader()
+      reader.onabort = () => {
+        // reject('file reading was aborted')
+        resolve(origFile)
+      }
+      reader.onerror = () => {
+        // reject('file reading has failed')
+        resolve(origFile)
+      }
+      reader.onload = () => {
+        try {
+          const img = new Image()
+          img.src = typeof reader.result === 'string' ? reader.result : ''
+          img.onload = () => {
+            const elem = document.createElement('canvas')
+            let resizeHeight: number
+            let resizeWidth: number
+            if (img.width > IMG_PX_THRESHOLD) {
+              resizeWidth = IMG_PX_THRESHOLD
+              const scaleFactor = IMG_PX_THRESHOLD / img.width
+              resizeHeight = img.height * scaleFactor
+            } else if (img.height > IMG_PX_THRESHOLD) {
+              resizeHeight = IMG_PX_THRESHOLD
+              const scaleFactor = IMG_PX_THRESHOLD / img.height
+              resizeWidth = img.width * scaleFactor
+            } else {
+              resizeHeight = img.height
+              resizeWidth = img.width
+            }
+            // Follow up in case the image width was larger than the threshold and the height was A LOT larger than the height (Hi-Res portrait images).
+            if (resizeHeight > IMG_PX_THRESHOLD) {
+              resizeHeight = IMG_PX_THRESHOLD
+              const scaleFactor = IMG_PX_THRESHOLD / img.height
+              resizeWidth = img.width * scaleFactor
+            }
+            elem.width = resizeWidth
+            elem.height = resizeHeight
+            const ctx = elem.getContext('2d')
+            if (!ctx) {
+              resolve(origFile)
+              return
+            }
+            // img.width and img.height will contain the original dimensions
+            ctx.drawImage(img, 0, 0, resizeWidth, resizeHeight)
+            ctx.canvas.toBlob(
+              (blob) => {
+                if (!blob) {
+                  resolve(origFile)
+                  return
+                }
+                const canvasFile = new File(
+                  [blob],
+                  `${fileNamePrefix}${file.name}`,
+                  {
+                    type: file.type
+                    // lastModified: Date.now()
+                  }
+                )
+                resolve(canvasFile)
+              },
+              file.type,
+              1
+            )
+          }
+        } catch (error) {
+          // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
+          console.log('Uploading original attachment: ', error)
+          resolve(origFile)
+        }
+      }
+
+      // reader.readAsBinaryString(file)
+      // reader.readAsArrayBuffer(file)
+      reader.readAsDataURL(file)
+    })
+    return promise
+  }, [])
   /* eslint-enable compat/compat */
 
   const uploadFileHandler = useCallback(
