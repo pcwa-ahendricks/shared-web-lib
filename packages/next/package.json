@@ -7,7 +7,14 @@
   "author": "Abe Hendricks",
   "license": "MIT",
   "private": true,
-  "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead",
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "not Safari 5.1",
+    "not IE Mobile 11"
+  ],
   "scripts": {
     "dev": "npm run next",
     "start": "npm run next",
@@ -37,6 +44,7 @@
     "date-fns": "^2.0.0-alpha.36",
     "deep-object-diff": "^1.1.0",
     "dotenv-webpack": "^1.7.0",
+    "es6-promise": "^4.2.8",
     "formik": "^1.5.7",
     "is-number": "^7.0.0",
     "isomorphic-unfetch": "^3.0.0",

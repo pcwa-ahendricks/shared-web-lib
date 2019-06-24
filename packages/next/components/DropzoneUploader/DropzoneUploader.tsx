@@ -22,6 +22,8 @@ import {DroppedFile, UploadedFile} from './types'
 import extension from '@lib/fileExtension'
 import {sequenceArray} from '@lib/util'
 
+type BlobFile = Blob & {name?: string; lastModified?: number}
+
 type Props = {
   onUploadedChange?: (files: any) => void
   onIsUploadingChange?: (isUploading: boolean) => void
@@ -147,13 +149,15 @@ const DropzoneUploader: React.RefForwardingComponent<
     onIsUploadingChange && onIsUploadingChange(isUploading)
   }, [isUploading, onIsUploadingChange])
 
-  /* eslint-disable compat/compat */
-  const resizeHandler = useCallback((file: File, fileNamePrefix: string) => {
-    const renamedFileName = `${fileNamePrefix}${file.name}`
-    const promise = new Promise<File>((resolve) => {
-      const origFile = new File([file], renamedFileName, {
-        type: file.type
-      })
+  const resizeHandler = useCallback((file: File, renamedFileName: string) => {
+    const promise = new Promise<BlobFile>((resolve) => {
+      // new File() constructor doesn't work in IE11 or Edge. See https://developer.mozilla.org/en-US/docs/Web/API/File/File for more info.
+      // const origFile = new File([file], renamedFileName, {
+      //   type: file.type
+      // })
+      const origFile: BlobFile = new Blob([file], {type: file.type})
+      origFile.name = renamedFileName
+
       const reader = new FileReader()
       reader.onabort = () => {
         // reject('file reading was aborted')
@@ -203,10 +207,12 @@ const DropzoneUploader: React.RefForwardingComponent<
                 resolve(origFile)
                 return
               }
-              const canvasFile = new File([blob], renamedFileName, {
-                type: file.type
-                // lastModified: Date.now()
-              })
+              // const canvasFile = new File([blob], renamedFileName, {
+              //   type: file.type
+              //   // lastModified: Date.now()
+              // })
+              const canvasFile: BlobFile = new Blob([blob], {type: file.type})
+              canvasFile.name = renamedFileName
               resolve(canvasFile)
             },
             file.type,
@@ -221,7 +227,6 @@ const DropzoneUploader: React.RefForwardingComponent<
     })
     return promise
   }, [])
-  /* eslint-enable compat/compat */
 
   const uploadFileHandler = useCallback(
     async (file) => {
@@ -266,26 +271,29 @@ const DropzoneUploader: React.RefForwardingComponent<
         }
         setIsUploading(true)
         const {files = [], fileNamePrefix = ''} = uploadDroppedFiles
-        setIsUploadingFileNames(
-          files.map((file) => `${fileNamePrefix}${file.name}`)
-        )
+        setIsUploadingFileNames((values) => [
+          ...values,
+          ...files.map((file) => `${fileNamePrefix}${file.name}`)
+        ])
+        // These are the original File objects.
         const processFileUpload = async (file: File) => {
+          const renamedFileName = `${fileNamePrefix}${file.name}`
           try {
-            const resizedFile = await resizeHandler(file, fileNamePrefix)
+            const resizedFile = await resizeHandler(file, renamedFileName)
             const uploadedFile = await uploadFileHandler(resizedFile)
-            removeIsUploadingFiles(`${fileNamePrefix}${file.name}`)
+            removeIsUploadingFiles(renamedFileName)
             return uploadedFile
           } catch (error) {
-            removeIsUploadingFiles(`${fileNamePrefix}${file.name}`)
+            removeIsUploadingFiles(renamedFileName)
             return
           }
         }
         await sequenceArray(files, processFileUpload)
         setIsUploading(false)
-        setIsUploadingFileNames([])
+        // setIsUploadingFileNames([])
       } catch (error) {
         setIsUploading(false)
-        setIsUploadingFileNames([])
+        // setIsUploadingFileNames([])
       }
     }
 
@@ -298,7 +306,6 @@ const DropzoneUploader: React.RefForwardingComponent<
     removeIsUploadingFiles
   ])
 
-  /* eslint-disable compat/compat */
   const dropHandler = useCallback((
     files: File[]
     // rejectedFiles: Array<any>
@@ -307,30 +314,33 @@ const DropzoneUploader: React.RefForwardingComponent<
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
     const sd = [...files]
-    const newDroppedFiles = sd.map((file) => {
-      const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
-        type: file.type
-      })
+    const newDroppedBlobFiles = sd.map((file) => {
+      // const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
+      //   type: file.type
+      // })
+      const newBlobFile: BlobFile = new Blob([file], {type: file.type})
+      newBlobFile.lastModified = file.lastModified
+      newBlobFile.name = `${fileNamePrefix}${file.name}`
       // Add image preview urls.
       return {
-        name: newFile.name,
-        type: newFile.type,
-        size: newFile.size,
+        name: newBlobFile.name,
+        type: newBlobFile.type,
+        size: newBlobFile.size,
         originalName: file.name,
-        lastModified: newFile.lastModified,
-        previewUrl: URL.createObjectURL(newFile),
-        ext: extension(newFile.name)
+        lastModified: newBlobFile.lastModified,
+        previewUrl: URL.createObjectURL(newBlobFile),
+        ext: extension(newBlobFile.name)
       }
     })
 
-    setDroppedFiles((prevDroppedFiles) => [
-      ...prevDroppedFiles,
-      ...newDroppedFiles
+    setDroppedFiles((prevDroppedBlobFiles) => [
+      ...prevDroppedBlobFiles,
+      ...newDroppedBlobFiles
     ])
 
+    // Setting upload dropped files to original dropped File objects.
     setUploadDroppedFiles({fileNamePrefix, files: [...files]})
   }, [])
-  /* eslint-enable compat/compat */
 
   const clearUploadsHandler = useCallback(() => {
     setShowConfirmClearUploads(false) // Hide dialog.
