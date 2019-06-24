@@ -410,7 +410,7 @@ const QuestionOne = () => {
                   button
                   divider
                   selected={answer === value}
-                  disabled={fieldTouched}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
@@ -473,7 +473,7 @@ const QuestionTwo = () => {
                   button
                   divider
                   selected={answer.value === value}
-                  disabled={fieldTouched}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(answer.value)}
                 >
                   <ListItemText primary={answer.caption} />
@@ -537,7 +537,7 @@ const QuestionThree = () => {
                   button
                   divider
                   selected={answer.value === value}
-                  disabled={fieldTouched}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(answer.value)}
                 >
                   <ListItemText primary={answer.caption} />
@@ -641,7 +641,7 @@ const QuestionFive = () => {
                   button
                   divider
                   selected={method === value}
-                  disabled={fieldTouched}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(method)}
                 >
                   <ListItemText primary={method} />

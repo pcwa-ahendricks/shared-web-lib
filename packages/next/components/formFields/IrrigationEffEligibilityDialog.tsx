@@ -378,7 +378,7 @@ const QuestionOne = () => {
                   button
                   divider
                   selected={answer === value}
-                  disabled={fieldTouched}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
@@ -442,7 +442,7 @@ const QuestionTwo = () => {
                   button
                   divider
                   selected={answer === value}
-                  disabled={fieldTouched}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
