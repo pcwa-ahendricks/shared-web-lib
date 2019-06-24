@@ -7,14 +7,7 @@
   "author": "Abe Hendricks",
   "license": "MIT",
   "private": true,
-  "browserslist": [
-    "> 0.5%",
-    "last 2 versions",
-    "Firefox ESR",
-    "not dead",
-    "not Safari 5.1",
-    "not IE Mobile 11"
-  ],
+  "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead, not Safari 5.1, not ExplorerMobile 11",
   "scripts": {
     "dev": "npm run next",
     "start": "npm run next",
