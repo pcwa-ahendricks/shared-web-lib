@@ -164,60 +164,54 @@ const DropzoneUploader: React.RefForwardingComponent<
         resolve(origFile)
       }
       reader.onload = () => {
-        try {
-          const img = new Image()
-          img.src = typeof reader.result === 'string' ? reader.result : ''
-          img.onload = () => {
-            const elem = document.createElement('canvas')
-            let resizeHeight: number
-            let resizeWidth: number
-            if (img.width > IMG_PX_THRESHOLD) {
-              resizeWidth = IMG_PX_THRESHOLD
-              const scaleFactor = IMG_PX_THRESHOLD / img.width
-              resizeHeight = img.height * scaleFactor
-            } else if (img.height > IMG_PX_THRESHOLD) {
-              resizeHeight = IMG_PX_THRESHOLD
-              const scaleFactor = IMG_PX_THRESHOLD / img.height
-              resizeWidth = img.width * scaleFactor
-            } else {
-              resizeHeight = img.height
-              resizeWidth = img.width
-            }
-            // Follow up in case the image width was larger than the threshold and the height was A LOT larger than the height (Hi-Res portrait images).
-            if (resizeHeight > IMG_PX_THRESHOLD) {
-              resizeHeight = IMG_PX_THRESHOLD
-              const scaleFactor = IMG_PX_THRESHOLD / img.height
-              resizeWidth = img.width * scaleFactor
-            }
-            elem.width = resizeWidth
-            elem.height = resizeHeight
-            const ctx = elem.getContext('2d')
-            if (!ctx) {
-              resolve(origFile)
-              return
-            }
-            // img.width and img.height will contain the original dimensions
-            ctx.drawImage(img, 0, 0, resizeWidth, resizeHeight)
-            ctx.canvas.toBlob(
-              (blob) => {
-                if (!blob) {
-                  resolve(origFile)
-                  return
-                }
-                const canvasFile = new File([blob], renamedFileName, {
-                  type: file.type
-                  // lastModified: Date.now()
-                })
-                resolve(canvasFile)
-              },
-              file.type,
-              1
-            )
+        const img = new Image()
+        img.src = typeof reader.result === 'string' ? reader.result : ''
+        img.onload = () => {
+          const elem = document.createElement('canvas')
+          let resizeHeight: number
+          let resizeWidth: number
+          if (img.width > IMG_PX_THRESHOLD) {
+            resizeWidth = IMG_PX_THRESHOLD
+            const scaleFactor = IMG_PX_THRESHOLD / img.width
+            resizeHeight = img.height * scaleFactor
+          } else if (img.height > IMG_PX_THRESHOLD) {
+            resizeHeight = IMG_PX_THRESHOLD
+            const scaleFactor = IMG_PX_THRESHOLD / img.height
+            resizeWidth = img.width * scaleFactor
+          } else {
+            resizeHeight = img.height
+            resizeWidth = img.width
           }
-        } catch (error) {
-          // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.
-          console.log('Uploading original attachment: ', error)
-          resolve(origFile)
+          // Follow up in case the image width was larger than the threshold and the height was A LOT larger than the height (Hi-Res portrait images).
+          if (resizeHeight > IMG_PX_THRESHOLD) {
+            resizeHeight = IMG_PX_THRESHOLD
+            const scaleFactor = IMG_PX_THRESHOLD / img.height
+            resizeWidth = img.width * scaleFactor
+          }
+          elem.width = resizeWidth
+          elem.height = resizeHeight
+          const ctx = elem.getContext('2d')
+          if (!ctx) {
+            resolve(origFile)
+            return
+          }
+          // img.width and img.height will contain the original dimensions
+          ctx.drawImage(img, 0, 0, resizeWidth, resizeHeight)
+          ctx.canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                resolve(origFile)
+                return
+              }
+              const canvasFile = new File([blob], renamedFileName, {
+                type: file.type
+                // lastModified: Date.now()
+              })
+              resolve(canvasFile)
+            },
+            file.type,
+            1
+          )
         }
       }
 
