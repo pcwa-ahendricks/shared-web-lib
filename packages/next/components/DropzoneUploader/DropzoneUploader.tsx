@@ -221,7 +221,6 @@ const DropzoneUploader: React.RefForwardingComponent<
         }
       }
 
-      // reader.readAsBinaryString(file)
       // reader.readAsArrayBuffer(file)
       reader.readAsDataURL(file)
     })

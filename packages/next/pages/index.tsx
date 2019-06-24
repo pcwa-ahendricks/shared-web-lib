@@ -3,7 +3,7 @@ import {makeStyles, createStyles} from '@material-ui/styles'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Fade, Hidden, Theme, Typography as Type} from '@material-ui/core'
+import {Box, Fade, Hidden, Theme, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 
@@ -39,7 +39,9 @@ const Index = () => {
         onImgLoad={() => setHeroOverlayIn(true)}
       >
         <Fade timeout={2000} in={heroOverlayIn}>
-          <HeroOverlay height="100%" />
+          <Box>
+            <HeroOverlay height="100%" />
+          </Box>
         </Fade>
       </ImgixFancyParallaxBanner>
       <Hidden only="xs" implementation="css">
