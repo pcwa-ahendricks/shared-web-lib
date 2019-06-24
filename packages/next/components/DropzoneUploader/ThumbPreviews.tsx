@@ -7,6 +7,7 @@ import ThumbPreview from './ThumbPreview'
 type Props = {
   onRemoveUpload?: (file: DroppedFile) => void
   isUploading?: boolean
+  isUploadingFileNames?: string[]
   droppedFiles?: DroppedFile[]
   uploadedFiles?: UploadedFile[]
 }
@@ -15,7 +16,8 @@ const ThumbPreviews = ({
   droppedFiles = [],
   uploadedFiles = [],
   onRemoveUpload,
-  isUploading = false
+  isUploading = false,
+  isUploadingFileNames = []
 }: Props) => {
   const [showThumbDialog, setShowThumbDialog] = useState<boolean>(false)
   const [showThumbDialogFile, setShowThumbDialogFile] = useState<DroppedFile>()
@@ -46,6 +48,12 @@ const ThumbPreviews = ({
     setShowThumbDialogFile(file)
   }, [])
 
+  const thumbIsUploading = useCallback(
+    (fileName: string = '') =>
+      isUploading && isUploadingFileNames.indexOf(fileName) >= 0,
+    [isUploading, isUploadingFileNames]
+  )
+
   return (
     <React.Fragment>
       {droppedFiles.map((file) => (
@@ -55,7 +63,7 @@ const ThumbPreviews = ({
           uploadedFiles={uploadedFiles}
           onClick={clickHandler}
           onRemoveUpload={removeUploadHandler}
-          isUploading={isUploading}
+          isUploading={thumbIsUploading(file.name)}
         />
       ))}
 

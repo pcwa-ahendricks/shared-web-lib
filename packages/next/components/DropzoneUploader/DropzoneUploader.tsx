@@ -20,6 +20,7 @@ import ThumbPreviews from './ThumbPreviews'
 import {useDropzone} from 'react-dropzone'
 import {DroppedFile, UploadedFile} from './types'
 import extension from '@lib/fileExtension'
+import {sequenceArray} from '@lib/util'
 
 type Props = {
   onUploadedChange?: (files: any) => void
@@ -136,6 +137,7 @@ const DropzoneUploader: React.RefForwardingComponent<
     boolean
   >(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [isUploadingFileNames, setIsUploadingFileNames] = useState<string[]>([])
 
   useEffect(() => {
     onUploadedChange && onUploadedChange(uploadedFiles)
@@ -147,8 +149,9 @@ const DropzoneUploader: React.RefForwardingComponent<
 
   /* eslint-disable compat/compat */
   const resizeHandler = useCallback((file: File, fileNamePrefix: string) => {
+    const renamedFileName = `${fileNamePrefix}${file.name}`
     const promise = new Promise<File>((resolve) => {
-      const origFile = new File([file], `${fileNamePrefix}${file.name}`, {
+      const origFile = new File([file], renamedFileName, {
         type: file.type
       })
       const reader = new FileReader()
@@ -201,14 +204,10 @@ const DropzoneUploader: React.RefForwardingComponent<
                   resolve(origFile)
                   return
                 }
-                const canvasFile = new File(
-                  [blob],
-                  `${fileNamePrefix}${file.name}`,
-                  {
-                    type: file.type
-                    // lastModified: Date.now()
-                  }
-                )
+                const canvasFile = new File([blob], renamedFileName, {
+                  type: file.type
+                  // lastModified: Date.now()
+                })
                 resolve(canvasFile)
               },
               file.type,
@@ -258,6 +257,13 @@ const DropzoneUploader: React.RefForwardingComponent<
     [uploadFolder]
   )
 
+  const removeIsUploadingFiles = useCallback((fileName: string) => {
+    setIsUploadingFileNames((values) => [
+      ...values.slice(0, values.indexOf(fileName)),
+      ...values.slice(values.indexOf(fileName) + 1)
+    ])
+  }, [])
+
   useEffect(() => {
     const asyncFn = async () => {
       try {
@@ -266,27 +272,37 @@ const DropzoneUploader: React.RefForwardingComponent<
         }
         setIsUploading(true)
         const {files = [], fileNamePrefix = ''} = uploadDroppedFiles
-        const uploadedFilePromises = files.map(async (file) => {
+        setIsUploadingFileNames(
+          files.map((file) => `${fileNamePrefix}${file.name}`)
+        )
+        const processFileUpload = async (file: File) => {
           try {
             const resizedFile = await resizeHandler(file, fileNamePrefix)
             const uploadedFile = await uploadFileHandler(resizedFile)
+            removeIsUploadingFiles(`${fileNamePrefix}${file.name}`)
             return uploadedFile
           } catch (error) {
-            // Since we are using Promise.all to resolve all promises we don't want to quit prematurely due to an error since it's an all or nothing affair.
+            removeIsUploadingFiles(`${fileNamePrefix}${file.name}`)
             return
           }
-        })
-        // eslint-disable-next-line compat/compat
-        await Promise.all(uploadedFilePromises)
+        }
+        await sequenceArray(files, processFileUpload)
         setIsUploading(false)
+        setIsUploadingFileNames([])
       } catch (error) {
         setIsUploading(false)
+        setIsUploadingFileNames([])
       }
     }
 
     asyncFn()
     return () => {}
-  }, [uploadDroppedFiles, resizeHandler, uploadFileHandler])
+  }, [
+    uploadDroppedFiles,
+    resizeHandler,
+    uploadFileHandler,
+    removeIsUploadingFiles
+  ])
 
   /* eslint-disable compat/compat */
   const dropHandler = useCallback((
@@ -431,6 +447,7 @@ const DropzoneUploader: React.RefForwardingComponent<
         <aside className={classes.thumbsContainer}>
           <ThumbPreviews
             isUploading={isUploading}
+            isUploadingFileNames={isUploadingFileNames}
             uploadedFiles={uploadedFiles}
             droppedFiles={droppedFiles}
             onRemoveUpload={tryRemoveUploadHandler}
