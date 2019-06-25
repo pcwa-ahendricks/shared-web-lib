@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Grow} from '@material-ui/core'
+import {Box, Grow} from '@material-ui/core'
 import {GrowProps} from '@material-ui/core/Grow'
 
 type Props = {
@@ -28,7 +28,8 @@ const WaitToGrow = ({isIn, children, ...rest}: Props) => {
             onExited={exitedTransHandler}
             {...rest}
           >
-            {children}
+            {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
+            <Box>{children}</Box>
           </Grow>
         </React.Fragment>
       ) : null,
