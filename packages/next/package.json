@@ -1,6 +1,5 @@
 {
   "name": "neu-web-next",
-  "version": "1.0.0",
   "description": "New Nextjs PCWA website",
   "main": "index.js",
   "repository": "pcwa.net",
