@@ -142,7 +142,7 @@ export interface ToiletRebateFormData {
   otherCity: string
   phone: string
   propertyType: string
-  // noOfToilets: number
+  noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'
   builtPriorCutoff: '' | 'Yes' | 'No'
   manufacturerModel: {

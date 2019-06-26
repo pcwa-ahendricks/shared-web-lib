@@ -12,7 +12,7 @@ import {
 import {createStyles, makeStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Field, FieldArray} from 'formik'
-import {string, object, array, StringSchema} from 'yup'
+import {string, object, array, StringSchema, number} from 'yup'
 import clsx from 'clsx'
 import {
   postRebateForm,
@@ -91,10 +91,12 @@ const formSchema = object()
     propertyType: string()
       .required()
       .label('Property Type'),
-    // noOfToilets: number()
-    //   .required()
-    //   .moreThan(0)
-    //   .label('Number of toilets/urinals installed'),
+    noOfToilets: number()
+      .required(
+        'Number of toilets/urinals installed must be a number that is greater than 0.'
+      )
+      .moreThan(0)
+      .label('Number of toilets/urinals installed'),
     treatedCustomer: string()
       .required()
       .label('Treated Customer')
@@ -185,6 +187,7 @@ const initialFormValues: RebateFormData = {
   otherCity: '',
   phone: '',
   propertyType: '',
+  noOfToilets: 1,
   treatedCustomer: '',
   builtPriorCutoff: '',
   manufacturerModel: [{manufacturer: '', model: ''}],
@@ -358,7 +361,7 @@ const Toilet = () => {
               </Type>
 
               <Type variant="h3" color="primary" gutterBottom>
-                High Efficiency Toilet
+                High Efficiency Toilet/Urinal
               </Type>
 
               <Formik
@@ -545,10 +548,10 @@ const Toilet = () => {
                           >
                             Rebate Information
                           </Type>
-                          {/* <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={7}>
                               <Field
-                                // disabled={ineligible}
+                                disabled={ineligible}
                                 required
                                 name="noOfToilets"
                                 label="Number of Toilets/Urinals Installed"
@@ -560,7 +563,7 @@ const Toilet = () => {
                                 }}
                               />
                             </Grid>
-                          </Grid> */}
+                          </Grid>
                           <FieldArray
                             name="manufacturerModel"
                             render={(arrayHelpers) => (

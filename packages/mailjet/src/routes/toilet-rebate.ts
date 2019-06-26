@@ -5,7 +5,7 @@ if (isDev) {
 }
 import {createError, json} from 'micro'
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema} from 'yup'
+import {string, object, array, StringSchema, number} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -36,6 +36,7 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
+  noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'
   builtPriorCutoff: '' | 'Yes' | 'No'
   manufacturerModel: {
@@ -77,6 +78,9 @@ const bodySchema = object()
           .min(10)
           .required(),
         propertyType: string().required(),
+        noOfToilets: number()
+          .required()
+          .moreThan(0),
         treatedCustomer: string()
           .required()
           .oneOf(
@@ -158,7 +162,8 @@ const toiletRebateHandler = async (req: IncomingMessage) => {
     treatedCustomer,
     builtPriorCutoff,
     manufacturerModel = [],
-    watersenseApproved
+    watersenseApproved,
+    noOfToilets = 1
   } = formData
   let {city = '', accountNo} = formData
 
@@ -190,7 +195,8 @@ const toiletRebateHandler = async (req: IncomingMessage) => {
 
   const replyToName = `${firstName} ${lastName}`
 
-  const noOfAppliances = manufacturerModel.length.toString()
+  // const noOfAppliances = manufacturerModel.length.toString()
+  const noOfToiletsStr = noOfToilets.toString()
 
   const commentsLength = comments.length
 
@@ -227,7 +233,7 @@ const toiletRebateHandler = async (req: IncomingMessage) => {
           treatedCustomer,
           builtPriorCutoff,
           manufacturerModel,
-          noOfAppliances,
+          noOfToiletsStr,
           watersenseApproved,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
           receiptImages,
