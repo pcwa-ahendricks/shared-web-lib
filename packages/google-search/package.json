@@ -1,5 +1,6 @@
 {
   "name": "neu-web-google-search",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
