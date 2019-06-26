@@ -50,6 +50,7 @@ export interface IrrigationEfficienciesRebateFormData {
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
+  comments: string
   irrigMethod: string
   upgradeLocations: IrrigUpgradeLocationOpts
   upgradeOpts: IrrigSysUpgradeOpts
@@ -76,6 +77,7 @@ export interface LawnReplacementRebateFormData {
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
+  comments: string
   irrigMethod: string
   useArtTurf: BooleanAsString
   alreadyStarted: BooleanAsString
@@ -120,6 +122,7 @@ export interface WashingMachineRebateFormData {
   termsAgree: BooleanAsString
   signature: string
   captcha: string
+  comments: string
   receipts: string[]
   installPhotos: string[]
 }
@@ -150,6 +153,7 @@ export interface ToiletRebateFormData {
   termsAgree: BooleanAsString
   signature: string
   captcha: string
+  comments: string
   receipts: string[]
   installPhotos: string[]
 }

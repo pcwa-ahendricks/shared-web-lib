@@ -47,6 +47,7 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
+import FormTextField from '@components/formFields/FormTextField'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
@@ -117,6 +118,9 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
+    comments: string()
+      .max(200, 'Comments must be less than 200 characters.')
+      .label('Comments'),
     useArtTurf: string()
       .required()
       .oneOf(
@@ -170,6 +174,7 @@ const initialFormValues: RebateFormData = {
   inspectAgree: '',
   signature: '',
   captcha: '',
+  comments: '',
   irrigMethod: '',
   approxSqFeet: '',
   useArtTurf: '',
@@ -489,6 +494,9 @@ const LawnReplacement = () => {
                                 component={ArtTurfSelect}
                               />
                             </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={8}>
                               <Field
                                 disabled
@@ -496,6 +504,9 @@ const LawnReplacement = () => {
                                 component={AlreadyStartedSelect}
                               />
                             </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={8}>
                               <Field
                                 disabled
@@ -503,11 +514,26 @@ const LawnReplacement = () => {
                                 component={LawnApproxSqFootField}
                               />
                             </Grid>
+                          </Grid>
+                          <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Field
                                 disabled
                                 name="irrigMethod"
                                 component={IrrigationMethodSelect}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="comments"
+                                multiline
+                                rows={3} // That's about 200 characters
+                                label="Optionally, you can provide us any comments"
+                                // disabled={ineligible}
+                                component={FormTextField}
                               />
                             </Grid>
                           </Grid>

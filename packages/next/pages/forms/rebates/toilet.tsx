@@ -27,7 +27,6 @@ import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import FormTextField from '@components/formFields/FormTextField'
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
@@ -46,6 +45,7 @@ import ToiletWatersenseRadioField from '@components/formFields/ToiletWatersenseR
 import ToiletMfgModelsField from '@components/formFields/ToiletMfgModelsField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
+import FormTextField from '@components/formFields/FormTextField'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -144,6 +144,9 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
+    comments: string()
+      .max(200, 'Comments must be less than 200 characters.')
+      .label('Comments'),
     receipts: array()
       .required('Must provide receipt(s) or proof of purchase')
       .of(
@@ -189,6 +192,7 @@ const initialFormValues: RebateFormData = {
   termsAgree: '',
   signature: '',
   captcha: '',
+  comments: '',
   receipts: [],
   installPhotos: []
 }
@@ -595,6 +599,19 @@ const Toilet = () => {
                                 inputId="house-built-prior-select"
                                 labelWidth={255}
                                 component={YesNoSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="comments"
+                                multiline
+                                rows={3} // That's about 200 characters
+                                label="Optionally, you can provide us any comments"
+                                // disabled={ineligible}
+                                component={FormTextField}
                               />
                             </Grid>
                           </Grid>

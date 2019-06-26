@@ -45,6 +45,7 @@ interface FormDataObj {
   termsAgree: string
   signature: string
   captcha: string
+  comments: string
   receipts: AttachmentFieldValue[]
   installPhotos: AttachmentFieldValue[]
 }
@@ -98,6 +99,7 @@ const bodySchema = object()
           .oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
+        comments: string().max(200),
         receipts: array()
           .required()
           .of(
@@ -152,6 +154,7 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
     termsAgree,
     signature,
     captcha,
+    comments = '',
     treatedCustomer,
     existingHigh,
     newConstruction,
@@ -186,6 +189,8 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
   const installImages = installPhotos.map((attachment) => attachment.url)
 
   const replyToName = `${firstName} ${lastName}`
+
+  const commentsLength = comments.length
 
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -227,7 +232,9 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
           receiptImages,
           installImages,
           termsAgree,
-          signature
+          signature,
+          comments,
+          commentsLength
         }
       }
     ]

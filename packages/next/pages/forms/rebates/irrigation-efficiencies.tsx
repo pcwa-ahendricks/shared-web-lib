@@ -49,6 +49,7 @@ import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import IrrigationEffEligibilityDialog from '@components/formFields/IrrigationEffEligibilityDialog'
 import FormBox from '@components/boxes/FormBox'
 import MainBox from '@components/boxes/MainBox'
+import FormTextField from '@components/formFields/FormTextField'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
@@ -119,6 +120,9 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
+    comments: string()
+      .max(200, 'Comments must be less than 200 characters.')
+      .label('Comments'),
     irrigMethod: string()
       .required()
       .label('Irrigation Method')
@@ -157,6 +161,7 @@ const initialFormValues: RebateFormData = {
   inspectAgree: '',
   signature: '',
   captcha: '',
+  comments: '',
   irrigMethod: '',
   upgradeLocations: {...initialIrrigUpgradeLocationOpts},
   upgradeOpts: {...initialIrrigSysUpgradeOpts}
@@ -472,6 +477,8 @@ const IrrigationEfficiencies = () => {
                                 component={IrrigationMethodSelect}
                               />
                             </Grid>
+                          </Grid>
+                          <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Type
                                 variant="h5"
@@ -488,6 +495,8 @@ const IrrigationEfficiencies = () => {
                                 component={IrrigUpgradeLocationCheckboxes}
                               />
                             </Grid>
+                          </Grid>
+                          <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Type
                                 variant="h5"
@@ -502,6 +511,19 @@ const IrrigationEfficiencies = () => {
                                 name="upgradeOpts"
                                 disabled={ineligible}
                                 component={IrrigSysUpgradeOptsCheckboxes}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="comments"
+                                multiline
+                                rows={3} // That's about 200 characters
+                                label="Optionally, you can provide us any comments"
+                                // disabled={ineligible}
+                                component={FormTextField}
                               />
                             </Grid>
                           </Grid>
@@ -677,10 +699,6 @@ const IrrigationEfficiencies = () => {
                   )
                 }}
               </Formik>
-
-              {/* {receipts.map((attach, idx) => (
-            <div key={idx}>{attach}</div>
-          ))} */}
             </MainBox>
           </Grid>
         </Grid>
