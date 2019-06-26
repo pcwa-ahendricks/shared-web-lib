@@ -1,11 +1,12 @@
 import React from 'react'
 import {Typography as Type} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
+import MainBox from '@components/boxes/MainBox'
 
 const IrrigationCanal = () => {
   return (
     <PageLayout title="Irrigation Canal Information">
-      <main>
+      <MainBox>
         <Type>
           PCWA's primary source of water is delivered through canals operated by
           Pacific Gas & Electric Company's (PG&E). After the irrigation season
@@ -15,7 +16,7 @@ const IrrigationCanal = () => {
           and spreads remaining water supplies to mitigate the impact on its
           customers.
         </Type>
-      </main>
+      </MainBox>
     </PageLayout>
   )
 }

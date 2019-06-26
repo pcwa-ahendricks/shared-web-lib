@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field} from 'formik'
+import {Formik, Field} from 'formik'
 import {string, object, StringSchema} from 'yup'
 import {
   postRebateForm,
@@ -47,6 +47,8 @@ import delay from 'then-sleep'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import IrrigationEffEligibilityDialog from '@components/formFields/IrrigationEffEligibilityDialog'
+import FormBox from '@components/boxes/FormBox'
+import MainBox from '@components/boxes/MainBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
@@ -269,7 +271,7 @@ const IrrigationEfficiencies = () => {
         <WaterSurfaceImg />
         <Grid container justify="space-around" direction="row">
           <Grid item xs={11} sm={12}>
-            <main className={classes.main}>
+            <MainBox className={classes.main}>
               <Type variant="h1" color="primary" gutterBottom>
                 Water Efficiency Rebate Form
               </Type>
@@ -347,7 +349,7 @@ const IrrigationEfficiencies = () => {
 
                   return (
                     <React.Fragment>
-                      <Form className={classes.form}>
+                      <FormBox className={classes.form}>
                         <div className={classes.formGroup}>
                           <Type
                             color="textSecondary"
@@ -665,7 +667,7 @@ const IrrigationEfficiencies = () => {
                             />
                           )}
                         </div>
-                      </Form>
+                      </FormBox>
 
                       <IrrigationEffEligibilityDialog
                         open={eligibilityDialogOpen}
@@ -679,7 +681,7 @@ const IrrigationEfficiencies = () => {
               {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-            </main>
+            </MainBox>
           </Grid>
         </Grid>
       </React.Fragment>

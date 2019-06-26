@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field, FieldArray} from 'formik'
+import {Formik, Field, FieldArray} from 'formik'
 import {string, object, array, StringSchema} from 'yup'
 import clsx from 'clsx'
 import {
@@ -44,6 +44,8 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 import delay from 'then-sleep'
 import ToiletWatersenseRadioField from '@components/formFields/ToiletWatersenseRadioField'
 import ToiletMfgModelsField from '@components/formFields/ToiletMfgModelsField'
+import MainBox from '@components/boxes/MainBox'
+import FormBox from '@components/boxes/FormBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -346,7 +348,7 @@ const Toilet = () => {
         <WaterSurfaceImg />
         <Grid container justify="space-around" direction="row">
           <Grid item xs={11} sm={12}>
-            <main className={classes.main}>
+            <MainBox className={classes.main}>
               <Type variant="h1" color="primary" gutterBottom>
                 Water Efficiency Rebate Form
               </Type>
@@ -429,7 +431,7 @@ const Toilet = () => {
 
                   return (
                     <React.Fragment>
-                      <Form className={classes.form}>
+                      <FormBox className={classes.form}>
                         <div className={classes.formGroup}>
                           <Type
                             color="textSecondary"
@@ -788,7 +790,7 @@ const Toilet = () => {
                             />
                           )}
                         </div>
-                      </Form>
+                      </FormBox>
 
                       <ToiletEffEligibilityDialog
                         open={eligibilityDialogOpen}
@@ -798,7 +800,7 @@ const Toilet = () => {
                   )
                 }}
               </Formik>
-            </main>
+            </MainBox>
           </Grid>
         </Grid>
       </React.Fragment>

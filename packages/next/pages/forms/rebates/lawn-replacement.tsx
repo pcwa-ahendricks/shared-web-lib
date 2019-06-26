@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field} from 'formik'
+import {Formik, Field} from 'formik'
 import {string, object, StringSchema} from 'yup'
 import {
   postRebateForm,
@@ -45,6 +45,8 @@ import isNumber from 'is-number'
 import delay from 'then-sleep'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
+import MainBox from '@components/boxes/MainBox'
+import FormBox from '@components/boxes/FormBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
@@ -283,7 +285,7 @@ const LawnReplacement = () => {
         <WaterSurfaceImg />
         <Grid container justify="space-around" direction="row">
           <Grid item xs={11} sm={12}>
-            <main className={classes.main}>
+            <MainBox className={classes.main}>
               <Type variant="h1" color="primary" gutterBottom>
                 Water Efficiency Rebate Form
               </Type>
@@ -364,7 +366,7 @@ const LawnReplacement = () => {
 
                   return (
                     <React.Fragment>
-                      <Form className={classes.form}>
+                      <FormBox className={classes.form}>
                         <div className={classes.formGroup}>
                           <Type
                             color="textSecondary"
@@ -670,7 +672,7 @@ const LawnReplacement = () => {
                             />
                           )}
                         </div>
-                      </Form>
+                      </FormBox>
 
                       <LawnReplEligibilityDialog
                         open={eligibilityDialogOpen}
@@ -684,7 +686,7 @@ const LawnReplacement = () => {
               {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-            </main>
+            </MainBox>
           </Grid>
         </Grid>
       </React.Fragment>

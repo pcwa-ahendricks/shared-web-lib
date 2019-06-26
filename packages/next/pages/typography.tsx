@@ -1,12 +1,13 @@
 import React from 'react'
-import {Typography as Type} from '@material-ui/core'
+import {Box, Typography as Type} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
+import MainBox from '@components/boxes/MainBox'
 
 const Typography = () => {
   return (
     <PageLayout title="Typography Test">
-      <main>
-        <div style={{padding: '10vmin'}}>
+      <MainBox>
+        <Box p="10vmin">
           <Type variant="caption">Caption</Type>
           <Type variant="button">Button</Type>
           <Type variant="overline">Overline</Type>
@@ -20,8 +21,8 @@ const Typography = () => {
           <Type variant="h4">H4 Four</Type>
           <Type variant="h5">H5 Five</Type>
           <Type variant="h6">H6 Six</Type>
-        </div>
-      </main>
+        </Box>
+      </MainBox>
     </PageLayout>
   )
 }

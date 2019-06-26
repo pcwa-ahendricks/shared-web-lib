@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field} from 'formik'
+import {Formik, Field} from 'formik'
 import {string, object, array, ArraySchema, date, StringSchema} from 'yup'
 import clsx from 'clsx'
 import {
@@ -42,6 +42,8 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
+import MainBox from '@components/boxes/MainBox'
+import FormBox from '@components/boxes/FormBox'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -359,7 +361,7 @@ const IrrigationController = () => {
         <WaterSurfaceImg />
         <Grid container justify="space-around" direction="row">
           <Grid item xs={11} sm={12}>
-            <main className={classes.main}>
+            <MainBox className={classes.main}>
               <Type variant="h1" color="primary" gutterBottom>
                 Water Efficiency Rebate Form
               </Type>
@@ -439,7 +441,7 @@ const IrrigationController = () => {
                     cntrlPhotosIsUploading ||
                     addtlSensorPhotosIsUploading
                   return (
-                    <Form className={classes.form}>
+                    <FormBox className={classes.form}>
                       {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
@@ -776,7 +778,7 @@ const IrrigationController = () => {
                           />
                         )}
                       </div>
-                    </Form>
+                    </FormBox>
                   )
                 }}
               </Formik>
@@ -784,7 +786,7 @@ const IrrigationController = () => {
               {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-            </main>
+            </MainBox>
           </Grid>
         </Grid>
       </React.Fragment>

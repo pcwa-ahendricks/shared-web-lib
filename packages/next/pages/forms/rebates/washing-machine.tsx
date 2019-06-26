@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field} from 'formik'
+import {Formik, Field} from 'formik'
 import {string, object, array, StringSchema} from 'yup'
 import clsx from 'clsx'
 import {
@@ -43,6 +43,8 @@ import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import delay from 'then-sleep'
+import MainBox from '@components/boxes/MainBox'
+import FormBox from '@components/boxes/FormBox'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -321,7 +323,7 @@ const WashingMachine = () => {
         <WaterSurfaceImg />
         <Grid container justify="space-around" direction="row">
           <Grid item xs={11} sm={12}>
-            <main className={classes.main}>
+            <MainBox className={classes.main}>
               <Type variant="h1" color="primary" gutterBottom>
                 Water Efficiency Rebate Form
               </Type>
@@ -406,7 +408,7 @@ const WashingMachine = () => {
 
                   return (
                     <React.Fragment>
-                      <Form className={classes.form}>
+                      <FormBox className={classes.form}>
                         <div className={classes.formGroup}>
                           <Type
                             color="textSecondary"
@@ -773,7 +775,7 @@ const WashingMachine = () => {
                             />
                           )}
                         </div>
-                      </Form>
+                      </FormBox>
 
                       <WashEffEligibilityDialog
                         open={eligibilityDialogOpen}
@@ -787,7 +789,7 @@ const WashingMachine = () => {
               {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-            </main>
+            </MainBox>
           </Grid>
         </Grid>
       </React.Fragment>

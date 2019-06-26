@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
-import {Formik, Form, Field} from 'formik'
+import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
   postRebateForm,
@@ -30,6 +30,8 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErrorDialog'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
+import MainBox from '@components/boxes/MainBox'
+import FormBox from '@components/boxes/FormBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
@@ -171,7 +173,7 @@ const ContactUs = () => {
         <WaterSurfaceImg />
         <Grid container justify="space-around" direction="row">
           <Grid item xs={11} sm={12}>
-            <main className={classes.main}>
+            <MainBox className={classes.main}>
               <Type variant="h1" color="primary" gutterBottom>
                 Contact Us Form
               </Type>
@@ -219,7 +221,7 @@ const ContactUs = () => {
                   }
 
                   return (
-                    <Form className={classes.form}>
+                    <FormBox className={classes.form}>
                       {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
@@ -351,7 +353,7 @@ const ContactUs = () => {
                           />
                         )}
                       </div>
-                    </Form>
+                    </FormBox>
                   )
                 }}
               </Formik>
@@ -359,7 +361,7 @@ const ContactUs = () => {
               {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-            </main>
+            </MainBox>
           </Grid>
         </Grid>
       </React.Fragment>
