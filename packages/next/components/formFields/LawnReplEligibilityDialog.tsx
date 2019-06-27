@@ -3,7 +3,6 @@ import React, {useState, useMemo, useCallback, useRef, useEffect} from 'react'
 
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -12,13 +11,10 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  MobileStepper,
-  Stepper,
   Step,
   StepLabel,
   StepContent,
-  Theme,
-  useMediaQuery
+  Theme
   // Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
@@ -33,8 +29,12 @@ import {Field, connect, FormikProps, FieldProps} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
-import {SlideTransition as Transition} from '@components/Transition/Transition'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
+import {
+  EligibilityDialog,
+  EligibilityMobileStepper,
+  EligibilityStepper
+} from '@components/formFields/EligibilityDialog'
 
 type Props = {
   open: boolean
@@ -43,33 +43,10 @@ type Props = {
   formik?: FormikProps<any>
 }
 
-// Text importance dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
-      backgroundColor: theme.palette.grey[200]
-    },
     qualifyMsg: {
       marginTop: theme.spacing(3)
-    },
-    stepperContainer: {
-      width: '90%'
-    },
-    mobileStepper: {
-      width: '100%'
-    },
-    mobileStepperPaper: {
-      backgroundColor: 'unset',
-      padding: 0
-    },
-    stepperPaper: {
-      backgroundColor: 'unset',
-      [theme.breakpoints.down('xs')]: {
-        padding: 0
-      },
-      [theme.breakpoints.only('sm')]: {
-        padding: theme.spacing(2) // defaults to 24px
-      }
     },
     stepLabelLabel: {
       marginLeft: theme.spacing(1),
@@ -92,7 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 800)
@@ -213,58 +189,44 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   return (
-    <Dialog
+    <EligibilityDialog
       open={open}
-      disableBackdropClick={true}
-      maxWidth="sm"
-      fullWidth
-      fullScreen={fullScreen}
       onClose={onClose}
       aria-labelledby="form-dialog-title"
-      TransitionComponent={Transition}
-      classes={{
-        paper: classes.paper
-      }}
     >
       <DialogTitle id="form-dialog-title">Check Rebate Eligibility</DialogTitle>
       <DialogContent>
         <div>
-          <div className={classes.stepperContainer}>
-            <Stepper
-              activeStep={activeStep}
-              orientation="vertical"
-              classes={{root: classes.stepperPaper}}
-            >
-              {steps.map(({label, index, fieldName}) => (
-                <Step key={label} completed={stepCompleted(fieldName)}>
-                  {/* <StepLabel>{label}</StepLabel> */}
-                  <StepLabel
-                    error={stepHasError(fieldName)}
-                    classes={{
-                      iconContainer: classes.stepLabelIcon,
-                      labelContainer: classes.stepLabelLabel
-                    }}
-                    optional={
-                      <DialogContentText
-                        variant="h4"
-                        color="textSecondary"
-                        className={clsx({
-                          [classes.stepLabelError]: stepHasError(fieldName),
-                          [classes.stepLabelActive]: activeStep === index
-                        })}
-                      >
-                        {label}
-                      </DialogContentText>
-                    }
-                    onClick={stepLabelClickHandler(index)}
-                  >
-                    {''}
-                  </StepLabel>
-                  <StepContent>{getStepContent(index)}</StepContent>
-                </Step>
-              ))}
-            </Stepper>
-          </div>
+          <EligibilityStepper activeStep={activeStep}>
+            {steps.map(({label, index, fieldName}) => (
+              <Step key={label} completed={stepCompleted(fieldName)}>
+                {/* <StepLabel>{label}</StepLabel> */}
+                <StepLabel
+                  error={stepHasError(fieldName)}
+                  classes={{
+                    iconContainer: classes.stepLabelIcon,
+                    labelContainer: classes.stepLabelLabel
+                  }}
+                  optional={
+                    <DialogContentText
+                      variant="h4"
+                      color="textSecondary"
+                      className={clsx({
+                        [classes.stepLabelError]: stepHasError(fieldName),
+                        [classes.stepLabelActive]: activeStep === index
+                      })}
+                    >
+                      {label}
+                    </DialogContentText>
+                  }
+                  onClick={stepLabelClickHandler(index)}
+                >
+                  {''}
+                </StepLabel>
+                <StepContent>{getStepContent(index)}</StepContent>
+              </Step>
+            ))}
+          </EligibilityStepper>
           <WaitToGrow isIn={rebateEligibility}>
             <DialogContentText
               variant="body1"
@@ -283,12 +245,9 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
           isIn={rebateEligibilityIncomplete}
           style={{width: '100%'}} // style property will be passed to <Grow /> thanks to spread operator.
         >
-          <MobileStepper
+          <EligibilityMobileStepper
             steps={maxSteps}
-            position="static"
             activeStep={activeStep}
-            className={classes.mobileStepper}
-            classes={{root: classes.mobileStepperPaper}}
             nextButton={
               <Button
                 onClick={handleNext}
@@ -324,7 +283,7 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
           </Button>
         </WaitToGrow>
       </DialogActions>
-    </Dialog>
+    </EligibilityDialog>
   )
 }
 
