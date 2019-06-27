@@ -573,7 +573,7 @@ const Toilet = () => {
                           />
 
                           <Grid container spacing={5} justify="space-between">
-                            <Grid item xs={8}>
+                            <Grid item xs={12} sm={8}>
                               <Field
                                 disabled={ineligible}
                                 name="watersenseApproved"
@@ -583,7 +583,7 @@ const Toilet = () => {
                                 component={ToiletWatersenseRadioField}
                               />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} sm={4}>
                               <WaterSenseLogo />
                             </Grid>
                           </Grid>

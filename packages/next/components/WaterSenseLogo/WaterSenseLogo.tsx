@@ -19,7 +19,11 @@ const useStyles = makeStyles(() =>
 const WaterSenseLogo = () => {
   const classes = useStyles()
   return (
-    <RowBox height="100%" justifyContent="flex-end" alignItems="center">
+    <RowBox
+      height="100%"
+      justifyContent={{xs: 'center', sm: 'flex-end'}}
+      alignItems="center"
+    >
       <Box flex="auto" maxWidth={165}>
         <ColumnBox alignItems="center">
           <Box flex="none">
