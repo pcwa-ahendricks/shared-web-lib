@@ -17,7 +17,8 @@ import {
   Step,
   StepLabel,
   StepContent,
-  Theme
+  Theme,
+  useMediaQuery
   // Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
@@ -58,10 +59,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%'
     },
     mobileStepperPaper: {
-      backgroundColor: 'unset'
+      backgroundColor: 'unset',
+      padding: 0
     },
     stepperPaper: {
-      backgroundColor: 'unset'
+      backgroundColor: 'unset',
+      [theme.breakpoints.down('xs')]: {
+        padding: 0
+      },
+      [theme.breakpoints.only('sm')]: {
+        padding: theme.spacing(2) // defaults to 24px
+      }
     },
     stepLabelLabel: {
       marginLeft: theme.spacing(1),
@@ -84,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 800)
@@ -209,6 +218,7 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
       disableBackdropClick={true}
       maxWidth="sm"
       fullWidth
+      fullScreen={fullScreen}
       onClose={onClose}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition}

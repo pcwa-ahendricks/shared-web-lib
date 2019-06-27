@@ -691,16 +691,16 @@ const Toilet = () => {
                               >
                                 <em>
                                   I have read, understand, and agree to the{' '}
-                                  <Link
+                                  {/* <Link
                                     variant="inherit"
                                     href="https://cdn.cosmicjs.com/310eda20-921b-11e9-b0fd-bf44dce96b6c-Toilet-program-requirements-3-3-17.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                  >
-                                    Placer County Water Agency High Efficiency
-                                    Toilet and Waterless Urinal Retrofit Rebate
-                                    Terms and Conditions.
-                                  </Link>
+                                  > */}
+                                  Placer County Water Agency High Efficiency
+                                  Toilet and Waterless Urinal Retrofit Rebate
+                                  Terms and Conditions.
+                                  {/* </Link> */}
                                 </em>
                               </Type>
                               <Type

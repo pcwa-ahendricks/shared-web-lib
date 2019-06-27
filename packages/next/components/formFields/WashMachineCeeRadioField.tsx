@@ -95,8 +95,8 @@ const WashMachineCeeRadioField = ({
     >
       <FormLabel component="span" classes={{root: classes.formLabel}}>
         <Type variant="body1" component="span">
-          Does the new Washing Machine have a CEE Tier 3 water factor? Check
-          here:{' '}
+          Does the new Washing Machine have a CEE Advanced tier, tier 1 or tier
+          2 water factor? Check here:{' '}
         </Type>
         <Link
           href="https://www.cee1.org/content/cee-program-resources"

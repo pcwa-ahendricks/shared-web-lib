@@ -3836,10 +3836,10 @@ csstype@^2.2.0, csstype@^2.5.2, csstype@^2.5.7:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.5.tgz#1cd1dff742ebf4d7c991470ae71e12bb6751e034"
   integrity sha512-JsTaiksRsel5n7XwqPAfB0l3TFKdpjW/kgAELf9vrb5adGA7UCPLajKK5s3nFrcFm3Rkyp/Qkgl73ENc1UY3cA==
 
-csvtojson@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/csvtojson/-/csvtojson-2.0.8.tgz#d889f19576b2b33ead235490d2e5c9791481e8d3"
-  integrity sha512-DC6YFtsJiA7t/Yz+KjzT6GXuKtU/5gRbbl7HJqvDVVir+dxdw2/1EgwfgJdnsvUT7lOnON5DvGftKuYWX1nMOQ==
+csvtojson@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/csvtojson/-/csvtojson-2.0.10.tgz#11e7242cc630da54efce7958a45f443210357574"
+  integrity sha512-lUWFxGKyhraKCW8Qghz6Z0f2l/PqB1W3AO0HKJzGIQ5JRSlR651ekJDiGJbBT4sRNNv5ddnSGVEnsxP9XRCVpQ==
   dependencies:
     bluebird "^3.5.1"
     lodash "^4.17.3"
@@ -7540,10 +7540,10 @@ normalize-url@^4.1.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.3.0.tgz#9c49e10fc1876aeb76dba88bf1b2b5d9fa57b2ee"
   integrity sha512-0NLtR71o4k6GLP+mr6Ty34c5GA6CMoEsncKJxvQd8NzPxaHRJNnb5gZE8R1XF4CPIS7QPHLJ74IFszwtNVAHVQ==
 
-now@^15.6.0:
-  version "15.6.0"
-  resolved "https://registry.yarnpkg.com/now/-/now-15.6.0.tgz#cb6c8276d0d69b00d26665a8746e970d6aa0820b"
-  integrity sha512-qvZyBYOUs3Cr+J8CZNgGVOgU1SFp/OFnkDESpJf5O4TnaiZzAZfrOGy7aZdkXJj6SALS94gfctPqh9LczJ2ldA==
+now@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/now/-/now-15.6.1.tgz#2a184205ce1541ef418a62b75a890a9f348d1abb"
+  integrity sha512-eJVNHyCVV37M9dRhZQkmKj0AQ62ikXti3tNuHgBmczGNHmsD1vVuqtaKD4HasFGbDqUAAz9ZB6WGPHUqoXDv5A==
 
 npm-bundled@^1.0.1:
   version "1.0.6"

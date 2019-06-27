@@ -333,8 +333,9 @@ const WashingMachine = () => {
               </Type>
 
               <Type variant="h3" color="primary" gutterBottom>
-                PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient
-                Clothes Washing Machine
+                High-Efficiency Clothes Washing Machine
+                {/* PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient
+                Clothes Washing Machine */}
               </Type>
 
               <Formik
@@ -668,16 +669,18 @@ const WashingMachine = () => {
                               >
                                 <em>
                                   I have read, understand, and agree to the{' '}
-                                  <Link
+                                  {/* <Link
                                     variant="inherit"
                                     href="https://cdn.cosmicjs.com/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                  >
-                                    PCWA/USBR Energy Star® Residential/Multi
+                                  > */}
+                                  {/* PCWA/USBR Energy Star® Residential/Multi
                                     Family Water-Efficient Clothes Washing
-                                    Machine Rebate Terms and Conditions.
-                                  </Link>
+                                    Machine Rebate Terms and Conditions. */}
+                                  High-Efficiency Clothes Washing Machine Rebate
+                                  Terms and Conditions.
+                                  {/* </Link> */}
                                 </em>
                               </Type>
                               <Type
