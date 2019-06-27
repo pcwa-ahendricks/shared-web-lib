@@ -186,8 +186,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       margin: 'auto',
-      width: 'fit-content' // IE doesn't support
-      // width: '100%'
+      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+      width: '100%'
     },
     buttonWrapper: {
       flex: '0 0 auto', // IE fix
