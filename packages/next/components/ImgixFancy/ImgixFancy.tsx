@@ -68,7 +68,7 @@ const ImgixFancy = ({
   title,
   onLoad,
   paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
-  sizes = 'auto', // This is a Lazysizes feature, not an react-imgix feature.
+  sizes = 'auto', // Auto - This is a Lazysizes feature, not an react-imgix feature. Note - "sizes" is the Imgix prop while lazysizes uses "data-sizes".
   ...rest
 }: ImgixFancyProps) => {
   const classes = useStyles()

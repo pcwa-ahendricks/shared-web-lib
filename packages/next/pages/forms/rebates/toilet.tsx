@@ -46,6 +46,7 @@ import ToiletMfgModelsField from '@components/formFields/ToiletMfgModelsField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
+import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -572,7 +573,7 @@ const Toilet = () => {
                           />
 
                           <Grid container spacing={5} justify="space-between">
-                            <Grid item xs={12}>
+                            <Grid item xs={8}>
                               <Field
                                 disabled={ineligible}
                                 name="watersenseApproved"
@@ -582,7 +583,11 @@ const Toilet = () => {
                                 component={ToiletWatersenseRadioField}
                               />
                             </Grid>
+                            <Grid item xs={4}>
+                              <WaterSenseLogo />
+                            </Grid>
                           </Grid>
+
                           <Grid container spacing={5} justify="space-between">
                             <Grid item xs={12} sm={6}>
                               <Field

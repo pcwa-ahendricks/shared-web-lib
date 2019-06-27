@@ -11,6 +11,7 @@ import useModernizr from '@hooks/useModernizr'
 import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import clsx from 'clsx'
 
 type Props = {
   file: DroppedFile
@@ -165,7 +166,9 @@ const ThumbPreview = ({
                   data-sizes="auto"
                   src="/static/images/placeholder-camera.png"
                   data-srcset={file.previewUrl}
-                  className="lazyload"
+                  className={clsx({
+                    ['lazyload']: true
+                  })}
                   alt={`Thumbnail for ${file.name} upload`}
                 />
               )}
