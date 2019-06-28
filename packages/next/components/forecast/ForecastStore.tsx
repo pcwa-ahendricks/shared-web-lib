@@ -1,7 +1,7 @@
 import React, {createContext, useReducer} from 'react'
 import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 
-type State = {
+interface State {
   forecasts: ForecastData[]
   timeoutId: NodeJS.Timeout | null
   activeCycleForecastId: number
@@ -13,7 +13,7 @@ type ProviderProps = {
 }
 
 // State
-const initialState = {
+const initialState: State = {
   forecasts: [],
   timeoutId: null,
   activeCycleForecastId: 1,

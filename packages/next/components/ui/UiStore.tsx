@@ -1,6 +1,6 @@
 import React, {createContext, useReducer} from 'react'
 
-type State = {
+interface State {
   drawerOpen: boolean
 }
 
@@ -9,7 +9,7 @@ type ProviderProps = {
 }
 
 // State
-export const initialState = {
+const initialState: State = {
   drawerOpen: false
 }
 
