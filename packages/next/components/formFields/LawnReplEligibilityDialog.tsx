@@ -19,8 +19,8 @@ import {
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
-import {ANSWERS as q2Answers} from '@components/formFields/AlreadyStartedSelect'
-import {ANSWERS as q3Answers} from '@components/formFields/ArtTurfSelect'
+// import {ANSWERS as q2Answers} from '@components/formFields/AlreadyStartedSelect'
+import {ANSWERS as q2Answers} from '@components/formFields/ArtTurfSelect'
 import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
@@ -83,7 +83,6 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
     () =>
       [
         touched.treatedCustomer,
-        touched.alreadyStarted,
         touched.useArtTurf,
         touched.approxSqFeet,
         touched.irrigMethod
@@ -95,7 +94,6 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
     () =>
       [
         errors.treatedCustomer,
-        errors.alreadyStarted,
         errors.useArtTurf,
         errors.approxSqFeet,
         errors.irrigMethod
@@ -297,30 +295,30 @@ function getSteps() {
       fieldName: 'treatedCustomer',
       content: <QuestionOne />
     },
+    // {
+    //   index: 1,
+    //   label: 'Have you already started the Lawn Replacement project?',
+    //   fieldName: 'alreadyStarted',
+    //   content: <QuestionTwo />
+    // },
     {
       index: 1,
-      label: 'Have you already started the Lawn Replacement project?',
-      fieldName: 'alreadyStarted',
+      label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
+      fieldName: 'useArtTurf',
       content: <QuestionTwo />
     },
     {
       index: 2,
-      label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
-      fieldName: 'useArtTurf',
+      label:
+        'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
+      fieldName: 'approxSqFeet',
       content: <QuestionThree />
     },
     {
       index: 3,
-      label:
-        'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
-      fieldName: 'approxSqFeet',
-      content: <QuestionFour />
-    },
-    {
-      index: 4,
       label: 'How is the existing lawn currently irrigated?',
       fieldName: 'irrigMethod',
-      content: <QuestionFive />
+      content: <QuestionFour />
     }
   ]
 }
@@ -352,8 +350,8 @@ const QuestionOne = () => {
         const {name, value} = field
         const currentError = errors[name]
 
-        const clickHandler = (alreadyStarted: string) => () => {
-          setFieldValue(name, alreadyStarted, true)
+        const clickHandler = (isTreatedCustomer: string) => () => {
+          setFieldValue(name, isTreatedCustomer, true)
           setFieldTouched(name, true)
         }
 
@@ -406,10 +404,74 @@ const QuestionOne = () => {
   )
 }
 
+// const QuestionTwo = () => {
+//   const classes = useQuestionStyles()
+//   return (
+//     <Field name="alreadyStarted">
+//       {({field, form}: FieldProps<any>) => {
+//         const {setFieldValue, errors, setFieldTouched, touched} = form
+//         const {name, value} = field
+//         const currentError = errors[name]
+
+//         const clickHandler = (newValue: string) => () => {
+//           setFieldValue(name, newValue, true)
+//           setFieldTouched(name, true)
+//         }
+
+//         // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+//         const hasApplicableError =
+//           Boolean(currentError) &&
+//           typeof currentError === 'string' &&
+//           !/required field/i.test(currentError)
+
+//         const fieldTouched = Boolean(touched[name])
+//         return (
+//           <div>
+//             <List
+//               subheader={
+//                 <ListSubheader component="div">
+//                   Choose one of the following
+//                 </ListSubheader>
+//               }
+//             >
+//               {q2Answers.map((answer) => (
+//                 <ListItem
+//                   key={answer.caption}
+//                   button
+//                   divider
+//                   selected={answer.value === value}
+//                   // disabled={fieldTouched}
+//                   onClick={clickHandler(answer.value)}
+//                 >
+//                   <ListItemText primary={answer.caption} />
+//                 </ListItem>
+//               ))}
+//             </List>
+//             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
+//               <DialogContentText
+//                 variant="body1"
+//                 color="textPrimary"
+//                 className={classes.qualifyMsg}
+//               >
+//                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+//                 Unfortunately you do not qualify for the Lawn Replacement
+//                 Rebate. Conversions that are initiated prior to PCWA's approval
+//                 are ineligible. No exceptions will be made. Please close this
+//                 web browser tab to go back to the{' '}
+//                 <a href="https://www.pcwa.net">PCWA.net</a> website.
+//               </DialogContentText>
+//             </WaitToGrow>
+//           </div>
+//         )
+//       }}
+//     </Field>
+//   )
+// }
+
 const QuestionTwo = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="alreadyStarted">
+    <Field name="useArtTurf">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
@@ -456,70 +518,6 @@ const QuestionTwo = () => {
                 className={classes.qualifyMsg}
               >
                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the Lawn Replacement
-                Rebate. Conversions that are initiated prior to PCWA's approval
-                are ineligible. No exceptions will be made. Please close this
-                web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
-  )
-}
-
-const QuestionThree = () => {
-  const classes = useQuestionStyles()
-  return (
-    <Field name="useArtTurf">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name, value} = field
-        const currentError = errors[name]
-
-        const clickHandler = (newValue: string) => () => {
-          setFieldValue(name, newValue, true)
-          setFieldTouched(name, true)
-        }
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
-            >
-              {q3Answers.map((answer) => (
-                <ListItem
-                  key={answer.caption}
-                  button
-                  divider
-                  selected={answer.value === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(answer.value)}
-                >
-                  <ListItemText primary={answer.caption} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately you do not qualify for the lawn replacement
                 rebate. To qualify, you must have at least 300 square feet of
                 lawn being replaced by water efficient landscape as defined in
@@ -535,7 +533,7 @@ const QuestionThree = () => {
   )
 }
 
-const QuestionFour = () => {
+const QuestionThree = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="approxSqFeet">
@@ -574,7 +572,7 @@ const QuestionFour = () => {
   )
 }
 
-const QuestionFive = () => {
+const QuestionFour = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="irrigMethod">

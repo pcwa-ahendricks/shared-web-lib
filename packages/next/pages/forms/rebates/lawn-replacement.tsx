@@ -130,11 +130,12 @@ const formSchema = object()
       .label('Replace lawn with artificial turf'),
     alreadyStarted: string()
       .required()
-      .oneOf(
-        ['false'],
-        "Conversions that are initiated prior to PCWA's approval are ineligible"
-      )
-      .label('Already started replacement of lawn'),
+      .label('Project Status'),
+    // .oneOf(
+    //   ['false'],
+    //   "Conversions that are initiated prior to PCWA's approval are ineligible"
+    // )
+    // .label('Already started replacement of lawn'),
     approxSqFeet: string()
       .required()
       .test(
@@ -346,7 +347,6 @@ const LawnReplacement = () => {
                   // Check if user is in-eligible for rebate and disable all form controls if so.
                   const rebateIneligibility = [
                     errors['treatedCustomer'],
-                    errors['alreadyStarted'],
                     errors['useArtTurf'],
                     errors['approxSqFeet'],
                     errors['irrigMethod']
@@ -477,6 +477,16 @@ const LawnReplacement = () => {
                           </Type>
 
                           <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="alreadyStarted"
+                                disabled={ineligible}
+                                component={AlreadyStartedSelect}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
@@ -492,16 +502,6 @@ const LawnReplacement = () => {
                                 disabled
                                 name="useArtTurf"
                                 component={ArtTurfSelect}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={8}>
-                              <Field
-                                disabled
-                                name="alreadyStarted"
-                                component={AlreadyStartedSelect}
                               />
                             </Grid>
                           </Grid>
@@ -532,7 +532,7 @@ const LawnReplacement = () => {
                                 multiline
                                 rows={3} // That's about 200 characters
                                 label="Optionally, you can provide us any comments"
-                                // disabled={ineligible}
+                                disabled={ineligible}
                                 component={FormTextField}
                               />
                             </Grid>

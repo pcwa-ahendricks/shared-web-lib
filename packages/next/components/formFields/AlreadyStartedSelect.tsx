@@ -1,12 +1,14 @@
 import React, {useCallback} from 'react'
 import {
+  Box,
   FormControl,
   FormHelperText,
   InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
-  Theme
+  Theme,
+  Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
@@ -30,8 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const ANSWERS = [
-  {caption: 'Yes', value: 'true'},
-  {caption: 'No', value: 'false'}
+  'I have not started my project yet',
+  'I have started my project but have not completed it',
+  'I have completed my project'
 ]
 
 const AlreadyStartedSelect = ({
@@ -66,55 +69,62 @@ const AlreadyStartedSelect = ({
   )
 
   return (
-    <FormControl
-      required
-      variant="outlined"
-      margin="normal"
-      disabled={disabled || isSubmitting}
-      error={fieldIsTouchedWithError}
-      fullWidth={fullWidth}
-      {...other}
-    >
-      <InputLabel
-        htmlFor="irrigation-method-select"
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
-        Already Started Lawn Replacement
-      </InputLabel>
-      <Select
-        value={value}
-        autoWidth={true}
+    <Box>
+      <Type variant="body1" paragraph>
+        Projects that are initiated prior to PCWA's approval will be assessed on
+        a case by case basis. You will contacted by a Water Efficiency
+        Specialist to schedule an appointment to determine your eligibility.
+      </Type>
+      <FormControl
+        required
         variant="outlined"
-        input={
-          <OutlinedInput
-            id="irrigation-method-select"
-            name={name}
-            labelWidth={276}
-            error={fieldIsTouchedWithError}
-          />
-        }
-        onChange={changeHandler}
-        onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 100}}}
+        margin="normal"
+        disabled={disabled || isSubmitting}
+        error={fieldIsTouchedWithError}
+        fullWidth={fullWidth}
+        {...other}
       >
-        {ANSWERS.map(({caption, value}) => (
-          <MenuItem
-            key={caption}
-            value={value}
-            classes={{root: classes.menuItem}}
-          >
-            {caption}
-          </MenuItem>
-        ))}
-      </Select>
-      <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
-      </WaitToGrow>
-    </FormControl>
+        <InputLabel
+          htmlFor="already-started-select"
+          classes={{
+            root: classes.inputLabel
+          }}
+        >
+          What is the status of your Lawn Replacement project?
+        </InputLabel>
+        <Select
+          value={value}
+          autoWidth={true}
+          variant="outlined"
+          input={
+            <OutlinedInput
+              id="already-started-select"
+              name={name}
+              labelWidth={415}
+              error={fieldIsTouchedWithError}
+            />
+          }
+          onChange={changeHandler}
+          onBlur={handleBlur}
+          SelectDisplayProps={{style: {minWidth: 100}}}
+        >
+          {ANSWERS.map((answer) => (
+            <MenuItem
+              key={answer}
+              value={answer}
+              classes={{root: classes.menuItem}}
+            >
+              {answer}
+            </MenuItem>
+          ))}
+        </Select>
+        <WaitToGrow isIn={fieldIsTouchedWithError}>
+          <FormHelperText error={fieldIsTouchedWithError}>
+            {fieldIsTouchedWithError ? currentError : null}
+          </FormHelperText>
+        </WaitToGrow>
+      </FormControl>
+    </Box>
   )
 }
 

@@ -93,9 +93,7 @@ const bodySchema = object()
         useArtTurf: string()
           .required()
           .oneOf(['false']),
-        alreadyStarted: string()
-          .required()
-          .oneOf(['false']),
+        alreadyStarted: string().required(),
         approxSqFeet: string()
           .required()
           .test(

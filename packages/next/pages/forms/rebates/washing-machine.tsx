@@ -596,7 +596,7 @@ const WashingMachine = () => {
                                 multiline
                                 rows={3} // That's about 200 characters
                                 label="Optionally, you can provide us any comments"
-                                // disabled={ineligible}
+                                disabled={ineligible}
                                 component={FormTextField}
                               />
                             </Grid>
@@ -660,7 +660,7 @@ const WashingMachine = () => {
                               <ReviewTermsConditions
                                 pageCount={2}
                                 fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://cosmic-s3.imgix.net/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
+                                termsConditionsUrl="https://cosmic-s3.imgix.net/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
                               />
                               <Type
                                 variant="body1"
@@ -671,7 +671,7 @@ const WashingMachine = () => {
                                   I have read, understand, and agree to the{' '}
                                   {/* <Link
                                     variant="inherit"
-                                    href="https://cdn.cosmicjs.com/bb528510-911c-11e9-bc00-5fc34b01c111-washer-requirements-terms-and-conditions.pdf"
+                                    href="https://cdn.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   > */}
