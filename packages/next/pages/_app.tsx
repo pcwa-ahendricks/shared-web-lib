@@ -8,6 +8,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import configureStore from '@store/index'
 import {StoreContext} from 'redux-react-hook'
 import theme from '@lib/material-theme'
+import ForecastProvider from '@components/forecast/ForecastStore'
 
 const store = configureStore()
 
@@ -32,14 +33,17 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
+
           <StoreContext.Provider value={store}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <ParallaxProvider>
-                {/* Pass pageContext to the _document though the renderPage enhancer
+            <ForecastProvider>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ParallaxProvider>
+                  {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                <Component {...pageProps} />
-              </ParallaxProvider>
-            </MuiPickersUtilsProvider>
+                  <Component {...pageProps} />
+                </ParallaxProvider>
+              </MuiPickersUtilsProvider>
+            </ForecastProvider>
           </StoreContext.Provider>
         </ThemeProvider>
       </Container>

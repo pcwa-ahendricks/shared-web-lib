@@ -1,4 +1,11 @@
-import React, {useState, useEffect, useCallback, useMemo} from 'react'
+// cspell:ignore frcsts
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useContext
+} from 'react'
 import ForecastDisplay, {
   ForecastData
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
@@ -7,18 +14,19 @@ import {makeStyles} from '@material-ui/styles'
 import {Box} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
-import {startCycleForecastTimer} from '@store/actions'
-import {State} from '@store/index'
-import {useDispatch, useMappedState} from 'redux-react-hook'
+import {maxInt} from '@lib/util'
+import {
+  ForecastContext,
+  setActiveCycleForecastId,
+  setCycleTimeoutId
+} from '../ForecastStore'
+import useInterval from '@hooks/useInterval'
 
 type Props = {
   cycleInterval?: number
   crossFadeDuration?: number
   forecasts?: ForecastData[]
 } & BoxProps
-// type State = {
-//   forecasts: Array<ForecastData>,
-// }
 
 const useStyles = makeStyles({
   trans: {
@@ -52,29 +60,39 @@ const ForecastCycle = ({
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [transitionEnter, setTransitionEnter] = useState<boolean>(false)
 
-  const forecastState = useCallback(
-    (state: State) => ({
-      activeCycleForecastId: state.forecast.activeCycleForecastId
-    }),
-    []
-  )
-  const {activeCycleForecastId} = useMappedState(forecastState)
-  const dispatch = useDispatch()
+  const {state, dispatch} = useContext(ForecastContext)
+
+  const intervalHandler = useCallback(() => {
+    // We need to get the current state each time to properly increment active forecast.
+    const {activeCycleForecastId} = state
+    dispatch(
+      setActiveCycleForecastId(
+        !activeCycleForecastId ||
+          activeCycleForecastId >= maxInt(forecasts, 'id')
+          ? 1
+          : activeCycleForecastId + 1
+      )
+    )
+  }, [dispatch, state, forecasts])
+
+  const timeoutId = useInterval(intervalHandler, cycleInterval)
 
   useEffect(() => {
-    if (!forecasts || forecasts.length === 0 || !cycleInterval) {
+    const {cycleTimeoutId} = state
+    // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
+    if (cycleTimeoutId) {
       return
+    } else if (!timeoutId) {
+      return
+    } else {
+      dispatch(setCycleTimeoutId(timeoutId))
     }
-    dispatch(startCycleForecastTimer(forecasts, cycleInterval))
-    // Shorten the "Enter" transition during first enter (every page load). See below.
-    if (!transitionEnter) {
-      setTransitionEnter(true)
-    }
-  }, [forecasts, dispatch, cycleInterval, transitionEnter])
+  }, [state, timeoutId, dispatch])
 
   const activeForecast = useCallback(
-    () => forecasts.find((forecast) => forecast.id === activeCycleForecastId),
-    [forecasts, activeCycleForecastId]
+    () =>
+      forecasts.find((forecast) => forecast.id === state.activeCycleForecastId),
+    [forecasts, state]
   )
 
   const handlePopoverOpen = useCallback((event) => {
@@ -85,9 +103,10 @@ const ForecastCycle = ({
     setAnchorEl(null)
   }, [])
 
-  const forecast = activeForecast()
+  const forecast = useMemo(() => activeForecast(), [activeForecast])
 
-  const hasAnchorEl = Boolean(anchorEl)
+  const hasAnchorEl = useMemo(() => Boolean(anchorEl), [anchorEl])
+
   const forecastDisplay = useMemo(
     () =>
       forecast && forecast.id ? (
@@ -95,6 +114,14 @@ const ForecastCycle = ({
       ) : null,
     [forecast]
   )
+
+  const transitionLeaveHandler = useCallback(() => {
+    // Shorten the "Enter" transition during first enter (every page load). See below.
+    if (!transitionEnter) {
+      setTransitionEnter(true)
+    }
+  }, [transitionEnter])
+
   return (
     <Box
       aria-owns={hasAnchorEl ? 'forecast-popover' : undefined}
@@ -107,9 +134,10 @@ const ForecastCycle = ({
         className={classes.trans}
         transitionName="cross-fade"
         transitionEnterTimeout={
-          !transitionEnter ? crossFadeDuration * 0.2 : crossFadeDuration
+          !transitionEnter ? crossFadeDuration * 0.1 : crossFadeDuration
         }
         transitionLeaveTimeout={crossFadeDuration}
+        onTransitionEnd={transitionLeaveHandler}
       >
         {forecastDisplay}
       </ReactCSSTransitionReplace>

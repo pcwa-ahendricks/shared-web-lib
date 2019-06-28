@@ -1,10 +1,13 @@
-import React, {useEffect, useCallback} from 'react'
+import React, {useEffect, useCallback, useContext} from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import {startForecastTimer} from '@store/actions'
+import {fetchForecasts} from '@lib/services/forecastService'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
-import {State} from '@store/index'
-import {useDispatch, useMappedState} from 'redux-react-hook'
+import {
+  ForecastContext,
+  setTimeoutId,
+  setForecasts
+} from '@components/forecast/ForecastStore'
 
 const REFETCH_INTERVAL = 1000 * 60 * 2 // Two minute interval.
 
@@ -51,22 +54,41 @@ const useStyles = makeStyles(() =>
 
 const ForecastContainer = () => {
   const classes = useStyles()
-  const forecastState = useCallback(
-    (state: State) => ({
-      forecasts: state.forecast.forecasts
-    }),
-    []
+  const {state, dispatch} = useContext(ForecastContext)
+
+  const getDataAndSetData = useCallback(async () => {
+    try {
+      const data = await fetchForecasts(forecastLocations)
+      dispatch(setForecasts(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }, [dispatch])
+
+  const startForecastTimer = useCallback(
+    (interval: number) => {
+      const {timeoutId} = state
+      // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
+      if (timeoutId) {
+        return
+      }
+      // Get initial forecasts before starting timer.
+      getDataAndSetData()
+      const newTimeoutId = setInterval(() => {
+        getDataAndSetData()
+      }, interval)
+      dispatch(setTimeoutId(newTimeoutId))
+    },
+    [dispatch, state, getDataAndSetData]
   )
-  const {forecasts} = useMappedState(forecastState)
-  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startForecastTimer(forecastLocations, REFETCH_INTERVAL))
-  }, [dispatch])
+    startForecastTimer(REFETCH_INTERVAL)
+  }, [dispatch, startForecastTimer])
 
   return (
     <div className={classes.root}>
-      <ForecastCycle className={classes.forecast} forecasts={forecasts} />
+      <ForecastCycle className={classes.forecast} forecasts={state.forecasts} />
     </div>
   )
 }

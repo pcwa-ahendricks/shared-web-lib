@@ -1,17 +1,14 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 // States
-import {forecastReducer, State as ForecastState} from './reducers/forecast'
 import {uiReducer, State as UiState} from './reducers/ui'
 
 export type State = {
   ui: UiState
-  forecast: ForecastState
 }
 
 const rootReducer = combineReducers({
-  ui: uiReducer,
-  forecast: forecastReducer
+  ui: uiReducer
 })
 
 const bindMiddleware = (middleware) => {

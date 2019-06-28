@@ -1,13 +1,19 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 const useInterval = (cb: () => any, interval: number = 1000) => {
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>()
+
   useEffect(() => {
-    let id = setInterval(() => {
+    const newId = setInterval(() => {
       cb()
     }, interval)
+    setTimeoutId(newId)
     return () => {
-      clearInterval(id)
+      clearInterval(newId)
+      setTimeoutId(null)
     }
   }, [cb, interval])
+
+  return timeoutId
 }
 export default useInterval
