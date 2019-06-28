@@ -5,12 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import {ParallaxProvider} from 'react-scroll-parallax'
 import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import configureStore from '@store/index'
-import {StoreContext} from 'redux-react-hook'
 import theme from '@lib/material-theme'
 import ForecastProvider from '@components/forecast/ForecastStore'
-
-const store = configureStore()
+import UiProvider from '@components/ui/UiStore'
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -34,7 +31,7 @@ class MyApp extends App {
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
 
-          <StoreContext.Provider value={store}>
+          <UiProvider>
             <ForecastProvider>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ParallaxProvider>
@@ -44,7 +41,7 @@ class MyApp extends App {
                 </ParallaxProvider>
               </MuiPickersUtilsProvider>
             </ForecastProvider>
-          </StoreContext.Provider>
+          </UiProvider>
         </ThemeProvider>
       </Container>
     )

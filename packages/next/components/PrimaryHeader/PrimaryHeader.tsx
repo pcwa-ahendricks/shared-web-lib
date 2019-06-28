@@ -1,17 +1,21 @@
-import React, {useState, useEffect, useCallback, useMemo} from 'react'
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useContext
+} from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {AppBar, Hidden, IconButton, Toolbar, Theme} from '@material-ui/core'
 import {PopperProps} from '@material-ui/core/Popper'
 import {Menu as MenuIcon} from '@material-ui/icons'
-import {useDispatch, useMappedState} from 'redux-react-hook'
-import {uiSetDrawerViz} from '@store/actions'
+import {uiSetDrawerViz, UiContext} from '@components/ui/UiStore'
 import MegaMenuLink from '@components/megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '@components/megaMenu/MegaMenuPopper/MegaMenuPopper'
 import MMContent from '@components/MMContent/MMContent'
 import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
-import {State} from '@store/index'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export type ToolbarVariant = 'regular' | 'dense'
@@ -137,14 +141,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   const [activeKey, setActiveKey] = useState<number | null>(null)
   const [activeLinkEl, setActiveLinkEl] = useState<HTMLElement | null>(null)
 
-  const uiState = useCallback(
-    (state: State) => ({
-      drawerOpen: state.ui.drawerOpen
-    }),
-    []
-  )
-  const {drawerOpen} = useMappedState(uiState)
-  const dispatch = useDispatch()
+  const {state, dispatch} = useContext(UiContext)
 
   useEffect(() => {
     if (!popperOpen) {
@@ -155,8 +152,8 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   }, [popperOpen])
 
   const handleMenuButtonClick = useCallback(() => {
-    dispatch(uiSetDrawerViz(!drawerOpen))
-  }, [dispatch, drawerOpen])
+    dispatch(uiSetDrawerViz(!state.drawerOpen))
+  }, [dispatch, state])
 
   const enterMenuHandler = useCallback((event, el, key) => {
     const {currentTarget} = event

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo, useContext} from 'react'
 import {makeStyles} from '@material-ui/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
@@ -9,9 +9,7 @@ import {
   ListItemText
 } from '@material-ui/core'
 import {Mail as MailIcon, Inbox as InboxIcon} from '@material-ui/icons'
-import {uiSetDrawerViz} from '@store/actions'
-import {useDispatch, useMappedState} from 'redux-react-hook'
-import {State} from '@store/index'
+import {uiSetDrawerViz, UiContext} from '@components/ui/UiStore'
 
 const useStyles = makeStyles({
   list: {
@@ -22,14 +20,7 @@ const useStyles = makeStyles({
 const SwipeableTemporaryDrawer = () => {
   const classes = useStyles()
 
-  const uiState = useCallback(
-    (state: State) => ({
-      open: state.ui.drawerOpen
-    }),
-    []
-  )
-  const {open} = useMappedState(uiState)
-  const dispatch = useDispatch()
+  const {state, dispatch} = useContext(UiContext)
 
   const toggleDrawer = useCallback(
     (openDrawer: boolean) => () => {
@@ -71,7 +62,7 @@ const SwipeableTemporaryDrawer = () => {
     <div>
       {/* <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button> */}
       <SwipeableDrawer
-        open={open}
+        open={state.drawerOpen}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
