@@ -522,7 +522,7 @@ const IrrigationEfficiencies = () => {
                                 multiline
                                 rows={3} // That's about 200 characters
                                 label="Optionally, you can provide us any comments"
-                                // disabled={ineligible}
+                                disabled={ineligible}
                                 component={FormTextField}
                               />
                             </Grid>
