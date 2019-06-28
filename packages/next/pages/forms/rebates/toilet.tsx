@@ -682,7 +682,7 @@ const Toilet = () => {
                               <ReviewTermsConditions
                                 pageCount={2}
                                 fileName="Toilet-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://cosmic-s3.imgix.net/310eda20-921b-11e9-b0fd-bf44dce96b6c-Toilet-program-requirements-3-3-17.pdf"
+                                termsConditionsUrl="https://cosmic-s3.imgix.net/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
                               />
                               <Type
                                 variant="body1"
@@ -693,7 +693,7 @@ const Toilet = () => {
                                   I have read, understand, and agree to the{' '}
                                   {/* <Link
                                     variant="inherit"
-                                    href="https://cdn.cosmicjs.com/310eda20-921b-11e9-b0fd-bf44dce96b6c-Toilet-program-requirements-3-3-17.pdf"
+                                    href="https://cdn.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   > */}
