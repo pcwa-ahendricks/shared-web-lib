@@ -1,15 +1,17 @@
-import React, {useCallback, useMemo, useContext} from 'react'
-import {makeStyles} from '@material-ui/styles'
+import React, {useCallback, useMemo, useContext, useEffect} from 'react'
+import {makeStyles, useTheme} from '@material-ui/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
   Divider,
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Theme
 } from '@material-ui/core'
 import {Mail as MailIcon, Inbox as InboxIcon} from '@material-ui/icons'
 import {uiSetDrawerViz, UiContext} from '@components/ui/UiStore'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles({
   list: {
@@ -21,6 +23,8 @@ const SwipeableTemporaryDrawer = () => {
   const classes = useStyles()
 
   const {state, dispatch} = useContext(UiContext)
+  const theme = useTheme<Theme>()
+  const notXS = useMediaQuery(theme.breakpoints.up('sm'))
 
   const toggleDrawer = useCallback(
     (openDrawer: boolean) => () => {
@@ -57,6 +61,13 @@ const SwipeableTemporaryDrawer = () => {
     ),
     [classes]
   )
+
+  // Close the drawer if it's open and window is resized larger.
+  useEffect(() => {
+    if (notXS && state.drawerOpen) {
+      dispatch(uiSetDrawerViz(false))
+    }
+  }, [notXS, toggleDrawer, state, dispatch])
 
   return (
     <div>

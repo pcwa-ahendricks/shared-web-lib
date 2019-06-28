@@ -180,7 +180,10 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
     setPopperOpen(true)
   }, [])
 
-  const id = popperOpen ? 'mega-menu-popper' : null
+  const id = useMemo(() => (popperOpen ? 'mega-menu-popper' : null), [
+    popperOpen
+  ])
+
   const megaMenuLinksEl = useMemo(
     () =>
       isXS ? null : (
@@ -230,7 +233,10 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
     ]
   )
 
-  const toolbarVariant = parentFixed ? 'dense' : 'regular'
+  const toolbarVariant = useMemo(() => (parentFixed ? 'dense' : 'regular'), [
+    parentFixed
+  ])
+
   return (
     <React.Fragment>
       <div className={classes.root}>
