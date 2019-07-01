@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import {makeStyles, createStyles} from '@material-ui/styles'
+// import {makeStyles, createStyles} from '@material-ui/styles'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Box, Fade, Hidden, Theme, Typography as Type} from '@material-ui/core'
+import {Box, Fade, Hidden, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 
@@ -12,16 +12,13 @@ const HERO_IMG_SRC =
 const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    trendingBarContainer: {
-      marginBottom: theme.spacing(1)
-    }
-  })
-)
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//   })
+// )
 
 const Index = () => {
-  const classes = useStyles()
+  // const classes = useStyles()
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
   return (
     <PageLayout>
@@ -45,9 +42,9 @@ const Index = () => {
         </Fade>
       </ImgixFancyParallaxBanner>
       <Hidden only="xs" implementation="css">
-        <div className={classes.trendingBarContainer}>
+        <Box marginBottom={1}>
           <TrendingBar />
-        </div>
+        </Box>
       </Hidden>
       <title>Welcome</title>
       <Type variant="h4" color="primary" gutterBottom>

@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import {Typography as Type, Theme} from '@material-ui/core'
-import {useRouter} from 'next/router'
+import {Box, Theme} from '@material-ui/core'
 import NextLink from '@components/NextLink/NextLink'
+import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 type Props = {
   children: React.ReactNode
@@ -20,23 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MMNavLink = ({children, href}: Props) => {
   const classes = useStyles()
-  const router = useRouter()
 
-  const mouseEnterHandler = useCallback(
-    (href: string) => {
-      return () => {
-        // Only works in production.
-        if (href) {
-          router.prefetch(href)
-        }
-      }
-    },
-    [router]
-  )
+  const mouseEnterHandler = usePrefetchHandler()
 
   return (
-    <Type className={classes.text}>
+    <Box>
       <NextLink
+        className={classes.text}
         href={href}
         color="inherit"
         underline="none"
@@ -44,7 +34,7 @@ const MMNavLink = ({children, href}: Props) => {
       >
         {children}
       </NextLink>
-    </Type>
+    </Box>
   )
 }
 

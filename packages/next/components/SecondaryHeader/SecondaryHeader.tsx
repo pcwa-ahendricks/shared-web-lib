@@ -12,6 +12,9 @@ import GlowButton from '@components/GlowButton/GlowButton'
 import NextGlowButton from '@components/NextGlowButton/NextGlowButton'
 // import dynamic from 'next/dynamic'
 import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
+import ForecastProvider from '@components/forecast/ForecastStore'
+import SearchProvider from '@components/search/SearchStore'
+import {RowBox} from '@components/boxes/FlexBox'
 
 // const DynamicForecast = dynamic(
 //   import('@components/ForecastContainer/ForecastContainer'),
@@ -25,12 +28,6 @@ import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
 
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
 const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
   grow: {
     flexGrow: 1
   },
@@ -56,51 +53,60 @@ const useStyles = makeStyles({
 const SecondaryHeader = () => {
   const classes = useStyles()
   return (
-    <div className={classes.root}>
-      <Toolbar variant="dense" className={classes.toolbar}>
-        {/* Don't use CSS implementation of hide cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
-        <Hidden smDown implementation="js">
-          {/* <DynamicForecast /> */}
-          <ForecastContainer />
-        </Hidden>
-        <span className={classes.grow} />
-        <NextGlowButton aria-label="Link" color="primary" size="small" href="#">
-          Outages
-        </NextGlowButton>
-        <ENewsButton size="small">E-News</ENewsButton>
-        <NextGlowButton
-          aria-label="Link"
-          color="primary"
-          size="small"
-          href="/about-pcwa/board-agenda"
-        >
-          Board Meetings
-        </NextGlowButton>
-        <GlowButton
-          size="small"
-          aria-label="Link"
-          color="primary"
-          href="https://ipn.paymentus.com/cp/plco"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Pay My Bill
-        </GlowButton>
-        <div className={classes.socialIconContainer}>
-          <SocialIconButton href="https://twitter.com/PlacerWater">
-            <FacebookIcon />
-          </SocialIconButton>
-          <SocialIconButton href="https://www.facebook.com/ThePCWA">
-            <TwitterIcon />
-          </SocialIconButton>
-          <SocialIconButton href="https://www.youtube.com/user/ThePCWA">
-            <YoutubeIcon />
-          </SocialIconButton>
-        </div>
-        <EspanolButton>Español</EspanolButton>
-        <SearchInput />
-      </Toolbar>
-    </div>
+    <ForecastProvider>
+      <SearchProvider>
+        <RowBox justifyContent="flex-start" alignItems="center">
+          <Toolbar variant="dense" className={classes.toolbar}>
+            {/* Don't use CSS implementation of hide cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
+            <Hidden smDown implementation="js">
+              {/* <DynamicForecast /> */}
+              <ForecastContainer />
+            </Hidden>
+            <span className={classes.grow} />
+            <NextGlowButton
+              aria-label="Link"
+              color="primary"
+              size="small"
+              href="#"
+            >
+              Outages
+            </NextGlowButton>
+            <ENewsButton size="small">E-News</ENewsButton>
+            <NextGlowButton
+              aria-label="Link"
+              color="primary"
+              size="small"
+              href="/about-pcwa/board-agenda"
+            >
+              Board Meetings
+            </NextGlowButton>
+            <GlowButton
+              size="small"
+              aria-label="Link"
+              color="primary"
+              href="https://ipn.paymentus.com/cp/plco"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pay My Bill
+            </GlowButton>
+            <div className={classes.socialIconContainer}>
+              <SocialIconButton href="https://twitter.com/PlacerWater">
+                <FacebookIcon />
+              </SocialIconButton>
+              <SocialIconButton href="https://www.facebook.com/ThePCWA">
+                <TwitterIcon />
+              </SocialIconButton>
+              <SocialIconButton href="https://www.youtube.com/user/ThePCWA">
+                <YoutubeIcon />
+              </SocialIconButton>
+            </div>
+            <EspanolButton>Español</EspanolButton>
+            <SearchInput />
+          </Toolbar>
+        </RowBox>
+      </SearchProvider>
+    </ForecastProvider>
   )
 }
 

@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import {Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
+import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 type Props = {
   children: React.ReactNode
@@ -23,18 +23,10 @@ const useStyles = makeStyles({
 })
 
 const TrendingLink = ({children, href}: Props) => {
-  const router = useRouter()
   const classes = useStyles()
 
-  const mouseEnterHandler = useCallback(
-    (href: string) => () => {
-      // Only works in production mode.
-      if (href && href.trim() !== '#') {
-        router.prefetch(href)
-      }
-    },
-    [router]
-  )
+  const mouseEnterHandler = usePrefetchHandler()
+
   return (
     <Link href={href} passHref>
       <Button

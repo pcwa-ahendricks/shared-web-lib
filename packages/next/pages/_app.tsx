@@ -6,7 +6,6 @@ import {ParallaxProvider} from 'react-scroll-parallax'
 import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import theme from '@lib/material-theme'
-import ForecastProvider from '@components/forecast/ForecastStore'
 import UiProvider from '@components/ui/UiStore'
 
 class MyApp extends App {
@@ -32,15 +31,13 @@ class MyApp extends App {
           <CssBaseline />
 
           <UiProvider>
-            <ForecastProvider>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <ParallaxProvider>
-                  {/* Pass pageContext to the _document though the renderPage enhancer
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <ParallaxProvider>
+                {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                  <Component {...pageProps} />
-                </ParallaxProvider>
-              </MuiPickersUtilsProvider>
-            </ForecastProvider>
+                <Component {...pageProps} />
+              </ParallaxProvider>
+            </MuiPickersUtilsProvider>
           </UiProvider>
         </ThemeProvider>
       </Container>

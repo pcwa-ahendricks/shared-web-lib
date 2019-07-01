@@ -25,7 +25,7 @@ export const UiContext = createContext<{
 const SET_DRAWER_VIZ: 'UI/SET_DRAWER_VIZ' = 'UI/SET_DRAWER_VIZ'
 
 // Actions
-export const uiSetDrawerViz = (open: boolean) => {
+export const uiSetDrawerViz = (open: State['drawerOpen']) => {
   return {
     type: SET_DRAWER_VIZ,
     open

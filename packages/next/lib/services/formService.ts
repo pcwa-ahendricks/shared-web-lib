@@ -3,10 +3,9 @@ import fetch from 'isomorphic-unfetch'
 import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import {BooleanAsString} from '@lib/safeCastBoolean'
+import ErrorResponse from '@lib/ErrorResponse'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
-
-type ErrorResponse = Error & {response?: Response}
 
 export interface IrrigationControllerRebateFormData {
   firstName: string
