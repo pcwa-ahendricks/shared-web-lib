@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useRef, useContext} from 'react'
+import React, {useMemo, useCallback, useContext, useState} from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {InputBase, Paper, Theme} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
@@ -41,23 +41,25 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 const SearchInput = () => {
   const classes = useStyles()
-  const inputRef = useRef<HTMLInputElement>()
+  // const inputRef = useRef<HTMLInputElement>()
   const searchContext = useContext(SearchContext)
   const searchDispatch = searchContext.dispatch
   // const searchState = searchContext.state
   // const {dialogOpen} = searchState
+  const [searchValue, setSearchValue] = useState<string>('')
 
-  // const inputChangeHandler = useCallback((e) => {
-  // setSearchValue(e.target.value)
-  // }, [])
+  const inputChangeHandler = useCallback((e) => {
+    setSearchValue(e.target.value)
+  }, [])
 
   const searchHandler = useCallback(async () => {
     try {
       searchDispatch(setIsSearching(true))
       searchDispatch(setDialogOpen(true))
-      if (inputRef.current) {
-        const {value} = inputRef.current
-        const response = await search({q: value})
+      // if (inputRef.current) {
+      if (searchValue) {
+        // const {value} = inputRef.current
+        const response = await search({q: searchValue})
         searchDispatch(setResults(response.items))
       }
       searchDispatch(setIsSearching(false))
@@ -65,7 +67,7 @@ const SearchInput = () => {
       console.log(error)
       searchDispatch(setIsSearching(false))
     }
-  }, [searchDispatch])
+  }, [searchDispatch, searchValue])
 
   const clickHandler = useCallback(() => {
     searchHandler()
@@ -81,24 +83,22 @@ const SearchInput = () => {
   )
 
   const inputHasValue = useMemo(
-    () =>
-      inputRef.current &&
-      inputRef.current.value &&
-      inputRef.current.value.length > 0,
-    []
+    () => (searchValue && searchValue.length > 0 ? true : false),
+    [searchValue]
   )
 
   return (
     <React.Fragment>
       <Paper className={classes.root} elevation={0} square={false}>
         <InputBase
-          inputProps={{
-            ref: inputRef
-          }}
+          // inputProps={{
+          //   ref: inputRef
+          // }}
+          value={searchValue}
           type="search"
           margin="dense"
           // startAdornment={<SearchIcon />}
-          // onChange={inputChangeHandler}
+          onChange={inputChangeHandler}
           onKeyPress={keyPressHandler}
           className={classes.input}
           placeholder="Search..."

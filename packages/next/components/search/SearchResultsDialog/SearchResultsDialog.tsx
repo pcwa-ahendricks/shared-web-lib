@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import {DialogProps} from '@material-ui/core/Dialog'
 import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
-import {ZoomTransition as Transition} from '@components/Transition/Transition'
+// import {ZoomTransition as Transition} from '@components/Transition/Transition'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 
@@ -60,13 +60,13 @@ const SearchResultsDialog = ({onClose, ...rest}: Props) => {
   return (
     <Dialog
       open={dialogOpen}
-      disableBackdropClick={true}
+      disableBackdropClick={false}
       fullScreen={isXS}
-      onClose={onClose}
+      onClose={closeHandler}
       aria-labelledby="search-results-dialog-title"
       aria-describedby="search-results-dialog-description"
       // PaperProps={{square: true}}
-      TransitionComponent={Transition}
+      // TransitionComponent={Transition}
       {...rest}
     >
       <DialogTitle id="search-results-dialog-title">Search Results</DialogTitle>
