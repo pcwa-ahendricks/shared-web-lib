@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState, useContext} from 'react'
+import React, {useMemo, useCallback, useRef, useContext} from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {InputBase, Paper, Theme} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
@@ -41,16 +41,15 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 const SearchInput = () => {
   const classes = useStyles()
-  const [searchValue, setSearchValue] = useState('')
   const inputRef = useRef<HTMLInputElement>()
   const searchContext = useContext(SearchContext)
   const searchDispatch = searchContext.dispatch
   // const searchState = searchContext.state
   // const {dialogOpen} = searchState
 
-  const inputChangeHandler = useCallback((e) => {
-    setSearchValue(e.target.value)
-  }, [])
+  // const inputChangeHandler = useCallback((e) => {
+  // setSearchValue(e.target.value)
+  // }, [])
 
   const searchHandler = useCallback(async () => {
     try {
@@ -81,7 +80,14 @@ const SearchInput = () => {
     [searchHandler]
   )
 
-  const inputHasValue = searchValue && searchValue.length > 0
+  const inputHasValue = useMemo(
+    () =>
+      inputRef.current &&
+      inputRef.current.value &&
+      inputRef.current.value.length > 0,
+    []
+  )
+
   return (
     <React.Fragment>
       <Paper className={classes.root} elevation={0} square={false}>
@@ -92,7 +98,7 @@ const SearchInput = () => {
           type="search"
           margin="dense"
           // startAdornment={<SearchIcon />}
-          onChange={inputChangeHandler}
+          // onChange={inputChangeHandler}
           onKeyPress={keyPressHandler}
           className={classes.input}
           placeholder="Search..."
