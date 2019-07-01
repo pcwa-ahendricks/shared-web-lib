@@ -10,7 +10,9 @@
       "NEXT_MAILJET_URL": "https://dev-web.pcwa.net/lambda/mail",
       "NEXT_COSMIC_URL": "https://dev-web.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
-      "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
+      "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
+      "NEXT_GOOGLE_CSE_CX": "@web-google-cse-cx",
+      "NEXT_GOOGLE_CSE_KEY": "@web-google-cse-key"
     }
   },
   "env": {
