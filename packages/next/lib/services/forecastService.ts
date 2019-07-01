@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
+import ErrorResponse from '@lib/ErrorResponse'
 
 const FORECAST_URL = process.env.NEXT_FORECAST_URL || ''
 
@@ -13,7 +14,7 @@ const fetchForecast = async (location: Location) => {
       return data
     } else {
       const text = await response.text()
-      const error = new Error(text || response.statusText)
+      const error: ErrorResponse = new Error(text || response.statusText)
       error.response = response
       throw error
     }

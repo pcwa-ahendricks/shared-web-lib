@@ -10,7 +10,7 @@ const errorHandler = async (
   err?: any
 ) => {
   // Instead of throwing the error we want to set data response accordingly so progress/status indicators know what to do.
-  // const error = new Error(text || response.statusText)
+  // const error: ErrorResponse = new Error(text || response.statusText)
   // error.response = response
   // throw error
   let reason
