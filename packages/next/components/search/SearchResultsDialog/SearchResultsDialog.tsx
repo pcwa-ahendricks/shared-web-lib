@@ -15,6 +15,9 @@ import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
 // import {ZoomTransition as Transition} from '@components/Transition/Transition'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
+import Pagination from 'material-ui-flat-pagination'
+import {RowBox} from '@components/boxes/FlexBox'
+import {GoogleCseResponse} from '../SearchResponse'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,9 +30,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-type Props = Partial<DialogProps>
+type Props = {onPageSearch?: (startIndex: number) => void} & Partial<
+  DialogProps
+>
 
-const SearchResultsDialog = ({...rest}: Props) => {
+const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -37,17 +42,61 @@ const SearchResultsDialog = ({...rest}: Props) => {
   const searchState = searchContext.state
   const searchDispatch = searchContext.dispatch
   const {dialogOpen, isSearching, response} = searchState
-  const searchTerms = useMemo(
+  const request: GoogleCseResponse['queries']['request'][0] | null = useMemo(
     () =>
       response &&
       response.queries &&
       response.queries.request &&
-      response.queries.request[0] &&
-      response.queries.request[0].searchTerms
-        ? response.queries.request[0].searchTerms
-        : '...',
+      response.queries.request[0]
+        ? response.queries.request[0]
+        : null,
     [response]
   )
+
+  // const previousPage:
+  //   | GoogleCseResponse['queries']['previousPage'][0]
+  //   | null = useMemo(
+  //   () =>
+  //     response &&
+  //     response.queries &&
+  //     response.queries.previousPage &&
+  //     response.queries.previousPage[0]
+  //       ? response.queries.previousPage[0]
+  //       : null,
+  //   [response]
+  // )
+
+  // const nextPage: GoogleCseResponse['queries']['nextPage'][0] | null = useMemo(
+  //   () =>
+  //     response &&
+  //     response.queries &&
+  //     response.queries.nextPage &&
+  //     response.queries.nextPage[0]
+  //       ? response.queries.nextPage[0]
+  //       : null,
+  //   [response]
+  // )
+
+  const searchTerms = useMemo(
+    () => (request && request.searchTerms ? request.searchTerms : '...'),
+    [request]
+  )
+
+  const totalResults = useMemo(
+    () => (request && request.totalResults ? request.totalResults : 0),
+    [request]
+  )
+
+  const count = useMemo(() => (request && request.count ? request.count : 0), [
+    request
+  ])
+
+  const startIndex = useMemo(
+    () => (request && request.startIndex ? request.startIndex : 1),
+    [request]
+  )
+
+  const offset = useMemo(() => startIndex - 1, [startIndex])
 
   const dialogTitle = useMemo(
     () =>
@@ -63,11 +112,11 @@ const SearchResultsDialog = ({...rest}: Props) => {
     () =>
       isSearching ? (
         <DialogContent>
-          <Box display="row" justifyContent="center" alignItems="center">
+          <RowBox justifyContent="center" alignItems="center">
             <Box flex="auto" my={5} mx={8}>
               <CircularProgress classes={{root: classes.progress}} />
             </Box>
-          </Box>
+          </RowBox>
         </DialogContent>
       ) : (
         <DialogContent>
@@ -76,6 +125,23 @@ const SearchResultsDialog = ({...rest}: Props) => {
       ),
     [isSearching, classes]
   )
+
+  const paginationClickHandler = useCallback(
+    (
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      offset: number,
+      page: number
+    ) => {
+      console.log('event', event)
+      console.log('offset', offset)
+      console.log('page', page)
+      onPageSearch && onPageSearch(offset + 1)
+    },
+    [onPageSearch]
+  )
+
+  console.log('current start index', startIndex)
+  console.log('using offset', offset)
 
   return (
     <Dialog
@@ -93,6 +159,14 @@ const SearchResultsDialog = ({...rest}: Props) => {
       <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>
       {DialogContentEl}
       <DialogActions>
+        <RowBox justifyContent="space-around" width="100%">
+          <Pagination
+            total={totalResults}
+            limit={count}
+            offset={offset}
+            onClick={paginationClickHandler}
+          />
+        </RowBox>
         <Button onClick={closeHandler} color="primary">
           Close
         </Button>

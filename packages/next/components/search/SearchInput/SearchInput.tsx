@@ -54,25 +54,28 @@ const SearchInput = () => {
     setSearchValue(e.target.value)
   }, [])
 
-  const searchHandler = useCallback(async () => {
-    try {
-      searchDispatch(setIsSearching(true))
-      searchDispatch(setDialogOpen(true))
-      searchDispatch(setResponse(null)) // clear out previous response.
-      // if (inputRef.current) {
-      if (searchValue) {
-        // const {value} = inputRef.current
-        // await delay(5000)
-        const response = await search({q: searchValue})
-        searchDispatch(setResults(response.items))
-        searchDispatch(setResponse(response))
+  const searchHandler = useCallback(
+    async (start: number = 1) => {
+      try {
+        searchDispatch(setIsSearching(true))
+        searchDispatch(setDialogOpen(true))
+        searchDispatch(setResponse(null)) // clear out previous response.
+        // if (inputRef.current) {
+        if (searchValue) {
+          // const {value} = inputRef.current
+          // await delay(5000)
+          const response = await search({q: searchValue, start})
+          searchDispatch(setResults(response.items))
+          searchDispatch(setResponse(response))
+        }
+        searchDispatch(setIsSearching(false))
+      } catch (error) {
+        console.log(error)
+        searchDispatch(setIsSearching(false))
       }
-      searchDispatch(setIsSearching(false))
-    } catch (error) {
-      console.log(error)
-      searchDispatch(setIsSearching(false))
-    }
-  }, [searchDispatch, searchValue])
+    },
+    [searchDispatch, searchValue]
+  )
 
   const clickHandler = useCallback(() => {
     searchHandler()
@@ -90,6 +93,13 @@ const SearchInput = () => {
   const inputHasValue = useMemo(
     () => (searchValue && searchValue.length > 0 ? true : false),
     [searchValue]
+  )
+
+  const onPageSearchHandler = useCallback(
+    (startIndex: number) => {
+      searchHandler(startIndex)
+    },
+    [searchHandler]
   )
 
   return (
@@ -121,7 +131,7 @@ const SearchInput = () => {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <SearchResultsDialog />
+      <SearchResultsDialog onPageSearch={onPageSearchHandler} />
     </React.Fragment>
   )
 }

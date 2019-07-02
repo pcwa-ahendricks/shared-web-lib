@@ -3,7 +3,7 @@
 For more info - https://developers.google.com/custom-search/json-api/v1/reference/cse/list#response
 */
 
-type QueryType = 'request' | 'nextPage'
+type QueryType = 'request' | 'nextPage' | 'previousPage'
 
 export interface GoogleCseResponse {
   kind: 'customsearch#search'

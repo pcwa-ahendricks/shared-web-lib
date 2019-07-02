@@ -50,7 +50,7 @@ const SearchListItemContent = ({result}: Props) => {
     [formattedUrl, htmlFormattedUrl]
   )
 
-  console.log(result.title, result)
+  // console.log(result.title, result)
 
   return (
     <Box px={1} py={3} onClick={clickHandler}>
