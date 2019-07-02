@@ -1,15 +1,17 @@
 import React, {useMemo} from 'react'
-import {Box} from '@material-ui/core'
+import {Box, Theme} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {GoogleCseItem} from '../SearchResponse'
 import WebIcon from 'mdi-material-ui/Web'
 import FileImageOutlineIcon from 'mdi-material-ui/FileImageOutline'
 import FileDocumentOutlineIcon from 'mdi-material-ui/FileDocumentOutline'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     webIcon: {
-      verticalAlign: 'middle'
+      verticalAlign: 'middle',
+      // color: theme.palette.secondary.dark
+      color: theme.palette.grey[500]
     }
   })
 )

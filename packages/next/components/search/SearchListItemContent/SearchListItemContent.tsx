@@ -10,10 +10,8 @@ import SearchListItemUrlIcon from '../SearchListItemUrlIcon/SearchListItemUrlIco
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     url: {
-      paddingLeft: theme.spacing(1)
-    },
-    webIcon: {
-      verticalAlign: 'middle'
+      paddingLeft: theme.spacing(1),
+      color: theme.palette.secondary.dark
     }
   })
 )
@@ -63,10 +61,10 @@ const SearchListItemContent = ({result}: Props) => {
         {parsedHtmlSnippet}
       </Type>
       <RowBox alignItems="center">
-        <Type color="textSecondary" variant="body2">
+        <Type color="secondary" variant="body2">
           <SearchListItemUrlIcon result={result} />
         </Type>
-        <Type color="textSecondary" variant="body2" className={classes.url}>
+        <Type color="secondary" variant="body2" className={classes.url}>
           {parsedFormattedUrl}
         </Type>
       </RowBox>
