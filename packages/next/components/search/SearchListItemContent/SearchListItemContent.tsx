@@ -3,9 +3,9 @@ import {Box, Theme, Typography as Type} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
-import WebIcon from 'mdi-material-ui/Web'
 import {RowBox} from '@components/boxes/FlexBox'
 import Parser from 'html-react-parser'
+import SearchListItemUrlIcon from '../SearchListItemUrlIcon/SearchListItemUrlIcon'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,7 +64,7 @@ const SearchListItemContent = ({result}: Props) => {
       </Type>
       <RowBox alignItems="center">
         <Type color="textSecondary" variant="body2">
-          <WebIcon fontSize="inherit" className={classes.webIcon} />
+          <SearchListItemUrlIcon result={result} />
         </Type>
         <Type color="textSecondary" variant="body2" className={classes.url}>
           {parsedFormattedUrl}

@@ -93,8 +93,9 @@ const SearchResultsDialog = ({...rest}: Props) => {
       <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>
       {DialogContentEl}
       <DialogActions>
-        <Button onClick={closeHandler}>Cancel</Button>
-        {/* <Button onClick={onLeave}>Confirm Leave</Button> */}
+        <Button onClick={closeHandler} color="primary">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   )
