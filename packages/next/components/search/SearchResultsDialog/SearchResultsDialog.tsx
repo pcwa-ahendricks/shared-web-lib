@@ -140,6 +140,20 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
     [onPageSearch]
   )
 
+  // Only need to show Pagination when we have more than a single page worth of results (IE. No "< 1 >").
+  const paginationEl = useMemo(
+    () =>
+      totalResults > count ? (
+        <Pagination
+          total={totalResults}
+          limit={count}
+          offset={offset}
+          onClick={paginationClickHandler}
+        />
+      ) : null,
+    [totalResults, count, paginationClickHandler, offset]
+  )
+
   console.log('current start index', startIndex)
   console.log('using offset', offset)
 
@@ -160,12 +174,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
       {DialogContentEl}
       <DialogActions>
         <RowBox justifyContent="space-around" width="100%">
-          <Pagination
-            total={totalResults}
-            limit={count}
-            offset={offset}
-            onClick={paginationClickHandler}
-          />
+          {paginationEl}
         </RowBox>
         <Button onClick={closeHandler} color="primary">
           Close
