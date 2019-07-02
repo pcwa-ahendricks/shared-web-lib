@@ -202,7 +202,7 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [...emailRecipientsAppliance],
+        To: [{Email: email, Name: replyToName}, ...emailRecipientsAppliance],
         ReplyTo: {
           Email: email,
           Name: replyToName

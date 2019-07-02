@@ -219,7 +219,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [...emailRecipientsIrrigation],
+        To: [{Email: email, Name: replyToName}, ...emailRecipientsIrrigation],
         ReplyTo: {
           Email: email,
           Name: replyToName

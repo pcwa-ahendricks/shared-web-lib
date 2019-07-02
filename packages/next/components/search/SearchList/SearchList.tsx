@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useMemo} from 'react'
 import {List} from '@material-ui/core'
 import {ListProps} from '@material-ui/core/List'
 import {SearchContext} from '../SearchStore'
@@ -11,11 +11,15 @@ const SearchList = ({...rest}: Props) => {
   const searchContext = useContext(SearchContext)
   const searchState = searchContext.state
   const {results} = searchState
+  const filteredResults = useMemo(
+    () => results.map((result, idx) => ({id: idx, ...result})),
+    [results]
+  )
 
   return (
     <List {...rest}>
-      {results.map((result, idx) => (
-        <SearchListItem key={idx} result={result} />
+      {filteredResults.map((result) => (
+        <SearchListItem key={result.id} result={result} />
       ))}
     </List>
   )
