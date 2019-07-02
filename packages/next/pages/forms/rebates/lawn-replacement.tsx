@@ -141,7 +141,7 @@ const formSchema = object()
       .test(
         'min-sq-feet',
         'A minimum of 300 square feet of lawn must be converted',
-        (val): boolean => {
+        (val: string): boolean => {
           const stripped = val && val.replace(/[^0-9.]/, '')
           if (isNumber(stripped)) {
             const valAsNo = Math.round(parseFloat(stripped))
@@ -751,7 +751,9 @@ const LawnReplacement = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Lawn Replacement Rebate Form">{mainEl}</PageLayout>
+        <PageLayout title="Lawn Replacement Rebate Form">
+          {mainEl}
+        </PageLayout>
       ),
     [mainEl, classes]
   )

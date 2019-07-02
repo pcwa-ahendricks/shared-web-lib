@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
@@ -12,13 +12,14 @@ type Props = {
 
 const PageLayout = ({
   children,
-  title = 'PCWA',
+  title = 'Placer County Water Agency',
   description = 'PCWA is a water and energy provider for Placer County, CA.'
 }: Props) => {
+  const pageTitle = useMemo(() => `${title} | pcwa.net`, [title])
   return (
     <React.Fragment>
       <Head>
-        <title>{title}</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={description} />
       </Head>
       <Hidden smUp implementation="css">

@@ -390,7 +390,7 @@ const ContactUs = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Contact Us Form">{mainEl}</PageLayout>
+        <PageLayout title="Contact Us">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )

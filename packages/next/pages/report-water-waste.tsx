@@ -390,7 +390,7 @@ const ReportWaterWastePage = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Contact Us Form">{mainEl}</PageLayout>
+        <PageLayout title="Report Water Waste">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )

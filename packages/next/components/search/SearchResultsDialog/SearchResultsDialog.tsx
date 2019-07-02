@@ -16,11 +16,14 @@ import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     progress: {
       display: 'flex',
       width: '100%'
+    },
+    dialogPaper: {
+      backgroundColor: theme.palette.common.white
     }
   })
 )
@@ -82,6 +85,7 @@ const SearchResultsDialog = ({...rest}: Props) => {
       onClose={closeHandler}
       aria-labelledby="search-results-dialog-title"
       aria-describedby="search-results-dialog-description"
+      classes={{paper: classes.dialogPaper}}
       // PaperProps={{square: true}}
       // TransitionComponent={Transition}
       {...rest}
