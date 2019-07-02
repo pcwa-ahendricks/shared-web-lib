@@ -10,8 +10,10 @@ import {
   SearchContext,
   setIsSearching,
   setDialogOpen,
-  setResults
+  setResults,
+  setResponse
 } from '../SearchStore'
+// import delay from 'then-sleep'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,11 +58,14 @@ const SearchInput = () => {
     try {
       searchDispatch(setIsSearching(true))
       searchDispatch(setDialogOpen(true))
+      searchDispatch(setResponse(null)) // clear out previous response.
       // if (inputRef.current) {
       if (searchValue) {
         // const {value} = inputRef.current
+        // await delay(5000)
         const response = await search({q: searchValue})
         searchDispatch(setResults(response.items))
+        searchDispatch(setResponse(response))
       }
       searchDispatch(setIsSearching(false))
     } catch (error) {

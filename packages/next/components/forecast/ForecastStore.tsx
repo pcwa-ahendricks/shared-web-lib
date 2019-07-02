@@ -66,7 +66,7 @@ export const setCycleTimeoutId = (cycleTimeoutId: State['cycleTimeoutId']) => {
 }
 
 // Reducer
-const forecastReducer = (state: State, action: any) => {
+const forecastReducer = (state: State, action: any): State => {
   switch (action.type) {
     case SET_FORECASTS:
       return {

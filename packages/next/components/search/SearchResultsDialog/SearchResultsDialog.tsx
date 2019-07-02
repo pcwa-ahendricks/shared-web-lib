@@ -26,14 +26,31 @@ const useStyles = makeStyles(() =>
 )
 type Props = Partial<DialogProps>
 
-const SearchResultsDialog = ({onClose, ...rest}: Props) => {
+const SearchResultsDialog = ({...rest}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const searchContext = useContext(SearchContext)
   const searchState = searchContext.state
   const searchDispatch = searchContext.dispatch
-  const {dialogOpen, isSearching} = searchState
+  const {dialogOpen, isSearching, response} = searchState
+  const searchTerms = useMemo(
+    () =>
+      response &&
+      response.queries &&
+      response.queries.request &&
+      response.queries.request[0] &&
+      response.queries.request[0].searchTerms
+        ? response.queries.request[0].searchTerms
+        : '...',
+    [response]
+  )
+
+  const dialogTitle = useMemo(
+    () =>
+      isSearching ? 'Searching...' : `Search Results for "${searchTerms}"`,
+    [isSearching, searchTerms]
+  )
 
   const closeHandler = useCallback(() => {
     searchDispatch(setDialogOpen(false))
@@ -69,7 +86,7 @@ const SearchResultsDialog = ({onClose, ...rest}: Props) => {
       // TransitionComponent={Transition}
       {...rest}
     >
-      <DialogTitle id="search-results-dialog-title">Search Results</DialogTitle>
+      <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>
       {DialogContentEl}
       <DialogActions>
         <Button onClick={closeHandler}>Cancel</Button>

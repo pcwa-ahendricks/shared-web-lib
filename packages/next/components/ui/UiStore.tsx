@@ -33,7 +33,7 @@ export const uiSetDrawerViz = (open: State['drawerOpen']) => {
 }
 
 // Reducer
-const uiReducer = (state: State, action: any) => {
+const uiReducer = (state: State, action: any): State => {
   switch (action.type) {
     case SET_DRAWER_VIZ:
       return {

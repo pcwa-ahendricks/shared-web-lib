@@ -2,6 +2,9 @@
 /*
 For more info - https://developers.google.com/custom-search/json-api/v1/reference/cse/list#response
 */
+
+type QueryType = 'request' | 'nextPage'
+
 export interface GoogleCseResponse {
   kind: 'customsearch#search'
   url: {
@@ -9,7 +12,7 @@ export interface GoogleCseResponse {
     template: string
   }
   queries: {
-    [key: string]: GoogleCseQuery[]
+    [key in QueryType]: GoogleCseQuery[]
   }
   promotions: [
     {

@@ -7,6 +7,8 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import theme from '@lib/material-theme'
 import UiProvider from '@components/ui/UiStore'
+import ForecastProvider from '@components/forecast/ForecastStore'
+import SearchProvider from '@components/search/SearchStore'
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -31,13 +33,17 @@ class MyApp extends App {
           <CssBaseline />
 
           <UiProvider>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <ParallaxProvider>
-                {/* Pass pageContext to the _document though the renderPage enhancer
+            <ForecastProvider>
+              <SearchProvider>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <ParallaxProvider>
+                    {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                <Component {...pageProps} />
-              </ParallaxProvider>
-            </MuiPickersUtilsProvider>
+                    <Component {...pageProps} />
+                  </ParallaxProvider>
+                </MuiPickersUtilsProvider>
+              </SearchProvider>
+            </ForecastProvider>
           </UiProvider>
         </ThemeProvider>
       </Container>
