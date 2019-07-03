@@ -19,7 +19,7 @@ import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
 import {GoogleCseResponse} from '../SearchResponse'
 // import delay from 'then-sleep'
 
-const maxBetterTotalResultsHackIterations = 2
+const maxBetterTotalResultsHackIterations = 5 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,7 +104,7 @@ const SearchInput = () => {
 
   /**
    * This function will either return a new (following page) Google CSE Response or nothing if the provided response has no next page.
-   * initBetterResultsHack will not execute a new query if/when the response becomes undefined.
+   * initBetterResultsHack will not execute a new query if/when the response becomes undefined using 'if' block.
    */
   const betterTotalResultsHack = useCallback(
     async (sv: string, res: GoogleCseResponse, iteration: number) => {
@@ -117,8 +117,6 @@ const SearchInput = () => {
           res.queries.nextPage[0]
         ) {
           const nextIndex = res.queries.nextPage[0].startIndex
-          // const {value} = inputRef.current
-          // await delay(5000)
           const response = await search({q: sv, start: nextIndex})
           const betterTotalItems = getTotalResults(response)
           if (betterTotalItems) {
@@ -156,7 +154,6 @@ const SearchInput = () => {
         searchDispatch(setResponse(null)) // clear out previous response.
         // if (inputRef.current) {
         if (searchValue) {
-          // const {value} = inputRef.current
           // await delay(5000)
           const response = await search({q: searchValue, start})
           const initialTotalItems = getTotalResults(response)
