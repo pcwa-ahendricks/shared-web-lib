@@ -11,11 +11,15 @@ import {
   setIsSearching,
   setDialogOpen,
   setResults,
-  setResponse
+  setResponse,
+  setBetterTotalItems
 } from '../SearchStore'
 import {UiContext, uiSetError} from '@components/ui/UiStore'
 import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
+import {GoogleCseResponse} from '../SearchResponse'
 // import delay from 'then-sleep'
+
+const maxBetterTotalResultsHackIterations = 2
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,6 +94,60 @@ const SearchInput = () => {
     [uiDispatch, searchDispatch]
   )
 
+  const getTotalResults = useCallback((response: GoogleCseResponse) => {
+    return response.queries.request &&
+      response.queries.request[0] &&
+      parseInt(response.queries.request[0].totalResults, 10)
+      ? parseInt(response.queries.request[0].totalResults, 10)
+      : null
+  }, [])
+
+  /**
+   * This function will either return a new (following page) Google CSE Response or nothing if the provided response has no next page.
+   * initBetterResultsHack will not execute a new query if/when the response becomes undefined.
+   */
+  const betterTotalResultsHack = useCallback(
+    async (sv: string, res: GoogleCseResponse, iteration: number) => {
+      try {
+        if (
+          iteration <= maxBetterTotalResultsHackIterations &&
+          res &&
+          res.queries &&
+          res.queries.nextPage &&
+          res.queries.nextPage[0]
+        ) {
+          const nextIndex = res.queries.nextPage[0].startIndex
+          // const {value} = inputRef.current
+          // await delay(5000)
+          const response = await search({q: sv, start: nextIndex})
+          const betterTotalItems = getTotalResults(response)
+          if (betterTotalItems) {
+            searchDispatch(setBetterTotalItems(betterTotalItems))
+          }
+          return response
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [searchDispatch, getTotalResults]
+  )
+
+  const initBetterResultsHack = useCallback(
+    async (sv: string, res: GoogleCseResponse) => {
+      let i = 1
+      let response: GoogleCseResponse | undefined = res
+      while (i <= maxBetterTotalResultsHackIterations) {
+        if (response) {
+          // console.log(`iteration ${i}`)
+          response = await betterTotalResultsHack(sv, response, i)
+        }
+        i++
+      }
+    },
+    [betterTotalResultsHack]
+  )
+
   const searchHandler = useCallback(
     async (start: number = 1) => {
       try {
@@ -101,6 +159,11 @@ const SearchInput = () => {
           // const {value} = inputRef.current
           // await delay(5000)
           const response = await search({q: searchValue, start})
+          const initialTotalItems = getTotalResults(response)
+          if (initialTotalItems) {
+            searchDispatch(setBetterTotalItems(initialTotalItems))
+          }
+          initBetterResultsHack(searchValue, response)
           searchDispatch(setResults(response.items))
           searchDispatch(setResponse(response))
         }
@@ -109,7 +172,13 @@ const SearchInput = () => {
         searchErrorHandler(error)
       }
     },
-    [searchDispatch, searchValue, searchErrorHandler]
+    [
+      searchDispatch,
+      searchValue,
+      searchErrorHandler,
+      initBetterResultsHack,
+      getTotalResults
+    ]
   )
 
   const clickHandler = useCallback(() => {

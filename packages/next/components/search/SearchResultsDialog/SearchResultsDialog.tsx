@@ -42,7 +42,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   const searchContext = useContext(SearchContext)
   const searchState = searchContext.state
   const searchDispatch = searchContext.dispatch
-  const {dialogOpen, isSearching, response} = searchState
+  const {dialogOpen, isSearching, response, betterTotalItems} = searchState
   const request: GoogleCseResponse['queries']['request'][0] | null = useMemo(
     () =>
       response &&
@@ -83,13 +83,13 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
     [request]
   )
 
-  const totalResults = useMemo(
-    () =>
-      request && request.totalResults && parseInt(request.totalResults, 10)
-        ? parseInt(request.totalResults, 10)
-        : 0,
-    [request]
-  )
+  // const totalResults = useMemo(
+  //   () =>
+  //     request && request.totalResults && parseInt(request.totalResults, 10)
+  //       ? parseInt(request.totalResults, 10)
+  //       : 0,
+  //   [request]
+  // )
 
   const count = useMemo(() => (request && request.count ? request.count : 0), [
     request
@@ -133,12 +133,12 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   const paginationClickHandler = useCallback(
     (
       _event: React.MouseEvent<HTMLElement, MouseEvent>,
-      offset: number,
-      page: number
+      offset: number
+      // page: number
     ) => {
       // console.log('event', event)
-      console.log('requesting offset', offset)
-      console.log('requesting page', page)
+      // console.log('requesting offset', offset)
+      // console.log('requesting page', page)
       onPageSearch && onPageSearch(offset + 1)
     },
     [onPageSearch]
@@ -147,19 +147,19 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   // Only need to show Pagination when we have more than a single page worth of results (IE. No "< 1 >").
   const paginationEl = useMemo(
     () =>
-      totalResults > count ? (
+      betterTotalItems > count ? (
         <Pagination
-          total={totalResults}
+          total={betterTotalItems}
           limit={resultsPerPage}
           offset={offset}
           onClick={paginationClickHandler}
         />
       ) : null,
-    [totalResults, count, paginationClickHandler, offset]
+    [betterTotalItems, count, paginationClickHandler, offset]
   )
 
-  console.log('using start index', startIndex)
-  console.log('using offset', offset)
+  // console.log('using start index', startIndex)
+  // console.log('using offset', offset)
   // console.log('using totalResults', totalResults)
 
   return (

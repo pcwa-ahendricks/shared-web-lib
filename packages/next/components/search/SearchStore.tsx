@@ -6,6 +6,7 @@ interface State {
   dialogOpen: boolean
   results: GoogleCseItem[]
   response: GoogleCseResponse | null
+  betterTotalItems: number
 }
 
 type ProviderProps = {
@@ -17,7 +18,8 @@ const initialState: State = {
   isSearching: false,
   dialogOpen: false,
   results: [],
-  response: null
+  response: null,
+  betterTotalItems: 0
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -31,6 +33,8 @@ const SET_IS_SEARCHING: 'SET_IS_SEARCHING' = 'SET_IS_SEARCHING'
 const SET_DIALOG_OPEN: 'SET_DIALOG_OPEN' = 'SET_DIALOG_OPEN'
 const SET_RESULTS: 'SET_RESULTS' = 'SET_RESULTS'
 const SET_RESPONSE: 'SET_RESPONSE' = 'SET_RESPONSE'
+const SET_BETTER_TOTAL_ITEMS: 'SET_BETTER_TOTAL_ITEMS' =
+  'SET_BETTER_TOTAL_ITEMS'
 
 // Actions
 export const setIsSearching = (isSearching: State['isSearching']) => {
@@ -55,6 +59,14 @@ export const setResponse = (response: State['response']) => {
   return {
     type: SET_RESPONSE,
     response
+  }
+}
+export const setBetterTotalItems = (
+  betterTotalItems: State['betterTotalItems']
+) => {
+  return {
+    type: SET_BETTER_TOTAL_ITEMS,
+    betterTotalItems
   }
 }
 
@@ -89,6 +101,11 @@ const searchReducer = (state: State, action: any): State => {
         response: {...newResponse, items: []}
       }
     }
+    case SET_BETTER_TOTAL_ITEMS:
+      return {
+        ...state,
+        betterTotalItems: action.betterTotalItems
+      }
     default:
       return state
   }
