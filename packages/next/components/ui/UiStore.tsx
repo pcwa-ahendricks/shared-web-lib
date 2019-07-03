@@ -27,21 +27,21 @@ const DISMISS_ERROR: 'DISMISS_ERROR' = 'DISMISS_ERROR'
 const SET_DRAWER_VIZ: 'SET_DRAWER_VIZ' = 'SET_DRAWER_VIZ'
 
 // Actions
-export const uiSetDrawerViz = (open: State['drawerOpen']) => {
+export const setDrawerViz = (open: State['drawerOpen']) => {
   return {
     type: SET_DRAWER_VIZ,
     open
   }
 }
 
-export const uiSetError = (error: State['error']) => {
+export const setError = (error: State['error']) => {
   return {
     type: SET_ERROR,
     error
   }
 }
 
-export const uiDismissError = () => {
+export const dismissError = () => {
   return {
     type: DISMISS_ERROR
   }

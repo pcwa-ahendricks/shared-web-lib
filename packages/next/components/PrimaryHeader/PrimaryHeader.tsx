@@ -10,7 +10,7 @@ import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import {AppBar, Hidden, IconButton, Toolbar, Theme} from '@material-ui/core'
 import {PopperProps} from '@material-ui/core/Popper'
 import {Menu as MenuIcon} from '@material-ui/icons'
-import {uiSetDrawerViz, UiContext} from '@components/ui/UiStore'
+import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import MegaMenuLink from '@components/megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '@components/megaMenu/MegaMenuPopper/MegaMenuPopper'
 import MMContent from '@components/MMContent/MMContent'
@@ -152,7 +152,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   }, [popperOpen])
 
   const handleMenuButtonClick = useCallback(() => {
-    dispatch(uiSetDrawerViz(!state.drawerOpen))
+    dispatch(setDrawerViz(!state.drawerOpen))
   }, [dispatch, state])
 
   const enterMenuHandler = useCallback((event, el, key) => {

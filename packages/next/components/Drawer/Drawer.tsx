@@ -10,7 +10,7 @@ import {
   Theme
 } from '@material-ui/core'
 import {Mail as MailIcon, Inbox as InboxIcon} from '@material-ui/icons'
-import {uiSetDrawerViz, UiContext} from '@components/ui/UiStore'
+import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles({
@@ -28,7 +28,7 @@ const SwipeableTemporaryDrawer = () => {
 
   const toggleDrawer = useCallback(
     (openDrawer: boolean) => () => {
-      dispatch(uiSetDrawerViz(openDrawer))
+      dispatch(setDrawerViz(openDrawer))
     },
     [dispatch]
   )
@@ -65,7 +65,7 @@ const SwipeableTemporaryDrawer = () => {
   // Close the drawer if it's open and window is resized larger.
   useEffect(() => {
     if (notXS && state.drawerOpen) {
-      dispatch(uiSetDrawerViz(false))
+      dispatch(setDrawerViz(false))
     }
   }, [notXS, toggleDrawer, state, dispatch])
 

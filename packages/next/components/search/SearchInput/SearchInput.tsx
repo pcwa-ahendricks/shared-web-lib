@@ -1,6 +1,12 @@
 import React, {useMemo, useCallback, useContext, useState} from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import {InputBase, Paper, Theme} from '@material-ui/core'
+import {
+  Box,
+  InputBase,
+  Paper,
+  Theme,
+  Typography as Type
+} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import colorAlpha from 'color-alpha'
@@ -12,11 +18,13 @@ import {
   setDialogOpen,
   setResults,
   setResponse,
-  setBetterTotalItems
+  setBetterTotalItems,
+  setIsIterating
 } from '../SearchStore'
-import {UiContext, uiSetError} from '@components/ui/UiStore'
+import {UiContext, setError} from '@components/ui/UiStore'
 import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
 import {GoogleCseResponse} from '../SearchResponse'
+import WebmasterEmail from '@components/links/WebmasterEmail'
 // import delay from 'then-sleep'
 
 const maxBetterTotalResultsHackIterations = 5 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
@@ -64,7 +72,7 @@ const SearchInput = () => {
 
   const searchErrorHandler = useCallback(
     (error) => {
-      console.log(error)
+      searchDispatch(setIsIterating(false))
       searchDispatch(setIsSearching(false))
       searchDispatch(setDialogOpen(false))
       searchDispatch(setResults([]))
@@ -83,13 +91,22 @@ const SearchInput = () => {
           : 'An error occurred.'
       const dialogError: ErrorDialogError = {
         title: 'Error During Search',
-        message:
-          'Check your network connection and reload this page. If this problem persists please contact webmaster@pcwa.net and reference the following message.',
-        MessageComponent: error ? (
-          <code>{`${preDash} - ${postDash}`}</code>
-        ) : null
+        MessageComponent: (
+          <Box>
+            <Type paragraph id="error-dialog-description">
+              Check your network connection and reload this page. If this
+              problem persists please contact <WebmasterEmail /> and reference
+              the following message.
+            </Type>
+            {/* variant="inherit" will use browser's <code/> block styling. */}
+            <Type
+              component="code"
+              variant="inherit"
+            >{`${preDash} - ${postDash}`}</Type>
+          </Box>
+        )
       }
-      uiDispatch(uiSetError(dialogError))
+      uiDispatch(setError(dialogError))
     },
     [uiDispatch, searchDispatch]
   )
@@ -142,8 +159,9 @@ const SearchInput = () => {
         }
         i++
       }
+      searchDispatch(setIsIterating(false))
     },
-    [betterTotalResultsHack]
+    [betterTotalResultsHack, searchDispatch]
   )
 
   const searchHandler = useCallback(
@@ -152,6 +170,7 @@ const SearchInput = () => {
         searchDispatch(setIsSearching(true))
         searchDispatch(setDialogOpen(true))
         searchDispatch(setResponse(null)) // clear out previous response.
+        searchDispatch(setIsIterating(true))
         // if (inputRef.current) {
         if (searchValue) {
           // await delay(5000)

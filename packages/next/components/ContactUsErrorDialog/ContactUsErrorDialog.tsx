@@ -9,7 +9,7 @@ import {
   Theme
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import CustomerServicesEmail from '@components/Links/CustomerServicesEmail'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {

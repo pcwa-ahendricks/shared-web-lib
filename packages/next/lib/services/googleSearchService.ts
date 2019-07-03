@@ -39,6 +39,7 @@ const search = async (params: GoogleCseParamOpts) => {
     const data: GoogleCseResponse = await response.json()
     return data
   } else {
+    console.warn(response)
     const text = await response.text()
     const error: ErrorResponse = new Error(text || response.statusText)
     error.response = response

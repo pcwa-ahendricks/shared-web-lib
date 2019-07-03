@@ -10,8 +10,8 @@ import {
   Theme
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import MainPhone from '@components/Links/MainPhone'
-import PcwaWeb from '@components/Links/PcwaWeb'
+import MainPhone from '@components/links/MainPhone'
+import PcwaWeb from '@components/links/PcwaWeb'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {

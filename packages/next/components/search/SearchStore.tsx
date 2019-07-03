@@ -3,6 +3,7 @@ import {GoogleCseItem, GoogleCseResponse} from './SearchResponse'
 
 interface State {
   isSearching: boolean
+  isIterating: boolean
   dialogOpen: boolean
   results: GoogleCseItem[]
   response: GoogleCseResponse | null
@@ -19,7 +20,8 @@ const initialState: State = {
   dialogOpen: false,
   results: [],
   response: null,
-  betterTotalItems: 0
+  betterTotalItems: 0,
+  isIterating: false
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -30,6 +32,7 @@ export const SearchContext = createContext<{
 
 // Action Types
 const SET_IS_SEARCHING: 'SET_IS_SEARCHING' = 'SET_IS_SEARCHING'
+const SET_IS_ITERATING: 'SET_IS_ITERATING' = 'SET_IS_ITERATING'
 const SET_DIALOG_OPEN: 'SET_DIALOG_OPEN' = 'SET_DIALOG_OPEN'
 const SET_RESULTS: 'SET_RESULTS' = 'SET_RESULTS'
 const SET_RESPONSE: 'SET_RESPONSE' = 'SET_RESPONSE'
@@ -41,6 +44,12 @@ export const setIsSearching = (isSearching: State['isSearching']) => {
   return {
     type: SET_IS_SEARCHING,
     isSearching
+  }
+}
+export const setIsIterating = (isIterating: State['isIterating']) => {
+  return {
+    type: SET_IS_ITERATING,
+    isIterating
   }
 }
 export const setDialogOpen = (dialogOpen: State['dialogOpen']) => {
@@ -77,6 +86,11 @@ const searchReducer = (state: State, action: any): State => {
       return {
         ...state,
         isSearching: action.isSearching
+      }
+    case SET_IS_ITERATING:
+      return {
+        ...state,
+        isIterating: action.isIterating
       }
     case SET_DIALOG_OPEN:
       return {

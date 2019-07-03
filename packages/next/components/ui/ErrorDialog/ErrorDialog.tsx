@@ -3,7 +3,8 @@ import React, {
   useEffect,
   useCallback,
   useRef,
-  useContext
+  useContext,
+  useMemo
 } from 'react'
 import {
   Button,
@@ -84,6 +85,17 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
     [onExited]
   )
 
+  const errorMessageComponentEl = useMemo(
+    () => (error && error.MessageComponent ? error.MessageComponent : null),
+    [error]
+  )
+
+  const errorMessageEl = useMemo(
+    () => (error && error.message ? error.message : null),
+    [error]
+  )
+
+  // The idea behind using this is that either the MessageComponent will be provided or a simple message property, not both.
   return (
     <Dialog
       aria-labelledby="error-dialog-title"
@@ -97,19 +109,16 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
         {error && error.title ? error.title : 'Something went wrong!'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText
-          variant="subtitle1"
-          id="error-dialog-description"
-          paragraph
-        >
-          {error && error.MessageComponent ? error.MessageComponent : null}
-        </DialogContentText>
-        <DialogContentText variant="subtitle1" id="error-dialog-description">
-          {error && error.message ? error.message : ''}
-        </DialogContentText>
-        <DialogContentText variant="body1" paragraph={true}>
+        {errorMessageComponentEl ? (
+          errorMessageComponentEl
+        ) : errorMessageEl ? (
+          <DialogContentText variant="subtitle1" id="error-dialog-description">
+            {errorMessageEl}
+          </DialogContentText>
+        ) : null}
+        {/* <DialogContentText variant="body1" paragraph={true}>
           {error && error.stack ? JSON.stringify(error.stack, null, 2) : ''}
-        </DialogContentText>
+        </DialogContentText> */}
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={closeHandler}>
