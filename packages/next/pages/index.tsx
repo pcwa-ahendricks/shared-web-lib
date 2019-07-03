@@ -6,19 +6,22 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import {Box, Fade, Hidden, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
 const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
-// const useStyles = makeStyles((theme: Theme) =>
+// const useStyles = makeStyles(() =>
 //   createStyles({
+//     svgContainer: {}
 //   })
 // )
 
 const Index = () => {
   // const classes = useStyles()
+
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
   return (
     <PageLayout>
@@ -36,9 +39,17 @@ const Index = () => {
         onImgLoad={() => setHeroOverlayIn(true)}
       >
         <Fade timeout={2000} in={heroOverlayIn}>
-          <Box>
+          <ColumnBox
+            justifyContent="center"
+            alignItems="center"
+            position="absolute"
+            top={0}
+            bottom={0}
+            right={0}
+            left={0}
+          >
             <HeroOverlay height="100%" />
-          </Box>
+          </ColumnBox>
         </Fade>
       </ImgixFancyParallaxBanner>
       <Hidden only="xs" implementation="css">

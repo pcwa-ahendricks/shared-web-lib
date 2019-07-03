@@ -1,21 +1,7 @@
 import React from 'react'
 import {ParallaxBanner, ParallaxBannerProps} from 'react-scroll-parallax'
 import ImgixFancy, {ImgixFancyProps} from '../ImgixFancy/ImgixFancy'
-import {makeStyles} from '@material-ui/styles'
-
-const useStyles = makeStyles({
-  parallaxChildren: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: 'flex',
-    flexFlow: 'row wrap',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+import {Box} from '@material-ui/core'
 
 type Props = {
   imgixFancyProps: ImgixFancyProps
@@ -31,10 +17,9 @@ const ImgixFancyParallaxBanner = ({
   onImgLoad,
   ...rest
 }: Props) => {
-  const classes = useStyles()
   return (
     <ParallaxBanner
-      className={classes.root}
+      // className={classes.root}
       layers={[
         {
           children: <ImgixFancy {...imgixFancyProps} onLoad={onImgLoad} />,
@@ -53,7 +38,7 @@ const ImgixFancyParallaxBanner = ({
        */
       {...rest}
     >
-      <div className={classes.parallaxChildren}>{children}</div>
+      <Box>{children}</Box>
     </ParallaxBanner>
   )
 }
