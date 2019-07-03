@@ -1,7 +1,9 @@
 import React, {createContext, useReducer} from 'react'
+import {ErrorDialogError} from './ErrorDialog/ErrorDialog'
 
 interface State {
   drawerOpen: boolean
+  error?: ErrorDialogError | null
 }
 
 type ProviderProps = {
@@ -20,15 +22,28 @@ export const UiContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-// const SET_ERROR: 'UI/SET_ERROR' = 'UI/SET_ERROR'
-// const DISMISS_ERROR: 'UI/DISMISS_ERROR' = 'UI/DISMISS_ERROR'
-const SET_DRAWER_VIZ: 'UI/SET_DRAWER_VIZ' = 'UI/SET_DRAWER_VIZ'
+const SET_ERROR: 'SET_ERROR' = 'SET_ERROR'
+const DISMISS_ERROR: 'DISMISS_ERROR' = 'DISMISS_ERROR'
+const SET_DRAWER_VIZ: 'SET_DRAWER_VIZ' = 'SET_DRAWER_VIZ'
 
 // Actions
 export const uiSetDrawerViz = (open: State['drawerOpen']) => {
   return {
     type: SET_DRAWER_VIZ,
     open
+  }
+}
+
+export const uiSetError = (error: State['error']) => {
+  return {
+    type: SET_ERROR,
+    error
+  }
+}
+
+export const uiDismissError = () => {
+  return {
+    type: DISMISS_ERROR
   }
 }
 
@@ -39,6 +54,16 @@ const uiReducer = (state: State, action: any): State => {
       return {
         ...state,
         drawerOpen: action.open
+      }
+    case SET_ERROR:
+      return {
+        ...state,
+        error: {...action.error}
+      }
+    case DISMISS_ERROR:
+      return {
+        ...state,
+        error: null
       }
     default:
       return state

@@ -50,7 +50,11 @@ module.exports = {
     '@typescript-eslint/prefer-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-use-before-define': ['error', {functions: false}]
+    '@typescript-eslint/no-use-before-define': ['error', {functions: false}],
+    'import/no-unresolved': [
+      2,
+      {ignore: ['^geojson$', '^@material-ui/core/transitions$']}
+    ]
   },
   settings: {
     react: {

@@ -100,7 +100,7 @@ export interface GoogleCseItem {
 
 interface GoogleCseQuery {
   title: string
-  totalResults: number
+  totalResults: string
   searchTerms: string
   count: number
   startIndex: number

@@ -3,8 +3,9 @@ import {stringify} from 'querystringify'
 import {GoogleCseResponse} from '@components/search/SearchResponse'
 import ErrorResponse from '@lib/ErrorResponse'
 
+// See https://developers.google.com/custom-search/v1/cse/list for more info.
 export interface GoogleCseParamOpts {
-  num?: number
+  num?: number // Number of results per page (max 10).
   start?: number
   fileType?: string
   gl?: string
@@ -15,15 +16,22 @@ export interface GoogleCseParamOpts {
   key?: string
 }
 
+export const resultsPerPage = 10
 const cx = process.env.NEXT_GOOGLE_CSE_CX || ''
 const key = process.env.NEXT_GOOGLE_CSE_KEY || ''
 
-// const retries = 2,
-//   retryDelay = 2000
+const defaultSearchParams: GoogleCseParamOpts = {
+  num: resultsPerPage,
+  cx,
+  key
+}
 
 const search = async (params: GoogleCseParamOpts) => {
   const googleCseApiUrl = 'https://www.googleapis.com/customsearch/v1'
-  const url = `${googleCseApiUrl}${stringify({cx, key, ...params}, true)}`
+  const url = `${googleCseApiUrl}${stringify(
+    {...defaultSearchParams, ...params},
+    true
+  )}`
 
   // try {
   const response = await fetch(url)
@@ -40,16 +48,5 @@ const search = async (params: GoogleCseParamOpts) => {
   //   console.warn(error)
   // }
 }
-
-// const fetchForecasts = async (forecastLocations: Location[]) => {
-//   const forecastData = await Promise.all(
-//     forecastLocations.map(async (location) => ({
-//       id: location.id,
-//       title: location.title,
-//       data: await fetchForecast(location)
-//     }))
-//   )
-//   return forecastData
-// }
 
 export default search

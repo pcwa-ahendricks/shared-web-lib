@@ -13,6 +13,8 @@ import {
   setResults,
   setResponse
 } from '../SearchStore'
+import {UiContext, uiSetError} from '@components/ui/UiStore'
+import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
 // import delay from 'then-sleep'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,7 +47,9 @@ const SearchInput = () => {
   const classes = useStyles()
   // const inputRef = useRef<HTMLInputElement>()
   const searchContext = useContext(SearchContext)
+  const uiContext = useContext(UiContext)
   const searchDispatch = searchContext.dispatch
+  const uiDispatch = uiContext.dispatch
   // const searchState = searchContext.state
   // const {dialogOpen} = searchState
   const [searchValue, setSearchValue] = useState<string>('')
@@ -53,6 +57,38 @@ const SearchInput = () => {
   const inputChangeHandler = useCallback((e) => {
     setSearchValue(e.target.value)
   }, [])
+
+  const searchErrorHandler = useCallback(
+    (error) => {
+      console.log(error)
+      searchDispatch(setIsSearching(false))
+      searchDispatch(setDialogOpen(false))
+      searchDispatch(setResults([]))
+      const preDash =
+        error && error.response && error.response.status
+          ? error.response.status
+          : '500'
+      // Use request.responseText (aka. response.request.responseText) if available, or use response.statusText if available, or use error.message if available, or use generic error caption.
+      const postDash =
+        error && error.request && error.request.responseText
+          ? error.request.responseText
+          : error && error.response && error.response.statusText
+          ? error.response.statusText
+          : error && error.message
+          ? error.message
+          : 'An error occurred.'
+      const dialogError: ErrorDialogError = {
+        title: 'Error During Search',
+        message:
+          'Check your network connection and reload this page. If this problem persists please contact webmaster@pcwa.net and reference the following message.',
+        MessageComponent: error ? (
+          <code>{`${preDash} - ${postDash}`}</code>
+        ) : null
+      }
+      uiDispatch(uiSetError(dialogError))
+    },
+    [uiDispatch, searchDispatch]
+  )
 
   const searchHandler = useCallback(
     async (start: number = 1) => {
@@ -70,11 +106,10 @@ const SearchInput = () => {
         }
         searchDispatch(setIsSearching(false))
       } catch (error) {
-        console.log(error)
-        searchDispatch(setIsSearching(false))
+        searchErrorHandler(error)
       }
     },
-    [searchDispatch, searchValue]
+    [searchDispatch, searchValue, searchErrorHandler]
   )
 
   const clickHandler = useCallback(() => {

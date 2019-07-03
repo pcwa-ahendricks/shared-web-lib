@@ -18,6 +18,7 @@ import SearchList from '../SearchList/SearchList'
 import Pagination from 'material-ui-flat-pagination'
 import {RowBox} from '@components/boxes/FlexBox'
 import {GoogleCseResponse} from '../SearchResponse'
+import {resultsPerPage} from '@lib/services/googleSearchService'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,7 +84,10 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   )
 
   const totalResults = useMemo(
-    () => (request && request.totalResults ? request.totalResults : 0),
+    () =>
+      request && request.totalResults && parseInt(request.totalResults, 10)
+        ? parseInt(request.totalResults, 10)
+        : 0,
     [request]
   )
 
@@ -128,13 +132,13 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
 
   const paginationClickHandler = useCallback(
     (
-      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      _event: React.MouseEvent<HTMLElement, MouseEvent>,
       offset: number,
       page: number
     ) => {
-      console.log('event', event)
-      console.log('offset', offset)
-      console.log('page', page)
+      // console.log('event', event)
+      console.log('requesting offset', offset)
+      console.log('requesting page', page)
       onPageSearch && onPageSearch(offset + 1)
     },
     [onPageSearch]
@@ -146,7 +150,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
       totalResults > count ? (
         <Pagination
           total={totalResults}
-          limit={count}
+          limit={resultsPerPage}
           offset={offset}
           onClick={paginationClickHandler}
         />
@@ -154,8 +158,9 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
     [totalResults, count, paginationClickHandler, offset]
   )
 
-  console.log('current start index', startIndex)
+  console.log('using start index', startIndex)
   console.log('using offset', offset)
+  // console.log('using totalResults', totalResults)
 
   return (
     <Dialog

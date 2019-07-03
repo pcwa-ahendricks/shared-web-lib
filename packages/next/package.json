@@ -39,7 +39,7 @@
     "dotenv-webpack": "^1.7.0",
     "es6-promise": "^4.2.8",
     "formik": "^1.5.7",
-    "html-react-parser": "^0.8.0",
+    "html-react-parser": "^0.8.1",
     "is-number": "^7.0.0",
     "isomorphic-unfetch": "^3.0.0",
     "lazysizes": "^5.1.0",
