@@ -232,33 +232,32 @@ const Pagination: React.FunctionComponent<
         innerButtonCount,
         outerButtonCount
       ).map((pp: PagePosition) => {
+        const {position, page} = pp
         let key: React.Attributes['key']
         let children: React.ReactNode
         let pageVariant: PageVariant
-        switch (pp.position) {
+        switch (position) {
           case Position.Current:
-            key = pp.position
-            children = pp.page
+            key = position
+            children = page
             pageVariant = 'current'
             break
           case Position.LowEllipsis:
           case Position.HighEllipsis:
-            key = -pp.position
+            key = -position
             children = '...'
             pageVariant = 'ellipsis'
             break
           case Position.LowEnd:
           case Position.HighEnd:
-            key = -pp.position
+            key = -position
             children =
-              pp.position === Position.LowEnd
-                ? previousPageLabel
-                : nextPageLabel
+              position === Position.LowEnd ? previousPageLabel : nextPageLabel
             pageVariant = 'end'
             break
           default:
-            key = pp.page
-            children = pp.page
+            key = page
+            children = page
             pageVariant = 'standard'
             break
         }
@@ -266,7 +265,7 @@ const Pagination: React.FunctionComponent<
         return (
           <PageButton
             limit={limit}
-            page={pp.page}
+            page={page}
             total={total}
             centerRipple={centerRipple}
             classes={buttonClasses}
