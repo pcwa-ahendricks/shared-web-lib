@@ -1,61 +1,50 @@
-import React, {useCallback} from 'react'
+import * as React from 'react'
 import {PropTypes, StandardProps} from '@material-ui/core'
-import Box, {BoxProps} from '@material-ui/core/Box'
-import {makeStyles, createStyles} from '@material-ui/styles'
-import clsx from 'clsx'
+import {createStyles, WithStyles, withStyles} from '@material-ui/core/styles'
+import classNames from 'clsx'
 import PageButton, {PageButtonClassKey, PageVariant} from './PageButton'
-
-export const enum Position {
-  Current,
-  LowEllipsis,
-  HighEllipsis,
-  LowEnd,
-  HighEnd,
-  Standard
-}
-
-export interface PagePosition {
-  page: number
-  position: Position
-}
+import {computePages, PagePosition, Position} from './core'
 
 export type PaginationClassKey = PageButtonClassKey
 
-const useStyles = makeStyles(() =>
-  // createStyles<PaginationClassKey>({
-  createStyles({
-    root: {},
-    rootCurrent: {},
-    rootEllipsis: {},
-    rootEnd: {},
-    rootStandard: {},
-    label: {},
-    text: {},
-    textPrimary: {},
-    textSecondary: {},
-    colorInherit: {},
-    colorInheritCurrent: {},
-    colorInheritOther: {},
-    disabled: {},
-    sizeSmall: {},
-    sizeSmallCurrent: {},
-    sizeSmallEllipsis: {},
-    sizeSmallEnd: {},
-    sizeSmallStandard: {},
-    sizeLarge: {},
-    sizeLargeCurrent: {},
-    sizeLargeEllipsis: {},
-    sizeLargeEnd: {},
-    sizeLargeStandard: {},
-    fullWidth: {}
-  })
-)
+const styles = createStyles<PaginationClassKey>({
+  root: {},
+  rootCurrent: {},
+  rootEllipsis: {},
+  rootEnd: {},
+  rootStandard: {},
+  label: {},
+  text: {},
+  textPrimary: {},
+  textSecondary: {},
+  colorInherit: {},
+  colorInheritCurrent: {},
+  colorInheritOther: {},
+  disabled: {},
+  sizeSmall: {},
+  sizeSmallCurrent: {},
+  sizeSmallEllipsis: {},
+  sizeSmallEnd: {},
+  sizeSmallStandard: {},
+  sizeLarge: {},
+  sizeLargeCurrent: {},
+  sizeLargeEllipsis: {},
+  sizeLargeEnd: {},
+  sizeLargeStandard: {},
+  fullWidth: {}
+})
 
-export type PaginationProps = {
-  limit?: number
-  offset?: number
-  total?: number
+export interface PaginationProps
+  extends StandardProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    PaginationClassKey,
+    'onClick'
+  > {
+  limit: number
+  offset: number
+  total: number
   centerRipple?: boolean
+  component?: string | React.ComponentType<Partial<PaginationProps>>
   currentPageColor?: PropTypes.Color
   disabled?: boolean
   disableFocusRipple?: boolean
@@ -73,184 +62,79 @@ export type PaginationProps = {
   previousPageLabel?: React.ReactNode
   reduced?: boolean
   size?: 'small' | 'medium' | 'large'
-} & BoxProps &
-  StandardProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    PaginationClassKey,
-    'onClick'
-  >
+}
 
-const Pagination = (props: PaginationProps) => {
+const Pagination: React.FunctionComponent<
+  PaginationProps & WithStyles<PaginationClassKey>
+> = (props) => {
   const {
-    limit = 1,
-    offset = 0,
-    total = 0,
-    centerRipple = false,
-    className,
-    currentPageColor = 'secondary',
-    disabled = false,
-    disableFocusRipple = false,
-    disableRipple = false,
-    fullWidth = false,
-    nextPageLabel = '>',
-    innerButtonCount = 2,
+    limit,
+    offset,
+    total,
+    centerRipple,
+    classes,
+    className: classNameProp,
+    component,
+    currentPageColor,
+    disabled,
+    disableFocusRipple,
+    disableRipple,
+    fullWidth,
+    nextPageLabel,
+    innerButtonCount: innerButtonCountProp,
     onClick,
-    otherPageColor = 'primary',
-    outerButtonCount = 2,
-    previousPageLabel = '<',
-    reduced = false,
-    size = 'medium',
+    otherPageColor,
+    outerButtonCount: outerButtonCountProp,
+    previousPageLabel,
+    reduced,
+    size,
     ...other
   } = props
 
-  const classes = useStyles()
-
   const {root, ...buttonClasses} = classes
 
-  const rootClasses = clsx(root, className)
+  const className = classNames(root, classNameProp)
 
-  const useInnerButtonCount = reduced ? 1 : innerButtonCount
-  const useOuterButtonCount = reduced ? 1 : outerButtonCount
+  const innerButtonCount = reduced ? 1 : innerButtonCountProp!
+  const outerButtonCount = reduced ? 1 : outerButtonCountProp!
 
-  const createPagePosition = useCallback(
-    (position: Position, page: number = 0): PagePosition => {
-      return {
-        page,
-        position
-      }
-    },
-    []
-  )
-
-  const computePages = useCallback(
-    (
-      limitProp: number,
-      offsetProp: number,
-      totalProp: number,
-      innerButtonCountProp: number,
-      outerButtonCountProp: number
-    ): PagePosition[] => {
-      const limit = limitProp >= 1 ? limitProp : 1
-      const offset = offsetProp >= 0 ? offsetProp : 0
-      const total = totalProp >= 0 ? totalProp : 0
-      const innerButtonCount =
-        innerButtonCountProp >= 0 ? innerButtonCountProp : 0
-      const outerButtonCount =
-        outerButtonCountProp >= 1 ? outerButtonCountProp : 1
-
-      const minPage = 1
-      const maxPage = Math.floor(total / limit) + (total % limit === 0 ? 0 : 1)
-      const currentPage = Math.floor(offset / limit) + 1
-      const previousPage = currentPage <= minPage ? 0 : currentPage - 1
-      const nextPage = currentPage >= maxPage ? 0 : currentPage + 1
-
-      const pages: PagePosition[] = []
-
-      // previous
-      pages.push(createPagePosition(Position.LowEnd, previousPage))
-
-      // low
-      const lowInnerReservedButtonCount = Math.max(
-        innerButtonCount + currentPage - maxPage,
-        0
-      )
-      const lowInnerEllipsisPage =
-        currentPage - innerButtonCount - lowInnerReservedButtonCount - 1
-      const lowOuterEllipsisPage = minPage + outerButtonCount
-      for (let i = minPage; i < currentPage; i++) {
-        if (i < lowOuterEllipsisPage) {
-          pages.push(createPagePosition(Position.Standard, i))
-        } else {
-          pages.push(
-            i === lowOuterEllipsisPage && i < lowInnerEllipsisPage
-              ? createPagePosition(Position.LowEllipsis)
-              : createPagePosition(Position.Standard, i)
-          )
-          for (
-            let j = Math.max(i, lowInnerEllipsisPage) + 1;
-            j < currentPage;
-            j++
-          ) {
-            pages.push(createPagePosition(Position.Standard, j))
-          }
-          break
-        }
-      }
-
-      // current
-      pages.push(createPagePosition(Position.Current, currentPage))
-
-      // high
-      const highInnerReservedButtonCount = Math.max(
-        innerButtonCount - currentPage + minPage,
-        0
-      )
-      const highInnerEllipsisPage =
-        currentPage + innerButtonCount + highInnerReservedButtonCount + 1
-      const highOuterEllipsisPage = maxPage - outerButtonCount
-      for (let i = currentPage + 1; i <= maxPage; i++) {
-        if (i < highInnerEllipsisPage) {
-          pages.push(createPagePosition(Position.Standard, i))
-        } else {
-          pages.push(
-            i === highInnerEllipsisPage && i < highOuterEllipsisPage
-              ? createPagePosition(Position.HighEllipsis)
-              : createPagePosition(Position.Standard, i)
-          )
-          for (
-            let j = Math.max(i, highOuterEllipsisPage) + 1;
-            j <= maxPage;
-            j++
-          ) {
-            pages.push(createPagePosition(Position.Standard, j))
-          }
-          break
-        }
-      }
-
-      // next
-      pages.push(createPagePosition(Position.HighEnd, nextPage))
-
-      return pages
-    },
-    [createPagePosition]
-  )
-
+  const Component = component!
   return (
-    <Box className={rootClasses} {...other}>
+    <Component className={className} {...other}>
       {computePages(
         limit,
         offset,
         total,
-        useInnerButtonCount,
-        useOuterButtonCount
+        innerButtonCount,
+        outerButtonCount
       ).map((pp: PagePosition) => {
-        const {page, position} = pp
         let key: React.Attributes['key']
         let children: React.ReactNode
         let pageVariant: PageVariant
-        switch (position) {
+        switch (pp.position) {
           case Position.Current:
-            key = position
-            children = page
+            key = pp.position
+            children = pp.page
             pageVariant = 'current'
             break
           case Position.LowEllipsis:
           case Position.HighEllipsis:
-            key = -position
+            key = -pp.position
             children = '...'
             pageVariant = 'ellipsis'
             break
           case Position.LowEnd:
           case Position.HighEnd:
-            key = -position
+            key = -pp.position
             children =
-              position === Position.LowEnd ? previousPageLabel : nextPageLabel
+              pp.position === Position.LowEnd
+                ? previousPageLabel
+                : nextPageLabel
             pageVariant = 'end'
             break
           default:
-            key = page
-            children = page
+            key = pp.page
+            children = pp.page
             pageVariant = 'standard'
             break
         }
@@ -258,7 +142,7 @@ const Pagination = (props: PaginationProps) => {
         return (
           <PageButton
             limit={limit}
-            page={page}
+            page={pp.page}
             total={total}
             centerRipple={centerRipple}
             classes={buttonClasses}
@@ -277,8 +161,35 @@ const Pagination = (props: PaginationProps) => {
           </PageButton>
         )
       })}
-    </Box>
+    </Component>
   )
 }
 
-export default Pagination
+Pagination.defaultProps = {
+  limit: 1,
+  offset: 0,
+  total: 0,
+  centerRipple: false,
+  component: 'div',
+  currentPageColor: 'secondary',
+  disabled: false,
+  disableFocusRipple: false,
+  disableRipple: false,
+  fullWidth: false,
+  innerButtonCount: 2,
+  nextPageLabel: '>',
+  otherPageColor: 'primary',
+  outerButtonCount: 2,
+  previousPageLabel: '<',
+  reduced: false,
+  size: 'medium'
+}
+
+const PaginationWithStyles: React.ComponentType<PaginationProps> = withStyles(
+  styles,
+  {
+    name: 'MuiFlatPagination'
+  }
+)(Pagination)
+
+export default PaginationWithStyles

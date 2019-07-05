@@ -1,8 +1,14 @@
-import React, {useCallback, useMemo} from 'react'
-import {PropTypes, StandardProps, Theme} from '@material-ui/core'
+import * as React from 'react'
+import {PropTypes, StandardProps} from '@material-ui/core'
 import Button, {ButtonProps} from '@material-ui/core/Button'
-import {createStyles, makeStyles} from '@material-ui/styles'
-import clsx from 'clsx'
+import {
+  createStyles,
+  Theme,
+  WithStyles,
+  withStyles
+} from '@material-ui/core/styles'
+import classNames from 'clsx'
+import {getOffset} from './core'
 
 export type PageButtonClassKey =
   | 'root'
@@ -30,9 +36,8 @@ export type PageButtonClassKey =
   | 'sizeLargeStandard'
   | 'fullWidth'
 
-const useStyles = makeStyles((theme: Theme) =>
-  // createStyles<PageButtonClassKey>({
-  createStyles({
+const styles = (theme: Theme) =>
+  createStyles<PageButtonClassKey>({
     root: {
       minWidth: 16
     },
@@ -100,14 +105,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     fullWidth: {}
   })
-)
 
 export type PageVariant = 'current' | 'ellipsis' | 'end' | 'standard'
 
-export type PageButtonProps = {
-  limit?: number
-  page?: number
-  total?: number
+export interface PageButtonProps
+  extends StandardProps<ButtonProps, PageButtonClassKey, 'onClick'> {
+  limit: number
+  page: number
+  total: number
   pageVariant: PageVariant
   currentPageColor?: PropTypes.Color
   onClick?: (
@@ -116,83 +121,88 @@ export type PageButtonProps = {
     page: number
   ) => void
   otherPageColor?: PropTypes.Color
-} & StandardProps<ButtonProps, PageButtonClassKey, 'onClick'>
+}
 
-// const PageButton: React.FunctionComponent<
-//   PageButtonProps & WithStyles<PageButtonClassKey>
-// > = (props) => {
-const PageButton = ({
-  limit = 1,
-  page = 0,
-  total = 0,
-  pageVariant = 'standard',
-  currentPageColor,
-  disabled = false,
-  disableRipple = false,
-  onClick: onClickProp,
-  otherPageColor,
-  size,
-  ...other
-}: PageButtonProps) => {
-  const classes = useStyles()
+const handleClick = (
+  page: number,
+  limit: number,
+  onClick: (
+    ev: React.MouseEvent<HTMLElement>,
+    offset: number,
+    page: number
+  ) => void
+) => (ev: React.MouseEvent<HTMLElement>): void => {
+  onClick(ev, getOffset(page, limit), page)
+}
 
-  const isCurrent = useMemo(() => pageVariant === 'current', [pageVariant])
-  const isEllipsis = useMemo(() => pageVariant === 'ellipsis', [pageVariant])
-  const isEnd = useMemo(() => pageVariant === 'end', [pageVariant])
-  const isStandard = useMemo(() => pageVariant === 'standard', [pageVariant])
+const PageButton: React.FunctionComponent<
+  PageButtonProps & WithStyles<PageButtonClassKey>
+> = (props) => {
+  const {
+    limit,
+    page,
+    total,
+    pageVariant,
+    classes: classesProp,
+    currentPageColor,
+    disabled: disabledProp,
+    disableRipple: disableRippleProp,
+    onClick: onClickProp,
+    otherPageColor,
+    size,
+    ...other
+  } = props
 
-  const isSmall = useMemo(() => size === 'small', [size])
-  const isLarge = useMemo(() => size === 'large', [size])
+  const isCurrent = pageVariant === 'current'
+  const isEllipsis = pageVariant === 'ellipsis'
+  const isEnd = pageVariant === 'end'
+  const isStandard = pageVariant === 'standard'
 
-  classes.root = clsx(classes.root, {
-    [classes.rootCurrent]: isCurrent,
-    [classes.rootEllipsis]: isEllipsis,
-    [classes.rootEnd]: isEnd,
-    [classes.rootStandard]: isStandard
+  const isSmall = size === 'small'
+  const isLarge = size === 'large'
+
+  const {
+    rootCurrent,
+    rootEllipsis,
+    rootEnd,
+    rootStandard,
+    colorInheritCurrent,
+    colorInheritOther,
+    sizeSmallCurrent,
+    sizeSmallEllipsis,
+    sizeSmallEnd,
+    sizeSmallStandard,
+    sizeLargeCurrent,
+    sizeLargeEllipsis,
+    sizeLargeEnd,
+    sizeLargeStandard,
+    ...classes
+  } = classesProp
+  classes.root = classNames(classes.root, {
+    [rootCurrent]: isCurrent,
+    [rootEllipsis]: isEllipsis,
+    [rootEnd]: isEnd,
+    [rootStandard]: isStandard
   })
-
-  classes.colorInherit = clsx(classes.colorInherit, {
-    [classes.colorInheritCurrent]: isCurrent,
-    [classes.colorInheritOther]: !isCurrent
+  classes.colorInherit = classNames(classes.colorInherit, {
+    [colorInheritCurrent]: isCurrent,
+    [colorInheritOther]: !isCurrent
   })
-
-  classes.sizeSmall = clsx(classes.sizeSmall, {
-    [classes.sizeSmallCurrent]: isCurrent && isSmall,
-    [classes.sizeSmallEllipsis]: isEllipsis && isSmall,
-    [classes.sizeSmallEnd]: isEnd && isSmall,
-    [classes.sizeSmallStandard]: isStandard && isSmall
+  classes.sizeSmall = classNames(classes.sizeSmall, {
+    [sizeSmallCurrent]: isCurrent && isSmall,
+    [sizeSmallEllipsis]: isEllipsis && isSmall,
+    [sizeSmallEnd]: isEnd && isSmall,
+    [sizeSmallStandard]: isStandard && isSmall
   })
-
-  classes.sizeLarge = clsx(classes.sizeLarge, {
-    [classes.sizeLargeCurrent]: isCurrent && isLarge,
-    [classes.sizeLargeEllipsis]: isEllipsis && isLarge,
-    [classes.sizeLargeEnd]: isEnd && isLarge,
-    [classes.sizeLargeStandard]: isStandard && isLarge
+  classes.sizeLarge = classNames(classes.sizeLarge, {
+    [sizeLargeCurrent]: isCurrent && isLarge,
+    [sizeLargeEllipsis]: isEllipsis && isLarge,
+    [sizeLargeEnd]: isEnd && isLarge,
+    [sizeLargeStandard]: isStandard && isLarge
   })
-
-  const getOffset = useCallback((page: number, limit: number): number => {
-    const offset = (page - 1) * limit
-    return offset < 0 ? 0 : offset
-  }, [])
-
-  const handleClick = useCallback(
-    (
-      page: number,
-      limit: number,
-      onClick: (
-        ev: React.MouseEvent<HTMLElement>,
-        offset: number,
-        page: number
-      ) => void
-    ) => (ev: React.MouseEvent<HTMLElement>): void => {
-      onClick(ev, getOffset(page, limit), page)
-    },
-    [getOffset]
-  )
-
   const color = isCurrent ? currentPageColor : otherPageColor
-  const buttonDisabled = disabled || isEllipsis || page <= 0 || total <= 0
-  const buttonDisableRipple = disableRipple || disabled || isCurrent
+  const disabled = disabledProp || isEllipsis || page <= 0 || total <= 0
+  const disableRipple = disableRippleProp || disabled || isCurrent
   let onClick: ((ev: React.MouseEvent<HTMLElement>) => void) | undefined
   if (onClickProp && !disabled && (isEnd || isStandard)) {
     onClick = handleClick(page, limit, onClickProp)
@@ -202,8 +212,8 @@ const PageButton = ({
     <Button
       classes={classes}
       color={color}
-      disabled={buttonDisabled}
-      disableRipple={buttonDisableRipple}
+      disabled={disabled}
+      disableRipple={disableRipple}
       onClick={onClick}
       size={size}
       {...other}
@@ -211,4 +221,20 @@ const PageButton = ({
   )
 }
 
-export default PageButton
+PageButton.defaultProps = {
+  limit: 1,
+  page: 0,
+  total: 0,
+  pageVariant: 'standard',
+  disabled: false,
+  disableRipple: false
+}
+
+const PageButtonWithStyles: React.ComponentType<PageButtonProps> = withStyles(
+  styles,
+  {
+    name: 'MuiFlatPageButton'
+  }
+)(PageButton)
+
+export default PageButtonWithStyles
