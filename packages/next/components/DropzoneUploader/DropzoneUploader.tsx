@@ -158,12 +158,21 @@ const DropzoneUploader: React.RefForwardingComponent<
       const origFile: BlobFile = new Blob([file], {type: file.type})
       origFile.name = renamedFileName
 
+      // Only resolve origFile after it gets assign the 'name' property above.
+      // Don't attempt to resize a pdf. Just images.
+      if (!/image\//i.test(file.type)) {
+        resolve(origFile)
+        return
+      }
+
       const reader = new FileReader()
       reader.onabort = () => {
+        // console.log('reading aborted')
         // reject('file reading was aborted')
         resolve(origFile)
       }
       reader.onerror = () => {
+        // console.log('reading error')
         // reject('file reading has failed')
         resolve(origFile)
       }
@@ -283,6 +292,7 @@ const DropzoneUploader: React.RefForwardingComponent<
             removeIsUploadingFiles(renamedFileName)
             return uploadedFile
           } catch (error) {
+            console.log('error', error)
             removeIsUploadingFiles(renamedFileName)
             return
           }

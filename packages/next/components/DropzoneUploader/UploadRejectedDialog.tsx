@@ -48,11 +48,12 @@ Props) => {
           ))}
         </List>
         <DialogContentText paragraph>
-          Please verify that the file you are attempting to upload is an image
-          or a PDF. If the file is larger than 5MB it may fail to upload.
-          Consider resizing the attachment to a smaller size prior to upload
-          attempt if the file is larger than 5MB. If you feel you have reached
-          this message in error please contact us by sending an email to{' '}
+          Please verify that the file you are attempting to upload is an image.
+          PDF files <em>cannot</em> be uploaded. In addition, if the image is
+          larger than 7MB it may fail to upload. Consider resizing the
+          attachment to a smaller size prior to upload attempt if the image is
+          larger than 7MB. If you feel you have reached this message in error
+          please contact us by sending an email to{' '}
           <Link href="mailto:webmaster@pcwa.net">webmaster@pcwa.net</Link> with
           a description of the problem and an attachments with the files you are
           trying to submit. Thank you.

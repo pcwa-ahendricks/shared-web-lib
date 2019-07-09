@@ -23,8 +23,9 @@ const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 
-const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
-// const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i // FOR DEBUGGING.
+// There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
+// const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
+const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
 
 const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
   const {headers, socket} = req

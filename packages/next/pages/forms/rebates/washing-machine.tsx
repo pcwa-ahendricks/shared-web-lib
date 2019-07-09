@@ -852,9 +852,7 @@ const WashingMachine = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Washing Machine Rebate Form">
-          {mainEl}
-        </PageLayout>
+        <PageLayout title="Washing Machine Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )
