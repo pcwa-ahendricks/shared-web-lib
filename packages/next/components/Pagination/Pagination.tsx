@@ -48,35 +48,35 @@ const styles = createStyles<PaginationClassKey, {}>({
   fullWidth: {}
 })
 
-export type PaginationProps = {
-  limit: number
-  offset: number
-  total: number
-  centerRipple?: boolean
-  component?: string | React.ComponentType<Partial<PaginationProps>>
-  currentPageColor?: PropTypes.Color
-  disabled?: boolean
-  disableFocusRipple?: boolean
-  disableRipple?: boolean
-  fullWidth?: boolean
-  innerButtonCount?: number
-  nextPageLabel?: React.ReactNode
-  onClick?: (
-    ev: React.MouseEvent<HTMLElement>,
-    offset: number,
-    page: number
-  ) => void
-  otherPageColor?: PropTypes.Color
-  outerButtonCount?: number
-  previousPageLabel?: React.ReactNode
-  reduced?: boolean
-  size?: 'small' | 'medium' | 'large'
-} & StandardProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  PaginationClassKey,
-  'onClick'
-> &
-  BoxProps
+export type PaginationProps = Omit<BoxProps, 'onClick'> &
+  StandardProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    PaginationClassKey,
+    'onClick'
+  > & {
+    limit: number
+    offset: number
+    total: number
+    centerRipple?: boolean
+    component?: string | React.ComponentType<Partial<PaginationProps>>
+    currentPageColor?: PropTypes.Color
+    disabled?: boolean
+    disableFocusRipple?: boolean
+    disableRipple?: boolean
+    fullWidth?: boolean
+    innerButtonCount?: number
+    nextPageLabel?: React.ReactNode
+    onClick?: (
+      ev: React.MouseEvent<HTMLElement>,
+      offset: number,
+      page: number
+    ) => void
+    otherPageColor?: PropTypes.Color
+    outerButtonCount?: number
+    previousPageLabel?: React.ReactNode
+    reduced?: boolean
+    size?: 'small' | 'medium' | 'large'
+  }
 
 const Pagination: React.FunctionComponent<
   PaginationProps & WithStyles<PaginationClassKey>
