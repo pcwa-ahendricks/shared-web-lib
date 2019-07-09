@@ -22,9 +22,14 @@ import {resultsPerPage} from '@lib/services/googleSearchService'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    progress: {
+    contentProgress: {
       display: 'flex',
       width: '100%'
+    },
+    paginationProgress: {
+      display: 'flex',
+      width: '100%',
+      padding: theme.spacing(1)
     },
     dialogPaper: {
       backgroundColor: theme.palette.common.white
@@ -42,7 +47,13 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   const searchContext = useContext(SearchContext)
   const searchState = searchContext.state
   const searchDispatch = searchContext.dispatch
-  const {dialogOpen, isSearching, response, betterTotalItems} = searchState
+  const {
+    dialogOpen,
+    isSearching,
+    response,
+    betterTotalItems,
+    isIterating
+  } = searchState
   const request: GoogleCseResponse['queries']['request'][0] | null = useMemo(
     () =>
       response &&
@@ -118,7 +129,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
         <DialogContent>
           <RowBox justifyContent="center" alignItems="center">
             <Box flex="auto" my={5} mx={8}>
-              <CircularProgress classes={{root: classes.progress}} />
+              <CircularProgress classes={{root: classes.contentProgress}} />
             </Box>
           </RowBox>
         </DialogContent>
@@ -145,22 +156,30 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   )
 
   // Only need to show Pagination when we have more than a single page worth of results (IE. No "< 1 >").
+  // Wait to show Pagination until after isIterating is complete and we have the best total items guess.
+  // Don't show Pagination while dialog content progress is spinning too (no double spinner).
   const paginationEl = useMemo(
     () =>
-      betterTotalItems > count ? (
+      betterTotalItems > count && !isIterating ? (
         <Pagination
           total={betterTotalItems}
           limit={resultsPerPage}
           offset={offset}
           onClick={paginationClickHandler}
         />
+      ) : !isSearching ? (
+        <CircularProgress classes={{root: classes.paginationProgress}} />
       ) : null,
-    [betterTotalItems, count, paginationClickHandler, offset]
+    [
+      betterTotalItems,
+      count,
+      paginationClickHandler,
+      offset,
+      isIterating,
+      isSearching,
+      classes
+    ]
   )
-
-  // console.log('using start index', startIndex)
-  // console.log('using offset', offset)
-  // console.log('using totalResults', totalResults)
 
   return (
     <Dialog
@@ -171,8 +190,6 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
       aria-labelledby="search-results-dialog-title"
       aria-describedby="search-results-dialog-description"
       classes={{paper: classes.dialogPaper}}
-      // PaperProps={{square: true}}
-      // TransitionComponent={Transition}
       {...rest}
     >
       <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>

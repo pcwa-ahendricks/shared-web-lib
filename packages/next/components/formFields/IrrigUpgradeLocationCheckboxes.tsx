@@ -12,7 +12,7 @@ import {FormControlProps} from '@material-ui/core/FormControl'
 import {FormLabelProps} from '@material-ui/core/FormLabel'
 
 type Props = {
-  onChange?: (e: React.ChangeEvent) => void
+  onChange?: (e: React.FormEvent<HTMLDivElement>) => void
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
@@ -62,7 +62,7 @@ const IrrigUpgradeLocationCheckboxes = ({
 
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched for entire formGroup (not individual check boxes).
   const handleChange = useCallback(
-    (cbVal) => (event: React.ChangeEvent<any>) => {
+    (cbVal) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = {...value, [cbVal]: event.target.checked}
       setFieldTouched(name, true)
       setFieldValue(name, newValue, true)
