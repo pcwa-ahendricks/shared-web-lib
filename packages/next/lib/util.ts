@@ -26,7 +26,10 @@ export const openInNewTab = (url: string): void => {
   }
   // var win = window.open(url, '_blank', 'noopener').focus()
   try {
-    window.open(url, '_blank').focus()
+    const opened = window.open(url, '_blank')
+    if (opened) {
+      opened.focus()
+    }
   } catch (error) {
     console.error('Could not open window.')
   }

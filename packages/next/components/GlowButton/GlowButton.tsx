@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import {ButtonBase, Theme, Typography as Type} from '@material-ui/core'
 import {ButtonBaseProps} from '@material-ui/core/ButtonBase'
 import {TypographyProps} from '@material-ui/core/Typography'
@@ -9,6 +9,7 @@ export type GlowButtonProps = {
   children: React.ReactNode
   color?: TypographyProps['color']
   size?: 'small' | 'medium' | 'large'
+  active?: boolean
 } & ButtonBaseProps &
   React.AnchorHTMLAttributes<HTMLAnchorElement>
 
@@ -56,10 +57,15 @@ const GlowButton = ({
   children,
   color = 'initial',
   size = 'medium',
+  active: activeProp = false,
   ...rest
 }: GlowButtonProps) => {
   const [active, setActive] = useState<boolean>(false)
   const classes = useStyles({size, active})
+
+  useEffect(() => {
+    setActive(activeProp)
+  }, [activeProp])
 
   const buttonEnterHandler = useCallback(() => {
     setActive(true)

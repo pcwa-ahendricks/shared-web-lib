@@ -5,6 +5,10 @@ import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import MuiLink, {LinkProps as MuiLinkProps} from '@material-ui/core/Link'
 import {makeStyles} from '@material-ui/styles'
 
+/*
+  Adapted from https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/Link.tsx
+*/
+
 type NextComposedProps = NextLinkProps & React.HTMLProps<HTMLAnchorElement>
 
 const useStyles = makeStyles({

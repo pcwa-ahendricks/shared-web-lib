@@ -5,7 +5,6 @@ import {
   CircularProgress,
   Divider,
   Grid,
-  Link,
   Theme,
   Typography as Type
 } from '@material-ui/core'

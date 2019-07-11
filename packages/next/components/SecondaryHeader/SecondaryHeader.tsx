@@ -64,9 +64,9 @@ const SecondaryHeader = () => {
         </NextGlowButton>
         <ENewsButton size="small">E-News</ENewsButton>
         <NextGlowButton
+          size="small"
           aria-label="Link"
           color="primary"
-          size="small"
           href="/about-pcwa/board-agenda"
         >
           Board Meetings
