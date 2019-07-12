@@ -9,6 +9,13 @@ import theme from '@lib/material-theme'
 import UiProvider from '@components/ui/UiStore'
 import ForecastProvider from '@components/forecast/ForecastStore'
 import SearchProvider from '@components/search/SearchStore'
+/*
+  HACK - AMA page is not loading due to use of css import via @zeit/next-css plugin. See
+  https://github.com/zeit/next.js/issues/5264 and  https://github.com/zeit/next.js/issues/5291 and 
+  https://github.com/zeit/next.js/issues/5598.
+  Import an empty css file or any css file for that matter here.
+*/
+import './styles.css'
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */

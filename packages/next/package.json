@@ -30,6 +30,7 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/pickers": "^3.1.2",
     "@material-ui/styles": "^4.1.2",
+    "@zeit/next-css": "^1.0.1",
     "clsx": "^1.0.4",
     "color-alpha": "^1.0.4",
     "core-js": "3.1.4",
