@@ -187,7 +187,7 @@ MyDocument.getInitialProps = async (ctx) => {
         {sheets.getStyleElement()}
         {flush() || null}
       </React.Fragment>
-    ) as any
+    )
   }
 }
 /* eslint-enable @typescript-eslint/explicit-member-accessibility */
