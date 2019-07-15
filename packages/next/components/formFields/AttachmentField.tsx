@@ -17,7 +17,7 @@ type Props = {
   disabled?: boolean
 } & FieldProps<any>
 
-const UPLOAD_MB_LIMIT = 15 // Now lambda functions must be less than 5MB, but we are resizing dropped files using Jimp to roughly 3MB.
+const UPLOAD_MB_LIMIT = 30 // Now lambda functions must be less than 5MB, but we are resizing dropped files so this can be higher.
 const UPLOAD_FILE_LIMIT = 5
 
 const AttachmentField = ({
