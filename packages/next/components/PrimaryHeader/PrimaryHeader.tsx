@@ -27,7 +27,7 @@ type Props = {
 const menuLinkData = [
   {key: 1, caption: 'About', tabIndex: 1},
   {key: 2, caption: 'Customer Services', tabIndex: 2},
-  {key: 3, caption: 'Doing Business With PCWA', tabIndex: 3},
+  {key: 3, caption: 'Business With PCWA', tabIndex: 3},
   {key: 4, caption: 'Newsroom', tabIndex: 4}
 ]
 

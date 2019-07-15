@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-// import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/styles'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -13,22 +13,23 @@ const HERO_IMG_SRC =
 const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     svgContainer: {}
-//   })
-// )
+const useStyles = makeStyles(() =>
+  createStyles({
+    imgixFancyParallaxBanner: {
+      height: '50vw',
+      maxHeight: '40vh'
+    }
+  })
+)
 
 const Index = () => {
-  // const classes = useStyles()
+  const classes = useStyles()
 
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
   return (
     <PageLayout>
       <ImgixFancyParallaxBanner
-        style={{
-          height: '55vw'
-        }}
+        className={classes.imgixFancyParallaxBanner}
         amount={0.1}
         imgixFancyProps={{
           paddingPercent: '66.6495%',
