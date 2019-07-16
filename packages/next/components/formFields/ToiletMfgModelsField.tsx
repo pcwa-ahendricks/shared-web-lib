@@ -8,10 +8,10 @@ import FormTextField from '@components/formFields/FormTextField'
 import {ToiletRebateFormData as RebateFormData} from '@lib/services/formService'
 
 type Props = {
-  ineligible?: boolean
+  disabled?: boolean
 } & FieldArrayRenderProps
 
-const ToiletMfgModelsField = ({ineligible = false, ...arrayHelpers}: Props) => {
+const ToiletMfgModelsField = ({disabled = false, ...arrayHelpers}: Props) => {
   const {values}: FormikProps<RebateFormData> = arrayHelpers.form
   return (
     <div>
@@ -26,7 +26,7 @@ const ToiletMfgModelsField = ({ineligible = false, ...arrayHelpers}: Props) => {
               >
                 <Grid item xs={12} sm={5}>
                   <Field
-                    disabled={ineligible}
+                    disabled={disabled}
                     required
                     name={`manufacturerModel[${index}].manufacturer`}
                     label={`Toilet/Urinal Manufacturer ${
@@ -37,7 +37,7 @@ const ToiletMfgModelsField = ({ineligible = false, ...arrayHelpers}: Props) => {
                 </Grid>
                 <Grid item xs={12} sm={5}>
                   <Field
-                    disabled={ineligible}
+                    disabled={disabled}
                     required
                     name={`manufacturerModel[${index}].model`}
                     label={`Toilet/Urinal Model ${index > 1 ? index : ''}`}
@@ -54,7 +54,7 @@ const ToiletMfgModelsField = ({ineligible = false, ...arrayHelpers}: Props) => {
                           aria-label="Add row"
                         >
                           <Fab
-                            disabled={ineligible}
+                            disabled={disabled}
                             size="medium"
                             color="secondary"
                             onClick={() =>
@@ -79,7 +79,7 @@ const ToiletMfgModelsField = ({ineligible = false, ...arrayHelpers}: Props) => {
                           aria-label="Remove row"
                         >
                           <Fab
-                            disabled={ineligible}
+                            disabled={disabled}
                             size="medium"
                             onClick={() => arrayHelpers.remove(index)}
                           >

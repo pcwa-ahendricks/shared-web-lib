@@ -1,3 +1,4 @@
+// cspell:ignore smoothscroll
 import React from 'react'
 import App, {Container} from 'next/app'
 import {ThemeProvider} from '@material-ui/styles'
@@ -8,6 +9,8 @@ import DateFnsUtils from '@date-io/date-fns'
 import theme from '@lib/material-theme'
 import UiProvider from '@components/ui/UiStore'
 import ForecastProvider from '@components/forecast/ForecastStore'
+import smoothscroll from 'smoothscroll-polyfill'
+const isDev = process.env.NODE_ENV === 'development'
 import SearchProvider from '@components/search/SearchStore'
 /*
   HACK - AMA page is not loading due to use of css import via @zeit/next-css plugin. See
@@ -25,6 +28,9 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles)
     }
+
+    isDev && console.log('Applying smoothscroll polyfill')
+    smoothscroll.polyfill()
   }
 
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */

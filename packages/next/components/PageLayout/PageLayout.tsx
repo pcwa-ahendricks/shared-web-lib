@@ -5,6 +5,8 @@ import Drawer from '@components/Drawer/Drawer'
 import {Hidden} from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError} from '@components/ui/UiStore'
+import Footer from '@components/Footer/Footer'
+import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 
 type Props = {
   description?: string
@@ -37,6 +39,8 @@ const PageLayout = ({
       </Hidden>
       <HeaderContainer />
       {children}
+      <Footer />
+      <ScrollToTop />
       <ErrorDialog onExited={errorDialogExitedHandler} />
     </React.Fragment>
   )

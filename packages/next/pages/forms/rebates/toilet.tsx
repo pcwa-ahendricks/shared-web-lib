@@ -567,7 +567,10 @@ const Toilet = () => {
                           <FieldArray
                             name="manufacturerModel"
                             render={(arrayHelpers) => (
-                              <ToiletMfgModelsField {...arrayHelpers} />
+                              <ToiletMfgModelsField
+                                {...arrayHelpers}
+                                disabled={ineligible}
+                              />
                             )}
                           />
 

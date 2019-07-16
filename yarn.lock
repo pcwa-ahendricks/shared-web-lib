@@ -1306,10 +1306,10 @@
   dependencies:
     "@babel/runtime" "^7.2.0"
 
-"@material-ui/pickers@^3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@material-ui/pickers/-/pickers-3.1.2.tgz#3f51a59f2f8bb6847f9833ca465cda937f3cbb6f"
-  integrity sha512-ij3w6s/FMgfEetywH7DB3YFgIZ7xezsT/RHlpoauAO8nvPDrYlRHK5sPOiDzxbjE9SB/t3aKkNZmYcs+sVd5ug==
+"@material-ui/pickers@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material-ui/pickers/-/pickers-3.2.0.tgz#1a10be67211b9348b87e8354af041c1f1a56f060"
+  integrity sha512-/bn90Vl6U22/Od2QGirSg1U9fk/YjzLtkHdwmS4crE6HjVzApi5l8kcOC2j+gDHggs3J6zO+4eq3DK5kGYN6Jg==
   dependencies:
     "@types/styled-jsx" "^2.2.8"
     clsx "^1.0.2"
@@ -1629,6 +1629,11 @@
   integrity sha512-p86cm5P6DMotUqCS6odQRz0JJwc5QXZw9eyH0ALVIqmq12yqtex5ighWyGFHKxak9vaA/GF/Ilu0KZ0MuXXUbg==
   dependencies:
     "@types/node" "*"
+
+"@types/smoothscroll-polyfill@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@types/smoothscroll-polyfill/-/smoothscroll-polyfill-0.3.1.tgz#77fb3a6e116bdab4a5959122e3b8e201224dcd49"
+  integrity sha512-+KkHw4y+EyeCtVXET7woHUhIbfWFCflc0E0mZnSV+ZdjPQeHt/9KPEuT7gSW/kFQ8O3EG30PLO++YhChDt8+Ag==
 
 "@types/styled-jsx@^2.2.8":
   version "2.2.8"
@@ -4330,15 +4335,16 @@ eslint-module-utils@^2.4.0:
     debug "^2.6.8"
     pkg-dir "^2.0.0"
 
-eslint-plugin-compat@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-3.2.0.tgz#82ab2e5df99624c45e46565474de5abc43a4af4c"
-  integrity sha512-m8sXkfh7gBV2upq3pUkXbYKi5y+qCGbvCxRASGYS9N2JDQH2dWdq1aZe0bBBOci4JECdsLD7M2CERqhseG6Zdg==
+eslint-plugin-compat@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-3.3.0.tgz#ece063f53793e6859243ce6cb9634865f745b72e"
+  integrity sha512-QCgYy3pZ+zH10dkBJus1xER0359h1UhJjufhQRqp9Owm6BEoLZeSqxf2zINwL1OGao9Yc96xPYIW3nQj5HUryg==
   dependencies:
     "@babel/runtime" "^7.4.5"
     ast-metadata-inferer "^0.1.1"
     browserslist "^4.6.3"
     caniuse-db "^1.0.30000977"
+    lodash.memoize "4.1.2"
     mdn-browser-compat-data "^0.0.84"
     semver "^6.1.2"
 
@@ -6616,6 +6622,11 @@ lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
   integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
+
+lodash.memoize@4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
+  integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
 lodash.merge@^4.6.1:
   version "4.6.2"
@@ -9427,6 +9438,11 @@ smart-buffer@^1.0.13:
   version "1.1.15"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-1.1.15.tgz#7f114b5b65fab3e2a35aa775bb12f0d1c649bf16"
   integrity sha1-fxFLW2X6s+KjWqd1uxLw0cZJvxY=
+
+smoothscroll-polyfill@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
+  integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
