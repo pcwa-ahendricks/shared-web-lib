@@ -77,9 +77,6 @@ class MyDocument extends Document {
               `
             }}
           />
-
-          {/* For use with React Recaptcha */}
-          <script src="https://www.google.com/recaptcha/api.js" async defer />
         </Head>
         <body>
           <Main />

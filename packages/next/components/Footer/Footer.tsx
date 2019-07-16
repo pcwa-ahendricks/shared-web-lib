@@ -22,7 +22,7 @@ const Footer = () => {
   const theme = useTheme<Theme>()
 
   return (
-    <Box bgcolor={theme.palette.primary.dark} height={30}>
+    <Box bgcolor={theme.palette.primary.dark} height={theme.spacing(3)}>
       <Box padding={2} bgcolor="inherit">
         <Type variant="body2" component="span" className={classes.subtle}>
           Copyright &copy; 2019
