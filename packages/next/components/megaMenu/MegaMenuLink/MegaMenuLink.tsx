@@ -1,8 +1,9 @@
 import React, {useRef, useCallback} from 'react'
-import {Link, Theme, Typography as Type, RootRef} from '@material-ui/core'
+import {Box, Link, Theme, Typography as Type, RootRef} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   typographyClass?: any
@@ -19,12 +20,6 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      height: '100%'
-    },
     typography: {
       flex: '0 0 auto',
       color: theme.palette.primary.main,
@@ -32,9 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover,&:focus,&.linkActive': {
         color: theme.palette.primary.dark
       }
-    },
-    linkBun: {
-      flex: '1 0 auto'
     }
   })
 )
@@ -72,8 +64,8 @@ const MegaMenuLink = ({
       transitionDuration="200ms"
       lineMargin={linkMargin}
     >
-      <div className={classes.root}>
-        <div className={classes.linkBun} />
+      <ColumnBox justifyContent="center" height="100%">
+        <Box flex="1 0 auto" />
         <RootRef rootRef={typeRef}>
           <Type
             className={clsx(classes.typography, typographyClass, {
@@ -95,14 +87,14 @@ const MegaMenuLink = ({
             </Link>
           </Type>
         </RootRef>
-        <div
-          className={classes.linkBun}
+        <Box
+          flex="1 0 auto"
           onMouseEnter={onBottomBunEnter}
           onFocus={onBottomBunEnter}
           onMouseLeave={onLinkLeave}
           onBlur={onLinkLeave}
         />
-      </div>
+      </ColumnBox>
     </Overline>
   )
 }
