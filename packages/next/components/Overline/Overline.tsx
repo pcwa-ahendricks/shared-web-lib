@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useCallback} from 'react'
 import {createStyles, makeStyles} from '@material-ui/styles'
 import {Box, Theme} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
@@ -67,33 +67,25 @@ const Overline = ({
   ...rest
 }: Props) => {
   const [overlineVisible, setOverlineVisible] = useState(false)
+  /**
+   * visible prop is essentially a manual override to the hover functionality. If it's not specified (ie. null) then component falls back to overline on hover. If it's specified (ie. true or false) then hover functionality is ignored.
+   */
   const classes = useStyles({
     lineHeight,
     lineMargin,
     transitionDuration,
     useFullHeight,
-    overlineVisible
+    overlineVisible:
+      visible === null || visible === undefined ? overlineVisible : visible // Can't use OR operator here due to how false is evaluated.
   })
-  /**
-   * visible prop is essentially a manual override to the hover functionality. If it's not specified (ie. null) then component falls back to overline on hover. If it's specified (ie. true or false) then hover functionality is ignored.
-   */
-  useEffect(() => {
-    if (visible !== null) {
-      setOverlineVisible(visible)
-    }
-  }, [visible])
 
   const mouseEnterHandler = useCallback(() => {
-    if (visible === null) {
-      setOverlineVisible(true)
-    }
-  }, [visible])
+    setOverlineVisible(true)
+  }, [])
 
   const mouseLeaveHandler = useCallback(() => {
-    if (visible === null) {
-      setOverlineVisible(false)
-    }
-  }, [visible])
+    setOverlineVisible(false)
+  }, [])
 
   return (
     <Box
