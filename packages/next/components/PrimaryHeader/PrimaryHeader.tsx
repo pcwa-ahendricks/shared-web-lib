@@ -180,15 +180,17 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
               justifyContent="center"
               height="100%"
             >
-              <NextLink
-                href="/"
-                color="primary"
-                variant="button"
-                classes={{root: classes.megaMenuLink}}
-                underline="none"
-              >
-                Home
-              </NextLink>
+              <Box flex="0 0 auto">
+                <NextLink
+                  href="/"
+                  color="primary"
+                  variant="button"
+                  classes={{root: classes.megaMenuLink}}
+                  underline="none"
+                >
+                  Home
+                </NextLink>
+              </Box>
             </Box>
           </Box>
           {menuLinkData.map((menuItem) => (
