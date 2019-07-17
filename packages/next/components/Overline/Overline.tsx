@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {createStyles, makeStyles} from '@material-ui/styles'
-import {Theme} from '@material-ui/core'
+import {Box, Theme} from '@material-ui/core'
+import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'
 
 type Props = {
@@ -10,7 +11,11 @@ type Props = {
   visible?: boolean | null
   useFullHeight?: boolean
   transitionDuration?: string
-}
+} & BoxProps
+
+type UseStylesProps = {
+  overlineVisible: boolean
+} & Partial<Props>
 
 // See https://github.com/IanLunn/Hover/blob/5c9f92d2bcd6414f54b4f926fd4bb231e4ce9fd5/css/hover.css#L2264
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,20 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
       transform: 'perspective(1px) translate3d(0, 0, 0)',
       boxShadow: '0 0 1px rgba(0, 0, 0, 0)',
       position: 'relative',
-      overflow: 'hidden',
-      '&.overlineVisible': {
-        '& $overline': {
-          left: 0,
-          right: 0
-        }
-      }
+      overflow: 'hidden'
     },
-    overline: ({lineHeight, lineMargin, transitionDuration}: Props) => ({
+    overline: ({
+      lineHeight,
+      lineMargin,
+      transitionDuration,
+      overlineVisible
+    }: UseStylesProps) => ({
       content: '',
       position: 'absolute',
       zIndex: -1,
-      left: '51%',
-      right: '51%',
+      left: overlineVisible ? 0 : '51%',
+      right: overlineVisible ? 0 : '51%',
       top: 0,
       background: theme.palette.secondary.main,
       '-webkit-transition-property': 'left, right',
@@ -62,13 +66,14 @@ const Overline = ({
   useFullHeight = false,
   ...rest
 }: Props) => {
+  const [overlineVisible, setOverlineVisible] = useState(false)
   const classes = useStyles({
     lineHeight,
     lineMargin,
     transitionDuration,
-    useFullHeight
+    useFullHeight,
+    overlineVisible
   })
-  const [overlineVisible, setOverlineVisible] = useState(false)
   /**
    * visible prop is essentially a manual override to the hover functionality. If it's not specified (ie. null) then component falls back to overline on hover. If it's specified (ie. true or false) then hover functionality is ignored.
    */
@@ -91,16 +96,16 @@ const Overline = ({
   }, [visible])
 
   return (
-    <div
-      className={clsx(classes.root, classes.dynamicHeight, {overlineVisible})}
+    <Box
+      className={clsx(classes.root, classes.dynamicHeight)}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
     >
-      <div className={classes.overline} />
-      <div {...rest} className={classes.dynamicHeight}>
+      <Box className={classes.overline} />
+      <Box {...rest} className={classes.dynamicHeight}>
         {children}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
