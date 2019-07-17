@@ -7,7 +7,14 @@ import React, {
 } from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 // TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
-import {AppBar, Hidden, IconButton, Toolbar, Theme} from '@material-ui/core'
+import {
+  AppBar,
+  Box,
+  Hidden,
+  IconButton,
+  Toolbar,
+  Theme
+} from '@material-ui/core'
 import {PopperProps} from '@material-ui/core/Popper'
 import {Menu as MenuIcon} from '@material-ui/icons'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
@@ -33,13 +40,6 @@ const menuLinkData = [
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1
-    },
-    grow: {
-      flexGrow: 1
-    },
-    appBar: {},
     logoContainer: {
       height: '100%',
       display: 'flex',
@@ -52,13 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
       logoContainer: {
         display: 'none'
       }
-    },
-    homeLink: {
-      flex: '0 0 auto',
-      alignSelf: 'center',
-      // Margin should match <MegaMenuLink/> linkMargin prop for consistency.
-      marginLeft: '1vw',
-      marginRight: '1vw'
     },
     megaMenuLink: {
       fontWeight: 600,
@@ -116,17 +109,6 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: 'translate3d(-50%, 0, 0)', // Keep arrow centered.
         '-webkit-transform': 'translate3d(-50%, 0 ,0)'
       }
-    },
-    menuLinks: {
-      flex: 'auto',
-      alignSelf: 'stretch',
-      display: 'flex',
-      flexDirection: 'row',
-      width: '100%',
-      justifyContent: 'flex-end'
-    },
-    menuLink: {
-      flex: '0 0 auto'
     }
   })
 )
@@ -187,20 +169,40 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   const megaMenuLinksEl = useMemo(
     () =>
       isXS ? null : (
-        <div className={classes.menuLinks}>
-          <div className={classes.homeLink}>
-            <NextLink
-              href="/"
-              color="primary"
-              variant="button"
-              classes={{root: classes.megaMenuLink}}
-              underline="none"
+        <Box
+          flex="auto"
+          alignSelf="stretch"
+          display="flex"
+          flexDirection="row"
+          width="100%"
+          justifyContent="flex-end"
+          alignItems="stretch"
+        >
+          <Box
+            flex="0 0 auto"
+            // Margin should match <MegaMenuLink/> linkMargin prop for consistency.
+            ml="1vw"
+            mr="1vw"
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              height="100%"
             >
-              Home
-            </NextLink>
-          </div>
+              <NextLink
+                href="/"
+                color="primary"
+                variant="button"
+                classes={{root: classes.megaMenuLink}}
+                underline="none"
+              >
+                Home
+              </NextLink>
+            </Box>
+          </Box>
           {menuLinkData.map((menuItem) => (
-            <div key={menuItem.key} className={classes.menuLink}>
+            <Box flex="0 0 auto" key={menuItem.key}>
               <MegaMenuLink
                 // Logical Or for type checking only.
                 describedbyId={id || undefined}
@@ -217,9 +219,9 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
               >
                 {menuItem.caption}
               </MegaMenuLink>
-            </div>
+            </Box>
           ))}
-        </div>
+        </Box>
       ),
     [
       activeLinkEl,
@@ -239,38 +241,32 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
-        <AppBar
-          color={isXS ? 'primary' : 'default'}
-          className={classes.appBar}
-          position="relative"
-        >
-          <Toolbar variant={toolbarVariant} className={classes.toolbar}>
-            <Hidden smUp implementation="css">
-              <IconButton
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="Menu"
-                onClick={handleMenuButtonClick}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
-            {/* See media query above for class logoContainer. */}
-            {/* <Hidden only="xs" implementation="css"> */}
-            <div className={classes.logoContainer}>
-              <PcwaLogo
-                height="70%"
-                // Setting max width/height prevents strange jank'ing when toolbar variant changes.
-                maxHeight={parentFixed ? 48 : 64}
-                maxWidth={isSM ? 100 : parentFixed ? 140 : 200}
-                missionStatementFill="rgba(0,0,0,0)"
-              />
-            </div>
-            {megaMenuLinksEl}
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar color={isXS ? 'primary' : 'default'} position="relative">
+        <Toolbar variant={toolbarVariant} className={classes.toolbar}>
+          <Hidden smUp implementation="css">
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              onClick={handleMenuButtonClick}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
+          {/* See media query above for class logoContainer. */}
+          {/* <Hidden only="xs" implementation="css"> */}
+          <div className={classes.logoContainer}>
+            <PcwaLogo
+              height="70%"
+              // Setting max width/height prevents strange jank'ing when toolbar variant changes.
+              maxHeight={parentFixed ? 48 : 64}
+              maxWidth={isSM ? 100 : parentFixed ? 140 : 200}
+              missionStatementFill="rgba(0,0,0,0)"
+            />
+          </div>
+          {megaMenuLinksEl}
+        </Toolbar>
+      </AppBar>
       <MegaMenuPopper
         // Logical Or for type checking only.
         id={id || undefined}
