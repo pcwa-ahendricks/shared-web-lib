@@ -24,6 +24,7 @@ import MMContent from '@components/MMContent/MMContent'
 import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
@@ -40,19 +41,6 @@ const menuLinkData = [
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    logoContainer: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start'
-    },
-    // Custom width defined by point at which menu links overlap svg logo.
-    '@media screen and (max-width: 660px)': {
-      logoContainer: {
-        display: 'none'
-      }
-    },
     megaMenuLink: {
       fontWeight: 600,
       textTransform: 'capitalize'
@@ -118,6 +106,8 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  // Custom width defined by point at which menu links overlap svg logo.
+  const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
   const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)
   const [popperOpen, setPopperOpen] = useState<boolean>(false)
   const [activeKey, setActiveKey] = useState<number | null>(null)
@@ -255,7 +245,13 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
           </Hidden>
           {/* See media query above for class logoContainer. */}
           {/* <Hidden only="xs" implementation="css"> */}
-          <div className={classes.logoContainer}>
+          <ColumnBox
+            display={hideLogoQuery ? 'none' : 'flex'}
+            height="100%"
+            width="100%"
+            justifyContent="center"
+            alignItems="flex-start"
+          >
             <PcwaLogo
               height="70%"
               // Setting max width/height prevents strange jank'ing when toolbar variant changes.
@@ -263,7 +259,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
               maxWidth={isSM ? 100 : parentFixed ? 140 : 200}
               missionStatementFill="rgba(0,0,0,0)"
             />
-          </div>
+          </ColumnBox>
           {megaMenuLinksEl}
         </Toolbar>
       </AppBar>
