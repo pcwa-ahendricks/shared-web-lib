@@ -7,25 +7,20 @@ import React from 'react'
 type Props = {
   height?: string | number
   width?: string | number
-  maxHeight?: string | number
-  maxWidth?: string | number
   preserveAspectRatio?: string
-  style?: any
-}
+  style?: React.CSSProperties
+} & React.SVGProps<SVGSVGElement>
 
 const HeroOverlay = ({
   height,
   width,
-  maxHeight,
-  maxWidth,
-  style,
-  preserveAspectRatio = 'xMinYMid meet'
+  preserveAspectRatio = 'xMinYMid meet',
+  ...rest
 }: Props) => {
   return (
     <React.Fragment>
       {/* <?xml version="1.0" encoding="UTF-8"?> */}
       <svg
-        style={{...style, maxWidth: maxWidth, maxHeight: maxHeight}}
         preserveAspectRatio={preserveAspectRatio}
         width={width}
         height={height}
@@ -33,6 +28,7 @@ const HeroOverlay = ({
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
+        {...rest}
       >
         {/* Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch */}
         <title>Text</title>

@@ -49,7 +49,17 @@ const Index = () => {
             right={0}
             left={0}
           >
-            <HeroOverlay height="100%" />
+            <HeroOverlay
+              height="100%"
+              style={{
+                position: 'absolute',
+                margin: 'auto',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                top: 0
+              }}
+            />
           </ColumnBox>
         </Fade>
       </ImgixFancyParallaxBanner>
