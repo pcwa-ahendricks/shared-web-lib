@@ -19,7 +19,6 @@ const ImgixFancyParallaxBanner = ({
 }: Props) => {
   return (
     <ParallaxBanner
-      // className={classes.root}
       layers={[
         {
           children: <ImgixFancy {...imgixFancyProps} onLoad={onImgLoad} />,
