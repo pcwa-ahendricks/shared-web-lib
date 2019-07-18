@@ -6,7 +6,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import {Box, Fade, Hidden, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox} from '@components/boxes/FlexBox'
 
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -40,8 +40,8 @@ const Index = () => {
         onImgLoad={() => setHeroOverlayIn(true)}
       >
         <Fade timeout={2000} in={heroOverlayIn}>
-          <ColumnBox
-            justifyContent="center"
+          <RowBox
+            justifyContent="space-around"
             alignItems="center"
             position="absolute"
             top={0}
@@ -52,15 +52,10 @@ const Index = () => {
             <HeroOverlay
               height="100%"
               style={{
-                position: 'absolute',
-                margin: 'auto',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                top: 0
+                flex: '0 0 auto'
               }}
             />
-          </ColumnBox>
+          </RowBox>
         </Fade>
       </ImgixFancyParallaxBanner>
       <Hidden only="xs" implementation="css">
