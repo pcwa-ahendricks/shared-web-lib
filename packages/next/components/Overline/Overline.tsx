@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
       transitionDuration,
       overlineVisible
     }: UseStylesProps) => ({
-      content: '',
       position: 'absolute',
       zIndex: -1,
       left: overlineVisible ? 0 : '51%',
