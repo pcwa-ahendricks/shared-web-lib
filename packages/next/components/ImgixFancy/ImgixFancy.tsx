@@ -62,7 +62,7 @@ const useStyles = makeStyles({
     '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {
       /* IE10+ specific styles go here */
       '& .ls-blur-up-img': {
-        opacity: 0
+        display: 'none'
       }
     }
   }

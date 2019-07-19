@@ -24,7 +24,7 @@ import MMContent from '@components/MMContent/MMContent'
 import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
@@ -97,6 +97,17 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: 'translate3d(-50%, 0, 0)', // Keep arrow centered.
         '-webkit-transform': 'translate3d(-50%, 0 ,0)'
       }
+    },
+    /*
+      HACK - Logo is pushing out the rest of the primary nav menu off the page for some reason in IE. This is the fix for IE.
+    */
+    fixIe: {
+      '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {
+        /* IE10+ specific styles go here */
+        position: 'absolute',
+        top: 0,
+        bottom: 0
+      }
     }
   })
 )
@@ -159,11 +170,9 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   const megaMenuLinksEl = useMemo(
     () =>
       isXS ? null : (
-        <Box
+        <RowBox
           flex="auto"
           alignSelf="stretch"
-          display="flex"
-          flexDirection="row"
           width="100%"
           justifyContent="flex-end"
           alignItems="stretch"
@@ -174,12 +183,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
             ml="1vw"
             mr="1vw"
           >
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              height="100%"
-            >
+            <ColumnBox justifyContent="center" height="100%">
               <Box flex="0 0 auto">
                 <NextLink
                   href="/"
@@ -191,7 +195,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
                   Home
                 </NextLink>
               </Box>
-            </Box>
+            </ColumnBox>
           </Box>
           {menuLinkData.map((menuItem) => (
             <Box flex="0 0 auto" key={menuItem.key}>
@@ -213,7 +217,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
               </MegaMenuLink>
             </Box>
           ))}
-        </Box>
+        </RowBox>
       ),
     [
       activeLinkEl,
@@ -253,6 +257,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
             width="100%"
             justifyContent="center"
             alignItems="flex-start"
+            className={classes.fixIe}
           >
             <PcwaLogo
               height="70%"
