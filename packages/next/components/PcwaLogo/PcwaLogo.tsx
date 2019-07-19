@@ -5,42 +5,30 @@ import React from 'react'
  */
 
 type Props = {
-  height?: string | number
-  width?: string | number
-  maxHeight?: string | number
-  maxWidth?: string | number
-  style?: any
   missionStatementFill?: string
   logoRightFill?: string
   brandFill?: string
   logoLeftFill?: string
-  preserveAspectRatio?: string
-}
+} & React.SVGProps<SVGSVGElement>
 
 const PcwaLogo = ({
-  height,
-  maxHeight,
-  width,
-  maxWidth,
-  style,
   brandFill = '#12456E',
   missionStatementFill = '#72B549',
   logoLeftFill = '#12456E',
   logoRightFill = '#72B549',
-  preserveAspectRatio = 'xMinYMid meet'
+  preserveAspectRatio = 'xMinYMid meet',
+  ...rest
 }: Props) => {
   return (
     <React.Fragment>
       {/* <?xml version="1.0" encoding="UTF-8" standalone="no"?>  */}
       <svg
-        style={{...style, maxWidth: maxWidth, maxHeight: maxHeight}}
-        width={width}
-        height={height}
         viewBox="0 0 586 157"
         preserveAspectRatio={preserveAspectRatio}
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
+        {...rest}
       >
         {/* Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch */}
         <title>Logo</title>

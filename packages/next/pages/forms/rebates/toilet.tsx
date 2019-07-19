@@ -861,8 +861,10 @@ const Toilet = () => {
           <div className={classes.logoContainer}>
             <PcwaLogo
               height="70%"
-              maxHeight={48}
-              maxWidth={200}
+              style={{
+                maxHeight: 48,
+                maxWidth: 200
+              }}
               missionStatementFill="rgba(0,0,0,0)"
             />
           </div>

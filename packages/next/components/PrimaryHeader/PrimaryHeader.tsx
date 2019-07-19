@@ -257,8 +257,10 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
             <PcwaLogo
               height="70%"
               // Setting max width/height prevents strange jank'ing when toolbar variant changes.
-              maxHeight={parentFixed ? 48 : 64}
-              maxWidth={isSM ? 100 : parentFixed ? 140 : 200}
+              style={{
+                maxHeight: parentFixed ? 48 : 64,
+                maxWidth: isSM ? 100 : parentFixed ? 140 : 200
+              }}
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
