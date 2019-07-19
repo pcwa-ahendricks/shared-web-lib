@@ -106,7 +106,13 @@ const useStyles = makeStyles((theme: Theme) =>
         /* IE10+ specific styles go here */
         position: 'absolute',
         top: 0,
-        bottom: 0
+        right: 0,
+        bottom: 0,
+        left: 0,
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        marginRight: 'auto',
+        marginLeft: theme.spacing(3)
       }
     }
   })
