@@ -1,5 +1,4 @@
-// cspell:ignore addtl mnfg USBR
-import React, {useState, useCallback, useMemo, useEffect} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import {
   Button,
   CircularProgress,
@@ -11,45 +10,46 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
-import {string, object, array, StringSchema} from 'yup'
-import clsx from 'clsx'
+import {string, object, StringSchema} from 'yup'
 import {
   postRebateForm,
-  WashingMachineRebateFormData as RebateFormData,
-  WashingMachineRequestBody as RequestBody
+  LawnReplacementRequestBody as RequestBody,
+  LawnReplacementRebateFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
+import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
+import FirstNameField from '@components/formFields/FirstNameField'
+import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
+import IrrigationMethodSelect from '@components/formFields/IrrigationMethodSelect'
 import OtherCityField from '@components/formFields/OtherCityField'
-import WashMachineCeeRadioField from '@components/formFields/WashMachineCeeRadioField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import FormTextField from '@components/formFields/FormTextField'
-import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
-import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
-import WashEffEligibilityDialog from '@components/formFields/WashEffEligibilityDialog'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
+import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
+import ArtTurfSelect from '@components/formFields/ArtTurfSelect'
+import AlreadyStartedSelect from '@components/formFields/AlreadyStartedSelect'
+import isNumber from 'is-number'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
-import delay from 'then-sleep'
+import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
+import FormTextField from '@components/formFields/FormTextField'
 import {RowBox} from '@components/boxes/FlexBox'
-// Loading Recaptcha with Next dynamic isn't necessary.
-// import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
 const isDev = process.env.NODE_ENV === 'development'
-const SERVICE_URI_PATH = 'washing-machine-rebate'
+const SERVICE_URI_PATH = 'contact-info'
 
 const formSchema = object()
   .camelCase()
@@ -97,29 +97,6 @@ const formSchema = object()
         ['Yes'], // "Yes", "No"
         'You must be a current Placer County Water Agency treated water customer'
       ),
-    existingHigh: string()
-      .required()
-      .label('Replacing Existing High-Efficiency Washer')
-      .oneOf(
-        ['No'], // "Yes", "No"
-        'Replacement of an existing high efficiency washer is not covered by rebate'
-      ),
-    newConstruction: string()
-      .required()
-      .label('New Construction')
-      .oneOf(
-        ['No'], // "Yes", "No"
-        'New constructions are not eligible for rebate'
-      ),
-    manufacturer: string()
-      .required()
-      .label('Washing Machine Manufacturer'),
-    model: string()
-      .required()
-      .label('Washing Machine Model'),
-    ceeQualify: string()
-      .required()
-      .label('CEE Tier 3 Water Factor'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -127,6 +104,13 @@ const formSchema = object()
         'Must agree to Terms and Conditions by checking this box'
       )
       .label('Agree to Terms'),
+    inspectAgree: string()
+      .required()
+      .oneOf(
+        ['true'],
+        'Must agree to a scheduled site inspection by checking this box'
+      )
+      .label('Agree to Site Inspection'),
     signature: string()
       .required()
       .label('Your signature'),
@@ -136,31 +120,42 @@ const formSchema = object()
     comments: string()
       .max(200, 'Comments must be less than 200 characters.')
       .label('Comments'),
-    receipts: array()
-      .required('Must provide receipt(s) or proof of purchase')
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
-        })
-      ),
-    installPhotos: array()
-      .required('Must provide photo(s) of installed washing machine')
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
-        })
+    useArtTurf: string()
+      .required()
+      .oneOf(
+        ['false'],
+        'Artificial grass is not allowed in the rebated portion of the converted landscape'
+      )
+      .label('Replace lawn with artificial turf'),
+    alreadyStarted: string()
+      .required()
+      .label('Project Status'),
+    // .oneOf(
+    //   ['false'],
+    //   "Conversions that are initiated prior to PCWA's approval are ineligible"
+    // )
+    // .label('Already started replacement of lawn'),
+    approxSqFeet: string()
+      .required()
+      .test(
+        'min-sq-feet',
+        'A minimum of 300 square feet of lawn must be converted',
+        (val: string): boolean => {
+          const stripped = val && val.replace(/[^0-9.]/, '')
+          if (isNumber(stripped)) {
+            const valAsNo = Math.round(parseFloat(stripped))
+            return valAsNo >= 300
+          }
+          return false
+        }
+      )
+      .label('Approximate Square Feet of Existing Lawn'),
+    irrigMethod: string()
+      .required()
+      .label('Irrigation Method')
+      .notOneOf(
+        ['Hand water'], // Case sensitive
+        'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
       )
   })
 
@@ -175,40 +170,25 @@ const initialFormValues: RebateFormData = {
   phone: '',
   propertyType: '',
   treatedCustomer: '',
-  existingHigh: '',
-  newConstruction: '',
-  manufacturer: '',
-  model: '',
-  ceeQualify: '',
   termsAgree: '',
+  inspectAgree: '',
   signature: '',
   captcha: '',
   comments: '',
-  receipts: [],
-  installPhotos: []
+  irrigMethod: '',
+  approxSqFeet: '',
+  useArtTurf: '',
+  alreadyStarted: ''
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // formikContainer: {
-    //   height: '100%',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   width: '100%'
-    // },
     form: {
       display: 'flex',
       flexDirection: 'column',
       margin: 'auto',
       // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
       width: '100%'
-    },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
     },
     buttonWrapper: {
       flex: '0 0 auto', // IE fix
@@ -248,32 +228,23 @@ const useStyles = makeStyles((theme: Theme) =>
       flexBasis: 'auto',
       flexGrow: 0,
       flexShrink: 0
-    },
-    reserveRight: {
-      marginTop: theme.spacing(3)
     }
   })
 )
-const WashingMachine = () => {
+
+const LawnReplacement = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<RebateFormData>(
     initialFormValues
   )
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [installPhotosIsUploading, setInstallPhotosIsUploading] = useState<
-    boolean
-  >(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
     boolean
   >(false)
-  const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
-    false
-  )
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
@@ -281,29 +252,12 @@ const WashingMachine = () => {
     boolean
   >(false)
 
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
-    setReceiptIsUploading(isUploading)
-  }, [])
-
-  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setInstallPhotosIsUploading(isUploading)
-  }, [])
-
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
     setProvidedEmail('')
   }, [])
-
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
-  }, [])
-
-  useEffect(() => {
-    const fn = async () => {
-      await delay(800)
-      setEligibilityDialogOpen(true)
-    }
-    fn()
   }, [])
 
   const mainEl = useMemo(
@@ -321,13 +275,11 @@ const WashingMachine = () => {
             mb={5}
           >
             <Type variant="h1" color="primary" gutterBottom>
-              Water Efficiency Rebate Form
+              Update Contact Information Form
             </Type>
 
             <Type variant="h3" color="primary" gutterBottom>
-              High-Efficiency Clothes Washing Machine
-              {/* PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient
-                Clothes Washing Machine */}
+              Customer Account
             </Type>
 
             <Formik
@@ -360,8 +312,8 @@ const WashingMachine = () => {
                   touched = {},
                   dirty,
                   isSubmitting,
-                  errors,
                   // isValid,
+                  errors,
                   setFieldValue
                 } = formik
 
@@ -369,6 +321,7 @@ const WashingMachine = () => {
                   setFormIsDirty(dirty)
                   setShouldConfirmRouteChange(Boolean(dirty))
                 }
+
                 if (values !== formValues) {
                   setFormValues(values)
                 }
@@ -376,8 +329,9 @@ const WashingMachine = () => {
                 // Check if user is in-eligible for rebate and disable all form controls if so.
                 const rebateIneligibility = [
                   errors['treatedCustomer'],
-                  errors['existingHigh'],
-                  errors['newConstruction']
+                  errors['useArtTurf'],
+                  errors['approxSqFeet'],
+                  errors['irrigMethod']
                 ].some(Boolean)
                 if (rebateIneligibility !== ineligible) {
                   setIneligible(rebateIneligibility)
@@ -393,15 +347,9 @@ const WashingMachine = () => {
                 )
 
                 // If city field is updated clear out otherCity field.
-                const cityChangeHandler = (evt: any) => {
-                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                  if (evt.target.value.toLowerCase() !== 'other') {
-                    setFieldValue('otherCity', '')
-                  }
+                const cityChangeHandler = () => {
+                  setFieldValue('otherCity', '')
                 }
-
-                const attachmentsAreUploading =
-                  receiptIsUploading || installPhotosIsUploading
 
                 return (
                   <React.Fragment>
@@ -418,22 +366,16 @@ const WashingMachine = () => {
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={6}>
                             <Field
-                              required
                               disabled={ineligible}
                               name="firstName"
-                              label="First Name"
-                              autoComplete="billing given-name"
-                              component={FormTextField}
+                              component={FirstNameField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <Field
-                              required
                               disabled={ineligible}
                               name="lastName"
-                              label="Last Name"
-                              autoComplete="billing family-name"
-                              component={FormTextField}
+                              component={LastNameField}
                             />
                           </Grid>
                         </Grid>
@@ -458,16 +400,16 @@ const WashingMachine = () => {
                         <Grid container spacing={5} justify="space-between">
                           <Grid item xs={12} sm={8}>
                             <Field
-                              disabled={ineligible}
                               name="address"
+                              disabled={ineligible}
                               component={StreetAddressField}
                             />
                           </Grid>
 
                           <Grid item xs={12} sm={4}>
                             <Field
-                              disabled={ineligible}
                               name="city"
+                              disabled={ineligible}
                               onChange={cityChangeHandler}
                               component={CitySelectField}
                             />
@@ -478,8 +420,8 @@ const WashingMachine = () => {
                           <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Field
-                                disabled={!otherCitySelected || ineligible}
                                 name="otherCity"
+                                disabled={!otherCitySelected || ineligible}
                                 component={OtherCityField}
                               />
                             </Grid>
@@ -490,15 +432,15 @@ const WashingMachine = () => {
                           <Grid item xs={12} sm={6}>
                             <Field
                               name="phone"
-                              disabled={ineligible}
                               component={PhoneNoField}
+                              disabled={ineligible}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <Field
                               name="email"
-                              disabled={ineligible}
                               component={EmailField}
+                              disabled={ineligible}
                             />
                           </Grid>
                         </Grid>
@@ -517,35 +459,16 @@ const WashingMachine = () => {
                         </Type>
 
                         <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled={ineligible}
-                              name="manufacturer"
-                              label="Washing Machine Manufacturer"
-                              component={FormTextField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled={ineligible}
-                              name="model"
-                              label="Washing Machine Model"
-                              component={FormTextField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
                           <Grid item xs={12}>
                             <Field
+                              name="alreadyStarted"
                               disabled={ineligible}
-                              name="ceeQualify"
-                              component={WashMachineCeeRadioField}
+                              component={AlreadyStartedSelect}
                             />
                           </Grid>
                         </Grid>
 
-                        <Grid container spacing={5} justify="space-between">
+                        <Grid container spacing={5}>
                           <Grid item xs={12} sm={6}>
                             <Field
                               disabled
@@ -559,24 +482,27 @@ const WashingMachine = () => {
                           <Grid item xs={12} sm={6}>
                             <Field
                               disabled
-                              name="existingHigh"
-                              inputLabel="Existing High Efficiency Washer"
-                              inputId="existing-high-efficiency-washer-select"
-                              labelWidth={255}
-                              component={YesNoSelectField}
+                              name="useArtTurf"
+                              component={ArtTurfSelect}
                             />
                           </Grid>
                         </Grid>
 
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={6}>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={8}>
                             <Field
                               disabled
-                              name="newConstruction"
-                              inputLabel="For New Construction"
-                              inputId="for-new-construction-select"
-                              labelWidth={178}
-                              component={YesNoSelectField}
+                              name="approxSqFeet"
+                              component={LawnApproxSqFootField}
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              disabled
+                              name="irrigMethod"
+                              component={IrrigationMethodSelect}
                             />
                           </Grid>
                         </Grid>
@@ -599,43 +525,6 @@ const WashingMachine = () => {
 
                       <div className={classes.formGroup}>
                         <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Provide Attachments
-                        </Type>
-
-                        <div className={clsx(classes.dropzoneContainer)}>
-                          <Field
-                            disabled={ineligible}
-                            name="receipts"
-                            attachmentTitle="Receipt"
-                            uploadFolder="washing-machine"
-                            onIsUploadingChange={receiptIsUploadingHandler}
-                            component={AttachmentField}
-                          />
-                        </div>
-
-                        <div className={clsx(classes.dropzoneContainer)}>
-                          <Field
-                            disabled={ineligible}
-                            name="installPhotos"
-                            attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
-                            uploadFolder="washing-machine"
-                            onIsUploadingChange={
-                              installPhotosIsUploadingHandler
-                            }
-                            component={AttachmentField}
-                          />
-                        </div>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
                           color="textSecondary"
                           variant="h4"
                           gutterBottom
@@ -644,53 +533,38 @@ const WashingMachine = () => {
                           Acknowledge Terms & Conditions
                         </Type>
                         <Grid container direction="column" spacing={1}>
+                          {/* <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                          </Grid> */}
                           <Grid
                             item
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
                             <ReviewTermsConditions
-                              pageCount={2}
-                              fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://cosmic-s3.imgix.net/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
+                              pageCount={3}
+                              fileName="Lawn-Replacement-Terms-and-Conditions.pdf"
+                              termsConditionsUrl="https://cosmic-s3.imgix.net/cedb8680-943d-11e9-85db-d593262c2934-Lawn-Replacement-Terms-and-Conditions.pdf"
                             />
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
-                            >
-                              <em>
-                                I have read, understand, and agree to the{' '}
-                                {/* <Link
-                                    variant="inherit"
-                                    href="https://cdn.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  > */}
-                                {/* PCWA/USBR Energy Star® Residential/Multi
-                                    Family Water-Efficient Clothes Washing
-                                    Machine Rebate Terms and Conditions. */}
-                                High-Efficiency Clothes Washing Machine Rebate
-                                Terms and Conditions.
-                                {/* </Link> */}
-                              </em>
-                            </Type>
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
-                            >
-                              <em>
-                                I understand that PCWA reserves the right to
-                                have an Agency representative verify the
-                                installation of the product(s) at the service
-                                address on the application.
-                              </em>
+                            <Field
+                              name="termsAgree"
+                              disabled={ineligible}
+                              component={AgreeTermsCheckbox}
+                            />
+                            <Type variant="body1">
+                              You must agree to participate in a pre-conversion
+                              site inspection conducted by PCWA prior to the
+                              removal of any lawn. You may not be required to be
+                              present; arrangements will be made by a PCWA Water
+                              Efficiency Specialist.
                             </Type>
                             <Field
+                              name="inspectAgree"
                               disabled={ineligible}
-                              name="termsAgree"
-                              component={AgreeTermsCheckbox}
+                              component={AgreeInspectionCheckbox}
                             />
                           </Grid>
                         </Grid>
@@ -714,24 +588,23 @@ const WashingMachine = () => {
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
-                            <Type
-                              variant="body1"
-                              paragraph
-                              color="primary"
-                            ></Type>
+                            {/* TODO - Need new wording from Cassandra. */}
                             <Type variant="body1" paragraph color="primary">
-                              Placer County Water Agency (PCWA) reserves the
-                              right to deny an application of any participant
-                              who does not meet all requirements as outlined.
-                              PCWA reserves the right to change the terms of
-                              this program at their discretion. PCWA cannot
-                              guarantee that the installation of the product(s)
-                              will result in lower water utility costs. The
-                              number of rebates is dependent upon the
-                              availability of program funds. Applications will
-                              be processed when all required information is
-                              provided by the applicant on a first-come,
-                              first-served basis.
+                              PCWA may deny any application that does not meet
+                              all of the Program requirements. PCWA reserves the
+                              right to alter the Program at any time. PCWA does
+                              not warrant or guarantee lower water bills as a
+                              result of participating in the Program. PCWA is
+                              not responsible for any damage that may occur to
+                              participants' property as a result of this
+                              Program. The undersigned agrees to hold harmless
+                              PCWA, its directors, officers, and employees from
+                              and against all loss, damage, expense and
+                              liability resulting from or otherwise relating to
+                              the installation of water efficient landscape. By
+                              signing this form I agree that I have read,
+                              understand, and agree to the Terms and Conditions
+                              of this rebate program.
                             </Type>
                           </Grid>
 
@@ -744,8 +617,8 @@ const WashingMachine = () => {
                               You must sign this form by typing your name
                             </Type>
                             <Field
-                              disabled={ineligible}
                               name="signature"
+                              disabled={ineligible}
                               component={SignatureField}
                             />
                           </Grid>
@@ -756,13 +629,34 @@ const WashingMachine = () => {
                             className={classes.ieFixFlexColumnDirection}
                           >
                             <Field
-                              disabled={ineligible}
                               name="captcha"
+                              disabled={ineligible}
                               component={RecaptchaField}
                             />
                           </Grid>
                         </Grid>
                       </div>
+
+                      {/* For debugging form reset */}
+                      {/* <Button
+                      variant="outlined"
+                      type="submit"
+                      onClick={handleReset}
+                    >
+                      Reset Form
+                    </Button> */}
+
+                      {/* For debugging dialog */}
+                      {/* <Button
+                        variant="outlined"
+                        type="submit"
+                        onClick={() => {
+                          setProvidedEmail(values.email)
+                          setFormSubmitDialogOpen(true)
+                        }}
+                      >
+                        Show Dialog
+                      </Button> */}
 
                       <div className={classes.buttonWrapper}>
                         <Button
@@ -771,11 +665,10 @@ const WashingMachine = () => {
                           color="primary"
                           type="submit"
                           disabled={
-                            ineligible ||
                             isSubmitting ||
                             // !isValid ||
-                            (!formTouched && !dirty) ||
-                            attachmentsAreUploading
+                            ineligible ||
+                            (!formTouched && !dirty)
                           }
                         >
                           Submit Application
@@ -788,11 +681,6 @@ const WashingMachine = () => {
                         )}
                       </div>
                     </FormBox>
-
-                    <WashEffEligibilityDialog
-                      open={eligibilityDialogOpen}
-                      onClose={() => setEligibilityDialogOpen(false)}
-                    />
                   </React.Fragment>
                 )
               }}
@@ -805,31 +693,17 @@ const WashingMachine = () => {
         </RowBox>
       </React.Fragment>
     ),
-    [
-      classes,
-      formIsDirty,
-      formValues,
-      formIsTouched,
-      receiptIsUploading,
-      receiptIsUploadingHandler,
-      installPhotosIsUploading,
-      installPhotosIsUploadingHandler,
-      eligibilityDialogOpen,
-      ineligible
-    ]
+    [classes, formIsDirty, formValues, formIsTouched, ineligible]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const washingMachineEl = useMemo(
+  const lawnReplacementEl = useMemo(
     () =>
       !isDev ? (
         <React.Fragment>
           <Head>
             <title>Rebate Form</title>
-            <meta
-              name="description"
-              content="PCWA Water Efficiency Rebate Form"
-            />
+            <meta name="description" content="Update Contact Info Form" />
           </Head>
           <div className={classes.logoContainer}>
             <PcwaLogo
@@ -845,7 +719,7 @@ const WashingMachine = () => {
         </React.Fragment>
       ) : (
         // <React.Fragment>
-        <PageLayout title="Washing Machine Rebate Form">{mainEl}</PageLayout>
+        <PageLayout title="Update Contact Info Form">{mainEl}</PageLayout>
       ),
     [mainEl, classes]
   )
@@ -856,12 +730,13 @@ const WashingMachine = () => {
       onDialogLeave={() => setShouldConfirmRouteChange(false)}
       shouldConfirmRouteChange={shouldConfirmRouteChange}
     >
-      {washingMachineEl}
+      {lawnReplacementEl}
+
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient Clothes Washing Machine Rebate Application"
+        description="Lawn Replacement Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError
@@ -873,4 +748,4 @@ const WashingMachine = () => {
   )
 }
 
-export default WashingMachine
+export default LawnReplacement

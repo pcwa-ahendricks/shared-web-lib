@@ -46,6 +46,7 @@ import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
+import {RowBox} from '@components/boxes/FlexBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -202,21 +203,6 @@ const initialFormValues: RebateFormData = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
-      maxWidth: 650,
-      display: 'block', // IE fix
-      // left: '20vw',
-      // right: '20vw',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    '@media screen and (min-width: 600px) and (max-width: 725px)': {
-      main: {
-        maxWidth: '90%'
-      }
-    },
     // formikContainer: {
     //   height: '100%',
     //   display: 'flex',
@@ -353,483 +339,487 @@ const Toilet = () => {
     () => (
       <React.Fragment>
         <WaterSurfaceImg />
-        <Grid container justify="space-around" direction="row">
-          <Grid item xs={11} sm={12}>
-            <MainBox className={classes.main}>
-              <Type variant="h1" color="primary" gutterBottom>
-                Water Efficiency Rebate Form
-              </Type>
+        <RowBox justifyContent="space-around">
+          <MainBox
+            flex="auto"
+            maxWidth={650}
+            display="block" // IE fix
+            ml="5%"
+            mr="5%"
+            mt={5}
+            mb={5}
+          >
+            <Type variant="h1" color="primary" gutterBottom>
+              Water Efficiency Rebate Form
+            </Type>
 
-              <Type variant="h3" color="primary" gutterBottom>
-                High Efficiency Toilet/Urinal
-              </Type>
+            <Type variant="h3" color="primary" gutterBottom>
+              High Efficiency Toilet/Urinal
+            </Type>
 
-              <Formik
-                initialValues={initialFormValues}
-                validationSchema={formSchema}
-                onSubmit={async (values: RebateFormData, actions) => {
-                  try {
-                    // console.log(values, actions)
-                    setProvidedEmail(values.email)
-                    const body: RequestBody = {
-                      formData: {...values}
-                    }
-                    await postRebateForm(SERVICE_URI_PATH, body)
-                    actions.setSubmitting(false)
-                    // Reset Form
-                    setIneligible(false)
-                    actions.resetForm() // Strictly Formik
-                    setFormSubmitDialogOpen(true)
-                  } catch (error) {
-                    console.warn('An error occurred submitting form.', error)
-                    setErrorMessage(error.message)
-                    setFormSubmitDialogErrorOpen(true)
-                    actions.setSubmitting(false)
+            <Formik
+              initialValues={initialFormValues}
+              validationSchema={formSchema}
+              onSubmit={async (values: RebateFormData, actions) => {
+                try {
+                  // console.log(values, actions)
+                  setProvidedEmail(values.email)
+                  const body: RequestBody = {
+                    formData: {...values}
                   }
-                }}
-              >
-                {(formik) => {
-                  const {
-                    values,
-                    touched = {},
-                    dirty,
-                    isSubmitting,
-                    errors,
-                    // isValid,
-                    setFieldValue
-                  } = formik
+                  await postRebateForm(SERVICE_URI_PATH, body)
+                  actions.setSubmitting(false)
+                  // Reset Form
+                  setIneligible(false)
+                  actions.resetForm() // Strictly Formik
+                  setFormSubmitDialogOpen(true)
+                } catch (error) {
+                  console.warn('An error occurred submitting form.', error)
+                  setErrorMessage(error.message)
+                  setFormSubmitDialogErrorOpen(true)
+                  actions.setSubmitting(false)
+                }
+              }}
+            >
+              {(formik) => {
+                const {
+                  values,
+                  touched = {},
+                  dirty,
+                  isSubmitting,
+                  errors,
+                  // isValid,
+                  setFieldValue
+                } = formik
 
-                  if (dirty !== formIsDirty) {
-                    setFormIsDirty(dirty)
-                    setShouldConfirmRouteChange(Boolean(dirty))
+                if (dirty !== formIsDirty) {
+                  setFormIsDirty(dirty)
+                  setShouldConfirmRouteChange(Boolean(dirty))
+                }
+                if (values !== formValues) {
+                  setFormValues(values)
+                }
+
+                // Check if user is in-eligible for rebate and disable all form controls if so.
+                const rebateIneligibility = [
+                  errors['treatedCustomer'],
+                  errors['builtPriorCutoff']
+                ].some(Boolean)
+                if (rebateIneligibility !== ineligible) {
+                  setIneligible(rebateIneligibility)
+                }
+
+                // Use state to save a boolean version of 'touched'.
+                const formTouched = Object.keys(touched).length > 0
+                if (formTouched !== formIsTouched) {
+                  setFormIsTouched(formTouched)
+                }
+                const otherCitySelected = Boolean(
+                  values.city && values.city.toLowerCase() === 'other'
+                )
+
+                // If city field is updated clear out otherCity field.
+                const cityChangeHandler = (evt: any) => {
+                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
+                  if (evt.target.value.toLowerCase() !== 'other') {
+                    setFieldValue('otherCity', '')
                   }
-                  if (values !== formValues) {
-                    setFormValues(values)
-                  }
+                }
 
-                  // Check if user is in-eligible for rebate and disable all form controls if so.
-                  const rebateIneligibility = [
-                    errors['treatedCustomer'],
-                    errors['builtPriorCutoff']
-                  ].some(Boolean)
-                  if (rebateIneligibility !== ineligible) {
-                    setIneligible(rebateIneligibility)
-                  }
+                const attachmentsAreUploading =
+                  receiptIsUploading || installPhotosIsUploading
 
-                  // Use state to save a boolean version of 'touched'.
-                  const formTouched = Object.keys(touched).length > 0
-                  if (formTouched !== formIsTouched) {
-                    setFormIsTouched(formTouched)
-                  }
-                  const otherCitySelected = Boolean(
-                    values.city && values.city.toLowerCase() === 'other'
-                  )
+                return (
+                  <React.Fragment>
+                    <FormBox className={classes.form}>
+                      <div className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Contact Information
+                        </Type>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              required
+                              disabled={ineligible}
+                              name="firstName"
+                              label="First Name"
+                              autoComplete="billing given-name"
+                              component={FormTextField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              required
+                              disabled={ineligible}
+                              name="lastName"
+                              label="Last Name"
+                              autoComplete="billing family-name"
+                              component={FormTextField}
+                            />
+                          </Grid>
+                        </Grid>
 
-                  // If city field is updated clear out otherCity field.
-                  const cityChangeHandler = (evt: any) => {
-                    // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                    if (evt.target.value.toLowerCase() !== 'other') {
-                      setFieldValue('otherCity', '')
-                    }
-                  }
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={7}>
+                            <Field
+                              disabled={ineligible}
+                              name="accountNo"
+                              component={AccountNoField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={5}>
+                            <Field
+                              disabled={ineligible}
+                              name="propertyType"
+                              component={PropertyTypeSelectField}
+                            />
+                          </Grid>
+                        </Grid>
 
-                  const attachmentsAreUploading =
-                    receiptIsUploading || installPhotosIsUploading
-
-                  return (
-                    <React.Fragment>
-                      <FormBox className={classes.form}>
-                        <div className={classes.formGroup}>
-                          <Type
-                            color="textSecondary"
-                            variant="h4"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            Contact Information
-                          </Type>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                required
-                                disabled={ineligible}
-                                name="firstName"
-                                label="First Name"
-                                autoComplete="billing given-name"
-                                component={FormTextField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                required
-                                disabled={ineligible}
-                                name="lastName"
-                                label="Last Name"
-                                autoComplete="billing family-name"
-                                component={FormTextField}
-                              />
-                            </Grid>
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12} sm={8}>
+                            <Field
+                              disabled={ineligible}
+                              name="address"
+                              component={StreetAddressField}
+                            />
                           </Grid>
 
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={7}>
-                              <Field
-                                disabled={ineligible}
-                                name="accountNo"
-                                component={AccountNoField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                              <Field
-                                disabled={ineligible}
-                                name="propertyType"
-                                component={PropertyTypeSelectField}
-                              />
-                            </Grid>
+                          <Grid item xs={12} sm={4}>
+                            <Field
+                              disabled={ineligible}
+                              name="city"
+                              onChange={cityChangeHandler}
+                              component={CitySelectField}
+                            />
                           </Grid>
+                        </Grid>
 
-                          <Grid container spacing={5} justify="space-between">
-                            <Grid item xs={12} sm={8}>
-                              <Field
-                                disabled={ineligible}
-                                name="address"
-                                component={StreetAddressField}
-                              />
-                            </Grid>
-
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                disabled={ineligible}
-                                name="city"
-                                onChange={cityChangeHandler}
-                                component={CitySelectField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <WaitToGrow isIn={otherCitySelected}>
-                            <Grid container spacing={5}>
-                              <Grid item xs={12}>
-                                <Field
-                                  disabled={!otherCitySelected || ineligible}
-                                  name="otherCity"
-                                  component={OtherCityField}
-                                />
-                              </Grid>
-                            </Grid>
-                          </WaitToGrow>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="phone"
-                                disabled={ineligible}
-                                component={PhoneNoField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="email"
-                                disabled={ineligible}
-                                component={EmailField}
-                              />
-                            </Grid>
-                          </Grid>
-                        </div>
-
-                        <Divider variant="middle" />
-
-                        <div className={classes.formGroup}>
-                          <Type
-                            variant="h4"
-                            color="textSecondary"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            Rebate Information
-                          </Type>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={7}>
-                              <Field
-                                disabled={ineligible}
-                                required
-                                name="noOfToilets"
-                                label="Number of Toilets/Urinals Installed"
-                                component={FormTextField}
-                                type="number"
-                                inputProps={{
-                                  min: MIN_TOILETS,
-                                  max: MAX_TOILETS
-                                }}
-                              />
-                            </Grid>
-                          </Grid>
-                          <FieldArray
-                            name="manufacturerModel"
-                            render={(arrayHelpers) => (
-                              <ToiletMfgModelsField
-                                {...arrayHelpers}
-                                disabled={ineligible}
-                              />
-                            )}
-                          />
-
-                          <Grid container spacing={5} justify="space-between">
-                            <Grid item xs={12} sm={8}>
-                              <Field
-                                disabled={ineligible}
-                                name="watersenseApproved"
-                                toiletCount={
-                                  formValues.manufacturerModel.length
-                                }
-                                component={ToiletWatersenseRadioField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                              <WaterSenseLogo />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5} justify="space-between">
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="treatedCustomer"
-                                inputLabel="PCWA Treated Customer"
-                                inputId="treated-water-select"
-                                labelWidth={200}
-                                component={YesNoSelectField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="builtPriorCutoff"
-                                inputLabel="Was House Built Prior to 1994"
-                                inputId="house-built-prior-select"
-                                labelWidth={255}
-                                component={YesNoSelectField}
-                              />
-                            </Grid>
-                          </Grid>
-
+                        <WaitToGrow isIn={otherCitySelected}>
                           <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Field
-                                name="comments"
-                                multiline
-                                rows={3} // That's about 200 characters
-                                label="Optionally, you can provide us any comments"
-                                disabled={ineligible}
-                                component={FormTextField}
+                                disabled={!otherCitySelected || ineligible}
+                                name="otherCity"
+                                component={OtherCityField}
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </WaitToGrow>
 
-                        <Divider variant="middle" />
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="phone"
+                              disabled={ineligible}
+                              component={PhoneNoField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="email"
+                              disabled={ineligible}
+                              component={EmailField}
+                            />
+                          </Grid>
+                        </Grid>
+                      </div>
 
-                        <div className={classes.formGroup}>
-                          <Type
-                            variant="h4"
-                            color="textSecondary"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            Provide Attachments
-                          </Type>
+                      <Divider variant="middle" />
 
-                          <div className={clsx(classes.dropzoneContainer)}>
+                      <div className={classes.formGroup}>
+                        <Type
+                          variant="h4"
+                          color="textSecondary"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Rebate Information
+                        </Type>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={7}>
                             <Field
                               disabled={ineligible}
-                              name="receipts"
-                              attachmentTitle="Receipt"
-                              uploadFolder="toilet"
-                              onIsUploadingChange={receiptIsUploadingHandler}
-                              component={AttachmentField}
+                              required
+                              name="noOfToilets"
+                              label="Number of Toilets/Urinals Installed"
+                              component={FormTextField}
+                              type="number"
+                              inputProps={{
+                                min: MIN_TOILETS,
+                                max: MAX_TOILETS
+                              }}
                             />
-                          </div>
+                          </Grid>
+                        </Grid>
+                        <FieldArray
+                          name="manufacturerModel"
+                          render={(arrayHelpers) => (
+                            <ToiletMfgModelsField
+                              {...arrayHelpers}
+                              disabled={ineligible}
+                            />
+                          )}
+                        />
 
-                          <div className={clsx(classes.dropzoneContainer)}>
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12} sm={8}>
                             <Field
                               disabled={ineligible}
-                              name="installPhotos"
-                              attachmentTitle="Water-Efficient Toilet installed photo"
-                              uploadFolder="toilet"
-                              onIsUploadingChange={
-                                installPhotosIsUploadingHandler
-                              }
-                              component={AttachmentField}
+                              name="watersenseApproved"
+                              toiletCount={formValues.manufacturerModel.length}
+                              component={ToiletWatersenseRadioField}
                             />
-                          </div>
+                          </Grid>
+                          <Grid item xs={12} sm={4}>
+                            <WaterSenseLogo />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              disabled
+                              name="treatedCustomer"
+                              inputLabel="PCWA Treated Customer"
+                              inputId="treated-water-select"
+                              labelWidth={200}
+                              component={YesNoSelectField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              disabled
+                              name="builtPriorCutoff"
+                              inputLabel="Was House Built Prior to 1994"
+                              inputId="house-built-prior-select"
+                              labelWidth={255}
+                              component={YesNoSelectField}
+                            />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="comments"
+                              multiline
+                              rows={3} // That's about 200 characters
+                              label="Optionally, you can provide us any comments"
+                              disabled={ineligible}
+                              component={FormTextField}
+                            />
+                          </Grid>
+                        </Grid>
+                      </div>
+
+                      <Divider variant="middle" />
+
+                      <div className={classes.formGroup}>
+                        <Type
+                          variant="h4"
+                          color="textSecondary"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Provide Attachments
+                        </Type>
+
+                        <div className={clsx(classes.dropzoneContainer)}>
+                          <Field
+                            disabled={ineligible}
+                            name="receipts"
+                            attachmentTitle="Receipt"
+                            uploadFolder="toilet"
+                            onIsUploadingChange={receiptIsUploadingHandler}
+                            component={AttachmentField}
+                          />
                         </div>
 
-                        <Divider variant="middle" />
+                        <div className={clsx(classes.dropzoneContainer)}>
+                          <Field
+                            disabled={ineligible}
+                            name="installPhotos"
+                            attachmentTitle="Water-Efficient Toilet installed photo"
+                            uploadFolder="toilet"
+                            onIsUploadingChange={
+                              installPhotosIsUploadingHandler
+                            }
+                            component={AttachmentField}
+                          />
+                        </div>
+                      </div>
 
-                        <div className={classes.formGroup}>
-                          <Type
-                            color="textSecondary"
-                            variant="h4"
-                            gutterBottom
-                            className={classes.formGroupTitle}
+                      <Divider variant="middle" />
+
+                      <div className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Acknowledge Terms & Conditions
+                        </Type>
+                        <Grid container direction="column" spacing={1}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
                           >
-                            Acknowledge Terms & Conditions
-                          </Type>
-                          <Grid container direction="column" spacing={1}>
-                            <Grid
-                              item
-                              xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                            <ReviewTermsConditions
+                              pageCount={2}
+                              fileName="Toilet-Terms-and-Conditions.pdf"
+                              termsConditionsUrl="https://cosmic-s3.imgix.net/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                            />
+                            <Type
+                              variant="body1"
+                              paragraph
+                              className={classes.reserveRight}
                             >
-                              <ReviewTermsConditions
-                                pageCount={2}
-                                fileName="Toilet-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://cosmic-s3.imgix.net/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
-                              />
-                              <Type
-                                variant="body1"
-                                paragraph
-                                className={classes.reserveRight}
-                              >
-                                <em>
-                                  I have read, understand, and agree to the{' '}
-                                  {/* <Link
+                              <em>
+                                I have read, understand, and agree to the{' '}
+                                {/* <Link
                                     variant="inherit"
                                     href="https://cdn.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   > */}
-                                  Placer County Water Agency High Efficiency
-                                  Toilet and Waterless Urinal Retrofit Rebate
-                                  Terms and Conditions.
-                                  {/* </Link> */}
-                                </em>
-                              </Type>
-                              <Type
-                                variant="body1"
-                                paragraph
-                                className={classes.reserveRight}
-                              >
-                                <em>
-                                  I understand that PCWA reserves the right to
-                                  have an Agency representative verify the
-                                  installation of the product(s) at the service
-                                  address on the application.
-                                </em>
-                              </Type>
-                              <Field
-                                disabled={ineligible}
-                                name="termsAgree"
-                                component={AgreeTermsCheckbox}
-                              />
-                            </Grid>
-                          </Grid>
-                        </div>
-
-                        <Divider variant="middle" />
-
-                        <div className={classes.formGroup}>
-                          <Type
-                            color="textSecondary"
-                            variant="h4"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            Release of Liability & Signature
-                          </Type>
-
-                          <Grid container direction="column" spacing={1}>
-                            <Grid
-                              item
-                              xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                                Placer County Water Agency High Efficiency
+                                Toilet and Waterless Urinal Retrofit Rebate
+                                Terms and Conditions.
+                                {/* </Link> */}
+                              </em>
+                            </Type>
+                            <Type
+                              variant="body1"
+                              paragraph
+                              className={classes.reserveRight}
                             >
-                              <Type
-                                variant="body1"
-                                paragraph
-                                color="primary"
-                              ></Type>
-                              <Type variant="body1" paragraph color="primary">
-                                Placer County Water Agency (PCWA) reserves the
-                                right to deny an application of any participant
-                                who does not meet all requirements as outlined.
-                                PCWA reserves the right to change the terms of
-                                this program at their discretion. PCWA cannot
-                                guarantee that the installation of the
-                                product(s) will result in lower water utility
-                                costs. The number of rebates is dependent upon
-                                the availability of program funds. Applications
-                                will be processed when all required information
-                                is provided by the applicant on a first-come,
-                                first-served basis.
-                              </Type>
-                            </Grid>
-
-                            <Grid
-                              item
-                              xs={12}
-                              className={classes.ieFixFlexColumnDirection}
-                            >
-                              <Type variant="caption">
-                                You must sign this form by typing your name
-                              </Type>
-                              <Field
-                                disabled={ineligible}
-                                name="signature"
-                                component={SignatureField}
-                              />
-                            </Grid>
-
-                            <Grid
-                              item
-                              xs={12}
-                              className={classes.ieFixFlexColumnDirection}
-                            >
-                              <Field
-                                disabled={ineligible}
-                                name="captcha"
-                                component={RecaptchaField}
-                              />
-                            </Grid>
-                          </Grid>
-                        </div>
-
-                        <div className={classes.buttonWrapper}>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                            type="submit"
-                            disabled={
-                              ineligible ||
-                              isSubmitting ||
-                              // !isValid ||
-                              (!formTouched && !dirty) ||
-                              attachmentsAreUploading
-                            }
-                          >
-                            Submit Application
-                          </Button>
-                          {isSubmitting && (
-                            <CircularProgress
-                              size={24}
-                              className={classes.buttonProgress}
+                              <em>
+                                I understand that PCWA reserves the right to
+                                have an Agency representative verify the
+                                installation of the product(s) at the service
+                                address on the application.
+                              </em>
+                            </Type>
+                            <Field
+                              disabled={ineligible}
+                              name="termsAgree"
+                              component={AgreeTermsCheckbox}
                             />
-                          )}
-                        </div>
-                      </FormBox>
+                          </Grid>
+                        </Grid>
+                      </div>
 
-                      <ToiletEffEligibilityDialog
-                        open={eligibilityDialogOpen}
-                        onClose={() => setEligibilityDialogOpen(false)}
-                      />
-                    </React.Fragment>
-                  )
-                }}
-              </Formik>
-            </MainBox>
-          </Grid>
-        </Grid>
+                      <Divider variant="middle" />
+
+                      <div className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Release of Liability & Signature
+                        </Type>
+
+                        <Grid container direction="column" spacing={1}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Type
+                              variant="body1"
+                              paragraph
+                              color="primary"
+                            ></Type>
+                            <Type variant="body1" paragraph color="primary">
+                              Placer County Water Agency (PCWA) reserves the
+                              right to deny an application of any participant
+                              who does not meet all requirements as outlined.
+                              PCWA reserves the right to change the terms of
+                              this program at their discretion. PCWA cannot
+                              guarantee that the installation of the product(s)
+                              will result in lower water utility costs. The
+                              number of rebates is dependent upon the
+                              availability of program funds. Applications will
+                              be processed when all required information is
+                              provided by the applicant on a first-come,
+                              first-served basis.
+                            </Type>
+                          </Grid>
+
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Type variant="caption">
+                              You must sign this form by typing your name
+                            </Type>
+                            <Field
+                              disabled={ineligible}
+                              name="signature"
+                              component={SignatureField}
+                            />
+                          </Grid>
+
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Field
+                              disabled={ineligible}
+                              name="captcha"
+                              component={RecaptchaField}
+                            />
+                          </Grid>
+                        </Grid>
+                      </div>
+
+                      <div className={classes.buttonWrapper}>
+                        <Button
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                          type="submit"
+                          disabled={
+                            ineligible ||
+                            isSubmitting ||
+                            // !isValid ||
+                            (!formTouched && !dirty) ||
+                            attachmentsAreUploading
+                          }
+                        >
+                          Submit Application
+                        </Button>
+                        {isSubmitting && (
+                          <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                          />
+                        )}
+                      </div>
+                    </FormBox>
+
+                    <ToiletEffEligibilityDialog
+                      open={eligibilityDialogOpen}
+                      onClose={() => setEligibilityDialogOpen(false)}
+                    />
+                  </React.Fragment>
+                )
+              }}
+            </Formik>
+          </MainBox>
+        </RowBox>
       </React.Fragment>
     ),
     [
