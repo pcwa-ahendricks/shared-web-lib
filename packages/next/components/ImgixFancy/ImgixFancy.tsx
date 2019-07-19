@@ -54,6 +54,16 @@ const useStyles = makeStyles({
     '& .ls-blur-up-img.ls-inview.ls-original-loaded': {
       opacity: 0,
       filter: 'blur(5px)'
+    },
+    /*
+      HACK - Lazysizes blur-up plugin is not working with IE11. The low quality image src element keeps getting overwritten by another copy of the element that doesn't have the 'ls-original-loaded' class name. This CSS trick prevents the blur up image from showing in IE10 and IE11.
+      See https://stackoverflow.com/questions/18907131/detecting-ie11-using-css-capability-feature-detection for more info on targeting IE.
+    */
+    '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {
+      /* IE10+ specific styles go here */
+      '& .ls-blur-up-img': {
+        opacity: 0
+      }
     }
   }
 })
@@ -75,7 +85,7 @@ const ImgixFancy = ({
   return (
     <div className={classes.mediabox} style={{paddingBottom: paddingPercent}}>
       <Imgix
-        className={clsx({['lazyload']: true, ['mediabox-img']: true})}
+        className={clsx(['lazyload', 'mediabox-img'])}
         src={src}
         sizes={sizes}
         width={width}
