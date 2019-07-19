@@ -4,17 +4,10 @@ import React from 'react'
  * Then Angular version of this component used a 'max-width' and 'max-height' property on <Svg/>, but that results in a runtime error. Style property is used instead. See https://stackoverflow.com/questions/29615607/react-svg-max-width for more info.
  */
 
-type Props = {
-  height?: string | number
-  width?: string | number
-  preserveAspectRatio?: string
-  style?: React.CSSProperties
-} & React.SVGProps<SVGSVGElement>
+type Props = React.SVGProps<SVGSVGElement>
 
 const HeroOverlay = ({
-  height,
-  width,
-  preserveAspectRatio = 'xMinYMid meet',
+  preserveAspectRatio = 'xMidYMin meet',
   ...rest
 }: Props) => {
   return (
@@ -22,8 +15,6 @@ const HeroOverlay = ({
       {/* <?xml version="1.0" encoding="UTF-8"?> */}
       <svg
         preserveAspectRatio={preserveAspectRatio}
-        width={width}
-        height={height}
         viewBox="0 0 1796 1289"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

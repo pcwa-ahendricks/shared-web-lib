@@ -55,6 +55,7 @@ const Index = () => {
           >
             <HeroOverlay
               height="100%"
+              preserveAspectRatio="xMidYMid meet"
               style={{
                 flex: '0 0 auto'
               }}
