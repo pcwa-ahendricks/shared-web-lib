@@ -109,10 +109,8 @@ const useStyles = makeStyles((theme: Theme) =>
         right: 0,
         bottom: 0,
         left: 0,
-        marginTop: 'auto',
-        marginBottom: 'auto',
-        marginRight: 'auto',
-        marginLeft: theme.spacing(3)
+        margin: 'auto',
+        paddingLeft: theme.spacing(3)
       }
     }
   })
