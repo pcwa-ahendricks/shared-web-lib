@@ -80,7 +80,7 @@ const SecondaryHeader = () => {
         <Box
           flex="0 0 auto"
           color={theme.palette.primary.main}
-          display={noSocialIcons ? 'none' : 'initial'}
+          display={noSocialIcons ? 'none' : 'block'} // IE doesn't like 'initial'
         >
           <SocialIconButton href="https://twitter.com/PlacerWater">
             <FacebookIcon />

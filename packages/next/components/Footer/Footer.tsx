@@ -73,7 +73,7 @@ const Footer = () => {
           <RowBox
             bgcolor="inherit"
             flexDirection={{xs: 'column', sm: 'row'}}
-            alignItems={{xs: 'center', sm: 'stretch'}} // IE won't accept 'initial'
+            alignItems={{xs: 'center', sm: 'stretch'}} // IE doesn't like 'initial'
           >
             <Box flex={{xs: '0 0 auto', sm: '1 1 25%'}}>
               <PcwaLogo
