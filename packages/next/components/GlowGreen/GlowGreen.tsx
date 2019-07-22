@@ -1,34 +1,36 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import {Box, Theme} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
 import {BoxProps} from '@material-ui/core/Box'
 
-const useGlowGreenButtonStyles = makeStyles(() =>
-  createStyles({
-    glowGreenButton: ({
-      active,
-      inactiveColor,
-      activeColor
-    }: {
-      active: boolean
-      inactiveColor: string
-      activeColor: string
-    }) => ({
-      color: active ? activeColor : inactiveColor
-    })
-  })
-)
-
-type GlowGreenProps = {
+export type GlowGreenProps = {
   children: React.ReactNode
   active?: boolean
   activeColor?: string
   inactiveColor?: string
 } & BoxProps
 
+interface UseStylesProps {
+  active: boolean
+  inactiveColor: string
+  activeColor: string
+}
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    glowGreenButton: ({
+      active,
+      inactiveColor,
+      activeColor
+    }: UseStylesProps) => ({
+      color: active ? activeColor : inactiveColor
+    })
+  })
+)
+
 const GlowGreen = ({
   children,
-  active: activeProp = false,
+  active: activeProp,
   activeColor,
   inactiveColor,
   ...rest
@@ -37,11 +39,16 @@ const GlowGreen = ({
   activeColor = activeColor || theme.palette.secondary.main
   inactiveColor = inactiveColor || 'inherit'
   const [active, setActive] = useState<boolean>(false)
-  const classes = useGlowGreenButtonStyles({active, activeColor, inactiveColor})
 
-  useEffect(() => {
-    setActive(activeProp)
-  }, [activeProp])
+  const isActive = useMemo(
+    () => (activeProp !== undefined ? activeProp : active),
+    [activeProp, active]
+  )
+  const classes = useStyles({
+    active: isActive,
+    activeColor,
+    inactiveColor
+  })
 
   const buttonEnterHandler = useCallback(() => {
     setActive(true)

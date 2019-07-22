@@ -50,14 +50,19 @@ const SecondaryHeader = () => {
           <ForecastContainer />
         </Hidden>
         <Box component="span" flexGrow={1} />
-        <NextGlowButton aria-label="Link" color="primary" size="small" href="#">
+        <NextGlowButton
+          aria-label="Link"
+          inactiveColor={theme.palette.primary.main}
+          size="small"
+          href="#"
+        >
           Outages
         </NextGlowButton>
         <ENewsButton size="small">E-News</ENewsButton>
         <NextGlowButton
           size="small"
           aria-label="Link"
-          color="primary"
+          inactiveColor={theme.palette.primary.main}
           href="/about-pcwa/board-agenda"
         >
           Board Meetings
@@ -65,7 +70,7 @@ const SecondaryHeader = () => {
         <GlowButton
           size="small"
           aria-label="Link"
-          color="primary"
+          inactiveColor={theme.palette.primary.main}
           href="https://ipn.paymentus.com/cp/plco"
           target="_blank"
           rel="noopener noreferrer"

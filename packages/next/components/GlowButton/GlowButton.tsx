@@ -1,27 +1,26 @@
-import React, {useState, useCallback, useEffect} from 'react'
-import {ButtonBase, Theme, Typography as Type} from '@material-ui/core'
+import React from 'react'
+import {ButtonBase, Typography as Type} from '@material-ui/core'
 import {ButtonBaseProps} from '@material-ui/core/ButtonBase'
-import {TypographyProps} from '@material-ui/core/Typography'
 import {makeStyles, createStyles} from '@material-ui/styles'
+import GlowGreen, {GlowGreenProps} from '@components/GlowGreen/GlowGreen'
 
 // color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
 export type GlowButtonProps = {
   children: React.ReactNode
-  color?: TypographyProps['color']
   size?: 'small' | 'medium' | 'large'
-  active?: boolean
 } & ButtonBaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
+  React.AnchorHTMLAttributes<HTMLAnchorElement> &
+  GlowGreenProps
 
 type StyleProps = {
   size: GlowButtonProps['size']
-  active: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    root: ({size, active}: StyleProps) => ({
-      color: theme.palette.primary.main,
+    root: ({size}: StyleProps) => ({
+      // color: theme.palette.primary.main,
+      color: 'inherit',
       boxSizing: 'border-box',
       minWidth: 64,
       borderRadius: 4,
@@ -32,12 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
           ? '6px 8px'
           : size === 'large'
           ? '8px 24px'
-          : 'unset',
-      '& $type': {
-        color: active ? theme.palette.secondary.main : 'unset'
-      }
+          : 'unset'
     }),
     type: ({size}: StyleProps) => ({
+      color: 'inherit',
       whiteSpace: 'nowrap',
       '-webkit-transition': 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
       transition: 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
@@ -55,37 +52,21 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const GlowButton = ({
   children,
-  color = 'initial',
   size = 'medium',
-  active: activeProp = false,
+  inactiveColor,
+  activeColor,
   ...rest
 }: GlowButtonProps) => {
-  const [active, setActive] = useState<boolean>(false)
-  const classes = useStyles({size, active})
-
-  useEffect(() => {
-    setActive(activeProp)
-  }, [activeProp])
-
-  const buttonEnterHandler = useCallback(() => {
-    setActive(true)
-  }, [])
-
-  const buttonLeaveHandler = useCallback(() => {
-    setActive(false)
-  }, [])
+  const classes = useStyles({size})
 
   return (
-    <ButtonBase
-      onMouseEnter={buttonEnterHandler}
-      onMouseLeave={buttonLeaveHandler}
-      className={classes.root}
-      {...rest}
-    >
-      <Type variant="button" color={color} classes={{root: classes.type}}>
-        {children}
-      </Type>
-    </ButtonBase>
+    <GlowGreen inactiveColor={inactiveColor} activeColor={activeColor}>
+      <ButtonBase className={classes.root} {...rest}>
+        <Type variant="button" color="inherit" classes={{root: classes.type}}>
+          {children}
+        </Type>
+      </ButtonBase>
+    </GlowGreen>
   )
 }
 

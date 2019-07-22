@@ -1,13 +1,14 @@
-import React, {useCallback, useState} from 'react'
+import React from 'react'
 import Link, {LinkProps} from 'next/link'
 import GlowButton, {GlowButtonProps} from '@components/GlowButton/GlowButton'
-import {Box} from '@material-ui/core'
+import GlowGreen, {GlowGreenProps} from '@components/GlowGreen/GlowGreen'
 
 type NextGlowButtonProps = {
   children: React.ReactNode
   href: string
   linkProps?: LinkProps
-} & GlowButtonProps
+} & GlowButtonProps &
+  GlowGreenProps
 
 // Using React.forwardRef made Typescript warnings and console error warnings go away. Not clear if this is implemented correctly.
 const ForwardGlowButton = React.forwardRef(
@@ -23,28 +24,21 @@ const NextGlowButton = ({
   href,
   linkProps,
   children,
-  color = 'initial',
+  inactiveColor,
+  activeColor,
   size = 'medium',
   ...rest
 }: NextGlowButtonProps) => {
-  // It appears that the Next <Link/> is blocking onMouseEnter & onMouseLeave, so we duplicate that functionality in this component on a parent element (<Box/>).
-  const [active, setActive] = useState<boolean>(false)
+  // It appears that the Next <Link/> is blocking onMouseEnter & onMouseLeave, so we duplicate that functionality in this component on a parent element.
 
-  const buttonEnterHandler = useCallback(() => {
-    setActive(true)
-  }, [])
-
-  const buttonLeaveHandler = useCallback(() => {
-    setActive(false)
-  }, [])
   return (
-    <Box onMouseEnter={buttonEnterHandler} onMouseLeave={buttonLeaveHandler}>
+    <GlowGreen inactiveColor={inactiveColor} activeColor={activeColor}>
       <Link href={href} passHref {...linkProps}>
-        <ForwardGlowButton color={color} size={size} {...rest} active={active}>
+        <ForwardGlowButton color="inherit" size={size} {...rest}>
           {children}
         </ForwardGlowButton>
       </Link>
-    </Box>
+    </GlowGreen>
   )
 }
 
