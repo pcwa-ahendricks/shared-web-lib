@@ -2,11 +2,12 @@ import React, {useMemo, useCallback, useContext} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {Hidden} from '@material-ui/core'
+import {Box, Hidden} from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
 import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   description?: string
@@ -34,12 +35,14 @@ const PageLayout = ({
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
       </Head>
-      <Hidden smUp implementation="css">
-        <Drawer />
-      </Hidden>
-      <HeaderContainer />
-      {children}
-      <Footer />
+      <ColumnBox height="100%">
+        <Hidden smUp implementation="css">
+          <Drawer />
+        </Hidden>
+        <HeaderContainer />
+        <Box flex="1 0 auto">{children}</Box>
+        <Footer />
+      </ColumnBox>
       <ScrollToTop />
       <ErrorDialog onExited={errorDialogExitedHandler} />
     </React.Fragment>
