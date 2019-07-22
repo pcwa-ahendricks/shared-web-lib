@@ -1,10 +1,10 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/styles'
-import {Hidden, Toolbar} from '@material-ui/core'
+import {makeStyles, useTheme} from '@material-ui/styles'
+import {Box, Hidden, Toolbar, Theme, useMediaQuery} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
-import SocialIconButton from './SocialIconButton'
+import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import ENewsButton from '@components/eNews/ENewsButton/ENewsButton'
 import EspanolButton from '@components/EspanolButton/EspanolButton'
 import SearchInput from '@components/search/SearchInput/SearchInput'
@@ -26,9 +26,6 @@ import {RowBox} from '@components/boxes/FlexBox'
 
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
 const useStyles = makeStyles({
-  grow: {
-    flexGrow: 1
-  },
   toolbar: {
     display: 'flex',
     flexDirection: 'row',
@@ -36,20 +33,14 @@ const useStyles = makeStyles({
     alignItems: 'center',
     flexGrow: 1,
     overflowX: 'hidden'
-  },
-  socialIconContainer: {
-    flex: '0 0 auto'
-  },
-  // Custom width defined by point at which menu links overlap each other.
-  '@media screen and (max-width: 690px)': {
-    socialIconContainer: {
-      display: 'none'
-    }
   }
 })
 
 const SecondaryHeader = () => {
   const classes = useStyles()
+  const theme = useTheme<Theme>()
+  // Custom width defined by point at which menu links overlap each other.
+  const noSocialIcons = useMediaQuery('@media screen and (max-width: 690px)')
   return (
     <RowBox justifyContent="flex-start" alignItems="center">
       <Toolbar variant="dense" className={classes.toolbar}>
@@ -58,7 +49,7 @@ const SecondaryHeader = () => {
           {/* <DynamicForecast /> */}
           <ForecastContainer />
         </Hidden>
-        <span className={classes.grow} />
+        <Box component="span" flexGrow={1} />
         <NextGlowButton aria-label="Link" color="primary" size="small" href="#">
           Outages
         </NextGlowButton>
@@ -81,7 +72,11 @@ const SecondaryHeader = () => {
         >
           Pay My Bill
         </GlowButton>
-        <div className={classes.socialIconContainer}>
+        <Box
+          flex="0 0 auto"
+          color={theme.palette.primary.main}
+          display={noSocialIcons ? 'none' : 'initial'}
+        >
           <SocialIconButton href="https://twitter.com/PlacerWater">
             <FacebookIcon />
           </SocialIconButton>
@@ -91,7 +86,7 @@ const SecondaryHeader = () => {
           <SocialIconButton href="https://www.youtube.com/user/ThePCWA">
             <YoutubeIcon />
           </SocialIconButton>
-        </div>
+        </Box>
         <EspanolButton>Español</EspanolButton>
         <SearchInput />
       </Toolbar>

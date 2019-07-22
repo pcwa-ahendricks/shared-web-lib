@@ -56,7 +56,7 @@ const theme = createMuiTheme({
     body1: {
       // fontFamily: ['Open Sans', ...systemFonts].join(',')
       fontFamily: ['Kiperman', ...systemFonts].join(','),
-      fontSize: '1.2rem' // Default: 1rem
+      fontSize: '1.1rem' // Default: 1rem
     },
     button: {
       // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
