@@ -32,6 +32,7 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
+import NarrowContainer from '@components/containers/NarrowContainer'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
@@ -73,21 +74,6 @@ const initialFormValues: RebateFormData = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
-      maxWidth: 650,
-      display: 'block', // IE fix
-      // left: '20vw',
-      // right: '20vw',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    '@media screen and (min-width: 600px) and (max-width: 725px)': {
-      main: {
-        maxWidth: '90%'
-      }
-    },
     form: {
       display: 'flex',
       flexDirection: 'column',
@@ -171,148 +157,147 @@ const ContactUs = () => {
     () => (
       <React.Fragment>
         <WaterSurfaceImg />
-        <Grid container justify="space-around" direction="row">
-          <Grid item xs={11} sm={12}>
-            <MainBox className={classes.main}>
-              <Type variant="h1" color="primary" gutterBottom>
-                Contact Us Form
-              </Type>
+        <NarrowContainer>
+          <MainBox>
+            <Type variant="h1" color="primary" gutterBottom>
+              Contact Us Form
+            </Type>
 
-              {/* <Type variant="h3" color="primary" gutterBottom>
+            {/* <Type variant="h3" color="primary" gutterBottom>
                 React out to us via email
               </Type> */}
 
-              <Formik
-                initialValues={initialFormValues}
-                validationSchema={formSchema}
-                onSubmit={async (values: RebateFormData, actions) => {
-                  try {
-                    // console.log(values, actions)
-                    const body: RequestBody = {
-                      formData: {...values}
-                    }
-                    await postRebateForm(SERVICE_URI_PATH, body)
-                    actions.setSubmitting(false)
-                    // Reset Form
-                    actions.resetForm() // Strictly Formik
-                    setFormSubmitDialogOpen(true)
-                  } catch (error) {
-                    console.warn('An error occurred submitting form.', error)
-                    setErrorMessage(error.message)
-                    setFormSubmitDialogErrorOpen(true)
-                    actions.setSubmitting(false)
+            <Formik
+              initialValues={initialFormValues}
+              validationSchema={formSchema}
+              onSubmit={async (values: RebateFormData, actions) => {
+                try {
+                  // console.log(values, actions)
+                  const body: RequestBody = {
+                    formData: {...values}
                   }
-                }}
-              >
-                {(formik) => {
-                  const {values, touched = {}, dirty, isSubmitting} = formik
+                  await postRebateForm(SERVICE_URI_PATH, body)
+                  actions.setSubmitting(false)
+                  // Reset Form
+                  actions.resetForm() // Strictly Formik
+                  setFormSubmitDialogOpen(true)
+                } catch (error) {
+                  console.warn('An error occurred submitting form.', error)
+                  setErrorMessage(error.message)
+                  setFormSubmitDialogErrorOpen(true)
+                  actions.setSubmitting(false)
+                }
+              }}
+            >
+              {(formik) => {
+                const {values, touched = {}, dirty, isSubmitting} = formik
 
-                  if (dirty !== formIsDirty) {
-                    setFormIsDirty(dirty)
-                    setShouldConfirmRouteChange(Boolean(dirty))
-                  }
-                  if (values !== formValues) {
-                    setFormValues(values)
-                  }
-                  // Use state to save a boolean version of 'touched'.
-                  const formTouched = Object.keys(touched).length > 0
-                  if (formTouched !== formIsTouched) {
-                    setFormIsTouched(formTouched)
-                  }
+                if (dirty !== formIsDirty) {
+                  setFormIsDirty(dirty)
+                  setShouldConfirmRouteChange(Boolean(dirty))
+                }
+                if (values !== formValues) {
+                  setFormValues(values)
+                }
+                // Use state to save a boolean version of 'touched'.
+                const formTouched = Object.keys(touched).length > 0
+                if (formTouched !== formIsTouched) {
+                  setFormIsTouched(formTouched)
+                }
 
-                  return (
-                    <FormBox className={classes.form}>
-                      {/* <Type variant="h3" color="primary" gutterBottom>
+                return (
+                  <FormBox className={classes.form}>
+                    {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
 
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Contact Information
-                        </Type>
+                    <div className={classes.formGroup}>
+                      <Type
+                        color="textSecondary"
+                        variant="h4"
+                        gutterBottom
+                        className={classes.formGroupTitle}
+                      >
+                        Contact Information
+                      </Type>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="reason"
-                              component={ReasonForContactSelectField}
-                              required={true}
-                            />
-                          </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <Field
+                            name="reason"
+                            component={ReasonForContactSelectField}
+                            required={true}
+                          />
                         </Grid>
+                      </Grid>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="name"
-                              component={NameField}
-                              required={false}
-                            />
-                          </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <Field
+                            name="name"
+                            component={NameField}
+                            required={false}
+                          />
                         </Grid>
-                        {/* <Grid container>
+                      </Grid>
+                      {/* <Grid container>
                         </Grid>
 
                         <Grid container>
                         </Grid> */}
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={7}>
-                            <Field
-                              name="email"
-                              component={EmailField}
-                              required={false}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={5}>
-                            <Field
-                              name="phone"
-                              component={PhoneNoField}
-                              required={false}
-                            />
-                          </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12} sm={7}>
+                          <Field
+                            name="email"
+                            component={EmailField}
+                            required={false}
+                          />
                         </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="subject"
-                              component={ContactUsSubjectField}
-                            />
-                          </Grid>
+                        <Grid item xs={12} sm={5}>
+                          <Field
+                            name="phone"
+                            component={PhoneNoField}
+                            required={false}
+                          />
                         </Grid>
+                      </Grid>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="message"
-                              component={ContactUsMessageField}
-                            />
-                          </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <Field
+                            name="subject"
+                            component={ContactUsSubjectField}
+                          />
                         </Grid>
-                      </div>
+                      </Grid>
 
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Field name="captcha" component={RecaptchaField} />
-                          </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <Field
+                            name="message"
+                            component={ContactUsMessageField}
+                          />
                         </Grid>
-                      </div>
+                      </Grid>
+                    </div>
 
-                      {/* For debugging form reset */}
-                      {/* <Button
+                    <Divider variant="middle" />
+
+                    <div className={classes.formGroup}>
+                      <Grid container direction="column" spacing={1}>
+                        <Grid
+                          item
+                          xs={12}
+                          className={classes.ieFixFlexColumnDirection}
+                        >
+                          <Field name="captcha" component={RecaptchaField} />
+                        </Grid>
+                      </Grid>
+                    </div>
+
+                    {/* For debugging form reset */}
+                    {/* <Button
                       variant="outlined"
                       type="submit"
                       onClick={handleReset}
@@ -320,8 +305,8 @@ const ContactUs = () => {
                       Reset Form
                     </Button> */}
 
-                      {/* For debugging dialog */}
-                      {/* <Button
+                    {/* For debugging dialog */}
+                    {/* <Button
                         variant="outlined"
                         type="submit"
                         onClick={() => {
@@ -332,38 +317,37 @@ const ContactUs = () => {
                         Show Dialog
                       </Button> */}
 
-                      <div className={classes.buttonWrapper}>
-                        <Button
-                          fullWidth
-                          variant="outlined"
-                          color="primary"
-                          type="submit"
-                          disabled={
-                            isSubmitting ||
-                            // || !isValid
-                            (!formTouched && !dirty)
-                          }
-                        >
-                          Submit
-                        </Button>
-                        {isSubmitting && (
-                          <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                          />
-                        )}
-                      </div>
-                    </FormBox>
-                  )
-                }}
-              </Formik>
+                    <div className={classes.buttonWrapper}>
+                      <Button
+                        fullWidth
+                        variant="outlined"
+                        color="primary"
+                        type="submit"
+                        disabled={
+                          isSubmitting ||
+                          // || !isValid
+                          (!formTouched && !dirty)
+                        }
+                      >
+                        Submit
+                      </Button>
+                      {isSubmitting && (
+                        <CircularProgress
+                          size={24}
+                          className={classes.buttonProgress}
+                        />
+                      )}
+                    </div>
+                  </FormBox>
+                )
+              }}
+            </Formik>
 
-              {/* {receipts.map((attach, idx) => (
+            {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-            </MainBox>
-          </Grid>
-        </Grid>
+          </MainBox>
+        </NarrowContainer>
       </React.Fragment>
     ),
     [classes, formIsDirty, formValues, formIsTouched]

@@ -5,14 +5,14 @@ import {RowBox} from '@components/boxes/FlexBox'
 
 type Props = {children: React.ReactNode; containerProps?: BoxProps} & BoxProps
 
-const WideContainer = ({children, containerProps, ...rest}: Props) => {
+const NarrowContainer = ({children, containerProps, ...rest}: Props) => {
   return (
     <RowBox justifyContent="space-around" {...containerProps}>
       <Box
         flex="auto"
-        maxWidth={{xs: 723, sm: 723, md: 933, lg: 1127}}
-        ml={{xs: 2, sm: 4, md: 8, lg: 16}}
-        mr={{xs: 2, sm: 4, md: 8, lg: 16}}
+        maxWidth={700} // Ported from original pcwa.net website (Semantic-UI).
+        ml={2}
+        mr={2}
         {...rest}
       >
         {children}
@@ -21,4 +21,4 @@ const WideContainer = ({children, containerProps, ...rest}: Props) => {
   )
 }
 
-export default WideContainer
+export default NarrowContainer

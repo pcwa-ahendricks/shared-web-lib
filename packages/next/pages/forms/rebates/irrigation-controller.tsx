@@ -44,7 +44,7 @@ import FormSubmissionDialogError from '@components/FormSubmissionDialogError/For
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
-import {RowBox} from '@components/boxes/FlexBox'
+import NarrowContainer from '@components/containers/NarrowContainer'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -345,16 +345,8 @@ const IrrigationController = () => {
     () => (
       <React.Fragment>
         <WaterSurfaceImg />
-        <RowBox justifyContent="space-around">
-          <MainBox
-            flex="auto"
-            maxWidth={650}
-            display="block" // IE fix
-            ml="5%"
-            mr="5%"
-            mt={5}
-            mb={5}
-          >
+        <NarrowContainer>
+          <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
               Water Efficiency Rebate Form
             </Type>
@@ -771,7 +763,7 @@ const IrrigationController = () => {
             <div key={idx}>{attach}</div>
           ))} */}
           </MainBox>
-        </RowBox>
+        </NarrowContainer>
       </React.Fragment>
     ),
     [

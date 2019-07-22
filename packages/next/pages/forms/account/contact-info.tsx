@@ -46,7 +46,7 @@ import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
-import {RowBox} from '@components/boxes/FlexBox'
+import NarrowContainer from '@components/containers/NarrowContainer'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-info'
@@ -264,16 +264,8 @@ const LawnReplacement = () => {
     () => (
       <React.Fragment>
         <WaterSurfaceImg />
-        <RowBox justifyContent="space-around">
-          <MainBox
-            flex="auto"
-            maxWidth={650}
-            display="block" // IE fix
-            ml="5%"
-            mr="5%"
-            mt={5}
-            mb={5}
-          >
+        <NarrowContainer>
+          <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
               Update Contact Information Form
             </Type>
@@ -690,7 +682,7 @@ const LawnReplacement = () => {
             <div key={idx}>{attach}</div>
           ))} */}
           </MainBox>
-        </RowBox>
+        </NarrowContainer>
       </React.Fragment>
     ),
     [classes, formIsDirty, formValues, formIsTouched, ineligible]
