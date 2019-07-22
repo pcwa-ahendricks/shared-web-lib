@@ -10,6 +10,7 @@ const NarrowContainer = ({children, containerProps, ...rest}: Props) => {
     <RowBox justifyContent="space-around" {...containerProps}>
       <Box
         flex="auto"
+        width="100%" // IE fix
         maxWidth={700} // Ported from original pcwa.net website (Semantic-UI).
         ml={2}
         mr={2}
