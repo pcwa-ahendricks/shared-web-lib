@@ -162,6 +162,26 @@ export interface ToiletRequestBody {
   formData: ToiletRebateFormData
 }
 
+export interface ContactInfoFormData {
+  name: string
+  spouseName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  cellPhone: string
+  workPhone: string
+  spousePhone: string
+  signature: string
+  captcha: string
+}
+
+export interface ContactInfoRequestBody {
+  formData: ContactInfoFormData
+}
+
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
@@ -169,6 +189,7 @@ type RequestBody =
   | ContactUsRequestBody
   | WashingMachineRequestBody
   | ToiletRequestBody
+  | ContactInfoRequestBody
 
 async function postRebateForm(serviceUriPath: string, body: RequestBody) {
   const url = `${MAILJET_URL}/${serviceUriPath}`

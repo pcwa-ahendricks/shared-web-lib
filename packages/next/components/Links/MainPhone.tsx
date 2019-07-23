@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from '@material-ui/core'
+import {LinkProps} from '@material-ui/core/Link'
 
-type Props = {}
+type Props = Partial<LinkProps>
 
 const MainPhone = ({...rest}: Props) => {
   return (

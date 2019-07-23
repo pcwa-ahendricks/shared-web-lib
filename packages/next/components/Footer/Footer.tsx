@@ -21,7 +21,10 @@ import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import WaterIcon from 'mdi-material-ui/WaterOutline'
 import ChatIcon from 'mdi-material-ui/ChatOutline'
 import EmailIcon from 'mdi-material-ui/EmailOutline'
+import MapIcon from 'mdi-material-ui/MapMarkerOutline'
+import PhoneIcon from 'mdi-material-ui/PhoneOutline'
 import GlowGreen from '@components/GlowGreen/GlowGreen'
+import MainPhone from '@components/links/MainPhone'
 
 const useFooterStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,7 +72,7 @@ const Footer = () => {
   return (
     <Box>
       <Box bgcolor={theme.palette.primary.main} color={theme.palette.grey[200]}>
-        <WideContainer mt={3} mb={3}>
+        <WideContainer mt={4} mb={4}>
           <RowBox
             bgcolor="inherit"
             flexDirection={{xs: 'column', sm: 'row'}}
@@ -95,20 +98,38 @@ const Footer = () => {
               mt={{xs: 4, sm: 0}}
               flex={{xs: '0 0 auto', sm: '1 1 25%'}}
             >
-              <Box>
-                <Type variant="body2" gutterBottom>
-                  144 Ferguson Road <br />
-                  P.O. Box 6570 <br />
-                  Auburn, CA 95604
-                </Type>
-                <Type variant="body2">Mon. - Fri., 8 am – 5 pm </Type>
-              </Box>
-              <Box mt={3}>
-                <Type variant="body2" gutterBottom>
-                  (530) 823-4850{' '}
-                </Type>
-                <Type variant="body2">Mon. - Fri., 9 am – 5 pm</Type>
-              </Box>
+              <RowBox>
+                <Box color={theme.palette.grey[300]}>
+                  <MapIcon />
+                </Box>
+                <Box ml={1}>
+                  <GlowGreen>
+                    <NextLink
+                      variant="body2"
+                      color="inherit"
+                      href="/about-pcwa/directions"
+                      gutterBottom
+                      underline="none"
+                    >
+                      144 Ferguson Road <br />
+                      P.O. Box 6570 <br />
+                      Auburn, CA 95604
+                    </NextLink>
+                  </GlowGreen>
+                  <Type variant="body2">Mon. - Fri., 8 am – 5 pm </Type>
+                </Box>
+              </RowBox>
+              <RowBox mt={3}>
+                <Box color={theme.palette.grey[300]}>
+                  <PhoneIcon />
+                </Box>
+                <Box ml={1}>
+                  <GlowGreen>
+                    <MainPhone color="inherit" variant="body2" />
+                  </GlowGreen>
+                  <Type variant="body2">Mon. - Fri., 9 am – 5 pm</Type>
+                </Box>
+              </RowBox>
             </ColumnBox>
             <ColumnBox
               width="100%"
@@ -167,7 +188,7 @@ const Footer = () => {
                     href="https://twitter.com/PlacerWater"
                     color="inherit"
                   >
-                    <FacebookIcon />
+                    <FacebookIcon fontSize="large" />
                   </SocialIconButton>
                 </GlowGreen>
                 <GlowGreen>
@@ -175,7 +196,7 @@ const Footer = () => {
                     href="https://www.facebook.com/ThePCWA"
                     color="inherit"
                   >
-                    <TwitterIcon />
+                    <TwitterIcon fontSize="large" />
                   </SocialIconButton>
                 </GlowGreen>
                 <GlowGreen>
@@ -183,7 +204,7 @@ const Footer = () => {
                     href="https://www.youtube.com/user/ThePCWA"
                     color="inherit"
                   >
-                    <YoutubeIcon />
+                    <YoutubeIcon fontSize="large" />
                   </SocialIconButton>
                 </GlowGreen>
               </RowBox>

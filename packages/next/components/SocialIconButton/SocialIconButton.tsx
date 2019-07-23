@@ -7,7 +7,7 @@ import GlowGreen from '@components/GlowGreen/GlowGreen'
 type Props = {
   children: React.ReactNode
 } & IconButtonProps &
-  React.HTMLProps<HTMLAnchorElement>
+  Omit<React.HTMLProps<HTMLAnchorElement>, 'size'>
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
