@@ -1,49 +1,52 @@
-import React from 'react'
-import {makeStyles, createStyles} from '@material-ui/styles'
-import {Theme, Typography as Type} from '@material-ui/core'
+import React, {useMemo} from 'react'
+// import {makeStyles, createStyles} from '@material-ui/styles'
+import {Box} from '@material-ui/core'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
+import menuConfig from '@lib/menuConfig'
+import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   contentKey?: number | null
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    text: {
-      color: theme.palette.grey[50],
-      opacity: 0.85,
-      '&.navlink': {
-        cursor: 'pointer'
-      }
-    }
-  })
-)
+// const useStyles = makeStyles(() =>
+//   createStyles({
+// text: {
+//   color: theme.palette.grey[50],
+//   opacity: 0.85,
+//   '&.navlink': {
+//     cursor: 'pointer'
+//   }
+// }
+//   })
+// )
 
 const MMContent = ({contentKey = 1}: Props) => {
-  const classes = useStyles()
+  // const classes = useStyles()
+  const menuItem = useMemo(
+    () => menuConfig.find((entry) => entry.key === contentKey),
+    [contentKey]
+  )
+
+  const groups =
+    menuItem && Object.keys(menuItem).length > 0 ? menuItem.groups : []
+
   return (
     <MegaMenuContentContainer>
-      {contentKey === 1 ? (
-        <Type key={contentKey} className={classes.text}>
-          "At vero eos et accusamus et iusto odio dignissimos ducimus qui
-          blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-          et quas molestias excepturi sint occaecati cupiditate non provident,
-          similique sunt in culpa qui officia deserunt mollitia animi, id est
-          laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-          distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-          cumque nihil impedit quo minus id quod maxime placeat facere possimus,
-          omnis voluptas assumenda est, omnis dolor repellendus. Temporibus
-          autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-          eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-          voluptatibus maiores alias consequatur aut perferendis doloribus
-          asperiores repellat."
-        </Type>
-      ) : (
-        // Logical Or operator for type checking only.
-        <nav key={contentKey || undefined}>
-          <MMNavLink href="/services/irrigation-canal">
+      {/* Logical Or operator for type checking only. */}
+      <nav key={contentKey || undefined}>
+        <RowBox justifyContent="flex-end" pl="5vw" pr="5vw">
+          {groups.map((menuGroup, groupIdx) => (
+            <ColumnBox flex="0 1 auto" key={groupIdx} m={2}>
+              {menuGroup.items.map((item, itemIdx) => (
+                <Box key={itemIdx}>
+                  <MMNavLink href={item.nextLink}>{item.title}</MMNavLink>
+                </Box>
+              ))}
+            </ColumnBox>
+          ))}
+          {/* <MMNavLink href="/services/irrigation-canal">
             Irrigation Canal Information
           </MMNavLink>
           <MMNavLink href="/forms/rebates/irrigation-controller">
@@ -60,9 +63,9 @@ const MMContent = ({contentKey = 1}: Props) => {
           </MMNavLink>
           <MMNavLink href="/forms/rebates/toilet">Toilet Rebate Form</MMNavLink>
           <MMNavLink href="/stewardship">Smart Water Use</MMNavLink>
-          <MMNavLink href="/forms/account/contact-info">Contact Info</MMNavLink>
-        </nav>
-      )}
+          <MMNavLink href="/forms/account/contact-info">Contact Info</MMNavLink> */}
+        </RowBox>
+      </nav>
     </MegaMenuContentContainer>
   )
 }

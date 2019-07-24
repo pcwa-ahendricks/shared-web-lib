@@ -1,22 +1,20 @@
 import React from 'react'
-import {ButtonBase, Typography as Type} from '@material-ui/core'
+import {ButtonBase, Typography as Type, Theme} from '@material-ui/core'
 import {ButtonBaseProps} from '@material-ui/core/ButtonBase'
 import {makeStyles, createStyles} from '@material-ui/styles'
-import GlowGreen, {GlowGreenProps} from '@components/GlowGreen/GlowGreen'
 
 // color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
 export type GlowButtonProps = {
   children: React.ReactNode
   size?: 'small' | 'medium' | 'large'
 } & ButtonBaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> &
-  GlowGreenProps
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 type StyleProps = {
   size: GlowButtonProps['size']
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: ({size}: StyleProps) => ({
       // color: theme.palette.primary.main,
@@ -34,7 +32,11 @@ const useStyles = makeStyles(() =>
           : 'unset'
     }),
     type: ({size}: StyleProps) => ({
-      color: 'inherit',
+      // color: 'inherit',
+      color: theme.palette.primary.main,
+      '&:hover, &:active': {
+        color: theme.palette.secondary.main
+      },
       whiteSpace: 'nowrap',
       '-webkit-transition': 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
       transition: 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
@@ -50,23 +52,15 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const GlowButton = ({
-  children,
-  size = 'medium',
-  inactiveColor,
-  activeColor,
-  ...rest
-}: GlowButtonProps) => {
+const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
   const classes = useStyles({size})
 
   return (
-    <GlowGreen inactiveColor={inactiveColor} activeColor={activeColor}>
-      <ButtonBase className={classes.root} {...rest}>
-        <Type variant="button" color="inherit" classes={{root: classes.type}}>
-          {children}
-        </Type>
-      </ButtonBase>
-    </GlowGreen>
+    <ButtonBase className={classes.root} {...rest}>
+      <Type variant="button" color="inherit" classes={{root: classes.type}}>
+        {children}
+      </Type>
+    </ButtonBase>
   )
 }
 

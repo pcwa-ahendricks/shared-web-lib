@@ -125,7 +125,12 @@ const Footer = () => {
                 </Box>
                 <Box ml={1}>
                   <GlowGreen>
-                    <MainPhone color="inherit" variant="body2" />
+                    <MainPhone
+                      color="inherit"
+                      variant="body2"
+                      gutterBottom
+                      underline="none"
+                    />
                   </GlowGreen>
                   <Type variant="body2">Mon. - Fri., 9 am – 5 pm</Type>
                 </Box>

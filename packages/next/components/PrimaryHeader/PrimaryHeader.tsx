@@ -25,19 +25,13 @@ import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import menuConfig from '@lib/menuConfig'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
 type Props = {
   parentFixed?: boolean
 }
-
-const menuLinkData = [
-  {key: 1, caption: 'About', tabIndex: 1},
-  {key: 2, caption: 'Customer Services', tabIndex: 2},
-  {key: 3, caption: 'Business With PCWA', tabIndex: 3},
-  {key: 4, caption: 'Newsroom', tabIndex: 4}
-]
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -160,7 +154,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   )
 
   const popperCloseHandler = useCallback(() => {
-    setPopperOpen(false)
+    // setPopperOpen(false) // Comment this out to debug popup with Web Browser Devtools.
   }, [])
 
   const popperOpenHandler = useCallback(() => {
@@ -201,7 +195,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
               </Box>
             </ColumnBox>
           </Box>
-          {menuLinkData.map((menuItem) => (
+          {menuConfig.map((menuItem) => (
             <Box flex="0 0 auto" key={menuItem.key}>
               <MegaMenuLink
                 // Logical Or for type checking only.
@@ -217,7 +211,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
                 typographyClass={classes.megaMenuLink}
                 linkMargin="1vw"
               >
-                {menuItem.caption}
+                {menuItem.menuName}
               </MegaMenuLink>
             </Box>
           ))}

@@ -2,7 +2,6 @@ import React from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {IconButton, Theme} from '@material-ui/core'
 import {IconButtonProps} from '@material-ui/core/IconButton'
-import GlowGreen from '@components/GlowGreen/GlowGreen'
 
 type Props = {
   children: React.ReactNode
@@ -12,7 +11,11 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(1) // Defaults to 12px
+      padding: theme.spacing(1), // Defaults to 12px,
+      // Don't use :focus pseudo selector cause icon will remain in focus after link is clicked which isn't ideal.
+      '&:hover, &:active': {
+        color: theme.palette.secondary.main
+      }
     }
   })
 )
@@ -20,20 +23,18 @@ const useStyles = makeStyles((theme: Theme) =>
 const SocialIconButton = ({children, ...rest}: Props) => {
   const classes = useStyles()
   return (
-    <GlowGreen component="span">
-      <IconButton
-        aria-label="Link"
-        color="inherit"
-        target="_blank"
-        rel="noopener noreferrer"
-        classes={{
-          root: classes.root
-        }}
-        {...rest}
-      >
-        {children}
-      </IconButton>
-    </GlowGreen>
+    <IconButton
+      aria-label="Link"
+      color="inherit"
+      target="_blank"
+      rel="noopener noreferrer"
+      classes={{
+        root: classes.root
+      }}
+      {...rest}
+    >
+      {children}
+    </IconButton>
   )
 }
 

@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {
+  Box,
   Button,
   CircularProgress,
   Divider,
@@ -10,7 +11,7 @@ import {
 import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
-import {string, object, StringSchema} from 'yup'
+import {string, object} from 'yup'
 import {
   postRebateForm,
   ContactInfoFormData as FormData,
@@ -19,13 +20,10 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
-import CitySelectField from '@components/formFields/CitySelectField'
-import OtherCityField from '@components/formFields/OtherCityField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
-import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
-import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
+// import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
@@ -35,6 +33,7 @@ import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import StateSelectField from '@components/formFields/StateSelectField'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-info'
@@ -45,14 +44,13 @@ const formSchema = object()
   .shape({
     name: string()
       .required()
-      .max(30, 'Name must be less than 30 characters.')
+      .max(30, 'Name must be no more than 30 characters.')
       .label('Legal Name'),
     spouseName: string()
-      .max(27, 'Name must be less than 27 characters.')
+      .max(27, "Spouse's Name must be no more than 27 characters.")
       .label("Spouse's Name"),
     email: string()
       .email()
-      .required()
       .label('Email'),
     accountNo: string()
       .matches(
@@ -63,27 +61,33 @@ const formSchema = object()
       .label('Account Number'),
     address: string()
       .required()
-      .max(60, 'Service address must be less than 200 characters.')
-      .label('Service Address'),
+      .max(30, 'Mailing address must be no more than 30 characters.')
+      .label('Mailing Address'),
     city: string()
       .required()
       .label('City'),
-    otherCity: string()
-      .label('City')
-      .when('city', (city: string | null, schema: StringSchema) =>
-        city && city.toLowerCase() === 'other' ? schema.required() : schema
-      ),
+    state: string()
+      .required()
+      .label('State'),
+    zipCode: string()
+      .required()
+      .label('Zip Code'),
+    // otherCity: string()
+    //   .label('City')
+    //   .when('city', (city: string | null, schema: StringSchema) =>
+    //     city && city.toLowerCase() === 'other' ? schema.required() : schema
+    //   ),
     phone: string()
-      .length(10)
+      .min(10)
       .label('Main Phone Number'),
     cellPhone: string()
-      .length(10)
+      .min(10)
       .label('Cell Phone Number'),
     workPhone: string()
-      .length(10)
+      .min(10)
       .label('Work Phone Number'),
     spousePhone: string()
-      .length(10)
+      .min(10)
       .label("Spouse's Phone Number"),
     signature: string()
       .required()
@@ -100,7 +104,8 @@ const initialFormValues: FormData = {
   email: '',
   accountNo: '',
   city: '',
-  otherCity: '',
+  state: 'California - CA',
+  zipCode: '',
   phone: '',
   cellPhone: '',
   workPhone: '',
@@ -118,12 +123,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
       width: '100%'
     },
-    buttonWrapper: {
-      flex: '0 0 auto', // IE fix
-      position: 'relative',
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3)
-    },
     buttonProgress: {
       color: theme.palette.primary.main,
       position: 'absolute',
@@ -131,11 +130,6 @@ const useStyles = makeStyles((theme: Theme) =>
       left: '50%',
       marginTop: -12,
       marginLeft: -12
-    },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
     },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
@@ -227,10 +221,10 @@ const ContactInfo = () => {
                   values,
                   touched = {},
                   dirty,
-                  isSubmitting,
+                  isSubmitting
                   // isValid,
                   // errors,
-                  setFieldValue
+                  // setFieldValue
                 } = formik
 
                 if (dirty !== formIsDirty) {
@@ -247,32 +241,48 @@ const ContactInfo = () => {
                 if (formTouched !== formIsTouched) {
                   setFormIsTouched(formTouched)
                 }
-                const otherCitySelected = Boolean(
-                  values.city && values.city.toLowerCase() === 'other'
-                )
-
-                // If city field is updated clear out otherCity field.
-                const cityChangeHandler = () => {
-                  setFieldValue('otherCity', '')
-                }
 
                 return (
                   <React.Fragment>
                     <FormBox className={classes.form}>
-                      <div className={classes.formGroup}>
+                      <Box flex="0 0 auto" mt={5} mb={5}>
                         <Type
                           color="textSecondary"
                           variant="h4"
                           gutterBottom
                           className={classes.formGroupTitle}
                         >
-                          Contact Information
+                          Updated Contact Information
                         </Type>
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
                             <Field
-                              autoComplete="name"
-                              name="name"
+                              name="address"
+                              multiline
+                              rows={1}
+                              label="Mailing Address"
+                              component={FormTextField}
+                              autoComplete="street-address"
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={4}>
+                            <Field
+                              autoComplete="address-level2"
+                              name="city"
+                              label="City"
+                              component={FormTextField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={4}>
+                            <Field name="state" component={StateSelectField} />
+                          </Grid>
+                          <Grid item xs={12} sm={4}>
+                            <Field
+                              autoComplete="postal-code"
+                              name="zipCode"
+                              label="Zip Code"
                               component={FormTextField}
                             />
                           </Grid>
@@ -284,35 +294,26 @@ const ContactInfo = () => {
                               component={AccountNoField}
                             />
                           </Grid>
-                          <Grid item xs={12} sm={5}>
+                          {/* <Grid item xs={12} sm={5}>
                             <Field
                               name="propertyType"
                               component={PropertyTypeSelectField}
                             />
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
                             <Field
-                              name="city"
-                              onChange={cityChangeHandler}
-                              component={CitySelectField}
+                              autoComplete="name"
+                              name="name"
+                              label="Name"
+                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>
-                        <WaitToGrow isIn={otherCitySelected}>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                name="otherCity"
-                                disabled={!otherCitySelected}
-                                component={OtherCityField}
-                              />
-                            </Grid>
-                          </Grid>
-                        </WaitToGrow>
+
                         <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={4}>
                             <Field
                               name="phone"
                               component={PhoneNoField}
@@ -320,13 +321,7 @@ const ContactInfo = () => {
                               required={false}
                             />
                           </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field name="email" component={EmailField} />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={4}>
                             <Field
                               name="cellPhone"
                               component={PhoneNoField}
@@ -334,7 +329,7 @@ const ContactInfo = () => {
                               required={false}
                             />
                           </Grid>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={4}>
                             <Field
                               name="workPhone"
                               component={PhoneNoField}
@@ -343,24 +338,38 @@ const ContactInfo = () => {
                             />
                           </Grid>
                         </Grid>
-
                         <Grid container spacing={5}>
-                          <Grid item xs={12}>
+                          <Grid item xs={12} sm={6}>
                             <Field
-                              name="address"
-                              multiline
-                              rows={2}
-                              label="Service Address"
-                              component={FormTextField}
-                              autoComplete="street-address"
+                              name="email"
+                              component={EmailField}
+                              required={false}
                             />
                           </Grid>
                         </Grid>
-                      </div>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="spouseName"
+                              label="Spouse's Name (if applicable)"
+                              component={FormTextField}
+                              required={false}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              name="spousePhone"
+                              component={PhoneNoField}
+                              label="Spouse's Phone"
+                              required={false}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Box>
 
                       <Divider variant="middle" />
 
-                      <div className={classes.formGroup}>
+                      <Box flex="0 0 auto" mt={5} mb={5}>
                         <Type
                           color="textSecondary"
                           variant="h4"
@@ -418,9 +427,9 @@ const ContactInfo = () => {
                             <Field name="captcha" component={RecaptchaField} />
                           </Grid>
                         </Grid>
-                      </div>
+                      </Box>
 
-                      <div className={classes.buttonWrapper}>
+                      <Box flex="0 0 auto" position="relative" mt={3} mb={3}>
                         <Button
                           fullWidth
                           variant="outlined"
@@ -432,7 +441,7 @@ const ContactInfo = () => {
                             (!formTouched && !dirty)
                           }
                         >
-                          Submit Application
+                          Submit Updated Contact Information
                         </Button>
                         {isSubmitting && (
                           <CircularProgress
@@ -440,7 +449,7 @@ const ContactInfo = () => {
                             className={classes.buttonProgress}
                           />
                         )}
-                      </div>
+                      </Box>
                     </FormBox>
                   </React.Fragment>
                 )
