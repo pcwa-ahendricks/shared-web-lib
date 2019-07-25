@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
   forecastType: {
     paddingLeft: 5,
-    fontWeight: 600
+    fontWeight: 500 // default 400
   }
 })
 

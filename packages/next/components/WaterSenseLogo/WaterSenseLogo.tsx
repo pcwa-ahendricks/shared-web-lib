@@ -9,7 +9,6 @@ import {makeStyles, createStyles} from '@material-ui/styles'
 const useStyles = makeStyles(() =>
   createStyles({
     lookFor: {
-      fontWeight: 600,
       textTransform: 'uppercase',
       color: '#377cae'
     }
