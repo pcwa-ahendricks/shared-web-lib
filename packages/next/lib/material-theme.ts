@@ -25,20 +25,20 @@ const theme = createMuiTheme({
       fontSize: '2.5rem' // Default: 6rem
     },
     h2: {
-      fontSize: '1.75rem', // Default: 3.75rem
-      fontWeight: 400 // Default: 300
+      fontSize: '1.75rem' // Default: 3.75rem
+      // fontWeight: 400 // Default: 300
     },
     h3: {
-      fontSize: '1.55rem', // Default: 3rem
-      fontWeight: 400 // Default: 400
+      fontSize: '1.55rem' // Default: 3rem
+      // fontWeight: 400 // Default: 400
     },
     h4: {
-      fontSize: '1.25rem', // Default: 2.125rem
-      fontWeight: 400 // Default: 400
+      fontSize: '1.25rem' // Default: 2.125rem
+      // fontWeight: 400 // Default: 400
     },
     h5: {
-      fontSize: '1.15rem', // Default: 1.5rem
-      fontWeight: 400 // Default: 400
+      fontSize: '1.15rem' // Default: 1.5rem
+      // fontWeight: 400 // Default: 400
     },
     h6: {
       fontSize: '1rem' // Default: 1.25rem
