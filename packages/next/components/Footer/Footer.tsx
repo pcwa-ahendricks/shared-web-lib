@@ -100,7 +100,7 @@ const Footer = () => {
             >
               <RowBox>
                 <Box color={theme.palette.grey[300]}>
-                  <MapIcon />
+                  <MapIcon fontSize="small" />
                 </Box>
                 <Box ml={1}>
                   <GlowGreen>
@@ -121,7 +121,7 @@ const Footer = () => {
               </RowBox>
               <RowBox mt={3}>
                 <Box color={theme.palette.grey[300]}>
-                  <PhoneIcon />
+                  <PhoneIcon fontSize="small" />
                 </Box>
                 <Box ml={1}>
                   <GlowGreen>
