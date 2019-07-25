@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
-// import {makeStyles, createStyles} from '@material-ui/styles'
-import {Box} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/styles'
+import {Box, Typography as Type, Theme, Divider} from '@material-ui/core'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
 import menuConfig from '@lib/menuConfig'
@@ -10,20 +10,23 @@ type Props = {
   contentKey?: number | null
 }
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-// text: {
-//   color: theme.palette.grey[50],
-//   opacity: 0.85,
-//   '&.navlink': {
-//     cursor: 'pointer'
-//   }
-// }
-//   })
-// )
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    groupName: {
+      color: theme.palette.grey[100]
+    },
+    divider: {
+      backgroundColor: theme.palette.grey[300],
+      opacity: 0.3,
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1)
+    }
+  })
+)
 
 const MMContent = ({contentKey = 1}: Props) => {
-  // const classes = useStyles()
+  const classes = useStyles()
+
   const menuItem = useMemo(
     () => menuConfig.find((entry) => entry.key === contentKey),
     [contentKey]
@@ -39,6 +42,10 @@ const MMContent = ({contentKey = 1}: Props) => {
         <RowBox justifyContent="flex-end" pl="5vw" pr="5vw">
           {groups.map((menuGroup, groupIdx) => (
             <ColumnBox flex="0 1 auto" key={groupIdx} m={2}>
+              <Type variant="overline" className={classes.groupName}>
+                {menuGroup.groupName}
+              </Type>
+              <Divider variant="fullWidth" className={classes.divider} />
               {menuGroup.items.map((item, itemIdx) => (
                 <Box key={itemIdx}>
                   <MMNavLink href={item.nextLink}>{item.title}</MMNavLink>

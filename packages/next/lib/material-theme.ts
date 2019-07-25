@@ -63,6 +63,9 @@ const theme = createMuiTheme({
       // fontWeight: 600, // Default: 500
       fontFamily: ['Malva', ...systemFonts].join(','),
       fontSize: '1rem' // Default: 0.875rem
+    },
+    overline: {
+      fontSize: '0.875rem' // Default: 0.75rem
     }
   },
   palette: {
