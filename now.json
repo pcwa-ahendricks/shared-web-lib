@@ -56,6 +56,7 @@
       "src": "^/lambda/forecast(.*)$",
       "dest": "packages/forecast/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "GET"
       }
@@ -64,6 +65,7 @@
       "src": "^/lambda/mail(.*)$",
       "dest": "packages/mailjet/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://www.pcwa.net"
       }
     },
@@ -71,6 +73,7 @@
       "src": "^/lambda/cosmic(.*)$",
       "dest": "packages/cosmic/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://www.pcwa.net"
       }
     },
@@ -78,6 +81,7 @@
       "src": "^/lambda/search(.*)$",
       "dest": "packages/google-search/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://www.pcwa.net"
       }
     },
@@ -85,6 +89,7 @@
       "src": "^/lambda/mc(.*)$",
       "dest": "packages/mailchimp/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://www.pcwa.net"
       }
     },
@@ -97,6 +102,7 @@
       "src": "^/(.*)$",
       "dest": "/packages/next/$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     }

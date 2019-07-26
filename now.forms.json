@@ -39,6 +39,7 @@
       "src": "^/lambda/mail(.*)$",
       "dest": "packages/mailjet/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://forms.pcwa.net"
       }
     },
@@ -46,6 +47,7 @@
       "src": "^/lambda/cosmic(.*)$",
       "dest": "packages/cosmic/dist/index.js",
       "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://forms.pcwa.net"
       }
     },
@@ -53,6 +55,7 @@
       "src": "^/irrigation-controller-rebate(.*)$",
       "dest": "/packages/next/forms/rebates/irrigation-controller$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     },
@@ -60,6 +63,7 @@
       "src": "^/irrigation-efficiencies-rebate(.*)$",
       "dest": "/packages/next/forms/rebates/irrigation-efficiencies$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     },
@@ -67,6 +71,7 @@
       "src": "^/lawn-replacement-rebate(.*)$",
       "dest": "/packages/next/forms/rebates/lawn-replacement$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     },
@@ -74,6 +79,7 @@
       "src": "^/washing-machine-rebate(.*)$",
       "dest": "/packages/next/forms/rebates/washing-machine$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     },
@@ -81,6 +87,7 @@
       "src": "^/toilet-rebate(.*)$",
       "dest": "/packages/next/forms/rebates/toilet$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     },
@@ -93,6 +100,7 @@
       "src": "^/(.+)$",
       "dest": "/packages/next/$1",
       "headers": {
+        "cache-control": "maxage=0, s-maxage=86400",
         "x-request-path": "$1"
       }
     }
