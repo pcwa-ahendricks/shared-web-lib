@@ -1,13 +1,11 @@
 import React from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {Theme} from '@material-ui/core'
-import NextLink from '@components/NextLink/NextLink'
-import usePrefetchHandler from '@hooks/usePrefetchHandler'
+import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 type Props = {
   children: React.ReactNode
-  href: string
-}
+} & FlexLinkProps
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,23 +21,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const MMNavLink = ({children, href}: Props) => {
+const MMNavLink = ({children, href, isNextLink = true}: Props) => {
   const classes = useStyles()
   // const theme = useTheme<Theme>()
 
-  const mouseEnterHandler = usePrefetchHandler()
-
   return (
-    <NextLink
+    <FlexLink
       className={classes.text}
       variant="body1"
       href={href}
       color="inherit"
       underline="none"
-      onMouseEnter={mouseEnterHandler(href)}
+      isNextLink={isNextLink}
     >
       {children}
-    </NextLink>
+    </FlexLink>
   )
 }
 

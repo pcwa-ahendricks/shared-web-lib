@@ -30,6 +30,102 @@ const menuConfig = [
             nextLink: '/about-pcwa/district-boundary/map'
           }
         ]
+      },
+      {
+        groupName: 'Careers',
+        items: [
+          {
+            title: 'Careers at PCWA',
+            href: 'https://careers.pcwa.net/'
+          },
+          {
+            title: 'Recruitment Video',
+            nextLink: '/career/recruitment'
+          },
+          {
+            title: 'Employee Benefits Summary',
+            nextLink: '/career/employee-benefits-summary'
+          },
+          {
+            title: 'Salary Schedule',
+            nextLink: '/career/salary-schedule'
+          }
+        ]
+      },
+      {
+        groupName: 'General',
+        items: [
+          {
+            title: 'General Information',
+            nextLink: '/about-pcwa'
+          },
+          {title: 'Contact PCWA', nextLink: '/contact-us'},
+          {
+            title: 'Environmental Planning',
+            nextLink: '/about-pcwa/environmental-planning'
+          },
+          {
+            title: 'Financial Reports',
+            nextLink: '/about-pcwa/financial-report'
+          },
+          {
+            title: 'Unclaimed Property',
+            nextLink: '/about-pcwa/unclaimed-property'
+          },
+          {
+            title: 'Identifying PCWA Employees',
+            nextLink: '/about-pcwa/how-to-id-us'
+          },
+          {title: 'Links', nextLink: '/about-pcwa/links'},
+          {
+            title: 'Construction Projects',
+            nextLink: '/about-pcwa/projects'
+          },
+          // { 'class': 'item', 'title': 'SB-272', 'nextLink': ['/about-pcwa/sb272'] },
+          {
+            title: 'Transparency Information',
+            nextLink: '/about-pcwa/transparency'
+          },
+          {
+            title: 'Middle Fork Project Finance Authority - JPA',
+            href:
+              'https://www.placer.ca.gov/5413/Middle-Fork-Project-Finance-Authority'
+          },
+          {
+            title: 'Middle Fork American River Project Relicensing',
+            href: 'http://relicensing.pcwa.net/'
+          }
+        ]
+      },
+      {
+        groupName: 'Recreation',
+        items: [
+          {title: 'Recreation', nextLink: '/recreation/'},
+          {
+            title: 'Campgrounds',
+            nextLink: '/recreation/campground'
+          },
+          {
+            title: 'Rafting',
+            nextLink: '/recreation/rafting'
+          },
+          {
+            title: 'French Meadows Reservoir',
+            nextLink: '/recreation/french-meadows'
+          },
+          {
+            title: 'Hell Hole Reservoir',
+            nextLink: '/recreation/hell-hole'
+          },
+          {
+            title: 'American River',
+            nextLink: '/recreation/american-river'
+          },
+          {
+            title: 'River Flows',
+            nextLink: '/recreation/river-flow'
+          } // TODO - Implement THE River Flows Page
+        ]
       }
     ]
   },
@@ -122,67 +218,8 @@ const menuConfig = [
 ]
 
 /* 
-  recreation: {
-    title: 'Recreation',
-    items: [
-      { title: 'Recreation', nextLink: '/recreation/'},
-      {
-        
-        title: 'Campgrounds',
-        nextLink: '/recreation/campground'
-      },
-      {
-        
-        title: 'Rafting',
-        nextLink: '/recreation/rafting'
-      },
-      {
-        
-        title: 'French Meadows Reservoir',
-        nextLink: '/recreation/french-meadows'
-      },
-      {
-        
-        title: 'Hell Hole Reservoir',
-        nextLink: '/recreation/hell-hole'
-      },
-      {
-        
-        title: 'American River',
-        nextLink: '/recreation/american-river'
-      },
-      {
-        
-        title: 'River Flows',
-        nextLink: '/recreation/river-flow'
-      } // TODO - Implement THE River Flows Page
-    ]
-  },
-  careers: {
-    title: 'Careers',
-    items: [
-      {
-        
-        title: 'Careers at PCWA',
-        href: 'https://careers.pcwa.net/'
-      },
-      {
-        
-        title: 'Recruitment Video',
-        nextLink: '/career/recruitment'
-      },
-      {
-        
-        title: 'Employee Benefits Summary',
-        nextLink: '/career/employee-benefits-summary'
-      },
-      {
-        
-        title: 'Salary Schedule',
-        nextLink: '/career/salary-schedule'
-      }
-    ]
-  },
+  
+
   'working-with-pcwa': {
     title: 'Business With PCWA',
     items: [
@@ -230,60 +267,6 @@ const menuConfig = [
         
         title: 'County-Wide Master Plan',
         nextLink: '/business/cwmp'
-      }
-    ]
-  },
-  general: {
-    title: 'General',
-    items: [
-      {
-        
-        title: 'General Information',
-        nextLink: '/about-pcwa'
-      },
-      { title: 'Contact PCWA', nextLink: '/contact-us'},
-      {
-        
-        title: 'Environmental Planning',
-        nextLink: '/about-pcwa/environmental-planning'
-      },
-      {
-        
-        title: 'Financial Reports',
-        nextLink: '/about-pcwa/financial-report'
-      },
-      {
-        
-        title: 'Unclaimed Property',
-        nextLink: '/about-pcwa/unclaimed-property'
-      },
-      {
-        
-        title: 'Identifying PCWA Employees',
-        nextLink: '/about-pcwa/how-to-id-us'
-      },
-      { title: 'Links', nextLink: '/about-pcwa/links'},
-      {
-        
-        title: 'Construction Projects',
-        nextLink: '/about-pcwa/projects'
-      },
-      // { 'class': 'item', 'title': 'SB-272', 'nextLink': ['/about-pcwa/sb272'] },
-      {
-        
-        title: 'Transparency Information',
-        nextLink: '/about-pcwa/transparency'
-      },
-      {
-        
-        title: 'Middle Fork Project Finance Authority - JPA',
-        href:
-          'https://www.placer.ca.gov/5413/Middle-Fork-Project-Finance-Authority'
-      },
-      {
-        
-        title: 'Middle Fork American River Project Relicensing',
-        href: 'http://relicensing.pcwa.net/'
       }
     ]
   },

@@ -39,7 +39,7 @@ const ForwardNextComposed = React.forwardRef(
 )
 ForwardNextComposed.displayName = 'NextComposed'
 
-type NextMuiLinkProps = {
+export type NextMuiLinkProps = {
   activeClassName?: string
   as?: string
   href: string

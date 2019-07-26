@@ -48,7 +48,13 @@ const MMContent = ({contentKey = 1}: Props) => {
               <Divider variant="fullWidth" className={classes.divider} />
               {menuGroup.items.map((item, itemIdx) => (
                 <Box key={itemIdx}>
-                  <MMNavLink href={item.nextLink}>{item.title}</MMNavLink>
+                  {item.nextLink ? (
+                    <MMNavLink href={item.nextLink}>{item.title}</MMNavLink>
+                  ) : item.href ? (
+                    <MMNavLink href={item.href} isNextLink={false}>
+                      {item.title}
+                    </MMNavLink>
+                  ) : null}
                 </Box>
               ))}
             </ColumnBox>
