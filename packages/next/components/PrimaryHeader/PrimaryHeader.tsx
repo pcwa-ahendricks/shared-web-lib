@@ -250,7 +250,6 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
           {/* <Hidden only="xs" implementation="css"> */}
           <ColumnBox
             display={hideLogoQuery ? 'none' : 'flex'}
-            height="100%"
             width="100%"
             justifyContent="center"
             alignItems="flex-start"
