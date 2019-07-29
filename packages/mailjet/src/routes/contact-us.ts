@@ -1,4 +1,4 @@
-// cspell:ignore customerservices
+// cspell:ignore customerservices pcwamain
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
@@ -23,7 +23,10 @@ const MAILJET_TEMPLATE_ID = 848345
 // Additional email addresses are added to array below.
 const SA_RECIPIENTS: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [{Name: 'Abe', Email: 'webmaster@pcwa.net'}]
+  : [
+      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
+    ]
 
 interface FormDataObj {
   name: string
