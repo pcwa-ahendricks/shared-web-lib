@@ -1,22 +1,38 @@
 import React from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
+import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
 import {Theme} from '@material-ui/core'
-import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
+// import colorAlpha from 'color-alpha'
+// import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 type Props = {
   children: React.ReactNode
-} & FlexLinkProps
+} & FlexButtonProps
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    text: {
-      color: theme.palette.grey[50],
+    button: {
+      // color: theme.palette.grey[50],
       opacity: 0.85,
+      textTransform: 'unset',
       '&:hover, &:active': {
-        color: theme.palette.common.white,
+        // color: theme.palette.common.white,
+        color: theme.palette.grey[50],
+        backgroundColor: theme.palette.primary.main,
         fontWeight: 500,
         opacity: 1
       }
+    },
+    buttonRoot: {
+      margin: '-1px 0',
+      borderRadius: '2px', // Default: 4px
+      justifyContent: 'unset'
+    },
+    buttonText: {
+      fontSize: '0.9rem',
+      textAlign: 'unset',
+      padding: '3px 8px' // Default: 6px 8px;
+      // whiteSpace: 'nowrap'
     }
   })
 )
@@ -26,16 +42,25 @@ const MMNavLink = ({children, href, isNextLink = true}: Props) => {
   // const theme = useTheme<Theme>()
 
   return (
-    <FlexLink
-      className={classes.text}
-      variant="body1"
+    <FlexButton
+      className={classes.button}
       href={href}
-      color="inherit"
-      underline="none"
+      color="primary"
       isNextLink={isNextLink}
+      classes={{root: classes.buttonRoot, text: classes.buttonText}}
     >
       {children}
-    </FlexLink>
+    </FlexButton>
+    // <FlexLink
+    //   className={classes.text}
+    //   variant="body1"
+    //   href={href}
+    //   color="inherit"
+    //   underline="none"
+    //   isNextLink={isNextLink}
+    // >
+    //   {children}
+    // </FlexLink>
   )
 }
 

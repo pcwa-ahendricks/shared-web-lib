@@ -1,8 +1,4 @@
 // cspell:ignore legislationletters
-// const menuLinkData = [
-//   {key: 3, caption: 'Business With PCWA', tabIndex: 3},
-//   {key: 4, caption: 'Newsroom', tabIndex: 4}
-// ]
 
 const menuConfig = [
   {
@@ -214,90 +210,85 @@ const menuConfig = [
         ]
       }
     ]
-  }
-]
+  },
+  {
+    key: 3,
+    tabIndex: 3,
+    menuName: 'Business With PCWA',
+    groups: [
+      {
+        groupName: 'Business With PCWA',
+        items: [
+          {
+            title: 'Business With PCWA',
+            nextLink: '/business/'
+          },
+          {
+            title: 'Goods and Services',
+            nextLink: '/business/goods-and-services'
+          },
+          {
+            title: 'New Developments',
+            nextLink: '/business/new-development'
+          },
+          {
+            title: 'Construction Bids',
+            nextLink: '/business/construction-bids'
+          },
+          {
+            title: 'Construction Projects',
+            nextLink: '/about-pcwa/projects'
+          },
+          {
+            title: 'Energy Products',
+            nextLink: '/business/energy-products'
+          },
+          {
+            title: 'Improvement Standards',
+            nextLink: '/business/standards'
+          }
+        ]
+      },
 
-/* 
-  
-
-  'working-with-pcwa': {
-    title: 'Business With PCWA',
-    items: [
       {
-        
-        title: 'Business With PCWA',
-        nextLink: '/business/'
-      },
-      {
-        
-        title: 'Goods and Services',
-        nextLink: '/business/goods-and-services'
-      },
-      {
-        
-        title: 'New Developments',
-        nextLink: '/business/new-development'
-      },
-      {
-        
-        title: 'Construction Bids',
-        nextLink: '/business/construction-bids'
-      },
-      {
-        
-        title: 'Construction Projects',
-        nextLink: '/about-pcwa/projects'
-      },
-      {
-        
-        title: 'Energy Products',
-        nextLink: '/business/energy-products'
-      },
-      {
-        
-        title: 'Improvement Standards',
-        nextLink: '/business/standards'
+        groupName: 'County-Wide Master Plan',
+        items: [
+          {
+            title: 'County-Wide Master Plan',
+            nextLink: '/business/cwmp'
+          }
+        ]
       }
     ]
   },
-  'master-plan': {
-    title: 'County-Wide Master Plan',
-    items: [
+  {
+    key: 4,
+    tabIndex: 4,
+    menuName: 'Newsroom',
+    groups: [
       {
-        
-        title: 'County-Wide Master Plan',
-        nextLink: '/business/cwmp'
-      }
-    ]
-  },
- 
-  newsroom: {
-    title: 'Newsroom',
-    items: [
-      {
-        
-        title: 'News Releases',
-        nextLink: '/newsroom/news-release'
-      },
-      {
-        
-        title: 'Publications',
-        nextLink: '/newsroom/publication'
-      },
-      {
-        
-        title: 'Legislation & Letters',
-        nextLink: '/newsroom/legislationletters'
-      },
-      {
-        
-        title: 'Multimedia Library',
-        nextLink: '/newsroom/multimedia-library'
+        groupName: 'Newsroom',
+        items: [
+          {
+            title: 'News Releases',
+            nextLink: '/newsroom/news-release'
+          },
+          {
+            title: 'Publications',
+            nextLink: '/newsroom/publication'
+          },
+          {
+            title: 'Legislation & Letters',
+            nextLink: '/newsroom/legislationletters'
+          },
+          {
+            title: 'Multimedia Library',
+            nextLink: '/newsroom/multimedia-library'
+          }
+        ]
       }
     ]
   }
 ]
-
-*/
 
 export default menuConfig

@@ -65,7 +65,7 @@ const theme = createMuiTheme({
       fontSize: '1rem' // Default: 0.875rem
     },
     overline: {
-      fontSize: '0.875rem' // Default: 0.75rem
+      fontSize: '0.85rem' // Default: 0.75rem
     }
   },
   palette: {

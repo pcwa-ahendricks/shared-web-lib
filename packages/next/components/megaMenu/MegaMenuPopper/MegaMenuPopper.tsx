@@ -30,9 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
         height: '1em',
         '&::before': {
           borderWidth: '0 1em 1em 1em',
-          borderColor: `transparent transparent ${
-            theme.palette.primary.dark
-          } transparent`
+          // borderColor: `transparent transparent ${theme.palette.primary.dark} transparent` // Dark Background
+          borderColor: `transparent transparent ${theme.palette.grey['300']} transparent` // Light Background
         }
       }
     },

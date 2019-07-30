@@ -13,13 +13,16 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     groupName: {
-      color: theme.palette.grey[100]
+      // color: theme.palette.grey[100]
+      paddingLeft: 8 // Match NavLink buttonText class and this divider class.
     },
     divider: {
-      backgroundColor: theme.palette.grey[300],
+      // backgroundColor: theme.palette.grey[300],
+      backgroundColor: theme.palette.primary.dark,
       opacity: 0.3,
       marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1)
+      marginBottom: theme.spacing(1),
+      marginLeft: 8 // Match NavLink buttonText class and this groupName class.
     }
   })
 )
@@ -42,7 +45,12 @@ const MMContent = ({contentKey = 1}: Props) => {
         <RowBox justifyContent="flex-end" pl="5vw" pr="5vw">
           {groups.map((menuGroup, groupIdx) => (
             <ColumnBox flex="0 1 auto" key={groupIdx} m={2}>
-              <Type variant="overline" className={classes.groupName}>
+              <Type
+                variant="overline"
+                color="primary"
+                noWrap={true}
+                className={classes.groupName}
+              >
                 {menuGroup.groupName}
               </Type>
               <Divider variant="fullWidth" className={classes.divider} />

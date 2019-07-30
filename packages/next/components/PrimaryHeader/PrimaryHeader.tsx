@@ -153,7 +153,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
   )
 
   const popperCloseHandler = useCallback(() => {
-    // setPopperOpen(false) // Comment this out to debug popup with Web Browser Devtools.
+    setPopperOpen(false) // Comment this out to debug popup with Web Browser Devtools.
   }, [])
 
   const popperOpenHandler = useCallback(() => {
