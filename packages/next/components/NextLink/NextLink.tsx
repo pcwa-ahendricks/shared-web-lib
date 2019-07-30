@@ -9,7 +9,8 @@ import {makeStyles} from '@material-ui/styles'
   Adapted from https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/Link.tsx
 */
 
-type NextComposedProps = NextLinkProps & React.HTMLProps<HTMLAnchorElement>
+type NextComposedProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
+  NextLinkProps
 
 const useStyles = makeStyles({
   root: {
@@ -22,10 +23,22 @@ const NextComposed = ({
   href,
   prefetch,
   children,
+  replace,
+  scroll,
+  shallow,
+  passHref,
   ...other
 }: NextComposedProps) => {
   return (
-    <NextLink href={href} prefetch={prefetch} as={as}>
+    <NextLink
+      href={href}
+      prefetch={prefetch}
+      as={as}
+      replace={replace}
+      scroll={scroll}
+      shallow={shallow}
+      passHref={passHref}
+    >
       <a {...other}>{children}</a>
     </NextLink>
   )

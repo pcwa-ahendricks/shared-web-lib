@@ -6,7 +6,7 @@ const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
-export const getObjects = async (_req: MicroForkRequest) => {
+export const getObjects = async () => {
   try {
     const qs = stringify(
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -30,7 +30,7 @@ export const getObjects = async (_req: MicroForkRequest) => {
   }
 }
 
-export const getObjectTypes = async (_req: MicroForkRequest) => {
+export const getObjectTypes = async () => {
   try {
     const qs = stringify(
       // eslint-disable-next-line @typescript-eslint/camelcase
