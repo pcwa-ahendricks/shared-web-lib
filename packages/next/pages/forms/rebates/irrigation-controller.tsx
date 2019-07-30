@@ -45,6 +45,7 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import {ColumnBox} from '@components/boxes/FlexBox'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -264,17 +265,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
-    },
-    // GO-LIVE remove logoContainer.
-    logoContainer: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
     },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
@@ -792,7 +782,13 @@ const IrrigationController = () => {
               content="PCWA Water Efficiency Rebate Form"
             />
           </Head>
-          <div className={classes.logoContainer}>
+          <ColumnBox
+            justifyContent="center"
+            alignItems="flex-start"
+            mt={2}
+            ml={2}
+            mr={2}
+          >
             <PcwaLogo
               height="70%"
               style={{
@@ -801,7 +797,7 @@ const IrrigationController = () => {
               }}
               missionStatementFill="rgba(0,0,0,0)"
             />
-          </div>
+          </ColumnBox>
           {mainEl}
         </React.Fragment>
       ) : (
@@ -810,7 +806,7 @@ const IrrigationController = () => {
           {mainEl}
         </PageLayout>
       ),
-    [mainEl, classes]
+    [mainEl]
   )
 
   return (

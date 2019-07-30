@@ -47,6 +47,7 @@ import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -244,17 +245,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
-    },
-    // GO-LIVE remove logoContainer.
-    logoContainer: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
     },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
@@ -840,7 +830,13 @@ const Toilet = () => {
               content="PCWA Water Efficiency Rebate Form"
             />
           </Head>
-          <div className={classes.logoContainer}>
+          <ColumnBox
+            justifyContent="center"
+            alignItems="flex-start"
+            mt={2}
+            ml={2}
+            mr={2}
+          >
             <PcwaLogo
               height="70%"
               style={{
@@ -849,14 +845,14 @@ const Toilet = () => {
               }}
               missionStatementFill="rgba(0,0,0,0)"
             />
-          </div>
+          </ColumnBox>
           {mainEl}
         </React.Fragment>
       ) : (
         // <React.Fragment>
         <PageLayout title="Toilet Rebate Form">{mainEl}</PageLayout>
       ),
-    [mainEl, classes]
+    [mainEl]
   )
 
   return (

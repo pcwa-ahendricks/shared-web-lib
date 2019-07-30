@@ -33,6 +33,7 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
@@ -102,17 +103,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
-    },
-    // GO-LIVE remove logoContainer.
-    logoContainer: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
     },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
@@ -362,7 +352,13 @@ const ReportWaterWastePage = () => {
             <title>Contact Us Form</title>
             <meta name="description" content="PCWA Contact Form" />
           </Head>
-          <div className={classes.logoContainer}>
+          <ColumnBox
+            justifyContent="center"
+            alignItems="flex-start"
+            mt={2}
+            ml={2}
+            mr={2}
+          >
             <PcwaLogo
               height="70%"
               style={{
@@ -371,14 +367,14 @@ const ReportWaterWastePage = () => {
               }}
               missionStatementFill="rgba(0,0,0,0)"
             />
-          </div>
+          </ColumnBox>
           {mainEl}
         </React.Fragment>
       ) : (
         // <React.Fragment>
         <PageLayout title="Report Water Waste">{mainEl}</PageLayout>
       ),
-    [mainEl, classes]
+    [mainEl]
   )
 
   return (

@@ -34,6 +34,7 @@ import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import StateSelectField from '@components/formFields/StateSelectField'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-info'
@@ -133,17 +134,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
-    },
-    // GO-LIVE remove logoContainer.
-    logoContainer: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
     },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
@@ -475,7 +465,13 @@ const ContactInfo = () => {
             <title>Rebate Form</title>
             <meta name="description" content="Update Contact Info Form" />
           </Head>
-          <div className={classes.logoContainer}>
+          <ColumnBox
+            justifyContent="center"
+            alignItems="flex-start"
+            mt={2}
+            ml={2}
+            mr={2}
+          >
             <PcwaLogo
               height="70%"
               style={{
@@ -484,14 +480,14 @@ const ContactInfo = () => {
               }}
               missionStatementFill="rgba(0,0,0,0)"
             />
-          </div>
+          </ColumnBox>
           {mainEl}
         </React.Fragment>
       ) : (
         // <React.Fragment>
         <PageLayout title="Update Contact Info Form">{mainEl}</PageLayout>
       ),
-    [mainEl, classes]
+    [mainEl]
   )
 
   return (
