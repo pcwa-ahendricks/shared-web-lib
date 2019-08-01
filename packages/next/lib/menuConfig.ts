@@ -20,10 +20,6 @@ const menuConfig = [
           {
             title: 'Board Meeting Minutes',
             nextLink: '/about-pcwa/board-minutes'
-          },
-          {
-            title: 'District Boundary Map',
-            nextLink: '/about-pcwa/district-boundary/map'
           }
         ]
       },
