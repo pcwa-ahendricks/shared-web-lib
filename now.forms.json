@@ -53,19 +53,13 @@
     },
     {
       "src": "^/irrigation-controller-rebate$",
-      "dest": "/packages/next/forms/rebates/irrigation-controller.html",
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
+      "dest": "/404",
+      "status": 404
     },
     {
       "src": "^/irrigation-controller-rebate(.*)$",
-      "dest": "/packages/next/forms/rebates/irrigation-controller$1",
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
+      "dest": "/404",
+      "status": 404
     },
     {
       "src": "^/irrigation-efficiencies-rebate$",
