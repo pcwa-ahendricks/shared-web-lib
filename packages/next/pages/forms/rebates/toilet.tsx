@@ -110,7 +110,7 @@ const formSchema = object()
       ),
     builtPriorCutoff: string()
       .required()
-      .label('House Built prior to 1994')
+      .label('Was your building(s) built prior to 1994?')
       .oneOf(
         ['Yes'], // "Yes", "No"
         'Old toilets replaced must be rated at 3.0 (GPF) or more'
