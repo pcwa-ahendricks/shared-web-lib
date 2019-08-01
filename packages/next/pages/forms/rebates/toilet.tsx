@@ -652,6 +652,7 @@ const Toilet = () => {
                               in a delay or rejected application.
                             </span>
                           }
+                          disabled={ineligible}
                         />
 
                         <div className={classes.dropzoneContainer}>
