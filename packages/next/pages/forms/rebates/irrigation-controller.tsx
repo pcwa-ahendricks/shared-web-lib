@@ -12,7 +12,6 @@ import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object, array, ArraySchema, date, StringSchema} from 'yup'
-import clsx from 'clsx'
 import {
   postRebateForm,
   IrrigationControllerRebateFormData as RebateFormData,
@@ -42,10 +41,13 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
+import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import {BooleanAsString} from '@lib/safeCastBoolean'
+import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -108,6 +110,7 @@ const formSchema = object()
         'Must agree to Terms and Conditions by checking this box'
       )
       .label('Agree to Terms'),
+    emailAttachments: string().label('Email Attachments'),
     signature: string()
       .required()
       .label('Your signature'),
@@ -115,7 +118,13 @@ const formSchema = object()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
     receipts: array()
-      .required('Must provide receipt(s) or proof of purchase')
+      .when(
+        'emailAttachments',
+        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required('Must provide receipt(s) or proof of purchase')
+      )
       .of(
         object({
           status: string()
@@ -128,7 +137,15 @@ const formSchema = object()
         })
       ),
     cntrlPhotos: array()
-      .required('Must provide photo(s) of installed irrigation controller')
+      .when(
+        'emailAttachments',
+        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required(
+                'Must provide photo(s) of installed irrigation controller'
+              )
+      )
       .of(
         object({
           status: string()
@@ -142,9 +159,13 @@ const formSchema = object()
       ),
     addtlSensorPhotos: array()
       .when(
-        'additional',
-        (additional: string[] | undefined, schema: ArraySchema<string>) =>
-          additional
+        ['additional', 'emailAttachments'],
+        (
+          additional: string[] | undefined,
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<string>
+        ) =>
+          additional && emailAttachments !== 'true'
             ? schema.required(
                 'Must provide photo(s) of installed sensor/outdoor cover'
               )
@@ -178,6 +199,7 @@ const initialFormValues: RebateFormData = {
   additional: '',
   purchaseDate: new Date(),
   termsAgree: '',
+  emailAttachments: '',
   signature: '',
   captcha: '',
   receipts: [],
@@ -394,6 +416,10 @@ const IrrigationController = () => {
                   values.city && values.city.toLowerCase() === 'other'
                 )
 
+                const emailAttachments = Boolean(
+                  values.emailAttachments === 'true'
+                )
+
                 const hasAddtlSensor = Boolean(values.additional)
 
                 // If city field is updated clear out otherCity field.
@@ -563,29 +589,52 @@ const IrrigationController = () => {
                       >
                         Provide Attachments
                       </Type>
+                      <Type variant="caption" color="textSecondary">
+                        Note - Only Image file formats can be uploaded (eg.
+                        .jpg, .png). PDF files <em>cannot</em> be uploaded here.
+                        If you are unable to attach the correct file type, or if
+                        any other issues with the attachments arise, you may
+                        select the box below and submit the files in an email.
+                      </Type>
+                      <Field
+                        name="emailAttachments"
+                        component={EmailAttachmentsSwitch}
+                        fullWidth={false}
+                        label={
+                          <span>
+                            Optionally, check here to email receipts and photos
+                            instead. Send email with attachments to{' '}
+                            <WaterEfficiencyEmail /> with your name and account
+                            number in the subject line. Failure to do so may
+                            result in a delay or rejected application.
+                          </span>
+                        }
+                      />
 
-                      <div className={clsx(classes.dropzoneContainer)}>
+                      <div className={classes.dropzoneContainer}>
                         <Field
                           name="receipts"
                           attachmentTitle="Receipt"
                           uploadFolder="irrigation-controller"
                           onIsUploadingChange={receiptIsUploadingHandler}
                           component={AttachmentField}
+                          disabled={emailAttachments}
                         />
                       </div>
 
-                      <div className={clsx(classes.dropzoneContainer)}>
+                      <div className={classes.dropzoneContainer}>
                         <Field
                           name="cntrlPhotos"
                           attachmentTitle="Installed Irrigation Controller Photo"
                           uploadFolder="irrigation-controller"
                           onIsUploadingChange={cntrlPhotosIsUploadingHandler}
                           component={AttachmentField}
+                          disabled={emailAttachments}
                         />
                       </div>
 
                       <WaitToGrow isIn={hasAddtlSensor}>
-                        <div className={clsx(classes.dropzoneContainer)}>
+                        <div className={classes.dropzoneContainer}>
                           <Field
                             name="addtlSensorPhotos"
                             attachmentTitle="Additional Sensor/Outdoor Cover Photo"
@@ -594,6 +643,7 @@ const IrrigationController = () => {
                               addtlSensorPhotosIsUploadingHandler
                             }
                             component={AttachmentField}
+                            disabled={emailAttachments}
                           />
                         </div>
                       </WaitToGrow>
@@ -638,6 +688,7 @@ const IrrigationController = () => {
                           <Field
                             name="termsAgree"
                             component={AgreeTermsCheckbox}
+                            fullWidth={false}
                           />
                         </Grid>
                       </Grid>

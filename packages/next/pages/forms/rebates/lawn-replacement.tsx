@@ -548,6 +548,7 @@ const LawnReplacement = () => {
                               name="termsAgree"
                               disabled={ineligible}
                               component={AgreeTermsCheckbox}
+                              fullWidth={false}
                             />
                             <Type variant="body1">
                               You must agree to participate in a pre-conversion

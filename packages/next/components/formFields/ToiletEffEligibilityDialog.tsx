@@ -280,7 +280,7 @@ function getSteps() {
     },
     {
       index: 1,
-      label: 'Was your house built prior to 1994?',
+      label: 'Was your building(s) built prior to 1994?',
       fieldName: 'builtPriorCutoff',
       content: <QuestionTwo />
     }

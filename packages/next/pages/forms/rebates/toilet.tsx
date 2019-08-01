@@ -12,7 +12,6 @@ import {createStyles, makeStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Field, FieldArray} from 'formik'
 import {string, object, array, StringSchema, number} from 'yup'
-import clsx from 'clsx'
 import {
   postRebateForm,
   ToiletRebateFormData as RebateFormData,
@@ -48,6 +47,9 @@ import FormTextField from '@components/formFields/FormTextField'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
+import {BooleanAsString} from '@lib/safeCastBoolean'
+import RebatesEmail from '@components/links/RebatesEmail'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -142,6 +144,7 @@ const formSchema = object()
         'Must agree to Terms and Conditions by checking this box'
       )
       .label('Agree to Terms'),
+    emailAttachments: string().label('Email Attachments'),
     signature: string()
       .required()
       .label('Your signature'),
@@ -152,7 +155,13 @@ const formSchema = object()
       .max(200, 'Comments must be less than 200 characters.')
       .label('Comments'),
     receipts: array()
-      .required('Must provide receipt(s) or proof of purchase')
+      .when(
+        'emailAttachments',
+        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required('Must provide receipt(s) or proof of purchase')
+      )
       .of(
         object({
           status: string()
@@ -165,7 +174,13 @@ const formSchema = object()
         })
       ),
     installPhotos: array()
-      .required('Must provide photo(s) of installed toilet')
+      .when(
+        'emailAttachments',
+        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required('Must provide photo(s) of installed toilet')
+      )
       .of(
         object({
           status: string()
@@ -195,6 +210,7 @@ const initialFormValues: RebateFormData = {
   manufacturerModel: [{manufacturer: '', model: ''}],
   watersenseApproved: '',
   termsAgree: '',
+  emailAttachments: '',
   signature: '',
   captcha: '',
   comments: '',
@@ -398,6 +414,10 @@ const Toilet = () => {
                 }
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
+                )
+
+                const emailAttachments = Boolean(
+                  values.emailAttachments === 'true'
                 )
 
                 // If city field is updated clear out otherCity field.
@@ -611,10 +631,32 @@ const Toilet = () => {
                         >
                           Provide Attachments
                         </Type>
+                        <Type variant="caption" color="textSecondary">
+                          Note - Only Image file formats can be uploaded (eg.
+                          .jpg, .png). PDF files <em>cannot</em> be uploaded
+                          here. If you are unable to attach the correct file
+                          type, or if any other issues with the attachments
+                          arise, you may select the box below and submit the
+                          files in an email.
+                        </Type>
+                        <Field
+                          name="emailAttachments"
+                          component={EmailAttachmentsSwitch}
+                          fullWidth={false}
+                          label={
+                            <span>
+                              Optionally, check here to email receipts and
+                              photos instead. Send email with attachments to{' '}
+                              <RebatesEmail /> with your name and account number
+                              in the subject line. Failure to do so may result
+                              in a delay or rejected application.
+                            </span>
+                          }
+                        />
 
-                        <div className={clsx(classes.dropzoneContainer)}>
+                        <div className={classes.dropzoneContainer}>
                           <Field
-                            disabled={ineligible}
+                            disabled={ineligible || emailAttachments}
                             name="receipts"
                             attachmentTitle="Receipt"
                             uploadFolder="toilet"
@@ -623,9 +665,9 @@ const Toilet = () => {
                           />
                         </div>
 
-                        <div className={clsx(classes.dropzoneContainer)}>
+                        <div className={classes.dropzoneContainer}>
                           <Field
-                            disabled={ineligible}
+                            disabled={ineligible || emailAttachments}
                             name="installPhotos"
                             attachmentTitle="Water-Efficient Toilet installed photo"
                             uploadFolder="toilet"
@@ -694,6 +736,7 @@ const Toilet = () => {
                               disabled={ineligible}
                               name="termsAgree"
                               component={AgreeTermsCheckbox}
+                              fullWidth={false}
                             />
                           </Grid>
                         </Grid>

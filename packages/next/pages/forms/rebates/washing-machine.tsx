@@ -12,7 +12,6 @@ import {makeStyles, createStyles} from '@material-ui/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object, array, StringSchema} from 'yup'
-import clsx from 'clsx'
 import {
   postRebateForm,
   WashingMachineRebateFormData as RebateFormData,
@@ -46,6 +45,9 @@ import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
+import {BooleanAsString} from '@lib/safeCastBoolean'
+import RebatesEmail from '@components/links/RebatesEmail'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -128,6 +130,7 @@ const formSchema = object()
         'Must agree to Terms and Conditions by checking this box'
       )
       .label('Agree to Terms'),
+    emailAttachments: string().label('Email Attachments'),
     signature: string()
       .required()
       .label('Your signature'),
@@ -138,7 +141,13 @@ const formSchema = object()
       .max(200, 'Comments must be less than 200 characters.')
       .label('Comments'),
     receipts: array()
-      .required('Must provide receipt(s) or proof of purchase')
+      .when(
+        'emailAttachments',
+        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required('Must provide receipt(s) or proof of purchase')
+      )
       .of(
         object({
           status: string()
@@ -151,7 +160,15 @@ const formSchema = object()
         })
       ),
     installPhotos: array()
-      .required('Must provide photo(s) of installed washing machine')
+      .when(
+        'emailAttachments',
+        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required(
+                'Must provide photo(s) of installed washing machine'
+              )
+      )
       .of(
         object({
           status: string()
@@ -182,6 +199,7 @@ const initialFormValues: RebateFormData = {
   model: '',
   ceeQualify: '',
   termsAgree: '',
+  emailAttachments: '',
   signature: '',
   captcha: '',
   comments: '',
@@ -372,6 +390,10 @@ const WashingMachine = () => {
                 }
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
+                )
+
+                const emailAttachments = Boolean(
+                  values.emailAttachments === 'true'
                 )
 
                 // If city field is updated clear out otherCity field.
@@ -588,10 +610,32 @@ const WashingMachine = () => {
                         >
                           Provide Attachments
                         </Type>
+                        <Type variant="caption" color="textSecondary">
+                          Note - Only Image file formats can be uploaded (eg.
+                          .jpg, .png). PDF files <em>cannot</em> be uploaded
+                          here. If you are unable to attach the correct file
+                          type, or if any other issues with the attachments
+                          arise, you may select the box below and submit the
+                          files in an email.
+                        </Type>
+                        <Field
+                          name="emailAttachments"
+                          component={EmailAttachmentsSwitch}
+                          fullWidth={false}
+                          label={
+                            <span>
+                              Optionally, check here to email receipts and
+                              photos instead. Send email with attachments to{' '}
+                              <RebatesEmail /> with your name and account number
+                              in the subject line. Failure to do so may result
+                              in a delay or rejected application.
+                            </span>
+                          }
+                        />
 
-                        <div className={clsx(classes.dropzoneContainer)}>
+                        <div className={classes.dropzoneContainer}>
                           <Field
-                            disabled={ineligible}
+                            disabled={ineligible || emailAttachments}
                             name="receipts"
                             attachmentTitle="Receipt"
                             uploadFolder="washing-machine"
@@ -600,9 +644,9 @@ const WashingMachine = () => {
                           />
                         </div>
 
-                        <div className={clsx(classes.dropzoneContainer)}>
+                        <div className={classes.dropzoneContainer}>
                           <Field
-                            disabled={ineligible}
+                            disabled={ineligible || emailAttachments}
                             name="installPhotos"
                             attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
                             uploadFolder="washing-machine"
@@ -673,6 +717,7 @@ const WashingMachine = () => {
                               disabled={ineligible}
                               name="termsAgree"
                               component={AgreeTermsCheckbox}
+                              fullWidth={false}
                             />
                           </Grid>
                         </Grid>

@@ -18,7 +18,7 @@ const YEAR_END_IMG_SRC =
 //   createStyles({
 //     imgixFancyParallaxBanner: {
 //       height: '50vw',
-//       maxHeight: '40vh'
+//       maxHeight: '45vh'
 //     }
 //   })
 // )
@@ -40,7 +40,7 @@ const Index = () => {
         onImgLoad={() => setHeroOverlayIn(true)}
         style={{
           height: '50vw',
-          maxHeight: '40vh'
+          maxHeight: '45vh'
         }}
       >
         <Fade timeout={2000} in={heroOverlayIn}>

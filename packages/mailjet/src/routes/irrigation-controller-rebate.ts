@@ -49,6 +49,7 @@ interface FormDataObj {
   termsAgree: string
   signature: string
   captcha: string
+  emailAttachments: string
   receipts: AttachmentFieldValue[]
   cntrlPhotos: AttachmentFieldValue[]
   addtlSensorPhotos?: AttachmentFieldValue[]
@@ -89,8 +90,13 @@ const bodySchema = object()
           .oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
+        emailAttachments: string(),
         receipts: array()
-          .required()
+          .when(
+            'emailAttachments',
+            (emailAttachments: string, schema: StringSchema) =>
+              emailAttachments === 'true' ? schema : schema.required()
+          )
           .of(
             object({
               status: string()
@@ -103,7 +109,11 @@ const bodySchema = object()
             })
           ),
         cntrlPhotos: array()
-          .required()
+          .when(
+            'emailAttachments',
+            (emailAttachments: string, schema: StringSchema) =>
+              emailAttachments === 'true' ? schema : schema.required()
+          )
           .of(
             object({
               status: string()
@@ -117,9 +127,15 @@ const bodySchema = object()
           ),
         addtlSensorPhotos: array()
           .when(
-            'additional',
-            (additional: string[] | undefined, schema: ArraySchema<string>) =>
-              additional ? schema.required() : schema
+            ['additional', 'emailAttachments'],
+            (
+              additional: string[] | undefined,
+              emailAttachments: string,
+              schema: ArraySchema<string>
+            ) =>
+              additional && emailAttachments !== 'true'
+                ? schema.required()
+                : schema
           )
           .of(
             object({
@@ -160,8 +176,9 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     manufacturer,
     model,
     additional,
-    receipts,
-    cntrlPhotos,
+    emailAttachments,
+    receipts = [],
+    cntrlPhotos = [],
     addtlSensorPhotos = [],
     termsAgree,
     signature,
@@ -244,6 +261,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
           model,
           additional,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
+          emailAttachments,
           receiptImages,
           cntrlImages,
           addtlSensorImages,

@@ -4,7 +4,8 @@
     "**/node_modules": true,
     "packages/next/.next": true,
     "packages/next/out": true,
-    "packages/next/bundles": true
+    "packages/next/bundles": true,
+    "packages/**/dist/**/*.js": true
   },
   "cSpell.words": [
     "ahendricks",

@@ -22,6 +22,7 @@ export interface IrrigationControllerRebateFormData {
   additional: string
   purchaseDate: Date
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   signature: string
   captcha: string
   receipts: string[]
@@ -119,6 +120,7 @@ export interface WashingMachineRebateFormData {
   model: string
   ceeQualify: string
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   signature: string
   captcha: string
   comments: string
@@ -150,6 +152,7 @@ export interface ToiletRebateFormData {
   }[]
   watersenseApproved: string
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   signature: string
   captcha: string
   comments: string

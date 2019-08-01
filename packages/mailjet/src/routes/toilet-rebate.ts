@@ -47,6 +47,7 @@ interface FormDataObj {
   termsAgree: string
   signature: string
   captcha: string
+  emailAttachments: string
   comments: string
   receipts: AttachmentFieldValue[]
   installPhotos: AttachmentFieldValue[]
@@ -106,8 +107,13 @@ const bodySchema = object()
         signature: string().required(),
         captcha: string().required(),
         comments: string().max(200),
+        emailAttachments: string(),
         receipts: array()
-          .required()
+          .when(
+            'emailAttachments',
+            (emailAttachments: string, schema: StringSchema) =>
+              emailAttachments === 'true' ? schema : schema.required()
+          )
           .of(
             object({
               status: string()
@@ -120,7 +126,11 @@ const bodySchema = object()
             })
           ),
         installPhotos: array()
-          .required()
+          .when(
+            'emailAttachments',
+            (emailAttachments: string, schema: StringSchema) =>
+              emailAttachments === 'true' ? schema : schema.required()
+          )
           .of(
             object({
               status: string()
@@ -153,8 +163,9 @@ const toiletRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
-    receipts,
-    installPhotos,
+    emailAttachments,
+    receipts = [],
+    installPhotos = [],
     termsAgree,
     signature,
     captcha,
@@ -236,6 +247,7 @@ const toiletRebateHandler = async (req: IncomingMessage) => {
           noOfToiletsStr,
           watersenseApproved,
           submitDate: format(new Date(), 'MMMM do, yyyy'),
+          emailAttachments,
           receiptImages,
           installImages,
           termsAgree,
