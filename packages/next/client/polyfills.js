@@ -15,12 +15,12 @@
 
 // import '@babel/polyfill'
 
-// import 'core-js/stable'
-// import 'regenerator-runtime/runtime'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 // IE 11
-import repeat from 'core-js/library/fn/string/virtual/repeat'
-String.prototype.repeat = repeat
+// import repeat from 'core-js/library/fn/string/virtual/repeat'
+// String.prototype.repeat = repeat
 
 import Promise from 'es6-promise'
 import '../lib/modernizr'
