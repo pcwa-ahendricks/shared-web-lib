@@ -111,8 +111,8 @@ const DropzoneUploader: React.RefForwardingComponent<
   {
     onUploadedChange,
     onIsUploadingChange,
-    height = 'unset',
-    width = 'unset',
+    height = '100%',
+    width = '100%',
     allowClearUploads = false,
     uploadFolder = '',
     maxSize,

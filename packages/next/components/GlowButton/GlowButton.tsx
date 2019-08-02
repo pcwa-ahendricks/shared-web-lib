@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
           ? '6px 8px'
           : size === 'large'
           ? '8px 24px'
-          : 'unset'
+          : 'inherit'
     }),
     type: ({size}: StyleProps) => ({
       // color: 'inherit',
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
           ? '1rem'
           : size === 'large'
           ? '0.9375rem'
-          : 'unset' // Why is the 'large' button font-size smaller than the medium size button in Material-UI?
+          : 'inherit' // Why is the 'large' button font-size smaller than the medium size button in Material-UI?
     })
   })
 )

@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       transitionDuration
     }),
     dynamicHeight: ({useFullHeight}: Props) => ({
-      height: useFullHeight ? '100%' : 'unset'
+      height: useFullHeight ? '100%' : 'auto'
     })
   })
 )

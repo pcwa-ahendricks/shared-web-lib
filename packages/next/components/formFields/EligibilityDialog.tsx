@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%'
     },
     mobileStepperPaper: {
-      backgroundColor: 'unset',
+      backgroundColor: 'transparent',
       padding: 0
     },
     stepperPaper: {
-      backgroundColor: 'unset',
+      backgroundColor: 'transparent',
       [theme.breakpoints.down('xs')]: {
         padding: 0
       },

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       // color: theme.palette.grey[50],
       opacity: 0.85,
-      textTransform: 'unset',
+      textTransform: 'none',
       '&:hover, &:active': {
         // color: theme.palette.common.white,
         color: theme.palette.grey[50],
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonRoot: {
       margin: '-1px 0',
       borderRadius: '2px', // Default: 4px
-      justifyContent: 'unset'
+      justifyContent: 'normal'
     },
     buttonText: {
       fontSize: '0.9rem',
-      textAlign: 'unset',
+      textAlign: 'inherit',
       padding: '3px 8px' // Default: 6px 8px;
       // whiteSpace: 'nowrap'
     }

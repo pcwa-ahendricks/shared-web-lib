@@ -15,8 +15,8 @@
 
 // import '@babel/polyfill'
 
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
+// import 'core-js/stable'
+// import 'regenerator-runtime/runtime'
 
 import Promise from 'es6-promise'
 import '../lib/modernizr'
