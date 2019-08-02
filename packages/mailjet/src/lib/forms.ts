@@ -1,4 +1,4 @@
-// cspell:ignore cbarnhill waterefficiency pcwamain
+// cspell:ignore cbarnhill waterefficiency pcwamain customerservices maint
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
@@ -33,6 +33,14 @@ const emailRecipientsAppliance: MailJetMessage['To'] = isDev
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
+const emailRecipientsCsMaint: MailJetMessage['To'] = isDev
+  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
+  : [
+      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'Customer Services', Email: 'customerservices@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
+    ]
+
 const getRecaptcha = () =>
   new reCAPTCHA({
     siteKey: RECAPTCHA_SITE_KEY,
@@ -63,5 +71,6 @@ export {
   getRecaptcha,
   emailRecipientsIrrigation,
   emailRecipientsAppliance,
+  emailRecipientsCsMaint,
   validateSchema
 }

@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: 8 // Match NavLink buttonText class and this divider class.
     },
     divider: {
-      // backgroundColor: theme.palette.grey[300],
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: theme.palette.grey[600],
+      // backgroundColor: theme.palette.primary.dark,
       opacity: 0.3,
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
@@ -47,7 +47,7 @@ const MMContent = ({contentKey = 1}: Props) => {
             <ColumnBox flex="0 1 auto" key={groupIdx} m={2}>
               <Type
                 variant="overline"
-                color="primary"
+                color="textPrimary"
                 noWrap={true}
                 className={classes.groupName}
               >

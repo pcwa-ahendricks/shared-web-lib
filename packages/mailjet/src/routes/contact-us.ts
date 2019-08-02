@@ -12,7 +12,7 @@ import {format} from 'date-fns'
 import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
 import {MailJetSendRequest, MailJetMessage} from '../lib/types'
-import {getRecaptcha, validateSchema} from '../lib/rebate-forms'
+import {getRecaptcha, validateSchema} from '../lib/forms'
 import {postMailJetRequest} from '../lib/mailjet'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''

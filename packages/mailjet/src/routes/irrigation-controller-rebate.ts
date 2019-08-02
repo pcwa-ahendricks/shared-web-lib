@@ -17,7 +17,7 @@ import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema
-} from '../lib/rebate-forms'
+} from '../lib/forms'
 import {postMailJetRequest} from '../lib/mailjet'
 
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''

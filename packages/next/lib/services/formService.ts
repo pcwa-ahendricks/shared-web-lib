@@ -171,6 +171,7 @@ export interface ContactInfoFormData {
   email: string
   accountNo: string
   address: string
+  previousAddress: string
   city: string
   state: string
   zipCode: string

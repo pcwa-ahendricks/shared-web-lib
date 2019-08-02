@@ -64,6 +64,12 @@ const formSchema = object()
       .required()
       .max(30, 'Mailing address must be no more than 30 characters.')
       .label('Mailing Address'),
+    previousAddress: string()
+      .max(
+        60,
+        'Previous service address(es) must be no more than 60 characters.'
+      )
+      .label('Previous Services Address'),
     city: string()
       .required()
       .label('City'),
@@ -102,6 +108,7 @@ const initialFormValues: FormData = {
   name: '',
   spouseName: '',
   address: '',
+  previousAddress: '',
   email: '',
   accountNo: '',
   city: '',
@@ -355,6 +362,23 @@ const ContactInfo = () => {
                             />
                           </Grid>
                         </Grid>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <ColumnBox>
+                              <Type variant="caption">
+                                If you had previous service with PCWA, please
+                                list all service addresses below:
+                              </Type>
+                              <Field
+                                name="previousAddress"
+                                multiline
+                                rows={2}
+                                label="Previous Address(es)"
+                                component={FormTextField}
+                              />
+                            </ColumnBox>
+                          </Grid>
+                        </Grid>
                       </Box>
 
                       <Divider variant="middle" />
@@ -366,35 +390,10 @@ const ContactInfo = () => {
                           gutterBottom
                           className={classes.formGroupTitle}
                         >
-                          Release of Liability & Signature
+                          E-Signature
                         </Type>
 
                         <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            {/* TODO - Need new wording from Cassandra. */}
-                            <Type variant="body1" paragraph color="primary">
-                              PCWA may deny any application that does not meet
-                              all of the Program requirements. PCWA reserves the
-                              right to alter the Program at any time. PCWA does
-                              not warrant or guarantee lower water bills as a
-                              result of participating in the Program. PCWA is
-                              not responsible for any damage that may occur to
-                              participants' property as a result of this
-                              Program. The undersigned agrees to hold harmless
-                              PCWA, its directors, officers, and employees from
-                              and against all loss, damage, expense and
-                              liability resulting from or otherwise relating to
-                              the installation of water efficient landscape. By
-                              signing this form I agree that I have read,
-                              understand, and agree to the Terms and Conditions
-                              of this rebate program.
-                            </Type>
-                          </Grid>
-
                           <Grid
                             item
                             xs={12}

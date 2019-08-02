@@ -1,10 +1,10 @@
-// cspell:ignore addtl cbarnhill truthy
+// cspell:ignore maint
 const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   require('dotenv-safe').config()
 }
 import {createError, json} from 'micro'
-import {string, object, StringSchema} from 'yup'
+import {string, object} from 'yup'
 import {applyMiddleware} from 'micro-middleware'
 import unauthorized from '@pcwa/micro-unauthorized'
 import checkReferrer from '@pcwa/micro-check-referrer'
@@ -12,10 +12,9 @@ import {format} from 'date-fns'
 import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
 import {MailJetSendRequest} from '../lib/types'
-import isNumber from 'is-number'
 import {
   getRecaptcha,
-  emailRecipientsIrrigation,
+  emailRecipientsCsMaint,
   validateSchema
 } from '../lib/forms'
 import {postMailJetRequest} from '../lib/mailjet'
@@ -23,28 +22,24 @@ import {postMailJetRequest} from '../lib/mailjet'
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 765489
+const MAILJET_TEMPLATE_ID = 881955
 
 interface FormDataObj {
-  firstName: string
-  lastName: string
+  name: string
+  spouseName: string
   email: string
   accountNo: string
   address: string
+  previousAddress: string
   city: string
-  otherCity?: string
+  state: string
+  zipCode: string
   phone: string
-  propertyType: string
-  treatedCustomer: '' | 'Yes' | 'No'
-  irrigMethod: string
-  inspectAgree: string
-  termsAgree: string
+  cellPhone: string
+  workPhone: string
+  spousePhone: string
   signature: string
   captcha: string
-  comments: string
-  useArtTurf: string
-  alreadyStarted: string
-  approxSqFeet: string
 }
 
 const bodySchema = object()
@@ -54,64 +49,31 @@ const bodySchema = object()
       .camelCase()
       .required()
       .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string()
-          .email()
-          .required(),
+        name: string()
+          .required()
+          .max(30),
+        spouseName: string().max(27),
+        email: string().email(),
         accountNo: string()
           .matches(/^\d+-\d+$/)
           .required(),
-        address: string().required(),
+        address: string()
+          .required()
+          .max(30),
+        previousAddress: string().max(60),
         city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | undefined, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string()
-          .min(10)
-          .required(),
-        propertyType: string().required(),
-        treatedCustomer: string()
-          .required()
-          .oneOf(
-            ['Yes'] // "Yes", "No"
-          ),
-        termsAgree: string()
-          .required()
-          .oneOf(['true']),
-        inspectAgree: string()
-          .required()
-          .oneOf(['true']),
+        state: string().required(),
+        zipCode: string().required(),
+        phone: string().min(10),
+        cellPhone: string().min(10),
+        workPhone: string().min(10),
+        spousePhone: string().min(10),
         signature: string().required(),
-        captcha: string().required(),
-        comments: string().max(200),
-        irrigMethod: string()
-          .required()
-          .notOneOf(['Hand water']), // Case sensitive
-        useArtTurf: string()
-          .required()
-          .oneOf(['false']),
-        alreadyStarted: string().required(),
-        approxSqFeet: string()
-          .required()
-          .test(
-            'min-sq-feet',
-            'A minimum of 300 square feet of lawn must be converted',
-            (val: string): boolean => {
-              const stripped = val && val.replace(/[^0-9.]/, '')
-              if (isNumber(stripped)) {
-                const valAsNo = Math.round(parseFloat(stripped))
-                return valAsNo >= 300
-              }
-              return false
-            }
-          )
+        captcha: string().required()
       })
   })
 
-const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
+const accountContactInfoHandler = async (req: IncomingMessage) => {
   const data: any = await json(req)
   const body: {
     formData: FormDataObj
@@ -120,30 +82,24 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
 
   await validateSchema(bodySchema, body)
 
-  // const sendEmail = Mailjet.post('send', {
-  //   version: 'v3.1'
-  // })
-
   const {formData} = body
   const {
-    email,
-    firstName,
-    lastName,
+    name,
+    spouseName,
     address,
-    otherCity = '',
+    previousAddress,
+    email,
+    city,
+    state,
+    zipCode,
     phone,
-    propertyType,
-    treatedCustomer,
-    irrigMethod,
-    useArtTurf,
-    approxSqFeet,
-    alreadyStarted,
-    termsAgree,
+    cellPhone,
+    workPhone,
+    spousePhone,
     signature,
-    captcha,
-    comments = ''
+    captcha
   } = formData
-  let {city = '', accountNo} = formData
+  let {accountNo} = formData
 
   // Remove leading zeros from account number.
   accountNo = accountNo
@@ -163,15 +119,6 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
     }
   }
 
-  // Overwrite "city" with "otherCity" if another city was specified.
-  if (city.toLowerCase() === 'other') {
-    city = otherCity
-  }
-
-  const replyToName = `${firstName} ${lastName}`
-
-  const commentsLength = comments.length
-
   // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
   // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
   // Barracuda via a rule Bryan H. added.
@@ -182,10 +129,10 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
           Email: MAILJET_SENDER,
           Name: 'PCWA Forms'
         },
-        To: [{Email: email, Name: replyToName}, ...emailRecipientsIrrigation],
+        To: [{Email: email, Name: name}, ...emailRecipientsCsMaint],
         ReplyTo: {
           Email: email,
-          Name: replyToName
+          Name: name
         },
         Headers: {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
@@ -194,24 +141,21 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
         TemplateID: MAILJET_TEMPLATE_ID,
         TemplateLanguage: true,
         Variables: {
-          firstName,
-          lastName,
+          name,
           accountNo,
-          city,
+          spouseName,
           address,
+          previousAddress,
           email,
+          city,
+          state,
+          zipCode,
           phone,
-          propertyType,
-          treatedCustomer,
-          irrigMethod,
-          useArtTurf,
-          approxSqFeet,
-          alreadyStarted,
-          submitDate: format(new Date(), 'MMMM do, yyyy'),
-          termsAgree,
+          cellPhone,
+          workPhone,
+          spousePhone,
           signature,
-          comments,
-          commentsLength
+          submitDate: format(new Date(), 'MMMM do, yyyy')
         }
       }
     ]
@@ -227,7 +171,6 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
     const data = await postMailJetRequest(requestBody)
     return data
   } catch (error) {
-    // isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     throw error
   }
@@ -236,7 +179,8 @@ const lawnReplacementRebateHandler = async (req: IncomingMessage) => {
 const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
 const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
 const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
-export default applyMiddleware(lawnReplacementRebateHandler, [
+
+export default applyMiddleware(accountContactInfoHandler, [
   unauthorized(MAILJET_KEY, 'Invalid API key'),
   checkReferrer(acceptReferrer, 'Reporting abuse'),
   limiter(limiterMaxRequests, limiterInterval)

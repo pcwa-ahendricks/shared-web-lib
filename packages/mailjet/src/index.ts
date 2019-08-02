@@ -11,7 +11,8 @@ import {
   lawnReplacementRebateRoute,
   contactUsRoute,
   washingMachineRebateRoute,
-  toiletRebateRoute
+  toiletRebateRoute,
+  accountContactInfoRoute
 } from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
@@ -46,6 +47,7 @@ const routeHandler = router()(
   post(`${rtePre}/washing-machine-rebate`, washingMachineRebateRoute),
   post(`${rtePre}/toilet-rebate`, toiletRebateRoute),
   post(`${rtePre}/contact-us`, contactUsRoute),
+  post(`${rtePre}/account-contact-info`, accountContactInfoRoute),
   // File uploads handled by Cosmicjs and cosmic package..
   // get(`${rtePre}/uploads/b64/:filename`, photoB64Route),
   // get(`${rtePre}/uploads/:filename`, photoFileRoute),
