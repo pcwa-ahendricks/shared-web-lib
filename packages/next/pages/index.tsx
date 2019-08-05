@@ -13,7 +13,7 @@ const HERO_IMG_SRC =
 const YEAR_END_IMG_SRC =
   '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
 
-// HACK - className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
+// [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
 //   createStyles({
 //     imgixFancyParallaxBanner: {

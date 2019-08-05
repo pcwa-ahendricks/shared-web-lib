@@ -119,8 +119,8 @@ const SearchInput = () => {
       : null
   }, [])
 
-  /**
-   * This function will either return a new (following page) Google CSE Response or nothing if the provided response has no next page.
+  /*
+   * [HACK] This function will either return a new (following page) Google CSE Response or nothing if the provided response has no next page.
    * initBetterResultsHack will not execute a new query if/when the response becomes undefined using 'if' block.
    */
   const betterTotalResultsHack = useCallback(

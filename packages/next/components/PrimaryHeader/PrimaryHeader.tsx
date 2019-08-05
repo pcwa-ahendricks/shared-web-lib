@@ -6,7 +6,7 @@ import React, {
   useContext
 } from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
-// TODO - Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
+// [TODO] Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {
   AppBar,
   Box,
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     /*
-      HACK - Logo is pushing out the rest of the primary nav menu off the page for some reason in IE. This is the fix for IE.
+      [HACK] Logo is pushing out the rest of the primary nav menu off the page for some reason in IE. This is the fix for IE.
     */
     fixIe: {
       '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {

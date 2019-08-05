@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
     dialogContent: {
       margin: 0,
       padding: 0,
-      marginBottom: -6, // HACK - Not sure why there is a blank space at bottom of DialogContent.
+      marginBottom: -6, // [HACK] Not sure why there is a blank space at bottom of DialogContent.
       // padding: theme.spacing(2),
       overflowX: 'hidden',
       minHeight: 100 // Useful when PDF is loading.
@@ -112,7 +112,7 @@ const MediaPreviewDialog = ({
 
   const getImgEl = useCallback(
     (url: string, key?: string | number) => (
-      // TODO - It doesn't appear that lazy loading of images is working in this component.
+      // [TODO] It doesn't appear that lazy loading of images is working in this component.
       <img
         key={key}
         className={clsx({['lazyload']: true}, classes.img)}

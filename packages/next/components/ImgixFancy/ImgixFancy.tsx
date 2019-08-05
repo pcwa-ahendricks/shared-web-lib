@@ -56,7 +56,7 @@ const useStyles = makeStyles({
       filter: 'blur(5px)'
     },
     /*
-      HACK - Lazysizes blur-up plugin is not working with IE11. The low quality image src element keeps getting overwritten by another copy of the element that doesn't have the 'ls-original-loaded' class name. This CSS trick prevents the blur up image from showing in IE10 and IE11.
+      [HACK] Lazysizes blur-up plugin is not working with IE11. The low quality image src element keeps getting overwritten by another copy of the element that doesn't have the 'ls-original-loaded' class name. This CSS trick prevents the blur up image from showing in IE10 and IE11.
       See https://stackoverflow.com/questions/18907131/detecting-ie11-using-css-capability-feature-detection for more info on targeting IE.
     */
     '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {

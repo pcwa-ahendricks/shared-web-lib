@@ -13,7 +13,7 @@ import smoothscroll from 'smoothscroll-polyfill'
 const isDev = process.env.NODE_ENV === 'development'
 import SearchProvider from '@components/search/SearchStore'
 /*
-  HACK - AMA page is not loading due to use of css import via @zeit/next-css plugin. See
+  [HACK] AMA page is not loading due to use of css import via @zeit/next-css plugin. See
   https://github.com/zeit/next.js/issues/5264 and  https://github.com/zeit/next.js/issues/5291 and 
   https://github.com/zeit/next.js/issues/5598.
   Import an empty css file or any css file for that matter here.

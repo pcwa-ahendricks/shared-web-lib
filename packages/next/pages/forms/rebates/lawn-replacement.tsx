@@ -584,7 +584,7 @@ const LawnReplacement = () => {
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
-                            {/* TODO - Need new wording from Cassandra. */}
+                            {/* [TODO] Need new wording from Cassandra. */}
                             <Type variant="body1" paragraph color="primary">
                               PCWA may deny any application that does not meet
                               all of the Program requirements. PCWA reserves the

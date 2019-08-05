@@ -54,7 +54,7 @@ const PurchaseDateField = ({
   // Need to specify disabled prop on both <FormControl/> and <DatePicker/>. Future versions of <DatePicker/> may not have this requirement.
   const disabledControl = disabled || isSubmitting
   return (
-    // TODO - It would be nice if there was a way to automatically validate the field when the correct input is finally entered with keyboard. Currently, the user has to hit enter or blur the field in order to trigger the validation.
+    // [TODO] It would be nice if there was a way to automatically validate the field when the correct input is finally entered with keyboard. Currently, the user has to hit enter or blur the field in order to trigger the validation.
     <FormControl
       required={required}
       margin="normal"
