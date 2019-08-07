@@ -96,6 +96,9 @@ const formSchema = object()
     spousePhone: string()
       .min(10)
       .label("Spouse's Phone Number"),
+    lastFourSS: string()
+      .min(4)
+      .label('Last Four Digits of Social Security'),
     signature: string()
       .required()
       .label('Your signature'),
@@ -118,6 +121,7 @@ const initialFormValues: FormData = {
   cellPhone: '',
   workPhone: '',
   spousePhone: '',
+  lastFourSS: '',
   signature: '',
   captcha: ''
 }
@@ -303,7 +307,7 @@ const ContactInfo = () => {
                             <Field
                               autoComplete="name"
                               name="name"
-                              label="Name"
+                              label="Name (legal name)"
                               component={FormTextField}
                             />
                           </Grid>

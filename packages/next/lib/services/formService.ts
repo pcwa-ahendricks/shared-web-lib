@@ -179,6 +179,7 @@ export interface ContactInfoFormData {
   cellPhone: string
   workPhone: string
   spousePhone: string
+  lastFourSS: string
   signature: string
   captcha: string
 }

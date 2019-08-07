@@ -39,6 +39,7 @@ interface FormDataObj {
   workPhone: string
   spousePhone: string
   signature: string
+  lastFourSS: string
   captcha: string
 }
 
@@ -68,6 +69,7 @@ const bodySchema = object()
         cellPhone: string().min(10),
         workPhone: string().min(10),
         spousePhone: string().min(10),
+        lastFourSS: string().min(4),
         signature: string().required(),
         captcha: string().required()
       })
@@ -96,6 +98,7 @@ const accountContactInfoHandler = async (req: IncomingMessage) => {
     cellPhone,
     workPhone,
     spousePhone,
+    lastFourSS,
     signature,
     captcha
   } = formData
@@ -154,6 +157,7 @@ const accountContactInfoHandler = async (req: IncomingMessage) => {
           cellPhone,
           workPhone,
           spousePhone,
+          lastFourSS,
           signature,
           submitDate: format(new Date(), 'MMMM do, yyyy')
         }
