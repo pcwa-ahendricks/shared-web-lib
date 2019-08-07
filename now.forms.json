@@ -126,6 +126,22 @@
       }
     },
     {
+      "src": "^/account-contact-info$",
+      "dest": "/packages/next/forms/account/contact-info.html",
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "x-request-path": "$1"
+      }
+    },
+    {
+      "src": "^/account-contact-info(.*)$",
+      "dest": "/packages/next/forms/account/contact-info$1",
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "x-request-path": "$1"
+      }
+    },
+    {
       "src": "^/($|services|forms|forms/rebates|typography)/?",
       "dest": "/404",
       "status": 404
