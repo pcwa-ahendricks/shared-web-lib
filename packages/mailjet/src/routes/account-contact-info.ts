@@ -22,7 +22,7 @@ import {postMailJetRequest} from '../lib/mailjet'
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 881955
+const MAILJET_TEMPLATE_ID = 951337
 
 interface FormDataObj {
   name: string
@@ -137,7 +137,7 @@ const accountContactInfoHandler = async (req: IncomingMessage) => {
         Headers: {
           'PCWA-No-Spam': 'webmaster@pcwa.net'
         },
-        Subject: 'PCWA - Water Efficiency Rebate Submitted',
+        Subject: 'PCWA - Customer Contact Information Change',
         TemplateID: MAILJET_TEMPLATE_ID,
         TemplateLanguage: true,
         Variables: {

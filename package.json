@@ -22,12 +22,12 @@
     "prenow": "npm run build --prefix packages/mailchimp && npm run build --prefix packages/google-search && npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
     "now:dev-web": "npm run prenow && now --target production",
     "now": "now",
-    "now:forms": "npm run prenow && now --target production -A now.forms.json",
+    "now:forms": "npm run prenow && now -A now.forms.json",
     "now-build": "next build"
   },
   "dependencies": {},
   "devDependencies": {
     "concurrently": "^4.1.1",
-    "now": "^16.0.0"
+    "now": "^16.1.0"
   }
 }

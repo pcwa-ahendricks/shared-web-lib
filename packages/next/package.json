@@ -101,7 +101,6 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.6.1",
     "modernizr": "^3.7.1",
-    "now": "^16.0.0",
     "prettier": "^1.18.2",
     "serve": "^11.1.0",
     "typescript": "^3.5.2",

@@ -2352,10 +2352,15 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^12.6.9":
+"@types/node@*":
   version "12.6.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.9.tgz#ffeee23afdc19ab16e979338e7b536fdebbbaeaf"
   integrity sha512-+YB9FtyxXGyD54p8rXwWaN1EWEyar5L58GlGWgtH2I9rGmLGBQcw63+0jw+ujqVavNuO47S1ByAjm9zdHMnskw==
+
+"@types/node@^12.7.0":
+  version "12.7.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.0.tgz#545dde2a1a5c27d281cfb8308d6736e0708f5d6c"
+  integrity sha512-vqcj1MVm2Sla4PpMfYKh1MyDN4D2f/mPIZD7RdAGqEsbE+JxfeqQHHVbRDQ0Nqn8i73gJa1HQ1Pu3+nH4Q0Yiw==
 
 "@types/node@^8.0.7":
   version "8.10.51"
@@ -9055,10 +9060,10 @@ normalize-url@^4.1.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.3.0.tgz#9c49e10fc1876aeb76dba88bf1b2b5d9fa57b2ee"
   integrity sha512-0NLtR71o4k6GLP+mr6Ty34c5GA6CMoEsncKJxvQd8NzPxaHRJNnb5gZE8R1XF4CPIS7QPHLJ74IFszwtNVAHVQ==
 
-now@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/now/-/now-16.0.0.tgz#7f239ce797a25a24a400fb0de59b98ffad216efa"
-  integrity sha512-j8nx9vewGC0wPbKfxopIPrfNfshK8Rlbpre1Phxs9uQW9OqMeTtwL7msTqCHHNsCIuik6TW0TQA24jctsagR5A==
+now@^16.1.0:
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/now/-/now-16.1.0.tgz#4e1a649587f8b2466d40dfbe92a49e17233c36d4"
+  integrity sha512-loIcQ4KQCrAzg6PnlPmpBD3wa05Bd6LhvXbDcDD0jFsja2B0oKDQ3wMEiAExUIZkkidWM9quUPd3Y4dOzz09rw==
 
 npm-bundled@^1.0.1:
   version "1.0.6"
