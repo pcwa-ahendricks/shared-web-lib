@@ -1,3 +1,4 @@
+// cspell:ignore cust
 import React, {useState, useCallback, useMemo} from 'react'
 import {
   Box,
@@ -13,7 +14,7 @@ import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
-  postRebateForm,
+  postForm,
   ContactInfoFormData as FormData,
   ContactInfoRequestBody as RequestBody
 } from '@lib/services/formService'
@@ -24,10 +25,8 @@ import PhoneNoField from '@components/formFields/PhoneNoField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
 // import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
-import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
@@ -35,9 +34,10 @@ import FormTextField from '@components/formFields/FormTextField'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import StateSelectField from '@components/formFields/StateSelectField'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import FormSubmissionDialogCustAcctInfo from '@components/FormSubmissionDialogCustAcctInfo/FormSubmissionDialogCustAcctInfo'
 
 const isDev = process.env.NODE_ENV === 'development'
-const SERVICE_URI_PATH = 'contact-info'
+const SERVICE_URI_PATH = 'account-contact-info'
 
 const formSchema = object()
   .camelCase()
@@ -166,7 +166,7 @@ const ContactInfo = () => {
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
     boolean
   >(false)
-  const [providedEmail, setProvidedEmail] = useState<string>('')
+  // const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [shouldConfirmRouteChange, setShouldConfirmRouteChange] = useState<
     boolean
@@ -174,7 +174,7 @@ const ContactInfo = () => {
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
-    setProvidedEmail('')
+    // setProvidedEmail('')
   }, [])
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
@@ -200,11 +200,11 @@ const ContactInfo = () => {
               onSubmit={async (values: FormData, actions) => {
                 try {
                   // console.log(values, actions)
-                  setProvidedEmail(values.email)
+                  // setProvidedEmail(values.email)
                   const body: RequestBody = {
                     formData: {...values}
                   }
-                  await postRebateForm(SERVICE_URI_PATH, body)
+                  await postForm(SERVICE_URI_PATH, body)
                   actions.setSubmitting(false)
                   // Reset Form
                   actions.resetForm() // Strictly Formik
@@ -468,7 +468,7 @@ const ContactInfo = () => {
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const lawnReplacementEl = useMemo(
+  const contactInfoEl = useMemo(
     () =>
       !isDev ? (
         <React.Fragment>
@@ -507,16 +507,16 @@ const ContactInfo = () => {
       onDialogLeave={() => setShouldConfirmRouteChange(false)}
       shouldConfirmRouteChange={shouldConfirmRouteChange}
     >
-      {lawnReplacementEl}
+      {contactInfoEl}
 
-      <FormSubmissionDialog
-        providedEmail={providedEmail}
+      <FormSubmissionDialogCustAcctInfo
+        // providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Lawn Replacement Rebate Application"
-        dialogTitle="Your Rebate Application Has Been Submitted"
+        description="Account Contact Information Update request"
+        dialogTitle="Contact Information Update Has Been Submitted"
       />
-      <FormSubmissionDialogError
+      <FormSubmissionDialogErrorCustAcctInfo
         open={formSubmitDialogErrorOpen}
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}

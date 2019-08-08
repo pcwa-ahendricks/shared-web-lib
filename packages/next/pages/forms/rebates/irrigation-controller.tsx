@@ -13,7 +13,7 @@ import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object, array, ArraySchema, date, StringSchema} from 'yup'
 import {
-  postRebateForm,
+  postForm,
   IrrigationControllerRebateFormData as RebateFormData,
   IrrigationControllerRequestBody as RequestBody
 } from '@lib/services/formService'
@@ -377,7 +377,7 @@ const IrrigationController = () => {
                   const body: RequestBody = {
                     formData: {...values}
                   }
-                  await postRebateForm(SERVICE_URI_PATH, body)
+                  await postForm(SERVICE_URI_PATH, body)
                   actions.setSubmitting(false)
                   // Reset Form
                   actions.resetForm() // Strictly Formik

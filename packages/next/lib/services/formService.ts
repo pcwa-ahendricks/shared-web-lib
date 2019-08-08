@@ -197,7 +197,7 @@ type RequestBody =
   | ToiletRequestBody
   | ContactInfoRequestBody
 
-async function postRebateForm(serviceUriPath: string, body: RequestBody) {
+async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `${MAILJET_URL}/${serviceUriPath}`
   try {
     const response = await fetch(url, {
@@ -219,4 +219,4 @@ async function postRebateForm(serviceUriPath: string, body: RequestBody) {
   }
 }
 
-export {postRebateForm}
+export {postForm}

@@ -13,7 +13,7 @@ import Head from 'next/head'
 import {Formik, Field, FieldArray} from 'formik'
 import {string, object, array, StringSchema, number} from 'yup'
 import {
-  postRebateForm,
+  postForm,
   ToiletRebateFormData as RebateFormData,
   ToiletRequestBody as RequestBody
 } from '@lib/services/formService'
@@ -365,7 +365,7 @@ const Toilet = () => {
                   const body: RequestBody = {
                     formData: {...values}
                   }
-                  await postRebateForm(SERVICE_URI_PATH, body)
+                  await postForm(SERVICE_URI_PATH, body)
                   actions.setSubmitting(false)
                   // Reset Form
                   setIneligible(false)

@@ -39,7 +39,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/micro": "^7.3.3",
     "@types/micro-cors": "^0.1.0",
-    "@types/node": "^12.7.0",
+    "@types/node": "^12.7.1",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "ava": "^2.1.0",

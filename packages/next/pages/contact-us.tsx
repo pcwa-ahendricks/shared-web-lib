@@ -13,7 +13,7 @@ import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
-  postRebateForm,
+  postForm,
   ContactUsRebateFormData as RebateFormData,
   ContactUsRequestBody as RequestBody
 } from '@lib/services/formService'
@@ -166,7 +166,7 @@ const ContactUs = () => {
                   const body: RequestBody = {
                     formData: {...values}
                   }
-                  await postRebateForm(SERVICE_URI_PATH, body)
+                  await postForm(SERVICE_URI_PATH, body)
                   actions.setSubmitting(false)
                   // Reset Form
                   actions.resetForm() // Strictly Formik

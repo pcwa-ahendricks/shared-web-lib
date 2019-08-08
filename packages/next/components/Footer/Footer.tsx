@@ -35,9 +35,6 @@ const useFooterStyles = makeStyles((theme: Theme) =>
     link: {
       color: theme.palette.grey[200],
       fontSize: '0.9rem'
-    },
-    foo: {
-      backgroundColor: 'black'
     }
   })
 )
