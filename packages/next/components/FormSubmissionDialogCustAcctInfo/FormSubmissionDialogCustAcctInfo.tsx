@@ -1,5 +1,5 @@
-// cspell:ignore waterefficiency
-import React, {useMemo} from 'react'
+// cspell:ignore waterefficiency cust
+import React from 'react'
 import {
   Button,
   Dialog,
