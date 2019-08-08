@@ -35,6 +35,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import StateSelectField from '@components/formFields/StateSelectField'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import FormSubmissionDialogCustAcctInfo from '@components/FormSubmissionDialogCustAcctInfo/FormSubmissionDialogCustAcctInfo'
+import FormSubmissionDialogErrorCustAcctInfo from '@components/FormSubmissionDialogErrorCustAcctInfo/FormSubmissionDialogErrorCustAcctInfo'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'account-contact-info'
