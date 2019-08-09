@@ -33,15 +33,15 @@ const theme = createMuiTheme({
       // fontWeight: 400 // Default: 400
     },
     h4: {
-      fontSize: '1.25rem' // Default: 2.125rem
+      fontSize: '1.3rem' // Default: 2.125rem
       // fontWeight: 400 // Default: 400
     },
     h5: {
-      fontSize: '1.15rem' // Default: 1.5rem
+      fontSize: '1.2rem' // Default: 1.5rem
       // fontWeight: 400 // Default: 400
     },
     h6: {
-      fontSize: '1rem' // Default: 1.25rem
+      fontSize: '1.1rem' // Default: 1.25rem
       // fontWeight: 500 // Default: 500
     },
     caption: {
@@ -51,12 +51,12 @@ const theme = createMuiTheme({
     body2: {
       // fontFamily: ['Open Sans', ...systemFonts].join(',')
       fontFamily: ['Kiperman', ...systemFonts].join(','),
-      fontSize: '1rem' // Default: 0.875rem
+      fontSize: '1.05rem' // Default: 0.875rem
     },
     body1: {
       // fontFamily: ['Open Sans', ...systemFonts].join(',')
       fontFamily: ['Kiperman', ...systemFonts].join(','),
-      fontSize: '1.1rem' // Default: 1rem
+      fontSize: '1.15rem' // Default: 1rem
     },
     button: {
       // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
