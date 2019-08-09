@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import NextLink from '@components/NextLink/NextLink'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -27,8 +27,8 @@ const ServicesPage = () => {
             questions, solve problems and make referrals to other departments.
             See the sections below for specific information:
           </Type>
-          <RowBox mt={4}>
-            <Box flex="0 1 auto">
+          <RespRowBox mt={4}>
+            <RespChildBox first flex="0 1 auto">
               <List dense disablePadding>
                 <ListItem>
                   <NextLink variant="h6" href="/services/pay-bill">
@@ -86,8 +86,13 @@ const ServicesPage = () => {
                   </NextLink>
                 </ListItem>
               </List>
-            </Box>
-            <Box flex="auto" ml={10} maxHeight={250}>
+            </RespChildBox>
+            <RespChildBox
+              flex="auto"
+              flexSpacing={4}
+              ml={{xs: 0, sm: 10}} // Extra margin w/ Row direction.
+              height={{xs: 325, sm: 250}} // Control height of <iframe/>.
+            >
               <iframe
                 width="100%"
                 height="100%"
@@ -96,8 +101,8 @@ const ServicesPage = () => {
                 frameBorder="0"
                 allowFullScreen
               ></iframe>
-            </Box>
-          </RowBox>
+            </RespChildBox>
+          </RespRowBox>
           <Box mt={4}>
             <Type paragraph>
               The PCWA Business Center is open Monday – Friday from 8:00 a.m. to
