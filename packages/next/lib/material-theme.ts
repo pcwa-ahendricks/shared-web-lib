@@ -1,4 +1,4 @@
-import {createMuiTheme} from '@material-ui/core/styles'
+import {createMuiTheme, responsiveFontSizes} from '@material-ui/core/styles'
 // import {indigo, green, red} from '@material-ui/core/colors'
 
 const systemFonts = [
@@ -33,11 +33,11 @@ const theme = createMuiTheme({
       // fontWeight: 400 // Default: 400
     },
     h4: {
-      fontSize: '1.3rem' // Default: 2.125rem
+      fontSize: '1.25rem' // Default: 2.125rem
       // fontWeight: 400 // Default: 400
     },
     h5: {
-      fontSize: '1.2rem' // Default: 1.5rem
+      fontSize: '1.15rem' // Default: 1.5rem
       // fontWeight: 400 // Default: 400
     },
     h6: {
@@ -110,4 +110,4 @@ const theme = createMuiTheme({
   }
 })
 
-export default theme
+export default responsiveFontSizes(theme)

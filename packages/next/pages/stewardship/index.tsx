@@ -5,8 +5,15 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import ShowMore from '@components/ShowMore/ShowMore'
 import MainPhone from '@components/links/MainPhone'
+// import {createStyles, makeStyles} from '@material-ui/styles'
+
+// const useStyles = makeStyles(() =>
+//   createStyles({
+//   })
+// )
 
 const StewardshipPage = () => {
+  // const classes = useStyles()
   return (
     <PageLayout title="Smart Water Use">
       <WideContainer>
@@ -18,7 +25,7 @@ const StewardshipPage = () => {
             outShowMoreTitle="Click to read less"
           >
             <article>
-              <Type variant="h3" gutterBottom>
+              <Type variant="h3" color="primary" gutterBottom>
                 Overview Of The Placer County Water Agency
               </Type>
               <Type paragraph>
@@ -80,8 +87,10 @@ const StewardshipPage = () => {
                 PG&E built more modern filtered water systems to supply its
                 retail customers in Rocklin, Loomis, Penryn, and Auburn.
               </Type>
-              <Type variant="h4">PCWA Takes Over the PG&E Water System:</Type>
-              <Type>
+              <Type variant="h4" gutterBottom>
+                PCWA Takes Over the PG&E Water System:
+              </Type>
+              <Type paragraph>
                 The 1950-60s brought growing mutual dissatisfaction between PG&E
                 and its water customers. PG&E was far more interested in its
                 profitable energy businesses, while increasing water safety
@@ -197,7 +206,7 @@ const StewardshipPage = () => {
                 interests and activities.
               </Type>
               <Type paragraph>
-                Inquiries may be referred to the PCWA Customer Service Center at
+                Inquiries may be referred to the PCWA Customer Service Center at{' '}
                 <MainPhone />.
               </Type>
             </article>
