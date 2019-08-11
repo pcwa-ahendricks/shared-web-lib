@@ -12,7 +12,11 @@ const StewardshipPage = () => {
       <WideContainer>
         <MainBox>
           <Type>Smart Water Use</Type>
-          <ShowMore outMaxHeight={7000}>
+          <ShowMore
+            outMaxHeight={7000}
+            inShowMoreTitle="Click to read more"
+            outShowMoreTitle="Click to read less"
+          >
             <article>
               <Type variant="h3" gutterBottom>
                 Overview Of The Placer County Water Agency

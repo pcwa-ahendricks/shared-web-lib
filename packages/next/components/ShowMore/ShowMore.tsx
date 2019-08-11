@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {Box} from '@material-ui/core'
+import {Box, Typography as Type} from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
 
 /*
@@ -11,7 +11,9 @@ type Props = {
   inMaxHeight?: number // px
   outMaxHeight?: number // px
   outDuration?: number // ms
-  inDuration?: number // ms
+  inDuration?: number // ms,
+  inShowMoreTitle?: string
+  outShowMoreTitle?: string
 }
 
 type UseStylesProps = {
@@ -24,14 +26,16 @@ type UseStylesProps = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: ({
+    root: {
+      cursor: 'pointer'
+    },
+    expandContainer: ({
       isExpanded,
       inMaxHeight,
       outMaxHeight,
       outDuration,
       inDuration
     }: UseStylesProps) => ({
-      cursor: 'pointer',
       overflowY: 'hidden',
       maxHeight: isExpanded ? outMaxHeight : inMaxHeight,
       transition: `max-height ${
@@ -67,7 +71,9 @@ const ShowMore = ({
   inMaxHeight = 250,
   outMaxHeight = 10000,
   outDuration = 650,
-  inDuration = 250
+  inDuration = 250,
+  inShowMoreTitle = 'Show Me More',
+  outShowMoreTitle = 'Show Me Less'
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const classes = useStyles({
@@ -84,8 +90,15 @@ const ShowMore = ({
 
   return (
     <Box className={classes.root} onClick={clickHandler}>
-      <Box className={classes.gradient}></Box>
-      <Box className={classes.childrenContainer}>{children}</Box>
+      <Box className={classes.expandContainer}>
+        <Box className={classes.gradient}></Box>
+        <Box className={classes.childrenContainer}>{children}</Box>
+      </Box>
+      <Type variant="body1" color="primary">
+        <span style={{fontStyle: 'italic', fontSize: '1.1em'}}>
+          {isExpanded ? outShowMoreTitle : inShowMoreTitle}
+        </span>
+      </Type>
     </Box>
   )
 }
