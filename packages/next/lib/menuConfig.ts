@@ -28,7 +28,7 @@ const menuConfig = [
         items: [
           {
             title: 'Careers at PCWA',
-            href: 'https://careers.pcwa.net/'
+            href: 'https://careers.pcwa.net'
           },
           {
             title: 'Recruitment Video',
@@ -85,14 +85,14 @@ const menuConfig = [
           },
           {
             title: 'Middle Fork American River Project Relicensing',
-            href: 'http://relicensing.pcwa.net/'
+            href: 'http://relicensing.pcwa.net'
           }
         ]
       },
       {
         groupName: 'Recreation',
         items: [
-          {title: 'Recreation', nextLink: '/recreation/'},
+          {title: 'Recreation', nextLink: '/recreation'},
           {
             title: 'Campgrounds',
             nextLink: '/recreation/campground'
@@ -131,7 +131,7 @@ const menuConfig = [
         items: [
           {
             title: 'Customer Services',
-            nextLink: '/services/'
+            nextLink: '/services'
           },
           {
             title: 'Pay Bill',
@@ -172,7 +172,7 @@ const menuConfig = [
         items: [
           {
             title: 'Smart Water Use',
-            nextLink: '/stewardship/'
+            nextLink: '/stewardship'
           },
           {
             title: 'Landscaping Resources',
@@ -217,7 +217,7 @@ const menuConfig = [
         items: [
           {
             title: 'Business With PCWA',
-            nextLink: '/business/'
+            nextLink: '/business'
           },
           {
             title: 'Goods and Services',
