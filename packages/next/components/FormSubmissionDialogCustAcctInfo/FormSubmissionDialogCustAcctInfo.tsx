@@ -69,10 +69,10 @@ Props) => {
           Thank you for submitting your {description}. If you provided us an
           email address you should receive an automatically generated email
           confirming the account details you provided us. A PCWA customer
-          services staff member will respond back to you within 7 business days
-          with the status of your application. If you have any questions please
-          contact our Customer Service Department at <MainPhone />. You can now
-          close this web browser tab to return to the <PcwaWeb /> website.
+          services staff member will respond back to you within 7 business days.
+          If you have any questions please contact our Customer Service
+          Department at <MainPhone />. You can now close this web browser tab to
+          return to the <PcwaWeb /> website.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

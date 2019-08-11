@@ -40,7 +40,9 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
-        <Box flex="1 0 auto">{children}</Box>
+        <Box flex="1 0 auto" mb={6}>
+          {children}
+        </Box>
         <Footer />
       </ColumnBox>
       <ScrollToTop />

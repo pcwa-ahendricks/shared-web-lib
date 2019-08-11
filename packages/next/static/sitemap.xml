@@ -1,0 +1,28 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.pcwa.net</loc>
+    <lastmod>2019-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/services</loc>
+    <lastmod>2019-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/services/pay-bill</loc>
+    <lastmod>2019-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/services/irrigation-canal</loc>
+    <lastmod>2019-08-05</lastmod>
+    <PageMap xmlns="http://www.google.com/schemas/sitemap-pagemap/1.0">
+      <DataObject type="document">
+        <Attribute name="name">Irrigation Canal Information</Attribute>
+        <Attribute name="weight">50</Attribute>
+      </DataObject>
+    </PageMap>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/stewardship</loc>
+    <lastmod>2019-08-05</lastmod>
+  </url>
+</urlset>
