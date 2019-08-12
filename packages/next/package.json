@@ -33,7 +33,7 @@
     "@zeit/next-css": "^1.0.1",
     "clsx": "^1.0.4",
     "color-alpha": "^1.0.4",
-    "core-js": "^3.2.0",
+    "core-js": "^3.2.1",
     "date-fns": "^2.0.0-beta.4",
     "debounce": "^1.2.0",
     "deep-object-diff": "^1.1.0",

@@ -19,7 +19,7 @@ import SearchProvider from '@components/search/SearchStore'
   Import an empty css file or any css file for that matter here.
 */
 import './styles.css'
-import GlobalCss from '@components/GlobalCss'
+import GlobalStyles from '@components/GlobalStyles'
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -45,7 +45,7 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <GlobalCss />
+          <GlobalStyles />
 
           <UiProvider>
             <ForecastProvider>
