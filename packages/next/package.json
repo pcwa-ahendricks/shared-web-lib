@@ -83,8 +83,8 @@
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/styled-jsx": "^2.2.8",
     "@types/yup": "^0.26.22",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-transform-assets-import-to-string": "^1.2.0",
@@ -96,7 +96,7 @@
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-compat": "^3.3.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-jest": "^22.15.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
@@ -104,7 +104,7 @@
     "prettier": "^1.18.2",
     "serve": "^11.1.0",
     "typescript": "^3.5.2",
-    "webpack": "4.39.1",
+    "webpack": "4.39.2",
     "webpack-bundle-size-analyzer": "^3.0.0"
   }
 }
