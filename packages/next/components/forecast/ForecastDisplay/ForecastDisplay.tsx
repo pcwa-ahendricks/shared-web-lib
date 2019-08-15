@@ -40,8 +40,7 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   forecastType: {
-    paddingLeft: 5,
-    fontWeight: 500 // default 400
+    paddingLeft: 5
   }
 })
 
@@ -92,7 +91,7 @@ const ForecastDisplay = ({forecast}: Props) => {
             size={defaults.size}
             animate={defaults.animate}
           />
-          <Type variant="subtitle1" className={classes.forecastType}>
+          <Type variant="subtitle2" className={classes.forecastType}>
             <Link
               target="_blank"
               rel="noopener noreferrer"
