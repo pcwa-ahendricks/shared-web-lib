@@ -1,16 +1,3 @@
-html {
-  margin: 0;
-  height: 100%;
-}
-body {
-  margin: inherit;
-  height: inherit;
-}
-#__next {
-  margin: inherit;
-  height: inherit;
-}
-
 @font-face {
   font-family: 'Malva';
   font-weight: 300;

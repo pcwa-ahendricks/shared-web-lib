@@ -176,7 +176,8 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     manufacturer,
     model,
     additional,
-    emailAttachments,
+    purchaseDate,
+    emailAttachments = '',
     receipts = [],
     cntrlPhotos = [],
     addtlSensorPhotos = [],
@@ -184,7 +185,7 @@ const irrigCntrlRebateHandler = async (req: IncomingMessage) => {
     signature,
     captcha
   } = formData
-  let {city = '', purchaseDate, accountNo} = formData
+  let {city = '', accountNo} = formData
 
   // Remove leading zeros from account number.
   accountNo = accountNo

@@ -163,7 +163,7 @@ const toiletRebateHandler = async (req: IncomingMessage) => {
     otherCity = '',
     phone,
     propertyType,
-    emailAttachments,
+    emailAttachments = '',
     receipts = [],
     installPhotos = [],
     termsAgree,

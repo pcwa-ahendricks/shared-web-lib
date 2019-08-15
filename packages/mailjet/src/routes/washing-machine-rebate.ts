@@ -159,7 +159,7 @@ const washingMachineRebateHandler = async (req: IncomingMessage) => {
     propertyType,
     manufacturer,
     model,
-    emailAttachments,
+    emailAttachments = '',
     receipts = [],
     installPhotos = [],
     termsAgree,

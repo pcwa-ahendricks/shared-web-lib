@@ -4,6 +4,18 @@ import {Theme} from '@material-ui/core'
 const GlobalStyles = withStyles((theme: Theme) => ({
   // @global is handled by jss-plugin-global.
   '@global': {
+    html: {
+      margin: 0,
+      height: '100%'
+    },
+    body: {
+      margin: 'inherit',
+      height: 'inherit'
+    },
+    '#__next': {
+      margin: 'inherit',
+      height: 'inherit'
+    },
     article: {
       '& .MuiTypography-h1:not(:first-child)': {
         marginTop: theme.spacing(4)
