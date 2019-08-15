@@ -1,3 +1,6 @@
 **/skycons.js
+**/modernizr.js
+**/next.config.js
+**/next/client/polyfills.js
 **/.next
 **/packages/**/dist
