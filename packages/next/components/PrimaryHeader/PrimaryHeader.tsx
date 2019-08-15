@@ -16,7 +16,7 @@ import {
   Theme
 } from '@material-ui/core'
 import {PopperProps} from '@material-ui/core/Popper'
-import {Menu as MenuIcon} from '@material-ui/icons'
+import MenuIcon from '@material-ui/icons/Menu'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import MegaMenuLink from '@components/megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '@components/megaMenu/MegaMenuPopper/MegaMenuPopper'

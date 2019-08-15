@@ -9,7 +9,8 @@ import {
   ListItemText,
   Theme
 } from '@material-ui/core'
-import {Mail as MailIcon, Inbox as InboxIcon} from '@material-ui/icons'
+import InboxIcon from '@material-ui/icons/Inbox'
+import MailIcon from '@material-ui/icons/Mail'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
