@@ -165,7 +165,7 @@ const SearchInput = () => {
   )
 
   const searchHandler = useCallback(
-    async (start: number = 1) => {
+    async (start = 1) => {
       try {
         searchDispatch(setIsSearching(true))
         searchDispatch(setDialogOpen(true))

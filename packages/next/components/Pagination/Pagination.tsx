@@ -120,7 +120,7 @@ const Pagination: React.FunctionComponent<
   )
 
   const createPagePosition = useCallback(
-    (position: Position, page: number = 0): PagePosition => {
+    (position: Position, page = 0): PagePosition => {
       return {
         page,
         position
