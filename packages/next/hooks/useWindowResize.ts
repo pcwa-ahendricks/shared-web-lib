@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {debounce} from 'debounce'
 
-const useWindowResize = (cbFunc: any, timeout: number = 100) => {
+const useWindowResize = (cbFunc: any, timeout = 100) => {
   useEffect(() => {
     console.log('foo')
     const fn = debounce(cbFunc, timeout)

@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {debounce} from 'debounce'
 
-const useWindowScroll = (cbFunc: any, timeout: number = 100) => {
+const useWindowScroll = (cbFunc: any, timeout = 100) => {
   useEffect(() => {
     const fn = debounce(cbFunc, timeout)
     window.addEventListener('scroll', fn)
