@@ -34,8 +34,8 @@ const PayBillPage = () => {
   return (
     <PageLayout title="Bill Payment Options">
       <WaterSurfaceImg />
-      <NarrowContainer>
-        <MainBox>
+      <MainBox>
+        <NarrowContainer>
           <PageTitle title="Bill Payment Options" subtitle="Services" />
           <RespRowBox>
             <RespChildBox first flex={{xs: '100%', sm: '60%'}}>
@@ -179,8 +179,8 @@ const PayBillPage = () => {
               <CustomerServicesEmail />.{/* </span> */}
             </Type>
           </Box>
-        </MainBox>
-      </NarrowContainer>
+        </NarrowContainer>
+      </MainBox>
     </PageLayout>
   )
 }

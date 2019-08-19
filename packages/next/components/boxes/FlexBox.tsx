@@ -3,7 +3,8 @@ import {Box} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 
 type Props = {children?: React.ReactNode} & BoxProps
-type RespChildBoxProps = {
+
+export type RespChildBoxProps = {
   children?: React.ReactNode
   flexSpacing?: number
   first?: boolean

@@ -185,8 +185,8 @@ const ContactInfo = () => {
     () => (
       <React.Fragment>
         <WaterSurfaceImg />
-        <NarrowContainer>
-          <MainBox>
+        <MainBox>
+          <NarrowContainer>
             <Type variant="h1" color="primary" gutterBottom>
               Update Contact Information Form
             </Type>
@@ -461,8 +461,8 @@ const ContactInfo = () => {
             {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-          </MainBox>
-        </NarrowContainer>
+          </NarrowContainer>
+        </MainBox>
       </React.Fragment>
     ),
     [classes, formIsDirty, formValues, formIsTouched]

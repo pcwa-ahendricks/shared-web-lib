@@ -49,7 +49,7 @@ const ThumbPreviews = ({
   }, [])
 
   const thumbIsUploading = useCallback(
-    (fileName: string = '') =>
+    (fileName = '') =>
       isUploading && isUploadingFileNames.indexOf(fileName) >= 0,
     [isUploading, isUploadingFileNames]
   )

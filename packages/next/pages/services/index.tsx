@@ -15,8 +15,8 @@ const ServicesPage = () => {
   return (
     <PageLayout title="Services">
       <WaterSurfaceImg />
-      <NarrowContainer>
-        <MainBox>
+      <MainBox>
+        <NarrowContainer>
           <PageTitle title="Customer Services" subtitle="Services" />
           <Type paragraph>
             Customer Services is dedicated to providing quality services to our
@@ -130,8 +130,8 @@ const ServicesPage = () => {
               Telephone: <MainPhone /> (9 a.m. – 5 p.m.)
             </Type>
           </Box>
-        </MainBox>
-      </NarrowContainer>
+        </NarrowContainer>
+      </MainBox>
     </PageLayout>
   )
 }

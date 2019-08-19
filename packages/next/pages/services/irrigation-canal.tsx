@@ -7,8 +7,8 @@ import WideContainer from '@components/containers/WideContainer'
 const IrrigationCanal = () => {
   return (
     <PageLayout title="Irrigation Canal Information">
-      <WideContainer>
-        <MainBox>
+      <MainBox>
+        <WideContainer>
           <Type>
             PCWA's primary source of water is delivered through canals operated
             by Pacific Gas & Electric Company's (PG&E). After the irrigation
@@ -18,8 +18,8 @@ const IrrigationCanal = () => {
             outages and spreads remaining water supplies to mitigate the impact
             on its customers.
           </Type>
-        </MainBox>
-      </WideContainer>
+        </WideContainer>
+      </MainBox>
     </PageLayout>
   )
 }

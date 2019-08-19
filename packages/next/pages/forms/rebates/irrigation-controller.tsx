@@ -357,8 +357,8 @@ const IrrigationController = () => {
     () => (
       <React.Fragment>
         <WaterSurfaceImg />
-        <NarrowContainer>
-          <MainBox>
+        <MainBox>
+          <NarrowContainer>
             <Type variant="h1" color="primary" gutterBottom>
               Water Efficiency Rebate Form
             </Type>
@@ -803,8 +803,8 @@ const IrrigationController = () => {
             {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-          </MainBox>
-        </NarrowContainer>
+          </NarrowContainer>
+        </MainBox>
       </React.Fragment>
     ),
     [
