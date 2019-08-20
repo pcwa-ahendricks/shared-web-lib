@@ -51,9 +51,7 @@ const GeneralInfoPage = () => {
           containerProps={{mt: 4, mb: 4, bgcolor: blueGrey[50]}}
         >
           <Type variant="h4">
-            <span
-              style={{lineHeight: '1.5', color: '#334850', fontWeight: 500}}
-            >
+            <span style={{lineHeight: '1.5', color: '#334850'}}>
               Placer County Water Agency (PCWA) is the primary water resource
               agency for Placer County, California, with a broad range of
               responsibilities including water resource planning and management,

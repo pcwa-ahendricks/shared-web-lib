@@ -12,8 +12,6 @@ import {
   ColumnBox,
   RowBox
 } from '@components/boxes/FlexBox'
-import Imgix from 'react-imgix'
-import clsx from 'clsx'
 import {useTheme} from '@material-ui/styles'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from '@components/NextLink/NextLink'
@@ -23,6 +21,7 @@ import ComputerIcon from '@material-ui/icons/Computer'
 import PhoneIcon from '@material-ui/icons/Phone'
 import BusinessIcon from '@material-ui/icons/Business'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const PayOptionBox = ({children}: {children: React.ReactNode}) => {
   return <Box mt={2}>{children}</Box>
@@ -136,22 +135,15 @@ const PayBillPage = () => {
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let image get too big in small layouts.
+              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
-              <Imgix
-                className={clsx({['lazyload']: true})}
-                sizes="auto"
-                src="//cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
+              <LazyImgix
+                src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
                 htmlAttributes={{
                   alt: 'Customer Service Representative Photo',
                   style: {width: '100%'}
                 }}
-                attributeConfig={{
-                  src: 'data-src',
-                  srcSet: 'data-srcset',
-                  sizes: 'data-sizes'
-                }}
-              ></Imgix>
+              ></LazyImgix>
             </RespChildBox>
           </RespRowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>
