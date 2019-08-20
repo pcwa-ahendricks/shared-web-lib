@@ -25,7 +25,7 @@ const theme = createMuiTheme({
       fontSize: '2.5rem' // Default: 6rem
     },
     h2: {
-      fontSize: '1.75rem' // Default: 3.75rem
+      fontSize: '1.8rem' // Default: 3.75rem
       // fontWeight: 400 // Default: 300
     },
     h3: {

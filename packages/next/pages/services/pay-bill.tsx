@@ -158,7 +158,7 @@ const PayBillPage = () => {
             </Type>
           </Box>
           <Box mt={6}>
-            <Type variant="h2" color="primary" gutterBottom>
+            <Type variant="h3" color="primary" gutterBottom>
               Need More Assistance?
             </Type>
 

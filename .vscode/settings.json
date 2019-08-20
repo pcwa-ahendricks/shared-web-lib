@@ -5,7 +5,8 @@
     "packages/next/.next": true,
     "packages/next/out": true,
     "packages/next/bundles": true,
-    "packages/**/dist/**/*.js": true
+    "packages/**/dist/**/*.js": true,
+    "**/yarn-error.log": true
   },
   "cSpell.words": [
     "ahendricks",
