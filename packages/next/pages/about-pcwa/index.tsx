@@ -1,13 +1,30 @@
+// cspell:ignore Einar Maisch
 import React from 'react'
-import {Box, Theme, Typography as Type} from '@material-ui/core'
+import {
+  Box,
+  Divider,
+  Typography as Type,
+  List,
+  ListItem
+} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import ShowMore from '@components/ShowMore/ShowMore'
 import MainPhone from '@components/links/MainPhone'
-import {useTheme} from '@material-ui/styles'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+// import {useTheme} from '@material-ui/styles'
+import {RespRowBox, RespChildBox, RowBox} from '@components/boxes/FlexBox'
 import VideoIframe from './VideoIframe/VideoIframe'
+import PageTitle from '@components/PageTitle/PageTitle'
+import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
+import NarrowContainer from '@components/containers/NarrowContainer'
+import {blueGrey} from '@material-ui/core/colors'
+import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
+import GeneralManagerEmail from '@components/links/GeneralManagerEmail'
+import PublicAffairsEmail from '@components/links/PublicAffarisEmail'
+
+const BANNER_IMG_SRC =
+  'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -16,23 +33,27 @@ import VideoIframe from './VideoIframe/VideoIframe'
 
 const GeneralInfoPage = () => {
   // const classes = useStyles()
-  const theme = useTheme<Theme>()
+  // const theme = useTheme<Theme>()
+
   return (
     <PageLayout title="General Information">
+      <WaterSurfaceImg />
       <MainBox>
         <WideContainer>
-          <Type>General Information</Type>
+          <PageTitle title="General Information" subtitle="About PCWA" />
         </WideContainer>
 
-        <WideContainer
-          pl={{xs: 3, sm: 6, md: 12}}
-          pr={{xs: 3, sm: 6, md: 12}}
+        <NarrowContainer
+          // pl={{xs: 3, sm: 6, md: 12}}
+          // pr={{xs: 3, sm: 6, md: 12}}
           pt={{xs: 2, sm: 4, md: 6}}
           pb={{xs: 2, sm: 4, md: 6}}
-          containerProps={{mt: 4, mb: 4, bgcolor: theme.palette.grey[200]}}
+          containerProps={{mt: 4, mb: 4, bgcolor: blueGrey[50]}}
         >
-          <Type variant="h5">
-            <span style={{lineHeight: '1.5'}}>
+          <Type variant="h4">
+            <span
+              style={{lineHeight: '1.5', color: '#334850', fontWeight: 500}}
+            >
               Placer County Water Agency (PCWA) is the primary water resource
               agency for Placer County, California, with a broad range of
               responsibilities including water resource planning and management,
@@ -40,33 +61,62 @@ const GeneralInfoPage = () => {
               water, and production of hydroelectric energy.
             </span>
           </Type>
-        </WideContainer>
+        </NarrowContainer>
 
         <WideContainer>
           <RespRowBox alignItems="center" mt={4}>
             <RespChildBox
-              flex="0 1 50%"
+              flex="1 1 50%"
               first
-              pl={{xs: 2, sm: 4}}
-              pr={{xs: 2, sm: 4}}
+              pl={{xs: 2, sm: 4, md: 8, lg: 12}}
+              pr={{xs: 2, sm: 4, md: 8, lg: 12}}
             >
-              <Type variant="subtitle1" align="center">
-                Watch "Where Does Our Water Come From? Part 1" featured on the
-                PCWA YouTube Channel
+              <Type variant="subtitle1" align="center" color="primary">
+                <span style={{fontWeight: 500}}>
+                  Watch "Where Does Our Water Come From? Part 1" featured on the
+                  PCWA YouTube Channel
+                </span>
               </Type>
             </RespChildBox>
-            <VideoIframe flexSpacing={4} />
+            <RespChildBox flex="1 1 50%" flexSpacing={4} height={225}>
+              <VideoIframe />
+            </RespChildBox>
           </RespRowBox>
-          <Box mt={3}>
+        </WideContainer>
+
+        <RowBox justifyContent="space-around">
+          <Box mt={12} maxWidth={1400} flex="1 1 auto">
+            <ImgixFancyParallaxBanner
+              amount={0.1}
+              imgixFancyProps={{
+                paddingPercent: '66.66667%',
+                src: BANNER_IMG_SRC,
+                alt: 'Photo of Hell Hole Reservoir',
+                imgixParams: {bri: -5, high: -15}
+              }}
+              style={{
+                height: '50vw',
+                maxHeight: '55vh'
+              }}
+            ></ImgixFancyParallaxBanner>
+          </Box>
+        </RowBox>
+
+        <WideContainer>
+          <Box mt={10}>
             <ShowMore
+              inMaxHeight={400}
               outMaxHeight={7000}
               inShowMoreTitle="Click to read more"
               outShowMoreTitle="Click to read less"
             >
               <article>
-                <Type variant="h3" color="primary" gutterBottom>
+                <Type variant="h2" color="primary" gutterBottom>
                   Overview Of The Placer County Water Agency
                 </Type>
+                <Box mt={3} mb={3}>
+                  <Divider />
+                </Box>
                 <Type paragraph>
                   Placer County Water Agency (PCWA) was created through an Act
                   of the California State Legislature in 1957. PCWA’s
@@ -253,6 +303,27 @@ const GeneralInfoPage = () => {
                 </Type>
               </article>
             </ShowMore>
+          </Box>
+
+          <Box mt={6} mb={6}>
+            <Divider />
+          </Box>
+          <Box mt={3}>
+            <Type variant="h5">Key PCWA Contacts</Type>
+            <List>
+              <ListItem>
+                <Type>
+                  General Manager, Einar Maisch - <GeneralManagerEmail />
+                </Type>
+                <Type>, (530) 823-4860</Type>
+              </ListItem>
+              <ListItem>
+                <Type>
+                  Public Affairs Manager, Ross Branch - <PublicAffairsEmail />
+                </Type>
+                <Type>, (530) 823-1937</Type>
+              </ListItem>
+            </List>
           </Box>
         </WideContainer>
       </MainBox>
