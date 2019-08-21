@@ -13,7 +13,7 @@ import EightHundredPhone from '@components/links/EightHundredPhone'
 
 const ServicesPage = () => {
   return (
-    <PageLayout title="Services">
+    <PageLayout title="Customer Services">
       <WaterSurfaceImg />
       <MainBox>
         <NarrowContainer>

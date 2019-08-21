@@ -65,7 +65,7 @@ export type NextMuiLinkProps = {
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-const Link = ({
+const MuiNextLink = ({
   activeClassName = 'active',
   className,
   naked,
@@ -99,4 +99,4 @@ const Link = ({
   )
 }
 
-export default Link
+export default MuiNextLink

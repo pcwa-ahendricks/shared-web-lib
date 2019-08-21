@@ -11,14 +11,14 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const AccountMaintenancePage = () => {
   return (
-    <PageLayout title="Services">
+    <PageLayout title="Account Maintenance">
       <WaterSurfaceImg />
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Account Maintenance" subtitle="Services" />
           <RespRowBox>
             <RespChildBox first flex="1 1 60%">
-              <Type>
+              <Type paragraph>
                 To open or close&nbsp;a water service account with PCWA, call
                 PCWA Customer Services at <MainPhone /> weekdays from 9:00 a.m.
                 to 5:00 p.m.&nbsp;or stop by our office at 144 Ferguson Road,
