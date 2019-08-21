@@ -57,7 +57,7 @@ const useStyles = makeStyles(() =>
 
 const FancyButton = ({
   hoverText,
-  transition = 'slideUp',
+  transition = 'fade',
   children,
   transitionDuration = '150ms',
   ...rest
