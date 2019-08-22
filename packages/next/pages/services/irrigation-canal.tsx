@@ -42,7 +42,7 @@ import EyeIcon from '@material-ui/icons/RemoveRedEye'
 import InletIcon from '@material-ui/icons/VerticalAlignTop'
 import NeighborsIcon from '@material-ui/icons/People'
 import ContactUsIcon from '@material-ui/icons/Phone'
-import WarningIcon from '@material-ui/icons/Warning'
+import WarningIcon from '@material-ui/icons/WarningRounded'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -341,7 +341,7 @@ const IrrigationCanalPage = () => {
             </Box>
           </Box>
 
-          <Box mt={3} mb={3}>
+          <Box mt={6}>
             <Divider />
           </Box>
           <Box mt={6}>
