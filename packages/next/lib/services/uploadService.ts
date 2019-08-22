@@ -38,7 +38,7 @@ const errorHandler = async (
 
 const uploadFile = async (
   file: File,
-  subFolder: string = ''
+  subFolder = ''
 ): Promise<UploadResponse> => {
   const formData = new FormData()
   formData.append(subFolder, file, file.name)

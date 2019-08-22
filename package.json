@@ -20,9 +20,9 @@
     "dev": "concurrently -n next,forecast,mailjet,cosmic,google-search,mailchimp 'npm run next:dev' 'npm run forecast:dev' 'npm run mailjet:dev' 'npm run cosmic:dev' 'npm run google-search:dev' 'npm run mailchimp:dev'",
     "serve": "concurrently -n next 'npm run serve --prefix packages/next'",
     "prenow": "npm run build --prefix packages/mailchimp && npm run build --prefix packages/google-search && npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
-    "now:dev-web": "npm run prenow && now --target production",
+    "now:dev-web": "npm run prenow && now --prod",
     "now": "now",
-    "now:forms": "npm run prenow && now --target production -A now.forms.json",
+    "now:forms": "npm run prenow && now --prod -A now.forms.json",
     "now-build": "next build"
   },
   "dependencies": {},

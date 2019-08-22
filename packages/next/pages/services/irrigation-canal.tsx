@@ -1,6 +1,8 @@
 // cspell:ignore Cutrine amazonaws
-import React from 'react'
-import {Typography as Type} from '@material-ui/core'
+import React, {useEffect, useState, useCallback} from 'react'
+import {Box, Typography as Type} from '@material-ui/core'
+import {blueGrey, grey} from '@material-ui/core/colors'
+// import {useTheme} from '@material-ui/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
@@ -11,10 +13,32 @@ import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NextLink from '@components/NextLink/NextLink'
 import FancyButton from '@components/FancyButton/FancyButton'
+import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import MainPhone from '@components/links/MainPhone'
+import {
+  fetchPlaylistItemsSnippets,
+  PlayListItem
+} from '@lib/services/youtubeService'
+import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
 
-// const HOW_TO_PLAYLIST_ID = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
+const HOW_TO_PLAYLIST_ID = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
 
 const IrrigationCanalPage = () => {
+  const [playlistItems, setPlaylistItems] = useState<PlayListItem[]>([])
+
+  const getPlaylistItems = useCallback(async () => {
+    const items = await fetchPlaylistItemsSnippets(HOW_TO_PLAYLIST_ID)
+    if (items && items.items) {
+      setPlaylistItems(items.items)
+    }
+  }, [])
+
+  useEffect(() => {
+    getPlaylistItems()
+  }, [getPlaylistItems])
+
+  // const theme = useTheme<Theme>()
   return (
     <PageLayout title="Irrigation Canal Information">
       <WaterSurfaceImg />
@@ -78,13 +102,58 @@ const IrrigationCanalPage = () => {
           <FancyButton
             aria-label="Open PDF"
             hoverText="View PDF"
-            variant="outlined"
+            variant="contained"
             target="_blank"
             rel="noopener noreferrer"
             href="//s3-us-west-2.amazonaws.com/cosmicjs/d1a51110-703e-11e9-948f-7b6a64396c21-2019-Aquatic-Weed-Control-Schedule-revised.pdf"
           >
             2019 Algae Control (Cutrine) Schedule
           </FancyButton>
+          <CloseableInfoBox
+            mt={3}
+            pt={1}
+            pb={1}
+            pl={3}
+            pr={3}
+            border={1}
+            borderColor={grey[400]}
+            bgcolor={blueGrey[50]}
+          >
+            <Type variant="subtitle2">Schedule Subject to Change</Type>
+            <Type variant="body2">
+              Algae control schedule is subject to change and additional days
+              may be added. For any algae control specific questions or concerns
+              please email <CustomerServicesEmail /> or call <MainPhone />.
+            </Type>
+          </CloseableInfoBox>
+
+          <Box mt={6}>
+            <Type variant="h3" gutterBottom>
+              Valuable Information For Canal Water Customers
+            </Type>
+            <Type paragraph>
+              During the warm, high water use months, demand on the canal system
+              is greatly increased. Canal water levels fluctuate during high
+              usage periods such as early evenings, weekends, and holidays.
+              Below are some precautions you should take to ensure water
+              delivery, and what to do if you are out of water.
+            </Type>
+          </Box>
+
+          <Box
+            mt={6}
+            pt={1}
+            pb={1}
+            pl={2}
+            pr={2}
+            border={1}
+            borderColor={grey[400]}
+          >
+            <Type variant="h4">How To Videos</Type>
+            <Box mt={2}>
+              <YoutubePlaylistGridList items={playlistItems} />
+            </Box>
+          </Box>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

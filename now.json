@@ -12,7 +12,8 @@
       "NEXT_TARGET": "serverless",
       "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
       "NEXT_GOOGLE_CSE_CX": "@web-google-cse-cx",
-      "NEXT_GOOGLE_CSE_KEY": "@web-google-cse-key"
+      "NEXT_GOOGLE_CSE_KEY": "@web-google-cse-key",
+      "NEXT_YOUTUBE_API_KEY": "@web-youtube-api-key"
     }
   },
   "env": {

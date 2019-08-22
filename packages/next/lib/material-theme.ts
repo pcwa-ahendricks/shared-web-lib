@@ -30,7 +30,7 @@ const theme = createMuiTheme({
     },
     h3: {
       fontSize: '1.55rem' // Default: 3rem
-      // fontWeight: 400 // Default: 400
+      // fontWeight: 300 // Default: 400
     },
     h4: {
       fontSize: '1.25rem' // Default: 2.125rem
