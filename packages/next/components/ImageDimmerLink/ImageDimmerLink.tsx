@@ -47,36 +47,30 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 0 : 1
     }),
-    description: ({isHovering}: UseStylesProps) => ({
-      color: theme.palette.common.white,
+    hoverCaptionContainer: {
       position: 'absolute',
-      lineHeight: '1.5rem',
-      zIndex: 50,
-      pointerEvents: 'none',
-      width: '90%',
-      fontWeight: 500,
       top: 'calc(50% - 3rem)',
       left: 0,
       right: 0,
       margin: 'auto',
+      width: '90%',
       textAlign: 'center',
+      pointerEvents: 'none'
+      // lineHeight: '1.5rem',
+    },
+    description: ({isHovering}: UseStylesProps) => ({
+      color: theme.palette.common.white,
+      // zIndex: 50,
+      fontWeight: 500,
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 1 : 0
     }),
     descriptionSubtitle: ({isHovering}: UseStylesProps) => ({
+      marginTop: '1rem',
       color: theme.palette.common.white,
-      position: 'absolute',
-      lineHeight: '1.5em',
-      zIndex: 50,
-      pointerEvents: 'none',
-      width: '90%',
+      // zIndex: 50,
       fontStyle: 'italic',
       fontWeight: 400,
-      top: 'calc(50% + 2rem)',
-      left: 0,
-      right: 0,
-      margin: 'auto',
-      textAlign: 'center',
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 1 : 0
     })
@@ -134,7 +128,7 @@ const ImageDimmerLink = ({
             {caption}
           </Typography>
         </Box>
-        <Box>
+        <Box className={classes.hoverCaptionContainer}>
           <Typography variant="h4" className={classes.description}>
             {description}
           </Typography>
