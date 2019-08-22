@@ -96,7 +96,7 @@ const GeneralInfoPage = () => {
                 height: '50vw',
                 maxHeight: '55vh'
               }}
-            ></ImgixFancyParallaxBanner>
+            />
           </Box>
         </RowBox>
 

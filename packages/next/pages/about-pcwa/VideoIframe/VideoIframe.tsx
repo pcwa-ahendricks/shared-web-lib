@@ -19,7 +19,7 @@ const VideoIframe = () => {
       src="//www.youtube.com/embed/QXPtUgeWnc4"
       frameBorder="0"
       allowFullScreen
-    ></iframe>
+    />
   )
 }
 

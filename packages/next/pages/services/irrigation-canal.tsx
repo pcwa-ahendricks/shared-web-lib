@@ -133,7 +133,7 @@ const IrrigationCanalPage = () => {
                   alt: 'PCWA Canal photo',
                   style: {width: '100%'}
                 }}
-              ></LazyImgix>
+              />
             </RespChildBox>
           </RespRowBox>
 
@@ -209,28 +209,28 @@ const IrrigationCanalPage = () => {
                 <ListItemText
                   primary="&#8226; Understand your irrigation system and its connection to PCWA's
                 canal system"
-                ></ListItemText>
+                />
               </CompactListItem>
               <CompactListItem>
                 <ListItemText
                   primary="&#8226; Do you share the line with others? If so, how many are on the party
                   line?"
-                ></ListItemText>
+                />
               </CompactListItem>
               <CompactListItem>
                 <ListItemText
                   primary="&#8226; We recommend storage (e.g. pond or tank). Is its capacity sufficient
                   for your irrigation requirements?"
-                ></ListItemText>
+                />
               </CompactListItem>
               <CompactListItem>
-                <ListItemText primary="&#8226; If you are pumping, does your pump have a low water cut-off switch?"></ListItemText>
+                <ListItemText primary="&#8226; If you are pumping, does your pump have a low water cut-off switch?" />
               </CompactListItem>
               <CompactListItem>
                 <ListItemText
                   primary="&#8226; How much water are you buying? One miner's inch equals approximately
             11 gallons per minute."
-                ></ListItemText>
+                />
               </CompactListItem>
             </List>
           </Box>
@@ -258,7 +258,7 @@ const IrrigationCanalPage = () => {
                   <ListItemText
                     primary="Check Flow"
                     secondary="Is there water flowing into your delivery box?"
-                  ></ListItemText>
+                  />
                 </ListItem>
                 <ListItem button>
                   <ListItemAvatar>
@@ -269,7 +269,7 @@ const IrrigationCanalPage = () => {
                   <ListItemText
                     primary="Clean Inlet"
                     secondary="Check and clean your screen at the connection point."
-                  ></ListItemText>
+                  />
                 </ListItem>
                 <ListItem button>
                   <ListItemAvatar>
@@ -284,7 +284,7 @@ const IrrigationCanalPage = () => {
                     primary="Check With Neighbors"
                     secondary="If you share your line, check with your neighbors to determine
                   if they are also out of water."
-                  ></ListItemText>
+                  />
                 </ListItem>
                 <ListItem button>
                   <ListItemAvatar>
@@ -299,7 +299,7 @@ const IrrigationCanalPage = () => {
                     primary="Contact PCWA"
                     secondary="If you are on an open canal and the canal water level is lower
                   than usual or dry, <br />please report this condition to PCWA."
-                  ></ListItemText>
+                  />
                 </ListItem>
               </List>
               <Divider variant="middle" />

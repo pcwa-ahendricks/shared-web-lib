@@ -32,7 +32,7 @@ const DirectionsPage = () => {
             style={{border: 0}}
             src={`https://www.google.com/maps/embed/v1/place${qs}`}
             allowFullScreen
-          ></iframe>
+          />
         </WideContainer>
       </MainBox>
     </PageLayout>

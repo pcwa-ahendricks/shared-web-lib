@@ -742,11 +742,6 @@ const WashingMachine = () => {
                             xs={12}
                             className={classes.ieFixFlexColumnDirection}
                           >
-                            <Type
-                              variant="body1"
-                              paragraph
-                              color="primary"
-                            ></Type>
                             <Type variant="body1" paragraph color="primary">
                               Placer County Water Agency (PCWA) reserves the
                               right to deny an application of any participant

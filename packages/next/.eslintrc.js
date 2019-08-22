@@ -42,6 +42,7 @@ module.exports = {
     'no-console': 'off',
     'react/no-unescaped-entities': 0,
     'react/react-in-jsx-scope': 0,
+    'react/self-closing-comp': 1,
     radix: 1,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

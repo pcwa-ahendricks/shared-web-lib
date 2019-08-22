@@ -42,7 +42,7 @@ const AccountMaintenancePage = () => {
                   alt: 'Water Efficiency Technician Photo',
                   style: {width: '100%'}
                 }}
-              ></LazyImgix>
+              />
             </RespChildBox>
           </RespRowBox>
           <Box mt={6}>

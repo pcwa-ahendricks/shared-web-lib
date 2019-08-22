@@ -86,7 +86,7 @@ const ToiletMfgModelsField = ({disabled = false, ...arrayHelpers}: Props) => {
                             {!item.model &&
                             !item.manufacturer &&
                             index !== 0 ? (
-                              <ClearIcon></ClearIcon>
+                              <ClearIcon />
                             ) : (
                               <DeleteIcon />
                             )}

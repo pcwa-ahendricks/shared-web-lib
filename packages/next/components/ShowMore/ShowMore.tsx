@@ -91,7 +91,7 @@ const ShowMore = ({
   return (
     <Box className={classes.root} onClick={clickHandler}>
       <Box className={classes.expandContainer}>
-        <Box className={classes.gradient}></Box>
+        <Box className={classes.gradient} />
         <Box className={classes.childrenContainer}>{children}</Box>
       </Box>
       <Type variant="body1" color="primary">

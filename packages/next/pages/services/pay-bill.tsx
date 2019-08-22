@@ -143,7 +143,7 @@ const PayBillPage = () => {
                   alt: 'Customer Service Representative Photo',
                   style: {width: '100%'}
                 }}
-              ></LazyImgix>
+              />
             </RespChildBox>
           </RespRowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>
