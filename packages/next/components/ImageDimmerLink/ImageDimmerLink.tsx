@@ -26,7 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     dimmer: ({isHovering}: UseStylesProps) => ({
       transition: 'background-color 300ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-      backgroundColor: isHovering ? 'rgba(0, 0, 0, .6)' : 'rgba(0,0,0, 0.0)'
+      backgroundColor: isHovering ? 'rgba(0, 0, 0, .6)' : 'rgba(0,0,0, 0.0)',
+      position: 'absolute',
+      top: 0,
+      bottom: 6, // [HACK] Compensate react-imgix images. See <MediaPreviewDialog/> for similar fix.
+      left: 0,
+      right: 0
     }),
     container: {
       cursor: 'pointer'
@@ -49,13 +54,18 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
     hoverCaptionContainer: {
       position: 'absolute',
-      top: 'calc(50% - 3rem)',
+      top: 0,
+      bottom: 0,
       left: 0,
       right: 0,
       margin: 'auto',
       width: '90%',
       textAlign: 'center',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
       // lineHeight: '1.5rem',
     },
     description: ({isHovering}: UseStylesProps) => ({
@@ -115,14 +125,7 @@ const ImageDimmerLink = ({
             ...imgixParams
           }}
         />
-        <Box
-          className={classes.dimmer}
-          position="absolute"
-          top={0}
-          bottom={0}
-          left={0}
-          right={0}
-        />
+        <Box className={classes.dimmer} />
         <Box>
           <Typography variant="h2" className={classes.imgCaption}>
             {caption}

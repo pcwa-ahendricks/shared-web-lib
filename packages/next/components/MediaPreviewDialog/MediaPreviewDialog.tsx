@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
     dialogContent: {
       margin: 0,
       padding: 0,
-      marginBottom: -6, // [HACK] Not sure why there is a blank space at bottom of DialogContent.
+      marginBottom: -6, // [HACK] Not sure why there is a blank space at bottom of DialogContent. Possibly related to react-imgix. See <ImageDimmer/> for similar fix.
       // padding: theme.spacing(2),
       overflowX: 'hidden',
       minHeight: 100 // Useful when PDF is loading.

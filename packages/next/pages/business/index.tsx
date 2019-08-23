@@ -37,7 +37,7 @@ const DoingBusinessPage = () => {
               smoothly. We welcome the opportunity to do business with you.
             </Type>
           </Box>
-          <RespRowBox mt={6} justifyContent="space-around">
+          <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
             <RespChildBox {...commonChildProps} first>
               <ImageDimmerLink
                 {...commonImageDimmerProps}
@@ -59,13 +59,13 @@ const DoingBusinessPage = () => {
               />
             </RespChildBox>
           </RespRowBox>
-          <RespRowBox mt={6} justifyContent="space-around">
+          <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
             <RespChildBox {...commonChildProps} first>
               <ImageDimmerLink
                 {...commonImageDimmerProps}
                 href="/business/new-development"
                 caption="New Development Process"
-                description="Information about PCWA\'s Facilities Agreement process, checklists, and Standard Specifications and Standard Drawings"
+                description="Information about PCWA's Facilities Agreement process, checklists, and Standard Specifications and Standard Drawings"
                 imgSrc="https://cosmicjs.imgix.net/5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
                 imgAlt="New Development Process Image Link"
                 imgixParams={{bri: -4}}
@@ -76,14 +76,14 @@ const DoingBusinessPage = () => {
                 {...commonImageDimmerProps}
                 href="/business/energy-products"
                 caption="Energy Products"
-                description="Information about upcoming opportunities with PCWA\'s Power Marketing Division"
+                description="Information about upcoming opportunities with PCWA's Power Marketing Division"
                 imgSrc="https://cosmicjs.imgix.net/ba7745a0-70c0-11e7-b5da-0f4de7f0f597-french-meadows-powerhouse.jpg"
                 imgAlt="Energy Products Image Link"
                 imgixParams={{bri: -8}}
               />
             </RespChildBox>
           </RespRowBox>
-          <RespRowBox mt={6} justifyContent="space-around">
+          <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
             <RespChildBox {...commonChildProps} first>
               <ImageDimmerLink
                 {...commonImageDimmerProps}
