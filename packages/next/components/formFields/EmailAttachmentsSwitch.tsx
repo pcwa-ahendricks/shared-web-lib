@@ -3,8 +3,8 @@ import React, {useCallback} from 'react'
 import {
   Switch,
   FormControl,
-  FormControlLabel,
-  FormHelperText
+  FormControlLabel
+  // FormHelperText
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
@@ -90,9 +90,10 @@ const EmailAttachmentsSwitch = ({
           />
         }
       />
-      <FormHelperText error={fieldIsTouchedWithError}>
+      {/* The following just provides and empty blank space which is not needed. */}
+      {/* <FormHelperText error={fieldIsTouchedWithError}>
         {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      </FormHelperText> */}
     </FormControl>
   )
 }
