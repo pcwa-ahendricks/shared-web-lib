@@ -1,0 +1,8 @@
+{
+  "useTheme": {
+    "scope": "typescriptreact",
+    "prefix": "const theme",
+    "body": ["const theme = useTheme<Theme>()"],
+    "description": "Declare var for use with Material-UI Theme"
+  }
+}

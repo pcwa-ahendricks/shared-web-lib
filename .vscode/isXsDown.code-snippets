@@ -1,0 +1,8 @@
+{
+  "isXsDown": {
+    "scope": "typescriptreact",
+    "prefix": "const isXsDown",
+    "body": ["const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))"],
+    "description": "Media Query for XS devices and smaller"
+  }
+}

@@ -10,7 +10,8 @@ import {
   ListItemAvatar,
   Avatar,
   Theme,
-  Divider
+  Divider,
+  useMediaQuery
 } from '@material-ui/core'
 import {blueGrey, grey, yellow} from '@material-ui/core/colors'
 // import {useTheme} from '@material-ui/styles'
@@ -76,6 +77,7 @@ const IrrigationCanalPage = () => {
   )
 
   const theme = useTheme<Theme>()
+  const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
 
   return (
     <PageLayout title="Irrigation Canal Information">
@@ -104,7 +106,7 @@ const IrrigationCanalPage = () => {
                 outages; these are usually planned during the non-irrigation
                 season months from January into April.
               </Type>
-              <Type paragraph>
+              <Type paragraph={!isXsDown}>
                 When outages are scheduled, specific outage dates and
                 approximate times will be sent to customers whose water
                 deliveries will be interrupted.{' '}
@@ -126,6 +128,7 @@ const IrrigationCanalPage = () => {
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
               maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
+              minWidth="200px" // Don't let image get too small either.
             >
               <LazyImgix
                 src="https://cosmic-s3.imgix.net/1e395470-c3a3-11e9-a5a7-bbdca6cf5b93-irrigation-canal-img1.jpg"

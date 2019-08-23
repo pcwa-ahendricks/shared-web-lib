@@ -18,7 +18,12 @@ import {
   useMediaQuery
 } from '@material-ui/core'
 import {useTheme} from '@material-ui/styles'
-import {RespRowBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
+import {
+  RespRowBox,
+  RowBox,
+  ColumnBox,
+  RespChildBox
+} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {blueGrey} from '@material-ui/core/colors'
 // import QuoteCloseIcon from '@material-ui/icons/FormatQuote'
@@ -79,7 +84,7 @@ const WaterQualityPage = () => {
               the report for your service area:
             </Type>
             <RespRowBox>
-              <Box flex={{xs: 'auto', sm: '0 1 70%'}}>
+              <RespChildBox first flex={{xs: 'auto', sm: '0 1 70%'}}>
                 <MediaDialogOnClick
                   mediaUrl={tsaImageUrl}
                   mediaExt="jpg"
@@ -104,8 +109,8 @@ const WaterQualityPage = () => {
                     </Box>
                   </ColumnBox>
                 </MediaDialogOnClick>
-              </Box>
-              <Box ml={{xs: 0, sm: 4}} mt={{xs: 2, sm: 0}} flex="auto">
+              </RespChildBox>
+              <RespChildBox flexSpacing={4} flex="auto">
                 <Box
                   bgcolor={theme.palette.common.white}
                   border={1}
@@ -149,7 +154,7 @@ const WaterQualityPage = () => {
                     </ListItemLink>
                   </List>
                 </Box>
-              </Box>
+              </RespChildBox>
             </RespRowBox>
           </Box>
 

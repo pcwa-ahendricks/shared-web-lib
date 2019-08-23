@@ -16,6 +16,9 @@ const GlobalStyles = withStyles((theme: Theme) => ({
       margin: 'inherit',
       height: 'inherit'
     },
+    '.MuiTypography-gutterBottom': {
+      marginBottom: '.5em' // Defaults to .35em which is a bit small.
+    },
     article: {
       '& .MuiTypography-h1:not(:first-child)': {
         marginTop: theme.spacing(4)
