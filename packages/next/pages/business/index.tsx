@@ -6,7 +6,13 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
 import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
-import {Box, Typography as Type, useMediaQuery, Theme} from '@material-ui/core'
+import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
+  Theme,
+  Hidden
+} from '@material-ui/core'
 import {useTheme} from '@material-ui/styles'
 
 const DoingBusinessPage = () => {
@@ -95,11 +101,13 @@ const DoingBusinessPage = () => {
                 imgixParams={{bri: -4}}
               />
             </RespChildBox>
-            <RespChildBox
-              {...commonChildProps}
-              flexSpacing={isSmDown ? 4 : 12}
-              width={400}
-            />
+            <Hidden only="xs">
+              <RespChildBox
+                {...commonImageDimmerProps}
+                {...commonChildProps}
+                flexSpacing={isSmDown ? 4 : 12}
+              />
+            </Hidden>
           </RespRowBox>
         </WideContainer>
       </MainBox>
