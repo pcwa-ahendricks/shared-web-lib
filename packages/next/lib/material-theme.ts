@@ -22,7 +22,7 @@ const theme = createMuiTheme({
     // fontFamily: ['Asap', ...systemFonts].join(','),
     fontFamily: ['Malva', ...systemFonts].join(','),
     h1: {
-      fontSize: '2.5rem' // Default: 6rem
+      fontSize: '2.6rem' // Default: 6rem
     },
     h2: {
       fontSize: '1.8rem' // Default: 3.75rem

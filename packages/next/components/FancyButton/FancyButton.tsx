@@ -66,10 +66,10 @@ const FancyButton = ({
   const classes = useStyles({isHovering, transition, transitionDuration})
   return (
     <Button
-      {...rest}
       className={classes.root}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      {...rest}
     >
       <Box
         component="span"

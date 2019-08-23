@@ -101,6 +101,7 @@ const DoingBusinessPage = () => {
                 imgixParams={{bri: -4}}
               />
             </RespChildBox>
+            {/* Placeholder item to correct alignment of previous child. Don't need to show whitespace on xs devices. */}
             <Hidden only="xs">
               <RespChildBox
                 {...commonImageDimmerProps}

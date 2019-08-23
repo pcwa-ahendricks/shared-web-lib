@@ -119,7 +119,7 @@ const MediaPreviewDialog = ({
         data-sizes="auto"
         data-src={url}
         src={url} // IE fix - src attribute may be required for displaying img.
-        alt={`Image ${name} for upload`}
+        alt={name}
       />
     ),
     [name, classes]
