@@ -1,5 +1,5 @@
 // cspell:ignore Bianchi subheader
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -7,20 +7,21 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
-  Typography as Type,
+  Divider,
+  Fade,
+  Hidden,
+  Link,
   List,
   ListItem,
   ListItemText,
-  Divider,
-  Theme,
   ListSubheader,
-  Popover,
-  Hidden,
-  useMediaQuery,
-  Link
+  Popper,
+  Theme,
+  Typography as Type,
+  useMediaQuery
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
-import {RespRowBox, RowBox} from '@components/boxes/FlexBox'
+import {RespRowBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {blueGrey} from '@material-ui/core/colors'
@@ -30,15 +31,12 @@ import QuoteCloseIcon from 'mdi-material-ui/FormatQuoteClose'
 import FancyButton from '@components/FancyButton/FancyButton'
 // import Delayed from '@components/Delayed/Delayed'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    popover: {
-      pointerEvents: 'none',
-      marginTop: theme.spacing(1),
-      marginLeft: theme.spacing(1) * -1
-    },
-    paper: {
-      padding: theme.spacing(1)
+    popper: {
+      position: 'absolute',
+      zIndex: 5,
+      pointerEvents: 'none'
     }
   })
 )
@@ -51,6 +49,8 @@ const WaterQualityPage = () => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+
+  const popperAnchorEl = useRef<any>()
 
   const ListItemLink = (props: any) => {
     return (
@@ -120,12 +120,43 @@ const WaterQualityPage = () => {
                 flex={{xs: 'auto', sm: '0 1 70%'}}
                 onClick={imageClickHandler}
               >
-                <Box
+                <ColumnBox
                   aria-owns={open ? 'mouse-over-popover' : undefined}
                   aria-haspopup="true"
                   onMouseEnter={handlePopoverOpen}
                   onMouseLeave={handlePopoverClose}
+                  position="relative"
+                  alignItems="center"
                 >
+                  <div
+                    ref={popperAnchorEl}
+                    style={{position: 'absolute', top: 8, right: 8}}
+                  />
+                  <Hidden only="xs">
+                    <Popper
+                      id="mouse-over-popover"
+                      className={classes.popper}
+                      open={open}
+                      anchorEl={popperAnchorEl.current}
+                      transition
+                      placement="bottom-end"
+                    >
+                      {({TransitionProps}) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                          <Box
+                            borderRadius={3}
+                            p={1}
+                            fontStyle="italic"
+                            bgcolor={theme.palette.background.paper}
+                          >
+                            <Type variant="body2">
+                              Click to view larger image
+                            </Type>
+                          </Box>
+                        </Fade>
+                      )}
+                    </Popper>
+                  </Hidden>
                   <LazyImgix
                     src={tsaImageUrl}
                     imgixParams={{border: '1,AAAAAA'}}
@@ -137,32 +168,12 @@ const WaterQualityPage = () => {
                       }
                     }}
                   />
-                </Box>
-                <Hidden only="xs">
-                  <Popover
-                    id="mouse-over-popover"
-                    className={classes.popover}
-                    classes={{
-                      paper: classes.paper
-                    }}
-                    open={open}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    onClose={handlePopoverClose}
-                    disableRestoreFocus
-                  >
-                    <Box fontStyle="italic">
-                      <Type variant="body2">Click to view larger image</Type>
-                    </Box>
-                  </Popover>
-                </Hidden>
+                  <Box mt={1}>
+                    <Type variant="caption" align="center">
+                      Treated Water Services Areas
+                    </Type>
+                  </Box>
+                </ColumnBox>
               </Box>
               <Box ml={{xs: 0, sm: 4}} mt={{xs: 2, sm: 0}} flex="auto">
                 <Box
