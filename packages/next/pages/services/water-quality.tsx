@@ -1,5 +1,5 @@
 // cspell:ignore Bianchi subheader
-import React, {useState, useRef} from 'react'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -8,38 +8,24 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
   Divider,
-  Fade,
-  Hidden,
   Link,
   List,
   ListItem,
   ListItemText,
   ListSubheader,
-  Popper,
   Theme,
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
+import {useTheme} from '@material-ui/styles'
 import {RespRowBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {blueGrey} from '@material-ui/core/colors'
 // import QuoteCloseIcon from '@material-ui/icons/FormatQuote'
 import QuoteOpenIcon from 'mdi-material-ui/FormatQuoteOpen'
 import QuoteCloseIcon from 'mdi-material-ui/FormatQuoteClose'
 import FancyButton from '@components/FancyButton/FancyButton'
-// import Delayed from '@components/Delayed/Delayed'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    popper: {
-      position: 'absolute',
-      zIndex: 5,
-      pointerEvents: 'none'
-    }
-  })
-)
+import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 
 const tsaImageUrl =
   'https://cosmic-s3.imgix.net/2c559c90-c5c8-11e9-aaff-5105a05bb7d4-treated-services-areas.jpg'
@@ -47,10 +33,7 @@ const tsaImageAlt = 'Map of Treated Water Services Areas'
 
 const WaterQualityPage = () => {
   const theme = useTheme<Theme>()
-  const classes = useStyles()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-
-  const popperAnchorEl = useRef<any>()
 
   const ListItemLink = (props: any) => {
     return (
@@ -63,26 +46,6 @@ const WaterQualityPage = () => {
       />
     )
   }
-
-  const [tsaImageDialogOpen, setTsaImageDialogOpen] = useState<boolean>(false)
-
-  const [anchorEl, setAnchorEl] = useState(null)
-
-  const handlePopoverOpen = (event: any) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null)
-  }
-
-  const imageClickHandler = () => {
-    if (!isXs) {
-      setTsaImageDialogOpen(true)
-    }
-  }
-
-  const open = Boolean(anchorEl)
 
   return (
     <PageLayout title="Water Quality">
@@ -116,64 +79,31 @@ const WaterQualityPage = () => {
               the report for your service area:
             </Type>
             <RespRowBox>
-              <Box
-                flex={{xs: 'auto', sm: '0 1 70%'}}
-                onClick={imageClickHandler}
-              >
-                <ColumnBox
-                  aria-owns={open ? 'mouse-over-popover' : undefined}
-                  aria-haspopup="true"
-                  onMouseEnter={handlePopoverOpen}
-                  onMouseLeave={handlePopoverClose}
-                  position="relative"
-                  alignItems="center"
+              <Box flex={{xs: 'auto', sm: '0 1 70%'}}>
+                <MediaDialogOnClick
+                  mediaUrl={tsaImageUrl}
+                  mediaExt="jpg"
+                  mediaName={tsaImageAlt}
                 >
-                  <div
-                    ref={popperAnchorEl}
-                    style={{position: 'absolute', top: 8, right: 8}}
-                  />
-                  <Hidden only="xs">
-                    <Popper
-                      id="mouse-over-popover"
-                      className={classes.popper}
-                      open={open}
-                      anchorEl={popperAnchorEl.current}
-                      transition
-                      placement="bottom-end"
-                    >
-                      {({TransitionProps}) => (
-                        <Fade {...TransitionProps} timeout={350}>
-                          <Box
-                            borderRadius={3}
-                            p={1}
-                            fontStyle="italic"
-                            bgcolor={theme.palette.background.paper}
-                          >
-                            <Type variant="body2">
-                              Click to view larger image
-                            </Type>
-                          </Box>
-                        </Fade>
-                      )}
-                    </Popper>
-                  </Hidden>
-                  <LazyImgix
-                    src={tsaImageUrl}
-                    imgixParams={{border: '1,AAAAAA'}}
-                    htmlAttributes={{
-                      alt: tsaImageAlt,
-                      style: {
-                        width: '100%',
-                        cursor: !isXs ? 'pointer' : 'default'
-                      }
-                    }}
-                  />
-                  <Box mt={1}>
-                    <Type variant="caption" align="center">
-                      Treated Water Services Areas
-                    </Type>
-                  </Box>
-                </ColumnBox>
+                  <ColumnBox alignItems="center">
+                    <LazyImgix
+                      src={tsaImageUrl}
+                      imgixParams={{border: '1,AAAAAA'}}
+                      htmlAttributes={{
+                        alt: tsaImageAlt,
+                        style: {
+                          width: '100%',
+                          cursor: !isXs ? 'pointer' : 'default'
+                        }
+                      }}
+                    />
+                    <Box mt={1}>
+                      <Type variant="caption" align="center">
+                        Treated Water Services Areas
+                      </Type>
+                    </Box>
+                  </ColumnBox>
+                </MediaDialogOnClick>
               </Box>
               <Box ml={{xs: 0, sm: 4}} mt={{xs: 2, sm: 0}} flex="auto">
                 <Box
@@ -351,18 +281,6 @@ const WaterQualityPage = () => {
           </Box>
         </NarrowContainer>
       </MainBox>
-      <MediaPreviewDialog
-        open={tsaImageDialogOpen}
-        onClose={() => setTsaImageDialogOpen(false)}
-        name={tsaImageAlt}
-        url={tsaImageUrl}
-        ext="jpg"
-        scroll="body"
-        fullWidth={false}
-        maxWidth="xl"
-        // showActions
-        // dlUrl={`${tsaImageUrl}${qsDownloadUrl}`}
-      />
     </PageLayout>
   )
 }
