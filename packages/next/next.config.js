@@ -95,6 +95,11 @@ module.exports = (_phase, {defaultConfig}) => {
         config.resolve.alias['@store'] = path.join(__dirname, 'store')
         config.resolve.alias['@hooks'] = path.join(__dirname, 'hooks')
 
+        config.module.rules.push({
+          test: /\.md$/,
+          loader: 'raw-loader'
+        })
+
         return config
       }
     })
