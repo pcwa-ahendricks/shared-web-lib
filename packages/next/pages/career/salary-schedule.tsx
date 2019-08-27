@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect, useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -18,9 +18,7 @@ import {
   useTheme
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
-import {SortDirection} from '@material-ui/core/TableCell'
-
-type HeadRowId = keyof SalaryScheduleResponse
+import {getSorting, stableSort} from '@lib/table-utils'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -48,6 +46,7 @@ interface SalaryScheduleResponse {
   'STEP E MONTHLY': string
   'STEP F MONTHLY': string
 }
+type HeadRowId = keyof SalaryScheduleResponse
 
 interface SalaryScheduleData extends SalaryScheduleResponse {
   id: number
@@ -94,72 +93,49 @@ const SalarySchedulePage = () => {
     numeric: boolean
     disablePadding: boolean
     label: string
-  }[] = [
-    {
-      id: 'CLASS CODE',
-      numeric: false,
-      disablePadding: true,
-      label: 'Class Code'
-    },
-    {
-      id: 'CLASSIFICATION TITLE',
-      numeric: false,
-      disablePadding: false,
-      label: 'Class Title'
-    },
-    {
-      id: 'MAX MONTH SALARY',
-      numeric: true,
-      disablePadding: false,
-      label: 'Max Month Salary'
-    },
-    {
-      id: 'MIN MONTH SALARY',
-      numeric: true,
-      disablePadding: false,
-      label: 'Min Month Salary'
-    }
-  ]
+  }[] = useMemo(
+    () => [
+      {
+        id: 'CLASS CODE',
+        numeric: false,
+        disablePadding: true,
+        label: 'Class Code'
+      },
+      {
+        id: 'CLASSIFICATION TITLE',
+        numeric: false,
+        disablePadding: false,
+        label: 'Class Title'
+      },
+      {
+        id: 'MAX MONTH SALARY',
+        numeric: true,
+        disablePadding: false,
+        label: 'Max Month Salary'
+      },
+      {
+        id: 'MIN MONTH SALARY',
+        numeric: true,
+        disablePadding: false,
+        label: 'Min Month Salary'
+      }
+    ],
+    []
+  )
 
-  const desc = (a: any, b: any, orderBy: any) => {
-    if (b[orderBy] < a[orderBy]) {
-      return -1
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1
-    }
-    return 0
-  }
-
-  const stableSort = <T extends {}>(array: T[], cmp: any): T[] => {
-    const sorted = array
-      .map((el, index) => [el, index])
-      .sort((a: any, b: any) => {
-        const order = cmp(a[0], b[0])
-        if (order !== 0) return order
-        return a[1] - b[1]
-      })
-      .map((el) => el[0]) as T[]
-    console.log(sorted)
-    return [...sorted]
-  }
-
-  const getSorting = <T extends {}>(order: SortDirection, orderBy: T) =>
-    order === 'desc'
-      ? (a: any, b: any) => desc(a, b, orderBy)
-      : (a: any, b: any) => -desc(a, b, orderBy)
-
-  const handleRequestSort = (property: HeadRowId) => () =>
-    // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-    {
-      const isDesc = orderBy === property && order === 'desc'
-      setOrder(isDesc ? 'asc' : 'desc')
-      setOrderBy(property)
-    }
+  const handleRequestSort = useCallback(
+    (property: HeadRowId) => () =>
+      // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+      {
+        const isDesc = orderBy === property && order === 'desc'
+        setOrder(isDesc ? 'asc' : 'desc')
+        setOrderBy(property)
+      },
+    [order, orderBy]
+  )
 
   if (salaryData.length > 0) {
     console.log(salaryData)
-    // console.log(tableHeaderTitles)
   }
   return (
     <PageLayout title="Employee Salary Schedule">
@@ -246,7 +222,9 @@ const SalarySchedulePage = () => {
                           {row.name}
                         </TableCell> */}
 
-                      <TableCell>{row['CLASS CODE']}</TableCell>
+                      <TableCell component="th" scope="row">
+                        {row['CLASS CODE']}
+                      </TableCell>
                       <TableCell>{row['CLASSIFICATION TITLE']}</TableCell>
                     </TableRow>
                   )
