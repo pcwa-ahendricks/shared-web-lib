@@ -1,4 +1,3 @@
-import hecpEmailRoute from './hecp-email'
 import waterWasteRoute from './water-waste'
 import irrigCntrlRebateRoute from './irrigation-controller-rebate'
 import irrigEffRebateRoute from './irrigation-efficiencies-rebate'
@@ -15,7 +14,6 @@ import contactUsRoute from './contact-us'
 // } from './uploads'
 
 export {
-  hecpEmailRoute,
   waterWasteRoute,
   // photoFileRoute,
   // photoB64Route,

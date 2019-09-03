@@ -1,7 +1,6 @@
 import {router, get, post} from 'micro-fork'
 import {send, run} from 'micro'
 import {
-  hecpEmailRoute,
   waterWasteRoute,
   // photoFileRoute,
   // photoB64Route,
@@ -39,7 +38,6 @@ const notfound = (_req: IncomingMessage, res: ServerResponse) => send(res, 404)
 const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 
 const routeHandler = router()(
-  post(`${rtePre}/form-exam-submit`, hecpEmailRoute),
   post(`${rtePre}/water-waste-submit`, waterWasteRoute),
   post(`${rtePre}/irrigation-controller-rebate`, irrigCntrlRebateRoute),
   post(`${rtePre}/irrigation-efficiencies-rebate`, irrigEffRebateRoute),

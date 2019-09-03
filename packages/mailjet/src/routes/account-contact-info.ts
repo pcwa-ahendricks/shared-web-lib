@@ -79,7 +79,6 @@ const accountContactInfoHandler = async (req: IncomingMessage) => {
   const data: any = await json(req)
   const body: {
     formData: FormDataObj
-    recipients: {Name: string; Email: string}[]
   } = data
 
   await validateSchema(bodySchema, body)

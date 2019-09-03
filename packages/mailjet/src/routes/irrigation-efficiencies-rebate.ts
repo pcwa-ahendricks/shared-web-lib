@@ -11,7 +11,7 @@ import checkReferrer from '@pcwa/micro-check-referrer'
 import {format} from 'date-fns'
 import limiter from '@pcwa/micro-limiter'
 import {IncomingMessage} from 'http'
-import {MailJetSendRequest, MailJetMessage} from '../lib/types'
+import {MailJetSendRequest} from '../lib/types'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
@@ -113,7 +113,6 @@ const irrigEffRebateHandler = async (req: IncomingMessage) => {
   const data: any = await json(req)
   const body: {
     formData: FormDataObj
-    recipients: MailJetMessage['To']
   } = data
 
   await validateSchema(bodySchema, body)
