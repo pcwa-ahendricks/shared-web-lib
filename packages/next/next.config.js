@@ -52,7 +52,7 @@ module.exports = (_phase, {defaultConfig}) => {
         /**
          * Dotenv
          */
-        // Read the .env file in development mode only. Now configurations store env variables for production and stage environments.
+        // Read the .env file in development mode only. Now configurations store env variables for production, stage, and test environments.
         if (isDev) {
           config.plugins.push(
             new Dotenv({

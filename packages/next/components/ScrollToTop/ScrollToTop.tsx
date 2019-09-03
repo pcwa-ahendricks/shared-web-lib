@@ -1,52 +1,71 @@
 // cspell:ignore bgcolor
-import React, {useCallback, useState, useMemo} from 'react'
-import {Box, Fab, Fade, Theme, useMediaQuery} from '@material-ui/core'
+import React, {useMemo} from 'react'
+import {
+  Box,
+  Fab,
+  Zoom,
+  Theme,
+  useMediaQuery,
+  useScrollTrigger
+} from '@material-ui/core'
 import {FabProps} from '@material-ui/core/Fab'
 import {IconProps} from '@material-ui/core/Icon'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import useWindowScroll from '@hooks/useWindowScroll'
 import {useTheme} from '@material-ui/styles'
+import {backToTopAnchorId} from '@components/PageLayout/PageLayout'
+
+/*
+  See https://material-ui.com/components/app-bar/#back-to-top for example.
+  Previous version of this component used custom useWindowScroll hook.
+*/
 
 const ScrollToTop = () => {
   const theme = useTheme<Theme>()
-  const [hide, setHide] = useState<boolean>(true)
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-
-  const scrollHandler = useCallback(() => {
-    if (window.pageYOffset > 200) {
-      setHide(false)
-    } else {
-      setHide(true)
-    }
-  }, [])
 
   const fabSize: FabProps['size'] = useMemo(() => (isXs ? 'small' : 'medium'), [
     isXs
   ])
+
   const iconFontSize: IconProps['fontSize'] = useMemo(
     () => (isXs ? 'default' : 'large'),
     [isXs]
   )
 
-  useWindowScroll(scrollHandler, 50)
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 200
+  })
 
-  const clickHandler = useCallback(() => {
-    window.scroll({top: 0, left: 0, behavior: 'smooth'})
-  }, [])
+  // const clickHandler = useCallback(() => {
+  //   window.scroll({top: 0, left: 0, behavior: 'smooth'})
+  // }, [])
+
+  const clickHandler = (event: any) => {
+    const anchor = (
+      (event.target && event.target.ownerDocument) ||
+      document
+    ).querySelector(`#${backToTopAnchorId}`)
+
+    if (anchor) {
+      anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
+    }
+  }
 
   return (
-    <Fade in={!hide} timeout={400}>
-      <Box position="fixed" right={20} bottom={20}>
-        <Fab
-          size={fabSize}
-          color="secondary"
-          aria-label="Scroll To Top"
-          onClick={clickHandler}
-        >
+    <Zoom in={trigger}>
+      <Box
+        position="fixed"
+        right={20}
+        bottom={20}
+        role="presentation"
+        onClick={clickHandler}
+      >
+        <Fab size={fabSize} color="secondary" aria-label="Scroll To Top">
           <KeyboardArrowUp fontSize={iconFontSize} />
         </Fab>
       </Box>
-    </Fade>
+    </Zoom>
   )
 }
 

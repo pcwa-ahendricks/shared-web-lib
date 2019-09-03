@@ -9,6 +9,8 @@ import Footer from '@components/Footer/Footer'
 import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox} from '@components/boxes/FlexBox'
 
+export const backToTopAnchorId = 'back-to-top-anchor'
+
 type Props = {
   description?: string
   children?: React.ReactNode
@@ -29,13 +31,14 @@ const PageLayout = ({
     uiDispatch(dismissError())
   }, [uiDispatch])
 
+  // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
     <React.Fragment>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
       </Head>
-      <ColumnBox height="100%">
+      <ColumnBox height="100%" id={backToTopAnchorId}>
         <Hidden smUp implementation="css">
           <Drawer />
         </Hidden>

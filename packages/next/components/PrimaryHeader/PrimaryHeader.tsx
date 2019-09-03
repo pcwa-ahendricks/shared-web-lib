@@ -26,12 +26,16 @@ import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
+import colorAlpha from 'color-alpha'
+import Sticky from 'react-sticky-el'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
-type Props = {
-  parentFixed?: boolean
-}
+// type Props = {}
+
+// type UseStylesProps = {
+//   parentFixed: Props['parentFixed']
+// }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,6 +60,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       height: '100%'
+      // transition: 'min-height 200ms ease-out'
+    },
+    appBarRoot: {
+      backgroundColor: theme.palette.background.default,
+      transition: 'box-shadow 600ms ease-out, background-color 900ms ease-out',
+      borderTopColor: '#e6e6e6',
+      borderTopStyle: 'solid',
+      borderTopWidth: 1,
+      // Transition between Elevation 3 and 0. See <GlobalStyles/>
+      boxShadow:
+        '0px 1px 3px 0px rgba(0,0,0,0.0),0px 1px 1px 0px rgba(0,0,0,0),0px 2px 1px -1px rgba(0,0,0,0)',
+      '&.sticky': {}
     },
     menuButton: {
       marginLeft: -12,
@@ -105,15 +121,44 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: 'auto',
         paddingLeft: theme.spacing(3)
       }
+    },
+    // Setting max width/height prevents strange jank'ing when toolbar variant changes.
+    headerLogo: {
+      // maxHeight: parentFixed ? 48 : 64,
+      // maxWidth: isSM ? 100 : parentFixed ? 140 : 200
+      maxHeight: 64,
+      maxWidth: 200,
+      // transition: 'max-height 80ms ease-in, max-width 80ms ease-in',
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: 140
+      }
+    },
+    sticky: {
+      zIndex: 1,
+      '&.fixed': {
+        '& $headerLogo': {
+          maxHeight: 48,
+          maxWidth: 140,
+          [theme.breakpoints.down('sm')]: {
+            maxWidth: 100
+          }
+        },
+        '& $appBarRoot': {
+          backgroundColor: colorAlpha(theme.palette.background.paper, 0.98),
+          borderTopWidth: 0,
+          boxShadow:
+            '0px 1px 8px 0px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 3px 3px -2px rgba(0,0,0,0.12)'
+        }
+      }
     }
   })
 )
 
-const PrimaryHeader = ({parentFixed = false}: Props) => {
+const PrimaryHeader = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  // const isSM = useMediaQuery(theme.breakpoints.only('sm'))
   // Custom width defined by point at which menu links overlap svg logo.
   const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
   const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)
@@ -228,13 +273,31 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
     ]
   )
 
+  const [parentFixed, setParentFixed] = useState<boolean>()
+  const fixedToggleHandler = useCallback((wasFixed: boolean) => {
+    if (wasFixed) {
+      setParentFixed(false)
+    } else {
+      setParentFixed(true)
+    }
+  }, [])
+
   const toolbarVariant = useMemo(() => (parentFixed ? 'dense' : 'regular'), [
     parentFixed
   ])
 
   return (
-    <React.Fragment>
-      <AppBar color={isXS ? 'primary' : 'default'} position="relative">
+    <Sticky
+      onFixedToggle={fixedToggleHandler}
+      className={classes.sticky}
+      stickyClassName="fixed"
+    >
+      <AppBar
+        // color={isXS ? 'primary' : 'default'}
+        // elevation={parentFixed ? 3 : 1}
+        position="relative"
+        classes={{root: classes.appBarRoot}}
+      >
         <Toolbar variant={toolbarVariant} className={classes.toolbar}>
           <Hidden smUp implementation="css">
             <IconButton
@@ -256,12 +319,8 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
             className={classes.fixIe}
           >
             <PcwaLogo
+              className={classes.headerLogo}
               height="70%"
-              // Setting max width/height prevents strange jank'ing when toolbar variant changes.
-              style={{
-                maxHeight: parentFixed ? 48 : 64,
-                maxWidth: isSM ? 100 : parentFixed ? 140 : 200
-              }}
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
@@ -279,7 +338,7 @@ const PrimaryHeader = ({parentFixed = false}: Props) => {
       >
         <MMContent contentKey={activeKey} />
       </MegaMenuPopper>
-    </React.Fragment>
+    </Sticky>
   )
 }
 

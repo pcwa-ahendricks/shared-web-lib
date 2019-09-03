@@ -7,6 +7,7 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {getSalarySchedule} from '@lib/services/cosmicService'
 import {
   Box,
+  ButtonBase,
   Typography as Type,
   Table,
   TableBody,
@@ -15,10 +16,12 @@ import {
   TableCell,
   TableSortLabel,
   Theme,
+  Toolbar,
   useTheme
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
 import {getSorting, stableSort} from '@lib/table-utils'
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -54,6 +57,12 @@ interface SalaryScheduleData extends SalaryScheduleResponse {
 
 const useStyles = makeStyles(() =>
   createStyles({
+    tableWrapper: {
+      overflowX: 'scroll'
+    },
+    tableRow: {
+      cursor: 'pointer'
+    },
     headerTableCell: {
       // textTransform: 'capitalize' // Doesn't work ??
     },
@@ -83,6 +92,11 @@ const SalarySchedulePage = () => {
     const ssDataWithId = ssData.map((row, idx) => ({id: idx, ...row}))
     setSalaryData(ssDataWithId)
   }, [])
+
+  const [rowDetailExpanded, setRowDetailExpanded] = useState<boolean>(true)
+  if (!setRowDetailExpanded) {
+    console.log('foo')
+  }
 
   useEffect(() => {
     setSalaryScheduleData()
@@ -161,59 +175,66 @@ const SalarySchedulePage = () => {
 
         <Box mt={6}>
           <Box bgcolor={theme.palette.common.white} boxShadow={1}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  {headRows.map((c) => (
-                    <TableCell
-                      key={c.id}
-                      align={c.numeric ? 'right' : 'left'}
-                      padding={c.disablePadding ? 'none' : 'default'}
-                      sortDirection={orderBy === c.id ? order : false}
-                    >
-                      <TableSortLabel
-                        active={orderBy === c.id}
-                        direction={order}
-                        onClick={handleRequestSort(c.id)}
+            <Toolbar>
+              <Type variant="h5" id="tableTitle">
+                Current Salary Schedule Table
+              </Type>
+            </Toolbar>
+            <Box className={classes.tableWrapper}>
+              <Table size="small" aria-labelledby="tableTitle">
+                <TableHead>
+                  <TableRow>
+                    {headRows.map((c) => (
+                      <TableCell
+                        key={c.id}
+                        align={c.numeric ? 'right' : 'left'}
+                        padding={c.disablePadding ? 'none' : 'default'}
+                        sortDirection={orderBy === c.id ? order : false}
                       >
-                        {c.label}
-                        {orderBy === c.id ? (
-                          <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
-                          </span>
-                        ) : null}
-                      </TableSortLabel>
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {stableSort<SalaryScheduleData>(
-                  salaryData,
-                  getSorting<HeadRowId>(order, orderBy)
-                ).map((row) => {
-                  // const isItemSelected = isSelected(row.name)
-                  // const labelId = `enhanced-table-checkbox-${index}`
+                        <TableSortLabel
+                          active={orderBy === c.id}
+                          direction={order}
+                          onClick={handleRequestSort(c.id)}
+                        >
+                          {c.label}
+                          {orderBy === c.id ? (
+                            <span className={classes.visuallyHidden}>
+                              {order === 'desc'
+                                ? 'sorted descending'
+                                : 'sorted ascending'}
+                            </span>
+                          ) : null}
+                        </TableSortLabel>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {stableSort<SalaryScheduleData>(
+                    salaryData,
+                    getSorting<HeadRowId>(order, orderBy)
+                  ).map((row, idx) => {
+                    // const isItemSelected = isSelected(row.name)
+                    // const labelId = `enhanced-table-checkbox-${index}`
+                    const labelId = `table-row-detail-toggle-${idx}`
 
-                  return (
-                    <TableRow
-                      hover
-                      // onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      // aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      // selected={isItemSelected}
-                    >
-                      {/* <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{'aria-labelledby': labelId}}
-                          />
-                        </TableCell> */}
-                      {/* <TableCell
+                    return (
+                      <TableRow
+                        hover
+                        // onClick={(event) => handleClick(event, row.name)}
+                        role="button"
+                        aria-expanded={rowDetailExpanded}
+                        aria-label={labelId}
+                        tabIndex={-1}
+                        key={row.id}
+                        className={classes.tableRow}
+                      >
+                        <TableCell padding="checkbox">
+                          <ButtonBase aria-label={labelId}>
+                            <KeyboardArrowDownIcon fontSize="small" />
+                          </ButtonBase>
+                        </TableCell>
+                        {/* <TableCell
                           component="th"
                           id={labelId}
                           scope="row"
@@ -222,20 +243,21 @@ const SalarySchedulePage = () => {
                           {row.name}
                         </TableCell> */}
 
-                      <TableCell component="th" scope="row">
-                        {row['CLASS CODE']}
-                      </TableCell>
-                      <TableCell>{row['CLASSIFICATION TITLE']}</TableCell>
-                    </TableRow>
-                  )
-                })}
-                {/* {emptyRows > 0 && (
+                        <TableCell component="th" scope="row" id={labelId}>
+                          {row['CLASS CODE']}
+                        </TableCell>
+                        <TableCell>{row['CLASSIFICATION TITLE']}</TableCell>
+                      </TableRow>
+                    )
+                  })}
+                  {/* {emptyRows > 0 && (
                   <TableRow style={{height: 49 * emptyRows}}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )} */}
-              </TableBody>
-            </Table>
+                </TableBody>
+              </Table>
+            </Box>
           </Box>
         </Box>
       </MainBox>
