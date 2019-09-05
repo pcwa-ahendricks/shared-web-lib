@@ -1,19 +1,17 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import {Slide, Zoom} from '@material-ui/core'
-import {TransitionProps} from '@material-ui/core/transitions/transition'
+import {TransitionProps} from '@material-ui/core/transitions'
 
-const SlideTransition = React.forwardRef<unknown, TransitionProps>(
-  function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />
-  }
-)
+// Specifying Prop Types is necessary; Typescript will error in <Dialog/> due to expected TransitionComponent type.
+
+const SlideTransition = forwardRef<unknown, TransitionProps>((props, ref) => (
+  <Slide direction="up" ref={ref} {...props} />
+))
 SlideTransition.displayName = 'Transition'
 
-const ZoomTransition = React.forwardRef<unknown, TransitionProps>(
-  function Transition(props, ref) {
-    return <Zoom ref={ref} {...props} />
-  }
-)
+const ZoomTransition = forwardRef<unknown, TransitionProps>((props, ref) => (
+  <Zoom ref={ref} {...props} />
+))
 ZoomTransition.displayName = 'Transition'
 
 export {SlideTransition, ZoomTransition}
