@@ -1,6 +1,6 @@
 // cspell:ignore smoothscroll
 import React from 'react'
-import App, {Container} from 'next/app'
+import App from 'next/app'
 import {ThemeProvider} from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {ParallaxProvider} from 'react-scroll-parallax'
@@ -37,31 +37,27 @@ class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
   render() {
     const {Component, pageProps} = this.props
+    /* Wrap every page in Jss and Theme providers. ThemeProvider makes the theme available down the React tree thanks to React context. */
     return (
-      <Container>
-        {/* Wrap every page in Jss and Theme providers */}
-        {/* ThemeProvider makes the theme available down the React
-                  tree thanks to React context. */}
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <GlobalStyles />
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <GlobalStyles />
 
-          <UiProvider>
-            <ForecastProvider>
-              <SearchProvider>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <ParallaxProvider>
-                    {/* Pass pageContext to the _document though the renderPage enhancer
+        <UiProvider>
+          <ForecastProvider>
+            <SearchProvider>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ParallaxProvider>
+                  {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                    <Component {...pageProps} />
-                  </ParallaxProvider>
-                </MuiPickersUtilsProvider>
-              </SearchProvider>
-            </ForecastProvider>
-          </UiProvider>
-        </ThemeProvider>
-      </Container>
+                  <Component {...pageProps} />
+                </ParallaxProvider>
+              </MuiPickersUtilsProvider>
+            </SearchProvider>
+          </ForecastProvider>
+        </UiProvider>
+      </ThemeProvider>
     )
   }
   /* eslint-enable @typescript-eslint/explicit-member-accessibility */
