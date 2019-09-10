@@ -36,7 +36,7 @@
   ],
   "routes": [
     {
-      "src": "^/lambda/mail(.*)$",
+      "src": "/lambda/mail(.*)",
       "dest": "packages/mailjet/dist/index.js",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "src": "^/lambda/cosmic(.*)$",
+      "src": "/lambda/cosmic(.*)",
       "dest": "packages/cosmic/dist/index.js",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
@@ -52,51 +52,26 @@
       }
     },
     {
-      "src": "^/irrigation-controller-rebate$",
+      "src": "/irrigation-controller-rebate(.*)",
       "dest": "/404",
       "status": 404
     },
     {
-      "src": "^/irrigation-controller-rebate(.*)$",
+      "src": "/(?:services|forms|forms/rebates|typography)(?:.html)?/?$",
       "dest": "/404",
       "status": 404
     },
     {
-      "src": "^/irrigation-efficiencies-rebate$",
-      "dest": "/packages/next/forms/rebates/irrigation-efficiencies.html",
+      "src": "/(.*)",
+      "dest": "/packages/next/$1",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"
       }
     },
+    { "handle": "filesystem" },
     {
-      "src": "^/irrigation-efficiencies-rebate(.*)$",
-      "dest": "/packages/next/forms/rebates/irrigation-efficiencies$1",
-      "continue": true,
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    {
-      "src": "^/lawn-replacement-rebate$",
-      "dest": "/packages/next/forms/rebates/lawn-replacement.html",
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    {
-      "src": "^/lawn-replacement-rebate(.*)$",
-      "dest": "/packages/next/forms/rebates/lawn-replacement$1",
-      "continue": true,
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    {
-      "src": "^/washing-machine-rebate$",
+      "src": "/washing-machine-rebate/?",
       "dest": "/packages/next/forms/rebates/washing-machine.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
@@ -104,16 +79,23 @@
       }
     },
     {
-      "src": "^/washing-machine-rebate(.*)$",
-      "dest": "/packages/next/forms/rebates/washing-machine$1",
-      "continue": true,
+      "src": "/irrigation-efficiencies-rebate/?",
+      "dest": "/packages/next/forms/rebates/irrigation-efficiencies.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"
       }
     },
     {
-      "src": "^/toilet-rebate$",
+      "src": "/lawn-replacement-rebate/?",
+      "dest": "/packages/next/forms/rebates/lawn-replacement.html",
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "x-request-path": "$1"
+      }
+    },
+    {
+      "src": "/toilet-rebate/?",
       "dest": "/packages/next/forms/rebates/toilet.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
@@ -121,16 +103,7 @@
       }
     },
     {
-      "src": "^/toilet-rebate(.*)$",
-      "dest": "/packages/next/forms/rebates/toilet$1",
-      "continue": true,
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    {
-      "src": "^/account-contact-info$",
+      "src": "/account-contact-info/?",
       "dest": "/packages/next/forms/account/contact-info.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
@@ -138,22 +111,8 @@
       }
     },
     {
-      "src": "^/account-contact-info(.*)$",
-      "dest": "/packages/next/forms/account/contact-info$1",
-      "continue": true,
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    {
-      "src": "^/($|services|forms|forms/rebates|typography)/?",
-      "dest": "/404",
-      "status": 404
-    },
-    {
-      "src": "^/(.+)$",
-      "dest": "/packages/next/$1",
+      "src": "/(.*)",
+      "dest": "/packages/next/$1.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"

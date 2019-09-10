@@ -66,3 +66,8 @@ Convert baseline jpeg images to progressive jpegs with the following.
 Theme generated with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/)
 
 See [this link](https://material-ui.com/style/color/#official-color-tool) for more info on Palette.
+
+### Now 2 Routes with Next 9
+
+The following is a good workaround: [workaround](https://github.com/zeit/now-builders/issues/825)
+and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-error-page-in-monorepo-deployment~fc329387-e24e-4d87-967c-a6672c6be46f)
