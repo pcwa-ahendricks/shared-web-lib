@@ -96,7 +96,7 @@
       }
     },
     {
-      "src": "/(?:services|forms|forms/rebates|typography)(?:.html)?/?$",
+      "src": "/(?:forms|forms/rebates|typography)(?:.html)?/?$",
       "dest": "/404",
       "status": 404
     },
