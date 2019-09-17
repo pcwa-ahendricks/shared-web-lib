@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo} from 'react'
-import {Badge, LinearProgress, Theme} from '@material-ui/core'
+import {Box, Badge, LinearProgress} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
@@ -14,10 +14,17 @@ type Props = {
   onSuccess?: () => void
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    margin: {
-      margin: theme.spacing(2)
+    badgeRoot: {
+      maxWidth: '100%',
+      display: 'flex', // defaults to inline-flex
+      flexDirection: 'column',
+      justifyContent: 'center'
+    },
+    badge: {
+      width: 20,
+      height: 20
     },
     progress: {
       position: 'absolute',
@@ -66,17 +73,19 @@ const UploadStatusIndicator = ({
   )
 
   return (
-    <Badge
-      className={classes.margin}
-      badgeContent={fileStatusBadgeContentEl}
-      color={uploadStatus === 'success' ? 'secondary' : 'error'}
-      invisible={uploadStatus === 'unknown'}
-    >
-      <React.Fragment>
-        {progressEl}
-        {children}
-      </React.Fragment>
-    </Badge>
+    <Box m={2}>
+      <Badge
+        classes={{root: classes.badgeRoot, badge: classes.badge}}
+        badgeContent={fileStatusBadgeContentEl}
+        color={uploadStatus === 'success' ? 'secondary' : 'error'}
+        invisible={uploadStatus === 'unknown'}
+      >
+        <Box>
+          {progressEl}
+          {children}
+        </Box>
+      </Badge>
+    </Box>
   )
 }
 
