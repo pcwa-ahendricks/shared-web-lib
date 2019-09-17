@@ -165,6 +165,7 @@ const ThumbPreview = ({
                 <img
                   data-sizes="auto"
                   src="/static/images/placeholder-camera.png"
+                  srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                   data-srcset={file.previewUrl}
                   className={clsx({
                     ['lazyload']: true
