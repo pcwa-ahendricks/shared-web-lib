@@ -98,14 +98,6 @@ const SalaryScheduleRow = ({data}: Props) => {
             </Tooltip>
           </ButtonBase>
         </TableCell>
-        {/* <TableCell
-          component="th"
-          id={labelId}
-          scope="row"
-          padding="none"
-        >
-          {row.name}
-        </TableCell> */}
 
         <TableCell id={labelId} component="th" scope="row" align="right">
           {data['CLASS CODE']}

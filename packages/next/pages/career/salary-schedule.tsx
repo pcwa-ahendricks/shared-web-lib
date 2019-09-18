@@ -4,7 +4,10 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
-import {getSalarySchedule} from '@lib/services/cosmicService'
+import {
+  getSalarySchedule,
+  getSalaryScheduleCsv
+} from '@lib/services/cosmicService'
 import {
   Box,
   Typography as Type,
@@ -27,6 +30,7 @@ import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import SalaryScheduleRow from '@components/salaryScheduleTable/SalaryScheduleRow'
 import useDebounce from '@hooks/useDebounce'
+import DlSalaryScheduleCsvButton from '@components/salaryScheduleTable/DlSalaryScheduleCsvButton'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -110,6 +114,7 @@ const SalarySchedulePage = () => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
   const [salaryData, setSalaryData] = useState<SalaryScheduleData[]>([])
+  const [salaryCsv, setSalaryCsv] = useState<string>('')
   const [sortFilterSalaryData, setSortFilterSalaryData] = useState<
     SalaryScheduleData[]
   >(salaryData)
@@ -118,6 +123,7 @@ const SalarySchedulePage = () => {
 
   const setSalaryScheduleData = useCallback(async () => {
     const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
+    const ssCsv: string = await getSalaryScheduleCsv()
     const ssDataWithId = ssData.map((row) => ({
       id: generate(),
       ...row,
@@ -142,6 +148,7 @@ const SalarySchedulePage = () => {
       stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
     }))
     setSalaryData(ssDataWithId)
+    setSalaryCsv(ssCsv)
   }, [])
 
   useEffect(() => {
@@ -385,6 +392,11 @@ const SalarySchedulePage = () => {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
             />
+          </Box>
+          <Box m={3}>
+            <DlSalaryScheduleCsvButton data={salaryCsv}>
+              Download CSV
+            </DlSalaryScheduleCsvButton>
           </Box>
         </Box>
       </MainBox>

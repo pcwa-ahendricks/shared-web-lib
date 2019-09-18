@@ -23,4 +23,23 @@ const getSalarySchedule = async (): Promise<any> => {
   }
 }
 
-export {getSalarySchedule}
+const getSalaryScheduleCsv = async (): Promise<string> => {
+  try {
+    const url = `${COSMIC_URL}/salary-schedule-csv`
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.text()
+      return data
+    } else {
+      const text = await response.text()
+      const error: ErrorResponse = new Error(text || response.statusText)
+      error.response = response
+      throw error
+    }
+  } catch (error) {
+    console.warn(error)
+    throw error
+  }
+}
+
+export {getSalarySchedule, getSalaryScheduleCsv}
