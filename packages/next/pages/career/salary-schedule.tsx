@@ -15,6 +15,7 @@ import {
   TableCell,
   TableSortLabel,
   TablePagination,
+  TextField,
   Theme,
   Toolbar,
   useTheme
@@ -25,6 +26,7 @@ import {generate} from 'shortid'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import SalaryScheduleRow from '@components/salaryScheduleTable/SalaryScheduleRow'
+import useDebounce from '@hooks/useDebounce'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -97,6 +99,9 @@ const useStyles = makeStyles(() =>
       position: 'absolute',
       top: 20,
       width: 1
+    },
+    textField: {
+      width: 300
     }
   })
 )
@@ -105,6 +110,9 @@ const SalarySchedulePage = () => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
   const [salaryData, setSalaryData] = useState<SalaryScheduleData[]>([])
+  const [sortFilterSalaryData, setSortFilterSalaryData] = useState<
+    SalaryScheduleData[]
+  >(salaryData)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASS CODE')
 
@@ -236,17 +244,46 @@ const SalarySchedulePage = () => {
 
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10) // 10, 15, or 25.
+  const [filteredRowCount, setFilteredRowCount] = useState(salaryData.length)
+  const [classTitleFilter, setClassTitleFilter] = useState('')
+  const debFilteredRowCount = useDebounce(filteredRowCount, 200)
+  const debClassTitleFilter = useDebounce(classTitleFilter, 200)
 
-  const handleChangePage = (_event: unknown, newPage: number) => {
+  useEffect(() => {
+    const f = salaryData.filter((row) => {
+      // const re = new RegExp(debClassTitleFilter, 'i')
+      // return re.test(row['CLASSIFICATION TITLE'])
+      const t = (row['CLASSIFICATION TITLE'] || '').toLowerCase()
+      const i = (debClassTitleFilter || '').toLowerCase()
+      return t.indexOf(i) >= 0
+    })
+    const s = stableSort<SalaryScheduleData>(
+      f,
+      getSorting<HeadRowId>(order, orderBy)
+    )
+    setSortFilterSalaryData(s)
+    setFilteredRowCount(s.length)
+  }, [salaryData, debClassTitleFilter, order, orderBy])
+
+  const handleChangePage = useCallback((_event: unknown, newPage: number) => {
     setPage(newPage)
-  }
+  }, [])
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value)
-    setPage(0)
-  }
+  const handleChangeRowsPerPage = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(+event.target.value)
+      setPage(0)
+    },
+    []
+  )
+
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setClassTitleFilter(event.target.value)
+      setPage(0)
+    },
+    []
+  )
 
   return (
     <PageLayout title="Employee Salary Schedule">
@@ -277,6 +314,17 @@ const SalarySchedulePage = () => {
                 Current Salary Schedule Table
               </Type>
             </Toolbar>
+            <Box ml={3} mb={3}>
+              <TextField
+                id="table-filter-by-job-class-title"
+                // placeholder="Filter"
+                label="Filter by Class Title (eg. Account)"
+                classes={{root: classes.textField}}
+                value={classTitleFilter}
+                onChange={handleInputChange}
+                margin="normal"
+              />
+            </Box>
             <Box className={classes.tableWrapper}>
               <Table size="small" aria-labelledby="tableTitle">
                 <TableHead>
@@ -309,10 +357,7 @@ const SalarySchedulePage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {stableSort<SalaryScheduleData>(
-                    salaryData,
-                    getSorting<HeadRowId>(order, orderBy)
-                  )
+                  {sortFilterSalaryData
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <SalaryScheduleRow key={row.id} data={row} />
@@ -328,7 +373,7 @@ const SalarySchedulePage = () => {
             <TablePagination
               rowsPerPageOptions={[10, 15, 25]}
               component="div"
-              count={salaryData.length}
+              count={debFilteredRowCount}
               rowsPerPage={rowsPerPage}
               page={page}
               backIconButtonProps={{
