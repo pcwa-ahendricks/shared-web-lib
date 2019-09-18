@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCell,
   TableSortLabel,
+  TablePagination,
   Theme,
   Toolbar,
   useTheme
@@ -233,6 +234,20 @@ const SalarySchedulePage = () => {
     [order, orderBy]
   )
 
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10) // 10, 15, or 25.
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value)
+    setPage(0)
+  }
+
   return (
     <PageLayout title="Employee Salary Schedule">
       <WaterSurfaceImg />
@@ -297,9 +312,11 @@ const SalarySchedulePage = () => {
                   {stableSort<SalaryScheduleData>(
                     salaryData,
                     getSorting<HeadRowId>(order, orderBy)
-                  ).map((row) => (
-                    <SalaryScheduleRow key={row.id} data={row} />
-                  ))}
+                  )
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                      <SalaryScheduleRow key={row.id} data={row} />
+                    ))}
                   {/* {emptyRows > 0 && (
                   <TableRow style={{height: 49 * emptyRows}}>
                     <TableCell colSpan={6} />
@@ -308,6 +325,21 @@ const SalarySchedulePage = () => {
                 </TableBody>
               </Table>
             </Box>
+            <TablePagination
+              rowsPerPageOptions={[10, 15, 25]}
+              component="div"
+              count={salaryData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              backIconButtonProps={{
+                'aria-label': 'previous page'
+              }}
+              nextIconButtonProps={{
+                'aria-label': 'next page'
+              }}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
           </Box>
         </Box>
       </MainBox>
