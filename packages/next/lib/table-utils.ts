@@ -19,7 +19,6 @@ const stableSort = <T extends {}>(array: T[], cmp: any): T[] => {
       return a[1] - b[1]
     })
     .map((el) => el[0]) as T[]
-  console.log(sorted)
   return [...sorted]
 }
 

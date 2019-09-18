@@ -7,7 +7,6 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {getSalarySchedule} from '@lib/services/cosmicService'
 import {
   Box,
-  ButtonBase,
   Typography as Type,
   Table,
   TableBody,
@@ -21,7 +20,10 @@ import {
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
 import {getSorting, stableSort} from '@lib/table-utils'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
+import {generate} from 'shortid'
+import round from '@lib/round'
+import noNaN from '@lib/noNaN'
+import SalaryScheduleRow from '@components/salaryScheduleTable/SalaryScheduleRow'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -49,21 +51,31 @@ interface SalaryScheduleResponse {
   'STEP E MONTHLY': string
   'STEP F MONTHLY': string
 }
-type HeadRowId = keyof SalaryScheduleResponse
 
-interface SalaryScheduleData extends SalaryScheduleResponse {
-  id: number
+export interface SalaryScheduleData extends SalaryScheduleResponse {
+  id: string
+  range: number | null
+  stepA: number | null
+  stepB: number | null
+  stepC: number | null
+  stepD: number | null
+  stepE: number | null
+  stepF: number | null
+  stepAAnnual: number | null
+  stepBAnnual: number | null
+  stepAMonthly: number | null
+  stepBMonthly: number | null
 }
+
+type HeadRowId = keyof SalaryScheduleData
 
 const useStyles = makeStyles(() =>
   createStyles({
     tableWrapper: {
       overflowX: 'scroll'
     },
-    tableRow: {
-      cursor: 'pointer'
-    },
-    headerTableCell: {
+    tableHeaderCell: {
+      whiteSpace: 'nowrap'
       // textTransform: 'capitalize' // Doesn't work ??
     },
     visuallyHidden: {
@@ -89,14 +101,23 @@ const SalarySchedulePage = () => {
 
   const setSalaryScheduleData = useCallback(async () => {
     const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
-    const ssDataWithId = ssData.map((row, idx) => ({id: idx, ...row}))
+    const ssDataWithId = ssData.map((row) => ({
+      id: generate(),
+      ...row,
+      range: noNaN(round(parseFloat(row.RANGE), 1)),
+      stepA: noNaN(round(parseFloat(row['STEP A']), 4)),
+      stepB: noNaN(round(parseFloat(row['STEP B']), 4)),
+      stepC: noNaN(round(parseFloat(row['STEP C']), 4)),
+      stepD: noNaN(round(parseFloat(row['STEP D']), 4)),
+      stepE: noNaN(round(parseFloat(row['STEP E']), 4)),
+      stepF: noNaN(round(parseFloat(row['STEP F']), 4)),
+      stepAAnnual: noNaN(round(parseFloat(row['STEP A ANNUAL']), 2)),
+      stepBAnnual: noNaN(round(parseFloat(row['STEP B ANNUAL']), 2)),
+      stepAMonthly: noNaN(round(parseFloat(row['STEP A MONTHLY']), 2)),
+      stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2))
+    }))
     setSalaryData(ssDataWithId)
   }, [])
-
-  const [rowDetailExpanded, setRowDetailExpanded] = useState<boolean>(true)
-  if (!setRowDetailExpanded) {
-    console.log('foo')
-  }
 
   useEffect(() => {
     setSalaryScheduleData()
@@ -122,17 +143,65 @@ const SalarySchedulePage = () => {
         label: 'Class Title'
       },
       {
-        id: 'MAX MONTH SALARY',
-        numeric: true,
+        id: 'PLAN',
+        numeric: false,
         disablePadding: false,
-        label: 'Max Month Salary'
+        label: 'Plan'
       },
       {
-        id: 'MIN MONTH SALARY',
+        id: 'range',
         numeric: true,
         disablePadding: false,
-        label: 'Min Month Salary'
+        label: 'Range'
+      },
+      {
+        id: 'stepA',
+        numeric: true,
+        disablePadding: false,
+        label: 'Step A'
+      },
+      {
+        id: 'stepB',
+        numeric: true,
+        disablePadding: false,
+        label: 'Step B'
+      },
+      {
+        id: 'stepC',
+        numeric: true,
+        disablePadding: false,
+        label: 'Step C'
+      },
+      {
+        id: 'stepD',
+        numeric: true,
+        disablePadding: false,
+        label: 'Step D'
+      },
+      {
+        id: 'stepE',
+        numeric: true,
+        disablePadding: false,
+        label: 'Step E'
+      },
+      {
+        id: 'stepF',
+        numeric: true,
+        disablePadding: false,
+        label: 'Step F'
       }
+      // {
+      //   id: 'MAX MONTH SALARY',
+      //   numeric: true,
+      //   disablePadding: false,
+      //   label: 'Max Month Salary'
+      // },
+      // {
+      //   id: 'MIN MONTH SALARY',
+      //   numeric: true,
+      //   disablePadding: false,
+      //   label: 'Min Month Salary'
+      // }
     ],
     []
   )
@@ -148,9 +217,6 @@ const SalarySchedulePage = () => {
     [order, orderBy]
   )
 
-  if (salaryData.length > 0) {
-    console.log(salaryData)
-  }
   return (
     <PageLayout title="Employee Salary Schedule">
       <WaterSurfaceImg />
@@ -173,7 +239,7 @@ const SalarySchedulePage = () => {
           </Type>
         </WideContainer>
 
-        <Box mt={6}>
+        <Box mt={6} ml={2} mr={2}>
           <Box bgcolor={theme.palette.common.white} boxShadow={1}>
             <Toolbar>
               <Type variant="h5" id="tableTitle">
@@ -184,12 +250,14 @@ const SalarySchedulePage = () => {
               <Table size="small" aria-labelledby="tableTitle">
                 <TableHead>
                   <TableRow>
+                    <TableCell />
                     {headRows.map((c) => (
                       <TableCell
                         key={c.id}
                         align={c.numeric ? 'right' : 'left'}
                         padding={c.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === c.id ? order : false}
+                        classes={{root: classes.tableHeaderCell}}
                       >
                         <TableSortLabel
                           active={orderBy === c.id}
@@ -213,43 +281,9 @@ const SalarySchedulePage = () => {
                   {stableSort<SalaryScheduleData>(
                     salaryData,
                     getSorting<HeadRowId>(order, orderBy)
-                  ).map((row, idx) => {
-                    // const isItemSelected = isSelected(row.name)
-                    // const labelId = `enhanced-table-checkbox-${index}`
-                    const labelId = `table-row-detail-toggle-${idx}`
-
-                    return (
-                      <TableRow
-                        hover
-                        // onClick={(event) => handleClick(event, row.name)}
-                        role="button"
-                        aria-expanded={rowDetailExpanded}
-                        aria-label={labelId}
-                        tabIndex={-1}
-                        key={row.id}
-                        className={classes.tableRow}
-                      >
-                        <TableCell padding="checkbox">
-                          <ButtonBase aria-label={labelId}>
-                            <KeyboardArrowDownIcon fontSize="small" />
-                          </ButtonBase>
-                        </TableCell>
-                        {/* <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
-                        >
-                          {row.name}
-                        </TableCell> */}
-
-                        <TableCell component="th" scope="row" id={labelId}>
-                          {row['CLASS CODE']}
-                        </TableCell>
-                        <TableCell>{row['CLASSIFICATION TITLE']}</TableCell>
-                      </TableRow>
-                    )
-                  })}
+                  ).map((row) => (
+                    <SalaryScheduleRow key={row.id} data={row} />
+                  ))}
                   {/* {emptyRows > 0 && (
                   <TableRow style={{height: 49 * emptyRows}}>
                     <TableCell colSpan={6} />

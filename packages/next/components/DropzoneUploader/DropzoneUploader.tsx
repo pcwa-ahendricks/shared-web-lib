@@ -12,7 +12,7 @@ import {uploadFile} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
-import nanoid from 'nanoid'
+import {generate} from 'shortid'
 import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
@@ -237,7 +237,7 @@ const DropzoneUploader: React.RefForwardingComponent<
   }, [])
 
   const uploadFileHandler = useCallback(
-    async (file) => {
+    async (file, originalName) => {
       try {
         const response = await uploadFile(file, uploadFolder)
         if (response) {
@@ -246,7 +246,7 @@ const DropzoneUploader: React.RefForwardingComponent<
             name: file.name,
             type: file.type,
             size: file.size,
-            originalName: file.name.substring(12), // File prefix is 10 random characters + 2 underscores.
+            originalName,
             lastModified: file.lastModified,
             serverResponse: {...response},
             ext: extension(file.name)
@@ -288,7 +288,7 @@ const DropzoneUploader: React.RefForwardingComponent<
           const renamedFileName = `${fileNamePrefix}${file.name}`
           try {
             const resizedFile = await resizeHandler(file, renamedFileName)
-            const uploadedFile = await uploadFileHandler(resizedFile)
+            const uploadedFile = await uploadFileHandler(resizedFile, file.name)
             removeIsUploadingFiles(renamedFileName)
             return uploadedFile
           } catch (error) {
@@ -319,7 +319,7 @@ const DropzoneUploader: React.RefForwardingComponent<
     files: File[]
     // rejectedFiles: Array<any>
   ) => {
-    const fileNamePrefix = nanoid(10)
+    const fileNamePrefix = generate()
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
     const sd = [...files]
