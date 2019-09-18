@@ -114,7 +114,7 @@ const SalarySchedulePage = () => {
     SalaryScheduleData[]
   >(salaryData)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
-  const [orderBy, setOrderBy] = useState<HeadRowId>('CLASS CODE')
+  const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
 
   const setSalaryScheduleData = useCallback(async () => {
     const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
