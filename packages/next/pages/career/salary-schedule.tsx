@@ -121,7 +121,7 @@ const SalarySchedulePage = () => {
     const ssDataWithId = ssData.map((row) => ({
       id: generate(),
       ...row,
-      range: noNaN(round(parseFloat(row.RANGE), 1)),
+      range: noNaN(round(parseFloat(row.RANGE), 2)),
       stepA: noNaN(round(parseFloat(row['STEP A']), 4)),
       stepB: noNaN(round(parseFloat(row['STEP B']), 4)),
       stepC: noNaN(round(parseFloat(row['STEP C']), 4)),
