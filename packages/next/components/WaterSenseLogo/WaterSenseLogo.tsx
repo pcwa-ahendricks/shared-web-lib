@@ -1,10 +1,9 @@
 import React from 'react'
 // import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import Imgix from 'react-imgix'
 import {Box, Typography as Type} from '@material-ui/core'
-import clsx from 'clsx'
 import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import {makeStyles, createStyles} from '@material-ui/styles'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,18 +35,11 @@ const WaterSenseLogo = () => {
           src="https://cosmic-s3.imgix.net/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
           alt="WaterSense Logo"
         /> */}
-          <Imgix
-            className={clsx({['lazyload']: true})}
-            sizes="auto"
+          <LazyImgix
             src="https://cosmic-s3.imgix.net/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
             htmlAttributes={{
               alt: 'WaterSense Logo',
               style: {width: '100%'}
-            }}
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
             }}
             // To always use a png file auto must be overridden too since it defaults to "format".
             // imgixParams={{

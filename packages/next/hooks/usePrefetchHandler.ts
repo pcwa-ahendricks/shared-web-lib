@@ -8,7 +8,8 @@ const usePrefetchHandler = () => {
     (href: string) => {
       return () => {
         // Only works in production.
-        if (href) {
+        // Don't try to prefetch bogus routes. Wrapping prefetch() with try/catch is not a work-around.
+        if (href && !/^#$/.test(href)) {
           router.prefetch(href)
         }
       }
