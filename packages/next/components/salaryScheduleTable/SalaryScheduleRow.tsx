@@ -67,9 +67,9 @@ const SalaryScheduleRow = ({data}: Props) => {
     )
   }
 
-  const frmt = useCallback((value: number | null) => {
+  const frmt = useCallback((value: number | null, mfd = 2) => {
     return value
-      ? value.toLocaleString(undefined, {minimumFractionDigits: 2})
+      ? value.toLocaleString(undefined, {minimumFractionDigits: mfd})
       : ''
   }, [])
 
@@ -112,7 +112,7 @@ const SalaryScheduleRow = ({data}: Props) => {
         </TableCell>
         <TableCell>{data['CLASSIFICATION TITLE']}</TableCell>
         <TableCell>{data['PLAN']}</TableCell>
-        <TableCell align="right">{frmt(data.range)}</TableCell>
+        <TableCell align="right">{frmt(data.range, 1)}</TableCell>
         <TableCell align="right">{frmt(data.stepA)}</TableCell>
         <TableCell align="right">{frmt(data.stepB)}</TableCell>
         <TableCell align="right">{frmt(data.stepC)}</TableCell>
