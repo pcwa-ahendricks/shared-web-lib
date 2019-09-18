@@ -63,8 +63,16 @@ export interface SalaryScheduleData extends SalaryScheduleResponse {
   stepF: number | null
   stepAAnnual: number | null
   stepBAnnual: number | null
+  stepCAnnual: number | null
+  stepDAnnual: number | null
+  stepEAnnual: number | null
+  stepFAnnual: number | null
   stepAMonthly: number | null
   stepBMonthly: number | null
+  stepCMonthly: number | null
+  stepDMonthly: number | null
+  stepEMonthly: number | null
+  stepFMonthly: number | null
 }
 
 type HeadRowId = keyof SalaryScheduleData
@@ -113,8 +121,16 @@ const SalarySchedulePage = () => {
       stepF: noNaN(round(parseFloat(row['STEP F']), 4)),
       stepAAnnual: noNaN(round(parseFloat(row['STEP A ANNUAL']), 2)),
       stepBAnnual: noNaN(round(parseFloat(row['STEP B ANNUAL']), 2)),
+      stepCAnnual: noNaN(round(parseFloat(row['STEP C ANNUAL']), 2)),
+      stepDAnnual: noNaN(round(parseFloat(row['STEP D ANNUAL']), 2)),
+      stepEAnnual: noNaN(round(parseFloat(row['STEP E ANNUAL']), 2)),
+      stepFAnnual: noNaN(round(parseFloat(row['STEP F ANNUAL']), 2)),
       stepAMonthly: noNaN(round(parseFloat(row['STEP A MONTHLY']), 2)),
-      stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2))
+      stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2)),
+      stepCMonthly: noNaN(round(parseFloat(row['STEP C MONTHLY']), 2)),
+      stepDMonthly: noNaN(round(parseFloat(row['STEP D MONTHLY']), 2)),
+      stepEMonthly: noNaN(round(parseFloat(row['STEP E MONTHLY']), 2)),
+      stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
     }))
     setSalaryData(ssDataWithId)
   }, [])

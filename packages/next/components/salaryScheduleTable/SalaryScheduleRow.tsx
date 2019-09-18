@@ -1,6 +1,12 @@
 // cspell:ignore frmt
 import React, {useState, useCallback} from 'react'
-import {ButtonBase, TableRow, TableCell, Theme} from '@material-ui/core'
+import {
+  ButtonBase,
+  TableRow,
+  TableCell,
+  Theme,
+  Tooltip
+} from '@material-ui/core'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import {SalaryScheduleData} from '../../pages/career/salary-schedule'
@@ -20,13 +26,17 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.secondary
     },
     root: {
-      fontSize: '0.9rem'
+      fontSize: '0.95rem'
     },
     small: {
       paddingTop: 3, // 1/2 of default.
       paddingRight: 24,
       paddingBottom: 3, // 1/2 of default.
       paddingLeft: 8
+    },
+    detailRowCaption: {
+      fontStyle: 'italic',
+      whiteSpace: 'nowrap'
     }
   })
 )
@@ -76,11 +86,16 @@ const SalaryScheduleRow = ({data}: Props) => {
       >
         <TableCell padding="checkbox">
           <ButtonBase aria-label={labelId}>
-            {rowDetailExpanded ? (
-              <KeyboardArrowDownIcon fontSize="small" />
-            ) : (
-              <KeyboardArrowRightIcon fontSize="small" />
-            )}
+            <Tooltip
+              title={rowDetailExpanded ? 'Collapse' : 'Expand'}
+              enterDelay={500}
+            >
+              {rowDetailExpanded ? (
+                <KeyboardArrowDownIcon fontSize="small" />
+              ) : (
+                <KeyboardArrowRightIcon fontSize="small" />
+              )}
+            </Tooltip>
           </ButtonBase>
         </TableCell>
         {/* <TableCell
@@ -108,29 +123,51 @@ const SalaryScheduleRow = ({data}: Props) => {
       {rowDetailExpanded ? (
         <React.Fragment>
           <TableRow>
-            <DetailTableCell />
-            <DetailTableCell />
-            <DetailTableCell />
-            <DetailTableCell />
-            <DetailTableCell />
+            <DetailTableCell rowSpan={2} colSpan={3} />
+            <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
+              monthly rate
+            </DetailTableCell>
             <DetailTableCell align="right">
               {frmt(data.stepAMonthly)}
             </DetailTableCell>
             <DetailTableCell align="right">
               {frmt(data.stepBMonthly)}
             </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepCMonthly)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepDMonthly)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepEMonthly)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepFMonthly)}
+            </DetailTableCell>
           </TableRow>
           <TableRow>
-            <DetailTableCell />
-            <DetailTableCell />
-            <DetailTableCell />
-            <DetailTableCell />
-            <DetailTableCell />
+            {/* <DetailTableCell rowSpan={2} colSpan={3} /> */}
+            <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
+              annual rate
+            </DetailTableCell>
             <DetailTableCell align="right">
               {frmt(data.stepAAnnual)}
             </DetailTableCell>
             <DetailTableCell align="right">
               {frmt(data.stepBAnnual)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepCAnnual)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepDAnnual)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepEAnnual)}
+            </DetailTableCell>
+            <DetailTableCell align="right">
+              {frmt(data.stepFAnnual)}
             </DetailTableCell>
           </TableRow>
         </React.Fragment>
