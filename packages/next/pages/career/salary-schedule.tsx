@@ -121,9 +121,13 @@ const SalarySchedulePage = () => {
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
 
+  const setSalaryScheduleCsv = useCallback(async () => {
+    const ssCsv: string = await getSalaryScheduleCsv()
+    setSalaryCsv(ssCsv)
+  }, [])
+
   const setSalaryScheduleData = useCallback(async () => {
     const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
-    const ssCsv: string = await getSalaryScheduleCsv()
     const ssDataWithId = ssData.map((row) => ({
       id: generate(),
       ...row,
@@ -148,12 +152,12 @@ const SalarySchedulePage = () => {
       stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
     }))
     setSalaryData(ssDataWithId)
-    setSalaryCsv(ssCsv)
   }, [])
 
   useEffect(() => {
     setSalaryScheduleData()
-  }, [setSalaryScheduleData])
+    setSalaryScheduleCsv()
+  }, [setSalaryScheduleData, setSalaryScheduleCsv])
 
   const headRows: {
     id: HeadRowId
