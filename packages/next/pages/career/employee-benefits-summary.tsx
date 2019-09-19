@@ -20,6 +20,8 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
+import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
+import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -192,37 +194,119 @@ const EmployeeBenefitsSummaryPage = () => {
                 Select and PERS Care). The Agency's current monthly contribution
                 towards the premium is:
               </Type>
-              <RespRowBox justifyContent="space-around">
+              <RespRowBox justifyContent="space-around" mb={3}>
                 <RespChildBox first textAlign="center">
+                  <Type variant="overline">Employee only</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeeOnly.toLocaleString(
                       undefined,
                       {...tlsOpts}
                     )}
                   </Type>
-                  <Type variant="overline">Employee only</Type>
                 </RespChildBox>
-                <RespChildBox flexSpacing={2} textAlign="center">
+                <RespChildBox
+                  flexSpacing={2}
+                  textAlign="center"
+                  lineHeight="1.3rem"
+                >
+                  <Type variant="overline">Employee +1</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeePlusOne.toLocaleString(
                       undefined,
                       {...tlsOpts}
                     )}
                   </Type>
-                  <Type variant="overline">Employee +1</Type>
                 </RespChildBox>
                 <RespChildBox flexSpacing={2} textAlign="center">
+                  <Type variant="overline">Employee + Family</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeePlusFamily.toLocaleString(
                       undefined,
                       {...tlsOpts}
                     )}
                   </Type>
-                  <Type variant="overline">Employee + Family</Type>
                 </RespChildBox>
               </RespRowBox>
+
+              <Type variant="subtitle1" gutterBottom>
+                Dental Insurance
+              </Type>
+              <Type paragraph>
+                Dental coverage is provided for employees and dependents through
+                Delta Dental, with the employee premium fully paid by the
+                Agency.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Vision Insurance
+              </Type>
+              <Type paragraph>
+                Vision coverage is provided for employees and dependents through
+                Vision Service Plan, with the employee premium fully paid by the
+                Agency.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Life Insurance
+              </Type>
+              <Type paragraph>
+                Term life insurance in an amount equal to twice the employee’s
+                annual salary is provided by the Agency. Additional coverage may
+                be purchased.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Disability Insurance
+              </Type>
+              <Type paragraph>
+                Long-term disability insurance is provided to employees
+                providing a benefit of 66.67% of gross monthly earnings
+                (following a 90-day waiting period).
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Deferred Compensation
+              </Type>
+              <Type paragraph>
+                Two deferred compensation programs are offered (CalPERS and Mass
+                Mutual) allowing employees to save and invest through pre-tax
+                payroll deductions.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Flexible Spending Account
+              </Type>
+              <Type paragraph>
+                PCWA employees are able to set aside money on a tax-free basis
+                to pay for certain medical, dental, vision, or dependent care
+                expenses not covered under the Agency’s insurance plans.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Public Employees Retirement System (CalPERS)
+              </Type>
+              <Type paragraph>
+                <strong>New Members</strong>: 2.0% @ 62; employee pays 50% of
+                “normal cost,” as determined by CalPERS, currently 6.25% of
+                salary.
+              </Type>
+              <Type paragraph>
+                <strong>Classic Members</strong>: 2.7% @ 55, single highest
+                year; Agency pays 3.5% of the employee share, and employee pays
+                4.5%.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Social Security
+              </Type>
+              <Type paragraph>
+                The Agency <em>does</em> participate in Social Security.
+              </Type>
             </Box>
           </SectionBox>
+          <Box mt={6}>
+            <Type variant="h3" color="primary" gutterBottom>
+              Questions?
+            </Type>
+            <Type paragraph>
+              For more information, please contact Placer County Water Agency
+              Human Resources at <HumanResourcesPhone /> or email{' '}
+              <HumanResourcesEmail />.
+            </Type>
+          </Box>
         </NarrowContainer>
       </MainBox>
     </PageLayout>
