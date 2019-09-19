@@ -394,7 +394,7 @@ const SalarySchedulePage = () => {
             />
           </Box>
           <Box m={3}>
-            <DlSalaryScheduleCsvButton data={salaryCsv}>
+            <DlSalaryScheduleCsvButton variant="contained" data={salaryCsv}>
               Download CSV
             </DlSalaryScheduleCsvButton>
           </Box>
@@ -405,10 +405,3 @@ const SalarySchedulePage = () => {
 }
 
 export default SalarySchedulePage
-
-// function toTitleCase(str: string) {
-//   return str.replace(
-//     /\w\S*/g,
-//     (txt: string) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-//   )
-// }
