@@ -1,7 +1,6 @@
 import React from 'react'
 import {TextField} from '@material-ui/core'
 import {OutlinedTextFieldProps} from '@material-ui/core/TextField'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
@@ -9,13 +8,6 @@ type Props = {
   disabled?: boolean
 } & FieldProps<any> &
   OutlinedTextFieldProps
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 const ContactUsMessageField = ({
   field,
@@ -25,7 +17,6 @@ const ContactUsMessageField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -48,11 +39,6 @@ const ContactUsMessageField = ({
       onChange={handleChange}
       onBlur={handleBlur}
       disabled={disabled || isSubmitting}
-      InputLabelProps={{
-        classes: {
-          root: classes.inputLabel
-        }
-      }}
       fullWidth={fullWidth}
       multiline
       rows={4}

@@ -1,7 +1,6 @@
 // cspell:ignore addtl
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 
 type Props = {
@@ -9,13 +8,6 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 const IrrigCntrlAddtlField = ({
   field,
@@ -25,7 +17,6 @@ const IrrigCntrlAddtlField = ({
   onChange,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -54,11 +45,6 @@ const IrrigCntrlAddtlField = ({
       onChange={changeHandler}
       onBlur={handleBlur}
       disabled={disabled || isSubmitting}
-      InputLabelProps={{
-        classes: {
-          root: classes.inputLabel
-        }
-      }}
       fullWidth={fullWidth}
       {...other}
     />

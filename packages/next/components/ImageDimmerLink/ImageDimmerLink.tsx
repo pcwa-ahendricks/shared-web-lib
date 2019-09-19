@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.common.white,
       position: 'absolute',
       lineHeight: '1.5em',
-      // zIndex: 50, // zIndex overlaps Primary Navbar.
       pointerEvents: 'none',
       width: '95%',
       fontWeight: 500,
@@ -70,7 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     description: ({isHovering}: UseStylesProps) => ({
       color: theme.palette.common.white,
-      // zIndex: 50,
       fontWeight: 500,
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 1 : 0
@@ -78,7 +76,6 @@ const useStyles = makeStyles((theme: Theme) =>
     descriptionSubtitle: ({isHovering}: UseStylesProps) => ({
       marginTop: '1rem',
       color: theme.palette.common.white,
-      // zIndex: 50,
       fontStyle: 'italic',
       fontWeight: 400,
       transition: 'opacity 400ms ease',

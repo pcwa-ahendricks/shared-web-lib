@@ -8,7 +8,6 @@ import {
   Select
 } from '@material-ui/core'
 import {FormControlProps} from '@material-ui/core/FormControl'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
@@ -23,13 +22,6 @@ type Props = {
   disabled?: boolean
 } & FieldProps<any> &
   FormControlProps
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 const REASON_LIST = [
   'Billing',
@@ -54,7 +46,6 @@ const ReasonForContactSelectField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -85,12 +76,7 @@ const ReasonForContactSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor="reason-select"
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
+      <InputLabel htmlFor="reason-select">
         Reason for Contacting PCWA
       </InputLabel>
       <Select

@@ -7,7 +7,6 @@ import {
   OutlinedInput,
   Select
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FormControlProps} from '@material-ui/core/FormControl'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
@@ -23,13 +22,6 @@ type Props = {
   disabled?: boolean
 } & FieldProps<any> &
   FormControlProps
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 const STATE_LIST = [
   'Alabama - AL',
@@ -93,7 +85,6 @@ const StateSelectField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -124,14 +115,7 @@ const StateSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor="state-select"
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
-        State
-      </InputLabel>
+      <InputLabel htmlFor="state-select">State</InputLabel>
       <Select
         required={required}
         value={value}

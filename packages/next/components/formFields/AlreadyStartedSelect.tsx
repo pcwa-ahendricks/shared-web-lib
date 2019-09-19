@@ -21,10 +21,6 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // Don't let <TextField/> label cover <Header/>.
-    inputLabel: {
-      zIndex: 0
-    },
     menuItem: {
       minWidth: theme.spacing(8)
     }
@@ -84,12 +80,7 @@ const AlreadyStartedSelect = ({
         fullWidth={fullWidth}
         {...other}
       >
-        <InputLabel
-          htmlFor="already-started-select"
-          classes={{
-            root: classes.inputLabel
-          }}
-        >
+        <InputLabel htmlFor="already-started-select">
           What is the status of your Lawn Replacement project?
         </InputLabel>
         <Select

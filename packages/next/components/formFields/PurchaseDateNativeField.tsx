@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import {isDate, parse, format} from 'date-fns'
 
@@ -12,13 +11,6 @@ type Props = {
   disabled?: boolean
 } & FieldProps<any>
 
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
-
 const PurchaseDateNativeField = ({
   field,
   form,
@@ -26,7 +18,6 @@ const PurchaseDateNativeField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {errors, setFieldValue, touched, isSubmitting, handleBlur} = form
   const currentError = errors[name]
@@ -67,10 +58,7 @@ const PurchaseDateNativeField = ({
       onBlur={handleBlur}
       disabled={disabled || isSubmitting}
       InputLabelProps={{
-        shrink: true,
-        classes: {
-          root: classes.inputLabel
-        }
+        shrink: true
       }}
       fullWidth={fullWidth}
       {...other}

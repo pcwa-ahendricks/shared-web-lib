@@ -7,7 +7,6 @@ import {
   OutlinedInput,
   Select
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
@@ -15,13 +14,6 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 export const IRRIGATION_METHODS = [
   'Hand water',
@@ -36,7 +28,6 @@ const IrrigationTypesSelect = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {
     errors,
@@ -70,12 +61,7 @@ const IrrigationTypesSelect = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor="irrigation-method-select"
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
+      <InputLabel htmlFor="irrigation-method-select">
         Irrigation Method
       </InputLabel>
       <Select

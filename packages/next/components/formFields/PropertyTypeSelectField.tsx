@@ -7,7 +7,6 @@ import {
   OutlinedInput,
   Select
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
@@ -16,13 +15,6 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 const PROPERTY_TYPE_LIST = [
   'Single Family Residential',
@@ -41,7 +33,6 @@ const PropertyTypeSelectField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {errors, handleChange, isSubmitting, handleBlur, touched} = form
   const currentError = errors[name]
@@ -59,14 +50,7 @@ const PropertyTypeSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor="property-type-select"
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
-        Property Type
-      </InputLabel>
+      <InputLabel htmlFor="property-type-select">Property Type</InputLabel>
       <Select
         value={value}
         autoWidth={true}
