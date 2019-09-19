@@ -2,6 +2,7 @@
 import React, {useState, useCallback} from 'react'
 import {
   ButtonBase,
+  Grow,
   TableRow,
   TableCell,
   Theme,
@@ -112,58 +113,58 @@ const SalaryScheduleRow = ({data}: Props) => {
         <TableCell align="right">{frmt(data.stepE)}</TableCell>
         <TableCell align="right">{frmt(data.stepF)}</TableCell>
       </TableRow>
-      {rowDetailExpanded ? (
-        <React.Fragment>
-          <TableRow>
-            <DetailTableCell rowSpan={2} colSpan={3} />
-            <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
-              monthly rate
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepAMonthly)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepBMonthly)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepCMonthly)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepDMonthly)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepEMonthly)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepFMonthly)}
-            </DetailTableCell>
-          </TableRow>
-          <TableRow>
-            {/* <DetailTableCell rowSpan={2} colSpan={3} /> */}
-            <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
-              annual rate
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepAAnnual)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepBAnnual)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepCAnnual)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepDAnnual)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepEAnnual)}
-            </DetailTableCell>
-            <DetailTableCell align="right">
-              {frmt(data.stepFAnnual)}
-            </DetailTableCell>
-          </TableRow>
-        </React.Fragment>
-      ) : null}
+      <Grow in={rowDetailExpanded} unmountOnExit>
+        <TableRow>
+          <DetailTableCell rowSpan={2} colSpan={3} />
+          <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
+            monthly rate
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepAMonthly)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepBMonthly)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepCMonthly)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepDMonthly)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepEMonthly)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepFMonthly)}
+          </DetailTableCell>
+        </TableRow>
+      </Grow>
+      <Grow in={rowDetailExpanded} unmountOnExit>
+        <TableRow>
+          {/* <DetailTableCell rowSpan={2} colSpan={3} /> */}
+          <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
+            annual rate
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepAAnnual)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepBAnnual)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepCAnnual)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepDAnnual)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepEAnnual)}
+          </DetailTableCell>
+          <DetailTableCell align="right">
+            {frmt(data.stepFAnnual)}
+          </DetailTableCell>
+        </TableRow>
+      </Grow>
     </React.Fragment>
   )
 }
