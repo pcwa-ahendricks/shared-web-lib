@@ -10,7 +10,7 @@ import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
-import ReactPlayer from 'react-player'
+import YouTubePlayer from 'react-player/lib/players/YouTube'
 
 const ServicesPage = () => {
   return (
@@ -94,7 +94,7 @@ const ServicesPage = () => {
               ml={{xs: 0, sm: 10}} // Extra margin w/ Row direction.
               height={{xs: 325, sm: 250}} // Control height of video.
             >
-              <ReactPlayer
+              <YouTubePlayer
                 controls
                 url="https://www.youtube.com/watch?v=r_ODbNcxpfQ"
                 width="100%"

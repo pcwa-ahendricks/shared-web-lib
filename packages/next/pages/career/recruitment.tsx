@@ -5,18 +5,18 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import WideContainer from '@components/containers/WideContainer'
 import {Box} from '@material-ui/core'
-import ReactPlayer from 'react-player'
+import YouTubePlayer from 'react-player/lib/players/YouTube'
 
 const RecruitmentPage = () => {
   return (
-    <PageLayout title="Recruitment">
+    <PageLayout title="Recruitment Video">
       <WaterSurfaceImg />
       <MainBox>
         <WideContainer>
-          <PageTitle title="Recruitment" subtitle="Careers" />
+          <PageTitle title="Recruitment Video" subtitle="Careers" />
 
           <Box mt={6}>
-            <ReactPlayer
+            <YouTubePlayer
               controls
               url="https://www.youtube.com/watch?v=aQu5AtFH1N0"
               width="100%"
