@@ -96,7 +96,7 @@ const ImgixFancy = ({
           title: title,
           'data-lowsrc':
             lqipSrc || `${src}?auto=format&fit=crop&ixlib=react-8.5.1&w=40`, // low quality image
-          style: {width: '100%'},
+          style: {width: '100%', ...htmlAttributesProps.style},
           ...htmlAttributesProps
         }}
         {...rest}

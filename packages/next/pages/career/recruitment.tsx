@@ -1,3 +1,4 @@
+//cspell:ignore showinfo
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -21,6 +22,11 @@ const RecruitmentPage = () => {
               url="https://www.youtube.com/watch?v=aQu5AtFH1N0"
               width="100%"
               height={525}
+              config={{
+                youtube: {
+                  playerVars: {showinfo: 1}
+                }
+              }}
             />
             {/* <iframe
               src="https://www.youtube.com/embed/aQu5AtFH1N0?wmode=transparent"

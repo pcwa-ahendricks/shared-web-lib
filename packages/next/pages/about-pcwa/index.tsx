@@ -82,6 +82,11 @@ const GeneralInfoPage = () => {
                 url="https://www.youtube.com/watch?v=QXPtUgeWnc4"
                 width="100%"
                 height="100%"
+                config={{
+                  youtube: {
+                    playerVars: {showinfo: 1}
+                  }
+                }}
                 style={{maxWidth: 400}}
               />
             </RespChildBox>
