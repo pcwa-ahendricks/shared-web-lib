@@ -37,10 +37,6 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // Don't let <TextField/> label cover <Header/>.
-    inputLabel: {
-      zIndex: 0
-    },
     root: {
       flexGrow: 1
       // height: 250
@@ -269,9 +265,6 @@ const CityAutoSelectField = ({
         <NoSsr>
           {/* <InputLabel
           htmlFor="city-select"
-          classes={{
-            root: classes.inputLabel
-          }}
         >
           City
         </InputLabel> */}

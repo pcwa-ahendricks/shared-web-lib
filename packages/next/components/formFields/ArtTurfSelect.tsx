@@ -19,10 +19,6 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // Don't let <TextField/> label cover <Header/>.
-    inputLabel: {
-      zIndex: 0
-    },
     menuItem: {
       minWidth: theme.spacing(8)
     }
@@ -79,12 +75,7 @@ const ArtTurfSelect = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor="irrigation-method-select"
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
+      <InputLabel htmlFor="irrigation-method-select">
         Converting to Artificial Turf
       </InputLabel>
       <Select

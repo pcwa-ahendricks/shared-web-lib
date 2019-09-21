@@ -66,8 +66,6 @@ const PurchaseDateField = ({
       error={fieldIsTouchedWithError}
     >
       <DatePicker
-        // Don't let label cover <Header/>.
-        style={{zIndex: 0}}
         inputVariant="outlined"
         required={required}
         // Deprecated - keyboard

@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
@@ -10,13 +9,6 @@ type Props = {
   disabled?: boolean
 } & FieldProps<any>
 
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
-
 const AccountNoField = ({
   field,
   form,
@@ -24,7 +16,6 @@ const AccountNoField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {
     errors,
@@ -63,11 +54,6 @@ const AccountNoField = ({
       onChange={changeHandler}
       onBlur={handleBlur}
       disabled={disabled || isSubmitting}
-      InputLabelProps={{
-        classes: {
-          root: classes.inputLabel
-        }
-      }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

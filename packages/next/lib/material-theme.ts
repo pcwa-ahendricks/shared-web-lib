@@ -25,7 +25,7 @@ const theme = createMuiTheme({
       fontSize: '2.6rem' // Default: 6rem
     },
     h2: {
-      fontSize: '1.8rem' // Default: 3.75rem
+      fontSize: '2rem' // Default: 3.75rem
       // fontWeight: 400 // Default: 300
     },
     h3: {
@@ -65,7 +65,8 @@ const theme = createMuiTheme({
       fontSize: '1rem' // Default: 0.875rem
     },
     overline: {
-      fontSize: '0.85rem' // Default: 0.75rem
+      fontSize: '0.85rem', // Default: 0.75rem
+      lineHeight: '1.66' // Default: 2.66
     },
     subtitle1: {
       fontSize: '1.1rem' // Default: 1rem

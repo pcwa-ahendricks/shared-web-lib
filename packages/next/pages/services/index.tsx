@@ -10,6 +10,7 @@ import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
+import YouTubePlayer from 'react-player/lib/players/YouTube'
 
 const ServicesPage = () => {
   return (
@@ -91,16 +92,28 @@ const ServicesPage = () => {
               flex="auto"
               flexSpacing={4}
               ml={{xs: 0, sm: 10}} // Extra margin w/ Row direction.
-              height={{xs: 325, sm: 250}} // Control height of <iframe/>.
+              height={{xs: 325, sm: 250}} // Control height of video.
             >
-              <iframe
+              <YouTubePlayer
+                controls
+                url="https://www.youtube.com/watch?v=r_ODbNcxpfQ"
+                width="100%"
+                height="100%"
+                config={{
+                  youtube: {
+                    playerVars: {showinfo: 1}
+                  }
+                }}
+              />
+
+              {/* <iframe
                 width="100%"
                 height="100%"
                 src="//www.youtube.com/embed/r_ODbNcxpfQ?rel=0"
                 allow="autoplay; encrypted-media"
                 frameBorder="0"
                 allowFullScreen
-              />
+              /> */}
             </RespChildBox>
           </RespRowBox>
           <Box mt={4}>

@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core'
 import {OutlinedInputProps} from '@material-ui/core/OutlinedInput'
 import {SelectProps} from '@material-ui/core/Select'
-import {makeStyles} from '@material-ui/styles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
@@ -21,13 +20,6 @@ type Props = {
   labelWidth?: number
   SelectDisplayProps?: SelectProps['SelectDisplayProps']
 } & FieldProps<any>
-
-const useStyles = makeStyles({
-  // Don't let <TextField/> label cover <Header/>.
-  inputLabel: {
-    zIndex: 0
-  }
-})
 
 export const ANSWERS = ['Yes', 'No']
 
@@ -42,7 +34,6 @@ const YesNoSelectField = ({
   SelectDisplayProps = {style: {minWidth: 50}}, // Adequate minimum.
   ...other
 }: Props) => {
-  const classes = useStyles()
   const {name, value} = field
   const {
     errors,
@@ -76,14 +67,7 @@ const YesNoSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor={inputId}
-        classes={{
-          root: classes.inputLabel
-        }}
-      >
-        {inputLabel}
-      </InputLabel>
+      <InputLabel htmlFor={inputId}>{inputLabel}</InputLabel>
       <Select
         value={value}
         autoWidth={true}

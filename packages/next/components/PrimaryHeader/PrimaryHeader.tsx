@@ -134,7 +134,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     sticky: {
-      zIndex: 1,
+      zIndex: 4, // Needs to be higher than one so Material-UI components don't overlap.
       '&.fixed': {
         '& $headerLogo': {
           maxHeight: 48,

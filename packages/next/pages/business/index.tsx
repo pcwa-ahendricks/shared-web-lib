@@ -54,7 +54,11 @@ const DoingBusinessPage = () => {
                 imgAlt="Goods and Services Image Link"
               />
             </RespChildBox>
-            <RespChildBox {...commonChildProps} flexSpacing={isSmDown ? 4 : 12}>
+            <RespChildBox
+              {...commonChildProps}
+              mt={{xs: 4, sm: 0}}
+              ml={{xs: 0, sm: isSmDown ? 4 : 12}}
+            >
               <ImageDimmerLink
                 {...commonImageDimmerProps}
                 href="/business/construction-bids"
@@ -77,7 +81,11 @@ const DoingBusinessPage = () => {
                 imgixParams={{bri: -4}}
               />
             </RespChildBox>
-            <RespChildBox {...commonChildProps} flexSpacing={isSmDown ? 4 : 12}>
+            <RespChildBox
+              {...commonChildProps}
+              mt={{xs: 4, sm: 0}}
+              ml={{xs: 0, sm: isSmDown ? 4 : 12}}
+            >
               <ImageDimmerLink
                 {...commonImageDimmerProps}
                 href="/business/energy-products"
@@ -106,7 +114,8 @@ const DoingBusinessPage = () => {
               <RespChildBox
                 {...commonImageDimmerProps}
                 {...commonChildProps}
-                flexSpacing={isSmDown ? 4 : 12}
+                mt={{xs: 4, sm: 0}}
+                ml={{xs: 0, sm: isSmDown ? 4 : 12}}
               />
             </Hidden>
           </RespRowBox>
