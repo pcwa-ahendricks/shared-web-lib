@@ -47,7 +47,10 @@ const useStyles = makeStyles(() =>
       lineHeight: 1.2
     },
     link: {
-      textDecoration: 'none'
+      textDecoration: 'none',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     },
     thumbnailContainer: {
       boxShadow: '1px 1px 4px #ccc',
