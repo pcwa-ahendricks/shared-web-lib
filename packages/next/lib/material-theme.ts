@@ -62,7 +62,7 @@ const theme = createMuiTheme({
       // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
       // fontWeight: 600, // Default: 500
       fontFamily: ['Malva', ...systemFonts].join(','),
-      fontSize: '1rem' // Default: 0.875rem
+      fontSize: '0.92rem' // Default: 0.875rem
     },
     overline: {
       fontSize: '0.85rem', // Default: 0.75rem
