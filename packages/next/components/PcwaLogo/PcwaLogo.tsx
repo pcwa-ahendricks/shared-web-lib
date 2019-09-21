@@ -31,7 +31,7 @@ const PcwaLogo = ({
         {...rest}
       >
         {/* Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch */}
-        <title>Logo</title>
+        {/* <title>Logo</title> */}
         <desc>Created with Sketch.</desc>
         <defs />
         <g
