@@ -39,11 +39,10 @@ const GlobalStyles = withStyles((theme: Theme) => ({
         marginTop: theme.spacing(1)
       }
     },
-    // Hide alt text when using <ImgixFancy/>. See https://stackoverflow.com/questions/36305805/how-to-hide-alt-text-using-css-when-the-image-is-not-present for more info. Text index, whitespace, overflow version didn't work for me when debugging this on Board Minutes page.
-    '.mediabox-img': {
-      '& img': {
-        color: 'rgba(0, 0, 0, 0) !important'
-      }
+    // Hide alt text when using <ImgixFancy/>. See https://stackoverflow.com/questions/36305805/how-to-hide-alt-text-using-css-when-the-image-is-not-present for more info. text-indent, whitespace, overflow version didn't work for me when debugging this on Board Minutes page.
+    img: {
+      color: 'rgba(0, 0, 0, 0) !important',
+      fontSize: 0
     }
   }
 }))(() => null)

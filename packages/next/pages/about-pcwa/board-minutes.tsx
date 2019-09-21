@@ -51,10 +51,7 @@ const useStyles = makeStyles(() =>
     },
     thumbnailContainer: {
       boxShadow: '1px 1px 4px #ccc',
-      marginBottom: '0.7em',
-      marginLeft: 'auto', // helps center align image in mobile
-      marginRight: 'auto', // helps center align image in mobile
-      border: '1px solid white',
+      border: '1px solid transparent',
       '&:hover': {
         border: '1px solid rgba(180, 191, 205, 0.7)'
       }
@@ -68,6 +65,8 @@ const BoardMinutesPage = () => {
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
   const isMd = useMediaQuery(theme.breakpoints.only('md'))
+
+  // const thisYear = useMemo(() => getYear(new Date()).toString(), [])
 
   const [boardMinutes, setBoardMinutes] = useState<groupedBoardMinutes>([])
   const [expanded, setExpanded] = useState<boolean | string>(false)
@@ -121,6 +120,15 @@ const BoardMinutesPage = () => {
     }
     // Sort grouped database by Year.
     const sortedGroups = tmpSortedGroups.sort((a, b) => b.year - a.year)
+
+    const maxYear = sortedGroups
+      .reduce(
+        (prevValue, grp) => (grp.year > prevValue ? grp.year : prevValue),
+        2000
+      )
+      .toString()
+    setExpandedYears((currExpYrs) => ({...currExpYrs, [maxYear]: true}))
+    setExpanded(maxYear)
     setBoardMinutes(sortedGroups)
   }, [])
 
