@@ -5,6 +5,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 export type ImgixFancyProps = {
   src: string
   lqipSrc?: string
+  lqipWidth?: number
   alt: string
   htmlAttributesProps?: any
   paddingPercent?: string
@@ -69,6 +70,7 @@ const useStyles = makeStyles({
 const ImgixFancy = ({
   src,
   lqipSrc,
+  lqipWidth = 40,
   width,
   height,
   htmlAttributesProps = {},
@@ -91,8 +93,7 @@ const ImgixFancy = ({
           // 'data-expand': -400, // Debug
           onLoad: onLoad,
           alt: alt,
-          'data-lowsrc':
-            lqipSrc || `${src}?auto=format&fit=crop&ixlib=react-8.5.1&w=40`, // low quality image
+          'data-lowsrc': lqipSrc || `${src}?fm=jpg&w=${lqipWidth}`, // low quality image
           style: {
             width: '100%',
             ...htmlAttributesProps.style
