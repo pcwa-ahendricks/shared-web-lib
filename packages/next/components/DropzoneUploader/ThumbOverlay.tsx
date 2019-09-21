@@ -1,6 +1,7 @@
 // cspell:ignore overbox overtext
 import React from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 
 type Props = {
   src: string
@@ -35,8 +36,8 @@ const ThumbOverlay = ({src}: Props) => {
     <div className={classes.box}>
       <img src={src} className={classes.img} />
       <div className="overbox">
-        <div className="title overtext"> Title </div>
-        <div className="tagline overtext"> Tagline </div>
+        <div className={clsx('title overtext')}> Title </div>
+        <div className={clsx('tagline overtext')}> Tagline </div>
       </div>
     </div>
   )

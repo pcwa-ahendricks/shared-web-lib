@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 import ErrorResponse from '@lib/ErrorResponse'
-import {parse, getYear} from 'date-fns'
+import {parse, getYear, isValid} from 'date-fns'
 
 const COSMIC_URL = process.env.NEXT_COSMIC_URL || ''
 
@@ -107,10 +107,16 @@ const fileNameUtil = (
           .trim()
       : '', // don't call replace on null.
     publishedDate: dateFrmt
-      ? parse(fSplit[0], dateFrmt, new Date())
+      ? isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
+        ? parse(fSplit[0], dateFrmt, new Date())
+        : new Date()
       : new Date(),
     publishedYear: getYear(
-      dateFrmt ? parse(fSplit[0], dateFrmt, new Date()) : new Date()
+      dateFrmt
+        ? isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
+          ? parse(fSplit[0], dateFrmt, new Date())
+          : new Date()
+        : new Date()
     )
     // See comments above regarding #matchAll and #pairs.
     // 'keyValuePairs': this.pairs(this.matchAll(str, /{(.+?);(.+?)}/))

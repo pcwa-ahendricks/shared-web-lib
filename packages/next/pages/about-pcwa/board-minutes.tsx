@@ -10,29 +10,65 @@ import {
   fileNameUtil,
   CosmicMediaMeta
 } from '@lib/services/cosmicService'
-import {compareDesc} from 'date-fns'
+import {compareDesc, format} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {RespRowBox, RespChildBox, RowBox} from '@components/boxes/FlexBox'
+import {
+  RespRowBox,
+  RespChildBox,
+  RowBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
+
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Typography as Type,
   Box,
-  Theme
+  Theme,
+  useMediaQuery
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {useTheme} from '@material-ui/styles'
+import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
 
 type groupedBoardMinutes = Array<{
   year: number
   values: CosmicMediaMeta[]
 }>
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    caption: {
+      fontStyle: 'italic',
+      lineHeight: 1.2
+    },
+    link: {
+      textDecoration: 'none'
+    },
+    thumbnailContainer: {
+      boxShadow: '1px 1px 4px #ccc',
+      marginBottom: '0.7em',
+      marginLeft: 'auto', // helps center align image in mobile
+      marginRight: 'auto', // helps center align image in mobile
+      border: '1px solid white',
+      '&:hover': {
+        border: '1px solid rgba(180, 191, 205, 0.7)'
+      }
+    }
+  })
+)
+
 const BoardMinutesPage = () => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
+  const isMd = useMediaQuery(theme.breakpoints.only('md'))
+
   const [boardMinutes, setBoardMinutes] = useState<groupedBoardMinutes>([])
   const [expanded, setExpanded] = useState<boolean | string>(false)
   const [expandedYears, setExpandedYears] = useState<{[year: string]: boolean}>(
@@ -50,8 +86,6 @@ const BoardMinutesPage = () => {
     }))
   }
 
-  console.log(expandedYears)
-
   const fetchBoardMinutes = useCallback(async () => {
     const bma = await getMedia({folder: 'board-minutes'})
     if (!bma) {
@@ -59,7 +93,12 @@ const BoardMinutesPage = () => {
     }
     const bmaEx = bma.map((bm) => ({
       ...bm,
-      derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+      derivedFilenameAttr: fileNameUtil(
+        bm.original_name,
+        (((bm.original_name || '').match(/^[^_]*/) || [])[0] || []).length === 8
+          ? DATE_FNS_FORMAT_2012
+          : DATE_FNS_FORMAT
+      )
     }))
     // Group Board Minutes by derived Year into JS Map.
     const grouped = groupBy<CosmicMediaMeta, number>(
@@ -91,7 +130,8 @@ const BoardMinutesPage = () => {
 
   console.log(boardMinutes)
 
-  const theme = useTheme<Theme>()
+  const boxWidth = isXs ? '50%' : isSm ? '33.33%' : isMd ? '25%' : '20%'
+  const imageWidth = isXs ? 70 : isSm ? 75 : 85
 
   return (
     <PageLayout title="Board of Directors' Minutes">
@@ -104,12 +144,12 @@ const BoardMinutesPage = () => {
           />
           <RespRowBox>
             <RespChildBox first flex={{xs: '100%', sm: '65%'}}>
-              {boardMinutes.map((v, idx) => {
+              {boardMinutes.map((v) => {
                 const year = v.year.toString()
                 const minutes = [...v.values]
                 return (
                   <ExpansionPanel
-                    key={idx}
+                    key={year}
                     expanded={expanded === year}
                     onChange={handleChange(year)}
                   >
@@ -122,23 +162,60 @@ const BoardMinutesPage = () => {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       {expandedYears[year] === true ? (
-                        <RowBox flexWrap="wrap">
+                        <RowBox flexWrap="wrap" mt={-4}>
                           {minutes.map((m) => {
                             return (
-                              <Box key={m._id} width={85} mr={4} mt={4}>
-                                <ImgixFancy
-                                  paddingPercent="129.412%"
-                                  height={100}
-                                  src={m.imgix_url}
-                                  alt="Board Minutes Thumbnail"
-                                  htmlAttributesProps={{
-                                    style: {
-                                      backgroundColor:
-                                        theme.palette.common.white
-                                    }
-                                  }}
-                                />
-                              </Box>
+                              <RowBox
+                                key={m._id}
+                                flex="0 0 auto"
+                                width={boxWidth}
+                                justifyContent="center"
+                                mt={4}
+                              >
+                                <a
+                                  href={m.url}
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                  className={classes.link}
+                                >
+                                  <Box
+                                    width={imageWidth}
+                                    className={classes.thumbnailContainer}
+                                  >
+                                    <ImgixFancy
+                                      paddingPercent="129.412%"
+                                      height={200}
+                                      src={m.imgix_url}
+                                      alt="Board Minutes Thumbnail"
+                                      htmlAttributesProps={{
+                                        style: {
+                                          backgroundColor:
+                                            theme.palette.common.white
+                                        }
+                                      }}
+                                    />
+                                  </Box>
+                                  <ColumnBox textAlign="center" mt={1}>
+                                    <Type
+                                      variant="body2"
+                                      color="textPrimary"
+                                      className={classes.caption}
+                                    >
+                                      {format(
+                                        m.derivedFilenameAttr.publishedDate,
+                                        'MM-dd-yyyy'
+                                      )}
+                                    </Type>
+                                    <Type
+                                      variant="body2"
+                                      color="textSecondary"
+                                      className={classes.caption}
+                                    >
+                                      {m.derivedFilenameAttr.title}
+                                    </Type>
+                                  </ColumnBox>
+                                </a>
+                              </RowBox>
                             )
                           })}
                         </RowBox>

@@ -8,7 +8,6 @@ export type ImgixFancyProps = {
   alt: string
   htmlAttributesProps?: any
   paddingPercent?: string
-  title?: string
   width?: number
   height?: number
   sizes?: string
@@ -74,7 +73,6 @@ const ImgixFancy = ({
   height,
   htmlAttributesProps = {},
   alt,
-  title,
   onLoad,
   paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
   sizes = 'auto', // Auto - This is a Lazysizes feature, not an react-imgix feature. Note - "sizes" is the Imgix prop while lazysizes uses "data-sizes".
@@ -93,10 +91,12 @@ const ImgixFancy = ({
           // 'data-expand': -400, // Debug
           onLoad: onLoad,
           alt: alt,
-          title: title,
           'data-lowsrc':
             lqipSrc || `${src}?auto=format&fit=crop&ixlib=react-8.5.1&w=40`, // low quality image
-          style: {width: '100%', ...htmlAttributesProps.style},
+          style: {
+            width: '100%',
+            ...htmlAttributesProps.style
+          },
           ...htmlAttributesProps
         }}
         {...rest}
