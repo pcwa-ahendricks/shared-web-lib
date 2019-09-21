@@ -42,7 +42,7 @@ const BoardMinutesAccordion = ({
         {wasExpanded ? (
           <RowBox flexWrap="wrap" mt={-4}>
             {minutes.map((m) => {
-              return <BoardMinutesLink key={m._id} agenda={m} />
+              return <BoardMinutesLink key={m._id} minutes={m} />
             })}
           </RowBox>
         ) : (

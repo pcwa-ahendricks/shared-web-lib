@@ -9,7 +9,7 @@ import {format} from 'date-fns'
 import clsx from 'clsx'
 
 type Props = {
-  agenda: CosmicMediaMeta
+  minutes: CosmicMediaMeta
 }
 
 type UseStylesProps = {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BoardMinutesLink = ({agenda}: Props) => {
+const BoardMinutesLink = ({minutes}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
@@ -58,7 +58,7 @@ const BoardMinutesLink = ({agenda}: Props) => {
   return (
     <RowBox flex="0 0 auto" width={boxWidth} justifyContent="center" mt={4}>
       <a
-        href={agenda.url}
+        href={minutes.url}
         rel="noopener noreferrer"
         target="_blank"
         className={classes.link}
@@ -70,7 +70,7 @@ const BoardMinutesLink = ({agenda}: Props) => {
             paddingPercent="129.412%"
             height={100}
             lqipWidth={20}
-            src={agenda.imgix_url}
+            src={minutes.imgix_url}
             alt="Board Minutes Thumbnail"
             htmlAttributesProps={{
               style: {
@@ -84,13 +84,13 @@ const BoardMinutesLink = ({agenda}: Props) => {
             variant="body2"
             className={clsx([classes.caption, classes.dateCaption])}
           >
-            {format(agenda.derivedFilenameAttr.publishedDate, 'MM-dd-yyyy')}
+            {format(minutes.derivedFilenameAttr.publishedDate, 'MM-dd-yyyy')}
           </Type>
           <Type
             variant="body2"
             className={clsx([classes.caption, classes.titleCaption])}
           >
-            {agenda.derivedFilenameAttr.title}
+            {minutes.derivedFilenameAttr.title}
           </Type>
         </ColumnBox>
       </a>
