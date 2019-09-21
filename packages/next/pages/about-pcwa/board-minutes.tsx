@@ -1,4 +1,3 @@
-// cspell:ignore maptype
 import React, {useEffect, useCallback, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -10,83 +9,27 @@ import {
   fileNameUtil,
   CosmicMediaMeta
 } from '@lib/services/cosmicService'
-import {compareDesc, format} from 'date-fns'
+import {compareDesc} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {
-  RespRowBox,
-  RespChildBox,
-  RowBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
-
-import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  Typography as Type,
-  Box,
-  Theme,
-  useMediaQuery
-} from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
+import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
 
 type groupedBoardMinutes = Array<{
   year: number
   values: CosmicMediaMeta[]
 }>
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    caption: {
-      fontStyle: 'italic',
-      lineHeight: 1.2
-    },
-    link: {
-      textDecoration: 'none',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    thumbnailContainer: {
-      boxShadow: '1px 1px 4px #ccc',
-      border: '1px solid transparent',
-      '&:hover': {
-        border: '1px solid rgba(180, 191, 205, 0.7)'
-      }
-    }
-  })
-)
-
 const BoardMinutesPage = () => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const isMd = useMediaQuery(theme.breakpoints.only('md'))
-
   // const thisYear = useMemo(() => getYear(new Date()).toString(), [])
 
   const [boardMinutes, setBoardMinutes] = useState<groupedBoardMinutes>([])
   const [expanded, setExpanded] = useState<boolean | string>(false)
-  const [expandedYears, setExpandedYears] = useState<{[year: string]: boolean}>(
-    {}
-  )
-
-  const handleChange = (panel: string) => (
-    _event: React.ChangeEvent<{}>,
-    isExpanded: boolean
-  ) => {
-    setExpanded(isExpanded ? panel : false)
-    setExpandedYears((expy) => ({
-      ...expy,
-      [panel]: isExpanded ? true : expy[panel]
-    }))
-  }
+  const [wasExpandedMap, setWasExpandedMap] = useState<{
+    [year: string]: boolean
+  }>({})
 
   const fetchBoardMinutes = useCallback(async () => {
     const bma = await getMedia({folder: 'board-minutes'})
@@ -130,7 +73,7 @@ const BoardMinutesPage = () => {
         2000
       )
       .toString()
-    setExpandedYears((currExpYrs) => ({...currExpYrs, [maxYear]: true}))
+    setWasExpandedMap((currExpYrs) => ({...currExpYrs, [maxYear]: true}))
     setExpanded(maxYear)
     setBoardMinutes(sortedGroups)
   }, [])
@@ -139,11 +82,16 @@ const BoardMinutesPage = () => {
     fetchBoardMinutes()
   }, [fetchBoardMinutes])
 
-  console.log(boardMinutes)
-
-  const boxWidth = isXs ? '50%' : isSm ? '33.33%' : isMd ? '25%' : '20%'
-  const imageWidth = isXs ? 70 : isSm ? 75 : 85
-
+  const handleChange = useCallback(
+    (panel: string) => (_event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false)
+      setWasExpandedMap((currExpYrs) => ({
+        ...currExpYrs,
+        [panel]: isExpanded ? true : currExpYrs[panel]
+      }))
+    },
+    []
+  )
   return (
     <PageLayout title="Board of Directors' Minutes">
       <WaterSurfaceImg />
@@ -159,82 +107,14 @@ const BoardMinutesPage = () => {
                 const year = v.year.toString()
                 const minutes = [...v.values]
                 return (
-                  <ExpansionPanel
+                  <BoardMinutesAccordion
                     key={year}
-                    expanded={expanded === year}
-                    onChange={handleChange(year)}
-                  >
-                    <ExpansionPanelSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`${year}-board-minutes-panel-content`}
-                      id={`${year}-board-minutes-panel-header`}
-                    >
-                      <Type variant="inherit">{year}</Type>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      {expandedYears[year] === true ? (
-                        <RowBox flexWrap="wrap" mt={-4}>
-                          {minutes.map((m) => {
-                            return (
-                              <RowBox
-                                key={m._id}
-                                flex="0 0 auto"
-                                width={boxWidth}
-                                justifyContent="center"
-                                mt={4}
-                              >
-                                <a
-                                  href={m.url}
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                  className={classes.link}
-                                >
-                                  <Box
-                                    width={imageWidth}
-                                    className={classes.thumbnailContainer}
-                                  >
-                                    <ImgixFancy
-                                      paddingPercent="129.412%"
-                                      height={200}
-                                      src={m.imgix_url}
-                                      alt="Board Minutes Thumbnail"
-                                      htmlAttributesProps={{
-                                        style: {
-                                          backgroundColor:
-                                            theme.palette.common.white
-                                        }
-                                      }}
-                                    />
-                                  </Box>
-                                  <ColumnBox textAlign="center" mt={1}>
-                                    <Type
-                                      variant="body2"
-                                      color="textPrimary"
-                                      className={classes.caption}
-                                    >
-                                      {format(
-                                        m.derivedFilenameAttr.publishedDate,
-                                        'MM-dd-yyyy'
-                                      )}
-                                    </Type>
-                                    <Type
-                                      variant="body2"
-                                      color="textSecondary"
-                                      className={classes.caption}
-                                    >
-                                      {m.derivedFilenameAttr.title}
-                                    </Type>
-                                  </ColumnBox>
-                                </a>
-                              </RowBox>
-                            )
-                          })}
-                        </RowBox>
-                      ) : (
-                        <div />
-                      )}
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
+                    year={year}
+                    minutes={minutes}
+                    expanded={expanded}
+                    onChange={handleChange}
+                    wasExpanded={wasExpandedMap[year] === true}
+                  />
                 )
               })}
             </RespChildBox>
