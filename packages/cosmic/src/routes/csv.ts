@@ -11,10 +11,10 @@ const MEDIA_FOLDER = 'csv'
 export const csvHandler = async (
   req: MicroForkRequest,
   res: ServerResponse,
-  store: any
+  store: any = {}
 ) => {
   try {
-    const {filename} = store || {}
+    const {filename} = store // Get filename from micro-fork store.
     req.query = {
       ...req.query,
       folder: MEDIA_FOLDER
