@@ -6,8 +6,8 @@ import {
   getObjectsRoute,
   getObjectTypesRoute,
   getObjectTypeRoute,
-  salaryScheduleRoute,
-  salaryScheduleCsvRoute
+  csvJsonRoute,
+  csvRoute
 } from './routes/index'
 import noCache from '@pcwa/micro-no-cache'
 import {applyMiddleware} from 'micro-middleware'
@@ -32,8 +32,18 @@ const notfound = (_req: IncomingMessage, res: ServerResponse) => send(res, 404)
 const noFavicon = (_req: IncomingMessage, res: ServerResponse) => send(res, 204)
 
 const routeHandler = router()(
-  get(`${rtePre}/salary-schedule`, salaryScheduleRoute),
-  get(`${rtePre}/salary-schedule-csv`, salaryScheduleCsvRoute),
+  get(`${rtePre}/salary-schedule`, csvJsonRoute, {
+    filename: 'employee-salary-schedule.csv'
+  }),
+  get(`${rtePre}/salary-schedule-csv`, csvRoute, {
+    filename: 'employee-salary-schedule.csv'
+  }),
+  get(`${rtePre}/unclaimed-property`, csvJsonRoute, {
+    filename: 'unclaimed-property.csv'
+  }),
+  get(`${rtePre}/unclaimed-property-csv`, csvRoute, {
+    filename: 'unclaimed-property.csv'
+  }),
   get(`${rtePre}/media`, getMediaRoute),
   get(`${rtePre}/media/:cosmicId`, getMediaRoute),
   get(`${rtePre}/objects`, getObjectsRoute),

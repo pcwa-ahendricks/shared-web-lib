@@ -8,18 +8,22 @@ import {getMediaHandler} from './media'
 
 const MEDIA_FOLDER = 'csv'
 
-export const salaryScheduleCsvHandler = async (
+export const csvHandler = async (
   req: MicroForkRequest,
-  res: ServerResponse
+  res: ServerResponse,
+  store: any
 ) => {
   try {
+    const {filename} = store || {}
     req.query = {
       ...req.query,
       folder: MEDIA_FOLDER
     }
     const media = await getMediaHandler(req)
 
-    const sortedMedia = media.sort((left, right) => {
+    const filteredMedia = media.filter((m) => m.original_name === filename)
+
+    const sortedMedia = filteredMedia.sort((left, right) => {
       const leftCreated = new Date(left.created)
       const rightCreated = new Date(right.created)
       return compareDesc(leftCreated, rightCreated)
@@ -48,12 +52,13 @@ export const salaryScheduleCsvHandler = async (
   }
 }
 
-export const salaryScheduleHandler = async (
+export const csvJsonHandler = async (
   req: MicroForkRequest,
-  res: ServerResponse
+  res: ServerResponse,
+  store: any
 ) => {
   try {
-    const csvString = await salaryScheduleCsvHandler(req, res)
+    const csvString = await csvHandler(req, res, store)
     const jsonArray = await csv().fromString(csvString)
     // Need to set header content type back to json.
     res.setHeader('Content-Type', 'application/json')
