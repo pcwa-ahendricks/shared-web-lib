@@ -2,10 +2,47 @@ import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 import ErrorResponse from '@lib/ErrorResponse'
 import {parse, getYear, isValid} from 'date-fns'
+import isNumber from 'is-number'
+import round from '@lib/round'
+import noNaN from '@lib/noNaN'
 
 const COSMIC_URL = process.env.NEXT_COSMIC_URL || ''
 
-const getSalarySchedule = async (): Promise<any> => {
+interface UnclaimedPropertyResponse {
+  owner: string
+  amount: string | number
+  date: string
+}
+
+const getUnclaimedProperty = async () => {
+  try {
+    const url = `${COSMIC_URL}/unclaimed-property`
+    const response = await fetch(url)
+    if (response.ok) {
+      const data: UnclaimedPropertyResponse[] = await response.json()
+      const mappedData = data.map((d) => {
+        const amt = d.amount.toString()
+        const amountNo = isNumber(amt) ? noNaN(round(parseFloat(amt), 2)) : null
+        return {
+          ...d,
+          amount: amountNo,
+          date: parse(d.date, 'MM/dd/yy', new Date())
+        }
+      })
+      return mappedData
+    } else {
+      const text = await response.text()
+      const error: ErrorResponse = new Error(text || response.statusText)
+      error.response = response
+      throw error
+    }
+  } catch (error) {
+    console.warn(error)
+    throw error
+  }
+}
+
+const getSalarySchedule = async () => {
   try {
     const url = `${COSMIC_URL}/salary-schedule`
     const response = await fetch(url)
@@ -24,7 +61,7 @@ const getSalarySchedule = async (): Promise<any> => {
   }
 }
 
-const getSalaryScheduleCsv = async (): Promise<string> => {
+const getSalaryScheduleCsv = async () => {
   try {
     const url = `${COSMIC_URL}/salary-schedule-csv`
     const response = await fetch(url)
@@ -153,4 +190,10 @@ export interface CosmicMediaMeta extends CosmicMedia {
   trimmedName?: string // Used w/ Multimedia Library
 }
 
-export {getSalarySchedule, getSalaryScheduleCsv, getMedia, fileNameUtil}
+export {
+  getUnclaimedProperty,
+  getSalarySchedule,
+  getSalaryScheduleCsv,
+  getMedia,
+  fileNameUtil
+}

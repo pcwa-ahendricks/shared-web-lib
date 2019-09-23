@@ -163,8 +163,8 @@ const SalaryScheduleTable = () => {
     () => [
       {
         id: 'CLASS CODE',
-        numeric: false,
-        disablePadding: true,
+        numeric: true,
+        disablePadding: false,
         label: 'Class Code'
       },
       {
@@ -314,7 +314,7 @@ const SalaryScheduleTable = () => {
           <Table size="small" aria-labelledby="tableTitle">
             <TableHead>
               <TableRow>
-                <TableCell />
+                <TableCell padding="none" />
                 {headRows.map((c) => (
                   <TableCell
                     key={c.id}

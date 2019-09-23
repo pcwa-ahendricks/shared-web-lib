@@ -1,7 +1,7 @@
 export async function sequenceArray(array: any[], fn: Function) {
-  let results = []
+  const results = []
   for (let i = 0; i < array.length; i++) {
-    let r = await fn(array[i])
+    const r = await fn(array[i])
     // Nulls are stripped out using gjv()
     results.push(r)
   }
