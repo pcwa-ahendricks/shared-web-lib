@@ -190,8 +190,14 @@ const UnclaimedPropertyTable = () => {
     []
   )
 
+  // Using minHeight with container allows the #unclaimedPropertyList anchor to work correctly on page load when the initial table data is not available. After the table data is loaded the 15 rows produce an element that is 800px high, so using a min-height fixes the load issue.
+  const containerMinHeight = useMemo(
+    () => (unclaimedPropertyData.length === 0 ? 800 : 0),
+    [unclaimedPropertyData]
+  )
+
   return (
-    <Box mt={6}>
+    <Box mt={6} minHeight={containerMinHeight}>
       <Box
         bgcolor={theme.palette.common.white}
         boxShadow={1}
