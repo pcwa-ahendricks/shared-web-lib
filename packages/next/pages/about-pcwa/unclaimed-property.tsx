@@ -108,7 +108,7 @@ const SalarySchedulePage = () => {
             <Type variant="subtitle1" gutterBottom>
               For A Full List Of Unclaimed Property See Below
             </Type>
-            <Link href="#unclaimedPropertyList" variant="inherit">
+            <Link href="#unclaimedPropertyList" variant="body1">
               See Full Unclaimed Property List
             </Link>
           </Box>
