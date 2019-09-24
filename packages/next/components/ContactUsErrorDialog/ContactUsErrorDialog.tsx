@@ -5,10 +5,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  Theme
+  DialogTitle
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
@@ -18,21 +16,11 @@ type Props = {
   errorMessage: string
 }
 
-// Text heavy dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      backgroundColor: theme.palette.grey[200]
-    }
-  })
-)
-
 const FormSubmissionDialogError = ({
   open = false,
   onClose,
   errorMessage = 'A General Error Has Occurred'
 }: Props) => {
-  const classes = useStyles()
   return (
     <Dialog
       disableBackdropClick={true}
@@ -41,9 +29,6 @@ const FormSubmissionDialogError = ({
       aria-labelledby="form-submit-dialog-title"
       aria-describedby="form-submit-dialog-description"
       TransitionComponent={Transition}
-      classes={{
-        paper: classes.paper
-      }}
     >
       <DialogTitle id="form-submit-dialog-title">
         An Error Has Occurred

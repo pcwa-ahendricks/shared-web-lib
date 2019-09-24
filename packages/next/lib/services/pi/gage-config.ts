@@ -1,0 +1,521 @@
+interface GageConfigColumn {
+  // This property is the name (case-sensitive) of the corresponding column
+  // definition name. It is un-related to the PI Attribute name, but is often nearly identical.
+  columnDefName: string
+  // This property should correspond to the name of the field to use, which is determined
+  // by the response from PI Web API (usually "Timestamp" or "Value").
+  useField: string
+  // The index is usually set at run time, with the exception of the Timestamp column since
+  // it can in most cases be pulled from any column (usually column at index 0 for simplicity).
+  index?: number
+  // This property should correspond to the name of the PI attribute it belongs to.
+  piAttribute?: string
+}
+interface GageConfigTable {
+  metric: string // The metric used in the table. ie. "daily" or "monthly".
+  piAttributes: string[]
+  chartColumns: GageConfigColumn[]
+  tableConfig: TableConfig
+}
+export interface GageConfigItem {
+  id: string
+  baseElement: 'reservoir' | 'gauging-station'
+  caption: string
+  description: string
+  type: 'river' | 'reservoir'
+  typeLabel: 'Gaging Station' | 'Reservoir'
+  chartValues: string[]
+  tables?: GageConfigTable[]
+  disabled?: boolean
+}
+interface TableConfig {
+  displayedColumns: string[]
+  headers: {
+    [headerTitle: string]: string
+  }
+}
+const gageStationTableConfig: TableConfig = {
+  headers: {colA: 'Timestamp', colB: 'Flow (CFS)', colC: 'Stage (Feet)'},
+  displayedColumns: ['timestamp', 'flow', 'stage']
+}
+const reservoirTableConfig: TableConfig = {
+  headers: {
+    colA: 'Timestamp',
+    colB: 'Storage (Acre-Feet)',
+    colC: 'Elevation (Feet)'
+  },
+  displayedColumns: ['timestamp', 'storage', 'elevation']
+}
+const gages: GageConfigItem[] = [
+  {
+    id: 'R2',
+    baseElement: 'gauging-station',
+    caption: 'R2',
+    description: 'Duncan Creek Below Diversion Dam, Near French Meadows',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R3',
+    baseElement: 'gauging-station',
+    caption: 'R3',
+    description: 'Middle Fork American River below French Meadows',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R4',
+    baseElement: 'gauging-station',
+    caption: 'R4',
+    description:
+      'Middle Fork American River above Middle Fork Powerhouse near Foresthill',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R5L',
+    baseElement: 'gauging-station',
+    caption: 'R5L',
+    description: 'Middle Fork American River below Interbay Dam',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    disabled: false,
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R11',
+    baseElement: 'gauging-station',
+    caption: 'R11',
+    description: 'Middle Fork American River near Foresthill',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R29',
+    baseElement: 'gauging-station',
+    caption: 'R29',
+    description: `Rubicon River above Ellicott's Crossing`,
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    disabled: false,
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R30',
+    baseElement: 'gauging-station',
+    caption: 'R30',
+    description: 'Rubicon River above Ralston Power House',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    chartValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        piAttributes: ['Flow', 'Height'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow'}
+        ]
+      }
+    ]
+  },
+  {
+    id: 'R31',
+    baseElement: 'gauging-station',
+    caption: 'R31',
+    description:
+      'North Fork American River above the American River Pump Station',
+    type: 'river',
+    typeLabel: 'Gaging Station',
+    // chartValues: ['Height', 'Pre-Offset Flow'],
+    chartValues: ['Height', 'Flow'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: gageStationTableConfig,
+        // piAttributes: ['Height', 'Pre-Offset Flow'],
+        piAttributes: ['Height', 'Flow'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {
+            columnDefName: 'flow',
+            useField: 'Value',
+            // piAttribute: 'Pre-Offset Flow'
+            piAttribute: 'Flow'
+          }
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: gageStationTableConfig,
+        // piAttributes: ['Height', 'Pre-Offset Flow'],
+        piAttributes: ['Height', 'Flow'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'stage',
+            useField: 'Value',
+            piAttribute: 'Height'
+          },
+          {
+            columnDefName: 'flow',
+            useField: 'Value',
+            // piAttribute: 'Pre-Offset Flow'
+            piAttribute: 'Flow'
+          }
+        ]
+      }
+    ]
+  },
+  // {
+  //   id: 'R32',
+  //   caption: 'R32',
+  //   //
+  //   description: '(Future) Middle Fork American River below Interbay Dam',
+  //   type: 'river',
+  //   typeLabel: 'Gaging Station',
+  //   chartValues: ['Flow', 'Height'],
+  //   disabled: true,
+  //   tables: [
+  //     {
+  //       metric: 'daily',
+  //       tableConfig: this.gageStationTableConfig,
+  //       piAttributes: ['Flow', 'Height'],
+  //       chartColumns: [
+  //         { columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+  //         { columnDefName: 'stage', useField: 'Value', piAttribute: 'Height' },
+  //         { columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow' }
+  //       ]
+  //     },
+  //     {
+  //       metric: 'monthly',
+  //       tableConfig: this.gageStationTableConfig,
+  //       piAttributes: ['Flow', 'Height'],
+  //       chartColumns: [
+  //         { columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+  //         { columnDefName: 'stage', useField: 'Value', piAttribute: 'Height' },
+  //         { columnDefName: 'flow', useField: 'Value', piAttribute: 'Flow' }
+  //       ]
+  //     }
+  //   ]
+  // },
+  {
+    id: 'French Meadows',
+    baseElement: 'reservoir',
+    caption: 'FM',
+    description: 'French Meadows Reservoir',
+    type: 'reservoir',
+    typeLabel: 'Reservoir',
+    chartValues: ['Storage', 'Elevation'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: reservoirTableConfig,
+        piAttributes: ['Storage', 'Elevation'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'storage',
+            useField: 'Value',
+            piAttribute: 'Storage'
+          },
+          {
+            columnDefName: 'elevation',
+            useField: 'Value',
+            piAttribute: 'Elevation'
+          }
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: reservoirTableConfig,
+        piAttributes: ['Storage', 'Elevation'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'storage',
+            useField: 'Value',
+            piAttribute: 'Storage'
+          },
+          {
+            columnDefName: 'elevation',
+            useField: 'Value',
+            piAttribute: 'Elevation'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'Hell Hole',
+    disabled: false,
+    baseElement: 'reservoir',
+    caption: 'HH',
+    description: 'Hell Hole Reservoir',
+    type: 'reservoir',
+    typeLabel: 'Reservoir',
+    chartValues: ['Storage', 'Elevation'],
+    tables: [
+      {
+        metric: 'daily',
+        tableConfig: reservoirTableConfig,
+        piAttributes: ['Storage', 'Elevation'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'storage',
+            useField: 'Value',
+            piAttribute: 'Storage'
+          },
+          {
+            columnDefName: 'elevation',
+            useField: 'Value',
+            piAttribute: 'Elevation'
+          }
+        ]
+      },
+      {
+        metric: 'monthly',
+        tableConfig: reservoirTableConfig,
+        piAttributes: ['Storage', 'Elevation'],
+        chartColumns: [
+          {columnDefName: 'timestamp', index: 0, useField: 'Timestamp'},
+          {
+            columnDefName: 'storage',
+            useField: 'Value',
+            piAttribute: 'Storage'
+          },
+          {
+            columnDefName: 'elevation',
+            useField: 'Value',
+            piAttribute: 'Elevation'
+          }
+        ]
+      }
+    ]
+  }
+]
+const getGageById = (id: string) => {
+  return gages.find((gage) => gage.id === id)
+}
+const getGageIds = () => {
+  return gages.map((gage) => gage.id)
+}
+const getReservoirGageIds = () => {
+  return gages.filter((g) => g.baseElement === 'reservoir').map((g) => g.id)
+}
+const getRiverGageIds = () => {
+  return gages
+    .filter((g) => g.baseElement === 'gauging-station')
+    .map((g) => g.id)
+}
+export {gages, getGageById, getGageIds, getReservoirGageIds, getRiverGageIds}

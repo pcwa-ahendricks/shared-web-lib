@@ -15,12 +15,8 @@ import {DialogProps} from '@material-ui/core/Dialog'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
-// Text importance dialog. Eliminate opacity used by Paper by default (theme.palette.background.paper, "rgba(242, 242, 242, 0.9)")
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
-      backgroundColor: theme.palette.grey[200]
-    },
     mobileStepper: {
       width: '100%'
     },
@@ -44,7 +40,6 @@ type EligibilityDialogProps = {
   children: React.ReactNode
 } & DialogProps
 const EligibilityDialog = ({children, ...rest}: EligibilityDialogProps) => {
-  const classes = useStyles()
   const theme = useTheme<Theme>()
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
 
@@ -55,9 +50,6 @@ const EligibilityDialog = ({children, ...rest}: EligibilityDialogProps) => {
       fullWidth
       fullScreen={fullScreen}
       TransitionComponent={Transition}
-      classes={{
-        paper: classes.paper
-      }}
       {...rest}
     >
       {children}

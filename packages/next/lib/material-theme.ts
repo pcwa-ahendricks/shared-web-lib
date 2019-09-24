@@ -81,7 +81,7 @@ const theme = createMuiTheme({
       white: '#fff'
     },
     background: {
-      paper: 'rgba(242, 242, 242, 0.9)',
+      paper: 'rgba(242, 242, 242, 1)',
       default: 'rgba(250, 250, 250, 1)'
     },
     primary: {
