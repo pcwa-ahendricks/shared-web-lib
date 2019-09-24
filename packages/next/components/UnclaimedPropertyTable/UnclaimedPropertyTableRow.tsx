@@ -22,7 +22,7 @@ const UnclaimedPropertyTableRow = ({data}: Props) => {
           {data.owner}
         </TableCell>
         <TableCell align="right">{frmt(data.amount)}</TableCell>
-        <TableCell>{format(data.date, 'MM/dd/yyyy')}</TableCell>
+        <TableCell>{format(data.date, 'M/dd/yyyy')}</TableCell>
       </TableRow>
     </React.Fragment>
   )

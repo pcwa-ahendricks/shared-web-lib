@@ -146,7 +146,7 @@ const UnclaimedPropertyTable = () => {
   )
 
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10) // 10, 15, or 25.
+  const [rowsPerPage, setRowsPerPage] = useState(15) // 10, 15, or 25.
   const [filteredRowCount, setFilteredRowCount] = useState(
     unclaimedPropertyData.length
   )

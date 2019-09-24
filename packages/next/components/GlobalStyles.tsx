@@ -1,12 +1,16 @@
+// cspell:ignore polyfill'd
 import {withStyles} from '@material-ui/styles'
 import {Theme} from '@material-ui/core'
 
 const GlobalStyles = withStyles((theme: Theme) => ({
   // @global is handled by jss-plugin-global.
+  // "scrollBehavior and scrollPaddingTop" is used by anchor elements, like the one used in the Unclaimed Property page. <ScrollToTop/> uses the JS implementation for smooth scroll which is polyfill'd. See https://css-tricks.com/snippets/jquery/smooth-scrolling for more info.
   '@global': {
     html: {
       margin: 0,
-      height: '100%'
+      height: '100%',
+      scrollBehavior: 'smooth',
+      scrollPaddingTop: '55px' // Provide offset for sticky header. Works with most browsers. See https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/ and https://caniuse.com/#search=scroll-padding-top for more info.
     },
     body: {
       margin: 'inherit',
