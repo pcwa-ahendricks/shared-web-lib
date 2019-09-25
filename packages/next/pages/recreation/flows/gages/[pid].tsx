@@ -14,9 +14,16 @@ import {NextPageContext} from 'next'
 import {ParsedUrlQuery} from 'querystring'
 import {RowBox} from '@components/boxes/FlexBox'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
-import {getElementStreamSet} from '@lib/services/pi/pi'
+import {
+  fetchElementStreamSet,
+  fetchElementAttributeStream
+} from '@lib/services/pi/pi'
 import {getGageById, GageConfigItem} from '@lib/services/pi/gage-config'
-import {PiContext, setStreamSetItems} from '@components/pi/PiStore'
+import {
+  PiContext,
+  setStreamSetItems,
+  setCanFetchAttributeStream
+} from '@components/pi/PiStore'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -27,7 +34,7 @@ const DynamicPiPage = ({query}: Props) => {
   const router = useRouter()
   const [activeGageItem, setActiveGageItem] = useState<GageConfigItem>()
   const {state, dispatch} = useContext(PiContext)
-  const {streamSetItems} = state
+  const {streamSetItems, canFetchAttributeStream} = state
   // console.log(router)
 
   const pid = useMemo(() => {
@@ -39,32 +46,57 @@ const DynamicPiPage = ({query}: Props) => {
     return queryPid || ''
   }, [query, router])
 
-  const fetchData = useCallback(async () => {
+  const fetchStreamSet = useCallback(async () => {
     if (activeGageItem) {
-      const be = await getElementStreamSet(
+      const ess = await fetchElementStreamSet(
         activeGageItem.baseElement,
         activeGageItem.id
       )
-      if (be && be.Items) {
-        dispatch(setStreamSetItems(be.Items))
+      if (ess && ess.Items) {
+        dispatch(setStreamSetItems(ess.Items))
       }
     }
+    // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed.
+    dispatch(setCanFetchAttributeStream(true))
   }, [activeGageItem, dispatch])
 
-  console.log(streamSetItems)
-
-  useEffect(() => {
-    if (activeGageItem) {
-      console.log('effect firing', activeGageItem.id)
-      fetchData()
+  const fetchAttributeStream = useCallback(async () => {
+    if (
+      activeGageItem &&
+      streamSetItems.length > 0 &&
+      canFetchAttributeStream
+    ) {
+      console.log('running for', activeGageItem.id)
+      const eas = await fetchElementAttributeStream(
+        streamSetItems,
+        activeGageItem.chartValues[0],
+        '2019-09-01T00:00:00-07:00',
+        '2019-09-25T12:11:00-07:00',
+        '12h'
+      )
+      console.log(eas)
+      // if (be && be.Items) {
+      //   dispatch(setStreamSetItems(be.Items))
+      // }
     }
-  }, [activeGageItem, fetchData])
+  }, [activeGageItem, streamSetItems, canFetchAttributeStream])
 
   useEffect(() => {
-    console.log('useEffect firing due to pid update.')
+    // console.log('effect firing for fetchElementAttributeStream()')
+    fetchAttributeStream()
+  }, [streamSetItems, fetchAttributeStream])
+
+  useEffect(() => {
+    // console.log('effect firing', activeGageItem && activeGageItem.id)
+    fetchStreamSet()
+  }, [activeGageItem, fetchStreamSet])
+
+  useEffect(() => {
+    // console.log('useEffect firing due to pid update.')
     const gci = getGageById(pid)
+    dispatch(setCanFetchAttributeStream(false)) // It is important to kick this off prior to setting active gage item.
     setActiveGageItem(gci)
-  }, [pid])
+  }, [pid, dispatch])
 
   // Protect route from accessing disabled gages.
   useEffect(() => {

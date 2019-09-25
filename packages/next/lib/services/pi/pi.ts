@@ -11,7 +11,7 @@ import {
 
 const baseUrl = 'https://flows.pcwa.net/piwebapi'
 
-const getBaseElement = async (
+const fetchBaseElement = async (
   baseElementType: GageConfigItem['baseElement']
 ) => {
   try {
@@ -32,9 +32,11 @@ const getBaseElement = async (
   }
 }
 
-const getElements = async (baseElementType: GageConfigItem['baseElement']) => {
+const fetchElements = async (
+  baseElementType: GageConfigItem['baseElement']
+) => {
   try {
-    const baseElement = await getBaseElement(baseElementType)
+    const baseElement = await fetchBaseElement(baseElementType)
     if (!baseElement) {
       throw 'No base element.'
     }
@@ -55,12 +57,12 @@ const getElements = async (baseElementType: GageConfigItem['baseElement']) => {
   }
 }
 
-const getElementStreamSet = async (
+const fetchElementStreamSet = async (
   baseElementType: GageConfigItem['baseElement'],
   elementName: string
 ) => {
   try {
-    const elements = await getElements(baseElementType)
+    const elements = await fetchElements(baseElementType)
     if (!elements) {
       throw 'No elements.'
     }
@@ -82,4 +84,33 @@ const getElementStreamSet = async (
   }
 }
 
-export {getElementStreamSet}
+const fetchElementAttributeStream = async (
+  items: PiWebElementStreamSetResponse['Items'],
+  attributeName: string,
+  startTime: string,
+  endTime: string,
+  interval: string
+) => {
+  try {
+    const qs = stringify({startTime, endTime, interval}, true)
+    const {WebId = ''} = items.find((item) => item.Name === attributeName) || {}
+    if (!(items.length > 0) || !WebId) {
+      throw 'Request parameters are invalid.'
+    }
+    const url = `${baseUrl}/streams/${WebId}/interpolated${qs}`
+    const response = await fetch(url)
+    if (response.ok) {
+      const data: any = await response.json()
+      return data
+    } else {
+      const text = await response.text()
+      const error: ErrorResponse = new Error(text || response.statusText)
+      error.response = response
+      throw error
+    }
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+export {fetchElementStreamSet, fetchElementAttributeStream}
