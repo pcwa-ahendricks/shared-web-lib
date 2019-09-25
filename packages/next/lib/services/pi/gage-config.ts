@@ -19,7 +19,9 @@ interface GageConfigTable {
 }
 export interface GageConfigItem {
   id: string
-  baseElement: 'reservoir' | 'gauging-station'
+  baseElement:
+    | '\\\\BUSINESSPI2\\OPS\\Reservoirs'
+    | '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
   caption: string
   description: string
   type: 'river' | 'reservoir'
@@ -49,7 +51,7 @@ const reservoirTableConfig: TableConfig = {
 const gages: GageConfigItem[] = [
   {
     id: 'R2',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R2',
     description: 'Duncan Creek Below Diversion Dam, Near French Meadows',
     type: 'river',
@@ -88,7 +90,7 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R3',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R3',
     description: 'Middle Fork American River below French Meadows',
     type: 'river',
@@ -127,7 +129,7 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R4',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R4',
     description:
       'Middle Fork American River above Middle Fork Powerhouse near Foresthill',
@@ -167,13 +169,13 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R5L',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R5L',
     description: 'Middle Fork American River below Interbay Dam',
     type: 'river',
     typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
-    disabled: false,
+    disabled: true,
     tables: [
       {
         metric: 'daily',
@@ -207,7 +209,7 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R11',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R11',
     description: 'Middle Fork American River near Foresthill',
     type: 'river',
@@ -246,7 +248,7 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R29',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R29',
     description: `Rubicon River above Ellicott's Crossing`,
     type: 'river',
@@ -286,7 +288,7 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R30',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R30',
     description: 'Rubicon River above Ralston Power House',
     type: 'river',
@@ -325,7 +327,7 @@ const gages: GageConfigItem[] = [
   },
   {
     id: 'R31',
-    baseElement: 'gauging-station',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R31',
     description:
       'North Fork American River above the American River Pump Station',
@@ -410,7 +412,7 @@ const gages: GageConfigItem[] = [
   // },
   {
     id: 'French Meadows',
-    baseElement: 'reservoir',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
     caption: 'FM',
     description: 'French Meadows Reservoir',
     type: 'reservoir',
@@ -458,7 +460,7 @@ const gages: GageConfigItem[] = [
   {
     id: 'Hell Hole',
     disabled: false,
-    baseElement: 'reservoir',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
     caption: 'HH',
     description: 'Hell Hole Reservoir',
     type: 'reservoir',
@@ -511,11 +513,13 @@ const getGageIds = () => {
   return gages.map((gage) => gage.id)
 }
 const getReservoirGageIds = () => {
-  return gages.filter((g) => g.baseElement === 'reservoir').map((g) => g.id)
+  return gages
+    .filter((g) => g.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs')
+    .map((g) => g.id)
 }
 const getRiverGageIds = () => {
   return gages
-    .filter((g) => g.baseElement === 'gauging-station')
+    .filter((g) => g.baseElement === '\\\\BUSINESSPI2\\OPS\\Gauging Stations')
     .map((g) => g.id)
 }
 export {gages, getGageById, getGageIds, getReservoirGageIds, getRiverGageIds}

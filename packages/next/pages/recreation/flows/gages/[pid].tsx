@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useEffect, useCallback, useState} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -8,6 +8,8 @@ import {NextPageContext} from 'next'
 import {ParsedUrlQuery} from 'querystring'
 import {RowBox} from '@components/boxes/FlexBox'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
+import {getBaseElements} from '@lib/services/pi/pi'
+import {getGageById, GageConfigItem} from '@lib/services/pi/gage-config'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -16,6 +18,7 @@ type Props = {
 
 const DynamicPiPage = ({query}: Props) => {
   const router = useRouter()
+  const [activeGageItem, setActiveGageItem] = useState<GageConfigItem>()
   // console.log(router)
 
   const pid = useMemo(() => {
@@ -26,6 +29,31 @@ const DynamicPiPage = ({query}: Props) => {
     }
     return queryPid || ''
   }, [query, router])
+
+  const baseElements = useCallback(async () => {
+    if (activeGageItem) {
+      const be = await getBaseElements(activeGageItem.baseElement)
+      console.log(be)
+    }
+  }, [activeGageItem])
+
+  useEffect(() => {
+    console.log('effect firing', pid)
+    baseElements()
+  }, [pid, baseElements])
+
+  useEffect(() => {
+    console.log('useEffect firing due to pid update.')
+    const gci = getGageById(pid)
+    setActiveGageItem(gci)
+  }, [pid])
+
+  // Protect route from accessing disabled gages.
+  useEffect(() => {
+    if (activeGageItem && activeGageItem.disabled) {
+      router.replace('/404')
+    }
+  }, [activeGageItem, router])
 
   return (
     <PageLayout title="Reservoir & Stream Flows">

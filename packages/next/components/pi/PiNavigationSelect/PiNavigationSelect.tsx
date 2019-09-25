@@ -15,11 +15,8 @@ const PiNavigationSelect = ({pid}: Props) => {
       event: React.ChangeEvent<{
         name?: string | undefined
         value: any
-      }>,
-      child: React.ReactNode
+      }>
     ) => {
-      console.log(event)
-      console.log(child)
       const {value = ''} = event.target
       router.push(
         '/recreation/flows/gages/[pid]',

@@ -10,11 +10,15 @@ type Props = {
 
 const PiNavigationList = ({pid}: Props) => {
   const riverGages = useMemo(
-    () => gages.filter((g) => g.baseElement === 'gauging-station'),
+    () =>
+      gages.filter(
+        (g) => g.baseElement === '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
+      ),
     []
   )
   const reservoirGages = useMemo(
-    () => gages.filter((g) => g.baseElement === 'reservoir'),
+    () =>
+      gages.filter((g) => g.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs'),
     []
   )
 
