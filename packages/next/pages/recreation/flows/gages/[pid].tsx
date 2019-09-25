@@ -24,6 +24,7 @@ import {
   setStreamSetItems,
   setCanFetchAttributeStream
 } from '@components/pi/PiStore'
+import {format} from 'date-fns'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -34,7 +35,13 @@ const DynamicPiPage = ({query}: Props) => {
   const router = useRouter()
   const [activeGageItem, setActiveGageItem] = useState<GageConfigItem>()
   const {state, dispatch} = useContext(PiContext)
-  const {streamSetItems, canFetchAttributeStream} = state
+  const {
+    streamSetItems,
+    canFetchAttributeStream,
+    interval,
+    startDate,
+    endDate
+  } = state
   // console.log(router)
 
   const pid = useMemo(() => {
@@ -66,20 +73,35 @@ const DynamicPiPage = ({query}: Props) => {
       streamSetItems.length > 0 &&
       canFetchAttributeStream
     ) {
-      console.log('running for', activeGageItem.id)
-      const eas = await fetchElementAttributeStream(
-        streamSetItems,
-        activeGageItem.chartValues[0],
-        '2019-09-01T00:00:00-07:00',
-        '2019-09-25T12:11:00-07:00',
-        '12h'
-      )
-      console.log(eas)
-      // if (be && be.Items) {
-      //   dispatch(setStreamSetItems(be.Items))
-      // }
+      activeGageItem.chartValues.map(async (chartValue) => {
+        isDev &&
+          console.log(
+            `fetchElementAttributeStream() for ${activeGageItem.id} | ${format(
+              startDate,
+              'Pp'
+            )} - ${format(endDate, 'Pp')}`
+          )
+        const eas = await fetchElementAttributeStream(
+          streamSetItems,
+          chartValue,
+          startDate.toISOString(),
+          endDate.toISOString(),
+          interval
+        )
+        console.log(eas)
+        // if (be && be.Items) {
+        //   dispatch(setStreamSetItems(be.Items))
+        // }
+      })
     }
-  }, [activeGageItem, streamSetItems, canFetchAttributeStream])
+  }, [
+    activeGageItem,
+    streamSetItems,
+    canFetchAttributeStream,
+    startDate,
+    endDate,
+    interval
+  ])
 
   useEffect(() => {
     // console.log('effect firing for fetchElementAttributeStream()')
