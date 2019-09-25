@@ -1,4 +1,10 @@
-import React, {useMemo, useEffect, useCallback, useState} from 'react'
+import React, {
+  useMemo,
+  useEffect,
+  useCallback,
+  useState,
+  useContext
+} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -8,8 +14,9 @@ import {NextPageContext} from 'next'
 import {ParsedUrlQuery} from 'querystring'
 import {RowBox} from '@components/boxes/FlexBox'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
-import {getBaseElements} from '@lib/services/pi/pi'
+import {getElementStreamSet} from '@lib/services/pi/pi'
 import {getGageById, GageConfigItem} from '@lib/services/pi/gage-config'
+import {PiContext, setStreamSetItems} from '@components/pi/PiStore'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -19,6 +26,8 @@ type Props = {
 const DynamicPiPage = ({query}: Props) => {
   const router = useRouter()
   const [activeGageItem, setActiveGageItem] = useState<GageConfigItem>()
+  const {state, dispatch} = useContext(PiContext)
+  const {streamSetItems} = state
   // console.log(router)
 
   const pid = useMemo(() => {
@@ -30,17 +39,26 @@ const DynamicPiPage = ({query}: Props) => {
     return queryPid || ''
   }, [query, router])
 
-  const baseElements = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     if (activeGageItem) {
-      const be = await getBaseElements(activeGageItem.baseElement)
-      console.log(be)
+      const be = await getElementStreamSet(
+        activeGageItem.baseElement,
+        activeGageItem.id
+      )
+      if (be && be.Items) {
+        dispatch(setStreamSetItems(be.Items))
+      }
     }
-  }, [activeGageItem])
+  }, [activeGageItem, dispatch])
+
+  console.log(streamSetItems)
 
   useEffect(() => {
-    console.log('effect firing', pid)
-    baseElements()
-  }, [pid, baseElements])
+    if (activeGageItem) {
+      console.log('effect firing', activeGageItem.id)
+      fetchData()
+    }
+  }, [activeGageItem, fetchData])
 
   useEffect(() => {
     console.log('useEffect firing due to pid update.')

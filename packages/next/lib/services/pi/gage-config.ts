@@ -175,7 +175,7 @@ const gages: GageConfigItem[] = [
     type: 'river',
     typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
-    disabled: true,
+    disabled: false,
     tables: [
       {
         metric: 'daily',

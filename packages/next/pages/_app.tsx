@@ -20,6 +20,7 @@ import SearchProvider from '@components/search/SearchStore'
 */
 import './styles.css'
 import GlobalStyles from '@components/GlobalStyles'
+import PiProvider from '@components/pi/PiStore'
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -44,19 +45,21 @@ class MyApp extends App {
         <CssBaseline />
         <GlobalStyles />
 
-        <UiProvider>
-          <ForecastProvider>
-            <SearchProvider>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <ParallaxProvider>
-                  {/* Pass pageContext to the _document though the renderPage enhancer
+        <PiProvider>
+          <UiProvider>
+            <ForecastProvider>
+              <SearchProvider>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <ParallaxProvider>
+                    {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                  <Component {...pageProps} />
-                </ParallaxProvider>
-              </MuiPickersUtilsProvider>
-            </SearchProvider>
-          </ForecastProvider>
-        </UiProvider>
+                    <Component {...pageProps} />
+                  </ParallaxProvider>
+                </MuiPickersUtilsProvider>
+              </SearchProvider>
+            </ForecastProvider>
+          </UiProvider>
+        </PiProvider>
       </ThemeProvider>
     )
   }
