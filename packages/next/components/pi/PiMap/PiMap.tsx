@@ -17,11 +17,12 @@ import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {Box, useMediaQuery, Theme, LinearProgress} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
 import isNumber from 'is-number'
-
 import PiMapMarker from './PiMapMarker'
 import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 import {PiContext} from '../PiStore'
+import CrossHairIcon from '@material-ui/icons/CloseRounded'
 const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY || ''
+const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   isLoading?: boolean
@@ -45,7 +46,8 @@ const useStyles = makeStyles(() =>
       position: 'absolute',
       top: 36,
       right: 0,
-      padding: 10
+      padding: 10,
+      zIndex: 2
     }
   })
 )
@@ -124,6 +126,23 @@ const PiMap = ({isLoading = false}: Props) => {
     [markerLatLng]
   )
 
+  const debugMapMarkerPositionEl = useMemo(
+    () =>
+      isDev && markerLatLng && markerLatLng.lng && markerLatLng.lat ? (
+        <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
+          <CrossHairIcon
+            style={{
+              fill: 'red',
+              height: 30,
+              width: 30,
+              transform: `translate(${-30 / 2}px,${-30 / 2}px)`
+            }}
+          />
+        </Marker>
+      ) : null,
+    [markerLatLng]
+  )
+
   return (
     <Box position="relative" height="100%">
       {linearProgressEl}
@@ -137,6 +156,7 @@ const PiMap = ({isLoading = false}: Props) => {
         dragPan={isSmDown ? false : true}
       >
         {mapMarkerEl}
+        {debugMapMarkerPositionEl}
 
         {/* {this._renderPopup()} */}
 
