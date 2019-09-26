@@ -147,7 +147,9 @@ const DynamicPiPage = ({query}: Props) => {
               </Box>
             </Hidden>
             {/* <Type variant="subtitle1">Post: {pid}</Type> */}
-            <PiMap isLoading={!canFetchAttributeStream} />
+            <Box height={400}>
+              <PiMap isLoading={!canFetchAttributeStream} />
+            </Box>
             <Type variant="subtitle1" style={{textTransform: 'uppercase'}}>
               Disclaimer:
             </Type>

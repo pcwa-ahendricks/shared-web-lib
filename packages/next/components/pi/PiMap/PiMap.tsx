@@ -107,7 +107,7 @@ const PiMap = ({isLoading = false}: Props) => {
   const linearProgressEl = useMemo(
     () =>
       isLoading ? (
-        <Box position="absolute" top={0} left={0} right={0}>
+        <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
           <LinearProgress variant="indeterminate" color="secondary" />
         </Box>
       ) : null,
@@ -125,7 +125,7 @@ const PiMap = ({isLoading = false}: Props) => {
   )
 
   return (
-    <Box position="relative">
+    <Box position="relative" height="100%">
       {linearProgressEl}
       <MapGL
         {...viewport}
