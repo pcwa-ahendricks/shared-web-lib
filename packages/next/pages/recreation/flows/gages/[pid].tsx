@@ -171,7 +171,10 @@ const DynamicPiPage = ({query}: Props) => {
               </Box>
             </Hidden>
             {/* <Type variant="subtitle1">Post: {pid}</Type> */}
-            <PiMap markerLatLong={markerLatLng} />
+            <PiMap
+              markerLatLong={markerLatLng}
+              isLoading={!canFetchAttributeStream}
+            />
             <Type variant="subtitle1" style={{textTransform: 'uppercase'}}>
               Disclaimer:
             </Type>

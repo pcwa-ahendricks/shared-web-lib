@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect, useMemo} from 'react'
 import MapGL, {
   Marker,
   // Popup,
@@ -8,7 +8,7 @@ import MapGL, {
   FlyToInterpolator
 } from 'react-map-gl'
 import {easeCubic} from 'd3-ease' // 3rd-party easing functions
-import {useMediaQuery, Theme} from '@material-ui/core'
+import {Box, useMediaQuery, Theme, LinearProgress} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
 
 import PiMapMarker from './PiMapMarker'
@@ -16,6 +16,7 @@ const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY || ''
 
 type Props = {
   markerLatLong?: {lat: number; lng: number}
+  isLoading?: boolean
 }
 
 const useStyles = makeStyles(() =>
@@ -35,7 +36,7 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const PiMap = ({markerLatLong}: Props) => {
+const PiMap = ({markerLatLong, isLoading = false}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -64,33 +65,52 @@ const PiMap = ({markerLatLong}: Props) => {
     }))
   }, [markerLatLong])
 
-  return (
-    <MapGL
-      {...viewport}
-      width="100%"
-      height="100%"
-      mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
-      onViewportChange={viewportChangeHandler}
-      mapboxApiAccessToken={API_KEY}
-      dragPan={isSmDown ? false : true}
-    >
-      {markerLatLong ? (
+  const linearProgressEl = useMemo(
+    () =>
+      isLoading ? (
+        <Box position="absolute" top={0} left={0} right={0}>
+          <LinearProgress variant="indeterminate" color="primary" />
+        </Box>
+      ) : null,
+    [isLoading]
+  )
+
+  const mapMarkerEl = useMemo(
+    () =>
+      markerLatLong && markerLatLong.lng && markerLatLong.lat ? (
         <Marker longitude={markerLatLong.lng} latitude={markerLatLong.lat}>
-          <PiMapMarker size={20} />
+          <PiMapMarker size={30} />
         </Marker>
-      ) : null}
+      ) : null,
+    [markerLatLong]
+  )
 
-      {/* {this._renderPopup()} */}
+  return (
+    <Box position="relative">
+      {linearProgressEl}
+      <MapGL
+        {...viewport}
+        width="100%"
+        height="100%"
+        mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
+        onViewportChange={viewportChangeHandler}
+        mapboxApiAccessToken={API_KEY}
+        dragPan={isSmDown ? false : true}
+      >
+        {mapMarkerEl}
 
-      <div className={classes.fullscreen}>
-        <FullscreenControl />
-      </div>
-      <div className={classes.nav}>
-        <NavigationControl />
-      </div>
+        {/* {this._renderPopup()} */}
 
-      {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
-    </MapGL>
+        <div className={classes.fullscreen}>
+          <FullscreenControl />
+        </div>
+        <div className={classes.nav}>
+          <NavigationControl />
+        </div>
+
+        {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
+      </MapGL>
+    </Box>
   )
 }
 
