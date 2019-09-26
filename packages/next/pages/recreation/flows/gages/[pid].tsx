@@ -25,6 +25,8 @@ import {
   setCanFetchAttributeStream
 } from '@components/pi/PiStore'
 import {format} from 'date-fns'
+import PiMap from '@components/pi/PiMap/PiMap'
+import isNumber from 'is-number'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -34,13 +36,15 @@ type Props = {
 const DynamicPiPage = ({query}: Props) => {
   const router = useRouter()
   const [activeGageItem, setActiveGageItem] = useState<GageConfigItem>()
+  const [markerLatLng, setMarkerLatLng] = useState<{lat: number; lng: number}>()
   const {state, dispatch} = useContext(PiContext)
   const {
     streamSetItems,
     canFetchAttributeStream,
     interval,
     startDate,
-    endDate
+    endDate,
+    streamSetMeta
   } = state
   // console.log(router)
 
@@ -103,11 +107,13 @@ const DynamicPiPage = ({query}: Props) => {
     interval
   ])
 
+  // Target whenever streamSetItems changes.
   useEffect(() => {
     // console.log('effect firing for fetchElementAttributeStream()')
     fetchAttributeStream()
   }, [streamSetItems, fetchAttributeStream])
 
+  // Target whenever activeGageItem changes.
   useEffect(() => {
     // console.log('effect firing', activeGageItem && activeGageItem.id)
     fetchStreamSet()
@@ -127,6 +133,27 @@ const DynamicPiPage = ({query}: Props) => {
     }
   }, [activeGageItem, router])
 
+  useEffect(() => {
+    const lngMeta = streamSetMeta.find((m) => m.name === 'Longitude')
+    const latMeta = streamSetMeta.find((m) => m.name === 'Latitude')
+    if (
+      lngMeta &&
+      latMeta &&
+      isNumber(lngMeta.value) &&
+      isNumber(latMeta.value)
+    ) {
+      const lng =
+        typeof lngMeta.value === 'string'
+          ? parseFloat(lngMeta.value)
+          : lngMeta.value
+      const lat =
+        typeof latMeta.value === 'string'
+          ? parseFloat(latMeta.value)
+          : latMeta.value
+      setMarkerLatLng({lng, lat})
+    }
+  }, [streamSetMeta])
+
   return (
     <PageLayout title="Reservoir & Stream Flows">
       <MainBox>
@@ -143,13 +170,18 @@ const DynamicPiPage = ({query}: Props) => {
                 <PiNavigationSelect pid={pid} />
               </Box>
             </Hidden>
-            <Type variant="subtitle1">Post: {pid}</Type>
+            {/* <Type variant="subtitle1">Post: {pid}</Type> */}
+            <PiMap markerLatLong={markerLatLng} />
+            <Type variant="subtitle1" style={{textTransform: 'uppercase'}}>
+              Disclaimer:
+            </Type>
           </Box>
         </RowBox>
       </MainBox>
     </PageLayout>
   )
 }
+
 DynamicPiPage.getInitialProps = ({query}: NextPageContext) => {
   isDev && console.log(JSON.stringify(query))
   return {query}

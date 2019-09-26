@@ -84,7 +84,8 @@ module.exports = (_phase, {defaultConfig}) => {
             new webpack.EnvironmentPlugin({NEXT_GOOGLE_CSE_CX: null}),
             new webpack.EnvironmentPlugin({NEXT_GOOGLE_CSE_KEY: null}),
             new webpack.EnvironmentPlugin({NEXT_YOUTUBE_API_KEY: null}),
-            new webpack.EnvironmentPlugin({NEXT_GOOGLE_MAPS_API_KEY: null})
+            new webpack.EnvironmentPlugin({NEXT_GOOGLE_MAPS_API_KEY: null}),
+            new webpack.EnvironmentPlugin({NEXT_PI_MAP_MAPBOX_API_KEY: null})
           )
         }
 

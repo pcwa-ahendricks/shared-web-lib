@@ -14,7 +14,8 @@
       "NEXT_GOOGLE_CSE_CX": "@web-google-cse-cx",
       "NEXT_GOOGLE_CSE_KEY": "@web-google-cse-key",
       "NEXT_YOUTUBE_API_KEY": "@web-youtube-api-key",
-      "NEXT_GOOGLE_MAPS_API_KEY": "@web-google-maps-api-key"
+      "NEXT_GOOGLE_MAPS_API_KEY": "@web-google-maps-api-key",
+      "NEXT_PI_MAP_MAPBOX_API_KEY": "@web-pi-map-mapbox-api-key"
     }
   },
   "env": {

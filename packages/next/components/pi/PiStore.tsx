@@ -4,6 +4,7 @@ import {differenceInDays, subWeeks} from 'date-fns'
 
 interface State {
   streamSetItems: PiWebElementStreamSetResponse['Items']
+  streamSetMeta: Metadata[]
   canFetchAttributeStream: boolean
   startDate: Date
   endDate: Date
@@ -12,6 +13,11 @@ interface State {
 
 type ProviderProps = {
   children: React.ReactNode
+}
+
+interface Metadata {
+  name: string
+  value: number | string
 }
 
 const calcInterval = (startDate: Date, endDate: Date) => {
@@ -46,6 +52,7 @@ const initialEndDate = new Date()
 // State
 const initialState: State = {
   streamSetItems: [],
+  streamSetMeta: [],
   canFetchAttributeStream: true,
   startDate: initialStartDate,
   endDate: initialEndDate,
@@ -102,11 +109,21 @@ export const setEndDate = (endDate: Date) => {
 // Reducer
 const piReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_STREAM_SET_ITEMS:
+    case SET_STREAM_SET_ITEMS: {
+      const streamSetItems: State['streamSetItems'] = [...action.items]
+      const names = streamSetItems.map((item) => item.Name)
+      const values = streamSetItems.map((item) => item.Value)
+      // If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
+      const streamSetMeta = names.map((e, idx) => {
+        return {name: e, value: values[idx].Value}
+      })
+      console.log('Zipped metadata: ', streamSetMeta)
       return {
         ...state,
-        streamSetItems: [...action.items]
+        streamSetItems,
+        streamSetMeta
       }
+    }
     case CAN_FETCH_ATTRIBUTE_STREAM:
       return {
         ...state,
