@@ -1,10 +1,12 @@
 import React, {createContext, useReducer, Dispatch} from 'react'
 import {PiWebElementStreamSetResponse} from '@lib/services/pi/pi-web-api-types'
 import {differenceInDays, subWeeks} from 'date-fns'
+import {GageConfigItem} from '@lib/services/pi/gage-config'
 
 interface State {
+  activeGageItem?: GageConfigItem
   streamSetItems: PiWebElementStreamSetResponse['Items']
-  streamSetMeta: Metadata[]
+  streamSetMeta: PiMetadata[]
   canFetchAttributeStream: boolean
   startDate: Date
   endDate: Date
@@ -15,7 +17,7 @@ type ProviderProps = {
   children: React.ReactNode
 }
 
-interface Metadata {
+export interface PiMetadata {
   name: string
   value: number | string
 }
@@ -66,6 +68,7 @@ export const PiContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
+const SET_ACTIVE_GAGE_ITEM: 'SET_ACTIVE_GAGE_ITEM' = 'SET_ACTIVE_GAGE_ITEM'
 const SET_STREAM_SET_ITEMS: 'SET_STREAM_SET_ITEMS' = 'SET_STREAM_SET_ITEMS'
 const CAN_FETCH_ATTRIBUTE_STREAM: 'CAN_FETCH_ATTRIBUTE_STREAM' =
   'CAN_FETCH_ATTRIBUTE_STREAM'
@@ -74,6 +77,13 @@ const SET_START_DATE: 'SET_START_DATE' = 'SET_START_DATE'
 const SET_END_DATE: 'SET_END_DATE' = 'SET_END_DATE'
 
 // Actions
+export const setActiveGageItem = (item: State['activeGageItem']) => {
+  return {
+    type: SET_ACTIVE_GAGE_ITEM,
+    item
+  }
+}
+
 export const setStreamSetItems = (items: State['streamSetItems']) => {
   return {
     type: SET_STREAM_SET_ITEMS,
@@ -109,6 +119,11 @@ export const setEndDate = (endDate: Date) => {
 // Reducer
 const piReducer = (state: State, action: any): State => {
   switch (action.type) {
+    case SET_ACTIVE_GAGE_ITEM:
+      return {
+        ...state,
+        activeGageItem: {...action.item}
+      }
     case SET_STREAM_SET_ITEMS: {
       const streamSetItems: State['streamSetItems'] = [...action.items]
       const names = streamSetItems.map((item) => item.Name)

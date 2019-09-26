@@ -1,10 +1,4 @@
-import React, {
-  useMemo,
-  useEffect,
-  useCallback,
-  useState,
-  useContext
-} from 'react'
+import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -18,11 +12,12 @@ import {
   fetchElementStreamSet,
   fetchElementAttributeStream
 } from '@lib/services/pi/pi'
-import {getGageById, GageConfigItem} from '@lib/services/pi/gage-config'
+import {getGageById} from '@lib/services/pi/gage-config'
 import {
   PiContext,
   setStreamSetItems,
-  setCanFetchAttributeStream
+  setCanFetchAttributeStream,
+  setActiveGageItem
 } from '@components/pi/PiStore'
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
@@ -34,14 +29,14 @@ type Props = {
 
 const DynamicPiPage = ({query}: Props) => {
   const router = useRouter()
-  const [activeGageItem, setActiveGageItem] = useState<GageConfigItem>()
   const {state, dispatch} = useContext(PiContext)
   const {
     streamSetItems,
     canFetchAttributeStream,
     interval,
     startDate,
-    endDate
+    endDate,
+    activeGageItem
   } = state
   // console.log(router)
 
@@ -120,7 +115,7 @@ const DynamicPiPage = ({query}: Props) => {
     // console.log('useEffect firing due to pid update.')
     const gci = getGageById(pid)
     dispatch(setCanFetchAttributeStream(false)) // It is important to kick this off prior to setting active gage item.
-    setActiveGageItem(gci)
+    dispatch(setActiveGageItem(gci))
   }, [pid, dispatch])
 
   // Protect route from accessing disabled gages.

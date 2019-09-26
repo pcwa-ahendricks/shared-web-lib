@@ -23,6 +23,7 @@ import {PiContext} from '../PiStore'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
 const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY || ''
 const isDev = process.env.NODE_ENV === 'development'
+const debugMapMarkerPosition = false // Set back to false when not in use.
 
 type Props = {
   isLoading?: boolean
@@ -44,10 +45,11 @@ const useStyles = makeStyles(() =>
     },
     infoPanel: {
       position: 'absolute',
-      top: 36,
       right: 0,
       padding: 10,
-      zIndex: 2
+      zIndex: 2,
+      maxHeight: 'calc(100% - 25px)', // Don't let this overlay get too big or cover the Mapbox attributes.
+      overflowY: 'scroll'
     }
   })
 )
@@ -128,7 +130,11 @@ const PiMap = ({isLoading = false}: Props) => {
 
   const debugMapMarkerPositionEl = useMemo(
     () =>
-      isDev && markerLatLng && markerLatLng.lng && markerLatLng.lat ? (
+      debugMapMarkerPosition &&
+      isDev &&
+      markerLatLng &&
+      markerLatLng.lng &&
+      markerLatLng.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <CrossHairIcon
             style={{
@@ -153,6 +159,7 @@ const PiMap = ({isLoading = false}: Props) => {
         mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
         onViewportChange={viewportChangeHandler}
         mapboxApiAccessToken={API_KEY}
+        scrollZoom={isSmDown ? false : true}
         dragPan={isSmDown ? false : true}
       >
         {mapMarkerEl}
@@ -167,7 +174,7 @@ const PiMap = ({isLoading = false}: Props) => {
           <NavigationControl />
         </div>
         <div className={classes.infoPanel}>
-          <PiMetadataDl />
+          <PiMetadataDl isLoading={isLoading} />
         </div>
 
         {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
