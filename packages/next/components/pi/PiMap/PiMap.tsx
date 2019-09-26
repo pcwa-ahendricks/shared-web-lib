@@ -43,11 +43,11 @@ const useStyles = makeStyles(() =>
       left: 0,
       padding: 10
     },
-    infoPanel: {
+    metadataDataList: {
       position: 'absolute',
       right: 0,
       padding: 10,
-      zIndex: 2,
+      zIndex: 1, // If this is changed ensure that mega menu covers the data list.
       maxHeight: 'calc(100% - 25px)', // Don't let this overlay get too big or cover the Mapbox attributes.
       overflowY: 'scroll'
     }
@@ -173,7 +173,7 @@ const PiMap = ({isLoading = false}: Props) => {
         <div className={classes.nav}>
           <NavigationControl />
         </div>
-        <div className={classes.infoPanel}>
+        <div className={classes.metadataDataList}>
           <PiMetadataDl isLoading={isLoading} />
         </div>
 

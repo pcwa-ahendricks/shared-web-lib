@@ -23,7 +23,8 @@ export interface PiMetadata {
 }
 
 const calcInterval = (startDate: Date, endDate: Date) => {
-  const diffInDays = differenceInDays(startDate, endDate)
+  const diffInDays = differenceInDays(endDate, startDate)
+  console.log('did', diffInDays)
   switch (true) {
     // Day
     case diffInDays <= 1:

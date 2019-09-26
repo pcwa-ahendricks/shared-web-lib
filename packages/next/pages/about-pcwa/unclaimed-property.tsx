@@ -174,9 +174,7 @@ const SalarySchedulePage = () => {
             </Type>
             <RowBox justifyContent="space-around">
               <Box flex="0 1 40%" textAlign="center">
-                <Type variant="subtitle2" color="textSecondary">
-                  US Mail:
-                </Type>
+                <Type variant="subtitle2">US Mail:</Type>
                 {/* <MiddleDivider /> */}
                 <Type variant="body2">
                   Placer County Water Agency <br />
@@ -187,9 +185,7 @@ const SalarySchedulePage = () => {
                 </Type>
               </Box>
               <Box flex="0 1 40%" textAlign="center">
-                <Type variant="subtitle2" color="textSecondary">
-                  Courier/In Person:
-                </Type>
+                <Type variant="subtitle2">Courier/In Person:</Type>
                 {/* <MiddleDivider /> */}
                 <Type variant="body2">
                   Placer County Water Agency <br />

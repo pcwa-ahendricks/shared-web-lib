@@ -72,7 +72,8 @@ const theme = createMuiTheme({
       fontSize: '1.1rem' // Default: 1rem
     },
     subtitle2: {
-      fontSize: '0.975rem' // Default: 0.875rem
+      fontSize: '0.975rem', // Default: 0.875rem
+      fontWeight: 400 // Default: 500
     }
   },
   palette: {

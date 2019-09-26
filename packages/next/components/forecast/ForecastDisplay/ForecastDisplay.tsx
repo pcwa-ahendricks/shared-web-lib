@@ -40,7 +40,8 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   forecastType: {
-    paddingLeft: 5
+    paddingLeft: 5,
+    fontWeight: 500 // Subtitle2 is set to 400.
   }
 })
 

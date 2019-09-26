@@ -1,3 +1,4 @@
+// cspell:ignore Recreationists
 import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
@@ -21,6 +22,8 @@ import {
 } from '@components/pi/PiStore'
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
+import SectionBox from '@components/boxes/SectionBox'
+import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -75,7 +78,7 @@ const DynamicPiPage = ({query}: Props) => {
             `fetchElementAttributeStream() for ${activeGageItem.id} | ${format(
               startDate,
               'Pp'
-            )} - ${format(endDate, 'Pp')}`
+            )} - ${format(endDate, 'Pp')} | ${interval}`
           )
         const eas = await fetchElementAttributeStream(
           streamSetItems,
@@ -131,7 +134,7 @@ const DynamicPiPage = ({query}: Props) => {
         {/* <PageTitle title="..." subtitle="..." /> */}
         <RowBox>
           <Hidden smDown>
-            <Box width={350}>
+            <Box width={350} flex="0 0 auto">
               <PiNavigationList pid={pid} />
             </Box>
           </Hidden>
@@ -142,12 +145,37 @@ const DynamicPiPage = ({query}: Props) => {
               </Box>
             </Hidden>
             {/* <Type variant="subtitle1">Post: {pid}</Type> */}
-            <Box height={400}>
+            <SectionBox height={400}>
               <PiMap isLoading={!canFetchAttributeStream} />
-            </Box>
-            <Type variant="subtitle1" style={{textTransform: 'uppercase'}}>
-              Disclaimer:
-            </Type>
+            </SectionBox>
+            <SectionBox m={3}>
+              <Type
+                variant="subtitle1"
+                style={{textTransform: 'uppercase'}}
+                gutterBottom
+              >
+                Disclaimer:
+              </Type>
+              <Type paragraph variant="body2">
+                PCWA does not assume any legal responsibility for the accuracy
+                of the information on this site. The information consists of
+                estimates of stream flows and reservoir levels. Actual stream
+                flows and reservoir levels may vary significantly from the
+                estimates provided. Many factors affect flows and reservoir
+                levels, including weather, snowmelt runoff, and the operating
+                requirements of the hydro project. Reservoir and river
+                recreation can be hazardous. Recreationists have the sole
+                responsibility to determine whether conditions are safe to enter
+                the water, and they thereby assume full risk of serious bodily
+                injury and/or death. <br />
+                Note Regarding Units - All river stage heights and reservoir
+                elevations are in Feet. All river flow values are in Cubic Feet
+                Per Second (CFS). All reservoir storage values are in Acre Feet.
+              </Type>
+            </SectionBox>
+            <SectionBox>
+              <PiDateRangeControls />
+            </SectionBox>
           </Box>
         </RowBox>
       </MainBox>
