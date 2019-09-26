@@ -8,7 +8,9 @@ import MapGL, {
   FlyToInterpolator
 } from 'react-map-gl'
 import {easeCubic} from 'd3-ease' // 3rd-party easing functions
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {useMediaQuery, Theme} from '@material-ui/core'
+import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+
 import PiMapMarker from './PiMapMarker'
 const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY || ''
 
@@ -35,6 +37,8 @@ const useStyles = makeStyles(() =>
 
 const PiMap = ({markerLatLong}: Props) => {
   const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [viewport, setViewport] = useState<ViewState>({
     latitude: 39.1330566,
@@ -68,6 +72,7 @@ const PiMap = ({markerLatLong}: Props) => {
       mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
       onViewportChange={viewportChangeHandler}
       mapboxApiAccessToken={API_KEY}
+      dragPan={isSmDown ? false : true}
     >
       {markerLatLong ? (
         <Marker longitude={markerLatLong.lng} latitude={markerLatLong.lat}>
