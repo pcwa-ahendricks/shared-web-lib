@@ -1,13 +1,21 @@
 import React, {createContext, useReducer, Dispatch} from 'react'
-import {PiWebElementStreamSetResponse} from '@lib/services/pi/pi-web-api-types'
+import {
+  PiWebElementStreamSetResponse,
+  PiWebElementAttributeStream
+} from '@lib/services/pi/pi-web-api-types'
 import {differenceInDays, subWeeks} from 'date-fns'
 import {GageConfigItem} from '@lib/services/pi/gage-config'
 
 interface State {
   activeGageItem?: GageConfigItem
   streamSetItems: PiWebElementStreamSetResponse['Items']
+  isLoadingStreamSetItems: boolean
   streamSetMeta: PiMetadata[]
-  canFetchAttributeStream: boolean
+  attributeStreams: {
+    attribute: string
+    index: number
+    items: PiWebElementAttributeStream['Items']
+  }[]
   startDate: Date
   endDate: Date
   interval: string
@@ -55,7 +63,8 @@ const initialEndDate = new Date()
 const initialState: State = {
   streamSetItems: [],
   streamSetMeta: [],
-  canFetchAttributeStream: true,
+  isLoadingStreamSetItems: false,
+  attributeStreams: [],
   startDate: initialStartDate,
   endDate: initialEndDate,
   interval: calcInterval(initialStartDate, initialEndDate)
@@ -70,11 +79,14 @@ export const PiContext = createContext<{
 // Action Types
 const SET_ACTIVE_GAGE_ITEM: 'SET_ACTIVE_GAGE_ITEM' = 'SET_ACTIVE_GAGE_ITEM'
 const SET_STREAM_SET_ITEMS: 'SET_STREAM_SET_ITEMS' = 'SET_STREAM_SET_ITEMS'
-const CAN_FETCH_ATTRIBUTE_STREAM: 'CAN_FETCH_ATTRIBUTE_STREAM' =
-  'CAN_FETCH_ATTRIBUTE_STREAM'
+const SET_IS_LOADING_STREAM_SET_ITEMS: 'SET_IS_LOADING_STREAM_SET_ITEMS' =
+  'SET_IS_LOADING_STREAM_SET_ITEMS'
 // const SET_INTERVAL: 'SET_INTERVAL' = 'SET_INTERVAL'
 const SET_START_DATE: 'SET_START_DATE' = 'SET_START_DATE'
 const SET_END_DATE: 'SET_END_DATE' = 'SET_END_DATE'
+const SET_ATTRIBUTE_STREAMS: 'SET_ATTRIBUTE_STREAMS' = 'SET_ATTRIBUTE_STREAMS'
+const RESET_ATTRIBUTE_STREAMS: 'RESET_ATTRIBUTE_STREAMS' =
+  'RESET_ATTRIBUTE_STREAMS'
 
 // Actions
 export const setActiveGageItem = (item: State['activeGageItem']) => {
@@ -91,12 +103,31 @@ export const setStreamSetItems = (items: State['streamSetItems']) => {
   }
 }
 
-export const setCanFetchAttributeStream = (
-  canFetch: State['canFetchAttributeStream']
+export const setIsLoadingStreamSetItems = (
+  isLoading: State['isLoadingStreamSetItems']
 ) => {
   return {
-    type: CAN_FETCH_ATTRIBUTE_STREAM,
-    canFetch
+    type: SET_IS_LOADING_STREAM_SET_ITEMS,
+    isLoading
+  }
+}
+
+export const setAttributeStreams = (
+  attribute: string,
+  index: number,
+  items: PiWebElementAttributeStream['Items']
+) => {
+  return {
+    type: SET_ATTRIBUTE_STREAMS,
+    items,
+    index,
+    attribute
+  }
+}
+
+export const resetAttributeStreams = () => {
+  return {
+    type: RESET_ATTRIBUTE_STREAMS
   }
 }
 
@@ -139,10 +170,10 @@ const piReducer = (state: State, action: any): State => {
         streamSetMeta
       }
     }
-    case CAN_FETCH_ATTRIBUTE_STREAM:
+    case SET_IS_LOADING_STREAM_SET_ITEMS:
       return {
         ...state,
-        canFetchAttributeStream: action.canFetch
+        isLoadingStreamSetItems: action.isLoading
       }
     case SET_START_DATE:
       return {
@@ -155,6 +186,23 @@ const piReducer = (state: State, action: any): State => {
         ...state,
         endDate: cloneDate(action.endDate),
         interval: calcInterval(state.startDate, action.endDate)
+      }
+    case SET_ATTRIBUTE_STREAMS:
+      return {
+        ...state,
+        attributeStreams: [
+          ...state.attributeStreams,
+          {
+            attribute: action.attribute,
+            items: [...action.items],
+            index: action.index
+          }
+        ]
+      }
+    case RESET_ATTRIBUTE_STREAMS:
+      return {
+        ...state,
+        attributeStreams: []
       }
     default:
       return state

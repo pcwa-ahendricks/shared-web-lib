@@ -103,3 +103,10 @@ interface Links2 {
 }
 
 /* ----- */
+
+// In the case with these responses vs PiWebElementStreamSetResponse the Items values Value property will likely solely be a number (and not a string). Regardless, we will re-use that interface.
+export interface PiWebElementAttributeStream {
+  Links: any
+  Items: Value[]
+  UnitsAbbreviation: string
+}

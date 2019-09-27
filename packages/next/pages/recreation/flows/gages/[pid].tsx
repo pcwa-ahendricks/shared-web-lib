@@ -16,8 +16,10 @@ import {getGageById} from '@lib/services/pi/gage-config'
 import {
   PiContext,
   setStreamSetItems,
-  setCanFetchAttributeStream,
-  setActiveGageItem
+  setIsLoadingStreamSetItems,
+  setActiveGageItem,
+  setAttributeStreams,
+  resetAttributeStreams
 } from '@components/pi/PiStore'
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
@@ -35,11 +37,12 @@ const DynamicPiPage = ({query}: Props) => {
   const {state, dispatch} = useContext(PiContext)
   const {
     streamSetItems,
-    canFetchAttributeStream,
+    isLoadingStreamSetItems,
     interval,
     startDate,
     endDate,
-    activeGageItem
+    activeGageItem,
+    attributeStreams
   } = state
 
   const pid = useMemo(() => {
@@ -61,16 +64,17 @@ const DynamicPiPage = ({query}: Props) => {
       }
     }
     // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed.
-    dispatch(setCanFetchAttributeStream(true))
+    dispatch(setIsLoadingStreamSetItems(false))
   }, [activeGageItem, dispatch])
 
   const fetchAttributeStream = useCallback(async () => {
     if (
       activeGageItem &&
       streamSetItems.length > 0 &&
-      canFetchAttributeStream
+      !isLoadingStreamSetItems
     ) {
-      activeGageItem.chartValues.map(async (chartValue) => {
+      dispatch(resetAttributeStreams()) // Flush previous items.
+      activeGageItem.chartValues.map(async (chartValue, index) => {
         isDev &&
           console.log(
             `fetchElementAttributeStream() for ${activeGageItem.id} | ${format(
@@ -85,7 +89,10 @@ const DynamicPiPage = ({query}: Props) => {
           endDate.toISOString(),
           interval
         )
-        console.log(eas)
+        if (eas && eas.Items && Array.isArray(eas.Items)) {
+          dispatch(setAttributeStreams(chartValue, index, eas.Items))
+        }
+        // console.log(eas)
         // if (be && be.Items) {
         //   dispatch(setStreamSetItems(be.Items))
         // }
@@ -94,17 +101,25 @@ const DynamicPiPage = ({query}: Props) => {
   }, [
     activeGageItem,
     streamSetItems,
-    canFetchAttributeStream,
+    isLoadingStreamSetItems,
     startDate,
     endDate,
-    interval
+    interval,
+    dispatch
   ])
 
   // Target whenever streamSetItems changes.
   useEffect(() => {
-    // console.log('effect firing for fetchElementAttributeStream()')
     fetchAttributeStream()
   }, [streamSetItems, fetchAttributeStream])
+
+  // Target whenever attributeStreamItems changes.
+  useEffect(() => {
+    console.log(
+      'effect firing for changes in attributeStreams',
+      attributeStreams
+    )
+  }, [attributeStreams])
 
   // Target whenever activeGageItem changes.
   useEffect(() => {
@@ -115,7 +130,7 @@ const DynamicPiPage = ({query}: Props) => {
   useEffect(() => {
     // console.log('useEffect firing due to pid update.')
     const gci = getGageById(pid)
-    dispatch(setCanFetchAttributeStream(false)) // It is important to kick this off prior to setting active gage item.
+    dispatch(setIsLoadingStreamSetItems(true)) // It is important to kick this off prior to setting active gage item.
     dispatch(setActiveGageItem(gci))
   }, [pid, dispatch])
 
@@ -148,7 +163,7 @@ const DynamicPiPage = ({query}: Props) => {
             </Hidden>
             {/* <Type variant="subtitle1">Post: {pid}</Type> */}
             <SectionBox height={400}>
-              <PiMap isLoading={!canFetchAttributeStream} />
+              <PiMap isLoading={isLoadingStreamSetItems} />
             </SectionBox>
             <SectionBox m={3}>
               <Type

@@ -38,15 +38,22 @@ const PiChartContainer = () => {
     title: {
       text: ''
     },
-    // chart: {
-    //   width: 0
-    // },
+    chart: {
+      spacingBottom: 50 // So we can see footer.
+      // width: 0
+    },
     credits: {
       text: '\u00A9 PCWA',
       href: 'https://www.pcwa.net'
     },
+    lang: {
+      thousandsSep: ','
+    },
+    time: {
+      useUTC: false
+    },
     subtitle: {
-      text: `Generated on ${format(new Date(), 'LLLL')}`,
+      text: `Generated on ${format(new Date(), 'PPpp')}`,
       align: 'right',
       y: 30,
       verticalAlign: 'bottom',
@@ -156,7 +163,6 @@ const PiChartContainer = () => {
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
       <div ref={chartParentRef}>
-        {/* <Box maxWidth={800}> */}
         <HighchartsReact
           highcharts={Highcharts}
           options={chartOptions}
@@ -164,7 +170,6 @@ const PiChartContainer = () => {
           ref={chartRef}
         />
       </div>
-      {/* </Box> */}
     </Box>
   )
 }

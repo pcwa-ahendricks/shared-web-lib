@@ -6,7 +6,8 @@ import {GageConfigItem} from './gage-config'
 import {
   PiWebBaseElementsResponse,
   PiWebElementsResponse,
-  PiWebElementStreamSetResponse
+  PiWebElementStreamSetResponse,
+  PiWebElementAttributeStream
 } from './pi-web-api-types'
 
 const baseUrl = 'https://flows.pcwa.net/piwebapi'
@@ -100,7 +101,7 @@ const fetchElementAttributeStream = async (
     const url = `${baseUrl}/streams/${WebId}/interpolated${qs}`
     const response = await fetch(url)
     if (response.ok) {
-      const data: any = await response.json()
+      const data: PiWebElementAttributeStream = await response.json()
       return data
     } else {
       const text = await response.text()
