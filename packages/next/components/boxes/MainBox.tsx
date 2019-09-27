@@ -6,7 +6,7 @@ type Props = {children: React.ReactNode} & BoxProps
 
 const MainBox = ({children, ...rest}: Props) => {
   return (
-    <Box component="main" {...rest} mt={5} mb={5}>
+    <Box component="main" mt={5} mb={5} {...rest}>
       {children}
     </Box>
   )

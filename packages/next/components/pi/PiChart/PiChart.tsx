@@ -7,12 +7,12 @@ import React, {
   useContext,
   useMemo
 } from 'react'
-import {Box, Typography as Type} from '@material-ui/core'
+import {Box, Theme, Typography as Type} from '@material-ui/core'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
-// import {useTheme} from '@material-ui/styles'
+import {useTheme} from '@material-ui/styles'
 import Highcharts, {Options} from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
-import {format, formatDistance} from 'date-fns'
+import {format, formatDistance, parseISO} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import delay from 'then-sleep'
 import {RowBox} from '@components/boxes/FlexBox'
@@ -33,18 +33,18 @@ type Props = {
 // )
 
 const PiChart = ({data, windowWidth}: Props) => {
-  // const theme = useTheme<Theme>()
+  const theme = useTheme<Theme>()
   const chartParentRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<HighchartsReact>(null)
   const windowWidthRef = useRef<number>()
   const {state} = useContext(PiContext)
-  const {streamSetMeta, activeGageItem, startDate, endDate} = state
+  const {streamSetMeta, activeGageItem, startDate, endDate, interval} = state
   const [chartOptions, setChartOptions] = useState<Options>({
     title: {
       text: ''
     },
     chart: {
-      spacingBottom: 50 // So we can see footer.
+      spacingBottom: 40 // So we can see footer.
       // width: 0
     },
     credits: {
@@ -73,41 +73,51 @@ const PiChart = ({data, windowWidth}: Props) => {
     },
     exporting: {enabled: false}, // Hide hamburger menu.
     xAxis: {
-      categories: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]
+      categories: []
     },
     series: [
       {
         type: 'line',
-        data: [
-          29.9,
-          71.5,
-          106.4,
-          129.2,
-          144.0,
-          176.0,
-          135.6,
-          148.5,
-          216.4,
-          194.1,
-          295.6,
-          454.4
-        ]
+        data: []
       }
     ]
   })
+
+  const seriesTitle = useMemo(
+    () =>
+      data && data.units
+        ? `${
+            data.attribute.match(/height/i) ? 'Stage' : data.attribute
+          } (${data.units.toUpperCase()})`
+        : '',
+    [data]
+  )
+
+  useEffect(() => {
+    if (!data || !(data.items.length > 0)) {
+      return
+    }
+    const newData = data.items.map((item) => ({
+      x: parseISO(item.Timestamp).getTime(),
+      y: item.Value
+    }))
+
+    setChartOptions((currentOptions) => ({
+      ...currentOptions,
+      yAxis: {
+        title: {
+          text: seriesTitle
+        }
+      },
+      series: [
+        {
+          name: seriesTitle,
+          type: 'line',
+          data: newData
+        }
+      ]
+    }))
+  }, [data, seriesTitle])
 
   const reflowChart = useCallback(() => {
     if (
@@ -154,9 +164,9 @@ const PiChart = ({data, windowWidth}: Props) => {
     const asyncFn = async () => {
       // 1. Always reflow chart, regardless of if block.
       // 2. Need to reflow before setting chart width to parent so that parent can actually shrink first, hence reflow call before the if block rather than after.
-      // 3. [hack] Delay a bit so that all Highcharts (usually 2) have enough time to shrink. 300ms seems to work well; 200ms didn't.
+      // 3. [hack] Delay a bit so that all Highcharts (usually 2) have enough time to shrink. 400ms seems to work well; 200ms didn't.
       reflowChart()
-      await delay(300)
+      await delay(400)
       if (
         chartOptions.chart &&
         chartOptions.chart.width === RESET_CHART_WIDTH
@@ -189,13 +199,14 @@ const PiChart = ({data, windowWidth}: Props) => {
       : ' '
   }, [activeGageItem, friendlyName, data, streamSetMeta])
 
-  const gagingStationCaption = useMemo(
-    () =>
-      activeGageItem
-        ? `${activeGageItem.id.toUpperCase()} - ${friendlyName}`
-        : '',
-    [activeGageItem, friendlyName]
-  )
+  const gagingStationCaption = useMemo(() => {
+    if (!activeGageItem) {
+      return ''
+    }
+    return activeGageItem.type === 'reservoir'
+      ? friendlyName
+      : `${activeGageItem.id.toUpperCase()} - ${friendlyName}`
+  }, [activeGageItem, friendlyName])
 
   //  ex.) Fri 9/20/2019 1:00 PM through Fri 9/27/2019 2:00 PM (7 days)
   const dateRangeCaption = useMemo(
@@ -249,8 +260,30 @@ const PiChart = ({data, windowWidth}: Props) => {
     } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`
   }, [minValue])
 
+  // ex.) 677 data points returned in 15 minute intervals.
+  const dataPointsCaption = useMemo(() => {
+    let intervalCaption = ''
+    switch (true) {
+      // Minute
+      case /\d+m/i.test(interval):
+        intervalCaption = interval.replace(/(\d)(m)/i, '$1 minute')
+        break
+      // Hour
+      case /\d+h/i.test(interval):
+        intervalCaption = interval.replace(/(\d)(h)/i, '$1 hour')
+        break
+      // Day
+      case /\d+d/i.test(interval):
+        intervalCaption = interval.replace(/(\d)(d)/i, '$1 day')
+        break
+    }
+    return data && intervalCaption
+      ? `${data.items.length} data points returned in ${intervalCaption} intervals.`
+      : ''
+  }, [data, interval])
+
   return (
-    <React.Fragment>
+    <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
       <Type variant="h3" gutterBottom>
         {chartTitleEl}
       </Type>
@@ -260,12 +293,14 @@ const PiChart = ({data, windowWidth}: Props) => {
           <Type variant="subtitle2">Date Range:</Type>
           <Type variant="subtitle2">Largest Value:</Type>
           <Type variant="subtitle2">Smallest Value:</Type>
+          <Type variant="subtitle2">Data Points:</Type>
         </Box>
         <Box flex="80%">
           <Type variant="subtitle2">{gagingStationCaption}</Type>
           <Type variant="subtitle2">{dateRangeCaption}</Type>
           <Type variant="subtitle2">{maxValueCaption}</Type>
           <Type variant="subtitle2">{minValueCaption}</Type>
+          <Type variant="subtitle2">{dataPointsCaption}</Type>
         </Box>
       </RowBox>
       <div ref={chartParentRef}>
@@ -276,7 +311,7 @@ const PiChart = ({data, windowWidth}: Props) => {
           ref={chartRef}
         />
       </div>
-    </React.Fragment>
+    </Box>
   )
 }
 

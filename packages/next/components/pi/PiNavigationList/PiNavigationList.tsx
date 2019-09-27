@@ -1,5 +1,7 @@
 import React, {useMemo} from 'react'
-import {List, ListSubheader, Divider} from '@material-ui/core'
+import {List, ListSubheader, Divider, Theme, Box} from '@material-ui/core'
+// import {createStyles, makeStyles} from '@material-ui/styles'
+import {useTheme} from '@material-ui/styles'
 // import {ListItemProps} from '@material-ui/core/ListItem'
 import {gages} from '@lib/services/pi/gage-config'
 import PiNavigationListItem from '../PiNavigationListItem/PiNavigationListItem'
@@ -8,7 +10,18 @@ type Props = {
   pid: string
 }
 
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     list: {
+//       backgroundColor: theme.palette.common.white
+//     }
+//   })
+// )
+
 const PiNavigationList = ({pid}: Props) => {
+  // const classes = useStyles()
+  const theme = useTheme<Theme>()
+
   const riverGages = useMemo(
     () =>
       gages.filter(
@@ -23,7 +36,7 @@ const PiNavigationList = ({pid}: Props) => {
   )
 
   return (
-    <React.Fragment>
+    <Box boxShadow={1} bgcolor={theme.palette.common.white}>
       <List
         dense
         aria-label="River Gage Links"
@@ -52,7 +65,7 @@ const PiNavigationList = ({pid}: Props) => {
           <PiNavigationListItem key={g.id} pid={pid} g={g} />
         ))}
       </List>
-    </React.Fragment>
+    </Box>
   )
 }
 

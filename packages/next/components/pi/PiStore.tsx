@@ -156,7 +156,7 @@ const piReducer = (state: State, action: any): State => {
       const streamSetItems: State['streamSetItems'] = [...action.items]
       const names = streamSetItems.map((item) => item.Name)
       const values = streamSetItems.map((item) => item.Value)
-      // If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
+      // Zip up metadata. If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
       const streamSetMeta = names.map((e, idx) => {
         return {name: e, value: values[idx].Value}
       })

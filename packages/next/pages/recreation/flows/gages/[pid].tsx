@@ -1,5 +1,11 @@
 // cspell:ignore Recreationists
-import React, {useMemo, useEffect, useCallback, useContext} from 'react'
+import React, {
+  useMemo,
+  useEffect,
+  useCallback,
+  useContext,
+  useState
+} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -25,8 +31,9 @@ import {
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
 import SectionBox from '@components/boxes/SectionBox'
+import useWindowResize from '@hooks/useWindowResize'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
-import PiChartContainer from '@components/pi/PiChartContainer/PiChartContainer'
+import PiChart from '@components/pi/PiChart/PiChart'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -45,6 +52,14 @@ const DynamicPiPage = ({query}: Props) => {
     activeGageItem,
     attributeStreams
   } = state
+
+  const [windowWidth, setWindowWidth] = useState<number>()
+
+  useWindowResize(() => {
+    if (window && window.innerWidth) {
+      setWindowWidth(window.innerWidth)
+    }
+  }, 80)
 
   const pid = useMemo(() => {
     let {pid: queryPid} = router.query || query.pid
@@ -124,14 +139,6 @@ const DynamicPiPage = ({query}: Props) => {
     fetchAttributeStream()
   }, [streamSetItems, fetchAttributeStream])
 
-  // Target whenever attributeStreamItems changes.
-  useEffect(() => {
-    console.log(
-      'effect firing for changes in attributeStreams',
-      attributeStreams
-    )
-  }, [attributeStreams])
-
   // Target whenever activeGageItem changes.
   useEffect(() => {
     // console.log('effect firing', activeGageItem && activeGageItem.id)
@@ -171,7 +178,8 @@ const DynamicPiPage = ({query}: Props) => {
 
   return (
     <PageLayout title="Reservoir & Stream Flows">
-      <MainBox>
+      {/* Don't use top margin with this page. */}
+      <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}
         <Box
           display="flex"
@@ -225,9 +233,10 @@ const DynamicPiPage = ({query}: Props) => {
             </SectionBox>
             <SectionBox>
               {sortedAttributeStreams.map((attribStream) => (
-                <PiChartContainer
+                <PiChart
                   key={attribStream.index}
                   data={attribStream}
+                  windowWidth={windowWidth}
                 />
               ))}
             </SectionBox>
