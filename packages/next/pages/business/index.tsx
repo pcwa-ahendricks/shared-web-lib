@@ -110,7 +110,7 @@ const DoingBusinessPage = () => {
               />
             </RespChildBox>
             {/* Placeholder item to correct alignment of previous child. Don't need to show whitespace on xs devices. */}
-            <Hidden only="xs">
+            <Hidden only="xs" implementation="css">
               <RespChildBox
                 {...commonImageDimmerProps}
                 {...commonChildProps}

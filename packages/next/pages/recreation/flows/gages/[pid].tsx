@@ -7,7 +7,6 @@ import {Box, Typography as Type, Hidden} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
 import {NextPageContext} from 'next'
 import {ParsedUrlQuery} from 'querystring'
-import {RowBox} from '@components/boxes/FlexBox'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
 import {
   fetchElementStreamSet,
@@ -24,6 +23,7 @@ import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
 import SectionBox from '@components/boxes/SectionBox'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
+import PiChartContainer from '@components/pi/PiChartContainer/PiChartContainer'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -132,14 +132,18 @@ const DynamicPiPage = ({query}: Props) => {
     <PageLayout title="Reservoir & Stream Flows">
       <MainBox>
         {/* <PageTitle title="..." subtitle="..." /> */}
-        <RowBox>
-          <Hidden smDown>
-            <Box width={350} flex="0 0 auto">
+        <Box
+          display="flex"
+          flexDirection={{xs: 'column', sm: 'column', md: 'row'}}
+        >
+          {/* Using js implementation here will cause Highcharts to load charts with wrong width. CSS implementation is faster anyways. */}
+          <Hidden smDown implementation="css">
+            <Box width={300} flexShrink={0} flexGrow={0}>
               <PiNavigationList pid={pid} />
             </Box>
           </Hidden>
-          <Box flex="auto">
-            <Hidden mdUp>
+          <Box flex="1 1 auto">
+            <Hidden mdUp implementation="css">
               <Box m={3}>
                 <PiNavigationSelect pid={pid} />
               </Box>
@@ -167,7 +171,9 @@ const DynamicPiPage = ({query}: Props) => {
                 recreation can be hazardous. Recreationists have the sole
                 responsibility to determine whether conditions are safe to enter
                 the water, and they thereby assume full risk of serious bodily
-                injury and/or death. <br />
+                injury and/or death.
+              </Type>
+              <Type paragraph variant="body2">
                 Note Regarding Units - All river stage heights and reservoir
                 elevations are in Feet. All river flow values are in Cubic Feet
                 Per Second (CFS). All reservoir storage values are in Acre Feet.
@@ -176,8 +182,11 @@ const DynamicPiPage = ({query}: Props) => {
             <SectionBox>
               <PiDateRangeControls />
             </SectionBox>
+            <SectionBox>
+              <PiChartContainer />
+            </SectionBox>
           </Box>
-        </RowBox>
+        </Box>
       </MainBox>
     </PageLayout>
   )

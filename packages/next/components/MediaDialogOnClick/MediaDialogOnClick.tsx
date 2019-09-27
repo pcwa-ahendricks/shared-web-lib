@@ -84,7 +84,8 @@ const MediaDialogOnClick = ({
           ref={popperAnchorEl}
           style={{position: 'absolute', top: 8, right: 8, ...popperAnchorStyle}}
         />
-        <Hidden only="xs">
+        {/* Css implementation won't work here (eg. Popper will still show on xs devices). */}
+        <Hidden only="xs" implementation="js">
           <Popper
             id="mouse-over-popover"
             className={classes.popper}

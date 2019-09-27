@@ -3,7 +3,6 @@ import {debounce} from 'debounce'
 
 const useWindowResize = (cbFunc: any, timeout = 100) => {
   useEffect(() => {
-    console.log('foo')
     const fn = debounce(cbFunc, timeout)
     window.addEventListener('resize', fn)
     return () => {
