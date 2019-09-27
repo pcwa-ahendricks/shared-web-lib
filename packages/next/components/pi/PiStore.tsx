@@ -6,16 +6,19 @@ import {
 import {differenceInDays, subWeeks} from 'date-fns'
 import {GageConfigItem} from '@lib/services/pi/gage-config'
 
+export interface AttributeStream {
+  attribute: string
+  index: number
+  items: PiWebElementAttributeStream['Items']
+  units: string
+}
+
 interface State {
   activeGageItem?: GageConfigItem
   streamSetItems: PiWebElementStreamSetResponse['Items']
   isLoadingStreamSetItems: boolean
   streamSetMeta: PiMetadata[]
-  attributeStreams: {
-    attribute: string
-    index: number
-    items: PiWebElementAttributeStream['Items']
-  }[]
+  attributeStreams: AttributeStream[]
   startDate: Date
   endDate: Date
   interval: string
@@ -112,16 +115,10 @@ export const setIsLoadingStreamSetItems = (
   }
 }
 
-export const setAttributeStreams = (
-  attribute: string,
-  index: number,
-  items: PiWebElementAttributeStream['Items']
-) => {
+export const setAttributeStreams = (attribStream: AttributeStream) => {
   return {
     type: SET_ATTRIBUTE_STREAMS,
-    items,
-    index,
-    attribute
+    attribStream
   }
 }
 
@@ -190,14 +187,7 @@ const piReducer = (state: State, action: any): State => {
     case SET_ATTRIBUTE_STREAMS:
       return {
         ...state,
-        attributeStreams: [
-          ...state.attributeStreams,
-          {
-            attribute: action.attribute,
-            items: [...action.items],
-            index: action.index
-          }
-        ]
+        attributeStreams: [...state.attributeStreams, {...action.attribStream}]
       }
     case RESET_ATTRIBUTE_STREAMS:
       return {

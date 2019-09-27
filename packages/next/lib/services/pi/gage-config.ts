@@ -25,7 +25,6 @@ export interface GageConfigItem {
   caption: string
   description: string
   type: 'river' | 'reservoir'
-  typeLabel: 'Gaging Station' | 'Reservoir'
   chartValues: string[]
   tables?: GageConfigTable[]
   disabled?: boolean
@@ -55,7 +54,6 @@ const gages: GageConfigItem[] = [
     caption: 'R2',
     description: 'Duncan Creek Below Diversion Dam, Near French Meadows',
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -94,7 +92,6 @@ const gages: GageConfigItem[] = [
     caption: 'R3',
     description: 'Middle Fork American River below French Meadows',
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -134,7 +131,6 @@ const gages: GageConfigItem[] = [
     description:
       'Middle Fork American River above Middle Fork Powerhouse near Foresthill',
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -173,7 +169,6 @@ const gages: GageConfigItem[] = [
     caption: 'R5L',
     description: 'Middle Fork American River below Interbay Dam',
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     disabled: false,
     tables: [
@@ -213,7 +208,6 @@ const gages: GageConfigItem[] = [
     caption: 'R11',
     description: 'Middle Fork American River near Foresthill',
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -252,7 +246,6 @@ const gages: GageConfigItem[] = [
     caption: 'R29',
     description: `Rubicon River above Ellicott's Crossing`,
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     disabled: false,
     tables: [
@@ -292,7 +285,6 @@ const gages: GageConfigItem[] = [
     caption: 'R30',
     description: 'Rubicon River above Ralston Power House',
     type: 'river',
-    typeLabel: 'Gaging Station',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -332,7 +324,6 @@ const gages: GageConfigItem[] = [
     description:
       'North Fork American River above the American River Pump Station',
     type: 'river',
-    typeLabel: 'Gaging Station',
     // chartValues: ['Height', 'Pre-Offset Flow'],
     chartValues: ['Height', 'Flow'],
     tables: [
@@ -384,7 +375,7 @@ const gages: GageConfigItem[] = [
   //   //
   //   description: '(Future) Middle Fork American River below Interbay Dam',
   //   type: 'river',
-  //   typeLabel: 'Gaging Station',
+  //
   //   chartValues: ['Flow', 'Height'],
   //   disabled: true,
   //   tables: [
@@ -416,8 +407,7 @@ const gages: GageConfigItem[] = [
     caption: 'FM',
     description: 'French Meadows Reservoir',
     type: 'reservoir',
-    typeLabel: 'Reservoir',
-    chartValues: ['Storage', 'Elevation'],
+    chartValues: ['Elevation', 'Storage'],
     tables: [
       {
         metric: 'daily',
@@ -464,8 +454,7 @@ const gages: GageConfigItem[] = [
     caption: 'HH',
     description: 'Hell Hole Reservoir',
     type: 'reservoir',
-    typeLabel: 'Reservoir',
-    chartValues: ['Storage', 'Elevation'],
+    chartValues: ['Elevation', 'Storage'],
     tables: [
       {
         metric: 'daily',

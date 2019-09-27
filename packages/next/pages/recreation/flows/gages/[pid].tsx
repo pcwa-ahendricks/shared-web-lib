@@ -19,7 +19,8 @@ import {
   setIsLoadingStreamSetItems,
   setActiveGageItem,
   setAttributeStreams,
-  resetAttributeStreams
+  resetAttributeStreams,
+  AttributeStream
 } from '@components/pi/PiStore'
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
@@ -74,7 +75,7 @@ const DynamicPiPage = ({query}: Props) => {
       !isLoadingStreamSetItems
     ) {
       dispatch(resetAttributeStreams()) // Flush previous items.
-      activeGageItem.chartValues.map(async (chartValue, index) => {
+      activeGageItem.chartValues.map(async (attribute, index) => {
         isDev &&
           console.log(
             `fetchElementAttributeStream() for ${activeGageItem.id} | ${format(
@@ -84,13 +85,23 @@ const DynamicPiPage = ({query}: Props) => {
           )
         const eas = await fetchElementAttributeStream(
           streamSetItems,
-          chartValue,
+          attribute,
           startDate.toISOString(),
           endDate.toISOString(),
           interval
         )
-        if (eas && eas.Items && Array.isArray(eas.Items)) {
-          dispatch(setAttributeStreams(chartValue, index, eas.Items))
+        // Deconstruct response.
+        const {Items: items = [], UnitsAbbreviation: units = ''} = eas || {}
+
+        if (items.length > 0) {
+          dispatch(
+            setAttributeStreams({
+              attribute,
+              index,
+              items,
+              units
+            })
+          )
         }
         // console.log(eas)
         // if (be && be.Items) {
@@ -140,6 +151,23 @@ const DynamicPiPage = ({query}: Props) => {
       router.replace('/404')
     }
   }, [activeGageItem, router])
+
+  const sortedAttributeStreams = useMemo(() => {
+    // [hack] Hot reloading during development messes up the uniqueness of the array of objects. This is addressed with the if block.
+    if (isDev) {
+      const filteredArray: AttributeStream[] = []
+      attributeStreams.filter((item) => {
+        const i = filteredArray.findIndex((x) => x.index == item.index)
+        if (i <= -1) {
+          filteredArray.push({...item})
+        }
+        return null
+      })
+      return filteredArray.sort((a, b) => a.index - b.index)
+    } else {
+      return attributeStreams.sort((a, b) => a.index - b.index)
+    }
+  }, [attributeStreams])
 
   return (
     <PageLayout title="Reservoir & Stream Flows">
@@ -196,7 +224,12 @@ const DynamicPiPage = ({query}: Props) => {
               <PiDateRangeControls />
             </SectionBox>
             <SectionBox>
-              <PiChartContainer />
+              {sortedAttributeStreams.map((attribStream) => (
+                <PiChartContainer
+                  key={attribStream.index}
+                  data={attribStream}
+                />
+              ))}
             </SectionBox>
           </Box>
         </Box>
