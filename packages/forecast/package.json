@@ -39,7 +39,7 @@
     "@types/micro": "^7.3.3",
     "@types/node": "^12.7.8",
     "@types/node-fetch": "^2.5.2",
-    "@types/redis": "^2.8.13",
+    "@types/redis": "^2.8.14",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "ava": "^2.4.0",

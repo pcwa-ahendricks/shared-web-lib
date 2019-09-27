@@ -32,6 +32,8 @@ const PiChartContainer = () => {
   const chartParentRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<HighchartsReact>(null)
   // const classes = useStyles()
+  const [windowWidth, setWindowWidth] = useState<number>()
+  const windowWidthRef = useRef<number>()
   const [chartOptions, setChartOptions] = useState<Options>({
     title: {
       text: ''
@@ -115,21 +117,41 @@ const PiChartContainer = () => {
     }))
   }, [])
 
+  const setChartWidthToParent = useCallback(() => {
+    const parentWidth = chartParentRef.current
+      ? chartParentRef.current.offsetWidth
+      : RESET_CHART_WIDTH
+    setChartWidth(parentWidth)
+  }, [setChartWidth])
+
   useWindowResize(() => {
-    setChartWidth(RESET_CHART_WIDTH)
+    if (window && window.innerWidth) {
+      setWindowWidth(window.innerWidth)
+    }
   }, 80)
+
+  // Only need to reset chart width when the window width decreased. Note, since windowWidthRef will initially be undefined it will take 2+ window increase resizes to see how this affects the reflow.
+  useEffect(() => {
+    if (
+      windowWidth &&
+      windowWidthRef.current &&
+      windowWidthRef.current < windowWidth
+    ) {
+      setChartWidthToParent()
+    } else {
+      setChartWidth(RESET_CHART_WIDTH)
+    }
+    windowWidthRef.current = windowWidth
+  }, [windowWidth, setChartWidthToParent, setChartWidth])
 
   useEffect(() => {
     // 1. Always reflow chart, regardless of if block.
     // 2. Need to reflow before setting chart width to parent so that parent can actually shrink first, hence reflow call before the if block rather than after.
     reflowChart()
     if (chartOptions.chart && chartOptions.chart.width === RESET_CHART_WIDTH) {
-      const parentWidth = chartParentRef.current
-        ? chartParentRef.current.offsetWidth
-        : RESET_CHART_WIDTH
-      setChartWidth(parentWidth)
+      setChartWidthToParent()
     }
-  }, [reflowChart, chartOptions, setChartWidth])
+  }, [reflowChart, chartOptions, setChartWidthToParent])
 
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
