@@ -1,4 +1,4 @@
-// cspell:ignore highcharts highstock
+// cspell:ignore highcharts highstock unparse
 import React, {
   useState,
   useRef,
@@ -7,7 +7,7 @@ import React, {
   useContext,
   useMemo
 } from 'react'
-import {Box, Theme, Typography as Type} from '@material-ui/core'
+import {Box, Theme, Typography as Type, Button} from '@material-ui/core'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
 import {useTheme} from '@material-ui/styles'
 import Highcharts, {Options} from 'highcharts/highstock'
@@ -83,14 +83,19 @@ const PiChart = ({data, windowWidth}: Props) => {
     ]
   })
 
+  const attributeLabel = useMemo(() => {
+    if (!data) {
+      return ''
+    }
+    return data.attribute.match(/height/i) ? 'Stage' : data.attribute
+  }, [data])
+
   const seriesTitle = useMemo(
     () =>
       data && data.units
-        ? `${
-            data.attribute.match(/height/i) ? 'Stage' : data.attribute
-          } (${data.units.toUpperCase()})`
+        ? `${attributeLabel} (${data.units.toUpperCase()})`
         : '',
-    [data]
+    [data, attributeLabel]
   )
 
   useEffect(() => {
@@ -193,11 +198,9 @@ const PiChart = ({data, windowWidth}: Props) => {
               ${data.attribute} in ${data.units}`
       : activeGageItem.type === 'river'
       ? `Gaging Station ${activeGageItem.id.toUpperCase()} -
-      ${data.attribute.match(/height/i) ? 'Stage' : data.attribute} in ${
-          data.units
-        }`
+      ${attributeLabel} in ${data.units}`
       : ' '
-  }, [activeGageItem, friendlyName, data, streamSetMeta])
+  }, [activeGageItem, friendlyName, data, streamSetMeta, attributeLabel])
 
   const gagingStationCaption = useMemo(() => {
     if (!activeGageItem) {
@@ -282,6 +285,36 @@ const PiChart = ({data, windowWidth}: Props) => {
       : ''
   }, [data, interval])
 
+  const buttonCaption = useMemo(
+    () =>
+      `Download ${
+        activeGageItem ? activeGageItem.id : ''
+      } ${attributeLabel} CSV`,
+    [activeGageItem, attributeLabel]
+  )
+
+  const dlButtonClickHandler = async () => {
+    try {
+      if (!data) {
+        return
+      }
+      !!new Blob()
+      try {
+        const [{unparse}, {saveAs}] = await Promise.all([
+          import('papaparse'),
+          import('file-saver')
+        ])
+        const parsed = unparse(data.items)
+        const csvBlob = new Blob([parsed], {type: 'text/csv;charset=utf-8;'})
+        saveAs(csvBlob, 'csv_file.csv')
+      } catch (e) {
+        console.log('Error dynamically importing libraries.', e)
+      }
+    } catch (e) {
+      console.log('File saving not supported by this web browser.', e)
+    }
+  }
+
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
       <Type variant="h3" gutterBottom>
@@ -311,6 +344,13 @@ const PiChart = ({data, windowWidth}: Props) => {
           ref={chartRef}
         />
       </div>
+      <Button
+        color="secondary"
+        onClick={dlButtonClickHandler}
+        disabled={!data || data.items.length <= 0}
+      >
+        {buttonCaption}
+      </Button>
     </Box>
   )
 }
