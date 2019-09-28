@@ -24,7 +24,6 @@ export interface GageConfigItem {
     | '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
   caption: string
   description: string
-  type: 'river' | 'reservoir'
   chartValues: string[]
   tables?: GageConfigTable[]
   disabled?: boolean
@@ -53,7 +52,6 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R2',
     description: 'Duncan Creek Below Diversion Dam, Near French Meadows',
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -91,7 +89,6 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R3',
     description: 'Middle Fork American River below French Meadows',
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -130,7 +127,6 @@ const gages: GageConfigItem[] = [
     caption: 'R4',
     description:
       'Middle Fork American River above Middle Fork Powerhouse near Foresthill',
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -168,7 +164,6 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R5L',
     description: 'Middle Fork American River below Interbay Dam',
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     disabled: false,
     tables: [
@@ -207,7 +202,6 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R11',
     description: 'Middle Fork American River near Foresthill',
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -245,7 +239,6 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R29',
     description: `Rubicon River above Ellicott's Crossing`,
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     disabled: false,
     tables: [
@@ -284,7 +277,6 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     caption: 'R30',
     description: 'Rubicon River above Ralston Power House',
-    type: 'river',
     chartValues: ['Flow', 'Height'],
     tables: [
       {
@@ -323,7 +315,6 @@ const gages: GageConfigItem[] = [
     caption: 'R31',
     description:
       'North Fork American River above the American River Pump Station',
-    type: 'river',
     // chartValues: ['Height', 'Pre-Offset Flow'],
     chartValues: ['Height', 'Flow'],
     tables: [
@@ -374,7 +365,7 @@ const gages: GageConfigItem[] = [
   //   caption: 'R32',
   //   //
   //   description: '(Future) Middle Fork American River below Interbay Dam',
-  //   type: 'river',
+  //
   //
   //   chartValues: ['Flow', 'Height'],
   //   disabled: true,
@@ -406,7 +397,7 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
     caption: 'FM',
     description: 'French Meadows Reservoir',
-    type: 'reservoir',
+
     chartValues: ['Elevation', 'Storage'],
     tables: [
       {
@@ -453,7 +444,7 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
     caption: 'HH',
     description: 'Hell Hole Reservoir',
-    type: 'reservoir',
+
     chartValues: ['Elevation', 'Storage'],
     tables: [
       {

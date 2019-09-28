@@ -85,6 +85,20 @@ const PiChart = ({data, windowWidth}: Props) => {
     ]
   })
 
+  const isReservoir = useMemo(
+    () =>
+      activeGageItem &&
+      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs',
+    [activeGageItem]
+  )
+
+  const isRiver = useMemo(
+    () =>
+      activeGageItem &&
+      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    [activeGageItem]
+  )
+
   const attributeLabel = useMemo(() => {
     if (!data) {
       return ''
@@ -195,23 +209,31 @@ const PiChart = ({data, windowWidth}: Props) => {
     if (!data || !streamSetMeta || !activeGageItem) {
       return ' '
     }
-    return activeGageItem.type === 'reservoir'
+    return isReservoir
       ? `${friendlyName} -
               ${data.attribute} in ${data.units}`
-      : activeGageItem.type === 'river'
+      : isRiver
       ? `Gaging Station ${activeGageItem.id.toUpperCase()} -
       ${attributeLabel} in ${data.units}`
       : ' '
-  }, [activeGageItem, friendlyName, data, streamSetMeta, attributeLabel])
+  }, [
+    activeGageItem,
+    friendlyName,
+    data,
+    streamSetMeta,
+    attributeLabel,
+    isRiver,
+    isReservoir
+  ])
 
   const gagingStationCaption = useMemo(() => {
     if (!activeGageItem) {
       return ''
     }
-    return activeGageItem.type === 'reservoir'
+    return isReservoir
       ? friendlyName
       : `${activeGageItem.id.toUpperCase()} - ${friendlyName}`
-  }, [activeGageItem, friendlyName])
+  }, [activeGageItem, friendlyName, isReservoir])
 
   //  ex.) Fri 9/20/2019 1:00 PM through Fri 9/27/2019 2:00 PM (7 days)
   const dateRangeCaption = useMemo(
