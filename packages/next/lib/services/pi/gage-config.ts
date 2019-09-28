@@ -231,7 +231,7 @@ const gages: GageConfigItem[] = [
   {
     id: 'R29',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
-    description: `Rubicon River above Ellicott's Crossing`,
+    description: "Rubicon River above Ellicott's Crossing",
     chartValues: ['Flow', 'Height'],
     disabled: false,
     tables: [

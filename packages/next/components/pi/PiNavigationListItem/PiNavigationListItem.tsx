@@ -21,7 +21,7 @@ const PiNavigationListItem = ({pid, g}: Props) => {
   )
 
   // Abbreviate "Hell Hole" and "French Meadows".
-  const avatarCode = useMemo(() => {
+  const abbrevCode = useMemo(() => {
     const words = (g.id || '').split(/\s/)
     return words.length >= 2 ? (acronym(g.id) || '').toUpperCase() : g.id
   }, [g])
@@ -39,7 +39,7 @@ const PiNavigationListItem = ({pid, g}: Props) => {
         selected={activeRoute(g.id)}
       >
         <ListItemAvatar>
-          <Type variant="h6">{avatarCode}</Type>
+          <Type variant="h6">{abbrevCode}</Type>
         </ListItemAvatar>
         <ListItemText primary={g.description} />
       </ListItem>
