@@ -7,7 +7,7 @@ import React, {
   useContext,
   useMemo
 } from 'react'
-import {Box, Theme, Typography as Type, Button} from '@material-ui/core'
+import {Box, Theme, Typography as Type} from '@material-ui/core'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
 import {useTheme} from '@material-ui/styles'
 import Highcharts, {Options} from 'highcharts/highstock'
@@ -16,6 +16,8 @@ import {format, formatDistance, parseISO} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import delay from 'then-sleep'
 import {RowBox} from '@components/boxes/FlexBox'
+import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
+import disclaimer from '../disclaimer'
 
 const RESET_CHART_WIDTH = 200 // This is essentially the smallest width in px the chart may become.
 
@@ -293,27 +295,17 @@ const PiChart = ({data, windowWidth}: Props) => {
     [activeGageItem, attributeLabel]
   )
 
-  const dlButtonClickHandler = async () => {
-    try {
-      if (!data) {
-        return
-      }
-      !!new Blob()
-      try {
-        const [{unparse}, {saveAs}] = await Promise.all([
-          import('papaparse'),
-          import('file-saver')
-        ])
-        const parsed = unparse(data.items)
-        const csvBlob = new Blob([parsed], {type: 'text/csv;charset=utf-8;'})
-        saveAs(csvBlob, 'csv_file.csv')
-      } catch (e) {
-        console.log('Error dynamically importing libraries.', e)
-      }
-    } catch (e) {
-      console.log('File saving not supported by this web browser.', e)
-    }
-  }
+  const csvData = useMemo(
+    () =>
+      data &&
+      data.items.map((item) => ({
+        Timestamp: format(parseISO(item.Timestamp), 'MM/dd/yyyy'),
+        Value: item.Value
+      })),
+    [data]
+  )
+
+  const csvHeader = useMemo(() => `"${disclaimer.p1}\n${disclaimer.p2}"`, [])
 
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
@@ -344,13 +336,9 @@ const PiChart = ({data, windowWidth}: Props) => {
           ref={chartRef}
         />
       </div>
-      <Button
-        color="secondary"
-        onClick={dlButtonClickHandler}
-        disabled={!data || data.items.length <= 0}
-      >
+      <DlCsvButton color="secondary" data={csvData} header={csvHeader}>
         {buttonCaption}
-      </Button>
+      </DlCsvButton>
     </Box>
   )
 }
