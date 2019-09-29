@@ -4,13 +4,20 @@ import fetchOk from '@lib/fetchOk'
 
 const FORECAST_URL = process.env.NEXT_FORECAST_URL || ''
 
+interface ForecastResponse {
+  temperature: string
+  icon: string
+  latitude: string
+  longitude: string
+}
+
 const fetchForecast = async (location: Location) => {
   const url = `${FORECAST_URL}${stringify(location.queryParams, true)}`
   try {
-    return await fetchOk(url)
+    return await fetchOk<ForecastResponse>(url)
   } catch (error) {
     console.warn(error)
-    return {}
+    return {} as ForecastResponse
   }
 }
 
