@@ -1,7 +1,6 @@
 // cspell:ignore maxres
-import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
-import ErrorResponse from '@lib/ErrorResponse'
+import fetchOk from '@lib/fetchOk'
 
 export interface PlayListItems {
   eTag: string
@@ -57,16 +56,7 @@ const fetchPlaylistItemsSnippets = async (
       true
     )
     const url = `${BASE_URL}/playlistItems${qs}`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data: PlayListItems = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk<PlayListItems>(url)
   } catch (error) {
     console.warn(error)
     return {

@@ -1,7 +1,6 @@
-import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 import {GoogleCseResponse} from '@components/search/SearchResponse'
-import ErrorResponse from '@lib/ErrorResponse'
+import fetchOk from '@lib/fetchOk'
 
 // See https://developers.google.com/custom-search/v1/cse/list for more info.
 export interface GoogleCseParamOpts {
@@ -32,22 +31,11 @@ const search = async (params: GoogleCseParamOpts) => {
     {...defaultSearchParams, ...params},
     true
   )}`
-
-  // try {
-  const response = await fetch(url)
-  if (response.ok) {
-    const data: GoogleCseResponse = await response.json()
-    return data
-  } else {
-    console.warn(response)
-    const text = await response.text()
-    const error: ErrorResponse = new Error(text || response.statusText)
-    error.response = response
-    throw error
+  try {
+    return await fetchOk<GoogleCseResponse>(url)
+  } catch (error) {
+    console.warn(error)
   }
-  // } catch (error) {
-  //   console.warn(error)
-  // }
 }
 
 export default search

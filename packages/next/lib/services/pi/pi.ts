@@ -1,6 +1,5 @@
 // cspell:ignore streamsets
-import ErrorResponse from '@lib/ErrorResponse'
-import fetch from 'isomorphic-unfetch'
+import fetchOk from '@lib/fetchOk'
 import {stringify} from 'querystringify'
 import {GageConfigItem} from './gage-config'
 import {
@@ -18,16 +17,7 @@ const fetchBaseElement = async (
   try {
     const qs = stringify({path: baseElementType}, true)
     const url = `${baseUrl}/elements${qs}`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data: PiWebBaseElementsResponse = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk<PiWebBaseElementsResponse>(url)
   } catch (error) {
     console.warn(error)
   }
@@ -43,16 +33,7 @@ const fetchElements = async (
     }
     const {WebId} = baseElement
     const url = `${baseUrl}/elements/${WebId}/elements`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data: PiWebElementsResponse = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk<PiWebElementsResponse>(url)
   } catch (error) {
     console.warn(error)
   }
@@ -70,16 +51,7 @@ const fetchElementStreamSet = async (
     const {Items = []} = elements
     const {WebId = ''} = Items.find((item) => item.Name === elementName) || {}
     const url = `${baseUrl}/streamsets/${WebId}/value`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data: PiWebElementStreamSetResponse = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk<PiWebElementStreamSetResponse>(url)
   } catch (error) {
     console.warn(error)
   }
@@ -99,16 +71,7 @@ const fetchElementAttributeStream = async (
       throw 'Request parameters are invalid.'
     }
     const url = `${baseUrl}/streams/${WebId}/interpolated${qs}`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data: PiWebElementAttributeStream = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk<PiWebElementAttributeStream>(url)
   } catch (error) {
     console.warn(error)
   }

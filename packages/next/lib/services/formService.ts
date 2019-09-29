@@ -1,9 +1,8 @@
 // cspell:ignore addtl watersenseApproved
-import fetch from 'isomorphic-unfetch'
 import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import {BooleanAsString} from '@lib/safeCastBoolean'
-import ErrorResponse from '@lib/ErrorResponse'
+import fetchOk from '@lib/fetchOk'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
 
@@ -200,19 +199,10 @@ type RequestBody =
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `${MAILJET_URL}/${serviceUriPath}`
   try {
-    const response = await fetch(url, {
+    return await fetchOk(url, {
       method: 'POST',
       body: JSON.stringify(body)
     })
-    if (response.ok) {
-      const data: any = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
   } catch (error) {
     console.warn('An unexpected error occurred.', error)
     throw error

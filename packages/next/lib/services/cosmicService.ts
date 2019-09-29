@@ -1,10 +1,9 @@
-import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
-import ErrorResponse from '@lib/ErrorResponse'
 import {parse, getYear, isValid} from 'date-fns'
 import isNumber from 'is-number'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
+import fetchOk, {fetchOkText} from '@lib/fetchOk'
 
 const COSMIC_URL = process.env.NEXT_COSMIC_URL || ''
 
@@ -17,25 +16,20 @@ interface UnclaimedPropertyResponse {
 const getUnclaimedProperty = async () => {
   try {
     const url = `${COSMIC_URL}/unclaimed-property`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data: UnclaimedPropertyResponse[] = await response.json()
-      const mappedData = data.map((d) => {
-        const amt = d.amount.toString()
-        const amountNo = isNumber(amt) ? noNaN(round(parseFloat(amt), 2)) : null
-        return {
-          ...d,
-          amount: amountNo,
-          date: parse(d.date, 'MM/dd/yy', new Date())
-        }
-      })
-      return mappedData
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
+    const data = await fetchOk<UnclaimedPropertyResponse[]>(url)
+    if (!data) {
+      return []
     }
+    const mappedData = data.map((d) => {
+      const amt = d.amount.toString()
+      const amountNo = isNumber(amt) ? noNaN(round(parseFloat(amt), 2)) : null
+      return {
+        ...d,
+        amount: amountNo,
+        date: parse(d.date, 'MM/dd/yy', new Date())
+      }
+    })
+    return mappedData
   } catch (error) {
     console.warn(error)
     throw error
@@ -45,16 +39,7 @@ const getUnclaimedProperty = async () => {
 const getSalarySchedule = async () => {
   try {
     const url = `${COSMIC_URL}/salary-schedule`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk(url)
   } catch (error) {
     console.warn(error)
     throw error
@@ -64,16 +49,7 @@ const getSalarySchedule = async () => {
 const getSalaryScheduleCsv = async () => {
   try {
     const url = `${COSMIC_URL}/salary-schedule-csv`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data = await response.text()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOkText(url)
   } catch (error) {
     console.warn(error)
     throw error
@@ -93,16 +69,7 @@ const getMedia = async (
       const qs = stringify(params, true)
       url = url.concat(qs)
     }
-    const response = await fetch(url)
-    if (response.ok) {
-      const data = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk(url)
   } catch (error) {
     console.warn(error)
     // throw error

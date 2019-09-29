@@ -1,23 +1,13 @@
-import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import ErrorResponse from '@lib/ErrorResponse'
+import fetchOk from '@lib/fetchOk'
 
 const FORECAST_URL = process.env.NEXT_FORECAST_URL || ''
 
 const fetchForecast = async (location: Location) => {
   const url = `${FORECAST_URL}${stringify(location.queryParams, true)}`
   try {
-    const response = await fetch(url)
-    if (response.ok) {
-      const data = await response.json()
-      return data
-    } else {
-      const text = await response.text()
-      const error: ErrorResponse = new Error(text || response.statusText)
-      error.response = response
-      throw error
-    }
+    return await fetchOk(url)
   } catch (error) {
     console.warn(error)
     return {}
