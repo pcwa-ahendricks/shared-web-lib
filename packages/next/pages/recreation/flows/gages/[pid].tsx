@@ -165,7 +165,7 @@ const DynamicPiPage = ({query}: Props) => {
     if (isDev) {
       const filteredArray: AttributeStream[] = []
       attributeStreams.filter((item) => {
-        const i = filteredArray.findIndex((x) => x.index == item.index)
+        const i = filteredArray.findIndex((x) => x.index === item.index)
         if (i <= -1) {
           filteredArray.push({...item})
         }
