@@ -47,9 +47,7 @@ export interface PlayListItemSnippet {
 const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || ''
 const BASE_URL = 'https://www.googleapis.com/youtube/v3'
 
-const fetchPlaylistItemsSnippets = async (
-  playlistId: string
-): Promise<PlayListItems> => {
+const fetchPlaylistItemsSnippets = async (playlistId: string) => {
   try {
     const qs = stringify(
       {part: 'snippet', playlistId: playlistId, key: API_KEY},
