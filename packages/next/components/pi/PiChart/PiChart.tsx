@@ -317,6 +317,11 @@ const PiChart = ({data, windowWidth}: Props) => {
     [activeGageItem, attributeLabel]
   )
 
+  const csvFileName = useMemo(
+    () => `${activeGageItem ? activeGageItem.id : ''}-${attributeLabel}.csv `,
+    [activeGageItem, attributeLabel]
+  )
+
   const csvData = useMemo(
     () =>
       data &&
@@ -327,7 +332,10 @@ const PiChart = ({data, windowWidth}: Props) => {
     [data]
   )
 
-  const csvHeader = useMemo(() => `"${disclaimer.p1}\n${disclaimer.p2}"`, [])
+  const csvHeader = useMemo(
+    () => `"DISCLAIMER - ${disclaimer.p1}\n${disclaimer.p2}"`,
+    []
+  )
 
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
@@ -358,7 +366,12 @@ const PiChart = ({data, windowWidth}: Props) => {
           ref={chartRef}
         />
       </div>
-      <DlCsvButton color="secondary" data={csvData} header={csvHeader}>
+      <DlCsvButton
+        color="secondary"
+        data={csvData}
+        header={csvHeader}
+        fileName={csvFileName}
+      >
         {buttonCaption}
       </DlCsvButton>
     </Box>

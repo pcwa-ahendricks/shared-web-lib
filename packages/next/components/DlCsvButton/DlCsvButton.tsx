@@ -34,9 +34,12 @@ const DlCsvButton = ({
           import('file-saver')
         ])
         const parsed = unparse(data)
-        const csvBlob = new Blob([header, parsed, footer], {
-          type: 'text/csv;charset=utf-8;'
-        })
+        const csvBlob = new Blob(
+          [header, header ? '\n' : '', parsed, footer ? '\n' : '', footer],
+          {
+            type: 'text/csv;charset=utf-8;'
+          }
+        )
         saveAs(csvBlob, fileName)
       } catch (e) {
         onError && onError(new Error('Error dynamically importing libraries.'))
