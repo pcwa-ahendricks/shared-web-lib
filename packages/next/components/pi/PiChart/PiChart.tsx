@@ -326,7 +326,7 @@ const PiChart = ({data, windowWidth}: Props) => {
     () =>
       data &&
       data.items.map((item) => ({
-        Timestamp: format(parseISO(item.Timestamp), 'MM/dd/yyyy'),
+        Timestamp: format(parseISO(item.Timestamp), 'M/dd/yyyy h:mm aa'),
         Value: item.Value
       })),
     [data]
