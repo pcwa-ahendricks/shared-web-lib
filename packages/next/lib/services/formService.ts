@@ -2,7 +2,7 @@
 import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import {BooleanAsString} from '@lib/safeCastBoolean'
-import fetchOk from '@lib/fetchOk'
+import fetchOk from '@lib/fetch-ok'
 
 const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
 

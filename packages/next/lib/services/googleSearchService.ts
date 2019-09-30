@@ -1,6 +1,6 @@
 import {stringify} from 'querystringify'
 import {GoogleCseResponse} from '@components/search/SearchResponse'
-import fetchOk from '@lib/fetchOk'
+import fetchOk from '@lib/fetch-ok'
 
 // See https://developers.google.com/custom-search/v1/cse/list for more info.
 export interface GoogleCseParamOpts {

@@ -1,5 +1,5 @@
 // cspell:ignore streamsets
-import fetchOk from '@lib/fetchOk'
+import fetchOk from '@lib/fetch-ok'
 import {stringify} from 'querystringify'
 import {GageConfigItem} from './gage-config'
 import {

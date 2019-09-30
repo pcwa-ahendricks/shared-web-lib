@@ -1,6 +1,6 @@
 // cspell:ignore maxres
 import {stringify} from 'querystringify'
-import fetchOk from '@lib/fetchOk'
+import fetchOk from '@lib/fetch-ok'
 
 export interface PlayListItems {
   eTag: string

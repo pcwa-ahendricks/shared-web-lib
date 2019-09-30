@@ -1,9 +1,10 @@
+// cspell:ignore Frmt
 import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
 import isNumber from 'is-number'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
-import fetchOk, {fetchOkText} from '@lib/fetchOk'
+import fetchOk, {fetchOkText} from '@lib/fetch-ok'
 
 const COSMIC_URL = process.env.NEXT_COSMIC_URL || ''
 

@@ -135,6 +135,9 @@ const SearchInput = () => {
         ) {
           const nextIndex = res.queries.nextPage[0].startIndex
           const response = await search({q: sv, start: nextIndex})
+          if (!response) {
+            return
+          }
           const betterTotalItems = getTotalResults(response)
           if (betterTotalItems) {
             searchDispatch(setBetterTotalItems(betterTotalItems))
@@ -175,6 +178,9 @@ const SearchInput = () => {
         if (searchValue) {
           // await delay(5000)
           const response = await search({q: searchValue, start})
+          if (!response) {
+            return
+          }
           const initialTotalItems = getTotalResults(response)
           if (initialTotalItems) {
             searchDispatch(setBetterTotalItems(initialTotalItems))

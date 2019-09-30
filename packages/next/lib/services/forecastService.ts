@@ -1,6 +1,6 @@
 import {stringify} from 'querystringify'
 import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import fetchOk from '@lib/fetchOk'
+import fetchOk from '@lib/fetch-ok'
 
 const FORECAST_URL = process.env.NEXT_FORECAST_URL || ''
 
