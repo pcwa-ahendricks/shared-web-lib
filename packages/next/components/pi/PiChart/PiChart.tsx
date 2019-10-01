@@ -401,10 +401,6 @@ const PiChart = ({data}: Props) => {
           // position="middle"
         />
         {hintValEl}
-        {/* <Crosshair values={hintValue ? [hintValue] : []}>
-          <div />
-        </Crosshair> */}
-
         <LineSeries
           color={theme.palette.primary.light}
           opacity={0.95}
@@ -413,9 +409,7 @@ const PiChart = ({data}: Props) => {
           data={seriesData}
           onNearestX={onNearestXHandler}
         />
-
         {markSeriesEl}
-
         <Highlight
           onBrushEnd={onBrushEndHandler}
           onDrag={onDragHighlightHandler}
