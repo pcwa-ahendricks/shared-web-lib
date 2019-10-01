@@ -9,6 +9,7 @@ import {AttributeStream, PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
+// [todo] Someday types will become available and we can yarn add -D @types/react-vis
 import {
   FlexibleWidthXYPlot as XYPlot,
   LineSeries,
