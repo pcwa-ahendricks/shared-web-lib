@@ -386,7 +386,6 @@ const PiChart = ({data}: Props) => {
       </RowBox>
       <XYPlot
         animation
-        // yDomain={[0, 5]}
         xType="time"
         height={300}
         onMouseLeave={() => setHintValue(false)}
