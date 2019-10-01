@@ -1,5 +1,5 @@
 // cspell:ignore cldl
-import React, {useState, useContext, useMemo, useCallback} from 'react'
+import React, {useState, useContext, useMemo, useCallback, useRef} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
@@ -19,11 +19,12 @@ import {
   Hint,
   Highlight,
   MarkSeries
-  // Crosshair
 } from 'react-vis'
 import 'react-vis/dist/style.css'
 import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
+import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
+// import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
 
 type Props = {
   data?: AttributeStream
@@ -36,6 +37,7 @@ const PiChart = ({data}: Props) => {
   const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
     false
   )
+  const xyPlotRef = useRef<any>()
   const [lastDrawLocation, setLastDrawLocation] = useState<null | {
     bottom: number
     top: number
@@ -193,7 +195,7 @@ const PiChart = ({data}: Props) => {
   )
 
   const csvFileName = useMemo(
-    () => `${activeGageItem ? activeGageItem.id : ''}-${attributeLabel}.csv `,
+    () => `${activeGageItem ? activeGageItem.id : ''}-${attributeLabel}.csv`,
     [activeGageItem, attributeLabel]
   )
 
@@ -212,22 +214,16 @@ const PiChart = ({data}: Props) => {
     []
   )
 
-  const seriesData = data
-    ? data.items.map((item) => ({
-        x: parseISO(item.Timestamp).getTime(),
-        y: item.Value
-      }))
-    : []
-
-  const defaultYDomain = useMemo(() => {
-    if (!minValue || !maxValue) {
-      return null
-    }
-    const min = minValue.Value
-    const max = maxValue.Value
-    const padAmount = (max - min) * 0.01
-    return [min - padAmount, max + padAmount]
-  }, [minValue, maxValue])
+  const seriesData = useMemo(
+    () =>
+      data
+        ? data.items.map((item) => ({
+            x: parseISO(item.Timestamp).getTime(),
+            y: item.Value
+          }))
+        : [],
+    [data]
+  )
 
   const strokeWidth = useMemo(() => {
     if (!lastDrawLocation) {
@@ -295,18 +291,6 @@ const PiChart = ({data}: Props) => {
     [hintValue, theme]
   )
 
-  const xDomain = useMemo(
-    () => lastDrawLocation && [lastDrawLocation.left, lastDrawLocation.right],
-    [lastDrawLocation]
-  )
-  const yDomain = useMemo(
-    () =>
-      lastDrawLocation
-        ? [lastDrawLocation.bottom, lastDrawLocation.top]
-        : defaultYDomain,
-    [lastDrawLocation, defaultYDomain]
-  )
-
   const resetZoomClickHandler = useCallback(() => setLastDrawLocation(null), [])
 
   const onNearestXHandler = useCallback(
@@ -323,16 +307,19 @@ const PiChart = ({data}: Props) => {
   const tickFormat = useCallback(
     (d: number) => {
       const diffInMonths = differenceInMonths(endDate, startDate)
-      console.log(diffInMonths)
       if (diffInMonths > 6) {
-        return format(new Date(d), "MMM ''' yy")
+        return format(new Date(d), "MMM ''yy") // Formatting w/ single-quotes is not intuitive. See https://date-fns.org/v2.4.1/docs/format#description for more info.
       }
       return format(new Date(d), "d'.' MMM")
     },
     [startDate, endDate]
   )
 
-  const tickTotal = useMemo(() => (isMdUp ? 12 : 6), [isMdUp])
+  const tickTotal = useMemo(() => (isMdUp ? 12 : 8), [isMdUp])
+
+  const onMouseLeaveHandler = useCallback(() => {
+    setHintValue(false)
+  }, [])
 
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
@@ -355,39 +342,62 @@ const PiChart = ({data}: Props) => {
           <DataType>{dataPointsCaption}</DataType>
         </Box>
       </RowBox>
-      <XYPlot
-        animation
-        xType="time"
-        height={300}
-        onMouseLeave={() => setHintValue(false)}
-        xDomain={xDomain}
-        yDomain={yDomain}
-      >
-        <HorizontalGridLines />
-        <XAxis title="X Axis" tickFormat={tickFormat} tickTotal={tickTotal} />
-        {/* <XAxis /> */}
-        <YAxis
-          title={seriesTitle}
-          style={{fontSize: '0.9rem'}}
-          // orientation="right"
-          // position="middle"
+
+      <Box position="relative" width="100%">
+        {/* <Box
+          display={!xyPlotRef.current ? 'none' : 'block'}
+          position="absolute"
+          top={0}
+          right={0}
+          zIndex={1}
+          width={sliderWidth ? sliderWidth - 42.4 : 0}
+        >
+          <PiChartFilterSlider />
+        </Box> */}
+
+        <PiChartResetZoom
+          chartIsZoomed={Boolean(lastDrawLocation)}
+          onResetClick={resetZoomClickHandler}
         />
-        {hintValEl}
-        <LineSeries
-          color={theme.palette.primary.light}
-          opacity={0.95}
-          strokeWidth={strokeWidth} // Defaults to 2px.
-          curve={'curveMonotoneX'}
-          data={seriesData}
-          onNearestX={onNearestXHandler}
-        />
-        {markSeriesEl}
-        <Highlight
-          onBrushEnd={onBrushEndHandler}
-          onDrag={onDragHighlightHandler}
-        />
-      </XYPlot>
-      <button onClick={resetZoomClickHandler}>Reset Zoom</button>
+        <XYPlot
+          ref={xyPlotRef}
+          animation
+          xType="time"
+          height={300}
+          onMouseLeave={onMouseLeaveHandler}
+          xDomain={
+            lastDrawLocation && [lastDrawLocation.left, lastDrawLocation.right]
+          }
+          yDomain={
+            lastDrawLocation && [lastDrawLocation.bottom, lastDrawLocation.top]
+          }
+          yPadding={10}
+          margin={{right: 10, top: 20}}
+        >
+          <HorizontalGridLines />
+          <XAxis tickFormat={tickFormat} tickTotal={tickTotal} />
+          <YAxis
+            title={seriesTitle}
+            style={{fontSize: '1rem'}}
+            // orientation="right"
+            // position="middle"
+          />
+          {hintValEl}
+          <LineSeries
+            color={theme.palette.primary.light}
+            opacity={0.95}
+            strokeWidth={strokeWidth} // Defaults to 2px.
+            curve={'curveMonotoneX'}
+            data={seriesData}
+            onNearestX={onNearestXHandler}
+          />
+          {markSeriesEl}
+          <Highlight
+            onBrushEnd={onBrushEndHandler}
+            onDrag={onDragHighlightHandler}
+          />
+        </XYPlot>
+      </Box>
       <RowBox justifyContent="flex-end" textAlign="right" fontStyle="italic">
         <Type variant="body2">
           {`Generated on ${format(new Date(), "MMM do',' yyyy',' h:mm aa")}`}

@@ -117,8 +117,10 @@ const SalaryScheduleTable = () => {
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
 
   const setSalaryScheduleCsv = useCallback(async () => {
-    const ssCsv: string = await getSalaryScheduleCsv()
-    setSalaryCsv(ssCsv)
+    const ssCsv = await getSalaryScheduleCsv()
+    if (ssCsv) {
+      setSalaryCsv(ssCsv)
+    }
   }, [])
 
   const setSalaryScheduleData = useCallback(async () => {
