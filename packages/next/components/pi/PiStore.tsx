@@ -19,6 +19,7 @@ interface State {
   isLoadingStreamSetItems: boolean
   streamSetMeta: PiMetadata[]
   attributeStreams: AttributeStream[]
+  isLoadingAttributeStreams: boolean
   startDate: Date
   endDate: Date
   interval: string
@@ -65,9 +66,10 @@ const initialEndDate = new Date()
 // State
 const initialState: State = {
   streamSetItems: [],
-  streamSetMeta: [],
   isLoadingStreamSetItems: false,
+  streamSetMeta: [],
   attributeStreams: [],
+  isLoadingAttributeStreams: false,
   startDate: initialStartDate,
   endDate: initialEndDate,
   interval: calcInterval(initialStartDate, initialEndDate)
@@ -88,8 +90,12 @@ const SET_IS_LOADING_STREAM_SET_ITEMS: 'SET_IS_LOADING_STREAM_SET_ITEMS' =
 const SET_START_DATE: 'SET_START_DATE' = 'SET_START_DATE'
 const SET_END_DATE: 'SET_END_DATE' = 'SET_END_DATE'
 const SET_ATTRIBUTE_STREAMS: 'SET_ATTRIBUTE_STREAMS' = 'SET_ATTRIBUTE_STREAMS'
+const UPDATE_ATTRIBUTE_STREAMS: 'UPDATE_ATTRIBUTE_STREAMS' =
+  'UPDATE_ATTRIBUTE_STREAMS'
 const RESET_ATTRIBUTE_STREAMS: 'RESET_ATTRIBUTE_STREAMS' =
   'RESET_ATTRIBUTE_STREAMS'
+const SET_IS_LOADING_ATTRIBUTE_STREAMS: 'SET_IS_LOADING_ATTRIBUTE_STREAMS' =
+  'SET_IS_LOADING_ATTRIBUTE_STREAMS'
 
 // Actions
 export const setActiveGageItem = (item: State['activeGageItem']) => {
@@ -122,9 +128,25 @@ export const setAttributeStreams = (attribStream: AttributeStream) => {
   }
 }
 
+export const updateAttributeStreams = (attribStream: AttributeStream) => {
+  return {
+    type: UPDATE_ATTRIBUTE_STREAMS,
+    attribStream
+  }
+}
+
 export const resetAttributeStreams = () => {
   return {
     type: RESET_ATTRIBUTE_STREAMS
+  }
+}
+
+export const setIsLoadingAttributeStreams = (
+  isLoading: State['isLoadingAttributeStreams']
+) => {
+  return {
+    type: SET_IS_LOADING_ATTRIBUTE_STREAMS,
+    isLoading
   }
 }
 
@@ -189,10 +211,43 @@ const piReducer = (state: State, action: any): State => {
         ...state,
         attributeStreams: [...state.attributeStreams, {...action.attribStream}]
       }
+    case UPDATE_ATTRIBUTE_STREAMS: {
+      const {attribute, index, items, units} = action.attribStream
+      const attributeStreams = [...state.attributeStreams]
+      const idx = state.attributeStreams.findIndex(
+        (stream) => stream.index === index
+      )
+      if (!(idx >= 0)) {
+        return {...state}
+      }
+      // Method using slice, which isn't necessary here.
+      // const otherStreams = [
+      //   ...attributeStreams.slice(0, idx),
+      //   ...attributeStreams.slice(idx + 1)
+      // ]
+      // const updateStream = {...attributeStreams[idx], items, units, attribute}
+
+      attributeStreams[idx] = {
+        index,
+        items,
+        units,
+        attribute
+      }
+      return {
+        ...state,
+        attributeStreams
+        // attributeStreams: [...otherStreams, {...updateStream}]
+      }
+    }
     case RESET_ATTRIBUTE_STREAMS:
       return {
         ...state,
         attributeStreams: []
+      }
+    case SET_IS_LOADING_ATTRIBUTE_STREAMS:
+      return {
+        ...state,
+        isLoadingAttributeStreams: action.isLoading
       }
     default:
       return state

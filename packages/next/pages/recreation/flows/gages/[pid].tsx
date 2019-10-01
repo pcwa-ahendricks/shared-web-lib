@@ -19,8 +19,10 @@ import {
   setIsLoadingStreamSetItems,
   setActiveGageItem,
   setAttributeStreams,
+  updateAttributeStreams,
   resetAttributeStreams,
-  AttributeStream
+  AttributeStream,
+  setIsLoadingAttributeStreams
 } from '@components/pi/PiStore'
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
@@ -65,50 +67,63 @@ const DynamicPiPage = ({query}: Props) => {
         dispatch(setStreamSetItems(ess.Items))
       }
     }
-    // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed.
+    // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed. This will prevent extra api calls from happening.
     dispatch(setIsLoadingStreamSetItems(false))
   }, [activeGageItem, dispatch])
 
   const fetchAttributeStream = useCallback(async () => {
-    if (
-      activeGageItem &&
-      streamSetItems.length > 0 &&
-      !isLoadingStreamSetItems
-    ) {
-      dispatch(resetAttributeStreams()) // Flush previous items.
-      activeGageItem.chartValues.map(async (attribute, index) => {
-        isDev &&
-          console.log(
-            `fetchElementAttributeStream() for ${activeGageItem.id} | ${format(
-              startDate,
-              'Pp'
-            )} - ${format(endDate, 'Pp')} | ${interval}`
-          )
-        const eas = await fetchElementAttributeStream(
-          streamSetItems,
-          attribute,
-          startDate.toISOString(),
-          endDate.toISOString(),
-          interval
-        )
-        // Deconstruct response.
-        const {Items: items = [], UnitsAbbreviation: units = ''} = eas || {}
-
-        if (items.length > 0) {
+    dispatch(setIsLoadingAttributeStreams(true))
+    dispatch(resetAttributeStreams()) // Flush previous items.
+    try {
+      if (
+        activeGageItem &&
+        streamSetItems.length > 0 &&
+        !isLoadingStreamSetItems
+      ) {
+        activeGageItem.chartValues.map(async (attribute, index) => {
           dispatch(
             setAttributeStreams({
               attribute,
               index,
-              items,
-              units
+              items: [],
+              units: ''
             })
           )
-        }
-        // console.log(eas)
-        // if (be && be.Items) {
-        //   dispatch(setStreamSetItems(be.Items))
-        // }
-      })
+          isDev &&
+            console.log(
+              `fetchElementAttributeStream() for ${
+                activeGageItem.id
+              } | ${format(startDate, 'Pp')} - ${format(
+                endDate,
+                'Pp'
+              )} | ${interval}`
+            )
+          const eas = await fetchElementAttributeStream(
+            streamSetItems,
+            attribute,
+            startDate.toISOString(),
+            endDate.toISOString(),
+            interval
+          )
+          // Deconstruct response.
+          const {Items: items = [], UnitsAbbreviation: units = ''} = eas || {}
+
+          if (items.length > 0) {
+            dispatch(
+              updateAttributeStreams({
+                attribute,
+                index,
+                items,
+                units
+              })
+            )
+          }
+          dispatch(setIsLoadingAttributeStreams(false))
+        })
+      }
+    } catch (error) {
+      console.log(error)
+      dispatch(setIsLoadingAttributeStreams(false))
     }
   }, [
     activeGageItem,
@@ -134,7 +149,8 @@ const DynamicPiPage = ({query}: Props) => {
   useEffect(() => {
     // console.log('useEffect firing due to pid update.')
     const gci = getGageById(pid)
-    dispatch(setIsLoadingStreamSetItems(true)) // It is important to kick this off prior to setting active gage item.
+    dispatch(setIsLoadingAttributeStreams(true)) // Assume that attribute streams will be re-fetched as well.
+    dispatch(setIsLoadingStreamSetItems(true)) // It is important to kick this off prior to setting active gage item. See note in fetchStreamSet().
     dispatch(setActiveGageItem(gci))
   }, [pid, dispatch])
 
