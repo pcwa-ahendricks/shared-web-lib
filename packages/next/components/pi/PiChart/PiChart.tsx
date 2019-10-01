@@ -392,7 +392,7 @@ const PiChart = ({data}: Props) => {
             color={theme.palette.primary.light}
             opacity={0.95}
             strokeWidth={1.9} // Defaults to 2px.
-            curve={'curveNatural'}
+            curve="curveMonotoneX"
             data={seriesData}
             onNearestX={onNearestXHandler}
           />
