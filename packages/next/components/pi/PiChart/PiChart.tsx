@@ -1,10 +1,10 @@
 // cspell:ignore cldl
 import React, {useState, useContext, useMemo, useCallback} from 'react'
-import {Box, Theme, Typography as Type} from '@material-ui/core'
+import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
 import {useTheme} from '@material-ui/styles'
-import {format, formatDistance, parseISO} from 'date-fns'
+import {format, formatDistance, parseISO, differenceInMonths} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
@@ -31,6 +31,7 @@ type Props = {
 
 const PiChart = ({data}: Props) => {
   const theme = useTheme<Theme>()
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const {state} = useContext(PiContext)
   const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
     false
@@ -319,6 +320,20 @@ const PiChart = ({data}: Props) => {
     </Type>
   )
 
+  const tickFormat = useCallback(
+    (d: number) => {
+      const diffInMonths = differenceInMonths(endDate, startDate)
+      console.log(diffInMonths)
+      if (diffInMonths > 6) {
+        return format(new Date(d), "MMM ''' yy")
+      }
+      return format(new Date(d), "d'.' MMM")
+    },
+    [startDate, endDate]
+  )
+
+  const tickTotal = useMemo(() => (isMdUp ? 12 : 6), [isMdUp])
+
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
       <Type variant="h3" gutterBottom>
@@ -349,7 +364,8 @@ const PiChart = ({data}: Props) => {
         yDomain={yDomain}
       >
         <HorizontalGridLines />
-        <XAxis title="X Axis" />
+        <XAxis title="X Axis" tickFormat={tickFormat} tickTotal={tickTotal} />
+        {/* <XAxis /> */}
         <YAxis
           title={seriesTitle}
           style={{fontSize: '0.9rem'}}
