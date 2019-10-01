@@ -254,12 +254,22 @@ const PiChart = ({data}: Props) => {
     []
   )
 
-  const newData = data
+  const seriesData = data
     ? data.items.map((item) => ({
         x: parseISO(item.Timestamp).getTime(),
         y: item.Value
       }))
     : []
+
+  const defaultYDomain = useMemo(() => {
+    if (!minValue || !maxValue) {
+      return undefined
+    }
+    const min = minValue.Value
+    const max = maxValue.Value
+    const padAmount = (max - min) * 0.01
+    return [min - padAmount, max + padAmount]
+  }, [minValue, maxValue])
 
   const strokeWidth = useMemo(() => {
     if (!lastDrawLocation) {
@@ -312,9 +322,7 @@ const PiChart = ({data}: Props) => {
         yDomain={
           lastDrawLocation
             ? [lastDrawLocation.bottom, lastDrawLocation.top]
-            : minValue && maxValue
-            ? [minValue.Value, maxValue.Value]
-            : undefined
+            : defaultYDomain
         }
       >
         <HorizontalGridLines />
@@ -351,7 +359,7 @@ const PiChart = ({data}: Props) => {
           opacity={0.95}
           strokeWidth={strokeWidth} // Defaults to 2px.
           curve={'curveMonotoneX'}
-          data={newData}
+          data={seriesData}
           onNearestX={(value: {x: number; y: number}) => setHintValue(value)}
         />
 
