@@ -38,6 +38,7 @@ import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
 import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
 import PiChartDataAttributes from '../PiChartDataAttibutes/PiChartDataAttibutes'
+// import {curveCardinal} from 'd3-shape'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
 
 type Props = {
@@ -329,6 +330,9 @@ const PiChart = ({data}: Props) => {
     [isLoading]
   )
 
+  // const configuredCurve = curveCardinal.tension(0.5)
+  const configuredCurve = 'curveMonotoneX'
+
   return (
     <Box
       boxShadow={2}
@@ -341,13 +345,11 @@ const PiChart = ({data}: Props) => {
       <Type variant="h3" gutterBottom>
         {chartTitleEl}
       </Type>
-
       <PiChartDataAttributes
         data={data}
         minValue={minValue}
         maxValue={maxValue}
       />
-
       <Box position="relative" width="100%">
         {/* <Box
           display={!xyPlotRef.current ? 'none' : 'block'}
@@ -392,7 +394,7 @@ const PiChart = ({data}: Props) => {
             color={theme.palette.primary.light}
             opacity={0.95}
             strokeWidth={1.9} // Defaults to 2px.
-            curve="curveMonotoneX"
+            curve={configuredCurve}
             data={seriesData}
             onNearestX={onNearestXHandler}
           />
