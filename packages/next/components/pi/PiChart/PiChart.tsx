@@ -1,5 +1,5 @@
-// cspell:ignore highcharts highstock unparse
-import React, {useState, useContext, useMemo} from 'react'
+// cspell:ignore cldl
+import React, {useState, useContext, useMemo, useCallback} from 'react'
 import {Box, Theme, Typography as Type} from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
@@ -264,7 +264,7 @@ const PiChart = ({data}: Props) => {
 
   const defaultYDomain = useMemo(() => {
     if (!minValue || !maxValue) {
-      return undefined
+      return null
     }
     const min = minValue.Value
     const max = maxValue.Value
@@ -290,6 +290,79 @@ const PiChart = ({data}: Props) => {
     }
   }, [lastDrawLocation])
 
+  const onBrushEndHandler = useCallback((area: any) => {
+    setLastDrawLocation(area)
+  }, [])
+
+  const onDragHighlightHandler = useCallback((area: any) => {
+    setLastDrawLocation((cldl) => ({
+      bottom: cldl ? cldl.bottom : 0 + (area.top - area.bottom),
+      left: cldl ? cldl.left : 0 - (area.right - area.left),
+      right: cldl ? cldl.right : 0 - (area.right - area.left),
+      top: cldl ? cldl.top : 0 + (area.top - area.bottom)
+    }))
+  }, [])
+
+  const hintValEl = useMemo(
+    () =>
+      hintValue ? (
+        <Hint value={hintValue}>
+          <Box bgcolor={theme.palette.common.white} boxShadow={3} p={1}>
+            <Type
+              variant="body2"
+              color="textPrimary"
+              style={{fontSize: '0.9rem'}}
+            >
+              {format(new Date(hintValue.x), "EE',' M/dd/yy h':'mm aa")}
+            </Type>
+            <Type variant="body2" color="textPrimary">
+              {seriesTitle}:{' '}
+              <strong>{round(hintValue.y, 2).toLocaleString()}</strong>
+            </Type>
+          </Box>
+        </Hint>
+      ) : null,
+    [hintValue, seriesTitle, theme]
+  )
+
+  const markSeriesEl = useMemo(
+    () =>
+      hintValue ? (
+        <MarkSeries
+          color={theme.palette.secondary.light}
+          data={[{...hintValue}]}
+          // className="mark-series-example"
+          // sizeRange={[5, 15]}
+        />
+      ) : null,
+    [hintValue, theme]
+  )
+
+  const xDomain = useMemo(
+    () => lastDrawLocation && [lastDrawLocation.left, lastDrawLocation.right],
+    [lastDrawLocation]
+  )
+  const yDomain = useMemo(
+    () =>
+      lastDrawLocation
+        ? [lastDrawLocation.bottom, lastDrawLocation.top]
+        : defaultYDomain,
+    [lastDrawLocation, defaultYDomain]
+  )
+
+  const resetZoomClickHandler = useCallback(() => setLastDrawLocation(null), [])
+
+  const onNearestXHandler = useCallback(
+    (value: {x: number; y: number}) => setHintValue(value),
+    []
+  )
+
+  const DataType = ({children, ...rest}: any) => (
+    <Type variant="subtitle2" {...rest}>
+      {children}
+    </Type>
+  )
+
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
       <Type variant="h3" gutterBottom>
@@ -297,18 +370,18 @@ const PiChart = ({data}: Props) => {
       </Type>
       <RowBox>
         <Box flex="20%">
-          <Type variant="subtitle2">Gaging Station:</Type>
-          <Type variant="subtitle2">Date Range:</Type>
-          <Type variant="subtitle2">Largest Value:</Type>
-          <Type variant="subtitle2">Smallest Value:</Type>
-          <Type variant="subtitle2">Data Points:</Type>
+          <DataType>Gaging Station:</DataType>
+          <DataType>Date Range:</DataType>
+          <DataType>Largest Value:</DataType>
+          <DataType>Smallest Value:</DataType>
+          <DataType>Data Points:</DataType>
         </Box>
         <Box flex="80%">
-          <Type variant="subtitle2">{gagingStationCaption}</Type>
-          <Type variant="subtitle2">{dateRangeCaption}</Type>
-          <Type variant="subtitle2">{maxValueCaption}</Type>
-          <Type variant="subtitle2">{minValueCaption}</Type>
-          <Type variant="subtitle2">{dataPointsCaption}</Type>
+          <DataType>{gagingStationCaption}</DataType>
+          <DataType>{dateRangeCaption}</DataType>
+          <DataType>{maxValueCaption}</DataType>
+          <DataType>{minValueCaption}</DataType>
+          <DataType>{dataPointsCaption}</DataType>
         </Box>
       </RowBox>
       <XYPlot
@@ -317,14 +390,8 @@ const PiChart = ({data}: Props) => {
         xType="time"
         height={300}
         onMouseLeave={() => setHintValue(false)}
-        xDomain={
-          lastDrawLocation && [lastDrawLocation.left, lastDrawLocation.right]
-        }
-        yDomain={
-          lastDrawLocation
-            ? [lastDrawLocation.bottom, lastDrawLocation.top]
-            : defaultYDomain
-        }
+        xDomain={xDomain}
+        yDomain={yDomain}
       >
         <HorizontalGridLines />
         <XAxis title="X Axis" />
@@ -334,23 +401,7 @@ const PiChart = ({data}: Props) => {
           // orientation="right"
           // position="middle"
         />
-        {hintValue ? (
-          <Hint value={hintValue}>
-            <Box bgcolor={theme.palette.common.white} boxShadow={3} p={1}>
-              <Type
-                variant="body2"
-                color="textPrimary"
-                style={{fontSize: '0.9rem'}}
-              >
-                {format(new Date(hintValue.x), "EE',' M/dd/yy h':'mm aa")}
-              </Type>
-              <Type variant="body2" color="textPrimary">
-                {seriesTitle}:{' '}
-                <strong>{round(hintValue.y, 2).toLocaleString()}</strong>
-              </Type>
-            </Box>
-          </Hint>
-        ) : null}
+        {hintValEl}
         {/* <Crosshair values={hintValue ? [hintValue] : []}>
           <div />
         </Crosshair> */}
@@ -361,36 +412,17 @@ const PiChart = ({data}: Props) => {
           strokeWidth={strokeWidth} // Defaults to 2px.
           curve={'curveMonotoneX'}
           data={seriesData}
-          onNearestX={(value: {x: number; y: number}) => setHintValue(value)}
+          onNearestX={onNearestXHandler}
         />
 
-        {hintValue ? (
-          <MarkSeries
-            color={theme.palette.secondary.light}
-            data={[{...hintValue}]}
-            // className="mark-series-example"
-            // sizeRange={[5, 15]}
-          />
-        ) : null}
+        {markSeriesEl}
 
         <Highlight
-          onBrushEnd={(area: any) => setLastDrawLocation(area)}
-          onDrag={(area: any) => {
-            setLastDrawLocation((cldl) => ({
-              bottom: cldl ? cldl.bottom : 0 + (area.top - area.bottom),
-              left: cldl ? cldl.left : 0 - (area.right - area.left),
-              right: cldl ? cldl.right : 0 - (area.right - area.left),
-              top: cldl ? cldl.top : 0 + (area.top - area.bottom)
-            }))
-          }}
+          onBrushEnd={onBrushEndHandler}
+          onDrag={onDragHighlightHandler}
         />
       </XYPlot>
-      <button
-        className="showcase-button"
-        onClick={() => setLastDrawLocation(null)}
-      >
-        Reset Zoom
-      </button>
+      <button onClick={resetZoomClickHandler}>Reset Zoom</button>
       <RowBox justifyContent="flex-end" textAlign="right" fontStyle="italic">
         <Type variant="body2">
           {`Generated on ${format(new Date(), "MMM do',' yyyy',' h:mm aa")}`}
