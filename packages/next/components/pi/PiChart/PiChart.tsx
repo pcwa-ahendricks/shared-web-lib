@@ -16,14 +16,8 @@ import {
 } from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
-import {
-  format,
-  formatDistance,
-  parseISO,
-  differenceInMonths,
-  differenceInDays
-} from 'date-fns'
+import {useTheme} from '@material-ui/styles'
+import {format, parseISO, differenceInMonths, differenceInDays} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
@@ -43,28 +37,15 @@ import 'react-vis/dist/style.css'
 import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
 import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
-import clsx from 'clsx'
+import PiChartDataAttributes from '../PiChartDataAttibutes/PiChartDataAttibutes'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
 
 type Props = {
   data?: AttributeStream
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    blurWhenLoading: {
-      '&$isLoading': {
-        color: 'transparent',
-        textShadow: '0 0 4px rgba(0,0,0,0.5)'
-      }
-    },
-    isLoading: {}
-  })
-)
-
 const PiChart = ({data}: Props) => {
   const theme = useTheme<Theme>()
-  const classes = useStyles()
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const {state} = useContext(PiContext)
   const {
@@ -72,7 +53,6 @@ const PiChart = ({data}: Props) => {
     activeGageItem,
     startDate,
     endDate,
-    interval,
     isLoadingAttributeStreams: isLoading
   } = state
   const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
@@ -149,93 +129,28 @@ const PiChart = ({data}: Props) => {
     isReservoir
   ])
 
-  const gagingStationCaption = useMemo(() => {
-    if (!activeGageItem) {
-      return ''
-    }
-    return isReservoir
-      ? friendlyName
-      : `${activeGageItem.id.toUpperCase()} - ${friendlyName}`
-  }, [activeGageItem, friendlyName, isReservoir])
-
-  //  ex.) Fri 9/20/2019 1:00 PM through Fri 9/27/2019 2:00 PM (7 days)
-  const dateRangeCaption = useMemo(
-    () =>
-      `${format(startDate, 'EE M/dd/yyyy h:mm bb')} through ${format(
-        endDate,
-        'EE M/dd/yyyy h:mm bb'
-      )} (${formatDistance(startDate, endDate)})`,
-
-    [startDate, endDate]
-  )
-
   // Since we are not using an initial value it's mandatory that we don't reduce empty arrays or else we will get a runtime error.
   const maxValue = useMemo(
     () =>
-      data &&
-      data.items &&
-      data.items.length > 0 &&
-      data.items.reduce((p, c) => {
-        const q = p || c
-        return c.Value > q.Value ? c : q
-      }),
+      data && data.items && data.items.length > 0
+        ? data.items.reduce((p, c) => {
+            const q = p || c
+            return c.Value > q.Value ? c : q
+          })
+        : null,
     [data]
   )
 
   const minValue = useMemo(
     () =>
-      data &&
-      data.items &&
-      data.items.length > 0 &&
-      data.items.reduce((p, c) => {
-        const q = p || c
-        return c.Value < q.Value ? c : q
-      }),
+      data && data.items && data.items.length > 0
+        ? data.items.reduce((p, c) => {
+            const q = p || c
+            return c.Value < q.Value ? c : q
+          })
+        : null,
     [data]
   )
-
-  // ex.) 1.80 CFS on Fri 9/20/2019 1:00 PM
-  const maxValueCaption = useMemo(() => {
-    if (!maxValue || !maxValue.Value) {
-      return ''
-    }
-    const timestamp = new Date(maxValue.Timestamp)
-    return `${maxValue.Value.toLocaleString()} ${
-      maxValue.UnitsAbbreviation
-    } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`
-  }, [maxValue])
-
-  const minValueCaption = useMemo(() => {
-    if (!minValue || !minValue.Value) {
-      return ''
-    }
-    const timestamp = new Date(minValue.Timestamp)
-    return `${minValue.Value.toLocaleString()} ${
-      minValue.UnitsAbbreviation
-    } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`
-  }, [minValue])
-
-  // ex.) 677 data points returned in 15 minute intervals.
-  const dataPointsCaption = useMemo(() => {
-    let intervalCaption = ''
-    switch (true) {
-      // Minute
-      case /\d+m/i.test(interval):
-        intervalCaption = interval.replace(/(\d)(m)/i, '$1 minute')
-        break
-      // Hour
-      case /\d+h/i.test(interval):
-        intervalCaption = interval.replace(/(\d)(h)/i, '$1 hour')
-        break
-      // Day
-      case /\d+d/i.test(interval):
-        intervalCaption = interval.replace(/(\d)(d)/i, '$1 day')
-        break
-    }
-    return data && intervalCaption
-      ? `${data.items.length} data points returned in ${intervalCaption} intervals.`
-      : ''
-  }, [data, interval])
 
   const buttonCaption = useMemo(
     () =>
@@ -371,12 +286,6 @@ const PiChart = ({data}: Props) => {
     []
   )
 
-  const DataType = ({children, ...rest}: any) => (
-    <Type variant="subtitle2" {...rest}>
-      {children}
-    </Type>
-  )
-
   const tickFormat = useCallback(
     (d: number) => {
       const diffInDays = !lastDrawLocation
@@ -432,27 +341,12 @@ const PiChart = ({data}: Props) => {
       <Type variant="h3" gutterBottom>
         {chartTitleEl}
       </Type>
-      <RowBox>
-        <Box flex="20%">
-          <DataType>Gaging Station:</DataType>
-          <DataType>Date Range:</DataType>
-          <DataType>Largest Value:</DataType>
-          <DataType>Smallest Value:</DataType>
-          <DataType>Data Points:</DataType>
-        </Box>
-        <Box
-          flex="80%"
-          className={clsx(classes.blurWhenLoading, {
-            [classes.isLoading]: isLoading
-          })}
-        >
-          <DataType>{gagingStationCaption}</DataType>
-          <DataType>{dateRangeCaption}</DataType>
-          <DataType>{maxValueCaption}</DataType>
-          <DataType>{minValueCaption}</DataType>
-          <DataType>{dataPointsCaption}</DataType>
-        </Box>
-      </RowBox>
+
+      <PiChartDataAttributes
+        data={data}
+        minValue={minValue}
+        maxValue={maxValue}
+      />
 
       <Box position="relative" width="100%">
         {/* <Box

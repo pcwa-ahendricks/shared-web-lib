@@ -110,7 +110,7 @@ export interface PiWebElementAttributeStream {
   UnitsAbbreviation: string
 }
 
-interface AttribStreamValue {
+export interface AttribStreamValue {
   Timestamp: string
   Value: number
   UnitsAbbreviation: string
