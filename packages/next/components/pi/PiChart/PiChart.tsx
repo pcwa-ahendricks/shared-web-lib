@@ -1,5 +1,12 @@
 // cspell:ignore cldl
-import React, {useState, useContext, useMemo, useCallback, useRef} from 'react'
+import React, {
+  useState,
+  useContext,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect
+} from 'react'
 import {
   Box,
   Theme,
@@ -79,6 +86,11 @@ const PiChart = ({data}: Props) => {
     right: Date
   }>(null)
 
+  // Reset zoom when data changes.
+  useEffect(() => {
+    setLastDrawLocation(null)
+  }, [data])
+
   const isReservoir = useMemo(
     () =>
       activeGageItem &&
@@ -120,8 +132,7 @@ const PiChart = ({data}: Props) => {
       return ' '
     }
     const firstPart = isReservoir
-      ? `${friendlyName} -
-              ${data.attribute} in ${data.units}`
+      ? `${friendlyName}`
       : isRiver
       ? `Gaging Station ${activeGageItem.id.toUpperCase()}`
       : ''
