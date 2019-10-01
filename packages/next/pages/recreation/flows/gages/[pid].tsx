@@ -1,11 +1,5 @@
 // cspell:ignore Recreationists
-import React, {
-  useMemo,
-  useEffect,
-  useCallback,
-  useContext,
-  useState
-} from 'react'
+import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -31,7 +25,6 @@ import {
 import {format} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
 import SectionBox from '@components/boxes/SectionBox'
-import useWindowResize from '@hooks/useWindowResize'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
 import PiChart from '@components/pi/PiChart/PiChart'
 import disclaimer from '@components/pi/disclaimer'
@@ -53,14 +46,6 @@ const DynamicPiPage = ({query}: Props) => {
     activeGageItem,
     attributeStreams
   } = state
-
-  const [windowWidth, setWindowWidth] = useState<number>()
-
-  useWindowResize(() => {
-    if (window && window.innerWidth) {
-      setWindowWidth(window.innerWidth)
-    }
-  }, 80)
 
   const pid = useMemo(() => {
     let {pid: queryPid} = router.query || query.pid
@@ -222,11 +207,7 @@ const DynamicPiPage = ({query}: Props) => {
             </SectionBox>
             <SectionBox>
               {sortedAttributeStreams.map((attribStream) => (
-                <PiChart
-                  key={attribStream.index}
-                  data={attribStream}
-                  windowWidth={windowWidth}
-                />
+                <PiChart key={attribStream.index} data={attribStream} />
               ))}
             </SectionBox>
           </Box>

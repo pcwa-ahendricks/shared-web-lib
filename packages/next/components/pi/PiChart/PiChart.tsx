@@ -1,89 +1,90 @@
 // cspell:ignore highcharts highstock unparse
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useContext,
-  useMemo
-} from 'react'
+import React, {useState, useContext, useMemo} from 'react'
 import {Box, Theme, Typography as Type} from '@material-ui/core'
+// import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
 import {useTheme} from '@material-ui/styles'
-import Highcharts, {Options} from 'highcharts/highstock'
-import HighchartsReact from 'highcharts-react-official'
 import {format, formatDistance, parseISO} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
-import delay from 'then-sleep'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
-
-const RESET_CHART_WIDTH = 200 // This is essentially the smallest width in px the chart may become.
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  LineSeries,
+  HorizontalGridLines,
+  XAxis,
+  YAxis,
+  Hint,
+  Highlight,
+  MarkSeries
+  // Crosshair
+} from 'react-vis'
+import 'react-vis/dist/style.css'
+import round from '@lib/round'
+import MuiNextLink from '@components/NextLink/NextLink'
 
 type Props = {
-  windowWidth?: number
   data?: AttributeStream
 }
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     wrapper: {
-//       maxWidth: 900
-//     }
-//   })
-// )
-
-const PiChart = ({data, windowWidth}: Props) => {
+const PiChart = ({data}: Props) => {
   const theme = useTheme<Theme>()
-  const chartParentRef = useRef<HTMLDivElement>(null)
-  const chartRef = useRef<HighchartsReact>(null)
-  const windowWidthRef = useRef<number>()
   const {state} = useContext(PiContext)
+  const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
+    false
+  )
+  const [lastDrawLocation, setLastDrawLocation] = useState<null | {
+    bottom: number
+    top: number
+    left: number
+    right: number
+  }>(null)
   const {streamSetMeta, activeGageItem, startDate, endDate, interval} = state
-  const [chartOptions, setChartOptions] = useState<Options>({
-    title: {
-      text: ''
-    },
-    chart: {
-      spacingBottom: 40 // So we can see footer.
-      // width: 0
-    },
-    credits: {
-      text: '\u00A9 PCWA',
-      href: 'https://www.pcwa.net'
-    },
-    lang: {
-      thousandsSep: ','
-    },
-    time: {
-      useUTC: false
-    },
-    subtitle: {
-      text: `Generated on ${format(new Date(), 'PPpp')}`,
-      align: 'right',
-      y: 30,
-      verticalAlign: 'bottom',
-      floating: true
-    },
-    tooltip: {
-      valueDecimals: 2
-    },
-    // For use with Highstock.
-    rangeSelector: {
-      enabled: false
-    },
-    exporting: {enabled: false}, // Hide hamburger menu.
-    xAxis: {
-      categories: []
-    },
-    series: [
-      {
-        type: 'line',
-        data: []
-      }
-    ]
-  })
+
+  // const [chartOptions, setChartOptions] = useState<Options>({
+  //   title: {
+  //     text: ''
+  //   },
+  //   chart: {
+  //     spacingBottom: 40 // So we can see footer.
+  //     // width: 0
+  //   },
+  //   credits: {
+  //     text: '\u00A9 PCWA',
+  //     href: 'https://www.pcwa.net'
+  //   },
+  //   lang: {
+  //     thousandsSep: ','
+  //   },
+  //   time: {
+  //     useUTC: false
+  //   },
+  //   subtitle: {
+  //     text: `Generated on ${format(new Date(), 'PPpp')}`,
+  //     align: 'right',
+  //     y: 30,
+  //     verticalAlign: 'bottom',
+  //     floating: true
+  //   },
+  //   tooltip: {
+  //     valueDecimals: 2
+  //   },
+  //   // For use with Highstock.
+  //   rangeSelector: {
+  //     enabled: false
+  //   },
+  //   exporting: {enabled: false}, // Hide hamburger menu.
+  //   xAxis: {
+  //     categories: []
+  //   },
+  //   series: [
+  //     {
+  //       type: 'line',
+  //       data: []
+  //     }
+  //   ]
+  // })
 
   const isReservoir = useMemo(
     () =>
@@ -113,90 +114,6 @@ const PiChart = ({data, windowWidth}: Props) => {
         : '',
     [data, attributeLabel]
   )
-
-  useEffect(() => {
-    if (!data || !(data.items.length > 0)) {
-      return
-    }
-    const newData = data.items.map((item) => ({
-      x: parseISO(item.Timestamp).getTime(),
-      y: item.Value
-    }))
-
-    setChartOptions((currentOptions) => ({
-      ...currentOptions,
-      yAxis: {
-        title: {
-          text: seriesTitle
-        }
-      },
-      series: [
-        {
-          name: seriesTitle,
-          type: 'line',
-          data: newData
-        }
-      ]
-    }))
-  }, [data, seriesTitle])
-
-  const reflowChart = useCallback(() => {
-    if (
-      chartRef.current &&
-      chartRef.current.chart &&
-      chartRef.current.chart.reflow
-    ) {
-      chartRef.current.chart.reflow()
-    }
-  }, [])
-
-  const setChartWidth = useCallback((width: number) => {
-    setChartOptions((currentChartOptions) => ({
-      ...currentChartOptions,
-      chart: {
-        ...currentChartOptions.chart,
-        width
-      }
-    }))
-  }, [])
-
-  const setChartWidthToParent = useCallback(() => {
-    const parentWidth = chartParentRef.current
-      ? chartParentRef.current.offsetWidth
-      : RESET_CHART_WIDTH
-    setChartWidth(parentWidth)
-  }, [setChartWidth])
-
-  // Only need to reset chart width when the window width decreased. Note, since windowWidthRef will initially be undefined it will take 2+ window increase resizes to see how this affects the reflow.
-  useEffect(() => {
-    if (
-      windowWidth &&
-      windowWidthRef.current &&
-      windowWidthRef.current < windowWidth
-    ) {
-      setChartWidthToParent()
-    } else {
-      setChartWidth(RESET_CHART_WIDTH)
-    }
-    windowWidthRef.current = windowWidth
-  }, [windowWidth, setChartWidthToParent, setChartWidth])
-
-  useEffect(() => {
-    const asyncFn = async () => {
-      // 1. Always reflow chart, regardless of if block.
-      // 2. Need to reflow before setting chart width to parent so that parent can actually shrink first, hence reflow call before the if block rather than after.
-      // 3. [hack] Delay a bit so that all Highcharts (usually 2) have enough time to shrink. 400ms seems to work well; 200ms didn't.
-      reflowChart()
-      await delay(400)
-      if (
-        chartOptions.chart &&
-        chartOptions.chart.width === RESET_CHART_WIDTH
-      ) {
-        setChartWidthToParent()
-      }
-    }
-    asyncFn()
-  }, [reflowChart, chartOptions, setChartWidthToParent])
 
   const friendlyName = useMemo(() => {
     const f = streamSetMeta.find(
@@ -337,6 +254,31 @@ const PiChart = ({data, windowWidth}: Props) => {
     []
   )
 
+  const newData = data
+    ? data.items.map((item) => ({
+        x: parseISO(item.Timestamp).getTime(),
+        y: item.Value
+      }))
+    : []
+
+  const strokeWidth = useMemo(() => {
+    if (!lastDrawLocation) {
+      return 1.9
+    }
+    const diff = lastDrawLocation.right - lastDrawLocation.left
+
+    switch (true) {
+      case diff < 100000000:
+        return 3.0
+      case diff < 200000000:
+        return 2.5
+      case diff < 300000000:
+        return 2.0
+      default:
+        return 1.9
+    }
+  }, [lastDrawLocation])
+
   return (
     <Box boxShadow={2} bgcolor={theme.palette.common.white} m={3} p={3}>
       <Type variant="h3" gutterBottom>
@@ -358,14 +300,103 @@ const PiChart = ({data, windowWidth}: Props) => {
           <Type variant="subtitle2">{dataPointsCaption}</Type>
         </Box>
       </RowBox>
-      <div ref={chartParentRef}>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={chartOptions}
-          constructorType={'stockChart'}
-          ref={chartRef}
+      <XYPlot
+        animation
+        // yDomain={[0, 5]}
+        xType="time"
+        height={300}
+        onMouseLeave={() => setHintValue(false)}
+        xDomain={
+          lastDrawLocation && [lastDrawLocation.left, lastDrawLocation.right]
+        }
+        yDomain={
+          lastDrawLocation
+            ? [lastDrawLocation.bottom, lastDrawLocation.top]
+            : minValue && maxValue
+            ? [minValue.Value, maxValue.Value]
+            : undefined
+        }
+      >
+        <HorizontalGridLines />
+        <XAxis title="X Axis" />
+        <YAxis
+          title={seriesTitle}
+          style={{fontSize: '0.9rem'}}
+          // orientation="right"
+          // position="middle"
         />
-      </div>
+        {hintValue ? (
+          <Hint value={hintValue}>
+            <Box bgcolor={theme.palette.common.white} boxShadow={3} p={1}>
+              <Type
+                variant="body2"
+                color="textPrimary"
+                style={{fontSize: '0.9rem'}}
+              >
+                {format(new Date(hintValue.x), "EE',' M/dd/yy h':'mm aa")}
+              </Type>
+              <Type variant="body2" color="textPrimary">
+                {seriesTitle}:{' '}
+                <strong>{round(hintValue.y, 2).toLocaleString()}</strong>
+              </Type>
+            </Box>
+          </Hint>
+        ) : null}
+        {/* <Crosshair values={hintValue ? [hintValue] : []}>
+          <div />
+        </Crosshair> */}
+
+        <LineSeries
+          color={theme.palette.primary.light}
+          opacity={0.95}
+          strokeWidth={strokeWidth} // Defaults to 2px.
+          curve={'curveMonotoneX'}
+          data={newData}
+          onNearestX={(value: {x: number; y: number}) => setHintValue(value)}
+        />
+
+        {hintValue ? (
+          <MarkSeries
+            color={theme.palette.secondary.light}
+            data={[{...hintValue}]}
+            // className="mark-series-example"
+            // sizeRange={[5, 15]}
+          />
+        ) : null}
+
+        <Highlight
+          onBrushEnd={(area: any) => setLastDrawLocation(area)}
+          onDrag={(area: any) => {
+            setLastDrawLocation((cldl) => ({
+              bottom: cldl ? cldl.bottom : 0 + (area.top - area.bottom),
+              left: cldl ? cldl.left : 0 - (area.right - area.left),
+              right: cldl ? cldl.right : 0 - (area.right - area.left),
+              top: cldl ? cldl.top : 0 + (area.top - area.bottom)
+            }))
+          }}
+        />
+      </XYPlot>
+      <button
+        className="showcase-button"
+        onClick={() => setLastDrawLocation(null)}
+      >
+        Reset Zoom
+      </button>
+      <RowBox justifyContent="flex-end" textAlign="right" fontStyle="italic">
+        <Type variant="body2">
+          {`Generated on ${format(new Date(), "MMM do',' yyyy',' h:mm aa")}`}
+        </Type>
+      </RowBox>
+      <RowBox justifyContent="flex-end" textAlign="right">
+        <MuiNextLink
+          variant="caption"
+          color="textSecondary"
+          href="/"
+          underline="none"
+        >
+          &copy; PCWA
+        </MuiNextLink>
+      </RowBox>
       <DlCsvButton
         color="secondary"
         data={csvData}
