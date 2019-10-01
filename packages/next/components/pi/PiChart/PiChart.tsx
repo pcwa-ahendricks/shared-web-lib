@@ -43,50 +43,6 @@ const PiChart = ({data}: Props) => {
   }>(null)
   const {streamSetMeta, activeGageItem, startDate, endDate, interval} = state
 
-  // const [chartOptions, setChartOptions] = useState<Options>({
-  //   title: {
-  //     text: ''
-  //   },
-  //   chart: {
-  //     spacingBottom: 40 // So we can see footer.
-  //     // width: 0
-  //   },
-  //   credits: {
-  //     text: '\u00A9 PCWA',
-  //     href: 'https://www.pcwa.net'
-  //   },
-  //   lang: {
-  //     thousandsSep: ','
-  //   },
-  //   time: {
-  //     useUTC: false
-  //   },
-  //   subtitle: {
-  //     text: `Generated on ${format(new Date(), 'PPpp')}`,
-  //     align: 'right',
-  //     y: 30,
-  //     verticalAlign: 'bottom',
-  //     floating: true
-  //   },
-  //   tooltip: {
-  //     valueDecimals: 2
-  //   },
-  //   // For use with Highstock.
-  //   rangeSelector: {
-  //     enabled: false
-  //   },
-  //   exporting: {enabled: false}, // Hide hamburger menu.
-  //   xAxis: {
-  //     categories: []
-  //   },
-  //   series: [
-  //     {
-  //       type: 'line',
-  //       data: []
-  //     }
-  //   ]
-  // })
-
   const isReservoir = useMemo(
     () =>
       activeGageItem &&
