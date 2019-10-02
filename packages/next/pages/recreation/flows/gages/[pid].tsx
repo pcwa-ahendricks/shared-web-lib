@@ -265,14 +265,19 @@ const DynamicPiPage = ({query}: Props) => {
       // The following reduce fn will zip an array of arrays.
       // Specifying reduce Type allows us to set the initial value as an array w/o type casting below.
       tableData.reduce<ZippedTableDataItem[]>((prevItems, curr) => {
+        // This if check just prevents toLowerCase() below from throwing an error due to undefined method.
+        if (!curr.attribute) {
+          return []
+        }
         const currItems = curr.items
 
         const newItems = currItems.map((e, i) => {
           // Assume that the timestamp will match when zipping arrays with map.
           const timestamp = parseISO(e.Timestamp)
+          // Lowercase attribute for use with <PiTable/>, which will pull data in for a given column based on a lowercase column id.
           return {
             timestamp,
-            [`${curr.attribute}`]: {
+            [`${curr.attribute.toLowerCase()}`]: {
               value: e.Value,
               units: curr.units,
               index: curr.index
