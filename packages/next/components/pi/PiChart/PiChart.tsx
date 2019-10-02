@@ -427,12 +427,7 @@ const PiChart = ({data}: Props) => {
           </MuiNextLink>
         )}
       </RowBox>
-      <DlCsvButton
-        color="secondary"
-        data={csvData}
-        header={csvHeader}
-        fileName={csvFileName}
-      >
+      <DlCsvButton data={csvData} header={csvHeader} fileName={csvFileName}>
         {buttonCaption}
       </DlCsvButton>
     </Box>

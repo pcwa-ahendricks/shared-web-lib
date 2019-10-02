@@ -30,6 +30,7 @@ import SectionBox from '@components/boxes/SectionBox'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
 import PiChart from '@components/pi/PiChart/PiChart'
 import disclaimer from '@components/pi/disclaimer'
+import PiTable from '@components/pi/PiTable/PiTable'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -225,6 +226,12 @@ const DynamicPiPage = ({query}: Props) => {
               {sortedAttributeStreams.map((attribStream) => (
                 <PiChart key={attribStream.index} data={attribStream} />
               ))}
+            </SectionBox>
+            <SectionBox>
+              {activeGageItem &&
+                activeGageItem.tables.map((table) => (
+                  <PiTable key={table.metric} data={sortedAttributeStreams} />
+                ))}
             </SectionBox>
           </Box>
         </Box>

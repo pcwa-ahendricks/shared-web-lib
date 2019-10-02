@@ -24,7 +24,7 @@ export interface GageConfigItem {
     | '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
   description: string
   chartValues: string[]
-  tables?: GageConfigTable[]
+  tables: GageConfigTable[]
   disabled?: boolean
 }
 interface TableConfig {
