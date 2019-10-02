@@ -18,11 +18,13 @@ interface State {
   streamSetItems: PiWebElementStreamSetResponse['Items']
   isLoadingStreamSetItems: boolean
   streamSetMeta: PiMetadata[]
-  attributeStreams: AttributeStream[]
-  isLoadingAttributeStreams: boolean
-  startDate: Date
-  endDate: Date
-  interval: string
+  chartData: AttributeStream[]
+  chartStartDate: Date
+  chartEndDate: Date
+  chartInterval: string
+  isLoadingChartData: boolean
+  tableData: AttributeStream[]
+  isLoadingTableData: boolean
 }
 
 type ProviderProps = {
@@ -60,19 +62,21 @@ const calcInterval = (startDate: Date, endDate: Date) => {
 // Not sure if cloning date is necessary for Context but it seems like a clean/immutable approach.
 const cloneDate = (d: Date) => new Date(d.getTime())
 
-const initialStartDate = subWeeks(new Date(), 1)
-const initialEndDate = new Date()
+const initialChartStartDate = subWeeks(new Date(), 1)
+const initialChartEndDate = new Date()
 
 // State
 const initialState: State = {
   streamSetItems: [],
   isLoadingStreamSetItems: false,
   streamSetMeta: [],
-  attributeStreams: [],
-  isLoadingAttributeStreams: false,
-  startDate: initialStartDate,
-  endDate: initialEndDate,
-  interval: calcInterval(initialStartDate, initialEndDate)
+  chartData: [],
+  isLoadingChartData: false,
+  tableData: [],
+  isLoadingTableData: false,
+  chartStartDate: initialChartStartDate,
+  chartEndDate: initialChartEndDate,
+  chartInterval: calcInterval(initialChartStartDate, initialChartEndDate)
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -87,15 +91,18 @@ const SET_STREAM_SET_ITEMS: 'SET_STREAM_SET_ITEMS' = 'SET_STREAM_SET_ITEMS'
 const SET_IS_LOADING_STREAM_SET_ITEMS: 'SET_IS_LOADING_STREAM_SET_ITEMS' =
   'SET_IS_LOADING_STREAM_SET_ITEMS'
 // const SET_INTERVAL: 'SET_INTERVAL' = 'SET_INTERVAL'
-const SET_START_DATE: 'SET_START_DATE' = 'SET_START_DATE'
-const SET_END_DATE: 'SET_END_DATE' = 'SET_END_DATE'
-const SET_ATTRIBUTE_STREAMS: 'SET_ATTRIBUTE_STREAMS' = 'SET_ATTRIBUTE_STREAMS'
-const UPDATE_ATTRIBUTE_STREAMS: 'UPDATE_ATTRIBUTE_STREAMS' =
-  'UPDATE_ATTRIBUTE_STREAMS'
-const RESET_ATTRIBUTE_STREAMS: 'RESET_ATTRIBUTE_STREAMS' =
-  'RESET_ATTRIBUTE_STREAMS'
-const SET_IS_LOADING_ATTRIBUTE_STREAMS: 'SET_IS_LOADING_ATTRIBUTE_STREAMS' =
-  'SET_IS_LOADING_ATTRIBUTE_STREAMS'
+const SET_CHART_START_DATE: 'SET_CHART_START_DATE' = 'SET_CHART_START_DATE'
+const SET_CHART_END_DATE: 'SET_CHART_END_DATE' = 'SET_CHART_END_DATE'
+const SET_CHART_DATA: 'SET_CHART_DATA' = 'SET_CHART_DATA'
+const UPDATE_CHART_DATA: 'UPDATE_CHART_DATA' = 'UPDATE_CHART_DATA'
+const RESET_CHART_DATA: 'RESET_CHART_DATA' = 'RESET_CHART_DATA'
+const SET_IS_LOADING_CHART_DATA: 'SET_IS_LOADING_CHART_DATA' =
+  'SET_IS_LOADING_CHART_DATA'
+const SET_TABLE_DATA: 'SET_TABLE_DATA' = 'SET_TABLE_DATA'
+const UPDATE_TABLE_DATA: 'UPDATE_TABLE_DATA' = 'UPDATE_TABLE_DATA'
+const RESET_TABLE_DATA: 'RESET_TABLE_DATA' = 'RESET_TABLE_DATA'
+const SET_IS_LOADING_TABLE_DATA: 'SET_IS_LOADING_TABLE_DATA' =
+  'SET_IS_LOADING_TABLE_DATA'
 
 // Actions
 export const setActiveGageItem = (item: State['activeGageItem']) => {
@@ -121,48 +128,77 @@ export const setIsLoadingStreamSetItems = (
   }
 }
 
-export const setAttributeStreams = (attribStream: AttributeStream) => {
+export const setChartData = (attribStream: AttributeStream) => {
   return {
-    type: SET_ATTRIBUTE_STREAMS,
+    type: SET_CHART_DATA,
     attribStream
   }
 }
 
-export const updateAttributeStreams = (attribStream: AttributeStream) => {
+export const updateChartData = (attribStream: AttributeStream) => {
   return {
-    type: UPDATE_ATTRIBUTE_STREAMS,
+    type: UPDATE_CHART_DATA,
     attribStream
   }
 }
 
-export const resetAttributeStreams = () => {
+export const resetChartData = () => {
   return {
-    type: RESET_ATTRIBUTE_STREAMS
+    type: RESET_CHART_DATA
   }
 }
 
-export const setIsLoadingAttributeStreams = (
-  isLoading: State['isLoadingAttributeStreams']
+export const setIsLoadingChartData = (
+  isLoading: State['isLoadingChartData']
 ) => {
   return {
-    type: SET_IS_LOADING_ATTRIBUTE_STREAMS,
+    type: SET_IS_LOADING_CHART_DATA,
     isLoading
   }
 }
 
 // const setInterval = ...
 
-export const setStartDate = (startDate: Date) => {
+export const setChartStartDate = (startDate: Date) => {
   return {
-    type: SET_START_DATE,
+    type: SET_CHART_START_DATE,
     startDate
   }
 }
 
-export const setEndDate = (endDate: Date) => {
+export const setChartEndDate = (endDate: Date) => {
   return {
-    type: SET_END_DATE,
+    type: SET_CHART_END_DATE,
     endDate
+  }
+}
+
+export const setTableData = (attribStream: AttributeStream) => {
+  return {
+    type: SET_TABLE_DATA,
+    attribStream
+  }
+}
+
+export const updateTableData = (attribStream: AttributeStream) => {
+  return {
+    type: UPDATE_TABLE_DATA,
+    attribStream
+  }
+}
+
+export const resetTableData = () => {
+  return {
+    type: RESET_TABLE_DATA
+  }
+}
+
+export const setIsLoadingTableData = (
+  isLoading: State['isLoadingTableData']
+) => {
+  return {
+    type: SET_IS_LOADING_TABLE_DATA,
+    isLoading
   }
 }
 
@@ -182,7 +218,7 @@ const piReducer = (state: State, action: any): State => {
       const streamSetMeta = names.map((e, idx) => {
         return {name: e, value: values[idx].Value}
       })
-      console.log('Zipped metadata: ', streamSetMeta)
+      // console.log('Zipped metadata: ', streamSetMeta)
       return {
         ...state,
         streamSetItems,
@@ -194,29 +230,27 @@ const piReducer = (state: State, action: any): State => {
         ...state,
         isLoadingStreamSetItems: action.isLoading
       }
-    case SET_START_DATE:
+    case SET_CHART_START_DATE:
       return {
         ...state,
-        startDate: cloneDate(action.startDate),
-        interval: calcInterval(action.startDate, state.endDate)
+        chartStartDate: cloneDate(action.startDate),
+        chartInterval: calcInterval(action.startDate, state.chartEndDate)
       }
-    case SET_END_DATE:
+    case SET_CHART_END_DATE:
       return {
         ...state,
-        endDate: cloneDate(action.endDate),
-        interval: calcInterval(state.startDate, action.endDate)
+        chartEndDate: cloneDate(action.endDate),
+        chartInterval: calcInterval(state.chartStartDate, action.endDate)
       }
-    case SET_ATTRIBUTE_STREAMS:
+    case SET_CHART_DATA:
       return {
         ...state,
-        attributeStreams: [...state.attributeStreams, {...action.attribStream}]
+        chartData: [...state.chartData, {...action.attribStream}]
       }
-    case UPDATE_ATTRIBUTE_STREAMS: {
+    case UPDATE_CHART_DATA: {
       const {attribute, index, items, units} = action.attribStream
-      const attributeStreams = [...state.attributeStreams]
-      const idx = state.attributeStreams.findIndex(
-        (stream) => stream.index === index
-      )
+      const chartData = [...state.chartData]
+      const idx = state.chartData.findIndex((stream) => stream.index === index)
       if (!(idx >= 0)) {
         return {...state}
       }
@@ -227,7 +261,7 @@ const piReducer = (state: State, action: any): State => {
       // ]
       // const updateStream = {...attributeStreams[idx], items, units, attribute}
 
-      attributeStreams[idx] = {
+      chartData[idx] = {
         index,
         items,
         units,
@@ -235,19 +269,53 @@ const piReducer = (state: State, action: any): State => {
       }
       return {
         ...state,
-        attributeStreams
+        chartData
         // attributeStreams: [...otherStreams, {...updateStream}]
       }
     }
-    case RESET_ATTRIBUTE_STREAMS:
+    case RESET_CHART_DATA:
       return {
         ...state,
-        attributeStreams: []
+        chartData: []
       }
-    case SET_IS_LOADING_ATTRIBUTE_STREAMS:
+    case SET_IS_LOADING_CHART_DATA:
       return {
         ...state,
-        isLoadingAttributeStreams: action.isLoading
+        isLoadingChartData: action.isLoading
+      }
+    // The following tables actions are identical to the chart actions above.
+    case SET_TABLE_DATA:
+      return {
+        ...state,
+        tableData: [...state.tableData, {...action.attribStream}]
+      }
+    case UPDATE_TABLE_DATA: {
+      const {attribute, index, items, units} = action.attribStream
+      const tableData = [...state.tableData]
+      const idx = state.tableData.findIndex((stream) => stream.index === index)
+      if (!(idx >= 0)) {
+        return {...state}
+      }
+      tableData[idx] = {
+        index,
+        items,
+        units,
+        attribute
+      }
+      return {
+        ...state,
+        tableData
+      }
+    }
+    case RESET_TABLE_DATA:
+      return {
+        ...state,
+        tableData: []
+      }
+    case SET_IS_LOADING_TABLE_DATA:
+      return {
+        ...state,
+        isLoadingTableData: action.isLoading
       }
     default:
       return state

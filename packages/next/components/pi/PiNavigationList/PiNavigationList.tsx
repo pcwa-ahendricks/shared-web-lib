@@ -3,7 +3,7 @@ import {List, ListSubheader, Divider, Theme, Box} from '@material-ui/core'
 // import {createStyles, makeStyles} from '@material-ui/styles'
 import {useTheme} from '@material-ui/styles'
 // import {ListItemProps} from '@material-ui/core/ListItem'
-import {gages} from '@lib/services/pi/gage-config'
+import gages from '@lib/services/pi/gage-config'
 import PiNavigationListItem from '../PiNavigationListItem/PiNavigationListItem'
 
 type Props = {

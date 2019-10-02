@@ -4,11 +4,13 @@ import {Box, Typography as Type} from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/styles'
 import {createStyles, makeStyles} from '@material-ui/styles'
-import {format, formatDistance} from 'date-fns'
+import {format, formatDistance, parseISO} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import clsx from 'clsx'
 import {AttribStreamValue} from '@lib/services/pi/pi-web-api-types'
+import useIsReservoirGage from '../hooks/useIsReservoirGage'
+import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 
 type Props = {
   data?: AttributeStream
@@ -32,27 +34,14 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
   const classes = useStyles()
   const {state} = useContext(PiContext)
   const {
-    streamSetMeta,
     activeGageItem,
-    startDate,
-    endDate,
-    interval,
-    isLoadingAttributeStreams: isLoading
+    chartStartDate,
+    chartEndDate,
+    chartInterval,
+    isLoadingChartData: isLoading
   } = state
-
-  const isReservoir = useMemo(
-    () =>
-      activeGageItem &&
-      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs',
-    [activeGageItem]
-  )
-
-  const friendlyName = useMemo(() => {
-    const f = streamSetMeta.find(
-      (m) => m.name && m.name && m.name.match(/friendly\s?name/i)
-    )
-    return (f && f.value) || ''
-  }, [streamSetMeta])
+  const isReservoir = useIsReservoirGage()
+  const friendlyName = useFriendlyNameMeta()
 
   const gagingStationCaption = useMemo(() => {
     if (!activeGageItem) {
@@ -66,12 +55,12 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
   //  ex.) Fri 9/20/2019 1:00 PM through Fri 9/27/2019 2:00 PM (7 days)
   const dateRangeCaption = useMemo(
     () =>
-      `${format(startDate, 'EE M/dd/yyyy h:mm bb')} through ${format(
-        endDate,
+      `${format(chartStartDate, 'EE M/dd/yyyy h:mm bb')} through ${format(
+        chartEndDate,
         'EE M/dd/yyyy h:mm bb'
-      )} (${formatDistance(startDate, endDate)})`,
+      )} (${formatDistance(chartStartDate, chartEndDate)})`,
 
-    [startDate, endDate]
+    [chartStartDate, chartEndDate]
   )
 
   // ex.) 1.80 CFS on Fri 9/20/2019 1:00 PM
@@ -79,7 +68,7 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
     if (!maxValue || !maxValue.Value) {
       return ''
     }
-    const timestamp = new Date(maxValue.Timestamp)
+    const timestamp = parseISO(maxValue.Timestamp)
     return `${maxValue.Value.toLocaleString()} ${
       maxValue.UnitsAbbreviation
     } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`
@@ -89,7 +78,7 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
     if (!minValue || !minValue.Value) {
       return ''
     }
-    const timestamp = new Date(minValue.Timestamp)
+    const timestamp = parseISO(minValue.Timestamp)
     return `${minValue.Value.toLocaleString()} ${
       minValue.UnitsAbbreviation
     } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`
@@ -100,22 +89,22 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
     let intervalCaption = ''
     switch (true) {
       // Minute
-      case /\d+m/i.test(interval):
-        intervalCaption = interval.replace(/(\d)(m)/i, '$1 minute')
+      case /\d+m/i.test(chartInterval):
+        intervalCaption = chartInterval.replace(/(\d)(m)/i, '$1 minute')
         break
       // Hour
-      case /\d+h/i.test(interval):
-        intervalCaption = interval.replace(/(\d)(h)/i, '$1 hour')
+      case /\d+h/i.test(chartInterval):
+        intervalCaption = chartInterval.replace(/(\d)(h)/i, '$1 hour')
         break
       // Day
-      case /\d+d/i.test(interval):
-        intervalCaption = interval.replace(/(\d)(d)/i, '$1 day')
+      case /\d+d/i.test(chartInterval):
+        intervalCaption = chartInterval.replace(/(\d)(d)/i, '$1 day')
         break
     }
     return data && intervalCaption
       ? `${data.items.length} data points returned in ${intervalCaption} intervals.`
       : ''
-  }, [data, interval])
+  }, [data, chartInterval])
 
   const DataType = ({children, ...rest}: any) => (
     <Type variant="subtitle2" {...rest}>

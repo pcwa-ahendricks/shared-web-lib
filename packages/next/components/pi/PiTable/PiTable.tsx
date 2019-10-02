@@ -15,9 +15,17 @@ import {
 } from '@material-ui/core'
 // import {createStyles, makeStyles} from '@material-ui/styles'
 import {PiContext} from '../PiStore'
+import {GageConfigTable} from '@lib/services/pi/gage-config'
+import {ZippedTableDataItem} from '../../../pages/recreation/flows/gages/[pid]'
+import toTitleCase from '@lib/toTitleCase'
+import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
+import useIsRiverGage from '../hooks/useIsRiverGage'
+import useIsReservoirGage from '../hooks/useIsReservoirGage'
 
 type Props = {
-  data?: any
+  data?: ZippedTableDataItem[]
+  metric: GageConfigTable['metric']
+  headers: GageConfigTable['headers']
 }
 
 // export interface UnclaimedPropertyData extends UnclaimedPropertyResponse {
@@ -52,42 +60,41 @@ type Props = {
 //   })
 // )
 
-const PiTable = ({data}: Props) => {
+const PiTable = ({data, metric, headers}: Props) => {
   const {state} = useContext(PiContext)
-  const {isLoadingAttributeStreams: isLoading, activeGageItem} = state
+  const {isLoadingTableData: isLoading, activeGageItem, streamSetMeta} = state
+  const friendlyName = useFriendlyNameMeta()
+  const isRiver = useIsRiverGage()
+  const isReservoir = useIsReservoirGage()
   const theme = useTheme<Theme>()
   // const classes = useStyles()
-  console.log(data)
-  console.log(activeGageItem)
+  // console.log(data)
+  console.log('TBL metric', metric)
+  console.log('TBL headers', headers)
+  console.log('TBL data', data)
 
-  // const headRows: {
-  //   id: HeadRowId
-  //   numeric: boolean
-  //   disablePadding: boolean
-  //   label: string
-  // }[] = useMemo(
-  //   () => [
-  //     {
-  //       id: 'owner',
-  //       numeric: false,
-  //       disablePadding: false,
-  //       label: 'Owner on Record'
-  //     },
-  //     {
-  //       id: 'amount',
-  //       numeric: true,
-  //       disablePadding: false,
-  //       label: 'Amount'
-  //     },
-  //     {
-  //       id: 'date',
-  //       numeric: false,
-  //       disablePadding: false,
-  //       label: 'Date'
-  //     }
-  //   ],
-  //   []
-  // )
+  const tableTitle = useMemo(() => {
+    if (!data || !streamSetMeta || !activeGageItem) {
+      return ' '
+    }
+    const firstPart = isReservoir
+      ? `${friendlyName}`
+      : isRiver
+      ? `Gaging Station ${activeGageItem.id.toUpperCase()}`
+      : ''
+
+    // const secondPart = data.units ? ` - ${attributeLabel} in ${data.units}` : ''
+    const secondPart = metric ? ` - ${toTitleCase(metric)} Data` : ''
+    return `${firstPart}${secondPart}`
+  }, [
+    activeGageItem,
+    friendlyName,
+    data,
+    streamSetMeta,
+    isRiver,
+    isReservoir,
+    metric
+  ])
 
   const linearProgressEl = useMemo(
     () =>
@@ -110,8 +117,8 @@ const PiTable = ({data}: Props) => {
       {linearProgressEl}
       <Box bgcolor={theme.palette.common.white} boxShadow={1}>
         <Toolbar>
-          <Type variant="h5" id="tableTitle">
-            Pi-Chart
+          <Type variant="h3" id="tableTitle">
+            {tableTitle}
           </Type>
         </Toolbar>
       </Box>

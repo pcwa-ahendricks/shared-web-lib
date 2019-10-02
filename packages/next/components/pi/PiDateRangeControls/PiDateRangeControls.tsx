@@ -10,18 +10,18 @@ import {
 import {useTheme} from '@material-ui/styles'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {DatePicker, MaterialUiPickersDate} from '@material-ui/pickers'
-import {PiContext, setStartDate, setEndDate} from '../PiStore'
+import {PiContext, setChartStartDate, setChartEndDate} from '../PiStore'
 import {subYears, subQuarters, subMonths, subWeeks} from 'date-fns'
 
 const PiDateRangeControls = () => {
   const theme = useTheme<Theme>()
   const {state, dispatch} = useContext(PiContext)
-  const {startDate, endDate} = state
+  const {chartStartDate, chartEndDate} = state
 
   const startDateChangeHandler = useCallback(
     (date: MaterialUiPickersDate) => {
       if (date) {
-        dispatch(setStartDate(date))
+        dispatch(setChartStartDate(date))
       }
     },
     [dispatch]
@@ -30,30 +30,30 @@ const PiDateRangeControls = () => {
   const endDateChangeHandler = useCallback(
     (date: MaterialUiPickersDate) => {
       if (date) {
-        dispatch(setEndDate(date))
+        dispatch(setChartEndDate(date))
       }
     },
     [dispatch]
   )
 
   const pastYearClickHandler = useCallback(() => {
-    dispatch(setStartDate(subYears(new Date(), 1)))
-    dispatch(setEndDate(new Date()))
+    dispatch(setChartStartDate(subYears(new Date(), 1)))
+    dispatch(setChartEndDate(new Date()))
   }, [dispatch])
 
   const pastQuarterClickHandler = useCallback(() => {
-    dispatch(setStartDate(subQuarters(new Date(), 1)))
-    dispatch(setEndDate(new Date()))
+    dispatch(setChartStartDate(subQuarters(new Date(), 1)))
+    dispatch(setChartEndDate(new Date()))
   }, [dispatch])
 
   const pastMonthClickHandler = useCallback(() => {
-    dispatch(setStartDate(subMonths(new Date(), 1)))
-    dispatch(setEndDate(new Date()))
+    dispatch(setChartStartDate(subMonths(new Date(), 1)))
+    dispatch(setChartEndDate(new Date()))
   }, [dispatch])
 
   const pastWeekClickHandler = useCallback(() => {
-    dispatch(setStartDate(subWeeks(new Date(), 1)))
-    dispatch(setEndDate(new Date()))
+    dispatch(setChartStartDate(subWeeks(new Date(), 1)))
+    dispatch(setChartEndDate(new Date()))
   }, [dispatch])
 
   return (
@@ -70,7 +70,7 @@ const PiDateRangeControls = () => {
                 disableFuture
                 minDate={subYears(new Date(), 1)}
                 name="startDate"
-                value={startDate}
+                value={chartStartDate}
                 format="M/dd/yyyy"
                 label="Start Date"
                 onChange={startDateChangeHandler}
@@ -82,9 +82,9 @@ const PiDateRangeControls = () => {
             <FormControl>
               <DatePicker
                 disableFuture
-                minDate={startDate}
+                minDate={chartStartDate}
                 name="endDate"
-                value={endDate}
+                value={chartEndDate}
                 format="M/dd/yyyy"
                 label="End Date"
                 onChange={endDateChangeHandler}

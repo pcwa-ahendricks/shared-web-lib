@@ -66,9 +66,9 @@ const UnclaimedPropertyTable = () => {
   const [unclaimedPropertyData, setUnclaimedPropertyData] = useState<
     UnclaimedPropertyData[]
   >([])
-  const [sortFilterSalaryData, setSortFilterSalaryData] = useState<
-    UnclaimedPropertyData[]
-  >(unclaimedPropertyData)
+  const [sortFilterData, setSortFilterData] = useState<UnclaimedPropertyData[]>(
+    unclaimedPropertyData
+  )
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('owner')
 
@@ -88,13 +88,13 @@ const UnclaimedPropertyTable = () => {
     }
   }, [unclaimedPropertyData])
 
-  const setSalaryScheduleData = useCallback(async () => {
-    const ssData: UnclaimedPropertyResponse[] = await getUnclaimedProperty()
-    const ssDataWithId = ssData.map((row) => ({
+  const setData = useCallback(async () => {
+    const data: UnclaimedPropertyResponse[] = await getUnclaimedProperty()
+    const dataWithId = data.map((row) => ({
       id: generate(),
       ...row
     }))
-    setUnclaimedPropertyData(ssDataWithId)
+    setUnclaimedPropertyData(dataWithId)
   }, [])
 
   useEffect(() => {
@@ -102,8 +102,8 @@ const UnclaimedPropertyTable = () => {
   }, [logAmountTotal, unclaimedPropertyData])
 
   useEffect(() => {
-    setSalaryScheduleData()
-  }, [setSalaryScheduleData])
+    setData()
+  }, [setData])
 
   const headRows: {
     id: HeadRowId
@@ -166,7 +166,7 @@ const UnclaimedPropertyTable = () => {
       f,
       getSorting<HeadRowId>(order, orderBy)
     )
-    setSortFilterSalaryData(s)
+    setSortFilterData(s)
     setFilteredRowCount(s.length)
   }, [unclaimedPropertyData, debInputFilter, order, orderBy])
 
@@ -249,7 +249,7 @@ const UnclaimedPropertyTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortFilterSalaryData
+              {sortFilterData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <UnclaimedPropertyTableRow key={row.id} data={row} />

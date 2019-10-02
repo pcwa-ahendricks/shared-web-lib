@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react'
 import {FormControl, InputLabel, Select, MenuItem} from '@material-ui/core'
-import {gages, GageConfigItem} from '@lib/services/pi/gage-config'
+import gages, {GageConfigItem} from '@lib/services/pi/gage-config'
 import {useRouter} from 'next/router'
 import acronym from '@lib/acronym'
 

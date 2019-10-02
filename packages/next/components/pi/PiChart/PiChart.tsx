@@ -38,6 +38,9 @@ import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
 import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
 import PiChartDataAttributes from '../PiChartDataAttibutes/PiChartDataAttibutes'
+import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
+import useIsRiverGage from '../hooks/useIsRiverGage'
+import useIsReservoirGage from '../hooks/useIsReservoirGage'
 // import {curveCardinal} from 'd3-shape'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
 
@@ -52,13 +55,16 @@ const PiChart = ({data}: Props) => {
   const {
     streamSetMeta,
     activeGageItem,
-    startDate,
-    endDate,
-    isLoadingAttributeStreams: isLoading
+    chartStartDate,
+    chartEndDate,
+    isLoadingChartData: isLoading
   } = state
   const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
     false
   )
+  const friendlyName = useFriendlyNameMeta()
+  const isRiver = useIsRiverGage()
+  const isReservoir = useIsReservoirGage()
   const xyPlotRef = useRef<any>()
   const [lastDrawLocation, setLastDrawLocation] = useState<null | {
     // bottom: number
@@ -71,20 +77,6 @@ const PiChart = ({data}: Props) => {
   useEffect(() => {
     setLastDrawLocation(null)
   }, [data])
-
-  const isReservoir = useMemo(
-    () =>
-      activeGageItem &&
-      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs',
-    [activeGageItem]
-  )
-
-  const isRiver = useMemo(
-    () =>
-      activeGageItem &&
-      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
-    [activeGageItem]
-  )
 
   const attributeLabel = useMemo(() => {
     if (!data) {
@@ -101,14 +93,7 @@ const PiChart = ({data}: Props) => {
     [data, attributeLabel]
   )
 
-  const friendlyName = useMemo(() => {
-    const f = streamSetMeta.find(
-      (m) => m.name && m.name && m.name.match(/friendly\s?name/i)
-    )
-    return (f && f.value) || ''
-  }, [streamSetMeta])
-
-  const chartTitleEl = useMemo(() => {
+  const chartTitle = useMemo(() => {
     if (!data || !streamSetMeta || !activeGageItem) {
       return ' '
     }
@@ -290,31 +275,31 @@ const PiChart = ({data}: Props) => {
   const tickFormat = useCallback(
     (d: number) => {
       const diffInDays = !lastDrawLocation
-        ? differenceInDays(endDate, startDate)
+        ? differenceInDays(chartEndDate, chartStartDate)
         : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
       if (diffInDays <= 4) {
         return format(new Date(d), "M'/'dd, h aa")
       }
       const diffInMonths = !lastDrawLocation
-        ? differenceInMonths(endDate, startDate)
+        ? differenceInMonths(chartEndDate, chartStartDate)
         : differenceInMonths(lastDrawLocation.right, lastDrawLocation.left)
       if (diffInMonths > 6) {
         return format(new Date(d), "MMM ''yy") // Formatting w/ single-quotes is not intuitive. See https://date-fns.org/v2.4.1/docs/format#description for more info.
       }
       return format(new Date(d), "d'.' MMM")
     },
-    [startDate, endDate, lastDrawLocation]
+    [chartStartDate, chartEndDate, lastDrawLocation]
   )
 
   const tickTotal = useMemo(() => {
     const diffInDays = !lastDrawLocation
-      ? differenceInDays(endDate, startDate)
+      ? differenceInDays(chartEndDate, chartStartDate)
       : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
     if (diffInDays <= 4) {
       return isMdUp ? 8 : 6
     }
     return isMdUp ? 12 : 8
-  }, [isMdUp, lastDrawLocation, endDate, startDate])
+  }, [isMdUp, lastDrawLocation, chartEndDate, chartStartDate])
 
   const onMouseLeaveHandler = useCallback(() => {
     setHintValue(false)
@@ -343,7 +328,7 @@ const PiChart = ({data}: Props) => {
     >
       {linearProgressEl}
       <Type variant="h3" gutterBottom>
-        {chartTitleEl}
+        {chartTitle}
       </Type>
       <PiChartDataAttributes
         data={data}
