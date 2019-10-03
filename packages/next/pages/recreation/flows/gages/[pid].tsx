@@ -19,6 +19,7 @@ import {
   setActiveGageItem,
   setChartData,
   updateChartData,
+  // setChartStartDate,
   resetChartData,
   setIsLoadingChartData,
   AttributeStream,
@@ -26,6 +27,7 @@ import {
   updateTableData,
   resetTableData,
   setIsLoadingTableData
+  // setChartEndDate
 } from '@components/pi/PiStore'
 import {format, parseISO, startOfMonth} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
@@ -35,6 +37,7 @@ import PiChart from '@components/pi/PiChart/PiChart'
 import disclaimer from '@components/pi/disclaimer'
 import PiTable from '@components/pi/PiTable/PiTable'
 import gages from '@lib/services/pi/gage-config'
+import useInterval from '@hooks/useInterval'
 const isDev = process.env.NODE_ENV === 'development'
 
 const TABLE_TIME_INTERVAL = '15m'
@@ -67,6 +70,10 @@ const DynamicPiPage = ({query}: Props) => {
     chartData,
     tableData
   } = state
+
+  useEffect(() => {
+    // dispatch(setChartEndDate(new Date()))
+  }, [dispatch])
 
   const pid = useMemo(() => {
     let {pid: queryPid} = router.query || query.pid
@@ -110,7 +117,7 @@ const DynamicPiPage = ({query}: Props) => {
           )
           isDev &&
             console.log(
-              `Chart data for ${activeGageItem.id} | ${format(
+              `Chart data for ${activeGageItem.id}, ${attribute} | ${format(
                 chartStartDate,
                 'Pp'
               )} - ${format(chartEndDate, 'Pp')} | ${chartInterval}`
@@ -175,7 +182,7 @@ const DynamicPiPage = ({query}: Props) => {
           )
           isDev &&
             console.log(
-              `Table data for ${activeGageItem.id} | ${format(
+              `Table data for ${activeGageItem.id}, ${attribute} | ${format(
                 startDate,
                 'Pp'
               )} - ${format(endDate, 'Pp')} | ${TABLE_TIME_INTERVAL}`
@@ -218,6 +225,13 @@ const DynamicPiPage = ({query}: Props) => {
   useEffect(() => {
     fetchTableAttributeStream()
   }, [streamSetItems, fetchTableAttributeStream])
+
+  const timeoutHandler = useCallback(() => {
+    console.log('foo bar', new Date().toLocaleString())
+    fetchTableAttributeStream()
+  }, [fetchTableAttributeStream])
+
+  useInterval(timeoutHandler, 1000 * 60 * 5) // 5 minutes.
 
   // Target whenever activeGageItem changes.
   useEffect(() => {

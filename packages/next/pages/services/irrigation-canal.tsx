@@ -116,9 +116,7 @@ const IrrigationCanalPage = () => {
                   </strong>
                 </em>
                 , updates will be posted on PCWA's{' '}
-                <NextLink href="/services/outage" prefetch>
-                  Outage Information
-                </NextLink>{' '}
+                <NextLink href="/services/outage">Outage Information</NextLink>{' '}
                 page of this website.
               </Type>
             </RespChildBox>

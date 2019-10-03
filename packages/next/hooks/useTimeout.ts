@@ -1,9 +1,8 @@
 import {useEffect} from 'react'
 
-const useTimeout = (cb: any, timeout = 100) => {
+const useTimeout = (cb: () => any, timeout = 100) => {
   useEffect(() => {
-    console.log('useEffect: should only run when props change')
-
+    // console.log('useEffect: should only run when props change')
     const timeoutId = setTimeout(() => {
       cb()
     }, timeout)
