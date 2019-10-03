@@ -11,17 +11,19 @@ import {useTheme} from '@material-ui/styles'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {DatePicker, MaterialUiPickersDate} from '@material-ui/pickers'
 import {PiContext, setChartStartDate, setChartEndDate} from '../PiStore'
-import {subYears, subQuarters, subMonths, subWeeks} from 'date-fns'
+import {subYears, subQuarters, subMonths, subWeeks, startOfDay} from 'date-fns'
 
 const PiDateRangeControls = () => {
   const theme = useTheme<Theme>()
   const {state, dispatch} = useContext(PiContext)
   const {chartStartDate, chartEndDate} = state
 
+  // Change handlers use the start time of the day selected instead of the time of day that the page is loaded.
   const startDateChangeHandler = useCallback(
     (date: MaterialUiPickersDate) => {
       if (date) {
-        dispatch(setChartStartDate(date))
+        const dateDayStart = startOfDay(date)
+        dispatch(setChartStartDate(dateDayStart))
       }
     },
     [dispatch]
@@ -30,7 +32,8 @@ const PiDateRangeControls = () => {
   const endDateChangeHandler = useCallback(
     (date: MaterialUiPickersDate) => {
       if (date) {
-        dispatch(setChartEndDate(date))
+        const dateDayStart = startOfDay(date)
+        dispatch(setChartEndDate(dateDayStart))
       }
     },
     [dispatch]

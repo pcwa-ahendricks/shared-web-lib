@@ -19,17 +19,16 @@ import {
   setActiveGageItem,
   setChartData,
   updateChartData,
-  // setChartStartDate,
   resetChartData,
   setIsLoadingChartData,
   AttributeStream,
   setTableData,
   updateTableData,
   resetTableData,
-  setIsLoadingTableData
-  // setChartEndDate
+  setIsLoadingTableData,
+  setChartEndDate
 } from '@components/pi/PiStore'
-import {format, parseISO, startOfMonth} from 'date-fns'
+import {format, parseISO, startOfMonth, isToday} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
 import SectionBox from '@components/boxes/SectionBox'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
@@ -227,9 +226,15 @@ const DynamicPiPage = ({query}: Props) => {
   }, [streamSetItems, fetchTableAttributeStream])
 
   const timeoutHandler = useCallback(() => {
-    console.log('foo bar', new Date().toLocaleString())
+    isDev && console.log('timer timeout: ', new Date().toLocaleString())
     fetchTableAttributeStream()
-  }, [fetchTableAttributeStream])
+    // If the user hasn't changed the end date assume we want to update the chart data as well.
+    // Don't place this if block in fetchChartAttributeStream() cause it will result in in infinite (re)renders.
+    if (isToday(chartEndDate)) {
+      isDev && console.log('Updating chart end date to current date/time.')
+      dispatch(setChartEndDate(new Date()))
+    }
+  }, [fetchTableAttributeStream, chartEndDate, dispatch])
 
   useInterval(timeoutHandler, 1000 * 60 * 5) // 5 minutes.
 
