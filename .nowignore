@@ -3,3 +3,4 @@
 packages/www/.next
 packages/www/out
 node_modules
+yarn.lock

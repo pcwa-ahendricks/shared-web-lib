@@ -214,7 +214,6 @@ require('regenerator-runtime/runtime')
 // import repeat from 'core-js/library/fn/string/virtual/repeat'
 // String.prototype.repeat = repeat
 
-import Promise from 'es6-promise'
 import '../lib/modernizr'
 
 import 'lazysizes'
@@ -224,8 +223,6 @@ import 'lazysizes/plugins/attrchange/ls.attrchange'
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 import 'lazysizes/plugins/object-fit/ls.object-fit'
 import 'lazysizes/plugins/blur-up/ls.blur-up'
-
-Promise.polyfill()
 
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
 if (!HTMLCanvasElement.prototype.toBlob) {

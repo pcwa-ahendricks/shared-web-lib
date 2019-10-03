@@ -39,7 +39,6 @@
     "debounce": "^1.2.0",
     "deep-object-diff": "^1.1.0",
     "dotenv-webpack": "^1.7.0",
-    "es6-promise": "^4.2.8",
     "file-saver": "^2.0.2",
     "formik": "^1.5.8",
     "html-react-parser": "^0.9.1",
