@@ -2,9 +2,9 @@
   "editor.formatOnSave": true,
   "search.exclude": {
     "**/node_modules": true,
-    "packages/next/.next": true,
-    "packages/next/out": true,
-    "packages/next/bundles": true,
+    "packages/www/.next": true,
+    "packages/www/out": true,
+    "packages/www/bundles": true,
     "packages/**/dist/**/*.js": true,
     "**/yarn-error.log": true
   },

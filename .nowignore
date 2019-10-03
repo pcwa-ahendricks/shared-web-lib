@@ -1,5 +1,5 @@
 **/*.test.js
 **/*.spec.js
-packages/next/.next
-packages/next/out
+packages/www/.next
+packages/www/out
 node_modules
