@@ -25,7 +25,7 @@
   },
   "builds": [
     {
-      "src": "packages/next/package.json",
+      "src": "packages/www/package.json",
       "use": "@now/next",
       "config": {
         "maxLambdaSize": "50mb"
@@ -63,7 +63,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/packages/next/$1",
+      "dest": "/packages/www/$1",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"
@@ -72,42 +72,42 @@
     { "handle": "filesystem" },
     {
       "src": "/washing-machine-rebate/?",
-      "dest": "/packages/next/forms/rebates/washing-machine.html",
+      "dest": "/packages/www/forms/rebates/washing-machine.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/irrigation-efficiencies-rebate/?",
-      "dest": "/packages/next/forms/rebates/irrigation-efficiencies.html",
+      "dest": "/packages/www/forms/rebates/irrigation-efficiencies.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/lawn-replacement-rebate/?",
-      "dest": "/packages/next/forms/rebates/lawn-replacement.html",
+      "dest": "/packages/www/forms/rebates/lawn-replacement.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/toilet-rebate/?",
-      "dest": "/packages/next/forms/rebates/toilet.html",
+      "dest": "/packages/www/forms/rebates/toilet.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/account-contact-info/?",
-      "dest": "/packages/next/forms/account/contact-info.html",
+      "dest": "/packages/www/forms/account/contact-info.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/(.*)",
-      "dest": "/packages/next/$1.html",
+      "dest": "/packages/www/$1.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"

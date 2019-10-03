@@ -16,7 +16,7 @@
     "cosmic:dev": "npm run dev --prefix packages/cosmic",
     "google-search:dev": "npm run dev --prefix packages/google-search",
     "mailchimp:dev": "npm run dev --prefix packages/mailchimp",
-    "next:dev": "npm run dev --prefix packages/next",
+    "next:dev": "npm run dev --prefix packages/www",
     "dev": "npm-run-all -p next:dev forecast:dev mailjet:dev cosmic:dev google-search:dev mailchimp:dev",
     "prenow": "npm run build --prefix packages/mailchimp && npm run build --prefix packages/google-search && npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
     "now:dev-web": "npm run prenow && now --prod",

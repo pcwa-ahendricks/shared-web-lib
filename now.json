@@ -42,7 +42,7 @@
   },
   "builds": [
     {
-      "src": "packages/next/package.json",
+      "src": "packages/www/package.json",
       "use": "@now/next",
       "config": {
         "maxLambdaSize": "50mb"
@@ -103,7 +103,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/packages/next/$1",
+      "dest": "/packages/www/$1",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"
@@ -112,7 +112,7 @@
     { "handle": "filesystem" },
     {
       "src": "/(.*)",
-      "dest": "/packages/next/$1.html",
+      "dest": "/packages/www/$1.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"

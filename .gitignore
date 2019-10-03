@@ -29,8 +29,8 @@ yarn-error.log*
 **/.vscode/chrome
 
 # next
-**/next/out
-**/next/.next
+**/www/out
+**/www/.next
 
 **/flow-typed/
 
