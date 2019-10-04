@@ -2,7 +2,7 @@ import React from 'react'
 import {makeStyles, createStyles} from '@material-ui/styles'
 import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
 import {Theme} from '@material-ui/core'
-// import colorAlpha from 'color-alpha'
+import colorAlpha from 'color-alpha'
 // import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 type Props = {
@@ -12,21 +12,20 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
+      margin: '-1px 0',
+      borderRadius: '2px', // Default: 4px
+      justifyContent: 'normal',
+      transition: 'none', // Need to unset Mui Button styling for background-color transition property.
       // color: theme.palette.grey[50],
-      opacity: 0.85,
+      // opacity: 0.85,
       textTransform: 'none',
       '&:hover, &:active': {
         // color: theme.palette.common.white,
         color: theme.palette.grey[50],
-        backgroundColor: theme.palette.primary.main,
-        fontWeight: 500,
-        opacity: 1
+        backgroundColor: colorAlpha(theme.palette.primary.main, 0.85),
+        fontWeight: 500
+        // opacity: 1
       }
-    },
-    buttonRoot: {
-      margin: '-1px 0',
-      borderRadius: '2px', // Default: 4px
-      justifyContent: 'normal'
     },
     buttonText: {
       fontSize: '0.9rem',
@@ -43,11 +42,10 @@ const MMNavLink = ({children, href, isNextLink = true}: Props) => {
 
   return (
     <FlexButton
-      className={classes.button}
       href={href}
       color="primary"
       isNextLink={isNextLink}
-      classes={{root: classes.buttonRoot, text: classes.buttonText}}
+      classes={{root: classes.button, text: classes.buttonText}}
     >
       {children}
     </FlexButton>

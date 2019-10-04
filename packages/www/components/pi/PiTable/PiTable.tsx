@@ -28,9 +28,9 @@ import toTitleCase from '@lib/toTitleCase'
 import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
-import {isToday, isThisMonth, format} from 'date-fns'
+import {isToday, isThisMonth, isValid} from 'date-fns'
 import {getSorting, stableSort} from '@lib/table-utils'
-import {generate} from 'shortid'
+// import {generate} from 'shortid'
 import PiTableRow from './PiTableRow'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
@@ -41,9 +41,9 @@ type Props = {
   headers: GageConfigTable['headers']
 }
 
-// export interface UnclaimedPropertyData extends UnclaimedPropertyResponse {
-//   id: string
-// }
+export interface TableDataItem extends ZippedTableDataItem {
+  id: string
+}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -81,43 +81,24 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
   const [order, setOrder] = useState<'asc' | 'desc'>('desc') // SortDirection Type doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<string>('timestamp')
   const [data, setData] = useState<any[]>([])
-  const [sortedData, setSortedData] = useState<any[]>([])
+  const [sortedData, setSortedData] = useState<ZippedTableDataItem[]>([])
   const [rowCount, setRowCount] = useState(0)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5) // 5, 10, or 20.
 
   useEffect(() => {
-    if (dataProp) {
-      const headerIds = headers.map((h) => h.id)
-      const mappedData = dataProp.map((item) => {
-        const i: any = {
-          id: generate(),
-          timestamp: item.timestamp
-        }
-        headerIds
-          .filter((h) => h !== 'timestamp')
-          .forEach((h) => {
-            const itemValue = item[h]
-            if (!itemValue || itemValue instanceof Date) {
-              return
-            }
-            i[h] = itemValue.value
-            i[`${[h]}Units`] = itemValue.units
-          })
-        return i
-      })
-      if (metric === 'daily') {
-        const dailyData = mappedData.filter((item) => isToday(item.timestamp))
-        setData(dailyData)
-      } else if (metric === 'monthly') {
-        const monthlyData = mappedData.filter((item) =>
-          isThisMonth(item.timestamp)
-        )
-        setData(monthlyData)
-      }
+    if (dataProp && metric === 'daily') {
+      const dailyData = dataProp.filter((item) =>
+        isValid(item.timestamp) ? isToday(item.timestamp) : false
+      )
+      setData(dailyData)
+    } else if (dataProp && metric === 'monthly') {
+      const monthlyData = dataProp.filter((item) =>
+        isValid(item.timestamp) ? isThisMonth(item.timestamp) : false
+      )
+      setData(monthlyData)
     }
   }, [dataProp, metric, headers])
-  console.log(data)
 
   useEffect(() => {
     const s = stableSort<any>(data, getSorting<any>(order, orderBy))
@@ -127,7 +108,8 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
 
   // console.log('TBL metric', metric)
   // console.log('TBL headers', headers)
-  // console.log('TBL data', data)
+  // console.log('TBL Mapped data', data)
+  // console.log('dataProp', dataProp)
 
   const tableTitle = useMemo(() => {
     if (!data || !streamSetMeta || !activeGageItem) {
@@ -211,10 +193,15 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
   const csvData = useMemo(
     () =>
       data &&
-      data.map((item) => ({
-        timestamp: format(item.timestamp, 'M/dd/yyyy h:mm aa')
-        // value: item.Value
-      })),
+      data.map((item) => {
+        const timestamp = isValid(item.timestamp)
+          ? item.timestamp.toISOString()
+          : ''
+        return {
+          timestamp
+          // value: item.Value
+        }
+      }),
     [data]
   )
 
@@ -274,7 +261,6 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
                 <PiTableRow
                   key={row.id}
                   data={row}
-                  headers={headers}
                   timestampFormat={timestampFormat}
                 />
               ))}

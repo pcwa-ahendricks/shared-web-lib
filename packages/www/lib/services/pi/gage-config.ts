@@ -20,6 +20,7 @@ interface TableHeader {
   label: string
 }
 
+// Header sequence/ordering should match tableValues property (disregard the timestamp since that will always be included).
 const gageStationHeaders: TableHeader[] = [
   {
     id: 'timestamp',
@@ -209,7 +210,7 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
     description: 'French Meadows Reservoir',
     chartValues: ['Elevation', 'Storage'],
-    tableValues: ['Elevation', 'Storage'],
+    tableValues: ['Storage', 'Elevation'],
     tables: [
       {
         metric: 'daily',
@@ -227,7 +228,7 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
     description: 'Hell Hole Reservoir',
     chartValues: ['Elevation', 'Storage'],
-    tableValues: ['Elevation', 'Storage'],
+    tableValues: ['Storage', 'Elevation'],
     tables: [
       {
         metric: 'daily',

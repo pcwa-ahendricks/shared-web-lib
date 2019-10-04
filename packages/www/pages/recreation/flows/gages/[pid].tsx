@@ -37,6 +37,7 @@ import disclaimer from '@components/pi/disclaimer'
 import PiTable from '@components/pi/PiTable/PiTable'
 import gages from '@lib/services/pi/gage-config'
 import useInterval from '@hooks/useInterval'
+import {generate} from 'shortid'
 const isDev = process.env.NODE_ENV === 'development'
 
 const TABLE_TIME_INTERVAL = '15m'
@@ -46,14 +47,14 @@ type Props = {
 }
 
 export interface ZippedTableDataItem {
+  id: string
   timestamp: Date
-  [attrib: string]:
-    | {
-        value: number
-        units: string
-        index: number
-      }
-    | Date
+  values: {
+    value: number
+    attribute: string
+    columnNo: number
+    units?: string
+  }[]
 }
 
 const DynamicPiPage = ({query}: Props) => {
@@ -293,21 +294,31 @@ const DynamicPiPage = ({query}: Props) => {
         const newItems = currItems.map((e, i) => {
           // Assume that the timestamp will match when zipping arrays with map.
           const timestamp = parseISO(e.Timestamp)
-          // Lowercase attribute for use with <PiTable/>, which will pull data in for a given column based on a lowercase column id.
+          const prevItemsObj = {...prevItems[i]}
+          const prevItemsValues = prevItemsObj.values
+            ? [...prevItemsObj.values]
+            : []
           return {
+            id: generate(),
             timestamp,
-            [`${curr.attribute.toLowerCase()}`]: {
-              value: e.Value,
-              units: curr.units,
-              index: curr.index
-            },
-            ...prevItems[i]
+            values: [
+              ...prevItemsValues,
+              {
+                attribute: curr.attribute,
+                value: e.Value,
+                units: curr.units,
+                columnNo: curr.index + 2 // Increase by 2 since timestamp will be first column and array's are zero based.
+              }
+            ]
           }
         })
         return newItems
       }, []),
     [tableData]
   )
+
+  console.log('TBL Data', tableData)
+  // console.log('ZPD Data', zippedTableData)
 
   return (
     <PageLayout title="Reservoir & Stream Flows">

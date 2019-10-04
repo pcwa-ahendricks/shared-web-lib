@@ -33,7 +33,6 @@ import {
   Highlight,
   MarkSeries
 } from 'react-vis'
-import 'react-vis/dist/style.css'
 import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
 import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
@@ -43,6 +42,7 @@ import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
 // import {curveCardinal} from 'd3-shape'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
+import 'react-vis/dist/style.css'
 
 type Props = {
   data?: AttributeStream
@@ -382,6 +382,7 @@ const PiChart = ({data}: Props) => {
             curve={configuredCurve}
             data={seriesData}
             onNearestX={onNearestXHandler}
+            style={{fill: 'none'}}
           />
           {markSeriesEl}
           <Highlight

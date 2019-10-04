@@ -1,45 +1,49 @@
 // cspell:ignore frmt
 import React, {useMemo, useCallback} from 'react'
 import {TableRow, TableCell} from '@material-ui/core'
-import {GageConfigTable} from '@lib/services/pi/gage-config'
 import {format} from 'date-fns'
 import round from '@lib/round'
+import {ZippedTableDataItem} from '../../../pages/recreation/flows/gages/[pid]'
 
 type Props = {
-  data: any
-  headers: GageConfigTable['headers']
+  data: ZippedTableDataItem
   timestampFormat: string
 }
 
-const PiTableRow = ({data, headers, timestampFormat}: Props) => {
-  const headerIds = useMemo(() => headers.map((h) => h.id), [headers])
+const PiTableRow = ({data, timestampFormat}: Props) => {
+  const formatNumber = useCallback(
+    (no: number) =>
+      round(no, 2).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }),
+    []
+  )
 
-  const formatNumber = useCallback((no: number) => no.toLocaleString(), [])
+  const {values, timestamp} = data
+  const colBIndex = useMemo(() => values.findIndex((i) => i.columnNo === 2), [
+    values
+  ])
+  const colCIndex = useMemo(() => values.findIndex((i) => i.columnNo === 3), [
+    values
+  ])
 
   const tableRowEl = useMemo(
     () =>
-      headerIds.indexOf('flow') >= 0 ? (
+      values.length > 0 && values[colBIndex] && values[colCIndex] ? (
         <TableRow tabIndex={-1}>
           <TableCell component="th" scope="row">
-            {format(data.timestamp, timestampFormat)}
-          </TableCell>
-          <TableCell align="right">{data.flow}</TableCell>
-          <TableCell align="right">{round(data.height, 2)}</TableCell>
-        </TableRow>
-      ) : (
-        <TableRow tabIndex={-1}>
-          <TableCell component="th" scope="row">
-            {format(data.timestamp, timestampFormat)}
+            {format(timestamp, timestampFormat)}
           </TableCell>
           <TableCell align="right">
-            {formatNumber(round(data.storage, 0))}
+            {formatNumber(values[colBIndex].value)}
           </TableCell>
           <TableCell align="right">
-            {formatNumber(round(data.elevation, 2))}
+            {formatNumber(values[colCIndex].value)}
           </TableCell>
         </TableRow>
-      ),
-    [headerIds, data, formatNumber, timestampFormat]
+      ) : null,
+    [formatNumber, timestampFormat, colBIndex, colCIndex, timestamp, values]
   )
 
   return <React.Fragment>{tableRowEl}</React.Fragment>
