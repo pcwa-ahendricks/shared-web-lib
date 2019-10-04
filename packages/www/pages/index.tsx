@@ -7,6 +7,7 @@ import {Box, Fade, Hidden, Typography as Type} from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 import {RowBox} from '@components/boxes/FlexBox'
+import MuiNextLink from '@components/NextLink/NextLink'
 
 const HERO_IMG_SRC =
   '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -97,6 +98,12 @@ const Index = () => {
           alt="Year End Image Thumbnail"
         />
       </div>
+      <MuiNextLink
+        href="/recreation/flows/gages/[pid]"
+        as="/recreation/flows/gages/R2"
+      >
+        Go to R2 gage info
+      </MuiNextLink>
       {/* <div style={{backgroundColor: 'beige', height: 1500}} /> */}
       <div style={{backgroundColor: 'blue', height: 1500}} />
     </PageLayout>

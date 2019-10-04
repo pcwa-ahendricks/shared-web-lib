@@ -58,12 +58,13 @@
     },
     {
       "src": "/(?:services|forms|forms/rebates|typography)(?:.html)?/?$",
-      "dest": "/404",
+      "dest": "packages/www/_error",
       "status": 404
     },
     {
       "src": "/(.*)",
       "dest": "/packages/www/$1",
+      "continue": true,
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"
@@ -103,14 +104,6 @@
       "dest": "/packages/www/forms/account/contact-info.html",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/packages/www/$1.html",
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
       }
     }
   ],

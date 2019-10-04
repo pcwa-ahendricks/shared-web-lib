@@ -98,21 +98,21 @@
     },
     {
       "src": "/(?:forms|forms/rebates|typography)(?:.html)?/?$",
-      "dest": "/404",
+      "dest": "packages/www/_error",
       "status": 404
+    },
+    {
+      "src": "/recreation/flows/gages/([^/]+)",
+      "dest": "/packages/www/recreation/flows/gages?pid=$1",
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "x-request-path": "/recreation/flows/gages/$1"
+      }
     },
     {
       "src": "/(.*)",
       "dest": "/packages/www/$1",
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    { "handle": "filesystem" },
-    {
-      "src": "/(.*)",
-      "dest": "/packages/www/$1.html",
+      "continue": true,
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "x-request-path": "$1"

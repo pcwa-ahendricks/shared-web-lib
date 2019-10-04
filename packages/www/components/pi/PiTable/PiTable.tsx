@@ -28,10 +28,12 @@ import toTitleCase from '@lib/toTitleCase'
 import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
-import {isToday, isThisMonth} from 'date-fns'
+import {isToday, isThisMonth, format} from 'date-fns'
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import PiTableRow from './PiTableRow'
+import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
+import disclaimer from '../disclaimer'
 
 type Props = {
   data?: ZippedTableDataItem[]
@@ -115,6 +117,7 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
       }
     }
   }, [dataProp, metric, headers])
+  console.log(data)
 
   useEffect(() => {
     const s = stableSort<any>(data, getSorting<any>(order, orderBy))
@@ -193,6 +196,31 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
     () =>
       metric === 'monthly' ? "M/dd/yy h':'mm aaaa" : "h':'mm aaaa '-' EEE",
     [metric]
+  )
+
+  const buttonCaption = useMemo(
+    () => `Download ${activeGageItem ? activeGageItem.id : ''} ${metric} CSV`,
+    [activeGageItem, metric]
+  )
+
+  const csvFileName = useMemo(
+    () => `${activeGageItem ? activeGageItem.id : ''}-${metric}.csv`,
+    [activeGageItem, metric]
+  )
+
+  const csvData = useMemo(
+    () =>
+      data &&
+      data.map((item) => ({
+        timestamp: format(item.timestamp, 'M/dd/yyyy h:mm aa')
+        // value: item.Value
+      })),
+    [data]
+  )
+
+  const csvHeader = useMemo(
+    () => `"DISCLAIMER - ${disclaimer.p1}\n${disclaimer.p2}"`,
+    []
   )
 
   return (
@@ -274,6 +302,11 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
+      <Box>
+        <DlCsvButton data={csvData} header={csvHeader} fileName={csvFileName}>
+          {buttonCaption}
+        </DlCsvButton>
+      </Box>
     </Box>
   )
 }
