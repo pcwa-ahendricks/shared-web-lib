@@ -29,11 +29,11 @@ import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
 import {isToday, isThisMonth, isValid} from 'date-fns'
-import {getSorting, stableSort} from '@lib/table-utils'
-// import {generate} from 'shortid'
+import {stableSort} from '@lib/table-utils'
 import PiTableRow from './PiTableRow'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
+import {SortDirection} from '@material-ui/core/TableCell'
 
 type Props = {
   data?: ZippedTableDataItem[]
@@ -44,6 +44,44 @@ type Props = {
 export interface TableDataItem extends ZippedTableDataItem {
   id: string
 }
+
+// Need to use a custom descending comparator with this table.
+const desc = (
+  a: ZippedTableDataItem,
+  b: ZippedTableDataItem,
+  orderBy: string
+) => {
+  const valueAIndex = a.values.findIndex(
+    (v) => v.attribute.toLowerCase() === orderBy
+  )
+  const valueBIndex = b.values.findIndex(
+    (v) => v.attribute.toLowerCase() === orderBy
+  )
+  const valueA =
+    orderBy === 'timestamp'
+      ? a.timestamp
+      : a.values[valueAIndex]
+      ? a.values[valueAIndex].value
+      : 0
+  const valueB =
+    orderBy === 'timestamp'
+      ? b.timestamp
+      : b.values[valueBIndex]
+      ? b.values[valueBIndex].value
+      : 0
+  if (valueB < valueA) {
+    return -1
+  }
+  if (valueB > valueA) {
+    return 1
+  }
+  return 0
+}
+
+const getSorting = (order: SortDirection, orderBy: string) =>
+  order === 'desc'
+    ? (a: ZippedTableDataItem, b: ZippedTableDataItem) => desc(a, b, orderBy)
+    : (a: ZippedTableDataItem, b: ZippedTableDataItem) => -desc(a, b, orderBy)
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -80,7 +118,7 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
   const classes = useStyles()
   const [order, setOrder] = useState<'asc' | 'desc'>('desc') // SortDirection Type doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<string>('timestamp')
-  const [data, setData] = useState<any[]>([])
+  const [data, setData] = useState<ZippedTableDataItem[]>([])
   const [sortedData, setSortedData] = useState<ZippedTableDataItem[]>([])
   const [rowCount, setRowCount] = useState(0)
   const [page, setPage] = useState(0)
@@ -101,7 +139,7 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
   }, [dataProp, metric, headers])
 
   useEffect(() => {
-    const s = stableSort<any>(data, getSorting<any>(order, orderBy))
+    const s = stableSort(data, getSorting(order, orderBy))
     setSortedData(s)
     setRowCount(s.length)
   }, [data, order, orderBy])

@@ -1,6 +1,10 @@
 import {SortDirection} from '@material-ui/core/TableCell'
 
-const desc = (a: any, b: any, orderBy: any) => {
+const desc = <T extends {[index: string]: any}>(
+  a: T,
+  b: T,
+  orderBy: string
+) => {
   if (b[orderBy] < a[orderBy]) {
     return -1
   }
@@ -22,9 +26,9 @@ const stableSort = <T extends {}>(array: T[], cmp: any): T[] => {
   return [...sorted]
 }
 
-const getSorting = <T extends {}>(order: SortDirection, orderBy: T) =>
+const getSorting = <T extends {}>(order: SortDirection, orderBy: string) =>
   order === 'desc'
-    ? (a: any, b: any) => desc(a, b, orderBy)
-    : (a: any, b: any) => -desc(a, b, orderBy)
+    ? (a: T, b: T) => desc<T>(a, b, orderBy)
+    : (a: T, b: T) => -desc<T>(a, b, orderBy)
 
 export {getSorting, stableSort}
