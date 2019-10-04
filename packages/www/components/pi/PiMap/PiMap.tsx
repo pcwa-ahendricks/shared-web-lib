@@ -39,7 +39,8 @@ const useStyles = makeStyles(() =>
     // },
     nav: {
       position: 'absolute',
-      top: 36,
+      // top: 36,
+      top: 0,
       left: 0,
       padding: 10
     },
