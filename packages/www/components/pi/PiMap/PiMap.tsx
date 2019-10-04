@@ -7,9 +7,9 @@ import React, {
 } from 'react'
 import MapGL, {
   Marker,
-  // Popup,
   NavigationControl,
-  FullscreenControl,
+  // Fullscreen mode messes up window width when exiting fullscreen. It's not really needed so it's commented out for now.
+  // FullscreenControl,
   ViewState,
   FlyToInterpolator
 } from 'react-map-gl'
@@ -31,12 +31,12 @@ type Props = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    fullscreen: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      padding: 10
-    },
+    // fullscreen: {
+    //   position: 'absolute',
+    //   top: 0,
+    //   left: 0,
+    //   padding: 10
+    // },
     nav: {
       position: 'absolute',
       top: 36,
@@ -167,9 +167,9 @@ const PiMap = ({isLoading = false}: Props) => {
 
         {/* {this._renderPopup()} */}
 
-        <div className={classes.fullscreen}>
+        {/* <div className={classes.fullscreen}>
           <FullscreenControl />
-        </div>
+        </div> */}
         <div className={classes.nav}>
           <NavigationControl />
         </div>
