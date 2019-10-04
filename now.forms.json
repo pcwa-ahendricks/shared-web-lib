@@ -52,56 +52,36 @@
       }
     },
     {
-      "src": "/irrigation-controller-rebate(.*)",
-      "dest": "/404",
-      "status": 404
-    },
-    {
-      "src": "/(?:services|forms|forms/rebates|typography)(?:.html)?/?$",
-      "dest": "packages/www/_error",
-      "status": 404
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/packages/www/$1",
-      "continue": true,
-      "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "$1"
-      }
-    },
-    { "handle": "filesystem" },
-    {
       "src": "/washing-machine-rebate/?",
-      "dest": "/packages/www/forms/rebates/washing-machine.html",
+      "dest": "/packages/www/forms/rebates/washing-machine",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/irrigation-efficiencies-rebate/?",
-      "dest": "/packages/www/forms/rebates/irrigation-efficiencies.html",
+      "dest": "/packages/www/forms/rebates/irrigation-efficiencies",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/lawn-replacement-rebate/?",
-      "dest": "/packages/www/forms/rebates/lawn-replacement.html",
+      "dest": "/packages/www/forms/rebates/lawn-replacement",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/toilet-rebate/?",
-      "dest": "/packages/www/forms/rebates/toilet.html",
+      "dest": "/packages/www/forms/rebates/toilet",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
       "src": "/account-contact-info/?",
-      "dest": "/packages/www/forms/account/contact-info.html",
+      "dest": "/packages/www/forms/account/contact-info",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
