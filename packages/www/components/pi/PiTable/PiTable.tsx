@@ -228,6 +228,11 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
     [activeGageItem, metric]
   )
 
+  // Used with CSV downloads.
+  const formatAttrib = useCallback((attribute = '') => {
+    return attribute.match(/height/i) ? 'stage' : attribute
+  }, [])
+
   const csvData = useMemo(
     () =>
       data &&
@@ -243,11 +248,11 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
         const col3Value = col3Obj && col3Obj.value
         return {
           timestamp,
-          [col2Attribute || 'unknown']: col2Value || '',
-          [col3Attribute || 'unknown']: col3Value || ''
+          [formatAttrib(col2Attribute)]: col2Value || '',
+          [formatAttrib(col3Attribute)]: col3Value || ''
         }
       }),
-    [data]
+    [data, formatAttrib]
   )
 
   const csvHeader = useMemo(
