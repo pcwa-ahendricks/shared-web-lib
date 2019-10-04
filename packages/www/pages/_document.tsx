@@ -44,7 +44,7 @@ class MyDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
           {/* Favicon  */}
-          {/* <link rel="icon" type="image/x-icon" href="/static/favicon.ico" /> */}
+          <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
 
           {/* Typography / Font */}
           {/* <link

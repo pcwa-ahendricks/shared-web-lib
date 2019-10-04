@@ -97,16 +97,15 @@
       }
     },
     {
-      "src": "/(?:forms|forms/rebates|typography)(?:.html)?/?$",
+      "src": "/(?:typography)/?",
       "dest": "packages/www/_error",
       "status": 404
     },
     {
-      "src": "/recreation/flows/gages/([^/]+)",
-      "dest": "/packages/www/recreation/flows/gages?pid=$1",
+      "src": "/favicon.ico",
+      "dest": "packages/www/static/favicon.ico",
       "headers": {
-        "cache-control": "maxage=0, s-maxage=172800",
-        "x-request-path": "/recreation/flows/gages/$1"
+        "cache-control": "maxage=0, s-maxage=172800"
       }
     },
     {
