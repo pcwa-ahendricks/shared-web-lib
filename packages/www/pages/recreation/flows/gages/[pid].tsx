@@ -317,7 +317,7 @@ const DynamicPiPage = ({query}: Props) => {
     [tableData]
   )
 
-  console.log('TBL Data', tableData)
+  // console.log('TBL Data', tableData)
   // console.log('ZPD Data', zippedTableData)
 
   return (
