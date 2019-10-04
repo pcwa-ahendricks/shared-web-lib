@@ -235,9 +235,16 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
         const timestamp = isValid(item.timestamp)
           ? item.timestamp.toISOString()
           : ''
+        const col2Obj = item.values.find((i) => i.columnNo === 2)
+        const col3Obj = item.values.find((i) => i.columnNo === 3)
+        const col2Attribute = col2Obj && col2Obj.attribute.toLowerCase()
+        const col3Attribute = col3Obj && col3Obj.attribute.toLowerCase()
+        const col2Value = col2Obj && col2Obj.value
+        const col3Value = col3Obj && col3Obj.value
         return {
-          timestamp
-          // value: item.Value
+          timestamp,
+          [col2Attribute || 'unknown']: col2Value || '',
+          [col3Attribute || 'unknown']: col3Value || ''
         }
       }),
     [data]
