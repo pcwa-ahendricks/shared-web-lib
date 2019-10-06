@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {Box, Button} from '@material-ui/core'
 import {ButtonProps} from '@material-ui/core/Button'
 import NextLink, {LinkProps} from 'next/link'
-import usePrefetchHandler from '@hooks/usePrefetchHandler'
+// import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 export type FlexButtonProps = {
   children: React.ReactNode
@@ -16,15 +16,15 @@ const FlexButton = ({
   children,
   href,
   isNextLink = true,
-  prefetch = true,
+  // prefetch = true,
   ...rest
 }: FlexButtonProps) => {
-  const mouseEnterHandler = usePrefetchHandler()
+  // const mouseEnterHandler = usePrefetchHandler()
 
   const flexButton = useMemo(
     () =>
       isNextLink ? (
-        <Box onMouseEnter={prefetch ? () => {} : mouseEnterHandler(href)}>
+        <Box>
           <NextLink href={href}>
             <Button {...rest}>{children}</Button>
           </NextLink>
@@ -34,7 +34,7 @@ const FlexButton = ({
           {children}
         </Button>
       ),
-    [children, href, isNextLink, mouseEnterHandler, prefetch, rest]
+    [children, href, isNextLink, rest]
   )
 
   return <React.Fragment>{flexButton}</React.Fragment>
