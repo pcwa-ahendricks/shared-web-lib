@@ -11,22 +11,13 @@
     "packages/*"
   ],
   "scripts": {
-    "forecast:dev": "npm run dev --prefix packages/forecast",
-    "mailjet:dev": "npm run dev --prefix packages/mailjet",
-    "cosmic:dev": "npm run dev --prefix packages/cosmic",
-    "google-search:dev": "npm run dev --prefix packages/google-search",
-    "mailchimp:dev": "npm run dev --prefix packages/mailchimp",
-    "next:dev": "npm run dev --prefix packages/www",
-    "dev": "npm-run-all -p next:dev forecast:dev mailjet:dev cosmic:dev google-search:dev mailchimp:dev",
-    "prenow": "npm run build --prefix packages/mailchimp && npm run build --prefix packages/google-search && npm run build --prefix packages/forecast && npm run build --prefix packages/mailjet && npm run build --prefix packages/cosmic",
-    "now:dev-web": "npm run prenow && now --prod",
+    "dev": "now dev",
     "now": "now",
-    "now:forms": "npm run prenow && now --prod -A now.forms.json",
+    "now:dev-web": "now --prod",
+    "now:forms": "now --prod -A now.forms.json",
     "now-build": "next build"
   },
-  "dependencies": {},
   "devDependencies": {
-    "now": "^16.3.1",
-    "npm-run-all": "^4.1.5"
+    "now": "^16.3.1"
   }
 }
