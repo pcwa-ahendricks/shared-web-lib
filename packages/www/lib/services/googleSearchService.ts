@@ -16,17 +16,16 @@ export interface GoogleCseParamOpts {
 }
 
 export const resultsPerPage = 10
-const cx = process.env.NEXT_GOOGLE_CSE_CX || ''
-const key = process.env.NEXT_GOOGLE_CSE_KEY || ''
 
 const defaultSearchParams: GoogleCseParamOpts = {
-  num: resultsPerPage,
-  cx,
-  key
+  num: resultsPerPage
+  // cx,
+  // key
 }
 
 const search = async (params: GoogleCseParamOpts) => {
-  const googleCseApiUrl = 'https://www.googleapis.com/customsearch/v1'
+  // const googleCseApiUrl = 'https://www.googleapis.com/customsearch/v1'
+  const googleCseApiUrl = '/api/search'
   const url = `${googleCseApiUrl}${stringify(
     {...defaultSearchParams, ...params},
     true

@@ -1,25 +1,19 @@
 import {stringify} from 'querystringify'
-import HttpStat from 'http-status-codes'
-import {createError} from 'micro'
-import {MicroForkRequest, MicroForkStore} from '../index'
 import fetch from 'isomorphic-unfetch'
-import {CseResponse} from '../lib/types'
-import {ServerResponse} from 'http'
+import {CseResponse} from '../types/google-cse'
+import {NowRequest, NowResponse} from '@now/node'
 
 const BASE_URL = 'https://www.googleapis.com/customsearch/v1'
+const GOOGLE_CSE_CX = process.env.NODE_GOOGLE_CSE_CX || ''
+const GOOGLE_CSE_KEY = process.env.NODE_GOOGLE_CSE_KEY || ''
 
-export const searchHandler = async (
-  req: MicroForkRequest,
-  _res: ServerResponse,
-  store: MicroForkStore
-) => {
-  const {q} = req.params // using request parameter
-  const {...rest} = req.query // using request query
-  const key = store.cseKey || ''
-  const cx = store.cseCx || ''
+const mainHandler = async (req: NowRequest, res: NowResponse) => {
+  const {q, ...rest} = req.query
+  const key = GOOGLE_CSE_KEY || ''
+  const cx = GOOGLE_CSE_CX || ''
   // 'searchTerm' is a required query parameter
   if (!q) {
-    throw createError(400, HttpStat.getStatusText(400))
+    res.status(400).end()
   }
   try {
     const qs = stringify(
@@ -39,12 +33,15 @@ export const searchHandler = async (
       }
     })
     if (!response.ok) {
-      throw new Error('Response not ok')
+      // throw new Error('Response not ok')
+      res.status(400).end('Response not ok')
     }
     const data: CseResponse = await response.json()
-    return data
+    res.status(200).json(data)
   } catch (error) {
     console.log(error)
-    throw error // Remember to throw error so response finishes.
+    res.status(500).end()
   }
 }
+
+export default mainHandler

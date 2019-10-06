@@ -10,8 +10,6 @@
       "NEXT_COSMIC_URL": "https://dev-web.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
       "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
-      "NEXT_GOOGLE_CSE_CX": "@web-google-cse-cx",
-      "NEXT_GOOGLE_CSE_KEY": "@web-google-cse-key",
       "NEXT_YOUTUBE_API_KEY": "@web-youtube-api-key",
       "NEXT_GOOGLE_MAPS_API_KEY": "@web-google-maps-api-key",
       "NEXT_PI_MAP_MAPBOX_API_KEY": "@web-pi-map-mapbox-api-key"
@@ -48,19 +46,27 @@
       }
     },
     { "src": "packages/api/forecast/index.ts", "use": "@now/node" },
+    { "src": "packages/api/search/index.ts", "use": "@now/node" },
     { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" },
     { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" },
-    { "src": "packages/google-search/dist/**/*.js", "use": "@now/node" },
     { "src": "packages/mailchimp/dist/**/*.js", "use": "@now/node" }
   ],
   "routes": [
     {
-      "src": "api/forecast(.*)",
+      "src": "/api/forecast(.*)",
       "dest": "packages/api/forecast/index.ts",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "GET"
+      }
+    },
+    {
+      "src": "/api/search(.*)",
+      "dest": "packages/api/search/index.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
       }
     },
     {
@@ -74,14 +80,6 @@
     {
       "src": "/lambda/cosmic(.*)",
       "dest": "packages/cosmic/dist/index.js",
-      "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
-        "Access-Control-Allow-Origin": "https://www.pcwa.net"
-      }
-    },
-    {
-      "src": "/lambda/search(.*)",
-      "dest": "packages/google-search/dist/index.js",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
         "Access-Control-Allow-Origin": "https://www.pcwa.net"

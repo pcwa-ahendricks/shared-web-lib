@@ -47,7 +47,7 @@ const darkskyUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}`
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const {lat, lng} = req.query // query property is courtesy of micro-fork.
+    const {lat, lng} = req.query
     if (!lat || !lng) {
       res.status(204).end()
       return
