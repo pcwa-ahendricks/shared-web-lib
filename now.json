@@ -6,7 +6,6 @@
   "build": {
     "env": {
       "NPM_TOKEN": "@npm-token",
-      "NEXT_FORECAST_URL": "https://dev-web.pcwa.net/lambda/forecast",
       "NEXT_MAILJET_URL": "https://dev-web.pcwa.net/lambda/mail",
       "NEXT_COSMIC_URL": "https://dev-web.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
@@ -48,6 +47,7 @@
         "maxLambdaSize": "50mb"
       }
     },
+    { "src": "packages/api/forecast/index.ts", "use": "@now/node" },
     { "src": "packages/forecast/dist/index.js", "use": "@now/node" },
     { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" },
     { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" },
@@ -56,8 +56,8 @@
   ],
   "routes": [
     {
-      "src": "/lambda/forecast(.*)",
-      "dest": "packages/forecast/dist/index.js",
+      "src": "api/forecast(.*)",
+      "dest": "packages/api/forecast/index.ts",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",

@@ -71,3 +71,13 @@ See [this link](https://material-ui.com/style/color/#official-color-tool) for mo
 
 The following is a good workaround: [workaround](https://github.com/zeit/now-builders/issues/825)
 and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-error-page-in-monorepo-deployment~fc329387-e24e-4d87-967c-a6672c6be46f)
+
+### Old Node Packages Scripts
+
+    "watch": "babel src --watch --out-dir dist --extensions \".ts,.tsx\"",
+    "dev": "npm-run-all -p watch start",
+    "inspect": "node --inspect node_modules/.bin/micro-dev",
+    "build": "npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly --declaration true --allowJs false",
+    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --ignore src/**/\*.spec.js,src/**/\*.test.js",
+    "build:js-src-map": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"

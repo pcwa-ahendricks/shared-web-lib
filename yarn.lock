@@ -1710,6 +1710,13 @@
     "@nodelib/fs.scandir" "2.1.1"
     fastq "^1.6.0"
 
+"@now/node@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@now/node/-/node-1.0.1.tgz#519e137a7b0da913ee409d1613ecab8b8d0e4a8c"
+  integrity sha512-unClfFk4s7q31AyE6D+8LjQTeFRG+YKfeCCMXT+/KXIuCzCx/uqCtlP/rp9sCdxayVM93iPg9x1Ttbn3ySg7zQ==
+  dependencies:
+    "@types/node" "*"
+
 "@pcwa/micro-check-referrer@^0.1.13":
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/@pcwa/micro-check-referrer/-/micro-check-referrer-0.1.13.tgz#9020cd7ce0958f6687ec50c015dbfbd59de8796d"

@@ -1,0 +1,36 @@
+{
+  "name": "new-web-api",
+  "version": "1.0.0",
+  "description": "An API for neu-web Next site.",
+  "scripts": {
+    "test": "ava",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "author": "<ahendricks@pcwa.net>",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.6.2",
+    "node-fetch": "^2.6.0",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
+    "@now/node": "^1.0.1",
+    "@types/node": "^12.7.11",
+    "@types/node-fetch": "^2.5.2",
+    "@types/redis": "^2.8.14",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "ava": "^2.4.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "test-listen": "^1.1.0",
+    "typescript": "^3.5.2"
+  }
+}
