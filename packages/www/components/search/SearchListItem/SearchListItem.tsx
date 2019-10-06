@@ -4,10 +4,14 @@ import {makeStyles, createStyles} from '@material-ui/styles'
 // import {ListItemProps} from '@material-ui/core/ListItem'
 // import {SearchContext} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
-import usePrefetchHandler from '@hooks/usePrefetchHandler'
+// import usePrefetchHandler from '@hooks/usePrefetchHandler'
 // import NextLink from '@components/NextLink/NextLink'
 import Link from 'next/link'
 import SearchListItemContent from '../SearchListItemContent/SearchListItemContent'
+
+/*
+  [todo] Don't use usePrefetchHandler hook here until we know it won't crash page if route doesn't exist.
+*/
 
 const nextLinkRe = /^http(s)?:\/\/(www\.)?pcwa\.net/i
 
@@ -26,7 +30,7 @@ const SearchListItem = ({result}: Props) => {
   // const searchDispatch = searchContext.dispatch
   // const searchState = searchContext.state
   // const {results} = searchState
-  const mouseEnterHandler = usePrefetchHandler()
+  // const mouseEnterHandler = usePrefetchHandler()
 
   const {link} = useMemo(() => result, [result])
 
@@ -40,7 +44,7 @@ const SearchListItem = ({result}: Props) => {
       nextLinkRe.test(link) ? (
         <Link href={nextLinkHref}>
           <Box
-            onMouseEnter={mouseEnterHandler(link)}
+            // onMouseEnter={mouseEnterHandler(link)}
             width="100%"
             height="100%"
           >
@@ -52,7 +56,7 @@ const SearchListItem = ({result}: Props) => {
           <SearchListItemContent result={result} />
         </a>
       ),
-    [link, nextLinkHref, mouseEnterHandler, result]
+    [link, nextLinkHref, result]
   )
 
   // const clickHandler = () => {}

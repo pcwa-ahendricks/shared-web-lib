@@ -12,7 +12,7 @@ const FlexLink = ({
   children,
   href,
   isNextLink = true,
-  prefetch = true,
+  prefetch = false,
   ...rest
 }: FlexLinkProps) => {
   const mouseEnterHandler = usePrefetchHandler()
