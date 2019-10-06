@@ -45,8 +45,7 @@
         "maxLambdaSize": "50mb"
       }
     },
-    { "src": "packages/api/forecast/index.ts", "use": "@now/node" },
-    { "src": "packages/api/search/index.ts", "use": "@now/node" },
+    { "src": "packages/api/**/*.ts", "use": "@now/node" },
     { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" },
     { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" },
     { "src": "packages/mailchimp/dist/**/*.js", "use": "@now/node" }
