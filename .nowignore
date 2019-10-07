@@ -2,5 +2,6 @@
 **/*.spec.js
 packages/www/.next
 packages/www/out
+packages/api/lib
 node_modules
 yarn.lock

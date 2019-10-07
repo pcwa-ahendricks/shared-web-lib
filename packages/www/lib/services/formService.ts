@@ -4,8 +4,6 @@ import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocat
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import fetchOk from '@lib/fetch-ok'
 
-const MAILJET_URL = process.env.NEXT_MAILJET_URL || ''
-
 export interface IrrigationControllerRebateFormData {
   firstName: string
   lastName: string
@@ -197,7 +195,7 @@ type RequestBody =
   | ContactInfoRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
-  const url = `${MAILJET_URL}/${serviceUriPath}`
+  const url = `/api/mail/${serviceUriPath}`
   try {
     return await fetchOk(url, {
       method: 'POST',

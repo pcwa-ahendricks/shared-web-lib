@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 
-const COSMIC_URL = process.env.NEXT_COSMIC_URL || ''
-const UPLOAD_SERVICE_BASE_URL = `${COSMIC_URL}/uploads`
+const UPLOAD_SERVICE_BASE_URL = '/api/cosmic/uploads'
 
 const errorHandler = async (
   res: Response | null,

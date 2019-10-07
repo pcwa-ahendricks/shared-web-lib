@@ -83,8 +83,6 @@ module.exports = (_phase, {defaultConfig}) => {
             // new webpack.DefinePlugin({
             //   'process.env.NEXT_GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.NEXT_GOOGLE_MAPS_API_KEY)
             // })
-            new webpack.EnvironmentPlugin({NEXT_MAILJET_URL: null}),
-            new webpack.EnvironmentPlugin({NEXT_COSMIC_URL: null}),
             new webpack.EnvironmentPlugin({NEXT_RECAPTCHA_SITE_KEY: null}),
             new webpack.EnvironmentPlugin({NEXT_YOUTUBE_API_KEY: null}),
             new webpack.EnvironmentPlugin({NEXT_PI_MAP_MAPBOX_API_KEY: null})

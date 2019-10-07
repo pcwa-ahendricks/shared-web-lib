@@ -6,8 +6,6 @@
   "build": {
     "env": {
       "NPM_TOKEN": "@npm-token",
-      "NEXT_MAILJET_URL": "https://forms.pcwa.net/lambda/mail",
-      "NEXT_COSMIC_URL": "https://forms.pcwa.net/lambda/cosmic",
       "NEXT_TARGET": "serverless",
       "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
     }
@@ -16,23 +14,19 @@
     "NODE_MAILJET_KEY": "@web-mailjet-key",
     "NODE_MAILJET_SECRET": "@web-mailjet-secret",
     "NODE_MAILJET_SENDER": "webmaster@pcwa.net",
-    "NODE_MAILJET_ROUTE_PREFIX": "/lambda/mail",
-    "NODE_COSMIC_ROUTE_PREFIX": "/lambda/cosmic",
     "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
     "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key",
     "NODE_COSMIC_READ_ACCESS_KEY": "@web-cosmic-read-key",
-    "NODE_COSMIC_WRITE_ACCESS_KEY": "@web-cosmic-write-key"
+    "NODE_COSMIC_WRITE_ACCESS_KEY": "@web-cosmic-write-key",
+    "NODE_LAMBDA_URL": "https://forms.pcwa.net"
   },
   "builds": [
     {
       "src": "packages/www/package.json",
-      "use": "@now/next",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
+      "use": "@now/next"
     },
-    { "src": "packages/mailjet/dist/**/*.js", "use": "@now/node" },
-    { "src": "packages/cosmic/dist/**/*.js", "use": "@now/node" }
+    { "src": "packages/api/routes/cosmic/**/*.ts", "use": "@now/node" },
+    { "src": "packages/api/routes/mailjet/**/*.ts", "use": "@now/node" }
   ],
   "routes": [
     {
@@ -44,11 +38,60 @@
       }
     },
     {
-      "src": "/lambda/cosmic(.*)",
-      "dest": "packages/cosmic/dist/index.js",
+      "src": "/api/cosmic/media(.*)",
+      "dest": "packages/api/routes/cosmic/media.ts",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
-        "Access-Control-Allow-Origin": "https://forms.pcwa.net"
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "/api/cosmic/csv-data(.*)",
+      "dest": "packages/api/routes/cosmic/csv-data.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "/api/cosmic/csv(.*)",
+      "dest": "packages/api/routes/cosmic/csv.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "/api/cosmic/objects(.*)",
+      "dest": "packages/api/routes/cosmic/objects.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "/api/cosmic/object-types(.*)",
+      "dest": "packages/api/routes/cosmic/object-types.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "/api/cosmic/object-type(.*)",
+      "dest": "packages/api/routes/cosmic/object-type.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net"
+      }
+    },
+    {
+      "src": "/api/cosmic/uploads(.*)",
+      "dest": "packages/api/routes/cosmic/uploads.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "Access-Control-Allow-Origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
       }
     },
     {

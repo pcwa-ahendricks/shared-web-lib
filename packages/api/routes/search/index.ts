@@ -14,6 +14,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
   // 'searchTerm' is a required query parameter
   if (!q) {
     res.status(400).end()
+    return
   }
   try {
     const qs = stringify(
@@ -33,8 +34,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       }
     })
     if (!response.ok) {
-      // throw new Error('Response not ok')
-      res.status(400).end('Response not ok')
+      res.status(400).end()
+      return
     }
     const data: CseResponse = await response.json()
     res.status(200).json(data)

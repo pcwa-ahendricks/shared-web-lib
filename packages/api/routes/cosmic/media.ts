@@ -1,20 +1,18 @@
 import {stringify} from 'querystringify'
-import {CosmicGetMediaResponse} from '../lib/types'
-import HttpStat from 'http-status-codes'
-import {createError} from 'micro'
-import {MicroForkRequest} from '../index'
+import {CosmicGetMediaResponse} from '../../types/cosmic'
 import fetch from 'isomorphic-unfetch'
+import {NowRequest, NowResponse} from '@now/node'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
-export const getMediaHandler = async (req: MicroForkRequest) => {
-  const {cosmicId} = req.params // using request parameter
-  const {folder} = req.query // using request query
-  // 'folder' is a required query parameter
+const mainHandler = async (req: NowRequest, res: NowResponse) => {
+  const {folder, cosmicId} = req.query // using request query
+  // 'folder' is a required query parameter (cosmicId is optional).
   if (!folder) {
-    throw createError(400, HttpStat.getStatusText(400))
+    res.status(400).end()
+    return
   }
   try {
     const qs = stringify(
@@ -23,10 +21,7 @@ export const getMediaHandler = async (req: MicroForkRequest) => {
       true
     )
     const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media${qs}`,
-      {
-        method: 'GET'
-      }
+      `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media${qs}`
     )
     if (!response.ok) {
       throw new Error('Response not ok')
@@ -34,15 +29,18 @@ export const getMediaHandler = async (req: MicroForkRequest) => {
     const data: CosmicGetMediaResponse = await response.json()
     const {media = []} = data || {}
     if (!cosmicId) {
-      return media
+      res.status(200).json(media)
     }
     const filteredMedia = media.filter((doc) => doc._id === cosmicId)
     if (!filteredMedia || !(filteredMedia.length > 0)) {
-      throw createError(204, 'No Content')
+      res.status(204).end()
+      return
     }
-    return filteredMedia
+    res.status(200).json(filteredMedia)
   } catch (error) {
     console.log(error)
     throw error // Remember to throw error so response finishes.
   }
 }
+
+export default mainHandler

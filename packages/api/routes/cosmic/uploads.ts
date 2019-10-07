@@ -1,33 +1,24 @@
-const isDev = process.env.NODE_ENV === 'development'
-if (isDev) {
-  require('dotenv-safe').config()
-}
-import {ServerResponse} from 'http'
 import prettyBytes from 'pretty-bytes'
-import {send} from 'micro'
 import Busboy from 'busboy'
-import {applyMiddleware} from 'micro-middleware'
-import checkReferrer from '@pcwa/micro-check-referrer'
-import unauthorized from '@pcwa/micro-unauthorized'
-import limiter from '@pcwa/micro-limiter'
 // import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
 // Importing node-fetch (over isomorphic-unfetch) suppress typescript warning with posting body: FormData.
 import fetch from 'node-fetch'
-import BusboyError, {BusboyErrorCode} from '../lib/busboy-error'
-import {MicroForkRequest} from '../index'
+import BusboyError, {BusboyErrorCode} from '../../lib/busboy-error'
+import {NowRequest, NowResponse} from '@now/node'
+const isDev = process.env.NODE_ENV === 'development'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
-const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
+// const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 
 // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
 
-const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
+const mainHandler = async (req: NowRequest, res: NowResponse) => {
   const {headers, socket} = req
   const busboy = new Busboy({headers})
   let buffer: Buffer
@@ -96,7 +87,7 @@ const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
         return abortWithCode('UPLOAD_ERROR')
       }
       const data = await response.json()
-      send(res, 200, data)
+      res.status(200).json(data)
     } catch (error) {
       console.log(error)
       return abortWithCode('UPLOAD_ERROR')
@@ -116,7 +107,7 @@ const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
     req.unpipe(busboy)
     drainStream(req)
     busboy.removeAllListeners()
-    send(res, 500, err.message)
+    res.status(500).send(err.message)
   }
 
   /*
@@ -130,13 +121,4 @@ const uploadHandler = async (req: MicroForkRequest, res: ServerResponse) => {
   req.pipe(busboy)
 }
 
-const acceptReferrer = isDev ? /.+/ : /^https:\/\/(.*\.)?pcwa\.net(\/|$)/i
-const limiterMaxRequests = isDev ? 3 : 10 // production 10 requests (dev 3 req.)
-const limiterInterval = isDev ? 30 * 1000 : 5 * 60 * 1000 // production 5 min interval (dev 30sec)
-const uploadWithMiddleware = applyMiddleware(uploadHandler, [
-  unauthorized(COSMIC_READ_ACCESS_KEY, 'Invalid API key'),
-  checkReferrer(acceptReferrer, 'Reporting abuse'),
-  limiter(limiterMaxRequests, limiterInterval)
-])
-
-export {uploadWithMiddleware as uploadHandler}
+export default mainHandler

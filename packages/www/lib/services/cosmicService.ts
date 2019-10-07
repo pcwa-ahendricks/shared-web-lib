@@ -6,8 +6,6 @@ import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import fetchOk, {fetchOkText} from '@lib/fetch-ok'
 
-const COSMIC_URL = process.env.NEXT_COSMIC_URL || ''
-
 interface UnclaimedPropertyResponse {
   owner: string
   amount: string | number
@@ -16,7 +14,8 @@ interface UnclaimedPropertyResponse {
 
 const getUnclaimedProperty = async () => {
   try {
-    const url = `${COSMIC_URL}/unclaimed-property`
+    const qs = stringify({filename: 'unclaimed-property.csv'}, true)
+    const url = `/api/cosmic/csv-data${qs}`
     const data = await fetchOk<UnclaimedPropertyResponse[]>(url)
     if (!data) {
       return []
@@ -39,7 +38,8 @@ const getUnclaimedProperty = async () => {
 
 const getSalarySchedule = async () => {
   try {
-    const url = `${COSMIC_URL}/salary-schedule`
+    const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
+    const url = `/api/cosmic/csv-data${qs}`
     return await fetchOk(url)
   } catch (error) {
     console.warn(error)
@@ -49,7 +49,8 @@ const getSalarySchedule = async () => {
 
 const getSalaryScheduleCsv = async () => {
   try {
-    const url = `${COSMIC_URL}/salary-schedule-csv`
+    const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
+    const url = `/api/cosmic/csv${qs}`
     return await fetchOkText(url)
   } catch (error) {
     console.warn(error)
@@ -62,10 +63,11 @@ const getMedia = async (
   cosmicId?: string
 ): Promise<CosmicMediaResponse | undefined> => {
   try {
-    let url = `${COSMIC_URL}/media`
+    let qs = ''
     if (cosmicId) {
-      url = url.concat(`/${cosmicId}`)
+      qs = stringify({cosmicId}, true)
     }
+    let url = `/api/cosmic/media${qs}`
     if (Object.keys(params).length > 0) {
       const qs = stringify(params, true)
       url = url.concat(qs)
