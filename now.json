@@ -5,7 +5,6 @@
   "public": false,
   "build": {
     "env": {
-      "NPM_TOKEN": "@npm-token",
       "NEXT_TARGET": "serverless",
       "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
       "NEXT_YOUTUBE_API_KEY": "@web-youtube-api-key",
@@ -21,7 +20,6 @@
     "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key",
     "NODE_COSMIC_READ_ACCESS_KEY": "@web-cosmic-read-key",
     "NODE_COSMIC_WRITE_ACCESS_KEY": "@web-cosmic-write-key",
-    "NODE_LAMBDA_URL": "https://dev-web.pcwa.net",
     "NODE_GOOGLE_CSE_CX": "@web-google-cse-cx",
     "NODE_GOOGLE_CSE_KEY": "@web-google-cse-key",
     "NODE_DARKSKY_API_KEY": "@web-darksky-api-key-dev",
