@@ -27,7 +27,8 @@
     "NODE_MAILCHIMP_DC": "us16",
     "NODE_MAILCHIMP_USERNAME": "pcwawater",
     "NODE_MAILCHIMP_API_KEY": "@web-mailchimp-api-key",
-    "NODE_MAILCHIMP_PRIMARY_LIST": "fefab158d1"
+    "NODE_MAILCHIMP_PRIMARY_LIST": "fefab158d1",
+    "NODE_LAMBDA_URL": "https://dev-web.pcwa.net"
   },
   "builds": [
     {

@@ -5,6 +5,7 @@ import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../../types/cosmic'
 
 const MEDIA_FOLDER = 'csv'
+const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
@@ -16,7 +17,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       },
       true
     )
-    const mediaResponse = await fetch(`/api/cosmic/media${qs}`)
+    const mediaResponse = await fetch(`${LAMBDA_URL}/api/cosmic/media${qs}`)
     const media: CosmicGetMediaResponse['media'] = await mediaResponse.json()
 
     const filteredMedia = media.filter((m) => m.original_name === filename)

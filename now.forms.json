@@ -16,7 +16,8 @@
     "NODE_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key",
     "NODE_RECAPTCHA_SECRET_KEY": "@web-recaptcha-secret-key",
     "NODE_COSMIC_READ_ACCESS_KEY": "@web-cosmic-read-key",
-    "NODE_COSMIC_WRITE_ACCESS_KEY": "@web-cosmic-write-key"
+    "NODE_COSMIC_WRITE_ACCESS_KEY": "@web-cosmic-write-key",
+    "NODE_LAMBDA_URL": "https://forms.pcwa.net"
   },
   "builds": [
     {
