@@ -95,6 +95,69 @@
       }
     },
     {
+      "src": "/api/mail/contact-us(.*)",
+      "dest": "packages/api/src/routes/mail/contact-us.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mail/irrigation-controller-rebate(.*)",
+      "dest": "packages/api/src/routes/mail/irrigation-controller-rebate.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mail/irrigation-efficiencies-rebate(.*)",
+      "dest": "packages/api/src/routes/mail/irrigation-efficiencies-rebate.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mail/lawn-replacement-rebate(.*)",
+      "dest": "packages/api/src/routes/mail/lawn-replacement-rebate.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mail/washing-machine-rebate(.*)",
+      "dest": "packages/api/src/routes/mail/washing-machine-rebate.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mail/toilet-rebate(.*)",
+      "dest": "packages/api/src/routes/mail/toilet-rebate.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mail/account-contact-info(.*)",
+      "dest": "packages/api/src/routes/mail/account-contact-info.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST, OPTIONS"
+      }
+    },
+    {
       "src": "/washing-machine-rebate/?",
       "dest": "/packages/www/forms/rebates/washing-machine",
       "headers": {

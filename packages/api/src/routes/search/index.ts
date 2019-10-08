@@ -1,6 +1,6 @@
 import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
-import {CseResponse} from '../types/google-cse'
+import {CseResponse} from '../../types/google-cse'
 import {NowRequest, NowResponse} from '@now/node'
 
 const BASE_URL = 'https://www.googleapis.com/customsearch/v1'

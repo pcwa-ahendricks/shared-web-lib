@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-unfetch'
-import {createError} from 'micro'
-import {MailJetSendRequest} from '../lib/types'
+import {MailJetSendRequest} from '../src/types/mailjet'
 
 const API_VER = 'v3.1'
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
@@ -25,9 +24,12 @@ async function postMailJetRequest(requestBody: MailJetSendRequest) {
     const text = await response.text()
     console.log('Message Text: ', text)
     if (response.status) {
-      throw createError(response.status, response.statusText)
+      // throw createError(response.status, response.statusText)
+      console.log(response.statusText)
+      throw response.status
     } else {
-      throw createError(500, 'Mailjet send request failed.')
+      // throw createError(500, 'Mailjet send request failed.')
+      throw 'Mailjet send request failed.'
     }
   }
   const data = await response.json()

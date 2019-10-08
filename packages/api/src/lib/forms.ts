@@ -1,13 +1,8 @@
 // cspell:ignore cbarnhill waterefficiency pcwamain customerservices maint
-const isDev = process.env.NODE_ENV === 'development'
-if (isDev) {
-  require('dotenv-safe').config()
-}
 import reCAPTCHA from 'recaptcha2'
-import {MailJetMessage} from '../lib/types'
-import {createError} from 'micro'
-import HttpStat from 'http-status-codes'
+import {MailJetMessage} from '../src/types/mailjet'
 import {ObjectSchema, Shape} from 'yup'
+const isDev = process.env.NODE_ENV === 'development'
 
 export interface AttachmentFieldValue {
   status: string
@@ -60,9 +55,9 @@ async function validateSchema(
   } catch (error) {
     const {errors = []} = error || {}
     if (isDev) {
-      throw createError(400, errors.join(', '))
+      throw errors.join(', ')
     } else {
-      throw createError(400, HttpStat.getStatusText(400))
+      throw 'Invalid Schema'
     }
   }
 }
