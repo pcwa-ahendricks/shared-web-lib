@@ -313,7 +313,11 @@ const SalaryScheduleTable = () => {
 
   return (
     <Box mt={6} ml={2} mr={2}>
-      <Box bgcolor={theme.palette.common.white} boxShadow={1}>
+      <Box
+        bgcolor={theme.palette.common.white}
+        boxShadow={1}
+        position="relative"
+      >
         {linearProgressEl}
         <Toolbar>
           <Type variant="h5" id="tableTitle">

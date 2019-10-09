@@ -203,14 +203,6 @@
       }
     },
     {
-      "src": "/lambda/mc(.*)",
-      "dest": "packages/mailchimp/dist/index.js",
-      "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
-        "access-control-allow-origin": "https://www.pcwa.net"
-      }
-    },
-    {
       "src": "/(?:typography)/?",
       "dest": "packages/www/_error",
       "status": 404
