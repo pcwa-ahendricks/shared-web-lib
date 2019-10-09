@@ -16,7 +16,8 @@ import {
   TextField,
   Theme,
   Toolbar,
-  useTheme
+  useTheme,
+  LinearProgress
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
 import {getSorting, stableSort} from '@lib/table-utils'
@@ -115,6 +116,7 @@ const SalaryScheduleTable = () => {
   >(salaryData)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
+  const [isLoading, setIsLoading] = useState(false)
 
   const setSalaryScheduleCsv = useCallback(async () => {
     const ssCsv = await getSalaryScheduleCsv()
@@ -124,31 +126,38 @@ const SalaryScheduleTable = () => {
   }, [])
 
   const setSalaryScheduleData = useCallback(async () => {
-    const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
-    const ssDataWithId = ssData.map((row) => ({
-      id: generate(),
-      ...row,
-      range: noNaN(round(parseFloat(row.RANGE), 2)),
-      stepA: noNaN(round(parseFloat(row['STEP A']), 4)),
-      stepB: noNaN(round(parseFloat(row['STEP B']), 4)),
-      stepC: noNaN(round(parseFloat(row['STEP C']), 4)),
-      stepD: noNaN(round(parseFloat(row['STEP D']), 4)),
-      stepE: noNaN(round(parseFloat(row['STEP E']), 4)),
-      stepF: noNaN(round(parseFloat(row['STEP F']), 4)),
-      stepAAnnual: noNaN(round(parseFloat(row['STEP A ANNUAL']), 2)),
-      stepBAnnual: noNaN(round(parseFloat(row['STEP B ANNUAL']), 2)),
-      stepCAnnual: noNaN(round(parseFloat(row['STEP C ANNUAL']), 2)),
-      stepDAnnual: noNaN(round(parseFloat(row['STEP D ANNUAL']), 2)),
-      stepEAnnual: noNaN(round(parseFloat(row['STEP E ANNUAL']), 2)),
-      stepFAnnual: noNaN(round(parseFloat(row['STEP F ANNUAL']), 2)),
-      stepAMonthly: noNaN(round(parseFloat(row['STEP A MONTHLY']), 2)),
-      stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2)),
-      stepCMonthly: noNaN(round(parseFloat(row['STEP C MONTHLY']), 2)),
-      stepDMonthly: noNaN(round(parseFloat(row['STEP D MONTHLY']), 2)),
-      stepEMonthly: noNaN(round(parseFloat(row['STEP E MONTHLY']), 2)),
-      stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
-    }))
-    setSalaryData(ssDataWithId)
+    try {
+      setIsLoading(true)
+      const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
+      const ssDataWithId = ssData.map((row) => ({
+        id: generate(),
+        ...row,
+        range: noNaN(round(parseFloat(row.RANGE), 2)),
+        stepA: noNaN(round(parseFloat(row['STEP A']), 4)),
+        stepB: noNaN(round(parseFloat(row['STEP B']), 4)),
+        stepC: noNaN(round(parseFloat(row['STEP C']), 4)),
+        stepD: noNaN(round(parseFloat(row['STEP D']), 4)),
+        stepE: noNaN(round(parseFloat(row['STEP E']), 4)),
+        stepF: noNaN(round(parseFloat(row['STEP F']), 4)),
+        stepAAnnual: noNaN(round(parseFloat(row['STEP A ANNUAL']), 2)),
+        stepBAnnual: noNaN(round(parseFloat(row['STEP B ANNUAL']), 2)),
+        stepCAnnual: noNaN(round(parseFloat(row['STEP C ANNUAL']), 2)),
+        stepDAnnual: noNaN(round(parseFloat(row['STEP D ANNUAL']), 2)),
+        stepEAnnual: noNaN(round(parseFloat(row['STEP E ANNUAL']), 2)),
+        stepFAnnual: noNaN(round(parseFloat(row['STEP F ANNUAL']), 2)),
+        stepAMonthly: noNaN(round(parseFloat(row['STEP A MONTHLY']), 2)),
+        stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2)),
+        stepCMonthly: noNaN(round(parseFloat(row['STEP C MONTHLY']), 2)),
+        stepDMonthly: noNaN(round(parseFloat(row['STEP D MONTHLY']), 2)),
+        stepEMonthly: noNaN(round(parseFloat(row['STEP E MONTHLY']), 2)),
+        stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
+      }))
+      setSalaryData(ssDataWithId)
+
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -293,9 +302,20 @@ const SalaryScheduleTable = () => {
     []
   )
 
+  const linearProgressEl = useMemo(
+    () =>
+      isLoading ? (
+        <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
+          <LinearProgress variant="indeterminate" color="secondary" />
+        </Box>
+      ) : null,
+    [isLoading]
+  )
+
   return (
     <Box mt={6} ml={2} mr={2}>
       <Box bgcolor={theme.palette.common.white} boxShadow={1}>
+        {linearProgressEl}
         <Toolbar>
           <Type variant="h5" id="tableTitle">
             Current Salary Schedule Table
