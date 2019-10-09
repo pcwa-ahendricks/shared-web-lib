@@ -98,8 +98,8 @@ const BoardMinutesPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle
-            title="Board of Directors' Minutes"
-            subtitle="About PCWA"
+            title="Board of Directors' Meeting Minutes"
+            subtitle="Board of Directors"
           />
           <RespRowBox>
             <RespChildBox first flex={{xs: '100%', sm: '65%'}}>

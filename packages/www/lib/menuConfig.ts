@@ -48,10 +48,10 @@ const menuConfig = [
         groupName: 'General',
         items: [
           {
-            title: 'General Information',
+            title: 'About PCWA',
             nextLink: '/about-pcwa'
           },
-          {title: 'Contact PCWA', nextLink: '/contact-us'},
+          {title: 'Contact Us', nextLink: '/contact-us'},
           {
             title: 'Environmental Planning',
             nextLink: '/about-pcwa/environmental-planning'
