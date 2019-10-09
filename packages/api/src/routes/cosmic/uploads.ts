@@ -4,7 +4,7 @@ import Busboy from 'busboy'
 import FormData from 'form-data'
 // Importing node-fetch (over isomorphic-unfetch) suppress typescript warning with posting body: FormData.
 import fetch from 'node-fetch'
-import BusboyError, {BusboyErrorCode} from '../../../lib/busboy-error'
+import BusboyError, {BusboyErrorCode} from '../../lib/busboy-error'
 import {NowRequest, NowResponse} from '@now/node'
 const isDev = process.env.NODE_ENV === 'development'
 
