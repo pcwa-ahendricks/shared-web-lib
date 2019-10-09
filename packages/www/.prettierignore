@@ -1,6 +1,6 @@
 package.json
 .next/
 out/
-static/
+public/
 bundles/
 node_modules/
