@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.light
     },
     budgetDoc: {
-      marginLeft: theme.spacing(2),
-      marginBottom: theme.spacing(2)
+      marginLeft: theme.spacing(3),
+      marginBottom: theme.spacing(3)
     }
   })
 )
@@ -201,7 +201,8 @@ const EmployeeBenefitsSummaryPage = () => {
                   An overview and details of PCWA's most current operating and
                   capital budget:
                 </Type>
-                <RowBox flexWrap="wrap" ml={-2}>
+                {/* Use negative margin to correct flexWrap and left margin used with items. */}
+                <RowBox flexWrap="wrap" ml={-3}>
                   <BudgetDocButton
                     aria-label="View 2019 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/f1e0f730-edeb-11e8-a647-bfe927ef12bf-2019-Budget.pdf"
