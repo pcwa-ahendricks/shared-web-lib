@@ -1,3 +1,4 @@
+// cspell:ignore cafr
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -5,24 +6,54 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {Typography as Type, Box, Link, Theme} from '@material-ui/core'
-import {useTheme} from '@material-ui/styles'
 import {RespRowBox, RespChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import CAFRLink from '@components/CAFRLink/CAFRLink'
+import FancyButton from '@components/FancyButton/FancyButton'
+import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    cafrLink: {
+      padding: 3,
+      color: theme.palette.primary.light
+    },
+    budgetDoc: {
+      marginLeft: theme.spacing(2),
+      marginBottom: theme.spacing(2)
+    }
+  })
+)
 
 const EmployeeBenefitsSummaryPage = () => {
   const theme = useTheme<Theme>()
+  const classes = useStyles()
 
   const OlderCAFRLink = ({children, ...props}: any) => {
     return (
       <Link
         rel="noopener noreferrer"
         target="_blank"
+        className={classes.cafrLink}
         {...props}
-        style={{padding: 3, color: theme.palette.primary.light}}
       >
         {children}
       </Link>
+    )
+  }
+
+  const BudgetDocButton = ({children, ...props}: any) => {
+    return (
+      <FancyButton
+        variant="contained"
+        hoverText="View PDF"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes.budgetDoc}
+        {...props}
+      >
+        {children}
+      </FancyButton>
     )
   }
 
@@ -162,13 +193,58 @@ const EmployeeBenefitsSummaryPage = () => {
                   </RowBox>
                 </Box>
               </Box>
-              <Box mt={3}>
+              <Box mt={6}>
                 <Type variant="h3" gutterBottom>
                   Annual Budget
                 </Type>
                 <Type paragraph>
                   An overview and details of PCWA's most current operating and
                   capital budget:
+                </Type>
+                <RowBox flexWrap="wrap" ml={-2}>
+                  <BudgetDocButton
+                    aria-label="View 2019 Budget"
+                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/f1e0f730-edeb-11e8-a647-bfe927ef12bf-2019-Budget.pdf"
+                  >
+                    2019 Budget
+                  </BudgetDocButton>
+                  <BudgetDocButton
+                    aria-label="View 2018 Budget"
+                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/123a2dc0-ebff-11e7-8e2b-119e8020b76c-2018 Adopted Budget for website.pdf"
+                  >
+                    2018 Budget
+                  </BudgetDocButton>
+                  <BudgetDocButton
+                    aria-label="View 2017 Budget"
+                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/19753230-d87e-11e8-808f-f94458761064-2017 Budget.pdf"
+                  >
+                    2017 Budget
+                  </BudgetDocButton>
+                  <BudgetDocButton
+                    aria-label="View 2016 Budget"
+                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/1692f9d0-d87e-11e8-b627-0bd59229ea68-2016 Budget.pdf"
+                  >
+                    2016 Budget
+                  </BudgetDocButton>
+                </RowBox>
+              </Box>
+
+              <Box mt={6}>
+                <Type variant="h3" gutterBottom>
+                  Official Statements
+                </Type>
+                <Type paragraph>
+                  Currently, PCWA is not seeking any new borrowing monies in the
+                  capital market. As required by our existing debt covenants,
+                  annual disclosures are made and can be found at{' '}
+                  <Link
+                    target="_blank"
+                    href="https://www.DACBond.com"
+                    rel="noopener noreferrer"
+                  >
+                    www.DACBond.com
+                  </Link>
+                  .
                 </Type>
               </Box>
             </RespChildBox>
