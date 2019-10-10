@@ -11,6 +11,8 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import CAFRLink from '@components/CAFRLink/CAFRLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+import {ButtonProps} from '@material-ui/core/Button'
+import {LinkProps} from '@material-ui/core/Link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +31,7 @@ const EmployeeBenefitsSummaryPage = () => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
 
-  const OlderCAFRLink = ({children, ...props}: any) => {
+  const OlderCAFRLink = ({children, ...props}: LinkProps) => {
     return (
       <Link
         rel="noopener noreferrer"
@@ -42,7 +44,10 @@ const EmployeeBenefitsSummaryPage = () => {
     )
   }
 
-  const BudgetDocButton = ({children, ...props}: any) => {
+  const BudgetDocButton = ({
+    children,
+    ...props
+  }: ButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
     return (
       <FancyButton
         variant="contained"
