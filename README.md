@@ -29,23 +29,7 @@ Forms Now deployment will no longer be necessary.
 
 ### Next.js
 
-In order to suppress errors when deploying to Now. The following dependencies have been added explicitly. Future versions of Now/now-builder(s) may not require these to be added explicitly.
-
-- styled-jsx
-- webpack
-- @babel/runtime-corejs2 **_(dev)_**
-
-~~@babel/plugin-transform-runtime **_(dev)_**~~
-
-~~Relating to `@babel/plugin-transform-runtime` the following code was added to `.babelrc`~~
-
-    // DEPRECATED
-    [
-        "@babel/plugin-transform-runtime",
-        {
-            "corejs": 2
-        }
-    ]
+...
 
 ## Now (Deployments)
 
