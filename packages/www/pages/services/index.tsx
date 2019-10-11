@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import NextLink from '@components/NextLink/NextLink'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -29,7 +29,7 @@ const ServicesPage = () => {
             See the sections below for specific information:
           </Type>
           <RespRowBox mt={4} flexSpacing={4}>
-            <RespChildBox flex="0 1 auto">
+            <ChildBox flex="0 1 auto">
               <List dense disablePadding>
                 <ListItem>
                   <NextLink variant="h6" href="/services/pay-bill">
@@ -87,8 +87,8 @@ const ServicesPage = () => {
                   </NextLink>
                 </ListItem>
               </List>
-            </RespChildBox>
-            <RespChildBox
+            </ChildBox>
+            <ChildBox
               flex="auto"
               ml={{xs: 0, sm: 10}} // Extra margin w/ Row direction.
               height={{xs: 325, sm: 250}} // Control height of video.
@@ -113,7 +113,7 @@ const ServicesPage = () => {
                 frameBorder="0"
                 allowFullScreen
               /> */}
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
           <Box mt={4}>
             <Type paragraph>

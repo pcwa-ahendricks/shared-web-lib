@@ -22,7 +22,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   RespRowBox,
-  RespChildBox,
+  ChildBox,
   RowBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
@@ -86,7 +86,7 @@ const IrrigationCanalPage = () => {
         <NarrowContainer>
           <PageTitle title="Irrigation Canal Information" subtitle="Services" />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox flex="1 1 60%">
+            <ChildBox flex="1 1 60%">
               <Type paragraph>
                 PCWA's primary source of water is delivered through canals
                 operated by Pacific Gas &amp; Electric Company's (PG&amp;E).
@@ -119,8 +119,8 @@ const IrrigationCanalPage = () => {
                 <NextLink href="/services/outage">Outage Information</NextLink>{' '}
                 page of this website.
               </Type>
-            </RespChildBox>
-            <RespChildBox
+            </ChildBox>
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
@@ -134,7 +134,7 @@ const IrrigationCanalPage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
 
           <Box mt={6}>

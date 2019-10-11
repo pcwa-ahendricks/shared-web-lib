@@ -28,11 +28,19 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.wrap > .useFlexSpacing': {
         marginLeft: theme.spacing(flexSpacing || 0)
       }
+    }),
+    colBox: ({flexSpacing}: UseStylesProps) => ({
+      '&:not(.wrap) > .useFlexSpacing:not(:first-child)': {
+        marginTop: theme.spacing(flexSpacing || 0)
+      },
+      '&.wrap > .useFlexSpacing': {
+        marginTop: theme.spacing(flexSpacing || 0)
+      }
     })
   })
 )
 
-export type RespChildBoxProps = {
+export type ChildBoxProps = {
   children?: React.ReactNode
 } & BoxProps
 
@@ -55,13 +63,13 @@ const RowBox = ({
   ...rest
 }: Props) => {
   const classes = useStyles({flexSpacing})
-  // Always apply spacing if flex-wrap is set to "wrap", since first-child items will appear when wrapping items.
+  // Always apply spacing if flex-wrap is set to wrap, since first-child items will appear when wrapping items.
   return (
     <Box
       display="flex"
       flexDirection="row"
       className={clsx([
-        {wrap: flexWrapProp === 'wrap'},
+        {wrap: flexWrapProp === 'wrap' || flexWrapProp === 'wrap-reverse'},
         classes.rowBox,
         classNameProp
       ])}
@@ -73,23 +81,25 @@ const RowBox = ({
   )
 }
 
-const ChildBox = ({
+const ColumnBox = ({
   children,
+  flexSpacing,
   className: classNameProp,
-  ml: mlProp,
-  m: mProp,
-  mx: mxProp,
+  flexWrap: flexWrapProp,
   ...rest
-}: RespChildBoxProps) => {
-  // Don't add 'useFlexSpacing' class if any type of left margin was explicitly added so that the left margin can be overridden.
-  // The order in which the 'm', 'mx', and 'ml' props are added matters! I believe this is the best order due to granularity.
-  const hasMarginProp = Boolean(mlProp || mProp || mxProp)
+}: Props) => {
+  const classes = useStyles({flexSpacing})
+  // Always apply spacing if flex-wrap is set to wrap, since first-child items will appear when wrapping items.
   return (
     <Box
-      className={clsx([{['useFlexSpacing']: !hasMarginProp}, classNameProp])}
-      m={mProp}
-      mx={mxProp}
-      ml={mlProp}
+      display="flex"
+      flexDirection="column"
+      className={clsx([
+        {wrap: flexWrapProp === 'wrap' || flexWrapProp === 'wrap-reverse'},
+        classes.colBox,
+        classNameProp
+      ])}
+      flexWrap={flexWrapProp}
       {...rest}
     >
       {children}
@@ -116,24 +126,36 @@ const RespRowBox = ({
   )
 }
 
-const RespChildBox = ({
+const ChildBox = ({
   children,
   className: classNameProp,
+  m,
+  mx,
+  my,
+  mr,
+  ml,
+  mt,
+  mb,
   ...rest
-}: RespChildBoxProps) => {
+}: ChildBoxProps) => {
+  // Don't add 'useFlexSpacing' class if any type of margin was explicitly added so that the margin can be overridden.
+  // The order in which the margin props are added matters! I believe this is the best order due to granularity.
+  const hasMarginProp = Boolean(m || mx || my || mr || ml || mb || mt)
   return (
-    <Box className={clsx(['useFlexSpacing', classNameProp])} {...rest}>
+    <Box
+      className={clsx([{['useFlexSpacing']: !hasMarginProp}, classNameProp])}
+      m={m}
+      mx={mx}
+      my={my}
+      mr={mr}
+      ml={ml}
+      mt={mt}
+      mb={mb}
+      {...rest}
+    >
       {children}
     </Box>
   )
 }
 
-const ColumnBox = ({children, ...rest}: Props) => {
-  return (
-    <Box display="flex" flexDirection="column" {...rest}>
-      {children}
-    </Box>
-  )
-}
-
-export {RowBox, RespRowBox, RespChildBox, ColumnBox, ChildBox}
+export {RowBox, RespRowBox, ColumnBox, ChildBox}

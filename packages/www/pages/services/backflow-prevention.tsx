@@ -17,7 +17,7 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import BsiOnlineWebsite from '@components/links/BsiOnlineWebsite'
 import BsiOnlinePhone from '@components/links/BsiOnlinePhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
@@ -52,7 +52,7 @@ const CrossControlPreventionPage = () => {
             subtitle="Services"
           />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox flex="1 1 60%">
+            <ChildBox flex="1 1 60%">
               <article>
                 <Type variant="h4" gutterBottom>
                   About Cross-Connection Control Prevention
@@ -77,8 +77,8 @@ const CrossControlPreventionPage = () => {
                   supply.
                 </Type>
               </article>
-            </RespChildBox>
-            <RespChildBox
+            </ChildBox>
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
@@ -91,7 +91,7 @@ const CrossControlPreventionPage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
           <Box mt={6}>
             <Type variant="h4" gutterBottom>

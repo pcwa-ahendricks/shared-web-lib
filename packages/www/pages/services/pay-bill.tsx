@@ -8,7 +8,7 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   RespRowBox,
-  RespChildBox,
+  ChildBox,
   ColumnBox,
   RowBox
 } from '@components/boxes/FlexBox'
@@ -37,7 +37,7 @@ const PayBillPage = () => {
         <NarrowContainer>
           <PageTitle title="Bill Payment Options" subtitle="Services" />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox flex={{xs: '100%', sm: '60%'}}>
+            <ChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
                 Our electronic and automated options are
@@ -129,8 +129,8 @@ const PayBillPage = () => {
                   </RowBox>
                 </PayOptionBox>
               </ColumnBox>
-            </RespChildBox>
-            <RespChildBox
+            </ChildBox>
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
@@ -143,7 +143,7 @@ const PayBillPage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>
             <Type variant="h5" gutterBottom>

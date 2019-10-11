@@ -13,7 +13,7 @@ import WideContainer from '@components/containers/WideContainer'
 import ShowMore from '@components/ShowMore/ShowMore'
 import MainPhone from '@components/links/MainPhone'
 // import {useTheme} from '@material-ui/styles'
-import {RespRowBox, RespChildBox, RowBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -63,7 +63,7 @@ const GeneralInfoPage = () => {
 
         <WideContainer>
           <RespRowBox alignItems="center" mt={4} flexSpacing={4}>
-            <RespChildBox
+            <ChildBox
               flex="1 1 50%"
               pl={{xs: 2, sm: 4, md: 8, lg: 12}}
               pr={{xs: 2, sm: 4, md: 8, lg: 12}}
@@ -74,8 +74,8 @@ const GeneralInfoPage = () => {
                   PCWA YouTube Channel
                 </span>
               </Type>
-            </RespChildBox>
-            <RespChildBox flex="1 1 50%" height={225}>
+            </ChildBox>
+            <ChildBox flex="1 1 50%" height={225}>
               <YouTubePlayer
                 controls
                 url="https://www.youtube.com/watch?v=QXPtUgeWnc4"
@@ -88,7 +88,7 @@ const GeneralInfoPage = () => {
                 }}
                 style={{maxWidth: 400}}
               />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
         </WideContainer>
 

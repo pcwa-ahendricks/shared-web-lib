@@ -11,7 +11,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
@@ -102,7 +102,7 @@ const BoardMinutesPage = () => {
             subtitle="Board of Directors"
           />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox flex={{xs: '100%', sm: '65%'}}>
+            <ChildBox flex={{xs: '100%', sm: '65%'}}>
               {boardMinutes.map((v) => {
                 const year = v.year.toString()
                 const minutes = [...v.values]
@@ -117,8 +117,8 @@ const BoardMinutesPage = () => {
                   />
                 )
               })}
-            </RespChildBox>
-            <RespChildBox
+            </ChildBox>
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
@@ -130,7 +130,7 @@ const BoardMinutesPage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
         </WideContainer>
       </MainBox>

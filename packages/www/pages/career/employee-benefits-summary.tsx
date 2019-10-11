@@ -15,7 +15,7 @@ import {
   Theme,
   ListItemIcon
 } from '@material-ui/core'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
@@ -65,7 +65,7 @@ const EmployeeBenefitsSummaryPage = () => {
             subtitle="Careers"
           />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
@@ -78,8 +78,8 @@ const EmployeeBenefitsSummaryPage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
-            <RespChildBox flex={{xs: '100%', sm: '60%'}}>
+            </ChildBox>
+            <ChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type paragraph>
                 Placer County Water Agency offers its employees an attractive
                 and flexible benefits package including a progressive paid leave
@@ -148,7 +148,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   </ListItemLink>
                 </List>
               </Box>
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
           <SectionBox mt={6}>
             <Type variant="h2" color="primary">
@@ -194,7 +194,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 towards the premium is:
               </Type>
               <RespRowBox justifyContent="space-around" mb={3} flexSpacing={2}>
-                <RespChildBox textAlign="center">
+                <ChildBox textAlign="center">
                   <Type variant="overline">Employee only</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeeOnly.toLocaleString(
@@ -202,8 +202,8 @@ const EmployeeBenefitsSummaryPage = () => {
                       {...tlsOpts}
                     )}
                   </Type>
-                </RespChildBox>
-                <RespChildBox textAlign="center" lineHeight="1.3rem">
+                </ChildBox>
+                <ChildBox textAlign="center" lineHeight="1.3rem">
                   <Type variant="overline">Employee +1</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeePlusOne.toLocaleString(
@@ -211,8 +211,8 @@ const EmployeeBenefitsSummaryPage = () => {
                       {...tlsOpts}
                     )}
                   </Type>
-                </RespChildBox>
-                <RespChildBox textAlign="center">
+                </ChildBox>
+                <ChildBox textAlign="center">
                   <Type variant="overline">Employee + Family</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeePlusFamily.toLocaleString(
@@ -220,7 +220,7 @@ const EmployeeBenefitsSummaryPage = () => {
                       {...tlsOpts}
                     )}
                   </Type>
-                </RespChildBox>
+                </ChildBox>
               </RespRowBox>
 
               <Type variant="subtitle1" gutterBottom>

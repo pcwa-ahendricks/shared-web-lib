@@ -22,7 +22,7 @@ import {
   RespRowBox,
   RowBox,
   ColumnBox,
-  RespChildBox
+  ChildBox
 } from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {blueGrey} from '@material-ui/core/colors'
@@ -84,7 +84,7 @@ const WaterQualityPage = () => {
               the report for your service area:
             </Type>
             <RespRowBox flexSpacing={4}>
-              <RespChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
+              <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
                 <MediaDialogOnClick
                   mediaUrl={tsaImageUrl}
                   mediaExt="jpg"
@@ -109,8 +109,8 @@ const WaterQualityPage = () => {
                     </Box>
                   </ColumnBox>
                 </MediaDialogOnClick>
-              </RespChildBox>
-              <RespChildBox flex="auto">
+              </ChildBox>
+              <ChildBox flex="auto">
                 <Box
                   bgcolor={theme.palette.common.white}
                   border={1}
@@ -154,7 +154,7 @@ const WaterQualityPage = () => {
                     </ListItemLink>
                   </List>
                 </Box>
-              </RespChildBox>
+              </ChildBox>
             </RespRowBox>
           </Box>
 

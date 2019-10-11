@@ -5,7 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type} from '@material-ui/core'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 
 const RateAdjustPage = () => {
@@ -56,9 +56,9 @@ const RateAdjustPage = () => {
           </Type>
 
           <RespRowBox>
-            <RespChildBox>
+            <ChildBox>
               <RateAdjustFAQ />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
         </NarrowContainer>
       </MainBox>

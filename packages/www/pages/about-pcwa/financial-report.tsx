@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {Typography as Type, Box, Link, Theme} from '@material-ui/core'
-import {RespRowBox, RespChildBox, RowBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import CAFRLink from '@components/CAFRLink/CAFRLink'
 import FancyButton from '@components/FancyButton/FancyButton'
@@ -69,7 +69,7 @@ const EmployeeBenefitsSummaryPage = () => {
         <NarrowContainer>
           <PageTitle title="Financial Reports" subtitle="General" />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
@@ -82,8 +82,8 @@ const EmployeeBenefitsSummaryPage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
-            <RespChildBox flex={{xs: '100%', sm: '60%'}}>
+            </ChildBox>
+            <ChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type paragraph>
                 PCWA's financial condition continues to be sound, with a stable
                 revenue base. Our responsible fiscal management and planning, as
@@ -257,7 +257,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   .
                 </Type>
               </Box>
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
         </NarrowContainer>
       </MainBox>

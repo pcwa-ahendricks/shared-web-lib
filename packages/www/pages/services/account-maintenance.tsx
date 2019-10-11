@@ -5,7 +5,7 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
@@ -17,7 +17,7 @@ const AccountMaintenancePage = () => {
         <NarrowContainer>
           <PageTitle title="Account Maintenance" subtitle="Services" />
           <RespRowBox flexSpacing={4}>
-            <RespChildBox flex="1 1 60%">
+            <ChildBox flex="1 1 60%">
               <Type paragraph>
                 To open or close&nbsp;a water service account with PCWA, call
                 PCWA Customer Services at <MainPhone /> weekdays from 9:00 a.m.
@@ -28,8 +28,8 @@ const AccountMaintenancePage = () => {
                 service.&nbsp; Deposits are required when signing up for water
                 service.
               </Type>
-            </RespChildBox>
-            <RespChildBox
+            </ChildBox>
+            <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
@@ -42,7 +42,7 @@ const AccountMaintenancePage = () => {
                   style: {width: '100%'}
                 }}
               />
-            </RespChildBox>
+            </ChildBox>
           </RespRowBox>
           <Box mt={6}>
             <Type variant="h3" gutterBottom>
