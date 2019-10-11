@@ -62,8 +62,6 @@ const EmployeeBenefitsSummaryPage = () => {
     )
   }
 
-  const margin = 4 // Used with left and top margin of flexWrap items.
-
   return (
     <PageLayout title="Financial Reports">
       <WaterSurfaceImg />
@@ -112,34 +110,26 @@ const EmployeeBenefitsSummaryPage = () => {
                 pb={1}
                 mt={3}
               >
-                <RowBox
-                  justifyContent="space-around"
-                  ml={-margin}
-                  mt={-margin}
-                  flexWrap="wrap"
-                >
+                <RowBox justifyContent="space-around">
                   <CAFRLink
                     url="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     filename="2018 PCWA CAFR.pdf"
                     caption="2018 CAFR"
-                    margin={margin}
                   />
                   <CAFRLink
                     url="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     filename="2017 PCWA CAFR.pdf"
                     caption="2017 CAFR"
-                    margin={margin}
                   />
                   <CAFRLink
                     url="http://cosmic-s3.imgix.net/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
                     filename="2016 PCWA CAFR.pdf"
                     caption="2016 CAFR"
-                    margin={margin}
                   />
                 </RowBox>
                 <Box m={2}>
                   <Type variant="subtitle2">Older CAFR Documents</Type>
-                  <RowBox alignItems="center">
+                  <RowBox alignItems="center" flexWrap="wrap">
                     <OlderCAFRLink
                       title="2015 CAFR Document Link"
                       href="//s3-us-west-2.amazonaws.com/cosmicjs/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"

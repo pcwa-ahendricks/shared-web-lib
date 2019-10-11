@@ -98,6 +98,7 @@ const DoingBusinessPage = () => {
                   imgixParams={{bri: -4}}
                 />
               </ChildBox>
+              {/* This extra <ChildBox/> is only needed cause "space-around" justification is used. */}
               {/* Don't use <Hidden/> here since it will break flexSpacing css selector which uses '>' to select direct children only. */}
               <ChildBox mt={topMargin} display={isXS ? 'none' : 'flex'}>
                 <Box {...commonImageDimmerProps} />
