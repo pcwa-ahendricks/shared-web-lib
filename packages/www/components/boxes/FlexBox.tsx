@@ -1,17 +1,40 @@
-import React, {useMemo} from 'react'
-import {Box} from '@material-ui/core'
+import React from 'react'
+import {Box, Theme} from '@material-ui/core'
+import {createStyles, makeStyles} from '@material-ui/styles'
 import {BoxProps} from '@material-ui/core/Box'
+import clsx from 'clsx'
 
-type Props = {children?: React.ReactNode} & BoxProps
+type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
+type UseStylesProps = {flexSpacing?: number}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    respRowBox: ({flexSpacing}: UseStylesProps) => ({
+      [theme.breakpoints.only('xs')]: {
+        '& > .respChildBox:not(:first-child)': {
+          marginTop: theme.spacing(flexSpacing || 0)
+        }
+      },
+      [theme.breakpoints.up('sm')]: {
+        '& > .respChildBox:not(:first-child)': {
+          marginLeft: theme.spacing(flexSpacing || 0)
+        }
+      }
+    }),
+    rowBox: ({flexSpacing}: UseStylesProps) => ({
+      '& > .childBox:not(:first-child)': {
+        marginLeft: theme.spacing(flexSpacing || 0)
+      }
+    })
+  })
+)
 
 export type RespChildBoxProps = {
   children?: React.ReactNode
-  flexSpacing?: number
-  first?: boolean
 } & BoxProps
 
 /*
-  From https://github.com/angular/flex-layout/wiki/fxFlex-API
+  Useful terminology/abbreviations from https://github.com/angular/flex-layout/wiki/fxFlex-API
   alias 	    Equivalent CSS
   grow 	      flex: 1 1 100%
   initial 	  flex: 0 1 auto
@@ -21,35 +44,63 @@ export type RespChildBoxProps = {
   noshrink 	  flex: 1 0 auto
 */
 
-const RowBox = ({children, ...rest}: Props) => {
+const RowBox = ({
+  children,
+  flexSpacing,
+  className: classNameProp,
+  ...rest
+}: Props) => {
+  const classes = useStyles({flexSpacing})
   return (
-    <Box display="flex" flexDirection="row" {...rest}>
+    <Box
+      display="flex"
+      flexDirection="row"
+      className={clsx([classes.rowBox, classNameProp])}
+      {...rest}
+    >
       {children}
     </Box>
   )
 }
 
-const RespRowBox = ({children, ...rest}: Props) => {
+const ChildBox = ({
+  children,
+  className: classNameProp,
+  ...rest
+}: RespChildBoxProps) => {
   return (
-    <Box display="flex" flexDirection={{xs: 'column', sm: 'row'}} {...rest}>
+    <Box className={clsx(['childBox', classNameProp])} {...rest}>
+      {children}
+    </Box>
+  )
+}
+
+const RespRowBox = ({
+  children,
+  flexSpacing,
+  className: classNameProp,
+  ...rest
+}: Props) => {
+  const classes = useStyles({flexSpacing})
+  return (
+    <Box
+      display="flex"
+      flexDirection={{xs: 'column', sm: 'row'}}
+      className={clsx([classes.respRowBox, classNameProp])}
+      {...rest}
+    >
       {children}
     </Box>
   )
 }
 
 const RespChildBox = ({
-  flexSpacing: flexSpacingProp = 0,
-  first = false,
   children,
+  className: classNameProp,
   ...rest
 }: RespChildBoxProps) => {
-  const flexSpacing = useMemo(() => (!first ? flexSpacingProp : 0), [
-    flexSpacingProp,
-    first
-  ])
-
   return (
-    <Box mt={{xs: flexSpacing, sm: 0}} ml={{xs: 0, sm: flexSpacing}} {...rest}>
+    <Box className={clsx(['respChildBox', classNameProp])} {...rest}>
       {children}
     </Box>
   )
@@ -63,4 +114,4 @@ const ColumnBox = ({children, ...rest}: Props) => {
   )
 }
 
-export {RowBox, RespRowBox, RespChildBox, ColumnBox}
+export {RowBox, RespRowBox, RespChildBox, ColumnBox, ChildBox}

@@ -28,8 +28,8 @@ const ServicesPage = () => {
             questions, solve problems and make referrals to other departments.
             See the sections below for specific information:
           </Type>
-          <RespRowBox mt={4}>
-            <RespChildBox first flex="0 1 auto">
+          <RespRowBox mt={4} flexSpacing={4}>
+            <RespChildBox flex="0 1 auto">
               <List dense disablePadding>
                 <ListItem>
                   <NextLink variant="h6" href="/services/pay-bill">
@@ -90,7 +90,6 @@ const ServicesPage = () => {
             </RespChildBox>
             <RespChildBox
               flex="auto"
-              flexSpacing={4}
               ml={{xs: 0, sm: 10}} // Extra margin w/ Row direction.
               height={{xs: 325, sm: 250}} // Control height of video.
             >

@@ -16,8 +16,8 @@ const AccountMaintenancePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Account Maintenance" subtitle="Services" />
-          <RespRowBox>
-            <RespChildBox first flex="1 1 60%">
+          <RespRowBox flexSpacing={4}>
+            <RespChildBox flex="1 1 60%">
               <Type paragraph>
                 To open or close&nbsp;a water service account with PCWA, call
                 PCWA Customer Services at <MainPhone /> weekdays from 9:00 a.m.
@@ -30,7 +30,6 @@ const AccountMaintenancePage = () => {
               </Type>
             </RespChildBox>
             <RespChildBox
-              flexSpacing={4}
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.

@@ -64,9 +64,8 @@ const EmployeeBenefitsSummaryPage = () => {
             title="Employee Salary and Benefits Summary"
             subtitle="Careers"
           />
-          <RespRowBox>
+          <RespRowBox flexSpacing={4}>
             <RespChildBox
-              first
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
@@ -80,7 +79,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 }}
               />
             </RespChildBox>
-            <RespChildBox flexSpacing={4} flex={{xs: '100%', sm: '60%'}}>
+            <RespChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type paragraph>
                 Placer County Water Agency offers its employees an attractive
                 and flexible benefits package including a progressive paid leave
@@ -194,8 +193,8 @@ const EmployeeBenefitsSummaryPage = () => {
                 Select and PERS Care). The Agency's current monthly contribution
                 towards the premium is:
               </Type>
-              <RespRowBox justifyContent="space-around" mb={3}>
-                <RespChildBox first textAlign="center">
+              <RespRowBox justifyContent="space-around" mb={3} flexSpacing={2}>
+                <RespChildBox textAlign="center">
                   <Type variant="overline">Employee only</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeeOnly.toLocaleString(
@@ -204,11 +203,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     )}
                   </Type>
                 </RespChildBox>
-                <RespChildBox
-                  flexSpacing={2}
-                  textAlign="center"
-                  lineHeight="1.3rem"
-                >
+                <RespChildBox textAlign="center" lineHeight="1.3rem">
                   <Type variant="overline">Employee +1</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeePlusOne.toLocaleString(
@@ -217,7 +212,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     )}
                   </Type>
                 </RespChildBox>
-                <RespChildBox flexSpacing={2} textAlign="center">
+                <RespChildBox textAlign="center">
                   <Type variant="overline">Employee + Family</Type>
                   <Type variant="subtitle2">
                     {healthInsuranceAmounts.employeePlusFamily.toLocaleString(

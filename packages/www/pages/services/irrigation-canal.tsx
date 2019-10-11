@@ -85,8 +85,8 @@ const IrrigationCanalPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Irrigation Canal Information" subtitle="Services" />
-          <RespRowBox>
-            <RespChildBox first flex="1 1 60%">
+          <RespRowBox flexSpacing={4}>
+            <RespChildBox flex="1 1 60%">
               <Type paragraph>
                 PCWA's primary source of water is delivered through canals
                 operated by Pacific Gas &amp; Electric Company's (PG&amp;E).
@@ -121,7 +121,6 @@ const IrrigationCanalPage = () => {
               </Type>
             </RespChildBox>
             <RespChildBox
-              flexSpacing={4}
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.

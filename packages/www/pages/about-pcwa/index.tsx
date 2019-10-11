@@ -62,10 +62,9 @@ const GeneralInfoPage = () => {
         </NarrowContainer>
 
         <WideContainer>
-          <RespRowBox alignItems="center" mt={4}>
+          <RespRowBox alignItems="center" mt={4} flexSpacing={4}>
             <RespChildBox
               flex="1 1 50%"
-              first
               pl={{xs: 2, sm: 4, md: 8, lg: 12}}
               pr={{xs: 2, sm: 4, md: 8, lg: 12}}
             >
@@ -76,7 +75,7 @@ const GeneralInfoPage = () => {
                 </span>
               </Type>
             </RespChildBox>
-            <RespChildBox flex="1 1 50%" flexSpacing={4} height={225}>
+            <RespChildBox flex="1 1 50%" height={225}>
               <YouTubePlayer
                 controls
                 url="https://www.youtube.com/watch?v=QXPtUgeWnc4"

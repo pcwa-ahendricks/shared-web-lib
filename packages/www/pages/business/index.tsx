@@ -44,7 +44,7 @@ const DoingBusinessPage = () => {
             </Type>
           </Box>
           <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
-            <RespChildBox {...commonChildProps} first>
+            <RespChildBox {...commonChildProps}>
               <ImageDimmerLink
                 {...commonImageDimmerProps}
                 href="/business/goods-and-services"
@@ -70,7 +70,7 @@ const DoingBusinessPage = () => {
             </RespChildBox>
           </RespRowBox>
           <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
-            <RespChildBox {...commonChildProps} first>
+            <RespChildBox {...commonChildProps}>
               <ImageDimmerLink
                 {...commonImageDimmerProps}
                 href="/business/new-development"
@@ -98,7 +98,7 @@ const DoingBusinessPage = () => {
             </RespChildBox>
           </RespRowBox>
           <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
-            <RespChildBox {...commonChildProps} first>
+            <RespChildBox {...commonChildProps}>
               <ImageDimmerLink
                 {...commonImageDimmerProps}
                 href="/business/standards"

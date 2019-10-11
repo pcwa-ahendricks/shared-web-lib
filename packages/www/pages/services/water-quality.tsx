@@ -83,8 +83,8 @@ const WaterQualityPage = () => {
               For your reference, please click on the appropriate link to view
               the report for your service area:
             </Type>
-            <RespRowBox>
-              <RespChildBox first flex={{xs: 'auto', sm: '0 1 70%'}}>
+            <RespRowBox flexSpacing={4}>
+              <RespChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
                 <MediaDialogOnClick
                   mediaUrl={tsaImageUrl}
                   mediaExt="jpg"
@@ -110,7 +110,7 @@ const WaterQualityPage = () => {
                   </ColumnBox>
                 </MediaDialogOnClick>
               </RespChildBox>
-              <RespChildBox flexSpacing={4} flex="auto">
+              <RespChildBox flex="auto">
                 <Box
                   bgcolor={theme.palette.common.white}
                   border={1}

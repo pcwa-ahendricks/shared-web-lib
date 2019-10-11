@@ -36,8 +36,8 @@ const PayBillPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Bill Payment Options" subtitle="Services" />
-          <RespRowBox>
-            <RespChildBox first flex={{xs: '100%', sm: '60%'}}>
+          <RespRowBox flexSpacing={4}>
+            <RespChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
                 Our electronic and automated options are
@@ -131,7 +131,6 @@ const PayBillPage = () => {
               </ColumnBox>
             </RespChildBox>
             <RespChildBox
-              flexSpacing={4}
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.

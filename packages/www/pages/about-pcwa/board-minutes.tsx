@@ -101,8 +101,8 @@ const BoardMinutesPage = () => {
             title="Board of Directors' Meeting Minutes"
             subtitle="Board of Directors"
           />
-          <RespRowBox>
-            <RespChildBox first flex={{xs: '100%', sm: '65%'}}>
+          <RespRowBox flexSpacing={4}>
+            <RespChildBox flex={{xs: '100%', sm: '65%'}}>
               {boardMinutes.map((v) => {
                 const year = v.year.toString()
                 const minutes = [...v.values]
@@ -119,7 +119,6 @@ const BoardMinutesPage = () => {
               })}
             </RespChildBox>
             <RespChildBox
-              flexSpacing={4}
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.

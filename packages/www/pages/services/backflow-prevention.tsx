@@ -51,8 +51,8 @@ const CrossControlPreventionPage = () => {
             title="Cross-Connection Control Program"
             subtitle="Services"
           />
-          <RespRowBox>
-            <RespChildBox first flex="1 1 60%">
+          <RespRowBox flexSpacing={4}>
+            <RespChildBox flex="1 1 60%">
               <article>
                 <Type variant="h4" gutterBottom>
                   About Cross-Connection Control Prevention
@@ -79,7 +79,6 @@ const CrossControlPreventionPage = () => {
               </article>
             </RespChildBox>
             <RespChildBox
-              flexSpacing={4}
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.

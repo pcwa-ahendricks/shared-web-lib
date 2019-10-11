@@ -70,9 +70,8 @@ const EmployeeBenefitsSummaryPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Financial Reports" subtitle="General" />
-          <RespRowBox>
+          <RespRowBox flexSpacing={4}>
             <RespChildBox
-              first
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
@@ -86,7 +85,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 }}
               />
             </RespChildBox>
-            <RespChildBox flexSpacing={4} flex={{xs: '100%', sm: '60%'}}>
+            <RespChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type paragraph>
                 PCWA's financial condition continues to be sound, with a stable
                 revenue base. Our responsible fiscal management and planning, as
