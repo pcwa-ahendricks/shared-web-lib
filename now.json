@@ -176,11 +176,30 @@
       }
     },
     {
-      "src": "/lambda/mc(.*)",
-      "dest": "packages/mailchimp/dist/index.js",
+      "src": "/api/mailchimp/campaigns(.*)",
+      "dest": "packages/api/src/routes/mailchimp/campaigns.ts",
       "headers": {
         "cache-control": "s-maxage=1,stale-while-revalidate",
-        "access-control-allow-origin": "https://www.pcwa.net"
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "GET"
+      }
+    },
+    {
+      "src": "/api/mailchimp/subscribe(.*)",
+      "dest": "packages/api/src/routes/mailchimp/subscribe.ts",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "POST,OPTIONS"
+      }
+    },
+    {
+      "src": "/api/mailchimp/update/(?<id>[^/]+)",
+      "dest": "packages/api/src/routes/mailchimp/update.ts?userHashId=$id",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "PUT,OPTIONS"
       }
     },
     {

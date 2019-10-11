@@ -116,7 +116,7 @@ const SalaryScheduleTable = () => {
   >(salaryData)
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>()
 
   const setSalaryScheduleCsv = useCallback(async () => {
     const ssCsv = await getSalaryScheduleCsv()
@@ -153,7 +153,6 @@ const SalaryScheduleTable = () => {
         stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
       }))
       setSalaryData(ssDataWithId)
-
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
@@ -314,7 +313,11 @@ const SalaryScheduleTable = () => {
 
   return (
     <Box mt={6} ml={2} mr={2}>
-      <Box bgcolor={theme.palette.common.white} boxShadow={1}>
+      <Box
+        bgcolor={theme.palette.common.white}
+        boxShadow={1}
+        position="relative"
+      >
         {linearProgressEl}
         <Toolbar>
           <Type variant="h5" id="tableTitle">

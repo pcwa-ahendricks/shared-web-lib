@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {Box, Typography as Type, Divider, Theme} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import {createStyles, makeStyles} from '@material-ui/styles'
 
 type Props = {
-  subtitle: string
+  subtitle?: string
   title: string
 } & BoxProps
 
@@ -20,18 +20,27 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const PageTitle = ({subtitle, title, ...rest}: Props) => {
+const PageTitle = ({subtitle = '', title, ...rest}: Props) => {
   const classes = useStyles()
+
+  const subtitleEl = useMemo(
+    () =>
+      subtitle ? (
+        <Type
+          variant="subtitle2"
+          color="primary"
+          gutterBottom
+          className={classes.subtitle}
+        >
+          {subtitle}
+        </Type>
+      ) : null,
+    [subtitle, classes]
+  )
+
   return (
     <Box {...rest}>
-      <Type
-        variant="subtitle2"
-        color="primary"
-        gutterBottom
-        className={classes.subtitle}
-      >
-        {subtitle}
-      </Type>
+      {subtitleEl}
       <Type variant="h1" color="primary">
         {title}
       </Type>

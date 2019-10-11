@@ -36,11 +36,11 @@ const GeneralInfoPage = () => {
   // const theme = useTheme<Theme>()
 
   return (
-    <PageLayout title="General Information">
+    <PageLayout title="About PCWA">
       <WaterSurfaceImg />
       <MainBox>
         <WideContainer>
-          <PageTitle title="General Information" subtitle="About PCWA" />
+          <PageTitle title="About PCWA" subtitle="General" />
         </WideContainer>
 
         <NarrowContainer

@@ -56,7 +56,7 @@ const SalarySchedulePage = () => {
       <WaterSurfaceImg />
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Unclaimed Property" subtitle="About PCWA" />
+          <PageTitle title="Unclaimed Property" subtitle="General" />
           {/* 5:00 p.m. on Friday July 12, 2019 */}
           <SectionBox>
             <Type paragraph>

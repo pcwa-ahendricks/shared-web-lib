@@ -24,7 +24,7 @@ const DirectionsPage = () => {
       <WaterSurfaceImg />
       <MainBox>
         <WideContainer>
-          <PageTitle title="Directions to PCWA" subtitle="About PCWA" />
+          <PageTitle title="Directions to PCWA" subtitle="General" />
           <iframe
             width="100%"
             height="550"
