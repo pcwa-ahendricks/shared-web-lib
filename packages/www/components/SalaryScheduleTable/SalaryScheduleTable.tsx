@@ -5,7 +5,6 @@ import {
 } from '@lib/services/cosmicService'
 import {
   Box,
-  LinearProgress,
   Typography as Type,
   Table,
   TableBody,
@@ -17,7 +16,8 @@ import {
   TextField,
   Theme,
   Toolbar,
-  useTheme
+  useTheme,
+  LinearProgress
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/styles'
 import {getSorting, stableSort} from '@lib/table-utils'
