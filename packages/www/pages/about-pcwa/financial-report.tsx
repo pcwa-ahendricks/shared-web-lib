@@ -19,10 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
     cafrLink: {
       padding: 3,
       color: theme.palette.primary.light
-    },
-    budgetDoc: {
-      marginLeft: theme.spacing(3),
-      marginBottom: theme.spacing(3)
     }
   })
 )
@@ -44,21 +40,24 @@ const EmployeeBenefitsSummaryPage = () => {
     )
   }
 
-  const BudgetDocButton = ({
+  const topMargin = 3
+
+  const BudgetDoc = ({
     children,
     ...props
   }: ButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
     return (
-      <FancyButton
-        variant="contained"
-        hoverText="View PDF"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={classes.budgetDoc}
-        {...props}
-      >
-        {children}
-      </FancyButton>
+      <ChildBox mt={topMargin}>
+        <FancyButton
+          variant="contained"
+          hoverText="View PDF"
+          target="_blank"
+          rel="noopener noreferrer"
+          {...props}
+        >
+          {children}
+        </FancyButton>
+      </ChildBox>
     )
   }
 
@@ -91,19 +90,22 @@ const EmployeeBenefitsSummaryPage = () => {
                 to ensure reliable water system operations, while consistently
                 meeting our principal and interest payments on bond debt.
               </Type>
-              <Type variant="h3" gutterBottom>
-                Annual Audited Financial Statements
-              </Type>
-              <Type paragraph>
-                PCWA's Comprehensive Annual Financial Report (CAFR) provides the
-                following information: Introductory Section, Independent
-                Auditors' Report, Management's Discussion and Analysis, Basic
-                Financial Statements (audited), Required Supplementary
-                Information and Statistical Section.
-              </Type>
-              <Type>
-                The final reports are available for viewing and download below.
-              </Type>
+              <Box mt={6}>
+                <Type variant="h3" gutterBottom>
+                  Annual Audited Financial Statements
+                </Type>
+                <Type paragraph>
+                  PCWA's Comprehensive Annual Financial Report (CAFR) provides
+                  the following information: Introductory Section, Independent
+                  Auditors' Report, Management's Discussion and Analysis, Basic
+                  Financial Statements (audited), Required Supplementary
+                  Information and Statistical Section.
+                </Type>
+                <Type>
+                  The final reports are available for viewing and download
+                  below.
+                </Type>
+              </Box>
               <Box
                 bgcolor={theme.palette.background.paper}
                 pt={3}
@@ -210,32 +212,31 @@ const EmployeeBenefitsSummaryPage = () => {
                   An overview and details of PCWA's most current operating and
                   capital budget:
                 </Type>
-                {/* Use negative margin to correct flexWrap and left margin used with items. */}
-                <RowBox flexWrap="wrap" ml={-3}>
-                  <BudgetDocButton
+                <RowBox flexWrap="wrap" flexSpacing={3} mt={-topMargin}>
+                  <BudgetDoc
                     aria-label="View 2019 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/f1e0f730-edeb-11e8-a647-bfe927ef12bf-2019-Budget.pdf"
                   >
                     2019 Budget
-                  </BudgetDocButton>
-                  <BudgetDocButton
+                  </BudgetDoc>
+                  <BudgetDoc
                     aria-label="View 2018 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/123a2dc0-ebff-11e7-8e2b-119e8020b76c-2018 Adopted Budget for website.pdf"
                   >
                     2018 Budget
-                  </BudgetDocButton>
-                  <BudgetDocButton
+                  </BudgetDoc>
+                  <BudgetDoc
                     aria-label="View 2017 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/19753230-d87e-11e8-808f-f94458761064-2017 Budget.pdf"
                   >
                     2017 Budget
-                  </BudgetDocButton>
-                  <BudgetDocButton
+                  </BudgetDoc>
+                  <BudgetDoc
                     aria-label="View 2016 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/1692f9d0-d87e-11e8-b627-0bd59229ea68-2016 Budget.pdf"
                   >
                     2016 Budget
-                  </BudgetDocButton>
+                  </BudgetDoc>
                 </RowBox>
               </Box>
 
