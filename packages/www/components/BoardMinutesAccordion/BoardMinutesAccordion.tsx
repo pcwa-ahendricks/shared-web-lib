@@ -18,6 +18,8 @@ type Props = {
   wasExpanded?: boolean
 }
 
+const margin = 4 // Used with left and top margin of flexWrap items.
+
 const BoardMinutesAccordion = ({
   year,
   minutes,
@@ -40,9 +42,11 @@ const BoardMinutesAccordion = ({
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         {wasExpanded ? (
-          <RowBox flexWrap="wrap" mt={-4}>
+          <RowBox flexWrap="wrap" mt={-margin} ml={-margin}>
             {minutes.map((m) => {
-              return <BoardMinutesLink key={m._id} minutes={m} />
+              return (
+                <BoardMinutesLink key={m._id} minutes={m} margin={margin} />
+              )
             })}
           </RowBox>
         ) : (

@@ -3,13 +3,14 @@ import React, {useState} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
-import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format} from 'date-fns'
 import clsx from 'clsx'
 
 type Props = {
   minutes: CosmicMediaMeta
+  margin?: number
 }
 
 type UseStylesProps = {
@@ -45,18 +46,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BoardMinutesLink = ({minutes}: Props) => {
+const BoardMinutesLink = ({minutes, margin = 0}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const isMd = useMediaQuery(theme.breakpoints.only('md'))
-  const boxWidth = isXs ? '50%' : isSm ? '33.33%' : isMd ? '25%' : '20%'
   const imageWidth = isXs ? 70 : isSm ? 75 : 85
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
   return (
-    <RowBox flex="0 0 auto" width={boxWidth} justifyContent="center" mt={4}>
+    <Box mt={margin} ml={margin}>
       <a
         href={minutes.url}
         rel="noopener noreferrer"
@@ -94,7 +93,7 @@ const BoardMinutesLink = ({minutes}: Props) => {
           </Type>
         </ColumnBox>
       </a>
-    </RowBox>
+    </Box>
   )
 }
 
