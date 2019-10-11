@@ -5,6 +5,8 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type} from '@material-ui/core'
+import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
+import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 
 const RateAdjustPage = () => {
   return (
@@ -52,6 +54,12 @@ const RateAdjustPage = () => {
             Proposition 218. The Board initiated the Proposition 218 process on
             September 8, and concluded it with a public hearing on November 2.
           </Type>
+
+          <RespRowBox>
+            <RespChildBox>
+              <RateAdjustFAQ />
+            </RespChildBox>
+          </RespRowBox>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

@@ -28,11 +28,7 @@ const BoardMinutesAccordion = ({
   wasExpanded = false
 }: Props) => {
   return (
-    <ExpansionPanel
-      key={year}
-      expanded={expanded === year}
-      onChange={onChange(year)}
-    >
+    <ExpansionPanel expanded={expanded === year} onChange={onChange(year)}>
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`${year}-board-minutes-panel-content`}
