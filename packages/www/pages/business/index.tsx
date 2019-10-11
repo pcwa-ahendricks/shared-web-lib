@@ -40,12 +40,11 @@ const DoingBusinessPage = () => {
             {/* Don't use flexSpacing since we are using two separate margins, top and left. */}
             <RowBox
               flexWrap="wrap"
-              // flexSpacing={leftMargin}
-              ml={-leftMargin}
+              flexSpacing={leftMargin}
               mt={-topMargin}
               justifyContent={isXS ? 'center' : 'space-around'}
             >
-              <ChildBox mt={topMargin} ml={leftMargin}>
+              <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
                   href="/business/goods-and-services"
@@ -55,7 +54,7 @@ const DoingBusinessPage = () => {
                   imgAlt="Goods and Services Image Link"
                 />
               </ChildBox>
-              <ChildBox mt={topMargin} ml={leftMargin}>
+              <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
                   href="/business/construction-bids"
@@ -65,7 +64,7 @@ const DoingBusinessPage = () => {
                   imgAlt="Construction Bids Image Link"
                 />
               </ChildBox>
-              <ChildBox mt={topMargin} ml={leftMargin}>
+              <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
                   href="/business/new-development"
@@ -76,7 +75,7 @@ const DoingBusinessPage = () => {
                   imgixParams={{bri: -4}}
                 />
               </ChildBox>
-              <ChildBox mt={topMargin} ml={leftMargin}>
+              <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
                   href="/business/energy-products"
@@ -87,7 +86,7 @@ const DoingBusinessPage = () => {
                   imgixParams={{bri: -8}}
                 />
               </ChildBox>
-              <ChildBox mt={topMargin} ml={leftMargin}>
+              <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
                   href="/business/standards"
@@ -100,11 +99,7 @@ const DoingBusinessPage = () => {
               </ChildBox>
               {/* This extra <ChildBox/> is only needed cause "space-around" justification is used. */}
               {/* Don't use <Hidden/> here since it will break flexSpacing css selector which uses '>' to select direct children only. */}
-              <ChildBox
-                mt={topMargin}
-                ml={leftMargin}
-                display={isXS ? 'none' : 'flex'}
-              >
+              <ChildBox mt={topMargin} display={isXS ? 'none' : 'flex'}>
                 <Box {...commonImageDimmerProps} />
               </ChildBox>
             </RowBox>

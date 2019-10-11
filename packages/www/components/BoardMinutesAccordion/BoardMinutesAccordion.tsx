@@ -38,10 +38,10 @@ const BoardMinutesAccordion = ({
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         {wasExpanded ? (
-          <RowBox flexWrap="wrap" mt={-margin} ml={-margin}>
+          <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
             {minutes.map((m) => {
               return (
-                <BoardMinutesLink key={m._id} minutes={m} margin={margin} />
+                <BoardMinutesLink key={m._id} minutes={m} topMargin={margin} />
               )
             })}
           </RowBox>

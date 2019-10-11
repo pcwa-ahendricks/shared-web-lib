@@ -11,29 +11,27 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     respRowBox: ({flexSpacing}: UseStylesProps) => ({
       [theme.breakpoints.only('xs')]: {
-        '& > .useFlexSpacing:not(:first-child)': {
+        marginTop: theme.spacing(flexSpacing || 0) * -1,
+        '& > .useFlexSpacing': {
           marginTop: theme.spacing(flexSpacing || 0)
         }
       },
       [theme.breakpoints.up('sm')]: {
-        '& > .useFlexSpacing:not(:first-child)': {
+        marginLeft: theme.spacing(flexSpacing || 0) * -1,
+        '& > .useFlexSpacing': {
           marginLeft: theme.spacing(flexSpacing || 0)
         }
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
-      '&:not(.wrap) > .useFlexSpacing:not(:first-child)': {
-        marginLeft: theme.spacing(flexSpacing || 0)
-      },
-      '&.wrap > .useFlexSpacing': {
+      marginLeft: theme.spacing(flexSpacing || 0) * -1,
+      '& > .useFlexSpacing': {
         marginLeft: theme.spacing(flexSpacing || 0)
       }
     }),
     colBox: ({flexSpacing}: UseStylesProps) => ({
-      '&:not(.wrap) > .useFlexSpacing:not(:first-child)': {
-        marginTop: theme.spacing(flexSpacing || 0)
-      },
-      '&.wrap > .useFlexSpacing': {
+      marginTop: theme.spacing(flexSpacing || 0) * -1,
+      '& > .useFlexSpacing': {
         marginTop: theme.spacing(flexSpacing || 0)
       }
     })
@@ -59,21 +57,14 @@ const RowBox = ({
   children,
   flexSpacing,
   className: classNameProp,
-  flexWrap: flexWrapProp,
   ...rest
 }: Props) => {
   const classes = useStyles({flexSpacing})
-  // Always apply spacing if flex-wrap is set to wrap, since first-child items will appear when wrapping items.
   return (
     <Box
       display="flex"
       flexDirection="row"
-      className={clsx([
-        {wrap: flexWrapProp === 'wrap' || flexWrapProp === 'wrap-reverse'},
-        classes.rowBox,
-        classNameProp
-      ])}
-      flexWrap={flexWrapProp}
+      className={clsx([classes.rowBox, classNameProp])}
       {...rest}
     >
       {children}
@@ -85,21 +76,14 @@ const ColumnBox = ({
   children,
   flexSpacing,
   className: classNameProp,
-  flexWrap: flexWrapProp,
   ...rest
 }: Props) => {
   const classes = useStyles({flexSpacing})
-  // Always apply spacing if flex-wrap is set to wrap, since first-child items will appear when wrapping items.
   return (
     <Box
       display="flex"
       flexDirection="column"
-      className={clsx([
-        {wrap: flexWrapProp === 'wrap' || flexWrapProp === 'wrap-reverse'},
-        classes.colBox,
-        classNameProp
-      ])}
-      flexWrap={flexWrapProp}
+      className={clsx([classes.colBox, classNameProp])}
       {...rest}
     >
       {children}
@@ -129,30 +113,10 @@ const RespRowBox = ({
 const ChildBox = ({
   children,
   className: classNameProp,
-  m,
-  mx,
-  my,
-  mr,
-  ml,
-  mt,
-  mb,
   ...rest
 }: ChildBoxProps) => {
-  // Don't add 'useFlexSpacing' class if any type of margin was explicitly added so that the margin can be overridden.
-  // The order in which the margin props are added matters! I believe this is the best order due to granularity.
-  const hasMarginProp = Boolean(m || mx || my || mr || ml || mb || mt)
   return (
-    <Box
-      className={clsx([{['useFlexSpacing']: !hasMarginProp}, classNameProp])}
-      m={m}
-      mx={mx}
-      my={my}
-      mr={mr}
-      ml={ml}
-      mt={mt}
-      mb={mb}
-      {...rest}
-    >
+    <Box className={clsx(['useFlexSpacing', classNameProp])} {...rest}>
       {children}
     </Box>
   )

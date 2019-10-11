@@ -3,14 +3,14 @@ import React, {useState} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format} from 'date-fns'
 import clsx from 'clsx'
 
 type Props = {
   minutes: CosmicMediaMeta
-  margin?: number
+  topMargin?: number
 }
 
 type UseStylesProps = {
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BoardMinutesLink = ({minutes, margin = 0}: Props) => {
+const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
@@ -55,7 +55,7 @@ const BoardMinutesLink = ({minutes, margin = 0}: Props) => {
   const classes = useStyles({isHover})
 
   return (
-    <Box mt={margin} ml={margin}>
+    <ChildBox mt={topMargin}>
       <a
         href={minutes.url}
         rel="noopener noreferrer"
@@ -93,7 +93,7 @@ const BoardMinutesLink = ({minutes, margin = 0}: Props) => {
           </Type>
         </ColumnBox>
       </a>
-    </Box>
+    </ChildBox>
   )
 }
 
