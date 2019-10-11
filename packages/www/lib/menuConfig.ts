@@ -163,7 +163,7 @@ const menuConfig = [
           },
           {
             title: '2018 Multiyear Rate Adjustment',
-            nextLink: '/rate-adjust-2018'
+            nextLink: '/services/rate-adjust'
           }
         ]
       },
