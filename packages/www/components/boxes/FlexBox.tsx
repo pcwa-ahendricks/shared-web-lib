@@ -11,18 +11,21 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     respRowBox: ({flexSpacing}: UseStylesProps) => ({
       [theme.breakpoints.only('xs')]: {
-        '& > .respChildBox:not(:first-child)': {
+        '& > .useFlexSpacing:not(:first-child)': {
           marginTop: theme.spacing(flexSpacing || 0)
         }
       },
       [theme.breakpoints.up('sm')]: {
-        '& > .respChildBox:not(:first-child)': {
+        '& > .useFlexSpacing:not(:first-child)': {
           marginLeft: theme.spacing(flexSpacing || 0)
         }
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
-      '& > .childBox:not(:first-child)': {
+      '&:not(.wrap) > .useFlexSpacing:not(:first-child)': {
+        marginLeft: theme.spacing(flexSpacing || 0)
+      },
+      '&.wrap > .useFlexSpacing': {
         marginLeft: theme.spacing(flexSpacing || 0)
       }
     })
@@ -48,14 +51,21 @@ const RowBox = ({
   children,
   flexSpacing,
   className: classNameProp,
+  flexWrap: flexWrapProp,
   ...rest
 }: Props) => {
   const classes = useStyles({flexSpacing})
+  // Always apply spacing if flex-wrap is set to "wrap", since first-child items will appear when wrapping items.
   return (
     <Box
       display="flex"
       flexDirection="row"
-      className={clsx([classes.rowBox, classNameProp])}
+      className={clsx([
+        {wrap: flexWrapProp === 'wrap'},
+        classes.rowBox,
+        classNameProp
+      ])}
+      flexWrap={flexWrapProp}
       {...rest}
     >
       {children}
@@ -66,10 +76,22 @@ const RowBox = ({
 const ChildBox = ({
   children,
   className: classNameProp,
+  ml: mlProp,
+  m: mProp,
+  mx: mxProp,
   ...rest
 }: RespChildBoxProps) => {
+  // Don't add 'useFlexSpacing' class if any type of left margin was explicitly added so that the left margin can be overridden.
+  // The order in which the 'm', 'mx', and 'ml' props are added matters! I believe this is the best order due to granularity.
+  const hasMarginProp = Boolean(mlProp || mProp || mxProp)
   return (
-    <Box className={clsx(['childBox', classNameProp])} {...rest}>
+    <Box
+      className={clsx([{['useFlexSpacing']: !hasMarginProp}, classNameProp])}
+      m={mProp}
+      mx={mxProp}
+      ml={mlProp}
+      {...rest}
+    >
       {children}
     </Box>
   )
@@ -100,7 +122,7 @@ const RespChildBox = ({
   ...rest
 }: RespChildBoxProps) => {
   return (
-    <Box className={clsx(['respChildBox', classNameProp])} {...rest}>
+    <Box className={clsx(['useFlexSpacing', classNameProp])} {...rest}>
       {children}
     </Box>
   )

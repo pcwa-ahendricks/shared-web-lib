@@ -5,30 +5,23 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
-import {RespRowBox, RespChildBox} from '@components/boxes/FlexBox'
-import {
-  Box,
-  Typography as Type,
-  useMediaQuery,
-  Theme,
-  Hidden
-} from '@material-ui/core'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {Box, Typography as Type, useMediaQuery, Theme} from '@material-ui/core'
 import {useTheme} from '@material-ui/styles'
 
 const DoingBusinessPage = () => {
   const theme = useTheme<Theme>()
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   const commonImageDimmerProps = {
     width: isSmDown ? 300 : 400,
     height: isSmDown ? 225 : 300
   }
 
-  const commonChildProps = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+  // Used with Flex row wrap and margins.
+  const topMargin = isXS ? 4 : 8
+  const leftMargin = 12
 
   return (
     <PageLayout title="Doing Business With Us">
@@ -43,82 +36,74 @@ const DoingBusinessPage = () => {
               smoothly. We welcome the opportunity to do business with you.
             </Type>
           </Box>
-          <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
-            <RespChildBox {...commonChildProps}>
-              <ImageDimmerLink
-                {...commonImageDimmerProps}
-                href="/business/goods-and-services"
-                caption="Goods and Services"
-                description="Public Purchase and Procurement Procedure"
-                imgSrc="https://cosmicjs.imgix.net/0fabf990-70c0-11e7-91bb-396f9ed9122e-inventory_warehouse.jpg"
-                imgAlt="Goods and Services Image Link"
-              />
-            </RespChildBox>
-            <RespChildBox
-              {...commonChildProps}
-              mt={{xs: 4, sm: 0}}
-              ml={{xs: 0, sm: isSmDown ? 4 : 12}}
+          <Box mt={6}>
+            <RowBox
+              flexWrap="wrap"
+              flexSpacing={leftMargin}
+              ml={-leftMargin}
+              mt={-topMargin}
+              justifyContent={isXS ? 'center' : 'space-around'}
             >
-              <ImageDimmerLink
-                {...commonImageDimmerProps}
-                href="/business/construction-bids"
-                caption="Construction Bids"
-                description="Current bid opportunities, bid results and associated information"
-                imgSrc="https://cosmicjs.imgix.net/55028630-70c0-11e7-9a24-9b88e5e26abf-tank_construction.jpg"
-                imgAlt="Construction Bids Image Link"
-              />
-            </RespChildBox>
-          </RespRowBox>
-          <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
-            <RespChildBox {...commonChildProps}>
-              <ImageDimmerLink
-                {...commonImageDimmerProps}
-                href="/business/new-development"
-                caption="New Development Process"
-                description="Information about PCWA's Facilities Agreement process, checklists, and Standard Specifications and Standard Drawings"
-                imgSrc="https://cosmicjs.imgix.net/5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
-                imgAlt="New Development Process Image Link"
-                imgixParams={{bri: -4}}
-              />
-            </RespChildBox>
-            <RespChildBox
-              {...commonChildProps}
-              mt={{xs: 4, sm: 0}}
-              ml={{xs: 0, sm: isSmDown ? 4 : 12}}
-            >
-              <ImageDimmerLink
-                {...commonImageDimmerProps}
-                href="/business/energy-products"
-                caption="Energy Products"
-                description="Information about upcoming opportunities with PCWA's Power Marketing Division"
-                imgSrc="https://cosmicjs.imgix.net/ba7745a0-70c0-11e7-b5da-0f4de7f0f597-french-meadows-powerhouse.jpg"
-                imgAlt="Energy Products Image Link"
-                imgixParams={{bri: -8}}
-              />
-            </RespChildBox>
-          </RespRowBox>
-          <RespRowBox mt={{xs: 4, sm: 6}} justifyContent="space-around">
-            <RespChildBox {...commonChildProps}>
-              <ImageDimmerLink
-                {...commonImageDimmerProps}
-                href="/business/standards"
-                caption="Improvement Standards"
-                description="View PCWA approved improvement standards, standard specifications, and standard drawings"
-                imgSrc="https://cosmicjs.imgix.net/190031f0-68d7-11e7-9a78-c5ed605d4ef5-Transmission pipeline 3.jpg"
-                imgAlt="Improvement Standards Image Link"
-                imgixParams={{bri: -4}}
-              />
-            </RespChildBox>
-            {/* Placeholder item to correct alignment of previous child. Don't need to show whitespace on xs devices. */}
-            <Hidden only="xs" implementation="css">
-              <RespChildBox
-                {...commonImageDimmerProps}
-                {...commonChildProps}
-                mt={{xs: 4, sm: 0}}
-                ml={{xs: 0, sm: isSmDown ? 4 : 12}}
-              />
-            </Hidden>
-          </RespRowBox>
+              {/* Don't need ml w/ <ChildBox/> since flexSpacing is used. */}
+              <ChildBox mt={topMargin}>
+                <ImageDimmerLink
+                  {...commonImageDimmerProps}
+                  href="/business/goods-and-services"
+                  caption="Goods and Services"
+                  description="Public Purchase and Procurement Procedure"
+                  imgSrc="https://cosmicjs.imgix.net/0fabf990-70c0-11e7-91bb-396f9ed9122e-inventory_warehouse.jpg"
+                  imgAlt="Goods and Services Image Link"
+                />
+              </ChildBox>
+              <ChildBox mt={topMargin}>
+                <ImageDimmerLink
+                  {...commonImageDimmerProps}
+                  href="/business/construction-bids"
+                  caption="Construction Bids"
+                  description="Current bid opportunities, bid results and associated information"
+                  imgSrc="https://cosmicjs.imgix.net/55028630-70c0-11e7-9a24-9b88e5e26abf-tank_construction.jpg"
+                  imgAlt="Construction Bids Image Link"
+                />
+              </ChildBox>
+              <ChildBox mt={topMargin}>
+                <ImageDimmerLink
+                  {...commonImageDimmerProps}
+                  href="/business/new-development"
+                  caption="New Development Process"
+                  description="Information about PCWA's Facilities Agreement process, checklists, and Standard Specifications and Standard Drawings"
+                  imgSrc="https://cosmicjs.imgix.net/5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
+                  imgAlt="New Development Process Image Link"
+                  imgixParams={{bri: -4}}
+                />
+              </ChildBox>
+              <ChildBox mt={topMargin}>
+                <ImageDimmerLink
+                  {...commonImageDimmerProps}
+                  href="/business/energy-products"
+                  caption="Energy Products"
+                  description="Information about upcoming opportunities with PCWA's Power Marketing Division"
+                  imgSrc="https://cosmicjs.imgix.net/ba7745a0-70c0-11e7-b5da-0f4de7f0f597-french-meadows-powerhouse.jpg"
+                  imgAlt="Energy Products Image Link"
+                  imgixParams={{bri: -8}}
+                />
+              </ChildBox>
+              <ChildBox mt={topMargin}>
+                <ImageDimmerLink
+                  {...commonImageDimmerProps}
+                  href="/business/standards"
+                  caption="Improvement Standards"
+                  description="View PCWA approved improvement standards, standard specifications, and standard drawings"
+                  imgSrc="https://cosmicjs.imgix.net/190031f0-68d7-11e7-9a78-c5ed605d4ef5-Transmission pipeline 3.jpg"
+                  imgAlt="Improvement Standards Image Link"
+                  imgixParams={{bri: -4}}
+                />
+              </ChildBox>
+              {/* Don't use <Hidden/> here since it will break flexSpacing css selector which uses '>' to select direct children only. */}
+              <ChildBox mt={topMargin} display={isXS ? 'none' : 'flex'}>
+                <Box {...commonImageDimmerProps} />
+              </ChildBox>
+            </RowBox>
+          </Box>
         </WideContainer>
       </MainBox>
     </PageLayout>
