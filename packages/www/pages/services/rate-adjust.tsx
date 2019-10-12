@@ -55,10 +55,11 @@ const RateAdjustPage = () => {
             September 8, and concluded it with a public hearing on November 2.
           </Type>
 
-          <RespRowBox>
+          <RespRowBox flexSpacing={3}>
             <ChildBox>
               <RateAdjustFAQ />
             </ChildBox>
+            <ChildBox>foo</ChildBox>
           </RespRowBox>
         </NarrowContainer>
       </MainBox>
