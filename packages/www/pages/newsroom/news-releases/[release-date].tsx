@@ -137,6 +137,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
               </RowBox>
             ) : null}
             <PDFPage
+              showLoading={true}
               alt={`News release document image for ${publishDate} - page ${number}/${pages.length}`}
               url={url}
             />

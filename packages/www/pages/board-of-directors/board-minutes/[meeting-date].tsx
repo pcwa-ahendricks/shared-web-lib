@@ -23,7 +23,7 @@ import {
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseISO} from 'date-fns'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import ErrorPage from '../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
@@ -98,9 +98,14 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   return (
     <PageLayout title={`Board Minutes - ${meetingDate}`}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
-      <MainBox mt={0} bgcolor={theme.palette.background.paper}>
-        <RowBox px={3} pt={3} justifyContent="space-between">
-          <Box>
+      <MainBox mt={0} bgcolor={theme.palette.common.white}>
+        <RespRowBox
+          px={3}
+          pt={3}
+          justifyContent="space-between"
+          flexSpacing={2}
+        >
+          <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
@@ -115,24 +120,26 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
                 {boardMeetingDateFormatted}
               </Type>
             </Breadcrumbs>
-          </Box>
-          <Fab
-            aria-label="Download board minutes"
-            size={isSMDown ? 'small' : 'medium'}
-            variant={'extended'}
-            href={`${qMedia.imgix_url}?dl=${qMedia.original_name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            classes={{sizeSmall: classes.muiFabSmall}}
-            // style={{position: 'fixed'}}
-            // variant={trigger ? 'round' : 'extended'}
-            // color="secondary"
-          >
-            <DownloadIcon className={classes.downloadIcon} />
-            {/* {trigger ? '' : 'Download Minutes'} */}
-            Download Minutes
-          </Fab>
-        </RowBox>
+          </ChildBox>
+          <ChildBox flexShrink={0}>
+            <Fab
+              aria-label="Download board minutes"
+              size={isSMDown ? 'small' : 'medium'}
+              variant={'extended'}
+              href={`${qMedia.imgix_url}?dl=${qMedia.original_name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              classes={{sizeSmall: classes.muiFabSmall}}
+              // style={{position: 'fixed'}}
+              // variant={trigger ? 'round' : 'extended'}
+              // color="secondary"
+            >
+              <DownloadIcon className={classes.downloadIcon} />
+              {/* {trigger ? '' : 'Download Minutes'} */}
+              Download Minutes
+            </Fab>
+          </ChildBox>
+        </RespRowBox>
         {pages.map(({number, url}) => (
           <Box position="relative" key={number}>
             {number >= 2 ? (
@@ -151,6 +158,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
               </RowBox>
             ) : null}
             <PDFPage
+              showLoading={true}
               alt={`Board Minutes document image for ${meetingDate} - page ${number}/${pages.length}`}
               url={url}
             />
