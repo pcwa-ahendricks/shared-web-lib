@@ -14,7 +14,6 @@ import groupBy from '@lib/groupBy'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
-const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
 
 type groupedBoardMinutes = Array<{
@@ -38,12 +37,7 @@ const BoardMinutesPage = () => {
     }
     const bmaEx = bma.map((bm) => ({
       ...bm,
-      derivedFilenameAttr: fileNameUtil(
-        bm.original_name,
-        (((bm.original_name || '').match(/^[^_]*/) || [])[0] || []).length === 8
-          ? DATE_FNS_FORMAT_2012
-          : DATE_FNS_FORMAT
-      )
+      derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
     }))
     // Group Board Minutes by derived Year into JS Map.
     const grouped = groupBy<CosmicMediaMeta, number>(

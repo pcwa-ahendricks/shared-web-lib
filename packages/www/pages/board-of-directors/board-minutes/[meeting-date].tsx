@@ -30,7 +30,6 @@ import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
-const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
 
 type Props = {
   query: ParsedUrlQuery // getInitialProps
@@ -98,7 +97,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
 
   return (
     <PageLayout title={`Board Minutes - ${meetingDate}`}>
-      {/* Don't use top  margin with main box since we want to fill the bgcolor. */}
+      {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.background.paper}>
         <RowBox px={3} pt={3} justifyContent="space-between">
           <Box>
@@ -179,12 +178,7 @@ const fetchBoardMinutes = async () => {
   }
   const bmEx = bm.map((bm) => ({
     ...bm,
-    derivedFilenameAttr: fileNameUtil(
-      bm.original_name,
-      (((bm.original_name || '').match(/^[^_]*/) || [])[0] || []).length === 8
-        ? DATE_FNS_FORMAT_2012
-        : DATE_FNS_FORMAT
-    )
+    derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
   }))
   return bmEx
 }
