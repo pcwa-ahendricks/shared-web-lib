@@ -8,6 +8,7 @@ import {UiContext, dismissError} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
 import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import {BoxProps} from '@material-ui/core/Box'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -15,12 +16,14 @@ type Props = {
   description?: string
   children?: React.ReactNode
   title?: string
+  childrenContainer?: BoxProps
 }
 
 const PageLayout = ({
   children,
   title = 'Placer County Water Agency',
-  description = 'PCWA is a water and energy provider for Placer County, CA.'
+  description = 'PCWA is a water and energy provider for Placer County, CA.',
+  childrenContainer = {}
 }: Props) => {
   const pageTitle = useMemo(() => `${title} | pcwa.net`, [title])
 
@@ -43,7 +46,7 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
-        <Box flex="1 0 auto" mb={6}>
+        <Box flex="1 0 auto" mb={6} {...childrenContainer}>
           {children}
         </Box>
         <Footer />

@@ -7,6 +7,7 @@ import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format} from 'date-fns'
 import clsx from 'clsx'
+import Link from 'next/link'
 
 type Props = {
   minutes: CosmicMediaMeta
@@ -54,45 +55,47 @@ const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
+  const url = `/about-pcwa/board-minutes/[meeting-date]`
+  const as = `/about-pcwa/board-minutes/${minutes.derivedFilenameAttr.date}`
+
   return (
     <ChildBox mt={topMargin}>
-      <a
-        href={minutes.url}
-        rel="noopener noreferrer"
-        target="_blank"
-        className={classes.link}
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
-      >
-        <Box width={imageWidth} className={classes.thumbnailContainer}>
-          <ImgixFancy
-            paddingPercent="129.412%"
-            height={100}
-            lqipWidth={20}
-            src={minutes.imgix_url}
-            alt="Board Minutes Thumbnail"
-            htmlAttributesProps={{
-              style: {
-                backgroundColor: theme.palette.common.white
-              }
-            }}
-          />
-        </Box>
-        <ColumnBox textAlign="center" mt={1}>
-          <Type
-            variant="body2"
-            className={clsx([classes.caption, classes.dateCaption])}
-          >
-            {format(minutes.derivedFilenameAttr.publishedDate, 'MM-dd-yyyy')}
-          </Type>
-          <Type
-            variant="body2"
-            className={clsx([classes.caption, classes.titleCaption])}
-          >
-            {minutes.derivedFilenameAttr.title}
-          </Type>
-        </ColumnBox>
-      </a>
+      <Link href={url} passHref as={as}>
+        <a
+          className={classes.link}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          <Box width={imageWidth} className={classes.thumbnailContainer}>
+            <ImgixFancy
+              paddingPercent="129.412%"
+              height={100}
+              lqipWidth={20}
+              src={minutes.imgix_url}
+              alt="Board Minutes Thumbnail"
+              htmlAttributesProps={{
+                style: {
+                  backgroundColor: theme.palette.common.white
+                }
+              }}
+            />
+          </Box>
+          <ColumnBox textAlign="center" mt={1}>
+            <Type
+              variant="body2"
+              className={clsx([classes.caption, classes.dateCaption])}
+            >
+              {format(minutes.derivedFilenameAttr.publishedDate, 'MM-dd-yyyy')}
+            </Type>
+            <Type
+              variant="body2"
+              className={clsx([classes.caption, classes.titleCaption])}
+            >
+              {minutes.derivedFilenameAttr.title}
+            </Type>
+          </ColumnBox>
+        </a>
+      </Link>
     </ChildBox>
   )
 }

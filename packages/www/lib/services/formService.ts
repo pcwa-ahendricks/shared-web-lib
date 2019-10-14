@@ -4,6 +4,8 @@ import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocat
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import fetchOk from '@lib/fetch-ok'
 
+const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
+
 export interface IrrigationControllerRebateFormData {
   firstName: string
   lastName: string
@@ -195,7 +197,7 @@ type RequestBody =
   | ContactInfoRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
-  const url = `/api/mail/${serviceUriPath}`
+  const url = `${LAMBDA_URL}/api/mail/${serviceUriPath}`
   try {
     return await fetchOk(url, {
       method: 'POST',
