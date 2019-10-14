@@ -9,7 +9,7 @@ import {
   fileNameUtil,
   CosmicMediaMeta
 } from '@lib/services/cosmicService'
-import {compareDesc} from 'date-fns'
+import {compareDesc, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -58,8 +58,8 @@ const BoardMinutesPage = () => {
         year: k,
         values: [...v].sort((a, b) =>
           compareDesc(
-            a.derivedFilenameAttr.publishedDate,
-            b.derivedFilenameAttr.publishedDate
+            parseISO(a.derivedFilenameAttr.publishedDate),
+            parseISO(b.derivedFilenameAttr.publishedDate)
           )
         )
       })

@@ -19,7 +19,7 @@ const menuConfig = [
           },
           {
             title: 'Board Meeting Minutes',
-            nextLink: '/about-pcwa/board-minutes'
+            nextLink: '/board-of-directors/board-minutes'
           }
         ]
       },

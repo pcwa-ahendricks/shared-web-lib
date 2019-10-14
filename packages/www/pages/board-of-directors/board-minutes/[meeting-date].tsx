@@ -17,16 +17,21 @@ import {
   Fab,
   useMediaQuery,
   Box,
-  Typography,
-  Divider
+  Typography as Type,
+  Divider,
+  Breadcrumbs
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
+import {format, parseISO} from 'date-fns'
 import {RowBox} from '@components/boxes/FlexBox'
 import ErrorPage from '../../_error'
+import DownloadIcon from '@material-ui/icons/CloudDownload'
+import MinutesIcon from '@material-ui/icons/UndoOutlined'
+import DocIcon from '@material-ui/icons/DescriptionOutlined'
+import MuiNextLink from '@components/NextLink/NextLink'
 const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
-import DownloadIcon from '@material-ui/icons/CloudDownload'
 
 type Props = {
   query: ParsedUrlQuery // getInitialProps
@@ -52,6 +57,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     pageNo: {
       cursor: 'default'
+    },
+    bcLink: {
+      display: 'flex'
+    },
+    bcIcon: {
+      alignSelf: 'center',
+      marginRight: theme.spacing(0.5),
+      width: 20,
+      height: 20
     }
   })
 )
@@ -70,10 +84,21 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   // })
   // const classes = useStyles({trigger})
   const classes = useStyles()
+  const boardMeetingDateFormatted = useMemo(
+    () =>
+      bm
+        ? format(
+            parseISO(bm.derivedFilenameAttr.publishedDate),
+            "EEEE',' MMMM do',' yyyy "
+          )
+        : '',
+    [bm]
+  )
 
   if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
   }
+  console.log(bm)
 
   const meetingDate = qMedia.derivedFilenameAttr.date
 
@@ -81,7 +106,23 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
     <PageLayout title={`Board Minutes - ${meetingDate}`}>
       {/* Don't use top  margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.background.paper}>
-        <RowBox px={3} pt={3} justifyContent="flex-end">
+        <RowBox px={3} pt={3} justifyContent="space-between">
+          <Box>
+            <Breadcrumbs aria-label="breadcrumb">
+              <MuiNextLink
+                color="inherit"
+                href="/board-of-directors/board-minutes"
+                className={classes.bcLink}
+              >
+                <MinutesIcon className={classes.bcIcon} />
+                Board Minutes
+              </MuiNextLink>
+              <Type color="textPrimary" className={classes.bcLink}>
+                <DocIcon className={classes.bcIcon} />
+                {boardMeetingDateFormatted}
+              </Type>
+            </Breadcrumbs>
+          </Box>
           <Fab
             aria-label="Download board minutes"
             size={isSMDown ? 'small' : 'medium'}
@@ -101,13 +142,6 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
         </RowBox>
         {pages.map(({number, url}) => (
           <Box position="relative" key={number}>
-            <BoardMinutePage
-              totalPages={pages.length}
-              url={url}
-              pageNumber={number}
-              meetingDate={meetingDate}
-            />
-            <Divider />
             {number >= 2 ? (
               <RowBox
                 id={`page-${number}`}
@@ -120,9 +154,16 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
                 fontStyle="italic"
                 className={classes.pageNo}
               >
-                <Typography color="primary">{`Page ${number}`}</Typography>
+                <Type color="primary">{`Page ${number}`}</Type>
               </RowBox>
             ) : null}
+            <BoardMinutePage
+              totalPages={pages.length}
+              url={url}
+              pageNumber={number}
+              meetingDate={meetingDate}
+            />
+            <Divider />
           </Box>
         ))}
       </MainBox>
