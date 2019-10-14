@@ -96,7 +96,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   const meetingDate = qMedia.derivedFilenameAttr.date
 
   return (
-    <PageLayout title={`Board Minutes - ${meetingDate}`}>
+    <PageLayout title={`Board Minutes ${meetingDate}`}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
