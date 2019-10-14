@@ -12,7 +12,7 @@ import {
 import {MobileStepperProps} from '@material-ui/core/MobileStepper'
 import {StepperProps} from '@material-ui/core/Stepper'
 import {DialogProps} from '@material-ui/core/Dialog'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 const useStyles = makeStyles((theme: Theme) =>

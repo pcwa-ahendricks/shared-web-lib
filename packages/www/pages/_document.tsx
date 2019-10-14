@@ -4,7 +4,7 @@
 // ./pages/_document.js
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
-import {ServerStyleSheets} from '@material-ui/styles'
+import {ServerStyleSheets} from '@material-ui/core/styles'
 import webFontConfig from '@lib/webFontConfig'
 import theme from '@lib/material-theme'
 

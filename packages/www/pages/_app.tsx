@@ -1,7 +1,7 @@
 // cspell:ignore smoothscroll
 import React from 'react'
 import App from 'next/app'
-import {ThemeProvider} from '@material-ui/styles'
+import {ThemeProvider} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {ParallaxProvider} from 'react-scroll-parallax'
 import {MuiPickersUtilsProvider} from '@material-ui/pickers'

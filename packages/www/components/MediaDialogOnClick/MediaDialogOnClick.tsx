@@ -8,7 +8,7 @@ import {
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
+import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import colorAlpha from 'color-alpha'
 

@@ -13,7 +13,7 @@ import {
   // withMobileDialog
 } from '@material-ui/core'
 import {DialogProps} from '@material-ui/core/Dialog'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'

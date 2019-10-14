@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react'
 import {Box, Typography as Type} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 /*
   [Note] outMaxHeight should show all the content on the small width device. But setting it too large will affect how the duration is timed with outDuration so it should not be set exceedingly high.

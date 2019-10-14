@@ -21,7 +21,7 @@ import {
   Typography,
   Divider
 } from '@material-ui/core'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
+import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {RowBox} from '@components/boxes/FlexBox'
 import ErrorPage from '../../_error'
 const isDev = process.env.NODE_ENV === 'development'

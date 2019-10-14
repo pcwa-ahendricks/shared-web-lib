@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react'
 import {Box, useMediaQuery, Theme} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {useTheme} from '@material-ui/styles'
+import {useTheme} from '@material-ui/core/styles'
 
 type Props = {
   pageNumber: number

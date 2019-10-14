@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
+import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
 import HumanResourcesEmail from '@components/links/HumanResourcesEmail'

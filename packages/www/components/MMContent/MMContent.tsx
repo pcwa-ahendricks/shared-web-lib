@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {Box, Typography as Type, Theme, Divider} from '@material-ui/core'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'

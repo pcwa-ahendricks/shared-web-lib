@@ -12,7 +12,7 @@ import {
   ColumnBox,
   RowBox
 } from '@components/boxes/FlexBox'
-import {useTheme} from '@material-ui/styles'
+import {useTheme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from '@components/NextLink/NextLink'
 import EightHundredPhone from '@components/links/EightHundredPhone'

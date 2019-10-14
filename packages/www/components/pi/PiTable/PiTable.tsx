@@ -20,7 +20,7 @@ import {
   useTheme,
   LinearProgress
 } from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {PiContext} from '../PiStore'
 import {GageConfigTable} from '@lib/services/pi/gage-config'
 import {ZippedTableDataItem} from '../../../pages/recreation/flows/gages/[pid]'

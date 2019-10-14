@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Box, Theme} from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {BoxProps} from '@material-ui/core/Box'
 
 export type GlowGreenProps = {

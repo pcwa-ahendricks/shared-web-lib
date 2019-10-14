@@ -9,7 +9,7 @@ import {
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import NextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
 import {RowBox, ColumnBox, RespRowBox} from '@components/boxes/FlexBox'

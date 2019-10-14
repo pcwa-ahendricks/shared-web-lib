@@ -2,7 +2,7 @@ import React from 'react'
 // import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {Box, Typography as Type} from '@material-ui/core'
 import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const useStyles = makeStyles(() =>

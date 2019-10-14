@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {Box, Theme} from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {GoogleCseItem} from '../SearchResponse'
 import WebIcon from 'mdi-material-ui/Web'
 import FileImageOutlineIcon from 'mdi-material-ui/FileImageOutline'

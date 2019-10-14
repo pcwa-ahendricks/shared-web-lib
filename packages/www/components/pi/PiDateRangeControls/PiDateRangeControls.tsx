@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Button
 } from '@material-ui/core'
-import {useTheme} from '@material-ui/styles'
+import {useTheme} from '@material-ui/core/styles'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {DatePicker, MaterialUiPickersDate} from '@material-ui/pickers'
 import {PiContext, setChartStartDate, setChartEndDate} from '../PiStore'

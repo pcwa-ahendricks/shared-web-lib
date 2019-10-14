@@ -6,7 +6,7 @@ import React, {
   useImperativeHandle
 } from 'react'
 import clsx from 'clsx'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {Button, Typography as Type, Theme} from '@material-ui/core'
 import {uploadFile} from '@lib/services/uploadService'
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'

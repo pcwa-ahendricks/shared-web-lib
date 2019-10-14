@@ -17,7 +17,7 @@ import {
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {useTheme} from '@material-ui/styles'
+import {useTheme} from '@material-ui/core/styles'
 import {
   RespRowBox,
   RowBox,

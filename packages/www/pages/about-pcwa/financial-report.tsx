@@ -10,7 +10,7 @@ import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import CAFRLink from '@components/CAFRLink/CAFRLink'
 import FancyButton from '@components/FancyButton/FancyButton'
-import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {ButtonProps} from '@material-ui/core/Button'
 import {LinkProps} from '@material-ui/core/Link'
 

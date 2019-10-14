@@ -4,7 +4,7 @@ import {BoxProps} from '@material-ui/core/Box'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ReactImgix from 'react-imgix'
 import Link from 'next/link'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 type Props = {
   imgSrc: string

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Box, Button} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {ButtonProps} from '@material-ui/core/Button'
 
 type Props = {

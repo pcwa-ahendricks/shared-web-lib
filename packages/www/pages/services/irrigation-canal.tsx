@@ -14,7 +14,7 @@ import {
   useMediaQuery
 } from '@material-ui/core'
 import {blueGrey, grey, yellow} from '@material-ui/core/colors'
-// import {useTheme} from '@material-ui/styles'
+// import {useTheme} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
@@ -38,7 +38,7 @@ import {
   PlayListItem
 } from '@lib/services/youtubeService'
 import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
-import {createStyles, makeStyles, useTheme} from '@material-ui/styles'
+import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import EyeIcon from '@material-ui/icons/RemoveRedEye'
 import InletIcon from '@material-ui/icons/VerticalAlignTop'
 import NeighborsIcon from '@material-ui/icons/People'

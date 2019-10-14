@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
 import {Theme} from '@material-ui/core'
 import colorAlpha from 'color-alpha'

@@ -3,7 +3,7 @@ import React, {useState, useEffect, useMemo} from 'react'
 import AnimatedWeather, {
   IconName
 } from '@components/AnimatedWeather/AnimatedWeather'
-import {useTheme, makeStyles} from '@material-ui/styles'
+import {useTheme, makeStyles} from '@material-ui/core/styles'
 import {Link, Theme, Typography as Type} from '@material-ui/core'
 // import {DarkSkyData} from '../types'
 

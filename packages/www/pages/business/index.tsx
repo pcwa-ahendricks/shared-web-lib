@@ -7,7 +7,7 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Box, Typography as Type, useMediaQuery, Theme} from '@material-ui/core'
-import {useTheme} from '@material-ui/styles'
+import {useTheme} from '@material-ui/core/styles'
 
 const DoingBusinessPage = () => {
   const theme = useTheme<Theme>()

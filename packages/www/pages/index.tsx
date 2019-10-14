@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-// import {makeStyles, createStyles} from '@material-ui/styles'
+// import {makeStyles, createStyles} from '@material-ui/core/styles'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'

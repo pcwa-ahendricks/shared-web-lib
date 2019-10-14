@@ -6,7 +6,7 @@ import {
   FormControlLabel
   // FormHelperText
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {FieldProps} from 'formik'
 import {safeCastBooleanToStr, safeCastStrToBoolean} from '@lib/safeCastBoolean'
 

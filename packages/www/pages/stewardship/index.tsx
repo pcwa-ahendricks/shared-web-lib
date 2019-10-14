@@ -3,7 +3,7 @@ import {Typography as Type} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
-// import {createStyles, makeStyles} from '@material-ui/styles'
+// import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 // const useStyles = makeStyles(() =>
 //   createStyles({

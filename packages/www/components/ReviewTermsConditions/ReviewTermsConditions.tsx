@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Button, Snackbar, SnackbarContent, Theme} from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'

@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useMemo} from 'react'
 import {Box, Theme, Typography as Type} from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
 import {RowBox} from '@components/boxes/FlexBox'

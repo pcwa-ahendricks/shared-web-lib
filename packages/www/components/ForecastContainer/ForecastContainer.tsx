@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback, useContext} from 'react'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {fetchForecasts} from '@lib/services/forecastService'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'

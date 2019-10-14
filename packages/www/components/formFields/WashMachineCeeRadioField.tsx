@@ -10,7 +10,7 @@ import {
   Theme,
   Typography as Type
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {FieldProps} from 'formik'
 
 type Props = {

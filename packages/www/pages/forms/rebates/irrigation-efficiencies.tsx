@@ -7,7 +7,7 @@ import {
   Theme,
   Typography as Type
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object, StringSchema} from 'yup'

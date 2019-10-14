@@ -11,7 +11,7 @@ import {
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import {SalaryScheduleData} from '@components/SalaryScheduleTable/SalaryScheduleTable'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {TableCellProps} from '@material-ui/core/TableCell'
 
 type Props = {

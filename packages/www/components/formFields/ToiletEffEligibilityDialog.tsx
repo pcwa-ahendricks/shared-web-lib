@@ -16,7 +16,7 @@ import {
   StepContent,
   Theme
 } from '@material-ui/core'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'

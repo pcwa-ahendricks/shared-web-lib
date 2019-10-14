@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {Box, Theme} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'

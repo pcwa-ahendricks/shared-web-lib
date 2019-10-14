@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {useTheme, createStyles, makeStyles} from '@material-ui/styles'
+import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {

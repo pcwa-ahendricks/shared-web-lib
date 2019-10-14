@@ -8,7 +8,7 @@ import {
   FormLabel,
   Theme
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from '@material-ui/core/styles'
 import {FieldProps} from 'formik'
 import {FormControlProps} from '@material-ui/core/FormControl'
 import {FormLabelProps} from '@material-ui/core/FormLabel'

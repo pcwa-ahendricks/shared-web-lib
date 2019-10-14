@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {
   ExpansionPanel,
   ExpansionPanelDetails,

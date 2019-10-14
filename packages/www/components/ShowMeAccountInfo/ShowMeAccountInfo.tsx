@@ -7,7 +7,7 @@ import {
   Tooltip,
   Typography as Type
 } from '@material-ui/core'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import Imgix from 'react-imgix'

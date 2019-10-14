@@ -1,7 +1,7 @@
 // cspell:ignore infobox
 import React, {useContext, useMemo} from 'react'
 import {Box, Theme} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {blueGrey} from '@material-ui/core/colors'
 import colorAlpha from 'color-alpha'
 import PiMetadataDlItem from '../PiMetadataDlItem/PiMetadataDlItem'

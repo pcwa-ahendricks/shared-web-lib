@@ -1,5 +1,5 @@
 import React, {useMemo, useCallback, useContext, useState} from 'react'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {
   Box,
   InputBase,

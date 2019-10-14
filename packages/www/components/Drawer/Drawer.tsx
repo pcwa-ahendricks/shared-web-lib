@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo, useContext, useEffect} from 'react'
-import {makeStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, useTheme} from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
   Divider,

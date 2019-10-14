@@ -19,7 +19,7 @@ import {
   useTheme,
   LinearProgress
 } from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/styles'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import round from '@lib/round'

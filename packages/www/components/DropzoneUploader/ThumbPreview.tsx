@@ -1,6 +1,6 @@
 // cspell:ignore touchevents
 import React, {useState, useCallback, useMemo} from 'react'
-import {makeStyles, createStyles, useTheme} from '@material-ui/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {Box, Button, Tooltip, Theme} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
 import {DroppedFile, UploadedFile} from './types'

@@ -8,7 +8,7 @@ import {
   Tooltip
 } from '@material-ui/core'
 import PlayIcon from '@material-ui/icons/PlayCircleOutline'
-import {makeStyles, createStyles} from '@material-ui/styles'
+import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {PlayListItem} from '@lib/services/youtubeService'
 
 /*

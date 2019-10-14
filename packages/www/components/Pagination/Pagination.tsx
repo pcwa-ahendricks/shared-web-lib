@@ -1,7 +1,7 @@
 import React, {useMemo, useCallback} from 'react'
 import {PropTypes, StandardProps} from '@material-ui/core'
 import Box, {BoxProps} from '@material-ui/core/Box'
-import {createStyles, WithStyles, withStyles} from '@material-ui/styles'
+import {createStyles, WithStyles, withStyles} from '@material-ui/core/styles'
 import clsx from 'clsx'
 import PageButton, {PageButtonClassKey, PageVariant} from './PageButton'
 

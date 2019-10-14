@@ -1,7 +1,7 @@
 import React, {useMemo, useCallback} from 'react'
 import {PropTypes, StandardProps, Theme} from '@material-ui/core'
 import Button, {ButtonProps} from '@material-ui/core/Button'
-import {createStyles, WithStyles, withStyles} from '@material-ui/styles'
+import {createStyles, WithStyles, withStyles} from '@material-ui/core/styles'
 import clsx from 'clsx'
 
 export type PageButtonClassKey =

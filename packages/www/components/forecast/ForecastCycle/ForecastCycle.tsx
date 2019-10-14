@@ -10,7 +10,7 @@ import ForecastDisplay, {
   ForecastData
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from '@material-ui/core/styles'
 import {Box} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
