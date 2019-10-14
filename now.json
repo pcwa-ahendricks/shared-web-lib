@@ -231,6 +231,14 @@
       }
     },
     {
+      "src": "/newsroom/news-release",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net//newsroom/news-releases"
+      }
+    },
+    {
       "src": "/(.*)",
       "dest": "/packages/www/$1",
       "continue": true,

@@ -267,7 +267,7 @@ const menuConfig = [
         items: [
           {
             title: 'News Releases',
-            nextLink: '/newsroom/news-release'
+            nextLink: '/newsroom/news-releases'
           },
           {
             title: 'Publications',

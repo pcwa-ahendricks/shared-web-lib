@@ -4,13 +4,11 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {useTheme} from '@material-ui/core/styles'
 
 type Props = {
-  pageNumber: number
-  totalPages: number
   url: string
-  meetingDate: string
+  alt: string
 }
 
-const BoardMinutePage = ({pageNumber, url, meetingDate, totalPages}: Props) => {
+const PDFPage = ({alt, url}: Props) => {
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const isSM = useMediaQuery(theme.breakpoints.only('sm'))
@@ -25,7 +23,7 @@ const BoardMinutePage = ({pageNumber, url, meetingDate, totalPages}: Props) => {
         src={url}
         htmlAttributes={{
           onLoad: onLoadHandler,
-          alt: `Board Minutes document image for ${meetingDate} - page ${pageNumber}/${totalPages}`,
+          alt,
           style: {width: '100%'}
         }}
       />
@@ -33,4 +31,4 @@ const BoardMinutePage = ({pageNumber, url, meetingDate, totalPages}: Props) => {
   )
 }
 
-export default BoardMinutePage
+export default PDFPage
