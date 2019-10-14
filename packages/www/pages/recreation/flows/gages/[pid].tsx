@@ -76,12 +76,12 @@ const DynamicPiPage = ({query}: Props) => {
   }, [dispatch])
 
   const pid = useMemo(() => {
-    let {pid: queryPid} = router.query || query.pid
-    if (Array.isArray(queryPid)) {
-      queryPid = queryPid[0]
+    let {pid: qPid} = query
+    if (Array.isArray(qPid)) {
+      qPid = qPid[0]
     }
-    return queryPid
-  }, [query, router])
+    return qPid
+  }, [query])
 
   const fetchStreamSet = useCallback(async () => {
     if (activeGageItem) {

@@ -1,7 +1,6 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {NextPageContext} from 'next'
-import {useRouter} from 'next/router'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -32,7 +31,7 @@ import DownloadIcon from '@material-ui/icons/CloudDownload'
 type Props = {
   query: ParsedUrlQuery // getInitialProps
   err?: any
-  bm?: CosmicMediaMeta | null
+  qMedia?: CosmicMediaMeta | null
   pages?: Page[]
 }
 interface Page {
@@ -57,17 +56,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicBoardMinutesPage = ({query, bm, pages = [], err}: Props) => {
-  const router = useRouter()
+const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   const theme = useTheme<Theme>()
-  const meetingDate = useMemo(() => {
-    let {['meeting-date']: queryMeetingDate} =
-      router.query || query['meeting-date']
-    if (Array.isArray(queryMeetingDate)) {
-      queryMeetingDate = queryMeetingDate[0]
-    }
-    return queryMeetingDate
-  }, [query, router])
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -81,9 +71,11 @@ const DynamicBoardMinutesPage = ({query, bm, pages = [], err}: Props) => {
   // const classes = useStyles({trigger})
   const classes = useStyles()
 
-  if (err || !bm) {
+  if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
   }
+
+  const meetingDate = qMedia.derivedFilenameAttr.date
 
   return (
     <PageLayout title={`Board Minutes - ${meetingDate}`}>
@@ -94,7 +86,7 @@ const DynamicBoardMinutesPage = ({query, bm, pages = [], err}: Props) => {
             aria-label="Download board minutes"
             size={isSMDown ? 'small' : 'medium'}
             variant={'extended'}
-            href={`${bm.imgix_url}?dl=${bm.original_name}`}
+            href={`${qMedia.imgix_url}?dl=${qMedia.original_name}`}
             target="_blank"
             rel="noopener noreferrer"
             classes={{sizeSmall: classes.muiFabSmall}}
@@ -162,6 +154,36 @@ const fetchBoardMinutes = async () => {
   return bmEx
 }
 
+const getMediaPDFPages = async (
+  media: CosmicMediaMeta[],
+  dateStr: string | string[]
+) => {
+  const filteredMedia = media.filter(
+    (bm) => bm.derivedFilenameAttr.date === dateStr
+  )
+  const qMedia = filteredMedia[0]
+  if (!qMedia) {
+    throw `No media for: ${dateStr}`
+  }
+  const requestLimit = 20
+  let pages: Page[] = []
+  let requestPageNo = 1
+  while (requestPageNo <= requestLimit) {
+    isDev && console.log('Request No: ', requestPageNo)
+    const qs = stringify({page: requestPageNo}, true)
+    const url = `${qMedia.imgix_url}${qs}`
+    const response = await fetch(url)
+    if (!response.ok) {
+      isDev && console.log('Response not ok. Will break.', url)
+      break
+    }
+    pages = [...pages, {url, number: requestPageNo}]
+    requestPageNo++
+  }
+  isDev && console.log('Broke at page number: ', requestPageNo)
+  return {pages, qMedia}
+}
+
 DynamicBoardMinutesPage.getInitialProps = async ({
   query,
   res
@@ -169,32 +191,9 @@ DynamicBoardMinutesPage.getInitialProps = async ({
   try {
     const bms = await fetchBoardMinutes()
     const meetingDate = query['meeting-date']
-    const filteredBm = bms.filter(
-      (bm) => bm.derivedFilenameAttr.date === meetingDate
-    )
-    const bm = filteredBm[0]
-    if (!bm) {
-      throw `No board minutes for: ${meetingDate}`
-    }
+    const {qMedia, pages} = await getMediaPDFPages(bms, meetingDate)
 
-    const requestLimit = 20
-    let pages: Page[] = []
-    let requestPageNo = 1
-    while (requestPageNo <= requestLimit) {
-      isDev && console.log('Request No: ', requestPageNo)
-      const qs = stringify({page: requestPageNo}, true)
-      const url = `${bm.imgix_url}${qs}`
-      const response = await fetch(url)
-      if (!response.ok) {
-        isDev && console.log('Response not ok. Will break.', url)
-        break
-      }
-      pages = [...pages, {url, number: requestPageNo}]
-      requestPageNo++
-    }
-    isDev && console.log('Broke at page number: ', requestPageNo)
-
-    return {query, bm, pages}
+    return {query, qMedia, pages}
   } catch (error) {
     console.log(error)
     if (res) {
