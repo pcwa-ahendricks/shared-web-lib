@@ -7,40 +7,44 @@ import clsx from 'clsx'
 type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
 type UseStylesProps = {flexSpacing?: number}
 
+/*
+  Note, using a dynamic className such as useFlexSpacing did not work when applying specificity with a selector such as '&$useFlexSpacing'. Note sure why, but the workaround is to simply apply the className as a string.
+*/
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     respRowBox: ({flexSpacing}: UseStylesProps) => ({
       [theme.breakpoints.only('xs')]: {
         '&.useFlexSpacing': {
-          marginTop: theme.spacing(flexSpacing || 0) * -1
-        },
-        '& > .childBox': {
-          marginTop: theme.spacing(flexSpacing || 0)
+          marginTop: theme.spacing(flexSpacing || 0) * -1,
+          '& > .childBox': {
+            marginTop: theme.spacing(flexSpacing || 0)
+          }
         }
       },
       [theme.breakpoints.up('sm')]: {
         '&.useFlexSpacing': {
-          marginLeft: theme.spacing(flexSpacing || 0) * -1
-        },
-        '& > .childBox': {
-          marginLeft: theme.spacing(flexSpacing || 0)
+          marginLeft: theme.spacing(flexSpacing || 0) * -1,
+          '& > .childBox': {
+            marginLeft: theme.spacing(flexSpacing || 0)
+          }
         }
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
       '&.useFlexSpacing': {
-        marginLeft: theme.spacing(flexSpacing || 0) * -1
-      },
-      '& > .childBox': {
-        marginLeft: theme.spacing(flexSpacing || 0)
+        marginLeft: theme.spacing(flexSpacing || 0) * -1,
+        '& > .childBox': {
+          marginLeft: theme.spacing(flexSpacing || 0)
+        }
       }
     }),
     colBox: ({flexSpacing}: UseStylesProps) => ({
-      '&..seFlexSpacing': {
-        marginTop: theme.spacing(flexSpacing || 0) * -1
-      },
-      '& > .childBox': {
-        marginTop: theme.spacing(flexSpacing || 0)
+      '&.useFlexSpacing': {
+        marginTop: theme.spacing(flexSpacing || 0) * -1,
+        '& > .childBox': {
+          marginTop: theme.spacing(flexSpacing || 0)
+        }
       }
     })
   })
