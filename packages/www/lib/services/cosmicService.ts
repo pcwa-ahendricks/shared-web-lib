@@ -91,7 +91,7 @@ const fileNameUtil = (
   extension: string
   date: string
   title: string
-  publishedDate: Date
+  publishedDate: string // When used with getInitialProps Date types will be converted to string, so using Date here could lead to confusion an extra type checking and safe casting.
   publishedYear: number
   keyValuePairs?: Array<{}>
 } => {
@@ -118,10 +118,11 @@ const fileNameUtil = (
           .trim()
       : '', // don't call replace on null.
     publishedDate: dateFrmt
-      ? isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
-        ? parse(fSplit[0], dateFrmt, new Date())
-        : new Date()
-      : new Date(),
+      ? (isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
+          ? parse(fSplit[0], dateFrmt, new Date())
+          : new Date()
+        ).toISOString()
+      : new Date().toISOString(),
     publishedYear: getYear(
       dateFrmt
         ? isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.

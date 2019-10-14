@@ -1,13 +1,15 @@
 // cspell:ignore expy
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
-import {format} from 'date-fns'
+import {format, parseISO} from 'date-fns'
 import clsx from 'clsx'
 import Link from 'next/link'
+
+const MAX_IMAGE_WIDTH = 85
 
 type Props = {
   minutes: CosmicMediaMeta
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: !isHover ? theme.palette.text.primary : theme.palette.primary.main
     }),
     titleCaption: ({isHover}: UseStylesProps) => ({
+      maxWidth: MAX_IMAGE_WIDTH, // Force break on white-space.
       color: !isHover
         ? theme.palette.text.secondary
         : theme.palette.primary.main
@@ -51,12 +54,17 @@ const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const imageWidth = isXs ? 70 : isSm ? 75 : 85
+  const imageWidth = isXs ? 70 : isSm ? 75 : MAX_IMAGE_WIDTH
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
-  const url = `/about-pcwa/board-minutes/[meeting-date]`
-  const as = `/about-pcwa/board-minutes/${minutes.derivedFilenameAttr.date}`
+  const url = `/board-of-directors/board-minutes/[meeting-date]`
+  const as = `/board-of-directors/board-minutes/${minutes.derivedFilenameAttr.date}`
+
+  const boardMeetingDate = useMemo(
+    () => parseISO(minutes.derivedFilenameAttr.publishedDate),
+    [minutes]
+  )
 
   return (
     <ChildBox mt={topMargin}>
@@ -85,7 +93,7 @@ const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
               variant="body2"
               className={clsx([classes.caption, classes.dateCaption])}
             >
-              {format(minutes.derivedFilenameAttr.publishedDate, 'MM-dd-yyyy')}
+              {format(boardMeetingDate, 'MM-dd-yyyy')}
             </Type>
             <Type
               variant="body2"

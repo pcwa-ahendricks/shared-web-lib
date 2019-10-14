@@ -11,27 +11,35 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     respRowBox: ({flexSpacing}: UseStylesProps) => ({
       [theme.breakpoints.only('xs')]: {
-        marginTop: theme.spacing(flexSpacing || 0) * -1,
-        '& > .useFlexSpacing': {
+        '&.useFlexSpacing': {
+          marginTop: theme.spacing(flexSpacing || 0) * -1
+        },
+        '& > .childBox': {
           marginTop: theme.spacing(flexSpacing || 0)
         }
       },
       [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(flexSpacing || 0) * -1,
-        '& > .useFlexSpacing': {
+        '&.useFlexSpacing': {
+          marginLeft: theme.spacing(flexSpacing || 0) * -1
+        },
+        '& > .childBox': {
           marginLeft: theme.spacing(flexSpacing || 0)
         }
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
-      marginLeft: theme.spacing(flexSpacing || 0) * -1,
-      '& > .useFlexSpacing': {
+      '&.useFlexSpacing': {
+        marginLeft: theme.spacing(flexSpacing || 0) * -1
+      },
+      '& > .childBox': {
         marginLeft: theme.spacing(flexSpacing || 0)
       }
     }),
     colBox: ({flexSpacing}: UseStylesProps) => ({
-      marginTop: theme.spacing(flexSpacing || 0) * -1,
-      '& > .useFlexSpacing': {
+      '&..seFlexSpacing': {
+        marginTop: theme.spacing(flexSpacing || 0) * -1
+      },
+      '& > .childBox': {
         marginTop: theme.spacing(flexSpacing || 0)
       }
     })
@@ -64,7 +72,13 @@ const RowBox = ({
     <Box
       display="flex"
       flexDirection="row"
-      className={clsx([classes.rowBox, classNameProp])}
+      className={clsx([
+        classes.rowBox,
+        classNameProp,
+        {
+          ['useFlexSpacing']: flexSpacing
+        }
+      ])}
       {...rest}
     >
       {children}
@@ -83,7 +97,11 @@ const ColumnBox = ({
     <Box
       display="flex"
       flexDirection="column"
-      className={clsx([classes.colBox, classNameProp])}
+      className={clsx([
+        classes.colBox,
+        classNameProp,
+        {['useFlexSpacing']: flexSpacing}
+      ])}
       {...rest}
     >
       {children}
@@ -102,7 +120,11 @@ const RespRowBox = ({
     <Box
       display="flex"
       flexDirection={{xs: 'column', sm: 'row'}}
-      className={clsx([classes.respRowBox, classNameProp])}
+      className={clsx([
+        classes.respRowBox,
+        classNameProp,
+        {['useFlexSpacing']: flexSpacing}
+      ])}
       {...rest}
     >
       {children}
@@ -116,7 +138,7 @@ const ChildBox = ({
   ...rest
 }: ChildBoxProps) => {
   return (
-    <Box className={clsx(['useFlexSpacing', classNameProp])} {...rest}>
+    <Box className={clsx(['childBox', classNameProp])} {...rest}>
       {children}
     </Box>
   )

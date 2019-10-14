@@ -65,3 +65,8 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
     "build:types": "tsc --emitDeclarationOnly --declaration true --allowJs false",
     "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --ignore src/**/\*.spec.js,src/**/\*.test.js",
     "build:js-src-map": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
+
+### About Redirects
+
+- `/rate-adjust-2018` Was used on NG version of website.
+- `/about-pcwa/board-minutes` Was used on NG version of website. Stopped using about-pcwa for board related URLs.
