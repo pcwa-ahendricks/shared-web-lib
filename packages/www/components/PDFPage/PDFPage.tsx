@@ -58,6 +58,7 @@ const PDFPage = ({alt, url, showLoading = false}: Props) => {
         <LazyImgix
           src={url}
           htmlAttributes={{
+            'data-optimumx': 1, // Don't need retrieve high-dpr/retina pdf page images.
             onLoad: onLoadHandler,
             alt,
             style: {

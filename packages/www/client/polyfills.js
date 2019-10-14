@@ -223,6 +223,7 @@ import 'lazysizes/plugins/attrchange/ls.attrchange'
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 import 'lazysizes/plugins/object-fit/ls.object-fit'
 import 'lazysizes/plugins/blur-up/ls.blur-up'
+import 'lazysizes/plugins/optimumx/ls.optimumx'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
 if (!HTMLCanvasElement.prototype.toBlob) {
