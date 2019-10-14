@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {NextPageContext} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -7,10 +7,10 @@ import {
   getMedia,
   fileNameUtil,
   CosmicMediaResponse,
-  CosmicMediaMeta
+  CosmicMediaMeta,
+  getMediaPDFPages,
+  Page
 } from '@lib/services/cosmicService'
-import fetch from 'isomorphic-unfetch'
-import {stringify} from 'querystringify'
 import BoardMinutePage from '@components/BoardMinutePage/BoardMinutePage'
 import {
   Theme,
@@ -29,7 +29,6 @@ import DownloadIcon from '@material-ui/icons/CloudDownload'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
-const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 const DATE_FNS_FORMAT_2012 = 'MM-dd-yy' // [todo] These should be renamed and re-uploaded to Cosmic.
 
@@ -38,10 +37,6 @@ type Props = {
   err?: any
   qMedia?: CosmicMediaMeta | null
   pages?: Page[]
-}
-interface Page {
-  number: number
-  url: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -86,19 +81,18 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   const classes = useStyles()
   const boardMeetingDateFormatted = useMemo(
     () =>
-      bm
+      qMedia
         ? format(
-            parseISO(bm.derivedFilenameAttr.publishedDate),
+            parseISO(qMedia.derivedFilenameAttr.publishedDate),
             "EEEE',' MMMM do',' yyyy "
           )
         : '',
-    [bm]
+    [qMedia]
   )
 
   if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
   }
-  console.log(bm)
 
   const meetingDate = qMedia.derivedFilenameAttr.date
 
@@ -193,36 +187,6 @@ const fetchBoardMinutes = async () => {
     )
   }))
   return bmEx
-}
-
-const getMediaPDFPages = async (
-  media: CosmicMediaMeta[],
-  dateStr: string | string[]
-) => {
-  const filteredMedia = media.filter(
-    (bm) => bm.derivedFilenameAttr.date === dateStr
-  )
-  const qMedia = filteredMedia[0]
-  if (!qMedia) {
-    throw `No media for: ${dateStr}`
-  }
-  const requestLimit = 20
-  let pages: Page[] = []
-  let requestPageNo = 1
-  while (requestPageNo <= requestLimit) {
-    isDev && console.log('Request No: ', requestPageNo)
-    const qs = stringify({page: requestPageNo}, true)
-    const url = `${qMedia.imgix_url}${qs}`
-    const response = await fetch(url)
-    if (!response.ok) {
-      isDev && console.log('Response not ok. Will break.', url)
-      break
-    }
-    pages = [...pages, {url, number: requestPageNo}]
-    requestPageNo++
-  }
-  isDev && console.log('Broke at page number: ', requestPageNo)
-  return {pages, qMedia}
 }
 
 DynamicBoardMinutesPage.getInitialProps = async ({

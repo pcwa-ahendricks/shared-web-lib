@@ -5,6 +5,7 @@ import isNumber from 'is-number'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import fetchOk, {fetchOkText} from '@lib/fetch-ok'
+import fetch from 'isomorphic-unfetch'
 
 const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
 
@@ -12,6 +13,11 @@ interface UnclaimedPropertyResponse {
   owner: string
   amount: string | number
   date: string
+}
+
+export interface Page {
+  number: number
+  url: string
 }
 
 const getUnclaimedProperty = async () => {
@@ -135,6 +141,33 @@ const fileNameUtil = (
   }
 }
 
+const getMediaPDFPages = async (
+  media: CosmicMediaMeta[],
+  dateStr: string | string[]
+) => {
+  const filteredMedia = media.filter(
+    (bm) => bm.derivedFilenameAttr.date === dateStr
+  )
+  const qMedia = filteredMedia[0]
+  if (!qMedia) {
+    throw `No media for: ${dateStr}`
+  }
+  const requestLimit = 20
+  let pages: Page[] = []
+  let requestPageNo = 1
+  while (requestPageNo <= requestLimit) {
+    const qs = stringify({page: requestPageNo}, true)
+    const url = `${qMedia.imgix_url}${qs}`
+    const response = await fetch(url)
+    if (!response.ok) {
+      break
+    }
+    pages = [...pages, {url, number: requestPageNo}]
+    requestPageNo++
+  }
+  return {pages, qMedia}
+}
+
 export type CosmicMediaResponse = Array<CosmicMedia>
 export interface CosmicMetadata {
   [key: string]: string | boolean | number
@@ -170,5 +203,6 @@ export {
   getSalarySchedule,
   getSalaryScheduleCsv,
   getMedia,
+  getMediaPDFPages,
   fileNameUtil
 }
