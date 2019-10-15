@@ -85,11 +85,12 @@ const BoardMinutesLink = ({
           <Box width={imageWidth} className={classes.thumbnailContainer}>
             <ImgixFancy
               paddingPercent="129.412%"
-              height={100}
+              // height={100} // Don't specify height since it will break 'data-optimumx' LazySizes plugin.
               lqipWidth={20}
               src={imgixUrl}
               alt="Board Minutes Thumbnail"
               htmlAttributesProps={{
+                'data-optimumx': 1, // Don't need retrieve high-dpr/retina images.
                 style: {
                   backgroundColor: theme.palette.common.white
                 }
