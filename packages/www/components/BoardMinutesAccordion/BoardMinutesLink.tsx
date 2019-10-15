@@ -91,6 +91,7 @@ const BoardMinutesLink = ({
               alt="Board Minutes Thumbnail"
               htmlAttributesProps={{
                 'data-optimumx': 1, // Don't need retrieve high-dpr/retina images.
+                'data-lowsrc': '/static/images/minutes-placeholder.jpg', // Use static asset so we are not making a bunch of silly LQIP requests for a small blurry image that usually looks very similar.
                 style: {
                   backgroundColor: theme.palette.common.white
                 }
