@@ -12,9 +12,9 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
-const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
-type GroupedNewsReleases = Array<{
+type GroupedNewsletters = Array<{
   year: number
   values: CosmicMediaMeta[]
 }>
@@ -23,12 +23,12 @@ const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url'
 }
 
-const NewsReleasesPage = () => {
-  const [newsReleases, setNewsReleases] = useState<GroupedNewsReleases>([])
+const PublicationsPage = () => {
+  const [newsletters, setNewsletters] = useState<GroupedNewsletters>([])
 
-  const fetchNewsReleases = useCallback(async () => {
+  const fetchNewsletters = useCallback(async () => {
     const bma = await getMedia<CosmicMediaResponse>({
-      folder: 'news-releases',
+      folder: 'newsletters',
       ...cosmicGetMediaProps
     })
     if (!bma) {
@@ -44,7 +44,7 @@ const NewsReleasesPage = () => {
       (mbm) => mbm.derivedFilenameAttr.publishedYear
     )
     // Transform JS Map into a usable Array of Objects.
-    const tmpSortedGroups = [] as GroupedNewsReleases
+    const tmpSortedGroups = [] as GroupedNewsletters
     for (const [k, v] of grouped) {
       // Sort individual News Releases by published date property.
       tmpSortedGroups.push({
@@ -60,36 +60,36 @@ const NewsReleasesPage = () => {
     // Sort grouped database by Year.
     const sortedGroups = tmpSortedGroups.sort((a, b) => b.year - a.year)
 
-    setNewsReleases(sortedGroups)
+    setNewsletters(sortedGroups)
   }, [])
 
   const maxYear = useMemo(
     () =>
-      newsReleases
+      newsletters
         .reduce(
           (prevValue, grp) => (grp.year > prevValue ? grp.year : prevValue),
           2000
         )
         .toString(),
-    [newsReleases]
+    [newsletters]
   )
 
   useEffect(() => {
-    fetchNewsReleases()
-  }, [fetchNewsReleases])
+    fetchNewsletters()
+  }, [fetchNewsletters])
 
-  console.log(maxYear, newsReleases)
+  console.log(maxYear, newsletters)
 
   return (
-    <PageLayout title="News Releases">
+    <PageLayout title="Publications">
       <WaterSurfaceImg />
       <MainBox>
         <WideContainer>
-          <PageTitle title="News Releases" subtitle="Newsroom" />
+          <PageTitle title="Publications" subtitle="Newsroom" />
         </WideContainer>
       </MainBox>
     </PageLayout>
   )
 }
 
-export default NewsReleasesPage
+export default PublicationsPage
