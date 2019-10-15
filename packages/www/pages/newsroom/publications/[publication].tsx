@@ -24,7 +24,10 @@ const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type GroupedNewsletters = Array<{
   year: number
-  values: CosmicMediaMeta[]
+  values: Pick<
+    CosmicMediaMeta,
+    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+  >[]
 }>
 
 interface TabPanelProps {

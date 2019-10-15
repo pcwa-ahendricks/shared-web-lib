@@ -11,8 +11,11 @@ import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import BoardMinutesLink from './BoardMinutesLink'
 
 type Props = {
+  minutes: Pick<
+    CosmicMediaMeta,
+    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+  >[]
   year: string
-  minutes: CosmicMediaMeta[]
   expanded: boolean | string
   onChange: (panel: string) => any
   wasExpanded?: boolean
@@ -40,8 +43,18 @@ const BoardMinutesAccordion = ({
         {wasExpanded ? (
           <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
             {minutes.map((m) => {
+              /* eslint-disable @typescript-eslint/camelcase */
+              const {derivedFilenameAttr, imgix_url} = m
+              const {title, publishedDate, date} = derivedFilenameAttr
               return (
-                <BoardMinutesLink key={m._id} minutes={m} topMargin={margin} />
+                <BoardMinutesLink
+                  key={m._id}
+                  imgixUrl={imgix_url}
+                  title={title}
+                  publishedDate={publishedDate}
+                  date={date}
+                  topMargin={margin}
+                />
               )
             })}
           </RowBox>

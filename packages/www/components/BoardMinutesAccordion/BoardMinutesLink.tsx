@@ -12,7 +12,10 @@ import Link from 'next/link'
 const MAX_IMAGE_WIDTH = 85
 
 type Props = {
-  minutes: CosmicMediaMeta
+  date: CosmicMediaMeta['derivedFilenameAttr']['date']
+  publishedDate: CosmicMediaMeta['derivedFilenameAttr']['publishedDate']
+  title: CosmicMediaMeta['derivedFilenameAttr']['title']
+  imgixUrl: CosmicMediaMeta['imgix_url']
   topMargin?: number
 }
 
@@ -50,7 +53,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
+const BoardMinutesLink = ({
+  date,
+  publishedDate,
+  imgixUrl,
+  title,
+  topMargin = 0
+}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
@@ -59,12 +68,11 @@ const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
   const classes = useStyles({isHover})
 
   const url = `/board-of-directors/board-minutes/[meeting-date]`
-  const as = `/board-of-directors/board-minutes/${minutes.derivedFilenameAttr.date}`
+  const as = `/board-of-directors/board-minutes/${date}`
 
-  const boardMeetingDate = useMemo(
-    () => parseISO(minutes.derivedFilenameAttr.publishedDate),
-    [minutes]
-  )
+  const boardMeetingDate = useMemo(() => parseISO(publishedDate), [
+    publishedDate
+  ])
 
   return (
     <ChildBox mt={topMargin}>
@@ -79,7 +87,7 @@ const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
               paddingPercent="129.412%"
               height={100}
               lqipWidth={20}
-              src={minutes.imgix_url}
+              src={imgixUrl}
               alt="Board Minutes Thumbnail"
               htmlAttributesProps={{
                 style: {
@@ -99,7 +107,7 @@ const BoardMinutesLink = ({minutes, topMargin = 0}: Props) => {
               variant="body2"
               className={clsx([classes.caption, classes.titleCaption])}
             >
-              {minutes.derivedFilenameAttr.title}
+              {title}
             </Type>
           </ColumnBox>
         </a>

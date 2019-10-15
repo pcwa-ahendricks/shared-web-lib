@@ -16,7 +16,10 @@ const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type GroupedNewsReleases = Array<{
   year: number
-  values: CosmicMediaMeta[]
+  values: Pick<
+    CosmicMediaMeta,
+    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+  >[]
 }>
 
 const cosmicGetMediaProps = {
