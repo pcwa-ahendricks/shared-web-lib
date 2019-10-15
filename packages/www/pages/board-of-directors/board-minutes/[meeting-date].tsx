@@ -6,10 +6,10 @@ import MainBox from '@components/boxes/MainBox'
 import {
   getMedia,
   fileNameUtil,
-  CosmicMediaResponse,
   CosmicMediaMeta,
   getMediaPDFPages,
-  Page
+  Page,
+  CosmicMedia
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -37,6 +37,11 @@ type Props = {
   qMedia?: CosmicMediaMeta | null
   pages?: Page[]
 }
+
+const cosmicGetMediaProps = {
+  props: 'original_name,imgix_url'
+}
+type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>[]
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -170,14 +175,11 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-const cosmicProps = {
-  props: 'original_name,imgix_url'
-}
-
 const fetchBoardMinutes = async () => {
-  const bm: CosmicMediaResponse | undefined = await getMedia({
+  // Pass appropriate type to function using generic for proper typing.
+  const bm = await getMedia<PickedMediaResponse>({
     folder: 'board-minutes',
-    ...cosmicProps
+    ...cosmicGetMediaProps
   })
   if (!bm) {
     return []

@@ -6,10 +6,10 @@ import MainBox from '@components/boxes/MainBox'
 import {
   getMedia,
   fileNameUtil,
-  CosmicMediaResponse,
   CosmicMediaMeta,
   getMediaPDFPages,
-  Page
+  Page,
+  CosmicMedia
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -30,6 +30,11 @@ import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+
+const cosmicGetMediaProps = {
+  props: 'original_name,imgix_url'
+}
+type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>[]
 
 type Props = {
   query: ParsedUrlQuery // getInitialProps
@@ -156,14 +161,10 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-const cosmicProps = {
-  props: 'original_name,imgix_url'
-}
-
 const fetchNewsReleases = async () => {
-  const bm: CosmicMediaResponse | undefined = await getMedia({
+  const bm = await getMedia<PickedMediaResponse>({
     folder: 'news-releases',
-    ...cosmicProps
+    ...cosmicGetMediaProps
   })
   if (!bm) {
     return []

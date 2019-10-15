@@ -7,7 +7,8 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {
   getMedia,
   fileNameUtil,
-  CosmicMediaMeta
+  CosmicMediaMeta,
+  CosmicMediaResponse
 } from '@lib/services/cosmicService'
 import {compareDesc, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
@@ -16,22 +17,29 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
 
-type groupedBoardMinutes = Array<{
+type GroupedBoardMinutes = Array<{
   year: number
   values: CosmicMediaMeta[]
 }>
 
+const cosmicGetMediaProps = {
+  props: 'original_name,imgix_url'
+}
+
 const BoardMinutesPage = () => {
   // const thisYear = useMemo(() => getYear(new Date()).toString(), [])
 
-  const [boardMinutes, setBoardMinutes] = useState<groupedBoardMinutes>([])
+  const [boardMinutes, setBoardMinutes] = useState<GroupedBoardMinutes>([])
   const [expanded, setExpanded] = useState<boolean | string>(false)
   const [wasExpandedMap, setWasExpandedMap] = useState<{
     [year: string]: boolean
   }>({})
 
   const fetchBoardMinutes = useCallback(async () => {
-    const bma = await getMedia({folder: 'board-minutes'})
+    const bma = await getMedia<CosmicMediaResponse>({
+      folder: 'board-minutes',
+      ...cosmicGetMediaProps
+    })
     if (!bma) {
       return
     }
@@ -45,7 +53,7 @@ const BoardMinutesPage = () => {
       (mbm) => mbm.derivedFilenameAttr.publishedYear
     )
     // Transform JS Map into a usable Array of Objects.
-    const tmpSortedGroups = [] as groupedBoardMinutes
+    const tmpSortedGroups = [] as GroupedBoardMinutes
     for (const [k, v] of grouped) {
       // Sort individual Board Minutes by published date property.
       tmpSortedGroups.push({

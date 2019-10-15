@@ -66,10 +66,10 @@ const getSalaryScheduleCsv = async () => {
   }
 }
 
-const getMedia = async (
+const getMedia = async <T extends unknown>(
   params = {},
   cosmicId?: string
-): Promise<CosmicMediaResponse | undefined> => {
+): Promise<T | undefined> => {
   try {
     if (cosmicId) {
       params = {
@@ -82,7 +82,7 @@ const getMedia = async (
       const qs = stringify(params, true)
       url = url.concat(qs)
     }
-    return await fetchOk(url)
+    return await fetchOk<T>(url)
   } catch (error) {
     console.warn(error)
     // throw error
@@ -141,8 +141,13 @@ const fileNameUtil = (
   }
 }
 
-const getMediaPDFPages = async (
-  media: CosmicMediaMeta[],
+const getMediaPDFPages = async <
+  T extends {
+    derivedFilenameAttr: ReturnType<typeof fileNameUtil>
+    imgix_url: string
+  }
+>(
+  media: T[],
   dateStr: string | string[]
 ) => {
   const filteredMedia = media.filter(
@@ -168,7 +173,8 @@ const getMediaPDFPages = async (
   return {pages, qMedia}
 }
 
-export type CosmicMediaResponse = Array<CosmicMedia>
+// getMedia takes a Generic type which should match the props given as a query parameter. A full response would match the following export.
+export type CosmicMediaResponse = CosmicMedia[]
 export interface CosmicMetadata {
   [key: string]: string | boolean | number
 }
