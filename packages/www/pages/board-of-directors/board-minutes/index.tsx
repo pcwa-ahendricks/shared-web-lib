@@ -23,7 +23,7 @@ type GroupedBoardMinutes = Array<{
 }>
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url'
+  props: '_id,original_name,imgix_url'
 }
 
 const BoardMinutesPage = () => {
