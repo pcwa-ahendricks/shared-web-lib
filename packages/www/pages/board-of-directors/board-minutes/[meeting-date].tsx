@@ -182,7 +182,7 @@ const fetchBoardMinutes = async () => {
     ...cosmicGetMediaProps
   })
   if (!bm) {
-    return []
+    throw 'No board minutes'
   }
   const bmEx = bm.map((bm) => ({
     ...bm,

@@ -167,7 +167,7 @@ const fetchNewsReleases = async () => {
     ...cosmicGetMediaProps
   })
   if (!bm) {
-    return []
+    throw 'No news releases'
   }
   const bmEx = bm.map((bm) => ({
     ...bm,
