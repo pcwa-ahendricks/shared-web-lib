@@ -6,7 +6,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import {Box, Typography as Type, Hidden} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
 import {NextPageContext} from 'next'
-import {ParsedUrlQuery} from 'querystring'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
 import {
   fetchElementStreamSet,
@@ -38,12 +37,13 @@ import PiTable from '@components/pi/PiTable/PiTable'
 import gages from '@lib/services/pi/gage-config'
 import useInterval from '@hooks/useInterval'
 import {generate} from 'shortid'
+import queryParamToStr from '@lib/services/queryParamToStr'
 const isDev = process.env.NODE_ENV === 'development'
 
 const TABLE_TIME_INTERVAL = '15m'
 
 type Props = {
-  query: ParsedUrlQuery // getInitialProps
+  pid: string // getInitialProps
 }
 
 export interface ZippedTableDataItem {
@@ -57,7 +57,7 @@ export interface ZippedTableDataItem {
   }[]
 }
 
-const DynamicPiPage = ({query}: Props) => {
+const DynamicPiPage = ({pid}: Props) => {
   const router = useRouter()
   const {state, dispatch} = useContext(PiContext)
   const {
@@ -70,18 +70,6 @@ const DynamicPiPage = ({query}: Props) => {
     chartData,
     tableData
   } = state
-
-  useEffect(() => {
-    // dispatch(setChartEndDate(new Date()))
-  }, [dispatch])
-
-  const pid = useMemo(() => {
-    let {pid: qPid} = query
-    if (Array.isArray(qPid)) {
-      qPid = qPid[0]
-    }
-    return qPid
-  }, [query])
 
   const fetchStreamSet = useCallback(async () => {
     if (activeGageItem) {
@@ -388,7 +376,8 @@ const DynamicPiPage = ({query}: Props) => {
 
 DynamicPiPage.getInitialProps = ({query}: NextPageContext) => {
   isDev && console.log(JSON.stringify(query))
-  return {query}
+  const pid = queryParamToStr(query['pid'])
+  return {pid}
 }
 
 export default DynamicPiPage

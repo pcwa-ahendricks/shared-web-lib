@@ -1,6 +1,25 @@
 // cspell:ignore legislationletters
 
-const menuConfig = [
+interface MenuConfig {
+  key: number
+  tabIndex: number
+  menuName: string
+  groups: Group[]
+}
+
+interface Group {
+  groupName: string
+  items: Item[]
+}
+
+interface Item {
+  title: string
+  href?: string
+  nextLink?: string
+  as?: string
+}
+
+const menuConfig: MenuConfig[] = [
   {
     key: 1,
     tabIndex: 1,
@@ -271,7 +290,8 @@ const menuConfig = [
           },
           {
             title: 'Publications',
-            nextLink: '/newsroom/publication'
+            nextLink: '/newsroom/publications/[publication]',
+            as: '/newsroom/publications/newsletters'
           },
           {
             title: 'Legislation & Letters',
@@ -286,5 +306,4 @@ const menuConfig = [
     ]
   }
 ]
-
 export default menuConfig

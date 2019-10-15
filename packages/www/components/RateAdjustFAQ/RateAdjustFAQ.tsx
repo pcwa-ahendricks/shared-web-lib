@@ -45,6 +45,7 @@ const RateAdjustFAQ = () => {
         color={theme.palette.common.white}
         p={2}
         pl={3}
+        borderRadius="4px 4px 0px 0px"
       >
         <Type variant="subtitle1" color="inherit">
           Frequently Asked Questions

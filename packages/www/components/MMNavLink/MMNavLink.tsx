@@ -36,13 +36,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const MMNavLink = ({children, href, isNextLink = true}: Props) => {
+const MMNavLink = ({children, href, as, isNextLink = true}: Props) => {
   const classes = useStyles()
   // const theme = useTheme<Theme>()
 
   return (
     <FlexButton
       href={href}
+      as={as}
       color="primary"
       isNextLink={isNextLink}
       classes={{root: classes.button, text: classes.buttonText}}

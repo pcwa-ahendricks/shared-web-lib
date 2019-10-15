@@ -1,26 +1,28 @@
 import React, {useMemo} from 'react'
-import {Box, Typography as Type, Divider, Theme} from '@material-ui/core'
+import {Box, Typography as Type, Divider} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 type Props = {
   subtitle?: string
   title: string
+  hideDivider?: boolean
 } & BoxProps
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     subtitle: {
       textTransform: 'uppercase'
-    },
-    divider: {
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(4)
     }
   })
 )
 
-const PageTitle = ({subtitle = '', title, ...rest}: Props) => {
+const PageTitle = ({
+  subtitle = '',
+  title,
+  hideDivider = false,
+  ...rest
+}: Props) => {
   const classes = useStyles()
 
   const subtitleEl = useMemo(
@@ -38,13 +40,17 @@ const PageTitle = ({subtitle = '', title, ...rest}: Props) => {
     [subtitle, classes]
   )
 
+  const dividerEl = useMemo(() => (hideDivider ? null : <Divider />), [
+    hideDivider
+  ])
+
   return (
     <Box {...rest}>
       {subtitleEl}
       <Type variant="h1" color="primary">
         {title}
       </Type>
-      <Divider className={classes.divider} />
+      <Box my={4}>{dividerEl}</Box>
     </Box>
   )
 }

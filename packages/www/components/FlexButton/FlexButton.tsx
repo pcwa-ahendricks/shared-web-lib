@@ -15,6 +15,7 @@ export type FlexButtonProps = {
 const FlexButton = ({
   children,
   href,
+  as,
   isNextLink = true,
   // prefetch = true,
   ...rest
@@ -25,7 +26,7 @@ const FlexButton = ({
     () =>
       isNextLink ? (
         <Box>
-          <NextLink href={href}>
+          <NextLink href={href} as={as}>
             <Button {...rest}>{children}</Button>
           </NextLink>
         </Box>
@@ -34,7 +35,7 @@ const FlexButton = ({
           {children}
         </Button>
       ),
-    [children, href, isNextLink, rest]
+    [children, href, isNextLink, rest, as]
   )
 
   return <React.Fragment>{flexButton}</React.Fragment>
