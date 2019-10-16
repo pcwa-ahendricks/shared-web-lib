@@ -3,7 +3,14 @@ import React, {useState} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Box, Fade, Hidden, Typography as Type} from '@material-ui/core'
+import {
+  Box,
+  Fade,
+  Hidden,
+  Typography as Type,
+  useMediaQuery
+} from '@material-ui/core'
+import {useTheme} from '@material-ui/core/styles'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 import {RowBox} from '@components/boxes/FlexBox'
@@ -26,8 +33,10 @@ const YEAR_END_IMG_SRC =
 
 const Index = () => {
   // const classes = useStyles()
+  const theme = useTheme()
 
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
+  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   return (
     <PageLayout>
       <ImgixFancyParallaxBanner
@@ -36,7 +45,13 @@ const Index = () => {
           paddingPercent: '66.6495%',
           src: HERO_IMG_SRC,
           alt: 'A photo of French Meadows Reservoir inlet',
-          imgixParams: {bri: -5, high: -15}
+          imgixParams: {bri: -5, high: -15},
+          htmlAttributesProps: {
+            style: {
+              // [HACK] Keep the image vertically centered on wide layout. There shouldn't be any whitespace just after breakpoint (easy to see and debug, this image that happens around -270px).
+              marginTop: isMDUp ? '-175px' : 0
+            }
+          }
         }}
         onImgLoad={() => setHeroOverlayIn(true)}
         style={{
