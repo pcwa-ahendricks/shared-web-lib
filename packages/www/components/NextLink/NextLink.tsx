@@ -9,7 +9,10 @@ import {makeStyles} from '@material-ui/core/styles'
   Adapted from https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/Link.tsx
 */
 
-type NextComposedProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
+type NextComposedProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  'href'
+> &
   NextLinkProps
 
 const useStyles = makeStyles({
@@ -55,7 +58,6 @@ ForwardNextComposed.displayName = 'NextComposed'
 export type NextMuiLinkProps = {
   activeClassName?: string
   as?: string
-  href: string
   naked?: boolean
   onClick?: any
   prefetch?: boolean

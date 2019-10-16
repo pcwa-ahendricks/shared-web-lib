@@ -6,8 +6,7 @@ import NextLink, {NextMuiLinkProps} from '@components/NextLink/NextLink'
 export type FlexLinkProps = {
   children: React.ReactNode
   isNextLink?: boolean
-  href?: NextMuiLinkProps['href']
-} & Omit<NextMuiLinkProps, 'href'>
+} & NextMuiLinkProps
 
 const FlexLink = ({
   children,

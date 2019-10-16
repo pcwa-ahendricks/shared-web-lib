@@ -118,7 +118,7 @@ const SwipeableTemporaryDrawer = () => {
                         {g.items.map((i, idxLvl3) => (
                           <FlexLink
                             key={idxLvl3}
-                            href={i.nextLink || i.href}
+                            href={i.nextLink || i.href || '/'}
                             underline="none"
                             color="textPrimary"
                             as={i.as}
