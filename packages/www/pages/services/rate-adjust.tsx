@@ -67,7 +67,7 @@ const RateAdjustPage = () => {
               <RateAdjustFAQ />
             </ChildBox>
             <ChildBox flex="50%" flexShrink={0}>
-              <Box bgcolor={theme.palette.background.paper} p={3}>
+              <Box bgcolor={theme.palette.background.paper} p={3} boxShadow={1}>
                 <Type variant="subtitle1">
                   Notice of Public Hearing Documents
                 </Type>

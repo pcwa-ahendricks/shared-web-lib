@@ -1,4 +1,5 @@
 // cspell:ignore legislationletters
+import {LinkProps} from 'next/link'
 
 interface MenuConfig {
   key: number
@@ -14,7 +15,7 @@ interface Group {
 
 interface Item {
   title: string
-  href?: string
+  href?: LinkProps['href']
   nextLink?: string
   as?: string
 }

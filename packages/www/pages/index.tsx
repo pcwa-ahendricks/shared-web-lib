@@ -81,45 +81,46 @@ const Index = () => {
         </Fade>
       </ImgixFancyParallaxBanner>
       <Hidden only="xs" implementation="css">
-        <Box marginBottom={1}>
-          <TrendingBar />
-        </Box>
+        <TrendingBar />
       </Hidden>
-      <title>Welcome</title>
-      <Type variant="h4" color="primary" gutterBottom>
-        Water Legislation FAQs
-      </Type>
-      <Type variant="body2">
-        The State of California has enacted into law two new bills that require
-        urban water providers throughout California to set new permanent water
-        use targets for their service areas by 2022. PCWA has put together some
-        Frequently Asked Questions regarding this new legislation.
-      </Type>
-      <Type variant="body1" style={{fontStyle: 'italic'}}>
-        Read more...
-      </Type>
-      <div style={{backgroundColor: 'beige', height: 1500}}>
-        the next website.
-      </div>
-      <div
-        style={{
-          maxWidth: '30vw',
-          margin: '50px auto',
-          position: 'relative'
-        }}
-      >
-        <ImgixFancy
-          paddingPercent="129.4118%"
-          src={YEAR_END_IMG_SRC}
-          alt="Year End Image Thumbnail"
-        />
-      </div>
-      <MuiNextLink
-        href="/recreation/flows/gages/[pid]"
-        as="/recreation/flows/gages/R2"
-      >
-        Go to R2 gage info
-      </MuiNextLink>
+      <Box mt={2}>
+        <title>Welcome</title>
+        <Type variant="h4" color="primary" gutterBottom>
+          Water Legislation FAQs
+        </Type>
+        <Type variant="body2">
+          The State of California has enacted into law two new bills that
+          require urban water providers throughout California to set new
+          permanent water use targets for their service areas by 2022. PCWA has
+          put together some Frequently Asked Questions regarding this new
+          legislation.
+        </Type>
+        <Type variant="body1" style={{fontStyle: 'italic'}}>
+          Read more...
+        </Type>
+        <div style={{backgroundColor: 'beige', height: 1500}}>
+          the next website.
+        </div>
+        <div
+          style={{
+            maxWidth: '30vw',
+            margin: '50px auto',
+            position: 'relative'
+          }}
+        >
+          <ImgixFancy
+            paddingPercent="129.4118%"
+            src={YEAR_END_IMG_SRC}
+            alt="Year End Image Thumbnail"
+          />
+        </div>
+        <MuiNextLink
+          href="/recreation/flows/gages/[pid]"
+          as="/recreation/flows/gages/R2"
+        >
+          Go to R2 gage info
+        </MuiNextLink>
+      </Box>
       <div style={{backgroundColor: 'blue', height: 1500}} />
     </PageLayout>
   )

@@ -1,28 +1,31 @@
 import React, {useMemo} from 'react'
 import {Link} from '@material-ui/core'
 import NextLink, {NextMuiLinkProps} from '@components/NextLink/NextLink'
-import usePrefetchHandler from '@hooks/usePrefetchHandler'
+// import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 export type FlexLinkProps = {
   children: React.ReactNode
   isNextLink?: boolean
-} & NextMuiLinkProps
+  href?: NextMuiLinkProps['href']
+} & Omit<NextMuiLinkProps, 'href'>
 
 const FlexLink = ({
   children,
   href,
+  as,
   isNextLink = true,
-  prefetch = false,
+  // prefetch = false,
   ...rest
 }: FlexLinkProps) => {
-  const mouseEnterHandler = usePrefetchHandler()
+  // const mouseEnterHandler = usePrefetchHandler()
 
   const flexLinkEl = useMemo(
     () =>
-      isNextLink ? (
+      isNextLink && href ? (
         <NextLink
           href={href}
-          onMouseEnter={prefetch ? () => {} : mouseEnterHandler(href)}
+          as={as}
+          // onMouseEnter={prefetch ? () => {} : mouseEnterHandler(href)}
           {...rest}
         >
           {children}
@@ -32,7 +35,7 @@ const FlexLink = ({
           {children}
         </Link>
       ),
-    [children, href, isNextLink, mouseEnterHandler, prefetch, rest]
+    [children, href, isNextLink, as, rest]
   )
 
   return <>{flexLinkEl}</>

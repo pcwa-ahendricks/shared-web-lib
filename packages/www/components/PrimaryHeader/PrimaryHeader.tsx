@@ -24,11 +24,16 @@ import MMContent from '@components/MMContent/MMContent'
 import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
 import colorAlpha from 'color-alpha'
 import Sticky from 'react-sticky-el'
 import useDebounce from '@hooks/useDebounce'
+
+const APP_BAR_HEIGHT = {
+  dense: 48,
+  regular: 56
+}
 
 export type ToolbarVariant = 'regular' | 'dense'
 
@@ -131,33 +136,35 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     // Setting max width/height prevents strange jank'ing when toolbar variant changes.
     headerLogo: {
-      // maxHeight: parentFixed ? 48 : 64,
+      // maxHeight: parentFixed ? APP_BAR_HEIGHT.dense : 64,
       // maxWidth: isSM ? 100 : parentFixed ? 140 : 200
-      maxHeight: 64,
+      maxHeight: APP_BAR_HEIGHT.regular,
       maxWidth: 200,
       // transition: 'max-height 80ms ease-in, max-width 80ms ease-in',
       [theme.breakpoints.down('sm')]: {
         maxWidth: 140
       }
     },
-    sticky: {
+    sticky: ({isXS}: UseStylesProps) => ({
       zIndex: 4, // Needs to be higher than one so Material-UI components don't overlap.
       '&.fixed': {
         '& $headerLogo': {
-          maxHeight: 48,
+          maxHeight: APP_BAR_HEIGHT.dense,
           maxWidth: 140,
           [theme.breakpoints.down('sm')]: {
             maxWidth: 100
           }
         },
         '& $appBarRoot': {
-          backgroundColor: colorAlpha(theme.palette.background.paper, 0.98),
+          backgroundColor: !isXS
+            ? colorAlpha(theme.palette.background.paper, 0.98)
+            : theme.palette.primary.main,
           borderTopWidth: 0,
           boxShadow:
             '0px 1px 8px 0px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 3px 3px -2px rgba(0,0,0,0.12)'
         }
       }
-    }
+    })
   })
 )
 
@@ -235,6 +242,9 @@ const PrimaryHeader = () => {
       onFixedToggle={fixedToggleHandler}
       className={classes.sticky}
       stickyClassName="fixed"
+      style={{
+        minHeight: parentFixed ? APP_BAR_HEIGHT.dense : APP_BAR_HEIGHT.regular
+      }}
     >
       <AppBar
         // elevation={parentFixed ? 3 : 1}
@@ -243,16 +253,36 @@ const PrimaryHeader = () => {
         classes={{root: classes.appBarRoot}}
       >
         <Toolbar variant={toolbarVariant} className={classes.toolbar}>
-          <Hidden smUp implementation="css">
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-              onClick={handleMenuButtonClick}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Hidden>
+          <RowBox
+            alignItems="center"
+            width="100%"
+            justifyContent="space-between"
+            display={isXS ? 'flex' : 'none'}
+          >
+            <ChildBox flex="auto">
+              <IconButton
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+                onClick={handleMenuButtonClick}
+              >
+                <MenuIcon />
+              </IconButton>
+            </ChildBox>
+            {/* <ChildBox flex="auto" maxWidth={80}>
+              <PcwaLogo
+                // height="90%"
+                // width="20%"
+                missionStatementFill="rgba(0,0,0,0)"
+                brandFill={theme.palette.grey[200]}
+                logoLeftFill={theme.palette.grey[200]}
+                logoRightFill={theme.palette.grey[300]}
+              />
+            </ChildBox> */}
+            <ChildBox flex="1 0 auto" textAlign="right">
+              {/* [TODO] Site Search Button Here */}
+            </ChildBox>
+          </RowBox>
           {/* See media query above for class logoContainer. */}
           {/* <Hidden only="xs" implementation="css"> */}
           <ColumnBox

@@ -138,7 +138,11 @@ const BoardMinutesPage = () => {
             subtitle="Board of Directors"
           />
           <RespRowBox flexSpacing={4}>
-            <ChildBox flex={{xs: '100%', sm: '65%'}} position="relative">
+            <ChildBox
+              flex={{xs: '100%', sm: '65%'}}
+              position="relative"
+              minHeight={300}
+            >
               {progressEl}
               {boardMinutes.map((v) => {
                 const year = v.year.toString()
