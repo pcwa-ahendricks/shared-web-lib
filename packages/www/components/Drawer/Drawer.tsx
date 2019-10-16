@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
+import {ListItemProps} from '@material-ui/core/ListItem'
 import {makeStyles, useTheme, createStyles} from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
@@ -30,6 +31,7 @@ import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
+import {useRouter} from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,13 +70,18 @@ const SwipeableTemporaryDrawer = () => {
     )
   }
 
-  const NavListItem = ({title}: {title: string}) => {
+  const NavListItem = ({
+    title,
+    ...rest
+  }: {title: string} & ListItemProps<'li', {button?: true}>) => {
     return (
       <ListItem
+        component="li"
         className={classes.nested}
         button
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
+        {...rest}
       >
         <ListItemText>
           <Type variant="caption">{title}</Type>
@@ -82,6 +89,8 @@ const SwipeableTemporaryDrawer = () => {
       </ListItem>
     )
   }
+
+  const router = useRouter()
 
   const sideList = useMemo(
     () => (
@@ -125,8 +134,12 @@ const SwipeableTemporaryDrawer = () => {
                             underline="none"
                             color="textPrimary"
                             as={i.as}
+                            passHref
                           >
-                            <NavListItem title={i.title} />
+                            <NavListItem
+                              title={i.title}
+                              selected={i.nextLink === router.pathname}
+                            />
                           </FlexLink>
                         ))}
                       </Box>
@@ -140,7 +153,7 @@ const SwipeableTemporaryDrawer = () => {
         <Divider />
       </>
     ),
-    [classes, toggleDrawer, activeGroup]
+    [classes, toggleDrawer, activeGroup, router]
   )
 
   // Close the drawer if it's open and window is resized larger.
@@ -165,7 +178,7 @@ const SwipeableTemporaryDrawer = () => {
         <ColumnBox width={275} height="100%">
           <ChildBox>{sideList}</ChildBox>
           <ChildBox flex="auto" />
-          <ChildBox mb={1}>
+          <ChildBox my={1}>
             <RowBox justifyContent="center" fontStyle="italic">
               <Type variant="body1" color="primary">
                 Also on
