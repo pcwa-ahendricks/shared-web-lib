@@ -16,7 +16,7 @@ const UnclaimedPropertyTableRow = ({data}: Props) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <TableRow tabIndex={-1}>
         <TableCell component="th" scope="row">
           {data.owner}
@@ -24,7 +24,7 @@ const UnclaimedPropertyTableRow = ({data}: Props) => {
         <TableCell align="right">{frmt(data.amount)}</TableCell>
         <TableCell>{format(data.date, 'M/dd/yyyy')}</TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   )
 }
 

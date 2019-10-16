@@ -103,7 +103,7 @@ const IrrigUpgradeLocationCheckboxes = ({
     >
       <MyFormLabel component="legend">Select all that apply</MyFormLabel>
       <FormGroup>
-        <React.Fragment>{formControlItemsEl}</React.Fragment>
+        <>{formControlItemsEl}</>
       </FormGroup>
       <FormHelperText error={fieldIsTouchedWithError}>
         {fieldIsTouchedWithError ? currentError : null}

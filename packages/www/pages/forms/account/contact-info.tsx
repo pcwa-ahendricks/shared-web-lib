@@ -183,7 +183,7 @@ const ContactInfo = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <MainBox>
           <NarrowContainer>
@@ -245,7 +245,7 @@ const ContactInfo = () => {
                 }
 
                 return (
-                  <React.Fragment>
+                  <>
                     <FormBox className={classes.form}>
                       <Box flex="0 0 auto" mt={5} mb={5}>
                         <Type
@@ -453,7 +453,7 @@ const ContactInfo = () => {
                         )}
                       </Box>
                     </FormBox>
-                  </React.Fragment>
+                  </>
                 )
               }}
             </Formik>
@@ -463,7 +463,7 @@ const ContactInfo = () => {
           ))} */}
           </NarrowContainer>
         </MainBox>
-      </React.Fragment>
+      </>
     ),
     [classes, formIsDirty, formValues, formIsTouched]
   )
@@ -472,7 +472,7 @@ const ContactInfo = () => {
   const contactInfoEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Rebate Form</title>
             <meta name="description" content="Update Contact Info Form" />
@@ -494,9 +494,8 @@ const ContactInfo = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Update Contact Info Form">{mainEl}</PageLayout>
       ),
     [mainEl]

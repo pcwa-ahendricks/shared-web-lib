@@ -55,7 +55,7 @@ const ThumbPreviews = ({
   )
 
   return (
-    <React.Fragment>
+    <>
       {droppedFiles.map((file) => (
         <ThumbPreview
           key={file.name}
@@ -68,7 +68,7 @@ const ThumbPreviews = ({
       ))}
 
       {thumbDialogMemo}
-    </React.Fragment>
+    </>
   )
 }
 

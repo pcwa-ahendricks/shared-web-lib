@@ -316,7 +316,7 @@ const WashingMachine = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
@@ -408,7 +408,7 @@ const WashingMachine = () => {
                   receiptIsUploading || installPhotosIsUploading
 
                 return (
-                  <React.Fragment>
+                  <>
                     <FormBox className={classes.form}>
                       <div className={classes.formGroup}>
                         <Type
@@ -816,7 +816,7 @@ const WashingMachine = () => {
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />
-                  </React.Fragment>
+                  </>
                 )
               }}
             </Formik>
@@ -826,7 +826,7 @@ const WashingMachine = () => {
           ))} */}
           </MainBox>
         </NarrowContainer>
-      </React.Fragment>
+      </>
     ),
     [
       classes,
@@ -846,7 +846,7 @@ const WashingMachine = () => {
   const washingMachineEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Rebate Form</title>
             <meta
@@ -871,9 +871,8 @@ const WashingMachine = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Washing Machine Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl]

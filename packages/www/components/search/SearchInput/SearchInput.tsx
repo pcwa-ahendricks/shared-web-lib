@@ -229,7 +229,7 @@ const SearchInput = () => {
   )
 
   return (
-    <React.Fragment>
+    <>
       <Paper className={classes.root} elevation={0} square={false}>
         <InputBase
           // inputProps={{
@@ -258,7 +258,7 @@ const SearchInput = () => {
         </IconButton>
       </Paper>
       <SearchResultsDialog onPageSearch={onPageSearchHandler} />
-    </React.Fragment>
+    </>
   )
 }
 

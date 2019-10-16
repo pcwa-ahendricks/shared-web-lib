@@ -145,7 +145,7 @@ const ContactUs = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
@@ -338,7 +338,7 @@ const ContactUs = () => {
           ))} */}
           </MainBox>
         </NarrowContainer>
-      </React.Fragment>
+      </>
     ),
     [classes, formIsDirty, formValues, formIsTouched]
   )
@@ -347,7 +347,7 @@ const ContactUs = () => {
   const contactUsEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Contact Us Form</title>
             <meta name="description" content="PCWA Contact Form" />
@@ -369,9 +369,8 @@ const ContactUs = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Contact Us">{mainEl}</PageLayout>
       ),
     [mainEl]

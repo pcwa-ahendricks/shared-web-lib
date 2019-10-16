@@ -46,7 +46,7 @@ const PiTableRow = ({data, timestampFormat}: Props) => {
     [formatNumber, timestampFormat, colBIndex, colCIndex, timestamp, values]
   )
 
-  return <React.Fragment>{tableRowEl}</React.Fragment>
+  return <>{tableRowEl}</>
 }
 
 export default PiTableRow

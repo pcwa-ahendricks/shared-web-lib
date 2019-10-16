@@ -100,7 +100,7 @@ const RecaptchaField = ({
     ]
   )
 
-  return <React.Fragment>{mainEl}</React.Fragment>
+  return <>{mainEl}</>
 }
 
 export default RecaptchaField

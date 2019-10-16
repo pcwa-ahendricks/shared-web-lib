@@ -343,7 +343,7 @@ const Toilet = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
@@ -432,7 +432,7 @@ const Toilet = () => {
                   receiptIsUploading || installPhotosIsUploading
 
                 return (
-                  <React.Fragment>
+                  <>
                     <FormBox className={classes.form}>
                       <div className={classes.formGroup}>
                         <Type
@@ -835,13 +835,13 @@ const Toilet = () => {
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />
-                  </React.Fragment>
+                  </>
                 )
               }}
             </Formik>
           </MainBox>
         </NarrowContainer>
-      </React.Fragment>
+      </>
     ),
     [
       classes,
@@ -861,7 +861,7 @@ const Toilet = () => {
   const toiletEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Rebate Form</title>
             <meta
@@ -886,9 +886,8 @@ const Toilet = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Toilet Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl]

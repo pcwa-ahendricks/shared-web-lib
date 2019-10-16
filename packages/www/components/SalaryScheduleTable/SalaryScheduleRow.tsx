@@ -75,7 +75,7 @@ const SalaryScheduleRow = ({data}: Props) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <TableRow
         hover
         onClick={clickHandler}
@@ -165,7 +165,7 @@ const SalaryScheduleRow = ({data}: Props) => {
           </DetailTableCell>
         </TableRow>
       </Grow>
-    </React.Fragment>
+    </>
   )
 }
 

@@ -205,11 +205,11 @@ const MediaPreviewDialog = ({
       }}
       {...rest}
     >
-      <React.Fragment>
+      <>
         {fabEl}
         {dialogContentEl}
         {dialogActionsEl}
-      </React.Fragment>
+      </>
     </Dialog>
   )
 }

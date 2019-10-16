@@ -29,7 +29,7 @@ const YEAR_END_IMG_SRC =
 // )
 
 const Index = () => {
-  const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
+  const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
 
   const marginTop = useMemo(

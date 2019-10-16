@@ -431,7 +431,7 @@ const DropzoneUploader: React.RefForwardingComponent<
                 Drop files here...
               </Type>
             ) : (
-              <React.Fragment>
+              <>
                 {disabled ? (
                   <CloudDoneIcon fontSize="large" color="disabled" />
                 ) : (
@@ -453,7 +453,7 @@ const DropzoneUploader: React.RefForwardingComponent<
                 >
                   {disabled ? 'uploading has been disabled' : subtitle}
                 </Type>
-              </React.Fragment>
+              </>
             )}
           </div>
         </div>

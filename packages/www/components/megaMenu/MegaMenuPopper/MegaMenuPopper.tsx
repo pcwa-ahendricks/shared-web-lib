@@ -86,7 +86,7 @@ const MegaMenuPopper = ({
 
   const hasAnchorEl = Boolean(anchorEl)
   return (
-    <React.Fragment>
+    <>
       <Popper
         // Logical Or for type checking only.
         id={id || undefined}
@@ -169,7 +169,7 @@ const MegaMenuPopper = ({
           </Collapse>
         )}
       </Popper>
-    </React.Fragment>
+    </>
   )
 }
 

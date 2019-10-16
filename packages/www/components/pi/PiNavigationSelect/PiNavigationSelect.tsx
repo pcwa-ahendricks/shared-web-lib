@@ -33,7 +33,7 @@ const PiNavigationSelect = ({pid}: Props) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <FormControl fullWidth>
         <InputLabel htmlFor="gage-id">Select a Gage</InputLabel>
         <Select
@@ -52,7 +52,7 @@ const PiNavigationSelect = ({pid}: Props) => {
           ))}
         </Select>
       </FormControl>
-    </React.Fragment>
+    </>
   )
 }
 

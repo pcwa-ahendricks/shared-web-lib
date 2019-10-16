@@ -250,7 +250,7 @@ const IrrigationEfficiencies = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
@@ -330,7 +330,7 @@ const IrrigationEfficiencies = () => {
                 }
 
                 return (
-                  <React.Fragment>
+                  <>
                     <FormBox className={classes.form}>
                       <div className={classes.formGroup}>
                         <Type
@@ -663,13 +663,13 @@ const IrrigationEfficiencies = () => {
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />
-                  </React.Fragment>
+                  </>
                 )
               }}
             </Formik>
           </MainBox>
         </NarrowContainer>
-      </React.Fragment>
+      </>
     ),
     [
       classes,
@@ -685,7 +685,7 @@ const IrrigationEfficiencies = () => {
   const irrigEfficienciesEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Rebate Form</title>
             <meta
@@ -710,9 +710,8 @@ const IrrigationEfficiencies = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Irrigation Efficiencies Rebate Form">
           {mainEl}
         </PageLayout>

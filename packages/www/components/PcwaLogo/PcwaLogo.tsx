@@ -20,7 +20,7 @@ const PcwaLogo = ({
   ...rest
 }: Props) => {
   return (
-    <React.Fragment>
+    <>
       {/* <?xml version="1.0" encoding="UTF-8" standalone="no"?>  */}
       <svg
         viewBox="0 0 586 157"
@@ -86,7 +86,7 @@ const PcwaLogo = ({
           </g>
         </g>
       </svg>
-    </React.Fragment>
+    </>
   )
 }
 

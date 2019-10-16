@@ -145,7 +145,7 @@ const ReportWaterWastePage = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <MainBox>
           <NarrowContainer>
@@ -338,7 +338,7 @@ const ReportWaterWastePage = () => {
           ))} */}
           </NarrowContainer>
         </MainBox>
-      </React.Fragment>
+      </>
     ),
     [classes, formIsDirty, formValues, formIsTouched]
   )
@@ -347,7 +347,7 @@ const ReportWaterWastePage = () => {
   const contactUsEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Contact Us Form</title>
             <meta name="description" content="PCWA Contact Form" />
@@ -369,9 +369,8 @@ const ReportWaterWastePage = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Report Water Waste">{mainEl}</PageLayout>
       ),
     [mainEl]

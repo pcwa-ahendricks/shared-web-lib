@@ -27,7 +27,7 @@ const WaitToGrow = ({isIn, children, ...rest}: Props) => {
   const waitToGrowEl = useMemo(
     () =>
       show || isIn ? (
-        <React.Fragment>
+        <>
           <Grow
             in={isIn}
             onEntering={enteringTransHandler}
@@ -37,12 +37,12 @@ const WaitToGrow = ({isIn, children, ...rest}: Props) => {
             {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
             <Box>{children}</Box>
           </Grow>
-        </React.Fragment>
+        </>
       ) : null,
     [show, isIn, enteringTransHandler, exitedTransHandler, children, rest]
   )
 
-  return <React.Fragment>{waitToGrowEl}</React.Fragment>
+  return <>{waitToGrowEl}</>
 }
 
 const WaitToFade = ({isIn, children, ...rest}: WaitToFadeProps) => {
@@ -59,7 +59,7 @@ const WaitToFade = ({isIn, children, ...rest}: WaitToFadeProps) => {
   const waitToGrowEl = useMemo(
     () =>
       show || isIn ? (
-        <React.Fragment>
+        <>
           <Fade
             in={isIn}
             onEntering={enteringTransHandler}
@@ -69,12 +69,12 @@ const WaitToFade = ({isIn, children, ...rest}: WaitToFadeProps) => {
             {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
             <Box>{children}</Box>
           </Fade>
-        </React.Fragment>
+        </>
       ) : null,
     [show, isIn, enteringTransHandler, exitedTransHandler, children, rest]
   )
 
-  return <React.Fragment>{waitToGrowEl}</React.Fragment>
+  return <>{waitToGrowEl}</>
 }
 
 export default WaitToGrow

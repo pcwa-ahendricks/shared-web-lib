@@ -114,7 +114,7 @@ const ForecastDisplay = ({forecast}: Props) => {
     ]
   )
 
-  return <React.Fragment>{animatedWeatherEl}</React.Fragment>
+  return <>{animatedWeatherEl}</>
 }
 
 export default ForecastDisplay

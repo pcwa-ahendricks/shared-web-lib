@@ -35,7 +35,7 @@ const FlexLink = ({
     [children, href, isNextLink, mouseEnterHandler, prefetch, rest]
   )
 
-  return <React.Fragment>{flexLinkEl}</React.Fragment>
+  return <>{flexLinkEl}</>
 }
 
 export default FlexLink

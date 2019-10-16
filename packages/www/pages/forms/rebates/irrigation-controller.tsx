@@ -355,7 +355,7 @@ const IrrigationController = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <MainBox>
           <NarrowContainer>
@@ -805,7 +805,7 @@ const IrrigationController = () => {
           ))} */}
           </NarrowContainer>
         </MainBox>
-      </React.Fragment>
+      </>
     ),
     [
       classes,
@@ -825,7 +825,7 @@ const IrrigationController = () => {
   const irrigControllerEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Rebate Form</title>
             <meta
@@ -850,9 +850,8 @@ const IrrigationController = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Irrigation Controller Rebate Form">
           {mainEl}
         </PageLayout>

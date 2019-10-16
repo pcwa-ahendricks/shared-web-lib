@@ -14,7 +14,7 @@ const Delayed = ({waitBeforeShow = 0, children}: Props) => {
     }, waitBeforeShow)
   })
 
-  return hidden ? null : <React.Fragment>{children}</React.Fragment>
+  return hidden ? null : <>{children}</>
 }
 
 export default Delayed

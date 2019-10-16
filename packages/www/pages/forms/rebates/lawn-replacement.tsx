@@ -265,7 +265,7 @@ const LawnReplacement = () => {
 
   const mainEl = useMemo(
     () => (
-      <React.Fragment>
+      <>
         <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
@@ -347,7 +347,7 @@ const LawnReplacement = () => {
                 }
 
                 return (
-                  <React.Fragment>
+                  <>
                     <FormBox className={classes.form}>
                       <div className={classes.formGroup}>
                         <Type
@@ -682,7 +682,7 @@ const LawnReplacement = () => {
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />
-                  </React.Fragment>
+                  </>
                 )
               }}
             </Formik>
@@ -692,7 +692,7 @@ const LawnReplacement = () => {
           ))} */}
           </MainBox>
         </NarrowContainer>
-      </React.Fragment>
+      </>
     ),
     [
       classes,
@@ -708,7 +708,7 @@ const LawnReplacement = () => {
   const lawnReplacementEl = useMemo(
     () =>
       !isDev ? (
-        <React.Fragment>
+        <>
           <Head>
             <title>Rebate Form</title>
             <meta
@@ -733,9 +733,8 @@ const LawnReplacement = () => {
             />
           </ColumnBox>
           {mainEl}
-        </React.Fragment>
+        </>
       ) : (
-        // <React.Fragment>
         <PageLayout title="Lawn Replacement Rebate Form">{mainEl}</PageLayout>
       ),
     [mainEl]

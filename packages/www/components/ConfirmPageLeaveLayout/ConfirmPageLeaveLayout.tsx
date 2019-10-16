@@ -60,14 +60,14 @@ const ConfirmPageLeaveLayout = ({
   }, [router, handleRouteChange])
 
   return (
-    <React.Fragment>
+    <>
       {children}
       <ConfirmPageLeaveDialog
         open={confirmPgLeaveDialogOpen}
         onCancel={confirmPgLeaveDialogCancelHandler}
         onLeave={confirmPgLeaveDialogLeaveHandler}
       />
-    </React.Fragment>
+    </>
   )
 }
 

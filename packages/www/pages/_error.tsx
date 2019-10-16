@@ -40,7 +40,7 @@ const ErrorPage = ({statusCode, title: titleProp}: Props) => {
   )
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>{`${statusCode} - ${title} | pcwa.net`}</title>
         <meta
@@ -77,7 +77,7 @@ const ErrorPage = ({statusCode, title: titleProp}: Props) => {
           {contactWebmasterEl}
         </ColumnBox>
       </ColumnBox>
-    </React.Fragment>
+    </>
   )
 }
 

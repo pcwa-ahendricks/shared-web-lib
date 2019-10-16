@@ -11,7 +11,7 @@ const HeroOverlay = ({
   ...rest
 }: Props) => {
   return (
-    <React.Fragment>
+    <>
       {/* <?xml version="1.0" encoding="UTF-8"?> */}
       <svg
         preserveAspectRatio={preserveAspectRatio}
@@ -251,7 +251,7 @@ const HeroOverlay = ({
           </g>
         </g>
       </svg>
-    </React.Fragment>
+    </>
   )
 }
 

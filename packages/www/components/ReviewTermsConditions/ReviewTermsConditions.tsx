@@ -79,7 +79,7 @@ const IrrigEffTermsConditions = ({
   )
 
   return (
-    <React.Fragment>
+    <>
       <Button
         variant="outlined"
         color="secondary"
@@ -126,7 +126,7 @@ const IrrigEffTermsConditions = ({
           classes={{root: classes.snackbarContentRoot}}
         />
       </Snackbar>
-    </React.Fragment>
+    </>
   )
 }
 

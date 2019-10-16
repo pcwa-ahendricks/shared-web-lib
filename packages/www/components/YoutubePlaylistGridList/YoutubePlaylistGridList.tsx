@@ -31,7 +31,7 @@ const YoutubePlaylistGridList = ({items}: Props) => {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <>
       <GridList cellHeight={200} cols={2}>
         {items.map((item) => {
           return (
@@ -61,7 +61,7 @@ const YoutubePlaylistGridList = ({items}: Props) => {
           )
         })}
       </GridList>
-    </React.Fragment>
+    </>
   )
 }
 

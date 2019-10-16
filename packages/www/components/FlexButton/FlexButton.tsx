@@ -38,7 +38,7 @@ const FlexButton = ({
     [children, href, isNextLink, rest, as]
   )
 
-  return <React.Fragment>{flexButton}</React.Fragment>
+  return <>{flexButton}</>
 }
 
 export default FlexButton

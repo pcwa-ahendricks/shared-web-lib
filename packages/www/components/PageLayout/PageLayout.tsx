@@ -36,7 +36,7 @@ const PageLayout = ({
 
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
@@ -53,7 +53,7 @@ const PageLayout = ({
       </ColumnBox>
       <ScrollToTop />
       <ErrorDialog onExited={errorDialogExitedHandler} />
-    </React.Fragment>
+    </>
   )
 }
 
