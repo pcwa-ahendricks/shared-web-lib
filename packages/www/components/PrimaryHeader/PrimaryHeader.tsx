@@ -28,14 +28,16 @@ import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
 import colorAlpha from 'color-alpha'
 import Sticky from 'react-sticky-el'
+import useDebounce from '@hooks/useDebounce'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
-// type Props = {}
-
-// type UseStylesProps = {
-//   parentFixed: Props['parentFixed']
-// }
+// The debounced isXS variant is used with the isXS variant to prevent the background-color transition from occurring when the window width resizes from XS to non-XS and vice-versa.
+type UseStylesProps = {
+  isXS: boolean
+  isXS__: boolean
+  // parentFixed: Props['parentFixed']
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,17 +64,22 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%'
       // transition: 'min-height 200ms ease-out'
     },
-    appBarRoot: {
-      backgroundColor: theme.palette.background.default,
-      transition: 'box-shadow 600ms ease-out, background-color 900ms ease-out',
+    appBarRoot: ({isXS, isXS__}: UseStylesProps) => ({
+      backgroundColor: isXS
+        ? theme.palette.primary.main
+        : theme.palette.background.default,
+      transition:
+        !isXS__ && !isXS
+          ? 'box-shadow 600ms ease-out, background-color 900ms ease-out'
+          : 'none',
       borderTopColor: '#e6e6e6',
       borderTopStyle: 'solid',
-      borderTopWidth: 1,
+      borderTopWidth: isXS ? 0 : 1,
       // Transition between Elevation 3 and 0. See <GlobalStyles/>
       boxShadow:
         '0px 1px 3px 0px rgba(0,0,0,0.0),0px 1px 1px 0px rgba(0,0,0,0),0px 2px 1px -1px rgba(0,0,0,0)',
       '&.sticky': {}
-    },
+    }),
     menuButton: {
       marginLeft: -12,
       marginRight: 20
@@ -155,10 +162,11 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const PrimaryHeader = () => {
-  const classes = useStyles()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const isXS__ = useDebounce(isXS, 100)
   // const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  const classes = useStyles({isXS, isXS__})
   // Custom width defined by point at which menu links overlap svg logo.
   const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
   const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)
@@ -230,9 +238,9 @@ const PrimaryHeader = () => {
     >
       <AppBar
         // elevation={parentFixed ? 3 : 1}
+        // color={isXS ? 'primary' : 'default'}
         position="relative"
         classes={{root: classes.appBarRoot}}
-        color={isXS ? 'primary' : 'default'}
       >
         <Toolbar variant={toolbarVariant} className={classes.toolbar}>
           <Hidden smUp implementation="css">
