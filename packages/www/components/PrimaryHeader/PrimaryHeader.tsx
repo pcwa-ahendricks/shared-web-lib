@@ -268,7 +268,8 @@ const PrimaryHeader = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
-          <Hidden only="xs" implementation="css">
+          {/* Should use js implementation here so that the flex layout doesn't break with child's alignSelf attribute. */}
+          <Hidden only="xs" implementation="js">
             <RowBox
               flex="auto"
               alignSelf="stretch"
