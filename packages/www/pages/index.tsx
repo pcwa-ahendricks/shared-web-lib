@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-// import {makeStyles, createStyles} from '@material-ui/core/styles'
+import React, {useState, useMemo} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -10,7 +9,6 @@ import {
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 import {RowBox} from '@components/boxes/FlexBox'
@@ -25,18 +23,21 @@ const YEAR_END_IMG_SRC =
 // const useStyles = makeStyles(() =>
 //   createStyles({
 //     imgixFancyParallaxBanner: {
-//       height: '50vw',
-//       maxHeight: '45vh'
+//       ...
 //     }
 //   })
 // )
 
 const Index = () => {
-  // const classes = useStyles()
-  const theme = useTheme()
-
   const [heroOverlayIn, setHeroOverlayIn] = useState<boolean>(false)
-  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
+  const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
+
+  const marginTop = useMemo(
+    // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
+    () => (is5to4 ? '-16vmax' : 0),
+    [is5to4]
+  )
+
   return (
     <PageLayout>
       <ImgixFancyParallaxBanner
@@ -48,8 +49,8 @@ const Index = () => {
           imgixParams: {bri: -5, high: -15},
           htmlAttributesProps: {
             style: {
-              // [HACK] Keep the image vertically centered on wide layout. There shouldn't be any whitespace just after breakpoint (easy to see and debug, this image that happens around -270px).
-              marginTop: isMDUp ? '-175px' : 0
+              // [HACK] Keep the image vertically centered on wide layout.
+              marginTop
             }
           }
         }}
@@ -119,7 +120,6 @@ const Index = () => {
       >
         Go to R2 gage info
       </MuiNextLink>
-      {/* <div style={{backgroundColor: 'beige', height: 1500}} /> */}
       <div style={{backgroundColor: 'blue', height: 1500}} />
     </PageLayout>
   )
