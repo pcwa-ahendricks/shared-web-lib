@@ -209,70 +209,6 @@ const PrimaryHeader = () => {
     popperOpen
   ])
 
-  const megaMenuLinksEl = useMemo(
-    () =>
-      isXS ? null : (
-        <RowBox
-          flex="auto"
-          alignSelf="stretch"
-          width="100%"
-          justifyContent="flex-end"
-          alignItems="stretch"
-        >
-          <Box
-            flex="0 0 auto"
-            // Margin should match <MegaMenuLink/> linkMargin prop for consistency.
-            ml="1vw"
-            mr="1vw"
-          >
-            <ColumnBox justifyContent="center" height="100%">
-              <Box flex="0 0 auto">
-                <NextLink
-                  href="/"
-                  color="primary"
-                  variant="button"
-                  classes={{root: classes.megaMenuLink}}
-                  underline="none"
-                >
-                  Home
-                </NextLink>
-              </Box>
-            </ColumnBox>
-          </Box>
-          {menuConfig.map((menuItem) => (
-            <Box flex="0 0 auto" key={menuItem.key}>
-              <MegaMenuLink
-                // Logical Or for type checking only.
-                describedbyId={id || undefined}
-                tabIdx={menuItem.tabIndex}
-                onLinkClick={handleClick}
-                onLinkEnter={(event, el) =>
-                  enterMenuHandler(event, el, menuItem.key)
-                }
-                onLinkLeave={popperCloseHandler}
-                onBottomBunEnter={popperOpenHandler}
-                parentActiveEl={activeLinkEl}
-                typographyClass={classes.megaMenuLink}
-                linkMargin="1vw"
-              >
-                {menuItem.menuName}
-              </MegaMenuLink>
-            </Box>
-          ))}
-        </RowBox>
-      ),
-    [
-      activeLinkEl,
-      classes,
-      handleClick,
-      enterMenuHandler,
-      popperOpenHandler,
-      popperCloseHandler,
-      id,
-      isXS
-    ]
-  )
-
   const [parentFixed, setParentFixed] = useState<boolean>()
   const fixedToggleHandler = useCallback((wasFixed: boolean) => {
     if (wasFixed) {
@@ -293,10 +229,10 @@ const PrimaryHeader = () => {
       stickyClassName="fixed"
     >
       <AppBar
-        // color={isXS ? 'primary' : 'default'}
         // elevation={parentFixed ? 3 : 1}
         position="relative"
         classes={{root: classes.appBarRoot}}
+        color={isXS ? 'primary' : 'default'}
       >
         <Toolbar variant={toolbarVariant} className={classes.toolbar}>
           <Hidden smUp implementation="css">
@@ -324,7 +260,56 @@ const PrimaryHeader = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
-          {megaMenuLinksEl}
+          <Hidden only="xs" implementation="css">
+            <RowBox
+              flex="auto"
+              alignSelf="stretch"
+              width="100%"
+              justifyContent="flex-end"
+              alignItems="stretch"
+            >
+              <Box
+                flex="0 0 auto"
+                // Margin should match <MegaMenuLink/> linkMargin prop for consistency.
+                ml="1vw"
+                mr="1vw"
+              >
+                <ColumnBox justifyContent="center" height="100%">
+                  <Box flex="0 0 auto">
+                    <NextLink
+                      href="/"
+                      color="primary"
+                      variant="button"
+                      classes={{root: classes.megaMenuLink}}
+                      underline="none"
+                    >
+                      Home
+                    </NextLink>
+                  </Box>
+                </ColumnBox>
+              </Box>
+              {menuConfig.map((menuItem) => (
+                <Box flex="0 0 auto" key={menuItem.key}>
+                  <MegaMenuLink
+                    // Logical Or for type checking only.
+                    describedbyId={id || undefined}
+                    tabIdx={menuItem.tabIndex}
+                    onLinkClick={handleClick}
+                    onLinkEnter={(event, el) =>
+                      enterMenuHandler(event, el, menuItem.key)
+                    }
+                    onLinkLeave={popperCloseHandler}
+                    onBottomBunEnter={popperOpenHandler}
+                    parentActiveEl={activeLinkEl}
+                    typographyClass={classes.megaMenuLink}
+                    linkMargin="1vw"
+                  >
+                    {menuItem.menuName}
+                  </MegaMenuLink>
+                </Box>
+              ))}
+            </RowBox>
+          </Hidden>
         </Toolbar>
       </AppBar>
       <MegaMenuPopper
