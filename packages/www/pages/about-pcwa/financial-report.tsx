@@ -8,7 +8,7 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {Typography as Type, Box, Link, Theme} from '@material-ui/core'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import CAFRLink from '@components/CAFRLink/CAFRLink'
+import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {ButtonProps} from '@material-ui/core/Button'
@@ -16,7 +16,7 @@ import {LinkProps} from '@material-ui/core/Link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    cafrLink: {
+    olderCafrLink: {
       padding: 3,
       color: theme.palette.primary.light
     }
@@ -32,7 +32,7 @@ const EmployeeBenefitsSummaryPage = () => {
       <Link
         rel="noopener noreferrer"
         target="_blank"
-        className={classes.cafrLink}
+        className={classes.olderCafrLink}
         {...props}
       >
         {children}
@@ -113,20 +113,23 @@ const EmployeeBenefitsSummaryPage = () => {
                 mt={3}
               >
                 <RowBox justifyContent="space-around">
-                  <CAFRLink
+                  <ImgixThumbLink
                     url="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     filename="2018 PCWA CAFR.pdf"
                     caption="2018 CAFR"
+                    alt="CAFR Report Thumbnail and link for 2018 PCWA CAFR pdf"
                   />
-                  <CAFRLink
+                  <ImgixThumbLink
                     url="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     filename="2017 PCWA CAFR.pdf"
                     caption="2017 CAFR"
+                    alt="CAFR Report Thumbnail and link for 2017 PCWA CAFR pdf"
                   />
-                  <CAFRLink
+                  <ImgixThumbLink
                     url="http://cosmic-s3.imgix.net/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
                     filename="2016 PCWA CAFR.pdf"
                     caption="2016 CAFR"
+                    alt="CAFR Report Thumbnail and link for 2016 PCWA CAFR pdf"
                   />
                 </RowBox>
                 <Box m={2}>

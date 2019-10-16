@@ -1,15 +1,18 @@
-// cspell:ignore CAFR
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import {BoxProps} from '@material-ui/core/Box'
 
 type Props = {
   caption: string
   url: string
   filename: string
   margin?: number
+  alt: string
+  paddingPercent?: string
+  imageContainerWidth?: BoxProps['width']
 }
 
 type UseStylesProps = {
@@ -36,11 +39,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const CAFRLink = ({caption, url, filename, margin = 0}: Props) => {
+const ImgixThumbLink = ({
+  caption,
+  url,
+  filename,
+  margin = 0,
+  alt,
+  imageContainerWidth,
+  paddingPercent = '129.412%' // Default to 8.5x11 ratio (11/8.5*100).
+}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const imageWidth = isXs ? 70 : isSm ? 75 : 85
+  const defaultImageWidth = isXs ? 70 : isSm ? 75 : 85
+  const imageWidth = useMemo(
+    () => (imageContainerWidth ? imageContainerWidth : defaultImageWidth),
+    [imageContainerWidth, defaultImageWidth]
+  )
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
@@ -56,11 +71,10 @@ const CAFRLink = ({caption, url, filename, margin = 0}: Props) => {
       >
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy
-            paddingPercent="129.412%"
-            height={100}
+            paddingPercent={paddingPercent}
             lqipWidth={20}
             src={url}
-            alt={`CAFR Report Thumbnail and link for ${filename}`}
+            alt={alt}
             htmlAttributesProps={{
               style: {
                 backgroundColor: theme.palette.common.white
@@ -78,4 +92,4 @@ const CAFRLink = ({caption, url, filename, margin = 0}: Props) => {
   )
 }
 
-export default CAFRLink
+export default ImgixThumbLink

@@ -2,18 +2,25 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
-import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type} from '@material-ui/core'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {Typography as Type, Box, useMediaQuery, Link} from '@material-ui/core'
+import {useTheme} from '@material-ui/core/styles'
+import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
+import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import WideContainer from '@components/containers/WideContainer'
 
 const RateAdjustPage = () => {
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
+  const imageWidth = isXs ? 70 : isSm ? 80 : 100
+
   return (
     <PageLayout title="Multiyear Rate Adjustment">
       <WaterSurfaceImg />
       <MainBox>
-        <NarrowContainer>
+        <WideContainer>
           <PageTitle
             title="2018 Multiyear Rate Adjustment"
             subtitle="Services"
@@ -55,13 +62,61 @@ const RateAdjustPage = () => {
             September 8, and concluded it with a public hearing on November 2.
           </Type>
 
-          <RespRowBox flexSpacing={3}>
+          <RespRowBox flexSpacing={3} mt={6}>
             <ChildBox>
               <RateAdjustFAQ />
             </ChildBox>
-            <ChildBox>foo</ChildBox>
+            <ChildBox flex="50%" flexShrink={0}>
+              <Box bgcolor={theme.palette.background.paper} p={3}>
+                <Type variant="subtitle1">
+                  Notice of Public Hearing Documents
+                </Type>
+                <RowBox justifyContent="space-around" mt={3}>
+                  <Box flex="33.33">
+                    <ImgixThumbLink
+                      url="https://cosmicjs.imgix.net/128d45c0-980b-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Treated 218 notice - 2018 Final_090817.pdf"
+                      filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
+                      caption="Treated Water Notice"
+                      alt="Thumbnail and link for Prop. 218 Treated Water Notice"
+                      imageContainerWidth={imageWidth}
+                    />
+                  </Box>
+                  <Box flex="33.33">
+                    <ImgixThumbLink
+                      url="https://cosmicjs.imgix.net/5dfb28a0-980c-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Untreated Water 218 notice - 2018 Final_090817.pdf"
+                      filename="PCWA Zone 6 Untreated 218 notice - 2018.pdf"
+                      caption="Untreated Water Notice"
+                      alt="Thumbnail and link for Prop. 218 Untreated Water Notice"
+                      imageContainerWidth={imageWidth}
+                    />
+                  </Box>
+                  <Box flex="33.33">
+                    <ImgixThumbLink
+                      url="https://cosmicjs.imgix.net/5961d130-a3cf-11e7-9602-cf3ae5ac5844-PCWA Cost of Service Study - Final Report.pdf"
+                      filename="PCWA Cost of Service Study.pdf"
+                      caption="2017 Cost of Service – Rate Study"
+                      alt="Thumbnail and link for Cost of Service Study"
+                      imageContainerWidth={imageWidth}
+                    />
+                  </Box>
+                </RowBox>
+
+                <Box mt={6}>
+                  <Type variant="subtitle1" gutterBottom>
+                    Resources Regarding Prop. 218
+                  </Type>
+                  <Link
+                    href="https://www.lao.ca.gov/1996/120196_prop_218/understanding_prop218_1296.html"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Understanding Proposition 218 – Legislative Analyst’s Office
+                  </Link>
+                </Box>
+              </Box>
+            </ChildBox>
           </RespRowBox>
-        </NarrowContainer>
+        </WideContainer>
       </MainBox>
     </PageLayout>
   )
