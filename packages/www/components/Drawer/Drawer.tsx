@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subheader: {
       color: theme.palette.common.black,
-      textTransform: 'uppercase'
+      textTransform: 'uppercase',
+      backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
     }
   })
 )
@@ -111,7 +112,9 @@ const SwipeableTemporaryDrawer = () => {
                     <React.Fragment key={idxLvl2}>
                       <Box mb={2}>
                         <ListSubheader
-                          className={clsx([classes.nested, classes.subheader])}
+                          classes={{
+                            root: clsx([classes.nested, classes.subheader])
+                          }}
                         >
                           {g.groupName}
                         </ListSubheader>
@@ -159,7 +162,7 @@ const SwipeableTemporaryDrawer = () => {
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
       >
-        <ColumnBox width={300} height="100%">
+        <ColumnBox width={275} height="100%">
           <ChildBox>{sideList}</ChildBox>
           <ChildBox flex="auto" />
           <ChildBox mb={1}>

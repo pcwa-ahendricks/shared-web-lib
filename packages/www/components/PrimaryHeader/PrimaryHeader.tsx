@@ -171,8 +171,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const PrimaryHeader = () => {
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  // useMediaQuery always returns false on page load, regardless of device width. isSMUp is used to prevent the PCWA logo showing up real quickly on mobile devices by waiting for a truthy non-XS value.
+  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isXS__ = useDebounce(isXS, 100)
-  // const isSM = useMediaQuery(theme.breakpoints.only('sm'))
   const classes = useStyles({isXS, isXS__})
   // Custom width defined by point at which menu links overlap svg logo.
   const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
@@ -225,6 +226,7 @@ const PrimaryHeader = () => {
   ])
 
   const [parentFixed, setParentFixed] = useState<boolean>()
+
   const fixedToggleHandler = useCallback((wasFixed: boolean) => {
     if (wasFixed) {
       setParentFixed(false)
@@ -248,7 +250,6 @@ const PrimaryHeader = () => {
     >
       <AppBar
         // elevation={parentFixed ? 3 : 1}
-        // color={isXS ? 'primary' : 'default'}
         position="relative"
         classes={{root: classes.appBarRoot}}
       >
@@ -292,11 +293,13 @@ const PrimaryHeader = () => {
             alignItems="flex-start"
             className={classes.fixIe}
           >
-            <PcwaLogo
-              className={classes.headerLogo}
-              height="70%"
-              missionStatementFill="rgba(0,0,0,0)"
-            />
+            {isSMUp ? (
+              <PcwaLogo
+                className={classes.headerLogo}
+                height="70%"
+                missionStatementFill="rgba(0,0,0,0)"
+              />
+            ) : null}
           </ColumnBox>
           {/* Should use js implementation here so that the flex layout doesn't break with child's alignSelf attribute. */}
           <Hidden only="xs" implementation="js">
