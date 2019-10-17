@@ -9,8 +9,9 @@ const MainBox = ({children, ...rest}: Props) => {
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
+  const marginBottom = useMemo(() => (isSMUp ? 6 : 3), [isSMUp])
   return (
-    <Box component="main" mt={marginTop} mb={4} {...rest}>
+    <Box component="main" mt={marginTop} mb={marginBottom} {...rest}>
       {children}
     </Box>
   )
