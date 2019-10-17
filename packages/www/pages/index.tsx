@@ -39,7 +39,7 @@ const Index = () => {
   )
 
   return (
-    <PageLayout>
+    <PageLayout mt={0}>
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
