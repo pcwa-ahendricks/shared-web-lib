@@ -2,13 +2,14 @@ import React, {useMemo, useCallback, useContext} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {Box, Hidden} from '@material-ui/core'
+import {Box, Hidden, useMediaQuery} from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
 import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
+import {useTheme} from '@material-ui/core/styles'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -34,6 +35,11 @@ const PageLayout = ({
     uiDispatch(dismissError())
   }, [uiDispatch])
 
+  const theme = useTheme()
+  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
+  const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
+  const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
+
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
     <>
@@ -46,7 +52,12 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
-        <Box flex="1 0 auto" {...childrenContainer}>
+        <Box
+          flex="1 0 auto"
+          mt={marginTop}
+          mb={marginBottom}
+          {...childrenContainer}
+        >
           {children}
         </Box>
         <Footer />
