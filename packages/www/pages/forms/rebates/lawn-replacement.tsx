@@ -266,7 +266,6 @@ const LawnReplacement = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
@@ -732,10 +731,13 @@ const LawnReplacement = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Lawn Replacement Rebate Form">{mainEl}</PageLayout>
+        <PageLayout title="Lawn Replacement Rebate Form" waterSurface>
+          {mainEl}
+        </PageLayout>
       ),
     [mainEl]
   )

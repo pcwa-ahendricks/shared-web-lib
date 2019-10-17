@@ -3,7 +3,6 @@ import {Typography as Type, Link, List, ListItem, Box} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import NextLink from '@components/NextLink/NextLink'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
@@ -14,8 +13,7 @@ import YouTubePlayer from 'react-player/lib/players/YouTube'
 
 const ServicesPage = () => {
   return (
-    <PageLayout title="Customer Services">
-      <WaterSurfaceImg />
+    <PageLayout title="Customer Services" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Customer Services" subtitle="Services" />

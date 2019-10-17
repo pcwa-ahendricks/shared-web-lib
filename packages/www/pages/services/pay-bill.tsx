@@ -4,7 +4,6 @@ import {Box, Typography as Type, Theme, Link} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   RespRowBox,
@@ -31,8 +30,7 @@ const PayBillPage = () => {
   const theme = useTheme<Theme>()
 
   return (
-    <PageLayout title="Bill Payment Options">
-      <WaterSurfaceImg />
+    <PageLayout title="Bill Payment Options" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Bill Payment Options" subtitle="Services" />

@@ -3,14 +3,12 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {Typography as Type} from '@material-ui/core'
 import SalaryScheduleTable from '@components/SalaryScheduleTable/SalaryScheduleTable'
 
 const SalarySchedulePage = () => {
   return (
-    <PageLayout title="Employee Salary Schedule">
-      <WaterSurfaceImg />
+    <PageLayout title="Employee Salary Schedule" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Employee Salary Schedule" subtitle="Careers" />

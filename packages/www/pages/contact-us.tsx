@@ -146,7 +146,6 @@ const ContactUs = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
@@ -368,10 +367,13 @@ const ContactUs = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Contact Us">{mainEl}</PageLayout>
+        <PageLayout title="Contact Us" waterSurface>
+          {mainEl}
+        </PageLayout>
       ),
     [mainEl]
   )

@@ -3,7 +3,6 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
@@ -53,8 +52,7 @@ const WaterQualityPage = () => {
   }
 
   return (
-    <PageLayout title="Water Quality">
-      <WaterSurfaceImg />
+    <PageLayout title="Water Quality" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Water Quality" subtitle="Services" />

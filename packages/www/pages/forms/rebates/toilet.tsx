@@ -344,7 +344,6 @@ const Toilet = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
@@ -885,10 +884,13 @@ const Toilet = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Toilet Rebate Form">{mainEl}</PageLayout>
+        <PageLayout title="Toilet Rebate Form" waterSurface>
+          {mainEl}
+        </PageLayout>
       ),
     [mainEl]
   )

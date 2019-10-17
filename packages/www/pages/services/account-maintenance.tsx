@@ -1,7 +1,6 @@
 import React from 'react'
 import {Box, Typography as Type, Divider} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -11,8 +10,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const AccountMaintenancePage = () => {
   return (
-    <PageLayout title="Account Maintenance">
-      <WaterSurfaceImg />
+    <PageLayout title="Account Maintenance" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Account Maintenance" subtitle="Services" />

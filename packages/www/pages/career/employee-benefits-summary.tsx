@@ -3,7 +3,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {
   Box,
   // Divider,
@@ -56,8 +55,7 @@ const EmployeeBenefitsSummaryPage = () => {
   const tlsOpts = {style: 'currency', currency: 'USD'}
 
   return (
-    <PageLayout title="Employee Benefits Summary">
-      <WaterSurfaceImg />
+    <PageLayout title="Employee Benefits Summary" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle

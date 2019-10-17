@@ -3,7 +3,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Box, Typography as Type, useMediaQuery, Theme} from '@material-ui/core'
@@ -24,8 +23,7 @@ const DoingBusinessPage = () => {
   const leftMargin = 12
 
   return (
-    <PageLayout title="Doing Business With Us">
-      <WaterSurfaceImg />
+    <PageLayout title="Doing Business With Us" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Doing Business With PCWA" subtitle="Business" />

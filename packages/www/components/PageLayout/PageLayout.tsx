@@ -10,6 +10,7 @@ import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
 import {useTheme} from '@material-ui/core/styles'
+import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -17,12 +18,14 @@ type Props = {
   description?: string
   children?: React.ReactNode
   title?: string
+  waterSurface?: boolean
 } & BoxProps
 
 const PageLayout = ({
   children,
   title = 'Placer County Water Agency',
   description = 'PCWA is a water and energy provider for Placer County, CA.',
+  waterSurface = false,
   ...rest
 }: Props) => {
   const pageTitle = useMemo(() => `${title} | pcwa.net`, [title])
@@ -39,6 +42,11 @@ const PageLayout = ({
   const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
   const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
 
+  const waterSurfaceImgEl = useMemo(
+    () => (waterSurface ? <WaterSurfaceImg /> : null),
+    [waterSurface]
+  )
+
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
     <>
@@ -51,6 +59,7 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
+        {waterSurfaceImgEl}
         <Box flex="1 0 auto" mt={marginTop} mb={marginBottom} {...rest}>
           {children}
         </Box>

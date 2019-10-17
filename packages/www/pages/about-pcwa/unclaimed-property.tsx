@@ -2,7 +2,6 @@ import React, {useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {
   Box,
   Typography as Type,
@@ -52,8 +51,7 @@ const SalarySchedulePage = () => {
   // }
 
   return (
-    <PageLayout title="Unclaimed Property">
-      <WaterSurfaceImg />
+    <PageLayout title="Unclaimed Property" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Unclaimed Property" subtitle="General" />

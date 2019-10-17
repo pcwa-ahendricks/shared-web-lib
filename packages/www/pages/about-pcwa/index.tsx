@@ -15,7 +15,6 @@ import MainPhone from '@components/links/MainPhone'
 // import {useTheme} from '@material-ui/core/styles'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {blueGrey} from '@material-ui/core/colors'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
@@ -36,8 +35,7 @@ const GeneralInfoPage = () => {
   // const theme = useTheme<Theme>()
 
   return (
-    <PageLayout title="About PCWA">
-      <WaterSurfaceImg />
+    <PageLayout title="About PCWA" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="About PCWA" subtitle="General" />

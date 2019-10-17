@@ -356,7 +356,6 @@ const IrrigationController = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <MainBox>
           <NarrowContainer>
             <Type variant="h1" color="primary" gutterBottom>
@@ -849,10 +848,11 @@ const IrrigationController = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Irrigation Controller Rebate Form">
+        <PageLayout title="Irrigation Controller Rebate Form" waterSurface>
           {mainEl}
         </PageLayout>
       ),

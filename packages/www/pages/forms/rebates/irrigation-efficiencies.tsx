@@ -251,7 +251,6 @@ const IrrigationEfficiencies = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
@@ -709,10 +708,11 @@ const IrrigationEfficiencies = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Irrigation Efficiencies Rebate Form">
+        <PageLayout title="Irrigation Efficiencies Rebate Form" waterSurface>
           {mainEl}
         </PageLayout>
       ),

@@ -1,6 +1,5 @@
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type, Box, useMediaQuery, Link} from '@material-ui/core'
@@ -17,8 +16,7 @@ const RateAdjustPage = () => {
   const imageWidth = isXs ? 70 : isSm ? 80 : 100
 
   return (
-    <PageLayout title="Multiyear Rate Adjustment">
-      <WaterSurfaceImg />
+    <PageLayout title="Multiyear Rate Adjustment" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle

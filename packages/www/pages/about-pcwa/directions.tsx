@@ -4,7 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {stringify} from 'querystringify'
 
 const API_KEY = process.env.NEXT_GOOGLE_MAPS_API_KEY || ''
@@ -20,8 +19,7 @@ const DirectionsPage = () => {
     true
   )
   return (
-    <PageLayout title="Directions">
-      <WaterSurfaceImg />
+    <PageLayout title="Directions" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Directions to PCWA" subtitle="General" />

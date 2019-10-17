@@ -4,7 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {Typography as Type, Box, Link, Theme} from '@material-ui/core'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -62,8 +61,7 @@ const EmployeeBenefitsSummaryPage = () => {
   }
 
   return (
-    <PageLayout title="Financial Reports">
-      <WaterSurfaceImg />
+    <PageLayout title="Financial Reports" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Financial Reports" subtitle="General" />

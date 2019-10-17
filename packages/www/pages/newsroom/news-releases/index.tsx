@@ -3,7 +3,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {
   getMedia,
   fileNameUtil,
@@ -84,8 +83,7 @@ const NewsReleasesPage = () => {
   console.log(maxYear, newsReleases)
 
   return (
-    <PageLayout title="News Releases">
-      <WaterSurfaceImg />
+    <PageLayout title="News Releases" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="News Releases" subtitle="Newsroom" />

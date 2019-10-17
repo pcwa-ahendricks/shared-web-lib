@@ -16,7 +16,6 @@ import {
 import {blueGrey, grey, yellow} from '@material-ui/core/colors'
 // import {useTheme} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -80,8 +79,7 @@ const IrrigationCanalPage = () => {
   const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
 
   return (
-    <PageLayout title="Irrigation Canal Information">
-      <WaterSurfaceImg />
+    <PageLayout title="Irrigation Canal Information" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Irrigation Canal Information" subtitle="Services" />

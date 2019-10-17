@@ -3,15 +3,13 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import WideContainer from '@components/containers/WideContainer'
 import {Box} from '@material-ui/core'
 import YouTubePlayer from 'react-player/lib/players/YouTube'
 
 const RecruitmentPage = () => {
   return (
-    <PageLayout title="Recruitment Video">
-      <WaterSurfaceImg />
+    <PageLayout title="Recruitment Video" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Recruitment Video" subtitle="Careers" />

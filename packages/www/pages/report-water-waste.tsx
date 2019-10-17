@@ -146,7 +146,6 @@ const ReportWaterWastePage = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <MainBox>
           <NarrowContainer>
             <Type variant="h1" color="primary" gutterBottom>
@@ -368,10 +367,13 @@ const ReportWaterWastePage = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Report Water Waste">{mainEl}</PageLayout>
+        <PageLayout title="Report Water Waste" waterSurface>
+          {mainEl}
+        </PageLayout>
       ),
     [mainEl]
   )

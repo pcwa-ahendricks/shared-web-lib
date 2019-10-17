@@ -317,7 +317,6 @@ const WashingMachine = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <WaterSurfaceImg />
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
@@ -870,10 +869,13 @@ const WashingMachine = () => {
               missionStatementFill="rgba(0,0,0,0)"
             />
           </ColumnBox>
+          <WaterSurfaceImg />
           {mainEl}
         </>
       ) : (
-        <PageLayout title="Washing Machine Rebate Form">{mainEl}</PageLayout>
+        <PageLayout title="Washing Machine Rebate Form" waterSurface>
+          {mainEl}
+        </PageLayout>
       ),
     [mainEl]
   )

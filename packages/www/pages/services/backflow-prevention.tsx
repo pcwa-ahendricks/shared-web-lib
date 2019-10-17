@@ -13,7 +13,6 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -43,8 +42,7 @@ const CrossControlPreventionPage = () => {
   )
 
   return (
-    <PageLayout title="Cross-Connection Control Program">
-      <WaterSurfaceImg />
+    <PageLayout title="Cross-Connection Control Program" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle

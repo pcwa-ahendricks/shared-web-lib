@@ -3,7 +3,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import {
   getMedia,
   fileNameUtil,
@@ -129,8 +128,7 @@ const BoardMinutesPage = () => {
   )
 
   return (
-    <PageLayout title="Board of Directors' Minutes">
-      <WaterSurfaceImg />
+    <PageLayout title="Board of Directors' Minutes" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle
