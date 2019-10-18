@@ -7,8 +7,7 @@ import {makeStyles, createStyles} from '@material-ui/core/styles'
 export type GlowButtonProps = {
   children: React.ReactNode
   size?: 'small' | 'medium' | 'large'
-} & ButtonBaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
+} & ButtonBaseProps<'a'>
 
 type StyleProps = {
   size: GlowButtonProps['size']

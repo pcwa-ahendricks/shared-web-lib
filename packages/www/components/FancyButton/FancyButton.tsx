@@ -8,8 +8,7 @@ type Props = {
   hoverText?: string
   transition?: 'fade' | 'slideUp'
   transitionDuration?: string
-} & ButtonProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
+} & ButtonProps<'a'>
 
 type UseStylesProps = {
   isHovering: boolean
@@ -60,12 +59,15 @@ const FancyButton = ({
   transition = 'fade',
   children,
   transitionDuration = '150ms',
+  href,
   ...rest
 }: Props) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
   const classes = useStyles({isHovering, transition, transitionDuration})
   return (
     <Button
+      component="a"
+      href={href}
       className={classes.root}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

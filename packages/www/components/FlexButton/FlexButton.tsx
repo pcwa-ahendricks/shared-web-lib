@@ -8,9 +8,8 @@ export type FlexButtonProps = {
   children: React.ReactNode
   isNextLink?: boolean
   href: string
-} & ButtonProps &
-  LinkProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
+} & ButtonProps<'a'> &
+  LinkProps
 
 const FlexButton = ({
   children,
@@ -27,7 +26,9 @@ const FlexButton = ({
       isNextLink ? (
         <Box>
           <NextLink href={href} as={as}>
-            <Button {...rest}>{children}</Button>
+            <Button component="a" {...rest}>
+              {children}
+            </Button>
           </NextLink>
         </Box>
       ) : (

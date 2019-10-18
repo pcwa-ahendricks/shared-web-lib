@@ -41,10 +41,7 @@ const EmployeeBenefitsSummaryPage = () => {
 
   const topMargin = 3
 
-  const BudgetDoc = ({
-    children,
-    ...props
-  }: ButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  const BudgetDoc = ({children, ...props}: ButtonProps<'a'>) => {
     return (
       <ChildBox mt={topMargin}>
         <FancyButton
