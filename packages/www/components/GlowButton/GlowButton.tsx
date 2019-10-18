@@ -55,7 +55,7 @@ const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
   const classes = useStyles({size})
 
   return (
-    <ButtonBase className={classes.root} {...rest}>
+    <ButtonBase component="a" className={classes.root} {...rest}>
       <Type variant="button" color="inherit" classes={{root: classes.type}}>
         {children}
       </Type>
