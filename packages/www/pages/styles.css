@@ -56,3 +56,12 @@
     url('/static/fonts/Kiperman/Kiperman-Italic-5f3ffbc219.woff') format('woff');
   font-display: 'swap';
 }
+@font-face {
+  font-family: 'Kiperman';
+  font-weight: 500;
+  src: url('/static/fonts/Kiperman/Kiperman-Bold-6a4bbead8c.eot?#iefix')
+      format('embedded-opentype'),
+    url('/static/fonts/Kiperman/Kiperman-Bold-ebe3ff3bb7.woff2') format('woff2'),
+    url('/static/fonts/Kiperman/Kiperman-Bold-df28389487.woff') format('woff');
+  font-display: 'swap';
+}

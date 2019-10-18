@@ -1,6 +1,7 @@
 // cspell:ignore polyfill'd
 import {withStyles} from '@material-ui/core/styles'
 import {Theme} from '@material-ui/core'
+import alpha from 'color-alpha'
 
 const GlobalStyles = withStyles((theme: Theme) => ({
   // @global is handled by jss-plugin-global.
@@ -47,6 +48,10 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     img: {
       color: 'rgba(0, 0, 0, 0) !important',
       fontSize: 0
+    },
+    // The following specificity seem required.
+    '.MuiTableHead-root .MuiTableCell-head': {
+      color: alpha(theme.palette.common.black, 0.7) // Defaults to rgba(0,0,0,0.87) which is a bit too black for bold Kiperman font.
     }
   }
 }))(() => null)

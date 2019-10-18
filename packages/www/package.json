@@ -34,7 +34,7 @@
     "color-alpha": "^1.0.4",
     "core-js": "^3.3.2",
     "d3-ease": "^1.0.5",
-    "date-fns": "^2.5.0",
+    "date-fns": "^2.5.1",
     "debounce": "^1.2.0",
     "deep-object-diff": "^1.1.0",
     "dotenv-webpack": "^1.7.0",

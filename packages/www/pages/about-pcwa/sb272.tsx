@@ -2,14 +2,35 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Link} from '@material-ui/core'
+import {
+  Box,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+  Toolbar,
+  Typography as Type,
+  Theme,
+  Link
+} from '@material-ui/core'
 import {TypographyProps} from '@material-ui/core/Typography'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
+import WideContainer from '@components/containers/WideContainer'
+import StorageRoundedIcon from '@material-ui/icons/StorageRounded'
+import {RowBox} from '@components/boxes/FlexBox'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    headerIcon: {
+      marginRight: theme.spacing(1),
+      verticalAlign: 'middle'
+    },
+    tableContainer: {
+      overflowX: 'auto'
+    },
     bulletLi: {
       listStyleType: 'none',
       marginBottom: 4
@@ -21,6 +42,7 @@ const useStyles = makeStyles(() =>
 )
 
 const Sb272Page = () => {
+  const theme = useTheme()
   const classes = useStyles()
 
   const lastReviewDate = 'July 1, 2019'
@@ -32,6 +54,36 @@ const Sb272Page = () => {
       </Type>
     )
   }
+
+  const rows = [
+    {
+      vendor: 'Sungard HTE',
+      product: 'Naviline Select',
+      purpose: 'Enterprise Resource Planning (ERP)',
+      dataType: 'AS400',
+      custodian: 'Information Services',
+      modified: 'Daily',
+      updated: 'Monthly'
+    },
+    {
+      vendor: 'E.S.R.I',
+      product: 'ArcGIS',
+      purpose: 'GIS',
+      dataType: 'PostgreSQL',
+      custodian: 'Technical Services',
+      modified: 'Daily',
+      updated: 'Monthly'
+    },
+    {
+      vendor: 'Questys Solutions',
+      product: 'Questys',
+      purpose: 'Document Imaging / Management',
+      dataType: 'PDF',
+      custodian: 'Information Services',
+      modified: 'Daily',
+      updated: 'Monthly'
+    }
+  ]
 
   return (
     <PageLayout title="Enterprise System Disclosure" waterSurface>
@@ -80,6 +132,56 @@ const Sb272Page = () => {
             </Type>
           </SectionBox>
         </NarrowContainer>
+        <WideContainer>
+          <Box
+            mt={6}
+            boxShadow={2}
+            width="100%"
+            bgcolor={theme.palette.common.white}
+          >
+            <Toolbar>
+              <RowBox alignItems="center">
+                <StorageRoundedIcon className={classes.headerIcon} />
+                <Type variant="h6" id="tableTitle">
+                  Enterprise Systems
+                </Type>
+              </RowBox>
+            </Toolbar>
+            <Box className={classes.tableContainer}>
+              <Table
+                aria-label="enterprise-systems-table"
+                aria-labelledby="tableTitle"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Vendor</TableCell>
+                    <TableCell>Product</TableCell>
+                    <TableCell>Purpose</TableCell>
+                    <TableCell>Data Type</TableCell>
+                    <TableCell>Custodian</TableCell>
+                    <TableCell>Modified</TableCell>
+                    <TableCell>Updated</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow key={row.vendor}>
+                      <TableCell component="th" scope="row">
+                        {row.vendor}
+                      </TableCell>
+                      <TableCell>{row.product}</TableCell>
+                      <TableCell>{row.purpose}</TableCell>
+                      <TableCell>{row.dataType}</TableCell>
+                      <TableCell>{row.custodian}</TableCell>
+                      <TableCell>{row.modified}</TableCell>
+                      <TableCell>{row.updated}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Box>
+        </WideContainer>
       </MainBox>
     </PageLayout>
   )
