@@ -34,7 +34,7 @@ const TrendingBar = () => {
       <TrendingLink href="#">Rebates</TrendingLink>
       <TrendingLink href="#">Outages</TrendingLink>
       <TrendingLink href="#">Careers</TrendingLink>
-      <TrendingLink href="#">Recruitment Video</TrendingLink>
+      {/* <TrendingLink href="#">Recruitment Video</TrendingLink> */}
     </Paper>
   )
 }
