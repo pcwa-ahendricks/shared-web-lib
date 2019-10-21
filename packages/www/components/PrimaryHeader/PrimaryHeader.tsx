@@ -3,7 +3,8 @@ import React, {
   useEffect,
   useCallback,
   useMemo,
-  useContext
+  useContext,
+  useRef
 } from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 // [TODO] Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
@@ -13,7 +14,8 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  Theme
+  Theme,
+  useScrollTrigger
 } from '@material-ui/core'
 import {PopperProps} from '@material-ui/core/Popper'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -27,7 +29,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
 import colorAlpha from 'color-alpha'
-import Sticky from 'react-sticky-el'
 import useDebounce from '@hooks/useDebounce'
 
 const APP_BAR_HEIGHT = {
@@ -41,11 +42,12 @@ export type ToolbarVariant = 'regular' | 'dense'
 type UseStylesProps = {
   isXS: boolean
   isXS__: boolean
+  stuck: boolean
   // parentFixed: Props['parentFixed']
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+  return createStyles({
     megaMenuLink: {
       textTransform: 'capitalize'
     },
@@ -69,21 +71,29 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%'
       // transition: 'min-height 200ms ease-out'
     },
-    appBarRoot: ({isXS, isXS__}: UseStylesProps) => ({
-      backgroundColor: isXS
+    appBarRoot: ({isXS, isXS__, stuck}: UseStylesProps) => ({
+      minHeight: stuck ? APP_BAR_HEIGHT.dense : APP_BAR_HEIGHT.regular,
+      position: stuck ? 'fixed' : 'relative',
+      top: 0, // We don't need top to toggle, but it does need set for 'fixed' positioning.
+      backgroundColor: stuck
+        ? !isXS
+          ? colorAlpha(theme.palette.background.paper, 0.98)
+          : theme.palette.primary.main
+        : isXS
         ? theme.palette.primary.main
         : theme.palette.background.default,
+
       transition:
         !isXS__ && !isXS
           ? 'box-shadow 600ms ease-out, background-color 900ms ease-out'
           : 'none',
       borderTopColor: '#e6e6e6',
       borderTopStyle: 'solid',
-      borderTopWidth: isXS ? 0 : 1,
+      borderTopWidth: isXS || stuck ? 0 : 1,
       // Transition between Elevation 3 and 0. See <GlobalStyles/>
-      boxShadow:
-        '0px 1px 3px 0px rgba(0,0,0,0.0),0px 1px 1px 0px rgba(0,0,0,0),0px 2px 1px -1px rgba(0,0,0,0)',
-      '&.sticky': {}
+      boxShadow: stuck
+        ? '0px 1px 8px 0px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 3px 3px -2px rgba(0,0,0,0.12)'
+        : '0px 1px 3px 0px rgba(0,0,0,0.0),0px 1px 1px 0px rgba(0,0,0,0),0px 2px 1px -1px rgba(0,0,0,0)'
     }),
     menuButton: {
       marginLeft: -12,
@@ -135,46 +145,33 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     // Setting max width/height prevents strange jank'ing when toolbar variant changes.
-    headerLogo: {
-      // maxHeight: parentFixed ? APP_BAR_HEIGHT.dense : 64,
+    headerLogo: ({stuck}: UseStylesProps) => ({
       // maxWidth: isSM ? 100 : parentFixed ? 140 : 200
-      maxHeight: APP_BAR_HEIGHT.regular,
-      maxWidth: 200,
+      maxHeight: stuck ? APP_BAR_HEIGHT.dense : APP_BAR_HEIGHT.regular,
+      maxWidth: stuck ? 140 : 200,
       // transition: 'max-height 80ms ease-in, max-width 80ms ease-in',
       [theme.breakpoints.down('sm')]: {
-        maxWidth: 140
-      }
-    },
-    sticky: ({isXS}: UseStylesProps) => ({
-      zIndex: 4, // Needs to be higher than one so Material-UI components don't overlap.
-      '&.fixed': {
-        '& $headerLogo': {
-          maxHeight: APP_BAR_HEIGHT.dense,
-          maxWidth: 140,
-          [theme.breakpoints.down('sm')]: {
-            maxWidth: 100
-          }
-        },
-        '& $appBarRoot': {
-          backgroundColor: !isXS
-            ? colorAlpha(theme.palette.background.paper, 0.98)
-            : theme.palette.primary.main,
-          borderTopWidth: 0,
-          boxShadow:
-            '0px 1px 8px 0px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 3px 3px -2px rgba(0,0,0,0.12)'
-        }
+        maxWidth: stuck ? 100 : 140
       }
     })
   })
-)
+})
 
 const PrimaryHeader = () => {
+  const phRef = useRef<HTMLDivElement>(null)
+  const stuck = useScrollTrigger({
+    threshold: phRef.current ? phRef.current.offsetTop : 9999,
+    disableHysteresis: true
+  })
+  // console.log('thresh', phRef.current ? phRef.current.offsetTop : 0)
+  // console.log(phRef.current)
+  console.log('sticky: ', stuck)
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   // useMediaQuery always returns false on page load, regardless of device width. isSMUp is used to prevent the PCWA logo showing up real quickly on mobile devices by waiting for a truthy non-XS value.
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isXS__ = useDebounce(isXS, 100)
-  const classes = useStyles({isXS, isXS__})
+  const classes = useStyles({isXS, isXS__, stuck: stuck})
   // Custom width defined by point at which menu links overlap svg logo.
   const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
   const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)
@@ -225,33 +222,16 @@ const PrimaryHeader = () => {
     popperOpen
   ])
 
-  const [parentFixed, setParentFixed] = useState<boolean>()
-
-  const fixedToggleHandler = useCallback((wasFixed: boolean) => {
-    if (wasFixed) {
-      setParentFixed(false)
-    } else {
-      setParentFixed(true)
-    }
-  }, [])
-
-  const toolbarVariant = useMemo(() => (parentFixed ? 'dense' : 'regular'), [
-    parentFixed
-  ])
+  const toolbarVariant = useMemo(() => (stuck ? 'dense' : 'regular'), [stuck])
 
   return (
-    <Sticky
-      onFixedToggle={fixedToggleHandler}
-      className={classes.sticky}
-      stickyClassName="fixed"
-      style={{
-        minHeight: parentFixed ? APP_BAR_HEIGHT.dense : APP_BAR_HEIGHT.regular
-      }}
-    >
+    <div ref={phRef}>
       <AppBar
         // elevation={parentFixed ? 3 : 1}
         position="relative"
-        classes={{root: classes.appBarRoot}}
+        classes={{
+          root: classes.appBarRoot
+        }}
       >
         <Toolbar variant={toolbarVariant} className={classes.toolbar}>
           <RowBox
@@ -365,7 +345,7 @@ const PrimaryHeader = () => {
       >
         <MMContent contentKey={activeKey} />
       </MegaMenuPopper>
-    </Sticky>
+    </div>
   )
 }
 
