@@ -161,11 +161,8 @@ const PrimaryHeader = () => {
   const phRef = useRef<HTMLDivElement>(null)
   const stuck = useScrollTrigger({
     threshold: phRef.current ? phRef.current.offsetTop : 9999,
-    disableHysteresis: true
+    disableHysteresis: true // Prevent 'stuck' truthiness from disappearing when scrolling back up.
   })
-  // console.log('thresh', phRef.current ? phRef.current.offsetTop : 0)
-  // console.log(phRef.current)
-  console.log('sticky: ', stuck)
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   // useMediaQuery always returns false on page load, regardless of device width. isSMUp is used to prevent the PCWA logo showing up real quickly on mobile devices by waiting for a truthy non-XS value.

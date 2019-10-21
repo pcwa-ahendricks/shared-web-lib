@@ -212,6 +212,12 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3} mt={-topMargin}>
                   <BudgetDoc
+                    aria-label="View 2020 Budget"
+                    href="https://cdn.cosmicjs.com/c4b5f260-f420-11e9-a5a6-f39c1609f88e-2020-PCWA-Adopted-Budget-Final-for-website.pdf"
+                  >
+                    2020 Budget
+                  </BudgetDoc>
+                  <BudgetDoc
                     aria-label="View 2019 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/f1e0f730-edeb-11e8-a647-bfe927ef12bf-2019-Budget.pdf"
                   >
@@ -229,12 +235,12 @@ const EmployeeBenefitsSummaryPage = () => {
                   >
                     2017 Budget
                   </BudgetDoc>
-                  <BudgetDoc
+                  {/* <BudgetDoc
                     aria-label="View 2016 Budget"
                     href="https://s3-us-west-2.amazonaws.com/cosmicjs/1692f9d0-d87e-11e8-b627-0bd59229ea68-2016 Budget.pdf"
                   >
                     2016 Budget
-                  </BudgetDoc>
+                  </BudgetDoc> */}
                 </RowBox>
               </Box>
 
