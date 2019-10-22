@@ -4,7 +4,7 @@ import {Box, Typography as Type} from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {format, formatDistance, parseISO} from 'date-fns'
+import {format, formatDistance, parseJSON} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import clsx from 'clsx'
@@ -68,7 +68,7 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
     if (!maxValue || !maxValue.Value) {
       return ''
     }
-    const timestamp = parseISO(maxValue.Timestamp)
+    const timestamp = parseJSON(maxValue.Timestamp)
     return `${maxValue.Value.toLocaleString()} ${
       maxValue.UnitsAbbreviation
     } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`
@@ -78,7 +78,7 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
     if (!minValue || !minValue.Value) {
       return ''
     }
-    const timestamp = parseISO(minValue.Timestamp)
+    const timestamp = parseJSON(minValue.Timestamp)
     return `${minValue.Value.toLocaleString()} ${
       minValue.UnitsAbbreviation
     } on ${format(timestamp, 'EE M/dd/yyyy h:mm bb')}`

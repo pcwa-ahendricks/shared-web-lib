@@ -17,7 +17,7 @@ import {
 // import {blue} from '@material-ui/core/colors'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 import {useTheme} from '@material-ui/core/styles'
-import {format, parseISO, differenceInMonths, differenceInDays} from 'date-fns'
+import {format, differenceInMonths, differenceInDays, parseJSON} from 'date-fns'
 import {AttributeStream, PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
@@ -155,7 +155,7 @@ const PiChart = ({data}: Props) => {
     () =>
       data &&
       data.items.map((item) => ({
-        Timestamp: format(parseISO(item.Timestamp), 'M/dd/yyyy h:mm aa'),
+        Timestamp: format(parseJSON(item.Timestamp), 'M/dd/yyyy h:mm aa'),
         Value: item.Value
       })),
     [data]
@@ -170,7 +170,7 @@ const PiChart = ({data}: Props) => {
     () =>
       data
         ? data.items.map((item) => ({
-            x: parseISO(item.Timestamp).getTime(),
+            x: parseJSON(item.Timestamp).getTime(),
             y: item.Value
           }))
         : [],

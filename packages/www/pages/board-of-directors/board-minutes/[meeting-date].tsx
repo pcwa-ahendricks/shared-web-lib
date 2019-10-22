@@ -22,7 +22,7 @@ import {
   Breadcrumbs
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
-import {format, parseISO} from 'date-fns'
+import {format, parseJSON} from 'date-fns'
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import ErrorPage from '../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
@@ -87,7 +87,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
     () =>
       qMedia
         ? format(
-            parseISO(qMedia.derivedFilenameAttr.publishedDate),
+            parseJSON(qMedia.derivedFilenameAttr.publishedDate),
             "EEEE',' MMMM do',' yyyy "
           )
         : '',

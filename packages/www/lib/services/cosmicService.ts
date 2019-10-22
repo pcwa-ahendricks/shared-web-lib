@@ -127,8 +127,8 @@ const fileNameUtil = (
       ? (isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
           ? parse(fSplit[0], dateFrmt, new Date())
           : new Date()
-        ).toISOString()
-      : new Date().toISOString(),
+        ).toJSON()
+      : new Date().toJSON(),
     publishedYear: getYear(
       dateFrmt
         ? isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.

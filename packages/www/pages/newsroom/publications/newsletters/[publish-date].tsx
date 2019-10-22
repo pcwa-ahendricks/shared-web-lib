@@ -23,7 +23,7 @@ import {
 } from '@material-ui/core'
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
-import {format, parseISO} from 'date-fns'
+import {format, parseJSON} from 'date-fns'
 import ErrorPage from '../../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
@@ -83,7 +83,7 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
     () =>
       qMedia
         ? format(
-            parseISO(qMedia.derivedFilenameAttr.publishedDate),
+            parseJSON(qMedia.derivedFilenameAttr.publishedDate),
             "EEEE',' MMMM do',' yyyy "
           )
         : '',

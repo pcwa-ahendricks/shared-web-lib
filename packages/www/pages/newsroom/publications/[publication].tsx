@@ -9,7 +9,7 @@ import {
   CosmicMediaMeta,
   CosmicMediaResponse
 } from '@lib/services/cosmicService'
-import {compareDesc, parseISO} from 'date-fns'
+import {compareDesc, parseJSON} from 'date-fns'
 import Link, {LinkProps} from 'next/link'
 import groupBy from '@lib/groupBy'
 import {AppBar, Box, Tabs, Tab, Typography as Type} from '@material-ui/core'
@@ -113,8 +113,8 @@ const PublicationsPage = ({publication}: Props) => {
         year: k,
         values: [...v].sort((a, b) =>
           compareDesc(
-            parseISO(a.derivedFilenameAttr.publishedDate),
-            parseISO(b.derivedFilenameAttr.publishedDate)
+            parseJSON(a.derivedFilenameAttr.publishedDate),
+            parseJSON(b.derivedFilenameAttr.publishedDate)
           )
         )
       })

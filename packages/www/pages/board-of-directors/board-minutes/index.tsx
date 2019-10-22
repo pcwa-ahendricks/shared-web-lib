@@ -9,7 +9,7 @@ import {
   CosmicMediaMeta,
   CosmicMediaResponse
 } from '@lib/services/cosmicService'
-import {compareDesc, parseISO} from 'date-fns'
+import {compareDesc, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import {
   RespRowBox,
@@ -71,8 +71,8 @@ const BoardMinutesPage = () => {
           year: k,
           values: [...v].sort((a, b) =>
             compareDesc(
-              parseISO(a.derivedFilenameAttr.publishedDate),
-              parseISO(b.derivedFilenameAttr.publishedDate)
+              parseJSON(a.derivedFilenameAttr.publishedDate),
+              parseJSON(b.derivedFilenameAttr.publishedDate)
             )
           )
         })

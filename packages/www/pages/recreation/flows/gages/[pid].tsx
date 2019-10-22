@@ -27,7 +27,7 @@ import {
   setIsLoadingTableData,
   setChartEndDate
 } from '@components/pi/PiStore'
-import {format, parseISO, startOfMonth, isToday} from 'date-fns'
+import {format, parseJSON, startOfMonth, isToday} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
 import SectionBox from '@components/boxes/SectionBox'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
@@ -113,8 +113,8 @@ const DynamicPiPage = ({pid}: Props) => {
           const eas = await fetchElementAttributeStream(
             streamSetItems,
             attribute,
-            chartStartDate.toISOString(),
-            chartEndDate.toISOString(),
+            chartStartDate.toJSON(),
+            chartEndDate.toJSON(),
             chartInterval
           )
           // Deconstruct response.
@@ -178,8 +178,8 @@ const DynamicPiPage = ({pid}: Props) => {
           const eas = await fetchElementAttributeStream(
             streamSetItems,
             attribute,
-            startDate.toISOString(),
-            endDate.toISOString(),
+            startDate.toJSON(),
+            endDate.toJSON(),
             TABLE_TIME_INTERVAL
           )
           // Deconstruct response.
@@ -281,7 +281,7 @@ const DynamicPiPage = ({pid}: Props) => {
 
         const newItems = currItems.map((e, i) => {
           // Assume that the timestamp will match when zipping arrays with map.
-          const timestamp = parseISO(e.Timestamp)
+          const timestamp = parseJSON(e.Timestamp)
           const prevItemsObj = {...prevItems[i]}
           const prevItemsValues = prevItemsObj.values
             ? [...prevItemsObj.values]

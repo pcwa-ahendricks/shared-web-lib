@@ -5,7 +5,7 @@ import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
-import {format, parseISO} from 'date-fns'
+import {format, parseJSON} from 'date-fns'
 import clsx from 'clsx'
 import Link from 'next/link'
 
@@ -70,7 +70,7 @@ const BoardMinutesLink = ({
   const url = `/board-of-directors/board-minutes/[meeting-date]`
   const as = `/board-of-directors/board-minutes/${date}`
 
-  const boardMeetingDate = useMemo(() => parseISO(publishedDate), [
+  const boardMeetingDate = useMemo(() => parseJSON(publishedDate), [
     publishedDate
   ])
 
