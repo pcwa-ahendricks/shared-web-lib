@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {List, ListSubheader, Divider, Theme, Box} from '@material-ui/core'
-// import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {useTheme} from '@material-ui/core/styles'
+// import {createStyles, makeStyles} from '@material-ui/core/styles'
 // import {ListItemProps} from '@material-ui/core/ListItem'
 import gages from '@lib/services/pi/gage-config'
 import PiNavigationListItem from '../PiNavigationListItem/PiNavigationListItem'
@@ -41,9 +41,9 @@ const PiNavigationList = ({pid}: Props) => {
         dense
         aria-label="River Gage Links"
         subheader={
-          <ListSubheader component="nav" id="river-gage-links">
-            River Gages
-          </ListSubheader>
+          // [TODO] The following stopped working with @types/react updates.
+          // <ListSubheader component="nav" id="river-gage-links">
+          <ListSubheader id="river-gage-links">River Gages</ListSubheader>
         }
       >
         <Divider />
@@ -55,7 +55,9 @@ const PiNavigationList = ({pid}: Props) => {
         dense
         aria-label="Reservoir Gage Links"
         subheader={
-          <ListSubheader component="nav" id="reservoir-gage-links">
+          // [TODO] The following stopped working with @types/react updates.
+          // <ListSubheader component="nav" id="reservoir-gage-links">
+          <ListSubheader id="reservoir-gage-links">
             Reservoir Gages
           </ListSubheader>
         }
