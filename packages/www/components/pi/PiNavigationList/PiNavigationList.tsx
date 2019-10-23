@@ -35,16 +35,13 @@ const PiNavigationList = ({pid}: Props) => {
     []
   )
 
-  // [HACK] See https://github.com/mui-org/material-ui/issues/17864#issue-506344372
-  const Nav = (props: any) => <nav {...props} />
-
   return (
     <Box boxShadow={1} bgcolor={theme.palette.common.white}>
       <List
         dense
         aria-label="River Gage Links"
         subheader={
-          <ListSubheader component={Nav} id="river-gage-links">
+          <ListSubheader component="nav" id="river-gage-links">
             River Gages
           </ListSubheader>
         }
@@ -58,7 +55,7 @@ const PiNavigationList = ({pid}: Props) => {
         dense
         aria-label="Reservoir Gage Links"
         subheader={
-          <ListSubheader component={Nav} id="reservoir-gage-links">
+          <ListSubheader component="nav" id="reservoir-gage-links">
             Reservoir Gages
           </ListSubheader>
         }
