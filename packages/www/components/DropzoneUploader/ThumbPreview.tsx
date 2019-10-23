@@ -3,7 +3,7 @@ import React, {useState, useCallback, useMemo} from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {Box, Button, Tooltip, Theme} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
-import {DroppedFile, UploadedFile} from './types'
+import {DroppedFile, UploadedFileAttr} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
@@ -18,7 +18,7 @@ type Props = {
   isUploading?: boolean
   onClick: (file: DroppedFile) => void
   onRemoveUpload?: (file: DroppedFile) => void
-  uploadedFiles?: UploadedFile[]
+  uploadedFiles?: UploadedFileAttr[]
 }
 
 const useStyles = makeStyles((theme: Theme) =>
