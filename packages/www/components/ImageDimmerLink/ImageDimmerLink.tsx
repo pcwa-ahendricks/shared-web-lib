@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: isHovering ? 'rgba(0, 0, 0, .6)' : 'rgba(0,0,0, 0.0)',
       position: 'absolute',
       top: 0,
-      bottom: 6, // [HACK] Compensate react-imgix images. See <MediaPreviewDialog/> for similar fix.
+      bottom: 7, // [HACK] Compensate react-imgix images. See <MediaPreviewDialog/> for similar fix.
       left: 0,
       right: 0
     }),

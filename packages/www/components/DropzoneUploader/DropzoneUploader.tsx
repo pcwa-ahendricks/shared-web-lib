@@ -18,11 +18,10 @@ import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
 import {useDropzone} from 'react-dropzone'
-import {DroppedFile, UploadedFile} from './types'
+import {DroppedFile, UploadedFileAttr} from './types'
 import extension from '@lib/fileExtension'
 import {sequenceArray} from '@lib/util'
-
-type BlobFile = Blob & {name?: string; lastModified?: number}
+import slugify from 'slugify'
 
 type Props = {
   onUploadedChange?: (files: any) => void
@@ -126,11 +125,8 @@ const DropzoneUploader: React.RefForwardingComponent<
   const classes = useStyles()
   const [droppedFiles, setDroppedFiles] = useState<DroppedFile[]>([])
   const [rejectedFiles, setRejectedFiles] = useState<DroppedFile[]>([])
-  const [uploadDroppedFiles, setUploadDroppedFiles] = useState<{
-    fileNamePrefix: string
-    files: File[]
-  }>()
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
+  const [uploadDroppedFiles, setUploadDroppedFiles] = useState<DroppedFile[]>()
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFileAttr[]>([])
   const [
     confirmRemoveUpload,
     setConfirmRemoveUpload
@@ -149,19 +145,22 @@ const DropzoneUploader: React.RefForwardingComponent<
     onIsUploadingChange && onIsUploadingChange(isUploading)
   }, [isUploading, onIsUploadingChange])
 
-  const resizeHandler = useCallback((file: File, renamedFileName: string) => {
-    const promise = new Promise<BlobFile>((resolve) => {
+  const resizeHandler = useCallback((file: DroppedFile) => {
+    const promise = new Promise<DroppedFile>((resolve) => {
       // new File() constructor doesn't work in IE11 or Edge. See https://developer.mozilla.org/en-US/docs/Web/API/File/File for more info.
       // const origFile = new File([file], renamedFileName, {
       //   type: file.type
       // })
-      const origFile: BlobFile = new Blob([file], {type: file.type})
-      origFile.name = renamedFileName
+      const origFile: Partial<DroppedFile> = new Blob([file], {type: file.type})
+      origFile.name = file.name
+      origFile.ext = file.ext
+      origFile.lastModified = file.lastModified
+      origFile.originalName = file.originalName
 
       // Only resolve origFile after it gets assign the 'name' property above.
       // Don't attempt to resize a pdf. Just images.
       if (!/image\//i.test(file.type)) {
-        resolve(origFile)
+        resolve(origFile as DroppedFile)
         return
       }
 
@@ -169,12 +168,12 @@ const DropzoneUploader: React.RefForwardingComponent<
       reader.onabort = () => {
         // console.log('reading aborted')
         // reject('file reading was aborted')
-        resolve(origFile)
+        resolve(origFile as DroppedFile)
       }
       reader.onerror = () => {
         // console.log('reading error')
         // reject('file reading has failed')
-        resolve(origFile)
+        resolve(origFile as DroppedFile)
       }
       reader.onload = () => {
         const img = new Image()
@@ -205,7 +204,7 @@ const DropzoneUploader: React.RefForwardingComponent<
           elem.height = resizeHeight
           const ctx = elem.getContext('2d')
           if (!ctx) {
-            resolve(origFile)
+            resolve(origFile as DroppedFile)
             return
           }
           // img.width and img.height will contain the original dimensions
@@ -213,16 +212,22 @@ const DropzoneUploader: React.RefForwardingComponent<
           ctx.canvas.toBlob(
             (blob) => {
               if (!blob) {
-                resolve(origFile)
+                resolve(origFile as DroppedFile)
                 return
               }
               // const canvasFile = new File([blob], renamedFileName, {
               //   type: file.type
               //   // lastModified: Date.now()
               // })
-              const canvasFile: BlobFile = new Blob([blob], {type: file.type})
-              canvasFile.name = renamedFileName
-              resolve(canvasFile)
+              const canvasFile: Partial<DroppedFile> = new Blob([blob], {
+                type: file.type
+              })
+              canvasFile.lastModified = file.lastModified
+              canvasFile.name = file.name
+              canvasFile.originalName = file.name
+              canvasFile.previewUrl = file.previewUrl
+              canvasFile.ext = file.previewUrl
+              resolve(canvasFile as DroppedFile)
             },
             file.type,
             1
@@ -237,16 +242,17 @@ const DropzoneUploader: React.RefForwardingComponent<
   }, [])
 
   const uploadFileHandler = useCallback(
-    async (file, originalName) => {
+    async (file: DroppedFile) => {
       try {
         const response = await uploadFile(file, uploadFolder)
         if (response) {
           // Destructuring File objects doesn't produce any properties. Need to specify those 4 explicitly.
-          const uploadedFile = {
+          const uploadedFile: UploadedFileAttr = {
             name: file.name,
             type: file.type,
             size: file.size,
-            originalName,
+            originalName: file.originalName,
+            previewUrl: file.previewUrl,
             lastModified: file.lastModified,
             serverResponse: {...response},
             ext: extension(file.name)
@@ -278,26 +284,25 @@ const DropzoneUploader: React.RefForwardingComponent<
           return
         }
         setIsUploading(true)
-        const {files = [], fileNamePrefix = ''} = uploadDroppedFiles
         setIsUploadingFileNames((values) => [
           ...values,
-          ...files.map((file) => `${fileNamePrefix}${file.name}`)
+          ...uploadDroppedFiles.map((file) => file.name)
         ])
         // These are the original File objects.
-        const processFileUpload = async (file: File) => {
-          const renamedFileName = `${fileNamePrefix}${file.name}`
+        const processFileUpload = async (file: DroppedFile) => {
+          const fileName = file.name
           try {
-            const resizedFile = await resizeHandler(file, renamedFileName)
-            const uploadedFile = await uploadFileHandler(resizedFile, file.name)
-            removeIsUploadingFiles(renamedFileName)
+            const resizedFile = await resizeHandler(file)
+            const uploadedFile = await uploadFileHandler(resizedFile)
+            removeIsUploadingFiles(fileName)
             return uploadedFile
           } catch (error) {
             console.log('error', error)
-            removeIsUploadingFiles(renamedFileName)
+            removeIsUploadingFiles(fileName)
             return
           }
         }
-        await sequenceArray(files, processFileUpload)
+        await sequenceArray(uploadDroppedFiles, processFileUpload)
         setIsUploading(false)
         // setIsUploadingFileNames([])
       } catch (error) {
@@ -319,27 +324,23 @@ const DropzoneUploader: React.RefForwardingComponent<
     files: File[]
     // rejectedFiles: Array<any>
   ) => {
-    const fileNamePrefix = generate()
+    const fileNamePrefix = slugify(generate())
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
     const sd = [...files]
-    const newDroppedBlobFiles = sd.map((file) => {
-      // const newFile = new File([file], `${fileNamePrefix}${file.name}`, {
-      //   type: file.type
-      // })
-      const newBlobFile: BlobFile = new Blob([file], {type: file.type})
+    const newDroppedBlobFiles: DroppedFile[] = sd.map((file) => {
+      const newBlobFile: Partial<DroppedFile> = new Blob([file], {
+        type: file.type
+      })
+      // Use slugify to remove any unusual characters from the filename making the Cosmic URL compatible in all cases.
+      const fileName = slugify(file.name)
       newBlobFile.lastModified = file.lastModified
-      newBlobFile.name = `${fileNamePrefix}${file.name}`
+      newBlobFile.name = `${fileNamePrefix}${fileName}` || ''
+      newBlobFile.originalName = file.name
       // Add image preview urls.
-      return {
-        name: newBlobFile.name,
-        type: newBlobFile.type,
-        size: newBlobFile.size,
-        originalName: file.name,
-        lastModified: newBlobFile.lastModified,
-        previewUrl: URL.createObjectURL(newBlobFile),
-        ext: extension(newBlobFile.name)
-      }
+      newBlobFile.previewUrl = URL.createObjectURL(newBlobFile)
+      newBlobFile.ext = extension(newBlobFile.name)
+      return newBlobFile as DroppedFile
     })
 
     setDroppedFiles((prevDroppedBlobFiles) => [
@@ -348,7 +349,7 @@ const DropzoneUploader: React.RefForwardingComponent<
     ])
 
     // Setting upload dropped files to original dropped File objects.
-    setUploadDroppedFiles({fileNamePrefix, files: [...files]})
+    setUploadDroppedFiles(newDroppedBlobFiles)
   }, [])
 
   const clearUploadsHandler = useCallback(() => {
