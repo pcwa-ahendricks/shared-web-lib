@@ -8,7 +8,7 @@ import DropzoneUploader, {
   DropzoneUploaderHandles
 } from '@components/DropzoneUploader/DropzoneUploader'
 import {FieldProps} from 'formik'
-import {UploadedFile} from '@components/DropzoneUploader/types'
+import {UploadedFileAttr} from '@components/DropzoneUploader/types'
 
 type Props = {
   attachmentTitle?: string
@@ -85,7 +85,7 @@ const AttachmentField = ({
   }, [value, resetDropzoneUploader])
 
   const uploadedAttachmentsHandler = useCallback(
-    (files: UploadedFile[]) => {
+    (files: UploadedFileAttr[]) => {
       // onUploadedChange files parameter always includes all uploads, regardless of their upload status so there is no need to distribute the files parameter and append the incoming to existing uploads. Simply filter and map for the relevant uploads. Uploads removed via thumbnails will also be handled by this handler.
       const attachments = files
         .map((file) => ({
