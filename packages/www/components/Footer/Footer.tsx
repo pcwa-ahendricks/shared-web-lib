@@ -66,6 +66,9 @@ const Footer = () => {
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
+  // [HACK] See https://github.com/mui-org/material-ui/issues/17864#issue-506344372
+  const Span = (props: any) => <span {...props} />
+
   return (
     <Box>
       <Box bgcolor={theme.palette.primary.main} color={theme.palette.grey[200]}>
@@ -216,13 +219,13 @@ const Footer = () => {
       <Box bgcolor={theme.palette.primary.dark}>
         <WideContainer mt={3} mb={3}>
           <Box bgcolor="inherit">
-            <Type variant="body2" component="span" className={classes.subtle}>
+            <Type variant="body2" component={Span} className={classes.subtle}>
               Copyright &copy; 2019
             </Type>
             <NextLink href="/" className={classes.link}>
               &nbsp;&nbsp;Placer County Water Agency
             </NextLink>
-            <Type variant="body2" component="span" className={classes.subtle}>
+            <Type variant="body2" component={Span} className={classes.subtle}>
               &nbsp;&nbsp;All Rights
               Reserved&nbsp;&nbsp;&#9830;&nbsp;&nbsp;Weather Provided by
             </Type>

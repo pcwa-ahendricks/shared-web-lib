@@ -5,13 +5,14 @@ import {NextPageContext} from 'next'
 const PublicationIndexPage = () => <></>
 
 PublicationIndexPage.getInitialProps = ({res}: NextPageContext) => {
+  const location = '/newsroom/publications/newsletters'
   if (res) {
     res.writeHead(302, {
-      Location: '/newsroom/publications/newsletters'
+      Location: location
     })
     res.end()
   } else {
-    Router.push('/newsroom/publications/newsletters')
+    Router.push(location)
   }
   return {}
 }

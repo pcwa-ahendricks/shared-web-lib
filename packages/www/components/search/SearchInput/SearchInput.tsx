@@ -70,6 +70,9 @@ const SearchInput = () => {
     setSearchValue(e.target.value)
   }, [])
 
+  // [HACK] See https://github.com/mui-org/material-ui/issues/17864#issue-506344372
+  const Code = (props: any) => <code {...props} />
+
   const searchErrorHandler = useCallback(
     (error) => {
       searchDispatch(setIsIterating(false))
@@ -100,7 +103,7 @@ const SearchInput = () => {
             </Type>
             {/* variant="inherit" will use browser's <code/> block styling. */}
             <Type
-              component="code"
+              component={Code}
               variant="inherit"
             >{`${preDash} - ${postDash}`}</Type>
           </Box>
