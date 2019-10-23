@@ -3,12 +3,12 @@ import {Box, Badge, LinearProgress} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
-import {DroppedFile, UploadedFile} from './types'
+import {DroppedFile, UploadedFileAttr} from './types'
 import useUploadStatus from './useUploadStatus'
 
 type Props = {
   children: React.ReactNode
-  uploadedFiles: UploadedFile[]
+  uploadedFiles: UploadedFileAttr[]
   file: DroppedFile
   isUploading?: boolean
   onSuccess?: () => void

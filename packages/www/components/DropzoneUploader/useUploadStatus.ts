@@ -1,10 +1,13 @@
 import {useState, useEffect} from 'react'
-import {UploadedFile, DroppedFile} from './types'
+import {UploadedFileAttr, DroppedFile} from './types'
 
 // Use nested type
-type UploadStatus = UploadedFile['serverResponse']['status']
+type UploadStatus = UploadedFileAttr['serverResponse']['status']
 
-const useUploadStatus = (uploadedFiles: UploadedFile[], file: DroppedFile) => {
+const useUploadStatus = (
+  uploadedFiles: UploadedFileAttr[],
+  file: DroppedFile
+) => {
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>('unknown')
   useEffect(() => {
     const matchingFile = uploadedFiles.find(
