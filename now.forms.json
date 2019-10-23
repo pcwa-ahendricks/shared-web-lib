@@ -25,7 +25,7 @@
       "use": "@now/next"
     },
     { "src": "packages/api/src/routes/cosmic/**/*.ts", "use": "@now/node" },
-    { "src": "packages/api/src/routes/mailjet/**/*.ts", "use": "@now/node" }
+    { "src": "packages/api/src/routes/mail/**/*.ts", "use": "@now/node" }
   ],
   "routes": [
     {
