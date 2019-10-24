@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch'
-import {MailJetSendRequest} from '../src/types/mailjet'
+import {MailJetSendRequest} from '../types/mailjet'
 
 const API_VER = 'v3.1'
 const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
