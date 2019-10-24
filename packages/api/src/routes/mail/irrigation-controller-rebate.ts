@@ -6,9 +6,9 @@ import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema
-} from '../../../lib/forms'
+} from '../../lib/forms'
 import {json} from 'co-body'
-import {postMailJetRequest} from '../../../lib/mailjet'
+import {postMailJetRequest} from '../../lib/mailjet'
 const isDev = process.env.NODE_ENV === 'development'
 import {NowRequest, NowResponse} from '@now/node'
 
