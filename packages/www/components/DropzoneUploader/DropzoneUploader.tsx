@@ -242,7 +242,7 @@ const DropzoneUploader: React.RefForwardingComponent<
   }, [])
 
   const uploadFileHandler = useCallback(
-    async (file: DroppedFile, uploadRoute: string) => {
+    async (file: DroppedFile) => {
       try {
         const response = await uploadFile(file, uploadRoute)
         if (response) {
@@ -267,7 +267,7 @@ const DropzoneUploader: React.RefForwardingComponent<
         console.log(error)
       }
     },
-    [uploadFolder]
+    [uploadRoute]
   )
 
   const removeIsUploadingFiles = useCallback((fileName: string) => {
@@ -293,10 +293,7 @@ const DropzoneUploader: React.RefForwardingComponent<
           const fileName = file.name
           try {
             const resizedFile = await resizeHandler(file)
-            const uploadedFile = await uploadFileHandler(
-              resizedFile,
-              uploadRoute
-            )
+            const uploadedFile = await uploadFileHandler(resizedFile)
             removeIsUploadingFiles(fileName)
             return uploadedFile
           } catch (error) {
