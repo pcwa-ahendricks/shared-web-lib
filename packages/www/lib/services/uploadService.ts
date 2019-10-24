@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch'
+import {stringify} from 'querystringify'
 
 const UPLOAD_SERVICE_BASE_URL = '/api/cosmic/uploads'
 
@@ -37,13 +38,16 @@ const errorHandler = async (
 
 const uploadFile = async (
   file: File,
-  subFolder = ''
+  uploadRoute: string
 ): Promise<UploadResponse> => {
+  const fieldName = 'upload-image'
   const formData = new FormData()
-  formData.append(subFolder, file, file.name)
+  formData.append(fieldName, file, file.name)
   try {
     // Don't set headers manually. See https://stackoverflow.com/questions/39280438/fetch-missing-boundary-in-multipart-form-data-post for more info.
-    const response = await fetch(UPLOAD_SERVICE_BASE_URL, {
+    const qs = stringify({uploadRoute}, true)
+    const url = `${UPLOAD_SERVICE_BASE_URL}${qs}`
+    const response = await fetch(url, {
       method: 'POST',
       body: formData
     })
@@ -52,16 +56,16 @@ const uploadFile = async (
       return {
         ...data,
         status: 'success',
-        fieldName: subFolder,
+        fieldName,
         fileName: file.name,
         reason: ''
       }
     } else {
-      return errorHandler(response, file, subFolder)
+      return errorHandler(response, file, uploadRoute)
     }
   } catch (error) {
     console.warn('An unexpected error occurred.', error)
-    return errorHandler(null, file, subFolder)
+    return errorHandler(null, file, uploadRoute)
   }
 }
 

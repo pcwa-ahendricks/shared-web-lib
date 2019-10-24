@@ -638,7 +638,7 @@ const WashingMachine = () => {
                             disabled={ineligible || emailAttachments}
                             name="receipts"
                             attachmentTitle="Receipt"
-                            uploadFolder="washing-machine"
+                            uploadRoute="washing-machine"
                             onIsUploadingChange={receiptIsUploadingHandler}
                             component={AttachmentField}
                           />
@@ -649,7 +649,7 @@ const WashingMachine = () => {
                             disabled={ineligible || emailAttachments}
                             name="installPhotos"
                             attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
-                            uploadFolder="washing-machine"
+                            uploadRoute="washing-machine"
                             onIsUploadingChange={
                               installPhotosIsUploadingHandler
                             }

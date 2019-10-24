@@ -659,7 +659,7 @@ const Toilet = () => {
                             disabled={ineligible || emailAttachments}
                             name="receipts"
                             attachmentTitle="Receipt"
-                            uploadFolder="toilet"
+                            uploadRoute="toilet"
                             onIsUploadingChange={receiptIsUploadingHandler}
                             component={AttachmentField}
                           />
@@ -670,7 +670,7 @@ const Toilet = () => {
                             disabled={ineligible || emailAttachments}
                             name="installPhotos"
                             attachmentTitle="Water-Efficient Toilet installed photo"
-                            uploadFolder="toilet"
+                            uploadRoute="toilet"
                             onIsUploadingChange={
                               installPhotosIsUploadingHandler
                             }

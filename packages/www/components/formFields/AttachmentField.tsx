@@ -15,6 +15,7 @@ type Props = {
   required?: boolean
   fullWidth?: boolean
   disabled?: boolean
+  uploadRoute?: string
 } & FieldProps<any>
 
 const UPLOAD_MB_LIMIT = 30 // Now lambda functions must be less than 5MB, but we are resizing dropped files so this can be higher.
@@ -24,6 +25,7 @@ const AttachmentField = ({
   field,
   form,
   attachmentTitle = 'attachment',
+  uploadRoute = '',
   fullWidth = true,
   required = true,
   disabled = false,
@@ -116,7 +118,7 @@ const AttachmentField = ({
       <DropzoneUploader
         ref={dropzoneUploaderRef}
         subtitle={`your ${attachmentTitle.toLowerCase()}(s) here or click to browse`}
-        uploadFolder="irrigation-controller"
+        uploadRoute={uploadRoute}
         onUploadedChange={uploadedAttachmentsHandler}
         height={200}
         width="100%"

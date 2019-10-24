@@ -614,7 +614,7 @@ const IrrigationController = () => {
                         <Field
                           name="receipts"
                           attachmentTitle="Receipt"
-                          uploadFolder="irrigation-controller"
+                          uploadRoute="irrigation-controller"
                           onIsUploadingChange={receiptIsUploadingHandler}
                           component={AttachmentField}
                           disabled={emailAttachments}
@@ -625,7 +625,7 @@ const IrrigationController = () => {
                         <Field
                           name="cntrlPhotos"
                           attachmentTitle="Installed Irrigation Controller Photo"
-                          uploadFolder="irrigation-controller"
+                          uploadRoute="irrigation-controller"
                           onIsUploadingChange={cntrlPhotosIsUploadingHandler}
                           component={AttachmentField}
                           disabled={emailAttachments}
@@ -637,7 +637,7 @@ const IrrigationController = () => {
                           <Field
                             name="addtlSensorPhotos"
                             attachmentTitle="Additional Sensor/Outdoor Cover Photo"
-                            uploadFolder="irrigation-controller"
+                            uploadRoute="irrigation-controller"
                             onIsUploadingChange={
                               addtlSensorPhotosIsUploadingHandler
                             }

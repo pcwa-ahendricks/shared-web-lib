@@ -28,7 +28,7 @@ type Props = {
   onIsUploadingChange?: (isUploading: boolean) => void
   height: number | string
   width: number | string
-  uploadFolder: string
+  uploadRoute: string
   maxSize: number
   disabled: boolean
   accept: string
@@ -113,7 +113,7 @@ const DropzoneUploader: React.RefForwardingComponent<
     height = '100%',
     width = '100%',
     allowClearUploads = false,
-    uploadFolder = '',
+    uploadRoute = '',
     maxSize,
     accept,
     disabled,
@@ -242,9 +242,9 @@ const DropzoneUploader: React.RefForwardingComponent<
   }, [])
 
   const uploadFileHandler = useCallback(
-    async (file: DroppedFile) => {
+    async (file: DroppedFile, uploadRoute: string) => {
       try {
-        const response = await uploadFile(file, uploadFolder)
+        const response = await uploadFile(file, uploadRoute)
         if (response) {
           // Destructuring File objects doesn't produce any properties. Need to specify those 4 explicitly.
           const uploadedFile: UploadedFileAttr = {
@@ -293,7 +293,10 @@ const DropzoneUploader: React.RefForwardingComponent<
           const fileName = file.name
           try {
             const resizedFile = await resizeHandler(file)
-            const uploadedFile = await uploadFileHandler(resizedFile)
+            const uploadedFile = await uploadFileHandler(
+              resizedFile,
+              uploadRoute
+            )
             removeIsUploadingFiles(fileName)
             return uploadedFile
           } catch (error) {

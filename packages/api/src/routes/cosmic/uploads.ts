@@ -20,6 +20,7 @@ const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   const {headers, socket} = req
+  const uploadRoute = req.query
   const busboy = new Busboy({headers})
   let buffer: Buffer
   const data: Uint8Array[] = [] // Also used as a file size counter for logging.
@@ -70,7 +71,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
         environment: isDev ? 'development' : 'production',
         formFieldName: fieldName,
         ip,
-        uploadRoute: 'irrigation-controller-rebate'
+        uploadRoute
       }
       formData.append('media', buffer, fileName)
       formData.append('write_key', COSMIC_WRITE_ACCESS_KEY)

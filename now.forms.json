@@ -189,7 +189,7 @@
       }
     },
     {
-      "src": "/|typography",
+      "src": "/$|typography",
       "dest": "packages/www/_error",
       "status": 404
     },
