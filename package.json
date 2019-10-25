@@ -18,6 +18,6 @@
     "now-build": "next build"
   },
   "devDependencies": {
-    "now": "^16.4.0"
+    "now": "^16.4.3"
   }
 }
