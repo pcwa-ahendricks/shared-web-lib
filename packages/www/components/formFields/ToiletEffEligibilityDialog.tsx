@@ -21,7 +21,7 @@ import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, FieldProps, useFormikContext} from 'formik'
+import {Field, connect, FormikProps, FieldProps} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
@@ -30,12 +30,12 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
-import {ToiletRebateFormData} from '@lib/services/formService'
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
+  formik?: FormikProps<any>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ToiletEffEligibilityDialog = ({open = false, onClose}: Props) => {
+const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -72,9 +72,7 @@ const ToiletEffEligibilityDialog = ({open = false, onClose}: Props) => {
   const prevTouched = useRef<{}>()
   const prevLastTouchedIndex = useRef<number>()
 
-  const {touched, errors} = useFormikContext<
-    ToiletRebateFormData & {[index: string]: string}
-  >()
+  const {touched = {}, errors = {}} = formik || {}
 
   const eligibleFieldsTouched = useMemo(
     () => [touched.treatedCustomer, touched.builtPriorCutoff].every(Boolean),
@@ -270,7 +268,7 @@ const ToiletEffEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 }
 
-export default ToiletEffEligibilityDialog
+export default connect(ToiletEffEligibilityDialog)
 
 function getSteps() {
   return [
