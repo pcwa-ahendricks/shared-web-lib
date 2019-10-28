@@ -25,7 +25,7 @@ import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {Field, FieldProps, useFormikContext} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
@@ -35,12 +35,12 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import {LawnReplacementRebateFormData} from '@lib/services/formService'
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  formik?: FormikProps<any>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+const LawnReplEligibilityDialog = ({open = false, onClose}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -76,8 +76,9 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const maxSteps = useMemo(() => getSteps().length, [])
   const prevTouched = useRef<{}>()
   const prevLastTouchedIndex = useRef<number>()
-
-  const {touched = {}, errors = {}} = formik || {}
+  const {touched, errors} = useFormikContext<
+    LawnReplacementRebateFormData & {[index: string]: string}
+  >()
 
   const eligibleFieldsTouched = useMemo(
     () =>
@@ -285,7 +286,7 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 }
 
-export default connect(LawnReplEligibilityDialog)
+export default LawnReplEligibilityDialog
 
 function getSteps() {
   return [
@@ -537,7 +538,7 @@ const QuestionThree = () => {
   const classes = useQuestionStyles()
   return (
     <Field name="approxSqFeet">
-      {({field, form}: FieldProps<any>) => {
+      {({field, form, meta}: FieldProps<any>) => {
         const {touched, errors} = form
         const {name} = field
         const currentError = errors[name]
@@ -551,7 +552,7 @@ const QuestionThree = () => {
         const fieldTouched = Boolean(touched[name])
         return (
           <div>
-            <LawnApproxSqFootField form={form} field={field} />
+            <LawnApproxSqFootField form={form} field={field} meta={meta} />
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"

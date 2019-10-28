@@ -21,7 +21,7 @@ import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {Field, FieldProps, useFormikContext} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
@@ -35,7 +35,6 @@ type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  formik?: FormikProps<any>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+const WashEffEligibilityDialog = ({open = false, onClose}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -72,7 +71,7 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const prevTouched = useRef<{}>()
   const prevLastTouchedIndex = useRef<number>()
 
-  const {touched = {}, errors = {}} = formik || {}
+  const {touched, errors} = useFormikContext<{[index: string]: string}>()
 
   const eligibleFieldsTouched = useMemo(
     () =>
@@ -273,7 +272,7 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 }
 
-export default connect(WashEffEligibilityDialog)
+export default WashEffEligibilityDialog
 
 function getSteps() {
   return [

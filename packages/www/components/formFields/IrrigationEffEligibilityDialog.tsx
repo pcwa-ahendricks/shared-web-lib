@@ -21,7 +21,7 @@ import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {Field, FieldProps, useFormikContext} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
@@ -31,12 +31,12 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import {IrrigationEfficienciesRebateFormData} from '@lib/services/formService'
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  formik?: FormikProps<any>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,11 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const IrrigationEffEligibilityDialog = ({
-  open = false,
-  onClose,
-  formik
-}: Props) => {
+const IrrigationEffEligibilityDialog = ({open = false, onClose}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -77,7 +73,9 @@ const IrrigationEffEligibilityDialog = ({
   const prevTouched = useRef<{}>()
   const prevLastTouchedIndex = useRef<number>()
 
-  const {touched = {}, errors = {}} = formik || {}
+  const {touched, errors} = useFormikContext<
+    IrrigationEfficienciesRebateFormData & {[index: string]: string}
+  >()
 
   const eligibleFieldsTouched = useMemo(
     () => [touched.treatedCustomer, touched.irrigMethod].every(Boolean),
@@ -274,7 +272,7 @@ const IrrigationEffEligibilityDialog = ({
   )
 }
 
-export default connect(IrrigationEffEligibilityDialog)
+export default IrrigationEffEligibilityDialog
 
 function getSteps() {
   return [
