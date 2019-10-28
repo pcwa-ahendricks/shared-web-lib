@@ -42,7 +42,7 @@ const AttachmentField = ({
     // touched
     // handleBlur
   } = form
-  const currentError = errors[name]
+  const currentError = (errors[name] as any) || []
   const fieldHasError = Boolean(currentError)
   // Errors might be an array of errors due to yup schema. Use string variables to store messages for helper text.
   // General error will store the top-level (required) error message if error is found in form.
