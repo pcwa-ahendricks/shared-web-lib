@@ -126,7 +126,8 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
               </Type>
             </Breadcrumbs>
           </ChildBox>
-          <ChildBox flexShrink={0}>
+          {/* z-index allow <Fab/> to float w/ shadow above image below. */}
+          <ChildBox flexShrink={0} zIndex={1}>
             <Fab
               aria-label="Download board minutes"
               size={isSMDown ? 'small' : 'medium'}
