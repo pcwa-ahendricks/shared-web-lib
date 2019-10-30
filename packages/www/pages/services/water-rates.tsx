@@ -97,6 +97,32 @@ const WaterRatesPage = () => {
   const flexLeftMargin = 8
   const flexTopMargin = 4
 
+  const TableLayoutBox = ({children, ...rest}: BoxProps) => {
+    return (
+      <ChildBox
+        flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
+        mt={flexTopMargin}
+        {...rest}
+      >
+        {children}
+      </ChildBox>
+    )
+  }
+
+  const TableLayoutRow = ({children, ...rest}: BoxProps) => {
+    return (
+      <RowBox
+        flexSpacing={flexLeftMargin}
+        flexWrap="wrap"
+        mt={-flexTopMargin}
+        flexDirection={{xs: 'column', sm: 'row'}}
+        {...rest}
+      >
+        {children}
+      </RowBox>
+    )
+  }
+
   return (
     <PageLayout title="Water Rates" waterSurface>
       <MainBox>
@@ -189,16 +215,8 @@ const WaterRatesPage = () => {
               <Type variant="h4">Fixed Rates</Type>
             </Box>
             <Box mt={4} mb={6}>
-              <RowBox
-                flexSpacing={flexLeftMargin}
-                flexWrap="wrap"
-                mt={-flexTopMargin}
-                flexDirection={{xs: 'column', sm: 'row'}}
-              >
-                <ChildBox
-                  flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
-                  mt={flexTopMargin}
-                >
+              <TableLayoutRow>
+                <TableLayoutBox>
                   <TableContainer>
                     <Type
                       variant="h6"
@@ -236,11 +254,8 @@ const WaterRatesPage = () => {
                       </Table>
                     </Box>
                   </TableContainer>
-                </ChildBox>
-                <ChildBox
-                  flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
-                  mt={flexTopMargin}
-                >
+                </TableLayoutBox>
+                <TableLayoutBox>
                   <TableContainer>
                     <Type
                       variant="h6"
@@ -278,24 +293,16 @@ const WaterRatesPage = () => {
                       </Table>
                     </Box>
                   </TableContainer>
-                </ChildBox>
-              </RowBox>
+                </TableLayoutBox>
+              </TableLayoutRow>
             </Box>
 
             <Box mt={3}>
               <Type variant="h4">Commodity Rates</Type>
             </Box>
             <Box mt={4} mb={6}>
-              <RowBox
-                flexSpacing={flexLeftMargin}
-                flexWrap="wrap"
-                mt={-flexTopMargin}
-                flexDirection={{xs: 'column', sm: 'row'}}
-              >
-                <ChildBox
-                  flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
-                  mt={flexTopMargin}
-                >
+              <TableLayoutRow>
+                <TableLayoutBox>
                   <TableContainer>
                     <Type
                       variant="h6"
@@ -332,11 +339,8 @@ const WaterRatesPage = () => {
                       </Table>
                     </Box>
                   </TableContainer>
-                </ChildBox>
-                <ChildBox
-                  flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
-                  mt={flexTopMargin}
-                >
+                </TableLayoutBox>
+                <TableLayoutBox>
                   <TableContainer>
                     <Type
                       variant="h6"
@@ -373,11 +377,8 @@ const WaterRatesPage = () => {
                       </Table>
                     </Box>
                   </TableContainer>
-                </ChildBox>
-                <ChildBox
-                  flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
-                  mt={flexTopMargin}
-                >
+                </TableLayoutBox>
+                <TableLayoutBox>
                   <TableContainer>
                     <Type
                       variant="h6"
@@ -415,8 +416,8 @@ const WaterRatesPage = () => {
                       </Table>
                     </Box>
                   </TableContainer>
-                </ChildBox>
-              </RowBox>
+                </TableLayoutBox>
+              </TableLayoutRow>
             </Box>
           </Box>
         </WideContainer>
