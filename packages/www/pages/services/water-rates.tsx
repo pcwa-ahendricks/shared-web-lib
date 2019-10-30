@@ -24,6 +24,7 @@ import {
   Theme
 } from '@material-ui/core/styles'
 import {BoxProps} from '@material-ui/core/Box'
+import FancyButton from '@components/FancyButton/FancyButton'
 
 function createData(tier: string, cost: number) {
   return {tier, cost}
@@ -63,6 +64,11 @@ const commodityNonResidentialRows = [
   createData('Commercial (per 100 CF)', 1.62),
   createData('Landscape (per 100 CF)', 1.72),
   createData('Industrial / Resale (per 100 CF)', 0.4)
+]
+
+const fixedChargeMDU = [
+  createData('Per Dwelling Unit Charge', 14.95),
+  createData('Per Meter Component Charge', 3.6)
 ]
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -214,7 +220,7 @@ const WaterRatesPage = () => {
             <Box mt={3}>
               <Type variant="h4">Fixed Rates</Type>
             </Box>
-            <Box mt={4} mb={6}>
+            <Box mt={3} mb={6}>
               <TableLayoutRow>
                 <TableLayoutBox>
                   <TableContainer>
@@ -297,10 +303,39 @@ const WaterRatesPage = () => {
               </TableLayoutRow>
             </Box>
 
+            <Box mt={3} mb={6}>
+              <Type variant="h4" gutterBottom>
+                Multiple Dwelling Units
+              </Type>
+              <Box
+                bgcolor={theme.palette.common.white}
+                p={3}
+                boxShadow={3}
+                mt={3}
+              >
+                <Type paragraph variant="body2">
+                  For Multiple Dwelling Unit Service, (e.g. apartments and
+                  mobile home parks) the Monthly Fixed Charge shall be based on
+                  number of dwelling units served, plus a fixed per meter
+                  charge:
+                </Type>
+                <Box width={{xs: '100%', sm: '53%', md: '40%'}}>
+                  <RowBox justifyContent="space-between">
+                    <ChildBox>{fixedChargeMDU[0].tier}:</ChildBox>
+                    <ChildBox>{costFrmt(fixedChargeMDU[0].cost)}</ChildBox>
+                  </RowBox>
+                  <RowBox justifyContent="space-between">
+                    <ChildBox>{fixedChargeMDU[1].tier}:</ChildBox>
+                    <ChildBox>{costFrmt(fixedChargeMDU[1].cost)}</ChildBox>
+                  </RowBox>
+                </Box>
+              </Box>
+            </Box>
+
             <Box mt={3}>
               <Type variant="h4">Commodity Rates</Type>
             </Box>
-            <Box mt={4} mb={6}>
+            <Box mt={3} mb={6}>
               <TableLayoutRow>
                 <TableLayoutBox>
                   <TableContainer>
@@ -418,6 +453,19 @@ const WaterRatesPage = () => {
                   </TableContainer>
                 </TableLayoutBox>
               </TableLayoutRow>
+
+              <Box mt={6}>
+                <FancyButton
+                  variant="contained"
+                  hoverText="View PDF"
+                  target="_blank"
+                  color="secondary"
+                  rel="noopener noreferrer"
+                  href="https://cdn.cosmicjs.com/e22786d0-d808-11e9-8b5e-77cc8048055c-090519-update-2019-rules-and-regsjh090619.pdf"
+                >
+                  2019 Rules and Regs
+                </FancyButton>
+              </Box>
             </Box>
           </Box>
         </WideContainer>
