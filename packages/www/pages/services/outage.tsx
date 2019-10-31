@@ -64,7 +64,7 @@ const OutageInformationPage = () => {
                   and end dates and to find out more information about these
                   outages{' '}
                   <MuiLink
-                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/8ce089a0-07a3-11e9-9aa5-0dcd9afcf348-2019-Canal-Cleaning-Schedule-Z1.pdf"
+                    href="https://cdn.cosmicjs.com/8ce089a0-07a3-11e9-9aa5-0dcd9afcf348-2019-Canal-Cleaning-Schedule-Z1.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Link to 2019 Zone 1 Cleaning Schedule"
@@ -73,7 +73,7 @@ const OutageInformationPage = () => {
                   </MuiLink>{' '}
                   and{' '}
                   <MuiLink
-                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/844fd980-07a3-11e9-90d0-7de5bd32aecd-2019-Canal-Cleaning-Schedule-Z3.pdf"
+                    href="https://cdn.cosmicjs.com/844fd980-07a3-11e9-90d0-7de5bd32aecd-2019-Canal-Cleaning-Schedule-Z3.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Link to 2019 Zone 3 Cleaning Schedule"

@@ -144,7 +144,7 @@ const IrrigationCanalPage = () => {
                 variant="contained"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="//s3-us-west-2.amazonaws.com/cosmicjs/d1a51110-703e-11e9-948f-7b6a64396c21-2019-Aquatic-Weed-Control-Schedule-revised.pdf"
+                href="//cdn.cosmicjs.com/d1a51110-703e-11e9-948f-7b6a64396c21-2019-Aquatic-Weed-Control-Schedule-revised.pdf"
               >
                 2019 Algae Control (Cutrine) Schedule
               </FancyButton>

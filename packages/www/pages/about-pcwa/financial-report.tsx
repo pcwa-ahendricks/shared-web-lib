@@ -132,70 +132,70 @@ const EmployeeBenefitsSummaryPage = () => {
                   <RowBox alignItems="center" flexWrap="wrap">
                     <OlderCAFRLink
                       title="2015 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"
+                      href="//cdn.cosmicjs.com/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"
                     >
                       2015
                     </OlderCAFRLink>
                     <Type variant="inherit">•</Type>
                     <OlderCAFRLink
                       title="2014 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/1764a1b0-d87e-11e8-b627-0bd59229ea68-2014 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/1764a1b0-d87e-11e8-b627-0bd59229ea68-2014 CAFR.pdf"
                     >
                       2014
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2013 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/14d54440-d87e-11e8-8793-13fe540ddec9-2013 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/14d54440-d87e-11e8-8793-13fe540ddec9-2013 CAFR.pdf"
                     >
                       2013
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2012 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/19694b50-d87e-11e8-b627-0bd59229ea68-2012 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/19694b50-d87e-11e8-b627-0bd59229ea68-2012 CAFR.pdf"
                     >
                       2012
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2011 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/178bffd0-d87e-11e8-808f-f94458761064-2011 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/178bffd0-d87e-11e8-808f-f94458761064-2011 CAFR.pdf"
                     >
                       2011
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2010 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/167a41b0-d87e-11e8-8793-13fe540ddec9-2010 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/167a41b0-d87e-11e8-8793-13fe540ddec9-2010 CAFR.pdf"
                     >
                       2010
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2009 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/17fbb190-d87e-11e8-b627-0bd59229ea68-2009 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/17fbb190-d87e-11e8-b627-0bd59229ea68-2009 CAFR.pdf"
                     >
                       2009
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2008 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/1567e750-d87e-11e8-b627-0bd59229ea68-2008 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/1567e750-d87e-11e8-b627-0bd59229ea68-2008 CAFR.pdf"
                     >
                       2008
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2007 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/11fea4a0-d87e-11e8-b627-0bd59229ea68-2007 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/11fea4a0-d87e-11e8-b627-0bd59229ea68-2007 CAFR.pdf"
                     >
                       2007
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2006 CAFR Document Link"
-                      href="//s3-us-west-2.amazonaws.com/cosmicjs/1264b970-d87e-11e8-8793-13fe540ddec9-2006 CAFR.pdf"
+                      href="//cdn.cosmicjs.com/1264b970-d87e-11e8-8793-13fe540ddec9-2006 CAFR.pdf"
                     >
                       2006
                     </OlderCAFRLink>
@@ -219,25 +219,25 @@ const EmployeeBenefitsSummaryPage = () => {
                   </BudgetDoc>
                   <BudgetDoc
                     aria-label="View 2019 Budget"
-                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/f1e0f730-edeb-11e8-a647-bfe927ef12bf-2019-Budget.pdf"
+                    href="https://cdn.cosmicjs.com/f1e0f730-edeb-11e8-a647-bfe927ef12bf-2019-Budget.pdf"
                   >
                     2019 Budget
                   </BudgetDoc>
                   <BudgetDoc
                     aria-label="View 2018 Budget"
-                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/123a2dc0-ebff-11e7-8e2b-119e8020b76c-2018 Adopted Budget for website.pdf"
+                    href="https://cdn.cosmicjs.com/123a2dc0-ebff-11e7-8e2b-119e8020b76c-2018 Adopted Budget for website.pdf"
                   >
                     2018 Budget
                   </BudgetDoc>
                   <BudgetDoc
                     aria-label="View 2017 Budget"
-                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/19753230-d87e-11e8-808f-f94458761064-2017 Budget.pdf"
+                    href="https://cdn.cosmicjs.com/19753230-d87e-11e8-808f-f94458761064-2017 Budget.pdf"
                   >
                     2017 Budget
                   </BudgetDoc>
                   {/* <BudgetDoc
                     aria-label="View 2016 Budget"
-                    href="https://s3-us-west-2.amazonaws.com/cosmicjs/1692f9d0-d87e-11e8-b627-0bd59229ea68-2016 Budget.pdf"
+                    href="https://cdn.cosmicjs.com/1692f9d0-d87e-11e8-b627-0bd59229ea68-2016 Budget.pdf"
                   >
                     2016 Budget
                   </BudgetDoc> */}

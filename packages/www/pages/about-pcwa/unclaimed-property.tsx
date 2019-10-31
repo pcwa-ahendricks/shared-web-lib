@@ -136,7 +136,7 @@ const SalarySchedulePage = () => {
                 <ListItemText>
                   Claimants must complete the Agency’s{' '}
                   <Link
-                    href="https://cosmicjs.com/uploads/171150a0-adeb-11e7-ae97-05d188137947-PCWA Unclaimed Property Form 2017.pdf"
+                    href="https://cdn.cosmicjs.com/171150a0-adeb-11e7-ae97-05d188137947-PCWA Unclaimed Property Form 2017.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -144,7 +144,7 @@ const SalarySchedulePage = () => {
                   </Link>{' '}
                   in accordance with the{' '}
                   <Link
-                    href="https://cosmicjs.com/uploads/6d63beb0-adec-11e7-b53b-17f51103f11d-Instructions to Claim Form Unclaimed Property.pdf"
+                    href="https://cdn.cosmicjs.com/6d63beb0-adec-11e7-b53b-17f51103f11d-Instructions to Claim Form Unclaimed Property.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

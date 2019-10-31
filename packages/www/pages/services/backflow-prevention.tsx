@@ -178,7 +178,7 @@ const CrossControlPreventionPage = () => {
                 <ListItemText
                   primary={
                     <Link
-                      href="https://cosmicjs.com/uploads/c916db10-6b30-11e7-b8ae-eb2280fc8c40-Cross-Connection_Brochure.pdf"
+                      href="https://cdn.cosmicjs.com/c916db10-6b30-11e7-b8ae-eb2280fc8c40-Cross-Connection_Brochure.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -205,7 +205,7 @@ const CrossControlPreventionPage = () => {
                 <ListItemText
                   primary={
                     <Link
-                      href="https://cosmicjs.com/uploads/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
+                      href="https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -219,7 +219,7 @@ const CrossControlPreventionPage = () => {
                 <ListItemText
                   primary={
                     <Link
-                      href="https://cosmicjs.com/uploads/b8b01840-6b30-11e7-a2a2-c992b2b93cb7-Program_Changes_BSI_Transition_Blank.pdf"
+                      href="https://cdn.cosmicjs.com/b8b01840-6b30-11e7-a2a2-c992b2b93cb7-Program_Changes_BSI_Transition_Blank.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
