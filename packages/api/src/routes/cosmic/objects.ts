@@ -6,11 +6,11 @@ const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
-const mainHandler = async (_req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
     const qs = stringify(
       // eslint-disable-next-line @typescript-eslint/camelcase
-      {read_key: COSMIC_READ_ACCESS_KEY},
+      {read_key: COSMIC_READ_ACCESS_KEY, ...req.query},
       true
     )
     const response = await fetch(

@@ -1,26 +1,157 @@
-import React from 'react'
+import React, {useMemo, useEffect, useState, useCallback} from 'react'
 import {
   Box,
-  // Divider,
   Theme,
   Link as MuiLink,
-  Typography as Type
-  // useMediaQuery
+  Typography as Type,
+  Divider,
+  CircularProgress
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {useTheme} from '@material-ui/core/styles'
-// import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
-// import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-// import EightHundredPhone from '@components/links/EightHundredPhone'
 import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import EventIcon from '@material-ui/icons/Event'
+
+import {
+  RespRowBox,
+  ChildBox,
+  RowBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
+import {getObjects, CosmicObjectResponse} from '@lib/services/cosmicService'
+import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
+import ShowMore from '@components/ShowMore/ShowMore'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const OutageInformationPage = () => {
   const theme = useTheme<Theme>()
+  const [outages, setOutages] = useState<CosmicObjectResponse['objects']>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  const getOutages = useCallback(async () => {
+    try {
+      setLoading(true)
+      const data = await getObjects('outages', {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        hide_metafields: true,
+        props: '_id,content,metadata,slug,status,title'
+      })
+      setOutages(data)
+      setLoading(false)
+    } catch (err) {
+      console.log(err)
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    getOutages()
+  }, [getOutages])
+
+  const outageContent = useCallback(
+    (outageType: string) =>
+      outages
+        .filter(
+          (outage) =>
+            outage.metadata &&
+            outage.metadata.hide_on_website === false &&
+            outage.slug === outageType
+        )
+        .map((outage) => (outage ? outage.content : ''))[0] || '',
+    [outages]
+  )
+
+  const treatedWaterOutagesHTML = useMemo(
+    () => outageContent('treated-outages'),
+    [outageContent]
+  )
+
+  const rawWaterOutagesHTML = useMemo(
+    () => outageContent('irrigation-canal-outages'),
+    [outageContent]
+  )
+
+  const options: HTMLReactParserOptions = useMemo(
+    () => ({
+      replace: ({children, attribs, name}) => {
+        // if (!attribs) return
+
+        // Strip ALL Style properties from HTML.
+        if (attribs && attribs.style) {
+          attribs.style = ''
+        }
+
+        if (name === 'em') {
+          return (
+            <Type
+              style={{fontStyle: 'italic'}}
+              variant="body1"
+              component="span"
+            >
+              {domToReact(children, options)}
+            </Type>
+          )
+        }
+
+        if (name === 'u') {
+          return (
+            <Type variant="h3" component="span">
+              {domToReact(children, options)}
+            </Type>
+          )
+        }
+
+        if (name === 'strong') {
+          return (
+            <Type variant="h6" component="span">
+              {domToReact(children, options)}
+            </Type>
+          )
+        }
+
+        /* Lastly */
+        if (name === 'p') {
+          return (
+            <Type variant="body1" paragraph>
+              {domToReact(children, options)}
+            </Type>
+          )
+        }
+      }
+    }),
+    []
+  )
+
+  const parsedTreatedWaterOutagesContent = useMemo(
+    () => Parser(treatedWaterOutagesHTML, options),
+    [treatedWaterOutagesHTML, options]
+  )
+
+  const parsedRawWaterOutagesContent = useMemo(
+    () => Parser(rawWaterOutagesHTML, options),
+    [rawWaterOutagesHTML, options]
+  )
+
+  const progressEl = useMemo(
+    () =>
+      loading ? (
+        <ColumnBox
+          position="absolute"
+          width="100%"
+          height="100%"
+          justifyContent="center"
+        >
+          <RowBox justifyContent="center">
+            <CircularProgress color="primary" />
+          </RowBox>
+        </ColumnBox>
+      ) : null,
+    [loading]
+  )
 
   return (
     <PageLayout title="Outage Information" waterSurface>
@@ -29,8 +160,8 @@ const OutageInformationPage = () => {
           <PageTitle title="Outage Information" subtitle="Services" />
 
           <RespRowBox flexSpacing={4}>
-            <ChildBox flex="70%">
-              <Box mt={6}>
+            <ChildBox flex="65%">
+              <Box mt={0}>
                 <Type paragraph>
                   From time-to-time, water outages will occur. A water outage
                   could be planned or the result of infrastructure failure. The
@@ -54,10 +185,52 @@ const OutageInformationPage = () => {
                   will be posted below:
                 </Type>
               </Box>
+              <Box position="relative" minHeight={250}>
+                {progressEl}
+                {!loading ? (
+                  <>
+                    <Box
+                      bgcolor={theme.palette.common.white}
+                      boxShadow={3}
+                      mt={6}
+                      p={3}
+                    >
+                      <Type variant="h2" gutterBottom>
+                        {' '}
+                        Treated Water Outages:
+                      </Type>
+                      {parsedTreatedWaterOutagesContent}
+                    </Box>
+                    <Box
+                      bgcolor={theme.palette.common.white}
+                      boxShadow={3}
+                      mt={6}
+                      p={3}
+                    >
+                      <Type variant="h2" gutterBottom>
+                        {' '}
+                        Raw Water Outages:
+                      </Type>
+                      {parsedRawWaterOutagesContent}
+                    </Box>
+                  </>
+                ) : null}
+              </Box>
             </ChildBox>
-            <ChildBox flex="30%">
+            <ChildBox flex="35%">
               <Box bgcolor={theme.palette.common.white} p={2} boxShadow={2}>
-                <Type paragraph>
+                <RowBox alignItems="center">
+                  <EventIcon
+                    style={{
+                      marginRight: theme.spacing(1),
+                      alignSelf: 'stretch'
+                    }}
+                  />
+                  <Type gutterBottom variant="subtitle2">
+                    2019 Canal Cleaning Schedule
+                  </Type>
+                </RowBox>
+                <Type paragraph variant="body2">
                   Every year canals are cleaned and are to be out of water
                   during cleaning. Outage times listed are approximate. Recovery
                   time for water service is approximately 12 hours. To see start
@@ -83,8 +256,113 @@ const OutageInformationPage = () => {
                   .
                 </Type>
               </Box>
+
+              <Box
+                mt={8}
+                boxShadow={2}
+                p={2}
+                bgcolor={theme.palette.common.white}
+              >
+                <ShowMore
+                  inMaxHeight={400}
+                  outMaxHeight={7000}
+                  inShowMoreTitle="Click to read more"
+                  outShowMoreTitle="Click to read less"
+                  backgroundImageRGB="255,255,255"
+                >
+                  <article>
+                    <Type variant="subtitle2" gutterBottom>
+                      Consumer Guidance During Water Outages Or Periods Of Low
+                      Pressure
+                    </Type>
+                    <Box my={1}>
+                      <Divider />
+                    </Box>
+                    <ol style={{paddingInlineStart: theme.spacing(3)}}>
+                      <Type component="li" variant="body2" paragraph>
+                        If you are experiencing water outages or low water
+                        pressure, immediately discontinue any non-essential
+                        water use. This includes all outdoor irrigation and car
+                        washing. Minimizing use will reduce the potential for
+                        the water system to lose pressure or run out of water.
+                      </Type>
+                      <Type component="li" variant="body2" paragraph>
+                        If the water looks cloudy or dirty, you should not drink
+                        it. Upon return of normal water service, you should
+                        flush the hot and cold water lines until the water
+                        appears clear and the water quality returns to normal.
+                      </Type>
+                      <Type component="li" variant="body2" paragraph>
+                        If you are concerned about the water quality or are
+                        uncertain of its safety, you may add eight drops of
+                        household bleach to one gallon of water and let it sit
+                        for 30 minutes or alternatively, if you are able, water
+                        can be boiled for one minute at a rolling boil to ensure
+                        it is safe for consumption.
+                      </Type>
+                      <Type component="li" variant="body2" paragraph>
+                        Use of home treatment devices does not guarantee the
+                        water supply is safe after low pressure situations.
+                      </Type>
+                      <Type component="li" variant="body2" paragraph>
+                        Do not be alarmed if you experience higher than normal
+                        chlorine concentrations in your water supply since the
+                        State Water Resources Control Board is advising public
+                        water utilities to increase chlorine residuals in areas
+                        subject to low pressure or outages.
+                      </Type>
+                      <Type component="li" variant="body2" paragraph>
+                        The State Water Resources Control Board has also advised
+                        public water systems to increase the bacteriological
+                        water quality monitoring of the distribution system in
+                        areas subject to low pressure. This may include
+                        collecting samples in your area to confirm that the
+                        water remains safe for consumption. You will be promptly
+                        advised if the sampling reveals a water quality problem.
+                      </Type>
+                      <Type component="li" variant="body2" paragraph>
+                        Placer County Water Agency is committed to ensuring that
+                        an adequate quantity of clean, wholesome, and potable
+                        water is delivered to you. We recommend that you discuss
+                        the information in this notice with members of your
+                        family to assure that all family members are prepared
+                        should water outages or low water pressure occur.
+                      </Type>
+                    </ol>
+                    <Box my={3}>
+                      <Divider />
+                    </Box>
+                    <Type variant="body2" paragraph>
+                      If you, at any time, experience an outage or low pressure
+                      at your home or place of business please call Placer
+                      County Water Agency at <MainPhone />. A customer service
+                      representative will be more than happy to assist you with
+                      any questions or concerns you may have.
+                    </Type>
+                  </article>
+                </ShowMore>
+              </Box>
+
+              <RowBox mt={{xs: 6, sm: 6}} justifyContent="center">
+                <LazyImgix
+                  src="https://cosmic-s3.imgix.net/9a973a70-fc31-11e9-bead-495f6403df62-outage-img1.jpg"
+                  htmlAttributes={{
+                    alt: 'Photo of PCWA Flume',
+                    style: {width: '100%', maxWidth: 275}
+                  }}
+                />
+              </RowBox>
             </ChildBox>
           </RespRowBox>
+          <Box mt={8}>
+            <Type variant="h4" gutterBottom>
+              Need More Assistance?
+            </Type>
+            <Type paragraph>
+              If you have specific concerns or questions, please call our
+              Customer Services Department at <MainPhone />.
+            </Type>
+          </Box>
         </WideContainer>
       </MainBox>
     </PageLayout>

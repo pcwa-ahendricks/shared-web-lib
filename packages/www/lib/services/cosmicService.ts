@@ -20,6 +20,21 @@ export interface Page {
   url: string
 }
 
+const getObjects = async (type: string, params: any) => {
+  try {
+    const qs = stringify({type, ...params}, true)
+    const url = `${LAMBDA_URL}/api/cosmic/objects${qs}`
+    const data = await fetchOk<CosmicObjectResponse>(url)
+    if (!data) {
+      return []
+    }
+    return data.objects
+  } catch (error) {
+    console.warn(error)
+    throw error
+  }
+}
+
 const getUnclaimedProperty = async () => {
   try {
     const qs = stringify({filename: 'unclaimed-property.csv'}, true)
@@ -204,11 +219,64 @@ export interface CosmicMediaMeta extends CosmicMedia {
   trimmedName?: string // Used w/ Multimedia Library
 }
 
+export interface CosmicObjectResponse {
+  objects: Partial<CosmicObject>[]
+  total: number
+}
+
+interface CosmicObject {
+  _id: string
+  order: number
+  slug: string
+  title: string
+  content: string
+  metafields: Metafield[]
+  bucket: string
+  type_slug: string
+  created_at: string
+  created_by: string
+  created: string
+  status: string
+  modified_at?: string
+  modified_by?: string
+  publish_at?: any
+  metadata: Metadata
+  published_at?: string
+}
+
+interface Metadata {
+  overview?: string
+  last_updated?: string
+  type?: string
+  hide_on_website?: boolean
+  presentation?: string
+  slideNo?: number
+  content?: string
+}
+
+interface Metafield {
+  required: boolean
+  value: boolean | number | string | string | string
+  key: string
+  title: string
+  type: string
+  children?: any
+  options?: Option[]
+  regex_message?: string
+  regex?: string
+}
+
+interface Option {
+  value: string
+  key?: string
+}
+
 export {
   getUnclaimedProperty,
   getSalarySchedule,
   getSalaryScheduleCsv,
   getMedia,
   getMediaPDFPages,
-  fileNameUtil
+  fileNameUtil,
+  getObjects
 }

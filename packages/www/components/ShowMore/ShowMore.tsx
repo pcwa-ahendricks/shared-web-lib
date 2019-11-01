@@ -14,6 +14,7 @@ type Props = {
   inDuration?: number // ms,
   inShowMoreTitle?: string
   outShowMoreTitle?: string
+  backgroundImageRGB?: string
 }
 
 type UseStylesProps = {
@@ -22,6 +23,7 @@ type UseStylesProps = {
   outMaxHeight: Props['outMaxHeight']
   outDuration: Props['outDuration']
   inDuration: Props['inDuration']
+  backgroundImageRGB: Props['backgroundImageRGB']
 }
 
 const useStyles = makeStyles(() =>
@@ -46,7 +48,12 @@ const useStyles = makeStyles(() =>
     childrenContainer: {
       zIndex: 1
     },
-    gradient: ({isExpanded, outDuration, inDuration}: UseStylesProps) => ({
+    gradient: ({
+      isExpanded,
+      outDuration,
+      inDuration,
+      backgroundImageRGB
+    }: UseStylesProps) => ({
       opacity: isExpanded ? 0 : 1,
       zIndex: 2, // Higher than childrenContainer.
       position: 'absolute',
@@ -58,9 +65,9 @@ const useStyles = makeStyles(() =>
       transition: `opacity ${isExpanded ? outDuration : inDuration}ms ease-out`,
       backgroundImage: `linear-gradient(
           to top,
-          rgba(250, 250, 250, 1) 5%,
-          rgba(250, 250, 250, 0.75) 15%,
-          rgba(250, 250, 250, 0) 80%
+          rgba(${backgroundImageRGB}, 1) 5%,
+          rgba(${backgroundImageRGB}, 0.75) 15%,
+          rgba(${backgroundImageRGB}, 0) 80%
         )`
     })
   })
@@ -73,7 +80,8 @@ const ShowMore = ({
   outDuration = 650,
   inDuration = 250,
   inShowMoreTitle = 'Show Me More',
-  outShowMoreTitle = 'Show Me Less'
+  outShowMoreTitle = 'Show Me Less',
+  backgroundImageRGB = '250, 250, 250'
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const classes = useStyles({
@@ -81,7 +89,8 @@ const ShowMore = ({
     inMaxHeight,
     outDuration,
     inDuration,
-    outMaxHeight
+    outMaxHeight,
+    backgroundImageRGB
   })
 
   const clickHandler = useCallback(() => {

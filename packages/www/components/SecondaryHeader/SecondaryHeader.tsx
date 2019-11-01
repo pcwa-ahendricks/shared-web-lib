@@ -48,14 +48,14 @@ const SecondaryHeader = () => {
         <ForecastContainer />
       </Hidden>
       <Box component="span" flexGrow={1} />
-      <NextGlowButton aria-label="Link" size="small" href="#">
+      <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages
       </NextGlowButton>
       <ENewsButton size="small">E-News</ENewsButton>
       <NextGlowButton
         size="small"
         aria-label="Link"
-        href="/about-pcwa/board-agenda"
+        href="/board-of-directors/board-agenda"
       >
         Board Meetings
       </NextGlowButton>

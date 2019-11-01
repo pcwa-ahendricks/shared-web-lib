@@ -31,11 +31,11 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Board of Directors',
-            nextLink: '/about-pcwa/board-of-directors'
+            nextLink: '/board-of-directors'
           },
           {
             title: 'Board Meeting Agendas',
-            nextLink: '/about-pcwa/board-agenda'
+            nextLink: '/board-of-directors/board-agenda'
           },
           {
             title: 'Board Meeting Minutes',

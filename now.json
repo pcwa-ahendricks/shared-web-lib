@@ -96,14 +96,6 @@
       }
     },
     {
-      "src": "/api/cosmic/object-type(.*)",
-      "dest": "packages/api/src/routes/cosmic/object-type.ts",
-      "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
-        "access-control-allow-origin": "https://www.pcwa.net"
-      }
-    },
-    {
       "src": "/api/cosmic/uploads(.*)",
       "dest": "packages/api/src/routes/cosmic/uploads.ts",
       "headers": {
@@ -228,6 +220,22 @@
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/board-of-directors/board-minutes"
+      }
+    },
+    {
+      "src": "/about-pcwa/board-of-directors",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/board-of-directors"
+      }
+    },
+    {
+      "src": "/about-pcwa/board-agenda",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/board-of-directors/board-agenda"
       }
     },
     {
