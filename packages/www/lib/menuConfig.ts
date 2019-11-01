@@ -192,7 +192,7 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Smart Water Use',
-            nextLink: '/stewardship'
+            nextLink: '/smart-water-use'
           },
           {
             title: 'Landscaping Resources',
@@ -200,13 +200,8 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Rebate Programs',
-            nextLink: '/stewardship/rebate-programs'
+            nextLink: '/smart-water-use/rebate-programs'
           },
-          // {
-          //
-          //   title: 'Rocklin Neighbors',
-          //   nextLink: '/stewardship/rocklin-neighbors'
-          // },
           {
             title: 'Fire-Resistant Garden',
             nextLink: '/stewardship/fire-resistant-garden'
@@ -221,7 +216,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'WaterSense',
-            nextLink: '/stewardship/water-sense'
+            nextLink: '/smart-water-use/water-sense'
           }
         ]
       }

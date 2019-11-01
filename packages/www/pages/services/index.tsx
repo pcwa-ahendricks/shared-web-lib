@@ -61,7 +61,7 @@ const ServicesPage = () => {
                 </ListItem>
                 <ListItem>
                   <NextLink variant="h6" href="/services/irrigation-canal">
-                    Irrigation Canal
+                    Irrigation Canal Information
                   </NextLink>
                 </ListItem>
                 <ListItem>

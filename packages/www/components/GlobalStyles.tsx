@@ -54,6 +54,11 @@ const GlobalStyles = withStyles((theme: Theme) => ({
       color: alpha(theme.palette.common.black, 0.7) // Defaults to rgba(0,0,0,0.87) which is a bit too black for bold Kiperman font.
     },
     // Adjusting the  lineHeight in material-theme.ts seemed to effect the fontSize. Adjusting it here is the workaround.
+    h2: {
+      '&.MuiTypography-h2': {
+        lineHeight: '36px' // Defaults to 32 which is too cramped.
+      }
+    },
     h3: {
       '&.MuiTypography-h3': {
         lineHeight: 1.3 // Defaults to 1.04 which is too cramped.

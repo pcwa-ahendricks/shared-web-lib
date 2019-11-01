@@ -247,6 +247,30 @@
       }
     },
     {
+      "src": "/stewardship/?",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/smart-water-use"
+      }
+    },
+    {
+      "src": "/stewardship/water-sense",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/smart-water-use/water-sense"
+      }
+    },
+    {
+      "src": "/stewardship/rebate-programs",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/smart-water-use/rebate-programs"
+      }
+    },
+    {
       "src": "/newsroom/publication",
       "status": 301,
       "headers": {
