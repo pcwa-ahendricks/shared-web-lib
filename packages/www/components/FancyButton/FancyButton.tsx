@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import {Box, Button} from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {ButtonProps} from '@material-ui/core/Button'
+import NativeListener from 'react-native-listener'
 
 type Props = {
   children: React.ReactNode
@@ -64,27 +65,35 @@ const FancyButton = ({
 }: Props) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
   const classes = useStyles({isHovering, transition, transitionDuration})
+
+  // [HACK] Next <Link/> will block React's synthetic events, such as onMouseEnter and onMouseLeave. Use react-native-listener as a workaround for this behavior.
+  const onMouseEnterHandler = useCallback(() => {
+    setIsHovering(true)
+  }, [])
+
+  const onMouseLeaveHandler = useCallback(() => {
+    setIsHovering(false)
+  }, [])
+
   return (
-    <Button
-      component="a"
-      href={href}
-      className={classes.root}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      {...rest}
+    <NativeListener
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
     >
-      <Box
-        component="span"
-        position="absolute"
-        zIndex="2"
-        className={classes.hoverText}
-      >
-        {hoverText}
-      </Box>
-      <Box component="span" zIndex="1" className={classes.children}>
-        {children}
-      </Box>
-    </Button>
+      <Button component="a" href={href} className={classes.root} {...rest}>
+        <Box
+          component="span"
+          position="absolute"
+          zIndex="2"
+          className={classes.hoverText}
+        >
+          {hoverText}
+        </Box>
+        <Box component="span" zIndex="1" className={classes.children}>
+          {children}
+        </Box>
+      </Button>
+    </NativeListener>
   )
 }
 
