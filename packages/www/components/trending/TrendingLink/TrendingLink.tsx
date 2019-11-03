@@ -2,7 +2,6 @@ import React from 'react'
 import {Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import Link from 'next/link'
-import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 type Props = {
   children: React.ReactNode
@@ -25,8 +24,6 @@ const useStyles = makeStyles({
 const TrendingLink = ({children, href}: Props) => {
   const classes = useStyles()
 
-  const mouseEnterHandler = usePrefetchHandler()
-
   return (
     <Link href={href} passHref>
       <Button
@@ -34,7 +31,6 @@ const TrendingLink = ({children, href}: Props) => {
         color="inherit"
         className={classes.root}
         classes={{label: classes.label}}
-        onMouseEnter={mouseEnterHandler(href)}
       >
         {children}
       </Button>
