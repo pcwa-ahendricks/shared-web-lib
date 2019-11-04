@@ -67,6 +67,7 @@ const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
           height={20}
           width={150}
           src="https://cosmic-s3.imgix.net/da7f8630-1c51-11e9-bf46-8b88c19621e9-poweredby-oneline-dark-300.png"
+          imgixParams={{fit: 'crop'}} // Required with ver. 9+
           htmlAttributes={{
             alt: 'Powered by Dark Sky Logo',
             style: {width: '100%'}
