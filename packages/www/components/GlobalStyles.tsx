@@ -63,6 +63,11 @@ const GlobalStyles = withStyles((theme: Theme) => ({
       '&.MuiTypography-h3': {
         lineHeight: 1.3 // Defaults to 1.04 which is too cramped.
       }
+    },
+    strong: {
+      '&.MuiTypography-root': {
+        fontWeight: 500 // <strong /> uses bold which is too bold for Kiperman font. Use 500 weight instead.
+      }
     }
   }
 }))(() => null)

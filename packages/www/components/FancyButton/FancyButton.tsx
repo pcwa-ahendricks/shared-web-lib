@@ -3,7 +3,7 @@ import {Box, Button} from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {ButtonProps} from '@material-ui/core/Button'
 
-type Props = {
+export type FancyButtonProps = {
   children: React.ReactNode
   hoverText?: string
   transition?: 'fade' | 'slideUp'
@@ -12,8 +12,8 @@ type Props = {
 
 type UseStylesProps = {
   isHovering: boolean
-  transition: Props['transition']
-  transitionDuration: Props['transitionDuration']
+  transition: FancyButtonProps['transition']
+  transitionDuration: FancyButtonProps['transitionDuration']
 }
 
 const useStyles = makeStyles(() =>
@@ -61,7 +61,7 @@ const FancyButton = ({
   transitionDuration = '150ms',
   href,
   ...rest
-}: Props) => {
+}: FancyButtonProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
   const classes = useStyles({isHovering, transition, transitionDuration})
   return (
@@ -79,7 +79,7 @@ const FancyButton = ({
         zIndex="2"
         className={classes.hoverText}
       >
-        {hoverText}
+        {hoverText || children}
       </Box>
       <Box component="span" zIndex="1" className={classes.children}>
         {children}

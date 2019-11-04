@@ -22,6 +22,7 @@ import BsiOnlinePhone from '@components/links/BsiOnlinePhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import MainPhone from '@components/links/MainPhone'
+import Spacing from '@components/boxes/Spacing'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -91,7 +92,8 @@ const CrossControlPreventionPage = () => {
               />
             </ChildBox>
           </RespRowBox>
-          <Box mt={6}>
+          <Spacing />
+          <Box>
             <Type variant="h4" gutterBottom>
               Treated Water Connections Requiring Backflow Prevention Devices
             </Type>
@@ -113,10 +115,10 @@ const CrossControlPreventionPage = () => {
               </CompactListItem>
             </List>
           </Box>
-          <Box mb={3} mt={3}>
+          <Spacing size="large">
             <Divider />
-          </Box>
-          <Box mt={6}>
+          </Spacing>
+          <Box>
             <Type variant="h4" gutterBottom>
               Compliance Requirements - How to Remain Compliant
             </Type>
