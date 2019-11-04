@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useCallback} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
@@ -59,6 +59,13 @@ const ImgixThumbLink = ({
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
+  const mouseEnterHandler = useCallback(() => {
+    setIsHover(true)
+  }, [])
+  const mouseLeaveHandler = useCallback(() => {
+    setIsHover(false)
+  }, [])
+
   return (
     <Box mt={margin} ml={margin}>
       <a
@@ -66,8 +73,8 @@ const ImgixThumbLink = ({
         rel="noopener noreferrer"
         target="_blank"
         className={classes.link}
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
+        onMouseEnter={mouseEnterHandler}
+        onMouseLeave={mouseLeaveHandler}
       >
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy
