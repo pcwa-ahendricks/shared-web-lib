@@ -4,12 +4,14 @@ import {BoxProps} from '@material-ui/core/Box'
 
 type Props = {
   children?: React.ReactNode
-  size?: 'medium' | 'small' | 'large' | 'x-large'
+  size?: 'medium' | 'x-small' | 'small' | 'large' | 'x-large'
 } & BoxProps
 
 const Spacing = ({children, size = 'medium', ...rest}: Props) => {
   const spacing = useMemo(() => {
     switch (size) {
+      case 'x-small':
+        return 1
       case 'small':
         return 2
       case 'medium':

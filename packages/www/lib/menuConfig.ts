@@ -196,7 +196,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Landscaping Resources',
-            nextLink: '/stewardship/landscape-resources'
+            nextLink: '/smart-water-use/landscape-resources'
           },
           {
             title: 'Rebate Programs',
