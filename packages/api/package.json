@@ -35,7 +35,6 @@
     "@now/node": "^1.0.2",
     "@types/busboy": "^0.2.3",
     "@types/co-body": "^0.0.3",
-    "@types/form-data": "^2.5.0",
     "@types/node": "^12.12.6",
     "@types/node-fetch": "^2.5.3",
     "@types/querystringify": "^2.0.0",

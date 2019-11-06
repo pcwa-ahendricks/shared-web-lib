@@ -58,13 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
       minWidth: 0,
       overflow: 'hidden',
-      width: '100%',
-      '& img': {
-        display: 'block',
-        width: '100%',
-        objectFit: 'contain'
-        // height: '100%'
-      }
+      width: '100%'
     },
     // fileNameOverlay: {
     //   position: 'absolute',
@@ -77,6 +71,12 @@ const useStyles = makeStyles((theme: Theme) =>
     removeUploadFabContainer: {
       position: 'absolute',
       zIndex: 12
+    },
+    thumbImg: {
+      display: 'block',
+      width: '100%',
+      objectFit: 'contain',
+      objectPosition: 'center top' // Required for use w/ Safari.
     }
   })
 )
@@ -167,9 +167,7 @@ const ThumbPreview = ({
                   src="/static/images/placeholder-camera.png"
                   srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                   data-srcset={file.previewUrl}
-                  className={clsx({
-                    ['lazyload']: true
-                  })}
+                  className={clsx(['lazyload', classes.thumbImg])}
                   alt={`Thumbnail for ${file.name} upload`}
                 />
               )}
