@@ -1,4 +1,4 @@
-// cspell:ignore Eisley Normac
+// cspell:ignore Eisley Normac watersavingplants
 import React, {useState, useCallback} from 'react'
 import {
   Typography as Type,
@@ -714,12 +714,14 @@ const SmartWaterUsePage = () => {
                   <CardActions>
                     <Button
                       size="small"
-                      startIcon={<WebsiteIcon />}
+                      startIcon={<WebsiteIcon color="action" />}
                       href="http://www.ecolandscape.org"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      EcoLandscape.org
+                      <Type variant="inherit" color="textSecondary">
+                        EcoLandscape.org
+                      </Type>
                     </Button>
                   </CardActions>
                 </Card>
@@ -748,6 +750,17 @@ const SmartWaterUsePage = () => {
                       </Type>
                     </CardContent>
                   </CardActionArea>
+                  <CardActions>
+                    <NextButton
+                      size="small"
+                      startIcon={<WebsiteIcon color="action" />}
+                      href="/"
+                    >
+                      <Type variant="inherit" color="textSecondary">
+                        PCWA.net
+                      </Type>
+                    </NextButton>
+                  </CardActions>
                 </Card>
               </ChildBox>
 
@@ -776,6 +789,19 @@ const SmartWaterUsePage = () => {
                       </Type>
                     </CardContent>
                   </CardActionArea>
+                  <CardActions>
+                    <Button
+                      size="small"
+                      startIcon={<WebsiteIcon color="action" />}
+                      href="https://www.rwa.watersavingplants.com"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <Type variant="inherit" color="textSecondary">
+                        RWA.watersavingplants.com
+                      </Type>
+                    </Button>
+                  </CardActions>
                 </Card>
               </ChildBox>
             </RespRowBox>
