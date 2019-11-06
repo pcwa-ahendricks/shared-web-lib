@@ -17,11 +17,16 @@ type Props = {
   height?: number
 }
 
-const LazyImgix = ({className: classNameProp, children, ...rest}: Props) => {
+const LazyImgix = ({
+  className: classNameProp,
+  children,
+  sizes = 'auto',
+  ...rest
+}: Props) => {
   return (
     <Imgix
       className={clsx([classNameProp, 'lazyload'])}
-      sizes="auto"
+      sizes={sizes}
       attributeConfig={{
         src: 'data-src',
         srcSet: 'data-srcset',

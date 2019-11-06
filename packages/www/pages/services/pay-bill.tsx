@@ -35,7 +35,7 @@ const PayBillPage = () => {
         <NarrowContainer>
           <PageTitle title="Bill Payment Options" subtitle="Services" />
           <RespRowBox flexSpacing={4}>
-            <ChildBox flex={{xs: '100%', sm: '60%'}}>
+            <ChildBox flex="60%">
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
                 Our electronic and automated options are
@@ -128,19 +128,19 @@ const PayBillPage = () => {
                 </PayOptionBox>
               </ColumnBox>
             </ChildBox>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
-            >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
-                htmlAttributes={{
-                  alt: 'Customer Service Representative Photo',
-                  style: {width: '100%'}
-                }}
-              />
+            <ChildBox flex="40%" display="flex">
+              <ChildBox
+                mx="auto"
+                width={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
+              >
+                <LazyImgix
+                  src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
+                  htmlAttributes={{
+                    alt: 'Customer Service Representative Photo',
+                    style: {width: '100%'}
+                  }}
+                />
+              </ChildBox>
             </ChildBox>
           </RespRowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>

@@ -279,6 +279,14 @@
       }
     },
     {
+      "src": "/stewardship/house-calls",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/smart-water-use/house-calls"
+      }
+    },
+    {
       "src": "/newsroom/publication",
       "status": 301,
       "headers": {
