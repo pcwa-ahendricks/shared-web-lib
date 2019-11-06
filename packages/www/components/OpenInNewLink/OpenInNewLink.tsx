@@ -4,6 +4,7 @@ import {LinkProps} from '@material-ui/core/Link'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 
 export type LinkWithIconProps = {
   children: React.ReactNode
@@ -14,11 +15,10 @@ export type LinkWithIconProps = {
 const useStyles = makeStyles(() =>
   createStyles({
     link: {
-      display: 'inline'
+      display: 'inline-flex'
     },
     icon: {
-      paddingLeft: 5,
-      transform: 'translateY(5px)'
+      paddingLeft: 5
     }
   })
 )
@@ -48,19 +48,23 @@ const OpenInNewLink = ({
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
-      <Link
-        className={classes.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        href={href}
-        noWrap
-        {...rest}
-      >
-        {children}
-        <Fade in={isHovering} timeout={transitionDuration}>
-          <OpenInNewIcon className={classes.icon} color="inherit" />
-        </Fade>
-      </Link>
+      <RowBox display="inline-flex" component="span">
+        <Link
+          className={classes.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          href={href}
+          noWrap
+          {...rest}
+        >
+          {children}
+          <Fade in={isHovering} timeout={transitionDuration}>
+            <ColumnBox component="span" justifyContent="center">
+              <OpenInNewIcon className={classes.icon} color="inherit" />
+            </ColumnBox>
+          </Fade>
+        </Link>
+      </RowBox>
     </NativeListener>
   )
 }

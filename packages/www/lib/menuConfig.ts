@@ -216,7 +216,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'WaterSense',
-            nextLink: '/smart-water-use/water-sense'
+            nextLink: '/smart-water-use/watersense'
           }
         ]
       }

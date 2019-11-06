@@ -38,7 +38,12 @@ const Resource = ({children, ...rest}: TypographyProps) => {
 }
 
 const ResourceDivider = ({...rest}: DividerProps) => {
-  return <Divider style={{marginTop: 10, marginBottom: 5}} {...rest} />
+  return (
+    // 10px spacing
+    <Spacing size="x-small" factor={1.25}>
+      <Divider {...rest} />
+    </Spacing>
+  )
 }
 
 const LandscapeResourcesPage = () => {

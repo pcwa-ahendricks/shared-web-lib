@@ -64,10 +64,12 @@ const GlobalStyles = withStyles((theme: Theme) => ({
         lineHeight: 1.3 // Defaults to 1.04 which is too cramped.
       }
     },
-    strong: {
-      '&.MuiTypography-root': {
-        fontWeight: 500 // <strong /> uses bold which is too bold for Kiperman font. Use 500 weight instead.
-      }
+    'strong.MuiTypography-root, .MuiTypography-root > strong': {
+      fontWeight: 500 // <strong /> uses bold which is too bold for Kiperman font. Use 500 weight instead.
+    },
+    // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
+    '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
+      color: theme.palette.secondary.dark
     }
   }
 }))(() => null)

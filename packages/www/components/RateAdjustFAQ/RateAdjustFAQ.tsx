@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {
   ExpansionPanel,
@@ -29,12 +29,12 @@ const RateAdjustFAQ = () => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState<string | false>(false)
 
-  const handleChange = (panel: string) => (
-    _event: React.ChangeEvent<{}>,
-    isExpanded: boolean
-  ) => {
-    setExpanded(isExpanded ? panel : false)
-  }
+  const handleChange = useCallback(
+    (panel: string) => (_event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false)
+    },
+    []
+  )
 
   const theme = useTheme<Theme>()
 

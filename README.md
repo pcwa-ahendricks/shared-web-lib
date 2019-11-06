@@ -75,6 +75,6 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
 - `/newsroom/news-release` Was used on NG version of website. Use plural route instead.
 - `/newsroom/publication` Was used on NG version of website. Use plural route instead.
 - `/stewardship` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
-- `/stewardship/water-sense` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
+- `/stewardship/watersense` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs. Changed endpoint from "water-sense" to "watersense".
 - `/stewardship/rebate-programs` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/landscape-resources` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
