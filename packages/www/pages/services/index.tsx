@@ -9,7 +9,7 @@ import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
-import YouTubePlayer from 'react-player/lib/players/YouTube'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 const ServicesPage = () => {
   return (
@@ -86,22 +86,23 @@ const ServicesPage = () => {
                 </ListItem>
               </List>
             </ChildBox>
-            <ChildBox
-              flex="auto"
-              ml={{xs: 0, sm: 10}} // Extra margin w/ Row direction.
-              height={{xs: 325, sm: 250}} // Control height of video.
-            >
-              <YouTubePlayer
-                controls
-                url="https://www.youtube.com/watch?v=r_ODbNcxpfQ"
+            <ChildBox flex="auto" display="flex">
+              <Box
+                maxWidth={350}
                 width="100%"
-                height="100%"
-                config={{
-                  youtube: {
-                    playerVars: {showinfo: 1}
-                  }
-                }}
-              />
+                ml="auto"
+                mr={{xs: 'auto', sm: 0}} // Center on mobile devices, right align elsewhere.
+              >
+                <ResponsiveYouTubePlayer
+                  controls
+                  url="https://www.youtube.com/watch?v=r_ODbNcxpfQ"
+                  config={{
+                    youtube: {
+                      playerVars: {showinfo: 1}
+                    }
+                  }}
+                />
+              </Box>
 
               {/* <iframe
                 width="100%"

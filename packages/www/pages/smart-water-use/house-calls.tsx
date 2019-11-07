@@ -10,8 +10,8 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import FlexBox, {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
-import YouTubePlayer from 'react-player/lib/players/YouTube'
 import {TypographyProps} from '@material-ui/core/Typography'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 // import MuiNextLink from '@components/NextLink/NextLink'
 // import Imgix from 'react-imgix'
 
@@ -65,8 +65,8 @@ const HouseCallsPage = () => {
             Schedule a Water Wise House Call or Business Call Today
           </Type>
           <Spacing />
-          <RespRowBox flexSpacing={4}>
-            <ChildBox flex="70%">
+          <RespRowBox flexSpacing={6}>
+            <ChildBox flex="60%">
               <Type paragraph>
                 Worried you might have a leak? Want to find ways to use water
                 more efficiently at home or work? Interested in learning more
@@ -107,8 +107,8 @@ const HouseCallsPage = () => {
                 today by calling PCWA Customer Services at <MainPhone />.
               </Type>
             </ChildBox>
-            <ChildBox flex="30%" display="flex">
-              <ChildBox
+            <ChildBox flex="40%" display="flex">
+              {/* <ChildBox
                 mx="auto"
                 width={{xs: '70vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
               >
@@ -119,25 +119,22 @@ const HouseCallsPage = () => {
                     style: {width: '100%'}
                   }}
                 />
-              </ChildBox>
+              </ChildBox> */}
+
+              <Box maxWidth={700} mx="auto" width="100%">
+                <ResponsiveYouTubePlayer
+                  controls
+                  url="https://www.youtube.com/watch?v=hvWbNsKzd2U"
+                  config={{
+                    youtube: {
+                      playerVars: {showinfo: 1}
+                    }
+                  }}
+                />
+              </Box>
             </ChildBox>
           </RespRowBox>
           <Spacing size="large" />
-          <FlexBox>
-            <Box maxWidth={700} width="100%" m="auto">
-              <YouTubePlayer
-                width="100%"
-                height={350}
-                controls
-                url="https://www.youtube.com/watch?v=hvWbNsKzd2U"
-                config={{
-                  youtube: {
-                    playerVars: {showinfo: 1}
-                  }
-                }}
-              />
-            </Box>
-          </FlexBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

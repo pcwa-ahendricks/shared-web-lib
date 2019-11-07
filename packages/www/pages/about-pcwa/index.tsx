@@ -20,7 +20,7 @@ import {blueGrey} from '@material-ui/core/colors'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import GeneralManagerEmail from '@components/links/GeneralManagerEmail'
 import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
-import YouTubePlayer from 'react-player/lib/players/YouTube'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 const BANNER_IMG_SRC =
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -73,19 +73,18 @@ const GeneralInfoPage = () => {
                 </span>
               </Type>
             </ChildBox>
-            <ChildBox flex="1 1 50%" height={225}>
-              <YouTubePlayer
-                controls
-                url="https://www.youtube.com/watch?v=QXPtUgeWnc4"
-                width="100%"
-                height="100%"
-                config={{
-                  youtube: {
-                    playerVars: {showinfo: 1}
-                  }
-                }}
-                style={{maxWidth: 400}}
-              />
+            <ChildBox flex="1 1 50%" display="flex">
+              <Box maxWidth={400} mx="auto" width="100%">
+                <ResponsiveYouTubePlayer
+                  controls
+                  url="https://www.youtube.com/watch?v=QXPtUgeWnc4"
+                  config={{
+                    youtube: {
+                      playerVars: {showinfo: 1}
+                    }
+                  }}
+                />
+              </Box>
             </ChildBox>
           </RespRowBox>
         </WideContainer>
