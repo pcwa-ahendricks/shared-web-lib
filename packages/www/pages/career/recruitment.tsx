@@ -5,7 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {Box} from '@material-ui/core'
-import YouTubePlayer from 'react-player/lib/players/YouTube'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 const RecruitmentPage = () => {
   return (
@@ -15,11 +15,9 @@ const RecruitmentPage = () => {
           <PageTitle title="Recruitment Video" subtitle="Careers" />
 
           <Box mt={6}>
-            <YouTubePlayer
+            <ResponsiveYouTubePlayer
               controls
               url="https://www.youtube.com/watch?v=aQu5AtFH1N0"
-              width="100%"
-              height={525}
               config={{
                 youtube: {
                   playerVars: {showinfo: 1}
