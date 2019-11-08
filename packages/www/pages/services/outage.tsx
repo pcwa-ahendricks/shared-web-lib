@@ -126,15 +126,27 @@ const OutageInformationPage = () => {
     []
   )
 
-  const parsedTreatedWaterOutagesContent = useMemo(
-    () => Parser(treatedWaterOutagesHTML, options),
-    [treatedWaterOutagesHTML, options]
-  )
+  const parsedTreatedWaterOutagesContent = useMemo(() => {
+    if (!treatedWaterOutagesHTML) {
+      return (
+        <Type variant="body2" paragraph>
+          No outages at this time.
+        </Type>
+      )
+    }
+    return Parser(treatedWaterOutagesHTML, options)
+  }, [treatedWaterOutagesHTML, options])
 
-  const parsedRawWaterOutagesContent = useMemo(
-    () => Parser(rawWaterOutagesHTML, options),
-    [rawWaterOutagesHTML, options]
-  )
+  const parsedRawWaterOutagesContent = useMemo(() => {
+    if (!rawWaterOutagesHTML) {
+      return (
+        <Type variant="body2" paragraph>
+          No outages at this time.
+        </Type>
+      )
+    }
+    return Parser(rawWaterOutagesHTML, options)
+  }, [rawWaterOutagesHTML, options])
 
   const progressEl = useMemo(
     () =>
