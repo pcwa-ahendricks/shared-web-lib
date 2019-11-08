@@ -79,3 +79,4 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
 - `/stewardship/rebate-programs` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/landscape-resources` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/house-calls` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
+- `/stewardship/fire-resistant-garden` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.

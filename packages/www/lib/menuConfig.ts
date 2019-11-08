@@ -204,7 +204,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Fire-Resistant Garden',
-            nextLink: '/stewardship/fire-resistant-garden'
+            nextLink: '/smart-water-use/fire-resistant-garden'
           },
           {
             title: 'Water Wise House Calls',

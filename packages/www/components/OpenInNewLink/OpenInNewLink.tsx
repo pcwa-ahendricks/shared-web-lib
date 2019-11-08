@@ -5,11 +5,13 @@ import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {IconProps} from '@material-ui/core/Icon'
 
-export type LinkWithIconProps = {
+type OpenInNewLinkProps = {
   children: React.ReactNode
   hoverText?: string
   transitionDuration?: number
+  iconFontSize?: IconProps['fontSize']
 } & LinkProps
 
 const useStyles = makeStyles(() =>
@@ -28,9 +30,10 @@ const useStyles = makeStyles(() =>
 const OpenInNewLink = ({
   children,
   transitionDuration = 250,
+  iconFontSize = 'default',
   href,
   ...rest
-}: LinkWithIconProps) => {
+}: OpenInNewLinkProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
   const classes = useStyles()
 
@@ -60,7 +63,11 @@ const OpenInNewLink = ({
           {children}
           <Fade in={isHovering} timeout={transitionDuration}>
             <ColumnBox component="span" justifyContent="center">
-              <OpenInNewIcon className={classes.icon} color="inherit" />
+              <OpenInNewIcon
+                className={classes.icon}
+                color="inherit"
+                fontSize={iconFontSize}
+              />
             </ColumnBox>
           </Fade>
         </Link>

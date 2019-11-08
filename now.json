@@ -287,6 +287,14 @@
       }
     },
     {
+      "src": "/stewardship/fire-resistant-garden",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/smart-water-use/fire-resistant-garden"
+      }
+    },
+    {
       "src": "/newsroom/publication",
       "status": 301,
       "headers": {

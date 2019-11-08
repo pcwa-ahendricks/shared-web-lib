@@ -129,9 +129,9 @@ const PayBillPage = () => {
               </ColumnBox>
             </ChildBox>
             <ChildBox flex="40%" display="flex">
-              <ChildBox
+              <Box
                 mx="auto"
-                width={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
                 <LazyImgix
                   src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
@@ -140,7 +140,7 @@ const PayBillPage = () => {
                     style: {width: '100%'}
                   }}
                 />
-              </ChildBox>
+              </Box>
             </ChildBox>
           </RespRowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>
