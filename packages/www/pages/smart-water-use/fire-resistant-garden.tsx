@@ -1,6 +1,12 @@
 // cspell:ignore Yamasaki
 import React, {useMemo} from 'react'
-import {Box, Typography as Type, useMediaQuery, Link} from '@material-ui/core'
+import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
+  Link,
+  Hidden
+} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -35,18 +41,25 @@ const FireResistantGardenPage = () => {
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
 
-  const plantImgStyle = {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    objectPosition: 'center'
-  }
+  const plantImgStyle = useMemo(
+    () => ({
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      objectPosition: 'center'
+    }),
+    []
+  )
 
-  const plantImgSpacing = isSMUp ? 2 : 1
-  const plantImgChildFlex = {
-    xs: `calc(25% - ${theme.spacing(plantImgSpacing)}px)`,
-    sm: `calc(50% - ${theme.spacing(plantImgSpacing)}px)`
-  }
+  const plantImgSpacing = useMemo(() => (isSMUp ? 2 : 1), [isSMUp])
+
+  const plantImgChildFlex = useMemo(
+    () =>
+      isSMUp
+        ? `calc(50% - ${theme.spacing(plantImgSpacing)}px)`
+        : `calc(25% - ${theme.spacing(plantImgSpacing)}px)`,
+    [isSMUp, theme, plantImgSpacing]
+  )
 
   const TypeBullet = ({children, ...rest}: TypographyProps) => {
     return (
@@ -66,6 +79,18 @@ const FireResistantGardenPage = () => {
       >
         {children}
       </Link>
+    )
+  }
+
+  const FirstAsideImage = () => {
+    return (
+      <LazyImgix
+        src="https://cosmic-s3.imgix.net/bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
+        htmlAttributes={{
+          alt: 'Boys Scouts with Auburn Fire',
+          style: {width: '100%'}
+        }}
+      />
     )
   }
 
@@ -104,8 +129,17 @@ const FireResistantGardenPage = () => {
           />
           <Spacing />
           <OpenInNewLink href="https://cdn.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf">
-            <Link variant="h4">As Seen in Fire & Water...</Link>
+            <Link variant="h4" component="span">
+              As Seen in Fire & Water...
+            </Link>
           </OpenInNewLink>
+
+          <Hidden smUp>
+            <Box width="100%">
+              <Spacing />
+              <FirstAsideImage />
+            </Box>
+          </Hidden>
 
           <RespRowBox flexSpacing={4}>
             <ChildBox flex="50%">
@@ -227,13 +261,9 @@ const FireResistantGardenPage = () => {
             <ChildBox flex="50%">
               <ColumnBox flexSpacing={4}>
                 <ChildBox>
-                  <LazyImgix
-                    src="https://cosmic-s3.imgix.net/bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
-                    htmlAttributes={{
-                      alt: 'Boys Scouts with Auburn Fire',
-                      style: {width: '100%'}
-                    }}
-                  />
+                  <Hidden only="xs" implementation="js">
+                    <FirstAsideImage />
+                  </Hidden>
                 </ChildBox>
                 <ChildBox>
                   <LazyImgix
