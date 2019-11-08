@@ -126,6 +126,8 @@ const OutageInformationPage = () => {
     []
   )
 
+  // console.log(hexToRgb(theme.palette.grey['100']))
+
   const parsedTreatedWaterOutagesContent = useMemo(() => {
     if (!treatedWaterOutagesHTML) {
       return (
@@ -230,19 +232,25 @@ const OutageInformationPage = () => {
               </Box>
             </ChildBox>
             <ChildBox flex="35%">
-              <Box bgcolor={theme.palette.common.white} p={2} boxShadow={2}>
+              <Box
+                bgcolor={theme.palette.grey['100']}
+                p={2}
+                boxShadow={2}
+                color={theme.palette.grey['800']}
+              >
                 <RowBox alignItems="center">
                   <EventIcon
+                    color="inherit"
                     style={{
                       marginRight: theme.spacing(1),
                       alignSelf: 'stretch'
                     }}
                   />
-                  <Type gutterBottom variant="subtitle2">
+                  <Type gutterBottom variant="subtitle2" color="textPrimary">
                     2019 Canal Cleaning Schedule
                   </Type>
                 </RowBox>
-                <Type paragraph variant="body2">
+                <Type paragraph variant="body2" color="inherit">
                   Every year canals are cleaned and are to be out of water
                   during cleaning. Outage times listed are approximate. Recovery
                   time for water service is approximately 12 hours. To see start
@@ -273,17 +281,18 @@ const OutageInformationPage = () => {
                 mt={8}
                 boxShadow={2}
                 p={2}
-                bgcolor={theme.palette.common.white}
+                bgcolor={theme.palette.grey['100']}
+                color={theme.palette.grey['800']}
               >
                 <ShowMore
                   inMaxHeight={400}
                   outMaxHeight={7000}
                   inShowMoreTitle="Click to read more"
                   outShowMoreTitle="Click to read less"
-                  backgroundImageRGB="255,255,255"
+                  backgroundImageRGB="245,245,245"
                 >
                   <article>
-                    <Type variant="subtitle2" gutterBottom>
+                    <Type variant="subtitle2" gutterBottom color="textPrimary">
                       Consumer Guidance During Water Outages Or Periods Of Low
                       Pressure
                     </Type>
