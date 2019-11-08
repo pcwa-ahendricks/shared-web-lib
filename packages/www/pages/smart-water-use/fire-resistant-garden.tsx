@@ -1,6 +1,6 @@
+// cspell:ignore Yamasaki
 import React, {useMemo} from 'react'
 import {Box, Typography as Type, useMediaQuery, Link} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -11,13 +11,26 @@ import FlexBox, {
   RowBox
 } from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
 // import CenterImage from '@components/CenterImage/CenterImage'
+import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
+import {TypographyProps} from '@material-ui/core/Typography'
+import {LinkProps} from '@material-ui/core/Link'
+import MuiNextLink from '@components/NextLink/NextLink'
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    bulletLi: {
+      listStyleType: 'circle',
+      marginBottom: 2
+    }
+  })
+)
 
 const FireResistantGardenPage = () => {
+  const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
@@ -33,6 +46,27 @@ const FireResistantGardenPage = () => {
   const plantImgChildFlex = {
     xs: `calc(25% - ${theme.spacing(plantImgSpacing)}px)`,
     sm: `calc(50% - ${theme.spacing(plantImgSpacing)}px)`
+  }
+
+  const TypeBullet = ({children, ...rest}: TypographyProps) => {
+    return (
+      <Type component="li" className={classes.bulletLi} {...rest}>
+        {children}
+      </Type>
+    )
+  }
+
+  const ExtLink = ({children, ...rest}: LinkProps) => {
+    return (
+      <Link
+        {...rest}
+        variant="inherit"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {children}
+      </Link>
+    )
   }
 
   return (
@@ -100,25 +134,94 @@ const FireResistantGardenPage = () => {
                   plants and shrubs that are both fire-resistant and water-wise.
                 </Type>
 
-                <Box mt={6}>
-                  <ColumnBox justifyContent="start" alignItems="center">
-                    <Type variant="subtitle1">
-                      Rebates are available for WaterSense-labeled
-                    </Type>
-                    <Type>High-efficiency toilets</Type>
-                    <Type>Weather-based irrigation controllers</Type>
-                    <Type>Pressure regulating sprinkler bodies</Type>
-                  </ColumnBox>
-                </Box>
-                <Box mt={3}>
-                  <Type>
-                    Learn more about our rebates today and apply online on our{' '}
-                    <MuiNextLink href="/smart-water-use/rebate-programs">
-                      Rebate Programs
+                <ul>
+                  <TypeBullet>
+                    <ExtLink href="https://www.signupgenius.com/go/8050944afa928a3fe3-maidu">
+                      Volunteer now with Sign-up Genius
+                    </ExtLink>
+                  </TypeBullet>
+                  <TypeBullet>
+                    <ExtLink href="https://cosmic-s3.imgix.net/7647c4d0-ad73-11e9-8ba7-dba4340cf409-MF-L2.1-050719.pdf">
+                      View the landscape design plan
+                    </ExtLink>
+                  </TypeBullet>
+
+                  <TypeBullet>
+                    <ExtLink href="https://cdn.cosmicjs.com/32c386c0-b540-11e9-a915-41acc1bf515a-Maidu-Fire-Station-WaterWiseFireWise-Plant-List.pdf">
+                      See the complete plant list
+                    </ExtLink>
+                  </TypeBullet>
+                </ul>
+                <Spacing size="x-large" />
+                <Type paragraph>
+                  The garden also will feature state-of-the art drip irrigation
+                  and a WaterSense-labeled weather-based sprinkler timer. The
+                  drip irrigation, placed below the soil surface in a grid
+                  pattern, will deliver water at the root zone with zero
+                  evaporation. The sprinkler timer will use local weather
+                  conditions to deliver just the right amount of water plants
+                  need to be healthy.
+                </Type>
+                <Type paragraph>
+                  The existing lawn and plants are scheduled to be removed in
+                  August and September, followed by installation of plants, the
+                  irrigation system and mulch in October. The entire project is
+                  expected to be completed by November.
+                </Type>
+
+                <Spacing size="large" />
+                <Type variant="h5" color="primary" gutterBottom>
+                  Learn More about Water-Wise Plants and Landscaping
+                </Type>
+                <ul>
+                  <TypeBullet>
+                    <MuiNextLink
+                      href="/smart-water-use/rebate-programs"
+                      variant="inherit"
+                    >
+                      Rebates available from PCWA
                     </MuiNextLink>{' '}
-                    page.
-                  </Type>
-                </Box>
+                    for weather-based sprinkler timers and efficient irrigation
+                    equipment.
+                  </TypeBullet>
+                  <TypeBullet>
+                    <ExtLink href="https://www.rwa.watersavingplants.com">
+                      Be Water Smart
+                    </ExtLink>
+                  </TypeBullet>
+                  <TypeBullet>
+                    <ExtLink href="https://arboretum.ucdavis.edu/plant-database">
+                      UC Davis Arboretum
+                    </ExtLink>
+                  </TypeBullet>
+                  <TypeBullet>
+                    <ExtLink href="http://www.ecolandscape.org/new-ca">
+                      Eco-Friendly Landscape Design Plans
+                    </ExtLink>
+                  </TypeBullet>
+                </ul>
+
+                <Spacing size="large" />
+                <Type variant="h5" color="primary" gutterBottom>
+                  Thank You!
+                </Type>
+                <ul>
+                  <TypeBullet style={{listStyleType: 'none'}}>
+                    Yamasaki Landscape Architecture (landscape plan)
+                  </TypeBullet>
+                  <TypeBullet style={{listStyleType: 'none'}}>
+                    Mid-City Nursery (plants)
+                  </TypeBullet>
+                  <TypeBullet style={{listStyleType: 'none'}}>
+                    Village Nursery (plants)
+                  </TypeBullet>
+                  <TypeBullet style={{listStyleType: 'none'}}>
+                    Hunter Industries (irrigation system and controller)
+                  </TypeBullet>
+                  <TypeBullet style={{listStyleType: 'none'}}>
+                    BrightView Landscape (irrigation installation)
+                  </TypeBullet>
+                </ul>
               </Box>
             </ChildBox>
             <ChildBox flex="50%">
