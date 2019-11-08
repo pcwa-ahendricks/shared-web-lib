@@ -16,7 +16,7 @@ import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
 import EventIcon from '@material-ui/icons/Event'
 
-import {
+import FlexBox, {
   RespRowBox,
   ChildBox,
   RowBox,
@@ -174,7 +174,7 @@ const OutageInformationPage = () => {
           <PageTitle title="Outage Information" subtitle="Services" />
 
           <RespRowBox flexSpacing={4}>
-            <ChildBox flex="65%">
+            <ChildBox flex="65%" display="flex" flexDirection="column">
               <Box mt={0}>
                 <Type paragraph>
                   From time-to-time, water outages will occur. A water outage
@@ -229,6 +229,17 @@ const OutageInformationPage = () => {
                     </Box>
                   </>
                 ) : null}
+              </Box>
+
+              <FlexBox flex="1 1 auto" />
+              <Box flex="0 1 auto">
+                <Type variant="h4" gutterBottom>
+                  Need More Assistance?
+                </Type>
+                <Type paragraph>
+                  If you have specific concerns or questions, please call our
+                  Customer Services Department at <MainPhone />.
+                </Type>
               </Box>
             </ChildBox>
             <ChildBox flex="35%">
@@ -375,15 +386,6 @@ const OutageInformationPage = () => {
               </RowBox>
             </ChildBox>
           </RespRowBox>
-          <Box mt={8}>
-            <Type variant="h4" gutterBottom>
-              Need More Assistance?
-            </Type>
-            <Type paragraph>
-              If you have specific concerns or questions, please call our
-              Customer Services Department at <MainPhone />.
-            </Type>
-          </Box>
         </WideContainer>
       </MainBox>
     </PageLayout>

@@ -61,7 +61,7 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     },
     h3: {
       '&.MuiTypography-h3': {
-        lineHeight: 1.3 // Defaults to 1.04 which is too cramped.
+        lineHeight: 1.35 // Defaults to 1.04 which is too cramped.
       }
     },
     'strong.MuiTypography-root, .MuiTypography-root > strong': {
