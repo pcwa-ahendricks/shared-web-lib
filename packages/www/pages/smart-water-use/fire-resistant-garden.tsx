@@ -143,7 +143,7 @@ const FireResistantGardenPage = () => {
 
           <RespRowBox flexSpacing={4}>
             <ChildBox flex="50%">
-              <Box mt={6}>
+              <Box mt={4}>
                 <Type paragraph>
                   Eagle Scout candidates Cody Hansen and David Hurren of Rocklin
                   are partnering with PCWA and the City of Auburn Fire
