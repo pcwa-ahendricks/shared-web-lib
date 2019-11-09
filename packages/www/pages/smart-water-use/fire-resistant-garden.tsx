@@ -39,7 +39,7 @@ const FireResistantGardenPage = () => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
+  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
 
   const plantImgStyle = useMemo(
     () => ({

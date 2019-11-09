@@ -28,7 +28,8 @@ const HouseCallsPage = () => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
+  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
+  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
 
   const TypeBullet = ({children}: TypographyProps) => {
     return (
@@ -45,6 +46,27 @@ const HouseCallsPage = () => {
           m="auto"
           width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
           maxWidth={1400}
+          height={{xs: 250, sm: 350}} // Original Photo is not very tall, so special treatment is given on smaller devices. 'objectFit' is also toggled to help with image display.
+          overflow="hidden"
+          position="relative"
+        >
+          <LazyImgix
+            src="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+            htmlAttributes={{
+              alt: 'PCWA Water Efficiency Team',
+              style: {
+                objectPosition: 'center 30%',
+                objectFit: isMDUp ? 'none' : 'cover', // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
+                width: '100%',
+                height: '100%'
+              }
+            }}
+          />
+        </Box>
+        {/* <Box
+          m="auto"
+          width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
+          maxWidth={1400}
           maxHeight={350}
           overflow="hidden"
         >
@@ -55,7 +77,7 @@ const HouseCallsPage = () => {
               style: {width: '100%'}
             }}
           />
-        </Box>
+        </Box> */}
       </FlexBox>
       <MainBox mt={marginTop}>
         <WideContainer>

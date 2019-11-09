@@ -212,7 +212,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Tips for Kids',
-            nextLink: '/stewardship/tips-for-kids'
+            nextLink: '/smart-water-use/tips-for-kids'
           },
           {
             title: 'Stop Leaks',

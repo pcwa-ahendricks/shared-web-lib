@@ -39,7 +39,7 @@ const PageLayout = ({
 
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 1), [isSMUp])
+  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
   const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
 
   const waterSurfaceImgEl = useMemo(
