@@ -242,9 +242,9 @@ const TipsForKidsPage = () => {
               </ul>
             </Box>
 
-            <Spacing size="large" />
+            <Spacing size="x-large" />
             <Type variant="h3" color="primary" gutterBottom>
-              Local resources for learning about water
+              Local Resources for Learning About Water
             </Type>
 
             <ul>
