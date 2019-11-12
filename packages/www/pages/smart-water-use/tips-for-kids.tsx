@@ -9,22 +9,39 @@ import LocalDrinkIcon from '@material-ui/icons/LocalDrink'
 import DetectiveIcon from 'mdi-material-ui/AccountSearch'
 import Spacing from '@components/boxes/Spacing'
 import FlexBox from '@components/boxes/FlexBox'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme
+} from '@material-ui/core/styles'
 import {TypographyProps} from '@material-ui/core/Typography'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import {BoxProps} from '@material-ui/core/Box'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     bulletLi: {
       listStyleType: 'circle',
       marginBottom: 10
+    },
+    tightBulletLi: {
+      // listStyleType: 'disc',
+      marginBottom: 5
+    },
+    disc: {
+      display: 'inline-block',
+      width: '1em',
+      marginLeft: '-1em',
+      color: theme.palette.grey['800']
     }
   })
 )
 
 const TipsForKidsPage = () => {
   const classes = useStyles()
+  const theme = useTheme()
 
   const TypeBullet = ({children, ...rest}: TypographyProps) => {
     return (
@@ -33,6 +50,21 @@ const TipsForKidsPage = () => {
       </Type>
     )
   }
+
+  const TightBullet = ({children, ...rest}: TypographyProps) => {
+    return (
+      <Type component="li" className={classes.tightBulletLi} {...rest}>
+        <Disc />
+        {children}
+      </Type>
+    )
+  }
+
+  const Disc = ({...rest}: BoxProps) => (
+    <Box className={classes.disc} {...rest}>
+      •
+    </Box>
+  )
 
   return (
     <PageLayout title="Tips for Kids" waterSurface>
@@ -138,7 +170,7 @@ const TipsForKidsPage = () => {
             </Type>
             <Type paragraph>
               <em>
-                Linda Yager is Deputy Director of Customer Services for Placer
+                Linda Higgins is Deputy Director of Customer Services for Placer
                 County Water Agency, and Amy Talbot is the Water Efficiency
                 Program Manager for the Regional Water Authority. Learn more
                 tips and information about free water saving programs and
@@ -153,6 +185,57 @@ const TipsForKidsPage = () => {
                 .
               </em>
             </Type>
+            <Spacing />
+            <Box p={3} bgcolor={theme.palette.grey['200']}>
+              <Type variant="subtitle1" gutterBottom>
+                Water Smart Tips for Kids
+              </Type>
+              <ul style={{listStyle: 'none'}}>
+                <TightBullet>
+                  When washing hands, turn off the water after wetting hands and
+                  turn it back on to rinse. Also, shut the water off while
+                  brushing teeth, too.
+                </TightBullet>
+                <TightBullet>
+                  Never use the toilet as a trashcan, and don’t flush the toilet
+                  more than you have to.
+                </TightBullet>
+                <TightBullet>
+                  Make sure your garden hose has a shut-off spray nozzle when
+                  watering the garden or playing.
+                </TightBullet>
+                <TightBullet>Remember to take quick showers.</TightBullet>
+                <TightBullet>
+                  If you see a water-wasting problem (such as a leaky faucet or
+                  broken sprinkler) tell an adult right away.
+                </TightBullet>
+              </ul>
+            </Box>
+
+            <Spacing />
+            <Box p={3} bgcolor={theme.palette.grey['200']}>
+              <Type variant="subtitle1" gutterBottom>
+                Water Smart Tips for Adults
+              </Type>
+              <ul style={{listStyle: 'none'}}>
+                <TightBullet>
+                  Consider replacing all or part of your thirsty lawn with
+                  beautiful, low-water use plants.', 'Make sure landscape
+                  watering is as efficient as possible by replacing older
+                  sprinklers with efficient MP rotators and installing a
+                  weather-based WaterSense-labeled sprinkler timer.
+                </TightBullet>
+                <TightBullet>
+                  Replace older toilets and clothes washers with high-efficiency
+                  ones. (Rebates are available to help offset costs.)
+                </TightBullet>
+                <TightBullet>
+                  Call your water provider for a Water Wise House Call, a free
+                  at-home consultation with tailored information on how to use
+                  less water in your home and landscape.
+                </TightBullet>
+              </ul>
+            </Box>
 
             <Spacing />
             <Type variant="h3" color="primary" gutterBottom>
