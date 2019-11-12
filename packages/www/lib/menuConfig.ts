@@ -216,7 +216,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Stop Leaks',
-            nextLink: '/stewardship/stop-leaks'
+            nextLink: '/smart-water-use/stop-leaks'
           },
           {
             title: 'WaterSense',
