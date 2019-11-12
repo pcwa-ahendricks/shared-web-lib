@@ -220,14 +220,19 @@ const TipsForKidsPage = () => {
               <ul style={{listStyle: 'none'}}>
                 <TightBullet>
                   Consider replacing all or part of your thirsty lawn with
-                  beautiful, low-water use plants.', 'Make sure landscape
-                  watering is as efficient as possible by replacing older
-                  sprinklers with efficient MP rotators and installing a
-                  weather-based WaterSense-labeled sprinkler timer.
+                  beautiful, low-water use plants.
+                </TightBullet>
+                <TightBullet>
+                  Make sure landscape watering is as efficient as possible by
+                  replacing older sprinklers with efficient MP rotators and
+                  installing a weather-based WaterSense-labeled sprinkler timer.
                 </TightBullet>
                 <TightBullet>
                   Replace older toilets and clothes washers with high-efficiency
                   ones. (Rebates are available to help offset costs.)
+                </TightBullet>
+                <TightBullet>
+                  Quickly fix leaky faucets and toilets.
                 </TightBullet>
                 <TightBullet>
                   Call your water provider for a Water Wise House Call, a free
@@ -237,7 +242,7 @@ const TipsForKidsPage = () => {
               </ul>
             </Box>
 
-            <Spacing />
+            <Spacing size="large" />
             <Type variant="h3" color="primary" gutterBottom>
               Local resources for learning about water
             </Type>
