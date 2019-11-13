@@ -195,7 +195,7 @@
       }
     },
     {
-      "src": "/(?:typography)/?",
+      "src": "/(?:typography|templates)/?",
       "dest": "packages/www/_error",
       "status": 404
     },

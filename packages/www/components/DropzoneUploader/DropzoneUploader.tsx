@@ -424,8 +424,9 @@ const DropzoneUploader: React.RefForwardingComponent<
             [classes.isActive]: isDragActive
           })}
           style={{height: height}}
+          inputMode="text"
         >
-          <input type="text" {...getInputProps()} />
+          <input {...getInputProps()} />
           <div className={classes.captionContainer}>
             {isDragActive ? (
               <Type variant="h4" className={classes.primaryLight}>

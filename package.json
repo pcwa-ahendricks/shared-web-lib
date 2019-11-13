@@ -13,11 +13,12 @@
   "scripts": {
     "dev": "now dev",
     "now": "now",
+    "clean": "rimraf node_modules && rimraf packages/www/node_modules && rimraf packages/api/node_modules && rimraf packages/www/.next",
     "now:dev-web": "now --prod",
     "now:forms": "now --prod -A now.forms.json",
     "now-build": "next build"
   },
   "devDependencies": {
-    "now": "^16.5.0"
+    "now": "^16.5.2"
   }
 }

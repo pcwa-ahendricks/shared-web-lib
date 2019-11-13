@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import {Link, Fade} from '@material-ui/core'
 import {LinkProps} from '@material-ui/core/Link'
 import NativeListener from 'react-native-listener'
@@ -6,9 +6,11 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {IconProps} from '@material-ui/core/Icon'
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 
 type OpenInNewLinkProps = {
   children: React.ReactNode
+  pdf?: boolean
   hoverText?: string
   transitionDuration?: number
   iconFontSize?: IconProps['fontSize']
@@ -31,6 +33,7 @@ const OpenInNewLink = ({
   children,
   transitionDuration = 250,
   iconFontSize = 'default',
+  pdf = false,
   href,
   ...rest
 }: OpenInNewLinkProps) => {
@@ -45,6 +48,24 @@ const OpenInNewLink = ({
   const onMouseLeaveHandler = useCallback(() => {
     setIsHovering(false)
   }, [])
+
+  const linkIconEl = useMemo(
+    () =>
+      pdf ? (
+        <DescriptionOutlinedIcon
+          className={classes.icon}
+          color="inherit"
+          fontSize={iconFontSize}
+        />
+      ) : (
+        <OpenInNewIcon
+          className={classes.icon}
+          color="inherit"
+          fontSize={iconFontSize}
+        />
+      ),
+    [pdf]
+  )
 
   return (
     <NativeListener
@@ -63,11 +84,7 @@ const OpenInNewLink = ({
           {children}
           <Fade in={isHovering} timeout={transitionDuration}>
             <ColumnBox component="span" justifyContent="center">
-              <OpenInNewIcon
-                className={classes.icon}
-                color="inherit"
-                fontSize={iconFontSize}
-              />
+              {linkIconEl}
             </ColumnBox>
           </Fade>
         </Link>
