@@ -10,6 +10,7 @@ import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import {TypographyProps} from '@material-ui/core/Typography'
 import PurchasingEmail from '@components/links/PurchasingEmail'
+import AccountsPayableEmail from '@components/links/AccountsPayableEmail'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -161,15 +162,14 @@ const GoodsAndServicesPage = () => {
               to transactions that do not have a written agreement, duly
               executed by both parties. Use the provided link to review these
               terms and conditions.
-              <OpenInNewLink
-                pdf
-                href="https://cdn.cosmicjs.com/767de300-736a-11e9-83aa-77acac9a281a-PurchaseOrderTermsandConditions.pdf"
-                variant="body1"
-                paragraph
-              >
-                Purchase Order Terms and Conditions
-              </OpenInNewLink>
             </Type>
+            <OpenInNewLink
+              pdf
+              href="https://cdn.cosmicjs.com/767de300-736a-11e9-83aa-77acac9a281a-PurchaseOrderTermsandConditions.pdf"
+              variant="body1"
+            >
+              Purchase Order Terms and Conditions
+            </OpenInNewLink>
             <Type variant="h4" gutterBottom>
               Payment Terms
             </Type>
@@ -186,11 +186,8 @@ const GoodsAndServicesPage = () => {
             </Type>
             <Type paragraph>
               PCWA offers Electronic Funds Transfer (direct deposit) payments to
-              vendors. To request an application contact
-              <Link href="mailto:accountspayable@pcwa.net">
-                accountspayable@pcwa.net
-              </Link>
-              .
+              vendors. To request an application contact{' '}
+              <AccountsPayableEmail />.
             </Type>
             <Type variant="h4" gutterBottom>
               Delivery and Inspections
