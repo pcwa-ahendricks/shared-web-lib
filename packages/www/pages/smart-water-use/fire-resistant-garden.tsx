@@ -39,7 +39,6 @@ const FireResistantGardenPage = () => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
 
   const plantImgStyle = useMemo(
     () => ({
@@ -95,32 +94,35 @@ const FireResistantGardenPage = () => {
   }
 
   return (
-    <PageLayout title="Fire Resistant Garden" mt={0}>
-      <FlexBox>
-        <Box
-          m="auto"
-          width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
-          maxWidth={1400}
-          height={{xs: 300, sm: 350, lg: 450}}
-          overflow="hidden"
-          position="relative"
-        >
-          <LazyImgix
-            src="https://cosmic-s3.imgix.net/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg"
-            htmlAttributes={{
-              alt: 'PCWA Water Efficiency Team',
-              style: {
-                objectPosition: 'center 40%',
-                objectFit: 'none',
-                width: '100%',
-                height: '100%'
-              }
-            }}
-          />
-        </Box>
-      </FlexBox>
-
-      <MainBox mt={marginTop}>
+    <PageLayout
+      title="Fire Resistant Garden"
+      bannerComponent={
+        <FlexBox>
+          <Box
+            m="auto"
+            width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
+            maxWidth={1400}
+            height={{xs: 300, sm: 350, lg: 450}}
+            overflow="hidden"
+            position="relative"
+          >
+            <LazyImgix
+              src="https://cosmic-s3.imgix.net/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg"
+              htmlAttributes={{
+                alt: 'PCWA Water Efficiency Team',
+                style: {
+                  objectPosition: 'center 40%',
+                  objectFit: 'none',
+                  width: '100%',
+                  height: '100%'
+                }
+              }}
+            />
+          </Box>
+        </FlexBox>
+      }
+    >
+      <MainBox>
         <WideContainer>
           <PageTitle
             title="PCWA Partners with Local Scouts to Transform Fire Station Lawn to a

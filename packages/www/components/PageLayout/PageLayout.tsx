@@ -19,6 +19,7 @@ type Props = {
   children?: React.ReactNode
   title?: string
   waterSurface?: boolean
+  bannerComponent?: React.ReactElement
 } & BoxProps
 
 const PageLayout = ({
@@ -26,6 +27,7 @@ const PageLayout = ({
   title = 'Placer County Water Agency',
   description = 'PCWA is a water and energy provider for Placer County, CA.',
   waterSurface = false,
+  bannerComponent,
   ...rest
 }: Props) => {
   const pageTitle = useMemo(() => `${title} | pcwa.net`, [title])
@@ -60,6 +62,7 @@ const PageLayout = ({
         </Hidden>
         <HeaderContainer />
         {waterSurfaceImgEl}
+        {bannerComponent}
         <Box flex="1 0 auto" mt={marginTop} mb={marginBottom} {...rest}>
           {children}
         </Box>

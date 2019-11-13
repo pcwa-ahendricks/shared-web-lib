@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import {useMediaQuery, Box, Typography as Type} from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -27,9 +27,7 @@ const useStyles = makeStyles(() =>
 const HouseCallsPage = () => {
   const classes = useStyles()
   const theme = useTheme()
-  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
 
   const TypeBullet = ({children}: TypographyProps) => {
     return (
@@ -40,30 +38,32 @@ const HouseCallsPage = () => {
   }
 
   return (
-    <PageLayout title="House Calls" mt={0}>
-      <FlexBox>
-        <Box
-          m="auto"
-          width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
-          maxWidth={1400}
-          height={{xs: 250, sm: 350}} // Original Photo is not very tall, so special treatment is given on smaller devices. 'objectFit' is also toggled to help with image display.
-          overflow="hidden"
-          position="relative"
-        >
-          <LazyImgix
-            src="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
-            htmlAttributes={{
-              alt: 'PCWA Water Efficiency Team',
-              style: {
-                objectPosition: 'center 30%',
-                objectFit: isMDUp ? 'none' : 'cover', // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
-                width: '100%',
-                height: '100%'
-              }
-            }}
-          />
-        </Box>
-        {/* <Box
+    <PageLayout
+      title="House Calls"
+      bannerComponent={
+        <FlexBox>
+          <Box
+            m="auto"
+            width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
+            maxWidth={1400}
+            height={{xs: 250, sm: 350}} // Original Photo is not very tall, so special treatment is given on smaller devices. 'objectFit' is also toggled to help with image display.
+            overflow="hidden"
+            position="relative"
+          >
+            <LazyImgix
+              src="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+              htmlAttributes={{
+                alt: 'PCWA Water Efficiency Team',
+                style: {
+                  objectPosition: 'center 30%',
+                  objectFit: isMDUp ? 'none' : 'cover', // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
+                  width: '100%',
+                  height: '100%'
+                }
+              }}
+            />
+          </Box>
+          {/* <Box
           m="auto"
           width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
           maxWidth={1400}
@@ -78,8 +78,10 @@ const HouseCallsPage = () => {
             }}
           />
         </Box> */}
-      </FlexBox>
-      <MainBox mt={marginTop}>
+        </FlexBox>
+      }
+    >
+      <MainBox>
         <WideContainer>
           <PageTitle title="We Make House Calls!" subtitle="Smart Water Use" />
           <Spacing />
