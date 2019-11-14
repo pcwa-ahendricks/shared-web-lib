@@ -39,7 +39,7 @@
     "deep-object-diff": "^1.1.0",
     "dotenv-webpack": "^1.7.0",
     "file-saver": "^2.0.2",
-    "formik": "1",
+    "formik": "1.x",
     "html-react-parser": "^0.10.0",
     "is-number": "^7.0.0",
     "isomorphic-unfetch": "^3.0.0",

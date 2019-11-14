@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 10
     },
     tightBulletLi: {
-      // listStyleType: 'disc',
+      listStyleType: 'none',
       marginBottom: 5
     },
     disc: {

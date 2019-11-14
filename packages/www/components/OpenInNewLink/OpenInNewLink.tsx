@@ -64,7 +64,7 @@ const OpenInNewLink = ({
           fontSize={iconFontSize}
         />
       ),
-    [pdf]
+    [pdf, classes, iconFontSize]
   )
 
   return (
