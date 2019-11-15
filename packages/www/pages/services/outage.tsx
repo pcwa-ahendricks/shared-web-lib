@@ -26,6 +26,7 @@ import {getObjects, CosmicObjectResponse} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import Spacing from '@components/boxes/Spacing'
 
 const OutageInformationPage = () => {
   const theme = useTheme<Theme>()
@@ -232,6 +233,7 @@ const OutageInformationPage = () => {
               </Box>
 
               <FlexBox flex="1 1 auto" />
+              <Spacing size="large" />
               <Box flex="0 1 auto">
                 <Type variant="h4" gutterBottom>
                   Need More Assistance?

@@ -1,16 +1,17 @@
 // cspell:ignore frameborder publicpurchase accountspayable
-import React, {useCallback, useState} from 'react'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Box, Fade, Divider, Link} from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
+import {Typography as Type, Divider, Link} from '@material-ui/core'
+import {createStyles, makeStyles} from '@material-ui/core/styles'
 import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import {TypographyProps} from '@material-ui/core/Typography'
 import PurchasingEmail from '@components/links/PurchasingEmail'
 import AccountsPayableEmail from '@components/links/AccountsPayableEmail'
+import PublicPurchaseIframe from '@components/PublicPurchaseIframe/PublicPurchaseIframe'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -23,11 +24,6 @@ const useStyles = makeStyles(() =>
 
 const GoodsAndServicesPage = () => {
   const classes = useStyles()
-  const [iframeIsLoading, setIframeIsLoading] = useState(true)
-
-  const publicPurchaseIframeLoadedHandler = useCallback(() => {
-    setIframeIsLoading(false)
-  }, [])
 
   const RegStepItem = ({children, ...rest}: TypographyProps) => {
     return (
@@ -37,7 +33,6 @@ const GoodsAndServicesPage = () => {
     )
   }
 
-  const theme = useTheme()
   return (
     <PageLayout title="Goods and Services" waterSurface>
       <MainBox>
@@ -49,25 +44,8 @@ const GoodsAndServicesPage = () => {
             understanding PCWA’s procurement process.
           </Type>
           <Spacing />
-          <Box position="relative" width="100%">
-            <Fade in={iframeIsLoading}>
-              <Box position="absolute" top={0} bottom={0} left={0} right={0}>
-                <Type>Public Purchase is loading...</Type>
-              </Box>
-            </Fade>
-            <Fade in={!iframeIsLoading}>
-              <Box border={1} borderColor={theme.palette.grey['600']}>
-                <iframe
-                  onLoad={publicPurchaseIframeLoadedHandler}
-                  src="https://www.publicpurchase.com/gems/pcwa,ca/buyer/public/publicInfo"
-                  frameBorder="0"
-                  width="100%"
-                  height={250}
-                  scrolling="auto"
-                />
-              </Box>
-            </Fade>
-          </Box>
+          <PublicPurchaseIframe />
+
           <Spacing />
           <OpenInNewLink
             href="https://www.publicsurplus.com/sms/pcwa,ca/list/current?orgid=86896"

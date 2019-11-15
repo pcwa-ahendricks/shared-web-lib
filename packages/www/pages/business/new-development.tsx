@@ -366,8 +366,8 @@ const NewDevelopmentPage = () => {
           </Type>
           <Type paragraph>
             Should you have questions regarding right-of-way matters pertaining
-            to your project you can contact the Right of Way Technician at (530)
-            823-4886.
+            to your project you can contact the Right of Way Technician at{' '}
+            <EngineeringPhone />.
           </Type>
           <Spacing size="x-large" />
           <Type variant="h3" gutterBottom>
@@ -375,8 +375,8 @@ const NewDevelopmentPage = () => {
           </Type>
           <Type paragraph>
             For more information or to obtain distribution maps and as-built
-            drawings, please contact the Agency’s GIS Department at (530)
-            823-4886 or email at <GisDeptEmail />.
+            drawings, please contact the Agency’s GIS Department at{' '}
+            <EngineeringPhone /> or email at <GisDeptEmail />.
           </Type>
           <Spacing size="x-large" />
           <Type variant="h3" gutterBottom>
