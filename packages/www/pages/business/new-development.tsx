@@ -389,7 +389,7 @@ const NewDevelopmentPage = () => {
               <DescriptionOutlinedIcon className={classes.linkItemIcon} />
             </LinkItem>{' '}
             to obtain fire flow data. For more information, please contact the
-            Engineering Division at (530) 823-4886 during business hours.
+            Engineering Division at <EngineeringPhone /> during business hours.
           </Type>
         </NarrowContainer>
       </MainBox>

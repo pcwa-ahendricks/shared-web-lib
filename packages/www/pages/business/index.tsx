@@ -73,7 +73,7 @@ const DoingBusinessPage = () => {
                   imgixParams={{bri: -4}}
                 />
               </ChildBox>
-              <ChildBox mt={topMargin}>
+              {/* <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
                   href="/business/energy-products"
@@ -83,7 +83,7 @@ const DoingBusinessPage = () => {
                   imgAlt="Energy Products Image Link"
                   imgixParams={{bri: -8}}
                 />
-              </ChildBox>
+              </ChildBox> */}
               <ChildBox mt={topMargin}>
                 <ImageDimmerLink
                   {...commonImageDimmerProps}
@@ -95,11 +95,11 @@ const DoingBusinessPage = () => {
                   imgixParams={{bri: -4}}
                 />
               </ChildBox>
-              {/* This extra <ChildBox/> is only needed cause "space-around" justification is used. */}
+              {/* This extra <ChildBox/> is only needed if "space-around" justification is used AND there are a odd number of tiles. */}
               {/* Don't use <Hidden/> here since it will break flexSpacing css selector which uses '>' to select direct children only. */}
-              <ChildBox mt={topMargin} display={isXS ? 'none' : 'flex'}>
+              {/* <ChildBox mt={topMargin} display={isXS ? 'none' : 'flex'}>
                 <Box {...commonImageDimmerProps} />
-              </ChildBox>
+              </ChildBox> */}
             </RowBox>
           </Box>
         </WideContainer>

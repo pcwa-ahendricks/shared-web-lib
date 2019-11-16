@@ -6,8 +6,9 @@ import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
 
 type Props = {
-  caption: string
+  caption?: string
   url: string
+  anchorHref?: string
   filename: string
   margin?: number
   alt: string
@@ -40,8 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const ImgixThumbLink = ({
-  caption,
+  caption = '',
   url,
+  anchorHref,
   filename,
   margin = 0,
   alt,
@@ -69,7 +71,7 @@ const ImgixThumbLink = ({
   return (
     <Box mt={margin} ml={margin}>
       <a
-        href={`${url}?dl=${filename}`}
+        href={anchorHref || `${url}?dl=${filename}`}
         rel="noopener noreferrer"
         target="_blank"
         className={classes.link}

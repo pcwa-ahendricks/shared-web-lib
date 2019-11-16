@@ -254,10 +254,10 @@ const menuConfig: MenuConfig[] = [
             title: 'Construction Projects',
             nextLink: '/about-pcwa/projects'
           },
-          {
-            title: 'Energy Products',
-            nextLink: '/business/energy-products'
-          },
+          // {
+          //   title: 'Energy Products',
+          //   nextLink: '/business/energy-products'
+          // },
           {
             title: 'Improvement Standards',
             nextLink: '/business/standards'
