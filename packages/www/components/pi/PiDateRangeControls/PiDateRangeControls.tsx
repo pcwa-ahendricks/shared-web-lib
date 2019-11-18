@@ -9,9 +9,10 @@ import {
 } from '@material-ui/core'
 import {useTheme} from '@material-ui/core/styles'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
-import {DatePicker, MaterialUiPickersDate} from '@material-ui/pickers'
+import {DatePicker} from '@material-ui/pickers'
 import {PiContext, setChartStartDate, setChartEndDate} from '../PiStore'
 import {subYears, subQuarters, subMonths, subWeeks, startOfDay} from 'date-fns'
+import {MaterialUiPickersDate} from '@material-ui/pickers/typings/date'
 
 const PiDateRangeControls = () => {
   const theme = useTheme<Theme>()

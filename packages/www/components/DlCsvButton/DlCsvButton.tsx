@@ -1,6 +1,8 @@
 // cspell:ignore unparse
 import React from 'react'
 import Button, {ButtonProps} from '@material-ui/core/Button'
+import {unparse} from 'papaparse'
+import {saveAs} from 'file-saver'
 
 type Props = {
   children?: React.ReactNode
@@ -29,10 +31,11 @@ const DlCsvButton = ({
     try {
       !!new Blob()
       try {
-        const [{unparse}, {saveAs}] = await Promise.all([
-          import('papaparse'),
-          import('file-saver')
-        ])
+        // [TODO] Dynamic importing stopped working with Typescript 3.7 update. "Property 'unparse' does not exist on type..." Error was only visible during Now deploy.
+        // const [{unparse}, {saveAs}] = await Promise.all([
+        //   import('papaparse'),
+        //   import('file-saver')
+        // ])
         const parsed = unparse(data)
         const csvBlob = new Blob(
           [header, header ? '\n' : '', parsed, footer ? '\n' : '', footer],

@@ -2,6 +2,9 @@
   "name": "neu-web",
   "version": "1.0.0",
   "description": "New PCWA website",
+  "engines": {
+    "node" : "10.x"
+  },
   "main": "index.js",
   "repository": "pcwa.net",
   "author": "abe hendricks <ahendricks@pcwa.net>",
