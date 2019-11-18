@@ -415,7 +415,6 @@ const DropzoneUploader: React.RefForwardingComponent<
     ...rest
   })
   // <PageLayout title="Irrigation Canal Information">
-  // [TODO] 'inputMode="text"' and 'type="text"' props were both added to suppress error during Now deploy. These props may not be necessary in the future.
   return (
     <div>
       <div className={classes.root} style={{width: width}}>
@@ -424,7 +423,6 @@ const DropzoneUploader: React.RefForwardingComponent<
           className={clsx(classes.dropzone, {
             [classes.isActive]: isDragActive
           })}
-          inputMode="text"
           style={{height: height}}
         >
           <input type="text" {...getInputProps()} />
