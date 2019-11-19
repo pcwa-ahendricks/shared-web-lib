@@ -9,11 +9,11 @@ type Props = {
   caption?: string
   url: string
   anchorHref?: string
-  filename: string
+  filename?: string
   margin?: number
   alt: string
   paddingPercent?: string
-  imageContainerWidth?: BoxProps['width']
+  imageWidth?: BoxProps['width']
 }
 
 type UseStylesProps = {
@@ -44,10 +44,10 @@ const ImgixThumbLink = ({
   caption = '',
   url,
   anchorHref,
-  filename,
+  filename = '',
   margin = 0,
   alt,
-  imageContainerWidth,
+  imageWidth: imageWidthProp,
   paddingPercent = '129.412%' // Default to 8.5x11 ratio (11/8.5*100).
 }: Props) => {
   const theme = useTheme<Theme>()
@@ -55,8 +55,8 @@ const ImgixThumbLink = ({
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
   const defaultImageWidth = isXs ? 70 : isSm ? 75 : 85
   const imageWidth = useMemo(
-    () => (imageContainerWidth ? imageContainerWidth : defaultImageWidth),
-    [imageContainerWidth, defaultImageWidth]
+    () => (imageWidthProp ? imageWidthProp : defaultImageWidth),
+    [imageWidthProp, defaultImageWidth]
   )
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
@@ -69,7 +69,7 @@ const ImgixThumbLink = ({
   }, [])
 
   return (
-    <Box mt={margin} ml={margin}>
+    <Box mt={margin} ml={margin} width="100%">
       <a
         href={anchorHref || `${url}?dl=${filename}`}
         rel="noopener noreferrer"

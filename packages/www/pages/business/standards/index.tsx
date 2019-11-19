@@ -26,7 +26,7 @@ const ImprovementStandardsPage = () => {
                 width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
                 <ImgixThumbLink
-                  imageContainerWidth="100%"
+                  imageWidth="100%"
                   filename="PCWA_Improvement_Standards_2017"
                   url="https://cosmic-s3.imgix.net/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                   anchorHref="https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"

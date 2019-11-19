@@ -81,7 +81,7 @@ const RateAdjustPage = () => {
                         filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
                         caption="Treated Water Notice"
                         alt="Thumbnail and link for Prop. 218 Treated Water Notice"
-                        imageContainerWidth={imageWidth}
+                        imageWidth={imageWidth}
                       />
                     </Box>
                     <Box flex="33.33">
@@ -90,7 +90,7 @@ const RateAdjustPage = () => {
                         filename="PCWA Zone 6 Untreated 218 notice - 2018.pdf"
                         caption="Untreated Water Notice"
                         alt="Thumbnail and link for Prop. 218 Untreated Water Notice"
-                        imageContainerWidth={imageWidth}
+                        imageWidth={imageWidth}
                       />
                     </Box>
                     <Box flex="33.33">
@@ -99,7 +99,7 @@ const RateAdjustPage = () => {
                         filename="PCWA Cost of Service Study.pdf"
                         caption="2017 Cost of Service – Rate Study"
                         alt="Thumbnail and link for Cost of Service Study"
-                        imageContainerWidth={imageWidth}
+                        imageWidth={imageWidth}
                       />
                     </Box>
                   </RowBox>
