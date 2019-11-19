@@ -134,7 +134,7 @@ const CountyWideMasterPlanPage = () => {
             title="County-Wide Master Plan"
             subtitle="Business with PCWA"
           />
-          <RespRowBox flexSpacing={4}>
+          <RespRowBox flexSpacing={6}>
             <ChildBox flex="60%">
               <Type paragraph>
                 On November 19, 1992, the Placer County Water Agency Board of
