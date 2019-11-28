@@ -18,6 +18,7 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import './rebate-programs.css'
 import MainPhone from '@components/links/MainPhone'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
+import NextLink from 'next/link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,21 +71,22 @@ const RebateProgramsPage = () => {
 
   const ApplyNowButton = ({href, label}: {href: string; label: string}) => {
     return (
-      <FancyButton
-        color="primary"
-        aria-label={label}
-        hoverText="Apply Now"
-        href={href}
-      >
-        <RowBox alignItems="center">
-          <Type color="secondary" component="span" className={classes.annotate}>
-            *New
-          </Type>
-          <Type component="span" variant="inherit">
-            Apply Now
-          </Type>
-        </RowBox>
-      </FancyButton>
+      <NextLink href={href} passHref>
+        <FancyButton color="primary" aria-label={label} hoverText="Apply Now">
+          <RowBox alignItems="center">
+            <Type
+              color="secondary"
+              component="span"
+              className={classes.annotate}
+            >
+              *New
+            </Type>
+            <Type component="span" variant="inherit">
+              Apply Now
+            </Type>
+          </RowBox>
+        </FancyButton>
+      </NextLink>
     )
   }
 

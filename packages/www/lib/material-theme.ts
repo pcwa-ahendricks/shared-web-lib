@@ -20,7 +20,7 @@ const theme = createMuiTheme({
   typography: {
     // Use the system font instead of the default Roboto font.
     // fontFamily: ['Asap', ...systemFonts].join(','),
-    fontFamily: ['Malva', ...systemFonts].join(','),
+    fontFamily: ['Dona', ...systemFonts].join(','),
     h1: {
       fontSize: '2.6rem' // Default: 6rem
     },
@@ -61,7 +61,7 @@ const theme = createMuiTheme({
     button: {
       // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
       // fontWeight: 600, // Default: 500
-      fontFamily: ['Malva', ...systemFonts].join(','),
+      fontFamily: ['Dona', ...systemFonts].join(','),
       fontSize: '0.92rem' // Default: 0.875rem
     },
     overline: {
@@ -72,8 +72,8 @@ const theme = createMuiTheme({
       fontSize: '1.1rem' // Default: 1rem
     },
     subtitle2: {
-      fontSize: '0.975rem', // Default: 0.875rem
-      fontWeight: 400 // Default: 500
+      fontSize: '0.975rem' // Default: 0.875rem
+      // fontWeight: 400 // Default: 500
     }
   },
   palette: {

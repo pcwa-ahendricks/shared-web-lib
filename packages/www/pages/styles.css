@@ -1,37 +1,37 @@
 @font-face {
-  font-family: 'Malva';
-  font-weight: 300;
-  src: url('/static/fonts/Malva/Malva-Light.eot?#iefix')
-      format('embedded-opentype'),
-    url('/static/fonts/Malva/Malva-Light.woff2') format('woff2'),
-    url('/static/fonts/Malva/Malva-Light.woff') format('woff');
-  font-display: 'swap';
-}
-@font-face {
-  font-family: 'Malva';
+  font-family: 'Dona';
   font-weight: 400;
-  src: url('/static/fonts/Malva/Malva-Regular.eot?#iefix')
+  src: url('/static/fonts/Dona/Dona-Regular.eot?#iefix')
       format('embedded-opentype'),
-    url('/static/fonts/Malva/Malva-Regular.woff2') format('woff2'),
-    url('/static/fonts/Malva/Malva-Regular.woff') format('woff');
+    url('/static/fonts/Dona/Dona-Regular.woff2') format('woff2'),
+    url('/static/fonts/Dona/Dona-Regular.woff') format('woff');
   font-display: 'swap';
 }
 @font-face {
-  font-family: 'Malva';
+  font-family: 'Dona';
   font-weight: 500;
-  src: url('/static/fonts/Malva/Malva-Medium.eot?#iefix')
+  src: url('/static/fonts/Dona/Dona-Medium.eot?#iefix')
       format('embedded-opentype'),
-    url('/static/fonts/Malva/Malva-Medium.woff2') format('woff2'),
-    url('/static/fonts/Malva/Malva-Medium.woff') format('woff');
+    url('/static/fonts/Dona/Dona-Medium.woff2') format('woff2'),
+    url('/static/fonts/Dona/Dona-Medium.woff') format('woff');
+  font-display: 'swap';
+}
+@font-face {
+  font-family: 'Dona';
+  font-weight: 600;
+  src: url('/static/fonts/Dona/Dona-Bold.eot?#iefix')
+      format('embedded-opentype'),
+    url('/static/fonts/Dona/Dona-Bold.woff2') format('woff2'),
+    url('/static/fonts/Dona/Dona-Bold.woff') format('woff');
   font-display: 'swap';
 }
 /* @font-face {
-  font-family: 'Malva';
+  font-family: 'Dona';
   font-weight: 600;
-  src: url('/static/fonts/Malva/Malva-Bold.eot?#iefix')
+  src: url('/static/fonts/Dona/Dona-Bold.eot?#iefix')
       format('embedded-opentype'),
-    url('/static/fonts/Malva/Malva-Bold.woff2') format('woff2'),
-    url('/static/fonts/Malva/Malva-Bold.woff') format('woff');
+    url('/static/fonts/Dona/Dona-Bold.woff2') format('woff2'),
+    url('/static/fonts/Dona/Dona-Bold.woff') format('woff');
   font-display: 'swap';
 } */
 @font-face {

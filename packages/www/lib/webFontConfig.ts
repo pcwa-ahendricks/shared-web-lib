@@ -5,9 +5,9 @@
 //   }
 // }
 
-// Malva & Kiperman
+// Dona & Kiperman
 export default {
   custom: {
-    families: ['Malva', 'Kiperman']
+    families: ['Dona', 'Kiperman']
   }
 }

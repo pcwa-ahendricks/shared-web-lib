@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "New PCWA website",
   "engines": {
-    "node" : "10.x"
+    "node": "10.x"
   },
   "main": "index.js",
   "repository": "pcwa.net",
@@ -22,6 +22,6 @@
     "now-build": "next build"
   },
   "devDependencies": {
-    "now": "16.5.2"
+    "now": "16.6.0"
   }
 }
