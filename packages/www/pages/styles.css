@@ -16,15 +16,6 @@
     url('/static/fonts/Dona/Dona-Medium.woff') format('woff');
   font-display: 'swap';
 }
-@font-face {
-  font-family: 'Dona';
-  font-weight: 600;
-  src: url('/static/fonts/Dona/Dona-Bold.eot?#iefix')
-      format('embedded-opentype'),
-    url('/static/fonts/Dona/Dona-Bold.woff2') format('woff2'),
-    url('/static/fonts/Dona/Dona-Bold.woff') format('woff');
-  font-display: 'swap';
-}
 /* @font-face {
   font-family: 'Dona';
   font-weight: 600;
