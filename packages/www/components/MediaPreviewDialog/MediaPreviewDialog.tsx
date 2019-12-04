@@ -115,7 +115,7 @@ const MediaPreviewDialog = ({
       // [TODO] It doesn't appear that lazy loading of images is working in this component.
       <img
         key={key}
-        className={clsx({['lazyload']: true}, classes.img)}
+        className={clsx(['lazyload', classes.img])}
         data-sizes="auto"
         data-src={url}
         src={url} // IE fix - src attribute may be required for displaying img.

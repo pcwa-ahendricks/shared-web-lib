@@ -83,12 +83,12 @@ const WaterQualityPage = () => {
             </Type>
             <RespRowBox flexSpacing={4}>
               <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
-                <MediaDialogOnClick
-                  mediaUrl={tsaImageUrl}
-                  mediaExt="jpg"
-                  mediaName={tsaImageAlt}
-                >
-                  <ColumnBox alignItems="center">
+                <ColumnBox alignItems="center">
+                  <MediaDialogOnClick
+                    mediaUrl={tsaImageUrl}
+                    mediaExt="jpg"
+                    mediaName={tsaImageAlt}
+                  >
                     <LazyImgix
                       src={tsaImageUrl}
                       imgixParams={{border: '1,AAAAAA'}}
@@ -100,13 +100,11 @@ const WaterQualityPage = () => {
                         }
                       }}
                     />
-                    <Box mt={1}>
-                      <Type variant="caption" align="center">
-                        Treated Water Services Areas
-                      </Type>
-                    </Box>
-                  </ColumnBox>
-                </MediaDialogOnClick>
+                  </MediaDialogOnClick>
+                  <Box mt={1}>
+                    <Type variant="caption">Treated Water Services Areas</Type>
+                  </Box>
+                </ColumnBox>
               </ChildBox>
               <ChildBox flex="auto">
                 <Box

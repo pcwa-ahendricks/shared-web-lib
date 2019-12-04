@@ -15,7 +15,7 @@ import colorAlpha from 'color-alpha'
 type Props = {
   mediaName: string
   mediaUrl: string
-  mediaExt: string
+  mediaExt?: string
   children: React.ReactNode
   timeout?: number
   popperMessage?: string
@@ -82,7 +82,12 @@ const MediaDialogOnClick = ({
       >
         <div
           ref={popperAnchorEl}
-          style={{position: 'absolute', top: 8, right: 8, ...popperAnchorStyle}}
+          style={{
+            position: 'absolute',
+            top: theme.spacing(1),
+            right: theme.spacing(1),
+            ...popperAnchorStyle
+          }}
         />
         {/* Css implementation won't work here (eg. Popper will still show on xs devices). */}
         <Hidden only="xs" implementation="js">
@@ -98,6 +103,8 @@ const MediaDialogOnClick = ({
               <Fade {...TransitionProps} timeout={timeout}>
                 <Box
                   borderRadius={3}
+                  borderColor={theme.palette.grey['300']}
+                  border={1}
                   p={1}
                   fontStyle="italic"
                   bgcolor={noTransPaper}

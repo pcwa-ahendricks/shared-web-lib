@@ -75,6 +75,13 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
     '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
       color: theme.palette.secondary.dark
+    },
+    // Dona font is not centered vertically within buttons. These selectors help with centering.
+    '.MuiButton-label': {
+      paddingTop: '0.2rem'
+    },
+    '.MuiInputBase-input, .MuiInputBase-inputMarginDense': {
+      paddingTop: '0.6rem'
     }
   }
 }))(() => null)

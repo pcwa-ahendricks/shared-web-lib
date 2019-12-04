@@ -1,4 +1,4 @@
-function fileExtension(filename: string, lowercase: boolean = true) {
+function fileExtension(filename: string, lowercase = true) {
   if (!filename || typeof filename !== 'string') {
     return ''
   }

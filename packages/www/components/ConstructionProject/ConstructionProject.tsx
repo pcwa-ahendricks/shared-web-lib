@@ -6,7 +6,13 @@ import {BoxProps} from '@material-ui/core/Box'
 const ConstructionProject = ({children, ...rest}: BoxProps) => {
   const theme = useTheme()
   return (
-    <Box p={2} bgcolor={theme.palette.common.white} boxShadow={2} {...rest}>
+    <Box
+      p={2}
+      pb={4}
+      bgcolor={theme.palette.common.white}
+      boxShadow={2}
+      {...rest}
+    >
       {children}
     </Box>
   )
