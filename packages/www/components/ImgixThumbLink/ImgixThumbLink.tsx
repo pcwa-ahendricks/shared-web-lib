@@ -1,4 +1,9 @@
-import React, {useState, useMemo, useCallback} from 'react'
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  AnchorHTMLAttributes
+} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
@@ -8,12 +13,12 @@ import {BoxProps} from '@material-ui/core/Box'
 type Props = {
   caption?: string
   url: string
-  anchorHref?: string
   filename?: string
   margin?: number
   alt: string
   paddingPercent?: string
   imageWidth?: BoxProps['width']
+  anchorProps?: AnchorHTMLAttributes<HTMLAnchorElement>
 }
 
 type UseStylesProps = {
@@ -43,11 +48,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const ImgixThumbLink = ({
   caption = '',
   url,
-  anchorHref,
   filename = '',
   margin = 0,
   alt,
   imageWidth: imageWidthProp,
+  anchorProps,
   paddingPercent = '129.412%' // Default to 8.5x11 ratio (11/8.5*100).
 }: Props) => {
   const theme = useTheme<Theme>()
@@ -71,10 +76,11 @@ const ImgixThumbLink = ({
   return (
     <Box mt={margin} ml={margin} width="100%">
       <a
-        href={anchorHref || `${url}?dl=${filename}`}
+        href={`${url}?dl=${filename}`}
         className={classes.link}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
+        {...anchorProps}
       >
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy

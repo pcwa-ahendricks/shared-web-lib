@@ -159,7 +159,11 @@ const CountyWideMasterPlanPage = () => {
                     <ImgixThumbLink
                       imageWidth={160}
                       url="https://cosmic-s3.imgix.net/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
-                      anchorHref="https://opti.rmcwater.com/pcwa/login.php"
+                      anchorProps={{
+                        href: 'https://opti.rmcwater.com/pcwa/login.php',
+                        rel: 'noopener noreferrer',
+                        target: '_blank'
+                      }}
                       alt="CWMP Project Database thumbnail and link"
                     />
                     <Box textAlign="center">
@@ -184,7 +188,12 @@ const CountyWideMasterPlanPage = () => {
                     <ImgixThumbLink
                       imageWidth={160}
                       url="https://cosmic-s3.imgix.net/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
-                      anchorHref="https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
+                      anchorProps={{
+                        href:
+                          'https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf',
+                        rel: 'noopener noreferrer',
+                        target: '_blank'
+                      }}
                       alt="Thumbnail and link for County Wide Master Plan Document"
                     />
                     <Box textAlign="center">
