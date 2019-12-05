@@ -96,10 +96,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   Financial Statements (audited), Required Supplementary
                   Information and Statistical Section.
                 </Type>
-                <Type>
-                  The final reports are available for viewing and download
-                  below.
-                </Type>
+                <Type>The final reports are available for download below.</Type>
               </Box>
               <Box
                 bgcolor={theme.palette.background.paper}

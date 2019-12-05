@@ -1,4 +1,4 @@
-// cspell:ignore Bonnynook
+// cspell:ignore Bonnynook Glenview Knutson hknutson kshively
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -31,12 +31,16 @@ import ConstructionProject from '@components/ConstructionProject/ConstructionPro
 import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
+import DownloadIcon from '@material-ui/icons/GetApp'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     listItem: {
       paddingTop: theme.spacing(1) / 2,
       paddingBottom: theme.spacing(1) / 2
+    },
+    inlineFlex: {
+      display: 'inline-flex'
     }
   })
 )
@@ -165,7 +169,7 @@ const ProjectsPage = () => {
                     <br />
                     Phone: (530) 823-4950
                     <br />
-                    E-mail:
+                    E-mail:{' '}
                     <Link href="mailto:jjakobsen@pcwa.net">
                       jjakobsen@pcwa.net
                     </Link>
@@ -198,8 +202,171 @@ const ProjectsPage = () => {
                 </article>
               </ConstructionProject>
             </ProjectChild>
-            <ProjectChild>bar</ProjectChild>
-            <ProjectChild>baz</ProjectChild>
+            <ProjectChild>
+              <ConstructionProject>
+                <Type variant="h3" gutterBottom color="primary">
+                  Foothill Raw Water Pipeline Phase 2 Project
+                </Type>
+                <Spacing>
+                  <Divider />
+                </Spacing>
+                <article>
+                  <Type variant="subtitle1" gutterBottom>
+                    About Project
+                  </Type>
+                  <Type paragraph>
+                    The purpose of the Foothill Raw Water Pipeline Phase 2
+                    Project is to give the Placer County Water Agency (PCWA) the
+                    ability to deliver raw water from the American River to the
+                    Foothill Water Treatment Plant (WTP) independently of the
+                    normal supply of raw water from PG&E’s South Canal and allow
+                    the transfer of treated drinking water from the future Ophir
+                    WTP to the Foothill WTP. The project gives PCWA a means for
+                    supplementing the current PG&E raw water allotment to meet
+                    its expanding service area demands for both raw and treated
+                    water.
+                  </Type>
+                  <Type paragraph>
+                    This phase of the project includes a raw water pipeline and
+                    treated water pipeline that connects to existing pipelines
+                    located south of I-80, then traverse south, primarily on
+                    private property, crossing Indian Hill Road and Glenview
+                    Road, before traveling along Powerhouse Road and terminating
+                    at the Foothill WTP. The project is scheduled to begin
+                    construction in Winter of 2019/2020 and take approximately
+                    21 months to complete.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    For questions regarding this project, contact:
+                  </Type>
+                  <Type paragraph>
+                    Project Manager / Engineer
+                    <br />
+                    Heather Knutson
+                    <br />
+                    Phone: (530) 823-4951
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:hknutson@pcwa.net">
+                      hknutson@pcwa.net
+                    </Link>
+                  </Type>
+                  <Spacing size="large" />
+                  <ColumnBox alignItems="center">
+                    <MediaDialogOnClick
+                      mediaUrl="https://cosmic-s3.imgix.net/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
+                      mediaName="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
+                    >
+                      <LazyImgix
+                        src="https://cosmic-s3.imgix.net/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
+                        imgixParams={{border: '1,AAAAAA'}}
+                        htmlAttributes={{
+                          alt:
+                            'Map Figure of Foothill Raw Water Pipeline Phase 2 Project',
+                          style: {
+                            width: '100%',
+                            cursor: !isXs ? 'pointer' : 'default'
+                          }
+                        }}
+                      />
+                    </MediaDialogOnClick>
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Foothill Raw Water Project Components{' '}
+                        <em>(click image to enlarge)</em>
+                        <br />
+                        <Link
+                          className={classes.inlineFlex}
+                          noWrap
+                          variant="inherit"
+                          href="https://cosmic-s3.imgix.net/6b388000-3ead-11e9-b946-75ef47721136-Foothill-Pipeline-Alignment-Figure-Figure-3.pdf?dl=Foothill-Pipeline-Alignment_Figure-3.pdf"
+                        >
+                          download pdf
+                          <ColumnBox
+                            component="span"
+                            justifyContent="center"
+                            pl={0.5}
+                          >
+                            <DownloadIcon color="inherit" fontSize="inherit" />
+                          </ColumnBox>
+                        </Link>
+                      </Type>
+                    </Box>
+                  </ColumnBox>
+                </article>
+              </ConstructionProject>
+            </ProjectChild>
+            <ProjectChild>
+              <ConstructionProject>
+                <Type variant="h3" gutterBottom color="primary">
+                  Lake Alta Dam Improvements Project
+                </Type>
+                <Spacing>
+                  <Divider />
+                </Spacing>
+                <article>
+                  <Type variant="subtitle1" gutterBottom>
+                    About Project
+                  </Type>
+                  <Type paragraph>
+                    The Lake Alta Dam project is a multi-year project to address
+                    regulation changes since the two Lake Alta dams were
+                    installed. Originally constructed for mining activities in
+                    the 1850’s, the dams have been in continuous service ever
+                    since. This facility is an important component of PCWA’s
+                    water delivery system, and this project will ensure lake
+                    levels, vegetation, and drainage comply with current
+                    regulatory requirements. See below for document links for
+                    this project.
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Location
+                  </Type>
+                  <Type paragraph>
+                    The Lake Alta Dam Safety Project is located in the Town of
+                    Alta, near Bonny Nook Drive.
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom>
+                    Construction Timeline
+                  </Type>
+                  <Type paragraph>
+                    Consultants are currently gathering information on-site to
+                    be used to design improvements to the dams. Completion of
+                    design of improvements to the dams is anticipated in 2019.
+                    Any future construction work will proceed upon completion of
+                    design and regulatory approvals.
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom>
+                    Latest Update
+                  </Type>
+                  <Type paragraph>
+                    PCWA removed dead and dying trees in 2017 the vicinity of
+                    the dams to comply with direction from the California
+                    Division of Safety of Dams (DSOD). In winter of 2018/2019
+                    PCWA will collect bore samples from each of the dams. These
+                    sample will be analyzed and incorporated into the design of
+                    future dam improvements.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    For questions regarding this project, contact:
+                  </Type>
+                  <Type paragraph>
+                    Project Manager / Engineer
+                    <br />
+                    Kelly Shively
+                    <br />
+                    Phone: (530) 863-8384
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:kshively@pcwa.net">
+                      kshively@pcwa.net
+                    </Link>
+                  </Type>
+                </article>
+              </ConstructionProject>
+            </ProjectChild>
           </RowBox>
         </WideContainer>
       </MainBox>

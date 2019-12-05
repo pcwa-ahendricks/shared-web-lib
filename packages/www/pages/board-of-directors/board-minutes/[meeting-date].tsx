@@ -133,8 +133,6 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
               size={isSMDown ? 'small' : 'medium'}
               variant={'extended'}
               href={`${qMedia.imgix_url}?dl=${qMedia.original_name}`}
-              target="_blank"
-              rel="noopener noreferrer"
               classes={{sizeSmall: classes.muiFabSmall}}
               // style={{position: 'fixed'}}
               // variant={trigger ? 'round' : 'extended'}

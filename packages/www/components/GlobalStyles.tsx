@@ -77,7 +77,7 @@ const GlobalStyles = withStyles((theme: Theme) => ({
       color: theme.palette.secondary.dark
     },
     // Dona font is not centered vertically within buttons. These selectors help with centering.
-    '.MuiButton-label': {
+    '.MuiButton-label, .MuiFab-label': {
       paddingTop: '0.2rem'
     },
     '.MuiInputBase-input, .MuiInputBase-inputMarginDense': {

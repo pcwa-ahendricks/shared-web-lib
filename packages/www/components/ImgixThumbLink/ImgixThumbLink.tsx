@@ -72,8 +72,6 @@ const ImgixThumbLink = ({
     <Box mt={margin} ml={margin} width="100%">
       <a
         href={anchorHref || `${url}?dl=${filename}`}
-        rel="noopener noreferrer"
-        target="_blank"
         className={classes.link}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
