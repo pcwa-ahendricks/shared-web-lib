@@ -1,4 +1,4 @@
-// cspell:ignore bbox
+// cspell:ignore bbox touchevents
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import React, {useCallback, useState, useRef, useEffect} from 'react'
@@ -19,6 +19,8 @@ import debounce from 'debounce'
 import {directors, Director} from '@lib/directors'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import useMapUnsupported from '@hooks/useMapIsUnsupported'
+import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
+import useSupportsTouch from '@hooks/useSupportsTouch'
 // import usePrevious from '@hooks/usePrevious'
 
 // import Geocoder from 'react-map-gl-geocoder'
@@ -57,6 +59,7 @@ const DistrictBoundariesMap = () => {
 
   const mapRef = useRef<MapGL>(null)
   const mapIsUnsupported = useMapUnsupported()
+  const supportsTouch = useSupportsTouch()
 
   const geocoderViewportChangeHandler = useCallback(
     (viewState) => {
@@ -152,70 +155,78 @@ const DistrictBoundariesMap = () => {
     )
   }
 
+  const dimmerSubtitle = supportsTouch
+    ? 'Click or tap an area on the map to find out more about a particular location. Click this message to begin.'
+    : 'Hover your mouse over the map to find out more about a particular location. Click this message to begin.'
   return (
-    <MapGL
-      ref={mapRef}
-      {...viewState}
-      minZoom={8}
-      width="100%"
-      height={500}
-      mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
-      mapboxApiAccessToken={API_KEY}
-      onViewStateChange={onViewStateChange}
-      onHover={onHoverHandler__}
-      onClick={onClickHandler}
-      onTransitionEnd={onTransitionEndHandler}
-      onTransitionStart={onTransitionStartHandler}
-      onTransitionInterrupt={onTransitionEndHandler}
-      // onMouseMove={onHoverHandler}
-      // onLoad={onLoadHandler}
+    <ContentDimmer
+      title="Find Out Which PCWA District You Are In"
+      subtitle={dimmerSubtitle}
     >
-      <Box
-        position="absolute"
-        left={theme.spacing(1)}
-        bottom={theme.spacing(1)}
-      >
-        <NavigationControl onViewStateChange={onViewStateChange} />
-      </Box>
-      <Grow in={showDistrictOverlay}>
-        <ColumnBox
-          position="absolute"
-          top={theme.spacing(1)}
-          right={theme.spacing(1)}
-          bgcolor={theme.palette.common.white}
-          p={1}
-          borderRadius={3}
-          boxShadow={4}
-          borderColor={theme.palette.grey['400']}
-          alignItems="center"
-          minWidth={200}
-        >
-          {isTransitioning ? (
-            <CircularProgress color="secondary" />
-          ) : (
-            <Type variant="subtitle1">
-              {activeDirector && activeDirector.districtCaption
-                ? activeDirector.districtCaption
-                : 'Outside PCWA District Limits'}
-            </Type>
-          )}
-          {!isTransitioning && activeDirector && activeDirector.name ? (
-            <Type variant="subtitle2">{activeDirector.name}</Type>
-          ) : null}
-        </ColumnBox>
-      </Grow>
-      <Geocoder
-        mapRef={mapRef}
-        onResult={onResultHandler}
-        onViewportChange={geocoderViewportChangeHandler}
+      <MapGL
+        ref={mapRef}
+        {...viewState}
+        minZoom={8}
+        width="100%"
+        height={500}
+        mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
         mapboxApiAccessToken={API_KEY}
-        position="top-left"
-        country="us"
-        proximity={{longitude: -121.0681, latitude: 38.9197}}
-        bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
-        zoom={15}
-      />
-    </MapGL>
+        onViewStateChange={onViewStateChange}
+        onHover={onHoverHandler__}
+        onClick={onClickHandler}
+        onTransitionEnd={onTransitionEndHandler}
+        onTransitionStart={onTransitionStartHandler}
+        onTransitionInterrupt={onTransitionEndHandler}
+        // onMouseMove={onHoverHandler}
+        // onLoad={onLoadHandler}
+      >
+        <Box
+          position="absolute"
+          left={theme.spacing(1)}
+          bottom={theme.spacing(1)}
+        >
+          <NavigationControl onViewStateChange={onViewStateChange} />
+        </Box>
+        <Grow in={showDistrictOverlay}>
+          <ColumnBox
+            position="absolute"
+            top={theme.spacing(1)}
+            right={theme.spacing(1)}
+            bgcolor={theme.palette.common.white}
+            p={1}
+            borderRadius={3}
+            boxShadow={4}
+            borderColor={theme.palette.grey['400']}
+            alignItems="center"
+            minWidth={200}
+          >
+            {isTransitioning ? (
+              <CircularProgress color="secondary" />
+            ) : (
+              <Type variant="subtitle1">
+                {activeDirector && activeDirector.districtCaption
+                  ? activeDirector.districtCaption
+                  : 'Outside PCWA District Limits'}
+              </Type>
+            )}
+            {!isTransitioning && activeDirector && activeDirector.name ? (
+              <Type variant="subtitle2">{activeDirector.name}</Type>
+            ) : null}
+          </ColumnBox>
+        </Grow>
+        <Geocoder
+          mapRef={mapRef}
+          onResult={onResultHandler}
+          onViewportChange={geocoderViewportChangeHandler}
+          mapboxApiAccessToken={API_KEY}
+          position="top-left"
+          country="us"
+          proximity={{longitude: -121.0681, latitude: 38.9197}}
+          bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
+          zoom={15}
+        />
+      </MapGL>
+    </ContentDimmer>
   )
 }
 

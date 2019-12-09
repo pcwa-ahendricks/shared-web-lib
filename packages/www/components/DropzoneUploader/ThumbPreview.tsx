@@ -1,4 +1,4 @@
-// cspell:ignore touchevents
+// cspell:ignore supportsTouch
 import React, {useState, useCallback, useMemo} from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {Box, Button, Tooltip, Theme} from '@material-ui/core'
@@ -7,11 +7,11 @@ import {DroppedFile, UploadedFileAttr} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import {Document, Page} from 'react-pdf'
-import useModernizr from '@hooks/useModernizr'
 import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
+import useSupportsTouch from '@hooks/useSupportsTouch'
 
 type Props = {
   file: DroppedFile
@@ -92,7 +92,7 @@ const ThumbPreview = ({
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [thumbHover, setThumbHover] = useState<string | null>()
-  const {touchevents} = useModernizr()
+  const supportsTouch = useSupportsTouch()
 
   const uploadStatus = useUploadStatus(uploadedFiles, file)
   const classes = useStyles({uploadStatus})
@@ -119,7 +119,7 @@ const ThumbPreview = ({
   // Just show Remove Upload Button on Mobile Devices since the Fab on hover will likely be impossible to click.
   const removeUploadButtonEl = useMemo(
     () =>
-      touchevents ? (
+      supportsTouch ? (
         <Box flexGrow={0}>
           <Button
             size="small"
@@ -135,7 +135,7 @@ const ThumbPreview = ({
           </Button>
         </Box>
       ) : null,
-    [classes, file, uploadStatus, touchevents, removeUploadHandler, isLoading]
+    [classes, file, uploadStatus, supportsTouch, removeUploadHandler, isLoading]
   )
 
   return (

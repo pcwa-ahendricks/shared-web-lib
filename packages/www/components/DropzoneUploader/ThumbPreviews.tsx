@@ -1,4 +1,3 @@
-// cspell:ignore touchevents
 import React, {useState, useMemo, useCallback} from 'react'
 import {DroppedFile, UploadedFileAttr} from './types'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
