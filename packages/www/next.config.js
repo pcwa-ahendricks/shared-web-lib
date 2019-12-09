@@ -69,6 +69,14 @@ module.exports = (_phase, {defaultConfig}) => {
         }
 
         /**
+         * Fix Mapbox GL JS in production. See https://github.com/mapbox/mapbox-gl-js/issues/4348 for more info.
+         */
+        config.module = {
+          ...config.module,
+          noParse: /(mapbox-gl)\.js$/
+        }
+
+        /**
          * If some of the envs are public, like a google maps key, but you still
          * want to keep them secret from the repo, the following code will allow you
          * to share some variables with the client, configured at compile time.
@@ -85,7 +93,10 @@ module.exports = (_phase, {defaultConfig}) => {
             // })
             new webpack.EnvironmentPlugin({NEXT_RECAPTCHA_SITE_KEY: null}),
             new webpack.EnvironmentPlugin({NEXT_YOUTUBE_API_KEY: null}),
-            new webpack.EnvironmentPlugin({NEXT_PI_MAP_MAPBOX_API_KEY: null})
+            new webpack.EnvironmentPlugin({NEXT_PI_MAP_MAPBOX_API_KEY: null}),
+            new webpack.EnvironmentPlugin({
+              NEXT_DISTRICT_MAP_MAPBOX_API_KEY: null
+            })
           )
         }
 
