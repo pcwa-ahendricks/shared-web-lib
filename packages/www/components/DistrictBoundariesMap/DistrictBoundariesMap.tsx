@@ -13,7 +13,8 @@ import {
   Box,
   Grow,
   Typography as Type,
-  CircularProgress
+  CircularProgress,
+  useMediaQuery
 } from '@material-ui/core'
 import debounce from 'debounce'
 import {directors, Director} from '@lib/directors'
@@ -46,6 +47,7 @@ const DistrictBoundariesMap = () => {
   const onViewStateChange = useCallback(({viewState}: ViewStateChangeInfo) => {
     setViewState({...viewState})
   }, [])
+  const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
 
   const [activeDistrict, setActiveDistrict] = useState<string>()
   const [activeDirector, setActiveDirector] = useState<Director | null>()
@@ -177,6 +179,7 @@ const DistrictBoundariesMap = () => {
         onTransitionEnd={onTransitionEndHandler}
         onTransitionStart={onTransitionStartHandler}
         onTransitionInterrupt={onTransitionEndHandler}
+        scrollZoom={isXsDown ? false : true}
         // onMouseMove={onHoverHandler}
         // onLoad={onLoadHandler}
       >
@@ -190,7 +193,8 @@ const DistrictBoundariesMap = () => {
         <Grow in={showDistrictOverlay}>
           <ColumnBox
             position="absolute"
-            top={theme.spacing(1)}
+            top={isXsDown ? 'auto' : theme.spacing(1)}
+            bottom={isXsDown ? theme.spacing(5) : 'auto'}
             right={theme.spacing(1)}
             bgcolor={theme.palette.common.white}
             p={1}
