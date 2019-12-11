@@ -279,11 +279,11 @@ const FireResistantGardenPage = () => {
                     </Type>
                   </Box>
                 </ChildBox>
-                <ChildBox>
-                  <Hidden only="xs" implementation="js">
+                <Hidden only="xs" implementation="js">
+                  <ChildBox>
                     <FirstAsideImage />
-                  </Hidden>
-                </ChildBox>
+                  </ChildBox>
+                </Hidden>
                 <ChildBox>
                   <LazyImgix
                     src="https://cosmic-s3.imgix.net/48ddc470-ad6b-11e9-910a-9dd8fa8729ee-Boys-Scouts-with-Auburn-Fire008.jpg"
