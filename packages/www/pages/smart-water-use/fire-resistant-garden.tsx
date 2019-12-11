@@ -22,6 +22,7 @@ import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
 // import CenterImage from '@components/CenterImage/CenterImage'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import {TypographyProps} from '@material-ui/core/Typography'
 import {LinkProps} from '@material-ui/core/Link'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -262,6 +263,22 @@ const FireResistantGardenPage = () => {
             </ChildBox>
             <ChildBox flex="50%">
               <ColumnBox flexSpacing={4}>
+                <ChildBox>
+                  <ResponsiveYouTubePlayer
+                    controls
+                    url="https://www.youtube.com/watch?v=IJUea7HWsfI"
+                    config={{
+                      youtube: {
+                        playerVars: {showinfo: 1}
+                      }
+                    }}
+                  />
+                  <Box textAlign="center">
+                    <Type variant="caption">
+                      Landscape Makeover-time lapse video
+                    </Type>
+                  </Box>
+                </ChildBox>
                 <ChildBox>
                   <Hidden only="xs" implementation="js">
                     <FirstAsideImage />
