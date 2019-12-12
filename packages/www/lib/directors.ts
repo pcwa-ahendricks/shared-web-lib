@@ -8,7 +8,7 @@ export interface Director {
   chair?: boolean
   termExp: number
   email: string
-  bioHTML: string
+  bio: string
 }
 
 export const directors: Director[] = [
@@ -21,7 +21,7 @@ export const directors: Director[] = [
     districtCaption: 'Supervisorial District 1',
     termExp: 2022,
     email: 'district1@pcwa.net',
-    bioHTML: `Elected in November 2006 to the PCWA Board of Directors. He represents
+    bio: `Elected in November 2006 to the PCWA Board of Directors. He represents
       District 1, which includes most of the City of Roseville, plus portions of
       unincorporated west Placer County. He resides in Roseville. He is a long-time public
       relations consultant with clients in agriculture, high tech, transportation, banking
@@ -41,7 +41,7 @@ export const directors: Director[] = [
     districtCaption: 'Supervisorial District 5',
     termExp: 2020,
     email: 'district5@pcwa.net',
-    bioHTML: `
+    bio: `
       Elected in November 2012 to the PCWA Board of Directors, Mr. Alpine represents
       District 5.  This extends eastward from Auburn to Lake Tahoe and the Nevada state
       line.  Mr. Alpine is a community leader.  He served ten years on the Colfax City
@@ -58,7 +58,7 @@ export const directors: Director[] = [
     districtCaption: 'Supervisorial District 2',
     termExp: 2022,
     email: 'district2@pcwa.net',
-    bioHTML: `
+    bio: `
       Appointed in June 2013 to the PCWA Board of Directors to fill the unexpired term of
       retired Director Alex Ferreira.  Mr. Santini represents District 2, which includes
       the City of Lincoln, parts of the City of Rocklin and unincorporated Placer County
@@ -85,7 +85,7 @@ export const directors: Director[] = [
     viceChair: true,
     termExp: 2020,
     email: 'district4@pcwa.net',
-    bioHTML: `
+    bio: `
       Elected in November 2012 to the PCWA Board of Directors, Mr. Dugan represents
       District 4.  This includes eastern Roseville-Granite Bay.  He resides in Roseville
       where he is a longtime community leader, planning commissioner and two-term chairman
@@ -105,7 +105,7 @@ export const directors: Director[] = [
     chair: true,
     termExp: 2020,
     email: 'district3@pcwa.net',
-    bioHTML: `
+    bio: `
       Elected in November 2000 to the PCWA Board of Directors. He represents District 3,
       which includes most of Rocklin, all of Loomis, Penryn, Newcastle and Ophir. He
       resides in Loomis. He has a strong background in public service, having served

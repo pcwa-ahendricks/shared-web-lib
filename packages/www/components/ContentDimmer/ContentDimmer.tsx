@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
       userSelect: 'none',
       pointerEvents: 'none',
       transition: 'background-color 300ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-      backgroundColor: dimmerActive ? 'rgba(0, 0, 0, .6)' : 'rgba(0,0,0, 0.0)',
+      backgroundColor: dimmerActive ? 'rgba(0, 0, 0, .7)' : 'rgba(0,0,0, 0.0)',
       position: 'absolute',
       top: 0,
-      bottom: 7, // [HACK] Compensate react-imgix images. See <MediaPreviewDialog/> for similar fix.
+      bottom: 0,
       left: 0,
       right: 0
     }),

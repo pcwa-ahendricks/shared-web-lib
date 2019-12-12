@@ -224,6 +224,14 @@
       }
     },
     {
+      "src": "/about-pcwa/board-of-directors/district/(.*)",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/board-of-directors/district-$1"
+      }
+    },
+    {
       "src": "/about-pcwa/board-of-directors",
       "status": 301,
       "headers": {

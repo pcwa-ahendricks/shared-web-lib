@@ -27,6 +27,7 @@ import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
+import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 
 const OutageInformationPage = () => {
   const theme = useTheme<Theme>()
@@ -275,7 +276,7 @@ const OutageInformationPage = () => {
                     rel="noopener noreferrer"
                     title="Link to 2019 Zone 1 Cleaning Schedule"
                   >
-                    click here for Zone 1
+                    <ClickOrTap /> here for Zone 1
                   </MuiLink>{' '}
                   and{' '}
                   <MuiLink
@@ -284,7 +285,7 @@ const OutageInformationPage = () => {
                     rel="noopener noreferrer"
                     title="Link to 2019 Zone 3 Cleaning Schedule"
                   >
-                    click here for Zone 3
+                    <ClickOrTap /> here for Zone 3
                   </MuiLink>
                   .
                 </Type>

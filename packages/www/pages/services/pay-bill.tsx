@@ -21,6 +21,7 @@ import PhoneIcon from '@material-ui/icons/Phone'
 import BusinessIcon from '@material-ui/icons/Business'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 
 const PayOptionBox = ({children}: {children: React.ReactNode}) => {
   return <Box mt={2}>{children}</Box>
@@ -62,7 +63,7 @@ const PayBillPage = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Click here to Pay Online
+                          <ClickOrTap titlecase /> here to Pay Online
                         </Link>{' '}
                         with credit card or electronic check only. Payments made
                         prior to 3:00 p.m. will be posted in one business day.
