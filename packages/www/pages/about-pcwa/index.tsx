@@ -22,6 +22,7 @@ import GeneralManagerEmail from '@components/links/GeneralManagerEmail'
 import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
+import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
 
 const BANNER_IMG_SRC =
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -329,7 +330,9 @@ const GeneralInfoPage = () => {
                 <Type>
                   Public Affairs Manager, Ross Branch - <PublicAffairsEmail />
                 </Type>
-                <Type>, (530) 823-1937</Type>
+                <Type>
+                  , <PublicAffairsPhone />
+                </Type>
               </ListItem>
             </List>
           </Box>
