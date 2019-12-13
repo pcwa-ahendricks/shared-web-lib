@@ -110,7 +110,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 </Link>
               </Type>
               <Spacing />
-              <Type variant="h4">Directors - General Information</Type>
+              <Type variant="h4" gutterBottom>
+                Directors - General Information
+              </Type>
               <ul>
                 <LinkItem>
                   <MuiNextLink href="/board-of-directors/board-agenda">
@@ -251,8 +253,71 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
             <DistrictBoundariesMap />
           </SectionBox>
 
-          <Spacing size="large" />
-          <Type variant="h4">District Boundary Maps</Type>
+          <Spacing size="x-large" />
+          <Type variant="h4" gutterBottom>
+            District Boundary Maps (printable)
+          </Type>
+          <ul>
+            <LinkItem>
+              <Link
+                href="https://cdn.cosmicjs.com/42610260-1dc8-11ea-a594-a170ead8b2cb-SupDist.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Board of Directors' District Boundary Map
+              </Link>
+            </LinkItem>
+          </ul>
+          <Type variant="subtitle2" gutterBottom>
+            Individual District Maps (shaded area represents district):
+          </Type>
+          <ul>
+            <LinkItem>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/425394e0-1dc8-11ea-a594-a170ead8b2cb-1stSupDist.pdf"
+              >
+                District 1 - Board Member Gray Allen
+              </Link>
+            </LinkItem>
+            <LinkItem>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/425569a0-1dc8-11ea-a8c4-6b69c807b1d7-2ndSupDist.pdf"
+              >
+                District 2 - Board Member Primo Santini
+              </Link>
+            </LinkItem>
+            <LinkItem>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/4252d190-1dc8-11ea-a8c4-6b69c807b1d7-3rdSupDist.pdf"
+              >
+                District 3 - Board Member Mike Lee
+              </Link>
+            </LinkItem>
+            <LinkItem>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/425e4340-1dc8-11ea-a8c4-6b69c807b1d7-4thSupDist.pdf"
+              >
+                District 4 - Board Member Robert Dugan
+              </Link>
+            </LinkItem>
+            <LinkItem>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/425605e0-1dc8-11ea-a594-a170ead8b2cb-5thSupDist.pdf"
+              >
+                District 5 - Board Member Joshua Alpine
+              </Link>
+            </LinkItem>
+          </ul>
         </WideContainer>
       </MainBox>
     </PageLayout>
