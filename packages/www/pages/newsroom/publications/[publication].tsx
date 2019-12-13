@@ -16,7 +16,6 @@ import {AppBar, Box, Tabs, Tab, Typography as Type} from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
-import {useRouter} from 'next/router'
 import ErrorPage from '@pages/_error'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
@@ -41,7 +40,8 @@ interface LinkTabProps {
 }
 
 type Props = {
-  publication: string // getInitialProps.
+  tabIndex: number
+  err?: {statusCode: number}
 }
 
 const cosmicGetMediaProps = {
@@ -56,37 +56,9 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const PublicationsPage = ({publication}: Props) => {
+const PublicationsPage = ({tabIndex, err}: Props) => {
   const [newsletters, setNewsletters] = useState<GroupedNewsletters>([])
-  const [value, setValue] = useState(0)
-  const router = useRouter()
-  const [notFound, setNotFound] = useState(false)
   const classes = useStyles()
-
-  useEffect(() => {
-    console.log('publication changed', publication)
-    switch (publication.toLowerCase()) {
-      case 'newsletters': {
-        setValue(0)
-        break
-      }
-      case 'fire-and-water': {
-        setValue(1)
-        break
-      }
-      case 'year-end': {
-        setValue(2)
-        break
-      }
-      case 'enews': {
-        setValue(3)
-        break
-      }
-      default: {
-        setNotFound(true)
-      }
-    }
-  }, [publication, router])
 
   const fetchNewsletters = useCallback(async () => {
     const bma = await getMedia<CosmicMediaResponse>({
@@ -178,8 +150,8 @@ const PublicationsPage = ({publication}: Props) => {
   // setValue(newValue)
   // }
 
-  if (notFound) {
-    return <ErrorPage statusCode={404} />
+  if (err) {
+    return <ErrorPage statusCode={err.statusCode} />
   }
 
   return (
@@ -196,7 +168,7 @@ const PublicationsPage = ({publication}: Props) => {
           >
             <Tabs
               variant="fullWidth"
-              value={value}
+              value={tabIndex}
               // onChange={handleChange} // onChange is not needed.
               aria-label="nav tabs example"
             >
@@ -226,16 +198,16 @@ const PublicationsPage = ({publication}: Props) => {
               />
             </Tabs>
           </AppBar>
-          <TabPanel value={value} index={0}>
+          <TabPanel value={tabIndex} index={0}>
             newsletters here...
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={tabIndex} index={1}>
             fire & water here...
           </TabPanel>
-          <TabPanel value={value} index={2}>
+          <TabPanel value={tabIndex} index={2}>
             year end here...
           </TabPanel>
-          <TabPanel value={value} index={3}>
+          <TabPanel value={tabIndex} index={3}>
             Enews here...
           </TabPanel>
         </WideContainer>
@@ -246,7 +218,31 @@ const PublicationsPage = ({publication}: Props) => {
 
 PublicationsPage.getInitialProps = async ({query}: NextPageContext) => {
   const publication = queryParamToStr(query['publication'])
-  return {publication}
+  let tabIndex: number
+  let err: {statusCode: number} | null = null
+  switch (publication.toLowerCase()) {
+    case 'newsletters': {
+      tabIndex = 0
+      break
+    }
+    case 'fire-and-water': {
+      tabIndex = 1
+      break
+    }
+    case 'year-end': {
+      tabIndex = 2
+      break
+    }
+    case 'enews': {
+      tabIndex = 3
+      break
+    }
+    default: {
+      tabIndex = -1
+      err = {statusCode: 404}
+    }
+  }
+  return {err, tabIndex}
 }
 
 export default PublicationsPage

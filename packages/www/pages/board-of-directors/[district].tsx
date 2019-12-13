@@ -250,6 +250,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
             <Spacing />
             <DistrictBoundariesMap />
           </SectionBox>
+
+          <Spacing size="large" />
+          <Type variant="h4">District Boundary Maps</Type>
         </WideContainer>
       </MainBox>
     </PageLayout>

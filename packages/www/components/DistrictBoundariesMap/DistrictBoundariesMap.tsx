@@ -229,17 +229,19 @@ const DistrictBoundariesMap = () => {
               ) : null}
             </ColumnBox>
           </Grow>
-          <Geocoder
-            mapRef={mapRef}
-            onResult={onResultHandler}
-            onViewportChange={geocoderViewportChangeHandler}
-            mapboxApiAccessToken={API_KEY}
-            position="top-left"
-            country="us"
-            proximity={{longitude: -121.0681, latitude: 38.9197}}
-            bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
-            zoom={15}
-          />
+          {Geocoder ? (
+            <Geocoder
+              mapRef={mapRef}
+              onResult={onResultHandler}
+              onViewportChange={geocoderViewportChangeHandler}
+              mapboxApiAccessToken={API_KEY}
+              position="top-left"
+              country="us"
+              proximity={{longitude: -121.0681, latitude: 38.9197}}
+              bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
+              zoom={15}
+            />
+          ) : null}
         </MapGL>
       </ContentDimmer>
     </>
