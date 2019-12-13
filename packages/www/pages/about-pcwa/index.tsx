@@ -21,6 +21,7 @@ import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/Imgix
 import GeneralManagerEmail from '@components/links/GeneralManagerEmail'
 import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
+import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 
 const BANNER_IMG_SRC =
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -320,7 +321,9 @@ const GeneralInfoPage = () => {
                 <Type>
                   General Manager, Einar Maisch - <GeneralManagerEmail />
                 </Type>
-                <Type>, (530) 823-4860</Type>
+                <Type>
+                  , <ClerkToBoardPhone />
+                </Type>
               </ListItem>
               <ListItem>
                 <Type>
