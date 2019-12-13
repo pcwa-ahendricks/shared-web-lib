@@ -61,7 +61,7 @@ module.exports = {
       pragma: 'React',
       version: 'detect'
     },
-    polyfills: ['Promise'],
+    polyfills: ['Promise', 'Array.from'],
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx']
@@ -71,7 +71,8 @@ module.exports = {
           ['@components', path.resolve(__dirname, 'components')],
           ['@lib', path.resolve(__dirname, 'lib')],
           ['@store', path.resolve(__dirname, 'store')],
-          ['@hooks', path.resolve(__dirname, 'hooks')]
+          ['@hooks', path.resolve(__dirname, 'hooks')],
+          ['@pages', path.resolve(__dirname, 'pages')]
         ],
         extensions: ['.ts', '.js', '.tsx', '.jsx', '.json']
       }

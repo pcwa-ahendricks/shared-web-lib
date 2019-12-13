@@ -21,7 +21,8 @@
       "@lib/*": ["lib/*"],
       "@components/*": ["components/*"],
       "@store/*": ["store/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@pages/*": ["pages/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,

@@ -17,7 +17,7 @@ import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import {useRouter} from 'next/router'
-import ErrorPage from '../../../pages/_error'
+import ErrorPage from '@pages/_error'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 

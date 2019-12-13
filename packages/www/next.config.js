@@ -106,6 +106,7 @@ module.exports = (_phase, {defaultConfig}) => {
         config.resolve.alias['@lib'] = path.join(__dirname, 'lib')
         config.resolve.alias['@store'] = path.join(__dirname, 'store')
         config.resolve.alias['@hooks'] = path.join(__dirname, 'hooks')
+        config.resolve.alias['@pages'] = path.join(__dirname, 'pages')
 
         // Use raw loader for markdown files.
         config.module.rules.push({

@@ -1,6 +1,6 @@
 // cspell:ignore Santini dugan
 import React, {useEffect, useState, useCallback} from 'react'
-import {Typography as Type, Link, Box} from '@material-ui/core'
+import {Typography as Type, Link, Box, Divider} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -12,21 +12,47 @@ import SectionBox from '@components/boxes/SectionBox'
 import DistrictBoundariesMap from '@components/DistrictBoundariesMap/DistrictBoundariesMap'
 import BoardMemberCard from '@components/BoardMemberCard/BoardMemberCard'
 import {directors, Director} from '@lib/directors'
-import {useTheme} from '@material-ui/core/styles'
+import {
+  useTheme,
+  Theme,
+  makeStyles,
+  createStyles
+} from '@material-ui/core/styles'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {NextPageContext} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
+import MuiNextLink from '@components/NextLink/NextLink'
+import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
-  district?: string
+  district?: number
+  err?: {statusCode: number}
 }
 
-const BoardOfDirectorsPage = ({district: districtProp = ''}: Props) => {
+function getMaxDistrict() {
+  return directors.reduce(
+    (max, director) => (director.district > max ? director.district : max),
+    directors[0].district
+  )
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    bulletLi: {
+      listStyleType: 'none',
+      marginBottom: theme.spacing(1 / 2),
+      marginLeft: '-1em'
+    }
+  })
+)
+
+const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
+  const classes = useStyles()
   const theme = useTheme()
   const margin = theme.spacing(1) // Used with left and top margin of flexWrap items.
-  const [activeDirector, setActiveDirector] = useState<Director>()
+  const [activeDirector, setActiveDirector] = useState<Director | null>()
 
   const setDirector = useCallback((district: number) => {
     const director = directors.find((d) => d.district === district)
@@ -36,10 +62,23 @@ const BoardOfDirectorsPage = ({district: districtProp = ''}: Props) => {
   }, [])
 
   useEffect(() => {
-    const districtNoStrProp = districtProp.substr(-1)
-    const districtNoProp = parseInt(districtNoStrProp, 10)
-    setDirector(districtNoProp)
+    districtProp ? setDirector(districtProp) : setActiveDirector(null)
   }, [districtProp, setDirector])
+
+  const LinkItem = ({
+    children,
+    ...rest
+  }: React.HTMLAttributes<HTMLLIElement>) => {
+    return (
+      <li className={classes.bulletLi} {...rest}>
+        {children}
+      </li>
+    )
+  }
+
+  if (err) {
+    return <ErrorPage statusCode={err.statusCode} />
+  }
 
   return (
     <PageLayout title="Board of Directors" waterSurface>
@@ -70,6 +109,25 @@ const BoardOfDirectorsPage = ({district: districtProp = ''}: Props) => {
                   Placer County Elections Office.
                 </Link>
               </Type>
+              <Spacing />
+              <Type variant="h4">Directors - General Information</Type>
+              <ul>
+                <LinkItem>
+                  <MuiNextLink href="/board-of-directors/board-agenda">
+                    Board Meeting Agendas
+                  </MuiNextLink>
+                </LinkItem>
+                <LinkItem>
+                  <MuiNextLink href="/board-of-directors/board-minutes">
+                    Board Meeting Minutes
+                  </MuiNextLink>
+                </LinkItem>
+                <LinkItem>
+                  <MuiNextLink href="/board-of-directors/qualifications">
+                    Compensation, Benefits, and Qualifications
+                  </MuiNextLink>
+                </LinkItem>
+              </ul>
             </ChildBox>
             <ChildBox
               flex="40%"
@@ -137,7 +195,8 @@ const BoardOfDirectorsPage = ({district: districtProp = ''}: Props) => {
                           activeDirector.email) ||
                           ''}`}
                       >
-                        {activeDirector && activeDirector.email}
+                        {/* Prevent "The prop `children` is marked as required..." in in console w/ Logical Or.  */}
+                        {(activeDirector && activeDirector.email) || ''}
                       </Link>
                     </Type>
                     <Type variant="subtitle2" gutterBottom>
@@ -168,7 +227,9 @@ const BoardOfDirectorsPage = ({district: districtProp = ''}: Props) => {
               </Box>
             </WaitToGrow>
           </SectionBox>
-          <Spacing size="large" />
+          <Spacing size="x-large">
+            <Divider />
+          </Spacing>
           <SectionBox>
             <Type variant="h3" gutterBottom>
               PCWA Board of Directors' Boundaries
@@ -195,10 +256,24 @@ const BoardOfDirectorsPage = ({district: districtProp = ''}: Props) => {
   )
 }
 
-BoardOfDirectorsPage.getInitialProps = ({query}: NextPageContext) => {
+BoardOfDirectorsDynamicPage.getInitialProps = ({query}: NextPageContext) => {
   isDev && console.log(JSON.stringify(query))
+  // Use last character of query param. If that character is not a valid district simply show the index page by setting active director to null.
   const district = queryParamToStr(query['district'])
-  return {district}
+  const districtNoStrProp = district.substr(-1)
+  const districtNoProp = parseInt(districtNoStrProp, 10)
+  const noOfDistricts = getMaxDistrict()
+  const arrayForTest = Array.from(
+    {length: noOfDistricts},
+    (_el, index) => index + 1
+  )
+  if (arrayForTest.indexOf(districtNoProp) >= 0) {
+    return {district: districtNoProp}
+  } else if (districtNoStrProp.length > 0) {
+    return {err: {statusCode: 404}}
+  } else {
+    return {district: null}
+  }
 }
 
-export default BoardOfDirectorsPage
+export default BoardOfDirectorsDynamicPage

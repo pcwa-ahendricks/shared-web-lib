@@ -64,6 +64,7 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
 - `/rate-adjust-2018` Was used on NG version of website.
 - `/about-pcwa/board-minutes` Was used on NG version of website. Stopped using "about-pcwa" for board related URLs.
 - `/about-pcwa/board-of-directors` Was used on NG version of website. Stopped using "about-pcwa" for board related URLs.
+- `/about-pcwa/board-of-directors/district/#` Was used on NG version of website. Stop using "/about-pcwa/.../district/# route params. Instead we are using "/board-of-directors/district-#".
 - `/about-pcwa/board-agenda` Was used on NG version of website. Stopped using "about-pcwa" for board related URLs.
 - `/newsroom/news-release` Was used on NG version of website. Use plural route instead.
 - `/newsroom/publication` Was used on NG version of website. Use plural route instead.
