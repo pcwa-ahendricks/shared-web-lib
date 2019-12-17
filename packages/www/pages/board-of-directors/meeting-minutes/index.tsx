@@ -128,7 +128,7 @@ const BoardMinutesPage = () => {
   )
 
   return (
-    <PageLayout title="Board of Directors' Minutes" waterSurface>
+    <PageLayout title="Board Meeting Minutes" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle

@@ -55,7 +55,7 @@ const SecondaryHeader = () => {
       <NextGlowButton
         size="small"
         aria-label="Link"
-        href="/board-of-directors/board-agenda"
+        href="/board-of-directors/meeting-agendas"
       >
         Board Meetings
       </NextGlowButton>

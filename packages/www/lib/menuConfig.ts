@@ -35,11 +35,11 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Board Meeting Agendas',
-            nextLink: '/board-of-directors/board-agenda'
+            nextLink: '/board-of-directors/meeting-agendas'
           },
           {
             title: 'Board Meeting Minutes',
-            nextLink: '/board-of-directors/board-minutes'
+            nextLink: '/board-of-directors/meeting-minutes'
           }
         ]
       },

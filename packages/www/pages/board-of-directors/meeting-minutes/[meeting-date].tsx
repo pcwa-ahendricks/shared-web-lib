@@ -114,7 +114,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                href="/board-of-directors/board-minutes"
+                href="/board-of-directors/meeting-minutes"
                 className={classes.bcLink}
               >
                 <MinutesIcon className={classes.bcIcon} />

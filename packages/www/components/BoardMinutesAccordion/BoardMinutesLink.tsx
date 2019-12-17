@@ -67,8 +67,8 @@ const BoardMinutesLink = ({
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
-  const url = `/board-of-directors/board-minutes/[meeting-date]`
-  const as = `/board-of-directors/board-minutes/${date}`
+  const url = `/board-of-directors/meeting-minutes/[meeting-date]`
+  const as = `/board-of-directors/meeting-minutes/${date}`
 
   const boardMeetingDate = useMemo(() => parseJSON(publishedDate), [
     publishedDate

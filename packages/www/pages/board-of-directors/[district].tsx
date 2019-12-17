@@ -115,12 +115,12 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
               </Type>
               <ul>
                 <LinkItem>
-                  <MuiNextLink href="/board-of-directors/board-agenda">
+                  <MuiNextLink href="/board-of-directors/meeting-agendas">
                     Board Meeting Agendas
                   </MuiNextLink>
                 </LinkItem>
                 <LinkItem>
-                  <MuiNextLink href="/board-of-directors/board-minutes">
+                  <MuiNextLink href="/board-of-directors/meeting-minutes">
                     Board Meeting Minutes
                   </MuiNextLink>
                 </LinkItem>

@@ -51,7 +51,7 @@ const BoardOfDirectorsQualificationsPage = () => {
                 144 Ferguson Road, Auburn, California
               </MuiNextLink>
               . All Board meetings are open to the public. See{' '}
-              <MuiNextLink href="/board-of-directors/board-agenda">
+              <MuiNextLink href="/board-of-directors/meeting-agendas">
                 Upcoming Meetings
               </MuiNextLink>{' '}
               for more information.

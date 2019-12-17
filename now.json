@@ -220,7 +220,15 @@
       "status": 301,
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800",
-        "Location": "https://www.pcwa.net/board-of-directors/board-minutes"
+        "Location": "https://www.pcwa.net/board-of-directors/meeting-minutes"
+      }
+    },
+    {
+      "src": "/about-pcwa/board-agenda",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/board-of-directors/meeting-agendas"
       }
     },
     {
