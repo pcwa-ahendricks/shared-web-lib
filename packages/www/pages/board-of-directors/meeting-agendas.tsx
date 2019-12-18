@@ -1,5 +1,5 @@
 // cspell:ignore novus ical
-import React, {useMemo, useCallback} from 'react'
+import React, {useMemo, useCallback, useEffect, Fragment} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -13,9 +13,19 @@ import {
   CardActions,
   Button,
   Menu,
-  MenuItem
+  MenuItem,
+  Divider,
+  List,
+  ListItem,
+  ListItemText
 } from '@material-ui/core'
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles'
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme
+} from '@material-ui/core/styles'
+import GavelRoundedIcon from '@material-ui/icons/GavelRounded'
 import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import NovusIframe from '@components/NovusIframe/NovusIframe'
 import Spacing from '@components/boxes/Spacing'
@@ -26,6 +36,8 @@ import {
 } from '@lib/board-meeting-dates'
 import {compareAsc, format, formatDistanceToNow, addHours} from 'date-fns'
 import {saveAs} from 'file-saver'
+import FlexBox, {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {getMedia, CosmicMedia} from '@lib/services/cosmicService'
 // import {ics} from 'calendar-link'
 // Do this instead. See https://github.com/zeit/next.js/wiki/FAQ
 let ics: any, google: any, outlook: any, yahoo: any
@@ -35,6 +47,10 @@ if (typeof window !== 'undefined') {
   yahoo = require('calendar-link').yahoo
   outlook = require('calendar-link').outlook
 }
+type PickedMediaResponse = Pick<
+  CosmicMedia,
+  'original_name' | 'imgix_url' | 'metadata'
+>[]
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,11 +70,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const BasicTemplatePage = () => {
   const classes = useStyles()
+  const theme = useTheme()
   const followingFourBoardMeetings = useMemo(
-    () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
+    // () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
+    () => futureBoardMeetingDates.sort(compareAsc).slice(0, 4),
     []
   )
-  console.log(followingFourBoardMeetings)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -72,7 +89,7 @@ const BasicTemplatePage = () => {
     description: nextBoardMeeting.note || '',
     start: nextBoardMeeting.date,
     end: addHours(nextBoardMeeting.date, 2),
-    // duration: [2.5, 'hour'],
+    // duration: [2, 'hour'],
     allDay: false
   }
 
@@ -99,9 +116,48 @@ const BasicTemplatePage = () => {
   }, [])
 
   const iCalClickHandler = useCallback(() => {
+    const filenameSuffix = format(nextBoardMeeting.date, 'MM-dd-yyyy')
     setAnchorEl(null)
-    saveAs(iCalEvent, 'pcwa-board-meeting.ics')
+    saveAs(iCalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
   }, [iCalEvent])
+
+  const cosmicGetMediaProps = {
+    props: 'original_name,imgix_url,metadata'
+  }
+
+  const fetchAgendas = useCallback(async () => {
+    const bm = await getMedia<PickedMediaResponse>({
+      folder: 'agendas',
+      ...cosmicGetMediaProps
+    })
+    if (!bm) {
+      throw 'No Newsletters'
+    }
+    const agendas = bm.filter(
+      (bm) => bm.metadata && bm.metadata.type && bm.metadata.website //&&
+      // bm.metadata.website.toString().toLowerCase() === 'true'
+    )
+    const financeCommitteeAgendas = agendas.filter(
+      (agenda) =>
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        agenda.metadata!.type.toString().toLowerCase() === 'finance-committee'
+    )
+    const auditCommitteeAgendas = agendas.filter(
+      (agenda) =>
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        agenda.metadata!.type.toString().toLowerCase() === 'audit-committee'
+    )
+    return {financeCommitteeAgendas, auditCommitteeAgendas}
+  }, [cosmicGetMediaProps])
+
+  const setAgendas = useCallback(async () => {
+    const agendas = await fetchAgendas()
+    console.log(agendas)
+  }, [fetchAgendas])
+
+  useEffect(() => {
+    setAgendas()
+  }, [setAgendas])
 
   return (
     <PageLayout title="Board Meeting Agendas" waterSurface>
@@ -135,7 +191,13 @@ const BasicTemplatePage = () => {
           <section>
             <NovusIframe />
           </section>
-          <Spacing size="x-large" />
+          <Spacing size="large">
+            <FlexBox>
+              <Box m="auto">
+                <GavelRoundedIcon fontSize="large" color="primary" />
+              </Box>
+            </FlexBox>
+          </Spacing>
           <section>
             <Box>
               <Type gutterBottom variant="h2" color="primary">
@@ -150,83 +212,135 @@ const BasicTemplatePage = () => {
                 , unless otherwise noted.
               </Type>
               <Spacing />
-
-              <Card className={classes.card}>
-                <CardContent>
-                  {/* <Type
+              <RespRowBox flexSpacing={4}>
+                <ChildBox>
+                  <Card className={classes.card}>
+                    <CardContent>
+                      {/* <Type
                     className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
                     Word of the Day
                   </Type> */}
-                  <Type variant="h3">
-                    {format(
-                      nextBoardMeeting.date,
-                      "eeee',' MMMM do '@' h':'mm aaaa"
-                    )}
-                  </Type>
-                  <Type className={classes.pos} color="textSecondary">
-                    In {formatDistanceToNow(nextBoardMeeting.date)}
-                  </Type>
-                  <Type variant="body2" component="p">
-                    {nextBoardMeeting.note
-                      ? nextBoardMeeting.note
-                      : 'Next Regular Board of Directors’ meeting.'}
-                  </Type>
-                </CardContent>
-                <CardActions>
-                  <div>
-                    <Button
-                      color="secondary"
-                      aria-controls="add-to-calendar-menu"
-                      aria-haspopup="true"
-                      onClick={handleClick}
-                    >
-                      Add to my Calendar
-                    </Button>
-                    <Menu
-                      id="add-to-calendar-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                      disableBackdropClick={false}
-                    >
-                      <MenuItem onClick={iCalClickHandler}>iCalendar</MenuItem>
-                      <MenuItem
-                        href={googleEventHref}
-                        component="a"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        onClick={handleClose}
-                      >
-                        Google Calendar
-                      </MenuItem>
-                      <MenuItem
-                        href={outlookEventHref}
-                        component="a"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        onClick={handleClose}
-                      >
-                        Outlook
-                      </MenuItem>
-                      <MenuItem
-                        href={yahooEventHref}
-                        component="a"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        onClick={handleClose}
-                      >
-                        Yahoo
-                      </MenuItem>
-                    </Menu>
-                  </div>
-                </CardActions>
-              </Card>
+                      <Type variant="h3">
+                        {format(
+                          nextBoardMeeting.date,
+                          "eeee',' MMMM do '@' h':'mm aaaa"
+                        )}
+                      </Type>
+                      <Type className={classes.pos} color="textSecondary">
+                        In {formatDistanceToNow(nextBoardMeeting.date)}
+                      </Type>
+                      <Type variant="body2" component="p">
+                        {nextBoardMeeting.note
+                          ? nextBoardMeeting.note
+                          : 'Next Regular Board of Directors’ meeting.'}
+                      </Type>
+                    </CardContent>
+                    <CardActions>
+                      <div>
+                        <Button
+                          color="secondary"
+                          aria-controls="add-to-calendar-menu"
+                          aria-haspopup="true"
+                          onClick={handleClick}
+                        >
+                          Add to my Calendar
+                        </Button>
+                        <Menu
+                          id="add-to-calendar-menu"
+                          anchorEl={anchorEl}
+                          keepMounted
+                          open={Boolean(anchorEl)}
+                          onClose={handleClose}
+                          disableBackdropClick={false}
+                        >
+                          <MenuItem onClick={iCalClickHandler}>
+                            iCalendar
+                          </MenuItem>
+                          <MenuItem
+                            href={googleEventHref}
+                            component="a"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            onClick={handleClose}
+                          >
+                            Google Calendar
+                          </MenuItem>
+                          <MenuItem
+                            href={outlookEventHref}
+                            component="a"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            onClick={handleClose}
+                          >
+                            Outlook
+                          </MenuItem>
+                          <MenuItem
+                            href={yahooEventHref}
+                            component="a"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            onClick={handleClose}
+                          >
+                            Yahoo
+                          </MenuItem>
+                        </Menu>
+                      </div>
+                    </CardActions>
+                  </Card>
+                </ChildBox>
+                <ChildBox>
+                  <Box
+                    p={3}
+                    bgcolor={theme.palette.common.white}
+                    boxShadow={2}
+                    borderRadius={2}
+                  >
+                    <Type variant="subtitle1">Future Board Meeting Dates</Type>
+                    <List dense>
+                      {followingFourBoardMeetings.map((bm, idx, arry) => (
+                        <Fragment key={idx}>
+                          <ListItem>
+                            <ListItemText
+                              primary={format(bm, "MMM'.' do',' h:mm aaaa")}
+                            />
+                          </ListItem>
+                          {arry.length !== idx + 1 ? <Divider /> : null}
+                        </Fragment>
+                      ))}
+                    </List>
+                  </Box>
+                </ChildBox>
+              </RespRowBox>
             </Box>
           </section>
+
+          <section>
+            <Box>
+              <Type gutterBottom>
+                Board of Directors' Finance Committee Agendas:
+              </Type>
+            </Box>
+
+            <Box>
+              <Type gutterBottom>
+                Board of Directors' Audit Committee Agendas:
+              </Type>
+            </Box>
+          </section>
+
+          <Type paragraph>
+            For Board meeting minutes see our{' '}
+            <MuiNextLink href="/board-of-directors/meeting-minutes">
+              Minutes Page
+            </MuiNextLink>
+          </Type>
+          <Type paragraph>
+            For more information, contact the Agency Secretary/Clerk to the
+            Board at <ClerkToBoardEmail />
+          </Type>
         </WideContainer>
       </MainBox>
     </PageLayout>
