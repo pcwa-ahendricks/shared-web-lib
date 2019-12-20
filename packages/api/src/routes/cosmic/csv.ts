@@ -5,7 +5,7 @@ import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../../types/cosmic'
 
 const MEDIA_FOLDER = 'csv'
-const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
+const LAMBDA_URL = process.env.NODE_LAMBDA_URL ?? ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {

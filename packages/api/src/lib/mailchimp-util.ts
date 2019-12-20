@@ -13,7 +13,7 @@ const getStatus = (data: MailchimpSubscribeResponse): number => {
   } else if (typeof data.status === 'number') {
     status = data.status
   }
-  return status || 200
+  return status ?? 200
 }
 
 export {getStatus}

@@ -5,8 +5,8 @@ import {promisify} from 'util'
 import {DarkSkyResponse} from '../../types/dark-sky'
 import {NowRequest, NowResponse} from '@now/node'
 
-const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY || ''
-const REDISLABS_CACHE_PASSWORD = process.env.NODE_REDISLABS_CACHE_PASSWORD || ''
+const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY ?? ''
+const REDISLABS_CACHE_PASSWORD = process.env.NODE_REDISLABS_CACHE_PASSWORD ?? ''
 
 const redisOpts = {
   host: 'redis-10280.c60.us-west-1-2.ec2.cloud.redislabs.com',

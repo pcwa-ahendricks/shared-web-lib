@@ -50,7 +50,7 @@ const AgreeTermsCheckbox = ({
   )
 
   // Don't allow value to be undefined since that will cause an error message in the console. Indeterminate checkboxes use a different field if that functionality is needed.
-  const isChecked = safeCastStrToBoolean(value) || false
+  const isChecked = safeCastStrToBoolean(value) ?? false
   return (
     <FormControl
       required

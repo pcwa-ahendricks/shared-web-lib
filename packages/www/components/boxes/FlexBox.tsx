@@ -19,34 +19,34 @@ const useStyles = makeStyles((theme: Theme) =>
     respRowBox: ({flexSpacing}: UseStylesProps) => ({
       [theme.breakpoints.only('xs')]: {
         '&.useFlexSpacing': {
-          marginTop: theme.spacing(flexSpacing || 0) * -1,
+          marginTop: theme.spacing(flexSpacing ?? 0) * -1,
           '& > .childBox': {
-            marginTop: theme.spacing(flexSpacing || 0)
+            marginTop: theme.spacing(flexSpacing ?? 0)
           }
         }
       },
       [theme.breakpoints.up('sm')]: {
         '&.useFlexSpacing': {
-          marginLeft: theme.spacing(flexSpacing || 0) * -1,
+          marginLeft: theme.spacing(flexSpacing ?? 0) * -1,
           '& > .childBox': {
-            marginLeft: theme.spacing(flexSpacing || 0)
+            marginLeft: theme.spacing(flexSpacing ?? 0)
           }
         }
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
       '&.useFlexSpacing': {
-        marginLeft: theme.spacing(flexSpacing || 0) * -1,
+        marginLeft: theme.spacing(flexSpacing ?? 0) * -1,
         '& > .childBox': {
-          marginLeft: theme.spacing(flexSpacing || 0)
+          marginLeft: theme.spacing(flexSpacing ?? 0)
         }
       }
     }),
     colBox: ({flexSpacing}: UseStylesProps) => ({
       '&.useFlexSpacing': {
-        marginTop: theme.spacing(flexSpacing || 0) * -1,
+        marginTop: theme.spacing(flexSpacing ?? 0) * -1,
         '& > .childBox': {
-          marginTop: theme.spacing(flexSpacing || 0)
+          marginTop: theme.spacing(flexSpacing ?? 0)
         }
       }
     })

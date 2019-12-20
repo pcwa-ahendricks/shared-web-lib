@@ -31,7 +31,7 @@ const RemoveUploadFab = ({thumbHover, thumbName, onRemove, ...rest}: Props) => {
   const classes = useStyles()
   const [active, setActive] = useState<boolean>(false)
 
-  const transIn = Boolean(thumbHover === thumbName || active)
+  const transIn = Boolean(thumbHover === thumbName ?? active)
   return (
     <div
       className={classes.root}

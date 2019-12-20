@@ -40,8 +40,8 @@ const MMContent = ({contentKey = 1}: Props) => {
 
   return (
     <MegaMenuContentContainer>
-      {/* Logical Or operator for type checking only. */}
-      <nav key={contentKey || undefined}>
+      {/* Operator for type checking only. */}
+      <nav key={contentKey ?? undefined}>
         <RowBox justifyContent="flex-end" pl="5vw" pr="5vw">
           {groups.map((menuGroup, groupIdx) => (
             <ColumnBox flex="0 1 auto" key={groupIdx} m={2}>

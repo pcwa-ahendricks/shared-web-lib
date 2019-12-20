@@ -61,8 +61,7 @@ const ForecastDisplay = ({forecast}: Props) => {
   const [darkSkyHref, setDarkSkyHref] = useState<string>('#')
 
   useEffect(() => {
-    const {latitude = null, longitude = null} =
-      forecast && forecast.data ? forecast.data : {}
+    const {latitude = null, longitude = null} = forecast?.data ?? {}
     if (latitude && longitude) {
       setDarkSkyHref(getDarkSkyHref([longitude, latitude]))
     } else {
@@ -71,15 +70,12 @@ const ForecastDisplay = ({forecast}: Props) => {
   }, [forecast])
 
   const {title} = forecast
-  // const {temperature = null, icon = defaults.icon} =
-  //   (forecast && forecast.data && forecast.data.currently) || {}
-  const {temperature = '', icon = defaults.icon} =
-    (forecast && forecast.data) || {}
+  const {temperature = '', icon = defaults.icon} = forecast?.data ?? {}
 
   // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
   const iconName = icon.toUpperCase().replace(/-/g, '_') as IconName
 
-  const isValidForecast = Boolean(forecast && forecast.data)
+  const isValidForecast = Boolean(forecast?.data)
 
   const temperatureFrmt = Math.round(parseFloat(temperature))
   const animatedWeatherEl = useMemo(
@@ -88,7 +84,7 @@ const ForecastDisplay = ({forecast}: Props) => {
         <div className={classes.container}>
           <AnimatedWeather
             icon={iconName}
-            color={theme.palette.primary.main || defaults.color}
+            color={theme.palette.primary.main ?? defaults.color}
             size={defaults.size}
             animate={defaults.animate}
           />

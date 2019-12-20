@@ -34,7 +34,7 @@ if (typeof window !== 'undefined') {
   Geocoder = require('react-map-gl-geocoder').default
 }
 
-const API_KEY = process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY || ''
+const API_KEY = process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
 // const useStyles = makeStyles(() =>
 //   createStyles({
 //   })
@@ -80,7 +80,7 @@ const DistrictBoundariesMap = () => {
         feature.layer && feature.layer.id === 'pcwa-districts-fill'
     )
     const firstFeature = filteredFeatures[0]
-    const {properties: featureProperties = {}} = firstFeature || {}
+    const {properties: featureProperties = {}} = firstFeature ?? {}
     const {
       bos_id: bosId = null
       // bos_title: bosTitle = null
@@ -91,7 +91,7 @@ const DistrictBoundariesMap = () => {
 
   const onHoverHandler = useCallback(
     (evt) => {
-      const {features = []} = evt || {}
+      const {features = []} = evt ?? {}
       distillDistrict(features)
     },
     [distillDistrict]
@@ -117,7 +117,7 @@ const DistrictBoundariesMap = () => {
     const {result} = evt
     const {geometry} = result
     const {coordinates} = geometry
-    setLastResultCoords(coordinates || null)
+    setLastResultCoords(coordinates ?? null)
   }, [])
 
   const onClickHandler = useCallback(() => {
@@ -140,7 +140,7 @@ const DistrictBoundariesMap = () => {
       (director) =>
         activeDistrict && director.district === parseInt(activeDistrict, 10)
     )
-    setActiveDirector(activeDirector || null)
+    setActiveDirector(activeDirector ?? null)
   }, [activeDistrict])
 
   // const onLoadHandler = useCallback((evt: MapLoadEvent) => {

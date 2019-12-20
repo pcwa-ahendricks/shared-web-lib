@@ -64,7 +64,7 @@ const SearchInput = () => {
   const uiDispatch = uiContext.dispatch
   // const searchState = searchContext.state
   // const {dialogOpen} = searchState
-  const [searchValue, setSearchValue] = useState<string>('')
+  const [searchValue, setSearchValue] = useState('')
 
   const inputChangeHandler = useCallback((e) => {
     setSearchValue(e.target.value)
@@ -76,19 +76,13 @@ const SearchInput = () => {
       searchDispatch(setIsSearching(false))
       searchDispatch(setDialogOpen(false))
       searchDispatch(setResults([]))
-      const preDash =
-        error && error.response && error.response.status
-          ? error.response.status
-          : '500'
+      const preDash = error?.response?.status ?? '500'
       // Use request.responseText (aka. response.request.responseText) if available, or use response.statusText if available, or use error.message if available, or use generic error caption.
       const postDash =
-        error && error.request && error.request.responseText
-          ? error.request.responseText
-          : error && error.response && error.response.statusText
-          ? error.response.statusText
-          : error && error.message
-          ? error.message
-          : 'An error occurred.'
+        error?.request?.responseText ??
+        error?.response?.statusText ??
+        error?.message ??
+        'An error occurred.'
       const dialogError: ErrorDialogError = {
         title: 'Error During Search',
         MessageComponent: (
@@ -112,11 +106,7 @@ const SearchInput = () => {
   )
 
   const getTotalResults = useCallback((response: GoogleCseResponse) => {
-    return response.queries.request &&
-      response.queries.request[0] &&
-      parseInt(response.queries.request[0].totalResults, 10)
-      ? parseInt(response.queries.request[0].totalResults, 10)
-      : null
+    return parseInt(response?.queries?.request?.[0].totalResults, 10) ?? null
   }, [])
 
   /*
@@ -128,10 +118,7 @@ const SearchInput = () => {
       try {
         if (
           iteration <= maxBetterTotalResultsHackIterations &&
-          res &&
-          res.queries &&
-          res.queries.nextPage &&
-          res.queries.nextPage[0]
+          res?.queries?.nextPage?.[0].startIndex
         ) {
           const nextIndex = res.queries.nextPage[0].startIndex
           const response = await search({q: sv, start: nextIndex})
@@ -216,10 +203,9 @@ const SearchInput = () => {
     [searchHandler]
   )
 
-  const inputHasValue = useMemo(
-    () => (searchValue && searchValue.length > 0 ? true : false),
-    [searchValue]
-  )
+  const inputHasValue = useMemo(() => (searchValue.length > 0 ? true : false), [
+    searchValue
+  ])
 
   const onPageSearchHandler = useCallback(
     (startIndex: number) => {

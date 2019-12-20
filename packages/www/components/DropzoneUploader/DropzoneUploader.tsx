@@ -335,7 +335,7 @@ const DropzoneUploader: React.RefForwardingComponent<
       // Use slugify to remove any unusual characters from the filename making the Cosmic URL compatible in all cases.
       const fileName = slugify(file.name)
       newBlobFile.lastModified = file.lastModified
-      newBlobFile.name = `${fileNamePrefix}${fileName}` || ''
+      newBlobFile.name = `${fileNamePrefix}${fileName}` ?? ''
       newBlobFile.originalName = file.name
       // Add image preview urls.
       newBlobFile.previewUrl = URL.createObjectURL(newBlobFile)

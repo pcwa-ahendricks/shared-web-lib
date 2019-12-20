@@ -2,9 +2,9 @@ import fetch from 'isomorphic-unfetch'
 import {MailchimpCampaignResponse} from '../../types/mailchimp'
 import {NowRequest, NowResponse} from '@now/node'
 
-const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC || ''
-const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME || ''
-const MAILCHIMP_API_KEY = process.env.NODE_MAILCHIMP_API_KEY || ''
+const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC ?? ''
+const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME ?? ''
+const MAILCHIMP_API_KEY = process.env.NODE_MAILCHIMP_API_KEY ?? ''
 const BASE_URL = `https://${MAILCHIMP_DC}.api.mailchimp.com`
 // API Version.
 const MAILCHIMP_API_VERSION = '3.0'

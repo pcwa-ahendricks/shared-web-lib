@@ -4,10 +4,10 @@ import {json} from 'co-body'
 import {NowRequest, NowResponse} from '@now/node'
 import {getStatus} from '../../lib/mailchimp-util'
 
-const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC || ''
-const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME || ''
-const MAILCHIMP_API_KEY = process.env.NODE_MAILCHIMP_API_KEY || ''
-const MAILCHIMP_PRIMARY_LIST = process.env.NODE_MAILCHIMP_PRIMARY_LIST || ''
+const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC ?? ''
+const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME ?? ''
+const MAILCHIMP_API_KEY = process.env.NODE_MAILCHIMP_API_KEY ?? ''
+const MAILCHIMP_PRIMARY_LIST = process.env.NODE_MAILCHIMP_PRIMARY_LIST ?? ''
 const BASE_URL = `https://${MAILCHIMP_DC}.api.mailchimp.com`
 // API Version.
 const MAILCHIMP_API_VERSION = '3.0'

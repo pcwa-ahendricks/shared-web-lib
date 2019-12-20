@@ -22,7 +22,7 @@ import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 import {PiContext} from '../PiStore'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
 import Head from 'next/head'
-const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY || ''
+const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY ?? ''
 const isDev = process.env.NODE_ENV === 'development'
 const debugMapMarkerPosition = false // Set back to false when not in use.
 
@@ -122,7 +122,7 @@ const PiMap = ({isLoading = false}: Props) => {
 
   const mapMarkerEl = useMemo(
     () =>
-      markerLatLng && markerLatLng.lng && markerLatLng.lat ? (
+      markerLatLng?.lng && markerLatLng?.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <PiMapMarker size={30} />
         </Marker>
@@ -134,9 +134,8 @@ const PiMap = ({isLoading = false}: Props) => {
     () =>
       debugMapMarkerPosition &&
       isDev &&
-      markerLatLng &&
-      markerLatLng.lng &&
-      markerLatLng.lat ? (
+      markerLatLng?.lng &&
+      markerLatLng?.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <CrossHairIcon
             style={{

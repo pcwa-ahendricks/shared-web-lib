@@ -89,7 +89,7 @@ const MegaMenuPopper = ({
     <>
       <Popper
         // Logical Or for type checking only.
-        id={id || undefined}
+        id={id ?? undefined}
         className={classes.popper}
         open={open && hasAnchorEl}
         anchorEl={anchorEl}
@@ -128,8 +128,8 @@ const MegaMenuPopper = ({
         )}
       </Popper>
       <Popper
-        // Logical Or for type checking only.
-        id={id || undefined}
+        // for type checking only.
+        id={id ?? undefined}
         open={open && toolbarVariant === 'regular' && hasAnchorEl}
         className={classes.popper}
         transition

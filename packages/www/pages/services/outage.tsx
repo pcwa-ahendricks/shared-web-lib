@@ -59,11 +59,10 @@ const OutageInformationPage = () => {
       outages
         .filter(
           (outage) =>
-            outage.metadata &&
-            outage.metadata.hide_on_website === false &&
-            outage.slug === outageType
+            outage?.metadata?.hide_on_website === false &&
+            outage?.slug === outageType
         )
-        .map((outage) => (outage ? outage.content : ''))[0] || '',
+        .map((outage) => outage?.content)?.[0] ?? '',
     [outages]
   )
 
@@ -83,7 +82,7 @@ const OutageInformationPage = () => {
         // if (!attribs) return
 
         // Strip ALL Style properties from HTML.
-        if (attribs && attribs.style) {
+        if (attribs?.style) {
           attribs.style = ''
         }
 

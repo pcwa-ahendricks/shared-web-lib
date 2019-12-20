@@ -3,7 +3,7 @@ import csv from 'csvtojson'
 import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
 
-const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
+const LAMBDA_URL = process.env.NODE_LAMBDA_URL ?? ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {

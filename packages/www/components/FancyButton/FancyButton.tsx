@@ -87,7 +87,7 @@ const FancyButton = ({
           zIndex="2"
           className={classes.hoverText}
         >
-          {hoverText || children}
+          {hoverText ?? children}
         </Box>
         <Box component="span" zIndex="1" className={classes.children}>
           {children}

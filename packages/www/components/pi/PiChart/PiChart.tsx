@@ -118,9 +118,9 @@ const PiChart = ({data}: Props) => {
   // Since we are not using an initial value it's mandatory that we don't reduce empty arrays or else we will get a runtime error.
   const maxValue = useMemo(
     () =>
-      data && data.items && data.items.length > 0
-        ? data.items.reduce((p, c) => {
-            const q = p || c
+      data?.items && data?.items?.length > 0
+        ? data?.items.reduce((p, c) => {
+            const q = p ?? c
             return c.Value > q.Value ? c : q
           })
         : null,
@@ -129,9 +129,9 @@ const PiChart = ({data}: Props) => {
 
   const minValue = useMemo(
     () =>
-      data && data.items && data.items.length > 0
-        ? data.items.reduce((p, c) => {
-            const q = p || c
+      data?.items && data?.items?.length > 0
+        ? data?.items.reduce((p, c) => {
+            const q = p ?? c
             return c.Value < q.Value ? c : q
           })
         : null,
@@ -153,8 +153,7 @@ const PiChart = ({data}: Props) => {
 
   const csvData = useMemo(
     () =>
-      data &&
-      data.items.map((item) => ({
+      data?.items.map((item) => ({
         Timestamp: format(parseJSON(item.Timestamp), 'M/dd/yyyy h:mm aa'),
         Value: item.Value
       })),

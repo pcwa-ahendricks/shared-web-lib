@@ -118,7 +118,7 @@ const DynamicPiPage = ({pid}: Props) => {
             chartInterval
           )
           // Deconstruct response.
-          const {Items: items = [], UnitsAbbreviation: units = ''} = eas || {}
+          const {Items: items = [], UnitsAbbreviation: units = ''} = eas ?? {}
 
           if (items.length > 0) {
             dispatch(
@@ -183,7 +183,7 @@ const DynamicPiPage = ({pid}: Props) => {
             TABLE_TIME_INTERVAL
           )
           // Deconstruct response.
-          const {Items: items = [], UnitsAbbreviation: units = ''} = eas || {}
+          const {Items: items = [], UnitsAbbreviation: units = ''} = eas ?? {}
 
           if (items.length > 0) {
             dispatch(

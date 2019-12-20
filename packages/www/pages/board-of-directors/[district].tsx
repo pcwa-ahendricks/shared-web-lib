@@ -187,27 +187,20 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                   <ChildBox flex="80%">
                     <Box textAlign="center">
                       <Type variant="h3" color="primary" gutterBottom>
-                        {activeDirector && activeDirector.name}, District{' '}
-                        {activeDirector && activeDirector.district}
+                        {activeDirector?.name}, District{' '}
+                        {activeDirector?.district}
                       </Type>
                     </Box>
                     <Type gutterBottom>
-                      <Link
-                        href={`mailto:${(activeDirector &&
-                          activeDirector.email) ||
-                          ''}`}
-                      >
+                      <Link href={`mailto:${activeDirector?.email ?? ''}`}>
                         {/* Prevent "The prop `children` is marked as required..." in in console w/ Logical Or.  */}
-                        {(activeDirector && activeDirector.email) || ''}
+                        {activeDirector?.email ?? ''}
                       </Link>
                     </Type>
                     <Type variant="subtitle2" gutterBottom>
-                      {`Term of office expires in ${activeDirector &&
-                        activeDirector.termExp}`}
+                      {`Term of office expires in ${activeDirector?.termExp}`}
                     </Type>
-                    <Type paragraph>
-                      {activeDirector && activeDirector.bio}
-                    </Type>
+                    <Type paragraph>{activeDirector?.bio}</Type>
                   </ChildBox>
                   <ChildBox flex="20%">
                     <Box
@@ -215,11 +208,10 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                       width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
                     >
                       <LazyImgix
-                        src={(activeDirector && activeDirector.imgSrc) || ''}
+                        src={activeDirector?.imgSrc ?? ''}
                         height={350}
                         htmlAttributes={{
-                          alt: `Photo of District ${activeDirector &&
-                            activeDirector.district} Director`
+                          alt: `Photo of District ${activeDirector?.district} Director`
                           // style: {width: '100%'}
                         }}
                       />

@@ -27,7 +27,7 @@ const DlCsvButton = ({
   const clickHandler = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    onClick && onClick(event)
+    onClick?.(event)
     try {
       !!new Blob()
       try {
@@ -45,11 +45,10 @@ const DlCsvButton = ({
         )
         saveAs(csvBlob, fileName)
       } catch (e) {
-        onError && onError(new Error('Error dynamically importing libraries.'))
+        onError?.(new Error('Error dynamically importing libraries.'))
       }
     } catch (e) {
-      onError &&
-        onError(new Error('File saving not supported by this web browser.'))
+      onError?.(new Error('File saving not supported by this web browser.'))
     }
   }
 

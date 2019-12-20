@@ -67,7 +67,7 @@ const CitySelectField = ({
       }>
     ) => {
       handleChange(e)
-      onChange && onChange(e)
+      onChange?.(e)
     },
     [handleChange, onChange]
   )

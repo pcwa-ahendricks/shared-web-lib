@@ -310,8 +310,8 @@ const PrimaryHeader = () => {
               {menuConfig.map((menuItem) => (
                 <Box flex="0 0 auto" key={menuItem.key}>
                   <MegaMenuLink
-                    // Logical Or for type checking only.
-                    describedbyId={id || undefined}
+                    // For type checking only.
+                    describedbyId={id ?? undefined}
                     tabIdx={menuItem.tabIndex}
                     onLinkClick={handleClick}
                     onLinkEnter={(event, el) =>
@@ -333,7 +333,7 @@ const PrimaryHeader = () => {
       </AppBar>
       <MegaMenuPopper
         // Logical Or for type checking only.
-        id={id || undefined}
+        id={id ?? undefined}
         open={popperOpen}
         toolbarVariant={toolbarVariant}
         anchorEl={anchorEl}

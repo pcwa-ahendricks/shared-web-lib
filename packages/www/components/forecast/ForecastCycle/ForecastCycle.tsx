@@ -67,7 +67,7 @@ const ForecastCycle = ({
     const {activeCycleForecastId} = state
     dispatch(
       setActiveCycleForecastId(
-        !activeCycleForecastId ||
+        !activeCycleForecastId ??
           activeCycleForecastId >= maxInt(forecasts, 'id')
           ? 1
           : activeCycleForecastId + 1
@@ -109,7 +109,7 @@ const ForecastCycle = ({
 
   const forecastDisplay = useMemo(
     () =>
-      forecast && forecast.id ? (
+      forecast?.id ? (
         <ForecastDisplay key={forecast.id} forecast={forecast} />
       ) : null,
     [forecast]

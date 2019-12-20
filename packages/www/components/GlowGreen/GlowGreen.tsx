@@ -36,8 +36,8 @@ const GlowGreen = ({
   ...rest
 }: GlowGreenProps) => {
   const theme = useTheme<Theme>()
-  activeColor = activeColor || theme.palette.secondary.main
-  inactiveColor = inactiveColor || 'inherit'
+  activeColor = activeColor ?? theme.palette.secondary.main
+  inactiveColor = inactiveColor ?? 'inherit'
   const [active, setActive] = useState<boolean>(false)
 
   const isActive = useMemo(

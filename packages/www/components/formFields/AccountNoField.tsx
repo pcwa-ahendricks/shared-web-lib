@@ -33,7 +33,7 @@ const AccountNoField = ({
   // Trim whitespace.
   const changeHandler = useCallback(
     (evt) => {
-      const {value = ''} = evt.target || {}
+      const {value = ''} = evt.target ?? {}
       setFieldValue(name, value.trim())
     },
     [name, setFieldValue]

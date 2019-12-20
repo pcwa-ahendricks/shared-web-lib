@@ -12,7 +12,7 @@ import {postMailJetRequest} from '../../lib/mailjet'
 import {NowRequest, NowResponse} from '@now/node'
 const isDev = process.env.NODE_ENV === 'development'
 
-const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
+const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER ?? ''
 
 const MAILJET_TEMPLATE_ID = 951337
 

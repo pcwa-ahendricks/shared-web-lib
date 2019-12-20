@@ -21,7 +21,7 @@ export const minInt = (array: any[], prop: string) => {
 }
 
 export const openInNewTab = (url: string): void => {
-  if (!window || !window.open) {
+  if (!window?.open) {
     return
   }
   // var win = window.open(url, '_blank', 'noopener').focus()

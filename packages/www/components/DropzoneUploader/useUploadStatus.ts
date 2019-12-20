@@ -13,11 +13,7 @@ const useUploadStatus = (
     const matchingFile = uploadedFiles.find(
       (uploadedFile) => uploadedFile.name === file.name
     )
-    if (
-      !matchingFile ||
-      !matchingFile.serverResponse ||
-      !matchingFile.serverResponse.status
-    ) {
+    if (!matchingFile?.serverResponse?.status) {
       setUploadStatus('unknown')
       return
     }

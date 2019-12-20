@@ -17,7 +17,7 @@ const errorHandler = async (
   if (res) {
     try {
       const text = await res.text()
-      reason = text || res.statusText
+      reason = text ?? res.statusText
     } catch (error) {
       reason = 'An Error Occurred.'
     }
