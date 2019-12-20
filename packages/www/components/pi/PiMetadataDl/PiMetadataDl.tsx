@@ -63,13 +63,18 @@ const PiMetadataDl = ({isLoading = false}: Props) => {
               value:
                 typeof item.value === 'string'
                   ? `${parseFloat(item.value).toLocaleString()}"`
-                  : `${item.value.toLocaleString()}"`
+                  : `${item.value.toLocaleString()}'`
             }
           }
           return {
             ...item
           }
         })
+        .map((item) =>
+          item.name.match(/map elev\./i) && item.value.toString().match(/0'/i)
+            ? {...item, value: 'N/A'}
+            : {...item}
+        )
         // Particular formatting for Hydrologic Area caption.
         .map((item) => {
           if (item.name.match(/hydro(logic)? area/i)) {

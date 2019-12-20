@@ -21,6 +21,7 @@ import PiMapMarker from './PiMapMarker'
 import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 import {PiContext} from '../PiStore'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
+import Head from 'next/head'
 const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY || ''
 const isDev = process.env.NODE_ENV === 'development'
 const debugMapMarkerPosition = false // Set back to false when not in use.
@@ -151,36 +152,45 @@ const PiMap = ({isLoading = false}: Props) => {
   )
 
   return (
-    <Box position="relative" height="100%">
-      {linearProgressEl}
-      <MapGL
-        {...viewport}
-        width="100%"
-        height="100%"
-        mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
-        onViewportChange={viewportChangeHandler}
-        mapboxApiAccessToken={API_KEY}
-        scrollZoom={isSmDown ? false : true}
-        dragPan={isSmDown ? false : true}
-      >
-        {mapMarkerEl}
-        {debugMapMarkerPositionEl}
+    <>
+      <Head>
+        {/* Mapbox Stylesheets don't import correctly when using import syntax. Specifically, there are no icons on the Navigation controls. Importing via Head with this component works. */}
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css"
+          rel="stylesheet"
+        />
+      </Head>
+      <Box position="relative" height="100%">
+        {linearProgressEl}
+        <MapGL
+          {...viewport}
+          width="100%"
+          height="100%"
+          mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
+          onViewportChange={viewportChangeHandler}
+          mapboxApiAccessToken={API_KEY}
+          scrollZoom={isSmDown ? false : true}
+          dragPan={isSmDown ? false : true}
+        >
+          {mapMarkerEl}
+          {debugMapMarkerPositionEl}
 
-        {/* {this._renderPopup()} */}
+          {/* {this._renderPopup()} */}
 
-        {/* <div className={classes.fullscreen}>
+          {/* <div className={classes.fullscreen}>
           <FullscreenControl />
         </div> */}
-        <div className={classes.nav}>
-          <NavigationControl />
-        </div>
-        <div className={classes.metadataDataList}>
-          <PiMetadataDl isLoading={isLoading} />
-        </div>
+          <div className={classes.nav}>
+            <NavigationControl />
+          </div>
+          <div className={classes.metadataDataList}>
+            <PiMetadataDl isLoading={isLoading} />
+          </div>
 
-        {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
-      </MapGL>
-    </Box>
+          {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
+        </MapGL>
+      </Box>
+    </>
   )
 }
 

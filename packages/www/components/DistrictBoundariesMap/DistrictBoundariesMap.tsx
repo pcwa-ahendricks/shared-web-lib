@@ -166,7 +166,7 @@ const DistrictBoundariesMap = () => {
   return (
     <>
       <Head>
-        {/* Mapbox Stylesheets don't import correctly when using import syntax. Specifically, there are no icons on the Navigation controls. PiMap component didn't have this issue for reasons I'm unaware of even without importing the CSS in the component. Importing via Head with this component works. */}
+        {/* Mapbox Stylesheets don't import correctly when using import syntax. Specifically, there are no icons on the Navigation controls. Importing via Head with this component works. */}
         <link
           href="https://api.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css"
           rel="stylesheet"

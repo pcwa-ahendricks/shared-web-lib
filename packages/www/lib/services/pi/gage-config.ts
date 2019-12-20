@@ -12,6 +12,7 @@ export interface GageConfigItem {
   tableValues: string[]
   tables: GageConfigTable[]
   disabled?: boolean
+  review?: boolean
 }
 interface TableHeader {
   id: string
@@ -67,7 +68,7 @@ const gages: GageConfigItem[] = [
   {
     id: 'R2',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
-    description: 'Duncan Creek Below Diversion Dam, Near French Meadows',
+    description: 'Duncan Creek Below Diversion Dam, near French Meadows',
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -205,6 +206,169 @@ const gages: GageConfigItem[] = [
       }
     ]
   },
+  {
+    id: 'R6',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'Rubicon River below Hell Hole Dam',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R7',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'South Fork Long Canyon Creek Diversion Tunnel',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R8',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'North Fork Long Canyon Creek Diversion Tunnel',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R20',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'Middle Fork American above Little Circle Bridge',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R22',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'Rubicon River above Hell Hole Reservoir',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R23',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'Five Lakes Creek above Hell Hole',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R24',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'Middle Fork American River above French Meadows',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R27',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'South Fork Long Canyon Creek below Diversion',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+  {
+    id: 'R28',
+    baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+    description: 'North Fork Long Canyon Creek below Diversion',
+    review: true,
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeaders
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeaders
+      }
+    ]
+  },
+
   {
     id: 'French Meadows',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
