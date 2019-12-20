@@ -1,5 +1,5 @@
 // cspell:ignore novus ical
-import React, {useMemo, useCallback, useEffect, Fragment} from 'react'
+import React, {useMemo, useCallback, useEffect, Fragment, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -17,7 +17,8 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  useMediaQuery
 } from '@material-ui/core'
 import {
   makeStyles,
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
       minWidth: 275,
-      maxWidth: 500,
+      // maxWidth: 500,
       backgroundColor: theme.palette.common.white
     },
     // title: {
@@ -68,9 +69,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BasicTemplatePage = () => {
+const MeetingAgendasPage = () => {
   const classes = useStyles()
   const theme = useTheme()
+  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const followingFourBoardMeetings = useMemo(
     // () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
     () => futureBoardMeetingDates.sort(compareAsc).slice(0, 4),
@@ -78,6 +80,12 @@ const BasicTemplatePage = () => {
   )
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [financeCommitteeAgendas, setFinanceCommitteeAgendas] = useState<
+    Pick<CosmicMedia, 'original_name' | 'imgix_url' | 'metadata'>[]
+  >([])
+  const [auditCommitteeAgendas, setAuditCommitteeAgendas] = useState<
+    Pick<CosmicMedia, 'original_name' | 'imgix_url' | 'metadata'>[]
+  >([])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -147,17 +155,13 @@ const BasicTemplatePage = () => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         agenda.metadata!.type.toString().toLowerCase() === 'audit-committee'
     )
-    return {financeCommitteeAgendas, auditCommitteeAgendas}
+    setFinanceCommitteeAgendas(financeCommitteeAgendas)
+    setAuditCommitteeAgendas(auditCommitteeAgendas)
   }, [cosmicGetMediaProps])
 
-  const setAgendas = useCallback(async () => {
-    const agendas = await fetchAgendas()
-    console.log(agendas)
-  }, [fetchAgendas])
-
   useEffect(() => {
-    setAgendas()
-  }, [setAgendas])
+    fetchAgendas()
+  }, [fetchAgendas])
 
   return (
     <PageLayout title="Board Meeting Agendas" waterSurface>
@@ -198,7 +202,7 @@ const BasicTemplatePage = () => {
               </Box>
             </FlexBox>
           </Spacing>
-          <section>
+          <section id="board-meeting-dates">
             <Box>
               <Type gutterBottom variant="h2" color="primary">
                 Schedule of Upcoming Board of Directors’ Meetings
@@ -212,16 +216,21 @@ const BasicTemplatePage = () => {
                 , unless otherwise noted.
               </Type>
               <Spacing />
-              <RespRowBox flexSpacing={4}>
-                <ChildBox>
-                  <Card className={classes.card}>
+              <Card className={classes.card}>
+                <RespRowBox
+                  flexSpacing={isSMUp ? 4 : 1}
+                  width="100%"
+                  justifyContent="space-around"
+                  alignItems="center"
+                >
+                  <ChildBox>
                     <CardContent>
                       {/* <Type
                     className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
-                    Word of the Day
+                    Title ...
                   </Type> */}
                       <Type variant="h3">
                         {format(
@@ -239,7 +248,7 @@ const BasicTemplatePage = () => {
                       </Type>
                     </CardContent>
                     <CardActions>
-                      <div>
+                      <Box>
                         <Button
                           color="secondary"
                           aria-controls="add-to-calendar-menu"
@@ -287,49 +296,78 @@ const BasicTemplatePage = () => {
                             Yahoo
                           </MenuItem>
                         </Menu>
-                      </div>
+                      </Box>
                     </CardActions>
-                  </Card>
-                </ChildBox>
-                <ChildBox>
-                  <Box
-                    p={3}
-                    bgcolor={theme.palette.common.white}
-                    boxShadow={2}
-                    borderRadius={2}
-                  >
-                    <Type variant="subtitle1">Future Board Meeting Dates</Type>
-                    <List dense>
-                      {followingFourBoardMeetings.map((bm, idx, arry) => (
-                        <Fragment key={idx}>
-                          <ListItem>
-                            <ListItemText
-                              primary={format(bm, "MMM'.' do',' h:mm aaaa")}
-                            />
-                          </ListItem>
-                          {arry.length !== idx + 1 ? <Divider /> : null}
-                        </Fragment>
-                      ))}
-                    </List>
-                  </Box>
-                </ChildBox>
-              </RespRowBox>
+                  </ChildBox>
+
+                  <ChildBox>
+                    <Box
+                      p={3}
+                      // bgcolor={theme.palette.common.white}
+                      // boxShadow={2}
+                      // borderRadius={2}
+                    >
+                      <Type variant="subtitle1">
+                        Future Board Meeting Dates
+                      </Type>
+                      <List dense>
+                        {followingFourBoardMeetings.map((bm, idx, arry) => (
+                          <Fragment key={idx}>
+                            <ListItem>
+                              <ListItemText
+                                primary={format(bm, "MMM'.' do',' h:mm aaaa")}
+                              />
+                            </ListItem>
+                            {arry.length !== idx + 1 ? <Divider /> : null}
+                          </Fragment>
+                        ))}
+                      </List>
+                    </Box>
+                  </ChildBox>
+                </RespRowBox>
+              </Card>
             </Box>
           </section>
-
+          <Spacing factor={2} />
           <section>
-            <Box>
-              <Type gutterBottom>
-                Board of Directors' Finance Committee Agendas:
-              </Type>
+            <Type gutterBottom variant="h4">
+              Board of Directors' Finance Committee Agendas:
+            </Type>
+            <Box
+              p={3}
+              bgcolor={theme.palette.common.white}
+              boxShadow={1}
+              borderRadius={2}
+            >
+              {financeCommitteeAgendas.length > 0 ? (
+                <Type>foo</Type>
+              ) : (
+                <Box fontStyle="italic">
+                  <Type>None at this time.</Type>
+                </Box>
+              )}
             </Box>
-
-            <Box>
-              <Type gutterBottom>
-                Board of Directors' Audit Committee Agendas:
-              </Type>
+            <Spacing size="large" />
+            <Type gutterBottom variant="h4">
+              Board of Directors' Audit Committee Agendas:
+            </Type>
+            <Box
+              p={3}
+              bgcolor={theme.palette.common.white}
+              boxShadow={1}
+              borderRadius={2}
+            >
+              {auditCommitteeAgendas.length > 0 ? (
+                <Type>foo</Type>
+              ) : (
+                <Box fontStyle="italic">
+                  <Type>None at this time.</Type>
+                </Box>
+              )}
             </Box>
           </section>
+
+          <Spacing size="large" factor={2} />
 
           <Type paragraph>
             For Board meeting minutes see our{' '}
@@ -347,4 +385,4 @@ const BasicTemplatePage = () => {
   )
 }
 
-export default BasicTemplatePage
+export default MeetingAgendasPage
