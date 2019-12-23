@@ -381,7 +381,7 @@ const CountyWideMasterPlanPage = () => {
                         <StepContent>
                           <Type paragraph>{getStepContent(index)}</Type>
                           {/* <div>
-                            <div>foobar</div>
+                            <div>...</div>
                           </div> */}
                         </StepContent>
                       </Step>

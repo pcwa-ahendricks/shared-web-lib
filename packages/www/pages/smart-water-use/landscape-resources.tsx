@@ -31,7 +31,7 @@ const ResourceLink = ({children, ...rest}: LinkProps) => {
 }
 const Resource = ({children, ...rest}: TypographyProps) => {
   return (
-    <Type variant="body2" {...rest}>
+    <Type variant="body2" component="div" {...rest}>
       {children}
     </Type>
   )

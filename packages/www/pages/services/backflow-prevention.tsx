@@ -84,7 +84,7 @@ const CrossControlPreventionPage = () => {
               maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
               <LazyImgix
-                src="https:////cosmicjs.imgix.net/83b0e520-6b30-11e7-b8ae-eb2280fc8c40-backflow-prevention-aside.jpg"
+                src="https://cosmicjs.imgix.net/83b0e520-6b30-11e7-b8ae-eb2280fc8c40-backflow-prevention-aside.jpg"
                 htmlAttributes={{
                   alt: 'Backflow Prevention Maintenance Photo',
                   style: {width: '100%'}

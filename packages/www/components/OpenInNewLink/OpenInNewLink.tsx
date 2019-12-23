@@ -1,19 +1,26 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Link, Fade} from '@material-ui/core'
+import {Link, Fade, SvgIconProps} from '@material-ui/core'
 import {LinkProps} from '@material-ui/core/Link'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {IconProps} from '@material-ui/core/Icon'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
+import AltIcon from '@material-ui/icons/Language'
 
-type OpenInNewLinkProps = {
-  children: React.ReactNode
+export type OpenInNewLinkProps = {
+  children?: React.ReactNode
   pdf?: boolean
   hoverText?: string
   transitionDuration?: number
   iconFontSize?: IconProps['fontSize']
+  showIconAlways?: boolean
+  startAdornment?: boolean
+  iconPadding?: number
+  centerIcon?: boolean
+  iconColor?: SvgIconProps['color']
+  altIcon?: boolean
 } & LinkProps
 
 const useStyles = makeStyles(() =>
@@ -21,9 +28,16 @@ const useStyles = makeStyles(() =>
     link: {
       display: 'inline-flex'
     },
-    icon: {
-      paddingLeft: 5
-    }
+    icon: ({
+      startAdornment,
+      iconPadding
+    }: {
+      startAdornment: boolean
+      iconPadding: number
+    }) => ({
+      paddingLeft: startAdornment ? 0 : iconPadding,
+      paddingRight: startAdornment ? iconPadding : 0
+    })
   })
 )
 
@@ -35,10 +49,16 @@ const OpenInNewLink = ({
   iconFontSize = 'default',
   pdf = false,
   href,
+  showIconAlways = false,
+  startAdornment = false,
+  iconPadding = 5,
+  centerIcon = true,
+  iconColor = 'inherit',
+  altIcon = false,
   ...rest
 }: OpenInNewLinkProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
-  const classes = useStyles()
+  const classes = useStyles({startAdornment, iconPadding})
 
   // [HACK] Next <Link/> will block React's synthetic events, such as onMouseEnter and onMouseLeave. Use react-native-listener as a workaround for this behavior.
   const onMouseEnterHandler = useCallback(() => {
@@ -49,23 +69,20 @@ const OpenInNewLink = ({
     setIsHovering(false)
   }, [])
 
-  const linkIconEl = useMemo(
-    () =>
-      pdf ? (
-        <DescriptionOutlinedIcon
-          className={classes.icon}
-          color="inherit"
-          fontSize={iconFontSize}
-        />
-      ) : (
-        <OpenInNewIcon
-          className={classes.icon}
-          color="inherit"
-          fontSize={iconFontSize}
-        />
-      ),
-    [pdf, classes, iconFontSize]
-  )
+  const linkIconEl = useMemo(() => {
+    const linkIconElProps = {
+      className: classes.icon,
+      color: iconColor,
+      fontSize: iconFontSize
+    }
+    return pdf ? (
+      <DescriptionOutlinedIcon {...linkIconElProps} />
+    ) : altIcon ? (
+      <AltIcon {...linkIconElProps} />
+    ) : (
+      <OpenInNewIcon {...linkIconElProps} />
+    )
+  }, [pdf, classes, iconFontSize, iconColor, altIcon])
 
   return (
     <NativeListener
@@ -81,12 +98,26 @@ const OpenInNewLink = ({
           noWrap
           {...rest}
         >
-          {children}
-          <Fade in={isHovering} timeout={transitionDuration}>
-            <ColumnBox component="span" justifyContent="center">
-              {linkIconEl}
-            </ColumnBox>
-          </Fade>
+          <RowBox
+            display="inline-flex"
+            component="span"
+            flexDirection={startAdornment ? 'row-reverse' : 'row'}
+          >
+            <ChildBox>{children}</ChildBox>
+            <ChildBox
+              display="flex"
+              flexDirection="column"
+              component="span"
+              justifyContent={centerIcon ? 'center' : 'flex-start'}
+            >
+              <Fade
+                in={isHovering || showIconAlways}
+                timeout={transitionDuration}
+              >
+                {linkIconEl}
+              </Fade>
+            </ChildBox>
+          </RowBox>
         </Link>
       </RowBox>
     </NativeListener>

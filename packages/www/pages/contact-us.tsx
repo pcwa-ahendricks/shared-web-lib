@@ -149,7 +149,7 @@ const ContactUs = () => {
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
-              Contact Us Form
+              Contact Us
             </Type>
 
             {/* <Type variant="h3" color="primary" gutterBottom>
