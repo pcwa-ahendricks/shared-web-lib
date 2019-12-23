@@ -54,7 +54,9 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
     betterTotalItems,
     isIterating
   } = searchState
-  const request: GoogleCseResponse['queries']['request'][0] | null = useMemo(
+  const request:
+    | GoogleCseResponse['queries']['request'][0]
+    | null = useMemo(
     () =>
       response &&
       response.queries &&
