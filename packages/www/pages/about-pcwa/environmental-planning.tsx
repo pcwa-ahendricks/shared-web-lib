@@ -26,6 +26,14 @@ const EnvironmentalPlanningPage = () => {
     gutterBottom: true,
     iconColor: 'secondary'
   }
+
+  const ForwardOpenInNewLink = React.forwardRef(
+    (props: OpenInNewLinkProps, ref: React.Ref<any>) => (
+      <OpenInNewLink {...props} {...ref} />
+    )
+  )
+  ForwardOpenInNewLink.displayName = 'OpenInNewLink'
+
   return (
     <PageLayout title="Environmental Planning" waterSurface>
       <MainBox>
@@ -102,14 +110,14 @@ const EnvironmentalPlanningPage = () => {
                 2007 Western Placer County Groundwater Management Plan
               </OpenInNewLink>
               <NextLink href="/planning/arbs" passHref>
-                <OpenInNewLink
+                <ForwardOpenInNewLink
                   {...linkProps}
                   pdf={false}
                   target="_self"
                   altIcon
                 >
                   2016 American River Basin Study
-                </OpenInNewLink>
+                </ForwardOpenInNewLink>
               </NextLink>
 
               <Spacing />
