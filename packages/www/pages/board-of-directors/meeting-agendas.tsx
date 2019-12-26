@@ -192,7 +192,6 @@ const MeetingAgendasPage = () => {
       setFinanceCommitteeAgendas(financeCommitteeAgendas)
       setAuditCommitteeAgendas(auditCommitteeAgendas)
       setIsLoadingOtherAgendas(false)
-      console.log(bmaEx)
     } catch (error) {
       console.log(error)
       setIsLoadingOtherAgendas(false)
