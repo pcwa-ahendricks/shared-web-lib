@@ -192,6 +192,7 @@ const TransparencyPage = () => {
                 />
               </ListItem>
             </NextLink>
+
             <ListItem
               button
               component="a"
@@ -201,6 +202,90 @@ const TransparencyPage = () => {
             >
               <ListItemText primary="Financial Transaction Report - CA State Controller" />
             </ListItem>
+
+            <NextLink passHref href="/board-of-directors">
+              <ListItem button>
+                <ListItemText primary="Map of District Boundaries/Service Area" />
+              </ListItem>
+            </NextLink>
+
+            <ListItem
+              button
+              component="a"
+              href="https://cdn.cosmicjs.com/e22786d0-d808-11e9-8b5e-77cc8048055c-090519-update-2019-rules-and-regsjh090619.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ListItemText primary="2019 Rules and Regulations" />
+            </ListItem>
+
+            <ListItem
+              button
+              component="a"
+              href="http://www.placer.courts.ca.gov/general-grandjury-info.shtml"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ListItemText primary="Placer County Grand Jury" />
+            </ListItem>
+          </List>
+
+          <Spacing />
+          <Type variant="h4" gutterBottom>
+            Placer County Grand Jury Reports &amp; PCWA Responses:
+          </Type>
+          <List dense disablePadding>
+            <ListItem
+              button
+              component="a"
+              href="https://cdn.cosmicjs.com/186dd790-2d8a-11ea-bfe8-5b62c3bdf959-2015GrandJuryFinalReportPCWAResponse.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ListItemText
+                primary="Enhanced Service to Placer County Residents Utilizing Reserves from Sale
+        of Surplus Water and Electricity"
+              />
+            </ListItem>
+
+            <ListItem
+              button
+              component="a"
+              href="https://cdn.cosmicjs.com/187a5ab0-2d8a-11ea-bfe8-5b62c3bdf959-2015GrandJuryFinalReportPCWAResponse-Websites.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ListItemText
+                primary="Review of Placer County Government and Special District/Agency
+                Websites"
+              />
+            </ListItem>
+
+            <ListItem
+              button
+              component="a"
+              href="https://cdn.cosmicjs.com/186e73d0-2d8a-11ea-a6d4-f90f4871ce6f-PCWAAct.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ListItemText primary="Placer County Water Agency Act" />
+            </ListItem>
+
+            <ListItem
+              button
+              component="a"
+              href="https://cdn.cosmicjs.com/0e276210-4b36-11e9-8cec-7bc2ed80e6ac-Public-Records-Request.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ListItemText primary="Public Records Request Form" />
+            </ListItem>
+
+            <NextLink passHref href="/services/water-rates">
+              <ListItem button>
+                <ListItemText primary="Water Rates" />
+              </ListItem>
+            </NextLink>
           </List>
         </NarrowContainer>
       </MainBox>
