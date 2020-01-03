@@ -1,3 +1,4 @@
+// cspell:ignore Dugan
 export interface Director {
   imgSrc: string
   name: string
@@ -39,13 +40,14 @@ export const directors: Director[] = [
     alt: 'Photo of Josh Alpine',
     district: 5,
     districtCaption: 'Supervisorial District 5',
+    viceChair: true,
     termExp: 2020,
     email: 'district5@pcwa.net',
     bio: `
       Elected in November 2012 to the PCWA Board of Directors, Mr. Alpine represents
-      District 5.  This extends eastward from Auburn to Lake Tahoe and the Nevada state
-      line.  Mr. Alpine is a community leader.  He served ten years on the Colfax City
-      Council, including two terms as mayor.  He works as an Electric
+      District 5. This extends eastward from Auburn to Lake Tahoe and the Nevada state
+      line. Mr. Alpine is a community leader. He served ten years on the Colfax City
+      Council, including two terms as mayor. He works as an Electric
       Transmission System Operator.
     `
   },
@@ -60,9 +62,9 @@ export const directors: Director[] = [
     email: 'district2@pcwa.net',
     bio: `
       Appointed in June 2013 to the PCWA Board of Directors to fill the unexpired term of
-      retired Director Alex Ferreira.  Mr. Santini represents District 2, which includes
+      retired Director Alex Ferreira. Mr. Santini represents District 2, which includes
       the City of Lincoln, parts of the City of Rocklin and unincorporated Placer County
-      agricultural and rural communities.  He is a third-generation "Lincolnite" and a
+      agricultural and rural communities. He is a third-generation "Lincolnite" and a
       graduate of Lincoln schools and Stanford University. Since 1984, he has been an owner
       of Cornerstone Associates Insurance Services, Inc. located in downtown Lincoln.
       Prior to his appointment to the PCWA Board, Mr. Santini served two consecutive terms
@@ -82,7 +84,7 @@ export const directors: Director[] = [
     alt: 'Photo of Robert Dugan',
     district: 4,
     districtCaption: 'Supervisorial District 4',
-    viceChair: true,
+    chair: true,
     termExp: 2020,
     email: 'district4@pcwa.net',
     bio: `
@@ -102,7 +104,6 @@ export const directors: Director[] = [
     alt: 'Photo of Mike Lee',
     district: 3,
     districtCaption: 'Supervisorial District 3',
-    chair: true,
     termExp: 2020,
     email: 'district3@pcwa.net',
     bio: `

@@ -148,10 +148,11 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 />
               </Box>
               <Type variant="caption">
-                PCWA Board of Directors, from left: <br />
-                Gray Allen, District 1; Primo Santini, District 2; Robert Dugan
-                (Vice Chair), District 4; Mike Lee (Chair), District 3; and
-                Joshua Alpine, District 5
+                PCWA Board of Directors, from left:
+                <br />
+                Gray Allen, District 1; Robert Dugan (Chair), District 4; Primo
+                Santini, District 2; Joshua Alpine (Vice Chair), District 5; and
+                Mike Lee, District 3
               </Type>
             </ChildBox>
           </RespRowBox>
