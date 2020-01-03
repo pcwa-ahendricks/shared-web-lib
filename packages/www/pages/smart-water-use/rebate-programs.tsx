@@ -13,7 +13,9 @@ import {
 } from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import {BoxProps} from '@material-ui/core/Box'
-import FancyButton from '@components/FancyButton/FancyButton'
+import FancyButton, {
+  FancyButtonProps
+} from '@components/FancyButton/FancyButton'
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import './rebate-programs.css'
 import MainPhone from '@components/links/MainPhone'
@@ -69,10 +71,22 @@ const RebateProgramsPage = () => {
     )
   }
 
+  // Using React.forwardRef made Typescript warnings and console error warnings go away.
+  const ForwardFancyButton = React.forwardRef(
+    (props: FancyButtonProps, ref: React.Ref<any>) => (
+      <FancyButton {...props} {...ref} />
+    )
+  )
+  ForwardFancyButton.displayName = 'FancyButton'
+
   const ApplyNowButton = ({href, label}: {href: string; label: string}) => {
     return (
       <NextLink href={href} passHref>
-        <FancyButton color="primary" aria-label={label} hoverText="Apply Now">
+        <ForwardFancyButton
+          color="primary"
+          aria-label={label}
+          hoverText="Apply Now"
+        >
           <RowBox alignItems="center">
             <Type
               color="secondary"
@@ -85,7 +99,7 @@ const RebateProgramsPage = () => {
               Apply Now
             </Type>
           </RowBox>
-        </FancyButton>
+        </ForwardFancyButton>
       </NextLink>
     )
   }
