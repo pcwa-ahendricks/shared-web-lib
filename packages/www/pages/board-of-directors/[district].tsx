@@ -140,9 +140,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
             >
               <Box mx="auto" mb={1} width="100%">
                 <LazyImgix
-                  src="https://cosmic-s3.imgix.net/832f55a0-0fb7-11e9-84fa-73d0760cdc5c-PCWA_2019_Board_Members.jpg"
+                  src="https://cosmic-s3.imgix.net/6396ea70-2da5-11ea-a6d4-f90f4871ce6f-Board-of-Directors-2020.jpg"
                   htmlAttributes={{
-                    alt: 'PCWA Board of Directors - December 2019',
+                    alt: 'PCWA Board of Directors - December 2020',
                     style: {width: '100%'}
                   }}
                 />
@@ -317,7 +317,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
 }
 
 BoardOfDirectorsDynamicPage.getInitialProps = ({query}: NextPageContext) => {
-  isDev && console.log(JSON.stringify(query))
+  isDev && console.log('query params: ', JSON.stringify(query))
   // Use last character of query param. If that character is not a valid district simply show the index page by setting active director to null.
   const district = queryParamToStr(query['district'])
   const districtNoStrProp = district.substr(-1)
