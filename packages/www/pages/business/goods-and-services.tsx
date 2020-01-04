@@ -25,7 +25,7 @@ const useStyles = makeStyles(() =>
 const GoodsAndServicesPage = () => {
   const classes = useStyles()
 
-  const RegStepItem = ({children, ...rest}: TypographyProps) => {
+  const RegStepItem = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
       <Type component="li" className={classes.leakItem} {...rest}>
         {children}

@@ -58,7 +58,7 @@ const NewDevelopmentPage = () => {
     </Box>
   )
 
-  const TightBullet = ({children, ...rest}: TypographyProps) => {
+  const TightBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
       <Type component="li" className={classes.tightBulletLi} {...rest}>
         <Disc />

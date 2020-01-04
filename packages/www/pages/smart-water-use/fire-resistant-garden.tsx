@@ -61,7 +61,7 @@ const FireResistantGardenPage = () => {
     [isSMUp, theme, plantImgSpacing]
   )
 
-  const TypeBullet = ({children, ...rest}: TypographyProps) => {
+  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
       <Type component="li" className={classes.bulletLi} {...rest}>
         {children}

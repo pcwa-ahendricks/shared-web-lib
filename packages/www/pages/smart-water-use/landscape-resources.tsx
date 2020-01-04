@@ -29,7 +29,7 @@ const ResourceLink = ({children, ...rest}: LinkProps) => {
     </>
   )
 }
-const Resource = ({children, ...rest}: TypographyProps) => {
+const Resource = ({children, ...rest}: TypographyProps<'div'>) => {
   return (
     <Type variant="body2" component="div" {...rest}>
       {children}

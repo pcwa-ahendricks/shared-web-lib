@@ -30,7 +30,7 @@ const useStyles = makeStyles(() =>
 const StopLeaksPage = () => {
   const classes = useStyles()
 
-  const LeakItem = ({children, ...rest}: TypographyProps) => {
+  const LeakItem = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
       <Type component="li" className={classes.leakItem} {...rest}>
         {children}

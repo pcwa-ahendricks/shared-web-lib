@@ -43,7 +43,7 @@ const TipsForKidsPage = () => {
   const classes = useStyles()
   const theme = useTheme()
 
-  const TypeBullet = ({children, ...rest}: TypographyProps) => {
+  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
       <Type component="li" className={classes.bulletLi} {...rest}>
         {children}
@@ -51,7 +51,7 @@ const TipsForKidsPage = () => {
     )
   }
 
-  const TightBullet = ({children, ...rest}: TypographyProps) => {
+  const TightBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
       <Type component="li" className={classes.tightBulletLi} {...rest}>
         <Disc />

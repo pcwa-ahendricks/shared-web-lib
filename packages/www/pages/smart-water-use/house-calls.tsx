@@ -29,9 +29,9 @@ const HouseCallsPage = () => {
   const theme = useTheme()
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
 
-  const TypeBullet = ({children}: TypographyProps) => {
+  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.bulletLi}>
+      <Type component="li" className={classes.bulletLi} {...rest}>
         {children}
       </Type>
     )

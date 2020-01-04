@@ -47,9 +47,9 @@ const Sb272Page = () => {
 
   const lastReviewDate = 'July 1, 2019'
 
-  const TypeBullet = ({children}: TypographyProps) => {
+  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.bulletLi}>
+      <Type component="li" className={classes.bulletLi} {...rest}>
         {children}
       </Type>
     )
