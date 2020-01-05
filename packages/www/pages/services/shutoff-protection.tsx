@@ -68,7 +68,7 @@ const ShutoffProtectionPage = () => {
                 caption="Water Shutoff Protection Act Policy"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               />
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -78,7 +78,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Standard PCWA Doortag"
                 alt="Thumbnail and link for Door Tag Sample PDF"
-              />
+              /> */}
             </RowBox>
           </Box>
           {/*  */}
@@ -103,7 +103,7 @@ const ShutoffProtectionPage = () => {
                 caption="Política de la Ley de Protección de Cierre de Agua"
                 alt="Miniatura y enlace para PDF de la Política de la Ley de Protección contra el Cierre del Agua"
               />
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -113,7 +113,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Etiqueta de Puerta PCWA Estándar"
                 alt="Miniatura y enlace para el PDF de muestra de etiqueta de puerta"
-              />
+              /> */}
             </RowBox>
           </Box>
           <Spacing size="x-large" />
@@ -134,7 +134,7 @@ const ShutoffProtectionPage = () => {
                 caption="물 차단 보호법 정책"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               />
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -144,7 +144,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="표준 PCWA 도어 태그"
                 alt="Thumbnail and link for Door Tag Sample PDF"
-              />
+              /> */}
             </RowBox>
           </Box>
 
@@ -166,7 +166,7 @@ const ShutoffProtectionPage = () => {
                 caption="断水保护法政策"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               />
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -176,7 +176,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="标准PCWA门标签"
                 alt="Thumbnail and link for Door Tag Sample PDF"
-              />
+              /> */}
             </RowBox>
           </Box>
 
@@ -198,7 +198,7 @@ const ShutoffProtectionPage = () => {
                 caption="Chính sách Đạo luật Bảo vệ Tắt nước"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               />
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -208,7 +208,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Thẻ cửa PCWA tiêu chuẩn"
                 alt="Thumbnail and link for Door Tag Sample PDF"
-              />
+              /> */}
             </RowBox>
           </Box>
 
@@ -230,7 +230,7 @@ const ShutoffProtectionPage = () => {
                 caption="Patakaran sa Proteksyon ng Sarhan ng tubig"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               />
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -240,7 +240,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Pamantayan PCWA Tag ng Door"
                 alt="Thumbnail and link for Door Tag Sample PDF"
-              />
+              /> */}
             </RowBox>
           </Box>
         </NarrowContainer>
