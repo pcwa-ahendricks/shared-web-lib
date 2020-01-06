@@ -23,6 +23,7 @@ const ShutoffProtectionPage = () => {
   const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
   const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
   return (
+    // GO-LIVE - DELETE THIS
     <Box flex="1 0 auto" mt={marginTop} mb={marginBottom}>
       {/* GO-LIVE - We need to un-comment this after GO LIVE date. */}
       {/* <PageLayout title="Customer Shutoff Protection" waterSurface> */}
@@ -245,6 +246,7 @@ const ShutoffProtectionPage = () => {
           </Box>
         </NarrowContainer>
       </MainBox>
+      {/* GO-LIVE - DELETE THIS */}
     </Box>
   )
 }
