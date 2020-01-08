@@ -1,12 +1,12 @@
 import React, {useMemo} from 'react'
 import {Link} from '@material-ui/core'
-import NextLink, {NextMuiLinkProps} from '@components/NextLink/NextLink'
+import NextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
 // import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 export type FlexLinkProps = {
   children: React.ReactNode
   isNextLink?: boolean
-} & NextMuiLinkProps
+} & MuiNextLinkProps
 
 const FlexLink = ({
   children,

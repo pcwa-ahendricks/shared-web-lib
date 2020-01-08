@@ -55,7 +55,7 @@ const ForwardNextComposed = React.forwardRef(
 )
 ForwardNextComposed.displayName = 'NextComposed'
 
-export type NextMuiLinkProps = {
+export type MuiNextLinkProps = {
   activeClassName?: string
   as?: string
   naked?: boolean
@@ -74,7 +74,7 @@ const MuiNextLink = ({
   href,
   children,
   ...other
-}: NextMuiLinkProps) => {
+}: MuiNextLinkProps) => {
   const classes = useStyles()
   const router = useRouter()
   const classNames = clsx(className, classes.root, {
