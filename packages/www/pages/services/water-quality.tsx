@@ -12,7 +12,6 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  Theme,
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
@@ -36,7 +35,7 @@ const tsaImageUrl =
 const tsaImageAlt = 'Map of Treated Water Services Areas'
 
 const WaterQualityPage = () => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   const ListItemLink = (props: any) => {
