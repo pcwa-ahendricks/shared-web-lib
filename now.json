@@ -334,6 +334,22 @@
       }
     },
     {
+      "src": "/newsroom/multimedia-library/p",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/multimedia-library/photos"
+      }
+    },
+    {
+      "src": "/newsroom/multimedia-library/v",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/multimedia-library/videos"
+      }
+    },
+    {
       "src": "/(.*)",
       "dest": "/packages/www/$1",
       "continue": true,
