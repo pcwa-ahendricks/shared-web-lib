@@ -1,3 +1,4 @@
+// cspell:ignore Permanente pers hmo ppo hmos ppos
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -186,10 +187,12 @@ const EmployeeBenefitsSummaryPage = () => {
               </Type>
               <Type paragraph>
                 PCWA participates in the CalPERS health insurance program
-                offering five HMOs (Anthem, Blue Shield, HealthNet Smart Care,
-                Kaiser and United Healthcare) and three PPOs (PERS Choice, PERS
-                Select and PERS Care). The Agency's current monthly contribution
-                towards the premium is:
+                offering eight HMOs (Anthem Select and Anthem Traditional, Blue
+                Shield Access + and Blue Shield Trio, HealthNet Smart Care,
+                Kaiser Permanente, UnitedHealthcare, and Western Health
+                Advantage) and three PPOs (PERS Choice, PERS Select and
+                PERSCare). The Agency's current monthly contribution towards the
+                premium is:
               </Type>
               <RespRowBox justifyContent="space-around" mb={3} flexSpacing={2}>
                 <ChildBox textAlign="center">
