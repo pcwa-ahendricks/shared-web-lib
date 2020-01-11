@@ -2627,6 +2627,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-imgix@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-imgix/-/react-imgix-9.0.0.tgz#f0fdb53a33ce4a1d158e9404ade0ff0c907a3583"
+  integrity sha512-tJbzR2JaHemFN5ergsMJyikm2aSC13mbHp0DZ29zGxCZBUwAP67SV6+xjM5dD/xxvteff12nu915j+CXzX8M6A==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-map-gl@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@types/react-map-gl/-/react-map-gl-5.1.0.tgz#a63ae3d9dd7c777bf4252231727a958c5429e646"
@@ -9967,7 +9974,7 @@ prop-types-exact@1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@15.7.2, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@~15.7.2:
+prop-types@15.7.2, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10388,14 +10395,6 @@ react-pdf@^4.1.0:
     merge-class-names "^1.1.1"
     pdfjs-dist "2.1.266"
     prop-types "^15.6.2"
-
-react-photo-gallery@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-photo-gallery/-/react-photo-gallery-8.0.0.tgz#04ff9f902a2342660e63e6817b4f010488db02b8"
-  integrity sha512-Y9458yygEB9cIZAWlBWuenlR+ghin1RopmmU3Vice8BeJl0Se7hzfxGDq8W1armB/ic/kphGg+G1jq5fOEd0sw==
-  dependencies:
-    prop-types "~15.7.2"
-    resize-observer-polyfill "^1.5.0"
 
 react-player@^1.14.2:
   version "1.14.2"

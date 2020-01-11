@@ -1,24 +1,24 @@
 import React from 'react'
+import {Box} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import LazyImgix, {LazyImgixProps} from '@components/LazyImgix/LazyImgix'
 
-export type ImgixFancyProps = {
-  src: string
+type Props = {
   lqipSrc?: string
   lqipWidth?: number
-  alt: string
-  htmlAttributesProps?: any
   paddingPercent?: string
-  width?: number
-  height?: number
-  sizes?: string
-  onLoad?: () => any
-  imgixParams?: any
+  htmlAttributes?: any
+}
+
+export type ImgixFancyProps = Props & LazyImgixProps
+
+interface UseStylesProps {
+  paddingPercent: Props['paddingPercent']
 }
 
 /* Lazysizes and ls.blur-up plugin styles. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */
 const useStyles = makeStyles({
-  mediabox: {
+  mediabox: ({paddingPercent}: UseStylesProps) => ({
     position: 'relative',
     display: 'block',
     height: 0,
@@ -26,11 +26,10 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     '-webkit-transform': 'translate3d(0, 0, 0)',
     transform: 'translate3d(0, 0, 0)',
-
+    paddingBottom: paddingPercent,
     '& .mediabox-img.ls-blur-up-is-loading, .mediabox-img.lazyload:not([src])': {
       visibility: 'hidden'
     },
-
     '& .ls-blur-up-img, .mediabox-img': {
       position: 'absolute',
       top: 0,
@@ -64,45 +63,34 @@ const useStyles = makeStyles({
         display: 'none'
       }
     }
-  }
+  })
 })
 
 const ImgixFancy = ({
   src,
-  lqipSrc,
+  lqipSrc: lqipSrcProp,
   lqipWidth = 40,
-  width,
-  height,
-  htmlAttributesProps = {},
-  alt,
-  onLoad,
+  htmlAttributes,
   paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
   sizes = 'auto', // Auto - This is a Lazysizes feature, not an react-imgix feature. Note - "sizes" is the Imgix prop while lazysizes uses "data-sizes".
   ...rest
 }: ImgixFancyProps) => {
-  const classes = useStyles()
+  const classes = useStyles({paddingPercent})
+  const dataLowsrc = lqipSrcProp ?? `${src}?fm=jpg&w=${lqipWidth}` // low quality image
   return (
-    <div className={classes.mediabox} style={{paddingBottom: paddingPercent}}>
+    <Box className={classes.mediabox}>
       <LazyImgix
         className="mediabox-img"
         src={src}
         sizes={sizes}
-        width={width}
-        height={height}
         htmlAttributes={{
           // 'data-expand': -400, // Debug
-          onLoad: onLoad,
-          alt: alt,
-          'data-lowsrc': lqipSrc || `${src}?fm=jpg&w=${lqipWidth}`, // low quality image
-          style: {
-            width: '100%',
-            ...htmlAttributesProps.style
-          },
-          ...htmlAttributesProps
+          'data-lowsrc': dataLowsrc,
+          ...htmlAttributes
         }}
         {...rest}
       />
-    </div>
+    </Box>
   )
 }
 

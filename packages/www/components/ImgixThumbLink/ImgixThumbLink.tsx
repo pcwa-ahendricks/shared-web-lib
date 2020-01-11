@@ -87,8 +87,8 @@ const ImgixThumbLink = ({
             paddingPercent={paddingPercent}
             lqipWidth={20}
             src={url}
-            alt={alt}
-            htmlAttributesProps={{
+            htmlAttributes={{
+              alt: alt,
               style: {
                 backgroundColor: theme.palette.common.white
               }

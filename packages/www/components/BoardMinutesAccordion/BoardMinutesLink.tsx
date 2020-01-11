@@ -88,8 +88,8 @@ const BoardMinutesLink = ({
               // height={100} // Don't specify height since it will break 'data-optimumx' LazySizes plugin.
               lqipWidth={20}
               src={imgixUrl}
-              alt="Board Minutes Thumbnail"
-              htmlAttributesProps={{
+              htmlAttributes={{
+                alt: 'Board Minutes Thumbnail',
                 'data-optimumx': 1, // Don't need retrieve high-dpr/retina images.
                 'data-lowsrc': '/static/images/minutes-placeholder.jpg', // Use static asset so we are not making a bunch of silly LQIP requests for a small blurry image that usually looks very similar.
                 style: {

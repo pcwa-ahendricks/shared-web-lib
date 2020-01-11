@@ -5,7 +5,14 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Link, {LinkProps} from 'next/link'
-import {AppBar, Box, Tabs, Tab, Typography as Type} from '@material-ui/core'
+import {
+  AppBar,
+  Box,
+  Tabs,
+  Tab,
+  Typography as Type,
+  useMediaQuery
+} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
@@ -16,12 +23,12 @@ import {
   CosmicMediaMeta
 } from '@lib/services/cosmicService'
 import Carousel, {Modal, ModalGateway} from 'react-images'
-import Gallery from 'react-photo-gallery'
-// import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+// import LazyImgix from '@components/LazyImgix/LazyImgix'
+import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import Spacing from '@components/boxes/Spacing'
 const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
-const imgWithClick = {cursor: 'pointer'}
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -46,9 +53,9 @@ type PickedMediaResponse = Pick<
 
 interface MappedProperties {
   source: string // for react-images
-  src: string // for react-photo-gallery
   width: number
   height: number
+  paddingPercent: string
 }
 
 type MultimediaList = Array<PickedMediaResponse>
@@ -62,6 +69,9 @@ const useStyles = makeStyles(() =>
   createStyles({
     appBar: {
       zIndex: 1 // Defaults to a higher level appearing over mega menu.
+    },
+    clickableImg: {
+      cursor: 'pointer'
     }
   })
 )
@@ -70,6 +80,10 @@ const useStyles = makeStyles(() =>
 const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
+  // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  const isMD = useMediaQuery(theme.breakpoints.only('md'))
+  const isLG = useMediaQuery(theme.breakpoints.up('lg'))
   const [multimedia, setMultimedia] = useState<MultimediaList>([])
   const [mappedMultimedia, setMappedMultimedia] = useState<
     MappedMultimediaList
@@ -82,28 +96,60 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
     setCurrentImage(0)
   }, [])
 
-  const onGalleryClickHandler = useCallback((_, {photo, index}) => {
-    console.log(photo)
-    setCurrentImage(index)
-    setViewerIsOpen(true)
-  }, [])
+  const onGalleryClickHandler = useCallback(
+    (index: number) => () => {
+      setCurrentImage(index)
+      setViewerIsOpen(true)
+    },
+    []
+  )
 
-  const galleryImgWidthHeight = useCallback((val?: any) => {
-    switch (val) {
-      case 'portrait': {
-        return {height: 2, width: 2}
+  const galleryImgWidthHeight = useCallback(
+    (val?: any) => {
+      let dimensions = {height: 0, width: 0, paddingPercent: ''}
+      switch (val) {
+        case 'portrait': {
+          dimensions = {...dimensions, height: 400, width: 300}
+          break
+        }
+        case 'square': {
+          dimensions = {...dimensions, height: 346.41, width: 346.41}
+          break
+        }
+        case 'landscape': {
+          dimensions = {...dimensions, height: 300, width: 400}
+          break
+        }
+        default: {
+          dimensions = {...dimensions, height: 300, width: 400}
+        }
       }
-      case 'square': {
-        return {height: 1, width: 1}
+      dimensions.paddingPercent = ((dimensions.height / dimensions.width) * 100)
+        .toString()
+        .concat('%')
+
+      switch (true) {
+        case isSM: {
+          dimensions.height = dimensions.height / 2
+          dimensions.width = dimensions.width / 2
+          break
+        }
+        case isMD: {
+          dimensions.height = dimensions.height / 1.65
+          dimensions.width = dimensions.width / 1.65
+          break
+        }
+        case isLG: {
+          dimensions.height = dimensions.height / 1.35
+          dimensions.width = dimensions.width / 1.35
+          break
+        }
       }
-      case 'landscape': {
-        return {height: 1, width: 1.5}
-      }
-      default: {
-        return {height: 1, width: 1.5}
-      }
-    }
-  }, [])
+
+      return dimensions
+    },
+    [isSM, isMD, isLG]
+  )
 
   const fetchMultimedia = useCallback(async () => {
     const mediaResponse = await getMedia<CosmicMediaResponse>({
@@ -118,11 +164,14 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
 
   useEffect(() => {
     const mediaMapped = multimedia.map((m) => {
-      const {width, height} = galleryImgWidthHeight(m.metadata?.['orientation'])
+      const {width, height, paddingPercent} = galleryImgWidthHeight(
+        m.metadata?.['orientation']
+      )
       return {
         ...m,
         source: m.imgix_url,
         src: m.imgix_url,
+        paddingPercent,
         width,
         height
       }
@@ -154,12 +203,14 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
 
   const test = useMemo(
     () =>
-      mappedMultimedia.filter(
-        (m) =>
-          m.metadata?.['gallery'] &&
-          typeof m.metadata?.['gallery'] === 'string' &&
-          m.metadata?.['gallery'].toLowerCase() === 'middle-fork-project'
-      ),
+      mappedMultimedia
+        .filter(
+          (m) =>
+            m.metadata?.['gallery'] &&
+            typeof m.metadata?.['gallery'] === 'string' &&
+            m.metadata?.['gallery'].toLowerCase() === 'middle-fork-project'
+        )
+        .map((p, index) => ({...p, index})),
     [mappedMultimedia]
   )
 
@@ -185,7 +236,7 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
           aria-labelledby={`nav-tab-${index}`}
           {...other}
         >
-          <Box p={3}>{children}</Box>
+          <Box>{children}</Box>
         </Type>
       )
     },
@@ -246,49 +297,11 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
     ) : null
   }, [])
 
-  // This renderer was adapted from the stock/default renderer. See https://github.com/neptunian/react-photo-gallery/blob/0bb8e4c4a027c021f8a5a06de71e89026596fd95/src/Photo.js#L6. This customization add the 'object-fit' property and uses our custom <LazyImgix/> component for lazy loading images. <FancyImgix/> didn't work with this renderer when tested.
-  const PhotoRenderer = useCallback(
-    ({index, onClick, photo, margin, direction, top, left, key}) => {
-      const imgStyle: any = {
-        margin: margin,
-        display: 'block',
-        // Fix aspect ratio. See https://github.com/neptunian/react-photo-gallery/issues/100.
-        objectFit: 'cover'
-      }
-      if (direction === 'column') {
-        imgStyle.position = 'absolute'
-        imgStyle.left = left
-        imgStyle.top = top
-      }
-
-      const handleClick = (event: any) => {
-        onClick(event, {photo, index})
-      }
-
-      return (
-        // <img
-        //   key={key}
-        //   style={onClick ? {...imgStyle, ...imgWithClick} : imgStyle}
-        //   {...photo}
-        //   onClick={onClick ? handleClick : null}
-        // />
-        <LazyImgix
-          key={key}
-          htmlAttributes={{
-            style: onClick ? {...imgStyle, ...imgWithClick} : imgStyle,
-            onClick: onClick ? handleClick : null
-          }}
-          {...photo}
-        />
-      )
-      // return <img key={key} src={photo.src} />
-    },
-    []
-  )
-
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
   }
+
+  const margin = 6 // Used with left and top margin of flexWrap items.
 
   return (
     <PageLayout title="Multimedia Library" waterSurface>
@@ -326,14 +339,37 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
               />
             </Tabs>
           </AppBar>
+
+          <Spacing size="x-large" />
+
           <TabPanel value={tabIndex} index={0}>
             {/* photos here... */}
-            <Gallery
-              photos={test}
-              onClick={onGalleryClickHandler}
-              renderImage={PhotoRenderer}
-              margin={theme.spacing(2)}
-            />
+            <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+              {test.map((p) => (
+                <ChildBox key={p.index} mt={margin}>
+                  <Box
+                    width={p.width}
+                    height={p.height}
+                    className={classes.clickableImg}
+                  >
+                    <ImgixFancy
+                      htmlAttributes={{
+                        alt: '',
+                        onClick: onGalleryClickHandler(p.index),
+                        style: {zIndex: 2}
+                      }}
+                      // htmlAttributes={{
+                      //   onClick: onGalleryClickHandler(p.index)
+                      // }}
+                      src={p.imgix_url}
+                      width={p.width}
+                      height={p.height}
+                      paddingPercent={p.paddingPercent}
+                    />
+                  </Box>
+                </ChildBox>
+              ))}
+            </RowBox>
             {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
             {test.length > 0 ? (
               <>

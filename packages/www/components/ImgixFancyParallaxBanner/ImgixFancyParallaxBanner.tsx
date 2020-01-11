@@ -6,7 +6,6 @@ import {Box} from '@material-ui/core'
 type Props = {
   imgixFancyProps: ImgixFancyProps
   children?: React.ReactNode
-  onImgLoad?: () => any
   amount?: number
 } & Partial<ParallaxBannerProps>
 
@@ -14,14 +13,13 @@ const ImgixFancyParallaxBanner = ({
   amount = 0.1,
   imgixFancyProps,
   children,
-  onImgLoad,
   ...rest
 }: Props) => {
   return (
     <ParallaxBanner
       layers={[
         {
-          children: <ImgixFancy {...imgixFancyProps} onLoad={onImgLoad} />,
+          children: <ImgixFancy {...imgixFancyProps} />,
           amount: amount
         }
       ]}

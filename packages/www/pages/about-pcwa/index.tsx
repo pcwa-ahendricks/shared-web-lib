@@ -98,8 +98,10 @@ const GeneralInfoPage = () => {
               imgixFancyProps={{
                 paddingPercent: '66.66667%',
                 src: BANNER_IMG_SRC,
-                alt: 'Photo of Hell Hole Reservoir',
-                imgixParams: {bri: -5, high: -15}
+                imgixParams: {bri: -5, high: -15},
+                htmlAttributes: {
+                  alt: 'Photo of Hell Hole Reservoir'
+                }
               }}
               style={{
                 height: '50vw',

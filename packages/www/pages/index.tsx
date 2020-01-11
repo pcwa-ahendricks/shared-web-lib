@@ -45,16 +45,16 @@ const Index = () => {
         imgixFancyProps={{
           paddingPercent: '66.6495%',
           src: HERO_IMG_SRC,
-          alt: 'A photo of French Meadows Reservoir inlet',
           imgixParams: {bri: -5, high: -15},
-          htmlAttributesProps: {
+          htmlAttributes: {
+            alt: 'A photo of French Meadows Reservoir inlet',
             style: {
               // [HACK] Keep the image vertically centered on wide layout.
               marginTop
-            }
+            },
+            onLoad: () => setHeroOverlayIn(true)
           }
         }}
-        onImgLoad={() => setHeroOverlayIn(true)}
         style={{
           height: '50vw',
           maxHeight: '45vh'
@@ -111,7 +111,9 @@ const Index = () => {
           <ImgixFancy
             paddingPercent="129.4118%"
             src={YEAR_END_IMG_SRC}
-            alt="Year End Image Thumbnail"
+            htmlAttributes={{
+              alt: 'Year End Image Thumbnail'
+            }}
           />
         </div>
         <MuiNextLink
