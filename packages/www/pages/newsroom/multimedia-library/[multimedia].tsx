@@ -281,7 +281,7 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
     return Math.abs(currentIndex - index) <= overScanCount ? (
       <div style={getStyles('view', props)}>
         <img
-          alt={alt || `${gallery} ${category} photo #${index}`}
+          alt={alt || `${gallery} ${category} photo #${index + 1}`}
           src={imgix_url}
           style={{
             height: 'auto',
@@ -346,7 +346,11 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
                 <ChildBox key={p.index} mt={margin}>
                   <ImgixFancier
                     htmlAttributes={{
-                      alt: 'Image gallery photo'
+                      alt:
+                        p.metadata?.description ??
+                        `${p.metadata?.gallery} ${
+                          p.metadata?.category
+                        } photo #${p.index + 1}`
                       // onClick: onGalleryClickHandler(p.index),
                     }}
                     boxProps={{onClick: onGalleryClickHandler(p.index)}}
