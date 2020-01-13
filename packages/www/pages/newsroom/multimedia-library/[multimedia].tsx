@@ -24,9 +24,9 @@ import {
 } from '@lib/services/cosmicService'
 import Carousel, {Modal, ModalGateway} from 'react-images'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
-import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
+import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -69,9 +69,6 @@ const useStyles = makeStyles(() =>
   createStyles({
     appBar: {
       zIndex: 1 // Defaults to a higher level appearing over mega menu.
-    },
-    clickableImg: {
-      cursor: 'pointer'
     }
   })
 )
@@ -347,26 +344,17 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
             <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
               {test.map((p) => (
                 <ChildBox key={p.index} mt={margin}>
-                  <Box
+                  <ImgixFancier
+                    htmlAttributes={{
+                      alt: 'Image gallery photo'
+                      // onClick: onGalleryClickHandler(p.index),
+                    }}
+                    boxProps={{onClick: onGalleryClickHandler(p.index)}}
+                    src={p.imgix_url}
                     width={p.width}
                     height={p.height}
-                    className={classes.clickableImg}
-                  >
-                    <ImgixFancy
-                      htmlAttributes={{
-                        alt: '',
-                        onClick: onGalleryClickHandler(p.index),
-                        style: {zIndex: 2}
-                      }}
-                      // htmlAttributes={{
-                      //   onClick: onGalleryClickHandler(p.index)
-                      // }}
-                      src={p.imgix_url}
-                      width={p.width}
-                      height={p.height}
-                      paddingPercent={p.paddingPercent}
-                    />
-                  </Box>
+                    paddingPercent={p.paddingPercent}
+                  />
                 </ChildBox>
               ))}
             </RowBox>

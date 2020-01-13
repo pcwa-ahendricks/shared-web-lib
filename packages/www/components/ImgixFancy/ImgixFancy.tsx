@@ -2,6 +2,7 @@ import React from 'react'
 import {Box} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import LazyImgix, {LazyImgixProps} from '@components/LazyImgix/LazyImgix'
+import clsx from 'clsx'
 
 type Props = {
   lqipSrc?: string
@@ -68,6 +69,7 @@ const useStyles = makeStyles({
 
 const ImgixFancy = ({
   src,
+  className: classNameProp,
   lqipSrc: lqipSrcProp,
   lqipWidth = 40,
   htmlAttributes,
@@ -80,7 +82,7 @@ const ImgixFancy = ({
   return (
     <Box className={classes.mediabox}>
       <LazyImgix
-        className="mediabox-img"
+        className={clsx([classNameProp, 'mediabox-img'])}
         src={src}
         sizes={sizes}
         htmlAttributes={{
