@@ -255,10 +255,10 @@ const ProjectsPage = () => {
                   <Type paragraph>
                     The Foothill Raw Water Pipelines - Phase 2 project includes
                     two primary components, 1) the completion of the Foothill
-                    Raw Water Pipeline and 2) construction of a TW pipeline and
-                    related facilities to deliver treated water from the future
-                    Ophir Road Water Treatment Plant to the Agency’s
-                    Foothill/Sunset System. The Project consists of:
+                    Raw Water Pipeline and 2) construction of a treated water
+                    pipeline and related facilities to deliver treated water
+                    from the future Ophir Road Water Treatment Plant to the
+                    Agency’s Foothill/Sunset System. The Project consists of:
                   </Type>
                   <ul>
                     <TypeBullet>
