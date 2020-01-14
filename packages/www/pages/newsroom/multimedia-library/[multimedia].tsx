@@ -49,6 +49,7 @@ interface LinkTabProps {
 }
 
 type Props = {
+  multimedia: MultimediaList
   tabIndex: number
   err?: {statusCode: number}
 }
@@ -82,14 +83,13 @@ const useStyles = makeStyles(() =>
 )
 
 /* eslint-disable @typescript-eslint/camelcase */
-const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
+const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const isSM = useMediaQuery(theme.breakpoints.only('sm'))
   const isMD = useMediaQuery(theme.breakpoints.only('md'))
   const isLG = useMediaQuery(theme.breakpoints.up('lg'))
-  const [multimedia, setMultimedia] = useState<MultimediaList>([])
   const [mappedMultimedia, setMappedMultimedia] = useState<
     MappedMultimediaList
   >([])
@@ -155,17 +155,6 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
     },
     [isSM, isMD, isLG]
   )
-
-  const fetchMultimedia = useCallback(async () => {
-    const mediaResponse = await getMedia<CosmicMediaResponse>({
-      folder: MULTIMEDIA_LIBRARY_FOLDER,
-      ...cosmicGetMediaProps
-    })
-    if (!mediaResponse) {
-      return
-    }
-    setMultimedia(mediaResponse)
-  }, [])
 
   useEffect(() => {
     const mediaMapped = multimedia.map((m) => {
@@ -257,10 +246,6 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
     })
   }, [galleryCovers, mappedMultimedia])
   console.log('grpd by gallery', galleries)
-
-  useEffect(() => {
-    fetchMultimedia()
-  }, [fetchMultimedia])
 
   useEffect(() => {
     isDev && console.log('all multimedia:', multimedia)
@@ -463,10 +448,20 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
 }
 
 MultimediaLibraryPage.getInitialProps = async ({query}: NextPageContext) => {
-  const multimedia = queryParamToStr(query['multimedia'])
-  let tabIndex: number
   let err: {statusCode: number} | null = null
-  switch (multimedia.toLowerCase()) {
+
+  const multimedia = await getMedia<CosmicMediaResponse>({
+    folder: MULTIMEDIA_LIBRARY_FOLDER,
+    ...cosmicGetMediaProps
+  })
+  if (!multimedia) {
+    err = {statusCode: 400}
+    return {err}
+  }
+
+  const multimediaParam = queryParamToStr(query['multimedia'])
+  let tabIndex: number
+  switch (multimediaParam.toLowerCase()) {
     case 'photos': {
       tabIndex = 0
       break
@@ -480,7 +475,7 @@ MultimediaLibraryPage.getInitialProps = async ({query}: NextPageContext) => {
       err = {statusCode: 404}
     }
   }
-  return {err, tabIndex}
+  return {err, tabIndex, multimedia}
 }
 
 export default MultimediaLibraryPage
