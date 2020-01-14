@@ -1,16 +1,22 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Typography from '@material-ui/core/Typography'
 import Link from 'next/link'
+import {
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Card,
+  // Chip,
+  // Box,
+  Typography as Type
+} from '@material-ui/core'
 
 type Props = {
   district: number
   imageSrc: string
   name: string
+  chair?: boolean
+  viceChair?: boolean
 }
 
 const useStyles = makeStyles({
@@ -18,11 +24,18 @@ const useStyles = makeStyles({
     width: 170
   },
   media: {
-    height: 235
+    height: 235,
+    position: 'relative'
   }
 })
 
-const BoardMemberCard = ({district, name, imageSrc}: Props) => {
+const BoardMemberCard = ({
+  district,
+  name,
+  imageSrc,
+  chair = false,
+  viceChair = false
+}: Props) => {
   const classes = useStyles()
 
   return (
@@ -34,18 +47,28 @@ const BoardMemberCard = ({district, name, imageSrc}: Props) => {
     >
       <Card className={classes.card}>
         <CardActionArea>
+          {/* <Box position="absolute" bottom={5} right={5}>
+            {chair ? <Chip size="small" label="Chair" color="primary" /> : null}
+          </Box>
+          <Box position="absolute" bottom={5} right={5}>
+            {viceChair ? (
+              <Chip size="small" label="Vice Chair" color="primary" />
+            ) : null}
+          </Box> */}
           <CardMedia
             className={classes.media}
             image={imageSrc}
             // title={`District ${district}`}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Type gutterBottom variant="h5" component="h2">
               {name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            </Type>
+            <Type variant="body2" color="textSecondary" component="p">
               District {district}
-            </Typography>
+              {chair ? <em> - Chair</em> : null}
+              {viceChair ? <em> - Vice Chair</em> : null}
+            </Type>
           </CardContent>
         </CardActionArea>
       </Card>

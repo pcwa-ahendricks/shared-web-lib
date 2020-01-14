@@ -172,6 +172,8 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                       name={director.name}
                       district={director.district}
                       imageSrc={director.imgSrc}
+                      chair={director.chair}
+                      viceChair={director.viceChair}
                     />
                   </ChildBox>
                 ))}
@@ -190,6 +192,8 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                       <Type variant="h3" color="primary" gutterBottom>
                         {activeDirector?.name}, District{' '}
                         {activeDirector?.district}
+                        {activeDirector?.chair ? ' (Chair)' : null}
+                        {activeDirector?.viceChair ? ' (Vice Chair)' : null}
                       </Type>
                     </Box>
                     <Type gutterBottom>

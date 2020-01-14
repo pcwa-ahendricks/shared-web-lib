@@ -82,6 +82,9 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     },
     '.MuiInputBase-input, .MuiInputBase-inputMarginDense': {
       paddingTop: '0.6rem'
+    },
+    '.MuiChip-root.MuiChip-sizeSmall .MuiChip-label': {
+      paddingTop: '0.2rem'
     }
   }
 }))(() => null)
