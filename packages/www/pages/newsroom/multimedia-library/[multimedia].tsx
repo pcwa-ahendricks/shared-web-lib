@@ -11,7 +11,11 @@ import {
   Tabs,
   Tab,
   Typography as Type,
-  useMediaQuery
+  useMediaQuery,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent
 } from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
@@ -27,6 +31,9 @@ import Carousel, {Modal, ModalGateway} from 'react-images'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
+import groupBy from '@lib/groupBy'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
+import toTitleCase from '@lib/toTitleCase'
 const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -59,7 +66,8 @@ interface MappedProperties {
 }
 
 type MultimediaList = Array<PickedMediaResponse>
-type MappedMultimediaList = Array<PickedMediaResponse & MappedProperties>
+type MappedMultimedia = PickedMediaResponse & MappedProperties
+type MappedMultimediaList = Array<MappedMultimedia>
 
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url,metadata,name'
@@ -211,6 +219,45 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
     [mappedMultimedia]
   )
 
+  const galleries = useMemo(() => {
+    const groupedByGallery = groupBy<MappedMultimedia, string>(
+      mappedMultimedia,
+      (a) => a.metadata?.gallery
+    )
+    const groupedByGalleryAsArray = []
+    for (const [k, v] of groupedByGallery) {
+      const galleryKey = k ?? 'misc'
+      groupedByGalleryAsArray.push({
+        galleryKey,
+        label: toTitleCase(galleryKey.replace(/-/g, ' ')),
+        photos: [...v]
+      })
+    }
+    return groupedByGalleryAsArray.map((v) => {
+      const {photos, galleryKey, label} = v
+      const groupedByCategory = groupBy<MappedMultimedia, string>(
+        photos,
+        (a) => a.metadata?.category
+      )
+      const groupedByCategoryAsArray = []
+      for (const [k, v] of groupedByCategory) {
+        groupedByCategoryAsArray.push({
+          title: k,
+          photos: [...v]
+        })
+      }
+      return {
+        galleryKey,
+        label,
+        categories: [...groupedByCategoryAsArray],
+        galleryCover:
+          galleryCovers.find((c) => c.metadata?.gallery === galleryKey) ??
+          groupedByCategoryAsArray[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
+      }
+    })
+  }, [galleryCovers, mappedMultimedia])
+  console.log('grpd by gallery', galleries)
+
   useEffect(() => {
     fetchMultimedia()
   }, [fetchMultimedia])
@@ -341,6 +388,33 @@ const MultimediaLibraryPage = ({tabIndex, err}: Props) => {
 
           <TabPanel value={tabIndex} index={0}>
             {/* photos here... */}
+
+            <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+              {galleries.map((v, idx) => (
+                <ChildBox width={200} key={idx} mt={margin}>
+                  <Card>
+                    <CardActionArea>
+                      <CardMedia component="div">
+                        <LazyImgix
+                          src={v.galleryCover.imgix_url}
+                          width={200}
+                          htmlAttributes={{
+                            alt: `Thumbnail image for ${v.label} gallery`,
+                            style: {height: 140, objectFit: 'cover'}
+                          }}
+                        />
+                      </CardMedia>
+                      <CardContent>
+                        <Type gutterBottom variant="h4">
+                          {v.label}
+                        </Type>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </ChildBox>
+              ))}
+            </RowBox>
+
             <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
               {test.map((p) => (
                 <ChildBox key={p.index} mt={margin}>
