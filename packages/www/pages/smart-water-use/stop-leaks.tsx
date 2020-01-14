@@ -137,6 +137,14 @@ const StopLeaksPage = () => {
               rel="noopener noreferrer"
             >
               EPA website
+            </Link>{' '}
+            and from Regional Water Authority at{' '}
+            <Link
+              href="https://BeWaterSmart.info"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              BeWaterSmart.info
             </Link>
             .
           </Type>
