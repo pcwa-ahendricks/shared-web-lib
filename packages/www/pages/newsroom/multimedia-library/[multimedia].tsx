@@ -87,7 +87,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  const isSM = useMediaQuery(theme.breakpoints.down('sm'))
   const isMD = useMediaQuery(theme.breakpoints.only('md'))
   const isLG = useMediaQuery(theme.breakpoints.up('lg'))
   const [mappedMultimedia, setMappedMultimedia] = useState<
@@ -332,6 +332,23 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
 
   const margin = 6 // Used with left and top margin of flexWrap items.
 
+  let cardImageWidth: number
+  let cardImageHeight: number
+  let cardMargin: number
+  switch (true) {
+    case isLG: {
+      cardImageWidth = 220
+      cardImageHeight = 160
+      cardMargin = 8
+      break
+    }
+    default: {
+      cardImageWidth = 180
+      cardImageHeight = 120
+      cardMargin = 4
+    }
+  }
+
   return (
     <PageLayout title="Multimedia Library" waterSurface>
       <MainBox>
@@ -345,8 +362,8 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             position="static"
             color="default"
             classes={{root: classes.appBar}}
-            elevation={2}
-            square={false}
+            elevation={0}
+            // square={false}
           >
             <Tabs
               variant="fullWidth"
@@ -377,13 +394,10 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             <RowBox
               flexWrap="wrap"
               flexSpacing={margin}
-              mt={-margin}
+              mt={-cardMargin}
               // justifyContent="space-around"
             >
               {galleries.map((v, idx) => {
-                const cardImageWidth = 200
-                const cardImageHeight = 140
-                const cardMargin = 4
                 return (
                   <ChildBox key={idx} width={cardImageWidth} mt={cardMargin}>
                     <Card>
