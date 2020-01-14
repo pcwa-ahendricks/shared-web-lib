@@ -218,7 +218,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       const galleryKey = k ?? 'misc'
       groupedByGalleryAsArray.push({
         galleryKey,
-        label: toTitleCase(galleryKey.replace(/-/g, ' ')),
+        label: toTitleCase(galleryKey.replace(/-/g, ' '), /and|of/g),
         photos: [...v]
       })
     }
@@ -374,30 +374,43 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
           <TabPanel value={tabIndex} index={0}>
             {/* photos here... */}
 
-            <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
-              {galleries.map((v, idx) => (
-                <ChildBox width={200} key={idx} mt={margin}>
-                  <Card>
-                    <CardActionArea>
-                      <CardMedia component="div">
-                        <LazyImgix
-                          src={v.galleryCover.imgix_url}
-                          width={200}
-                          htmlAttributes={{
-                            alt: `Thumbnail image for ${v.label} gallery`,
-                            style: {height: 140, objectFit: 'cover'}
-                          }}
-                        />
-                      </CardMedia>
-                      <CardContent>
-                        <Type gutterBottom variant="h4">
-                          {v.label}
-                        </Type>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </ChildBox>
-              ))}
+            <RowBox
+              flexWrap="wrap"
+              flexSpacing={margin}
+              mt={-margin}
+              // justifyContent="space-around"
+            >
+              {galleries.map((v, idx) => {
+                const cardImageWidth = 200
+                const cardImageHeight = 140
+                const cardMargin = 4
+                return (
+                  <ChildBox key={idx} width={cardImageWidth} mt={cardMargin}>
+                    <Card>
+                      <CardActionArea>
+                        <CardMedia component="div">
+                          <LazyImgix
+                            src={v.galleryCover.imgix_url}
+                            width={cardImageWidth}
+                            htmlAttributes={{
+                              alt: `Thumbnail image for ${v.label} gallery`,
+                              style: {
+                                height: cardImageHeight,
+                                objectFit: 'cover'
+                              }
+                            }}
+                          />
+                        </CardMedia>
+                        <CardContent>
+                          <Type gutterBottom variant="h4">
+                            {v.label}
+                          </Type>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </ChildBox>
+                )
+              })}
             </RowBox>
 
             <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>

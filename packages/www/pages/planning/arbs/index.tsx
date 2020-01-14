@@ -37,7 +37,7 @@ import alpha from 'color-alpha'
 import {ChildBox, ColumnBox, RespRowBox} from '@components/boxes/FlexBox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import ARBSSidebar from './arbs-sidebar'
+import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'
 import WideContainer from '@components/containers/WideContainer'
 
 const useStyles = makeStyles((theme: Theme) =>

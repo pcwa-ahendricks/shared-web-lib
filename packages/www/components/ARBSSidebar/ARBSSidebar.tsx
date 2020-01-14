@@ -1,4 +1,4 @@
-// cspell:ignore Rickards
+// cspell:ignore Rickards brickards Arlan usbr anickel
 import React, {useCallback} from 'react'
 import {
   Box,
