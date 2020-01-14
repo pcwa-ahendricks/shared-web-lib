@@ -4,7 +4,10 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import Link, {LinkProps} from 'next/link'
+// import Link, {LinkProps} from 'next/link'
+import PrefetchDataLink, {
+  PrefetchDataLinkProps
+} from '@components/PrefetchDataLink/PrefetchDataLink'
 import {
   AppBar,
   Box,
@@ -34,7 +37,7 @@ import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 import groupBy from '@lib/groupBy'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import toTitleCase from '@lib/toTitleCase'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
 interface TabPanelProps {
@@ -245,13 +248,12 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       }
     })
   }, [galleryCovers, mappedMultimedia])
-  console.log('grpd by gallery', galleries)
 
   useEffect(() => {
-    isDev && console.log('all multimedia:', multimedia)
-    isDev && console.log('video posters:', videoPosters)
-    isDev && console.log('gallery covers:', galleryCovers)
-    isDev && console.log('middle fork project:', test)
+    // isDev && console.log('all multimedia:', multimedia)
+    // isDev && console.log('video posters:', videoPosters)
+    // isDev && console.log('gallery covers:', galleryCovers)
+    // isDev && console.log('middle fork project:', test)
   }, [multimedia, videoPosters, galleryCovers, test])
 
   const TabPanel = useCallback(
@@ -281,11 +283,11 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   )
 
   const LinkTab = useCallback(
-    ({href, as, ...rest}: LinkTabProps & LinkProps) => {
+    ({href, as, ...rest}: LinkTabProps & PrefetchDataLinkProps) => {
       return (
-        <Link passHref href={href} as={as}>
+        <PrefetchDataLink withData passHref href={href} as={as}>
           <Tab component="a" {...rest} />
-        </Link>
+        </PrefetchDataLink>
       )
     },
     []
@@ -485,6 +487,7 @@ MultimediaLibraryPage.getInitialProps = async ({query}: NextPageContext) => {
     err = {statusCode: 400}
     return {err}
   }
+  console.log(multimedia)
 
   const multimediaParam = queryParamToStr(query['multimedia'])
   let tabIndex: number
