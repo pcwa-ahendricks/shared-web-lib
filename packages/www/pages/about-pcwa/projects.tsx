@@ -1,4 +1,4 @@
-// cspell:ignore Bonnynook Glenview Knutson hknutson kshively
+// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -25,7 +25,8 @@ import {
   ListItemProps,
   Link,
   useMediaQuery,
-  Box
+  Box,
+  TypographyProps
 } from '@material-ui/core'
 import ConstructionProject from '@components/ConstructionProject/ConstructionProject'
 import Spacing from '@components/boxes/Spacing'
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inlineFlex: {
       display: 'inline-flex'
+    },
+    bulletLi: {
+      // listStyleType: 'none',
+      marginBottom: 2
     }
   })
 )
@@ -57,6 +62,14 @@ const ProjectsPage = () => {
       <ChildBox mt={margin} flex={itemFlex}>
         {children}
       </ChildBox>
+    )
+  }
+
+  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
+    return (
+      <Type component="li" className={classes.bulletLi} {...rest}>
+        {children}
+      </Type>
     )
   }
 
@@ -215,26 +228,79 @@ const ProjectsPage = () => {
                     About Project
                   </Type>
                   <Type paragraph>
-                    The purpose of the Foothill Raw Water Pipeline Phase 2
-                    Project is to give the Placer County Water Agency (PCWA) the
-                    ability to deliver raw water from the American River to the
-                    Foothill Water Treatment Plant (WTP) independently of the
-                    normal supply of raw water from PG&E’s South Canal and allow
-                    the transfer of treated drinking water from the future Ophir
-                    WTP to the Foothill WTP. The project gives PCWA a means for
-                    supplementing the current PG&E raw water allotment to meet
-                    its expanding service area demands for both raw and treated
-                    water.
+                    This project includes raw water and treated water pipelines
+                    that connect to existing pipelines located south of I-80,
+                    then traverse south, primarily on private property, crossing
+                    Indian Hill Road and Glenview Road, before traveling along
+                    Powerhouse Road and terminating at the Foothill WTP.
                   </Type>
                   <Type paragraph>
-                    This phase of the project includes a raw water pipeline and
-                    treated water pipeline that connects to existing pipelines
-                    located south of I-80, then traverse south, primarily on
-                    private property, crossing Indian Hill Road and Glenview
-                    Road, before traveling along Powerhouse Road and terminating
-                    at the Foothill WTP. The project is scheduled to begin
-                    construction in Winter of 2019/2020 and take approximately
-                    21 months to complete.
+                    The Foothill Raw Water Pipelines - Phase 2 Project will
+                    provide the Placer County Water Agency (PCWA) a means to
+                    deliver raw water from the American River to the Foothill
+                    Water Treatment Plant (WTP) independently of the normal
+                    supply of raw water from PG&E’s South Canal in an emergency
+                    or during PG&E’s annual fall outage; when the Agency’s raw
+                    water supply is shut down for annual maintenance. The
+                    Project includes the ability to transfer treated drinking
+                    water from the future Ophir WTP to the Foothill WTP. The
+                    project also gives PCWA a means for supplementing the
+                    current PG&E raw water allotment to meet its expanding
+                    service area demands.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Description
+                  </Type>
+                  <Type paragraph>
+                    The Foothill Raw Water Pipelines - Phase 2 project includes
+                    two primary components, 1) the completion of the Foothill
+                    Raw Water Pipeline and 2) construction of a TW pipeline and
+                    related facilities to deliver treated water from the future
+                    Ophir Road Water Treatment Plant to the Agency’s
+                    Foothill/Sunset System. The Project consists of:
+                  </Type>
+                  <ul>
+                    <TypeBullet>
+                      7,300-feet of 12-inch, 18-inch and 24-inch treated water
+                      pipeline
+                    </TypeBullet>
+                    <TypeBullet>
+                      650-feet of 45-inch pipe in Ophir Road and removal of two
+                      interties
+                    </TypeBullet>
+                    <TypeBullet>
+                      7,866-feet of 33-inch to 39-inch pipeline from Dutch
+                      Ravine to the Foothill WTP, and Standpipe
+                    </TypeBullet>
+                    <TypeBullet>
+                      160-feet of 60-inch casing - open shield pipe jacking –
+                      UPRR crossing
+                    </TypeBullet>
+                    <TypeBullet>
+                      Stand pipe overflow, cleaning railroad tunnel, and drain
+                    </TypeBullet>
+                    <TypeBullet>
+                      Energy dissipation structure at Dutch Ravine
+                    </TypeBullet>
+                    <TypeBullet>
+                      Energy dissipation structures at the Foothill WTP
+                    </TypeBullet>
+                    <TypeBullet>
+                      Pump Station Improvements at Ophir Road
+                    </TypeBullet>
+                    <TypeBullet>Fiber Optic System</TypeBullet>
+                    <TypeBullet>
+                      12-Inch Intertie at the Newcastle Tank
+                    </TypeBullet>
+                  </ul>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Schedule
+                  </Type>
+                  <Type paragraph>
+                    The project is scheduled to begin construction in February
+                    2020 and complete October 2021.
                   </Type>
                   <Spacing />
                   <Type variant="subtitle1" gutterBottom>
