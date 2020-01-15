@@ -8,7 +8,7 @@ export type PrefetchDataLinkProps = {
   withData?: boolean
 } & LinkProps
 
-export const prefetch = async (href: string) => {
+export const componentPrefetch = async (href: string) => {
   // if  we're running server side do nothing
   if (typeof window === 'undefined') {
     return
@@ -31,7 +31,7 @@ export const prefetch = async (href: string) => {
 }
 
 // extend default next/link to customize the prefetch behavior
-export default class LinkWithData extends Link {
+export default class PrefetchDataLink extends Link {
   // re defined Link propTypes to add `withData`
   static propTypes = {
     ...Link.propTypes,
@@ -40,23 +40,24 @@ export default class LinkWithData extends Link {
 
   // our custom prefetch method
   async prefetch() {
+    const {withData, href, prefetch} = this.props as PrefetchDataLinkProps // [HACK] I don't know how to append custom props to this class during declaration.
+
     // if the prefetch prop is not defined do nothing
-    if (!this.props.prefetch) {
+    if (!prefetch) {
       return
     }
-    const {withData} = this.props as PrefetchDataLinkProps // [HACK] I don't know how to append custom props to this class during declaration.
 
     // if withData prop is defined
     // prefetch with data
     // otherwise just prefetch the page
     let url: string
-    if (typeof this.props.href === 'string') {
-      url = this.props.href
+    if (typeof href === 'string') {
+      url = href
     } else {
-      url = this.props.href.href ?? ''
+      url = href.href ?? ''
     }
     if (withData) {
-      prefetch(url)
+      componentPrefetch(url)
     } else {
       super.prefetch()
     }

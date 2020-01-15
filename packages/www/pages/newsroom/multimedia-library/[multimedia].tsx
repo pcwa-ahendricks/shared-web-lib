@@ -4,10 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-// import Link, {LinkProps} from 'next/link'
-import PrefetchDataLink, {
-  PrefetchDataLinkProps
-} from '@components/PrefetchDataLink/PrefetchDataLink'
 import {
   AppBar,
   Box,
@@ -18,7 +14,9 @@ import {
   Card,
   CardActionArea,
   CardMedia,
-  CardContent
+  CardContent,
+  Fade,
+  TabProps
 } from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
@@ -37,6 +35,10 @@ import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 import groupBy from '@lib/groupBy'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import toTitleCase from '@lib/toTitleCase'
+// import PrefetchDataLink, {
+//   PrefetchDataLinkProps
+// } from '@components/PrefetchDataLink/PrefetchDataLink'
+import Link, {LinkProps} from 'next/link'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -44,11 +46,6 @@ interface TabPanelProps {
   children?: React.ReactNode
   index: any
   value: any
-}
-
-interface LinkTabProps {
-  href: string
-  label: string
 }
 
 type Props = {
@@ -98,6 +95,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   >([])
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState(0)
+  const [selectedGallery, setSelectedGallery] = useState<null | string>(null)
 
   const onCloseModalHandler = useCallback(() => {
     setViewerIsOpen(false)
@@ -198,19 +196,6 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     [mappedMultimedia]
   )
 
-  const test = useMemo(
-    () =>
-      mappedMultimedia
-        .filter(
-          (m) =>
-            m.metadata?.['gallery'] &&
-            typeof m.metadata?.['gallery'] === 'string' &&
-            m.metadata?.['gallery'].toLowerCase() === 'middle-fork-project'
-        )
-        .map((p, index) => ({...p, index})),
-    [mappedMultimedia]
-  )
-
   const galleries = useMemo(() => {
     const groupedByGallery = groupBy<MappedMultimedia, string>(
       mappedMultimedia,
@@ -233,9 +218,10 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       )
       const groupedByCategoryAsArray = []
       for (const [k, v] of groupedByCategory) {
+        const mappedPhotos = [...v].map((p, index) => ({...p, index}))
         groupedByCategoryAsArray.push({
           title: k,
-          photos: [...v]
+          photos: mappedPhotos
         })
       }
       return {
@@ -253,8 +239,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     // isDev && console.log('all multimedia:', multimedia)
     // isDev && console.log('video posters:', videoPosters)
     // isDev && console.log('gallery covers:', galleryCovers)
-    // isDev && console.log('middle fork project:', test)
-  }, [multimedia, videoPosters, galleryCovers, test])
+  }, [multimedia, videoPosters, galleryCovers])
 
   const TabPanel = useCallback(
     ({children, value, index, ...other}: TabPanelProps) => {
@@ -283,11 +268,11 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   )
 
   const LinkTab = useCallback(
-    ({href, as, ...rest}: LinkTabProps & PrefetchDataLinkProps) => {
+    ({href, as, label, ...rest}: LinkProps & TabProps<'a'>) => {
       return (
-        <PrefetchDataLink withData passHref href={href} as={as}>
-          <Tab component="a" {...rest} />
-        </PrefetchDataLink>
+        <Link passHref as={as} href={href}>
+          <Tab component="a" label={label} {...rest} />
+        </Link>
       )
     },
     []
@@ -327,6 +312,18 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       </div>
     ) : null
   }, [])
+
+  const galleryClickHandler = useCallback(
+    (v: string) => () => {
+      setSelectedGallery(v)
+    },
+    []
+  )
+
+  const currentGallery = useMemo(
+    () => galleries.find((g) => g.galleryKey === selectedGallery),
+    [galleries, selectedGallery]
+  )
 
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -393,71 +390,76 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
           <TabPanel value={tabIndex} index={0}>
             {/* photos here... */}
 
-            <RowBox
-              flexWrap="wrap"
-              flexSpacing={margin}
-              mt={-cardMargin}
-              // justifyContent="space-around"
-            >
-              {galleries.map((v, idx) => {
-                return (
-                  <ChildBox key={idx} width={cardImageWidth} mt={cardMargin}>
-                    <Card>
-                      <CardActionArea>
-                        <CardMedia component="div">
-                          <LazyImgix
-                            src={v.galleryCover.imgix_url}
-                            width={cardImageWidth}
-                            htmlAttributes={{
-                              alt: `Thumbnail image for ${v.label} gallery`,
-                              style: {
-                                height: cardImageHeight,
-                                objectFit: 'cover'
-                              }
-                            }}
-                          />
-                        </CardMedia>
-                        <CardContent>
-                          <Type gutterBottom variant="h4">
-                            {v.label}
-                          </Type>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </ChildBox>
-                )
-              })}
-            </RowBox>
+            <Fade in={!selectedGallery} unmountOnExit>
+              <RowBox
+                flexWrap="wrap"
+                flexSpacing={margin}
+                mt={-cardMargin}
+                // justifyContent="space-around"
+              >
+                {galleries.map((v, idx) => {
+                  return (
+                    <ChildBox key={idx} width={cardImageWidth} mt={cardMargin}>
+                      <Card onClick={galleryClickHandler(v.galleryKey)}>
+                        <CardActionArea>
+                          <CardMedia component="div">
+                            <LazyImgix
+                              src={v.galleryCover.imgix_url}
+                              width={cardImageWidth}
+                              htmlAttributes={{
+                                alt: `Thumbnail image for ${v.label} gallery`,
+                                style: {
+                                  height: cardImageHeight,
+                                  objectFit: 'cover'
+                                }
+                              }}
+                            />
+                          </CardMedia>
+                          <CardContent>
+                            <Type gutterBottom variant="h4">
+                              {v.label}
+                            </Type>
+                          </CardContent>
+                        </CardActionArea>
+                      </Card>
+                    </ChildBox>
+                  )
+                })}
+              </RowBox>
+            </Fade>
 
-            <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
-              {test.map((p) => (
-                <ChildBox key={p.index} mt={margin}>
-                  <ImgixFancier
-                    htmlAttributes={{
-                      alt:
-                        p.metadata?.description ??
-                        `${p.metadata?.gallery} ${
-                          p.metadata?.category
-                        } photo #${p.index + 1}`
-                      // onClick: onGalleryClickHandler(p.index),
-                    }}
-                    boxProps={{onClick: onGalleryClickHandler(p.index)}}
-                    src={p.imgix_url}
-                    width={p.width}
-                    height={p.height}
-                    paddingPercent={p.paddingPercent}
-                  />
-                </ChildBox>
-              ))}
-            </RowBox>
+            <Fade in={Boolean(selectedGallery)} unmountOnExit>
+              <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+                {currentGallery?.categories[0].photos.map((p) => (
+                  <ChildBox key={p.index} mt={margin}>
+                    <ImgixFancier
+                      htmlAttributes={{
+                        alt:
+                          p.metadata?.description ??
+                          `${p.metadata?.gallery} ${
+                            p.metadata?.category
+                          } photo #${p.index + 1}`
+                        // onClick: onGalleryClickHandler(p.index),
+                      }}
+                      boxProps={{onClick: onGalleryClickHandler(p.index)}}
+                      src={p.imgix_url}
+                      width={p.width}
+                      height={p.height}
+                      paddingPercent={p.paddingPercent}
+                    />
+                  </ChildBox>
+                ))}
+              </RowBox>
+            </Fade>
             {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
-            {test.length > 0 ? (
+            {currentGallery &&
+            currentGallery?.categories[0].photos.length > 0 ? (
               <>
                 <ModalGateway>
                   {viewerIsOpen ? (
                     <Modal onClose={onCloseModalHandler} styles={modalStyling}>
                       <Carousel
-                        views={test}
+                        views={currentGallery?.categories[0].photos}
                         currentIndex={currentImage}
                         components={{View: LightboxViewRenderer}}
                       />
@@ -476,18 +478,10 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   )
 }
 
-MultimediaLibraryPage.getInitialProps = async ({query}: NextPageContext) => {
+MultimediaLibraryPage.getInitialProps = async ({
+  query
+}: NextPageContext & {isVirtualCall: boolean}) => {
   let err: {statusCode: number} | null = null
-
-  const multimedia = await getMedia<CosmicMediaResponse>({
-    folder: MULTIMEDIA_LIBRARY_FOLDER,
-    ...cosmicGetMediaProps
-  })
-  if (!multimedia) {
-    err = {statusCode: 400}
-    return {err}
-  }
-  console.log(multimedia)
 
   const multimediaParam = queryParamToStr(query['multimedia'])
   let tabIndex: number
@@ -505,6 +499,16 @@ MultimediaLibraryPage.getInitialProps = async ({query}: NextPageContext) => {
       err = {statusCode: 404}
     }
   }
+
+  const multimedia = await getMedia<CosmicMediaResponse>({
+    folder: MULTIMEDIA_LIBRARY_FOLDER,
+    ...cosmicGetMediaProps
+  })
+  if (!multimedia) {
+    err = {statusCode: 400}
+    return {err}
+  }
+
   return {err, tabIndex, multimedia}
 }
 
