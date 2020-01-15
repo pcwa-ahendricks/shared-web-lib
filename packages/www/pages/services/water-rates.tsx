@@ -1,4 +1,4 @@
-// cspell:ignore bgcolor
+// cspell:ignore bgcolor frmt
 import React, {useCallback} from 'react'
 import {
   Typography as Type,
@@ -69,6 +69,12 @@ const commodityNonResidentialRows = [
   createData('Commercial (per 100 CF)', 1.67),
   createData('Landscape (per 100 CF)', 1.77),
   createData('Industrial / Resale (per 100 CF)', 0.41)
+]
+
+const commodityDeprivedRows = [
+  createData('First 900 CF (per 100 CF)', 1.56),
+  createData('Next 1,900 CF (per 100 CF)', 1.77),
+  createData('Next 2,800 CF (per 100 CF)', 0.2)
 ]
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -379,7 +385,7 @@ const WaterRatesPage = () => {
                   <TableContainer>
                     <Type
                       variant="h6"
-                      id="renewAndReplacementChargeTableTitle"
+                      id="commodityNonResidentialChargeTableTitle"
                       className={classes.tableTitle}
                     >
                       Metered Non-Residential Service
@@ -387,7 +393,7 @@ const WaterRatesPage = () => {
                     <Box className={classes.tableWrapper}>
                       <Table
                         aria-label="Commodity Rates - Metered Non-Residential Service Charges Table"
-                        aria-labelledby="renewAndReplacementChargeTableTitle"
+                        aria-labelledby="commodityNonResidentialChargeTableTitle"
                         size="small"
                       >
                         <caption>Commodity in Cubic Feet</caption>
@@ -417,7 +423,7 @@ const WaterRatesPage = () => {
                   <TableContainer>
                     <Type
                       variant="h6"
-                      id="renewAndReplacementChargeTableTitle"
+                      id="commodityDeprivedChargeTableTitle"
                       className={classes.tableTitle}
                     >
                       Customers Involuntarily Deprived of Untreated Water
@@ -425,8 +431,8 @@ const WaterRatesPage = () => {
                     </Type>
                     <Box className={classes.tableWrapper}>
                       <Table
-                        aria-label="Commodity Rates - Metered Non-Residential Service Charges Table"
-                        aria-labelledby="renewAndReplacementChargeTableTitle"
+                        aria-label="Commodity Rates - Customers Involuntarily Deprived of Untreated Water Service Charges Table"
+                        aria-labelledby="commodityDeprivedChargeTableTitle"
                         size="small"
                       >
                         <caption>Commodity in Cubic Feet</caption>
@@ -437,7 +443,7 @@ const WaterRatesPage = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {commodityNonResidentialRows.map((row) => (
+                          {commodityDeprivedRows.map((row) => (
                             <TableRow key={row.tier}>
                               <TableCell component="th" scope="row">
                                 {row.tier}
