@@ -3,21 +3,24 @@ import React, {useCallback, useState, useEffect, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
+import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   AppBar,
   Box,
   Tabs,
   Tab,
+  Link as MatLink,
   Typography as Type,
   useMediaQuery,
   Card,
   CardActionArea,
   CardMedia,
   CardContent,
-  Fade,
-  TabProps
+  TabProps,
+  Breadcrumbs
 } from '@material-ui/core'
+import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
@@ -39,6 +42,7 @@ import toTitleCase from '@lib/toTitleCase'
 //   PrefetchDataLinkProps
 // } from '@components/PrefetchDataLink/PrefetchDataLink'
 import Link, {LinkProps} from 'next/link'
+import fileExtension from '@lib/fileExtension'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -74,10 +78,31 @@ const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url,metadata,name'
 }
 
+const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
+
 const useStyles = makeStyles(() =>
   createStyles({
     appBar: {
       zIndex: 1 // Defaults to a higher level appearing over mega menu.
+    },
+    trans: {
+      '& .cross-fade-leave': {
+        opacity: 1
+      },
+      '& .cross-fade-leave.cross-fade-leave-active': {
+        opacity: 0,
+        transition: `opacity ${crossFadeDuration}ms ease-in`
+      },
+      '& .cross-fade-enter': {
+        opacity: 0
+      },
+      '& .cross-fade-enter.cross-fade-enter-active': {
+        opacity: 1,
+        transition: `opacity ${crossFadeDuration}ms ease-in`
+      },
+      '& .cross-fade-height': {
+        transition: `height ${crossFadeDuration}ms ease-in-out`
+      }
     }
   })
 )
@@ -197,8 +222,13 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   )
 
   const galleries = useMemo(() => {
+    const filteredMappedMultimedia = mappedMultimedia.filter(
+      (p) =>
+        fileExtension(p.name) !== 'mp4' &&
+        p.metadata?.['video-poster'] !== 'true'
+    )
     const groupedByGallery = groupBy<MappedMultimedia, string>(
-      mappedMultimedia,
+      filteredMappedMultimedia,
       (a) => a.metadata?.gallery
     )
     const groupedByGalleryAsArray = []
@@ -348,6 +378,8 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     }
   }
 
+  console.log('tabindex', tabIndex)
+
   return (
     <PageLayout title="Multimedia Library" waterSurface>
       <MainBox>
@@ -357,100 +389,136 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             subtitle="Newsroom"
             hideDivider
           />
-          <AppBar
-            position="static"
-            color="default"
-            classes={{root: classes.appBar}}
-            elevation={0}
-            // square={false}
-          >
-            <Tabs
-              variant="fullWidth"
-              value={tabIndex}
-              // onChange={handleChange} // onChange is not needed.
-              aria-label="navigation tabs"
+          {selectedGallery ? (
+            <Box height={48}>
+              <Breadcrumbs
+                aria-label="breadcrumb"
+                separator={<NavigateNextIcon fontSize="small" />}
+              >
+                <MatLink
+                  color="inherit"
+                  onClick={() => setSelectedGallery(null)}
+                  style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
+                >
+                  Back To Galleries
+                </MatLink>
+                <Type color="textPrimary">
+                  {toTitleCase(selectedGallery.replace(/-/g, ' '), /and|of/g)}
+                </Type>
+              </Breadcrumbs>
+            </Box>
+          ) : (
+            <AppBar
+              position="static"
+              color="default"
+              classes={{root: classes.appBar}}
+              elevation={0}
+              // square={false}
             >
-              <LinkTab
-                label="Photos"
-                href="/newsroom/multimedia-library/[multimedia]"
-                as="/newsroom/multimedia-library/photos"
-                {...a11yProps(0)}
-              />
-              <LinkTab
-                label="Videos"
-                href="/newsroom/multimedia-library/[multimedia]"
-                as="/newsroom/multimedia-library/videos"
-                {...a11yProps(1)}
-              />
-            </Tabs>
-          </AppBar>
+              <Tabs
+                variant="fullWidth"
+                value={tabIndex}
+                // onChange={handleChange} // onChange is not needed.
+                aria-label="navigation tabs"
+              >
+                <LinkTab
+                  label="Photos"
+                  href="/newsroom/multimedia-library/[multimedia]"
+                  as="/newsroom/multimedia-library/photos"
+                  {...a11yProps(0)}
+                />
+                <LinkTab
+                  label="Videos"
+                  href="/newsroom/multimedia-library/[multimedia]"
+                  as="/newsroom/multimedia-library/videos"
+                  {...a11yProps(1)}
+                />
+              </Tabs>
+            </AppBar>
+          )}
 
           <Spacing size="x-large" />
 
           <TabPanel value={tabIndex} index={0}>
             {/* photos here... */}
 
-            <Fade in={!selectedGallery} unmountOnExit>
-              <RowBox
-                flexWrap="wrap"
-                flexSpacing={margin}
-                mt={-cardMargin}
-                // justifyContent="space-around"
-              >
-                {galleries.map((v, idx) => {
-                  return (
-                    <ChildBox key={idx} width={cardImageWidth} mt={cardMargin}>
-                      <Card onClick={galleryClickHandler(v.galleryKey)}>
-                        <CardActionArea>
-                          <CardMedia component="div">
-                            <LazyImgix
-                              src={v.galleryCover.imgix_url}
-                              width={cardImageWidth}
-                              htmlAttributes={{
-                                alt: `Thumbnail image for ${v.label} gallery`,
-                                style: {
-                                  height: cardImageHeight,
-                                  objectFit: 'cover'
-                                }
-                              }}
-                            />
-                          </CardMedia>
-                          <CardContent>
-                            <Type gutterBottom variant="h4">
-                              {v.label}
-                            </Type>
-                          </CardContent>
-                        </CardActionArea>
-                      </Card>
+            <ReactCSSTransitionReplace
+              className={classes.trans}
+              transitionName="cross-fade"
+              transitionEnterTimeout={crossFadeDuration}
+              transitionLeaveTimeout={crossFadeDuration}
+            >
+              {selectedGallery ? (
+                <RowBox
+                  key={0}
+                  flexWrap="wrap"
+                  flexSpacing={margin}
+                  mt={-margin}
+                >
+                  {currentGallery?.categories[0].photos.map((p) => (
+                    <ChildBox key={p.index} mt={margin}>
+                      <ImgixFancier
+                        htmlAttributes={{
+                          alt:
+                            p.metadata?.description ??
+                            `${p.metadata?.gallery} ${
+                              p.metadata?.category
+                            } photo #${p.index + 1}`
+                          // onClick: onGalleryClickHandler(p.index),
+                        }}
+                        boxProps={{onClick: onGalleryClickHandler(p.index)}}
+                        src={p.imgix_url}
+                        width={p.width}
+                        height={p.height}
+                        paddingPercent={p.paddingPercent}
+                      />
                     </ChildBox>
-                  )
-                })}
-              </RowBox>
-            </Fade>
+                  ))}
+                </RowBox>
+              ) : (
+                <RowBox
+                  key={1}
+                  flexWrap="wrap"
+                  flexSpacing={margin}
+                  mt={-cardMargin}
+                  // justifyContent="space-around"
+                >
+                  {galleries.map((v, idx) => {
+                    return (
+                      <ChildBox
+                        key={idx}
+                        width={cardImageWidth}
+                        mt={cardMargin}
+                      >
+                        <Card onClick={galleryClickHandler(v.galleryKey)}>
+                          <CardActionArea>
+                            <CardMedia component="div">
+                              <LazyImgix
+                                src={v.galleryCover.imgix_url}
+                                width={cardImageWidth}
+                                htmlAttributes={{
+                                  alt: `Thumbnail image for ${v.label} gallery`,
+                                  style: {
+                                    height: cardImageHeight,
+                                    objectFit: 'cover'
+                                  }
+                                }}
+                              />
+                            </CardMedia>
+                            <CardContent>
+                              <Type gutterBottom variant="h4">
+                                {v.label}
+                              </Type>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card>
+                      </ChildBox>
+                    )
+                  })}
+                </RowBox>
+              )}
+            </ReactCSSTransitionReplace>
 
-            <Fade in={Boolean(selectedGallery)} unmountOnExit>
-              <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
-                {currentGallery?.categories[0].photos.map((p) => (
-                  <ChildBox key={p.index} mt={margin}>
-                    <ImgixFancier
-                      htmlAttributes={{
-                        alt:
-                          p.metadata?.description ??
-                          `${p.metadata?.gallery} ${
-                            p.metadata?.category
-                          } photo #${p.index + 1}`
-                        // onClick: onGalleryClickHandler(p.index),
-                      }}
-                      boxProps={{onClick: onGalleryClickHandler(p.index)}}
-                      src={p.imgix_url}
-                      width={p.width}
-                      height={p.height}
-                      paddingPercent={p.paddingPercent}
-                    />
-                  </ChildBox>
-                ))}
-              </RowBox>
-            </Fade>
             {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
             {currentGallery &&
             currentGallery?.categories[0].photos.length > 0 ? (
