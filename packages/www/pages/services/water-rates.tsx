@@ -461,7 +461,7 @@ const WaterRatesPage = () => {
                   target="_blank"
                   color="secondary"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/e22786d0-d808-11e9-8b5e-77cc8048055c-090519-update-2019-rules-and-regsjh090619.pdf"
+                  href="https://cdn.cosmicjs.com/7227db30-37be-11ea-bfe8-5b62c3bdf959-2020-rules-and-regs010220.pdf"
                 >
                   2019 Rules and Regs
                 </FancyButton>
