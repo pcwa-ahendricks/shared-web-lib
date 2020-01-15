@@ -3,10 +3,9 @@ import {
   VerticalTimeline,
   VerticalTimelineProps
 } from 'react-vertical-timeline-component'
-import 'react-vertical-timeline-component/style.min.css'
-import './NoCollapseVerticalTimeline.css'
+import './NoCollapseVerticalTimeline.module.css'
 
-// See NoCollapseVerticalTimeline.css for notes.
+// See NoCollapseVerticalTimeline.module.css for notes.
 
 const NoCollapseVerticalTimeline = ({
   children,

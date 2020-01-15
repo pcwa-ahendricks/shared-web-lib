@@ -42,7 +42,6 @@ import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
 // import {curveCardinal} from 'd3-shape'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
-import 'react-vis/dist/style.css'
 
 type Props = {
   data?: AttributeStream

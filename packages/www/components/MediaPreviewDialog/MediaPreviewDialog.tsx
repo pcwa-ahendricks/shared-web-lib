@@ -1,6 +1,5 @@
 import React, {useMemo, useCallback} from 'react'
 import {Document, Page} from 'react-pdf'
-// import 'react-pdf/dist/Page/AnnotationLayer.css'
 import {
   Button,
   Dialog,

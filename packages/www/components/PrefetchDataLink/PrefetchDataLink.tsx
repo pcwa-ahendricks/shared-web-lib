@@ -34,7 +34,6 @@ export const componentPrefetch = async (href: string) => {
 export default class PrefetchDataLink extends Link {
   // re defined Link propTypes to add `withData`
   static propTypes = {
-    ...Link.propTypes,
     withData: PropTypes.bool // our custom prop
   }
 

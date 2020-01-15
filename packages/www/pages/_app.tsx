@@ -21,6 +21,13 @@ import SearchProvider from '@components/search/SearchStore'
 import './styles.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
+/*
+Global External Styles
+*/
+import 'react-vertical-timeline-component/style.min.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import 'react-vis/dist/style.css'
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
