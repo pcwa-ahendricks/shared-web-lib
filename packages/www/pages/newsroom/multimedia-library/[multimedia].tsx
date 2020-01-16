@@ -13,10 +13,6 @@ import {
   Link as MatLink,
   Typography as Type,
   useMediaQuery,
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
   TabProps,
   Breadcrumbs
 } from '@material-ui/core'
@@ -28,7 +24,8 @@ import ErrorPage from '@pages/_error'
 import {
   getMedia,
   CosmicMediaResponse,
-  CosmicMediaMeta
+  CosmicMediaMeta,
+  CosmicMetadata
 } from '@lib/services/cosmicService'
 import Carousel, {Modal, ModalGateway} from 'react-images'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -36,13 +33,13 @@ import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 import groupBy from '@lib/groupBy'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import toTitleCase from '@lib/toTitleCase'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
 // } from '@components/PrefetchDataLink/PrefetchDataLink'
 import Link, {LinkProps} from 'next/link'
 import fileExtension from '@lib/fileExtension'
+import MultimediaGalleryCard from '@components/MultimediaGalleryCard/MultimediaGalleryCard'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -73,6 +70,27 @@ interface MappedProperties {
 type MultimediaList = Array<PickedMediaResponse>
 type MappedMultimedia = PickedMediaResponse & MappedProperties
 type MappedMultimediaList = Array<MappedMultimedia>
+export type MultimediaGallery = {
+  galleryKey: string
+  label: string
+  categories: {
+    photos: {
+      index: number
+      _id: string
+      original_name: string
+      imgix_url: string
+      metadata?: CosmicMetadata | undefined
+      name: string
+      source: string
+      width: number
+      height: number
+      paddingPercent: string
+    }[]
+    categoryKey: string
+    label: string
+  }[]
+  galleryCover: MappedMultimedia
+}
 
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url,metadata,name'
@@ -211,18 +229,18 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     [mappedMultimedia]
   )
 
-  const videoPosters = useMemo(
-    () =>
-      mappedMultimedia.filter(
-        (m) =>
-          m.metadata?.['video-poster'] &&
-          typeof m.metadata?.['video-poster'] === 'string' &&
-          m.metadata?.['video-poster'].toLowerCase() !== 'false'
-      ),
-    [mappedMultimedia]
-  )
+  // const videoPosters = useMemo(
+  //   () =>
+  //     mappedMultimedia.filter(
+  //       (m) =>
+  //         m.metadata?.['video-poster'] &&
+  //         typeof m.metadata?.['video-poster'] === 'string' &&
+  //         m.metadata?.['video-poster'].toLowerCase() !== 'false'
+  //     ),
+  //   [mappedMultimedia]
+  // )
 
-  const galleries = useMemo(() => {
+  const galleries: MultimediaGallery[] = useMemo(() => {
     const filteredMappedMultimedia = mappedMultimedia.filter(
       (p) =>
         fileExtension(p.name) !== 'mp4' &&
@@ -299,12 +317,6 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       })
   }, [galleryCovers, mappedMultimedia])
 
-  useEffect(() => {
-    // isDev && console.log('all multimedia:', multimedia)
-    // isDev && console.log('video posters:', videoPosters)
-    // isDev && console.log('gallery covers:', galleryCovers)
-  }, [multimedia, videoPosters, galleryCovers])
-
   const TabPanel = useCallback(
     ({children, value, index, ...other}: TabPanelProps) => {
       return (
@@ -355,7 +367,6 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   // [TODO] Until a better lazy loading solution is developed we are using the following: https://github.com/jossmac/react-images/issues/300#issuecomment-511887232.
   // Note - React-imgix and lazysizes doesn't really work with this modal. Just use an <img/>.
   const LightboxViewRenderer = useCallback((props: any) => {
-    // console.log(props)
     const overScanCount = 2 // 2 (over 1) will allow better image rendering when clicking next image rapidly.
     const {data, getStyles, index, currentIndex} = props
     const {alt, imgix_url, metadata} = data
@@ -427,8 +438,6 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       cardMargin = 4
     }
   }
-
-  console.log('tabindex', tabIndex)
 
   return (
     <PageLayout title="Multimedia Library" waterSurface>
@@ -547,36 +556,16 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
                     mt={-cardMargin + 2}
                     // justifyContent="space-around"
                   >
-                    {galleries.map((v, idx) => {
+                    {galleries.map((g, idx) => {
                       return (
-                        <ChildBox
+                        <MultimediaGalleryCard
+                          gallery={g}
                           key={idx}
-                          width={cardImageWidth}
                           mt={cardMargin}
-                        >
-                          <Card onClick={galleryClickHandler(v.galleryKey)}>
-                            <CardActionArea>
-                              <CardMedia component="div">
-                                <LazyImgix
-                                  src={v.galleryCover.imgix_url}
-                                  width={cardImageWidth}
-                                  htmlAttributes={{
-                                    alt: `Thumbnail image for ${v.label} gallery`,
-                                    style: {
-                                      height: cardImageHeight,
-                                      objectFit: 'cover'
-                                    }
-                                  }}
-                                />
-                              </CardMedia>
-                              <CardContent>
-                                <Type gutterBottom variant="h4">
-                                  {v.label}
-                                </Type>
-                              </CardContent>
-                            </CardActionArea>
-                          </Card>
-                        </ChildBox>
+                          imageWidth={cardImageWidth}
+                          imageHeight={cardImageHeight}
+                          onCardClick={galleryClickHandler(g.galleryKey)}
+                        />
                       )
                     })}
                   </RowBox>
