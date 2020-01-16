@@ -48,8 +48,8 @@ const MultimediaLightbox = ({
             style: {
               height: 'auto',
               width: 'auto',
-              // maxHeight: '100vh',
-              // maxWidth: '100%',
+              maxHeight: '100vh',
+              maxWidth: '100%',
               userSelect: 'none'
             }
           }}
