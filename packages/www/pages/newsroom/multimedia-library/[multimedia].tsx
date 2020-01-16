@@ -467,8 +467,6 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             <Spacing size="x-large" />
 
             <TabPanel value={tabIndex} index={0}>
-              {/* photos here... */}
-
               <ReactCSSTransitionReplace
                 className={classes.trans}
                 transitionName="cross-fade"
@@ -523,18 +521,16 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
                     mt={-cardMargin + 2}
                     // justifyContent="space-around"
                   >
-                    {galleries.map((g, idx) => {
-                      return (
-                        <MultimediaGalleryCard
-                          gallery={g}
-                          key={idx}
-                          mt={cardMargin}
-                          imageWidth={cardImageWidth}
-                          imageHeight={cardImageHeight}
-                          onCardClick={galleryClickHandler(g.galleryKey)}
-                        />
-                      )
-                    })}
+                    {galleries.map((g, idx) => (
+                      <MultimediaGalleryCard
+                        gallery={g}
+                        key={idx}
+                        mt={cardMargin}
+                        imageWidth={cardImageWidth}
+                        imageHeight={cardImageHeight}
+                        onCardClick={galleryClickHandler(g.galleryKey)}
+                      />
+                    ))}
                   </RowBox>
                 )}
               </ReactCSSTransitionReplace>
