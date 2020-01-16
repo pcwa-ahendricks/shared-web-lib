@@ -3,6 +3,7 @@ import React, {useMemo, useCallback} from 'react'
 import Carousel, {Modal, ModalGateway} from 'react-images'
 import {LightboxPhotosList} from '@pages/newsroom/multimedia-library/[multimedia]'
 import {Box} from '@material-ui/core'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 type Props = {
   photos: LightboxPhotosList
@@ -35,19 +36,27 @@ const MultimediaLightbox = ({
     /* eslint-disable @typescript-eslint/camelcase */
     const {alt, imgix_url, metadata} = data
     const {gallery, category} = metadata ?? {}
+    // LazyImgix needs a width and height, and the one it calculates is bogus. Use the window dimensions preferably.
+    const width = window?.innerWidth
+    const height = window?.innerHeight
 
     return Math.abs(currentIndex - index) <= overScanCount ? (
       <Box style={getStyles('view', props)}>
-        <img
-          alt={alt || `${gallery} ${category} photo #${index + 1}`}
-          src={imgix_url}
-          style={{
-            height: 'auto',
-            maxHeight: '100vh',
-            maxWidth: '100%',
-            userSelect: 'none'
+        <LazyImgix
+          htmlAttributes={{
+            alt: alt ?? `${gallery} ${category} photo #${index + 1}`,
+            style: {
+              height: 'auto',
+              width: 'auto',
+              // maxHeight: '100vh',
+              // maxWidth: '100%',
+              userSelect: 'none'
+            }
           }}
-          // onLoad={() => setImageIsLoading(false)}
+          imgixParams={{fit: 'fill'}}
+          src={imgix_url}
+          width={width}
+          height={height}
         />
       </Box>
     ) : null
