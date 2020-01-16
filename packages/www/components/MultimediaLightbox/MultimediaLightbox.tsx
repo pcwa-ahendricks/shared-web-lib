@@ -2,9 +2,7 @@
 import React, {useMemo, useCallback, useState} from 'react'
 import Carousel, {Modal, ModalGateway} from 'react-images'
 import {LightboxPhotosList} from '@pages/newsroom/multimedia-library/[multimedia]'
-import {CircularProgress, Box} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
-import FlexBox from '@components/boxes/FlexBox'
+import {Box} from '@material-ui/core'
 
 type Props = {
   photos: LightboxPhotosList
@@ -29,52 +27,36 @@ const MultimediaLightbox = ({
     []
   )
 
-  const theme = useTheme()
-
   const [imageIsLoading, setImageIsLoading] = useState(false)
+  console.log(imageIsLoading)
 
   // [TODO] Until a better lazy loading solution is developed we are using the following: https://github.com/jossmac/react-images/issues/300#issuecomment-511887232.
   // Note - React-imgix and lazysizes doesn't really work with this modal. Just use an <img/>.
-  const LightboxViewRenderer = useCallback(
-    (props: any) => {
-      const overScanCount = 2 // 2 (over 1) will allow better image rendering when clicking next image rapidly.
-      const {data, getStyles, index, currentIndex} = props
-      /* eslint-disable @typescript-eslint/camelcase */
-      const {alt, imgix_url, metadata} = data
-      const {gallery, category} = metadata ?? {}
-      setImageIsLoading(true)
+  const LightboxViewRenderer = useCallback((props: any) => {
+    const overScanCount = 2 // 2 (over 1) will allow better image rendering when clicking next image rapidly.
+    const {data, getStyles, index, currentIndex} = props
+    /* eslint-disable @typescript-eslint/camelcase */
+    const {alt, imgix_url, metadata} = data
+    const {gallery, category} = metadata ?? {}
+    setImageIsLoading(true)
+    console.log(props)
 
-      return Math.abs(currentIndex - index) <= overScanCount ? (
-        <Box style={getStyles('view', props)} position="relative">
-          <FlexBox
-            justifyContent="center"
-            alignItems="center"
-            position="absolute"
-            color={theme.palette.common.white}
-            top={0}
-            left={0}
-            width="100%"
-            height="100%"
-            zIndex={3}
-          >
-            {imageIsLoading ? <CircularProgress color="inherit" /> : null}
-          </FlexBox>
-          <img
-            alt={alt || `${gallery} ${category} photo #${index + 1}`}
-            src={imgix_url}
-            style={{
-              height: 'auto',
-              maxHeight: '100vh',
-              maxWidth: '100%',
-              userSelect: 'none'
-            }}
-            onLoad={() => setImageIsLoading(false)}
-          />
-        </Box>
-      ) : null
-    },
-    [imageIsLoading, theme]
-  )
+    return Math.abs(currentIndex - index) <= overScanCount ? (
+      <Box style={getStyles('view', props)}>
+        <img
+          alt={alt || `${gallery} ${category} photo #${index + 1}`}
+          src={imgix_url}
+          style={{
+            height: 'auto',
+            maxHeight: '100vh',
+            maxWidth: '100%',
+            userSelect: 'none'
+          }}
+          // onLoad={() => setImageIsLoading(false)}
+        />
+      </Box>
+    ) : null
+  }, [])
 
   return (
     <>
@@ -87,7 +69,9 @@ const MultimediaLightbox = ({
                 <Carousel
                   views={photos}
                   currentIndex={currentIndex}
-                  components={{View: LightboxViewRenderer}}
+                  components={{
+                    View: LightboxViewRenderer
+                  }}
                 />
               </Modal>
             ) : null}
