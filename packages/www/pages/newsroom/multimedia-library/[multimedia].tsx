@@ -27,7 +27,6 @@ import {
   CosmicMediaMeta,
   CosmicMetadata
 } from '@lib/services/cosmicService'
-import Carousel, {Modal, ModalGateway} from 'react-images'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
@@ -40,6 +39,7 @@ import toTitleCase from '@lib/toTitleCase'
 import Link, {LinkProps} from 'next/link'
 import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/MultimediaGalleryCard/MultimediaGalleryCard'
+import MultimediaLightbox from '@components/MultimediaLightbox/MultimediaLightbox'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -91,6 +91,7 @@ export type MultimediaGallery = {
   }[]
   galleryCover: MappedMultimedia
 }
+export type LightboxPhotosList = Array<MappedMultimedia & {index: number}>
 
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url,metadata,name'
@@ -136,19 +137,14 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const [mappedMultimedia, setMappedMultimedia] = useState<
     MappedMultimediaList
   >([])
-  const [viewerIsOpen, setViewerIsOpen] = useState(false)
-  const [currentImage, setCurrentImage] = useState(0)
   const [selectedGallery, setSelectedGallery] = useState<null | string>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-
-  const onCloseModalHandler = useCallback(() => {
-    setViewerIsOpen(false)
-    setCurrentImage(0)
-  }, [])
+  const [viewerIsOpen, setViewerIsOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const onGalleryClickHandler = useCallback(
     (index: number) => () => {
-      setCurrentImage(index)
+      setCurrentImageIndex(index)
       setViewerIsOpen(true)
     },
     []
@@ -354,40 +350,6 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     []
   )
 
-  // <Header/> is using a z-index of 1100 .MuiAppBar-root selector, so this modal should appear above header by over-riding styling. See https://github.com/jossmac/react-images/issues/315#issuecomment-527159930.
-  const modalStyling = useMemo(
-    () => ({
-      blanket: (base: any) => ({...base, zIndex: 1101}),
-      positioner: (base: any) => ({...base, zIndex: 1111}),
-      dialog: (base: any) => ({...base, zIndex: 1121})
-    }),
-    []
-  )
-
-  // [TODO] Until a better lazy loading solution is developed we are using the following: https://github.com/jossmac/react-images/issues/300#issuecomment-511887232.
-  // Note - React-imgix and lazysizes doesn't really work with this modal. Just use an <img/>.
-  const LightboxViewRenderer = useCallback((props: any) => {
-    const overScanCount = 2 // 2 (over 1) will allow better image rendering when clicking next image rapidly.
-    const {data, getStyles, index, currentIndex} = props
-    const {alt, imgix_url, metadata} = data
-    const {gallery, category} = metadata ?? {}
-
-    return Math.abs(currentIndex - index) <= overScanCount ? (
-      <div style={getStyles('view', props)}>
-        <img
-          alt={alt || `${gallery} ${category} photo #${index + 1}`}
-          src={imgix_url}
-          style={{
-            height: 'auto',
-            maxHeight: '100vh',
-            maxWidth: '100%',
-            userSelect: 'none'
-          }}
-        />
-      </div>
-    ) : null
-  }, [])
-
   const galleryClickHandler = useCallback(
     (v: string) => () => {
       setSelectedGallery(v)
@@ -404,7 +366,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     [galleries, selectedGallery]
   )
 
-  const allPhotosInCurrentGallery = useMemo(
+  const allPhotosInCurrentGallery: LightboxPhotosList = useMemo(
     () =>
       currentGallery?.categories.reduce<
         Array<MappedMultimedia & {index: number}>
@@ -415,6 +377,11 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
       ) ?? [],
     [currentGallery]
   )
+
+  const onCloseModalHandler = useCallback(() => {
+    setViewerIsOpen(false)
+    setCurrentImageIndex(0)
+  }, [])
 
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -572,27 +539,14 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
                 )}
               </ReactCSSTransitionReplace>
 
-              {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
-              {currentGallery &&
-              currentGallery?.categories[0].photos.length > 0 ? (
-                <>
-                  <ModalGateway>
-                    {viewerIsOpen ? (
-                      <Modal
-                        onClose={onCloseModalHandler}
-                        styles={modalStyling}
-                      >
-                        <Carousel
-                          views={allPhotosInCurrentGallery}
-                          currentIndex={currentImage}
-                          components={{View: LightboxViewRenderer}}
-                        />
-                      </Modal>
-                    ) : null}
-                  </ModalGateway>
-                </>
-              ) : null}
+              <MultimediaLightbox
+                photos={allPhotosInCurrentGallery}
+                viewerIsOpen={viewerIsOpen}
+                currentIndex={currentImageIndex}
+                onClose={onCloseModalHandler}
+              />
             </TabPanel>
+
             <TabPanel value={tabIndex} index={1}>
               videos here...
             </TabPanel>
