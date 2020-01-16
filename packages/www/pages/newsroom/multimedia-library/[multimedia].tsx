@@ -1,5 +1,5 @@
 // cspell:ignore Lightbox
-import React, {useCallback, useState, useEffect, useMemo} from 'react'
+import React, {useCallback, useState, useEffect, useMemo, useRef} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -121,6 +121,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState(0)
   const [selectedGallery, setSelectedGallery] = useState<null | string>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const onCloseModalHandler = useCallback(() => {
     setViewerIsOpen(false)
@@ -240,29 +241,62 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
         photos: [...v]
       })
     }
-    return groupedByGalleryAsArray.map((v) => {
-      const {photos, galleryKey, label} = v
-      const groupedByCategory = groupBy<MappedMultimedia, string>(
-        photos,
-        (a) => a.metadata?.category
-      )
-      const groupedByCategoryAsArray = []
-      for (const [k, v] of groupedByCategory) {
-        const mappedPhotos = [...v].map((p, index) => ({...p, index}))
-        groupedByCategoryAsArray.push({
-          title: k,
-          photos: mappedPhotos
-        })
-      }
-      return {
-        galleryKey,
-        label,
-        categories: [...groupedByCategoryAsArray],
-        galleryCover:
-          galleryCovers.find((c) => c.metadata?.gallery === galleryKey) ??
-          groupedByCategoryAsArray[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
-      }
-    })
+    return groupedByGalleryAsArray
+      .map((v) => {
+        const {photos, galleryKey, label} = v
+        const groupedByCategory = groupBy<MappedMultimedia, string>(
+          photos,
+          (a) => a.metadata?.category
+        )
+        const groupedByCategoryAsArray = []
+        for (const [k, v] of groupedByCategory) {
+          // const mappedPhotos = [...v].map((p, index) => ({...p, index}))
+          const categoryKey = k ?? 'misc'
+          groupedByCategoryAsArray.push({
+            categoryKey,
+            label: toTitleCase(categoryKey.replace(/-/g, ' '), /and|of/g),
+            photos: [...v]
+          })
+        }
+        let index = 0
+        return {
+          galleryKey,
+          label,
+          categories: groupedByCategoryAsArray
+            .sort((a, b) => {
+              // Sort categories alphabetically.
+              const nameA = a.categoryKey.toUpperCase() // ignore upper and lowercase
+              const nameB = b.categoryKey.toUpperCase() // ignore upper and lowercase
+              if (nameA < nameB) {
+                return -1 //nameA comes first
+              }
+              if (nameA > nameB) {
+                return 1 // nameB comes first
+              }
+              return 0 // names must be equal
+            })
+            .map((cat) => {
+              return {
+                ...cat,
+                photos: cat.photos.map((p) => ({...p, index: index++}))
+              }
+            }),
+          galleryCover:
+            galleryCovers.find((c) => c.metadata?.gallery === galleryKey) ??
+            groupedByCategoryAsArray[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
+        }
+      })
+      .sort((a, b) => {
+        const nameA = a.galleryKey.toUpperCase() // ignore upper and lowercase
+        const nameB = b.galleryKey.toUpperCase() // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1 //nameA comes first
+        }
+        if (nameA > nameB) {
+          return 1 // nameB comes first
+        }
+        return 0 // names must be equal
+      })
   }, [galleryCovers, mappedMultimedia])
 
   useEffect(() => {
@@ -325,7 +359,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     const overScanCount = 2 // 2 (over 1) will allow better image rendering when clicking next image rapidly.
     const {data, getStyles, index, currentIndex} = props
     const {alt, imgix_url, metadata} = data
-    const {gallery, category} = metadata
+    const {gallery, category} = metadata ?? {}
 
     return Math.abs(currentIndex - index) <= overScanCount ? (
       <div style={getStyles('view', props)}>
@@ -346,6 +380,10 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const galleryClickHandler = useCallback(
     (v: string) => () => {
       setSelectedGallery(v)
+      containerRef?.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
     },
     []
   )
@@ -353,6 +391,18 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const currentGallery = useMemo(
     () => galleries.find((g) => g.galleryKey === selectedGallery),
     [galleries, selectedGallery]
+  )
+
+  const allPhotosInCurrentGallery = useMemo(
+    () =>
+      currentGallery?.categories.reduce<
+        Array<MappedMultimedia & {index: number}>
+      >(
+        (pv, {photos}) =>
+          Array.isArray(pv) ? [...pv, ...photos] : [...photos],
+        []
+      ) ?? [],
+    [currentGallery]
   )
 
   if (err) {
@@ -389,157 +439,175 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             subtitle="Newsroom"
             hideDivider
           />
-          {selectedGallery ? (
-            <Box height={48}>
-              <Breadcrumbs
-                aria-label="breadcrumb"
-                separator={<NavigateNextIcon fontSize="small" />}
+          <div ref={containerRef}>
+            {selectedGallery ? (
+              <Box height={48}>
+                <Breadcrumbs
+                  aria-label="breadcrumb"
+                  separator={<NavigateNextIcon fontSize="small" />}
+                >
+                  <MatLink
+                    color="inherit"
+                    onClick={() => setSelectedGallery(null)}
+                    style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
+                  >
+                    Back To Galleries
+                  </MatLink>
+                  <Type color="textPrimary">
+                    {toTitleCase(selectedGallery.replace(/-/g, ' '), /and|of/g)}
+                  </Type>
+                </Breadcrumbs>
+              </Box>
+            ) : (
+              <AppBar
+                position="static"
+                color="default"
+                classes={{root: classes.appBar}}
+                elevation={0}
+                // square={false}
               >
-                <MatLink
-                  color="inherit"
-                  onClick={() => setSelectedGallery(null)}
-                  style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
+                <Tabs
+                  variant="fullWidth"
+                  value={tabIndex}
+                  // onChange={handleChange} // onChange is not needed.
+                  aria-label="navigation tabs"
                 >
-                  Back To Galleries
-                </MatLink>
-                <Type color="textPrimary">
-                  {toTitleCase(selectedGallery.replace(/-/g, ' '), /and|of/g)}
-                </Type>
-              </Breadcrumbs>
-            </Box>
-          ) : (
-            <AppBar
-              position="static"
-              color="default"
-              classes={{root: classes.appBar}}
-              elevation={0}
-              // square={false}
-            >
-              <Tabs
-                variant="fullWidth"
-                value={tabIndex}
-                // onChange={handleChange} // onChange is not needed.
-                aria-label="navigation tabs"
+                  <LinkTab
+                    label="Photos"
+                    href="/newsroom/multimedia-library/[multimedia]"
+                    as="/newsroom/multimedia-library/photos"
+                    {...a11yProps(0)}
+                  />
+                  <LinkTab
+                    label="Videos"
+                    href="/newsroom/multimedia-library/[multimedia]"
+                    as="/newsroom/multimedia-library/videos"
+                    {...a11yProps(1)}
+                  />
+                </Tabs>
+              </AppBar>
+            )}
+
+            <Spacing size="x-large" />
+
+            <TabPanel value={tabIndex} index={0}>
+              {/* photos here... */}
+
+              <ReactCSSTransitionReplace
+                className={classes.trans}
+                transitionName="cross-fade"
+                transitionEnterTimeout={crossFadeDuration}
+                transitionLeaveTimeout={crossFadeDuration}
               >
-                <LinkTab
-                  label="Photos"
-                  href="/newsroom/multimedia-library/[multimedia]"
-                  as="/newsroom/multimedia-library/photos"
-                  {...a11yProps(0)}
-                />
-                <LinkTab
-                  label="Videos"
-                  href="/newsroom/multimedia-library/[multimedia]"
-                  as="/newsroom/multimedia-library/videos"
-                  {...a11yProps(1)}
-                />
-              </Tabs>
-            </AppBar>
-          )}
+                {selectedGallery ? (
+                  <>
+                    {currentGallery?.categories.map((c, categoryIdx) => (
+                      <Box key={categoryIdx} mb={6}>
+                        <Type variant="h3" color="primary">
+                          {c.label}
+                        </Type>
+                        <Spacing size="x-small" />
 
-          <Spacing size="x-large" />
-
-          <TabPanel value={tabIndex} index={0}>
-            {/* photos here... */}
-
-            <ReactCSSTransitionReplace
-              className={classes.trans}
-              transitionName="cross-fade"
-              transitionEnterTimeout={crossFadeDuration}
-              transitionLeaveTimeout={crossFadeDuration}
-            >
-              {selectedGallery ? (
-                <RowBox
-                  key={0}
-                  flexWrap="wrap"
-                  flexSpacing={margin}
-                  mt={-margin}
-                >
-                  {currentGallery?.categories[0].photos.map((p) => (
-                    <ChildBox key={p.index} mt={margin}>
-                      <ImgixFancier
-                        htmlAttributes={{
-                          alt:
-                            p.metadata?.description ??
-                            `${p.metadata?.gallery} ${
-                              p.metadata?.category
-                            } photo #${p.index + 1}`
-                          // onClick: onGalleryClickHandler(p.index),
-                        }}
-                        boxProps={{onClick: onGalleryClickHandler(p.index)}}
-                        src={p.imgix_url}
-                        width={p.width}
-                        height={p.height}
-                        paddingPercent={p.paddingPercent}
-                      />
-                    </ChildBox>
-                  ))}
-                </RowBox>
-              ) : (
-                <RowBox
-                  key={1}
-                  flexWrap="wrap"
-                  flexSpacing={margin}
-                  mt={-cardMargin}
-                  // justifyContent="space-around"
-                >
-                  {galleries.map((v, idx) => {
-                    return (
-                      <ChildBox
-                        key={idx}
-                        width={cardImageWidth}
-                        mt={cardMargin}
-                      >
-                        <Card onClick={galleryClickHandler(v.galleryKey)}>
-                          <CardActionArea>
-                            <CardMedia component="div">
-                              <LazyImgix
-                                src={v.galleryCover.imgix_url}
-                                width={cardImageWidth}
+                        <RowBox
+                          key={0}
+                          flexWrap="wrap"
+                          flexSpacing={margin}
+                          mt={-margin}
+                        >
+                          {c.photos.map((p) => (
+                            <ChildBox key={p.index} mt={margin}>
+                              <ImgixFancier
                                 htmlAttributes={{
-                                  alt: `Thumbnail image for ${v.label} gallery`,
-                                  style: {
-                                    height: cardImageHeight,
-                                    objectFit: 'cover'
-                                  }
+                                  alt:
+                                    p.metadata?.description ??
+                                    `${p.metadata?.gallery} ${
+                                      p.metadata?.category
+                                    } photo #${p.index + 1}`
+                                  // onClick: onGalleryClickHandler(p.index),
                                 }}
+                                boxProps={{
+                                  onClick: onGalleryClickHandler(p.index)
+                                }}
+                                src={p.imgix_url}
+                                width={p.width}
+                                height={p.height}
+                                paddingPercent={p.paddingPercent}
                               />
-                            </CardMedia>
-                            <CardContent>
-                              <Type gutterBottom variant="h4">
-                                {v.label}
-                              </Type>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                      </ChildBox>
-                    )
-                  })}
-                </RowBox>
-              )}
-            </ReactCSSTransitionReplace>
+                            </ChildBox>
+                          ))}
+                        </RowBox>
+                      </Box>
+                    ))}
+                  </>
+                ) : (
+                  <RowBox
+                    key={1}
+                    flexWrap="wrap"
+                    flexSpacing={margin}
+                    mt={-cardMargin + 2}
+                    // justifyContent="space-around"
+                  >
+                    {galleries.map((v, idx) => {
+                      return (
+                        <ChildBox
+                          key={idx}
+                          width={cardImageWidth}
+                          mt={cardMargin}
+                        >
+                          <Card onClick={galleryClickHandler(v.galleryKey)}>
+                            <CardActionArea>
+                              <CardMedia component="div">
+                                <LazyImgix
+                                  src={v.galleryCover.imgix_url}
+                                  width={cardImageWidth}
+                                  htmlAttributes={{
+                                    alt: `Thumbnail image for ${v.label} gallery`,
+                                    style: {
+                                      height: cardImageHeight,
+                                      objectFit: 'cover'
+                                    }
+                                  }}
+                                />
+                              </CardMedia>
+                              <CardContent>
+                                <Type gutterBottom variant="h4">
+                                  {v.label}
+                                </Type>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        </ChildBox>
+                      )
+                    })}
+                  </RowBox>
+                )}
+              </ReactCSSTransitionReplace>
 
-            {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
-            {currentGallery &&
-            currentGallery?.categories[0].photos.length > 0 ? (
-              <>
-                <ModalGateway>
-                  {viewerIsOpen ? (
-                    <Modal onClose={onCloseModalHandler} styles={modalStyling}>
-                      <Carousel
-                        views={currentGallery?.categories[0].photos}
-                        currentIndex={currentImage}
-                        components={{View: LightboxViewRenderer}}
-                      />
-                    </Modal>
-                  ) : null}
-                </ModalGateway>
-              </>
-            ) : null}
-          </TabPanel>
-          <TabPanel value={tabIndex} index={1}>
-            videos here...
-          </TabPanel>
+              {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
+              {currentGallery &&
+              currentGallery?.categories[0].photos.length > 0 ? (
+                <>
+                  <ModalGateway>
+                    {viewerIsOpen ? (
+                      <Modal
+                        onClose={onCloseModalHandler}
+                        styles={modalStyling}
+                      >
+                        <Carousel
+                          views={allPhotosInCurrentGallery}
+                          currentIndex={currentImage}
+                          components={{View: LightboxViewRenderer}}
+                        />
+                      </Modal>
+                    ) : null}
+                  </ModalGateway>
+                </>
+              ) : null}
+            </TabPanel>
+            <TabPanel value={tabIndex} index={1}>
+              videos here...
+            </TabPanel>
+          </div>
         </WideContainer>
       </MainBox>
     </PageLayout>
