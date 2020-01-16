@@ -1,5 +1,5 @@
 // cspell:ignore Lightbox
-import React, {useMemo, useCallback, useState} from 'react'
+import React, {useMemo, useCallback} from 'react'
 import Carousel, {Modal, ModalGateway} from 'react-images'
 import {LightboxPhotosList} from '@pages/newsroom/multimedia-library/[multimedia]'
 import {Box} from '@material-ui/core'
@@ -27,9 +27,6 @@ const MultimediaLightbox = ({
     []
   )
 
-  const [imageIsLoading, setImageIsLoading] = useState(false)
-  console.log(imageIsLoading)
-
   // [TODO] Until a better lazy loading solution is developed we are using the following: https://github.com/jossmac/react-images/issues/300#issuecomment-511887232.
   // Note - React-imgix and lazysizes doesn't really work with this modal. Just use an <img/>.
   const LightboxViewRenderer = useCallback((props: any) => {
@@ -38,8 +35,6 @@ const MultimediaLightbox = ({
     /* eslint-disable @typescript-eslint/camelcase */
     const {alt, imgix_url, metadata} = data
     const {gallery, category} = metadata ?? {}
-    setImageIsLoading(true)
-    console.log(props)
 
     return Math.abs(currentIndex - index) <= overScanCount ? (
       <Box style={getStyles('view', props)}>
