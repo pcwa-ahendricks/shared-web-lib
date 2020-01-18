@@ -369,11 +369,9 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
 
   const allPhotosInCurrentGallery: LightboxPhotosList = useMemo(
     () =>
-      currentGallery?.categories.reduce<
-        Array<MappedMultimedia & {index: number}>
-      >(
-        (pv, {photos}) =>
-          Array.isArray(pv) ? [...pv, ...photos] : [...photos],
+      currentGallery?.categories.reduce<LightboxPhotosList>(
+        (prev, {photos}) =>
+          Array.isArray(prev) ? [...prev, ...photos] : [...photos],
         []
       ) ?? [],
     [currentGallery]
