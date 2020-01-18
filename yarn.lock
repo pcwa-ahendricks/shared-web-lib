@@ -2942,10 +2942,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.9.tgz#0b5ae05516b757cbff2e82c04500190aef986c7b"
   integrity sha512-kV3w4KeLsRBW+O2rKhktBwENNJuqAUQHS3kf4ia2wIaF/MN6U7ANgTsx7tGremcA0Pk3Yh0Hl0iKiLPuBdIgmw==
 
-"@types/node@^13.1.7":
-  version "13.1.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.7.tgz#db51d28b8dfacfe4fb2d0da88f5eb0a2eca00675"
-  integrity sha512-HU0q9GXazqiKwviVxg9SI/+t/nAsGkvLDkIdxz+ObejG2nX6Si00TeLqHMoS+a/1tjH7a8YpKVQwtgHuMQsldg==
+"@types/node@^13.1.8":
+  version "13.1.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.8.tgz#1d590429fe8187a02707720ecf38a6fe46ce294b"
+  integrity sha512-6XzyyNM9EKQW4HKuzbo/CkOIjn/evtCmsU+MUM1xDfJ+3/rNjBttM1NgN7AOQvN6tP1Sl1D1PIKMreTArnxM9A==
 
 "@types/papaparse@^5.0.3":
   version "5.0.3"
@@ -3023,17 +3023,17 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-imgix@^9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react-imgix/-/react-imgix-9.0.1.tgz#70b9d5930a835132aadfe5dccf76e941b57a6ad8"
-  integrity sha512-OqtjXSwqNxjep5HaEj4eX6Ez7LJHJO1SlUFOOb24Fxxw6ZpZLyrLCG4oRYz0GqEzefLQUjjuW3aEC88xtvCS7w==
+"@types/react-imgix@^9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-imgix/-/react-imgix-9.0.2.tgz#5a3bf864906c3756d85bff38fc6b89755328de3a"
+  integrity sha512-H2bH52R2YQQR2chuV31EXG3AagJCjATgwhcPOnAXRv6Z1ZixkWewbQSoMAEDBLIrBBGqzbrOYuXkN9ZKnht10Q==
   dependencies:
     "@types/react" "*"
 
-"@types/react-map-gl@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@types/react-map-gl/-/react-map-gl-5.1.0.tgz#a63ae3d9dd7c777bf4252231727a958c5429e646"
-  integrity sha512-12nIpxNW/zIQtdOv6aHKuBv+FDmezZoGO/PVJ5zr1Mzb/OFVTBkGQbXeo6x/TM+ACyjq4ZElnSLu3gSQh0fmPA==
+"@types/react-map-gl@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-map-gl/-/react-map-gl-5.1.1.tgz#844187c9ea336225b1a9b06433f7509a4b88b02e"
+  integrity sha512-b88Vt35l2IF4ATrqr9BrEyGmatbRjAi+RPjk0xSjh41InWtaYsrKuXMugVZBBY2xSCHySYB1belCYhbq6CXkrw==
   dependencies:
     "@types/geojson" "*"
     "@types/mapbox-gl" "*"
