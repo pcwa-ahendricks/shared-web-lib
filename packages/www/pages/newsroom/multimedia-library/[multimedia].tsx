@@ -279,15 +279,15 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
           categories: groupedByCategoryAsArray
             .sort((a, b) => {
               // Sort categories alphabetically.
-              const nameA = a.categoryKey.toUpperCase() // ignore upper and lowercase
-              const nameB = b.categoryKey.toUpperCase() // ignore upper and lowercase
-              if (nameA < nameB) {
-                return -1 //nameA comes first
+              const keyA = a.categoryKey.toUpperCase() // ignore upper and lowercase
+              const keyB = b.categoryKey.toUpperCase() // ignore upper and lowercase
+              if (keyA < keyB) {
+                return -1 //keyA comes first
               }
-              if (nameA > nameB) {
-                return 1 // nameB comes first
+              if (keyA > keyB) {
+                return 1 // keyB comes first
               }
-              return 0 // names must be equal
+              return 0 // keys must be equal
             })
             .map((cat) => {
               return {
@@ -301,15 +301,16 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
         }
       })
       .sort((a, b) => {
-        const nameA = a.galleryKey.toUpperCase() // ignore upper and lowercase
-        const nameB = b.galleryKey.toUpperCase() // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1 //nameA comes first
+        // Sort galleries alphabetically.
+        const keyA = a.galleryKey.toUpperCase() // ignore upper and lowercase
+        const keyB = b.galleryKey.toUpperCase() // ignore upper and lowercase
+        if (keyA < keyB) {
+          return -1 //keyA comes first
         }
-        if (nameA > nameB) {
-          return 1 // nameB comes first
+        if (keyA > keyB) {
+          return 1 // keyB comes first
         }
-        return 0 // names must be equal
+        return 0 // keys must be equal
       })
   }, [galleryCovers, mappedMultimedia])
 
