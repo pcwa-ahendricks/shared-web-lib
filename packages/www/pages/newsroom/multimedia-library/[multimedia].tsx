@@ -239,8 +239,9 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const galleries: MultimediaGallery[] = useMemo(() => {
     const filteredMappedMultimedia = mappedMultimedia.filter(
       (p) =>
-        fileExtension(p.name) !== 'mp4' &&
-        p.metadata?.['video-poster'] !== 'true'
+        fileExtension(p.name) !== 'mp4' && // No videos.
+        p.metadata?.['video-poster'] !== 'true' && // No video posters
+        p.metadata?.gallery // No photos w/o gallery metadata.
     )
     const groupedByGallery = groupBy<MappedMultimedia, string>(
       filteredMappedMultimedia,
