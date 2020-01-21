@@ -37,7 +37,7 @@ type Languages =
   | 'vietnamese'
   | 'tagalog'
 
-const crossFadeDuration = 1000 * 0.4 // 300 milliseconds
+const crossFadeDuration = 1000 * 0.3 // 300 milliseconds
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -485,7 +485,62 @@ const ShutoffProtectionPage = () => {
       language: 'vietnamese',
       Component: (
         <Box key={4}>
-          {/* <Spacing size="x-large" /> */}
+          <article>
+            <Type variant="h3" gutterBottom color="primary">
+              Chính sách tắt nước
+            </Type>
+            <Type variant="h4" gutterBottom>
+              Chính sách ngừng cung cấp dịch vụ nước sinh hoạt do không thanh
+              toán
+            </Type>
+            <Type paragraph>
+              Luật pháp California cung cấp cho khách hàng các lựa chọn để tránh
+              bị ngừng cung cấp dịch vụ nước sinh hoạt do không thanh toán hóa
+              đơn tiền nước. Những lựa chọn đó bao gồm các khoản thanh toán trả
+              chậm hoặc lịch thanh toán thay thế và khiếu nại về hóa đơn tiền
+              nước.
+            </Type>
+            <Type variant="h4" gutterBottom>
+              Tôi có thể khiếu nại về hóa đơn tiền nước của mình bằng cách nào?
+            </Type>
+            <Type paragraph>
+              Khách hàng có thể không đồng ý với hóa đơn hoặc yêu cầu điều chỉnh
+              hóa đơn, trong vòng 60 ngày kể từ ngày lập hóa đơn. Không phát
+              sinh bất kỳ khoản phạt hoặc khoản phí nào trong vòng 10 ngày làm
+              việc khi có phản hồi từ Cơ quan.
+            </Type>
+            <Type paragraph>
+              Để yêu cầu nhân viên dịch vụ khách hàng xem xét lại hóa đơn của
+              bạn, vui lòng liên hệ với Phòng dịch vụ khách hàng tại.
+            </Type>
+            <Type paragraph>
+              Nếu nhân viên dịch vụ khách hàng không có giải pháp thỏa đáng, khi
+              đó khách hàng có thể yêu cầu một người giám sát hoặc quản lý xem
+              xét lại hóa đơn. Nếu vẫn không hài lòng với kết quả, khách hàng có
+              thể yêu cầu Tổng Giám đốc xem xét lại. Tổng Giám đốc có thể sửa
+              bất kỳ lỗi lập hóa đơn nào do Cơ quan gây ra. Nếu Tổng Giám đốc
+              không thể đưa ra biện pháp giải quyết, đánh giá và quyết định cuối
+              cùng sẽ do Hội đồng Quản trị Cơ quan đưa ra.
+            </Type>
+            <Type variant="h4" gutterBottom>
+              Tôi có thể nhận lịch thanh toán trả chậm hoặc thay thế bằng cách
+              nào?
+            </Type>
+            <Type paragraph>
+              Khách hàng không thể thanh toán dịch vụ nước trong thời hạn thanh
+              toán thông thường có thể yêu cầu một kế hoạch thanh toán thay thế
+              để tránh bị ngừng cung cấp dịch vụ. PCWA sẽ xem xét tất cả các
+              trường hợp liên quan đến yêu cầu này và đưa ra quyết định về việc
+              có đảm bảo bố trí thanh toán trả chậm hoặc thay thế hay không. Kế
+              hoạch thanh toán có thể là trả chậm số tiền đến hạn thanh toán vào
+              ngày muộn hơn hoặc cung cấp lịch thanh toán cho số tiền nợ. Kế
+              hoạch thanh toán có thể trả chậm một khoản tiền lên đến 60 ngày,
+              nhưng không được quá 12 tháng kể từ ngày đến hạn ban đầu. Để yêu
+              cầu lịch thanh toán thay thế, vui lòng gọi điện cho Phòng dịch vụ
+              khách hàng theo số <MainPhone />.
+            </Type>
+          </article>
+          <Spacing size="large" />
           <Type variant="h3">Các tài liệu</Type>
           {/* <Type variant="subtitle1" color="textSecondary">
             <em>Vietnamese</em>
@@ -534,7 +589,69 @@ const ShutoffProtectionPage = () => {
       language: 'tagalog',
       Component: (
         <Box key={5}>
-          {/* <Spacing size="x-large" /> */}
+          <article>
+            <Type variant="h3" gutterBottom color="primary">
+              Patayin ang Patakaran sa tubig
+            </Type>
+            <Type variant="h4" gutterBottom>
+              Patakaran sa Paghihinto ng Residensyal na Serbisyong Patubig dahil
+              sa Hindi Pagbabayad
+            </Type>
+            <Type paragraph>
+              Ang batas ng California ay nagbibigay ng mga opsyon para maiwasan
+              ang pagkakahinto ng residenyal na serbisyong patubig dahil sa
+              hindi pagbabayad ng kanilang water bill. Kabilang sa mga opsyong
+              ito ang mga ipinagpapalibang pagbabayad o mga alternatibong
+              iskedyul ng pagbabayad, at pag-aapela sa isang water bill.
+            </Type>
+            <Type variant="h4" gutterBottom>
+              Paano Ko I-aapela Ang Aking Water Bill?
+            </Type>
+            <Type paragraph>
+              Maaaring ireklamo ng mga customer ang kanilang mga bill, o
+              humiling ng pag-a-adjust ng mga bill, sa loob ng 60 araw mula sa
+              petsa ng bill. Walang multa o singil na maiipon sa inireklamong
+              bill hanggang 10 araw ng trabaho matapos ang sagot mula sa
+              Ahensiya.
+            </Type>
+            <Type paragraph>
+              Upang masuri ng mga kawani ng customer service ang iyong bill,
+              pakikontak ang aming departamento ng Mga Serbisyong Pang-customer
+              sa.
+            </Type>
+            <Type paragraph>
+              Kapag walang kasiya-siyang resolusyon mula sa kawani ng serbisyong
+              pang-customer, maaaring ipasuri ng customer ang kanilang bill sa
+              isang supervisor o manager. Kapag hindi nasiyahan ang isang
+              customer sa resulta, maaaring humiling ang customer ng pagsusuri
+              ng Pangkalahatang Manager. Maaaring itama ng Pangkalahatang
+              Manager ang anumang mga pagkakamali sa billing na nagawa ng
+              Ahensiya. Kapag walang resolusyong narating ang Pangkalahatang
+              Manager, gagawa ng pinal na pagsusuri at desisyon ang Lupon ng Mga
+              Direktor ng Ahensiya.
+            </Type>
+            <Type variant="h4" gutterBottom>
+              Paano Ako Makakakuha ng Ipinagpalibang Pagbabayad o Alternatibong
+              Iskedyul sa Pagbabayad?
+            </Type>
+            <Type paragraph>
+              Ang isang customer na hindi makapagbayad para sa serbisyong
+              patubig sa loob ng karaniwang panahon ng pagbabayad ay maaaring
+              humiling ng alternatibong plano sa pagbabayad upang iwasan ang
+              pagkaantala ng serbisyo. Isasaalang-alang ng PCWA ang lahat ng
+              kalagayang pumapalibot sa kahilingan at pagpapasyahan nito kung
+              kinakailangan ang ipinagpaliban o alternatibong kaayusan ng
+              pagbabayad. Maaaring ipagpaliban ng plano sa pagbabayad ang
+              halagang dapat bayaran sa mas malayong petsa o magbigay ng
+              iskedyul ng pagbabayad para sa natitirang balanse. I-aatas ng
+              plano na bayaran ang balanse ng account sa loob ng 60 araw, ngunit
+              hindi maaaring lumampas ng 12 buwan mula sa orihinal na petsa na
+              dapat itong bayaran. Upang magtanong tungkol sa alternatibong
+              iskedyul ng pagbabayad, pakitawagan ang Mga Serbisyong
+              Pang-customer sa <MainPhone />.
+            </Type>
+          </article>
+          <Spacing size="large" />
           <Type variant="h3">Mga dokumento</Type>
           {/* <Type variant="subtitle1" color="textSecondary">
             <em>Tagalog / Filipino</em>
