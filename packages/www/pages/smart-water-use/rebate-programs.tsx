@@ -20,7 +20,7 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'
-import './rebate-programs.module.css'
+import '@components/cssModules/rebate-programs.module.css'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

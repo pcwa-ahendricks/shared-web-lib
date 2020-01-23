@@ -22,6 +22,7 @@ import BusinessIcon from '@material-ui/icons/Business'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
+import '@components/cssModules/pay-bill.module.css'
 
 const PayOptionBox = ({children}: {children: React.ReactNode}) => {
   return <Box mt={2}>{children}</Box>

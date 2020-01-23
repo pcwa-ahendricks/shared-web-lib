@@ -36,6 +36,7 @@ import StateSelectField from '@components/formFields/StateSelectField'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import FormSubmissionDialogCustAcctInfo from '@components/FormSubmissionDialogCustAcctInfo/FormSubmissionDialogCustAcctInfo'
 import FormSubmissionDialogErrorCustAcctInfo from '@components/FormSubmissionDialogErrorCustAcctInfo/FormSubmissionDialogErrorCustAcctInfo'
+import FormikValidate from '@components/FormikValidate/FormikValidate'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'account-contact-info'
@@ -244,7 +245,7 @@ const ContactInfo = () => {
                 }
 
                 return (
-                  <>
+                  <FormikValidate>
                     <FormBox className={classes.form}>
                       <Box flex="0 0 auto" mt={5} mb={5}>
                         <Type
@@ -290,10 +291,7 @@ const ContactInfo = () => {
                         </Grid>
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={7}>
-                            <Field
-                              name="accountNo"
-                              component={AccountNoField}
-                            />
+                            <AccountNoField name="accountNo" />
                           </Grid>
                           <Grid item xs={12} sm={5}>
                             <Field
@@ -452,7 +450,7 @@ const ContactInfo = () => {
                         )}
                       </Box>
                     </FormBox>
-                  </>
+                  </FormikValidate>
                 )
               }}
             </Formik>

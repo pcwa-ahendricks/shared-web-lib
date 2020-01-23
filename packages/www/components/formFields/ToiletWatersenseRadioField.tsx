@@ -1,5 +1,5 @@
 // cspell:ignore watersense
-import React, {useMemo} from 'react'
+import React, {useMemo, useCallback} from 'react'
 import {
   FormControl,
   FormControlLabel,
@@ -58,7 +58,7 @@ const ToiletWatersenseRadioField = ({
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
 
   // RadioGroup is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched.
-  const changeHandler = React.useCallback(
+  const changeHandler = useCallback(
     (_evt: React.ChangeEvent<{}>, value: string) => {
       const newValue = value
       setFieldValue(name, newValue, true)

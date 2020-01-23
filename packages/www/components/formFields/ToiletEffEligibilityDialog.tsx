@@ -21,7 +21,7 @@ import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {useFormikContext, useField} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
@@ -30,12 +30,14 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import {ToiletRebateFormData} from '@lib/services/formService'
+
+type ToiletRebateFormDataProp = keyof ToiletRebateFormData
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  formik?: FormikProps<any>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,18 +63,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+const ToiletEffEligibilityDialog = ({
+  open = false,
+  onClose,
+  ...rest
+}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 800)
-  const steps = useMemo(() => getSteps(), [])
-  const maxSteps = useMemo(() => getSteps().length, [])
+  const steps = useMemo(() => getSteps({...rest}), [rest])
   const prevTouched = useRef<{}>()
   const prevLastTouchedIndex = useRef<number>()
+  const maxSteps = useMemo(() => getSteps({...rest}).length, [rest])
 
-  const {touched = {}, errors = {}} = formik || {}
+  const {touched, errors} = useFormikContext<ToiletRebateFormData>()
 
   const eligibleFieldsTouched = useMemo(
     () => [touched.treatedCustomer, touched.builtPriorCutoff].every(Boolean),
@@ -90,16 +96,19 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
     [errors]
   )
 
-  const touchedChangedHandler = useCallback((prev, curr) => {
-    const diff = addedDiff(prev, curr) || {}
-    const newProp = Object.keys({...diff})[0]
-    const stepIndex = newProp && getStepIndex(newProp)
-    // Don't use Boolean(nextStepIndex) cause 0 is false.
-    const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
-    if (nextStepIndex) {
-      setLastTouchedIndex(nextStepIndex)
-    }
-  }, [])
+  const touchedChangedHandler = useCallback(
+    (prev, curr) => {
+      const diff = addedDiff(prev, curr) || {}
+      const newProp = Object.keys({...diff})[0]
+      const stepIndex = newProp && getStepIndex(newProp, rest)
+      // Don't use Boolean(nextStepIndex) cause 0 is false.
+      const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
+      if (nextStepIndex) {
+        setLastTouchedIndex(nextStepIndex)
+      }
+    },
+    [rest]
+  )
 
   useEffect(() => {
     touchedChangedHandler({...prevTouched.current}, {...touched})
@@ -151,7 +160,7 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   const stepHasError = useCallback(
-    (fieldName: string) => {
+    (fieldName: ToiletRebateFormDataProp) => {
       const error = errors[fieldName]
       return (
         Boolean(error) && typeof error === 'string' && !/required/i.test(error)
@@ -161,7 +170,7 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   const stepCompleted = useCallback(
-    (fieldName: string) => {
+    (fieldName: ToiletRebateFormDataProp) => {
       const fieldTouched = Boolean(touched[fieldName])
       if (fieldTouched) {
         return true
@@ -180,11 +189,11 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
       <DialogContent>
         <div>
           <EligibilityStepper activeStep={activeStep}>
-            {steps.map(({label, index, fieldName}) => (
-              <Step key={label} completed={stepCompleted(fieldName)}>
+            {steps.map(({label, index, name}) => (
+              <Step key={label} completed={stepCompleted(name)}>
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
-                  error={stepHasError(fieldName)}
+                  error={stepHasError(name)}
                   classes={{
                     iconContainer: classes.stepLabelIcon,
                     labelContainer: classes.stepLabelLabel
@@ -194,7 +203,7 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
                       variant="h4"
                       color="textSecondary"
                       className={clsx({
-                        [classes.stepLabelError]: stepHasError(fieldName),
+                        [classes.stepLabelError]: stepHasError(name),
                         [classes.stepLabelActive]: activeStep === index
                       })}
                     >
@@ -205,7 +214,9 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
                 >
                   {''}
                 </StepLabel>
-                <StepContent>{getStepContent(index)}</StepContent>
+                <StepContent>
+                  {getStepContent(index, {name, label, ...rest})}
+                </StepContent>
               </Step>
             ))}
           </EligibilityStepper>
@@ -268,32 +279,32 @@ const ToiletEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 }
 
-export default connect(ToiletEffEligibilityDialog)
+export default ToiletEffEligibilityDialog
 
-function getSteps() {
+function getSteps(props: any) {
   return [
     {
       index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer? ',
-      fieldName: 'treatedCustomer',
-      content: <QuestionOne />
+      label: 'Are you a Placer County Water Agency treated water customer?',
+      name: 'treatedCustomer' as ToiletRebateFormDataProp,
+      content: <QuestionOneField type="hidden" {...props} />
     },
     {
       index: 1,
       label: 'Was your building(s) built prior to 1994?',
-      fieldName: 'builtPriorCutoff',
-      content: <QuestionTwo />
+      name: 'builtPriorCutoff' as ToiletRebateFormDataProp,
+      content: <QuestionTwoField type="hidden" {...props} />
     }
   ]
 }
 
-function getStepContent(stepNo: number) {
-  const found = getSteps().find((step) => step.index === stepNo)
+function getStepContent(stepNo: number, props: any) {
+  const found = getSteps({...props}).find((step) => step.index === stepNo)
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.fieldName === fieldName)
+function getStepIndex(fieldName: string, props: any) {
+  const found = getSteps({...props}).find((step) => step.name === fieldName)
   return found ? found.index : null
 }
 
@@ -305,130 +316,123 @@ const useQuestionStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const QuestionOne = () => {
+const QuestionOneField = (props: any) => {
   const classes = useQuestionStyles()
+  const [field, meta, helpers] = useField(props)
+  const {error, touched, value} = meta
+  const {setTouched, setValue} = helpers
+
+  const clickHandler = useCallback(
+    (alreadyStarted: string) => () => {
+      setValue(alreadyStarted)
+      setTouched(true)
+    },
+    [setTouched, setValue]
+  )
+
+  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+  const hasApplicableError =
+    Boolean(error) &&
+    typeof error === 'string' &&
+    !/required field/i.test(error)
+
   return (
-    <Field name="treatedCustomer">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name, value} = field
-        const currentError = errors[name]
-
-        const clickHandler = (alreadyStarted: string) => () => {
-          setFieldValue(name, alreadyStarted, true)
-          setFieldTouched(name, true)
+    <>
+      <input {...field} {...props} />
+      <List
+        subheader={
+          <ListSubheader component="div">
+            Choose one of the following
+          </ListSubheader>
         }
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
-            >
-              {yesNoAnswers.map((answer) => (
-                <ListItem
-                  key={answer}
-                  button
-                  divider
-                  selected={answer === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(answer)}
-                >
-                  <ListItemText primary={answer} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately, you do not qualify for the High Efficiency
-                Toilet/Urinal Rebate. You must be a current Placer County Water
-                Agency treated water customer. Please close this web browser tab
-                to go back to the <a href="https://www.pcwa.net">PCWA.net</a>{' '}
-                website.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
+      >
+        {yesNoAnswers.map((answer) => (
+          <ListItem
+            key={answer}
+            button
+            divider
+            selected={answer === value}
+            // disabled={fieldTouched}
+            onClick={clickHandler(answer)}
+          >
+            <ListItemText primary={answer} />
+          </ListItem>
+        ))}
+      </List>
+      <WaitToGrow isIn={hasApplicableError && touched}>
+        <DialogContentText
+          variant="body1"
+          color="textPrimary"
+          className={classes.qualifyMsg}
+        >
+          {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+          Unfortunately, you do not qualify for the High Efficiency
+          Toilet/Urinal Rebate. You must be a current Placer County Water Agency
+          treated water customer. Please close this web browser tab to go back
+          to the <a href="https://www.pcwa.net">PCWA.net</a> website.
+        </DialogContentText>
+      </WaitToGrow>
+    </>
   )
 }
 
-const QuestionTwo = () => {
+const QuestionTwoField = (props: any) => {
   const classes = useQuestionStyles()
+  const [field, meta, helpers] = useField(props)
+  const {error, touched, value} = meta
+  const {setTouched, setValue} = helpers
+
+  const clickHandler = useCallback(
+    (newValue: string) => () => {
+      setValue(newValue)
+      setTouched(true)
+    },
+    [setTouched, setValue]
+  )
+
+  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+  const hasApplicableError =
+    Boolean(error) &&
+    typeof error === 'string' &&
+    !/required field/i.test(error)
+
   return (
-    <Field name="builtPriorCutoff">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name, value} = field
-        const currentError = errors[name]
-
-        const clickHandler = (newValue: string) => () => {
-          setFieldValue(name, newValue, true)
-          setFieldTouched(name, true)
+    <>
+      <input {...field} {...props} />
+      <List
+        subheader={
+          <ListSubheader component="div">
+            Choose one of the following
+          </ListSubheader>
         }
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
-            >
-              {yesNoAnswers.map((answer) => (
-                <ListItem
-                  key={answer}
-                  button
-                  divider
-                  selected={answer === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(answer)}
-                >
-                  <ListItemText primary={answer} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately, you do not qualify for the High Efficiency Toilet
-                Rebate. Old toilets replaced must be rated at 3.0 (GPF) or more.
-                Most qualifying models were installed in homes built prior to
-                1994. Please close this web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
+      >
+        {yesNoAnswers.map((answer) => (
+          <ListItem
+            key={answer}
+            button
+            divider
+            selected={answer === value}
+            // disabled={fieldTouched}
+            onClick={clickHandler(answer)}
+          >
+            <ListItemText primary={answer} />
+          </ListItem>
+        ))}
+      </List>
+      <WaitToGrow isIn={hasApplicableError && touched}>
+        <DialogContentText
+          variant="body1"
+          color="textPrimary"
+          className={classes.qualifyMsg}
+        >
+          {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+          Unfortunately, you do not qualify for the High Efficiency Toilet
+          Rebate. Old toilets replaced must be rated at 3.0 (GPF) or more. Most
+          qualifying models were installed in homes built prior to 1994. Please
+          close this web browser tab to go back to the{' '}
+          <a href="https://www.pcwa.net">PCWA.net</a> website.
+        </DialogContentText>
+      </WaitToGrow>
+    </>
   )
 }

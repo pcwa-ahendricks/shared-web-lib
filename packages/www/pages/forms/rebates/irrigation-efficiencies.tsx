@@ -52,6 +52,7 @@ import MainBox from '@components/boxes/MainBox'
 import FormTextField from '@components/formFields/FormTextField'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import FormikValidate from '@components/FormikValidate/FormikValidate'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
@@ -329,7 +330,7 @@ const IrrigationEfficiencies = () => {
                 }
 
                 return (
-                  <>
+                  <FormikValidate>
                     <FormBox className={classes.form}>
                       <div className={classes.formGroup}>
                         <Type
@@ -359,10 +360,9 @@ const IrrigationEfficiencies = () => {
 
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={7}>
-                            <Field
+                            <AccountNoField
                               disabled={ineligible}
                               name="accountNo"
-                              component={AccountNoField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={5}>
@@ -662,7 +662,7 @@ const IrrigationEfficiencies = () => {
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />
-                  </>
+                  </FormikValidate>
                 )
               }}
             </Formik>

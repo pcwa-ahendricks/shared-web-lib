@@ -1,42 +1,37 @@
 import React, {useCallback} from 'react'
 import {TextField} from '@material-ui/core'
-import {FieldProps} from 'formik'
+import {useField, useFormikContext} from 'formik'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
-} & FieldProps<any>
+  name: string
+}
 
 const AccountNoField = ({
-  field,
-  form,
   fullWidth = true,
   disabled = false,
   ...other
 }: Props) => {
-  const {name, value} = field
-  const {
-    errors,
-    // handleChange,
-    isSubmitting,
-    handleBlur,
-    touched,
-    setFieldValue
-  } = form
-  const currentError = errors[name]
-  const fieldHasError = Boolean(currentError)
-  const fieldWasTouched = Boolean(touched[name])
-  const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
+  const {isSubmitting} = useFormikContext<any>()
+  const [field, meta, helpers] = useField(other)
+  // const {value, onChange, onBlur, name} = field
+  const {value, onBlur, name} = field
+  const {touched, error} = meta
+  const {setValue} = helpers
+
+  const fieldHasError = Boolean(error)
+  const fieldIsTouchedWithError = fieldHasError && touched
 
   // Trim whitespace.
   const changeHandler = useCallback(
     (evt) => {
       const {value = ''} = evt.target ?? {}
-      setFieldValue(name, value.trim())
+      setValue(value.trim())
     },
-    [name, setFieldValue]
+    [setValue]
   )
 
   return (
@@ -45,14 +40,15 @@ const AccountNoField = ({
       required
       name={name}
       value={value}
+      inputProps={{...field}} // Is this necessary? Not sure but included just in case. Used in Formik useField docs, see https://jaredpalmer.com/formik/docs/api/useField for more info.
       label="Account Number"
       // placeholder="XXXX-XXXXX"
       variant="outlined"
       margin="normal"
-      helperText={fieldIsTouchedWithError ? currentError : null}
+      helperText={fieldIsTouchedWithError ? error : null}
       error={fieldIsTouchedWithError}
       onChange={changeHandler}
-      onBlur={handleBlur}
+      onBlur={onBlur}
       disabled={disabled || isSubmitting}
       InputProps={{
         endAdornment: (

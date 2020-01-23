@@ -6,7 +6,8 @@ import {
   Divider,
   Grid,
   Theme,
-  Typography as Type
+  Typography as Type,
+  Box
 } from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
@@ -34,6 +35,7 @@ import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
+import FormikValidate from '@components/FormikValidate/FormikValidate'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
@@ -195,98 +197,99 @@ const ReportWaterWastePage = () => {
                 }
 
                 return (
-                  <FormBox className={classes.form}>
-                    {/* <Type variant="h3" color="primary" gutterBottom>
+                  <FormikValidate>
+                    <FormBox className={classes.form}>
+                      {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
 
-                    <div className={classes.formGroup}>
-                      <Type
-                        color="textSecondary"
-                        variant="h4"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Contact Information
-                      </Type>
+                      <Box className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Contact Information
+                        </Type>
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12}>
-                          <Field
-                            name="reason"
-                            component={ReasonForContactSelectField}
-                            required={true}
-                          />
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="reason"
+                              component={ReasonForContactSelectField}
+                              required={true}
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12}>
-                          <Field
-                            name="name"
-                            component={NameField}
-                            required={false}
-                          />
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="name"
+                              component={NameField}
+                              required={false}
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
-                      {/* <Grid container>
+                        {/* <Grid container>
                         </Grid>
 
                         <Grid container>
                         </Grid> */}
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12} sm={7}>
-                          <Field
-                            name="email"
-                            component={EmailField}
-                            required={false}
-                          />
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={7}>
+                            <Field
+                              name="email"
+                              component={EmailField}
+                              required={false}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={5}>
+                            <Field
+                              name="phone"
+                              component={PhoneNoField}
+                              required={false}
+                            />
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={5}>
-                          <Field
-                            name="phone"
-                            component={PhoneNoField}
-                            required={false}
-                          />
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="subject"
+                              component={ContactUsSubjectField}
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12}>
-                          <Field
-                            name="subject"
-                            component={ContactUsSubjectField}
-                          />
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="message"
+                              component={ContactUsMessageField}
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
+                      </Box>
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12}>
-                          <Field
-                            name="message"
-                            component={ContactUsMessageField}
-                          />
+                      <Divider variant="middle" />
+
+                      <Box className={classes.formGroup}>
+                        <Grid container direction="column" spacing={1}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Field name="captcha" component={RecaptchaField} />
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </div>
+                      </Box>
 
-                    <Divider variant="middle" />
-
-                    <div className={classes.formGroup}>
-                      <Grid container direction="column" spacing={1}>
-                        <Grid
-                          item
-                          xs={12}
-                          className={classes.ieFixFlexColumnDirection}
-                        >
-                          <Field name="captcha" component={RecaptchaField} />
-                        </Grid>
-                      </Grid>
-                    </div>
-
-                    {/* For debugging form reset */}
-                    {/* <Button
+                      {/* For debugging form reset */}
+                      {/* <Button
                       variant="outlined"
                       type="submit"
                       onClick={handleReset}
@@ -294,8 +297,8 @@ const ReportWaterWastePage = () => {
                       Reset Form
                     </Button> */}
 
-                    {/* For debugging dialog */}
-                    {/* <Button
+                      {/* For debugging dialog */}
+                      {/* <Button
                         variant="outlined"
                         type="submit"
                         onClick={() => {
@@ -306,28 +309,29 @@ const ReportWaterWastePage = () => {
                         Show Dialog
                       </Button> */}
 
-                    <div className={classes.buttonWrapper}>
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        color="primary"
-                        type="submit"
-                        disabled={
-                          isSubmitting ||
-                          // || !isValid
-                          (!formTouched && !dirty)
-                        }
-                      >
-                        Submit
-                      </Button>
-                      {isSubmitting && (
-                        <CircularProgress
-                          size={24}
-                          className={classes.buttonProgress}
-                        />
-                      )}
-                    </div>
-                  </FormBox>
+                      <Box className={classes.buttonWrapper}>
+                        <Button
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                          type="submit"
+                          disabled={
+                            isSubmitting ||
+                            // || !isValid
+                            (!formTouched && !dirty)
+                          }
+                        >
+                          Submit
+                        </Button>
+                        {isSubmitting && (
+                          <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                          />
+                        )}
+                      </Box>
+                    </FormBox>
+                  </FormikValidate>
                 )
               }}
             </Formik>

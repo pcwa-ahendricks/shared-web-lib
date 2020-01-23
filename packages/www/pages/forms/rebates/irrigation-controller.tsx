@@ -48,6 +48,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
+import FormikValidate from '@components/FormikValidate/FormikValidate'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -441,127 +442,131 @@ const IrrigationController = () => {
                   cntrlPhotosIsUploading ||
                   addtlSensorPhotosIsUploading
                 return (
-                  <FormBox className={classes.form}>
-                    {/* <Type variant="h3" color="primary" gutterBottom>
+                  <FormikValidate>
+                    <FormBox className={classes.form}>
+                      {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
 
-                    <div className={classes.formGroup}>
-                      <Type
-                        color="textSecondary"
-                        variant="h4"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Contact Information
-                      </Type>
-                      <Grid container spacing={5}>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="firstName" component={FirstNameField} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="lastName" component={LastNameField} />
-                        </Grid>
-                      </Grid>
-
-                      <Grid container spacing={5}>
-                        <Grid item xs={12} sm={7}>
-                          <Field name="accountNo" component={AccountNoField} />
-                        </Grid>
-                        <Grid item xs={12} sm={5}>
-                          <Field
-                            name="propertyType"
-                            component={PropertyTypeSelectField}
-                          />
-                        </Grid>
-                      </Grid>
-
-                      <Grid container spacing={5} justify="space-between">
-                        <Grid item xs={12} sm={8}>
-                          <Field
-                            name="address"
-                            component={StreetAddressField}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                          <Field
-                            name="city"
-                            onChange={cityChangeHandler}
-                            component={CitySelectField}
-                          />
-                        </Grid>
-                      </Grid>
-
-                      <WaitToGrow isIn={otherCitySelected}>
+                      <div className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Contact Information
+                        </Type>
                         <Grid container spacing={5}>
-                          <Grid item xs={12}>
+                          <Grid item xs={12} sm={6}>
                             <Field
-                              name="otherCity"
-                              disabled={!otherCitySelected}
-                              component={OtherCityField}
+                              name="firstName"
+                              component={FirstNameField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="lastName" component={LastNameField} />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={7}>
+                            <AccountNoField name="accountNo" />
+                          </Grid>
+                          <Grid item xs={12} sm={5}>
+                            <Field
+                              name="propertyType"
+                              component={PropertyTypeSelectField}
                             />
                           </Grid>
                         </Grid>
-                      </WaitToGrow>
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="phone" component={PhoneNoField} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field name="email" component={EmailField} />
-                        </Grid>
-                      </Grid>
-                    </div>
+                        <Grid container spacing={5} justify="space-between">
+                          <Grid item xs={12} sm={8}>
+                            <Field
+                              name="address"
+                              component={StreetAddressField}
+                            />
+                          </Grid>
 
-                    <Divider variant="middle" />
-
-                    <div className={classes.formGroup}>
-                      <Type
-                        variant="h4"
-                        color="textSecondary"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Rebate Information
-                      </Type>
-
-                      <Grid container spacing={5}>
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            required
-                            name="manufacturer"
-                            label="Controller Manufacturer"
-                            component={FormTextField}
-                          />
+                          <Grid item xs={12} sm={4}>
+                            <Field
+                              name="city"
+                              onChange={cityChangeHandler}
+                              component={CitySelectField}
+                            />
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Field
-                            required
-                            name="model"
-                            label="Controller Model"
-                            component={FormTextField}
-                          />
-                        </Grid>
-                      </Grid>
 
-                      <Grid container spacing={5}>
-                        <Grid item xs={12} sm={7}>
-                          <Field
-                            name="additional"
-                            onChange={additionalChangeHandler}
-                            component={IrrigCntrlAddtlField}
-                          />
+                        <WaitToGrow isIn={otherCitySelected}>
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="otherCity"
+                                disabled={!otherCitySelected}
+                                component={OtherCityField}
+                              />
+                            </Grid>
+                          </Grid>
+                        </WaitToGrow>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="phone" component={PhoneNoField} />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field name="email" component={EmailField} />
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={5}>
-                          {/* <Hidden only="xs" implementation="css"> */}
-                          <Field
-                            name="purchaseDate"
-                            component={PurchaseDateField}
-                          />
-                          {/* </Hidden> */}
-                          {/* <Hidden smUp implementation="css">
+                      </div>
+
+                      <Divider variant="middle" />
+
+                      <div className={classes.formGroup}>
+                        <Type
+                          variant="h4"
+                          color="textSecondary"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Rebate Information
+                        </Type>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              required
+                              name="manufacturer"
+                              label="Controller Manufacturer"
+                              component={FormTextField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <Field
+                              required
+                              name="model"
+                              label="Controller Model"
+                              component={FormTextField}
+                            />
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} sm={7}>
+                            <Field
+                              name="additional"
+                              onChange={additionalChangeHandler}
+                              component={IrrigCntrlAddtlField}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={5}>
+                            {/* <Hidden only="xs" implementation="css"> */}
+                            <Field
+                              name="purchaseDate"
+                              component={PurchaseDateField}
+                            />
+                            {/* </Hidden> */}
+                            {/* <Hidden smUp implementation="css">
                                 <Field
                                   name="purchaseDate"
                                   render={({field, form}) => (
@@ -573,186 +578,190 @@ const IrrigationController = () => {
                                   )}
                                 />
                               </Hidden> */}
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </div>
-
-                    <Divider variant="middle" />
-
-                    <div className={classes.formGroup}>
-                      <Type
-                        variant="h4"
-                        color="textSecondary"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Provide Attachments
-                      </Type>
-                      <Type variant="caption" color="textSecondary">
-                        Note - Only Image file formats can be uploaded (eg.
-                        .jpg, .png). PDF files <em>cannot</em> be uploaded here.
-                        If you are unable to attach the correct file type, or if
-                        any other issues with the attachments arise, you may
-                        select the box below and submit the files in an email.
-                      </Type>
-                      <Field
-                        name="emailAttachments"
-                        component={EmailAttachmentsSwitch}
-                        fullWidth={false}
-                        label={
-                          <span>
-                            Optionally, check here to email receipts and photos
-                            instead. Send email with attachments to{' '}
-                            <WaterEfficiencyEmail /> with your name and account
-                            number in the subject line. Failure to do so may
-                            result in a delay or rejected application.
-                          </span>
-                        }
-                      />
-
-                      <div className={classes.dropzoneContainer}>
-                        <Field
-                          name="receipts"
-                          attachmentTitle="Receipt"
-                          uploadRoute="irrigation-controller"
-                          onIsUploadingChange={receiptIsUploadingHandler}
-                          component={AttachmentField}
-                          disabled={emailAttachments}
-                        />
                       </div>
 
-                      <div className={classes.dropzoneContainer}>
-                        <Field
-                          name="cntrlPhotos"
-                          attachmentTitle="Installed Irrigation Controller Photo"
-                          uploadRoute="irrigation-controller"
-                          onIsUploadingChange={cntrlPhotosIsUploadingHandler}
-                          component={AttachmentField}
-                          disabled={emailAttachments}
-                        />
-                      </div>
+                      <Divider variant="middle" />
 
-                      <WaitToGrow isIn={hasAddtlSensor}>
+                      <div className={classes.formGroup}>
+                        <Type
+                          variant="h4"
+                          color="textSecondary"
+                          gutterBottom
+                          className={classes.formGroupTitle}
+                        >
+                          Provide Attachments
+                        </Type>
+                        <Type variant="caption" color="textSecondary">
+                          Note - Only Image file formats can be uploaded (eg.
+                          .jpg, .png). PDF files <em>cannot</em> be uploaded
+                          here. If you are unable to attach the correct file
+                          type, or if any other issues with the attachments
+                          arise, you may select the box below and submit the
+                          files in an email.
+                        </Type>
+                        <Field
+                          name="emailAttachments"
+                          component={EmailAttachmentsSwitch}
+                          fullWidth={false}
+                          label={
+                            <span>
+                              Optionally, check here to email receipts and
+                              photos instead. Send email with attachments to{' '}
+                              <WaterEfficiencyEmail /> with your name and
+                              account number in the subject line. Failure to do
+                              so may result in a delay or rejected application.
+                            </span>
+                          }
+                        />
+
                         <div className={classes.dropzoneContainer}>
                           <Field
-                            name="addtlSensorPhotos"
-                            attachmentTitle="Additional Sensor/Outdoor Cover Photo"
+                            name="receipts"
+                            attachmentTitle="Receipt"
                             uploadRoute="irrigation-controller"
-                            onIsUploadingChange={
-                              addtlSensorPhotosIsUploadingHandler
-                            }
+                            onIsUploadingChange={receiptIsUploadingHandler}
                             component={AttachmentField}
                             disabled={emailAttachments}
                           />
                         </div>
-                      </WaitToGrow>
-                    </div>
 
-                    <Divider variant="middle" />
-
-                    <div className={classes.formGroup}>
-                      <Type
-                        color="textSecondary"
-                        variant="h4"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Acknowledge Terms & Conditions
-                      </Type>
-                      <Grid container direction="column" spacing={1}>
-                        <Grid
-                          item
-                          xs={12}
-                          className={classes.ieFixFlexColumnDirection}
-                        >
-                          <ReviewTermsConditions
-                            pageCount={3}
-                            fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                            termsConditionsUrl="https://cosmic-s3.imgix.net/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                          />
-                          <Type
-                            variant="body1"
-                            paragraph
-                            className={classes.reserveRight}
-                          >
-                            <em>
-                              PCWA reserves the right to verify the installation
-                              of the product(s) at the service address on the
-                              application. You will be contacted by a Water
-                              Efficiency Specialist to schedule an appointment
-                              if you are selected for an installation
-                              verification.
-                            </em>
-                          </Type>
+                        <div className={classes.dropzoneContainer}>
                           <Field
-                            name="termsAgree"
-                            component={AgreeTermsCheckbox}
-                            fullWidth={false}
+                            name="cntrlPhotos"
+                            attachmentTitle="Installed Irrigation Controller Photo"
+                            uploadRoute="irrigation-controller"
+                            onIsUploadingChange={cntrlPhotosIsUploadingHandler}
+                            component={AttachmentField}
+                            disabled={emailAttachments}
                           />
-                        </Grid>
-                      </Grid>
-                    </div>
+                        </div>
 
-                    <Divider variant="middle" />
+                        <WaitToGrow isIn={hasAddtlSensor}>
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              name="addtlSensorPhotos"
+                              attachmentTitle="Additional Sensor/Outdoor Cover Photo"
+                              uploadRoute="irrigation-controller"
+                              onIsUploadingChange={
+                                addtlSensorPhotosIsUploadingHandler
+                              }
+                              component={AttachmentField}
+                              disabled={emailAttachments}
+                            />
+                          </div>
+                        </WaitToGrow>
+                      </div>
 
-                    <div className={classes.formGroup}>
-                      <Type
-                        color="textSecondary"
-                        variant="h4"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Release of Liability & Signature
-                      </Type>
+                      <Divider variant="middle" />
 
-                      <Grid container direction="column" spacing={1}>
-                        <Grid
-                          item
-                          xs={12}
-                          className={classes.ieFixFlexColumnDirection}
+                      <div className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
                         >
-                          <Type variant="body1" paragraph color="primary">
-                            PCWA may deny any application that does not meet all
-                            of the Program requirements. PCWA reserves the right
-                            to alter the Program at any time. PCWA does not
-                            warrant or guarantee lower water bills as a result
-                            of participating in the Program. PCWA is not
-                            responsible for any damage that may occur to
-                            participants' property as a result of this Program.
-                            The undersigned agrees to hold harmless PCWA, its
-                            directors, officers, and employees from and against
-                            all loss, damage, expense and liability resulting
-                            from or otherwise relating to the installation of
-                            the Weather Based Irrigation Controller. By signing
-                            this form I agree that I have read, understand, and
-                            agree to the Terms and Conditions of this rebate
-                            program.
-                          </Type>
+                          Acknowledge Terms & Conditions
+                        </Type>
+                        <Grid container direction="column" spacing={1}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <ReviewTermsConditions
+                              pageCount={3}
+                              fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                              termsConditionsUrl="https://cosmic-s3.imgix.net/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                            />
+                            <Type
+                              variant="body1"
+                              paragraph
+                              className={classes.reserveRight}
+                            >
+                              <em>
+                                PCWA reserves the right to verify the
+                                installation of the product(s) at the service
+                                address on the application. You will be
+                                contacted by a Water Efficiency Specialist to
+                                schedule an appointment if you are selected for
+                                an installation verification.
+                              </em>
+                            </Type>
+                            <Field
+                              name="termsAgree"
+                              component={AgreeTermsCheckbox}
+                              fullWidth={false}
+                            />
+                          </Grid>
                         </Grid>
+                      </div>
 
-                        <Grid
-                          item
-                          xs={12}
-                          className={classes.ieFixFlexColumnDirection}
+                      <Divider variant="middle" />
+
+                      <div className={classes.formGroup}>
+                        <Type
+                          color="textSecondary"
+                          variant="h4"
+                          gutterBottom
+                          className={classes.formGroupTitle}
                         >
-                          <Type variant="caption">
-                            You must sign this form by typing your name
-                          </Type>
-                          <Field name="signature" component={SignatureField} />
-                        </Grid>
+                          Release of Liability & Signature
+                        </Type>
 
-                        <Grid
-                          item
-                          xs={12}
-                          className={classes.ieFixFlexColumnDirection}
-                        >
-                          <Field name="captcha" component={RecaptchaField} />
-                        </Grid>
-                      </Grid>
-                    </div>
+                        <Grid container direction="column" spacing={1}>
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Type variant="body1" paragraph color="primary">
+                              PCWA may deny any application that does not meet
+                              all of the Program requirements. PCWA reserves the
+                              right to alter the Program at any time. PCWA does
+                              not warrant or guarantee lower water bills as a
+                              result of participating in the Program. PCWA is
+                              not responsible for any damage that may occur to
+                              participants' property as a result of this
+                              Program. The undersigned agrees to hold harmless
+                              PCWA, its directors, officers, and employees from
+                              and against all loss, damage, expense and
+                              liability resulting from or otherwise relating to
+                              the installation of the Weather Based Irrigation
+                              Controller. By signing this form I agree that I
+                              have read, understand, and agree to the Terms and
+                              Conditions of this rebate program.
+                            </Type>
+                          </Grid>
 
-                    {/* For debugging form reset */}
-                    {/* <Button
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Type variant="caption">
+                              You must sign this form by typing your name
+                            </Type>
+                            <Field
+                              name="signature"
+                              component={SignatureField}
+                            />
+                          </Grid>
+
+                          <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                            <Field name="captcha" component={RecaptchaField} />
+                          </Grid>
+                        </Grid>
+                      </div>
+
+                      {/* For debugging form reset */}
+                      {/* <Button
                       variant="outlined"
                       type="submit"
                       onClick={handleReset}
@@ -760,8 +769,8 @@ const IrrigationController = () => {
                       Reset Form
                     </Button> */}
 
-                    {/* For debugging dialog */}
-                    {/* <Button
+                      {/* For debugging dialog */}
+                      {/* <Button
                         variant="outlined"
                         type="submit"
                         onClick={() => {
@@ -772,29 +781,30 @@ const IrrigationController = () => {
                         Show Dialog
                       </Button> */}
 
-                    <div className={classes.buttonWrapper}>
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        color="primary"
-                        type="submit"
-                        disabled={
-                          isSubmitting ||
-                          // !isValid ||
-                          (!formTouched && !dirty) ||
-                          attachmentsAreUploading
-                        }
-                      >
-                        Submit Application
-                      </Button>
-                      {isSubmitting && (
-                        <CircularProgress
-                          size={24}
-                          className={classes.buttonProgress}
-                        />
-                      )}
-                    </div>
-                  </FormBox>
+                      <div className={classes.buttonWrapper}>
+                        <Button
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                          type="submit"
+                          disabled={
+                            isSubmitting ||
+                            // !isValid ||
+                            (!formTouched && !dirty) ||
+                            attachmentsAreUploading
+                          }
+                        >
+                          Submit Application
+                        </Button>
+                        {isSubmitting && (
+                          <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                          />
+                        )}
+                      </div>
+                    </FormBox>
+                  </FormikValidate>
                 )
               }}
             </Formik>
