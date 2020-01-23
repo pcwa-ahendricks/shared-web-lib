@@ -18,7 +18,7 @@ import SearchProvider from '@components/search/SearchStore'
   https://github.com/zeit/next.js/issues/5598.
   Import an empty css file or any css file for that matter here.
 */
-import './styles.css'
+import '@lib/css/styles.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
 /*
