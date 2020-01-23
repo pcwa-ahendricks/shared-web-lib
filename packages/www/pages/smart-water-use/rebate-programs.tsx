@@ -20,17 +20,15 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'
-import '@components/cssModules/rebate-programs.module.css'
+import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     // verticalAlign: 'super' changes styling in an unfavorable way. Workaround consists of using Flex layout.
     annotate: {
       textTransform: 'capitalize',
-      fontStyle: 'italic',
       alignSelf: 'flex-start',
       fontSize: '0.95rem',
-      fontWeight: 500,
       paddingRight: theme.spacing(1),
       color: theme.palette.secondary.main
     }
@@ -93,7 +91,7 @@ const RebateProgramsPage = () => {
               component="span"
               className={classes.annotate}
             >
-              *New
+              <StrongEmphasis>*New</StrongEmphasis>
             </Type>
             <Type component="span" variant="inherit">
               Apply Now

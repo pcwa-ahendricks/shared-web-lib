@@ -22,7 +22,7 @@ import BusinessIcon from '@material-ui/icons/Business'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
-import '@components/cssModules/pay-bill.module.css'
+import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 
 const PayOptionBox = ({children}: {children: React.ReactNode}) => {
   return <Box mt={2}>{children}</Box>
@@ -40,12 +40,9 @@ const PayBillPage = () => {
             <ChildBox flex="60%">
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
-                Our electronic and automated options are
+                Our electronic and automated options are{' '}
                 <span style={{fontSize: '1.2rem'}}>
-                  <strong>
-                    {' '}
-                    <em>secure, free and easy to use!</em>
-                  </strong>
+                  <StrongEmphasis>secure, free and easy to use!</StrongEmphasis>
                 </span>
               </Type>
               <ColumnBox>
