@@ -319,7 +319,8 @@ const useQuestionStyles = makeStyles((theme: Theme) =>
 const QuestionOneField = (props: any) => {
   const classes = useQuestionStyles()
   const [field, meta, helpers] = useField(props)
-  const {error, touched, value} = meta
+  const {error, touched} = meta
+  const {value} = field
   const {setTouched, setValue} = helpers
 
   const clickHandler = useCallback(
