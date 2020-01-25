@@ -17,7 +17,6 @@ const AccountNoField = ({
 }: Props) => {
   const {isSubmitting} = useFormikContext<any>()
   const [field, meta, helpers] = useField(other)
-  // const {value, onChange, onBlur, name} = field
   const {value, onBlur, name} = field
   const {touched, error} = meta
   const {setValue} = helpers
