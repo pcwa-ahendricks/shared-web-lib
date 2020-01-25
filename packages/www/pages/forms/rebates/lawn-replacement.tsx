@@ -484,10 +484,9 @@ const LawnReplacement = () => {
 
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={8}>
-                            <Field
+                            <LawnApproxSqFootField
                               disabled
                               name="approxSqFeet"
-                              component={LawnApproxSqFootField}
                             />
                           </Grid>
                         </Grid>

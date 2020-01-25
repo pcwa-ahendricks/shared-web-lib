@@ -14,7 +14,8 @@ import {
   Step,
   StepLabel,
   StepContent,
-  Theme
+  Theme,
+  Box
   // Typography as Type
 } from '@material-ui/core'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
@@ -25,7 +26,7 @@ import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {Field, connect, FormikProps, FieldProps, useFormikContext} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import useDebounce from '@hooks/useDebounce'
@@ -35,6 +36,7 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import {LawnReplacementRebateFormData} from '@lib/services/formService'
 
 type Props = {
   open: boolean
@@ -535,40 +537,34 @@ const QuestionTwo = () => {
 
 const QuestionThree = () => {
   const classes = useQuestionStyles()
+  const {touched, errors} = useFormikContext<LawnReplacementRebateFormData>()
+  const fieldName = 'approxSqFeet'
+  const fieldError = errors[fieldName]
+
+  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+  const hasApplicableError =
+    Boolean(fieldError) &&
+    typeof fieldError === 'string' &&
+    !/required field/i.test(fieldError)
+
+  const fieldTouched = Boolean(touched[fieldName])
   return (
-    <Field name="approxSqFeet">
-      {({field, form}: FieldProps<any>) => {
-        const {touched, errors} = form
-        const {name} = field
-        const currentError = errors[name]
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <LawnApproxSqFootField form={form} field={field} />
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
-                Unfortunately you do not qualify for the Lawn Replacement
-                Rebate. A minimum of 300 square feet of lawn must be converted.
-                Please close this web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
+    <Box>
+      <LawnApproxSqFootField name={fieldName} />
+      <WaitToGrow isIn={hasApplicableError && fieldTouched}>
+        <DialogContentText
+          variant="body1"
+          color="textPrimary"
+          className={classes.qualifyMsg}
+        >
+          {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
+          Unfortunately you do not qualify for the Lawn Replacement Rebate. A
+          minimum of 300 square feet of lawn must be converted. Please close
+          this web browser tab to go back to the{' '}
+          <a href="https://www.pcwa.net">PCWA.net</a> website.
+        </DialogContentText>
+      </WaitToGrow>
+    </Box>
   )
 }
 

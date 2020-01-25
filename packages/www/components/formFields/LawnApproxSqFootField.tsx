@@ -1,25 +1,25 @@
 import React from 'react'
 import {TextField} from '@material-ui/core'
-import {FieldProps} from 'formik'
+import {useField, useFormikContext} from 'formik'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
-} & FieldProps<any>
+  name: string
+}
 
 const LawnApproxSqFootField = ({
-  field,
-  form,
   fullWidth = true,
   disabled = false,
   ...other
 }: Props) => {
-  const {name, value} = field
-  const {errors, handleChange, isSubmitting, handleBlur, touched} = form
-  const currentError = errors[name]
-  const fieldHasError = Boolean(currentError)
-  const fieldWasTouched = Boolean(touched[name])
-  const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
+  const {isSubmitting} = useFormikContext<any>()
+  const [field, meta] = useField(other)
+  const {value, onBlur, name, onChange} = field
+  const {touched, error} = meta
+
+  const fieldHasError = Boolean(error)
+  const fieldIsTouchedWithError = fieldHasError && touched
 
   return (
     <TextField
@@ -30,10 +30,10 @@ const LawnApproxSqFootField = ({
       label="Approximate Sq. Feet of Existing Lawn"
       variant="outlined"
       margin="normal"
-      helperText={fieldIsTouchedWithError ? currentError : null}
+      helperText={fieldIsTouchedWithError ? error : null}
       error={fieldIsTouchedWithError}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      onChange={onChange}
+      onBlur={onBlur}
       disabled={disabled || isSubmitting}
       fullWidth={fullWidth}
       {...other}
