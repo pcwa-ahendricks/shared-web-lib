@@ -1,8 +1,8 @@
 // cspell:ignore Lightbox
 import React, {useMemo} from 'react'
 import Carousel, {Modal, ModalGateway} from 'react-images'
-import {LightboxPhotosList} from '@pages/newsroom/multimedia-library/[multimedia]'
-import MultimediaLightboxView from '@components/MultimediaLightboxView/MultimediaLightboxView'
+import MultimediaLightboxView from '@components/multimedia/MultimediaLightboxView/MultimediaLightboxView'
+import {LightboxPhotosList} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 
 type Props = {
   photos: LightboxPhotosList

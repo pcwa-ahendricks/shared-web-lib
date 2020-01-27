@@ -213,10 +213,7 @@ export interface CosmicMedia {
   of original_name, and possibly other properties.
 */
 export interface CosmicMediaMeta extends CosmicMedia {
-  derivedFilenameAttr: ReturnType<typeof fileNameUtil>
-  gallery?: string // Used w/ Multimedia Library
-  category?: string // Used w/ Multimedia Library
-  trimmedName?: string // Used w/ Multimedia Library
+  derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
 }
 
 export interface CosmicObjectResponse {

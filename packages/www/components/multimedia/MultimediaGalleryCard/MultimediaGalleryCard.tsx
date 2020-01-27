@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {ChildBox} from '@components/boxes/FlexBox'
-import {MultimediaGallery} from '@pages/newsroom/multimedia-library/[multimedia]'
+import {MultimediaGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 
 type Props = {
   gallery: MultimediaGallery
