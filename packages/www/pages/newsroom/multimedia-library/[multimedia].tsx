@@ -1,5 +1,5 @@
 // cspell:ignore Lightbox
-import React, {useCallback, useState, useRef} from 'react'
+import React, {useCallback, useRef, useContext} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -27,6 +27,10 @@ import {
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
+import {
+  MultimediaContext,
+  setSelectedGallery
+} from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
 // } from '@components/PrefetchDataLink/PrefetchDataLink'
@@ -69,8 +73,10 @@ const useStyles = makeStyles(() =>
 /* eslint-disable @typescript-eslint/camelcase */
 const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
   const classes = useStyles()
+  const multimediaContext = useContext(MultimediaContext)
+  const {selectedGallery} = multimediaContext.state
+  const multimediaDispatch = multimediaContext.dispatch
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const [selectedGallery, setSelectedGallery] = useState<null | string>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   // const videoPosters = useMemo(
@@ -121,6 +127,17 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     []
   )
 
+  const backToGalleriesHandler = useCallback(() => {
+    multimediaDispatch(setSelectedGallery(null))
+  }, [multimediaDispatch])
+
+  const galleryClickHandler = useCallback(
+    (g: string) => {
+      multimediaDispatch(setSelectedGallery(g))
+    },
+    [multimediaDispatch]
+  )
+
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
   }
@@ -143,7 +160,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
                 >
                   <MatLink
                     color="inherit"
-                    onClick={() => setSelectedGallery(null)}
+                    onClick={backToGalleriesHandler}
                     style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
                   >
                     Back To Galleries
@@ -186,7 +203,10 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             <Spacing size="x-large" />
 
             <TabPanel value={tabIndex} index={0}>
-              <MultimediaPhotoGalleries multimedia={multimedia} />
+              <MultimediaPhotoGalleries
+                multimedia={multimedia}
+                onGalleryClick={galleryClickHandler}
+              />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>

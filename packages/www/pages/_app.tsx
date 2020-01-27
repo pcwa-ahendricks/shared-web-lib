@@ -8,6 +8,7 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import theme from '@lib/material-theme'
 import UiProvider from '@components/ui/UiStore'
+import MultimediaProvider from '@components/multimedia/MultimediaStore'
 import ForecastProvider from '@components/forecast/ForecastStore'
 import smoothscroll from 'smoothscroll-polyfill'
 const isDev = process.env.NODE_ENV === 'development'
@@ -54,17 +55,19 @@ class MyApp extends App {
 
         <PiProvider>
           <UiProvider>
-            <ForecastProvider>
-              <SearchProvider>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <ParallaxProvider>
-                    {/* Pass pageContext to the _document though the renderPage enhancer
+            <MultimediaProvider>
+              <ForecastProvider>
+                <SearchProvider>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <ParallaxProvider>
+                      {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                    <Component {...pageProps} />
-                  </ParallaxProvider>
-                </MuiPickersUtilsProvider>
-              </SearchProvider>
-            </ForecastProvider>
+                      <Component {...pageProps} />
+                    </ParallaxProvider>
+                  </MuiPickersUtilsProvider>
+                </SearchProvider>
+              </ForecastProvider>
+            </MultimediaProvider>
           </UiProvider>
         </PiProvider>
       </ThemeProvider>

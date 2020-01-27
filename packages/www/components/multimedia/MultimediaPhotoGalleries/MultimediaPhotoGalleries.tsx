@@ -1,5 +1,16 @@
 // cspell:ignore Lightbox
-import React, {useCallback, useState, useEffect, useMemo, useRef} from 'react'
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useContext
+} from 'react'
+import {
+  MultimediaContext,
+  setSelectedGallery
+} from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
@@ -15,6 +26,7 @@ import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/Multim
 
 type Props = {
   multimedia?: MultimediaList
+  onGalleryClick?: (gallery: string) => any
 }
 
 type PickedMediaResponse = Pick<
@@ -82,7 +94,7 @@ const useStyles = makeStyles(() =>
 )
 
 /* eslint-disable @typescript-eslint/camelcase */
-const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
+const MultimediaPhotoGalleries = ({multimedia = [], onGalleryClick}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -92,12 +104,14 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const [mappedMultimedia, setMappedMultimedia] = useState<
     MappedMultimediaList
   >([])
-  const [selectedGallery, setSelectedGallery] = useState<null | string>(null)
+  const multimediaContext = useContext(MultimediaContext)
+  const {selectedGallery} = multimediaContext.state
+  const multimediaDispatch = multimediaContext.dispatch
   const containerRef = useRef<HTMLDivElement>(null)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const onGalleryClickHandler = useCallback(
+  const categoryClickHandler = useCallback(
     (index: number) => () => {
       setCurrentImageIndex(index)
       setViewerIsOpen(true)
@@ -272,13 +286,14 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
 
   const galleryClickHandler = useCallback(
     (v: string) => () => {
-      setSelectedGallery(v)
+      onGalleryClick?.(v)
+      multimediaDispatch(setSelectedGallery(v))
       containerRef?.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       })
     },
-    []
+    [onGalleryClick, multimediaDispatch]
   )
 
   const currentGallery = useMemo(
@@ -352,10 +367,10 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                             `${p.metadata?.gallery} ${
                               p.metadata?.category
                             } photo #${p.index + 1}`
-                          // onClick: onGalleryClickHandler(p.index),
+                          // onClick: categoryClickHandler(p.index),
                         }}
                         boxProps={{
-                          onClick: onGalleryClickHandler(p.index)
+                          onClick: categoryClickHandler(p.index)
                         }}
                         src={p.imgix_url}
                         width={p.width}
