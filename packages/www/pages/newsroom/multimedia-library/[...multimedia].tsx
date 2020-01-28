@@ -1,5 +1,11 @@
 // cspell:ignore Lightbox
-import React, {useCallback, useRef, useContext, useEffect} from 'react'
+import React, {
+  useCallback,
+  useRef,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -64,7 +70,7 @@ const useStyles = makeStyles(() =>
 
 /* eslint-disable @typescript-eslint/camelcase */
 const MultimediaLibraryPage = ({
-  tabIndex,
+  tabIndex: tabIndexParam,
   err,
   multimedia: multimediaParam = [],
   gallery = null
@@ -73,6 +79,7 @@ const MultimediaLibraryPage = ({
   const multimediaContext = useContext(MultimediaContext)
   const {selectedGallery, multimediaList} = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
+  const [tabIndex, setTabIndex] = useState(0)
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
@@ -123,7 +130,7 @@ const MultimediaLibraryPage = ({
   const LinkTab = useCallback(
     ({href, as, label, ...rest}: LinkProps & TabProps<'a'>) => {
       return (
-        <Link passHref as={as} href={href}>
+        <Link passHref as={as} href={href} shallow>
           <Tab component="a" label={label} {...rest} />
         </Link>
       )
@@ -146,6 +153,14 @@ const MultimediaLibraryPage = ({
       multimediaDispatch(setSelectedGallery(null))
     }
   }, [gallery, multimediaDispatch])
+
+  const tabChangeHandler = useCallback((_, newValue) => {
+    setTabIndex(newValue)
+  }, [])
+
+  useEffect(() => {
+    setTabIndex(tabIndexParam)
+  }, [tabIndexParam])
 
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -190,7 +205,7 @@ const MultimediaLibraryPage = ({
                 <Tabs
                   variant="fullWidth"
                   value={tabIndex}
-                  // onChange={handleChange} // onChange is not needed.
+                  onChange={tabChangeHandler}
                   aria-label="navigation tabs"
                 >
                   <LinkTab
