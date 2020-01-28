@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       opacity: 1,
       transition: `opacity ${crossFadeDuration}ms ease-in`
     },
-    '& .cross-fade-height': {
+    '&.cross-fade-height': {
       transition: `height ${crossFadeDuration}ms ease-in-out`
     }
   })

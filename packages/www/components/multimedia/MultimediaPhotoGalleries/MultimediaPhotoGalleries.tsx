@@ -88,7 +88,8 @@ const useStyles = makeStyles(() =>
         opacity: 1,
         transition: `opacity ${crossFadeDuration}ms ease-in`
       },
-      '& .cross-fade-height': {
+      '&.cross-fade-height': {
+        height: '100% !important', // Fix SSR height. Setting minHeight property won't suffice.
         transition: `height ${crossFadeDuration}ms ease-in-out`
       }
     }
