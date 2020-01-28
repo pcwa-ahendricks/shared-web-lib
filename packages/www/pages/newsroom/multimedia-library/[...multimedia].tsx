@@ -18,17 +18,15 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
 import ErrorPage from '@pages/_error'
-import {
-  getMedia,
-  CosmicMediaResponse,
-  CosmicMediaMeta
-} from '@lib/services/cosmicService'
+import {getMedia, CosmicMediaResponse} from '@lib/services/cosmicService'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
 import {
   MultimediaContext,
-  setSelectedGallery
+  setSelectedGallery,
+  setMultimediaList,
+  MultimediaList
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -52,13 +50,6 @@ type Props = {
   err?: {statusCode: number}
 }
 
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  '_id' | 'original_name' | 'imgix_url' | 'metadata' | 'name'
->
-
-type MultimediaList = Array<PickedMediaResponse>
-
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url,metadata,name'
 }
@@ -75,16 +66,22 @@ const useStyles = makeStyles(() =>
 const MultimediaLibraryPage = ({
   tabIndex,
   err,
-  multimedia = [],
+  multimedia: multimediaParam = [],
   gallery = null
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
-  const {selectedGallery} = multimediaContext.state
+  const {selectedGallery, multimediaList} = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+
+  useEffect(() => {
+    if (multimediaParam.length > 0) {
+      multimediaDispatch(setMultimediaList(multimediaParam))
+    }
+  }, [multimediaParam, multimediaDispatch])
 
   // const videoPosters = useMemo(
   //   () =>
@@ -198,13 +195,13 @@ const MultimediaLibraryPage = ({
                 >
                   <LinkTab
                     label="Photos"
-                    href="/newsroom/multimedia-library/[multimedia]"
+                    href="/newsroom/multimedia-library/[...multimedia]"
                     as="/newsroom/multimedia-library/photos"
                     {...a11yProps(0)}
                   />
                   <LinkTab
                     label="Videos"
-                    href="/newsroom/multimedia-library/[multimedia]"
+                    href="/newsroom/multimedia-library/[...multimedia]"
                     as="/newsroom/multimedia-library/videos"
                     {...a11yProps(1)}
                   />
@@ -215,7 +212,7 @@ const MultimediaLibraryPage = ({
             <Spacing size="x-large" />
 
             <TabPanel value={tabIndex} index={0}>
-              <MultimediaPhotoGalleries multimedia={multimedia} />
+              <MultimediaPhotoGalleries multimedia={multimediaList} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
@@ -255,6 +252,7 @@ MultimediaLibraryPage.getInitialProps = async ({
     folder: MULTIMEDIA_LIBRARY_FOLDER,
     ...cosmicGetMediaProps
   })
+
   if (!multimedia) {
     err = {statusCode: 400}
     return {err}

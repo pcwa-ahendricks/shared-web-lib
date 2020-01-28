@@ -299,7 +299,8 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Multimedia Library',
-            nextLink: '/newsroom/multimedia-library'
+            nextLink: '/newsroom/multimedia-library/[...multimedia]',
+            as: '/newsroom/multimedia-library/photos'
           }
         ]
       }

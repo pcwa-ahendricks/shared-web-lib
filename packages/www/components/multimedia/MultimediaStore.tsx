@@ -1,16 +1,26 @@
 import React, {createContext, useReducer} from 'react'
+import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
 interface State {
   selectedGallery: null | string
+  multimediaList: MultimediaList
 }
 
 type ProviderProps = {
   children: React.ReactNode
 }
 
+type PickedMediaResponse = Pick<
+  CosmicMediaMeta,
+  '_id' | 'original_name' | 'imgix_url' | 'metadata' | 'name'
+>
+
+export type MultimediaList = Array<PickedMediaResponse>
+
 // State
 const initialState: State = {
-  selectedGallery: null
+  selectedGallery: null,
+  multimediaList: []
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -22,12 +32,20 @@ export const MultimediaContext = createContext<{
 
 // Action Types
 const SET_SELECTED_GALLERY: 'SET_SELECTED_GALLERY' = 'SET_SELECTED_GALLERY'
+const SET_MULTIMEDIA_LIST: 'SET_MULTIMEDIA_LIST' = 'SET_MULTIMEDIA_LIST'
 
 // Actions
 export const setSelectedGallery = (gallery: State['selectedGallery']) => {
   return {
     type: SET_SELECTED_GALLERY,
     gallery
+  }
+}
+
+export const setMultimediaList = (multimedia: State['multimediaList']) => {
+  return {
+    type: SET_MULTIMEDIA_LIST,
+    multimedia
   }
 }
 
@@ -38,6 +56,11 @@ const multimediaReducer = (state: State, action: any): State => {
       return {
         ...state,
         selectedGallery: action.gallery
+      }
+    case SET_MULTIMEDIA_LIST:
+      return {
+        ...state,
+        multimediaList: [...action.multimedia]
       }
     default:
       return state
