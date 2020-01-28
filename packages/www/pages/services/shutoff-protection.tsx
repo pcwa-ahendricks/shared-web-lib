@@ -50,18 +50,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     trans: {
       '& .cross-fade-leave': {
-        opacity: 1
+        opacity: 1,
+        transition: `opacity ${crossFadeDuration}ms ease-in`
       },
       '& .cross-fade-leave.cross-fade-leave-active': {
+        opacity: 0
+      },
+      '& .cross-fade-enter': {
         opacity: 0,
         transition: `opacity ${crossFadeDuration}ms ease-in`
       },
-      '& .cross-fade-enter': {
-        opacity: 0
-      },
       '& .cross-fade-enter.cross-fade-enter-active': {
-        opacity: 1,
-        transition: `opacity ${crossFadeDuration}ms ease-in`
+        opacity: 1
       },
       '&.cross-fade-height': {
         transition: `height ${crossFadeDuration}ms ease-in-out`

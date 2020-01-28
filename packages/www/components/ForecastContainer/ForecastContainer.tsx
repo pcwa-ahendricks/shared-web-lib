@@ -54,20 +54,21 @@ const useStyles = makeStyles(() =>
 
 const ForecastContainer = () => {
   const classes = useStyles()
-  const {state, dispatch} = useContext(ForecastContext)
+  const forecastContext = useContext(ForecastContext)
+  const {timeoutId, forecasts} = forecastContext.state
+  const forecastDispatch = forecastContext.dispatch
 
   const getDataAndSetData = useCallback(async () => {
     try {
       const data = await fetchForecasts(forecastLocations)
-      dispatch(setForecasts(data))
+      forecastDispatch(setForecasts(data))
     } catch (error) {
       console.log(error)
     }
-  }, [dispatch])
+  }, [forecastDispatch])
 
   const startForecastTimer = useCallback(
     (interval: number) => {
-      const {timeoutId} = state
       // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
       if (timeoutId) {
         return
@@ -77,18 +78,18 @@ const ForecastContainer = () => {
       const newTimeoutId = setInterval(() => {
         getDataAndSetData()
       }, interval)
-      dispatch(setTimeoutId(newTimeoutId))
+      forecastDispatch(setTimeoutId(newTimeoutId))
     },
-    [dispatch, state, getDataAndSetData]
+    [forecastDispatch, timeoutId, getDataAndSetData]
   )
 
   useEffect(() => {
     startForecastTimer(REFETCH_INTERVAL)
-  }, [dispatch, startForecastTimer])
+  }, [startForecastTimer])
 
   return (
     <div className={classes.root}>
-      <ForecastCycle className={classes.forecast} forecasts={state.forecasts} />
+      <ForecastCycle className={classes.forecast} forecasts={forecasts} />
     </div>
   )
 }

@@ -28,26 +28,30 @@ type Props = {
   forecasts?: ForecastData[]
 } & BoxProps
 
+interface UseStylesProps {
+  crossFadeDuration: Props['crossFadeDuration']
+}
+
 const useStyles = makeStyles({
-  trans: {
+  trans: ({crossFadeDuration}: UseStylesProps) => ({
     '& .cross-fade-leave': {
-      opacity: 1
+      opacity: 1,
+      transition: `opacity ${crossFadeDuration}ms ease-in`
     },
     '& .cross-fade-leave.cross-fade-leave-active': {
-      opacity: 0,
-      transition: 'opacity 1s ease-in'
-    },
-    '& .cross-fade-enter': {
       opacity: 0
     },
+    '& .cross-fade-enter': {
+      opacity: 0,
+      transition: `opacity ${crossFadeDuration}ms ease-in`
+    },
     '& .cross-fade-enter.cross-fade-enter-active': {
-      opacity: 1,
-      transition: 'opacity 1s ease-in'
+      opacity: 1
     },
     '&.cross-fade-height': {
-      transition: 'height 0.5s ease-in-out'
+      transition: `height ${crossFadeDuration}ms ease-in-out`
     }
-  }
+  })
 })
 
 const ForecastCycle = ({
@@ -56,43 +60,39 @@ const ForecastCycle = ({
   crossFadeDuration = 1000 * 1, // 1 second
   ...rest
 }: Props) => {
-  const classes = useStyles()
+  const classes = useStyles({crossFadeDuration})
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [transitionEnter, setTransitionEnter] = useState<boolean>(false)
 
-  const {state, dispatch} = useContext(ForecastContext)
+  const forecastContext = useContext(ForecastContext)
+  const forecastDispatch = forecastContext.dispatch
+  const {activeCycleForecastId, cycleTimeoutId} = forecastContext.state
 
   const intervalHandler = useCallback(() => {
     // We need to get the current state each time to properly increment active forecast.
-    const {activeCycleForecastId} = state
-    dispatch(
-      setActiveCycleForecastId(
-        !activeCycleForecastId ??
-          activeCycleForecastId >= maxInt(forecasts, 'id')
-          ? 1
-          : activeCycleForecastId + 1
-      )
-    )
-  }, [dispatch, state, forecasts])
+    const newId =
+      activeCycleForecastId >= maxInt(forecasts, 'id')
+        ? 1
+        : activeCycleForecastId + 1
+    forecastDispatch(setActiveCycleForecastId(newId))
+  }, [forecastDispatch, forecasts, activeCycleForecastId])
 
   const timeoutId = useInterval(intervalHandler, cycleInterval)
 
   useEffect(() => {
-    const {cycleTimeoutId} = state
     // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.
     if (cycleTimeoutId) {
       return
     } else if (!timeoutId) {
       return
     } else {
-      dispatch(setCycleTimeoutId(timeoutId))
+      forecastDispatch(setCycleTimeoutId(timeoutId))
     }
-  }, [state, timeoutId, dispatch])
+  }, [cycleTimeoutId, timeoutId, forecastDispatch])
 
   const activeForecast = useCallback(
-    () =>
-      forecasts.find((forecast) => forecast.id === state.activeCycleForecastId),
-    [forecasts, state]
+    () => forecasts.find((forecast) => forecast.id === activeCycleForecastId),
+    [forecasts, activeCycleForecastId]
   )
 
   const handlePopoverOpen = useCallback((event) => {
