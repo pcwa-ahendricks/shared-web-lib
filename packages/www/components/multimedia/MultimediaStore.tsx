@@ -1,9 +1,12 @@
+// cspell:ignore lightbox
 import React, {createContext, useReducer} from 'react'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
 interface State {
   selectedGallery: null | string
   multimediaList: MultimediaList
+  lightboxIndex: number
+  lightboxViewerOpen: boolean
 }
 
 type ProviderProps = {
@@ -20,7 +23,9 @@ export type MultimediaList = Array<PickedMediaResponse>
 // State
 const initialState: State = {
   selectedGallery: null,
-  multimediaList: []
+  multimediaList: [],
+  lightboxIndex: 0,
+  lightboxViewerOpen: false
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -33,6 +38,9 @@ export const MultimediaContext = createContext<{
 // Action Types
 const SET_SELECTED_GALLERY: 'SET_SELECTED_GALLERY' = 'SET_SELECTED_GALLERY'
 const SET_MULTIMEDIA_LIST: 'SET_MULTIMEDIA_LIST' = 'SET_MULTIMEDIA_LIST'
+const SET_LIGHTBOX_INDEX: 'SET_LIGHTBOX_INDEX' = 'SET_LIGHTBOX_INDEX'
+const SET_LIGHTBOX_VIEWER_OPEN: 'SET_LIGHTBOX_VIEWER_OPEN' =
+  'SET_LIGHTBOX_VIEWER_OPEN'
 
 // Actions
 export const setSelectedGallery = (gallery: State['selectedGallery']) => {
@@ -49,6 +57,20 @@ export const setMultimediaList = (multimedia: State['multimediaList']) => {
   }
 }
 
+export const setLightboxIndex = (index?: State['lightboxIndex'] | null) => {
+  return {
+    type: SET_LIGHTBOX_INDEX,
+    index
+  }
+}
+
+export const setLightboxViewerOpen = (open?: State['lightboxViewerOpen']) => {
+  return {
+    type: SET_LIGHTBOX_VIEWER_OPEN,
+    open
+  }
+}
+
 // Reducer
 const multimediaReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -61,6 +83,16 @@ const multimediaReducer = (state: State, action: any): State => {
       return {
         ...state,
         multimediaList: [...action.multimedia]
+      }
+    case SET_LIGHTBOX_INDEX:
+      return {
+        ...state,
+        lightboxIndex: action.index ?? 0
+      }
+    case SET_LIGHTBOX_VIEWER_OPEN:
+      return {
+        ...state,
+        lightboxViewerOpen: action.open
       }
     default:
       return state

@@ -10,6 +10,8 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
+import MovieIcon from '@material-ui/icons/Movie'
+import PhotoIcon from '@material-ui/icons/Photo'
 import {
   AppBar,
   Box,
@@ -32,7 +34,9 @@ import {
   MultimediaContext,
   setSelectedGallery,
   setMultimediaList,
-  MultimediaList
+  MultimediaList,
+  setLightboxIndex,
+  setLightboxViewerOpen
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -40,6 +44,7 @@ import {
 import Link, {LinkProps} from 'next/link'
 import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {useRouter} from 'next/router'
+import isNumber from 'is-number'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -53,6 +58,7 @@ type Props = {
   multimedia?: MultimediaList
   gallery?: string | null
   tabIndex: number
+  lightboxIndex?: number
   err?: {statusCode: number}
 }
 
@@ -73,7 +79,8 @@ const MultimediaLibraryPage = ({
   tabIndex: tabIndexParam,
   err,
   multimedia: multimediaParam = [],
-  gallery = null
+  gallery = null,
+  lightboxIndex
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
@@ -127,6 +134,7 @@ const MultimediaLibraryPage = ({
     []
   )
 
+  // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
     ({href, as, label, ...rest}: LinkProps & TabProps<'a'>) => {
       return (
@@ -153,6 +161,14 @@ const MultimediaLibraryPage = ({
       multimediaDispatch(setSelectedGallery(null))
     }
   }, [gallery, multimediaDispatch])
+
+  useEffect(() => {
+    // lightboxIndex parameter might be 0 hence OR operator in if check (instead of simple Boolean check).
+    if (lightboxIndex || lightboxIndex === 0) {
+      multimediaDispatch(setLightboxIndex(lightboxIndex))
+      multimediaDispatch(setLightboxViewerOpen(true))
+    }
+  }, [lightboxIndex, multimediaDispatch])
 
   const tabChangeHandler = useCallback((_, newValue) => {
     setTabIndex(newValue)
@@ -212,12 +228,14 @@ const MultimediaLibraryPage = ({
                     label="Photos"
                     href="/newsroom/multimedia-library/[...multimedia]"
                     as="/newsroom/multimedia-library/photos"
+                    icon={<PhotoIcon color="action" />}
                     {...a11yProps(0)}
                   />
                   <LinkTab
                     label="Videos"
                     href="/newsroom/multimedia-library/[...multimedia]"
                     as="/newsroom/multimedia-library/videos"
+                    icon={<MovieIcon color="action" />}
                     {...a11yProps(1)}
                   />
                 </Tabs>
@@ -244,9 +262,11 @@ MultimediaLibraryPage.getInitialProps = async ({
   query
 }: NextPageContext & {isVirtualCall: boolean}) => {
   let err: {statusCode: number} | null = null
-  // URL should be in the form of '.../(multimedia-type)/(gallery)' (eg. ".../photos/historical")
+  // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
   const multimediaParam = query['multimedia']?.[0] ?? ''
   const gallery = query['multimedia']?.[1] ?? null
+  const lightboxIndexParam = query['multimedia']?.[2] ?? null
+  let lightboxIndex: number | undefined
   let tabIndex: number
   switch (multimediaParam.toLowerCase()) {
     case 'photos': {
@@ -263,6 +283,18 @@ MultimediaLibraryPage.getInitialProps = async ({
     }
   }
 
+  // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
+  if (isNumber(lightboxIndexParam)) {
+    lightboxIndex = parseInt(lightboxIndexParam, 10)
+    if (!(lightboxIndex >= 0)) {
+      err = {statusCode: 404}
+      return {err}
+    }
+  } else if (lightboxIndexParam) {
+    err = {statusCode: 404}
+    return {err}
+  }
+
   const multimedia = await getMedia<CosmicMediaResponse>({
     folder: MULTIMEDIA_LIBRARY_FOLDER,
     ...cosmicGetMediaProps
@@ -273,7 +305,7 @@ MultimediaLibraryPage.getInitialProps = async ({
     return {err}
   }
 
-  return {err, tabIndex, multimedia, gallery}
+  return {err, tabIndex, multimedia, gallery, lightboxIndex}
 }
 
 export default MultimediaLibraryPage

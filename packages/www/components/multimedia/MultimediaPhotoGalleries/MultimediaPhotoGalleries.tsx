@@ -9,7 +9,9 @@ import React, {
 } from 'react'
 import {
   MultimediaContext,
-  setSelectedGallery
+  setSelectedGallery,
+  setLightboxIndex,
+  setLightboxViewerOpen
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
@@ -105,19 +107,26 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     MappedMultimediaList
   >([])
   const multimediaContext = useContext(MultimediaContext)
-  const {selectedGallery} = multimediaContext.state
+  const {
+    selectedGallery,
+    lightboxIndex,
+    lightboxViewerOpen
+  } = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
   const containerRef = useRef<HTMLDivElement>(null)
-  const [viewerIsOpen, setViewerIsOpen] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const router = useRouter()
 
-  const categoryClickHandler = useCallback(
+  const imageClickHandler = useCallback(
     (index: number) => () => {
-      setCurrentImageIndex(index)
-      setViewerIsOpen(true)
+      multimediaDispatch(setLightboxIndex(index))
+      multimediaDispatch(setLightboxViewerOpen(true))
+      router.push(
+        `/newsroom/multimedia-library/[...multimedia]`,
+        `/newsroom/multimedia-library/photos/${selectedGallery}/${index}`,
+        {shallow: true}
+      )
     },
-    []
+    [multimediaDispatch, router, selectedGallery]
   )
 
   const galleryImgWidthHeight = useCallback(
@@ -318,9 +327,14 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   )
 
   const onCloseModalHandler = useCallback(() => {
-    setViewerIsOpen(false)
-    setCurrentImageIndex(0)
-  }, [])
+    multimediaDispatch(setLightboxViewerOpen(false))
+    multimediaDispatch(setLightboxIndex(0))
+    router.push(
+      `/newsroom/multimedia-library/[...multimedia]`,
+      `/newsroom/multimedia-library/photos/${selectedGallery}`,
+      {shallow: true}
+    )
+  }, [multimediaDispatch, router, selectedGallery])
 
   const margin = 6 // Used with left and top margin of flexWrap items.
 
@@ -373,10 +387,10 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                             `${p.metadata?.gallery} ${
                               p.metadata?.category
                             } photo #${p.index + 1}`
-                          // onClick: categoryClickHandler(p.index),
+                          // onClick: imageClickHandler(p.index),
                         }}
                         boxProps={{
-                          onClick: categoryClickHandler(p.index)
+                          onClick: imageClickHandler(p.index)
                         }}
                         src={p.imgix_url}
                         width={p.width}
@@ -413,8 +427,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
 
       <MultimediaLightbox
         photos={allPhotosInCurrentGallery}
-        viewerIsOpen={viewerIsOpen}
-        currentIndex={currentImageIndex}
+        viewerIsOpen={lightboxViewerOpen}
+        currentIndex={lightboxIndex}
         onClose={onCloseModalHandler}
       />
     </>
