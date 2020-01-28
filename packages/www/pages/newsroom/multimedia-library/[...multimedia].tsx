@@ -198,13 +198,13 @@ const MultimediaLibraryPage = ({
                 >
                   <LinkTab
                     label="Photos"
-                    href="/newsroom/multimedia-library/[multimedia]"
+                    href="/newsroom/multimedia-library/[...multimedia]"
                     as="/newsroom/multimedia-library/photos"
                     {...a11yProps(0)}
                   />
                   <LinkTab
                     label="Videos"
-                    href="/newsroom/multimedia-library/[multimedia]"
+                    href="/newsroom/multimedia-library/[...multimedia]"
                     as="/newsroom/multimedia-library/videos"
                     {...a11yProps(1)}
                   />
