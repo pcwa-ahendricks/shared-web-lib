@@ -45,7 +45,8 @@ const BoardMinutesAccordion = ({
             {minutes.map((m) => {
               /* eslint-disable @typescript-eslint/camelcase */
               const {derivedFilenameAttr, imgix_url} = m
-              const {title, publishedDate, date} = derivedFilenameAttr
+              const {title = '', publishedDate = '', date = ''} =
+                derivedFilenameAttr ?? {}
               return (
                 <BoardMinutesLink
                   key={m._id}

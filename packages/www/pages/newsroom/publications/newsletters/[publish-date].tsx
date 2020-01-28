@@ -83,7 +83,7 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
     () =>
       qMedia
         ? format(
-            parseJSON(qMedia.derivedFilenameAttr.publishedDate),
+            parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
             "EEEE',' MMMM do',' yyyy "
           )
         : '',
@@ -94,7 +94,7 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  const publishDate = qMedia.derivedFilenameAttr.date
+  const publishDate = qMedia.derivedFilenameAttr?.date
 
   return (
     <PageLayout title={`Newsletter ${publishDate}`}>

@@ -23,10 +23,10 @@ import toTitleCase from '@lib/toTitleCase'
 import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
+import {useRouter} from 'next/router'
 
 type Props = {
   multimedia?: MultimediaList
-  onGalleryClick?: (gallery: string) => any
 }
 
 type PickedMediaResponse = Pick<
@@ -94,7 +94,7 @@ const useStyles = makeStyles(() =>
 )
 
 /* eslint-disable @typescript-eslint/camelcase */
-const MultimediaPhotoGalleries = ({multimedia = [], onGalleryClick}: Props) => {
+const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -110,6 +110,7 @@ const MultimediaPhotoGalleries = ({multimedia = [], onGalleryClick}: Props) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const router = useRouter()
 
   const categoryClickHandler = useCallback(
     (index: number) => () => {
@@ -285,15 +286,20 @@ const MultimediaPhotoGalleries = ({multimedia = [], onGalleryClick}: Props) => {
   }, [galleryCovers, mappedMultimedia])
 
   const galleryClickHandler = useCallback(
-    (v: string) => () => {
-      onGalleryClick?.(v)
-      multimediaDispatch(setSelectedGallery(v))
+    (newGallery: string) => async () => {
+      multimediaDispatch(setSelectedGallery(newGallery))
       containerRef?.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       })
+      const routeSegment = newGallery ? `/${newGallery}` : ''
+      const newAsPath = `/newsroom/multimedia-library/photos${routeSegment}`
+      await router.push(
+        '/newsroom/multimedia-library/[...multimedia]',
+        newAsPath
+      )
     },
-    [onGalleryClick, multimediaDispatch]
+    [multimediaDispatch, router]
   )
 
   const currentGallery = useMemo(

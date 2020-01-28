@@ -87,7 +87,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
     () =>
       qMedia
         ? format(
-            parseJSON(qMedia.derivedFilenameAttr.publishedDate),
+            parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
             "EEEE',' MMMM do',' yyyy "
           )
         : '',
@@ -98,7 +98,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  const meetingDate = qMedia.derivedFilenameAttr.date
+  const meetingDate = qMedia.derivedFilenameAttr?.date
 
   return (
     <PageLayout title={`Board Minutes ${meetingDate}`}>

@@ -238,13 +238,15 @@ const MeetingAgendasPage = () => {
                 <OpenInNewLink pdf href={list[0].url}>
                   <Type variant="subtitle1">
                     {format(
-                      parseISO(list[0].derivedFilenameAttr.publishedDate),
+                      parseISO(
+                        list[0].derivedFilenameAttr?.publishedDate ?? ''
+                      ),
                       "eeee',' MMMM do, yyyy"
                     )}
                   </Type>
                 </OpenInNewLink>
                 <Type variant="subtitle2" color="textSecondary" gutterBottom>
-                  {list[0].derivedFilenameAttr.title}
+                  {list[0].derivedFilenameAttr?.title}
                 </Type>
                 <Type variant="body2" paragraph>
                   Click the title link (or thumbnail image on left) to view the

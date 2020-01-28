@@ -43,7 +43,7 @@ const NewsReleasesPage = () => {
     // Group News Releases by derived Year into JS Map.
     const grouped = groupBy<CosmicMediaMeta, number>(
       bmaEx,
-      (mbm) => mbm.derivedFilenameAttr.publishedYear
+      (mbm) => mbm.derivedFilenameAttr?.publishedYear
     )
     // Transform JS Map into a usable Array of Objects.
     const tmpSortedGroups = [] as GroupedNewsReleases
@@ -53,8 +53,8 @@ const NewsReleasesPage = () => {
         year: k,
         values: [...v].sort((a, b) =>
           compareDesc(
-            parseJSON(a.derivedFilenameAttr.publishedDate),
-            parseJSON(b.derivedFilenameAttr.publishedDate)
+            parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
+            parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
           )
         )
       })

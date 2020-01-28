@@ -1,5 +1,5 @@
 // cspell:ignore Lightbox
-import React, {useCallback, useRef, useContext} from 'react'
+import React, {useCallback, useRef, useContext, useEffect} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -17,7 +17,6 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {NextPageContext} from 'next'
-import queryParamToStr from '@lib/services/queryParamToStr'
 import ErrorPage from '@pages/_error'
 import {
   getMedia,
@@ -36,6 +35,7 @@ import {
 // } from '@components/PrefetchDataLink/PrefetchDataLink'
 import Link, {LinkProps} from 'next/link'
 import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGalleries/MultimediaPhotoGalleries'
+import {useRouter} from 'next/router'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -47,6 +47,7 @@ interface TabPanelProps {
 
 type Props = {
   multimedia?: MultimediaList
+  gallery?: string | null
   tabIndex: number
   err?: {statusCode: number}
 }
@@ -71,13 +72,19 @@ const useStyles = makeStyles(() =>
 )
 
 /* eslint-disable @typescript-eslint/camelcase */
-const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
+const MultimediaLibraryPage = ({
+  tabIndex,
+  err,
+  multimedia = [],
+  gallery = null
+}: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
   const {selectedGallery} = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   // const videoPosters = useMemo(
   //   () =>
@@ -127,16 +134,21 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
     []
   )
 
-  const backToGalleriesHandler = useCallback(() => {
+  const backToGalleriesHandler = useCallback(async () => {
     multimediaDispatch(setSelectedGallery(null))
-  }, [multimediaDispatch])
+    await router.push(
+      '/newsroom/multimedia-library/[...multimedia]',
+      '/newsroom/multimedia-library/photos'
+    )
+  }, [multimediaDispatch, router])
 
-  const galleryClickHandler = useCallback(
-    (g: string) => {
-      multimediaDispatch(setSelectedGallery(g))
-    },
-    [multimediaDispatch]
-  )
+  useEffect(() => {
+    if (gallery) {
+      multimediaDispatch(setSelectedGallery(gallery))
+    } else {
+      multimediaDispatch(setSelectedGallery(null))
+    }
+  }, [gallery, multimediaDispatch])
 
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -203,10 +215,7 @@ const MultimediaLibraryPage = ({tabIndex, err, multimedia = []}: Props) => {
             <Spacing size="x-large" />
 
             <TabPanel value={tabIndex} index={0}>
-              <MultimediaPhotoGalleries
-                multimedia={multimedia}
-                onGalleryClick={galleryClickHandler}
-              />
+              <MultimediaPhotoGalleries multimedia={multimedia} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
@@ -223,8 +232,9 @@ MultimediaLibraryPage.getInitialProps = async ({
   query
 }: NextPageContext & {isVirtualCall: boolean}) => {
   let err: {statusCode: number} | null = null
-
-  const multimediaParam = queryParamToStr(query['multimedia'])
+  // URL should be in the form of '.../(multimedia-type)/(gallery)' (eg. ".../photos/historical")
+  const multimediaParam = query['multimedia']?.[0] ?? ''
+  const gallery = query['multimedia']?.[1] ?? null
   let tabIndex: number
   switch (multimediaParam.toLowerCase()) {
     case 'photos': {
@@ -250,7 +260,7 @@ MultimediaLibraryPage.getInitialProps = async ({
     return {err}
   }
 
-  return {err, tabIndex, multimedia}
+  return {err, tabIndex, multimedia, gallery}
 }
 
 export default MultimediaLibraryPage

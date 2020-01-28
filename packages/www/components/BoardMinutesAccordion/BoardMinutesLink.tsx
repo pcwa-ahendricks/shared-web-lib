@@ -12,9 +12,13 @@ import Link from 'next/link'
 const MAX_IMAGE_WIDTH = 85
 
 type Props = {
-  date: CosmicMediaMeta['derivedFilenameAttr']['date']
-  publishedDate: CosmicMediaMeta['derivedFilenameAttr']['publishedDate']
-  title: CosmicMediaMeta['derivedFilenameAttr']['title']
+  // These stopped working when derivedFilenameAttr became optional.
+  // date: CosmicMediaMeta['derivedFilenameAttr']['date']
+  // publishedDate: CosmicMediaMeta['derivedFilenameAttr']['publishedDate']
+  // title: CosmicMediaMeta['derivedFilenameAttr']['title']
+  date: string
+  publishedDate: string
+  title: string
   imgixUrl: CosmicMediaMeta['imgix_url']
   topMargin?: number
 }
