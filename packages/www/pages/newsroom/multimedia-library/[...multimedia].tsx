@@ -45,6 +45,7 @@ import Link, {LinkProps} from 'next/link'
 import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {useRouter} from 'next/router'
 import isNumber from 'is-number'
+import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGalleries/MultimediaVideoGalleries'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -63,7 +64,7 @@ type Props = {
 }
 
 const cosmicGetMediaProps = {
-  props: '_id,original_name,imgix_url,metadata,name'
+  props: '_id,original_name,url,imgix_url,metadata,name'
 }
 
 const useStyles = makeStyles(() =>
@@ -148,10 +149,10 @@ const MultimediaLibraryPage = ({
 
   const backToGalleriesHandler = useCallback(async () => {
     multimediaDispatch(setSelectedGallery(null))
-    await router.push(
-      '/newsroom/multimedia-library/[...multimedia]',
-      '/newsroom/multimedia-library/photos'
-    )
+    const hrefAs = /photos/gi.test(router.pathname)
+      ? '/newsroom/multimedia-library/photos'
+      : '/newsroom/multimedia-library/videos'
+    await router.push('/newsroom/multimedia-library/[...multimedia]', hrefAs)
   }, [multimediaDispatch, router])
 
   useEffect(() => {
@@ -249,7 +250,7 @@ const MultimediaLibraryPage = ({
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
-              videos here...
+              <MultimediaVideoGalleries multimedia={multimediaList} />
             </TabPanel>
           </div>
         </WideContainer>

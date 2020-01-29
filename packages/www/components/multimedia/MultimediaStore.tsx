@@ -13,12 +13,20 @@ type ProviderProps = {
   children: React.ReactNode
 }
 
-type PickedMediaResponse = Pick<
+export type PickedMultimediaResponse = Pick<
   CosmicMediaMeta,
-  '_id' | 'original_name' | 'imgix_url' | 'metadata' | 'name'
+  '_id' | 'original_name' | 'url' | 'imgix_url' | 'metadata' | 'name'
 >
 
-export type MultimediaList = Array<PickedMediaResponse>
+interface MappedProperties {
+  source?: string // For react-images, not for videos.
+  width?: number // For <ImgixFancy/>, not for videos.
+  height?: number // For <ImgixFancy/>, not for videos.
+  paddingPercent?: string // For <ImgixFancy/>, not for videos.
+}
+export type MultimediaList = Array<PickedMultimediaResponse>
+export type MappedMultimedia = PickedMultimediaResponse & MappedProperties
+export type MappedMultimediaList = Array<MappedMultimedia>
 
 // State
 const initialState: State = {

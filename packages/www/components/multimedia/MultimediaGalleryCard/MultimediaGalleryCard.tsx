@@ -9,10 +9,11 @@ import {
 } from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {ChildBox} from '@components/boxes/FlexBox'
-import {MultimediaGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
+import {MultimediaPhotoGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
+import {MultimediaVideoGallery} from '../MultimediaVideoGalleries/MultimediaVideoGalleries'
 
 type Props = {
-  gallery: MultimediaGallery
+  gallery: MultimediaPhotoGallery | MultimediaVideoGallery
   imageWidth: number
   imageHeight: number
   onCardClick?: () => any

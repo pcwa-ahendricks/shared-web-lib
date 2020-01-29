@@ -11,12 +11,15 @@ import {
   MultimediaContext,
   setSelectedGallery,
   setLightboxIndex,
-  setLightboxViewerOpen
+  setLightboxViewerOpen,
+  MultimediaList,
+  MappedMultimedia,
+  MappedMultimediaList
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-import {CosmicMediaMeta, CosmicMetadata} from '@lib/services/cosmicService'
+import {CosmicMetadata} from '@lib/services/cosmicService'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
@@ -31,22 +34,7 @@ type Props = {
   multimedia?: MultimediaList
 }
 
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  '_id' | 'original_name' | 'imgix_url' | 'metadata' | 'name'
->
-
-interface MappedProperties {
-  source: string // for react-images
-  width: number
-  height: number
-  paddingPercent: string
-}
-
-type MultimediaList = Array<PickedMediaResponse>
-type MappedMultimedia = PickedMediaResponse & MappedProperties
-type MappedMultimediaList = Array<MappedMultimedia>
-export type MultimediaGallery = {
+export type MultimediaPhotoGallery = {
   galleryKey: string
   label: string
   categories: {
@@ -55,12 +43,13 @@ export type MultimediaGallery = {
       _id: string
       original_name: string
       imgix_url: string
+      url: string // Used w/ videos, not photos.
       metadata?: CosmicMetadata | undefined
       name: string
-      source: string
-      width: number
-      height: number
-      paddingPercent: string
+      source?: string // For react-images, not for videos.
+      width?: number // For <ImgixFancy/>, not for videos.
+      height?: number // For <ImgixFancy/>, not for videos.
+      paddingPercent?: string // For <ImgixFancy/>, not for videos.
     }[]
     categoryKey: string
     label: string
@@ -216,7 +205,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   //   [mappedMultimedia]
   // )
 
-  const galleries: MultimediaGallery[] = useMemo(() => {
+  const galleries: MultimediaPhotoGallery[] = useMemo(() => {
     const filteredMappedMultimedia = mappedMultimedia.filter(
       (p) =>
         fileExtension(p.name) !== 'mp4' && // No videos.
