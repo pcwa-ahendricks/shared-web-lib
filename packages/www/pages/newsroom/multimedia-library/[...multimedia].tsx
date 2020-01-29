@@ -149,7 +149,7 @@ const MultimediaLibraryPage = ({
 
   const backToGalleriesHandler = useCallback(async () => {
     multimediaDispatch(setSelectedGallery(null))
-    const hrefAs = /photos/gi.test(router.pathname)
+    const hrefAs = /photos/gi.test(router.asPath)
       ? '/newsroom/multimedia-library/photos'
       : '/newsroom/multimedia-library/videos'
     await router.push('/newsroom/multimedia-library/[...multimedia]', hrefAs)
