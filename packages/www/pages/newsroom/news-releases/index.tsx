@@ -1,4 +1,10 @@
-import React, {useEffect, useCallback, useState, useMemo} from 'react'
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useMemo,
+  useContext
+} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -9,7 +15,7 @@ import {
   CosmicMediaMeta,
   CosmicMediaResponse
 } from '@lib/services/cosmicService'
-import {compareDesc, parseJSON, getYear} from 'date-fns'
+import {compareDesc, parseJSON, format, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
@@ -21,10 +27,23 @@ import {
   MenuItem,
   Theme,
   createStyles,
-  makeStyles
+  makeStyles,
+  List,
+  useTheme,
+  ListItem,
+  ListItemText,
+  ListItemAvatar
 } from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import NewsroomSidebar from '@components/NewsroomSidebar/NewsroomSidebar'
+import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
+import NextLink from 'next/link'
+import Spacing from '@components/boxes/Spacing'
+// import {NextPageContext} from 'next'
+// import isNumber from 'is-number'
+import {
+  NewsroomContext,
+  setNewsReleaseYear
+} from '@components/newsroom/NewsroomStore'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,7 +70,10 @@ const cosmicGetMediaProps = {
 const NewsReleasesPage = () => {
   const classes = useStyles()
   const [newsReleases, setNewsReleases] = useState<GroupedNewsReleases>([])
-  const [year, setYear] = useState(getYear(new Date()))
+  const theme = useTheme()
+  const newsroomContext = useContext(NewsroomContext)
+  const {newsReleaseYear} = newsroomContext.state
+  const newsroomDispatch = newsroomContext.dispatch
 
   const fetchNewsReleases = useCallback(async () => {
     const bma = await getMedia<CosmicMediaResponse>({
@@ -92,26 +114,32 @@ const NewsReleasesPage = () => {
 
   const maxYear = useMemo(
     () =>
-      newsReleases
-        .reduce(
-          (prevValue, grp) => (grp.year > prevValue ? grp.year : prevValue),
-          2000
-        )
-        .toString(),
+      newsReleases.reduce(
+        (prevValue, grp) => (grp.year > prevValue ? grp.year : prevValue),
+        2002
+      ),
     [newsReleases]
   )
+
+  const selectYear = newsReleaseYear ?? maxYear
 
   useEffect(() => {
     fetchNewsReleases()
   }, [fetchNewsReleases])
 
-  console.log(maxYear, newsReleases)
-
   const handleChange = useCallback(
     (event: React.ChangeEvent<{value: unknown}>) => {
-      setYear(event.target.value as number)
+      newsroomDispatch(setNewsReleaseYear(event.target.value as number))
     },
-    []
+    [newsroomDispatch]
+  )
+
+  const newsReleasesForYear = useMemo(
+    () =>
+      newsReleases
+        .find((g) => g.year === selectYear)
+        ?.values.map((n, idx) => ({...n, id: idx})) ?? [],
+    [newsReleases, selectYear]
   )
 
   return (
@@ -150,20 +178,85 @@ const NewsReleasesPage = () => {
                   </Type>
                 </ChildBox>
               </RespRowBox>
+              <Spacing />
               <Box>
+                <Type color="primary" variant="subtitle1">
+                  Filter News Releases by Year
+                </Type>
+                <Spacing size="x-small" />
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">Year</InputLabel>
+                  <InputLabel id="news-release-year-select-label">
+                    Year
+                  </InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={year}
+                    labelId="news-release-year-select-label"
+                    id="news-release-year-select"
+                    value={selectYear}
                     onChange={handleChange}
+                    MenuProps={{
+                      keepMounted: true,
+                      PaperProps: {
+                        // This won't work. Use style directly. See https://material-ui.com/components/menus/#max-height-menus.
+                        // classes: {
+                        //   root: classes.selectMenu
+                        // }
+                        style: {
+                          maxHeight: '35vh',
+                          minHeight: 100,
+                          overflowY: 'scroll'
+                        }
+                      }
+                    }}
                   >
-                    <MenuItem value={2020}>2020</MenuItem>
-                    <MenuItem value={2019}>2019</MenuItem>
-                    <MenuItem value={2018}>2018</MenuItem>
+                    {newsReleases.map((g) => (
+                      <MenuItem key={g.year} value={g.year}>
+                        {g.year}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
+              </Box>
+              <Spacing size="large" />
+              <Box>
+                <List>
+                  {newsReleasesForYear.map((n) => (
+                    <NextLink
+                      key={n.id}
+                      passHref
+                      href="/newsroom/news-releases/[release-date]"
+                      as={`/newsroom/news-releases/${n.derivedFilenameAttr?.date}`}
+                    >
+                      <ListItem button component="a">
+                        <ListItemAvatar>
+                          <Box
+                            bgcolor={theme.palette.common.white}
+                            borderColor={theme.palette.grey['300']}
+                            border={1}
+                            mr={2}
+                            width={50}
+                          >
+                            <LazyImgix
+                              width={50}
+                              src={n.imgix_url}
+                              htmlAttributes={{
+                                alt: `Thumbnail image for ${n.derivedFilenameAttr?.date} News Release`
+                              }}
+                            />
+                          </Box>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={n.derivedFilenameAttr?.title}
+                          secondary={format(
+                            parseISO(
+                              n.derivedFilenameAttr?.publishedDate ?? ''
+                            ),
+                            'MMMM do'
+                          )}
+                        />
+                      </ListItem>
+                    </NextLink>
+                  ))}
+                </List>
               </Box>
             </ChildBox>
             <ChildBox>
@@ -175,5 +268,13 @@ const NewsReleasesPage = () => {
     </PageLayout>
   )
 }
+
+// NewsReleasesPage.getInitialProps = async ({query, res}: NextPageContext) => {
+//   if (res) {
+//     return {}
+//   }
+
+//   return {year}
+// }
 
 export default NewsReleasesPage

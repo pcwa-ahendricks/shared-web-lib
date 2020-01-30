@@ -10,6 +10,7 @@ import theme from '@lib/material-theme'
 import UiProvider from '@components/ui/UiStore'
 import MultimediaProvider from '@components/multimedia/MultimediaStore'
 import ForecastProvider from '@components/forecast/ForecastStore'
+import NewsroomContext from '@components/newsroom/NewsroomStore'
 import smoothscroll from 'smoothscroll-polyfill'
 const isDev = process.env.NODE_ENV === 'development'
 import SearchProvider from '@components/search/SearchStore'
@@ -55,19 +56,21 @@ class MyApp extends App {
 
         <PiProvider>
           <UiProvider>
-            <MultimediaProvider>
-              <ForecastProvider>
-                <SearchProvider>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <ParallaxProvider>
-                      {/* Pass pageContext to the _document though the renderPage enhancer
+            <NewsroomContext>
+              <MultimediaProvider>
+                <ForecastProvider>
+                  <SearchProvider>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <ParallaxProvider>
+                        {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                      <Component {...pageProps} />
-                    </ParallaxProvider>
-                  </MuiPickersUtilsProvider>
-                </SearchProvider>
-              </ForecastProvider>
-            </MultimediaProvider>
+                        <Component {...pageProps} />
+                      </ParallaxProvider>
+                    </MuiPickersUtilsProvider>
+                  </SearchProvider>
+                </ForecastProvider>
+              </MultimediaProvider>
+            </NewsroomContext>
           </UiProvider>
         </PiProvider>
       </ThemeProvider>
