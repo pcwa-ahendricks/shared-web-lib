@@ -260,53 +260,60 @@ const MultimediaLibraryPage = ({
 }
 
 MultimediaLibraryPage.getInitialProps = async ({
-  query
+  query,
+  res
 }: NextPageContext & {isVirtualCall: boolean}) => {
-  let err: {statusCode: number} | null = null
-  // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
-  const multimediaParam = query['multimedia']?.[0] ?? ''
-  const gallery = query['multimedia']?.[1] ?? null
-  const lightboxIndexParam = query['multimedia']?.[2] ?? null
-  let lightboxIndex: number | undefined
-  let tabIndex: number
-  switch (multimediaParam.toLowerCase()) {
-    case 'photos': {
-      tabIndex = 0
-      break
+  try {
+    let err: {statusCode: number} | null = null
+    // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
+    const multimediaParam = query['multimedia']?.[0] ?? ''
+    const gallery = query['multimedia']?.[1] ?? null
+    const lightboxIndexParam = query['multimedia']?.[2] ?? null
+    let lightboxIndex: number | undefined
+    let tabIndex: number
+    switch (multimediaParam.toLowerCase()) {
+      case 'photos': {
+        tabIndex = 0
+        break
+      }
+      case 'videos': {
+        tabIndex = 1
+        break
+      }
+      default: {
+        tabIndex = -1
+        err = {statusCode: 404}
+      }
     }
-    case 'videos': {
-      tabIndex = 1
-      break
-    }
-    default: {
-      tabIndex = -1
-      err = {statusCode: 404}
-    }
-  }
 
-  // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
-  if (isNumber(lightboxIndexParam)) {
-    lightboxIndex = parseInt(lightboxIndexParam, 10)
-    if (!(lightboxIndex >= 0)) {
+    // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
+    if (isNumber(lightboxIndexParam)) {
+      lightboxIndex = parseInt(lightboxIndexParam, 10)
+      if (!(lightboxIndex >= 0)) {
+        err = {statusCode: 404}
+        return {err}
+      }
+    } else if (lightboxIndexParam) {
       err = {statusCode: 404}
       return {err}
     }
-  } else if (lightboxIndexParam) {
-    err = {statusCode: 404}
-    return {err}
+
+    const multimedia = await getMedia<CosmicMediaResponse>({
+      folder: MULTIMEDIA_LIBRARY_FOLDER,
+      ...cosmicGetMediaProps
+    })
+
+    if (!multimedia) {
+      throw new Error('No Multimedia')
+    }
+
+    return {err, tabIndex, multimedia, gallery, lightboxIndex}
+  } catch (error) {
+    if (res) {
+      res.statusCode = 400
+    }
+    return {err: {statusCode: 400}}
   }
-
-  const multimedia = await getMedia<CosmicMediaResponse>({
-    folder: MULTIMEDIA_LIBRARY_FOLDER,
-    ...cosmicGetMediaProps
-  })
-
-  if (!multimedia) {
-    err = {statusCode: 400}
-    return {err}
-  }
-
-  return {err, tabIndex, multimedia, gallery, lightboxIndex}
 }
 
 export default MultimediaLibraryPage

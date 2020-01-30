@@ -26,7 +26,7 @@ import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import ErrorPage from '../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
-import MinutesIcon from '@material-ui/icons/UndoOutlined'
+import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
@@ -107,7 +107,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
                 href="/newsroom/news-releases"
                 className={classes.bcLink}
               >
-                <MinutesIcon className={classes.bcIcon} />
+                <UndoIcon className={classes.bcIcon} />
                 News Releases
               </MuiNextLink>
               <Type color="textPrimary" className={classes.bcLink}>
@@ -184,9 +184,12 @@ DynamicNewsReleasePage.getInitialProps = async ({
     const releaseDate = query['release-date']
     const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
 
+    if (!qMedia || !pages) {
+      throw new Error('No media or pdf pages')
+    }
+
     return {query, qMedia, pages}
   } catch (error) {
-    console.log(error)
     if (res) {
       res.statusCode = 404
     }

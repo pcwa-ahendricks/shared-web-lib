@@ -84,6 +84,11 @@ const ServicesPage = () => {
                     Water Rates
                   </NextLink>
                 </ListItem>
+                <ListItem>
+                  <NextLink variant="h6" href="/services/shutoff-protection">
+                    Water Shutoff Protection Act
+                  </NextLink>
+                </ListItem>
               </List>
             </ChildBox>
             <ChildBox flex="auto" display="flex">
@@ -138,7 +143,7 @@ const ServicesPage = () => {
               P.O. Box 6570 <br />
               Auburn, CA 95604-6570 <br />
               <br />
-              Telephone: <MainPhone /> (9 a.m. – 5 p.m.)
+              Telephone: <MainPhone /> (8 a.m. – 5 p.m.)
             </Type>
           </Box>
         </NarrowContainer>

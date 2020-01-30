@@ -151,7 +151,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
             <RowBox justifyContent="space-around">
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca825860-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyENbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -161,7 +161,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Water Shutoff Protection Act Policy"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
-              />
+              /> */}
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
                 anchorProps={{
@@ -174,12 +174,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Door Tag Sample PDF"
               /> */}
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/39913a40-394f-11ea-91b0-c15815378802-English-CUTOFF-notice-Translatedbc011320.pdf"
+                url="https://cosmic-s3.imgix.net/35949100-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Englishbc012920.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/39913a40-394f-11ea-91b0-c15815378802-English-CUTOFF-notice-Translatedbc011320.pdf'
+                    'https://cdn.cosmicjs.com/35949100-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Englishbc012920.pdf'
                 }}
                 caption="Cutoff Notice"
                 alt="Thumbnail and link for service Cutoff Notice PDF"
@@ -258,7 +258,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
             <RowBox justifyContent="space-around">
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/caaf82e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicySPbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -268,7 +268,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Política de la Ley de Protección de Cierre de Agua"
                 alt="Miniatura y enlace para PDF de la Política de la Ley de Protección contra el Cierre del Agua"
-              />
+              /> */}
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
                 anchorProps={{
@@ -281,12 +281,12 @@ const ShutoffProtectionPage = () => {
                 alt="Miniatura y enlace para el PDF de muestra de etiqueta de puerta"
               /> */}
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/3992e7f0-394f-11ea-91b0-c15815378802-Spanish-CUTOFF-notice-Translatedbc011320.pdf"
+                url="https://cosmic-s3.imgix.net/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/3992e7f0-394f-11ea-91b0-c15815378802-Spanish-CUTOFF-notice-Translatedbc011320.pdf'
+                    'https://cdn.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf'
                 }}
                 caption="Aviso De Rescisión"
                 alt="Thumbnail and link for service Cutoff Notice PDF"
@@ -354,7 +354,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
             <RowBox justifyContent="space-around">
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8cdfb0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyKObc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -364,7 +364,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="물 차단 보호법 정책"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
-              />
+              /> */}
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
                 anchorProps={{
@@ -377,12 +377,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Door Tag Sample PDF"
               /> */}
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/39877640-394f-11ea-91b0-c15815378802-Korean-CUTOFF-notice-Translatedbc011320.pdf"
+                url="https://cosmic-s3.imgix.net/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/39877640-394f-11ea-91b0-c15815378802-Korean-CUTOFF-notice-Translatedbc011320.pdf'
+                    'https://cdn.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf'
                 }}
                 caption="납입 기간 만료 안내"
                 alt="Thumbnail and link for service Cutoff Notice PDF"
@@ -443,7 +443,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
             <RowBox justifyContent="space-around">
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8b0af0-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyCHbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -453,7 +453,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="断水保护法政策"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
-              />
+              /> */}
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
                 anchorProps={{
@@ -466,12 +466,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Door Tag Sample PDF"
               /> */}
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/3979e1b0-394f-11ea-91b0-c15815378802-Chinese-CUTOFF-notice-Translatedbc011320.pdf"
+                url="https://cosmic-s3.imgix.net/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/3979e1b0-394f-11ea-91b0-c15815378802-Chinese-CUTOFF-notice-Translatedbc011320.pdf'
+                    'https://cdn.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf'
                 }}
                 caption="終止通知"
                 alt="Thumbnail and link for service Cutoff Notice PDF"
@@ -547,7 +547,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
             <RowBox justifyContent="space-around">
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabe28e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyVIbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -557,7 +557,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Chính sách Đạo luật Bảo vệ Tắt nước"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
-              />
+              /> */}
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
                 anchorProps={{
@@ -570,12 +570,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Door Tag Sample PDF"
               /> */}
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/39904fe0-394f-11ea-91b0-c15815378802-Vietnamese-CUTOFF-notice-Translatedbc011320.pdf"
+                url="https://cosmic-s3.imgix.net/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/39904fe0-394f-11ea-91b0-c15815378802-Vietnamese-CUTOFF-notice-Translatedbc011320.pdf'
+                    'https://cdn.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf'
                 }}
                 caption="Thông Báo Chấm Dứt"
                 alt="Thumbnail and link for service Cutoff Notice PDF"
@@ -658,7 +658,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
             <RowBox justifyContent="space-around">
-              <ImgixThumbLink
+              {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabacd80-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyTAbc123019.pdf"
                 anchorProps={{
                   target: '_blank',
@@ -668,7 +668,7 @@ const ShutoffProtectionPage = () => {
                 }}
                 caption="Patakaran sa Proteksyon ng Sarhan ng tubig"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
-              />
+              /> */}
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
                 anchorProps={{
@@ -681,12 +681,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Door Tag Sample PDF"
               /> */}
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/399cfa10-394f-11ea-91b0-c15815378802-Tagalog-CUTOFF-notice-Translatedbc011320.pdf"
+                url="https://cosmic-s3.imgix.net/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/399cfa10-394f-11ea-91b0-c15815378802-Tagalog-CUTOFF-notice-Translatedbc011320.pdf'
+                    'https://cdn.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf'
                 }}
                 caption="Abiso Sa Paghihinto Ng Serbisyo"
                 alt="Thumbnail and link for service Cutoff Notice PDF"
@@ -710,10 +710,10 @@ const ShutoffProtectionPage = () => {
       {/* <PageLayout title="Customer Shutoff Protection" waterSurface> */}
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Customer Shutoff Protection" subtitle="Services" />
-          <Type variant="h2" gutterBottom color="secondary">
+          <PageTitle title="Water Shutoff Protection Act" subtitle="Services" />
+          {/* <Type variant="h2" gutterBottom color="secondary">
             The Page is Currently Under Development
-          </Type>
+          </Type> */}
           <Spacing />
           <Type paragraph>
             PCWA will comply with California Senate Bill No. 998 and use this
@@ -730,11 +730,11 @@ const ShutoffProtectionPage = () => {
             </Link>
             .
           </Type>
-          <Type paragraph>
+          {/* <Type paragraph>
             Check back here for further updates and information on our Water
             Shutoff Policy. This policy will be finalized and effective by Feb.
             1, 2020.
-          </Type>
+          </Type> */}
           <Spacing size="x-large">
             <Divider />
           </Spacing>

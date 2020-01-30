@@ -216,33 +216,40 @@ const PublicationsPage = ({tabIndex, err}: Props) => {
   )
 }
 
-PublicationsPage.getInitialProps = async ({query}: NextPageContext) => {
-  const publication = queryParamToStr(query['publication'])
-  let tabIndex: number
-  let err: {statusCode: number} | null = null
-  switch (publication.toLowerCase()) {
-    case 'newsletters': {
-      tabIndex = 0
-      break
+PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
+  try {
+    const publication = queryParamToStr(query['publication'])
+    let tabIndex: number
+    switch (publication.toLowerCase()) {
+      case 'newsletters': {
+        tabIndex = 0
+        break
+      }
+      case 'fire-and-water': {
+        tabIndex = 1
+        break
+      }
+      case 'year-end': {
+        tabIndex = 2
+        break
+      }
+      case 'enews': {
+        tabIndex = 3
+        break
+      }
+      default: {
+        tabIndex = -1
+        throw new Error('Publication not found')
+      }
     }
-    case 'fire-and-water': {
-      tabIndex = 1
-      break
+
+    return {tabIndex}
+  } catch (error) {
+    if (res) {
+      res.statusCode = 404
     }
-    case 'year-end': {
-      tabIndex = 2
-      break
-    }
-    case 'enews': {
-      tabIndex = 3
-      break
-    }
-    default: {
-      tabIndex = -1
-      err = {statusCode: 404}
-    }
+    return {err: {statusCode: 404}}
   }
-  return {err, tabIndex}
 }
 
 export default PublicationsPage

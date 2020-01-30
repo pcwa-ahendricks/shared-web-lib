@@ -195,9 +195,12 @@ DynamicNewslettersPage.getInitialProps = async ({
     const releaseDate = query['publish-date']
     const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
 
+    if (!qMedia || !pages) {
+      throw new Error('No media or pdf pages')
+    }
+
     return {query, qMedia, pages}
   } catch (error) {
-    console.log(error)
     if (res) {
       res.statusCode = 404
     }

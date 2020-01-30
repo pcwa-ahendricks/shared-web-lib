@@ -184,6 +184,10 @@ const menuConfig: MenuConfig[] = [
           {
             title: '2018 Multiyear Rate Adjustment',
             nextLink: '/services/rate-adjust'
+          },
+          {
+            title: 'Water Shutoff Protection Act',
+            nextLink: '/services/shutoff-protection'
           }
         ]
       },
