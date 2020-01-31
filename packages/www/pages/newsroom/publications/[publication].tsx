@@ -396,7 +396,6 @@ PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
     }
 
     const newsletters = await fetchNewsletters()
-    console.log('fetching request')
     return {newsletters, tabIndex}
   } catch (error) {
     if (res) {
