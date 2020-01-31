@@ -304,7 +304,7 @@ const IrrigationCanalPage = () => {
               <Box p={2}>
                 <Type variant="body2" paragraph>
                   Call PCWA Customer Services at <MainPhone /> Monday through
-                  Friday from 9:00 a.m. to 5:00 p.m. After hours, our answering
+                  Friday from 8:00 a.m. to 5:00 p.m. After hours, our answering
                   service will receive your call. If you call after 9:00 p.m.,
                   your call will often be referred to the office the next
                   morning, as we are not able to send canal operators to unplug
@@ -348,7 +348,7 @@ const IrrigationCanalPage = () => {
             </Type>
             <Type paragraph>
               Customer Service Representatives are available Monday through
-              Friday from 9:00 a.m. to 5:00 p.m. by Phone: <MainPhone /> or
+              Friday from 8:00 a.m. to 5:00 p.m. by Phone: <MainPhone /> or
               email at <CustomerServicesEmail />.
             </Type>
           </Box>

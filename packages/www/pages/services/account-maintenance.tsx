@@ -18,7 +18,7 @@ const AccountMaintenancePage = () => {
             <ChildBox flex="1 1 60%">
               <Type paragraph>
                 To open or close&nbsp;a water service account with PCWA, call
-                PCWA Customer Services at <MainPhone /> weekdays from 9:00 a.m.
+                PCWA Customer Services at <MainPhone /> weekdays from 8:00 a.m.
                 to 5:00 p.m.&nbsp;or stop by our office at 144 Ferguson Road,
                 Auburn, during our regular business hours of 8:00 a.m&nbsp;to
                 5:00 p.m., Monday - Friday.&nbsp;&nbsp;Please be prepared to

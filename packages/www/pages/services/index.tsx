@@ -124,7 +124,7 @@ const ServicesPage = () => {
               The PCWA Business Center is open Monday – Friday from 8:00 a.m. to
               5:00 p.m. except major holidays.&nbsp; Customer Services is
               available by phone at <MainPhone /> or <EightHundredPhone />{' '}
-              weekdays from 9:00 a.m. to 5:00 p.m. except major holidays or by
+              weekdays from 8:00 a.m. to 5:00 p.m. except major holidays or by
               email at <CustomerServicesEmail /> (please allow two business days
               for a response to your email inquiry).
             </Type>

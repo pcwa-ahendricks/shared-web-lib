@@ -162,7 +162,7 @@ const PayBillPage = () => {
             <Type paragraph>
               {/* <span style={{fontSize: '1.1em'}}> */}
               Customer Service Representatives are available Monday through
-              Friday&nbsp;from 9:00 a.m. to 5:00&nbsp;p.m. by Phone:&nbsp;
+              Friday&nbsp;from 8:00 a.m. to 5:00&nbsp;p.m. by Phone:&nbsp;
               <MainPhone />
               &nbsp;or <EightHundredPhone /> or email at{' '}
               <CustomerServicesEmail />.{/* </span> */}

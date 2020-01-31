@@ -76,7 +76,7 @@ const HowToIDUsPage = () => {
                 If you're concerned about someone who has approached or called
                 your home regarding your water service, please email us at{' '}
                 <CustomerServicesEmail /> or call <MainPhone /> during business
-                hours (Monday through Friday from 9:00 a.m. to 5:00 p.m.). If
+                hours (Monday through Friday from 8:00 a.m. to 5:00 p.m.). If
                 you have an after hours emergency, our answering service will
                 relay your call to standby personnel who can assist you.
               </Type>
