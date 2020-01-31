@@ -115,7 +115,7 @@ const ShutoffProtectionPage = () => {
             </Type>
             <Type paragraph>
               To have your bill reviewed by customer service staff, please
-              contact our Customer Services department at.
+              contact our Customer Services department at <MainPhone />.
             </Type>
             <Type paragraph>
               If there is no satisfactory resolution by customer service staff,
