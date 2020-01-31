@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {useMediaQuery, Theme, CircularProgress} from '@material-ui/core'
+import {useMediaQuery, Theme, LinearProgress} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {useTheme} from '@material-ui/core/styles'
 import {RowBox, ColumnBox, ChildBox} from '@components/boxes/FlexBox'
@@ -33,15 +33,8 @@ const PDFPage = ({alt, url, showLoading = false}: Props) => {
   const progressEl = useMemo(
     () =>
       showLoading && !loaded ? (
-        <ColumnBox
-          position="absolute"
-          width="100%"
-          height="100%"
-          justifyContent="center"
-        >
-          <RowBox justifyContent="center">
-            <CircularProgress color="primary" />
-          </RowBox>
+        <ColumnBox position="absolute" width="100%" top={0} left={0}>
+          <LinearProgress color="secondary" />
         </ColumnBox>
       ) : null,
     [showLoading, loaded]

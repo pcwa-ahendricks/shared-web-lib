@@ -181,6 +181,7 @@ const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
                       passHref
                       href="/newsroom/news-releases/[release-date]"
                       as={`/newsroom/news-releases/${n.derivedFilenameAttr?.date}`}
+                      scroll
                     >
                       <ListItem button component="a">
                         <ListItemAvatar>
