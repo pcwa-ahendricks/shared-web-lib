@@ -230,7 +230,7 @@ const ShutoffProtectionPage = () => {
             <Type paragraph>
               Para que su factura sea revisada por el personal de servicio al
               cliente, póngase en contacto con nuestro departamento de Servicio
-              al Cliente.
+              al Cliente <MainPhone />.
             </Type>
             <Type paragraph>
               Si no hay una resolución satisfactoria por parte del personal de
@@ -344,7 +344,7 @@ const ShutoffProtectionPage = () => {
             </Type>
             <Type paragraph>
               고객 지원 부서의 고지서 검토를 원하시는 경우, 고객 지원 부서로
-              문의하여 주십시오.
+              문의하여 주십시오 <MainPhone />.
             </Type>
             <Type paragraph>
               고객 지원 부서 직원이 만족스러운 해결 방안을 찾지 못했다면, 부서장
@@ -448,7 +448,8 @@ const ShutoffProtectionPage = () => {
               工作日才會對爭議帳單累加罰鍰或收費。
             </Type>
             <Type paragraph>
-              若要讓您的帳單交付客戶服務人員審查，請連絡我們的客戶服務部門。
+              若要讓您的帳單交付客戶服務人員審查，請連絡我們的客戶服務部門{' '}
+              <MainPhone />。
             </Type>
             <Type paragraph>
               如果對客戶服務人員的解決方案感到不滿意，客戶接著可將自己的帳單交由主管或經理審
@@ -554,7 +555,8 @@ const ShutoffProtectionPage = () => {
             </Type>
             <Type paragraph>
               Để yêu cầu nhân viên dịch vụ khách hàng xem xét lại hóa đơn của
-              bạn, vui lòng liên hệ với Phòng dịch vụ khách hàng tại.
+              bạn, vui lòng liên hệ với Phòng dịch vụ khách hàng tại{' '}
+              <MainPhone />.
             </Type>
             <Type paragraph>
               Nếu nhân viên dịch vụ khách hàng không có giải pháp thỏa đáng, khi
@@ -671,7 +673,7 @@ const ShutoffProtectionPage = () => {
             <Type paragraph>
               Upang masuri ng mga kawani ng customer service ang iyong bill,
               pakikontak ang aming departamento ng Mga Serbisyong Pang-customer
-              sa.
+              sa <MainPhone />.
             </Type>
             <Type paragraph>
               Kapag walang kasiya-siyang resolusyon mula sa kawani ng serbisyong

@@ -77,9 +77,9 @@ const useStyles = makeStyles(() =>
 
 /* eslint-disable @typescript-eslint/camelcase */
 const MultimediaLibraryPage = ({
-  tabIndex: tabIndexParam,
+  tabIndex: tabIndexProp,
   err,
-  multimedia: multimediaParam = [],
+  multimedia: multimediaProp = [],
   gallery = null,
   lightboxIndex
 }: Props) => {
@@ -93,10 +93,10 @@ const MultimediaLibraryPage = ({
   const router = useRouter()
 
   useEffect(() => {
-    if (multimediaParam.length > 0) {
-      multimediaDispatch(setMultimediaList(multimediaParam))
+    if (multimediaProp.length > 0) {
+      multimediaDispatch(setMultimediaList(multimediaProp))
     }
-  }, [multimediaParam, multimediaDispatch])
+  }, [multimediaProp, multimediaDispatch])
 
   // const videoPosters = useMemo(
   //   () =>
@@ -137,10 +137,10 @@ const MultimediaLibraryPage = ({
 
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
-    ({href, as, label, ...rest}: LinkProps & TabProps<'a'>) => {
+    ({href, as, ...rest}: LinkProps & TabProps<'a'>) => {
       return (
         <Link passHref as={as} href={href} shallow>
-          <Tab component="a" label={label} {...rest} />
+          <Tab component="a" {...rest} />
         </Link>
       )
     },
@@ -176,8 +176,8 @@ const MultimediaLibraryPage = ({
   }, [])
 
   useEffect(() => {
-    setTabIndex(tabIndexParam)
-  }, [tabIndexParam])
+    setTabIndex(tabIndexProp)
+  }, [tabIndexProp])
 
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -266,12 +266,12 @@ MultimediaLibraryPage.getInitialProps = async ({
   try {
     let err: {statusCode: number} | null = null
     // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
-    const multimediaParam = query['multimedia']?.[0] ?? ''
+    const multimediaProp = query['multimedia']?.[0] ?? ''
     const gallery = query['multimedia']?.[1] ?? null
     const lightboxIndexParam = query['multimedia']?.[2] ?? null
     let lightboxIndex: number | undefined
     let tabIndex: number
-    switch (multimediaParam.toLowerCase()) {
+    switch (multimediaProp.toLowerCase()) {
       case 'photos': {
         tabIndex = 0
         break

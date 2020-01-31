@@ -5,11 +5,21 @@ import {CosmicMediaMeta} from '@lib/services/cosmicService'
 interface State {
   newsReleaseYear?: number
   newsReleases: GroupedNewsReleases
+  newsletterYear?: number
+  newsletters: GroupedNewsletters
 }
 
 type ProviderProps = {
   children: React.ReactNode
 }
+
+export type GroupedNewsletters = Array<{
+  year: number
+  values: Pick<
+    CosmicMediaMeta,
+    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+  >[]
+}>
 
 export type GroupedNewsReleases = Array<{
   year: number
@@ -21,8 +31,8 @@ export type GroupedNewsReleases = Array<{
 
 // State
 const initialState: State = {
-  newsReleases: []
-  // newsReleaseYear: 2000
+  newsReleases: [],
+  newsletters: []
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -35,6 +45,8 @@ export const NewsroomContext = createContext<{
 // Action Types
 const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
 const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
+const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
+const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
 
 // Actions
 export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
@@ -51,6 +63,20 @@ export const setNewsReleases = (newsReleases: State['newsReleases']) => {
   }
 }
 
+export const setNewsletterYear = (year: State['newsletterYear']) => {
+  return {
+    type: SET_NEWSLETTER_YEAR,
+    year
+  }
+}
+
+export const setNewsletters = (newsletters: State['newsletters']) => {
+  return {
+    type: SET_NEWSLETTERS,
+    newsletters
+  }
+}
+
 // Reducer
 const newsroomReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -62,7 +88,17 @@ const newsroomReducer = (state: State, action: any): State => {
     case SET_NEWS_RELEASES:
       return {
         ...state,
-        newsReleases: action.newsReleases
+        newsReleases: [...action.newsReleases]
+      }
+    case SET_NEWSLETTER_YEAR:
+      return {
+        ...state,
+        newsletterYear: action.year
+      }
+    case SET_NEWSLETTERS:
+      return {
+        ...state,
+        newsletters: [...action.newsletters]
       }
     default:
       return state

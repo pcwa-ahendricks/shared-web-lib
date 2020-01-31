@@ -104,7 +104,7 @@ const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
         <WideContainer>
           <PageTitle title="News Releases" subtitle="Newsroom" />
           <RespRowBox flexSpacing={4}>
-            <ChildBox>
+            <ChildBox flex="auto">
               <RespRowBox flexSpacing={4}>
                 <ChildBox flex="30%" display="flex">
                   <Box
