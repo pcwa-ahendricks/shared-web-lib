@@ -1,16 +1,27 @@
 // cspell:ignore lightbox
 import React, {createContext, useReducer} from 'react'
+import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
 interface State {
   newsReleaseYear?: number
+  newsReleases: GroupedNewsReleases
 }
 
 type ProviderProps = {
   children: React.ReactNode
 }
 
+export type GroupedNewsReleases = Array<{
+  year: number
+  values: Pick<
+    CosmicMediaMeta,
+    '_id' | 'original_name' | 'url' | 'imgix_url' | 'derivedFilenameAttr'
+  >[]
+}>
+
 // State
 const initialState: State = {
+  newsReleases: []
   // newsReleaseYear: 2000
 }
 
@@ -23,12 +34,20 @@ export const NewsroomContext = createContext<{
 
 // Action Types
 const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
+const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
 
 // Actions
 export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
   return {
     type: SET_NEWS_RELEASE_YEAR,
     year
+  }
+}
+
+export const setNewsReleases = (newsReleases: State['newsReleases']) => {
+  return {
+    type: SET_NEWS_RELEASES,
+    newsReleases
   }
 }
 
@@ -40,7 +59,11 @@ const newsroomReducer = (state: State, action: any): State => {
         ...state,
         newsReleaseYear: action.year
       }
-
+    case SET_NEWS_RELEASES:
+      return {
+        ...state,
+        newsReleases: action.newsReleases
+      }
     default:
       return state
   }

@@ -8,7 +8,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {
   useMediaQuery,
   Typography as Type,
-  Link,
   Box,
   // Divider,
   FormControl,
@@ -181,8 +180,19 @@ const ShutoffProtectionPage = () => {
                   href:
                     'https://cdn.cosmicjs.com/35949100-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Englishbc012920.pdf'
                 }}
-                caption="Cutoff Notice"
-                alt="Thumbnail and link for service Cutoff Notice PDF"
+                caption="Written Notice"
+                alt="Thumbnail and link for service Written Notice PDF"
+              />
+              <ImgixThumbLink
+                url="https://cosmic-s3.imgix.net/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf"
+                anchorProps={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  href:
+                    'https://cdn.cosmicjs.com/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf'
+                }}
+                caption="Certification Form"
+                alt="Thumbnail and link for Certification Form PDF"
               />
             </RowBox>
           </Box>
@@ -289,7 +299,18 @@ const ShutoffProtectionPage = () => {
                     'https://cdn.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf'
                 }}
                 caption="Aviso De Rescisión"
-                alt="Thumbnail and link for service Cutoff Notice PDF"
+                alt="Thumbnail and link for service Written Notice PDF"
+              />
+              <ImgixThumbLink
+                url="https://cosmic-s3.imgix.net/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf"
+                anchorProps={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  href:
+                    'https://cdn.cosmicjs.com/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf'
+                }}
+                caption="Certification Form"
+                alt="Thumbnail and link for Certification Form PDF"
               />
             </RowBox>
           </Box>
@@ -385,7 +406,18 @@ const ShutoffProtectionPage = () => {
                     'https://cdn.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf'
                 }}
                 caption="납입 기간 만료 안내"
-                alt="Thumbnail and link for service Cutoff Notice PDF"
+                alt="Thumbnail and link for service Written Notice PDF"
+              />
+              <ImgixThumbLink
+                url="https://cosmic-s3.imgix.net/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf"
+                anchorProps={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  href:
+                    'https://cdn.cosmicjs.com/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf'
+                }}
+                caption="Certification Form"
+                alt="Thumbnail and link for Certification Form PDF"
               />
             </RowBox>
           </Box>
@@ -474,7 +506,18 @@ const ShutoffProtectionPage = () => {
                     'https://cdn.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf'
                 }}
                 caption="終止通知"
-                alt="Thumbnail and link for service Cutoff Notice PDF"
+                alt="Thumbnail and link for service Written Notice PDF"
+              />
+              <ImgixThumbLink
+                url="https://cosmic-s3.imgix.net/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf"
+                anchorProps={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  href:
+                    'https://cdn.cosmicjs.com/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf'
+                }}
+                caption="Certification Form"
+                alt="Thumbnail and link for Certification Form PDF"
               />
             </RowBox>
           </Box>
@@ -578,7 +621,18 @@ const ShutoffProtectionPage = () => {
                     'https://cdn.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf'
                 }}
                 caption="Thông Báo Chấm Dứt"
-                alt="Thumbnail and link for service Cutoff Notice PDF"
+                alt="Thumbnail and link for service Written Notice PDF"
+              />
+              <ImgixThumbLink
+                url="https://cosmic-s3.imgix.net/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf"
+                anchorProps={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  href:
+                    'https://cdn.cosmicjs.com/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf'
+                }}
+                caption="Certification Form"
+                alt="Thumbnail and link for Certification Form PDF"
               />
             </RowBox>
           </Box>
@@ -689,7 +743,18 @@ const ShutoffProtectionPage = () => {
                     'https://cdn.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf'
                 }}
                 caption="Abiso Sa Paghihinto Ng Serbisyo"
-                alt="Thumbnail and link for service Cutoff Notice PDF"
+                alt="Thumbnail and link for service Written Notice PDF"
+              />
+              <ImgixThumbLink
+                url="https://cosmic-s3.imgix.net/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf"
+                anchorProps={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  href:
+                    'https://cdn.cosmicjs.com/94b56550-43bc-11ea-8278-3b605a84a57d-WSPA-Certification020120.pdf'
+                }}
+                caption="Certification Form"
+                alt="Thumbnail and link for Certification Form PDF"
               />
             </RowBox>
           </Box>
@@ -719,16 +784,7 @@ const ShutoffProtectionPage = () => {
             PCWA will comply with California Senate Bill No. 998 and use this
             page to provide information and documentation regarding our Water
             Shutoff Policy and discontinuation of water services for
-            non-payment. More information about this new California Senate Bill
-            can be found on the{' '}
-            <Link
-              href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB998"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              California Legislative Information website
-            </Link>
-            .
+            non-payment.
           </Type>
           {/* <Type paragraph>
             Check back here for further updates and information on our Water
