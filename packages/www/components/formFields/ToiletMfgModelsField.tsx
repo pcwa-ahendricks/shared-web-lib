@@ -3,7 +3,7 @@ import {Box, Fab, Grid, Tooltip} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/DeleteForever'
 import ClearIcon from '@material-ui/icons/Clear'
-import {FieldArrayRenderProps, Field, FormikProps} from 'formik'
+import {FieldArrayRenderProps, FormikProps} from 'formik'
 import FormTextField from '@components/formFields/FormTextField'
 import {ToiletRebateFormData as RebateFormData} from '@lib/services/formService'
 
@@ -25,23 +25,21 @@ const ToiletMfgModelsField = ({disabled = false, ...arrayHelpers}: Props) => {
                 alignContent="center"
               >
                 <Grid item xs={12} sm={5}>
-                  <Field
+                  <FormTextField
                     disabled={disabled}
                     required
                     name={`manufacturerModel[${index}].manufacturer`}
                     label={`Toilet/Urinal Manufacturer ${
                       index > 1 ? index : ''
                     }`}
-                    component={FormTextField}
                   />
                 </Grid>
                 <Grid item xs={12} sm={5}>
-                  <Field
+                  <FormTextField
                     disabled={disabled}
                     required
                     name={`manufacturerModel[${index}].model`}
                     label={`Toilet/Urinal Model ${index > 1 ? index : ''}`}
-                    component={FormTextField}
                   />
                 </Grid>
                 <Grid item xs={12} sm={2}>

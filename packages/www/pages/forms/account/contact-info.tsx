@@ -258,34 +258,31 @@ const ContactInfo = () => {
                         </Type>
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
-                            <Field
+                            <FormTextField
                               name="address"
                               multiline
                               rows={1}
                               label="Mailing Address"
-                              component={FormTextField}
                               autoComplete="street-address"
                             />
                           </Grid>
                         </Grid>
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={4}>
-                            <Field
+                            <FormTextField
                               autoComplete="address-level2"
                               name="city"
                               label="City"
-                              component={FormTextField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={4}>
                             <Field name="state" component={StateSelectField} />
                           </Grid>
                           <Grid item xs={12} sm={4}>
-                            <Field
+                            <FormTextField
                               autoComplete="postal-code"
                               name="zipCode"
                               label="Zip Code"
-                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>
@@ -294,9 +291,8 @@ const ContactInfo = () => {
                             <AccountNoField name="accountNo" />
                           </Grid>
                           <Grid item xs={12} sm={5}>
-                            <Field
+                            <FormTextField
                               name="lastFourSS"
-                              component={FormTextField}
                               label="Last 4 Digits Social Security"
                               required={false}
                             />
@@ -310,11 +306,10 @@ const ContactInfo = () => {
                         </Grid>
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
-                            <Field
+                            <FormTextField
                               autoComplete="name"
                               name="name"
                               label="Name (legal name)"
-                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>
@@ -356,10 +351,9 @@ const ContactInfo = () => {
                         </Grid>
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={6}>
-                            <Field
+                            <FormTextField
                               name="spouseName"
                               label="Spouse's Name (if applicable)"
-                              component={FormTextField}
                               required={false}
                             />
                           </Grid>
@@ -379,12 +373,11 @@ const ContactInfo = () => {
                                 If you had previous service with PCWA, please
                                 list all service addresses below:
                               </Type>
-                              <Field
+                              <FormTextField
                                 name="previousAddress"
                                 multiline
                                 rows={2}
                                 label="Previous Address(es)"
-                                component={FormTextField}
                               />
                             </ColumnBox>
                           </Grid>

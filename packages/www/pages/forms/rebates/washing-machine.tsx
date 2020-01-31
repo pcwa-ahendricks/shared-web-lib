@@ -421,23 +421,21 @@ const WashingMachine = () => {
                         </Type>
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={6}>
-                            <Field
+                            <FormTextField
                               required
                               disabled={ineligible}
                               name="firstName"
                               label="First Name"
                               autoComplete="billing given-name"
-                              component={FormTextField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
-                            <Field
+                            <FormTextField
                               required
                               disabled={ineligible}
                               name="lastName"
                               label="Last Name"
                               autoComplete="billing family-name"
-                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>
@@ -521,19 +519,17 @@ const WashingMachine = () => {
 
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={6}>
-                            <Field
+                            <FormTextField
                               disabled={ineligible}
                               name="manufacturer"
                               label="Washing Machine Manufacturer"
-                              component={FormTextField}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
-                            <Field
+                            <FormTextField
                               disabled={ineligible}
                               name="model"
                               label="Washing Machine Model"
-                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>
@@ -586,13 +582,12 @@ const WashingMachine = () => {
 
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
-                            <Field
+                            <FormTextField
                               name="comments"
                               multiline
                               rows={3} // That's about 200 characters
                               label="Optionally, you can provide us any comments"
                               disabled={ineligible}
-                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>

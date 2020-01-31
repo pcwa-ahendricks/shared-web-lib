@@ -502,13 +502,12 @@ const LawnReplacement = () => {
 
                         <Grid container spacing={5}>
                           <Grid item xs={12}>
-                            <Field
+                            <FormTextField
                               name="comments"
                               multiline
                               rows={3} // That's about 200 characters
                               label="Optionally, you can provide us any comments"
                               disabled={ineligible}
-                              component={FormTextField}
                             />
                           </Grid>
                         </Grid>
