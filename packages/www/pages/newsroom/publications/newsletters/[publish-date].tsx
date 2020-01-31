@@ -111,7 +111,8 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                href="/newsroom/news-releases"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/newsletters"
                 className={classes.bcLink}
               >
                 <MinutesIcon className={classes.bcIcon} />
@@ -192,8 +193,8 @@ DynamicNewslettersPage.getInitialProps = async ({
 }: NextPageContext) => {
   try {
     const nrs = await fetchNewsletters()
-    const releaseDate = query['publish-date']
-    const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
+    const publishDate = query['publish-date']
+    const {qMedia, pages} = await getMediaPDFPages(nrs, publishDate)
 
     if (!qMedia || !pages) {
       throw new Error('No media or pdf pages')

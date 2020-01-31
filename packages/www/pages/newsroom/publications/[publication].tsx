@@ -80,6 +80,9 @@ const useStyles = makeStyles((theme: Theme) =>
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120
+    },
+    listItem: {
+      alignItems: 'flex-start'
     }
   })
 )
@@ -228,12 +231,12 @@ const PublicationsPage = ({
                   </Type>
                   <Spacing size="x-small" />
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="news-release-year-select-label">
+                    <InputLabel id="newsletter-year-select-label">
                       Year
                     </InputLabel>
                     <Select
-                      labelId="news-release-year-select-label"
-                      id="news-release-year-select"
+                      labelId="newsletter-year-select-label"
+                      id="newsletter-year-select"
                       value={selectYear}
                       onChange={handleChange}
                       MenuProps={{
@@ -263,42 +266,47 @@ const PublicationsPage = ({
                 <Box>
                   <List>
                     {newslettersForYear.map((n) => (
-                      <NextLink
-                        key={n.id}
-                        passHref
-                        href="/newsroom/news-releases/[release-date]"
-                        as={`/newsroom/news-releases/${n.derivedFilenameAttr?.date}`}
-                        scroll
-                      >
-                        <ListItem button component="a">
-                          <ListItemAvatar>
-                            <Box
-                              bgcolor={theme.palette.common.white}
-                              borderColor={theme.palette.grey['300']}
-                              border={1}
-                              mr={2}
-                              width={50}
-                            >
-                              <LazyImgix
-                                width={50}
-                                src={n.imgix_url}
-                                htmlAttributes={{
-                                  alt: `Thumbnail image for ${n.derivedFilenameAttr?.date} News Release`
-                                }}
-                              />
-                            </Box>
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={n.derivedFilenameAttr?.title}
-                            secondary={format(
-                              parseISO(
-                                n.derivedFilenameAttr?.publishedDate ?? ''
-                              ),
-                              'MMMM do'
-                            )}
-                          />
-                        </ListItem>
-                      </NextLink>
+                      <Box key={n.id} mb={2}>
+                        <NextLink
+                          passHref
+                          href="/newsroom/publications/newsletters/[publish-date]"
+                          as={`/newsroom/publications/newsletters/${n.derivedFilenameAttr?.date}`}
+                          scroll
+                        >
+                          <ListItem
+                            button
+                            component="a"
+                            classes={{root: classes.listItem}}
+                          >
+                            <ListItemAvatar>
+                              <Box
+                                bgcolor={theme.palette.common.white}
+                                borderColor={theme.palette.grey['300']}
+                                border={1}
+                                mr={2}
+                                width={75}
+                              >
+                                <LazyImgix
+                                  width={75}
+                                  src={n.imgix_url}
+                                  htmlAttributes={{
+                                    alt: `Thumbnail image for ${n.derivedFilenameAttr?.date} Newsletter`
+                                  }}
+                                />
+                              </Box>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={n.derivedFilenameAttr?.title}
+                              secondary={format(
+                                parseISO(
+                                  n.derivedFilenameAttr?.publishedDate ?? ''
+                                ),
+                                'MMMM do'
+                              )}
+                            />
+                          </ListItem>
+                        </NextLink>
+                      </Box>
                     ))}
                   </List>
                 </Box>
@@ -335,7 +343,7 @@ const fetchNewsletters = async () => {
     ...bm,
     derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
   }))
-  // Group News Releases by derived Year into JS Map.
+  // Group Newsletters by derived Year into JS Map.
   const grouped = groupBy<CosmicMediaMeta, number>(
     bmaEx,
     (mbm) => mbm.derivedFilenameAttr?.publishedYear
@@ -343,7 +351,7 @@ const fetchNewsletters = async () => {
   // Transform JS Map into a usable Array of Objects.
   const tmpSortedGroups = [] as GroupedNewsletters
   for (const [k, v] of grouped) {
-    // Sort individual News Releases by published date property.
+    // Sort individual Newsletters by published date property.
     tmpSortedGroups.push({
       year: k,
       values: [...v].sort((a, b) =>
