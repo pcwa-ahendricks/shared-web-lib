@@ -28,7 +28,7 @@ const WaterSensePage = () => {
         <NarrowContainer>
           <PageTitle title="WaterSense" subtitle="Smart Water Use" />
           <RespRowBox justifyContent="space-between" alignItems="center">
-            <ChildBox textAlign="center" p={1}>
+            <ChildBox textAlign="center" p={2}>
               <Type variant="h2" gutterBottom>
                 Look for the{' '}
                 <Type
