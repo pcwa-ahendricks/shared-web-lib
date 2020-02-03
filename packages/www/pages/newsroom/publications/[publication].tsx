@@ -13,9 +13,11 @@ import {
   getMedia,
   fileNameUtil,
   CosmicMediaMeta,
-  CosmicMediaResponse
+  CosmicMediaResponse,
+  getObjects,
+  CosmicObject
 } from '@lib/services/cosmicService'
-import {compareDesc, parseJSON, format, parseISO} from 'date-fns'
+import {compareDesc, parseJSON, format, parseISO, parse} from 'date-fns'
 import NextLink, {LinkProps} from 'next/link'
 import groupBy from '@lib/groupBy'
 import {
@@ -50,7 +52,8 @@ import {
   NewsroomContext,
   GroupedNewsletters,
   setNewsletterYear,
-  setNewsletters
+  setNewsletters,
+  setEnewsBlasts
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
@@ -65,6 +68,7 @@ interface TabPanelProps {
 type Props = {
   newsletters?: GroupedNewsletters
   tabIndex: number
+  enewsBlasts?: CosmicObject[]
   err?: {statusCode: number}
 }
 
@@ -90,13 +94,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const PublicationsPage = ({
   newsletters: newslettersProp,
   tabIndex: tabIndexProp,
+  enewsBlasts: enewsBlastsProp,
   err
 }: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const [tabIndex, setTabIndex] = useState(0)
   const newsroomContext = useContext(NewsroomContext)
-  const {newsletters, newsletterYear} = newsroomContext.state
+  const {newsletters, newsletterYear, enewsBlasts} = newsroomContext.state
   const newsroomDispatch = newsroomContext.dispatch
 
   const TabPanel = useCallback(
@@ -123,7 +128,7 @@ const PublicationsPage = ({
     []
   )
 
-  // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
+  // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
     ({href, as, ...rest}: TabProps<'a'> & LinkProps) => (
       <NextLink passHref href={href} as={as} shallow>
@@ -138,6 +143,25 @@ const PublicationsPage = ({
       newsroomDispatch(setNewsletters(newslettersProp))
     }
   }, [newslettersProp, newsroomDispatch])
+
+  useEffect(() => {
+    if (enewsBlastsProp && enewsBlastsProp?.length > 0) {
+      newsroomDispatch(
+        setEnewsBlasts(
+          enewsBlastsProp.map((blast) => ({
+            id: blast._id,
+            title: blast.title,
+            mailchimpURL: blast.metadata?.mailchimpURL?.toString(),
+            distributionDate: parse(
+              blast.metadata?.distributionDate?.toString(),
+              "yyyy'-'MM'-'dd'",
+              new Date()
+            )
+          }))
+        )
+      )
+    }
+  }, [enewsBlastsProp, newsroomDispatch])
 
   const maxYear = useMemo(
     () =>
@@ -172,6 +196,14 @@ const PublicationsPage = ({
   useEffect(() => {
     setTabIndex(tabIndexProp)
   }, [tabIndexProp])
+
+  const sortedEnewsBlasts = useMemo(
+    () =>
+      enewsBlasts.sort((a, b) =>
+        compareDesc(a.distributionDate, b.distributionDate)
+      ),
+    [enewsBlasts]
+  )
 
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -318,7 +350,28 @@ const PublicationsPage = ({
                 year end here...
               </TabPanel>
               <TabPanel value={tabIndex} index={3}>
-                Enews here...
+                <List>
+                  {sortedEnewsBlasts.map((blast) => {
+                    const distDateFormated = format(
+                      blast.distributionDate,
+                      'MM/dd/yyyy'
+                    )
+                    return (
+                      <ListItem
+                        key={blast.id}
+                        component="a"
+                        button
+                        href={blast.mailchimpURL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ListItemText
+                          primary={`${distDateFormated} - ${blast.title}`}
+                        />
+                      </ListItem>
+                    )
+                  })}
+                </List>
               </TabPanel>
             </ChildBox>
             <ChildBox>
@@ -395,8 +448,16 @@ PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
       }
     }
 
-    const newsletters = await fetchNewsletters()
-    return {newsletters, tabIndex}
+    const [newsletters, enewsBlasts] = await Promise.all([
+      fetchNewsletters(),
+      getObjects('enews-blasts', {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        hide_metafields: true,
+        props: '_id,metadata,status,title'
+      })
+    ])
+
+    return {newsletters, tabIndex, enewsBlasts}
   } catch (error) {
     if (res) {
       res.statusCode = 404

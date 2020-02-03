@@ -1,5 +1,5 @@
 // cspell:ignore bgcolor
-import React from 'react'
+import React, {useCallback} from 'react'
 import {Box, Typography as Type, Theme, Link} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -24,12 +24,13 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 
-const PayOptionBox = ({children}: {children: React.ReactNode}) => {
-  return <Box mt={2}>{children}</Box>
-}
-
 const PayBillPage = () => {
   const theme = useTheme<Theme>()
+
+  const PayOptionBox = useCallback(
+    ({children}: {children: React.ReactNode}) => <Box mt={2}>{children}</Box>,
+    []
+  )
 
   return (
     <PageLayout title="Bill Payment Options" waterSurface>

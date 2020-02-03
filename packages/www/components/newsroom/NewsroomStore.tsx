@@ -1,4 +1,4 @@
-// cspell:ignore lightbox
+// cspell:ignore mediachimp
 import React, {createContext, useReducer} from 'react'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
@@ -7,10 +7,18 @@ interface State {
   newsReleases: GroupedNewsReleases
   newsletterYear?: number
   newsletters: GroupedNewsletters
+  enewsBlasts: EnewsBlast[]
 }
 
 type ProviderProps = {
   children: React.ReactNode
+}
+
+interface EnewsBlast {
+  id: string
+  title: string
+  mailchimpURL: string
+  distributionDate: Date
 }
 
 export type GroupedNewsletters = Array<{
@@ -32,7 +40,8 @@ export type GroupedNewsReleases = Array<{
 // State
 const initialState: State = {
   newsReleases: [],
-  newsletters: []
+  newsletters: [],
+  enewsBlasts: []
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -47,6 +56,7 @@ const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
 const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
 const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
 const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
+const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
 
 // Actions
 export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
@@ -77,6 +87,13 @@ export const setNewsletters = (newsletters: State['newsletters']) => {
   }
 }
 
+export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
+  return {
+    type: SET_ENEWS_BLASTS,
+    enewsBlasts
+  }
+}
+
 // Reducer
 const newsroomReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -99,6 +116,11 @@ const newsroomReducer = (state: State, action: any): State => {
       return {
         ...state,
         newsletters: [...action.newsletters]
+      }
+    case SET_ENEWS_BLASTS:
+      return {
+        ...state,
+        enewsBlasts: [...action.enewsBlasts]
       }
     default:
       return state

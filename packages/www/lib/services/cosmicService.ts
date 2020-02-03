@@ -221,7 +221,7 @@ export interface CosmicObjectResponse {
   total: number
 }
 
-interface CosmicObject {
+export interface CosmicObject {
   _id: string
   order: number
   slug: string
@@ -242,13 +242,14 @@ interface CosmicObject {
 }
 
 interface Metadata {
-  overview?: string
-  last_updated?: string
-  type?: string
-  hide_on_website?: boolean
-  presentation?: string
-  slideNo?: number
-  content?: string
+  // overview?: string
+  // last_updated?: string
+  // type?: string
+  // hide_on_website?: boolean
+  // presentation?: string
+  // slideNo?: number
+  // content?: string
+  [key: string]: boolean | string | number
 }
 
 interface Metafield {
