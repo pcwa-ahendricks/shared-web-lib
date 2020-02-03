@@ -6,8 +6,10 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import {NextPageContext} from 'next'
+const isDev = process.env.NODE_ENV === 'development'
 
-const BasicTemplatePage = () => {
+const ResponsiveImageTemplatePage = () => {
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -38,4 +40,17 @@ const BasicTemplatePage = () => {
   )
 }
 
-export default BasicTemplatePage
+ResponsiveImageTemplatePage.getInitialProps = async ({
+  res
+}: NextPageContext) => {
+  if (!isDev) {
+    if (res) {
+      res.statusCode = 404
+    }
+    return {err: {statusCode: 404}}
+  } else {
+    return {}
+  }
+}
+
+export default ResponsiveImageTemplatePage

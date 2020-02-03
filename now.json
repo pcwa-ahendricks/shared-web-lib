@@ -196,11 +196,6 @@
       }
     },
     {
-      "src": "/(?:typography|templates)/?",
-      "dest": "packages/www/_error",
-      "status": 404
-    },
-    {
       "src": "/favicon.ico",
       "dest": "packages/www/static/favicon.ico",
       "headers": {
