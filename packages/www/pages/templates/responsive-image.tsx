@@ -7,9 +7,17 @@ import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {NextPageContext} from 'next'
+import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'
 
-const ResponsiveImageTemplatePage = () => {
+type Props = {
+  err?: {statusCode: number}
+}
+
+const ResponsiveImageTemplatePage = ({err}: Props) => {
+  if (err) {
+    return <ErrorPage statusCode={err.statusCode} />
+  }
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -40,9 +48,7 @@ const ResponsiveImageTemplatePage = () => {
   )
 }
 
-ResponsiveImageTemplatePage.getInitialProps = async ({
-  res
-}: NextPageContext) => {
+ResponsiveImageTemplatePage.getInitialProps = ({res}: NextPageContext) => {
   if (!isDev) {
     if (res) {
       res.statusCode = 404

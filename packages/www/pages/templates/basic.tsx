@@ -4,9 +4,17 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {NextPageContext} from 'next'
+import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'
 
-const BasicTemplatePage = () => {
+type Props = {
+  err?: {statusCode: number}
+}
+
+const BasicTemplatePage = ({err}: Props) => {
+  if (err) {
+    return <ErrorPage statusCode={err.statusCode} />
+  }
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -18,7 +26,7 @@ const BasicTemplatePage = () => {
   )
 }
 
-BasicTemplatePage.getInitialProps = async ({res}: NextPageContext) => {
+BasicTemplatePage.getInitialProps = ({res}: NextPageContext) => {
   if (!isDev) {
     if (res) {
       res.statusCode = 404

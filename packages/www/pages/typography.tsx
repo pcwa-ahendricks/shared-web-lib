@@ -5,9 +5,17 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {NextPageContext} from 'next'
+import ErrorPage from './_error'
 const isDev = process.env.NODE_ENV === 'development'
 
-const TypographyPage = () => {
+type Props = {
+  err?: {statusCode: number}
+}
+
+const TypographyPage = ({err}: Props) => {
+  if (err) {
+    return <ErrorPage statusCode={err.statusCode} />
+  }
   return (
     <PageLayout title="Typography Test">
       <NarrowContainer>
@@ -59,7 +67,7 @@ const TypographyPage = () => {
   )
 }
 
-TypographyPage.getInitialProps = async ({res}: NextPageContext) => {
+TypographyPage.getInitialProps = ({res}: NextPageContext) => {
   if (!isDev) {
     if (res) {
       res.statusCode = 404
