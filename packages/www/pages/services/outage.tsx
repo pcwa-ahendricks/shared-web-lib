@@ -22,22 +22,28 @@ import FlexBox, {
   RowBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
-import {getObjects, CosmicObjectResponse} from '@lib/services/cosmicService'
+import {getObjects, CosmicObject} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 
+interface OutageMetadata {
+  hide_on_website: boolean
+  last_updated: string
+  type: string
+}
+
 const OutageInformationPage = () => {
   const theme = useTheme<Theme>()
-  const [outages, setOutages] = useState<CosmicObjectResponse['objects']>([])
+  const [outages, setOutages] = useState<CosmicObject<OutageMetadata>[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
   const getOutages = useCallback(async () => {
     try {
       setLoading(true)
-      const data = await getObjects('outages', {
+      const data = await getObjects<OutageMetadata>('outages', {
         // eslint-disable-next-line @typescript-eslint/camelcase
         hide_metafields: true,
         props: '_id,content,metadata,slug,status,title'
@@ -55,26 +61,29 @@ const OutageInformationPage = () => {
   }, [getOutages])
 
   const outageContent = useCallback(
-    (outageType: string) =>
-      outages
-        .filter(
-          (outage) =>
-            outage?.metadata?.hide_on_website === false &&
-            outage?.slug === outageType
-        )
-        .map((outage) => outage?.content)?.[0] ?? '',
+    (outageType: string) => {
+      const re = new RegExp(outageType, 'gi')
+      const f =
+        outages
+          .filter(
+            (outage) =>
+              outage?.metadata.hide_on_website === false &&
+              re.test(outage?.metadata.type)
+          )
+          .map((outage) => outage?.content)?.[0] ?? ''
+      return f
+    },
     [outages]
   )
+  console.log(outages)
 
-  const treatedWaterOutagesHTML = useMemo(
-    () => outageContent('treated-outages'),
-    [outageContent]
-  )
+  const treatedWaterOutagesHTML = useMemo(() => outageContent('treated'), [
+    outageContent
+  ])
 
-  const rawWaterOutagesHTML = useMemo(
-    () => outageContent('irrigation-canal-outages'),
-    [outageContent]
-  )
+  const rawWaterOutagesHTML = useMemo(() => outageContent('irrigation'), [
+    outageContent
+  ])
 
   const options: HTMLReactParserOptions = useMemo(
     () => ({

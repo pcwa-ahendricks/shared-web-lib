@@ -20,11 +20,11 @@ export interface Page {
   url: string
 }
 
-const getObjects = async (type: string, params: any) => {
+async function getObjects<T = Metadata>(type: string, params: any) {
   try {
     const qs = stringify({type, ...params}, true)
     const url = `${LAMBDA_URL}/api/cosmic/objects${qs}`
-    const data = await fetchOk<CosmicObjectResponse>(url)
+    const data = await fetchOk<CosmicObjectResponse<T>>(url)
     if (!data) {
       return []
     }
@@ -216,12 +216,12 @@ export interface CosmicMediaMeta extends CosmicMedia {
   derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
 }
 
-export interface CosmicObjectResponse {
-  objects: Partial<CosmicObject>[]
+export interface CosmicObjectResponse<T = Metadata> {
+  objects: CosmicObject<T>[]
   total: number
 }
 
-export interface CosmicObject {
+export interface CosmicObject<T = Metadata> {
   _id: string
   order: number
   slug: string
@@ -237,18 +237,11 @@ export interface CosmicObject {
   modified_at?: string
   modified_by?: string
   publish_at?: any
-  metadata: Metadata
+  metadata: T
   published_at?: string
 }
 
 interface Metadata {
-  // overview?: string
-  // last_updated?: string
-  // type?: string
-  // hide_on_website?: boolean
-  // presentation?: string
-  // slideNo?: number
-  // content?: string
   [key: string]: boolean | string | number
 }
 

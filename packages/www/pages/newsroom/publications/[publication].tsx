@@ -1,3 +1,4 @@
+// cspell:ignore mailchimp
 import React, {
   useEffect,
   useCallback,
@@ -59,6 +60,11 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
+interface EnewsBlastMetadata {
+  mailchimpURL: string
+  distributionDate: string
+}
+
 interface TabPanelProps {
   children?: React.ReactNode
   index: any
@@ -68,7 +74,7 @@ interface TabPanelProps {
 type Props = {
   newsletters?: GroupedNewsletters
   tabIndex: number
-  enewsBlasts?: CosmicObject[]
+  enewsBlasts?: CosmicObject<EnewsBlastMetadata>[]
   err?: {statusCode: number}
 }
 
@@ -151,9 +157,9 @@ const PublicationsPage = ({
           enewsBlastsProp.map((blast) => ({
             id: blast._id,
             title: blast.title,
-            mailchimpURL: blast.metadata?.mailchimpURL?.toString(),
+            mailchimpURL: blast.metadata?.mailchimpURL,
             distributionDate: parse(
-              blast.metadata?.distributionDate?.toString(),
+              blast.metadata?.distributionDate,
               "yyyy'-'MM'-'dd'",
               new Date()
             )
@@ -450,7 +456,7 @@ PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
 
     const [newsletters, enewsBlasts] = await Promise.all([
       fetchNewsletters(),
-      getObjects('enews-blasts', {
+      getObjects<EnewsBlastMetadata>('enews-blasts', {
         // eslint-disable-next-line @typescript-eslint/camelcase
         hide_metafields: true,
         props: '_id,metadata,status,title'
