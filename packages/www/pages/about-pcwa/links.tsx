@@ -78,8 +78,7 @@ const LinksPage = () => {
               <LazyImgix
                 src="https://cosmicjs.imgix.net/fda930b0-6b32-11e7-b4b0-738ba83d40d7-links.jpg"
                 htmlAttributes={{
-                  alt: 'Photo of Duncan Creek',
-                  style: {width: '100%'}
+                  alt: 'Photo of Duncan Creek'
                 }}
               />
             </ChildBox>

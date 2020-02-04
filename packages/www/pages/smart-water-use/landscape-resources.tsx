@@ -303,8 +303,7 @@ const LandscapeResourcesPage = () => {
               <LazyImgix
                 src="https://cosmicjs.imgix.net/d0684f40-6b42-11e7-b267-0b654f5c65d5-landscape_ymbpw3.png"
                 htmlAttributes={{
-                  alt: 'Landscaping Photo Collage',
-                  style: {width: '100%'}
+                  alt: 'Landscaping Photo Collage'
                 }}
               />
             </ChildBox>

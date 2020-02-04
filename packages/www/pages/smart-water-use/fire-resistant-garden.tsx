@@ -87,8 +87,7 @@ const FireResistantGardenPage = () => {
       <LazyImgix
         src="https://cosmic-s3.imgix.net/bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
         htmlAttributes={{
-          alt: 'Boys Scouts with Auburn Fire',
-          style: {width: '100%'}
+          alt: 'Boys Scouts with Auburn Fire'
         }}
       />
     )
@@ -288,8 +287,7 @@ const FireResistantGardenPage = () => {
                   <LazyImgix
                     src="https://cosmic-s3.imgix.net/48ddc470-ad6b-11e9-910a-9dd8fa8729ee-Boys-Scouts-with-Auburn-Fire008.jpg"
                     htmlAttributes={{
-                      alt: 'Boys Scouts with Auburn Fire',
-                      style: {width: '100%'}
+                      alt: 'Boys Scouts with Auburn Fire'
                     }}
                   />
                 </ChildBox>

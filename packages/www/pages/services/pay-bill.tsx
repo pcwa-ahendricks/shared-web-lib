@@ -137,8 +137,7 @@ const PayBillPage = () => {
                 <LazyImgix
                   src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
                   htmlAttributes={{
-                    alt: 'Customer Service Representative Photo',
-                    style: {width: '100%'}
+                    alt: 'Customer Service Representative Photo'
                   }}
                 />
               </Box>

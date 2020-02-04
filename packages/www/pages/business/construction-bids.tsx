@@ -106,8 +106,7 @@ const ConstructionBidsPage = () => {
                 <LazyImgix
                   src="https://cosmicjs.imgix.net/03f308a0-6b34-11e7-a2a2-c992b2b93cb7-construction-projects.jpg"
                   htmlAttributes={{
-                    alt: 'French Meadows Spillway Modification Project 2011',
-                    style: {width: '100%'}
+                    alt: 'French Meadows Spillway Modification Project 2011'
                   }}
                 />
               </Box>

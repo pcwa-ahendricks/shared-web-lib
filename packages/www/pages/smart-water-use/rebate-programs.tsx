@@ -127,8 +127,7 @@ const RebateProgramsPage = () => {
               <LazyImgix
                 src="https://cosmic-s3.imgix.net/2b569170-af32-11e9-90f6-45e304c90a10-untitled.png"
                 htmlAttributes={{
-                  alt: 'Water Efficient Garden',
-                  style: {width: '100%'}
+                  alt: 'Water Efficient Garden'
                 }}
               />
             </ChildBox>

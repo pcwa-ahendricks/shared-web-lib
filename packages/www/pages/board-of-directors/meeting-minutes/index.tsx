@@ -164,8 +164,7 @@ const BoardMinutesPage = () => {
               <LazyImgix
                 src="https://cosmicjs.imgix.net/dc58efe0-6b19-11e7-9040-ddfa5350c930-board-minutes-aside.jpg"
                 htmlAttributes={{
-                  alt: 'Photo of past PCWA Board Members',
-                  style: {width: '100%'}
+                  alt: 'Photo of past PCWA Board Members'
                 }}
               />
             </ChildBox>

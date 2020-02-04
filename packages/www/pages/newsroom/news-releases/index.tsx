@@ -114,8 +114,7 @@ const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
                     <LazyImgix
                       src="https://cosmicjs.imgix.net/204bed80-6b1d-11e7-9554-0968c6aee140-news-releases.jpg"
                       htmlAttributes={{
-                        alt: 'PCWA Canal Photo',
-                        style: {width: '100%'}
+                        alt: 'PCWA Canal Photo'
                       }}
                     />
                   </Box>

@@ -180,8 +180,7 @@ const WaterRatesPage = () => {
               <LazyImgix
                 src="https://cosmicjs.imgix.net/ad139f00-6b41-11e7-b267-0b654f5c65d5-water-rates.jpg"
                 htmlAttributes={{
-                  alt: 'A photo of plants receiving water from a watering can',
-                  style: {width: '100%'}
+                  alt: 'A photo of plants receiving water from a watering can'
                 }}
               />
             </ChildBox>

@@ -38,8 +38,7 @@ const WaterSenseLogo = () => {
           <LazyImgix
             src="https://cosmic-s3.imgix.net/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
             htmlAttributes={{
-              alt: 'WaterSense Logo',
-              style: {width: '100%'}
+              alt: 'WaterSense Logo'
             }}
             // To always use a png file auto must be overridden too since it defaults to "format".
             // imgixParams={{

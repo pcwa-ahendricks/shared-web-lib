@@ -8,6 +8,7 @@ interface State {
   newsletterYear?: number
   newsletters: GroupedNewsletters
   enewsBlasts: EnewsBlast[]
+  enewsDialogOpen: boolean
 }
 
 type ProviderProps = {
@@ -41,7 +42,8 @@ export type GroupedNewsReleases = Array<{
 const initialState: State = {
   newsReleases: [],
   newsletters: [],
-  enewsBlasts: []
+  enewsBlasts: [],
+  enewsDialogOpen: false
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -57,6 +59,7 @@ const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
 const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
 const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
 const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
+const SET_ENEWS_DIALOG_OPEN: 'SET_ENEWS_DIALOG_OPEN' = 'SET_ENEWS_DIALOG_OPEN'
 
 // Actions
 export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
@@ -94,6 +97,13 @@ export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
   }
 }
 
+export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
+  return {
+    type: SET_ENEWS_BLASTS,
+    open
+  }
+}
+
 // Reducer
 const newsroomReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -121,6 +131,11 @@ const newsroomReducer = (state: State, action: any): State => {
       return {
         ...state,
         enewsBlasts: [...action.enewsBlasts]
+      }
+    case SET_ENEWS_DIALOG_OPEN:
+      return {
+        ...state,
+        enewsDialogOpen: action.open
       }
     default:
       return state

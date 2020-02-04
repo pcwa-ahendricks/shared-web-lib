@@ -48,8 +48,7 @@ const EnvironmentalPlanningPage = () => {
                 <LazyImgix
                   src="https://cosmicjs.imgix.net/27251d10-6b32-11e7-a2a2-c992b2b93cb7-environmental-and-planning-documents.jpg"
                   htmlAttributes={{
-                    alt: 'A photo taken of the American River',
-                    style: {width: '100%'}
+                    alt: 'A photo taken of the American River'
                   }}
                 />
               </Box>

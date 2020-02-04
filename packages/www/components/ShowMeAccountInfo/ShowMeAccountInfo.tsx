@@ -10,9 +10,9 @@ import {
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
-import Imgix from 'react-imgix'
 import delay from 'then-sleep'
-import clsx from 'clsx'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
+// import clsx from 'clsx'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
 
@@ -123,15 +123,12 @@ const ShowMeAccountInfo = () => {
                 </Type>
               </div>
             </Transition>
-            <Imgix
-              // height={200}
+            <LazyImgix
+              height={200}
               width={500}
-              className={clsx({['lazyload']: true})}
-              sizes="auto"
               src={IMAGE_URL}
               htmlAttributes={{
-                alt: 'Find My Account Number',
-                style: {width: '100%'}
+                alt: 'Find My Account Number'
               }}
               imgixParams={{
                 crop: 'focalpoint', // cspell:disable-line

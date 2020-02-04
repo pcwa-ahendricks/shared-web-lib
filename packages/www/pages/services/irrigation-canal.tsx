@@ -128,8 +128,7 @@ const IrrigationCanalPage = () => {
               <LazyImgix
                 src="https://cosmic-s3.imgix.net/1e395470-c3a3-11e9-a5a7-bbdca6cf5b93-irrigation-canal-img1.jpg"
                 htmlAttributes={{
-                  alt: 'PCWA Canal photo',
-                  style: {width: '100%'}
+                  alt: 'PCWA Canal photo'
                 }}
               />
             </ChildBox>

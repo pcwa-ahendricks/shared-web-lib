@@ -142,8 +142,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 <LazyImgix
                   src="https://cosmic-s3.imgix.net/6396ea70-2da5-11ea-a6d4-f90f4871ce6f-Board-of-Directors-2020.jpg"
                   htmlAttributes={{
-                    alt: 'PCWA Board of Directors - December 2020',
-                    style: {width: '100%'}
+                    alt: 'PCWA Board of Directors - December 2020'
                   }}
                 />
               </Box>
@@ -187,7 +186,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 borderRadius={3}
               >
                 <RespRowBox flexSpacing={4}>
-                  <ChildBox flex="80%">
+                  <ChildBox flex="auto">
                     <Box textAlign="center">
                       <Type variant="h3" color="primary" gutterBottom>
                         {activeDirector?.name}, District{' '}
@@ -207,17 +206,16 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                     </Type>
                     <Type paragraph>{activeDirector?.bio}</Type>
                   </ChildBox>
-                  <ChildBox flex="20%">
+                  <ChildBox flex="1 0 auto">
                     <Box
                       mx="auto"
-                      width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+                      width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
                     >
                       <LazyImgix
                         src={activeDirector?.imgSrc ?? ''}
-                        height={350}
+                        width={225}
                         htmlAttributes={{
                           alt: `Photo of District ${activeDirector?.district} Director`
-                          // style: {width: '100%'}
                         }}
                       />
                     </Box>

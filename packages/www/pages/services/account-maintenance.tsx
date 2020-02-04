@@ -36,8 +36,7 @@ const AccountMaintenancePage = () => {
               <LazyImgix
                 src="https://cosmic-s3.imgix.net/ca540d40-c38a-11e9-bd35-0d553d15132e-account-maintenance-img1.jpg"
                 htmlAttributes={{
-                  alt: 'Water Efficiency Technician Photo',
-                  style: {width: '100%'}
+                  alt: 'Water Efficiency Technician Photo'
                 }}
               />
             </ChildBox>

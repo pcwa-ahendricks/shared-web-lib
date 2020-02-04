@@ -11,6 +11,7 @@ import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
 import {useTheme} from '@material-ui/core/styles'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
+import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -70,6 +71,7 @@ const PageLayout = ({
       </ColumnBox>
       <ScrollToTop />
       <ErrorDialog onExited={errorDialogExitedHandler} />
+      <EnewsSubscribeDialog />
     </>
   )
 }

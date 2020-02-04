@@ -35,8 +35,7 @@ const ResponsiveImageTemplatePage = ({err}: Props) => {
                 <LazyImgix
                   src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
                   htmlAttributes={{
-                    alt: 'demo image',
-                    style: {width: '100%'}
+                    alt: 'demo image'
                   }}
                 />
               </Box>

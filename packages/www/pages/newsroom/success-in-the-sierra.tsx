@@ -36,8 +36,7 @@ const SuccessInTheSierraPage = () => {
           <LazyImgix
             src="https://cosmic-s3.imgix.net/c6e4fd40-30ae-11ea-96a7-8146ec741192-French-Meadows-Forest-Restoration-Project002.jpg"
             htmlAttributes={{
-              alt: 'French Meadows Forest Restoration Project in action',
-              style: {width: '100%'}
+              alt: 'French Meadows Forest Restoration Project in action'
             }}
           />
           <Spacing />
@@ -207,8 +206,7 @@ const SuccessInTheSierraPage = () => {
           <LazyImgix
             src="https://cosmic-s3.imgix.net/01072cd0-30b6-11ea-bfe8-5b62c3bdf959-Success-in-the-Sierra-Partnership-Logos.png"
             htmlAttributes={{
-              alt: 'Partnership and Affiliation logos',
-              style: {width: '100%'}
+              alt: 'Partnership and Affiliation logos'
             }}
           />
         </NarrowContainer>

@@ -86,8 +86,7 @@ const CrossControlPreventionPage = () => {
               <LazyImgix
                 src="https://cosmicjs.imgix.net/83b0e520-6b30-11e7-b8ae-eb2280fc8c40-backflow-prevention-aside.jpg"
                 htmlAttributes={{
-                  alt: 'Backflow Prevention Maintenance Photo',
-                  style: {width: '100%'}
+                  alt: 'Backflow Prevention Maintenance Photo'
                 }}
               />
             </ChildBox>

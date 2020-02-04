@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Box, Theme, Typography} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
-import ReactImgix from 'react-imgix'
+import Imgix from 'react-imgix'
 import Link from 'next/link'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 
@@ -109,13 +109,13 @@ const ImageDimmerLink = ({
         overflow="hidden"
         {...rest}
       >
-        <ReactImgix
+        <Imgix
           width={width}
           height={height}
           src={imgSrc}
           htmlAttributes={{
+            // Don't need to add a style.width when using 'height' and 'width' with <Imgix />.
             alt
-            // style: {width: '100%'}
           }}
           imgixParams={{
             fit: 'crop',

@@ -73,8 +73,7 @@ const EmployeeBenefitsSummaryPage = () => {
               <LazyImgix
                 src="https://cosmicjs.imgix.net/dd57d890-6b35-11e7-860a-a98685e05496-employee-benefits-summary.jpg"
                 htmlAttributes={{
-                  alt: 'Photo of PCWA Employee in shop',
-                  style: {width: '100%'}
+                  alt: 'Photo of PCWA Employee in shop'
                 }}
               />
             </ChildBox>

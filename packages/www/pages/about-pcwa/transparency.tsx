@@ -56,8 +56,7 @@ const TransparencyPage = () => {
                   src="https://cosmic-s3.imgix.net/3bcfc830-bd91-11e7-9abf-9bcadf03ca02-PCWA_Board_Transparency_Certificate.jpg"
                   htmlAttributes={{
                     alt:
-                      'Photo of PCWA presented with Transparency excellence certificate',
-                    style: {width: '100%'}
+                      'Photo of PCWA presented with Transparency excellence certificate'
                   }}
                 />
               </Box>

@@ -30,8 +30,7 @@ const HowToIDUsPage = () => {
                   src="https://cosmicjs.imgix.net/746a7480-6b32-11e7-860a-a98685e05496-pcwa-truck.jpg"
                   htmlAttributes={{
                     alt:
-                      'A photo of a PCWA Employee near an identified PCWA service truck',
-                    style: {width: '100%'}
+                      'A photo of a PCWA Employee near an identified PCWA service truck'
                   }}
                 />
               </Box>
@@ -90,8 +89,7 @@ const HowToIDUsPage = () => {
                   src="https://cosmicjs.imgix.net/74739c40-6b32-11e7-860a-a98685e05496-pcwa-employee.jpg"
                   htmlAttributes={{
                     alt:
-                      "A photo of a PCWA Employee Approaching a Customer's House",
-                    style: {width: '100%'}
+                      "A photo of a PCWA Employee Approaching a Customer's House"
                   }}
                 />
               </Box>

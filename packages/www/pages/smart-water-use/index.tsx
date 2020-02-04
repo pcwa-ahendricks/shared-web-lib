@@ -139,8 +139,7 @@ const SmartWaterUsePage = () => {
                     src="https://cosmic-s3.imgix.net/b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"
                     htmlAttributes={{
                       alt:
-                        'Lay the ground work for water saving and healthy plants. Fall is a great time to add water-wise plants and upgrade your irrigation.',
-                      style: {width: '100%'}
+                        'Lay the ground work for water saving and healthy plants. Fall is a great time to add water-wise plants and upgrade your irrigation.'
                     }}
                   />
                 </ChildBox>

@@ -12,8 +12,10 @@ export type LazyImgixProps = Omit<ImgixProps, 'htmlAttributes'> & {
 const LazyImgix = ({
   className: classNameProp,
   sizes = 'auto',
+  htmlAttributes,
   ...rest
 }: LazyImgixProps) => {
+  const {style = {}, ...restOfHtmlAttributes} = htmlAttributes ?? {}
   return (
     <Imgix
       className={clsx([classNameProp, 'lazyload'])}
@@ -22,6 +24,11 @@ const LazyImgix = ({
         src: 'data-src',
         srcSet: 'data-srcset',
         sizes: 'data-sizes'
+      }}
+      // By default, don't let image grow wider than it's container. The affects of not using width can be seen with Responsive Image Template Page when shrinking the browser width to that of a mobile device. When doing so the image doesn't shrink responsively. maxWidth would work but doesn't grow the image to 100% when needed (See Env. Planning Page and image for example of when maxWidth is only used; In such a case, the image won't center and grow when needed during a screen resize), so width is used here for both reasons.
+      htmlAttributes={{
+        style: {width: '100%', ...style},
+        ...restOfHtmlAttributes
       }}
       {...rest}
     />

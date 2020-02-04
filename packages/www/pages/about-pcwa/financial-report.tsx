@@ -72,8 +72,7 @@ const EmployeeBenefitsSummaryPage = () => {
               <LazyImgix
                 src="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                 htmlAttributes={{
-                  alt: 'Financial Report Cover Page',
-                  style: {width: '100%'}
+                  alt: 'Financial Report Cover Page'
                 }}
               />
             </ChildBox>

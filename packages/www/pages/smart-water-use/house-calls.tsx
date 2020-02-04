@@ -74,7 +74,6 @@ const HouseCallsPage = () => {
             src="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
             htmlAttributes={{
               alt: 'PCWA Water Efficiency Team',
-              style: {width: '100%'}
             }}
           />
         </Box> */}
@@ -140,7 +139,6 @@ const HouseCallsPage = () => {
                   src="https://cosmic-s3.imgix.net/e62faff0-c430-11e9-b25b-79fa6aa7c400-Mychel-Teater-adjusting-sprinkler.tif"
                   htmlAttributes={{
                     alt: 'Meter Efficiency Technician adjusting sprinkler',
-                    style: {width: '100%'}
                   }}
                 />
               </ChildBox> */}

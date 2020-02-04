@@ -356,6 +356,14 @@ const PublicationsPage = ({
                 year end here...
               </TabPanel>
               <TabPanel value={tabIndex} index={3}>
+                <Type paragraph>
+                  As your water provider, we’re committed to keeping you
+                  informed about news that relates to you. PCWA’s E-News will
+                  send you important email updates about your water supply,
+                  water quality, legislative updates, construction alerts and
+                  more. Please add us to your email address book. This helps
+                  ensure news gets to you rather than your junk box.
+                </Type>
                 <List>
                   {sortedEnewsBlasts.map((blast) => {
                     const distDateFormated = format(
