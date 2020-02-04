@@ -29,7 +29,7 @@ const ErrorPage = ({statusCode, title: titleProp}: Props) => {
   const contactWebmasterEl = useMemo(
     () =>
       statusCode === 404 ? (
-        <Box width={600} m={6} textAlign="center">
+        <Box m={6} textAlign="center" width={600} maxWidth="100%">
           <Type>
             Can't find the web page you are looking for? Let us know at{' '}
             <WebmasterEmail />.
