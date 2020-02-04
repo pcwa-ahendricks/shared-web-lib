@@ -20,7 +20,7 @@ export interface Page {
   url: string
 }
 
-async function getObjects<T = Metadata>(type: string, params: any) {
+const getObjects = async <T = Metadata>(type: string, params: any) => {
   try {
     const qs = stringify({type, ...params}, true)
     const url = `${LAMBDA_URL}/api/cosmic/objects${qs}`
@@ -81,7 +81,7 @@ const getSalaryScheduleCsv = async () => {
   }
 }
 
-const getMedia = async <T extends unknown>(
+const getMedia = async <T>(
   params = {},
   cosmicId?: string
 ): Promise<T | undefined> => {
