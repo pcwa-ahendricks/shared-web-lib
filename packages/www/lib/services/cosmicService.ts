@@ -227,7 +227,7 @@ export interface CosmicObject<T = CosmicMetadata> {
   slug: string
   title: string
   content: string
-  metafields: Metafield[]
+  metafields: CosmicMetafield[]
   bucket: string
   type_slug: string
   created_at: string
@@ -241,7 +241,7 @@ export interface CosmicObject<T = CosmicMetadata> {
   published_at?: string
 }
 
-interface Metafield {
+interface CosmicMetafield {
   required: boolean
   value: boolean | number | string | string | string
   key: string
@@ -253,7 +253,7 @@ interface Metafield {
   regex?: string
 }
 
-interface Option {
+interface CosmicOption {
   value: string
   key?: string
 }
