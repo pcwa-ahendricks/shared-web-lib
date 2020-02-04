@@ -20,7 +20,7 @@ export interface Page {
   url: string
 }
 
-const getObjects = async <T = Metadata>(type: string, params: any) => {
+const getObjects = async <T = CosmicMetadata>(type: string, params: any) => {
   try {
     const qs = stringify({type, ...params}, true)
     const url = `${LAMBDA_URL}/api/cosmic/objects${qs}`
@@ -216,12 +216,12 @@ export interface CosmicMediaMeta extends CosmicMedia {
   derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
 }
 
-export interface CosmicObjectResponse<T = Metadata> {
+export interface CosmicObjectResponse<T = CosmicMetadata> {
   objects: CosmicObject<T>[]
   total: number
 }
 
-export interface CosmicObject<T = Metadata> {
+export interface CosmicObject<T = CosmicMetadata> {
   _id: string
   order: number
   slug: string
@@ -239,10 +239,6 @@ export interface CosmicObject<T = Metadata> {
   publish_at?: any
   metadata: T
   published_at?: string
-}
-
-interface Metadata {
-  [key: string]: boolean | string | number
 }
 
 interface Metafield {
