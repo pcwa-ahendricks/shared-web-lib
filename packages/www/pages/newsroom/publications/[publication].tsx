@@ -61,7 +61,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 interface EnewsBlastMetadata {
-  mailchimpURL: string
+  mailchimpURL?: string
   distributionDate: string
 }
 
@@ -157,7 +157,7 @@ const PublicationsPage = ({
           enewsBlastsProp.map((blast) => ({
             id: blast._id,
             title: blast.title,
-            mailchimpURL: blast.metadata?.mailchimpURL,
+            mailchimpURL: blast.metadata?.mailchimpURL ?? '',
             distributionDate: parse(
               blast.metadata?.distributionDate,
               "yyyy'-'MM'-'dd'",
