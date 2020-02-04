@@ -248,7 +248,7 @@ interface CosmicMetafield {
   title: string
   type: string
   children?: any
-  options?: Option[]
+  options?: CosmicOption[]
   regex_message?: string
   regex?: string
 }
