@@ -23,7 +23,7 @@ import ChatIcon from 'mdi-material-ui/ChatOutline'
 import EmailIcon from 'mdi-material-ui/EmailOutline'
 import MapIcon from 'mdi-material-ui/MapMarkerOutline'
 import PhoneIcon from 'mdi-material-ui/PhoneOutline'
-import GlowGreen from '@components/GlowGreen/GlowGreen'
+import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
 
 const useFooterStyles = makeStyles((theme: Theme) =>
@@ -63,7 +63,7 @@ const SubtleDivider = () => {
 
 const Footer = () => {
   const classes = useFooterStyles()
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
@@ -99,7 +99,7 @@ const Footer = () => {
                   <MapIcon fontSize="small" />
                 </Box>
                 <Box ml={1}>
-                  <GlowGreen>
+                  <GlowLightGreen>
                     <NextLink
                       variant="body2"
                       color="inherit"
@@ -111,7 +111,7 @@ const Footer = () => {
                       P.O. Box 6570 <br />
                       Auburn, CA 95604
                     </NextLink>
-                  </GlowGreen>
+                  </GlowLightGreen>
                   <Type variant="body2">Mon. - Fri., 8 am – 5 pm </Type>
                 </Box>
               </RowBox>
@@ -120,14 +120,14 @@ const Footer = () => {
                   <PhoneIcon fontSize="small" />
                 </Box>
                 <Box ml={1}>
-                  <GlowGreen>
+                  <GlowLightGreen>
                     <MainPhone
                       color="inherit"
                       variant="body2"
                       gutterBottom
                       underline="none"
                     />
-                  </GlowGreen>
+                  </GlowLightGreen>
                   <Type variant="body2">Mon. - Fri., 8 am – 5 pm</Type>
                 </Box>
               </RowBox>
@@ -139,7 +139,7 @@ const Footer = () => {
               flex={{xs: '0 0 auto', sm: '1 1 25%'}}
               alignItems="center"
             >
-              <GlowGreen>
+              <GlowLightGreen>
                 <ButtonBase>
                   <ColumnBox>
                     <Box>
@@ -148,10 +148,10 @@ const Footer = () => {
                     <Type variant="body1">Report Water Waste</Type>
                   </ColumnBox>
                 </ButtonBase>
-              </GlowGreen>
+              </GlowLightGreen>
               <SubtleDivider />
 
-              <GlowGreen>
+              <GlowLightGreen>
                 <ButtonBase>
                   <ColumnBox>
                     <Box>
@@ -160,9 +160,9 @@ const Footer = () => {
                     <Type>Contact Us</Type>
                   </ColumnBox>
                 </ButtonBase>
-              </GlowGreen>
+              </GlowLightGreen>
               <SubtleDivider />
-              <GlowGreen>
+              <GlowLightGreen>
                 <ButtonBase>
                   <ColumnBox>
                     <Box>
@@ -171,7 +171,7 @@ const Footer = () => {
                     <Type>Subscribe to E-News</Type>
                   </ColumnBox>
                 </ButtonBase>
-              </GlowGreen>
+              </GlowLightGreen>
             </ColumnBox>
             <ColumnBox
               width="100%"
@@ -184,30 +184,30 @@ const Footer = () => {
                 Also on
               </Type>
               <RowBox>
-                <GlowGreen>
+                <GlowLightGreen>
                   <SocialIconButton
                     href="https://twitter.com/PlacerWater"
                     color="inherit"
                   >
                     <FacebookIcon fontSize="large" />
                   </SocialIconButton>
-                </GlowGreen>
-                <GlowGreen>
+                </GlowLightGreen>
+                <GlowLightGreen>
                   <SocialIconButton
                     href="https://www.facebook.com/ThePCWA"
                     color="inherit"
                   >
                     <TwitterIcon fontSize="large" />
                   </SocialIconButton>
-                </GlowGreen>
-                <GlowGreen>
+                </GlowLightGreen>
+                <GlowLightGreen>
                   <SocialIconButton
                     href="https://www.youtube.com/user/ThePCWA"
                     color="inherit"
                   >
                     <YoutubeIcon fontSize="large" />
                   </SocialIconButton>
-                </GlowGreen>
+                </GlowLightGreen>
               </RowBox>
             </ColumnBox>
           </RespRowBox>

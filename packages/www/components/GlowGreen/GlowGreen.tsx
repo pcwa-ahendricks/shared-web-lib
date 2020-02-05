@@ -70,4 +70,29 @@ const GlowGreen = ({
   )
 }
 
+const GlowLightGreen = ({
+  children,
+  ...rest
+}: {children: React.ReactNode} & GlowGreenProps) => {
+  const theme = useTheme()
+  return (
+    <GlowGreen activeColor={theme.palette.secondary.light} {...rest}>
+      {children}
+    </GlowGreen>
+  )
+}
+
+const GlowDarkGreen = ({
+  children,
+  ...rest
+}: {children: React.ReactNode} & GlowGreenProps) => {
+  const theme = useTheme()
+  return (
+    <GlowGreen activeColor={theme.palette.secondary.dark} {...rest}>
+      {children}
+    </GlowGreen>
+  )
+}
+
 export default GlowGreen
+export {GlowLightGreen, GlowDarkGreen}
