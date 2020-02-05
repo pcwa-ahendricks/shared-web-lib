@@ -224,6 +224,8 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
     }
   }, [isLGUp])
 
+  const videoWidth = isSMDown ? '100%' : isLGUp ? '425px' : '350px' // Use px suffix with calc().
+
   return (
     <>
       <ReactCSSTransitionReplace
@@ -241,7 +243,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
                     className={classes.player}
                     controls
                     url={p.url}
-                    width={isSMDown ? '100%' : isLGUp ? 425 : 350}
+                    width={videoWidth}
                     height="100%"
                     config={{
                       file: {
@@ -250,7 +252,10 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
                     }}
                   />
                   <Spacing size="x-small" />
-                  <Box textAlign="center">
+                  <Box
+                    textAlign="center"
+                    maxWidth={`calc(${videoWidth} - 24px)`}
+                  >
                     <Type variant="subtitle1">{p.metadata?.caption}</Type>
                   </Box>
                 </ChildBox>
