@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback, useContext} from 'react'
 import {makeStyles, useTheme} from '@material-ui/core/styles'
 import {Box, Hidden, Toolbar, Theme, useMediaQuery} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
@@ -12,6 +12,10 @@ import GlowButton from '@components/GlowButton/GlowButton'
 import NextGlowButton from '@components/NextGlowButton/NextGlowButton'
 // import dynamic from 'next/dynamic'
 import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
+import {
+  setEnewsDialogOpen,
+  NewsroomContext
+} from '@components/newsroom/NewsroomStore'
 
 // const DynamicForecast = dynamic(
 //   import('@components/ForecastContainer/ForecastContainer'),
@@ -40,6 +44,13 @@ const SecondaryHeader = () => {
   const theme = useTheme<Theme>()
   // Custom width defined by point at which menu links overlap each other.
   const noSocialIcons = useMediaQuery('@media screen and (max-width: 690px)')
+  const newsroomContext = useContext(NewsroomContext)
+  const newsroomDispatch = newsroomContext.dispatch
+
+  const subscribeEnewsHandler = useCallback(() => {
+    newsroomDispatch(setEnewsDialogOpen(true))
+  }, [newsroomDispatch])
+
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
       {/* Don't use CSS implementation of hide cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
@@ -51,7 +62,9 @@ const SecondaryHeader = () => {
       <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages
       </NextGlowButton>
-      <ENewsButton size="small">E-News</ENewsButton>
+      <ENewsButton size="small" onClick={subscribeEnewsHandler}>
+        E-News
+      </ENewsButton>
       <NextGlowButton
         size="small"
         aria-label="Link"

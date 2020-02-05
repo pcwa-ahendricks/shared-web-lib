@@ -71,11 +71,14 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     },
     'strong.MuiTypography-root, .MuiTypography-root > strong': {
       fontWeight: 500 // <strong /> uses bold which is too bold for Kiperman font. Use 500 weight instead.
-    },
-    // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
-    '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
-      color: theme.palette.secondary.dark
     }
+    // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
+    // '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
+    //   color: theme.palette.secondary.dark
+    // }
+    // '.MuiButton-containedSecondary': {
+    //   backgroundColor: theme.palette.secondary.dark
+    // }
     // Dona font is not centered vertically within buttons. These selectors help with centering.
     // '.MuiButton-label, .MuiFab-label': {
     //   paddingTop: '0.2rem'

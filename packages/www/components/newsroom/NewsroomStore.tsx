@@ -99,7 +99,7 @@ export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
 
 export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
   return {
-    type: SET_ENEWS_BLASTS,
+    type: SET_ENEWS_DIALOG_OPEN,
     open
   }
 }

@@ -35,7 +35,8 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  TabProps
+  TabProps,
+  Button
 } from '@material-ui/core'
 import {
   createStyles,
@@ -54,7 +55,8 @@ import {
   GroupedNewsletters,
   setNewsletterYear,
   setNewsletters,
-  setEnewsBlasts
+  setEnewsBlasts,
+  setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
@@ -211,6 +213,10 @@ const PublicationsPage = ({
     [enewsBlasts]
   )
 
+  const subscribeEnewsHandler = useCallback(() => {
+    newsroomDispatch(setEnewsDialogOpen(true))
+  }, [newsroomDispatch])
+
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
   }
@@ -356,14 +362,41 @@ const PublicationsPage = ({
                 year end here...
               </TabPanel>
               <TabPanel value={tabIndex} index={3}>
-                <Type paragraph>
-                  As your water provider, we’re committed to keeping you
-                  informed about news that relates to you. PCWA’s E-News will
-                  send you important email updates about your water supply,
-                  water quality, legislative updates, construction alerts and
-                  more. Please add us to your email address book. This helps
-                  ensure news gets to you rather than your junk box.
-                </Type>
+                <RespRowBox flexSpacing={4}>
+                  <ChildBox flex="50%">
+                    <Type paragraph>
+                      As your water provider, we’re committed to keeping you
+                      informed about news that relates to you. PCWA’s E-News
+                      will send you important email updates about your water
+                      supply, water quality, legislative updates, construction
+                      alerts and more. Please add us to your email address book.
+                      This helps ensure news gets to you rather than your junk
+                      box.
+                    </Type>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      size="large"
+                      onClick={subscribeEnewsHandler}
+                    >
+                      Sign-up For E-News
+                    </Button>
+                  </ChildBox>
+                  <ChildBox flex="50%" display="flex">
+                    <Box mx="auto">
+                      <LazyImgix
+                        src="https://cosmic-s3.imgix.net/d8c86140-c4cd-11e7-bedc-43d6110cf0dd-e-news.png"
+                        htmlAttributes={{
+                          alt:
+                            "Photo of Page Header to PCWA's E-News periodic email subscription"
+                        }}
+                      />
+                    </Box>
+                  </ChildBox>
+                </RespRowBox>
+
+                <Spacing size="large" />
+
                 <List>
                   {sortedEnewsBlasts.map((blast) => {
                     const distDateFormated = format(
