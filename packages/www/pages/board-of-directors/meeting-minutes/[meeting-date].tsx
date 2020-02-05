@@ -29,6 +29,7 @@ import DownloadIcon from '@material-ui/icons/CloudDownload'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
+import slugify from 'slugify'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
@@ -99,6 +100,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   }
 
   const meetingDate = qMedia.derivedFilenameAttr?.date
+  const downloadAs = slugify(qMedia.original_name)
 
   return (
     <PageLayout title={`Board Minutes ${meetingDate}`}>
@@ -132,7 +134,7 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
               aria-label="Download board minutes"
               size={isSMDown ? 'small' : 'medium'}
               variant={'extended'}
-              href={`${qMedia.imgix_url}?dl=${qMedia.original_name}`}
+              href={`${qMedia.imgix_url}?dl=${downloadAs}`}
               classes={{sizeSmall: classes.muiFabSmall}}
               // style={{position: 'fixed'}}
               // variant={trigger ? 'round' : 'extended'}

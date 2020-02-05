@@ -29,6 +29,7 @@ import DownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
+import slugify from 'slugify'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 const cosmicGetMediaProps = {
@@ -88,6 +89,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
   }
 
   const publishDate = qMedia.derivedFilenameAttr?.date
+  const downloadAs = slugify(qMedia.original_name)
 
   return (
     <PageLayout title={`News Release ${publishDate}`}>
@@ -122,7 +124,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
               aria-label="Download news release"
               size={isSMDown ? 'small' : 'medium'}
               variant={'extended'}
-              href={`${qMedia.imgix_url}?dl=${qMedia.original_name}`}
+              href={`${qMedia.imgix_url}?dl=${downloadAs}`}
               classes={{sizeSmall: classes.muiFabSmall}}
             >
               <DownloadIcon className={classes.downloadIcon} />

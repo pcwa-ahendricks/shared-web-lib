@@ -59,6 +59,7 @@ import {
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import PublicationCard from '@components/newsroom/PublicationCard/PublicationCard'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -356,7 +357,11 @@ const PublicationsPage = ({
                 </Box>
               </TabPanel>
               <TabPanel value={tabIndex} index={1}>
-                fire & water here...
+                <PublicationCard
+                  title="Fire & Water - 2019"
+                  publishedDate={new Date()}
+                  imgixURL="http://cosmic-s3.imgix.net/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
+                />
               </TabPanel>
               <TabPanel value={tabIndex} index={2}>
                 year end here...

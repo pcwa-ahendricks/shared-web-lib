@@ -9,6 +9,7 @@ import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
+import slugify from 'slugify'
 
 type Props = {
   caption?: string
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ImgixThumbLink = ({
   caption = '',
   url,
-  filename = '',
+  filename: filenameProp = '',
   margin = 0,
   alt,
   imageWidth: imageWidthProp,
@@ -73,10 +74,12 @@ const ImgixThumbLink = ({
     setIsHover(false)
   }, [])
 
+  const downloadAs = useMemo(() => slugify(filenameProp), [filenameProp])
+
   return (
     <Box mt={margin} ml={margin} width="100%">
       <a
-        href={`${url}?dl=${filename}`}
+        href={`${url}?dl=${downloadAs}`}
         className={classes.link}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
