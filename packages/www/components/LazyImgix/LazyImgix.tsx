@@ -6,7 +6,7 @@ type ImgixProps = React.ComponentProps<typeof Imgix>
 
 // [TODO] Can't figure out how to best do this with Typescript; "any" shouldn't be necessary. This issue pops up when an attribute such as 'data-lowsrc' or 'data-optimumx' is used with htmlAttributes prop.
 export type LazyImgixProps = Omit<ImgixProps, 'htmlAttributes'> & {
-  htmlAttributes: any
+  htmlAttributes?: any
 }
 
 const LazyImgix = ({

@@ -7,6 +7,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
 
 type Props = {
   boxProps?: BoxProps
+  active?: boolean
 }
 
 interface UseStylesProps {
@@ -43,15 +44,19 @@ const ImgixFancier = ({
   width,
   height,
   boxProps,
+  active = false,
   ...rest
 }: ImgixFancyProps & Props) => {
   const [isHover, setIsHover] = useState<boolean>(false)
-  const classes = useStyles({isHover})
+
+  const isHoverOrActive = isHover || active
+  const classes = useStyles({isHover: isHoverOrActive})
   const theme = useTheme()
 
   const mouseEnterHandler = useCallback(() => {
     setIsHover(true)
   }, [])
+
   const mouseLeaveHandler = useCallback(() => {
     setIsHover(false)
   }, [])
@@ -88,7 +93,7 @@ const ImgixFancier = ({
         height="100%"
         zIndex={3}
       >
-        <Fade in={isHover}>
+        <Fade in={isHoverOrActive}>
           <SearchRoundedIcon fontSize="large" color="inherit" />
         </Fade>
       </FlexBox>
