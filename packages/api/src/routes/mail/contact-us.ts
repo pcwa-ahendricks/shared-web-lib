@@ -92,15 +92,15 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
       : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
 
-    // If user specified an email address include it as a cc.
-    const ccRecipients: MailJetMessage['To'] = email
+    // If user specified an email address include it.
+    const senderRecipients: MailJetMessage['To'] = email
       ? [{Email: email, Name: name ? name : email}]
       : []
 
     const toRecipients: MailJetMessage['To'] = [
       ...SA_RECIPIENTS,
       ...mainRecipients,
-      ...ccRecipients
+      ...senderRecipients
     ]
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.

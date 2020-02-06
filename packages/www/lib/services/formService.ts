@@ -87,7 +87,7 @@ export interface LawnReplacementRequestBody {
   formData: LawnReplacementRebateFormData
 }
 
-export interface ContactUsRebateFormData {
+export interface ContactUsFormData {
   name: string
   message: string
   email: string
@@ -99,7 +99,7 @@ export interface ContactUsRebateFormData {
 
 export interface ContactUsRequestBody {
   // recipients: {Name: string, Email: string}[],
-  formData: ContactUsRebateFormData
+  formData: ContactUsFormData
 }
 
 export interface WashingMachineRebateFormData {

@@ -14,7 +14,7 @@ import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
   postForm,
-  ContactUsRebateFormData as RebateFormData,
+  ContactUsFormData as FormData,
   ContactUsRequestBody as RequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -76,7 +76,7 @@ const formSchema = object()
       .label('Subject')
   })
 
-const initialFormValues: RebateFormData = {
+const initialFormValues: FormData = {
   reason: '',
   name: '',
   email: '',
@@ -116,9 +116,7 @@ const ContactUs = () => {
   const classes = useStyles()
   const theme = useTheme()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
-  const [formValues, setFormValues] = useState<RebateFormData>(
-    initialFormValues
-  )
+  const [formValues, setFormValues] = useState<FormData>(initialFormValues)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
 
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
@@ -239,7 +237,7 @@ const ContactUs = () => {
             <Formik
               initialValues={initialFormValues}
               validationSchema={formSchema}
-              onSubmit={async (values: RebateFormData, actions) => {
+              onSubmit={async (values: FormData, actions) => {
                 try {
                   // console.log(values, actions)
                   const body: RequestBody = {
