@@ -1,15 +1,19 @@
 import React, {useMemo, useCallback, useState} from 'react'
-import {ChildBox} from '@components/boxes/FlexBox'
 import {
   Card,
+  Box,
   Button,
   CardActionArea,
   CardMedia,
   Typography as Type,
   CardContent,
   CardActions,
+  TypographyProps,
   makeStyles,
-  createStyles
+  createStyles,
+  useMediaQuery,
+  useTheme,
+  BoxProps
 } from '@material-ui/core'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import {format} from 'date-fns'
@@ -18,7 +22,7 @@ import slugify from 'slugify'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 
-type Props = {
+export type PublicationCardProps = {
   title: string
   publishedDate: Date
   imgixURL: string
@@ -26,7 +30,7 @@ type Props = {
   cardMediaWidth?: number
   cardMediaHeight?: number
   imgixCropMode?: string
-}
+} & BoxProps
 
 type UseStylesProps = {
   cardMediaHeight: number
@@ -48,9 +52,12 @@ const PublicationCard = ({
   thumbImgixURL: thumbImgixURLProp,
   cardMediaWidth = 300,
   cardMediaHeight = 250,
-  imgixCropMode = 'top'
-}: Props) => {
+  imgixCropMode = 'top',
+  ...rest
+}: PublicationCardProps) => {
   const classes = useStyles({cardMediaHeight})
+  const theme = useTheme()
+  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   const [actionAreaIsHover, setActionAreaIsHover] = useState<boolean>(false)
   const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
 
@@ -67,8 +74,12 @@ const PublicationCard = ({
     setActionAreaIsHover(false)
   }, [])
 
+  const pubCardHeader: TypographyProps['variant'] = isMDUp
+    ? 'subtitle1'
+    : 'subtitle2'
+
   return (
-    <ChildBox width={cardMediaWidth}>
+    <Box width={cardMediaWidth} {...rest}>
       <Card>
         <CardActionArea
           href={imgixURL}
@@ -90,13 +101,14 @@ const PublicationCard = ({
               }}
               height={cardMediaHeight}
               width={cardMediaWidth}
-              imgixParams={{fit: 'crop', crop: imgixCropMode}}
+              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
+              imgixParams={{fit: 'crop', crop: imgixCropMode, bg: 'fff'}}
               paddingPercent={`${(cardMediaHeight / cardMediaWidth) * 100}%`}
               isHover={actionAreaIsHover}
             />
           </CardMedia>
           <CardContent>
-            <Type gutterBottom variant="h4">
+            <Type gutterBottom variant={pubCardHeader}>
               {title}
             </Type>
             <Type variant="body2" color="textSecondary" paragraph>
@@ -116,7 +128,7 @@ const PublicationCard = ({
           </Button>
         </CardActions>
       </Card>
-    </ChildBox>
+    </Box>
   )
 }
 

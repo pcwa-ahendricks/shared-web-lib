@@ -60,7 +60,9 @@ import {
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import PublicationCard from '@components/newsroom/PublicationCard/PublicationCard'
+import PublicationCard, {
+  PublicationCardProps
+} from '@components/newsroom/PublicationCard/PublicationCard'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -118,6 +120,7 @@ const PublicationsPage = ({
 
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   const TabPanel = useCallback(
     ({children, value, index, ...other}: TabPanelProps) => (
@@ -224,13 +227,26 @@ const PublicationsPage = ({
     newsroomDispatch(setEnewsDialogOpen(true))
   }, [newsroomDispatch])
 
+  const pubCardMargin = 8
+  const pubCardImgWidth = isLGUp ? 300 : isMDUp ? 235 : 180
+  const pubCardImgHeight = isLGUp ? 250 : isMDUp ? 187 : 133
+  const PubCard = useCallback(
+    ({...props}: PublicationCardProps) => {
+      return (
+        <PublicationCard
+          mx={isXS ? 'auto' : 0}
+          cardMediaHeight={pubCardImgHeight}
+          cardMediaWidth={pubCardImgWidth}
+          {...props}
+        />
+      )
+    },
+    [isXS, pubCardImgWidth, pubCardImgHeight]
+  )
+
   if (err) {
     return <ErrorPage statusCode={err.statusCode} />
   }
-
-  const pubCardMargin = 8
-  const pubCardImgWidth = isLGUp ? 300 : isMDUp ? 225 : 175
-  const pubCardImgHeight = isLGUp ? 250 : isMDUp ? 187 : 133
 
   return (
     <PageLayout title="Publications" waterSurface>
@@ -375,13 +391,14 @@ const PublicationsPage = ({
                 </Box>
               </TabPanel>
               <TabPanel value={tabIndex} index={1}>
+                {/* isXS used w/ props below (and <PubCard/>) allow for horizontal centering of wrapping flex items on mobile devices. */}
                 <RowBox
                   flexWrap="wrap"
-                  flexSpacing={pubCardMargin}
+                  flexSpacing={isXS ? 0 : pubCardMargin}
                   mt={-pubCardMargin}
                 >
-                  <ChildBox mt={pubCardMargin}>
-                    <PublicationCard
+                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="Fire & Water - 2019"
                       publishedDate={parse(
                         '06/01/2019',
@@ -389,12 +406,10 @@ const PublicationsPage = ({
                         new Date()
                       )}
                       imgixURL="https://cosmic-s3.imgix.net/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
-                      cardMediaHeight={pubCardImgHeight}
-                      cardMediaWidth={pubCardImgWidth}
                     />
                   </ChildBox>
-                  <ChildBox mt={pubCardMargin}>
-                    <PublicationCard
+                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="Fire & Water - 2018"
                       publishedDate={parse(
                         '06/01/2018',
@@ -403,13 +418,11 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://cosmic-s3.imgix.net/50f7b4e0-8c64-11e9-a2aa-e111fd002881-Fire-and-Water-2018.pdf"
                       thumbImgixURL="https://cosmic-s3.imgix.net/1c9bd360-4871-11ea-83cb-8f40f59ef2f9-fire-water-2018-thumbnail.png"
-                      cardMediaHeight={pubCardImgHeight}
-                      cardMediaWidth={pubCardImgWidth}
                       imgixCropMode="bottom"
                     />
                   </ChildBox>
-                  <ChildBox mt={pubCardMargin}>
-                    <PublicationCard
+                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="Fire & Water - 2017"
                       publishedDate={parse(
                         '06/01/2017',
@@ -418,15 +431,52 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://cosmic-s3.imgix.net/6c45e8a0-e681-11e7-8b87-05a286370fcd-2017_Fire Water.pdf"
                       thumbImgixURL="https://cosmic-s3.imgix.net/228a8870-4871-11ea-83cb-8f40f59ef2f9-fire-water-2017-thumbnail.png"
-                      cardMediaHeight={pubCardImgHeight}
-                      cardMediaWidth={pubCardImgWidth}
                       imgixCropMode="center" // There is no "center" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
                     />
                   </ChildBox>
                 </RowBox>
               </TabPanel>
               <TabPanel value={tabIndex} index={2}>
-                year end here...
+                {/* isXS used w/ props below (and <PubCard/>) allow for horizontal centering of wrapping flex items on mobile devices. */}
+                <RowBox
+                  flexWrap="wrap"
+                  flexSpacing={isXS ? 0 : pubCardMargin}
+                  mt={-pubCardMargin}
+                >
+                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
+                      title="2019 Year End Report"
+                      publishedDate={parse(
+                        '12/30/2019',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://cosmic-s3.imgix.net/1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf"
+                    />
+                  </ChildBox>
+                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
+                      title="2018 Year End Report"
+                      publishedDate={parse(
+                        '12/27/2018',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf"
+                    />
+                  </ChildBox>
+                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
+                      title="2017 Year End Report"
+                      publishedDate={parse(
+                        '12/08/2017',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://cosmic-s3.imgix.net/8c7f3aa0-dc67-11e7-990e-7f57b6eb4a14-PCWA_2017_Year_End_Report.pdf"
+                    />
+                  </ChildBox>
+                </RowBox>
               </TabPanel>
               <TabPanel value={tabIndex} index={3}>
                 <RespRowBox flexSpacing={4}>
