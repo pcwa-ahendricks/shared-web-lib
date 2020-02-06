@@ -10,7 +10,7 @@ import {
   useMediaQuery
 } from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-import NextLink from '@components/NextLink/NextLink'
+import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
 import {RowBox, ColumnBox, RespRowBox} from '@components/boxes/FlexBox'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
@@ -25,6 +25,7 @@ import MapIcon from 'mdi-material-ui/MapMarkerOutline'
 import PhoneIcon from 'mdi-material-ui/PhoneOutline'
 import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
+import NextLink from 'next/link'
 
 const useFooterStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -100,7 +101,7 @@ const Footer = () => {
                 </Box>
                 <Box ml={1}>
                   <GlowLightGreen>
-                    <NextLink
+                    <MuiNextLink
                       variant="body2"
                       color="inherit"
                       href="/about-pcwa/directions"
@@ -110,7 +111,7 @@ const Footer = () => {
                       144 Ferguson Road <br />
                       P.O. Box 6570 <br />
                       Auburn, CA 95604
-                    </NextLink>
+                    </MuiNextLink>
                   </GlowLightGreen>
                   <Type variant="body2">Mon. - Fri., 8 am – 5 pm </Type>
                 </Box>
@@ -140,26 +141,30 @@ const Footer = () => {
               alignItems="center"
             >
               <GlowLightGreen>
-                <ButtonBase>
-                  <ColumnBox>
-                    <Box>
-                      <WaterIcon />
-                    </Box>
-                    <Type variant="body1">Report Water Waste</Type>
-                  </ColumnBox>
-                </ButtonBase>
+                <NextLink href="/report-water-waste">
+                  <ButtonBase>
+                    <ColumnBox>
+                      <Box>
+                        <WaterIcon />
+                      </Box>
+                      <Type variant="body1">Report Water Waste</Type>
+                    </ColumnBox>
+                  </ButtonBase>
+                </NextLink>
               </GlowLightGreen>
               <SubtleDivider />
 
               <GlowLightGreen>
-                <ButtonBase>
-                  <ColumnBox>
-                    <Box>
-                      <ChatIcon />
-                    </Box>
-                    <Type>Contact Us</Type>
-                  </ColumnBox>
-                </ButtonBase>
+                <NextLink href="/contact-us">
+                  <ButtonBase>
+                    <ColumnBox>
+                      <Box>
+                        <ChatIcon />
+                      </Box>
+                      <Type>Contact Us</Type>
+                    </ColumnBox>
+                  </ButtonBase>
+                </NextLink>
               </GlowLightGreen>
               <SubtleDivider />
               <GlowLightGreen>
@@ -219,9 +224,9 @@ const Footer = () => {
             <Type variant="body2" component="span" className={classes.subtle}>
               Copyright &copy; 2019
             </Type>
-            <NextLink href="/" className={classes.link}>
+            <MuiNextLink href="/" className={classes.link}>
               &nbsp;&nbsp;Placer County Water Agency
-            </NextLink>
+            </MuiNextLink>
             <Type variant="body2" component="span" className={classes.subtle}>
               &nbsp;&nbsp;All Rights
               Reserved&nbsp;&nbsp;&#9830;&nbsp;&nbsp;Weather Provided by

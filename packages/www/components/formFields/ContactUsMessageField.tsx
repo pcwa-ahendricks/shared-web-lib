@@ -33,7 +33,6 @@ const ContactUsMessageField = ({
       label="Message"
       autoComplete="name"
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? currentError : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

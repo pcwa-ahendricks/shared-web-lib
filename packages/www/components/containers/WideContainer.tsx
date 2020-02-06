@@ -8,7 +8,7 @@ type Props = {children: React.ReactNode; containerProps?: BoxProps} & BoxProps
 const useStyles = makeStyles(() =>
   createStyles({
     box: {
-      overflowX: 'scroll' // helps with debugging width issues. Added when debugging <AppBar/> for child <Tabs/> in [publication] Page.
+      // overflowX: 'scroll' // helps with debugging width issues. Added when debugging <AppBar/> for child <Tabs/> in [publication] Page.
     }
   })
 )

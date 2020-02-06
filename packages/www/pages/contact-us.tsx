@@ -4,11 +4,11 @@ import {
   Button,
   CircularProgress,
   Divider,
-  Grid,
   Theme,
-  Typography as Type
+  Typography as Type,
+  Box
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
+import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
@@ -33,8 +33,20 @@ import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPa
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import FlexBox, {
+  ColumnBox,
+  RespRowBox,
+  ChildBox,
+  RowBox
+} from '@components/boxes/FlexBox'
 import FormikValidate from '@components/FormikValidate/FormikValidate'
+import MainPhone from '@components/links/MainPhone'
+import EightHundredPhone from '@components/links/EightHundredPhone'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
+import PageTitle from '@components/PageTitle/PageTitle'
+import MuiNextLink from '@components/NextLink/NextLink'
+import Spacing from '@components/boxes/Spacing'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
@@ -83,12 +95,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
       width: '100%'
     },
-    buttonWrapper: {
-      flex: '0 0 auto', // IE fix
-      position: 'relative',
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3)
-    },
     buttonProgress: {
       color: theme.palette.primary.main,
       position: 'absolute',
@@ -97,19 +103,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: -12,
       marginLeft: -12
     },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
     },
     reserveRight: {
       marginTop: theme.spacing(3)
@@ -119,6 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ContactUs = () => {
   const classes = useStyles()
+  const theme = useTheme()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<RebateFormData>(
     initialFormValues
@@ -147,16 +143,99 @@ const ContactUs = () => {
   const mainEl = useMemo(
     () => (
       <>
-        <NarrowContainer>
-          <MainBox>
-            <Type variant="h1" color="primary" gutterBottom>
-              Contact Us
-            </Type>
+        <MainBox>
+          <NarrowContainer>
+            <PageTitle title="Contact Us" />
+            <RespRowBox flexSpacing={4}>
+              <ChildBox flex="65%">
+                <Type paragraph>
+                  The PCWA Business Center is open Monday – Friday from 8:00
+                  a.m. to 5:00 p.m. except major holidays. Customer Services is
+                  available by phone at <MainPhone /> or <EightHundredPhone />{' '}
+                  weekdays from 8:00 a.m. to 5:00 p.m. except major holidays or
+                  by email at <CustomerServicesEmail /> (please allow two
+                  business days for a response to your email inquiry).
+                </Type>
+                <Type paragraph>
+                  If you have an after-hours emergency, please call{' '}
+                  <MainPhone /> and our answering service will relay your call
+                  to standby personnel who can assist you.
+                </Type>
+                <Type paragraph>
+                  If you are wanting to report water waste, please do so at{' '}
+                  <MuiNextLink href="/report-water-waste">
+                    Report Water Waste
+                  </MuiNextLink>
+                  .
+                </Type>
+              </ChildBox>
+              <ChildBox flex="35%" display="flex">
+                <Box
+                  mx="auto"
+                  width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+                >
+                  <LazyImgix
+                    src="https://cosmicjs.imgix.net/a5afe2e0-6b51-11e7-b267-0b654f5c65d5-contact-customer-service.jpg"
+                    htmlAttributes={{
+                      alt: 'Customer Service Representative at Workstation'
+                    }}
+                  />
+                </Box>
+              </ChildBox>
+            </RespRowBox>
+            <Spacing />
+            <Box
+              bgcolor={theme.palette.grey['200']}
+              border={1}
+              borderColor={theme.palette.grey['300']}
+            >
+              <RowBox justifyContent="space-around">
+                <ChildBox p={3}>
+                  <Type>
+                    <em>Located At</em>
+                  </Type>
+                  <MuiNextLink href="/about-pcwa/directions">
+                    Placer County Water Agency
+                    <br />
+                    144 Ferguson Road
+                    <br />
+                    Auburn, CA 95603
+                  </MuiNextLink>
+                </ChildBox>
+                <ChildBox>
+                  <FlexBox
+                    position="relative"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="100%"
+                  >
+                    <Box
+                      position="absolute"
+                      bgcolor={theme.palette.grey['200']}
+                      p={0.25}
+                    >
+                      <Type variant="h6">or</Type>
+                    </Box>
+                    <Divider orientation="vertical" />
+                  </FlexBox>
+                </ChildBox>
+                <ChildBox p={3}>
+                  <Type>
+                    <em>Mailing Address</em>
+                    <br />
+                    P.O. Box 6570
+                    <br />
+                    Auburn, CA 95604-6570
+                    <br />
+                  </Type>
+                </ChildBox>
+              </RowBox>
+            </Box>
 
+            <Spacing size="large" factor={2} />
             {/* <Type variant="h3" color="primary" gutterBottom>
                 React out to us via email
               </Type> */}
-
             <Formik
               initialValues={initialFormValues}
               validationSchema={formSchema}
@@ -201,92 +280,83 @@ const ContactUs = () => {
                       {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
+                      <Type
+                        color="textSecondary"
+                        variant="h3"
+                        gutterBottom
+                        className={classes.formGroupTitle}
+                      >
+                        Contact Us by Email
+                      </Type>
+                      <Type paragraph>
+                        Reach out to us via email today by filling out the
+                        following form online.
+                      </Type>
+                      <Spacing />
+                      {/* flex prop is an IE11 fix. */}
+                      <ColumnBox flexSpacing={5} flex="0 0 auto">
+                        <ChildBox>
+                          <Field
+                            name="reason"
+                            component={ReasonForContactSelectField}
+                            required={true}
+                          />
+                        </ChildBox>
 
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Contact Information
-                        </Type>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="reason"
-                              component={ReasonForContactSelectField}
-                              required={true}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="name"
-                              component={NameField}
-                              required={false}
-                            />
-                          </Grid>
-                        </Grid>
+                        <ChildBox>
+                          <Field
+                            name="name"
+                            component={NameField}
+                            required={false}
+                          />
+                        </ChildBox>
                         {/* <Grid container>
                         </Grid>
 
                         <Grid container>
                         </Grid> */}
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={7}>
-                            <Field
-                              name="email"
-                              component={EmailField}
-                              required={false}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={5}>
-                            <Field
-                              name="phone"
-                              component={PhoneNoField}
-                              required={false}
-                            />
-                          </Grid>
-                        </Grid>
+                        <ChildBox>
+                          <RespRowBox flexSpacing={5}>
+                            <ChildBox flex="60%">
+                              <Field
+                                name="email"
+                                component={EmailField}
+                                required={false}
+                                margin="none"
+                              />
+                            </ChildBox>
+                            <ChildBox flex="40%">
+                              <Field
+                                name="phone"
+                                component={PhoneNoField}
+                                required={false}
+                                margin="none"
+                              />
+                            </ChildBox>
+                          </RespRowBox>
+                        </ChildBox>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="subject"
-                              component={ContactUsSubjectField}
-                            />
-                          </Grid>
-                        </Grid>
+                        <ChildBox>
+                          <Field
+                            name="subject"
+                            component={ContactUsSubjectField}
+                          />
+                        </ChildBox>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="message"
-                              component={ContactUsMessageField}
-                            />
-                          </Grid>
-                        </Grid>
-                      </div>
+                        <ChildBox>
+                          <Field
+                            name="message"
+                            component={ContactUsMessageField}
+                          />
+                        </ChildBox>
 
-                      <Divider variant="middle" />
+                        <ChildBox>
+                          <Field name="captcha" component={RecaptchaField} />
+                        </ChildBox>
+                      </ColumnBox>
 
-                      <div className={classes.formGroup}>
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Field name="captcha" component={RecaptchaField} />
-                          </Grid>
-                        </Grid>
-                      </div>
-
+                      <Spacing />
                       {/* For debugging form reset */}
                       {/* <Button
                       variant="outlined"
@@ -308,7 +378,8 @@ const ContactUs = () => {
                         Show Dialog
                       </Button> */}
 
-                      <div className={classes.buttonWrapper}>
+                      {/* flex prop is an IE11 fix. */}
+                      <Box flex="0 0 auto" position="relative">
                         <Button
                           fullWidth
                           variant="outlined"
@@ -328,21 +399,20 @@ const ContactUs = () => {
                             className={classes.buttonProgress}
                           />
                         )}
-                      </div>
+                      </Box>
                     </FormBox>
                   </FormikValidate>
                 )
               }}
             </Formik>
-
             {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
-          </MainBox>
-        </NarrowContainer>
+          </NarrowContainer>
+        </MainBox>
       </>
     ),
-    [classes, formIsDirty, formValues, formIsTouched]
+    [classes, formIsDirty, formValues, formIsTouched, theme]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
