@@ -22,8 +22,10 @@ type Props = {
   title: string
   publishedDate: Date
   imgixURL: string
+  thumbImgixURL?: string
   cardMediaWidth?: number
   cardMediaHeight?: number
+  imgixCropMode?: string
 }
 
 type UseStylesProps = {
@@ -43,11 +45,14 @@ const PublicationCard = ({
   title,
   publishedDate,
   imgixURL,
+  thumbImgixURL: thumbImgixURLProp,
   cardMediaWidth = 300,
-  cardMediaHeight = 250
+  cardMediaHeight = 250,
+  imgixCropMode = 'top'
 }: Props) => {
   const classes = useStyles({cardMediaHeight})
   const [actionAreaIsHover, setActionAreaIsHover] = useState<boolean>(false)
+  const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
 
   const downloadAs = useMemo(
     () => `${slugify(title)}.${fileExtension(imgixURL)}`,
@@ -79,13 +84,13 @@ const PublicationCard = ({
             // alt=""
           >
             <ImgixFancier
-              src={`${imgixURL}?auto=format`}
+              src={thumbImgixURL}
               htmlAttributes={{
                 alt: `Thumbnail image and link for ${title} publication`
               }}
               height={cardMediaHeight}
               width={cardMediaWidth}
-              imgixParams={{fit: 'crop', crop: 'top'}}
+              imgixParams={{fit: 'crop', crop: imgixCropMode}}
               paddingPercent={`${(cardMediaHeight / cardMediaWidth) * 100}%`}
               isHover={actionAreaIsHover}
             />

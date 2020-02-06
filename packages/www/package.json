@@ -95,7 +95,7 @@
     "@types/react-vertical-timeline-component": "^2.5.0",
     "@types/shortid": "^0.0.29",
     "@types/smoothscroll-polyfill": "^0.3.1",
-    "@types/yup": "^0.26.29",
+    "@types/yup": "^0.26.30",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",

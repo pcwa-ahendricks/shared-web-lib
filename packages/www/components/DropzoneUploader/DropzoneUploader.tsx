@@ -312,6 +312,7 @@ const DropzoneUploader: React.RefForwardingComponent<
     }
 
     asyncFn()
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return () => {}
   }, [
     uploadDroppedFiles,

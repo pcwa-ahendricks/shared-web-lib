@@ -1,4 +1,4 @@
-// cspell:ignore mailchimp
+// cspell:ignore mailchimp scrollable
 import React, {
   useEffect,
   useCallback,
@@ -36,7 +36,8 @@ import {
   ListItemAvatar,
   ListItemText,
   TabProps,
-  Button
+  Button,
+  useMediaQuery
 } from '@material-ui/core'
 import {
   createStyles,
@@ -47,7 +48,7 @@ import {
 import {NextPageContext} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import ErrorPage from '@pages/_error'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import Spacing from '@components/boxes/Spacing'
 import {
@@ -88,7 +89,9 @@ const cosmicGetMediaProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      zIndex: 1 // Defaults to a higher level appearing over mega menu.
+      zIndex: 1, // Defaults to a higher level appearing over mega menu.
+      margin: 'auto', // [HACK] Center maxWidth appBar.
+      maxWidth: 'calc(100% - 6px)' // [HACK] Don't cutoff box shadow from left and right edge.
     },
     formControl: {
       margin: theme.spacing(1),
@@ -113,6 +116,9 @@ const PublicationsPage = ({
   const {newsletters, newsletterYear, enewsBlasts} = newsroomContext.state
   const newsroomDispatch = newsroomContext.dispatch
 
+  const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
+  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
+
   const TabPanel = useCallback(
     ({children, value, index, ...other}: TabPanelProps) => (
       <Type
@@ -123,7 +129,7 @@ const PublicationsPage = ({
         aria-labelledby={`nav-tab-${index}`}
         {...other}
       >
-        <Box p={3}>{children}</Box>
+        <Box>{children}</Box>
       </Type>
     ),
     []
@@ -222,52 +228,64 @@ const PublicationsPage = ({
     return <ErrorPage statusCode={err.statusCode} />
   }
 
+  const pubCardMargin = 8
+  const pubCardImgWidth = isLGUp ? 300 : isMDUp ? 225 : 175
+  const pubCardImgHeight = isLGUp ? 250 : isMDUp ? 187 : 133
+
   return (
     <PageLayout title="Publications" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Publications" subtitle="Newsroom" hideDivider />
+          <AppBar
+            position="relative"
+            color="default"
+            classes={{root: classes.appBar}}
+            elevation={2}
+            square={false}
+          >
+            <Tabs
+              value={tabIndex}
+              onChange={tabChangeHandler}
+              aria-label="nav tabs example"
+              // variant="fullWidth"
+              // variant="scrollable"
+              scrollButtons="auto"
+              variant={isMDUp ? 'standard' : 'scrollable'}
+              centered={isMDUp ? true : false}
+              // textColor="secondary"
+              // indicatorColor="secondary"
+            >
+              <LinkTab
+                label="Newsletters"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/newsletters"
+                {...a11yProps(0)}
+              />
+              <LinkTab
+                label="Fire & Water"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/fire-and-water"
+                {...a11yProps(1)}
+              />
+              <LinkTab
+                label="Year End Reports"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/year-end"
+                {...a11yProps(2)}
+              />
+              <LinkTab
+                label="E-News"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/enews"
+                {...a11yProps(3)}
+              />
+            </Tabs>
+          </AppBar>
+
+          <Spacing size="large" />
           <RespRowBox flexSpacing={4} width="100%">
             <ChildBox flex="auto">
-              <AppBar
-                position="static"
-                color="default"
-                classes={{root: classes.appBar}}
-                elevation={2}
-                square={false}
-              >
-                <Tabs
-                  variant="fullWidth"
-                  value={tabIndex}
-                  onChange={tabChangeHandler}
-                  aria-label="nav tabs example"
-                >
-                  <LinkTab
-                    label="Newsletters"
-                    href="/newsroom/publications/[publication]"
-                    as="/newsroom/publications/newsletters"
-                    {...a11yProps(0)}
-                  />
-                  <LinkTab
-                    label="Fire & Water"
-                    href="/newsroom/publications/[publication]"
-                    as="/newsroom/publications/fire-and-water"
-                    {...a11yProps(1)}
-                  />
-                  <LinkTab
-                    label="Year End Reports"
-                    href="/newsroom/publications/[publication]"
-                    as="/newsroom/publications/year-end"
-                    {...a11yProps(2)}
-                  />
-                  <LinkTab
-                    label="E-News"
-                    href="/newsroom/publications/[publication]"
-                    as="/newsroom/publications/enews"
-                    {...a11yProps(3)}
-                  />
-                </Tabs>
-              </AppBar>
               <TabPanel value={tabIndex} index={0}>
                 <Spacing />
                 <Box>
@@ -357,11 +375,55 @@ const PublicationsPage = ({
                 </Box>
               </TabPanel>
               <TabPanel value={tabIndex} index={1}>
-                <PublicationCard
-                  title="Fire & Water - 2019"
-                  publishedDate={new Date()}
-                  imgixURL="http://cosmic-s3.imgix.net/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
-                />
+                <RowBox
+                  flexWrap="wrap"
+                  flexSpacing={pubCardMargin}
+                  mt={-pubCardMargin}
+                >
+                  <ChildBox mt={pubCardMargin}>
+                    <PublicationCard
+                      title="Fire & Water - 2019"
+                      publishedDate={parse(
+                        '06/01/2019',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://cosmic-s3.imgix.net/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
+                      cardMediaHeight={pubCardImgHeight}
+                      cardMediaWidth={pubCardImgWidth}
+                    />
+                  </ChildBox>
+                  <ChildBox mt={pubCardMargin}>
+                    <PublicationCard
+                      title="Fire & Water - 2018"
+                      publishedDate={parse(
+                        '06/01/2018',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://cosmic-s3.imgix.net/50f7b4e0-8c64-11e9-a2aa-e111fd002881-Fire-and-Water-2018.pdf"
+                      thumbImgixURL="https://cosmic-s3.imgix.net/1c9bd360-4871-11ea-83cb-8f40f59ef2f9-fire-water-2018-thumbnail.png"
+                      cardMediaHeight={pubCardImgHeight}
+                      cardMediaWidth={pubCardImgWidth}
+                      imgixCropMode="bottom"
+                    />
+                  </ChildBox>
+                  <ChildBox mt={pubCardMargin}>
+                    <PublicationCard
+                      title="Fire & Water - 2017"
+                      publishedDate={parse(
+                        '06/01/2017',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://cosmic-s3.imgix.net/6c45e8a0-e681-11e7-8b87-05a286370fcd-2017_Fire Water.pdf"
+                      thumbImgixURL="https://cosmic-s3.imgix.net/228a8870-4871-11ea-83cb-8f40f59ef2f9-fire-water-2017-thumbnail.png"
+                      cardMediaHeight={pubCardImgHeight}
+                      cardMediaWidth={pubCardImgWidth}
+                      imgixCropMode="center" // There is no "center" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
+                    />
+                  </ChildBox>
+                </RowBox>
               </TabPanel>
               <TabPanel value={tabIndex} index={2}>
                 year end here...

@@ -38,3 +38,4 @@ yarn-error.log*
 packages/**/dist
 
 config.gypi
+.now
