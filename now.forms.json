@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "forms",
   "alias": "forms.pcwa.net",
   "public": false,
   "build": {
