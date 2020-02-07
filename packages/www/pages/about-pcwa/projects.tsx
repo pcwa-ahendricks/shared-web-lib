@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bulletLi: {
       // listStyleType: 'none',
-      marginBottom: 2
+      marginBottom: 3
     }
   })
 )
@@ -302,6 +302,31 @@ const ProjectsPage = () => {
                     The project is scheduled to begin construction in February
                     2020 and complete October 2021.
                   </Type>
+                  <Type variant="subtitle2">
+                    Upcoming Work (updated February 7, 2020)
+                  </Type>
+                  <ul>
+                    <TypeBullet>
+                      <Type variant="body1">
+                        The Contractor will be identifying the project area
+                        through flagging and staking the pipe alignment.
+                      </Type>
+                    </TypeBullet>
+                    <TypeBullet>
+                      <Type variant="body1">
+                        Utilities will be located and marked along the pipe
+                        alignment by utility owners. The contractor will be
+                        performing exploratory digs along the pipe alignment at
+                        utility crossings to confirm their location.
+                      </Type>
+                    </TypeBullet>
+                    <TypeBullet>
+                      <Type variant="body1">
+                        Marking and removing trees along the construction
+                        corridor.
+                      </Type>
+                    </TypeBullet>
+                  </ul>
                   <Spacing />
                   <Type variant="subtitle1" gutterBottom>
                     For questions regarding this project, contact:
