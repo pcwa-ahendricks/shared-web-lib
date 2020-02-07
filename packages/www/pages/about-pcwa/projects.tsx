@@ -302,7 +302,7 @@ const ProjectsPage = () => {
                     The project is scheduled to begin construction in February
                     2020 and complete October 2021.
                   </Type>
-                  <Type variant="subtitle2">
+                  <Type variant="subtitle1">
                     Upcoming Work (updated February 7, 2020)
                   </Type>
                   <ul>
