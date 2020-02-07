@@ -1,7 +1,6 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Typography as Type} from '@material-ui/core'
-import Head from 'next/head'
 import {Formik} from 'formik'
 import {string, object, array, StringSchema, number} from 'yup'
 import {
@@ -11,19 +10,15 @@ import {
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
-import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import delay from 'then-sleep'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox} from '@components/boxes/FlexBox'
 import ToiletEffEligibilityDialog from '@components/formFields/ToiletEffEligibilityDialog'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import ToiletForm from '@components/forms/toiletForm'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 
-const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
 const MAX_TOILETS = 25
 const MIN_TOILETS = 1
@@ -297,48 +292,11 @@ const Toilet = () => {
     [ineligible, ineligibleChangeHandler, eligibilityDialogOpen]
   )
 
-  // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const toiletEl = useMemo(
-    () =>
-      !isDev ? (
-        <>
-          <Head>
-            <title>Rebate Form</title>
-            <meta
-              name="description"
-              content="PCWA Water Efficiency Rebate Form"
-            />
-          </Head>
-          <ColumnBox
-            justifyContent="center"
-            alignItems="flex-start"
-            mt={2}
-            ml={2}
-            mr={2}
-          >
-            <PcwaLogo
-              height="70%"
-              style={{
-                maxHeight: 48,
-                maxWidth: 200
-              }}
-              missionStatementFill="rgba(0,0,0,0)"
-            />
-          </ColumnBox>
-          <WaterSurfaceImg />
-          {mainEl}
-        </>
-      ) : (
-        <PageLayout title="Toilet Rebate Form" waterSurface>
-          {mainEl}
-        </PageLayout>
-      ),
-    [mainEl]
-  )
-
   return (
     <>
-      {toiletEl}
+      <PageLayout title="Toilet Rebate Form" waterSurface>
+        {mainEl}
+      </PageLayout>
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}

@@ -472,6 +472,9 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
 
         <Spacing />
         <SubmitFormButton
+          boxProps={{
+            flex: '0 0 auto'
+          }}
           fullWidth
           variant="outlined"
           color="primary"

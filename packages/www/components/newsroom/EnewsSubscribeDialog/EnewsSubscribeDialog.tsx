@@ -5,9 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogContentText,
-  Box,
   DialogActions,
-  CircularProgress,
   makeStyles,
   createStyles,
   Theme
@@ -19,6 +17,7 @@ import {
 import {Formik, Form, FormikHelpers} from 'formik'
 import {object, string} from 'yup'
 import FormTextField from '@components/formFields/FormTextField'
+import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import {
   subscribeToEnews,
@@ -44,17 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
     textField: {
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1)
-    },
-    buttonWithProgress: {
-      position: 'relative'
-    },
-    buttonProgress: {
-      color: theme.palette.primary.main,
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      marginTop: -12,
-      marginLeft: -12
     }
   })
 )
@@ -193,24 +181,15 @@ const EnewsSubscribeDialog = () => {
                 ) : null}
 
                 {!submittedWithoutError ? (
-                  <Box className={classes.buttonWithProgress}>
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      type="submit"
-                      disabled={
-                        isSubmitting || !isValid || (!formTouched && !dirty)
-                      }
-                    >
-                      Subscribe
-                    </Button>
-                    {isSubmitting && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
-                  </Box>
+                  <SubmitFormButton
+                    color="secondary"
+                    variant="contained"
+                    disabled={
+                      isSubmitting || !isValid || (!formTouched && !dirty)
+                    }
+                  >
+                    Subscribe
+                  </SubmitFormButton>
                 ) : null}
               </DialogActions>
             </Form>

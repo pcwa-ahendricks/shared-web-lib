@@ -1,15 +1,7 @@
 // cspell:ignore addtl mnfg USBR
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
-import {
-  Button,
-  CircularProgress,
-  Divider,
-  Grid,
-  Theme,
-  Typography as Type
-} from '@material-ui/core'
+import {Divider, Grid, Theme, Typography as Type} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
-import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object, array, StringSchema} from 'yup'
 import {
@@ -36,23 +28,20 @@ import WashEffEligibilityDialog from '@components/formFields/WashEffEligibilityD
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
-import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import delay from 'then-sleep'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox} from '@components/boxes/FlexBox'
 import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import RebatesEmail from '@components/links/RebatesEmail'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
+import Spacing from '@components/boxes/Spacing'
+import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
-const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'washing-machine-rebate'
 
 const formSchema = object()
@@ -230,20 +219,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(3),
       marginTop: theme.spacing(3)
     },
-    buttonWrapper: {
-      flex: '0 0 auto', // IE fix
-      position: 'relative',
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3)
-    },
-    buttonProgress: {
-      color: theme.palette.primary.main,
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      marginTop: -12,
-      marginLeft: -12
-    },
     formGroup: {
       flex: '0 0 auto', // IE fix
       marginTop: theme.spacing(5),
@@ -286,9 +261,6 @@ const WashingMachine = () => {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
-  const [shouldConfirmRouteChange, setShouldConfirmRouteChange] = useState<
-    boolean
-  >(false)
 
   const receiptIsUploadingHandler = useCallback((isUploading) => {
     setReceiptIsUploading(isUploading)
@@ -367,7 +339,6 @@ const WashingMachine = () => {
 
                 if (dirty !== formIsDirty) {
                   setFormIsDirty(dirty)
-                  setShouldConfirmRouteChange(Boolean(dirty))
                 }
                 if (values !== formValues) {
                   setFormValues(values)
@@ -781,29 +752,24 @@ const WashingMachine = () => {
                         </Grid>
                       </div>
 
-                      <div className={classes.buttonWrapper}>
-                        <Button
-                          fullWidth
-                          variant="outlined"
-                          color="primary"
-                          type="submit"
-                          disabled={
-                            ineligible ||
-                            isSubmitting ||
-                            // !isValid ||
-                            (!formTouched && !dirty) ||
-                            attachmentsAreUploading
-                          }
-                        >
-                          Submit Application
-                        </Button>
-                        {isSubmitting && (
-                          <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                          />
-                        )}
-                      </div>
+                      <Spacing />
+                      <SubmitFormButton
+                        boxProps={{
+                          flex: '0 0 auto'
+                        }}
+                        fullWidth
+                        variant="outlined"
+                        color="primary"
+                        disabled={
+                          ineligible ||
+                          isSubmitting ||
+                          // !isValid ||
+                          (!formTouched && !dirty) ||
+                          attachmentsAreUploading
+                        }
+                      >
+                        Submit Application
+                      </SubmitFormButton>
                     </FormBox>
 
                     <WashEffEligibilityDialog
@@ -814,10 +780,6 @@ const WashingMachine = () => {
                 )
               }}
             </Formik>
-
-            {/* {receipts.map((attach, idx) => (
-            <div key={idx}>{attach}</div>
-          ))} */}
           </MainBox>
         </NarrowContainer>
       </>
@@ -836,52 +798,11 @@ const WashingMachine = () => {
     ]
   )
 
-  // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const washingMachineEl = useMemo(
-    () =>
-      !isDev ? (
-        <>
-          <Head>
-            <title>Rebate Form</title>
-            <meta
-              name="description"
-              content="PCWA Water Efficiency Rebate Form"
-            />
-          </Head>
-          <ColumnBox
-            justifyContent="center"
-            alignItems="flex-start"
-            mt={2}
-            ml={2}
-            mr={2}
-          >
-            <PcwaLogo
-              height="70%"
-              style={{
-                maxHeight: 48,
-                maxWidth: 200
-              }}
-              missionStatementFill="rgba(0,0,0,0)"
-            />
-          </ColumnBox>
-          <WaterSurfaceImg />
-          {mainEl}
-        </>
-      ) : (
-        <PageLayout title="Washing Machine Rebate Form" waterSurface>
-          {mainEl}
-        </PageLayout>
-      ),
-    [mainEl]
-  )
-
   return (
-    <ConfirmPageLeaveLayout
-      onDialogCancel={() => setShouldConfirmRouteChange(true)}
-      onDialogLeave={() => setShouldConfirmRouteChange(false)}
-      shouldConfirmRouteChange={shouldConfirmRouteChange}
-    >
-      {washingMachineEl}
+    <>
+      <PageLayout title="Washing Machine Rebate Form" waterSurface>
+        {mainEl}
+      </PageLayout>
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
@@ -894,7 +815,7 @@ const WashingMachine = () => {
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}
       />
-    </ConfirmPageLeaveLayout>
+    </>
   )
 }
 

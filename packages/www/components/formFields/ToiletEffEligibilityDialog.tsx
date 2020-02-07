@@ -366,11 +366,9 @@ const QuestionOneField = (props: any) => {
           color="textPrimary"
           className={classes.qualifyMsg}
         >
-          {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
           Unfortunately, you do not qualify for the High Efficiency
           Toilet/Urinal Rebate. You must be a current Placer County Water Agency
-          treated water customer. Please close this web browser tab to go back
-          to the <a href="https://www.pcwa.net">PCWA.net</a> website.
+          treated water customer.
         </DialogContentText>
       </WaitToGrow>
     </>
@@ -427,12 +425,9 @@ const QuestionTwoField = (props: any) => {
           color="textPrimary"
           className={classes.qualifyMsg}
         >
-          {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
           Unfortunately, you do not qualify for the High Efficiency Toilet
           Rebate. Old toilets replaced must be rated at 3.0 (GPF) or more. Most
-          qualifying models were installed in homes built prior to 1994. Please
-          close this web browser tab to go back to the{' '}
-          <a href="https://www.pcwa.net">PCWA.net</a> website.
+          qualifying models were installed in homes built prior to 1994.
         </DialogContentText>
       </WaitToGrow>
     </>

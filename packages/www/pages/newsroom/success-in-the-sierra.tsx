@@ -1,6 +1,6 @@
 //cspell:ignore Merced usfs
-import React, {useMemo} from 'react'
-// import PageLayout from '@components/PageLayout/PageLayout'
+import React from 'react'
+import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -10,9 +10,7 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  Box,
-  useMediaQuery,
-  useTheme
+  Box
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -20,15 +18,8 @@ import FlexBox from '@components/boxes/FlexBox'
 import Blockquote from '@components/typography/Blockquote'
 
 const SuccessInTheSierraPage = () => {
-  const theme = useTheme()
-  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
-  const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
   return (
-    // GO-LIVE - DELETE THIS
-    <Box flex="1 0 auto" mt={marginTop} mb={marginBottom}>
-      {/*  GO-LIVE - We need to un-comment this after GO LIVE date. */}
-      {/* <PageLayout title="Success in the Sierra" waterSurface> */}
+    <PageLayout title="Success in the Sierra" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Success in the Sierra" subtitle="Newsroom" />
@@ -211,9 +202,7 @@ const SuccessInTheSierraPage = () => {
           />
         </NarrowContainer>
       </MainBox>
-      {/* //  GO-LIVE - We need to un-comment this after GO LIVE date. */}
-      {/* // </PageLayout> */}
-    </Box>
+    </PageLayout>
   )
 }
 

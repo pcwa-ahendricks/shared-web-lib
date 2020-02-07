@@ -2,7 +2,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Box, Divider, Grid, Theme, Typography as Type} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
-import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -16,9 +15,6 @@ import AccountNoField from '@components/formFields/AccountNoField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
-// import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
-import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
@@ -32,7 +28,6 @@ import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRout
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
 
-const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'account-contact-info'
 
 const formSchema = object()
@@ -130,14 +125,6 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 'auto',
       // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
       width: '100%'
-    },
-    buttonProgress: {
-      color: theme.palette.primary.main,
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      marginTop: -12,
-      marginLeft: -12
     },
     formGroupTitle: {
       marginBottom: theme.spacing(3)
@@ -407,45 +394,11 @@ const ContactInfo = () => {
     [classes]
   )
 
-  // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const contactInfoEl = useMemo(
-    () =>
-      !isDev ? (
-        <>
-          <Head>
-            <title>Rebate Form</title>
-            <meta name="description" content="Update Contact Info Form" />
-          </Head>
-          <ColumnBox
-            justifyContent="center"
-            alignItems="flex-start"
-            mt={2}
-            ml={2}
-            mr={2}
-          >
-            <PcwaLogo
-              height="70%"
-              style={{
-                maxHeight: 48,
-                maxWidth: 200
-              }}
-              missionStatementFill="rgba(0,0,0,0)"
-            />
-          </ColumnBox>
-          <WaterSurfaceImg />
-          {mainEl}
-        </>
-      ) : (
-        <PageLayout title="Update Contact Info Form" waterSurface>
-          {mainEl}
-        </PageLayout>
-      ),
-    [mainEl]
-  )
-
   return (
     <>
-      {contactInfoEl}
+      <PageLayout title="Update Contact Info Form" waterSurface>
+        {mainEl}
+      </PageLayout>
 
       <FormSubmissionDialogCustAcctInfo
         // providedEmail={providedEmail}

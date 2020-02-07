@@ -392,11 +392,9 @@ const QuestionOne = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately, you do not qualify for the Lawn Replacement
                 Rebate. Lawn Replacement Rebates are only available for PCWA
-                treated water customers. Please close this web browser tab to go
-                back to the <a href="https://www.pcwa.net">PCWA.net</a> website.
+                treated water customers.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -455,12 +453,9 @@ const QuestionOne = () => {
 //                 color="textPrimary"
 //                 className={classes.qualifyMsg}
 //               >
-//                 {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
 //                 Unfortunately you do not qualify for the Lawn Replacement
 //                 Rebate. Conversions that are initiated prior to PCWA's approval
-//                 are ineligible. No exceptions will be made. Please close this
-//                 web browser tab to go back to the{' '}
-//                 <a href="https://www.pcwa.net">PCWA.net</a> website.
+//                 are ineligible. No exceptions will be made.
 //               </DialogContentText>
 //             </WaitToGrow>
 //           </div>
@@ -519,13 +514,10 @@ const QuestionTwo = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately you do not qualify for the lawn replacement
                 rebate. To qualify, you must have at least 300 square feet of
                 lawn being replaced by water efficient landscape as defined in
-                the program’s terms and conditions. Please close this web
-                browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
+                the program’s terms and conditions.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -557,11 +549,8 @@ const QuestionThree = () => {
           color="textPrimary"
           className={classes.qualifyMsg}
         >
-          {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
           Unfortunately you do not qualify for the Lawn Replacement Rebate. A
-          minimum of 300 square feet of lawn must be converted. Please close
-          this web browser tab to go back to the{' '}
-          <a href="https://www.pcwa.net">PCWA.net</a> website.
+          minimum of 300 square feet of lawn must be converted.
         </DialogContentText>
       </WaitToGrow>
     </Box>
@@ -617,12 +606,9 @@ const QuestionFour = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately you do not qualify for the Lawn Replacement
                 Rebate. Lawn areas to be converted must be currently maintained
-                and irrigated by an operating sprinkler system. Please close
-                this web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
+                and irrigated by an operating sprinkler system.
               </DialogContentText>
             </WaitToGrow>
           </div>

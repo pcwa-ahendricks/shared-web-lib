@@ -28,7 +28,6 @@ const ContactUsSubmitDialog = ({open = false, onClose}: Props) => {
         Thanks for Contacting PCWA
       </DialogTitle>
       <DialogContent>
-        {/* GO-LIVE - Don't need sentence regarding "closing browser tab". */}
         <DialogContentText paragraph variant="body1">
           The information you provided has been submitted to PCWA. Our Customer
           Services department will route this email to an appropriate point of

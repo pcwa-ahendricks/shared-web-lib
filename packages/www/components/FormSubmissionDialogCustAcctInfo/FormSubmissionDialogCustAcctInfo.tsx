@@ -49,15 +49,13 @@ Props) => {
       <DialogTitle id="form-submit-dialog-title">{dialogTitle}</DialogTitle>
       <DialogContent>
         {/* Message is slightly different than <FormSubmissionDialog/> */}
-        {/* GO-LIVE - Don't need sentence regarding "closing browser tab". */}
         <DialogContentText paragraph variant="body1">
           Thank you for submitting your {description}. If you provided us an
           email address you should receive an automatically generated email
           confirming the account details you provided us. A PCWA customer
           services staff member will respond back to you within 7 business days.
           If you have any questions please contact our Customer Service
-          Department at <MainPhone />. You can now close this web browser tab to
-          return to the <PcwaWeb /> website.
+          Department at <MainPhone />.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

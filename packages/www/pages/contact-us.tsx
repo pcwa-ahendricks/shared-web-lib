@@ -2,7 +2,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Divider, Typography as Type, Box} from '@material-ui/core'
 import {useTheme} from '@material-ui/core/styles'
-import Head from 'next/head'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -19,8 +18,6 @@ import PhoneNoField from '@components/formFields/PhoneNoField'
 import ReasonForContactSelectField from '@components/formFields/ReasonForContactSelectField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import ContactUsSubmitDialog from '@components/ContactUsSubmitDialog/ContactUsSubmitDialog'
-import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
-import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErrorDialog'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
@@ -42,7 +39,6 @@ import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 
-const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
 
 const formSchema = object()
@@ -338,45 +334,11 @@ const ContactUs = () => {
     [theme]
   )
 
-  // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
-  const contactUsEl = useMemo(
-    () =>
-      !isDev ? (
-        <>
-          <Head>
-            <title>Contact Us Form</title>
-            <meta name="description" content="PCWA Contact Form" />
-          </Head>
-          <ColumnBox
-            justifyContent="center"
-            alignItems="flex-start"
-            mt={2}
-            ml={2}
-            mr={2}
-          >
-            <PcwaLogo
-              height="70%"
-              style={{
-                maxHeight: 48,
-                maxWidth: 200
-              }}
-              missionStatementFill="rgba(0,0,0,0)"
-            />
-          </ColumnBox>
-          <WaterSurfaceImg />
-          {mainEl}
-        </>
-      ) : (
-        <PageLayout title="Contact Us" waterSurface>
-          {mainEl}
-        </PageLayout>
-      ),
-    [mainEl]
-  )
-
   return (
     <>
-      {contactUsEl}
+      <PageLayout title="Contact Us" waterSurface>
+        {mainEl}
+      </PageLayout>
       <ContactUsSubmitDialog
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}

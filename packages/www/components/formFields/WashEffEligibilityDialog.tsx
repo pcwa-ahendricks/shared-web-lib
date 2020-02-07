@@ -366,12 +366,10 @@ const QuestionOne = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
                 Residential/Multi Family Water-Efficient Clothes Washing Machine
                 Rebate. You must be a current Placer County Water Agency treated
-                water customer. Please close this web browser tab to go back to
-                the <a href="https://www.pcwa.net">PCWA.net</a> website.
+                water customer.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -430,14 +428,11 @@ const QuestionTwo = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
                 Residential/Multi Family Water-Efficient Clothes Washing Machine
                 Rebate. Rebates are not available for the replacement of an
                 existing high efficiency clothes washing machine with another
-                new high efficiency clothes washing machine. Please close this
-                web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
+                new high efficiency clothes washing machine.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -497,12 +492,10 @@ const QuestionThree = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
                 Residential/Multi Family Water-Efficient Clothes Washing Machine
                 Rebate. New construction is not eligible for a rebate under this
-                program. Please close this web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
+                program.
               </DialogContentText>
             </WaitToGrow>
           </div>

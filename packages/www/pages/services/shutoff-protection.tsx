@@ -1,12 +1,10 @@
 // cspell:ignore Doortag
 import React, {useMemo, useCallback, useState} from 'react'
-// GO-LIVE - We need to un-comment this after GO LIVE date. *
-// import PageLayout from '@components/PageLayout/PageLayout'
+import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
-  useMediaQuery,
   Typography as Type,
   Box,
   // Divider,
@@ -72,9 +70,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const ShutoffProtectionPage = () => {
   const theme = useTheme()
   const classes = useStyles()
-  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
-  const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
   const [language, setLanguage] = useState<Languages>('english')
 
   const languageChangeHandler = useCallback(
@@ -771,10 +766,7 @@ const ShutoffProtectionPage = () => {
   )
 
   return (
-    // GO-LIVE - DELETE THIS
-    <Box flex="1 0 auto" mt={marginTop} mb={marginBottom}>
-      {/* GO-LIVE - We need to un-comment this after GO LIVE date. */}
-      {/* <PageLayout title="Customer Shutoff Protection" waterSurface> */}
+    <PageLayout title="Customer Shutoff Protection" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Water Shutoff Protection Act" subtitle="Services" />
@@ -830,13 +822,8 @@ const ShutoffProtectionPage = () => {
           </ReactCSSTransitionReplace>
         </NarrowContainer>
       </MainBox>
-      {/* GO-LIVE - DELETE THIS */}
-    </Box>
+    </PageLayout>
   )
 }
-/*
-    GO-LIVE - We need to un-comment this after GO LIVE date. 
-    </PageLayout> 
-*/
 
 export default ShutoffProtectionPage

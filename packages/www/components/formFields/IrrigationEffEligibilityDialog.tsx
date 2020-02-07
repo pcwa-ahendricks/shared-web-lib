@@ -360,12 +360,9 @@ const QuestionOne = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately, you do not qualify for the Irrigation
                 Efficiencies Rebate. Irrigation Efficiencies Rebates are only
-                available for PCWA treated water customers. Please close this
-                web browser tab to go back to the{' '}
-                <a href="https://www.pcwa.net">PCWA.net</a> website.
+                available for PCWA treated water customers.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -424,14 +421,12 @@ const QuestionTwo = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                {/* // GO-LIVE - We need to re-word last sentence after GO LIVE date. */}
                 Unfortunately, you do not qualify for the Irrigation
                 Efficiencies Rebate. Irrigation Efficiencies Rebates are only
                 available to improve existing in-ground irrigation systems
                 and/or to install EPA WaterSense approved weather based
                 irrigation controllers. New irrigation system installations are
-                not eligible. Please close this web browser tab to go back to
-                the <a href="https://www.pcwa.net">PCWA.net</a> website.
+                not eligible.
               </DialogContentText>
             </WaitToGrow>
           </div>
