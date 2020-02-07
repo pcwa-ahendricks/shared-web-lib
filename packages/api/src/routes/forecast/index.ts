@@ -1,17 +1,26 @@
 // cspell:ignore promisify redislabs hgetall hmset
 import fetch from 'node-fetch'
-import {RedisError, createClient} from 'redis'
+import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
 import {DarkSkyResponse} from '../../types/dark-sky'
 import {NowRequest, NowResponse} from '@now/node'
 
 const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY ?? ''
-const REDISLABS_CACHE_PASSWORD = process.env.NODE_REDISLABS_CACHE_PASSWORD ?? ''
+// const REDISLABS_CACHE_PASSWORD = process.env.NODE_REDISLABS_CACHE_PASSWORD ?? ''
+const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD ?? ''
 
-const redisOpts = {
-  host: 'redis-10280.c60.us-west-1-2.ec2.cloud.redislabs.com',
-  port: 10280,
-  password: REDISLABS_CACHE_PASSWORD
+// Redislabs
+// const redisOpts = {
+//   host: 'redis-10280.c60.us-west-1-2.ec2.cloud.redislabs.com',
+//   port: 10280,
+//   password: REDISLABS_CACHE_PASSWORD
+// }
+
+const redisOpts: ClientOpts = {
+  host: 'db-redis-sfo2-73799-do-user-2129966-0.db.ondigitalocean.com',
+  port: 25061,
+  password: REDIS_CACHE_PASSWORD,
+  tls: {} // Required when using Digital Ocean Managed Redis database.
 }
 
 const client = createClient(redisOpts)

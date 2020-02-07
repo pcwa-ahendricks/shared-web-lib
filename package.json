@@ -22,6 +22,6 @@
     "now-build": "next build"
   },
   "devDependencies": {
-    "now": "^17.0.1"
+    "now": "^17.0.2"
   }
 }

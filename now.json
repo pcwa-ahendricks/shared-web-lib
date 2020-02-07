@@ -28,6 +28,7 @@
     "NODE_MAILCHIMP_USERNAME": "pcwawater",
     "NODE_MAILCHIMP_API_KEY": "@web-mailchimp-api-key",
     "NODE_MAILCHIMP_PRIMARY_LIST": "fefab158d1",
+    "NODE_REDIS_DROPLET_CACHE_PASSWORD": "@web-redis-droplet-cache-key",
     "NODE_LAMBDA_URL": "https://dev-web.pcwa.net"
   },
   "builds": [
