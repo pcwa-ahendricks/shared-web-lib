@@ -9,7 +9,6 @@ import {
   DialogTitle
 } from '@material-ui/core'
 import MainPhone from '@components/links/MainPhone'
-import PcwaWeb from '@components/links/PcwaWeb'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
