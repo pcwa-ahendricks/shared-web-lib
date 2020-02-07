@@ -1,12 +1,11 @@
 import React from 'react'
-import {Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import Link from 'next/link'
+import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
 
 type Props = {
   children: React.ReactNode
   href: string
-}
+} & FlexButtonProps
 
 const useStyles = makeStyles({
   root: {},
@@ -21,20 +20,19 @@ const useStyles = makeStyles({
   }
 })
 
-const TrendingLink = ({children, href}: Props) => {
+const TrendingLink = ({children, ...rest}: Props) => {
   const classes = useStyles()
 
   return (
-    <Link href={href} passHref>
-      <Button
-        size="small"
-        color="inherit"
-        className={classes.root}
-        classes={{label: classes.label}}
-      >
-        {children}
-      </Button>
-    </Link>
+    <FlexButton
+      size="small"
+      color="inherit"
+      className={classes.root}
+      classes={{label: classes.label}}
+      {...rest}
+    >
+      {children}
+    </FlexButton>
   )
 }
 

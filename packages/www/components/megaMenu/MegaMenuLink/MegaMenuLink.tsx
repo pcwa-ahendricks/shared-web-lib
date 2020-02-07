@@ -1,5 +1,5 @@
 import React, {useRef, useCallback} from 'react'
-import {Box, Link, Theme, Typography as Type, RootRef} from '@material-ui/core'
+import {Box, Theme, Typography as Type, RootRef} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
@@ -82,9 +82,9 @@ const MegaMenuLink = ({
             variant="button"
             tabIndex={tabIdx}
           >
-            <Link underline="none" href="#" color="inherit" {...rest}>
+            <Type color="inherit" variant="inherit" {...rest}>
               {children}
-            </Link>
+            </Type>
           </Type>
         </RootRef>
         <Box

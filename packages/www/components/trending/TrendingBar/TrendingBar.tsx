@@ -27,14 +27,16 @@ const TrendingBar = () => {
       <Tooltip title="Trending Links" placement="top">
         <TrendingUp fontSize="small" />
       </Tooltip>
-      <TrendingLink href="#">Smart Water Use</TrendingLink>
-      <TrendingLink href="/services/irrigation-canal">
-        Customer Service
+      <TrendingLink href="/smart-water-use">Smart Water Use</TrendingLink>
+      <TrendingLink href="/services">Customer Service</TrendingLink>
+      <TrendingLink href="/smart-water-use/rebate-programs">
+        Rebates
       </TrendingLink>
-      <TrendingLink href="#">Rebates</TrendingLink>
-      <TrendingLink href="#">Outages</TrendingLink>
-      <TrendingLink href="#">Careers</TrendingLink>
-      {/* <TrendingLink href="#">Recruitment Video</TrendingLink> */}
+      <TrendingLink href="/services/outage">Outages</TrendingLink>
+      <TrendingLink isNextLink={false} href="https://careers.pcwa.net/">
+        Careers
+      </TrendingLink>
+      {/* <TrendingLink href="...">Recruitment Video</TrendingLink> */}
     </Paper>
   )
 }
