@@ -48,7 +48,7 @@ import {ColumnBox} from '@components/boxes/FlexBox'
 import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import RebatesEmail from '@components/links/RebatesEmail'
-import FormikValidate from '@components/FormikValidate/FormikValidate'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -408,7 +408,7 @@ const WashingMachine = () => {
                   receiptIsUploading || installPhotosIsUploading
 
                 return (
-                  <FormikValidate>
+                  <FormValidate>
                     <FormBox className={classes.form}>
                       <div className={classes.formGroup}>
                         <Type
@@ -810,7 +810,7 @@ const WashingMachine = () => {
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />
-                  </FormikValidate>
+                  </FormValidate>
                 )
               }}
             </Formik>

@@ -15,7 +15,7 @@ import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
   postForm,
-  ContactUsRebateFormData as RebateFormData,
+  ContactUsFormData as FormData,
   ContactUsRequestBody as RequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -35,7 +35,7 @@ import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
-import FormikValidate from '@components/FormikValidate/FormikValidate'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'contact-us'
@@ -65,7 +65,7 @@ const formSchema = object()
       .label('Subject')
   })
 
-const initialFormValues: RebateFormData = {
+const initialFormValues: FormData = {
   reason: '',
   name: '',
   email: '',
@@ -121,9 +121,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ReportWaterWastePage = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
-  const [formValues, setFormValues] = useState<RebateFormData>(
-    initialFormValues
-  )
+  const [formValues, setFormValues] = useState<FormData>(initialFormValues)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
 
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
@@ -161,7 +159,7 @@ const ReportWaterWastePage = () => {
             <Formik
               initialValues={initialFormValues}
               validationSchema={formSchema}
-              onSubmit={async (values: RebateFormData, actions) => {
+              onSubmit={async (values: FormData, actions) => {
                 try {
                   // console.log(values, actions)
                   const body: RequestBody = {
@@ -197,7 +195,7 @@ const ReportWaterWastePage = () => {
                 }
 
                 return (
-                  <FormikValidate>
+                  <FormValidate>
                     <FormBox className={classes.form}>
                       {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
@@ -331,7 +329,7 @@ const ReportWaterWastePage = () => {
                         )}
                       </Box>
                     </FormBox>
-                  </FormikValidate>
+                  </FormValidate>
                 )
               }}
             </Formik>

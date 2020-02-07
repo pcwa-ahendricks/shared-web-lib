@@ -48,7 +48,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
-import FormikValidate from '@components/FormikValidate/FormikValidate'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -442,7 +442,7 @@ const IrrigationController = () => {
                   cntrlPhotosIsUploading ||
                   addtlSensorPhotosIsUploading
                 return (
-                  <FormikValidate>
+                  <FormValidate>
                     <FormBox className={classes.form}>
                       {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
@@ -802,7 +802,7 @@ const IrrigationController = () => {
                         )}
                       </div>
                     </FormBox>
-                  </FormikValidate>
+                  </FormValidate>
                 )
               }}
             </Formik>

@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const FormikValidate = ({children}: Props) => {
+const FormValidate = ({children}: Props) => {
   const {values, validateForm} = useFormikContext<any>()
   useEffect(() => {
     // Validate the form values any time they are updated.
@@ -14,4 +14,4 @@ const FormikValidate = ({children}: Props) => {
   return <>{children}</>
 }
 
-export default FormikValidate
+export default FormValidate
