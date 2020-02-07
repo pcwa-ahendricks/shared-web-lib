@@ -14,7 +14,6 @@ import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissio
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import ConfirmPageLeaveLayout from '@components/ConfirmPageLeaveLayout/ConfirmPageLeaveLayout'
 import delay from 'then-sleep'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -22,6 +21,7 @@ import {ColumnBox} from '@components/boxes/FlexBox'
 import ToiletEffEligibilityDialog from '@components/formFields/ToiletEffEligibilityDialog'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import ToiletForm from '@components/forms/toiletForm'
+import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'toilet-rebate'
@@ -203,9 +203,6 @@ const Toilet = () => {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
-  const [shouldConfirmRouteChange, setShouldConfirmRouteChange] = useState<
-    boolean
-  >(false)
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -222,10 +219,6 @@ const Toilet = () => {
       setEligibilityDialogOpen(true)
     }
     fn()
-  }, [])
-
-  const formDirtyChangeHandler = useCallback((value: boolean) => {
-    setShouldConfirmRouteChange(value)
   }, [])
 
   const ineligibleChangeHandler = useCallback((value: boolean) => {
@@ -285,10 +278,9 @@ const Toilet = () => {
                 }
               }}
             >
-              {/* Note - <FormikValidate/> wrapper not needed with this form since it's implemented in <ToiletForm/>. */}
-              <>
+              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <ToiletForm/>. */}
+              <ProtectRouteChange>
                 <ToiletForm
-                  onDirtyChange={formDirtyChangeHandler}
                   ineligible={ineligible}
                   onIneligibleChange={ineligibleChangeHandler}
                 />
@@ -296,18 +288,13 @@ const Toilet = () => {
                   open={eligibilityDialogOpen}
                   onClose={() => setEligibilityDialogOpen(false)}
                 />
-              </>
+              </ProtectRouteChange>
             </Formik>
           </MainBox>
         </NarrowContainer>
       </>
     ),
-    [
-      formDirtyChangeHandler,
-      ineligible,
-      ineligibleChangeHandler,
-      eligibilityDialogOpen
-    ]
+    [ineligible, ineligibleChangeHandler, eligibilityDialogOpen]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.
@@ -350,11 +337,7 @@ const Toilet = () => {
   )
 
   return (
-    <ConfirmPageLeaveLayout
-      onDialogCancel={() => setShouldConfirmRouteChange(true)}
-      onDialogLeave={() => setShouldConfirmRouteChange(false)}
-      shouldConfirmRouteChange={shouldConfirmRouteChange}
-    >
+    <>
       {toiletEl}
       <FormSubmissionDialog
         providedEmail={providedEmail}
@@ -368,7 +351,7 @@ const Toilet = () => {
         onClose={errorDialogCloseHandler}
         errorMessage={errorMessage}
       />
-    </ConfirmPageLeaveLayout>
+    </>
   )
 }
 

@@ -33,7 +33,6 @@ const MAX_TOILETS = 25
 const MIN_TOILETS = 1
 
 type Props = {
-  onDirtyChange?: (dirty: boolean) => any
   onIneligibleChange?: (eligible: boolean) => any
   ineligible?: boolean
 }
@@ -64,11 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-const ToiletForm = ({
-  onDirtyChange,
-  ineligible = false,
-  onIneligibleChange
-}: Props) => {
+const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
@@ -128,7 +123,6 @@ const ToiletForm = ({
 
   if (dirty !== formIsDirty) {
     setFormIsDirty(dirty)
-    onDirtyChange?.(dirty)
   }
 
   // Check if user is in-eligible for rebate and disable all form controls if so.
