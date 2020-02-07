@@ -1,14 +1,6 @@
 // cspell:ignore cust
 import React, {useState, useCallback, useMemo} from 'react'
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Divider,
-  Grid,
-  Theme,
-  Typography as Type
-} from '@material-ui/core'
+import {Box, Divider, Grid, Theme, Typography as Type} from '@material-ui/core'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
 import Head from 'next/head'
 import {Formik, Field} from 'formik'
@@ -37,6 +29,8 @@ import FormSubmissionDialogCustAcctInfo from '@components/FormSubmissionDialogCu
 import FormSubmissionDialogErrorCustAcctInfo from '@components/FormSubmissionDialogErrorCustAcctInfo/FormSubmissionDialogErrorCustAcctInfo'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
+import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
+import Spacing from '@components/boxes/Spacing'
 
 const isDev = process.env.NODE_ENV === 'development'
 const SERVICE_URI_PATH = 'account-contact-info'
@@ -159,8 +153,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ContactInfo = () => {
   const classes = useStyles()
-  const [formValues, setFormValues] = useState<FormData>(initialFormValues)
-  const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
@@ -214,237 +206,195 @@ const ContactInfo = () => {
                 }
               }}
             >
-              {(formik) => {
-                const {
-                  values,
-                  touched = {},
-                  dirty,
-                  isSubmitting
-                  // isValid,
-                  // errors,
-                  // setFieldValue
-                } = formik
-
-                if (values !== formValues) {
-                  setFormValues(values)
-                }
-
-                // Use state to save a boolean version of 'touched'.
-                const formTouched = Object.keys(touched).length > 0
-                if (formTouched !== formIsTouched) {
-                  setFormIsTouched(formTouched)
-                }
-
-                return (
-                  <ProtectRouteChange>
-                    <FormValidate>
-                      <FormBox className={classes.form}>
-                        <Box flex="0 0 auto" mt={5} mb={5}>
-                          <Type
-                            color="textSecondary"
-                            variant="h4"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            Updated Contact Information
-                          </Type>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <FormTextField
-                                name="address"
-                                multiline
-                                rows={1}
-                                label="Mailing Address"
-                                autoComplete="street-address"
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={4}>
-                              <FormTextField
-                                autoComplete="address-level2"
-                                name="city"
-                                label="City"
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                name="state"
-                                component={StateSelectField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                              <FormTextField
-                                autoComplete="postal-code"
-                                name="zipCode"
-                                label="Zip Code"
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={7}>
-                              <AccountNoField name="accountNo" />
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                              <FormTextField
-                                name="lastFourSS"
-                                label="Last 4 Digits Social Security"
-                                required={false}
-                              />
-                            </Grid>
-                            {/* <Grid item xs={12} sm={5}>
+              <ProtectRouteChange>
+                <FormValidate>
+                  <FormBox className={classes.form}>
+                    <Box flex="0 0 auto" mt={5} mb={5}>
+                      <Type
+                        color="textSecondary"
+                        variant="h4"
+                        gutterBottom
+                        className={classes.formGroupTitle}
+                      >
+                        Updated Contact Information
+                      </Type>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <FormTextField
+                            name="address"
+                            multiline
+                            rows={1}
+                            label="Mailing Address"
+                            autoComplete="street-address"
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12} sm={4}>
+                          <FormTextField
+                            autoComplete="address-level2"
+                            name="city"
+                            label="City"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <Field name="state" component={StateSelectField} />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <FormTextField
+                            autoComplete="postal-code"
+                            name="zipCode"
+                            label="Zip Code"
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12} sm={7}>
+                          <AccountNoField name="accountNo" />
+                        </Grid>
+                        <Grid item xs={12} sm={5}>
+                          <FormTextField
+                            name="lastFourSS"
+                            label="Last 4 Digits Social Security"
+                            required={false}
+                          />
+                        </Grid>
+                        {/* <Grid item xs={12} sm={5}>
                             <Field
                               name="propertyType"
                               component={PropertyTypeSelectField}
                             />
                           </Grid> */}
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <FormTextField
-                                autoComplete="name"
-                                name="name"
-                                label="Name (legal name)"
-                              />
-                            </Grid>
-                          </Grid>
+                      </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <FormTextField
+                            autoComplete="name"
+                            name="name"
+                            label="Name (legal name)"
+                          />
+                        </Grid>
+                      </Grid>
 
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                name="phone"
-                                component={PhoneNoField}
-                                label="Main Phone"
-                                required={false}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                name="cellPhone"
-                                component={PhoneNoField}
-                                label="Cell Phone"
-                                required={false}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                name="workPhone"
-                                component={PhoneNoField}
-                                label="Work Phone"
-                                required={false}
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="email"
-                                component={EmailField}
-                                required={false}
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                name="spouseName"
-                                label="Spouse's Name (if applicable)"
-                                required={false}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                name="spousePhone"
-                                component={PhoneNoField}
-                                label="Spouse's Phone"
-                                required={false}
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <ColumnBox>
-                                <Type variant="caption">
-                                  If you had previous service with PCWA, please
-                                  list all service addresses below:
-                                </Type>
-                                <FormTextField
-                                  name="previousAddress"
-                                  multiline
-                                  rows={2}
-                                  label="Previous Address(es)"
-                                />
-                              </ColumnBox>
-                            </Grid>
-                          </Grid>
-                        </Box>
-
-                        <Divider variant="middle" />
-
-                        <Box flex="0 0 auto" mt={5} mb={5}>
-                          <Type
-                            color="textSecondary"
-                            variant="h4"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            E-Signature
-                          </Type>
-
-                          <Grid container direction="column" spacing={1}>
-                            <Grid
-                              item
-                              xs={12}
-                              className={classes.ieFixFlexColumnDirection}
-                            >
-                              <Type variant="caption">
-                                You must sign this form by typing your name
-                              </Type>
-                              <Field
-                                name="signature"
-                                component={SignatureField}
-                              />
-                            </Grid>
-
-                            <Grid
-                              item
-                              xs={12}
-                              className={classes.ieFixFlexColumnDirection}
-                            >
-                              <Field
-                                name="captcha"
-                                component={RecaptchaField}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Box>
-
-                        <Box flex="0 0 auto" position="relative" mt={3} mb={3}>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                            type="submit"
-                            disabled={
-                              isSubmitting ||
-                              // !isValid ||
-                              (!formTouched && !dirty)
-                            }
-                          >
-                            Submit Updated Contact Information
-                          </Button>
-                          {isSubmitting && (
-                            <CircularProgress
-                              size={24}
-                              className={classes.buttonProgress}
+                      <Grid container spacing={5}>
+                        <Grid item xs={12} sm={4}>
+                          <Field
+                            name="phone"
+                            component={PhoneNoField}
+                            label="Main Phone"
+                            required={false}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <Field
+                            name="cellPhone"
+                            component={PhoneNoField}
+                            label="Cell Phone"
+                            required={false}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <Field
+                            name="workPhone"
+                            component={PhoneNoField}
+                            label="Work Phone"
+                            required={false}
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12} sm={6}>
+                          <Field
+                            name="email"
+                            component={EmailField}
+                            required={false}
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12} sm={6}>
+                          <FormTextField
+                            name="spouseName"
+                            label="Spouse's Name (if applicable)"
+                            required={false}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Field
+                            name="spousePhone"
+                            component={PhoneNoField}
+                            label="Spouse's Phone"
+                            required={false}
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                          <ColumnBox>
+                            <Type variant="caption">
+                              If you had previous service with PCWA, please list
+                              all service addresses below:
+                            </Type>
+                            <FormTextField
+                              name="previousAddress"
+                              multiline
+                              rows={2}
+                              label="Previous Address(es)"
                             />
-                          )}
-                        </Box>
-                      </FormBox>
-                    </FormValidate>
-                  </ProtectRouteChange>
-                )
-              }}
+                          </ColumnBox>
+                        </Grid>
+                      </Grid>
+                    </Box>
+
+                    <Divider variant="middle" />
+
+                    <Box flex="0 0 auto" mt={5} mb={5}>
+                      <Type
+                        color="textSecondary"
+                        variant="h4"
+                        gutterBottom
+                        className={classes.formGroupTitle}
+                      >
+                        E-Signature
+                      </Type>
+
+                      <Grid container direction="column" spacing={1}>
+                        <Grid
+                          item
+                          xs={12}
+                          className={classes.ieFixFlexColumnDirection}
+                        >
+                          <Type variant="caption">
+                            You must sign this form by typing your name
+                          </Type>
+                          <Field name="signature" component={SignatureField} />
+                        </Grid>
+
+                        <Grid
+                          item
+                          xs={12}
+                          className={classes.ieFixFlexColumnDirection}
+                        >
+                          <Field name="captcha" component={RecaptchaField} />
+                        </Grid>
+                      </Grid>
+                    </Box>
+
+                    <Spacing />
+                    {/* flex prop is an IE11 fix. */}
+                    <SubmitFormButton
+                      boxProps={{
+                        flex: '0 0 auto'
+                      }}
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                    >
+                      Submit Updated Contact Information
+                    </SubmitFormButton>
+                  </FormBox>
+                </FormValidate>
+              </ProtectRouteChange>
             </Formik>
 
             {/* {receipts.map((attach, idx) => (
@@ -454,7 +404,7 @@ const ContactInfo = () => {
         </MainBox>
       </>
     ),
-    [classes, formValues, formIsTouched]
+    [classes]
   )
 
   // GO-LIVE - Won't need this ternary or logo after GO LIVE date.

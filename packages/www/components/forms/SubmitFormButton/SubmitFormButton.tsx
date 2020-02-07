@@ -49,7 +49,7 @@ const SubmitFormButton = ({children, boxProps, ...rest}: Props) => {
   ])
 
   return (
-    <Box {...boxProps}>
+    <Box position="relative" {...boxProps}>
       <Button
         type="submit"
         onClick={clickHandler}

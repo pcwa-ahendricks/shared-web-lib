@@ -317,8 +317,7 @@ const ContactUs = () => {
                   {/* flex prop is an IE11 fix. */}
                   <SubmitFormButton
                     boxProps={{
-                      flex: '0 0 auto',
-                      position: 'relative'
+                      flex: '0 0 auto'
                     }}
                     fullWidth
                     variant="contained"
