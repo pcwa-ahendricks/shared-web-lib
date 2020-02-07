@@ -1,13 +1,6 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useEffect} from 'react'
-import {
-  Button,
-  CircularProgress,
-  Divider,
-  Grid,
-  Theme,
-  Typography as Type
-} from '@material-ui/core'
+import {Divider, Grid, Theme, Typography as Type} from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {useFormikContext, Field, FieldArray} from 'formik'
 import {ToiletRebateFormData} from '@lib/services/formService'
@@ -32,6 +25,9 @@ import FormTextField from '@components/formFields/FormTextField'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import RebatesEmail from '@components/links/RebatesEmail'
+import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
+import Spacing from '@components/boxes/Spacing'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 const MAX_TOILETS = 25
 const MIN_TOILETS = 1
@@ -50,50 +46,21 @@ const useStyles = makeStyles((theme: Theme) =>
     //   flexDirection: 'column',
     //   width: '100%'
     // },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
     dropzoneContainer: {
-      flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
-    },
-    buttonWrapper: {
-      flex: '0 0 auto', // IE fix
-      position: 'relative',
-      marginTop: theme.spacing(3),
       marginBottom: theme.spacing(3)
-    },
-    buttonProgress: {
-      color: theme.palette.primary.main,
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      marginTop: -12,
-      marginLeft: -12
     },
     formGroup: {
       flex: '0 0 auto', // IE fix
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5)
     },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
       flexBasis: 'auto',
       flexGrow: 0,
       flexShrink: 0
-    },
-    reserveRight: {
-      marginTop: theme.spacing(3)
     }
   })
 )
@@ -196,16 +163,13 @@ const ToiletForm = ({
 
   return (
     <>
-      <FormBox className={classes.form}>
+      {/* width: 'fit-content' // Doesn't seem to fit responsively in XS media layout. */}
+      <FormBox display="flex" flexDirection="column" margin="auto" width="100%">
         <div className={classes.formGroup}>
-          <Type
-            color="textSecondary"
-            variant="h4"
-            gutterBottom
-            className={classes.formGroupTitle}
-          >
+          <Type color="textSecondary" variant="h4" gutterBottom>
             Contact Information
           </Type>
+          <Spacing />
           <Grid container spacing={5}>
             <Grid item xs={12} sm={6}>
               <FormTextField
@@ -292,14 +256,10 @@ const ToiletForm = ({
         <Divider variant="middle" />
 
         <div className={classes.formGroup}>
-          <Type
-            variant="h4"
-            color="textSecondary"
-            gutterBottom
-            className={classes.formGroupTitle}
-          >
+          <Type variant="h4" color="textSecondary" gutterBottom>
             Rebate Information
           </Type>
+          <Spacing />
           <Grid container spacing={5}>
             <Grid item xs={12} sm={7}>
               <FormTextField
@@ -375,14 +335,10 @@ const ToiletForm = ({
         <Divider variant="middle" />
 
         <div className={classes.formGroup}>
-          <Type
-            variant="h4"
-            color="textSecondary"
-            gutterBottom
-            className={classes.formGroupTitle}
-          >
+          <Type variant="h4" color="textSecondary" gutterBottom>
             Provide Attachments
           </Type>
+          <Spacing />
           <Type variant="caption" color="textSecondary">
             Note - Only Image file formats can be uploaded (eg. .jpg, .png). PDF
             files <em>cannot</em> be uploaded here. If you are unable to attach
@@ -404,8 +360,8 @@ const ToiletForm = ({
             }
             disabled={ineligible}
           />
-
-          <div className={classes.dropzoneContainer}>
+          <Spacing />
+          <ColumnBox className={classes.dropzoneContainer}>
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
@@ -414,9 +370,10 @@ const ToiletForm = ({
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
             />
-          </div>
+          </ColumnBox>
 
-          <div className={classes.dropzoneContainer}>
+          <Spacing />
+          <ColumnBox className={classes.dropzoneContainer}>
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
@@ -425,20 +382,16 @@ const ToiletForm = ({
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}
             />
-          </div>
+          </ColumnBox>
         </div>
 
         <Divider variant="middle" />
 
         <div className={classes.formGroup}>
-          <Type
-            color="textSecondary"
-            variant="h4"
-            gutterBottom
-            className={classes.formGroupTitle}
-          >
+          <Type color="textSecondary" variant="h4" gutterBottom>
             Acknowledge Terms & Conditions
           </Type>
+          <Spacing />
           <Grid container direction="column" spacing={1}>
             <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
               <ReviewTermsConditions
@@ -446,7 +399,8 @@ const ToiletForm = ({
                 fileName="Toilet-Terms-and-Conditions.pdf"
                 termsConditionsUrl="https://cosmic-s3.imgix.net/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
               />
-              <Type variant="body1" paragraph className={classes.reserveRight}>
+              <Spacing />
+              <Type variant="body1" paragraph>
                 <em>
                   I have read, understand, and agree to the{' '}
                   {/* <Link
@@ -460,7 +414,8 @@ const ToiletForm = ({
                   {/* </Link> */}
                 </em>
               </Type>
-              <Type variant="body1" paragraph className={classes.reserveRight}>
+              <Spacing />
+              <Type variant="body1" paragraph>
                 <em>
                   I understand that PCWA reserves the right to have an Agency
                   representative verify the installation of the product(s) at
@@ -480,14 +435,10 @@ const ToiletForm = ({
         <Divider variant="middle" />
 
         <div className={classes.formGroup}>
-          <Type
-            color="textSecondary"
-            variant="h4"
-            gutterBottom
-            className={classes.formGroupTitle}
-          >
+          <Type color="textSecondary" variant="h4" gutterBottom>
             Release of Liability & Signature
           </Type>
+          <Spacing />
 
           <Grid container direction="column" spacing={1}>
             <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
@@ -525,26 +476,21 @@ const ToiletForm = ({
           </Grid>
         </div>
 
-        <div className={classes.buttonWrapper}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="primary"
-            type="submit"
-            disabled={
-              ineligible ||
-              isSubmitting ||
-              // !isValid ||
-              (!formTouched && !dirty) ||
-              attachmentsAreUploading
-            }
-          >
-            Submit Application
-          </Button>
-          {isSubmitting && (
-            <CircularProgress size={24} className={classes.buttonProgress} />
-          )}
-        </div>
+        <Spacing />
+        <SubmitFormButton
+          fullWidth
+          variant="outlined"
+          color="primary"
+          disabled={
+            ineligible ||
+            isSubmitting ||
+            // !isValid ||
+            (!formTouched && !dirty) ||
+            attachmentsAreUploading
+          }
+        >
+          Submit Application
+        </SubmitFormButton>
       </FormBox>
       >
     </>
