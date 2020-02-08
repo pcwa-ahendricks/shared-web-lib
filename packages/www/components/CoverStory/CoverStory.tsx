@@ -61,14 +61,15 @@ const CoverStory = ({
           variant="h3"
           underline="none"
           href={linkHref}
-          gutterBottom
+          // gutterBottom
           color="primary"
         >
           {title}
         </FlexLink>
+        <Spacing size="small" />
         {BodyEl}
         {children}
-        <MuiNextLink variant="subtitle2" href="/smart-water-use/house-calls">
+        <MuiNextLink variant="subtitle2" href={linkHref}>
           {readMore}
         </MuiNextLink>
       </Box>
