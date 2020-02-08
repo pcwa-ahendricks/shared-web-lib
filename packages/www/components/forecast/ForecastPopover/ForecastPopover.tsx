@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center'
-      /// Image display was inconsistent in production. Using react-imgix instead.
+      // Image display was inconsistent in production. Using react-imgix instead.
       // background: {
       //   image: 'url(./static/images/darksky/poweredby-oneline-dark-300.png)',
       //   repeat: 'no-repeat',

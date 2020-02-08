@@ -1,23 +1,21 @@
 import React, {useState, useMemo} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
-import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
-  Box,
   Fade,
   Hidden,
-  Typography as Type,
+  // Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
-import {RowBox} from '@components/boxes/FlexBox'
-import MuiNextLink from '@components/NextLink/NextLink'
+import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import Spacing from '@components/boxes/Spacing'
+import WideContainer from '@components/containers/WideContainer'
+import CoverStory from '@components/CoverStory/CoverStory'
 
 const HERO_IMG_SRC =
-  '//cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
-const YEAR_END_IMG_SRC =
-  '//cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf'
+  'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
@@ -83,47 +81,43 @@ const Index = () => {
       <Hidden only="xs" implementation="css">
         <TrendingBar />
       </Hidden>
-      <Box mt={2}>
-        <title>Welcome</title>
-        <Type variant="h4" color="primary" gutterBottom>
-          Water Legislation FAQs
-        </Type>
-        <Type variant="body2">
-          The State of California has enacted into law two new bills that
-          require urban water providers throughout California to set new
-          permanent water use targets for their service areas by 2022. PCWA has
-          put together some Frequently Asked Questions regarding this new
-          legislation.
-        </Type>
-        <Type variant="body1" style={{fontStyle: 'italic'}}>
-          Read more...
-        </Type>
-        <div style={{backgroundColor: 'beige', height: 1500}}>
-          the next website.
-        </div>
-        <div
-          style={{
-            maxWidth: '30vw',
-            margin: '50px auto',
-            position: 'relative'
-          }}
-        >
-          <ImgixFancy
-            paddingPercent="129.4118%"
-            src={YEAR_END_IMG_SRC}
-            htmlAttributes={{
-              alt: 'Year End Image Thumbnail'
-            }}
-          />
-        </div>
-        <MuiNextLink
-          href="/recreation/flows/gages/[pid]"
-          as="/recreation/flows/gages/R2"
-        >
-          Go to R2 gage info
-        </MuiNextLink>
-      </Box>
-      <div style={{backgroundColor: 'blue', height: 1500}} />
+      <Spacing size="large" />
+      <WideContainer>
+        <RespRowBox flexSpacing={4}>
+          <ChildBox flex="50%">
+            <CoverStory
+              title="Water-wise House and Business Calls"
+              readMore="More Information..."
+              linkHref="/smart-water-use/house-calls"
+              imgixURL="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {alt: 'Photo of PCWA Water Efficiency staff'}
+              }}
+              body="Worried you might have a leak? Want to find ways to use water
+                more efficiently at home or work? Interested in learning more
+                about rebates available from PCWA? Set up your complimentary
+                Water Wise House Call or Business Call today!"
+            />
+          </ChildBox>
+          <ChildBox flex="50%">
+            <CoverStory
+              title="French Meadows Partnership Completes its First Season of Work"
+              readMore="See Story..."
+              linkHref="/newsroom/success-in-the-sierra"
+              imgixURL="https://cosmic-s3.imgix.net/c2f41400-30ae-11ea-96a7-8146ec741192-French-Meadows-ReservoirPCWA004.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}
+              }}
+              body="PCWA partners of the French Meadows Forest Restoration Project are
+              wrapping up their first season of implementation work. Located in the
+              headwaters of the Middle Fork American River, in the Tahoe National
+              Forest, the Project is one of the first instances of private and
+              public interests coming together to fund and implement active forest
+              management on public land."
+            />
+          </ChildBox>
+        </RespRowBox>
+      </WideContainer>
     </PageLayout>
   )
 }
