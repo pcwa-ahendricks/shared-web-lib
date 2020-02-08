@@ -1,11 +1,10 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import {Box, BoxProps, Typography as Type} from '@material-ui/core'
 import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 
-export type CoverStoryProps = {
+export type CoverTileProps = {
   title: string
   linkHref: string
   imgixURL: string
@@ -14,32 +13,18 @@ export type CoverStoryProps = {
   imgixCropMode?: string
   imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
-  body?: string
 } & BoxProps
 
-const CoverStory = ({
+const CoverTile = ({
   title,
-  children,
-  readMore = 'Read more...',
   imgixURL,
-  imageRatio = '19:6', // 555w / 175h = 3.17. Roughly 3:1 or more accurately as 19:6
+  imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57*7=10.99, 11:7
   imgixCropMode = 'top',
   linkHref,
   imgixFancyProps = {},
   flexLinkProps = {},
-  body,
   ...rest
-}: CoverStoryProps) => {
-  const BodyEl = useMemo(
-    () =>
-      body ? (
-        <Type variant="body2" paragraph>
-          {body}
-        </Type>
-      ) : null,
-    [body]
-  )
-
+}: CoverTileProps) => {
   return (
     <Box {...rest}>
       <FlexLink href={linkHref} {...flexLinkProps}>
@@ -53,30 +38,16 @@ const CoverStory = ({
             crop: imgixCropMode,
             bg: 'fff'
           }}
-          paddingPercent="31.53%" // Default ratio for a 175h x 555w image.
+          paddingPercent="63.64%" // Default ratio for a 140h x 220w image.
           {...imgixFancyProps}
         />
-      </FlexLink>
-      <Spacing />
-      <Box textAlign="center">
-        <FlexLink
-          variant="h3"
-          underline="none"
-          href={linkHref}
-          // gutterBottom
-          color="primary"
-        >
-          {title}
-        </FlexLink>
         <Spacing size="small" />
-        {BodyEl}
-        {children}
-        <MuiNextLink variant="subtitle2" href={linkHref}>
-          {readMore}
-        </MuiNextLink>
-      </Box>
+        <Type variant="h6" color="primary">
+          {title}
+        </Type>
+      </FlexLink>
     </Box>
   )
 }
 
-export default CoverStory
+export default CoverTile

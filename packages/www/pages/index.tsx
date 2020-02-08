@@ -5,7 +5,8 @@ import {
   Fade,
   Hidden,
   // Typography as Type,
-  useMediaQuery
+  useMediaQuery,
+  Divider
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
@@ -13,6 +14,7 @@ import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
+import CoverTile from '@components/CoverTile/CoverTile'
 
 const HERO_IMG_SRC =
   'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -35,6 +37,8 @@ const Index = () => {
     () => (is5to4 ? '-16vmax' : 0),
     [is5to4]
   )
+
+  const coverTileTopMargin = 2
 
   return (
     <PageLayout mt={0}>
@@ -117,6 +121,37 @@ const Index = () => {
             />
           </ChildBox>
         </RespRowBox>
+
+        <Spacing size="large">
+          <Divider />
+        </Spacing>
+        <RowBox flexWrap="wrap" mt={-coverTileTopMargin}>
+          <ChildBox width={220} mt={coverTileTopMargin}>
+            <CoverTile
+              title="Pay My Bill"
+              imgixURL="https://cosmic-s3.imgix.net/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png"
+              linkHref="https://ipn.paymentus.com/cp/plco"
+              flexLinkProps={{isNextLink: false}}
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Thumbnail and link for Pay My Bill Using Paymentus'
+                }
+              }}
+            />
+          </ChildBox>
+          <ChildBox width={220} mt={coverTileTopMargin}>
+            <CoverTile
+              title="Current PCWA Water Outages"
+              imgixURL="https://cosmic-s3.imgix.net/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg"
+              linkHref="/services/outage"
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Thumbnail and link for Current PCWA Water Outages Page'
+                }
+              }}
+            />
+          </ChildBox>
+        </RowBox>
       </WideContainer>
     </PageLayout>
   )
