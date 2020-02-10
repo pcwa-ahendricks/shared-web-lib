@@ -6,6 +6,12 @@ import {
   CosmicMediaMeta
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON} from 'date-fns'
+import {
+  Box,
+  CircularProgress,
+  makeStyles,
+  createStyles
+} from '@material-ui/core'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -20,10 +26,25 @@ type PickedMediaResponses = PickedMediaResponse[]
 
 type Props = {} & Partial<CoverTileProps>
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    progress: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      margin: 'auto'
+    }
+  })
+)
+
 const LatestNewsRelease = ({...rest}: Props) => {
   const [latestNewsRelease, setLatestNewsRelease] = useState<
     PickedMediaResponse
   >()
+  const [isLoading, setIsLoading] = useState<boolean>()
+  const classes = useStyles()
 
   const fetchLatestNewsRelease = useCallback(async () => {
     const nr = await getMedia<PickedMediaResponses>({
@@ -48,8 +69,14 @@ const LatestNewsRelease = ({...rest}: Props) => {
   }, [])
 
   const fetchAndSetLatestNewsRelease = useCallback(async () => {
-    const media = await fetchLatestNewsRelease()
-    setLatestNewsRelease(media)
+    try {
+      setIsLoading(true)
+      const media = await fetchLatestNewsRelease()
+      setLatestNewsRelease(media)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+    }
   }, [fetchLatestNewsRelease])
 
   useEffect(() => {
@@ -57,20 +84,26 @@ const LatestNewsRelease = ({...rest}: Props) => {
   }, [fetchAndSetLatestNewsRelease])
 
   return (
-    <CoverTile
-      title={latestNewsRelease?.derivedFilenameAttr?.title ?? ''}
-      imgixURL="https://cosmic-s3.imgix.net/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
-      linkHref="/newsroom/news-releases/[release-date]"
-      flexLinkProps={{
-        as: `/newsroom/news-releases/${latestNewsRelease?.derivedFilenameAttr?.date}`
-      }}
-      imgixFancyProps={{
-        htmlAttributes: {
-          alt: 'Thumbnail and link for latest PCWA News Release'
-        }
-      }}
-      {...rest}
-    />
+    <Box position="relative">
+      <CoverTile
+        title={latestNewsRelease?.derivedFilenameAttr?.title ?? ''}
+        imgixURL="https://cosmic-s3.imgix.net/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
+        linkHref="/newsroom/news-releases/[release-date]"
+        flexLinkProps={{
+          as: `/newsroom/news-releases/${latestNewsRelease?.derivedFilenameAttr?.date}`
+        }}
+        imgixFancyProps={{
+          htmlAttributes: {
+            alt: 'Thumbnail and link for latest PCWA News Release'
+          }
+        }}
+        {...rest}
+      />
+
+      {isLoading ? (
+        <CircularProgress classes={{root: classes.progress}} />
+      ) : null}
+    </Box>
   )
 }
 
