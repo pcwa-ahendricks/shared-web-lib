@@ -36,7 +36,7 @@ const CoverTile = ({
             ar: imageRatio,
             fit: 'crop',
             crop: imgixCropMode,
-            bg: 'fff'
+            bg: 'ffffff'
           }}
           paddingPercent="63.64%" // Default ratio for a 140h x 220w image.
           {...imgixFancyProps}

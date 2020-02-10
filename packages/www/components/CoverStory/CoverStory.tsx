@@ -51,7 +51,7 @@ const CoverStory = ({
             ar: imageRatio,
             fit: 'crop',
             crop: imgixCropMode,
-            bg: 'fff'
+            bg: 'ffffff'
           }}
           paddingPercent="31.53%" // Default ratio for a 175h x 555w image.
           {...imgixFancyProps}
