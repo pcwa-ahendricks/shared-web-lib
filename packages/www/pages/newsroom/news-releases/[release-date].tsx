@@ -1,7 +1,7 @@
 import React, {useMemo, useCallback} from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {NextPageContext} from 'next'
-import PageLayout, {backToTopAnchorId} from '@components/PageLayout/PageLayout'
+import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
   getMedia,
@@ -89,20 +89,19 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
 
   const router = useRouter()
 
-  const bcBackClickHandler = useCallback(
-    async (event: any) => {
-      isSSR ? await router.push('/') : router.back()
-      const anchor = (
-        (event.target && event.target.ownerDocument) ||
-        document
-      ).querySelector(`#${backToTopAnchorId}`)
+  const bcBackClickHandler = useCallback(async () => {
+    isSSR ? await router.push('/') : router.back()
+    // Can't get scroll to top to work.
+    // const anchor = (
+    //   (event.target && event.target.ownerDocument) ||
+    //   document
+    // ).querySelector(`#${backToTopAnchorId}`)
 
-      if (anchor) {
-        anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
-      }
-    },
-    [router, isSSR]
-  )
+    // if (anchor) {
+    //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
+    // }
+    // console.log('done scrolling to top.')
+  }, [router, isSSR])
 
   if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
