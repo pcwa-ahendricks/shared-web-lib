@@ -75,7 +75,6 @@ const OutageInformationPage = () => {
     },
     [outages]
   )
-  console.log(outages)
 
   const treatedWaterOutagesHTML = useMemo(() => outageContent('treated'), [
     outageContent
