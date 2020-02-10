@@ -1,7 +1,7 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useCallback} from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {NextPageContext} from 'next'
-import PageLayout from '@components/PageLayout/PageLayout'
+import PageLayout, {backToTopAnchorId} from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
   getMedia,
@@ -17,6 +17,7 @@ import {
   Fab,
   useMediaQuery,
   Box,
+  Link,
   Typography as Type,
   Divider,
   Breadcrumbs
@@ -28,8 +29,8 @@ import ErrorPage from '../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
+import {useRouter} from 'next/router'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 const cosmicGetMediaProps = {
@@ -42,6 +43,7 @@ type Props = {
   err?: any
   qMedia?: CosmicMediaMeta | null
   pages?: Page[]
+  isSSR?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,7 +58,8 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'default'
     },
     bcLink: {
-      display: 'flex'
+      display: 'flex',
+      cursor: 'pointer'
     },
     bcIcon: {
       alignSelf: 'center',
@@ -67,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
+const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -82,6 +85,23 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
           )
         : '',
     [qMedia]
+  )
+
+  const router = useRouter()
+
+  const bcBackClickHandler = useCallback(
+    async (event: any) => {
+      isSSR ? await router.push('/') : router.back()
+      const anchor = (
+        (event.target && event.target.ownerDocument) ||
+        document
+      ).querySelector(`#${backToTopAnchorId}`)
+
+      if (anchor) {
+        anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
+      }
+    },
+    [router, isSSR]
   )
 
   if (err || !qMedia) {
@@ -104,14 +124,14 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+              <Link
                 color="inherit"
-                href="/newsroom/news-releases"
                 className={classes.bcLink}
+                onClick={bcBackClickHandler}
               >
                 <UndoIcon className={classes.bcIcon} />
-                News Releases
-              </MuiNextLink>
+                {isSSR ? 'Go Home' : 'Go Back'}
+              </Link>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
                 {newsReleaseDateFormatted}
@@ -189,8 +209,9 @@ DynamicNewsReleasePage.getInitialProps = async ({
     if (!qMedia || !pages) {
       throw new Error('No media or pdf pages')
     }
+    const isSSR = Object.keys(res ?? {}).length > 0
 
-    return {query, qMedia, pages}
+    return {query, qMedia, pages, isSSR}
   } catch (error) {
     if (res) {
       res.statusCode = 404

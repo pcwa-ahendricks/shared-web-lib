@@ -6,7 +6,8 @@ import {
   Hidden,
   // Typography as Type,
   useMediaQuery,
-  Divider
+  Divider,
+  useTheme
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
@@ -15,6 +16,7 @@ import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
+import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
 
 const HERO_IMG_SRC =
   'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -30,7 +32,9 @@ const HERO_IMG_SRC =
 
 const Index = () => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
+  const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
+  const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   const marginTop = useMemo(
     // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
@@ -38,7 +42,9 @@ const Index = () => {
     [is5to4]
   )
 
-  const coverTileTopMargin = 2
+  const coverTileTopMargin = 6
+
+  const tileWidth = isLGUp ? 225 : 200
 
   return (
     <PageLayout mt={0}>
@@ -122,11 +128,11 @@ const Index = () => {
           </ChildBox>
         </RespRowBox>
 
-        <Spacing size="large">
+        <Spacing size="x-large">
           <Divider />
         </Spacing>
-        <RowBox flexWrap="wrap" mt={-coverTileTopMargin}>
-          <ChildBox width={220} mt={coverTileTopMargin}>
+        <RowBox flexWrap="wrap" mt={-coverTileTopMargin} flexSpacing={4}>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Pay My Bill"
               imgixURL="https://cosmic-s3.imgix.net/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png"
@@ -139,9 +145,9 @@ const Index = () => {
               }}
             />
           </ChildBox>
-          <ChildBox width={220} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
-              title="Current PCWA Water Outages"
+              title="Outage Information"
               imgixURL="https://cosmic-s3.imgix.net/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg"
               linkHref="/services/outage"
               imgixFancyProps={{
@@ -150,6 +156,33 @@ const Index = () => {
                 }
               }}
             />
+          </ChildBox>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+            <CoverTile
+              title="Current Projects"
+              imgixURL="https://cosmic-s3.imgix.net/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg"
+              linkHref="/about-pcwa/projects"
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Thumbnail and link for Current Projects'
+                }
+              }}
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+            <CoverTile
+              title="Board Meeting Agendas"
+              imgixURL="https://cosmic-s3.imgix.net/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png"
+              linkHref="/board-of-directors/meeting-agendas"
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Thumbnail and link for Board Meeting Agendas'
+                }
+              }}
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+            <LatestNewsRelease />
           </ChildBox>
         </RowBox>
       </WideContainer>
