@@ -1,32 +1,46 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import {Link} from '@material-ui/core'
 import NextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
-// import usePrefetchHandler from '@hooks/usePrefetchHandler'
+import {parse} from 'url'
 
 export type FlexLinkProps = {
   children: React.ReactNode
   isNextLink?: boolean
+  detectNext?: boolean
 } & MuiNextLinkProps
+
+const IS_NEXT_RE = /https:\/\/www\.pcwa\.net/gi
 
 const FlexLink = ({
   children,
-  href,
+  href: hrefProp,
   as,
-  isNextLink = true,
-  // prefetch = false,
+  isNextLink: isNextLinkProp = true,
+  detectNext = false,
   ...rest
 }: FlexLinkProps) => {
-  // const mouseEnterHandler = usePrefetchHandler()
+  const [href, setHref] = useState(hrefProp)
+
+  // Note - Detection using Regular Expression will override isNextLink prop value.
+  const isNextLink = useMemo(
+    () => (!detectNext ? isNextLinkProp : IS_NEXT_RE.test(hrefProp)),
+    [isNextLinkProp, detectNext, hrefProp]
+  )
+
+  // Strip www.pcwa.net out of Next links.
+  useEffect(() => {
+    if (detectNext && IS_NEXT_RE.test(hrefProp)) {
+      const parsed = parse(hrefProp)
+      setHref(parsed.path ?? '')
+    } else {
+      setHref(hrefProp)
+    }
+  }, [hrefProp, detectNext])
 
   const flexLinkEl = useMemo(
     () =>
-      isNextLink && href ? (
-        <NextLink
-          href={href}
-          as={as}
-          // onMouseEnter={prefetch ? () => {} : mouseEnterHandler(href)}
-          {...rest}
-        >
+      isNextLink ? (
+        <NextLink href={href} as={as} {...rest}>
           {children}
         </NextLink>
       ) : (

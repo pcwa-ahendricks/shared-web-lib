@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Fade,
   Hidden,
-  // Typography as Type,
+  Typography as Type,
   useMediaQuery,
   Divider,
   useTheme
@@ -17,6 +17,7 @@ import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
 import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
+import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
 
 const HERO_IMG_SRC =
   'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -42,7 +43,7 @@ const Index = () => {
     [is5to4]
   )
 
-  const coverTileTopMargin = 6
+  const coverTileTopMargin = 5
 
   const tileWidth = isLGUp ? 225 : 200
 
@@ -128,7 +129,7 @@ const Index = () => {
           </ChildBox>
         </RespRowBox>
 
-        <Spacing size="x-large">
+        <Spacing size="large">
           <Divider />
         </Spacing>
         <RowBox flexWrap="wrap" mt={-coverTileTopMargin} flexSpacing={4}>
@@ -185,6 +186,13 @@ const Index = () => {
             <LatestNewsRelease />
           </ChildBox>
         </RowBox>
+        <Spacing size="large">
+          <Divider />
+        </Spacing>
+        <Type variant="h6" color="textSecondary" gutterBottom>
+          Recent News
+        </Type>
+        <RecentNewsBar />
       </WideContainer>
     </PageLayout>
   )
