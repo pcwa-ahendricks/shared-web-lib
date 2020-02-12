@@ -16,6 +16,7 @@ import {compareDesc, parseJSON, parse} from 'date-fns'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {getObjects} from '@lib/services/cosmicService'
 import TextProgress from '@components/TextProgress/TextProgress'
+import {isWebUri} from 'valid-url'
 
 type Props = {noOfBlurbs?: number} & BoxProps
 
@@ -50,7 +51,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
               new Date()
             ),
             hide: blurb.metadata.hide,
-            linkURL: blurb.metadata.linkURL,
+            linkURL: isWebUri(blurb.metadata.linkURL) ?? '', // isWebUri returns undefined on failure.
             title: blurb.metadata.title,
             summary: blurb.metadata.summary,
             readMoreCaption: blurb.metadata.readMoreCaption

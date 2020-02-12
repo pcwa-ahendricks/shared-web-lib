@@ -60,6 +60,7 @@ import {
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import {isWebUri} from 'valid-url'
 import PublicationCard, {
   PublicationCardProps
 } from '@components/newsroom/PublicationCard/PublicationCard'
@@ -169,7 +170,7 @@ const PublicationsPage = ({
           enewsBlastsProp.map((blast) => ({
             id: blast._id,
             title: blast.title,
-            mailchimpURL: blast.metadata?.mailchimpURL ?? '',
+            mailchimpURL: isWebUri(blast.metadata?.mailchimpURL) ?? '', // isWebUri returns undefined on failure.
             distributionDate: parse(
               blast.metadata?.distributionDate,
               "yyyy'-'MM'-'dd'",

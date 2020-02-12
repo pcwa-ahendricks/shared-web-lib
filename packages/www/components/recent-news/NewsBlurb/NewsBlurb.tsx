@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  BoxProps,
-  makeStyles,
-  createStyles,
-  Typography as Type
-} from '@material-ui/core'
+import {Box, BoxProps, Typography as Type} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import FlexLink from '@components/FlexLink/FlexLink'
 
@@ -18,14 +12,6 @@ type Props = {
   readMoreCaption: string
 } & Partial<BoxProps>
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    link: {
-      cursor: 'pointer'
-    }
-  })
-)
-
 const NewsBlurb = ({
   title,
   linkURL = '',
@@ -33,28 +19,21 @@ const NewsBlurb = ({
   readMoreCaption,
   ...rest
 }: Props) => {
-  const classes = useStyles()
-
   return (
     <Box {...rest}>
       <FlexLink
+        scroll
         detectNext
         variant="subtitle2"
         color="primary"
         href={linkURL}
-        className={classes.link}
       >
         {title}
       </FlexLink>
       <Spacing size="x-small" />
       <Type paragraph variant="body2">
         {summary}{' '}
-        <FlexLink
-          detectNext
-          variant="inherit"
-          href={linkURL}
-          className={classes.link}
-        >
+        <FlexLink scroll detectNext variant="inherit" href={linkURL}>
           <em>{readMoreCaption}</em>
         </FlexLink>
       </Type>
