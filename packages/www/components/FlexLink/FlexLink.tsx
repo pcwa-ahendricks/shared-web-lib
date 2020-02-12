@@ -9,17 +9,20 @@ export type FlexLinkProps = {
   detectNext?: boolean
 } & MuiNextLinkProps
 
-const IS_NEXT_RE = /https:\/\/www\.pcwa\.net/gi
+const IS_NEXT_RE = /^(http(s)?:\/\/)?(www\.)?pcwa\.net/i // http or https. protocol optional. www sub-domain optional.
+const IS_NEWS_RELEASE_RE = /^\/newsroom\/news-releases\/.+/i
+const IS_NEWSLETTER_RE = /^\/newsroom\/publications\/newsletters\/.+/i
 
 const FlexLink = ({
   children,
   href: hrefProp,
-  as,
+  as: asProp,
   isNextLink: isNextLinkProp = true,
   detectNext = false,
   ...rest
 }: FlexLinkProps) => {
   const [href, setHref] = useState(hrefProp)
+  const [as, setAs] = useState(asProp)
 
   // Note - Detection using Regular Expression will override isNextLink prop value.
   const isNextLink = useMemo(
@@ -27,11 +30,19 @@ const FlexLink = ({
     [isNextLinkProp, detectNext, hrefProp]
   )
 
-  // Strip www.pcwa.net out of Next links.
+  // Strip www.pcwa.net out of Next links and set "as" prop accordingly.
   useEffect(() => {
     if (detectNext && IS_NEXT_RE.test(hrefProp)) {
-      const parsed = parse(hrefProp)
-      setHref(parsed.path ?? '')
+      const {path} = parse(hrefProp)
+      if (IS_NEWS_RELEASE_RE.test(path ?? '')) {
+        setAs(path ?? '')
+        setHref('/newsroom/news-releases/[release-date]')
+      } else if (IS_NEWSLETTER_RE.test(path ?? '')) {
+        setAs(path ?? '')
+        setHref('/newsroom/publications/newsletters/[publish-date]')
+      } else {
+        setHref(path ?? '')
+      }
     } else {
       setHref(hrefProp)
     }
