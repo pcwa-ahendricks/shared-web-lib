@@ -14,15 +14,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
     const {id} = req.query
     switch (true) {
-      case testRe('foobar', id):
-        // res.status(200).send('you are awesome')
-        res
-          .writeHead(REDIRECT_STATUS_CODE, {
-            Location:
-              'https://cdn.cosmicjs.com/f4d68990-f520-11e9-ae6a-3f483301f6c2-10-22-2019PCWABoardAdopts2020Budget.pdf'
-          })
-          .end()
-        break
       /*  These doc links are used with "Grand Jury 2015 Report - Responses to Recommendations v3.docx" and generated pdf for Tony Firenzi which was distributed to Board of Directors and made available to the public 11/11/2020. */
       case testRe('CWMP-Implementation-Plan', id):
         res

@@ -355,11 +355,11 @@
     },
     {
       "src": "/sitemap.xml",
-      "dest": "/assets/sitemap.xml"
+      "dest": "/packages/www/static/sitemap.xml"
     },
     {
       "src": "/robots.txt",
-      "dest": "/assets/robots.txt"
+      "dest": "/packages/www/static/robots.txt"
     },
     {
       "src": "/(.*)",
