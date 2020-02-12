@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../types/mailchimp'
 import {json} from 'co-body'
 import {NowRequest, NowResponse} from '@now/node'

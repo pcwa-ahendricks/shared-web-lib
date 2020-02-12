@@ -1,5 +1,5 @@
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 import {NowRequest, NowResponse} from '@now/node'
 
 const COSMIC_BUCKET = 'pcwa'

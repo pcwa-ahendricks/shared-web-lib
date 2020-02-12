@@ -1,7 +1,7 @@
 import {NowRequest, NowResponse} from '@now/node'
 import csv from 'csvtojson'
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 
 const LAMBDA_URL = process.env.NODE_LAMBDA_URL ?? ''
 

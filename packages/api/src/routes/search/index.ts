@@ -1,5 +1,5 @@
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 import {CseResponse} from '../../types/google-cse'
 import {NowRequest, NowResponse} from '@now/node'
 

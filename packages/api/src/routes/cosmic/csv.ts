@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 import {compareDesc} from 'date-fns'
 import {NowRequest, NowResponse} from '@now/node'
 import {stringify} from 'querystringify'

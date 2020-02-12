@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 import {MailJetSendRequest} from '../types/mailjet'
 
 const API_VER = 'v3.1'

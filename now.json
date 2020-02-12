@@ -40,6 +40,15 @@
   ],
   "routes": [
     {
+      "src": "/docs/(.*)",
+      "dest": "packages/api/src/routes/docs/index.ts?id=$1",
+      "headers": {
+        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net",
+        "access-control-allow-methods": "GET"
+      }
+    },
+    {
       "src": "/api/forecast(.*)",
       "dest": "packages/api/src/routes/forecast/index.ts",
       "headers": {
