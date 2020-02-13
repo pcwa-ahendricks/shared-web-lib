@@ -46,7 +46,8 @@ const useStyles = makeStyles({
     '& .ls-blur-up-img': {
       filter: 'blur(10px)',
       opacity: 1,
-      transition: 'opacity 1000ms, filter 1500ms',
+      // transition: 'opacity 1000ms, filter 1500ms', // Original
+      transition: 'opacity 800ms, filter 1200ms',
       transform: 'scale(1.2)',
       '-webkit-transform': 'scale(1.2)'
     },
