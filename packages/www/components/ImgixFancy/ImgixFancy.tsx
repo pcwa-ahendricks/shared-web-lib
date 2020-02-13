@@ -39,7 +39,7 @@ const useStyles = makeStyles({
       height: '100%',
       display: 'block',
       /* only if you want to change the blur-up option from always to auto or want to use blur up effect without a lowsrc image. */
-      // font-family: "blur-up: auto", "object-fit: cover";
+      // fontFamily: 'blur-up: auto',
       objectFit: 'cover'
     },
     /* Scaling the blur up image prevents visible loading of lazy loaded image at edges of blur effect. */
