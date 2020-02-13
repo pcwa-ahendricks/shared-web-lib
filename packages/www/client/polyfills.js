@@ -214,6 +214,8 @@ require('regenerator-runtime/runtime')
 // import repeat from 'core-js/library/fn/string/virtual/repeat'
 // String.prototype.repeat = repeat
 
+import 'unfetch/polyfill'
+
 import '../lib/modernizr'
 
 import 'lazysizes'

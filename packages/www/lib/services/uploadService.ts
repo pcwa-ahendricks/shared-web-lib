@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch'
 import {stringify} from 'querystringify'
 
 const UPLOAD_SERVICE_BASE_URL = '/api/cosmic/uploads'

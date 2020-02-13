@@ -5,7 +5,6 @@ import isNumber from 'is-number'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import fetchOk, {fetchOkText} from '@lib/fetch-ok'
-import fetch from 'isomorphic-unfetch'
 
 const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
 

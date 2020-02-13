@@ -61,7 +61,7 @@ module.exports = {
       pragma: 'React',
       version: 'detect'
     },
-    polyfills: ['Promise', 'Array.from'],
+    polyfills: ['Promise', 'Array.from', 'fetch'],
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx']

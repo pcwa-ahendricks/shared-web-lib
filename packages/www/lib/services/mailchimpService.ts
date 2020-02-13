@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-unfetch'
-
 const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
 
 type MailchimpSubscribeStatus =
