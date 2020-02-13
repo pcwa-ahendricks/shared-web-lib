@@ -87,10 +87,10 @@ const SecondaryHeader = () => {
         display={noSocialIcons ? 'none' : 'block'} // IE doesn't like 'initial'
       >
         <SocialIconButton href="https://twitter.com/PlacerWater">
-          <FacebookIcon />
+          <TwitterIcon />
         </SocialIconButton>
         <SocialIconButton href="https://www.facebook.com/ThePCWA">
-          <TwitterIcon />
+          <FacebookIcon />
         </SocialIconButton>
         <SocialIconButton href="https://www.youtube.com/user/ThePCWA">
           <YoutubeIcon />

@@ -187,7 +187,7 @@ const SwipeableTemporaryDrawer = () => {
             <RowBox justifyContent="center" flexSpacing={2} mt={1}>
               <ChildBox>
                 <SocialIconButton
-                  href="https://twitter.com/PlacerWater"
+                  href="https://www.facebook.com/ThePCWA"
                   color="primary"
                 >
                   <FacebookIcon fontSize="large" />
@@ -195,7 +195,7 @@ const SwipeableTemporaryDrawer = () => {
               </ChildBox>
               <ChildBox>
                 <SocialIconButton
-                  href="https://www.facebook.com/ThePCWA"
+                  href="https://twitter.com/PlacerWater"
                   color="primary"
                 >
                   <TwitterIcon fontSize="large" />

@@ -194,7 +194,7 @@ const Footer = () => {
                     href="https://twitter.com/PlacerWater"
                     color="inherit"
                   >
-                    <FacebookIcon fontSize="large" />
+                    <TwitterIcon fontSize="large" />
                   </SocialIconButton>
                 </GlowLightGreen>
                 <GlowLightGreen>
@@ -202,7 +202,7 @@ const Footer = () => {
                     href="https://www.facebook.com/ThePCWA"
                     color="inherit"
                   >
-                    <TwitterIcon fontSize="large" />
+                    <FacebookIcon fontSize="large" />
                   </SocialIconButton>
                 </GlowLightGreen>
                 <GlowLightGreen>
