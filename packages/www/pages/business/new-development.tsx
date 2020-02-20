@@ -211,12 +211,12 @@ const NewDevelopmentPage = () => {
           </Type>
           <ul>
             <TightListItem
-              url="https://cdn.cosmicjs.com/082bcbc0-1ddc-11ea-a594-a170ead8b2cb-PCWA-2020-WCC-Lower-Z6.pdf"
+              url="https://cdn.cosmicjs.com/60801d80-5405-11ea-9bde-8b935236d22a-2020-WCC-Lower-Z6.pdf"
               title="Lower Zone 6"
               description="From Rocklin to Auburn"
             />
             <TightListItem
-              url="https://cdn.cosmicjs.com/080976b0-1ddc-11ea-a594-a170ead8b2cb-PCWA-2020-WCC-Upper-Z6.pdf"
+              url="https://cdn.cosmicjs.com/607743e0-5405-11ea-9bde-8b935236d22a-2020-WCC-Upper-Z6.pdf"
               title="Upper Zone 6"
               description="Applegate, Colfax, Monte Vista, & Alta"
             />
@@ -232,12 +232,12 @@ const NewDevelopmentPage = () => {
           </Type>
           <ul>
             <TightListItem
-              url="https://cdn.cosmicjs.com/082ba4b0-1ddc-11ea-a8c4-6b69c807b1d7-PCWA-2020-WCC-CAW.pdf"
+              url="https://cdn.cosmicjs.com/60848a50-5405-11ea-9bde-8b935236d22a-2020-WCC-CAW.pdf"
               title="Zone 6 California American Water Company"
               description="South of Roseville"
             />
             <TightListItem
-              url="https://cdn.cosmicjs.com/080509e0-1ddc-11ea-a8c4-6b69c807b1d7-PCWA-2020-WCC-Lincoln.pdf"
+              url="https://cdn.cosmicjs.com/60891e30-5405-11ea-9bde-8b935236d22a-2020-WCC-Lincoln.pdf"
               title="Zone 6 Lincoln"
               description="City of Lincoln"
             />
