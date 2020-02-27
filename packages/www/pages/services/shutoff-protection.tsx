@@ -25,6 +25,7 @@ import {RowBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
 
 type Languages =
   | 'english'
@@ -765,8 +766,8 @@ const ShutoffProtectionPage = () => {
     [language, documents]
   )
 
-  return (
-    <PageLayout title="Customer Shutoff Protection" waterSurface>
+  const Main = useCallback(() => {
+    return (
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Water Shutoff Protection Act" subtitle="Services" />
@@ -822,6 +823,14 @@ const ShutoffProtectionPage = () => {
           </ReactCSSTransitionReplace>
         </NarrowContainer>
       </MainBox>
+    )
+  }, [classes, language, languageChangeHandler, selectedDocuments])
+
+  return useNgIFrame ? (
+    <Main />
+  ) : (
+    <PageLayout title="Customer Shutoff Protection" waterSurface>
+      <Main />
     </PageLayout>
   )
 }
