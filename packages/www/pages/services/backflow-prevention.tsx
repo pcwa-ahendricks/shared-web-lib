@@ -192,7 +192,7 @@ const CrossControlPreventionPage = () => {
                 <ListItemText
                   primary={
                     <Link
-                      href="http://www.emd.saccounty.net/EC/Documents/PUBLICTESTERLIST.pdf"
+                      href="https://emd.saccounty.net/EC/Documents/BACKFLOW%20PREVENTION%20PUBLIC%20TESTER%20LIST.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
