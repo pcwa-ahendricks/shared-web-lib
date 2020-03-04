@@ -3,12 +3,13 @@ import {compareDesc} from 'date-fns'
 import {NowRequest, NowResponse} from '@now/node'
 import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../../types/cosmic'
+import lambdaUrl from '../../lib/lambdaUrl'
 
 const MEDIA_FOLDER = 'csv'
-const LAMBDA_URL = process.env.NODE_LAMBDA_URL ?? ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    const baseURL = lambdaUrl(req)
     const {filename} = req.query
     const qs = stringify(
       {
@@ -17,7 +18,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       },
       true
     )
-    const mediaResponse = await fetch(`${LAMBDA_URL}/api/cosmic/media${qs}`)
+    const mediaResponse = await fetch(`${baseURL}/api/cosmic/media${qs}`)
     const media: CosmicGetMediaResponse['media'] = await mediaResponse.json()
 
     const filteredMedia = media.filter((m) => m.original_name === filename)

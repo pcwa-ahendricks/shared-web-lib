@@ -1,5 +1,3 @@
-const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
-
 type MailchimpSubscribeStatus =
   | 'subscribed'
   | 'pending'
@@ -59,7 +57,7 @@ export interface MailchimpSubscribeResponseBody {
 
 // We are not using fetch-ok lib with this service since error handling is a bit more customized and we don't want the errors to be caught.
 const subscribeToEnews = async (body: MailchimpSubscribePostBody) => {
-  const url = `${LAMBDA_URL}/api/mailchimp/subscribe`
+  const url = '/api/mailchimp/subscribe'
   try {
     return await fetch(url, {
       method: 'POST',

@@ -2,9 +2,8 @@ import {stringify} from 'querystringify'
 import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import fetchOk from '@lib/fetch-ok'
 
-const LAMBDA_URL = process.env.NODE_LAMBDA_URL || ''
-
-const FORECAST_URL = `${LAMBDA_URL}/api/forecast`
+// Using relative URL.
+const FORECAST_URL = '/api/forecast'
 
 interface ForecastResponse {
   temperature: string
