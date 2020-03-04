@@ -72,7 +72,7 @@ module.exports = {
           ['@lib', path.resolve(__dirname, 'src', 'lib')],
           ['@store', path.resolve(__dirname, 'src', 'store')],
           ['@hooks', path.resolve(__dirname, 'src', 'hooks')],
-          ['@pages', path.resolve(__dirname, 'pages')]
+          ['@pages', path.resolve(__dirname, 'src', 'pages')]
         ],
         extensions: ['.ts', '.js', '.tsx', '.jsx', '.json']
       }
