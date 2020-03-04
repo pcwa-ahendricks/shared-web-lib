@@ -50,6 +50,7 @@ const GoodsAndServicesPage = () => {
           <OpenInNewLink
             href="https://www.publicsurplus.com/sms/pcwa,ca/list/current?orgid=86896"
             variant="h5"
+            noWrap={false}
           >
             Click Here to see PCWA Public Surplus auctions
           </OpenInNewLink>
