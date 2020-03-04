@@ -30,11 +30,8 @@ const search = async (params: GoogleCseParamOpts) => {
     {...defaultSearchParams, ...params},
     true
   )}`
-  try {
-    return await fetchOk<GoogleCseResponse>(url)
-  } catch (error) {
-    console.warn(error)
-  }
+  // Don't catch this error since we handle that in <SearchInput/>.
+  return await fetchOk<GoogleCseResponse>(url)
 }
 
 export default search

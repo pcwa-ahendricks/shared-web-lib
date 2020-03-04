@@ -18,6 +18,8 @@ Find **GO-LIVE** tagged comments and address them prior to _Go Live_ date.
 
 Forms Now deployment will no longer be necessary.
 
+Use robots.txt.live over temporary robots.txt.
+
 ## Package Dependencies
 
 ### Next.js

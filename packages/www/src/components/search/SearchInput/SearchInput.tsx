@@ -166,7 +166,7 @@ const SearchInput = () => {
           // await delay(5000)
           const response = await search({q: searchValue, start})
           if (!response) {
-            return
+            throw new Error('There was an error during search.')
           }
           const initialTotalItems = getTotalResults(response)
           if (initialTotalItems) {
@@ -178,6 +178,7 @@ const SearchInput = () => {
         }
         searchDispatch(setIsSearching(false))
       } catch (error) {
+        console.log(error)
         searchErrorHandler(error)
       }
     },

@@ -12,7 +12,10 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  createStyles,
+  Theme,
+  makeStyles
   // Slide
 } from '@material-ui/core'
 // import {TransitionProps} from '@material-ui/core/transitions'
@@ -30,6 +33,14 @@ type Props = {
   onExited?: (event: any) => void
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    dialogPaper: {
+      backgroundColor: theme.palette.common.white
+    }
+  })
+)
+
 // const Transition = React.forwardRef<unknown, TransitionProps>(
 //   function Transition(props, ref) {
 //     return <Slide direction="up" ref={ref} {...props} />
@@ -42,6 +53,7 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
 
   const uiContext = useContext(UiContext)
   const uiState = uiContext.state
+  const classes = useStyles()
   const {error} = uiState
 
   const prevErrorRef = useRef<ErrorDialogError | null>()
@@ -103,6 +115,7 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
       open={open}
       onClose={closeHandler}
       onExited={exitedHandler}
+      classes={{paper: classes.dialogPaper}}
       // TransitionComponent={Transition}
     >
       <DialogTitle id="error-dialog-title">

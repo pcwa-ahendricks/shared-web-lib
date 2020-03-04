@@ -7,7 +7,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 export default function(req: NowRequest) {
   const {headers} = req
-  const {host} = headers
+  const {host} = headers // Host will include port.
   // Protocol not in req object.
   const protocol = isDev ? 'http://' : 'https://'
   return `${protocol}${host}`
