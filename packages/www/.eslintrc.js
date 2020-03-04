@@ -68,11 +68,11 @@ module.exports = {
       },
       alias: {
         map: [
-          ['@components', path.resolve(__dirname, 'components')],
-          ['@lib', path.resolve(__dirname, 'lib')],
-          ['@store', path.resolve(__dirname, 'store')],
-          ['@hooks', path.resolve(__dirname, 'hooks')],
-          ['@pages', path.resolve(__dirname, 'pages')]
+          ['@components', path.resolve(__dirname, 'src', 'components')],
+          ['@lib', path.resolve(__dirname, 'src', 'lib')],
+          ['@store', path.resolve(__dirname, 'src', 'store')],
+          ['@hooks', path.resolve(__dirname, 'src', 'hooks')],
+          ['@pages', path.resolve(__dirname, 'src', 'pages')]
         ],
         extensions: ['.ts', '.js', '.tsx', '.jsx', '.json']
       }

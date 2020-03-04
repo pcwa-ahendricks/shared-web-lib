@@ -38,9 +38,9 @@ module.exports = (_phase, {defaultConfig}) => {
 
         if (
           entries['main.js'] &&
-          !entries['main.js'].includes('./client/polyfills.js')
+          !entries['main.js'].includes('./src/client/polyfills.js')
         ) {
-          entries['main.js'].unshift('./client/polyfills.js')
+          entries['main.js'].unshift('./src/client/polyfills.js')
         }
 
         return entries
@@ -103,11 +103,15 @@ module.exports = (_phase, {defaultConfig}) => {
 
       // Example. See https://github.com/zeit/next.js/blob/42d656050dca98f4eae58fa0ed29f784400cd048/examples/with-absolute-imports/next.config.js#L5 for more info.
       // eslintrc and tsconfig will require similar configurations to support the following.
-      config.resolve.alias['@components'] = path.join(__dirname, 'components')
-      config.resolve.alias['@lib'] = path.join(__dirname, 'lib')
-      config.resolve.alias['@store'] = path.join(__dirname, 'store')
-      config.resolve.alias['@hooks'] = path.join(__dirname, 'hooks')
-      config.resolve.alias['@pages'] = path.join(__dirname, 'pages')
+      config.resolve.alias['@components'] = path.join(
+        __dirname,
+        'src',
+        'components'
+      )
+      config.resolve.alias['@lib'] = path.join(__dirname, 'src', 'lib')
+      config.resolve.alias['@store'] = path.join(__dirname, 'src', 'store')
+      config.resolve.alias['@hooks'] = path.join(__dirname, 'src', 'hooks')
+      config.resolve.alias['@pages'] = path.join(__dirname, 'src', 'pages')
 
       // Use raw loader for markdown files.
       config.module.rules.push({

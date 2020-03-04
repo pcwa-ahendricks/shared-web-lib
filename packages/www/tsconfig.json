@@ -18,11 +18,11 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@lib/*": ["lib/*"],
-      "@components/*": ["components/*"],
-      "@store/*": ["store/*"],
-      "@hooks/*": ["hooks/*"],
-      "@pages/*": ["pages/*"]
+      "@lib/*": ["src/lib/*"],
+      "@components/*": ["src/components/*"],
+      "@store/*": ["src/store/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
