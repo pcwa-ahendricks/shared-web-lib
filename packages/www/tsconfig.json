@@ -22,7 +22,7 @@
       "@components/*": ["src/components/*"],
       "@store/*": ["src/store/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"]
+      "@pages/*": ["pages/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,

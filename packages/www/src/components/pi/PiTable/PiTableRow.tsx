@@ -3,7 +3,7 @@ import React, {useMemo, useCallback} from 'react'
 import {TableRow, TableCell} from '@material-ui/core'
 import {format} from 'date-fns'
 import round from '@lib/round'
-import {ZippedTableDataItem} from '../../../pages/recreation/flows/gages/[pid]'
+import {ZippedTableDataItem} from '@pages/recreation/flows/gages/[pid]'
 
 type Props = {
   data: ZippedTableDataItem
