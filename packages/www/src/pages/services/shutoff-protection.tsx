@@ -169,23 +169,23 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Door Tag Sample PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/35949100-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Englishbc012920.pdf"
+                url="https://cosmic-s3.imgix.net/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/35949100-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Englishbc012920.pdf'
+                    'https://cdn.cosmicjs.com/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf'
                 }}
                 caption="Written Notice"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf"
+                url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf'
+                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
                 }}
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
@@ -298,12 +298,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf"
+                url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf'
+                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
                 }}
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
@@ -405,12 +405,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf"
+                url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf'
+                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
                 }}
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
@@ -506,12 +506,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf"
+                url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf'
+                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
                 }}
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
@@ -622,12 +622,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf"
+                url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf'
+                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
                 }}
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
@@ -744,12 +744,12 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
-                url="https://cosmic-s3.imgix.net/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf"
+                url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 anchorProps={{
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   href:
-                    'https://cdn.cosmicjs.com/70bd21e0-598f-11ea-b747-89759296f8f1-WSPA-Certificationbc022620.pdf'
+                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
                 }}
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"

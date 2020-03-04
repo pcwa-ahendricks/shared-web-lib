@@ -115,7 +115,7 @@ const menuConfig: MenuConfig[] = [
           {title: 'Recreation', nextLink: '/recreation'},
           {
             title: 'Campgrounds',
-            nextLink: '/recreation/campground'
+            nextLink: '/recreation/campgrounds'
           },
           {
             title: 'Rafting',
