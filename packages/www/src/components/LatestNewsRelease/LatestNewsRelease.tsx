@@ -59,12 +59,11 @@ const LatestNewsRelease = ({...rest}: Props) => {
         ...media,
         derivedFilenameAttr: fileNameUtil(media.original_name, DATE_FNS_FORMAT)
       }))
-      .sort((a, b) =>
-        compareDesc(
-          parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
-          parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
-        )
-      )
+      .map((media) => ({
+        ...media,
+        publishedDate: parseJSON(media.derivedFilenameAttr?.publishedDate ?? '')
+      }))
+      .sort((a, b) => compareDesc(a.publishedDate, b.publishedDate))
     return nrEx[0]
   }, [])
 
@@ -72,6 +71,7 @@ const LatestNewsRelease = ({...rest}: Props) => {
     try {
       setIsLoading(true)
       const media = await fetchLatestNewsRelease()
+      console.log(media)
       setLatestNewsRelease(media)
       setIsLoading(false)
     } catch (error) {
