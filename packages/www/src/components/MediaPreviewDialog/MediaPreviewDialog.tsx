@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
     // }
   })
 )
-type Props = {
+export type MediaPreviewDialogProps = {
   name: string
   ext?: string
   open: boolean
@@ -84,7 +84,7 @@ const MediaPreviewDialog = ({
   showActions = false,
   open = false,
   ...rest
-}: Props) => {
+}: MediaPreviewDialogProps) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -167,7 +167,7 @@ const MediaPreviewDialog = ({
             </Button>
           ) : null}
           <Button color="primary" onClick={onClose}>
-            Done
+            Close
           </Button>
         </DialogActions>
       ) : (

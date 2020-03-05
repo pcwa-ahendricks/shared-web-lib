@@ -6,10 +6,13 @@ import {
   Popper,
   Theme,
   Typography as Type,
-  useMediaQuery
+  useMediaQuery,
+  BoxProps
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
-import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
+import MediaPreviewDialog, {
+  MediaPreviewDialogProps
+} from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import colorAlpha from 'color-alpha'
 
 type Props = {
@@ -20,7 +23,8 @@ type Props = {
   timeout?: number
   popperMessage?: string
   popperAnchorStyle?: React.CSSProperties
-}
+  mediaPreviewDialogProps?: Partial<MediaPreviewDialogProps>
+} & Partial<BoxProps>
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -39,7 +43,9 @@ const MediaDialogOnClick = ({
   mediaExt,
   mediaName,
   mediaUrl,
-  timeout = 350
+  timeout = 350,
+  mediaPreviewDialogProps,
+  ...rest
 }: Props) => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
@@ -71,7 +77,7 @@ const MediaDialogOnClick = ({
   const open = Boolean(anchorEl)
 
   return (
-    <Box>
+    <Box {...rest}>
       <Box
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
@@ -126,6 +132,7 @@ const MediaDialogOnClick = ({
         scroll="body"
         fullWidth={false}
         maxWidth="xl"
+        {...mediaPreviewDialogProps}
         // showActions
         // dlUrl={`${ImageUrl}${qsDownloadUrl}`}
       />

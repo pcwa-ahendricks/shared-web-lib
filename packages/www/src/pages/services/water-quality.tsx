@@ -94,7 +94,6 @@ const WaterQualityPage = () => {
                       htmlAttributes={{
                         alt: tsaImageAlt,
                         style: {
-                          width: '100%',
                           cursor: !isXs ? 'pointer' : 'default'
                         }
                       }}
