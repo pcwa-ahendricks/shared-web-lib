@@ -1,5 +1,11 @@
 import React from 'react'
-import {Box, BoxProps, Typography as Type, useTheme} from '@material-ui/core'
+import {
+  Box,
+  BoxProps,
+  Typography as Type,
+  useTheme,
+  TypographyProps
+} from '@material-ui/core'
 import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
@@ -13,6 +19,7 @@ export type CoverTileProps = {
   imgixCropMode?: string
   imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
+  typeProps?: Partial<TypographyProps>
 } & BoxProps
 
 const CoverTile = ({
@@ -21,8 +28,9 @@ const CoverTile = ({
   imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57*7=10.99, 11:7
   imgixCropMode = 'top',
   linkHref,
-  imgixFancyProps = {},
-  flexLinkProps = {},
+  imgixFancyProps,
+  flexLinkProps,
+  typeProps,
   ...rest
 }: CoverTileProps) => {
   const theme = useTheme()
@@ -50,7 +58,7 @@ const CoverTile = ({
           />
         </Box>
         <Spacing size="small" />
-        <Type variant="h6" color="primary">
+        <Type variant="h6" color="primary" {...typeProps}>
           {title}
         </Type>
       </FlexLink>

@@ -86,6 +86,7 @@ const LatestNewsRelease = ({...rest}: Props) => {
   return (
     <Box position="relative">
       <CoverTile
+        typeProps={{variant: 'subtitle2'}}
         title={latestNewsRelease?.derivedFilenameAttr?.title ?? ''}
         imgixURL="https://cosmic-s3.imgix.net/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
         linkHref="/newsroom/news-releases/[release-date]"
