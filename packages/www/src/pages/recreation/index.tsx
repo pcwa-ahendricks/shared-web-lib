@@ -33,9 +33,6 @@ const exploringTheMfCoverImgixUrl =
 const exploringTheMfAlt =
   'Exploring the Middle Fork American River Watershed Brochure'
 
-// type Props = {
-// }
-
 const RecreationPage = () => {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
