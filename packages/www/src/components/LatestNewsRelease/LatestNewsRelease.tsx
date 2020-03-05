@@ -71,7 +71,6 @@ const LatestNewsRelease = ({...rest}: Props) => {
     try {
       setIsLoading(true)
       const media = await fetchLatestNewsRelease()
-      console.log(media)
       setLatestNewsRelease(media)
       setIsLoading(false)
     } catch (error) {

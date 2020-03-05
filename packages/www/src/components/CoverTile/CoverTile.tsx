@@ -58,7 +58,7 @@ const CoverTile = ({
           />
         </Box>
         <Spacing size="small" />
-        <Type variant="h6" color="primary" {...typeProps}>
+        <Type variant="subtitle1" color="primary" {...typeProps}>
           {title}
         </Type>
       </FlexLink>
