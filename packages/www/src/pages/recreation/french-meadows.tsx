@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -20,28 +20,28 @@ import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
 import PeopleIcon from '@material-ui/icons/People'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 
-// type Props = {
-// }
-
 const FrenchMeadowsPage = () => {
-  const TypeWithAdornment = ({
-    caption,
-    children,
-    ...rest
-  }: {
-    caption: string
-    children: React.ReactNode
-  } & Partial<BoxProps>) => (
-    <Box display="inline-flex" component="span" mb={1} {...rest}>
-      <ColumnBox component="span" justifyContent="center">
-        {children}
-      </ColumnBox>
-      <Box pl={1}>
-        <Type variant="subtitle1" color="textSecondary">
-          {caption}
-        </Type>
+  const TypeWithAdornment = useCallback(
+    ({
+      caption,
+      children,
+      ...rest
+    }: {
+      caption: string
+      children: React.ReactNode
+    } & Partial<BoxProps>) => (
+      <Box display="inline-flex" component="span" mb={1} {...rest}>
+        <ColumnBox component="span" justifyContent="center">
+          {children}
+        </ColumnBox>
+        <Box pl={1}>
+          <Type variant="subtitle1" color="textSecondary">
+            {caption}
+          </Type>
+        </Box>
       </Box>
-    </Box>
+    ),
+    []
   )
 
   return (
