@@ -12,6 +12,7 @@ import {GageConfigItem} from '@lib/services/pi/gage-config'
 import acronym from '@lib/acronym'
 import {orange} from '@material-ui/core/colors'
 import clsx from 'clsx'
+import {spacesRe} from '@pages/recreation/flows/gages/[pid]'
 
 type Props = {
   pid: string
@@ -28,7 +29,9 @@ const useStyles = makeStyles(() =>
 
 const PiNavigationListItem = ({pid, g}: Props) => {
   const activeRoute = useCallback(
-    (id: string) => pid.toLowerCase() === id.toLowerCase(),
+    (id: string) =>
+      // Need to compare id to modified pid.
+      pid === id.toLowerCase().replace(spacesRe, '-'),
     [pid]
   )
 

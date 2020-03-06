@@ -364,6 +364,14 @@
       }
     },
     {
+      "src": "/recreation/river-flow",
+      "status": 301,
+      "headers": {
+        "cache-control": "maxage=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/recreation/river-flows"
+      }
+    },
+    {
       "src": "/sitemap.xml",
       "dest": "/packages/www/static/sitemap.xml"
     },

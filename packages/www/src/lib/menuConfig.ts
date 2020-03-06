@@ -135,8 +135,8 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'River Flows',
-            nextLink: '/recreation/river-flow'
-          } // TODO - Implement THE River Flows Page
+            nextLink: '/recreation/river-flows'
+          }
         ]
       }
     ]

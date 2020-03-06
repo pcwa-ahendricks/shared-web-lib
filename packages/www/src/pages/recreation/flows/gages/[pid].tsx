@@ -1,6 +1,6 @@
 // cspell:ignore Recreationists
 import React, {useMemo, useEffect, useCallback, useContext} from 'react'
-import {useRouter} from 'next/router'
+import Router, {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {Box, Typography as Type, Hidden} from '@material-ui/core'
@@ -39,6 +39,7 @@ import useInterval from '@hooks/useInterval'
 import {generate} from 'shortid'
 import queryParamToStr from '@lib/services/queryParamToStr'
 const isDev = process.env.NODE_ENV === 'development'
+export const spacesRe = /(\s|%20)+/g
 
 const TABLE_TIME_INTERVAL = '15m'
 
@@ -235,7 +236,10 @@ const DynamicPiPage = ({pid}: Props) => {
 
   useEffect(() => {
     // console.log('useEffect firing due to pid update.')
-    const gci = gages.find((gage) => gage.id === pid)
+    // Need to compare id to modified pid returned from getInitialProps.
+    const gci = gages.find(
+      ({id = ''}) => id.toLowerCase().replace(spacesRe, '-') === pid
+    )
     if (!gci) {
       return
     }
@@ -374,10 +378,34 @@ const DynamicPiPage = ({pid}: Props) => {
   )
 }
 
-DynamicPiPage.getInitialProps = ({query}: NextPageContext) => {
+DynamicPiPage.getInitialProps = ({
+  query,
+  req,
+  res,
+  asPath = ''
+}: NextPageContext) => {
+  const location = '/recreation/flows/gages'
   isDev && console.log(JSON.stringify(query))
+  // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
   const pid = queryParamToStr(query['pid'])
-  return {pid}
+  const replacedPid = pid.replace(spacesRe, '-').toLowerCase()
+
+  // If the pid parameter had a space update the URL so that dashes show in the URL bar.
+  if (pid !== replacedPid) {
+    if (res && req) {
+      const {url = ''} = req
+      const newLocation = url.replace(spacesRe, '-').toLowerCase()
+      res.writeHead(302, {
+        Location: newLocation
+      })
+      res.end()
+    } else {
+      const newAsPath = asPath.replace(spacesRe, '-').toLowerCase()
+      Router.replace(`${location}/[pid]`, newAsPath)
+    }
+  }
+
+  return {pid: replacedPid}
 }
 
 export default DynamicPiPage

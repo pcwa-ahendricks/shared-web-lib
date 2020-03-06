@@ -193,17 +193,15 @@ const AmericanRiverPage = () => {
             Picnicking
           </Type>
           <Type paragraph>
-            There are several picnicking locations along the project area.
-            <em>
-              <strong>Ralston Picnic Area</strong>
-            </em>
-            , located just before PCWA’s Ralston Afterbay Dam off Mosquito Ridge
-            Road on Forest Road 23, provides a secluded getaway right on the
-            North Fork of the Middle Fork of the American River. In a slow
-            moving, shallow area of the river, this makes it the perfect spot
-            for a dip, fishing, gold panning or canoeing in the clear refreshing
-            water. There are 5 picnic tables with fire rings, and vault toilets
-            at this site. This area is for day use only.
+            There are several picnicking locations along the project area.{' '}
+            <em>Ralston Picnic Area</em>, located just before PCWA’s Ralston
+            Afterbay Dam off Mosquito Ridge Road on Forest Road 23, provides a
+            secluded getaway right on the North Fork of the Middle Fork of the
+            American River. In a slow moving, shallow area of the river, this
+            makes it the perfect spot for a dip, fishing, gold panning or
+            canoeing in the clear refreshing water. There are 5 picnic tables
+            with fire rings, and vault toilets at this site. This area is for
+            day use only.
           </Type>
         </NarrowContainer>
       </MainBox>

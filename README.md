@@ -82,3 +82,4 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
 - `/stewardship/tips-for-kids` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/stop-leaks` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/recreation/campground` Was used on NG version of website. Use plural route instead.
+- `/recreation/river-flow` Was used on NG version of website. Use plural route instead.
