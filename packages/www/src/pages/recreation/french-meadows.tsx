@@ -3,16 +3,47 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
-import {Typography as Type, Box, Link} from '@material-ui/core'
+import {blueGrey} from '@material-ui/core/colors'
+import {
+  RespRowBox,
+  ChildBox,
+  ColumnBox,
+  RowBox
+} from '@components/boxes/FlexBox'
+import {Typography as Type, Box, Link, BoxProps} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
+import TimelineIcon from '@material-ui/icons/Timeline'
+import FilterHdrIcon from '@material-ui/icons/FilterHdr'
+import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
+import PeopleIcon from '@material-ui/icons/People'
+import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 
 // type Props = {
 // }
 
 const FrenchMeadowsPage = () => {
+  const TypeWithAdornment = ({
+    caption,
+    children,
+    ...rest
+  }: {
+    caption: string
+    children: React.ReactNode
+  } & Partial<BoxProps>) => (
+    <Box display="inline-flex" component="span" mb={1} {...rest}>
+      <ColumnBox component="span" justifyContent="center">
+        {children}
+      </ColumnBox>
+      <Box pl={1}>
+        <Type variant="subtitle1" color="textSecondary">
+          {caption}
+        </Type>
+      </Box>
+    </Box>
+  )
+
   return (
     <PageLayout title="French Meadows Reservoir" waterSurface>
       <MainBox>
@@ -85,6 +116,107 @@ const FrenchMeadowsPage = () => {
             moderate climb to the top of Red Star Ridge offering scenic views of
             the area and is easily enjoyed by the entire family. Horseback
             riding is outstanding on this trail as well.
+          </Type>
+          <Spacing />
+          <RespRowBox justifyContent="space-between">
+            <ChildBox>
+              <ColumnBox alignItems="center">
+                <TypeWithAdornment caption="Mileage">
+                  <TimelineIcon color="action" />
+                </TypeWithAdornment>
+                <Type variant="h5">~4 miles one way</Type>
+              </ColumnBox>
+            </ChildBox>
+            <ChildBox>
+              <ColumnBox alignItems="center">
+                <TypeWithAdornment caption="Elevation (ft.)">
+                  <FilterHdrIcon color="action" />
+                </TypeWithAdornment>
+                <Type variant="h5">5,290" - 5,600"</Type>
+              </ColumnBox>
+            </ChildBox>
+            <ChildBox>
+              <ColumnBox alignItems="center">
+                <TypeWithAdornment caption="Difficulty">
+                  <DirectionsWalkIcon color="action" />
+                </TypeWithAdornment>
+                <Type variant="h5">Easy</Type>
+              </ColumnBox>
+            </ChildBox>
+            <ChildBox>
+              <ColumnBox alignItems="center">
+                <TypeWithAdornment caption="Use Level">
+                  <PeopleIcon color="action" />
+                </TypeWithAdornment>
+                <Type variant="h5">Moderate</Type>
+              </ColumnBox>
+            </ChildBox>
+          </RespRowBox>
+          <Spacing size="x-large" factor={2} />
+          <RespRowBox flexSpacing={6}>
+            <ChildBox>
+              <RowBox flexSpacing={3}>
+                <ChildBox flex={{xs: '1 1 auto', sm: '0 0 100px'}}>
+                  <ImgixThumbLink
+                    imageWidth={100}
+                    url="https://cosmic-s3.imgix.net/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
+                    anchorProps={{
+                      href:
+                        'https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf',
+                      rel: 'noopener noreferrer',
+                      target: '_blank'
+                    }}
+                    alt="Bunker Hill Topographic Quad Map Thumbnail for PDF link"
+                  />
+                </ChildBox>
+                <ChildBox>
+                  <Link
+                    color="primary"
+                    variant="h4"
+                    noWrap
+                    href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Bunker Hill Area
+                  </Link>
+                  <Type variant="subtitle2" color="textSecondary" gutterBottom>
+                    7.5" Quad
+                  </Type>
+                  <Type variant="caption">Printable U.S. Topographic Map</Type>
+                </ChildBox>
+              </RowBox>
+            </ChildBox>
+            <ChildBox>
+              <Box p={{xs: 3}} bgcolor={blueGrey[50]}>
+                <Type variant="body2">
+                  <strong>Access</strong>: The Trailhead is located at the
+                  McGuire boat ramp on the north side of French Meadows
+                  campground. <br />A great suggestion for an equestrian trail
+                  ride and a favorite amongst locals is Robinson Flat to French
+                  Meadows. The elevation is high enough that it almost never
+                  gets hot! It has varying terrain, all single track and not too
+                  steep.
+                </Type>
+              </Box>
+            </ChildBox>
+          </RespRowBox>
+          <Spacing />
+          <Type variant="h3" gutterBottom>
+            Picnicking
+          </Type>
+          <Type paragraph>
+            <em>French Meadows Picnic Area</em> is located on the south shore of
+            French Meadows and has 4 sites with tables and grills, potable
+            water, toilets and a parking area. This area is perfect for swimming
+            and hiking, with a tributary leading directly to the reservoir. This
+            is a day use area only.
+          </Type>
+          <Type paragraph>
+            <em>McGuire Picnic Area and Beach</em> is located on the north shore
+            of French Meadows. This site has 10 tables with grills, potable
+            water, toilets and parking area. This is a day use only site with
+            the reservoirs beach and swimming area adjacent to the picnic area.
           </Type>
         </NarrowContainer>
       </MainBox>
