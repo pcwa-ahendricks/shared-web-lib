@@ -1,3 +1,4 @@
+// cspell:ignore trailhead afterbay
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -20,7 +21,7 @@ import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
 import PeopleIcon from '@material-ui/icons/People'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 
-const FrenchMeadowsPage = () => {
+const AmericanRiverPage = () => {
   const TypeWithAdornment = useCallback(
     ({
       caption,
@@ -45,10 +46,13 @@ const FrenchMeadowsPage = () => {
   )
 
   return (
-    <PageLayout title="French Meadows Reservoir" waterSurface>
+    <PageLayout title="Middle Fork American River Area" waterSurface>
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="French Meadows Reservoir" subtitle="Recreation" />
+          <PageTitle
+            title="Middle Fork American River Area"
+            subtitle="Recreation"
+          />
           <RespRowBox flexSpacing={4}>
             <ChildBox flex="40%" display="flex">
               <Box
@@ -56,30 +60,23 @@ const FrenchMeadowsPage = () => {
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
                 <LazyImgix
-                  src="https://cosmicjs.imgix.net/d69b79a0-6b3d-11e7-ad41-afc8260b082c-hell-hole.jpg"
+                  src="https://cosmicjs.imgix.net/16e3f490-6b3b-11e7-b4b0-738ba83d40d7-picnic-table-mfar.jpg"
                   htmlAttributes={{
-                    alt: 'French Meadows Reservoir'
+                    alt: 'Picnic Table Along Middle Fork American River'
                   }}
                 />
               </Box>
             </ChildBox>
             <ChildBox flex="60%">
               <Type paragraph>
-                French Meadows Reservoir, near the headwaters of the Middle Fork
-                American River, is a large 1,408 acre reservoir.{' '}
-                <MuiNextLink href="/recreation/campgrounds">
-                  Campground
-                </MuiNextLink>{' '}
-                and{' '}
-                <Link
-                  href="https://www.fs.usda.gov/recarea/tahoe/recarea/?recid=55740"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  boat launch
-                </Link>{' '}
-                facilities are located around the lake and along the Middle Fork
-                American River upstream from the reservoir.
+                At lower elevations, Middle Fork Project facilities at Ralston
+                Afterbay provide for picnicking along the Middle Fork American
+                River as well as reservoir-based recreation including fishing,
+                swimming, and boating. The Indian Bar Rafting Access and Parking
+                area near Oxbow Powerhouse supports whitewater{' '}
+                <MuiNextLink href="/recreation/rafting">boating</MuiNextLink> in
+                the Middle Fork American River as well as localized stream based
+                recreation such as fishing and picnicking.
               </Type>
             </ChildBox>
           </RespRowBox>
@@ -88,34 +85,28 @@ const FrenchMeadowsPage = () => {
             Fishing
           </Type>
           <Type paragraph>
-            Any trout fanatic will delight in what French Meadows Reservoir has
-            to offer. Experienced anglers consider French Meadows among the top
-            trout lakes in the Sierra. At 5,200 feet in elevation, French
-            Meadows is a large reservoir with more than 8 miles of shoreline.
-            Oblong in shape with no prominent peninsulas or points, a closer
-            look reveals plentiful habitat, big numbers of trout and forage
-            aplenty. The depth of the submerged river channel is about 100 feet
-            affording the trout a deep-water sanctuary. The tree stumps left
-            from the development of the reservoir offer the trout cover and
-            shade. The Department of Fish and Game stocks French Meadows with
-            rainbows and browns annually. The rainbows average 12 to 22 inches
-            while browns range beyond 6 pounds.
+            The North Fork of the Middle Fork of the American River is small and
+            somewhat difficult to wade, but for the serious angler, the rewards
+            are well worth it. Access is at the trailhead at Circle Bridge off
+            Mosquito Ridge Road. The fish, Sacramento sucker, Hardhead,
+            Smallmouth bass, Speckled dace, Sacramento Pikeminnow, Rainbow and
+            Brown Trout range from 8 to 16 inches. Fishing at{' '}
+            <MuiNextLink href="/recreation/french-meadows">
+              French Meadows
+            </MuiNextLink>{' '}
+            and{' '}
+            <MuiNextLink href="/recreation/hell-hole">Hell Hole</MuiNextLink>.
           </Type>
           <Spacing />
           <Type variant="h3" gutterBottom>
             Hiking and Horseback Riding
           </Type>
           <Type paragraph>
-            Hiking opportunities are plentiful in the Middle Fork American River
-            area.
-          </Type>
-          <Type paragraph>
-            The <em>McGuire Trail</em>, French Meadows area, is a part of the
-            infamous Western States Trail winding through timber and following
-            the north shore of French Meadows Reservoir. This short trail is a
-            moderate climb to the top of Red Star Ridge offering scenic views of
-            the area and is easily enjoyed by the entire family. Horseback
-            riding is outstanding on this trail as well.
+            <em>North Fork of the Middle Fork Trail</em> runs upstream along the
+            river. Its scenic beauty and easy grade make it a popular choice,
+            hikers are drawn to it year round. It is also used by people mining
+            along the river. Wildflowers are plentiful and good fishing is
+            available.
           </Type>
           <Spacing />
           <RespRowBox justifyContent="space-between">
@@ -124,7 +115,7 @@ const FrenchMeadowsPage = () => {
                 <TypeWithAdornment caption="Mileage">
                   <TimelineIcon color="action" />
                 </TypeWithAdornment>
-                <Type variant="h5">~4 miles one way</Type>
+                <Type variant="h5">~1.1 Miles</Type>
               </ColumnBox>
             </ChildBox>
             <ChildBox>
@@ -132,7 +123,7 @@ const FrenchMeadowsPage = () => {
                 <TypeWithAdornment caption="Elevation (ft.)">
                   <FilterHdrIcon color="action" />
                 </TypeWithAdornment>
-                <Type variant="h5">5,290" - 5,600"</Type>
+                <Type variant="h5">1,400"</Type>
               </ColumnBox>
             </ChildBox>
             <ChildBox>
@@ -159,14 +150,14 @@ const FrenchMeadowsPage = () => {
                 <ChildBox flex={{xs: '1 1 auto', sm: '0 0 100px'}}>
                   <ImgixThumbLink
                     imageWidth={100}
-                    url="https://cosmic-s3.imgix.net/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
+                    url="https://cosmicjs.imgix.net/91c28170-6b3d-11e7-bdae-41a5b4623d18-Michigan_Bluff_20120327.jpg"
                     anchorProps={{
                       href:
-                        'https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf',
+                        'https://cdn.cosmicjs.com/9c9fe0b0-6b3d-11e7-a6ad-b9442b1befcc-Michigan_Bluff_20120327.pdf',
                       rel: 'noopener noreferrer',
                       target: '_blank'
                     }}
-                    alt="Bunker Hill Topographic Quad Map Thumbnail for PDF link"
+                    alt="Michigan Bluff Topographic Quad Map Thumbnail for PDF link"
                   />
                 </ChildBox>
                 <ChildBox>
@@ -174,11 +165,11 @@ const FrenchMeadowsPage = () => {
                     color="primary"
                     variant="h4"
                     noWrap
-                    href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
+                    href="https://cdn.cosmicjs.com/9c9fe0b0-6b3d-11e7-a6ad-b9442b1befcc-Michigan_Bluff_20120327.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Bunker Hill Area
+                    Michigan Bluff Area
                   </Link>
                   <Type variant="subtitle2" color="textSecondary" gutterBottom>
                     7.5" Quad
@@ -190,13 +181,9 @@ const FrenchMeadowsPage = () => {
             <ChildBox>
               <Box p={{xs: 3}} bgcolor={blueGrey[50]}>
                 <Type variant="body2">
-                  <strong>Access</strong>: The Trailhead is located at the
-                  McGuire boat ramp on the north side of French Meadows
-                  campground. <br />A great suggestion for an equestrian trail
-                  ride and a favorite amongst locals is Robinson Flat to French
-                  Meadows. The elevation is high enough that it almost never
-                  gets hot! It has varying terrain, all single track and not too
-                  steep.
+                  <strong>Access</strong>: The trailhead begins on Mosquito
+                  Ridge Road next to Circle Bridge spanning the North Fork of
+                  the Middle Fork of the American River.
                 </Type>
               </Box>
             </ChildBox>
@@ -206,17 +193,17 @@ const FrenchMeadowsPage = () => {
             Picnicking
           </Type>
           <Type paragraph>
-            <em>French Meadows Picnic Area</em> is located on the south shore of
-            French Meadows and has 4 sites with tables and grills, potable
-            water, toilets and a parking area. This area is perfect for swimming
-            and hiking, with a tributary leading directly to the reservoir. This
-            is a day use area only.
-          </Type>
-          <Type paragraph>
-            <em>McGuire Picnic Area and Beach</em> is located on the north shore
-            of French Meadows. This site has 10 tables with grills, potable
-            water, toilets and parking area. This is a day use only site with
-            the reservoirs beach and swimming area adjacent to the picnic area.
+            There are several picnicking locations along the project area.
+            <em>
+              <strong>Ralston Picnic Area</strong>
+            </em>
+            , located just before PCWA’s Ralston Afterbay Dam off Mosquito Ridge
+            Road on Forest Road 23, provides a secluded getaway right on the
+            North Fork of the Middle Fork of the American River. In a slow
+            moving, shallow area of the river, this makes it the perfect spot
+            for a dip, fishing, gold panning or canoeing in the clear refreshing
+            water. There are 5 picnic tables with fire rings, and vault toilets
+            at this site. This area is for day use only.
           </Type>
         </NarrowContainer>
       </MainBox>
@@ -224,4 +211,4 @@ const FrenchMeadowsPage = () => {
   )
 }
 
-export default FrenchMeadowsPage
+export default AmericanRiverPage
