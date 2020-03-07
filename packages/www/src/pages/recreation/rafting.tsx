@@ -16,7 +16,11 @@ const RaftingPage = () => {
           <PageTitle title="Rafting & Boating" subtitle="Recreation" />
           <RespRowBox flexSpacing={4}>
             <ChildBox flex="60%">
-              <Type paragraph>...</Type>
+              <Type paragraph>
+                The Middle Fork of the American River provides rafters a unique
+                opportunity to experience a wilderness river in the heart of
+                California’s gold-rush country.
+              </Type>
             </ChildBox>
             <ChildBox flex="40%" display="flex">
               <Box
@@ -33,14 +37,6 @@ const RaftingPage = () => {
             </ChildBox>
           </RespRowBox>
           <Spacing />
-          <Type variant="h3" color="primary" gutterBottom>
-            Rafting
-          </Type>
-          <Type paragraph>
-            The Middle Fork of the American River provides rafters a unique
-            opportunity to experience a wilderness river in the heart of
-            California’s gold-rush country.
-          </Type>
         </NarrowContainer>
       </MainBox>
     </PageLayout>
