@@ -8,6 +8,8 @@ import {ServerStyleSheets} from '@material-ui/core/styles'
 import webFontConfig from '@lib/webFontConfig'
 import theme from '@lib/material-theme'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 class MyDocument extends Document {
   // static async getInitialProps(ctx) {
@@ -43,8 +45,54 @@ class MyDocument extends Document {
           {/* IE compat.  */}
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-          {/* Favicon  */}
-          <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+          {isDev ? (
+            <>
+              {/* Development Favicon */}
+              <link
+                rel="apple-touch-icon"
+                sizes="180x180"
+                href="/static/favicon-dev/apple-touch-icon.png"
+              />
+              <link
+                rel="icon"
+                type="image/png"
+                sizes="32x32"
+                href="/static/favicon-dev/favicon-32x32.png"
+              />
+              <link
+                rel="icon"
+                type="image/png"
+                sizes="16x16"
+                href="/static/favicon-dev/favicon-16x16.png"
+              />
+              <link
+                rel="manifest"
+                href="/static/favicon-dev/site.webmanifest"
+              />
+            </>
+          ) : (
+            <>
+              {/* Production Favicon */}
+              <link
+                rel="apple-touch-icon"
+                sizes="180x180"
+                href="/static/favicon/apple-touch-icon.png"
+              />
+              <link
+                rel="icon"
+                type="image/png"
+                sizes="32x32"
+                href="/static/favicon/favicon-32x32.png"
+              />
+              <link
+                rel="icon"
+                type="image/png"
+                sizes="16x16"
+                href="/static/favicon/favicon-16x16.png"
+              />
+              <link rel="manifest" href="/static/favicon/site.webmanifest" />
+            </>
+          )}
 
           {/* Typography / Font */}
           {/* <link

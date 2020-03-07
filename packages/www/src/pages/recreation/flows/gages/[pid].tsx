@@ -387,11 +387,11 @@ DynamicPiPage.getInitialProps = ({
   const location = '/recreation/flows/gages'
   isDev && console.log(JSON.stringify(query))
   // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
-  const pid = queryParamToStr(query['pid'])
-  const replacedPid = pid.replace(spacesRe, '-').toLowerCase()
+  const pidParam = queryParamToStr(query['pid'])
+  const pid = pidParam.replace(spacesRe, '-').toLowerCase()
 
   // If the pid parameter had a space update the URL so that dashes show in the URL bar.
-  if (pid !== replacedPid) {
+  if (pidParam !== pid) {
     if (res && req) {
       const {url = ''} = req
       const newLocation = url.replace(spacesRe, '-').toLowerCase()
@@ -405,7 +405,7 @@ DynamicPiPage.getInitialProps = ({
     }
   }
 
-  return {pid: replacedPid}
+  return {pid}
 }
 
 export default DynamicPiPage

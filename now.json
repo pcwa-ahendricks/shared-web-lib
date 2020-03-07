@@ -206,7 +206,7 @@
     },
     {
       "src": "/favicon.ico",
-      "dest": "packages/www/static/favicon.ico",
+      "dest": "packages/www/static/favicon/favicon.ico",
       "headers": {
         "cache-control": "maxage=0, s-maxage=172800"
       }
