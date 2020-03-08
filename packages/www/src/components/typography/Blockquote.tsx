@@ -1,5 +1,10 @@
 import React from 'react'
-import {Box, Typography, BoxProps, TypographyProps} from '@material-ui/core'
+import {
+  Box,
+  Typography as Type,
+  BoxProps,
+  TypographyProps
+} from '@material-ui/core'
 import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() =>
@@ -35,14 +40,9 @@ const Blockquote = ({
       mb={spacing ?? 4}
       {...boxProps}
     >
-      <Typography
-        component="blockquote"
-        paragraph
-        className={classes.type}
-        {...rest}
-      >
+      <Type component="blockquote" paragraph className={classes.type} {...rest}>
         {italic ? <em>{children}</em> : {children}}
-      </Typography>
+      </Type>
     </Box>
   )
 }

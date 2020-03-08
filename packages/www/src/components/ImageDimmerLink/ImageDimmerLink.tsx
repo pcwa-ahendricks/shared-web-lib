@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, Theme, Typography} from '@material-ui/core'
+import {Box, Theme, Typography as Type} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Imgix from 'react-imgix'
@@ -124,17 +124,17 @@ const ImageDimmerLink = ({
         />
         <Box className={classes.dimmer} />
         <Box>
-          <Typography variant="h2" className={classes.imgCaption}>
+          <Type variant="h2" className={classes.imgCaption}>
             {caption}
-          </Typography>
+          </Type>
         </Box>
         <Box className={classes.hoverCaptionContainer}>
-          <Typography variant="h4" className={classes.description}>
+          <Type variant="h4" className={classes.description}>
             {description}
-          </Typography>
-          <Typography variant="h6" className={classes.descriptionSubtitle}>
+          </Type>
+          <Type variant="h6" className={classes.descriptionSubtitle}>
             {descriptionSubtitle}
-          </Typography>
+          </Type>
         </Box>
       </Box>
     </Link>

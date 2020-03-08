@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, Theme, Typography} from '@material-ui/core'
+import {Box, Theme, Typography as Type} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 
@@ -79,12 +79,12 @@ const ContentDimmer = ({title, subtitle = '', children, ...rest}: Props) => {
       />
 
       <Box className={classes.typeContainer} zIndex={3}>
-        <Typography variant="h3" className={classes.title}>
+        <Type variant="h3" className={classes.title}>
           {title}
-        </Typography>
-        <Typography variant="h6" className={classes.subtitle}>
+        </Type>
+        <Type variant="h6" className={classes.subtitle}>
           {subtitle}
-        </Typography>
+        </Type>
       </Box>
     </Box>
   )
