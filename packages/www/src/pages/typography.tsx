@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
-import {NextPageContext, GetServerSideProps} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from './_error'
 const isDev = process.env.NODE_ENV === 'development'
 
