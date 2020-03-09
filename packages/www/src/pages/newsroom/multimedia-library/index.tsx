@@ -1,10 +1,10 @@
 import React from 'react'
 import Router from 'next/router'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 
 const MultimediaLibraryIndexPage = () => <></>
 
-MultimediaLibraryIndexPage.getInitialProps = ({res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({res}) => {
   const location = '/newsroom/multimedia-library/photos'
   if (res) {
     res.writeHead(302, {
@@ -14,7 +14,7 @@ MultimediaLibraryIndexPage.getInitialProps = ({res}: NextPageContext) => {
   } else {
     Router.push(location)
   }
-  return {}
+  return {props: {}}
 }
 
 export default MultimediaLibraryIndexPage

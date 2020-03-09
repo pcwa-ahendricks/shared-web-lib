@@ -24,7 +24,7 @@ import {
 } from '@material-ui/core'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
 import {getMedia, CosmicMediaResponse} from '@lib/services/cosmicService'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -46,6 +46,7 @@ import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGall
 import {useRouter} from 'next/router'
 import isNumber from 'is-number'
 import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGalleries/MultimediaVideoGalleries'
+import lambdaUrl from '@lib/lambdaUrl'
 // const isDev = process.env.NODE_ENV === 'development'
 const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
@@ -259,11 +260,13 @@ const MultimediaLibraryPage = ({
   )
 }
 
-MultimediaLibraryPage.getInitialProps = async ({
+export const getServerSideProps: GetServerSideProps = async ({
   query,
-  res
-}: NextPageContext & {isVirtualCall: boolean}) => {
+  res,
+  req
+}) => {
   try {
+    const baseUrl = lambdaUrl(req)
     let err: {statusCode: number} | null = null
     // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
     const multimediaProp = query['multimedia']?.[0] ?? ''
@@ -291,28 +294,32 @@ MultimediaLibraryPage.getInitialProps = async ({
       lightboxIndex = parseInt(lightboxIndexParam, 10)
       if (!(lightboxIndex >= 0)) {
         err = {statusCode: 404}
-        return {err}
+        return {props: {err}}
       }
     } else if (lightboxIndexParam) {
       err = {statusCode: 404}
-      return {err}
+      return {props: {err}}
     }
 
-    const multimedia = await getMedia<CosmicMediaResponse>({
-      folder: MULTIMEDIA_LIBRARY_FOLDER,
-      ...cosmicGetMediaProps
-    })
+    const multimedia = await getMedia<CosmicMediaResponse>(
+      {
+        folder: MULTIMEDIA_LIBRARY_FOLDER,
+        ...cosmicGetMediaProps
+      },
+      undefined,
+      baseUrl
+    )
 
     if (!multimedia) {
       throw new Error('No Multimedia')
     }
 
-    return {err, tabIndex, multimedia, gallery, lightboxIndex}
+    return {props: {err, tabIndex, multimedia, gallery, lightboxIndex}}
   } catch (error) {
     if (res) {
       res.statusCode = 400
     }
-    return {err: {statusCode: 400}}
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

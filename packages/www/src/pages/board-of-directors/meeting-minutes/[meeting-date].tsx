@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {ParsedUrlQuery} from 'querystring'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -30,6 +30,7 @@ import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
+import lambdaUrl from '@lib/lambdaUrl'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
@@ -176,12 +177,16 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-const fetchBoardMinutes = async () => {
+const fetchBoardMinutes = async (urlBase: string) => {
   // Pass appropriate type to function using generic for proper typing.
-  const bm = await getMedia<PickedMediaResponse>({
-    folder: 'board-minutes',
-    ...cosmicGetMediaProps
-  })
+  const bm = await getMedia<PickedMediaResponse>(
+    {
+      folder: 'board-minutes',
+      ...cosmicGetMediaProps
+    },
+    undefined,
+    urlBase
+  )
   if (!bm) {
     throw 'No board minutes'
   }
@@ -192,22 +197,24 @@ const fetchBoardMinutes = async () => {
   return bmEx
 }
 
-DynamicBoardMinutesPage.getInitialProps = async ({
+export const getServerSideProps: GetServerSideProps = async ({
   query,
-  res
-}: NextPageContext) => {
+  res,
+  req
+}) => {
   try {
-    const bms = await fetchBoardMinutes()
+    const urlBase = lambdaUrl(req)
+    const bms = await fetchBoardMinutes(urlBase)
     const meetingDate = query['meeting-date']
     const {qMedia, pages} = await getMediaPDFPages(bms, meetingDate)
 
-    return {query, qMedia, pages}
+    return {props: {query, qMedia, pages}}
   } catch (error) {
     console.log(error)
     if (res) {
       res.statusCode = 404
     }
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   }
 }
 

@@ -20,7 +20,7 @@ import {
 } from '@material-ui/core/styles'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
 import ErrorPage from '@pages/_error'
@@ -319,7 +319,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
   )
 }
 
-BoardOfDirectorsDynamicPage.getInitialProps = ({query}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({query}) => {
   isDev && console.log('query params: ', JSON.stringify(query))
   // Use last character of query param. If that character is not a valid district simply show the index page by setting active director to null.
   const district = queryParamToStr(query['district'])
@@ -331,11 +331,11 @@ BoardOfDirectorsDynamicPage.getInitialProps = ({query}: NextPageContext) => {
     (_el, index) => index + 1
   )
   if (arrayForTest.indexOf(districtNoProp) >= 0) {
-    return {district: districtNoProp}
+    return {props: {district: districtNoProp}}
   } else if (districtNoStrProp.length > 0) {
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   } else {
-    return {district: null}
+    return {props: {district: null}}
   }
 }
 

@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {ParsedUrlQuery} from 'querystring'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -30,6 +30,7 @@ import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
+import lambdaUrl from '@lib/lambdaUrl'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
@@ -174,11 +175,15 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-const fetchNewsletters = async () => {
-  const bm = await getMedia<PickedMediaResponse>({
-    folder: 'newsletters',
-    ...cosmicGetMediaProps
-  })
+const fetchNewsletters = async (baseUrl: string) => {
+  const bm = await getMedia<PickedMediaResponse>(
+    {
+      folder: 'newsletters',
+      ...cosmicGetMediaProps
+    },
+    undefined,
+    baseUrl
+  )
   if (!bm) {
     throw 'No Newsletters'
   }
@@ -189,12 +194,14 @@ const fetchNewsletters = async () => {
   return bmEx
 }
 
-DynamicNewslettersPage.getInitialProps = async ({
+export const getServerSideProps: GetServerSideProps = async ({
   query,
-  res
-}: NextPageContext) => {
+  res,
+  req
+}) => {
   try {
-    const nrs = await fetchNewsletters()
+    const baseUrl = lambdaUrl(req)
+    const nrs = await fetchNewsletters(baseUrl)
     const publishDate = query['publish-date']
     const {qMedia, pages} = await getMediaPDFPages(nrs, publishDate)
 
@@ -202,12 +209,12 @@ DynamicNewslettersPage.getInitialProps = async ({
       throw new Error('No media or pdf pages')
     }
 
-    return {query, qMedia, pages}
+    return {props: {query, qMedia, pages}}
   } catch (error) {
     if (res) {
       res.statusCode = 404
     }
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   }
 }
 

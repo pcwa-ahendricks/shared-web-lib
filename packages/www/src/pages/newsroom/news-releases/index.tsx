@@ -39,7 +39,8 @@ import {
   setNewsReleases,
   GroupedNewsReleases
 } from '@components/newsroom/NewsroomStore'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
+import lambdaUrl from '@lib/lambdaUrl'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
@@ -225,11 +226,15 @@ const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
   )
 }
 
-const fetchNewsReleases = async () => {
-  const media = await getMedia<CosmicMediaResponse>({
-    folder: 'news-releases',
-    ...cosmicGetMediaProps
-  })
+const fetchNewsReleases = async (baseUrl: string) => {
+  const media = await getMedia<CosmicMediaResponse>(
+    {
+      folder: 'news-releases',
+      ...cosmicGetMediaProps
+    },
+    undefined,
+    baseUrl
+  )
   if (!media) {
     throw new Error('No News Releases')
   }
@@ -262,15 +267,16 @@ const fetchNewsReleases = async () => {
   return sortedGroups
 }
 
-NewsReleasesPage.getInitialProps = async ({res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
   try {
-    const newsReleases = await fetchNewsReleases()
-    return {newsReleases}
+    const baseUrl = lambdaUrl(req)
+    const newsReleases = await fetchNewsReleases(baseUrl)
+    return {props: {newsReleases}}
   } catch (error) {
     if (res) {
       res.statusCode = 400
     }
-    return {err: {statusCode: 400}}
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

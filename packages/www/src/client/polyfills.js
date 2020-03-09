@@ -215,7 +215,10 @@ require('regenerator-runtime/runtime')
 // import repeat from 'core-js/library/fn/string/virtual/repeat'
 // String.prototype.repeat = repeat
 
-import 'unfetch/polyfill'
+/*
+  Ideally we would polyfill fetch here but getInitialProps and getServerSideProps would fail when attempting to fetch due to the fact the fetch would only get polyfill'ed in the client and not the node instance during a server side render. The workaround is to use isomorphic-unfetch as a dependency instead and import fetch from that library whenever it's used in this Next app.
+*/
+// import 'unfetch/polyfill'
 
 import '../lib/modernizr'
 

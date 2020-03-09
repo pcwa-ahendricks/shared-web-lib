@@ -5,6 +5,7 @@ import isNumber from 'is-number'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import fetchOk, {fetchOkText} from '@lib/fetch-ok'
+import fetch from 'isomorphic-unfetch'
 
 interface UnclaimedPropertyResponse {
   owner: string
@@ -80,7 +81,8 @@ const getSalaryScheduleCsv = async () => {
 
 const getMedia = async <T>(
   params = {},
-  cosmicId?: string
+  cosmicId?: string,
+  urlBase?: string
 ): Promise<T | undefined> => {
   try {
     if (cosmicId) {
@@ -89,7 +91,9 @@ const getMedia = async <T>(
         cosmicId
       }
     }
-    let url = '/api/cosmic/media'
+    // Do not interpolate undefined or null as literally 'undefined' or 'null' respectively.
+    urlBase = urlBase ?? ''
+    let url = `${urlBase}/api/cosmic/media`
     if (Object.keys(params).length > 0) {
       const qs = stringify(params, true)
       url = url.concat(qs)

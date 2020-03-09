@@ -41,6 +41,11 @@ const FlexLink = ({
   const [as, setAs] = useState(asProp)
   const classes = useStyles()
 
+  // Need to set as when asProp prop changes.
+  useEffect(() => {
+    setAs(asProp)
+  }, [asProp])
+
   // Note - Detection using Regular Expression will override isNextLink prop value.
   const isNextLink = useMemo(
     () => (!detectNext ? isNextLinkProp : IS_NEXT_RE.test(hrefProp)),

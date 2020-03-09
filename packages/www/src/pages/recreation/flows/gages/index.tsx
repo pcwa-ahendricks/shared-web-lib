@@ -1,11 +1,11 @@
 import React from 'react'
 import Router from 'next/router'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import defaultPageGage from '@components/pi/defaultPageGage'
 
 const PublicationIndexPage = () => <></>
 
-PublicationIndexPage.getInitialProps = ({res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({res}) => {
   const location = '/recreation/flows/gages'
   if (res) {
     res.writeHead(302, {
@@ -15,7 +15,7 @@ PublicationIndexPage.getInitialProps = ({res}: NextPageContext) => {
   } else {
     Router.push(`${location}/[pid]`, `${location}/${defaultPageGage}`)
   }
-  return {}
+  return {props: {}}
 }
 
 export default PublicationIndexPage

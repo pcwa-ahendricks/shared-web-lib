@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -26,14 +26,14 @@ const BasicTemplatePage = ({err}: Props) => {
   )
 }
 
-BasicTemplatePage.getInitialProps = ({res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({res}) => {
   if (!isDev) {
     if (res) {
       res.statusCode = 404
     }
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   } else {
-    return {}
+    return {props: {}}
   }
 }
 

@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-unfetch'
+
 type MailchimpSubscribeStatus =
   | 'subscribed'
   | 'pending'

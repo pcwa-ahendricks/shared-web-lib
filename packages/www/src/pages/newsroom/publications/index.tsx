@@ -1,10 +1,10 @@
 import React from 'react'
 import Router from 'next/router'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 
 const PublicationIndexPage = () => <></>
 
-PublicationIndexPage.getInitialProps = ({res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({res}) => {
   const location = '/newsroom/publications/newsletters'
   if (res) {
     res.writeHead(302, {
@@ -14,7 +14,7 @@ PublicationIndexPage.getInitialProps = ({res}: NextPageContext) => {
   } else {
     Router.push(location)
   }
-  return {}
+  return {props: {}}
 }
 
 export default PublicationIndexPage

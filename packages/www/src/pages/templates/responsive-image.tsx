@@ -6,7 +6,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -47,14 +47,14 @@ const ResponsiveImageTemplatePage = ({err}: Props) => {
   )
 }
 
-ResponsiveImageTemplatePage.getInitialProps = ({res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({res}) => {
   if (!isDev) {
     if (res) {
       res.statusCode = 404
     }
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   } else {
-    return {}
+    return {props: {}}
   }
 }
 

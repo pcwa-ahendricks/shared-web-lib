@@ -1,4 +1,5 @@
 import ErrorResponse from './ErrorResponse'
+import fetch from 'isomorphic-unfetch'
 
 async function handleNotOk(res: Response) {
   const text = await res.text()

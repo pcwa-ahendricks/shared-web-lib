@@ -1,6 +1,6 @@
 import React, {useMemo, useCallback} from 'react'
 import {ParsedUrlQuery} from 'querystring'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -31,6 +31,7 @@ import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import slugify from 'slugify'
 import {useRouter} from 'next/router'
+import lambdaUrl from '@lib/lambdaUrl'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 const cosmicGetMediaProps = {
@@ -181,11 +182,15 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
   )
 }
 
-const fetchNewsReleases = async () => {
-  const bm = await getMedia<PickedMediaResponse>({
-    folder: 'news-releases',
-    ...cosmicGetMediaProps
-  })
+const fetchNewsReleases = async (baseUrl: string) => {
+  const bm = await getMedia<PickedMediaResponse>(
+    {
+      folder: 'news-releases',
+      ...cosmicGetMediaProps
+    },
+    undefined,
+    baseUrl
+  )
   if (!bm) {
     throw 'No news releases'
   }
@@ -196,12 +201,14 @@ const fetchNewsReleases = async () => {
   return bmEx
 }
 
-DynamicNewsReleasePage.getInitialProps = async ({
-  query,
-  res
-}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  res,
+  req,
+  query
+}) => {
   try {
-    const nrs = await fetchNewsReleases()
+    const urlBase = lambdaUrl(req)
+    const nrs = await fetchNewsReleases(urlBase)
     const releaseDate = query['release-date']
     const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
 
@@ -210,12 +217,12 @@ DynamicNewsReleasePage.getInitialProps = async ({
     }
     const isSSR = Object.keys(res ?? {}).length > 0
 
-    return {query, qMedia, pages, isSSR}
+    return {props: {query, qMedia, pages, isSSR}}
   } catch (error) {
     if (res) {
       res.statusCode = 404
     }
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   }
 }
 

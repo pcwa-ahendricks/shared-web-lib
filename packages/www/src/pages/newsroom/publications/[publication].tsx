@@ -45,7 +45,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import ErrorPage from '@pages/_error'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
@@ -64,6 +64,7 @@ import {isWebUri} from 'valid-url'
 import PublicationCard, {
   PublicationCardProps
 } from '@components/newsroom/PublicationCard/PublicationCard'
+import lambdaUrl from '@lib/lambdaUrl'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -432,7 +433,7 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://cosmic-s3.imgix.net/6c45e8a0-e681-11e7-8b87-05a286370fcd-2017_Fire Water.pdf"
                       thumbImgixURL="https://cosmic-s3.imgix.net/228a8870-4871-11ea-83cb-8f40f59ef2f9-fire-water-2017-thumbnail.png"
-                      imgixCropMode="center" // There is no "center" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
+                      imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
                     />
                   </ChildBox>
                 </RowBox>
@@ -549,11 +550,15 @@ const PublicationsPage = ({
   )
 }
 
-const fetchNewsletters = async () => {
-  const bma = await getMedia<CosmicMediaResponse>({
-    folder: 'newsletters',
-    ...cosmicGetMediaProps
-  })
+const fetchNewsletters = async (baseUrl: string) => {
+  const bma = await getMedia<CosmicMediaResponse>(
+    {
+      folder: 'newsletters',
+      ...cosmicGetMediaProps
+    },
+    undefined,
+    baseUrl
+  )
   if (!bma) {
     return
   }
@@ -586,8 +591,13 @@ const fetchNewsletters = async () => {
   return sortedGroups
 }
 
-PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+  req
+}) => {
   try {
+    const baseUrl = lambdaUrl(req)
     const publication = queryParamToStr(query['publication'])
     let tabIndex: number
     switch (publication.toLowerCase()) {
@@ -614,7 +624,7 @@ PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
     }
 
     const [newsletters, enewsBlasts] = await Promise.all([
-      fetchNewsletters(),
+      fetchNewsletters(baseUrl),
       getObjects<EnewsBlastMetadata>('enews-blasts', {
         // eslint-disable-next-line @typescript-eslint/camelcase
         hide_metafields: true,
@@ -622,12 +632,12 @@ PublicationsPage.getInitialProps = async ({query, res}: NextPageContext) => {
       })
     ])
 
-    return {newsletters, tabIndex, enewsBlasts}
+    return {props: {newsletters, tabIndex, enewsBlasts}}
   } catch (error) {
     if (res) {
       res.statusCode = 404
     }
-    return {err: {statusCode: 404}}
+    return {props: {err: {statusCode: 404}}}
   }
 }
 

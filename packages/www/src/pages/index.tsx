@@ -111,7 +111,7 @@ const Index = () => {
             />
           </ChildBox>
           <ChildBox flex="50%">
-            <CoverStory
+            {/* <CoverStory
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."
               linkHref="/newsroom/success-in-the-sierra"
@@ -125,6 +125,22 @@ const Index = () => {
               Forest, the Project is one of the first instances of private and
               public interests coming together to fund and implement active forest
               management on public land."
+            /> */}
+
+            <CoverStory
+              title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
+              readMore="See Story..."
+              linkHref="/newsroom/news-releases/03-03-2020"
+              imgixURL="https://cosmic-s3.imgix.net/19d91520-6234-11ea-9b83-bbd594758415-PCWA-signs-USBR-contract002.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}
+              }}
+              body="Against the backdrop of Folsom Dam, Placer County Water Agency (PCWA)
+              executed a landmark water contract with the United States Bureau of
+              Reclamation (USBR) at a signing ceremony on February 28. The new
+              contract, which annually allocates up to 35,000 acre-feet of Central
+              Valley Project (CVP) water to PCWA, runs in perpetuity."
+              imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
             />
           </ChildBox>
         </RespRowBox>

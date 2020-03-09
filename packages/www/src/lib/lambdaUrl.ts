@@ -1,0 +1,15 @@
+import {IncomingMessage} from 'http'
+
+/*
+  Will (and should) return 'http://localhost:3000' in development environment and likely 'https://www.pcwa.net' in production environment. Allows the API to function properly with alternate Now deployments, ex. 'neu-web.pcwa.now.sh'.
+*/
+
+export default function(req?: IncomingMessage) {
+  if (!req) {
+    return ''
+  }
+  const {headers} = req
+  const host = headers['x-forwarded-host'] // Host will use a different port.
+  const protocol = headers['x-forwarded-proto']
+  return `${protocol}://${host}`
+}
