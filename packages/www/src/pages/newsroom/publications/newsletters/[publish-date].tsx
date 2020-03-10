@@ -34,7 +34,7 @@ import lambdaUrl from '@lib/lambdaUrl'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
-  query: ParsedUrlQuery // getInitialProps
+  query: ParsedUrlQuery
   err?: any
   qMedia?: CosmicMediaMeta | null
   pages?: Page[]
