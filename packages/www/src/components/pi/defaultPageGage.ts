@@ -1,2 +1,2 @@
-// Dynamic [pid] page will convert parameters to lowercase in getInitialProps.
+// Dynamic [pid] page will convert parameters to lowercase in getServerSideProps.
 export default 'r2'

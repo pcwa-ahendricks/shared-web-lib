@@ -32,6 +32,7 @@ import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import slugify from 'slugify'
 import {useRouter} from 'next/router'
 import lambdaUrl from '@lib/lambdaUrl'
+import siteReferer from '@lib/siteReferer'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 const cosmicGetMediaProps = {
@@ -40,11 +41,11 @@ const cosmicGetMediaProps = {
 type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>[]
 
 type Props = {
-  query: ParsedUrlQuery // getInitialProps
+  query: ParsedUrlQuery
   err?: any
   qMedia?: CosmicMediaMeta | null
   pages?: Page[]
-  isSSR?: boolean
+  selfReferred?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -71,7 +72,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
+const DynamicNewsReleasePage = ({
+  qMedia,
+  pages = [],
+  err,
+  selfReferred
+}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -91,7 +97,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
   const router = useRouter()
 
   const bcBackClickHandler = useCallback(async () => {
-    isSSR ? await router.push('/') : router.back()
+    !selfReferred ? await router.push('/') : router.back()
     // Can't get scroll to top to work.
     // const anchor = (
     //   (event.target && event.target.ownerDocument) ||
@@ -102,7 +108,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
     //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
     // }
     // console.log('done scrolling to top.')
-  }, [router, isSSR])
+  }, [router, selfReferred])
 
   if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -130,7 +136,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err, isSSR}: Props) => {
                 onClick={bcBackClickHandler}
               >
                 <UndoIcon className={classes.bcIcon} />
-                {isSSR ? 'Go Home' : 'Go Back'}
+                {selfReferred ? 'Go Back' : 'Go Home'}
               </Link>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
@@ -215,9 +221,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     if (!qMedia || !pages) {
       throw new Error('No media or pdf pages')
     }
-    const isSSR = Object.keys(res ?? {}).length > 0
 
-    return {props: {query, qMedia, pages, isSSR}}
+    const selfReferred = siteReferer(req)
+    return {props: {query, qMedia, pages, selfReferred}}
   } catch (error) {
     console.log(error)
     res.statusCode = 404

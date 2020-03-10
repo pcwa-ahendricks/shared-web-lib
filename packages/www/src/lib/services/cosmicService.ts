@@ -113,7 +113,7 @@ const fileNameUtil = (
   extension: string
   date: string
   title: string
-  publishedDate: string // When used with getInitialProps Date types will be converted to string, so using Date here could lead to confusion an extra type checking and safe casting.
+  publishedDate: string // When used with getServerSideProps Date types will be converted to string, so using Date here could lead to confusion an extra type checking and safe casting.
   publishedYear: number
   keyValuePairs?: Array<{}>
 } => {

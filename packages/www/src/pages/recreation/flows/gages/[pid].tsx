@@ -1,11 +1,11 @@
 // cspell:ignore Recreationists
 import React, {useMemo, useEffect, useCallback, useContext} from 'react'
-import Router, {useRouter} from 'next/router'
+import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {Box, Typography as Type, Hidden} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
-import {NextPageContext} from 'next'
+import {GetServerSideProps} from 'next'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
 import {
   fetchElementStreamSet,
@@ -378,13 +378,11 @@ const DynamicPiPage = ({pid}: Props) => {
   )
 }
 
-DynamicPiPage.getInitialProps = ({
+export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
-  res,
-  asPath = ''
-}: NextPageContext) => {
-  const location = '/recreation/flows/gages'
+  res
+}) => {
   isDev && console.log(JSON.stringify(query))
   // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
   const pidParam = queryParamToStr(query['pid'])
@@ -392,17 +390,13 @@ DynamicPiPage.getInitialProps = ({
 
   // If the pid parameter had a space update the URL so that dashes show in the URL bar.
   if (pidParam !== pid) {
-    if (res && req) {
-      const {url = ''} = req
-      const newLocation = url.replace(spacesRe, '-').toLowerCase()
-      res.writeHead(302, {
-        Location: newLocation
-      })
-      res.end()
-    } else {
-      const newAsPath = asPath.replace(spacesRe, '-').toLowerCase()
-      Router.replace(`${location}/[pid]`, newAsPath)
-    }
+    const {url = ''} = req
+    const newLocation = url.replace(spacesRe, '-').toLowerCase()
+    console.log('new location', newLocation)
+    res.writeHead(302, {
+      Location: newLocation
+    })
+    res.end()
   }
 
   return {pid}
