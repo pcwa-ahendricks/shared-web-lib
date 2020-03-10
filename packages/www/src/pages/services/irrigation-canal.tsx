@@ -1,12 +1,11 @@
 // cspell:ignore Cutrine amazonaws
-import React, {useEffect, useState, useCallback} from 'react'
+import React from 'react'
 import {
   Box,
   Typography as Type,
   List,
   ListItem,
   ListItemText,
-  // ListItemIcon,
   ListItemAvatar,
   Avatar,
   Theme,
@@ -32,10 +31,7 @@ import FancyButton from '@components/FancyButton/FancyButton'
 import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MainPhone from '@components/links/MainPhone'
-import {
-  fetchPlaylistItemsSnippets,
-  PlayListItem
-} from '@lib/services/youtubeService'
+import {PlayListItems} from '@lib/services/youtubeService'
 import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import EyeIcon from '@material-ui/icons/RemoveRedEye'
@@ -43,6 +39,10 @@ import InletIcon from '@material-ui/icons/VerticalAlignTop'
 import NeighborsIcon from '@material-ui/icons/People'
 import ContactUsIcon from '@material-ui/icons/Phone'
 import WarningIcon from '@material-ui/icons/WarningRounded'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
+import fetch from 'isomorphic-unfetch'
+const isDev = process.env.NODE_ENV === 'development'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -53,21 +53,22 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const HOW_TO_PLAYLIST_ID = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
+const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || ''
+const howToPlaylistId = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
+const youtubeApiUrl = 'https://www.googleapis.com/youtube/v3'
+
+const fetcher = (baseUrl: RequestInfo, playlistId: string) => {
+  const qs = stringify({part: 'snippet', playlistId, key: API_KEY}, true)
+  const url = `${baseUrl}/playlistItems${qs}`
+  return fetch(url).then((r) => r.json())
+}
 
 const IrrigationCanalPage = () => {
-  const [playlistItems, setPlaylistItems] = useState<PlayListItem[]>([])
-
-  const getPlaylistItems = useCallback(async () => {
-    const items = await fetchPlaylistItemsSnippets(HOW_TO_PLAYLIST_ID)
-    if (items && items.items) {
-      setPlaylistItems(items.items)
-    }
-  }, [])
-
-  useEffect(() => {
-    getPlaylistItems()
-  }, [getPlaylistItems])
+  const {data: playlistItems}: {data?: PlayListItems; error?: any} = useSWR(
+    [youtubeApiUrl, howToPlaylistId],
+    fetcher,
+    {revalidateOnFocus: !isDev} // Makes debugging with devtools less noisy.
+  )
 
   const classes = useStyles()
 
@@ -193,7 +194,7 @@ const IrrigationCanalPage = () => {
           >
             <Type variant="h4">How To Videos</Type>
             <Box mt={2}>
-              <YoutubePlaylistGridList items={playlistItems} />
+              <YoutubePlaylistGridList items={playlistItems?.items} />
             </Box>
           </Box>
 

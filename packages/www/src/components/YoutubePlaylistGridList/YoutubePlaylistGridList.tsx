@@ -16,7 +16,7 @@ import {PlayListItem} from '@lib/services/youtubeService'
 */
 
 type Props = {
-  items: PlayListItem[]
+  items?: PlayListItem[]
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const YoutubePlaylistGridList = ({items}: Props) => {
+const YoutubePlaylistGridList = ({items = []}: Props) => {
   const classes = useStyles()
 
   return (

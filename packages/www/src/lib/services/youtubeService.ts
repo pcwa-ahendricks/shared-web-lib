@@ -1,6 +1,6 @@
 // cspell:ignore maxres
-import {stringify} from 'querystringify'
-import fetchOk from '@lib/fetch-ok'
+// import {stringify} from 'querystringify'
+// import fetchOk from '@lib/fetch-ok'
 
 export interface PlayListItems {
   eTag: string
@@ -44,26 +44,26 @@ export interface PlayListItemSnippet {
   }
 }
 
-const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || ''
-const BASE_URL = 'https://www.googleapis.com/youtube/v3'
+// const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || ''
+// const youtubeApiUrl = 'https://www.googleapis.com/youtube/v3'
 
-const fetchPlaylistItemsSnippets = async (playlistId: string) => {
-  try {
-    const qs = stringify(
-      {part: 'snippet', playlistId: playlistId, key: API_KEY},
-      true
-    )
-    const url = `${BASE_URL}/playlistItems${qs}`
-    return await fetchOk<PlayListItems>(url)
-  } catch (error) {
-    console.warn(error)
-    return {
-      items: [],
-      eTag: '',
-      kind: '',
-      pageInfo: ''
-    }
-  }
-}
+// const fetchPlaylistItemsSnippets = async (playlistId: string) => {
+//   try {
+//     const qs = stringify(
+//       {part: 'snippet', playlistId: playlistId, key: API_KEY},
+//       true
+//     )
+//     const url = `${youtubeApiUrl}/playlistItems${qs}`
+//     return await fetchOk<PlayListItems>(url)
+//   } catch (error) {
+//     console.warn(error)
+//     return {
+//       items: [],
+//       eTag: '',
+//       kind: '',
+//       pageInfo: ''
+//     }
+//   }
+// }
 
-export {fetchPlaylistItemsSnippets}
+// export {fetchPlaylistItemsSnippets}
