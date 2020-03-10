@@ -1,49 +1,50 @@
-import React, {
-  useContext,
-  useEffect,
-  useCallback,
-  useMemo,
-  useState
-} from 'react'
+import React, {useMemo} from 'react'
 import {BoxProps, Box} from '@material-ui/core'
 import NewsBlurb from '../NewsBlurb'
-import {
-  RecentNewsContext,
-  setRecentNews,
-  NewsBlurbMetadata
-} from '@components/recent-news/RecentNewsStore'
 import {compareDesc, parseJSON, parse} from 'date-fns'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
-import {getObjects} from '@lib/services/cosmicService'
 import TextProgress from '@components/TextProgress/TextProgress'
 import {isWebUri} from 'valid-url'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
+import fetch from 'isomorphic-unfetch'
+import {CosmicObjectResponse} from '@lib/services/cosmicService'
+import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
+const isDev = process.env.NODE_ENV === 'development'
 
-type Props = {noOfBlurbs?: number} & BoxProps
+type Props = {
+  noOfBlurbs?: number
+  initialData?: CosmicObjectResponse<NewsBlurbMetadata>
+} & BoxProps
 
-const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
-  const recentNewsContext = useContext(RecentNewsContext)
-  const recentNewsDispatch = recentNewsContext.dispatch
-  const {recentNews} = recentNewsContext.state
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+export const fetcher = (apiUrl: RequestInfo, type: string, props: string) => {
+  const params = {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    hide_metafields: true,
+    props,
+    type
+  }
+  const qs = stringify({...params}, true)
+  const url = `${apiUrl}${qs}`
+  return fetch(url).then((r) => r.json())
+}
 
-  const fetchRecentNews = useCallback(async () => {
-    const blurbs = await getObjects<NewsBlurbMetadata>('news-blurbs', {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      hide_metafields: true,
-      props: '_id,metadata,status,title'
-    })
-    return blurbs
-  }, [])
-
-  const setAndFetchRecentNews = useCallback(async () => {
-    try {
-      // Only fetch from api if recent news context is empty. We will re-use recentNews state.
-      if (recentNews.length <= 0) {
-        setIsLoading(true)
-        const recentNewsBlurbs = await fetchRecentNews()
-        // Prevent any kind of cyclical updating of state (since recentNews is a hook dependency which will cause useEffect to fire below) by only dispatching setRecentNews when we have a valid non-empty response.
-        if (recentNewsBlurbs && recentNewsBlurbs.length > 0) {
-          const data = recentNewsBlurbs.map((blurb) => ({
+const RecentNewsBar = ({noOfBlurbs = 4, initialData, ...rest}: Props) => {
+  const {data: recentNewsBlurbs, isValidating} = useSWR<
+    CosmicObjectResponse<NewsBlurbMetadata>
+  >(
+    ['/api/cosmic/objects', 'news-blurbs', '_id,metadata,status,title'],
+    fetcher,
+    {
+      revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
+      initialData,
+      shouldRetryOnError: false // Seems like a dangerous proposition since this component is on the home page. Leave disabled until it's tested a bit more.
+    }
+  )
+  const recentNews = useMemo(
+    () =>
+      recentNewsBlurbs?.objects && Array.isArray(recentNewsBlurbs?.objects)
+        ? recentNewsBlurbs?.objects.map((blurb) => ({
             id: blurb._id,
             releaseDate: parse(
               blurb.metadata.releaseDate,
@@ -56,20 +57,9 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
             summary: blurb.metadata.summary,
             readMoreCaption: blurb.metadata.readMoreCaption
           }))
-          recentNewsDispatch(setRecentNews(data))
-          setIsLoading(false)
-        }
-        setIsLoading(false)
-      }
-    } catch (error) {
-      setIsLoading(false)
-      console.log(error)
-    }
-  }, [recentNews, recentNewsDispatch, fetchRecentNews])
-
-  useEffect(() => {
-    setAndFetchRecentNews()
-  }, [setAndFetchRecentNews])
+        : [],
+    [recentNewsBlurbs]
+  )
 
   const sortedAndFilteredNews = useMemo(() => {
     const filtered = recentNews.filter((blurb) => !blurb.hide)
@@ -82,7 +72,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
 
   const recentNewsBarEl = useMemo(
     () =>
-      isLoading ? (
+      isValidating ? (
         <TextProgress caption="Loading Recent News..." />
       ) : (
         <RespRowBox justifyContent="space-between" flexSpacing={4} {...rest}>
@@ -98,7 +88,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
           ))}
         </RespRowBox>
       ),
-    [sortedAndFilteredNews, isLoading, rest]
+    [sortedAndFilteredNews, isValidating, rest]
   )
 
   return <Box minHeight={200}>{recentNewsBarEl}</Box>

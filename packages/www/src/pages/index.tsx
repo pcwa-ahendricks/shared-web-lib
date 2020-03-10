@@ -17,7 +17,17 @@ import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
 import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
-import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
+import RecentNewsBar, {
+  fetcher as recentNewsFetcher
+} from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
+import lambdaUrl from '@lib/lambdaUrl'
+import {GetServerSideProps} from 'next'
+import {CosmicObjectResponse} from '@lib/services/cosmicService'
+import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
+
+type Props = {
+  recentNewsData: CosmicObjectResponse<NewsBlurbMetadata>
+}
 
 const HERO_IMG_SRC =
   'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -31,7 +41,7 @@ const HERO_IMG_SRC =
 //   })
 // )
 
-const Index = () => {
+const Index = ({recentNewsData}: Props) => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
@@ -208,10 +218,25 @@ const Index = () => {
         <Type variant="h6" color="textSecondary" gutterBottom>
           Recent News
         </Type>
-        <RecentNewsBar />
+        <RecentNewsBar initialData={recentNewsData} />
       </WideContainer>
     </PageLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  try {
+    const urlBase = lambdaUrl(req)
+    const data = await recentNewsFetcher(
+      `${urlBase}/api/cosmic/objects`,
+      'news-blurbs',
+      '_id,metadata,status,title'
+    )
+    return {props: {recentNewsData: data}}
+  } catch (error) {
+    console.log('There was an error fetching news blurbs.', error)
+    return {props: {}}
+  }
 }
 
 export default Index
