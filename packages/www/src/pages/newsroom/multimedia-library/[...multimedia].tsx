@@ -272,8 +272,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     const multimediaProp = query['multimedia']?.[0] ?? ''
     const gallery = query['multimedia']?.[1] ?? null
     const lightboxIndexParam = query['multimedia']?.[2] ?? null
-    let lightboxIndex: number | undefined
-    let tabIndex: number
+    // Set values to null by default to prevent getServerSideProps from attempting to serialize undefined causing a runtime error.
+    let lightboxIndex: number | null = null
+    let tabIndex: number | null = null
     switch (multimediaProp.toLowerCase()) {
       case 'photos': {
         tabIndex = 0

@@ -36,7 +36,7 @@ import lambdaUrl from '@lib/lambdaUrl'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
-  data: CosmicObjectResponse<OutageMetadata>
+  initialData?: CosmicObjectResponse<OutageMetadata>
 }
 
 interface OutageMetadata {
@@ -57,7 +57,7 @@ const fetcher = (apiUrl: RequestInfo, type: string, props: string) => {
   return fetch(url).then((r) => r.json())
 }
 
-const OutageInformationPage = ({data: initialData}: Props) => {
+const OutageInformationPage = ({initialData}: Props) => {
   const theme = useTheme<Theme>()
 
   const {data: outages, isValidating} = useSWR<
@@ -418,13 +418,18 @@ const OutageInformationPage = ({data: initialData}: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
-  const urlBase = lambdaUrl(req)
-  const data = await fetcher(
-    `${urlBase}/api/cosmic/objects`,
-    'outages',
-    '_id,content,metadata,slug,status,title'
-  )
-  return {props: {data}}
+  try {
+    const urlBase = lambdaUrl(req)
+    const initialData = await fetcher(
+      `${urlBase}/api/cosmic/objects`,
+      'outages',
+      '_id,content,metadata,slug,status,title'
+    )
+    return {props: {initialData}}
+  } catch (error) {
+    console.log('There was an error fetching outages.', error)
+    return {props: {}}
+  }
 }
 
 export default OutageInformationPage

@@ -15,8 +15,7 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   CosmicMediaResponse,
-  getObjects,
-  CosmicObject
+  CosmicObjectResponse
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON, format, parseISO, parse} from 'date-fns'
 import NextLink, {LinkProps} from 'next/link'
@@ -56,7 +55,6 @@ import {
   GroupedNewsletters,
   setNewsletterYear,
   setNewsletters,
-  setEnewsBlasts,
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -65,6 +63,10 @@ import PublicationCard, {
   PublicationCardProps
 } from '@components/newsroom/PublicationCard/PublicationCard'
 import lambdaUrl from '@lib/lambdaUrl'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
+import fetch from 'isomorphic-unfetch'
+const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -82,12 +84,28 @@ interface TabPanelProps {
 type Props = {
   newsletters?: GroupedNewsletters
   tabIndex: number
-  enewsBlasts?: CosmicObject<EnewsBlastMetadata>[]
+  initialEnewsBlasts?: CosmicObjectResponse<EnewsBlastMetadata>
   err?: {statusCode: number}
 }
 
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url'
+}
+
+export const cosmicFetcher = (
+  apiUrl: RequestInfo,
+  type: string,
+  props: string
+) => {
+  const params = {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    hide_metafields: true,
+    props,
+    type
+  }
+  const qs = stringify({...params}, true)
+  const url = `${apiUrl}${qs}`
+  return fetch(url).then((r) => r.json())
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -110,14 +128,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const PublicationsPage = ({
   newsletters: newslettersProp,
   tabIndex: tabIndexProp,
-  enewsBlasts: enewsBlastsProp,
-  err
+  err,
+  initialEnewsBlasts
 }: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const [tabIndex, setTabIndex] = useState(0)
   const newsroomContext = useContext(NewsroomContext)
-  const {newsletters, newsletterYear, enewsBlasts} = newsroomContext.state
+  const {newsletters, newsletterYear} = newsroomContext.state
   const newsroomDispatch = newsroomContext.dispatch
 
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
@@ -164,11 +182,19 @@ const PublicationsPage = ({
     }
   }, [newslettersProp, newsroomDispatch])
 
-  useEffect(() => {
-    if (enewsBlastsProp && enewsBlastsProp?.length > 0) {
-      newsroomDispatch(
-        setEnewsBlasts(
-          enewsBlastsProp.map((blast) => ({
+  const {data: enewsData} = useSWR<CosmicObjectResponse<EnewsBlastMetadata>>(
+    ['/api/cosmic/objects', 'enews-blasts', '_id,metadata,status,title'],
+    cosmicFetcher,
+    {
+      revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
+      initialData: initialEnewsBlasts
+    }
+  )
+
+  const enewsBlasts = useMemo(
+    () =>
+      enewsData?.objects && Array.isArray(enewsData?.objects)
+        ? enewsData?.objects.map((blast) => ({
             id: blast._id,
             title: blast.title,
             mailchimpURL: isWebUri(blast.metadata?.mailchimpURL) ?? '', // isWebUri returns undefined on failure.
@@ -178,10 +204,9 @@ const PublicationsPage = ({
               new Date()
             )
           }))
-        )
-      )
-    }
-  }, [enewsBlastsProp, newsroomDispatch])
+        : [],
+    [enewsData]
+  )
 
   const maxYear = useMemo(
     () =>
@@ -518,7 +543,7 @@ const PublicationsPage = ({
 
                 <List>
                   {sortedEnewsBlasts.map((blast) => {
-                    const distDateFormated = format(
+                    const distDateFormatted = format(
                       blast.distributionDate,
                       'MM/dd/yyyy'
                     )
@@ -532,7 +557,7 @@ const PublicationsPage = ({
                         rel="noopener noreferrer"
                       >
                         <ListItemText
-                          primary={`${distDateFormated} - ${blast.title}`}
+                          primary={`${distDateFormatted} - ${blast.title}`}
                         />
                       </ListItem>
                     )
@@ -623,16 +648,16 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     }
 
-    const [newsletters, enewsBlasts] = await Promise.all([
+    const [newsletters, initialEnewsBlasts] = await Promise.all([
       fetchNewsletters(baseUrl),
-      getObjects<EnewsBlastMetadata>('enews-blasts', {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        hide_metafields: true,
-        props: '_id,metadata,status,title'
-      })
+      cosmicFetcher(
+        `${baseUrl}/api/cosmic/objects`,
+        'enews-blasts',
+        '_id,metadata,status,title'
+      )
     ])
 
-    return {props: {newsletters, tabIndex, enewsBlasts}}
+    return {props: {newsletters, tabIndex, initialEnewsBlasts}}
   } catch (error) {
     if (res) {
       res.statusCode = 404

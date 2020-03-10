@@ -7,7 +7,7 @@ interface State {
   newsReleases: GroupedNewsReleases
   newsletterYear?: number
   newsletters: GroupedNewsletters
-  enewsBlasts: EnewsBlast[]
+  // enewsBlasts: EnewsBlast[]
   enewsDialogOpen: boolean
 }
 
@@ -15,7 +15,7 @@ type ProviderProps = {
   children: React.ReactNode
 }
 
-interface EnewsBlast {
+export interface EnewsBlast {
   id: string
   title: string
   mailchimpURL: string
@@ -42,7 +42,7 @@ export type GroupedNewsReleases = Array<{
 const initialState: State = {
   newsReleases: [],
   newsletters: [],
-  enewsBlasts: [],
+  // enewsBlasts: [],
   enewsDialogOpen: false
 }
 
@@ -58,7 +58,7 @@ const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
 const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
 const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
 const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
-const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
+// const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
 const SET_ENEWS_DIALOG_OPEN: 'SET_ENEWS_DIALOG_OPEN' = 'SET_ENEWS_DIALOG_OPEN'
 
 // Actions
@@ -90,12 +90,12 @@ export const setNewsletters = (newsletters: State['newsletters']) => {
   }
 }
 
-export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
-  return {
-    type: SET_ENEWS_BLASTS,
-    enewsBlasts
-  }
-}
+// export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
+//   return {
+//     type: SET_ENEWS_BLASTS,
+//     enewsBlasts
+//   }
+// }
 
 export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
   return {
@@ -127,11 +127,11 @@ const newsroomReducer = (state: State, action: any): State => {
         ...state,
         newsletters: [...action.newsletters]
       }
-    case SET_ENEWS_BLASTS:
-      return {
-        ...state,
-        enewsBlasts: [...action.enewsBlasts]
-      }
+    // case SET_ENEWS_BLASTS:
+    //   return {
+    //     ...state,
+    //     enewsBlasts: [...action.enewsBlasts]
+    //   }
     case SET_ENEWS_DIALOG_OPEN:
       return {
         ...state,
