@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect, useState, useCallback} from 'react'
+import React, {useMemo, useCallback} from 'react'
 import {
   Box,
   Theme,
@@ -22,12 +22,22 @@ import FlexBox, {
   RowBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
-import {getObjects, CosmicObject} from '@lib/services/cosmicService'
+import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
+import fetch from 'isomorphic-unfetch'
+import {GetServerSideProps} from 'next'
+import lambdaUrl from '@lib/lambdaUrl'
+const isDev = process.env.NODE_ENV === 'development'
+
+type Props = {
+  data: CosmicObjectResponse<OutageMetadata>
+}
 
 interface OutageMetadata {
   hide_on_website: boolean
@@ -35,36 +45,41 @@ interface OutageMetadata {
   type: string
 }
 
-const OutageInformationPage = () => {
+const fetcher = (apiUrl: RequestInfo, type: string, props: string) => {
+  const params = {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    hide_metafields: true,
+    props,
+    type
+  }
+  const qs = stringify({...params}, true)
+  const url = `${apiUrl}${qs}`
+  return fetch(url).then((r) => r.json())
+}
+
+const OutageInformationPage = ({data: initialData}: Props) => {
   const theme = useTheme<Theme>()
-  const [outages, setOutages] = useState<CosmicObject<OutageMetadata>[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
 
-  const getOutages = useCallback(async () => {
-    try {
-      setLoading(true)
-      const data = await getObjects<OutageMetadata>('outages', {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        hide_metafields: true,
-        props: '_id,content,metadata,slug,status,title'
-      })
-      setOutages(data)
-      setLoading(false)
-    } catch (err) {
-      console.log(err)
-      setLoading(false)
+  const {data: outages, isValidating} = useSWR<
+    CosmicObjectResponse<OutageMetadata>
+  >(
+    [
+      '/api/cosmic/objects',
+      'outages',
+      '_id,content,metadata,slug,status,title'
+    ],
+    fetcher,
+    {
+      revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
+      initialData
     }
-  }, [])
-
-  useEffect(() => {
-    getOutages()
-  }, [getOutages])
+  )
 
   const outageContent = useCallback(
     (outageType: string) => {
       const re = new RegExp(outageType, 'gi')
       const f =
-        outages
+        outages?.objects
           .filter(
             (outage) =>
               outage?.metadata.hide_on_website === false &&
@@ -161,7 +176,7 @@ const OutageInformationPage = () => {
 
   const progressEl = useMemo(
     () =>
-      loading ? (
+      isValidating ? (
         <ColumnBox
           position="absolute"
           width="100%"
@@ -173,7 +188,7 @@ const OutageInformationPage = () => {
           </RowBox>
         </ColumnBox>
       ) : null,
-    [loading]
+    [isValidating]
   )
 
   return (
@@ -210,7 +225,7 @@ const OutageInformationPage = () => {
               </Box>
               <Box position="relative" minHeight={250}>
                 {progressEl}
-                {!loading ? (
+                {!isValidating ? (
                   <>
                     <Box
                       bgcolor={theme.palette.common.white}
@@ -400,6 +415,16 @@ const OutageInformationPage = () => {
       </MainBox>
     </PageLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  const urlBase = lambdaUrl(req)
+  const data = await fetcher(
+    `${urlBase}/api/cosmic/objects`,
+    'outages',
+    '_id,content,metadata,slug,status,title'
+  )
+  return {props: {data}}
 }
 
 export default OutageInformationPage

@@ -64,7 +64,7 @@ const fetcher = (baseUrl: RequestInfo, playlistId: string) => {
 }
 
 const IrrigationCanalPage = () => {
-  const {data: playlistItems}: {data?: PlayListItems; error?: any} = useSWR(
+  const {data: playlistItems} = useSWR<PlayListItems>(
     [youtubeApiUrl, howToPlaylistId],
     fetcher,
     {revalidateOnFocus: !isDev} // Makes debugging with devtools less noisy.

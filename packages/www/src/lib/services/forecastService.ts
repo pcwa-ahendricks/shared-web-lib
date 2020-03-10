@@ -33,4 +33,4 @@ const fetchForecasts = async (forecastLocations: Location[]) => {
   return forecastData
 }
 
-export {fetchForecast, fetchForecasts}
+export {fetchForecasts}
