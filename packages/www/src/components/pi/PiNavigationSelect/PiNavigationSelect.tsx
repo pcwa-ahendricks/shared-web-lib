@@ -5,7 +5,7 @@ import {useRouter} from 'next/router'
 import acronym from '@lib/acronym'
 
 type Props = {
-  pid: string
+  pid?: string
 }
 
 const PiNavigationSelect = ({pid}: Props) => {

@@ -15,7 +15,7 @@ import clsx from 'clsx'
 import {spacesRe} from '@pages/recreation/flows/gages/[pid]'
 
 type Props = {
-  pid: string
+  pid?: string
   g: GageConfigItem
 }
 

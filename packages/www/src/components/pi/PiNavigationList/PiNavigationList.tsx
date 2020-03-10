@@ -19,7 +19,7 @@ import PiNavigationListItem from '../PiNavigationListItem/PiNavigationListItem'
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded'
 
 type Props = {
-  pid: string
+  pid?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
