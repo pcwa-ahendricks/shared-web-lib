@@ -393,7 +393,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     if (pidParam !== pid) {
       const {url = ''} = req
       const newLocation = url.replace(spacesRe, '-').toLowerCase()
-      console.log('new location', newLocation)
       res.writeHead(302, {
         Location: newLocation
       })
