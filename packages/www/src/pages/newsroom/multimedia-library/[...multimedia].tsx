@@ -317,9 +317,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return {props: {err, tabIndex, multimedia, gallery, lightboxIndex}}
   } catch (error) {
-    if (res) {
-      res.statusCode = 400
-    }
+    console.log(error)
+    res.statusCode = 400
     return {props: {err: {statusCode: 400}}}
   }
 }

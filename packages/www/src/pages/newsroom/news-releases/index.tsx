@@ -273,9 +273,8 @@ export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
     const newsReleases = await fetchNewsReleases(baseUrl)
     return {props: {newsReleases}}
   } catch (error) {
-    if (res) {
-      res.statusCode = 400
-    }
+    console.log(error)
+    res.statusCode = 400
     return {props: {err: {statusCode: 400}}}
   }
 }

@@ -69,9 +69,7 @@ const TypographyPage = ({err}: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({res}) => {
   if (!isDev) {
-    if (res) {
-      res.statusCode = 404
-    }
+    res.statusCode = 404
     return {props: {err: {statusCode: 404}}}
   } else {
     return {props: {}}

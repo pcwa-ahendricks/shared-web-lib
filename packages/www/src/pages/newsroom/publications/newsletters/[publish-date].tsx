@@ -211,9 +211,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return {props: {query, qMedia, pages}}
   } catch (error) {
-    if (res) {
-      res.statusCode = 404
-    }
+    console.log(error)
+    res.statusCode = 404
     return {props: {err: {statusCode: 404}}}
   }
 }
