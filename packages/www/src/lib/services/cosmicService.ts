@@ -18,20 +18,21 @@ export interface Page {
   url: string
 }
 
-const getObjects = async <T = CosmicMetadata>(type: string, params: any) => {
-  try {
-    const qs = stringify({type, ...params}, true)
-    const url = `/api/cosmic/objects${qs}`
-    const data = await fetchOk<CosmicObjectResponse<T>>(url)
-    if (!data) {
-      return []
-    }
-    return data.objects
-  } catch (error) {
-    console.warn(error)
-    throw error
-  }
-}
+// Deprecated in favor of useSWR hook.
+// const getObjects = async <T = CosmicMetadata>(type: string, params: any) => {
+//   try {
+//     const qs = stringify({type, ...params}, true)
+//     const url = `/api/cosmic/objects${qs}`
+//     const data = await fetchOk<CosmicObjectResponse<T>>(url)
+//     if (!data) {
+//       return []
+//     }
+//     return data.objects
+//   } catch (error) {
+//     console.warn(error)
+//     throw error
+//   }
+// }
 
 const getUnclaimedProperty = async () => {
   try {
@@ -265,6 +266,6 @@ export {
   getSalaryScheduleCsv,
   getMedia,
   getMediaPDFPages,
-  fileNameUtil,
-  getObjects
+  fileNameUtil
+  // getObjects
 }

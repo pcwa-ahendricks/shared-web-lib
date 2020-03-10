@@ -236,7 +236,7 @@ const DynamicPiPage = ({pid}: Props) => {
 
   useEffect(() => {
     // console.log('useEffect firing due to pid update.')
-    // Need to compare id to modified pid returned from getInitialProps.
+    // Need to compare id to modified pid returned from getServerSideProps.
     const gci = gages.find(
       ({id = ''}) => id.toLowerCase().replace(spacesRe, '-') === pid
     )

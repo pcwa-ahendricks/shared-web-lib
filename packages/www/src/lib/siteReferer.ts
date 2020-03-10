@@ -9,7 +9,8 @@ import {IncomingMessage} from 'http'
   pcwa.net
 */
 
-const re = /\/\/((www\.)?pcwa\.net|localhost:\d{4,5}(\/|$)|neu-web\..*\.?now\.sh|dev-web\.pcwa\.net)/gi
+// It is important to place this regular expression in the scope of the function if the global flag is used.
+const re = /\/\/((www\.)?pcwa\.net|localhost:\d{4,5}(\/|$)|neu-web\..*\.?now\.sh|dev-web\.pcwa\.net)/i
 
 export default function(req: IncomingMessage) {
   const {headers} = req
