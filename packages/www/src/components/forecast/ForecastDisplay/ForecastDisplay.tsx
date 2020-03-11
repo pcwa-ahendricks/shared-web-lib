@@ -11,15 +11,6 @@ type Props = {
   forecast: ForecastData
 }
 
-export type Location = {
-  id: number
-  title: string
-  queryParams: {
-    lat: number
-    lng: number
-  }
-}
-
 export type ForecastData = {
   id: number
   title: string

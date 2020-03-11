@@ -14,7 +14,7 @@ import NewsroomContext from '@components/newsroom/NewsroomStore'
 import smoothscroll from 'smoothscroll-polyfill'
 import SearchProvider from '@components/search/SearchStore'
 import {SWRConfig} from 'swr'
-import fetch from 'isomorphic-unfetch'
+import fetcher from '@lib/fetcher'
 const isDev = process.env.NODE_ENV === 'development'
 /*
   [HACK] AMA page is not loading due to use of css import via @zeit/next-css plugin. See
@@ -58,8 +58,7 @@ class MyApp extends App {
         <SWRConfig
           value={{
             revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
-            fetcher: (input: RequestInfo, init?: RequestInit) =>
-              fetch(input, init).then((res) => res.json())
+            fetcher
           }}
         >
           <PiProvider>

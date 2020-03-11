@@ -1,9 +1,6 @@
 import React, {createContext, useReducer} from 'react'
-import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 
 interface State {
-  forecasts: ForecastData[]
-  timeoutId: NodeJS.Timeout | null
   activeCycleForecastId: number
   cycleTimeoutId: NodeJS.Timeout | null
 }
@@ -14,8 +11,6 @@ type ProviderProps = {
 
 // State
 const initialState: State = {
-  forecasts: [],
-  timeoutId: null,
   activeCycleForecastId: 1,
   cycleTimeoutId: null
 }
@@ -28,26 +23,11 @@ export const ForecastContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_FORECASTS: 'SET_FORECASTS' = 'SET_FORECASTS'
-const SET_TIMEOUT_ID: 'SET_TIMEOUT_ID' = 'SET_TIMEOUT_ID'
 const SET_ACTIVE_CYCLE_FORECAST_ID: 'SET_ACTIVE_CYCLE_FORECAST_ID' =
   'SET_ACTIVE_CYCLE_FORECAST_ID'
 const SET_CYCLE_TIMEOUT_ID: 'SET_CYCLE_TIMEOUT_ID' = 'SET_CYCLE_TIMEOUT_ID'
 
 // Actions
-export const setForecasts = (forecasts: State['forecasts']) => {
-  return {
-    type: SET_FORECASTS,
-    forecasts
-  }
-}
-
-export const setTimeoutId = (timeoutId: State['timeoutId']) => {
-  return {
-    type: SET_TIMEOUT_ID,
-    timeoutId
-  }
-}
 
 export const setActiveCycleForecastId = (
   activeCycleForecastId: State['activeCycleForecastId']
@@ -68,16 +48,6 @@ export const setCycleTimeoutId = (cycleTimeoutId: State['cycleTimeoutId']) => {
 // Reducer
 const forecastReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_FORECASTS:
-      return {
-        ...state,
-        forecasts: [...action.forecasts]
-      }
-    case SET_TIMEOUT_ID:
-      return {
-        ...state,
-        timeoutId: action.timeoutId
-      }
     case SET_ACTIVE_CYCLE_FORECAST_ID:
       return {
         ...state,

@@ -31,7 +31,7 @@ import FancyButton from '@components/FancyButton/FancyButton'
 import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MainPhone from '@components/links/MainPhone'
-import {PlayListItems} from '@lib/services/youtubeService'
+import {PlayListItems} from '@lib/types/youtube'
 import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import EyeIcon from '@material-ui/icons/RemoveRedEye'
@@ -41,6 +41,10 @@ import ContactUsIcon from '@material-ui/icons/Phone'
 import WarningIcon from '@material-ui/icons/WarningRounded'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
+
+// type Props = {
+//   initialData?: PlayListItems
+// }
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -351,5 +355,19 @@ const IrrigationCanalPage = () => {
     </PageLayout>
   )
 }
+
+/*
+  Google API is checking referer header, and since node won't include that, this will not work without tweaking the API settings.
+*/
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const initialData = await fetcher(fetcherUrl) // API request to Google. Not using Now so base URL is not needed.
+//     console.log(initialData)
+//     return {props: {initialData}}
+//   } catch (error) {
+//     console.log('There was an error fetching outages.', error)
+//     return {props: {}}
+//   }
+// }
 
 export default IrrigationCanalPage

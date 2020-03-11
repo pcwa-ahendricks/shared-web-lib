@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import PlayIcon from '@material-ui/icons/PlayCircleOutline'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
-import {PlayListItem} from '@lib/services/youtubeService'
+import {PlayListItem} from '@lib/types/youtube'
 
 /*
   See https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/GridListTile/GridListTile.js for info regarding how the child <img/> component is handled.
