@@ -21,18 +21,18 @@ const fetchOkJson = async <T = any>(
   }
 }
 
-const fetchOkText = async (
-  input: RequestInfo,
-  init?: RequestInit | undefined
-) => {
-  const response = await fetch(input, init)
-  if (response.ok) {
-    const data = await response.text()
-    return data
-  } else {
-    await handleNotOk(response)
-  }
-}
+// const fetchOkText = async (
+//   input: RequestInfo,
+//   init?: RequestInit | undefined
+// ) => {
+//   const response = await fetch(input, init)
+//   if (response.ok) {
+//     const data = await response.text()
+//     return data
+//   } else {
+//     await handleNotOk(response)
+//   }
+// }
 
 const fetchOkBlob = async (
   input: RequestInfo,
@@ -61,4 +61,4 @@ const fetchOkBody = async (
 }
 
 export default fetchOkJson
-export {fetchOkText, fetchOkBlob, fetchOkBody, fetchOkJson}
+export {fetchOkBlob, fetchOkBody, fetchOkJson}

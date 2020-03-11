@@ -4,7 +4,7 @@ import {parse, getYear, isValid} from 'date-fns'
 import isNumber from 'is-number'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
-import fetchOk, {fetchOkText} from '@lib/fetch-ok'
+import fetchOk from '@lib/fetch-ok'
 import fetch from 'isomorphic-unfetch'
 
 interface UnclaimedPropertyResponse {
@@ -58,27 +58,27 @@ const getUnclaimedProperty = async () => {
   }
 }
 
-const getSalarySchedule = async () => {
-  try {
-    const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
-    const url = `/api/cosmic/csv-data${qs}`
-    return await fetchOk(url)
-  } catch (error) {
-    console.warn(error)
-    throw error
-  }
-}
+// const getSalarySchedule = async () => {
+//   try {
+//     const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
+//     const url = `/api/cosmic/csv-data${qs}`
+//     return await fetchOk(url)
+//   } catch (error) {
+//     console.warn(error)
+//     throw error
+//   }
+// }
 
-const getSalaryScheduleCsv = async () => {
-  try {
-    const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
-    const url = `/api/cosmic/csv${qs}`
-    return await fetchOkText(url)
-  } catch (error) {
-    console.warn(error)
-    throw error
-  }
-}
+// const getSalaryScheduleCsv = async () => {
+//   try {
+//     const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
+//     const url = `/api/cosmic/csv${qs}`
+//     return await fetchOkText(url)
+//   } catch (error) {
+//     console.warn(error)
+//     throw error
+//   }
+// }
 
 const getMedia = async <T>(
   params = {},
@@ -260,12 +260,4 @@ interface CosmicOption {
   key?: string
 }
 
-export {
-  getUnclaimedProperty,
-  getSalarySchedule,
-  getSalaryScheduleCsv,
-  getMedia,
-  getMediaPDFPages,
-  fileNameUtil
-  // getObjects
-}
+export {getUnclaimedProperty, getMedia, getMediaPDFPages, fileNameUtil}

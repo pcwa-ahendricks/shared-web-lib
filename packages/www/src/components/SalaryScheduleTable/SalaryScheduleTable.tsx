@@ -1,9 +1,5 @@
 import React, {useState, useEffect, useCallback, useMemo} from 'react'
 import {
-  getSalarySchedule,
-  getSalaryScheduleCsv
-} from '@lib/services/cosmicService'
-import {
   Box,
   Typography as Type,
   Table,
@@ -27,6 +23,9 @@ import noNaN from '@lib/noNaN'
 import SalaryScheduleRow from '@components/SalaryScheduleTable/SalaryScheduleRow'
 import useDebounce from '@hooks/useDebounce'
 import DlSalaryScheduleCsvButton from '@components/SalaryScheduleTable/DlSalaryScheduleCsvButton'
+import {stringify} from 'querystringify'
+import useSWR from 'swr'
+import {textFetcher} from '@lib/fetcher'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -106,63 +105,53 @@ const useStyles = makeStyles(() =>
   })
 )
 
+const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
+const csvUrl = `/api/cosmic/csv${qs}`
+const csvDataUrl = `/api/cosmic/csv-data${qs}`
+
 const SalaryScheduleTable = () => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
-  const [salaryData, setSalaryData] = useState<SalaryScheduleData[]>([])
-  const [salaryCsv, setSalaryCsv] = useState<string>('')
   const [sortFilterSalaryData, setSortFilterSalaryData] = useState<
     SalaryScheduleData[]
-  >(salaryData)
+  >([])
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
-  const [isLoading, setIsLoading] = useState<boolean>()
 
-  const setSalaryScheduleCsv = useCallback(async () => {
-    const ssCsv = await getSalaryScheduleCsv()
-    if (ssCsv) {
-      setSalaryCsv(ssCsv)
-    }
-  }, [])
+  const {data: salaryCsv} = useSWR<string>(csvUrl, textFetcher) // Use text() with fetch method.
+  const {data: salaryCsvData, isValidating} = useSWR<SalaryScheduleResponse[]>(
+    csvDataUrl
+  )
 
-  const setSalaryScheduleData = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const ssData: SalaryScheduleResponse[] = await getSalarySchedule()
-      const ssDataWithId = ssData.map((row) => ({
-        id: generate(),
-        ...row,
-        range: noNaN(round(parseFloat(row.RANGE), 2)),
-        stepA: noNaN(round(parseFloat(row['STEP A']), 4)),
-        stepB: noNaN(round(parseFloat(row['STEP B']), 4)),
-        stepC: noNaN(round(parseFloat(row['STEP C']), 4)),
-        stepD: noNaN(round(parseFloat(row['STEP D']), 4)),
-        stepE: noNaN(round(parseFloat(row['STEP E']), 4)),
-        stepF: noNaN(round(parseFloat(row['STEP F']), 4)),
-        stepAAnnual: noNaN(round(parseFloat(row['STEP A ANNUAL']), 2)),
-        stepBAnnual: noNaN(round(parseFloat(row['STEP B ANNUAL']), 2)),
-        stepCAnnual: noNaN(round(parseFloat(row['STEP C ANNUAL']), 2)),
-        stepDAnnual: noNaN(round(parseFloat(row['STEP D ANNUAL']), 2)),
-        stepEAnnual: noNaN(round(parseFloat(row['STEP E ANNUAL']), 2)),
-        stepFAnnual: noNaN(round(parseFloat(row['STEP F ANNUAL']), 2)),
-        stepAMonthly: noNaN(round(parseFloat(row['STEP A MONTHLY']), 2)),
-        stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2)),
-        stepCMonthly: noNaN(round(parseFloat(row['STEP C MONTHLY']), 2)),
-        stepDMonthly: noNaN(round(parseFloat(row['STEP D MONTHLY']), 2)),
-        stepEMonthly: noNaN(round(parseFloat(row['STEP E MONTHLY']), 2)),
-        stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
-      }))
-      setSalaryData(ssDataWithId)
-      setIsLoading(false)
-    } catch (error) {
-      setIsLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    setSalaryScheduleData()
-    setSalaryScheduleCsv()
-  }, [setSalaryScheduleData, setSalaryScheduleCsv])
+  const salaryData = useMemo(
+    () =>
+      salaryCsvData && Array.isArray(salaryCsvData)
+        ? salaryCsvData.map((row) => ({
+            id: generate(),
+            ...row,
+            range: noNaN(round(parseFloat(row.RANGE), 2)),
+            stepA: noNaN(round(parseFloat(row['STEP A']), 4)),
+            stepB: noNaN(round(parseFloat(row['STEP B']), 4)),
+            stepC: noNaN(round(parseFloat(row['STEP C']), 4)),
+            stepD: noNaN(round(parseFloat(row['STEP D']), 4)),
+            stepE: noNaN(round(parseFloat(row['STEP E']), 4)),
+            stepF: noNaN(round(parseFloat(row['STEP F']), 4)),
+            stepAAnnual: noNaN(round(parseFloat(row['STEP A ANNUAL']), 2)),
+            stepBAnnual: noNaN(round(parseFloat(row['STEP B ANNUAL']), 2)),
+            stepCAnnual: noNaN(round(parseFloat(row['STEP C ANNUAL']), 2)),
+            stepDAnnual: noNaN(round(parseFloat(row['STEP D ANNUAL']), 2)),
+            stepEAnnual: noNaN(round(parseFloat(row['STEP E ANNUAL']), 2)),
+            stepFAnnual: noNaN(round(parseFloat(row['STEP F ANNUAL']), 2)),
+            stepAMonthly: noNaN(round(parseFloat(row['STEP A MONTHLY']), 2)),
+            stepBMonthly: noNaN(round(parseFloat(row['STEP B MONTHLY']), 2)),
+            stepCMonthly: noNaN(round(parseFloat(row['STEP C MONTHLY']), 2)),
+            stepDMonthly: noNaN(round(parseFloat(row['STEP D MONTHLY']), 2)),
+            stepEMonthly: noNaN(round(parseFloat(row['STEP E MONTHLY']), 2)),
+            stepFMonthly: noNaN(round(parseFloat(row['STEP F MONTHLY']), 2))
+          }))
+        : [],
+    [salaryCsvData]
+  )
 
   const headRows: {
     id: HeadRowId
@@ -303,12 +292,12 @@ const SalaryScheduleTable = () => {
 
   const linearProgressEl = useMemo(
     () =>
-      isLoading ? (
+      isValidating ? (
         <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
           <LinearProgress variant="indeterminate" color="secondary" />
         </Box>
       ) : null,
-    [isLoading]
+    [isValidating]
   )
 
   return (
