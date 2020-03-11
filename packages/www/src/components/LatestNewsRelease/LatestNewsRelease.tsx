@@ -1,10 +1,6 @@
-import React, {useEffect, useCallback, useState} from 'react'
+import React, {useMemo} from 'react'
 import CoverTile, {CoverTileProps} from '@components/CoverTile/CoverTile'
-import {
-  getMedia,
-  fileNameUtil,
-  CosmicMediaMeta
-} from '@lib/services/cosmicService'
+import {fileNameUtil, CosmicMediaMeta} from '@lib/services/cosmicService'
 import {compareDesc, parseJSON} from 'date-fns'
 import {
   Box,
@@ -12,12 +8,9 @@ import {
   makeStyles,
   createStyles
 } from '@material-ui/core'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
 
-const DATE_FNS_FORMAT = 'MM-dd-yyyy'
-
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url'
-}
 type PickedMediaResponse = Pick<
   CosmicMediaMeta,
   'original_name' | 'imgix_url' | 'derivedFilenameAttr'
@@ -25,6 +18,14 @@ type PickedMediaResponse = Pick<
 type PickedMediaResponses = PickedMediaResponse[]
 
 type Props = {} & Partial<CoverTileProps>
+
+const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+
+const cosmicGetMediaProps = {
+  props: 'original_name,imgix_url'
+}
+const qs = stringify({...cosmicGetMediaProps, folder: 'news-releases'}, true)
+const latestNewsReleaseUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,47 +41,34 @@ const useStyles = makeStyles(() =>
 )
 
 const LatestNewsRelease = ({...rest}: Props) => {
-  const [latestNewsRelease, setLatestNewsRelease] = useState<
-    PickedMediaResponse
-  >()
-  const [isLoading, setIsLoading] = useState<boolean>()
   const classes = useStyles()
 
-  const fetchLatestNewsRelease = useCallback(async () => {
-    const nr = await getMedia<PickedMediaResponses>({
-      folder: 'news-releases',
-      ...cosmicGetMediaProps
-    })
-    if (!nr) {
-      throw 'No news releases'
-    }
-    const nrEx = nr
-      .map((media) => ({
-        ...media,
-        derivedFilenameAttr: fileNameUtil(media.original_name, DATE_FNS_FORMAT)
-      }))
-      .map((media) => ({
-        ...media,
-        publishedDate: parseJSON(media.derivedFilenameAttr?.publishedDate ?? '')
-      }))
-      .sort((a, b) => compareDesc(a.publishedDate, b.publishedDate))
-    return nrEx[0]
-  }, [])
+  const {data: latestNewsReleaseData, isValidating} = useSWR<
+    PickedMediaResponses
+  >(latestNewsReleaseUrl)
 
-  const fetchAndSetLatestNewsRelease = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const media = await fetchLatestNewsRelease()
-      setLatestNewsRelease(media)
-      setIsLoading(false)
-    } catch (error) {
-      setIsLoading(false)
-    }
-  }, [fetchLatestNewsRelease])
-
-  useEffect(() => {
-    fetchAndSetLatestNewsRelease()
-  }, [fetchAndSetLatestNewsRelease])
+  const latestNewsRelease = useMemo(
+    () =>
+      latestNewsReleaseData && Array.isArray(latestNewsReleaseData)
+        ? latestNewsReleaseData
+            .map((media) => ({
+              ...media,
+              derivedFilenameAttr: fileNameUtil(
+                media.original_name,
+                DATE_FNS_FORMAT
+              )
+            }))
+            .map((media) => ({
+              ...media,
+              publishedDate: parseJSON(
+                media.derivedFilenameAttr?.publishedDate ?? ''
+              )
+            }))
+            .sort((a, b) => compareDesc(a.publishedDate, b.publishedDate))
+            .shift()
+        : null,
+    [latestNewsReleaseData]
+  )
 
   return (
     <Box position="relative">
@@ -100,7 +88,7 @@ const LatestNewsRelease = ({...rest}: Props) => {
         {...rest}
       />
 
-      {isLoading ? (
+      {isValidating ? (
         <CircularProgress classes={{root: classes.progress}} />
       ) : null}
     </Box>
