@@ -7,37 +7,28 @@ import TextProgress from '@components/TextProgress/TextProgress'
 import {isWebUri} from 'valid-url'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
 
 type Props = {
   noOfBlurbs?: number
-  initialData?: CosmicObjectResponse<NewsBlurbMetadata>
+  // initialData?: CosmicObjectResponse<NewsBlurbMetadata>
 } & BoxProps
 
-export const fetcher = (apiUrl: RequestInfo, type: string, props: string) => {
-  const params = {
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    hide_metafields: true,
-    props,
-    type
-  }
-  const qs = stringify({...params}, true)
-  const url = `${apiUrl}${qs}`
-  return fetch(url).then((r) => r.json())
+const params = {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  hide_metafields: true,
+  props: '_id,metadata,status,title',
+  type: 'news-blurbs'
 }
+const qs = stringify({...params}, true)
+const recentNewsBlurbsUrl = `/api/cosmic/objects${qs}`
 
-const RecentNewsBar = ({noOfBlurbs = 4, initialData, ...rest}: Props) => {
+const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
   const {data: recentNewsBlurbs, isValidating} = useSWR<
     CosmicObjectResponse<NewsBlurbMetadata>
-  >(
-    ['/api/cosmic/objects', 'news-blurbs', '_id,metadata,status,title'],
-    fetcher,
-    {
-      initialData
-    }
-  )
+  >(recentNewsBlurbsUrl)
+
   const recentNews = useMemo(
     () =>
       recentNewsBlurbs?.objects && Array.isArray(recentNewsBlurbs?.objects)

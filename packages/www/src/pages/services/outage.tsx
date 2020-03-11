@@ -15,7 +15,6 @@ import {useTheme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
 import EventIcon from '@material-ui/icons/Event'
-
 import FlexBox, {
   RespRowBox,
   ChildBox,
@@ -30,9 +29,9 @@ import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
 import {GetServerSideProps} from 'next'
 import lambdaUrl from '@lib/lambdaUrl'
+import fetcher from '@lib/fetcher'
 
 type Props = {
   initialData?: CosmicObjectResponse<OutageMetadata>
@@ -44,34 +43,26 @@ interface OutageMetadata {
   type: string
 }
 
-const fetcher = (apiUrl: RequestInfo, type: string, props: string) => {
-  const params = {
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    hide_metafields: true,
-    props,
-    type
-  }
-  const qs = stringify({...params}, true)
-  const url = `${apiUrl}${qs}`
-  return fetch(url).then((r) => r.json())
+const params = {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  hide_metafields: true,
+  props: '_id,content,metadata,slug,status,title',
+  type: 'outages'
 }
+const qs = stringify({...params}, true)
+const outagesUrl = `/api/cosmic/objects${qs}`
+
+const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
 const OutageInformationPage = ({initialData}: Props) => {
   const theme = useTheme<Theme>()
 
   const {data: outages, isValidating} = useSWR<
     CosmicObjectResponse<OutageMetadata>
-  >(
-    [
-      '/api/cosmic/objects',
-      'outages',
-      '_id,content,metadata,slug,status,title'
-    ],
-    fetcher,
-    {
-      initialData
-    }
-  )
+  >(outagesUrl, {
+    initialData,
+    refreshInterval
+  })
 
   const outageContent = useCallback(
     (outageType: string) => {
@@ -418,11 +409,7 @@ const OutageInformationPage = ({initialData}: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
   try {
     const urlBase = lambdaUrl(req)
-    const initialData = await fetcher(
-      `${urlBase}/api/cosmic/objects`,
-      'outages',
-      '_id,content,metadata,slug,status,title'
-    )
+    const initialData = await fetcher(`${urlBase}${outagesUrl}`)
     return {props: {initialData}}
   } catch (error) {
     console.log('There was an error fetching outages.', error)
