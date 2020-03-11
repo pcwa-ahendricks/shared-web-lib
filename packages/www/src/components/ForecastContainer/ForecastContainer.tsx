@@ -5,6 +5,7 @@ import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
+import {Box} from '@material-ui/core'
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
@@ -32,10 +33,6 @@ const dutchFlatForecastUrl = `${apiUrl}${stringify(
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      flex: '0 0 200px',
-      display: 'block'
-    },
     forecast: {
       width: '100%',
       position: 'relative'
@@ -103,9 +100,9 @@ const ForecastContainer = () => {
   )
 
   return (
-    <div className={classes.root}>
+    <Box display="block" flex="0 0 200px">
       <ForecastCycle className={classes.forecast} forecasts={forecasts} />
-    </div>
+    </Box>
   )
 }
 
