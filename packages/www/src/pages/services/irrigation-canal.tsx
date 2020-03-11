@@ -41,7 +41,6 @@ import ContactUsIcon from '@material-ui/icons/Phone'
 import WarningIcon from '@material-ui/icons/WarningRounded'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -56,17 +55,14 @@ const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || ''
 const howToPlaylistId = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
 const youtubeApiUrl = 'https://www.googleapis.com/youtube/v3'
 
-const fetcher = (baseUrl: RequestInfo, playlistId: string) => {
-  const qs = stringify({part: 'snippet', playlistId, key: API_KEY}, true)
-  const url = `${baseUrl}/playlistItems${qs}`
-  return fetch(url).then((r) => r.json())
-}
+const qs = stringify(
+  {part: 'snippet', playlistId: howToPlaylistId, key: API_KEY},
+  true
+)
+const fetcherUrl = `${youtubeApiUrl}/playlistItems${qs}`
 
 const IrrigationCanalPage = () => {
-  const {data: playlistItems} = useSWR<PlayListItems>(
-    [youtubeApiUrl, howToPlaylistId],
-    fetcher
-  )
+  const {data: playlistItems} = useSWR<PlayListItems>(fetcherUrl)
 
   const classes = useStyles()
 
