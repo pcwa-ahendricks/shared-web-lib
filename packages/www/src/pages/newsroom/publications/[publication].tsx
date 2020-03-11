@@ -66,7 +66,6 @@ import lambdaUrl from '@lib/lambdaUrl'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
-const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -186,7 +185,6 @@ const PublicationsPage = ({
     ['/api/cosmic/objects', 'enews-blasts', '_id,metadata,status,title'],
     cosmicFetcher,
     {
-      revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
       initialData: initialEnewsBlasts
     }
   )

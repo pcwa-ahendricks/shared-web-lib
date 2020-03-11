@@ -42,7 +42,6 @@ import WarningIcon from '@material-ui/icons/WarningRounded'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
-const isDev = process.env.NODE_ENV === 'development'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -66,8 +65,7 @@ const fetcher = (baseUrl: RequestInfo, playlistId: string) => {
 const IrrigationCanalPage = () => {
   const {data: playlistItems} = useSWR<PlayListItems>(
     [youtubeApiUrl, howToPlaylistId],
-    fetcher,
-    {revalidateOnFocus: !isDev} // Makes debugging with devtools less noisy.
+    fetcher
   )
 
   const classes = useStyles()

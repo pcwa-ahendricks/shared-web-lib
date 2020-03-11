@@ -10,7 +10,6 @@ import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
-const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   noOfBlurbs?: number
@@ -36,9 +35,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, initialData, ...rest}: Props) => {
     ['/api/cosmic/objects', 'news-blurbs', '_id,metadata,status,title'],
     fetcher,
     {
-      revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
-      initialData,
-      shouldRetryOnError: false // Seems like a dangerous proposition since this component is on the home page. Leave disabled until it's tested a bit more.
+      initialData
     }
   )
   const recentNews = useMemo(

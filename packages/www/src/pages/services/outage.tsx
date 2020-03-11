@@ -33,7 +33,6 @@ import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
 import {GetServerSideProps} from 'next'
 import lambdaUrl from '@lib/lambdaUrl'
-const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   initialData?: CosmicObjectResponse<OutageMetadata>
@@ -70,7 +69,6 @@ const OutageInformationPage = ({initialData}: Props) => {
     ],
     fetcher,
     {
-      revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
       initialData
     }
   )

@@ -12,8 +12,10 @@ import MultimediaProvider from '@components/multimedia/MultimediaStore'
 import ForecastProvider from '@components/forecast/ForecastStore'
 import NewsroomContext from '@components/newsroom/NewsroomStore'
 import smoothscroll from 'smoothscroll-polyfill'
-const isDev = process.env.NODE_ENV === 'development'
 import SearchProvider from '@components/search/SearchStore'
+import {SWRConfig} from 'swr'
+import fetch from 'isomorphic-unfetch'
+const isDev = process.env.NODE_ENV === 'development'
 /*
   [HACK] AMA page is not loading due to use of css import via @zeit/next-css plugin. See
   https://github.com/zeit/next.js/issues/5264 and  https://github.com/zeit/next.js/issues/5291 and 
@@ -53,26 +55,33 @@ class MyApp extends App {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <GlobalStyles />
-
-        <PiProvider>
-          <UiProvider>
-            <NewsroomContext>
-              <MultimediaProvider>
-                <ForecastProvider>
-                  <SearchProvider>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <ParallaxProvider>
-                        {/* Pass pageContext to the _document though the renderPage enhancer
+        <SWRConfig
+          value={{
+            revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
+            fetcher: (input: RequestInfo, init?: RequestInit) =>
+              fetch(input, init).then((res) => res.json())
+          }}
+        >
+          <PiProvider>
+            <UiProvider>
+              <NewsroomContext>
+                <MultimediaProvider>
+                  <ForecastProvider>
+                    <SearchProvider>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ParallaxProvider>
+                          {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                        <Component {...pageProps} />
-                      </ParallaxProvider>
-                    </MuiPickersUtilsProvider>
-                  </SearchProvider>
-                </ForecastProvider>
-              </MultimediaProvider>
-            </NewsroomContext>
-          </UiProvider>
-        </PiProvider>
+                          <Component {...pageProps} />
+                        </ParallaxProvider>
+                      </MuiPickersUtilsProvider>
+                    </SearchProvider>
+                  </ForecastProvider>
+                </MultimediaProvider>
+              </NewsroomContext>
+            </UiProvider>
+          </PiProvider>
+        </SWRConfig>
       </ThemeProvider>
     )
   }
