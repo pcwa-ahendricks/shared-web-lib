@@ -1,13 +1,10 @@
 // cspell:ignore Frmt
 import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
-import isNumber from 'is-number'
-import round from '@lib/round'
-import noNaN from '@lib/noNaN'
 import fetchOk from '@lib/fetch-ok'
 import fetch from 'isomorphic-unfetch'
 
-interface UnclaimedPropertyResponse {
+export interface UnclaimedPropertyResponse {
   owner: string
   amount: string | number
   date: string
@@ -34,29 +31,29 @@ export interface Page {
 //   }
 // }
 
-const getUnclaimedProperty = async () => {
-  try {
-    const qs = stringify({filename: 'unclaimed-property.csv'}, true)
-    const url = `/api/cosmic/csv-data${qs}`
-    const data = await fetchOk<UnclaimedPropertyResponse[]>(url)
-    if (!data) {
-      return []
-    }
-    const mappedData = data.map((d) => {
-      const amt = d.amount.toString()
-      const amountNo = isNumber(amt) ? noNaN(round(parseFloat(amt), 2)) : null
-      return {
-        ...d,
-        amount: amountNo,
-        date: parse(d.date, 'MM/dd/yy', new Date())
-      }
-    })
-    return mappedData
-  } catch (error) {
-    console.warn(error)
-    throw error
-  }
-}
+// const getUnclaimedProperty = async () => {
+//   try {
+//     const qs = stringify({filename: 'unclaimed-property.csv'}, true)
+//     const url = `/api/cosmic/csv-data${qs}`
+//     const data = await fetchOk<UnclaimedPropertyResponse[]>(url)
+//     if (!data) {
+//       return []
+//     }
+//     const mappedData = data.map((d) => {
+//       const amt = d.amount.toString()
+//       const amountNo = isNumber(amt) ? noNaN(round(parseFloat(amt), 2)) : null
+//       return {
+//         ...d,
+//         amount: amountNo,
+//         date: parse(d.date, 'MM/dd/yy', new Date())
+//       }
+//     })
+//     return mappedData
+//   } catch (error) {
+//     console.warn(error)
+//     throw error
+//   }
+// }
 
 // const getSalarySchedule = async () => {
 //   try {
@@ -260,4 +257,4 @@ interface CosmicOption {
   key?: string
 }
 
-export {getUnclaimedProperty, getMedia, getMediaPDFPages, fileNameUtil}
+export {getMedia, getMediaPDFPages, fileNameUtil}

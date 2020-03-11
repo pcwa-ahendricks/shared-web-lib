@@ -1,11 +1,11 @@
 // cspell:ignore frmt
 import React, {useCallback} from 'react'
 import {TableRow, TableCell} from '@material-ui/core'
-import {UnclaimedPropertyData} from './UnclaimedPropertyTable'
 import {format} from 'date-fns'
+import {UnclaimedProperty} from './UnclaimedPropertyTable'
 
 type Props = {
-  data: UnclaimedPropertyData
+  data: UnclaimedProperty
 }
 
 const UnclaimedPropertyTableRow = ({data}: Props) => {

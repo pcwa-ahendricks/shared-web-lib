@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useCallback, useMemo} from 'react'
-import {getUnclaimedProperty} from '@lib/services/cosmicService'
 import {
   Box,
   Table,
@@ -20,19 +19,27 @@ import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import useDebounce from '@hooks/useDebounce'
 import UnclaimedPropertyTableRow from './UnclaimedPropertyTableRow'
+import {UnclaimedPropertyResponse} from '@lib/services/cosmicService'
+import {stringify} from 'querystringify'
+import useSWR from 'swr'
+import isNumber from 'is-number'
+import round from '@lib/round'
+import noNaN from '@lib/noNaN'
+import {parse} from 'date-fns'
 const isDev = process.env.NODE_ENV === 'development'
 
-interface UnclaimedPropertyResponse {
-  owner: string
+export interface UnclaimedProperty
+  extends Omit<UnclaimedPropertyResponse, 'date' | 'amount'> {
+  id: string
   date: Date
   amount: number | null
 }
 
-export interface UnclaimedPropertyData extends UnclaimedPropertyResponse {
-  id: string
+type Props = {
+  initialData?: UnclaimedPropertyResponse[]
 }
 
-type HeadRowId = keyof UnclaimedPropertyData
+type HeadRowId = keyof UnclaimedProperty
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -60,21 +67,43 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const UnclaimedPropertyTable = () => {
+const qs = stringify({filename: 'unclaimed-property.csv'}, true)
+export const csvDataUrl = `/api/cosmic/csv-data${qs}`
+
+const UnclaimedPropertyTable = ({initialData}: Props) => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
-  const [unclaimedPropertyData, setUnclaimedPropertyData] = useState<
-    UnclaimedPropertyData[]
-  >([])
-  const [sortFilterData, setSortFilterData] = useState<UnclaimedPropertyData[]>(
-    unclaimedPropertyData
-  )
+  const [sortFilterData, setSortFilterData] = useState<UnclaimedProperty[]>([])
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('owner')
 
+  const {data: unclaimedPropertyData} = useSWR<UnclaimedPropertyResponse[]>(
+    csvDataUrl,
+    {initialData}
+  )
+
+  const unclaimedProperty: UnclaimedProperty[] = useMemo(
+    () =>
+      unclaimedPropertyData && Array.isArray(unclaimedPropertyData)
+        ? unclaimedPropertyData.map((row) => {
+            const amt = row.amount.toString()
+            const amountNo = isNumber(amt)
+              ? noNaN(round(parseFloat(amt), 2))
+              : null
+            return {
+              ...row,
+              id: generate(),
+              amount: amountNo,
+              date: parse(row.date, 'MM/dd/yy', new Date())
+            }
+          })
+        : [],
+    [unclaimedPropertyData]
+  )
+
   const logAmountTotal = useCallback(() => {
-    if (isDev) {
-      const total = unclaimedPropertyData.reduce(
+    if (isDev && unclaimedProperty) {
+      const total = unclaimedProperty.reduce(
         (prevVal, currentVal) => prevVal + (currentVal.amount || 0),
         0
       )
@@ -86,24 +115,11 @@ const UnclaimedPropertyTable = () => {
         })
       )
     }
-  }, [unclaimedPropertyData])
-
-  const setData = useCallback(async () => {
-    const data: UnclaimedPropertyResponse[] = await getUnclaimedProperty()
-    const dataWithId = data.map((row) => ({
-      id: generate(),
-      ...row
-    }))
-    setUnclaimedPropertyData(dataWithId)
-  }, [])
+  }, [unclaimedProperty])
 
   useEffect(() => {
     logAmountTotal()
-  }, [logAmountTotal, unclaimedPropertyData])
-
-  useEffect(() => {
-    setData()
-  }, [setData])
+  }, [logAmountTotal])
 
   const headRows: {
     id: HeadRowId
@@ -148,27 +164,27 @@ const UnclaimedPropertyTable = () => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(15) // 10, 15, or 25.
   const [filteredRowCount, setFilteredRowCount] = useState(
-    unclaimedPropertyData.length
+    unclaimedProperty.length
   )
   const [inputFilter, setInputFilter] = useState('')
   const debFilteredRowCount = useDebounce(filteredRowCount, 200)
   const debInputFilter = useDebounce(inputFilter, 200)
 
   useEffect(() => {
-    const f = unclaimedPropertyData.filter((row) => {
+    const f = unclaimedProperty.filter((row) => {
       // const re = new RegExp(debClassTitleFilter, 'i')
       // return re.test(row['owner'])
       const t = (row['owner'] || '').toLowerCase()
       const i = (debInputFilter || '').toLowerCase()
       return t.indexOf(i) >= 0
     })
-    const s = stableSort<UnclaimedPropertyData>(
+    const s = stableSort<UnclaimedProperty>(
       f,
       getSorting<HeadRowId>(order, orderBy)
     )
     setSortFilterData(s)
     setFilteredRowCount(s.length)
-  }, [unclaimedPropertyData, debInputFilter, order, orderBy])
+  }, [unclaimedProperty, debInputFilter, order, orderBy])
 
   const handleChangePage = useCallback((_event: unknown, newPage: number) => {
     setPage(newPage)
@@ -192,8 +208,8 @@ const UnclaimedPropertyTable = () => {
 
   // Using minHeight with container allows the #unclaimedPropertyList anchor to work correctly on page load when the initial table data is not available. After the table data is loaded the 15 rows produce an element that is 800px high, so using a min-height fixes the load issue.
   const containerMinHeight = useMemo(
-    () => (unclaimedPropertyData.length === 0 ? 800 : 0),
-    [unclaimedPropertyData]
+    () => (unclaimedProperty.length === 0 ? 800 : 0),
+    [unclaimedProperty]
   )
 
   return (

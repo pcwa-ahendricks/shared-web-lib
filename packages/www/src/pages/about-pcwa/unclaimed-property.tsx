@@ -12,7 +12,9 @@ import {
   ListItemIcon
   // Divider
 } from '@material-ui/core'
-import UnclaimedPropertyTable from '@components/UnclaimedPropertyTable/UnclaimedPropertyTable'
+import UnclaimedPropertyTable, {
+  csvDataUrl
+} from '@components/UnclaimedPropertyTable/UnclaimedPropertyTable'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
 import {format, isBefore} from 'date-fns'
@@ -21,6 +23,14 @@ import {green} from '@material-ui/core/colors'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {RowBox} from '@components/boxes/FlexBox'
 import UnclaimedPropertyEmail from '@components/links/UnclaimedPropertyEmail'
+import lambdaUrl from '@lib/lambdaUrl'
+import {GetServerSideProps} from 'next'
+import fetcher from '@lib/fetcher'
+import {UnclaimedPropertyResponse} from '@lib/services/cosmicService'
+
+type Props = {
+  initialData?: UnclaimedPropertyResponse[]
+}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,7 +40,7 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const SalarySchedulePage = () => {
+const UnclaimedPropertyPage = ({initialData}: Props) => {
   const classes = useStyles()
   const deadlineDate = new Date('2019-07-12T17:00:00')
 
@@ -202,11 +212,22 @@ const SalarySchedulePage = () => {
             </Type>
           </Box>
 
-          <UnclaimedPropertyTable />
+          <UnclaimedPropertyTable initialData={initialData} />
         </NarrowContainer>
       </MainBox>
     </PageLayout>
   )
 }
 
-export default SalarySchedulePage
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  try {
+    const urlBase = lambdaUrl(req)
+    const initialData = await fetcher(`${urlBase}${csvDataUrl}`)
+    return {props: {initialData}}
+  } catch (error) {
+    console.log('There was an error fetching unclaimed property data.', error)
+    return {props: {}}
+  }
+}
+
+export default UnclaimedPropertyPage
