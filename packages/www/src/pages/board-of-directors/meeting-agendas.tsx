@@ -95,8 +95,7 @@ const MeetingAgendasPage = () => {
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const followingFourBoardMeetings = useMemo(
-    // () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
-    () => futureBoardMeetingDates.sort(compareAsc).slice(0, 4),
+    () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
     []
   )
   const [isLoadingOtherAgendas, setIsLoadingOtherAgendas] = useState<
