@@ -17,13 +17,11 @@ import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
 import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
-import RecentNewsBar, {
-  fetcher as recentNewsFetcher
-} from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
-import lambdaUrl from '@lib/lambdaUrl'
-import {GetServerSideProps} from 'next'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
+import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
+// import lambdaUrl from '@lib/lambdaUrl'
+// import {GetServerSideProps} from 'next'
 
 type Props = {
   recentNewsData: CosmicObjectResponse<NewsBlurbMetadata>
@@ -224,19 +222,19 @@ const Index = ({recentNewsData}: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
-  try {
-    const urlBase = lambdaUrl(req)
-    const data = await recentNewsFetcher(
-      `${urlBase}/api/cosmic/objects`,
-      'news-blurbs',
-      '_id,metadata,status,title'
-    )
-    return {props: {recentNewsData: data}}
-  } catch (error) {
-    console.log('There was an error fetching news blurbs.', error)
-    return {props: {}}
-  }
-}
+// export const getServerSideProps: GetServerSideProps = async ({req}) => {
+//   try {
+//     const urlBase = lambdaUrl(req)
+//     const data = await recentNewsFetcher(
+//       `${urlBase}/api/cosmic/objects`,
+//       'news-blurbs',
+//       '_id,metadata,status,title'
+//     )
+//     return {props: {recentNewsData: data}}
+//   } catch (error) {
+//     console.log('There was an error fetching news blurbs.', error)
+//     return {props: {}}
+//   }
+// }
 
 export default Index
