@@ -70,11 +70,12 @@ const DistrictBoundariesMap = () => {
   )
 
   const distillDistrict = useCallback((features: any[]) => {
-    const filteredFeatures = features.filter(
-      (feature: any) =>
-        feature.layer && feature.layer.id === 'pcwa-districts-fill'
-    )
-    const firstFeature = filteredFeatures[0]
+    const firstFeature = features
+      .filter(
+        (feature: any) =>
+          feature.layer && feature.layer.id === 'pcwa-districts-fill'
+      )
+      .shift()
     const {properties: featureProperties = {}} = firstFeature ?? {}
     const {
       bos_id: bosId = null

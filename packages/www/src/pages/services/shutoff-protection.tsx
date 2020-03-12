@@ -762,7 +762,7 @@ const ShutoffProtectionPage = () => {
   ]
 
   const selectedDocuments = useMemo(
-    () => documents.filter((d) => d.language === language)[0],
+    () => documents.filter((d) => d.language === language).shift(),
     [language, documents]
   )
 
