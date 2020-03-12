@@ -424,7 +424,7 @@ const ProjectsPage = () => {
                   <Type paragraph>
                     Consultants are currently gathering information on-site to
                     be used to design improvements to the dams. Completion of
-                    design of improvements to the dams is anticipated in 2019.
+                    design of improvements to the dams is anticipated in 2020.
                     Any future construction work will proceed upon completion of
                     design and regulatory approvals.
                   </Type>
@@ -435,9 +435,9 @@ const ProjectsPage = () => {
                     PCWA removed dead and dying trees in 2017 the vicinity of
                     the dams to comply with direction from the California
                     Division of Safety of Dams (DSOD). In winter of 2018/2019
-                    PCWA will collect bore samples from each of the dams. These
-                    sample will be analyzed and incorporated into the design of
-                    future dam improvements.
+                    PCWA collected bore samples from each of the dams. These
+                    samples were analyzed and will be incorporated into design
+                    of the necessary improvements.
                   </Type>
                   <Spacing />
                   <Type variant="subtitle1" gutterBottom>
