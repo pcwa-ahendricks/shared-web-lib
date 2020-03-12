@@ -164,10 +164,9 @@ const getMediaPDFPages = async <
   media: T[],
   dateStr: string | string[]
 ) => {
-  const filteredMedia = media.filter(
-    (bm) => bm.derivedFilenameAttr.date === dateStr
-  )
-  const qMedia = filteredMedia[0]
+  const qMedia = media
+    .filter((bm) => bm.derivedFilenameAttr.date === dateStr)
+    .shift()
   if (!qMedia) {
     throw `No media for: ${dateStr}`
   }

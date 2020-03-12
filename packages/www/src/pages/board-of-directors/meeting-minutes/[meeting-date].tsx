@@ -1,10 +1,10 @@
-import React, {useMemo} from 'react'
+// cspell:ignore Qmedia
+import React from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
-  getMedia,
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPDFPages,
@@ -31,19 +31,32 @@ import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import lambdaUrl from '@lib/lambdaUrl'
+import {stringify} from 'querystringify'
+import fetcher from '@lib/fetcher'
+import queryParamToStr from '@lib/services/queryParamToStr'
+
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
   query: ParsedUrlQuery
   err?: any
-  qMedia?: CosmicMediaMeta | null
+  qMedia?: QMedia
   pages?: Page[]
+  meetingDate: string
 }
+
+type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>
+type QMedia = Pick<
+  CosmicMediaMeta,
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+>
+type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
   props: 'original_name,imgix_url'
 }
-type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>[]
+const qs = stringify({...cosmicGetMediaProps, folder: 'board-minutes'}, true)
+const boardMinutesUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,9 +84,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
+const DynamicBoardMinutesPage = ({
+  qMedia,
+  pages = [],
+  err,
+  meetingDate
+}: Props) => {
   const theme = useTheme<Theme>()
-
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   // console.log('bm', bm)
@@ -85,22 +102,17 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   // })
   // const classes = useStyles({trigger})
   const classes = useStyles()
-  const boardMeetingDateFormatted = useMemo(
-    () =>
-      qMedia
-        ? format(
-            parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
-            "EEEE',' MMMM do',' yyyy "
-          )
-        : '',
-    [qMedia]
-  )
+  const boardMeetingDateFormatted = qMedia
+    ? format(
+        parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
+        "EEEE',' MMMM do',' yyyy "
+      )
+    : ''
 
   if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  const meetingDate = qMedia.derivedFilenameAttr?.date
   const downloadAs = slugify(qMedia.original_name)
 
   return (
@@ -177,26 +189,6 @@ const DynamicBoardMinutesPage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-const fetchBoardMinutes = async (urlBase: string) => {
-  // Pass appropriate type to function using generic for proper typing.
-  const bm = await getMedia<PickedMediaResponse>(
-    {
-      folder: 'board-minutes',
-      ...cosmicGetMediaProps
-    },
-    undefined,
-    urlBase
-  )
-  if (!bm) {
-    throw 'No board minutes'
-  }
-  const bmEx = bm.map((bm) => ({
-    ...bm,
-    derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-  }))
-  return bmEx
-}
-
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
@@ -204,11 +196,20 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   try {
     const urlBase = lambdaUrl(req)
-    const bms = await fetchBoardMinutes(urlBase)
-    const meetingDate = query['meeting-date']
-    const {qMedia, pages} = await getMediaPDFPages(bms, meetingDate)
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${urlBase}${boardMinutesUrl}`
+    )
+    const bm =
+      data && Array.isArray(data)
+        ? data.map((bm) => ({
+            ...bm,
+            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+          }))
+        : []
+    const meetingDate = queryParamToStr(query['meeting-date'])
+    const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
 
-    return {props: {query, qMedia, pages}}
+    return {props: {query, qMedia, pages, meetingDate}}
   } catch (error) {
     console.log(error)
     res.statusCode = 404
