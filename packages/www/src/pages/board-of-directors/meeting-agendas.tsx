@@ -1,5 +1,5 @@
 // cspell:ignore novus ical
-import React, {useMemo, useCallback, useEffect, Fragment, useState} from 'react'
+import React, {useMemo, useCallback, Fragment, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -46,15 +46,14 @@ import {
 } from 'date-fns'
 import {saveAs} from 'file-saver'
 import FlexBox, {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
-import {
-  getMedia,
-  // CosmicMedia,
-  CosmicMediaMeta,
-  fileNameUtil
-} from '@lib/services/cosmicService'
+import {CosmicMediaMeta, fileNameUtil} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
+const isDev = process.env.NODE_ENV === 'development'
+
 // import {ics} from 'calendar-link'
 // Do this instead. See https://github.com/zeit/next.js/wiki/FAQ
 let ics: any, google: any, outlook: any, yahoo: any
@@ -64,7 +63,6 @@ if (typeof window !== 'undefined') {
   yahoo = require('calendar-link').yahoo
   outlook = require('calendar-link').outlook
 }
-const isDev = process.env.NODE_ENV === 'development'
 
 type PickedMediaResponse = Pick<
   CosmicMediaMeta,
@@ -89,6 +87,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
+// Note - using useMemo here is imperative so fetchAgendas() doesn't get called on each render.
+const cosmicGetMediaProps = {
+  props: 'original_name,imgix_url,metadata,url,derivedFilenameAttr'
+}
+const params = {
+  folder: 'agendas',
+  ...cosmicGetMediaProps
+}
+const qs = stringify({...params}, true)
+const agendasUrl = `/api/cosmic/media${qs}`
 
 const MeetingAgendasPage = () => {
   const classes = useStyles()
@@ -98,21 +106,14 @@ const MeetingAgendasPage = () => {
     () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
     []
   )
-  const [isLoadingOtherAgendas, setIsLoadingOtherAgendas] = useState<
-    null | boolean
-  >(null)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [financeCommitteeAgendas, setFinanceCommitteeAgendas] = useState<
-    AgendaList
-  >([])
-  const [auditCommitteeAgendas, setAuditCommitteeAgendas] = useState<
-    AgendaList
-  >([])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
+  const {data: agendasData, isValidating} = useSWR<AgendaList>(agendasUrl)
 
   // Set event as an object
   const event = {
@@ -152,54 +153,44 @@ const MeetingAgendasPage = () => {
     saveAs(iCalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
   }, [iCalEvent])
 
-  // Note - using useMemo here is imperative so fetchAgendas() doesn't get called on each render.
-  const cosmicGetMediaProps = useMemo(
-    () => ({
-      props: 'original_name,imgix_url,metadata,url,derivedFilenameAttr'
-    }),
-    []
+  const agendas: AgendaList = useMemo(
+    () =>
+      agendasData && Array.isArray(agendasData)
+        ? agendasData
+            .map((bm) => ({
+              ...bm,
+              derivedFilenameAttr: fileNameUtil(
+                bm.original_name,
+                DATE_FNS_FORMAT
+              )
+            }))
+            .filter(
+              (bm) =>
+                bm.metadata?.website?.toString().toLowerCase() === 'true' ||
+                (bm.metadata?.debug?.toString().toLowerCase() === 'true' &&
+                  isDev)
+            )
+        : [],
+    [agendasData]
   )
-
-  const fetchAgendas = useCallback(async () => {
-    try {
-      setIsLoadingOtherAgendas(true)
-      const bma = await getMedia<AgendaList>({
-        folder: 'agendas',
-        ...cosmicGetMediaProps
-      })
-      if (!bma) {
-        throw 'No Agendas'
-      }
-      const bmaEx = bma.map((bm) => ({
-        ...bm,
-        derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-      }))
-      const agendas = bmaEx.filter(
-        (bm) =>
-          bm.metadata?.website?.toString().toLowerCase() === 'true' ||
-          (bm.metadata?.debug?.toString().toLowerCase() === 'true' && isDev)
-      )
-      const financeCommitteeAgendas = agendas.filter(
+  const financeCommitteeAgendas: AgendaList = useMemo(
+    () =>
+      agendas.filter(
         (agenda) =>
           agenda.metadata?.type?.toString().toLowerCase() ===
           'finance-committee'
-      )
-      const auditCommitteeAgendas = agendas.filter(
+      ),
+    [agendas]
+  )
+
+  const auditCommitteeAgendas: AgendaList = useMemo(
+    () =>
+      agendas.filter(
         (agenda) =>
           agenda.metadata?.type?.toString().toLowerCase() === 'audit-committee'
-      )
-      setFinanceCommitteeAgendas(financeCommitteeAgendas)
-      setAuditCommitteeAgendas(auditCommitteeAgendas)
-      setIsLoadingOtherAgendas(false)
-    } catch (error) {
-      console.log(error)
-      setIsLoadingOtherAgendas(false)
-    }
-  }, [cosmicGetMediaProps])
-
-  useEffect(() => {
-    fetchAgendas()
-  }, [fetchAgendas])
+      ),
+    [agendas]
+  )
 
   const OtherAgenda = ({title, list}: {title: string; list: AgendaList}) => {
     return (
@@ -213,7 +204,7 @@ const MeetingAgendasPage = () => {
           boxShadow={1}
           borderRadius={2}
         >
-          {isLoadingOtherAgendas ? (
+          {isValidating ? (
             <FlexBox height={75}>
               <Box m="auto">
                 <CircularProgress color="secondary" variant="indeterminate" />
