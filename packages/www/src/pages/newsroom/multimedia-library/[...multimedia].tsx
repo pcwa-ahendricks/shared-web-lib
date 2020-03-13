@@ -26,14 +26,11 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
-import {getMedia, CosmicMediaResponse} from '@lib/services/cosmicService'
-// import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
 import {
   MultimediaContext,
   setSelectedGallery,
-  setMultimediaList,
   MultimediaList,
   setLightboxIndex,
   setLightboxViewerOpen
@@ -47,8 +44,9 @@ import {useRouter} from 'next/router'
 import isNumber from 'is-number'
 import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGalleries/MultimediaVideoGalleries'
 import lambdaUrl from '@lib/lambdaUrl'
+import fetcher from '@lib/fetcher'
+import {stringify} from 'querystringify'
 // const isDev = process.env.NODE_ENV === 'development'
-const MULTIMEDIA_LIBRARY_FOLDER = 'multimedia-library'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -67,6 +65,11 @@ type Props = {
 const cosmicGetMediaProps = {
   props: '_id,original_name,url,imgix_url,metadata,name'
 }
+const qs = stringify(
+  {...cosmicGetMediaProps, folder: 'multimedia-library'},
+  true
+)
+const multimediaUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -80,24 +83,18 @@ const useStyles = makeStyles(() =>
 const MultimediaLibraryPage = ({
   tabIndex: tabIndexProp,
   err,
-  multimedia: multimediaProp = [],
+  multimedia = [],
   gallery = null,
   lightboxIndex
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
-  const {selectedGallery, multimediaList} = multimediaContext.state
+  const {selectedGallery} = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
   const [tabIndex, setTabIndex] = useState(0)
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-
-  useEffect(() => {
-    if (multimediaProp.length > 0) {
-      multimediaDispatch(setMultimediaList(multimediaProp))
-    }
-  }, [multimediaProp, multimediaDispatch])
 
   // const videoPosters = useMemo(
   //   () =>
@@ -247,11 +244,11 @@ const MultimediaLibraryPage = ({
             <Spacing size="x-large" />
 
             <TabPanel value={tabIndex} index={0}>
-              <MultimediaPhotoGalleries multimedia={multimediaList} />
+              <MultimediaPhotoGalleries multimedia={multimedia} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
-              <MultimediaVideoGalleries multimedia={multimediaList} />
+              <MultimediaVideoGalleries multimedia={multimedia} />
             </TabPanel>
           </div>
         </WideContainer>
@@ -266,7 +263,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   req
 }) => {
   try {
-    const baseUrl = lambdaUrl(req)
     let err: {statusCode: number} | null = null
     // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
     const multimediaProp = query['multimedia']?.[0] ?? ''
@@ -302,18 +298,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       return {props: {err}}
     }
 
-    const multimedia = await getMedia<CosmicMediaResponse>(
-      {
-        folder: MULTIMEDIA_LIBRARY_FOLDER,
-        ...cosmicGetMediaProps
-      },
-      undefined,
-      baseUrl
+    const urlBase = lambdaUrl(req)
+    const multimedia: MultimediaList | undefined = await fetcher(
+      `${urlBase}${multimediaUrl}`
     )
-
-    if (!multimedia) {
-      throw new Error('No Multimedia')
-    }
 
     return {props: {err, tabIndex, multimedia, gallery, lightboxIndex}}
   } catch (error) {
