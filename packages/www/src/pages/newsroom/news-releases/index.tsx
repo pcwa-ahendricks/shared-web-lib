@@ -1,10 +1,9 @@
-import React, {useEffect, useCallback, useMemo, useContext} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
-  getMedia,
   fileNameUtil,
   CosmicMediaMeta,
   CosmicMediaResponse
@@ -32,19 +31,16 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
-// import isNumber from 'is-number'
-import {
-  NewsroomContext,
-  setNewsReleaseYear,
-  setNewsReleases,
-  GroupedNewsReleases
-} from '@components/newsroom/NewsroomStore'
+import {GroupedNewsReleases} from '@components/newsroom/NewsroomStore'
 import {GetServerSideProps} from 'next'
 import lambdaUrl from '@lib/lambdaUrl'
+import {stringify} from 'querystringify'
+import useSWR from 'swr'
+import fetcher from '@lib/fetcher'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
-  newsReleases?: GroupedNewsReleases
+  initialData?: CosmicMediaResponse
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -59,19 +55,53 @@ const useStyles = makeStyles((theme: Theme) =>
 const cosmicGetMediaProps = {
   props: '_id,original_name,url,imgix_url'
 }
+const params = {
+  folder: 'news-releases',
+  ...cosmicGetMediaProps
+}
+const qs = stringify({...params}, true)
+const newsReleasesUrl = `/api/cosmic/media${qs}`
 
-const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
+const NewsReleasesPage = ({initialData}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
-  const newsroomContext = useContext(NewsroomContext)
-  const {newsReleaseYear, newsReleases} = newsroomContext.state
-  const newsroomDispatch = newsroomContext.dispatch
+  const [newsReleaseYear, setNewsReleaseYear] = useState<number>()
 
-  useEffect(() => {
-    if (newsReleasesProp && newsReleasesProp?.length > 0) {
-      newsroomDispatch(setNewsReleases(newsReleasesProp))
-    }
-  }, [newsReleasesProp, newsroomDispatch])
+  const {data: newsReleasesData} = useSWR<CosmicMediaResponse>(
+    newsReleasesUrl,
+    {initialData}
+  )
+
+  const newsReleases: GroupedNewsReleases = useMemo(
+    () =>
+      newsReleasesData && Array.isArray(newsReleasesData)
+        ? [
+            // Group objects by derived Year into JS Map.
+            ...groupBy<CosmicMediaMeta, number>(
+              newsReleasesData.map((bm) => ({
+                ...bm,
+                derivedFilenameAttr: fileNameUtil(
+                  bm.original_name,
+                  DATE_FNS_FORMAT
+                )
+              })),
+              (mbm) => mbm.derivedFilenameAttr?.publishedYear
+            )
+          ] // Spreading Map will convert Map into an Array.
+            // Sort individual media objects by published date property.
+            .map(([year, values]) => ({
+              year,
+              values: values.sort((a, b) =>
+                compareDesc(
+                  parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
+                  parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
+                )
+              )
+            }))
+            .sort((a, b) => b.year - a.year) // Sort grouped database by Year.
+        : [],
+    [newsReleasesData]
+  )
 
   const maxYear = useMemo(
     () =>
@@ -86,9 +116,9 @@ const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{value: unknown}>) => {
-      newsroomDispatch(setNewsReleaseYear(event.target.value as number))
+      setNewsReleaseYear(event.target.value as number)
     },
-    [newsroomDispatch]
+    []
   )
 
   const newsReleasesForYear = useMemo(
@@ -226,52 +256,11 @@ const NewsReleasesPage = ({newsReleases: newsReleasesProp}: Props) => {
   )
 }
 
-const fetchNewsReleases = async (baseUrl: string) => {
-  const media = await getMedia<CosmicMediaResponse>(
-    {
-      folder: 'news-releases',
-      ...cosmicGetMediaProps
-    },
-    undefined,
-    baseUrl
-  )
-  if (!media) {
-    throw new Error('No News Releases')
-  }
-  const mediaEx = media.map((m) => ({
-    ...m,
-    derivedFilenameAttr: fileNameUtil(m.original_name, DATE_FNS_FORMAT)
-  }))
-  // Group News Releases by derived Year into JS Map.
-  const grouped = groupBy<CosmicMediaMeta, number>(
-    mediaEx,
-    (mbm) => mbm.derivedFilenameAttr?.publishedYear
-  )
-  // Transform JS Map into a usable Array of Objects.
-  const tmpSortedGroups = [] as GroupedNewsReleases
-  for (const [k, v] of grouped) {
-    // Sort individual News Releases by published date property.
-    tmpSortedGroups.push({
-      year: k,
-      values: [...v].sort((a, b) =>
-        compareDesc(
-          parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
-          parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
-        )
-      )
-    })
-  }
-  // Sort grouped news releases by year.
-  const sortedGroups = tmpSortedGroups.sort((a, b) => b.year - a.year)
-
-  return sortedGroups
-}
-
 export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
   try {
     const baseUrl = lambdaUrl(req)
-    const newsReleases = await fetchNewsReleases(baseUrl)
-    return {props: {newsReleases}}
+    const initialData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
+    return {props: {initialData}}
   } catch (error) {
     console.log(error)
     res.statusCode = 400

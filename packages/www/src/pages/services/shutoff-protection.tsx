@@ -817,8 +817,8 @@ const ShutoffProtectionPage = () => {
             transitionEnterTimeout={crossFadeDuration}
             transitionLeaveTimeout={crossFadeDuration}
           >
-            <Box key={selectedDocuments.language}>
-              {selectedDocuments.Component}
+            <Box key={selectedDocuments?.language}>
+              {selectedDocuments?.Component}
             </Box>
           </ReactCSSTransitionReplace>
         </NarrowContainer>

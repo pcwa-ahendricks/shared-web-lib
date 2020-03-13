@@ -3,8 +3,8 @@ import React, {createContext, useReducer} from 'react'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
 interface State {
-  newsReleaseYear?: number
-  newsReleases: GroupedNewsReleases
+  // newsReleaseYear?: number
+  // newsReleases: GroupedNewsReleases
   newsletterYear?: number
   newsletters: GroupedNewsletters
   // enewsBlasts: EnewsBlast[]
@@ -40,7 +40,7 @@ export type GroupedNewsReleases = Array<{
 
 // State
 const initialState: State = {
-  newsReleases: [],
+  // newsReleases: [],
   newsletters: [],
   // enewsBlasts: [],
   enewsDialogOpen: false
@@ -54,27 +54,27 @@ export const NewsroomContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
-const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
+// const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
+// const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
 const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
 const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
 // const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
 const SET_ENEWS_DIALOG_OPEN: 'SET_ENEWS_DIALOG_OPEN' = 'SET_ENEWS_DIALOG_OPEN'
 
 // Actions
-export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
-  return {
-    type: SET_NEWS_RELEASE_YEAR,
-    year
-  }
-}
+// export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
+//   return {
+//     type: SET_NEWS_RELEASE_YEAR,
+//     year
+//   }
+// }
 
-export const setNewsReleases = (newsReleases: State['newsReleases']) => {
-  return {
-    type: SET_NEWS_RELEASES,
-    newsReleases
-  }
-}
+// export const setNewsReleases = (newsReleases: State['newsReleases']) => {
+//   return {
+//     type: SET_NEWS_RELEASES,
+//     newsReleases
+//   }
+// }
 
 export const setNewsletterYear = (year: State['newsletterYear']) => {
   return {
@@ -107,16 +107,16 @@ export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
 // Reducer
 const newsroomReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_NEWS_RELEASE_YEAR:
-      return {
-        ...state,
-        newsReleaseYear: action.year
-      }
-    case SET_NEWS_RELEASES:
-      return {
-        ...state,
-        newsReleases: [...action.newsReleases]
-      }
+    // case SET_NEWS_RELEASE_YEAR:
+    //   return {
+    //     ...state,
+    //     newsReleaseYear: action.year
+    //   }
+    // case SET_NEWS_RELEASES:
+    //   return {
+    //     ...state,
+    //     newsReleases: [...action.newsReleases]
+    //   }
     case SET_NEWSLETTER_YEAR:
       return {
         ...state,
