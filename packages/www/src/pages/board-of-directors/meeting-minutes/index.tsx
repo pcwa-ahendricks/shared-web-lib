@@ -1,10 +1,9 @@
-import React, {useEffect, useCallback, useState, useMemo} from 'react'
+import React, {useCallback, useState, useMemo, useEffect} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
-  getMedia,
   fileNameUtil,
   CosmicMediaMeta,
   CosmicMediaResponse
@@ -21,6 +20,8 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
 import {CircularProgress} from '@material-ui/core'
+import {stringify} from 'querystringify'
+import useSWR from 'swr'
 
 type GroupedBoardMinutes = Array<{
   year: number
@@ -33,71 +34,71 @@ type GroupedBoardMinutes = Array<{
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url'
 }
+const params = {
+  folder: 'board-minutes',
+  ...cosmicGetMediaProps
+}
+const qs = stringify({...params}, true)
+const boardMinutesUrl = `/api/cosmic/media${qs}`
 
 const BoardMinutesPage = () => {
   // const thisYear = useMemo(() => getYear(new Date()).toString(), [])
 
-  const [boardMinutes, setBoardMinutes] = useState<GroupedBoardMinutes>([])
   const [expanded, setExpanded] = useState<boolean | string>(false)
   const [wasExpandedMap, setWasExpandedMap] = useState<{
     [year: string]: boolean
   }>({})
-  const [loading, setLoading] = useState<boolean | null>()
 
-  const fetchBoardMinutes = useCallback(async () => {
-    try {
-      setLoading(true)
-      const bma = await getMedia<CosmicMediaResponse>({
-        folder: 'board-minutes',
-        ...cosmicGetMediaProps
-      })
-      if (!bma) {
-        return
-      }
-      const bmaEx = bma.map((bm) => ({
-        ...bm,
-        derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-      }))
-      // Group Board Minutes by derived Year into JS Map.
-      const grouped = groupBy<CosmicMediaMeta, number>(
-        bmaEx,
-        (mbm) => mbm.derivedFilenameAttr?.publishedYear
-      )
-      // Transform JS Map into a usable Array of Objects.
-      const tmpSortedGroups = [] as GroupedBoardMinutes
-      for (const [k, v] of grouped) {
-        // Sort individual Board Minutes by published date property.
-        tmpSortedGroups.push({
-          year: k,
-          values: [...v].sort((a, b) =>
-            compareDesc(
-              parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
-              parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
+  const {data: boardMinutesData, isValidating} = useSWR<CosmicMediaResponse>(
+    boardMinutesUrl
+  )
+
+  const boardMinutes: GroupedBoardMinutes = useMemo(
+    () =>
+      boardMinutesData && Array.isArray(boardMinutesData)
+        ? [
+            // Group Board Minutes by derived Year into JS Map.
+            ...groupBy<CosmicMediaMeta, number>(
+              boardMinutesData.map((bm) => ({
+                ...bm,
+                derivedFilenameAttr: fileNameUtil(
+                  bm.original_name,
+                  DATE_FNS_FORMAT
+                )
+              })),
+              (mbm) => mbm.derivedFilenameAttr?.publishedYear
             )
-          )
-        })
-      }
-      // Sort grouped database by Year.
-      const sortedGroups = tmpSortedGroups.sort((a, b) => b.year - a.year)
+          ] // Spreading Map will convert Map into an Array.
+            // Sort individual Board Minutes by published date property.
+            .map(([year, values]) => ({
+              year,
+              values: values.sort((a, b) =>
+                compareDesc(
+                  parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
+                  parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
+                )
+              )
+            }))
+            .sort((a, b) => b.year - a.year) // Sort grouped database by Year.
+        : [],
+    [boardMinutesData]
+  )
 
-      const maxYear = sortedGroups
+  const maxYear = useMemo(
+    () =>
+      boardMinutes
         .reduce(
           (prevValue, grp) => (grp.year > prevValue ? grp.year : prevValue),
           2000
         )
-        .toString()
-      setWasExpandedMap((currExpYrs) => ({...currExpYrs, [maxYear]: true}))
-      setExpanded(maxYear)
-      setBoardMinutes(sortedGroups)
-      setLoading(false)
-    } catch (err) {
-      setLoading(false)
-    }
-  }, [])
+        .toString(),
+    [boardMinutes]
+  )
 
   useEffect(() => {
-    fetchBoardMinutes()
-  }, [fetchBoardMinutes])
+    setExpanded(maxYear)
+    setWasExpandedMap((currExpYrs) => ({...currExpYrs, [maxYear]: true}))
+  }, [maxYear])
 
   const handleChange = useCallback(
     (panel: string) => (_event: React.ChangeEvent<{}>, isExpanded: boolean) => {
@@ -112,7 +113,7 @@ const BoardMinutesPage = () => {
 
   const progressEl = useMemo(
     () =>
-      loading ? (
+      isValidating ? (
         <ColumnBox
           position="absolute"
           width="100%"
@@ -124,7 +125,7 @@ const BoardMinutesPage = () => {
           </RowBox>
         </ColumnBox>
       ) : null,
-    [loading]
+    [isValidating]
   )
 
   return (
