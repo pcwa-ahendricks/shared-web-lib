@@ -4,7 +4,6 @@ import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
-  getMedia,
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPDFPages,
@@ -28,24 +27,37 @@ import {format, parseJSON} from 'date-fns'
 import ErrorPage from '../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
+import HomeIcon from '@material-ui/icons/Home'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import slugify from 'slugify'
 import {useRouter} from 'next/router'
 import lambdaUrl from '@lib/lambdaUrl'
 import siteReferer from '@lib/siteReferer'
+import fetcher from '@lib/fetcher'
+import queryParamToStr from '@lib/services/queryParamToStr'
+import {stringify} from 'querystringify'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+
+type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>
+type QMedia = Pick<
+  CosmicMediaMeta,
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+>
+type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
   props: 'original_name,imgix_url'
 }
-type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>[]
+const qs = stringify({...cosmicGetMediaProps, folder: 'news-releases'}, true)
+const newsReleasesUrl = `/api/cosmic/media${qs}`
 
 type Props = {
   query: ParsedUrlQuery
   err?: any
-  qMedia?: CosmicMediaMeta | null
+  qMedia?: QMedia
   pages?: Page[]
   selfReferred?: boolean
+  releaseDate?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -135,8 +147,17 @@ const DynamicNewsReleasePage = ({
                 className={classes.bcLink}
                 onClick={bcBackClickHandler}
               >
-                <UndoIcon className={classes.bcIcon} />
-                {selfReferred ? 'Go Back' : 'Go Home'}
+                {selfReferred ? (
+                  <>
+                    <UndoIcon className={classes.bcIcon} />
+                    Go Back
+                  </>
+                ) : (
+                  <>
+                    <HomeIcon className={classes.bcIcon} />
+                    Go Home
+                  </>
+                )}
               </Link>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
@@ -188,25 +209,6 @@ const DynamicNewsReleasePage = ({
   )
 }
 
-const fetchNewsReleases = async (baseUrl: string) => {
-  const bm = await getMedia<PickedMediaResponse>(
-    {
-      folder: 'news-releases',
-      ...cosmicGetMediaProps
-    },
-    undefined,
-    baseUrl
-  )
-  if (!bm) {
-    throw 'No news releases'
-  }
-  const bmEx = bm.map((bm) => ({
-    ...bm,
-    derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-  }))
-  return bmEx
-}
-
 export const getServerSideProps: GetServerSideProps = async ({
   res,
   req,
@@ -214,16 +216,21 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   try {
     const urlBase = lambdaUrl(req)
-    const nrs = await fetchNewsReleases(urlBase)
-    const releaseDate = query['release-date']
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${urlBase}${newsReleasesUrl}`
+    )
+    const nrs =
+      data && Array.isArray(data)
+        ? data.map((bm) => ({
+            ...bm,
+            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+          }))
+        : []
+    const releaseDate = queryParamToStr(query['release-date'])
     const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
 
-    if (!qMedia || !pages) {
-      throw new Error('No media or pdf pages')
-    }
-
     const selfReferred = siteReferer(req)
-    return {props: {query, qMedia, pages, selfReferred}}
+    return {props: {query, qMedia, pages, selfReferred, releaseDate}}
   } catch (error) {
     console.log(error)
     res.statusCode = 404

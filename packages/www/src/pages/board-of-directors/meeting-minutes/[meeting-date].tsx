@@ -1,5 +1,5 @@
 // cspell:ignore Qmedia
-import React from 'react'
+import React, {useCallback} from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -16,6 +16,7 @@ import {
   Theme,
   Fab,
   useMediaQuery,
+  Link,
   Box,
   Typography as Type,
   Divider,
@@ -26,14 +27,16 @@ import {format, parseJSON} from 'date-fns'
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import ErrorPage from '../../_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
+import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import lambdaUrl from '@lib/lambdaUrl'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import queryParamToStr from '@lib/services/queryParamToStr'
+import siteReferer from '@lib/siteReferer'
+import {useRouter} from 'next/router'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -42,7 +45,8 @@ type Props = {
   err?: any
   qMedia?: QMedia
   pages?: Page[]
-  meetingDate: string
+  selfReferred?: boolean
+  meetingDate?: string
 }
 
 type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>
@@ -73,7 +77,8 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'default'
     },
     bcLink: {
-      display: 'flex'
+      display: 'flex',
+      cursor: 'pointer'
     },
     bcIcon: {
       alignSelf: 'center',
@@ -88,10 +93,26 @@ const DynamicBoardMinutesPage = ({
   qMedia,
   pages = [],
   err,
-  meetingDate
+  meetingDate,
+  selfReferred
 }: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const router = useRouter()
+
+  const bcBackClickHandler = useCallback(async () => {
+    !selfReferred ? await router.push('/') : router.back()
+    // Can't get scroll to top to work.
+    // const anchor = (
+    //   (event.target && event.target.ownerDocument) ||
+    //   document
+    // ).querySelector(`#${backToTopAnchorId}`)
+
+    // if (anchor) {
+    //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
+    // }
+    // console.log('done scrolling to top.')
+  }, [router, selfReferred])
 
   // console.log('bm', bm)
   // console.log(pages)
@@ -127,14 +148,24 @@ const DynamicBoardMinutesPage = ({
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+              <Link
                 color="inherit"
-                href="/board-of-directors/meeting-minutes"
+                // href="/board-of-directors/meeting-minutes"
                 className={classes.bcLink}
+                onClick={bcBackClickHandler}
               >
-                <MinutesIcon className={classes.bcIcon} />
-                Board Minutes
-              </MuiNextLink>
+                {selfReferred ? (
+                  <>
+                    <MinutesIcon className={classes.bcIcon} />
+                    Board Minutes
+                  </>
+                ) : (
+                  <>
+                    <HomeIcon className={classes.bcIcon} />
+                    Go Home
+                  </>
+                )}
+              </Link>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
                 {boardMeetingDateFormatted}
@@ -208,8 +239,9 @@ export const getServerSideProps: GetServerSideProps = async ({
         : []
     const meetingDate = queryParamToStr(query['meeting-date'])
     const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
+    const selfReferred = siteReferer(req)
 
-    return {props: {query, qMedia, pages, meetingDate}}
+    return {props: {query, qMedia, pages, meetingDate, selfReferred}}
   } catch (error) {
     console.log(error)
     res.statusCode = 404
