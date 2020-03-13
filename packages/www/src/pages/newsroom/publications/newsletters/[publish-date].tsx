@@ -4,7 +4,6 @@ import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
-  getMedia,
   fileNameUtil,
   CosmicMedia,
   CosmicMediaMeta,
@@ -31,19 +30,31 @@ import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import lambdaUrl from '@lib/lambdaUrl'
+import {stringify} from 'querystringify'
+import fetcher from '@lib/fetcher'
+import queryParamToStr from '@lib/services/queryParamToStr'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
   query: ParsedUrlQuery
   err?: any
-  qMedia?: CosmicMediaMeta | null
+  qMedia?: QMedia
   pages?: Page[]
+  publishDate?: string
 }
+
+type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>
+type QMedia = Pick<
+  CosmicMediaMeta,
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+>
+type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
   props: 'original_name,imgix_url'
 }
-type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>[]
+const qs = stringify({...cosmicGetMediaProps, folder: 'newsletters'}, true)
+const newslettersUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,7 +86,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
+const DynamicNewslettersPage = ({
+  qMedia,
+  pages = [],
+  err,
+  publishDate
+}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -96,7 +112,6 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  const publishDate = qMedia.derivedFilenameAttr?.date
   const downloadAs = slugify(qMedia.original_name)
 
   return (
@@ -119,7 +134,7 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
                 className={classes.bcLink}
               >
                 <MinutesIcon className={classes.bcIcon} />
-                Newsletter
+                Newsletters
               </MuiNextLink>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
@@ -175,41 +190,28 @@ const DynamicNewslettersPage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-const fetchNewsletters = async (baseUrl: string) => {
-  const bm = await getMedia<PickedMediaResponse>(
-    {
-      folder: 'newsletters',
-      ...cosmicGetMediaProps
-    },
-    undefined,
-    baseUrl
-  )
-  if (!bm) {
-    throw 'No Newsletters'
-  }
-  const bmEx = bm.map((bm) => ({
-    ...bm,
-    derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-  }))
-  return bmEx
-}
-
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
   req
 }) => {
   try {
-    const baseUrl = lambdaUrl(req)
-    const nrs = await fetchNewsletters(baseUrl)
-    const publishDate = query['publish-date']
-    const {qMedia, pages} = await getMediaPDFPages(nrs, publishDate)
+    const urlBase = lambdaUrl(req)
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${urlBase}${newslettersUrl}`
+    )
+    const newsletters =
+      data && Array.isArray(data)
+        ? data.map((bm) => ({
+            ...bm,
+            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+          }))
+        : []
+    const publishDate = queryParamToStr(query['publish-date'])
+    const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
 
-    if (!qMedia || !pages) {
-      throw new Error('No media or pdf pages')
-    }
-
-    return {props: {query, qMedia, pages}}
+    // const selfReferred = (req)
+    return {props: {query, qMedia, pages, publishDate}}
   } catch (error) {
     console.log(error)
     res.statusCode = 404
