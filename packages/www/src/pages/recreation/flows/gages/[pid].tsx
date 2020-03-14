@@ -1,4 +1,4 @@
-// cspell:ignore Recreationists
+// cspell:ignore recreationists
 import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
