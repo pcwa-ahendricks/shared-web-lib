@@ -45,6 +45,8 @@ class MyDocument extends Document {
           {/* IE compat.  */}
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
+          <link rel="stylesheet" href="/static/styles/nprogress.min.css" />
+
           {isDev ? (
             <>
               {/* Development Favicon */}

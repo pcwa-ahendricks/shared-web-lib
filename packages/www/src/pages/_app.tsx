@@ -1,6 +1,7 @@
 // cspell:ignore smoothscroll
 import React from 'react'
 import App from 'next/app'
+import Router from 'next/router'
 import {ThemeProvider} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {ParallaxProvider} from 'react-scroll-parallax'
@@ -15,6 +16,7 @@ import smoothscroll from 'smoothscroll-polyfill'
 import SearchProvider from '@components/search/SearchStore'
 import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
+import NProgress from 'nprogress'
 const isDev = process.env.NODE_ENV === 'development'
 /*
   [HACK] AMA page is not loading due to use of css import via @zeit/next-css plugin. See
@@ -32,6 +34,13 @@ import 'react-vertical-timeline-component/style.min.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
+
+Router.events.on('routeChangeStart', (url) => {
+  console.log(`Loading: ${url}`)
+  NProgress.start()
+})
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
