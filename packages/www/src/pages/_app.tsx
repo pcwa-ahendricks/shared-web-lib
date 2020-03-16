@@ -35,8 +35,9 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
 
+/* NProgress */
 Router.events.on('routeChangeStart', (url) => {
-  console.log(`Loading: ${url}`)
+  isDev && console.log(`Loading: ${url}`)
   NProgress.start()
 })
 Router.events.on('routeChangeComplete', () => NProgress.done())
