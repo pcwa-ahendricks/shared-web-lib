@@ -211,40 +211,40 @@ const MeetingAgendasPage = () => {
               </Box>
             </FlexBox>
           ) : list.length > 0 ? (
-            <RowBox>
-              <ChildBox>
-                <ImgixThumbLink
-                  imageWidth={75}
-                  url={list[0].imgix_url}
-                  anchorProps={{
-                    href: list[0].url,
-                    rel: 'noopener noreferrer',
-                    target: '_blank'
-                  }}
-                  alt={`Thumbnail and link for ${title}`}
-                />
-              </ChildBox>
-              <ChildBox ml={4}>
-                <OpenInNewLink pdf href={list[0].url}>
-                  <Type variant="subtitle1">
+            list.map((item, idx) => (
+              <RowBox key={idx}>
+                <ChildBox>
+                  <ImgixThumbLink
+                    imageWidth={75}
+                    url={item.imgix_url}
+                    anchorProps={{
+                      href: item.url,
+                      rel: 'noopener noreferrer',
+                      target: '_blank'
+                    }}
+                    alt={`Thumbnail and link for ${title}`}
+                  />
+                </ChildBox>
+                <ChildBox ml={4}>
+                  <OpenInNewLink pdf href={item.url}>
+                    <Type variant="subtitle1">
+                      {item.derivedFilenameAttr?.title}
+                    </Type>
+                  </OpenInNewLink>
+                  <Type variant="subtitle2" color="textSecondary" gutterBottom>
                     {format(
-                      parseISO(
-                        list[0].derivedFilenameAttr?.publishedDate ?? ''
-                      ),
+                      parseISO(item.derivedFilenameAttr?.publishedDate ?? ''),
                       "eeee',' MMMM do, yyyy"
                     )}
                   </Type>
-                </OpenInNewLink>
-                <Type variant="subtitle2" color="textSecondary" gutterBottom>
-                  {list[0].derivedFilenameAttr?.title}
-                </Type>
-                <Type variant="body2" paragraph>
-                  Click the title link (or thumbnail image on left) to view the
-                  agenda, and for additional information including the time and
-                  location of this meeting.
-                </Type>
-              </ChildBox>
-            </RowBox>
+                  <Type variant="body2" paragraph>
+                    Click the title link (or thumbnail image on left) to view
+                    the agenda, and for additional information including the
+                    time and location of this meeting.
+                  </Type>
+                </ChildBox>
+              </RowBox>
+            ))
           ) : (
             <RowBox fontStyle="italic" alignItems="center">
               <ChildBox
