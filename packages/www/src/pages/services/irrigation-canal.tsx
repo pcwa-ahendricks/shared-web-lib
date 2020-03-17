@@ -133,7 +133,7 @@ const IrrigationCanalPage = () => {
             </ChildBox>
           </RespRowBox>
 
-          <Box mt={6}>
+          {/* <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>
             <Box mt={4} mb={4}>
               <FancyButton
@@ -142,9 +142,9 @@ const IrrigationCanalPage = () => {
                 variant="contained"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://cdn.cosmicjs.com/82f51820-4f50-11ea-b34a-6902eaea712b-2020-canal-cleaning.pdf"
+                href=""
               >
-                2020 Canal Cleaning Schedule
+                2019 Algae Control (Cutrine) Schedule
               </FancyButton>
             </Box>
             <CloseableInfoBox
@@ -165,7 +165,7 @@ const IrrigationCanalPage = () => {
                 <MainPhone />.
               </Type>
             </CloseableInfoBox>
-          </Box>
+          </Box> */}
 
           <Box mt={6}>
             <Type variant="h3" gutterBottom>

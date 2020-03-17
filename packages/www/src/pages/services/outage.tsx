@@ -272,7 +272,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                     }}
                   />
                   <Type gutterBottom variant="subtitle2" color="textPrimary">
-                    2019 Canal Cleaning Schedule
+                    2020 Canal Cleaning Schedule
                   </Type>
                 </RowBox>
                 <Type paragraph variant="body2" color="inherit">
@@ -282,21 +282,12 @@ const OutageInformationPage = ({initialData}: Props) => {
                   and end dates and to find out more information about these
                   outages{' '}
                   <MuiLink
-                    href="https://cdn.cosmicjs.com/8ce089a0-07a3-11e9-9aa5-0dcd9afcf348-2019-Canal-Cleaning-Schedule-Z1.pdf"
+                    href="https://cdn.cosmicjs.com/82f51820-4f50-11ea-b34a-6902eaea712b-2020-canal-cleaning.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Link to 2019 Zone 1 Cleaning Schedule"
+                    title="Link to 2020 Canal Cleaning Schedule"
                   >
-                    <ClickOrTap /> here for Zone 1
-                  </MuiLink>{' '}
-                  and{' '}
-                  <MuiLink
-                    href="https://cdn.cosmicjs.com/844fd980-07a3-11e9-90d0-7de5bd32aecd-2019-Canal-Cleaning-Schedule-Z3.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Link to 2019 Zone 3 Cleaning Schedule"
-                  >
-                    <ClickOrTap /> here for Zone 3
+                    <ClickOrTap /> here for Zone 1 and Zone 3
                   </MuiLink>
                   .
                 </Type>
