@@ -31,6 +31,7 @@ import FlexBox, {
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
+import AnswerServicePhone from '@components/links/AnswerServicePhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -138,14 +139,14 @@ const ContactUs = () => {
           </RespRowBox>
           <Spacing />
           <Box
-            bgcolor={theme.palette.grey['200']}
+            bgcolor={theme.palette.grey['100']}
             border={1}
             borderColor={theme.palette.grey['300']}
           >
             <RowBox justifyContent="space-around">
               <ChildBox p={3}>
                 <Type>
-                  <em>Located At</em>
+                  <em>Business Center Located At</em>
                 </Type>
                 <MuiNextLink href="/about-pcwa/directions">
                   Placer County Water Agency
@@ -164,7 +165,7 @@ const ContactUs = () => {
                 >
                   <Box
                     position="absolute"
-                    bgcolor={theme.palette.grey['200']}
+                    bgcolor={theme.palette.grey['100']}
                     p={0.25}
                   >
                     <Type variant="h6">or</Type>
@@ -328,6 +329,28 @@ const ContactUs = () => {
           {/* {receipts.map((attach, idx) => (
             <div key={idx}>{attach}</div>
           ))} */}
+
+          <Spacing size="x-large" factor={2}>
+            <Divider />
+          </Spacing>
+
+          <Box
+            bgcolor={theme.palette.grey['100']}
+            border={1}
+            borderColor={theme.palette.grey['300']}
+          >
+            <Box p={3}>
+              <Type variant="h3" gutterBottom color="textSecondary">
+                Trouble Contacting Us By Phone?
+              </Type>
+              <Type variant="body1" paragraph color="textSecondary">
+                In the event you are unable to get through on our main phone
+                number, please call our answering service directly at{' '}
+                <AnswerServicePhone />, or email us at <CustomerServicesEmail />
+                .
+              </Type>
+            </Box>
+          </Box>
         </NarrowContainer>
       </MainBox>
     ),
