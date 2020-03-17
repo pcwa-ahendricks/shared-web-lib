@@ -16,7 +16,7 @@ import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
-// import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
+import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
 import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
 // import lambdaUrl from '@lib/lambdaUrl'
 // import {GetServerSideProps} from 'next'
@@ -157,14 +157,14 @@ const Index = () => {
           <Divider />
         </Spacing>
         {/* Ross wanted the 4 items center aligned for the time being. When <LatestNewsRelease/> is added back to this page we can cut over to the row wrapping flex box layout. */}
-        {/* <RowBox flexWrap="wrap" mt={-coverTileTopMargin} flexSpacing={4}> */}
-        <RespRowBox
+        <RowBox flexWrap="wrap" mt={-coverTileTopMargin} flexSpacing={4}>
+          {/* <RespRowBox
           flexWrap="nowrap"
           alignItems={{xs: 'center', sm: 'flex-start'}}
           mt={-coverTileTopMargin}
           flexSpacing={4}
           justifyContent="space-around"
-        >
+        > */}
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Pay My Bill"
@@ -214,10 +214,11 @@ const Index = () => {
               }}
             />
           </ChildBox>
-          {/* <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <LatestNewsRelease />
-          </ChildBox> */}
-        </RespRowBox>
+          </ChildBox>
+          {/* </RespRowBox> */}
+        </RowBox>
         <Spacing size="large">
           <Divider />
         </Spacing>
