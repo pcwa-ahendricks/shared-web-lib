@@ -12,7 +12,7 @@ import {
   Divider,
   useMediaQuery
 } from '@material-ui/core'
-import {blueGrey, grey, yellow} from '@material-ui/core/colors'
+import {grey, yellow} from '@material-ui/core/colors'
 // import {useTheme} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -27,8 +27,8 @@ import {
 // import MainPhone from '@components/links/MainPhone'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NextLink from '@components/NextLink/NextLink'
-import FancyButton from '@components/FancyButton/FancyButton'
-import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
+// import FancyButton from '@components/FancyButton/FancyButton'
+// import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MainPhone from '@components/links/MainPhone'
 import {PlayListItems} from '@lib/types/youtube'
