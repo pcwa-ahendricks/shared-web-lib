@@ -64,6 +64,16 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           .end()
         break
       /* */
+      /*  This doc link was used with COVID-19 eNews Blast for R. Branch, which was distributed via Mailchimp 3/19/2020. */
+      case testRe('COVID-19-faqs', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/7bfe5c30-6a1b-11ea-903a-2bfc7dd2c6f9-COVID-19-FAQs.pdf'
+          })
+          .end()
+        break
+      /* */
 
       // Now lambdas cannot exceed 6mb limit so piping response isn't going to work for many assets. This example does work.
       // case 'baz':
