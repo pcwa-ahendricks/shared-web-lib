@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "now dev",
     "now": "now",
-    "clean": "rimraf node_modules packages/www/node_modules packages/api/node_modules packages/www/.next",
+    "clean": "rimraf yarn.lock node_modules packages/www/node_modules packages/api/node_modules packages/www/.next",
     "now:dev-web": "now --prod",
     "now:forms": "now --prod -A now.forms.json",
     "now-build": "next build"

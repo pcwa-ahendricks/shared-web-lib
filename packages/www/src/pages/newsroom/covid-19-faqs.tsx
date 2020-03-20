@@ -1,4 +1,4 @@
-//cspell:ignore Merced usfs covid
+//cspell:ignore Merced usfs covid SWRCB
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -91,8 +91,9 @@ const COVID19FaqsPage = () => {
             Where can I get more information?
           </Type>
           <Type>
-            The Centers for Disease Control (CDC) and Environmental Protection
-            Agency (EPA) have more information.
+            The Centers for Disease Control (CDC), Environmental Protection
+            Agency (EPA), and State Water Resources Control Board (SWRCB) have
+            more information.
           </Type>
           <List>
             <MoreInfoItem href="https://www.cdc.gov/coronavirus/2019-ncov/php/water.html">
@@ -106,6 +107,14 @@ const COVID19FaqsPage = () => {
             <MoreInfoItem href="https://www.epa.gov/coronavirus/coronavirus-and-drinking-water-and-wastewater#tapwater">
               <ListItemText
                 primary="EPA: https://www.epa.gov/coronavirus/coronavirus-and-drinking-water-and-wastewater#tapwater"
+                primaryTypographyProps={{
+                  color: 'primary'
+                }}
+              />
+            </MoreInfoItem>
+            <MoreInfoItem href="https://cosmic-s3.imgix.net/5445ad20-6aec-11ea-82cf-555ee8e7f42a-drinking-water-fact-sheet-3.19.20002.pdf">
+              <ListItemText
+                primary="SWRCB: Link to Drinking Water Fact Sheet"
                 primaryTypographyProps={{
                   color: 'primary'
                 }}
