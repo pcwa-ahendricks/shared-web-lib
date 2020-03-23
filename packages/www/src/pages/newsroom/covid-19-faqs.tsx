@@ -1,4 +1,4 @@
-//cspell:ignore Merced usfs covid SWRCB
+//cspell:ignore Merced usfs covid SWRCB CMUA
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -92,8 +92,9 @@ const COVID19FaqsPage = () => {
           </Type>
           <Type>
             The Centers for Disease Control (CDC), Environmental Protection
-            Agency (EPA), and State Water Resources Control Board (SWRCB) have
-            more information.
+            Agency (EPA), State Water Resources Control Board (SWRCB), and
+            California Municipal Utilities Association (CMUA) have more
+            information.
           </Type>
           <List>
             <MoreInfoItem href="https://www.cdc.gov/coronavirus/2019-ncov/php/water.html">
@@ -115,6 +116,14 @@ const COVID19FaqsPage = () => {
             <MoreInfoItem href="https://cosmic-s3.imgix.net/5445ad20-6aec-11ea-82cf-555ee8e7f42a-drinking-water-fact-sheet-3.19.20002.pdf">
               <ListItemText
                 primary="SWRCB: Link to Drinking Water Fact Sheet"
+                primaryTypographyProps={{
+                  color: 'primary'
+                }}
+              />
+            </MoreInfoItem>
+            <MoreInfoItem href="https://cdn.cosmicjs.com/830f1770-6d5a-11ea-bdec-17825bae7e90-CMUA-Water-Safety-BriefingMarch-2020.pdf">
+              <ListItemText
+                primary="CMUA: Your Water is Safe. What You Need to know About Drinking Water and COVID-19"
                 primaryTypographyProps={{
                   color: 'primary'
                 }}
