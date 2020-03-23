@@ -22,7 +22,7 @@
     "now-build": "next build"
   },
   "devDependencies": {
-    "now": "^17.0.4",
+    "now": "^17.1.0",
     "rimraf": "^3.0.2"
   }
 }
