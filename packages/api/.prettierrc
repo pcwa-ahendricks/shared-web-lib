@@ -3,5 +3,6 @@
   "arrowParens": "always",
   "semi": false,
   "bracketSpacing": false,
-  "tabWidth": 2
+  "tabWidth": 2,
+  "trailingComma": "none"
 }

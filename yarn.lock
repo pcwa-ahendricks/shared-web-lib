@@ -795,10 +795,10 @@
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-jsx" "^7.8.3"
 
-"@babel/plugin-transform-react-jsx@^7.9.1":
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.9.1.tgz#d03af29396a6dc51bfa24eefd8005a9fd381152a"
-  integrity sha512-+xIZ6fPoix7h57CNO/ZeYADchg1tFyX9NDsnmNFFua8e1JNPln156mzS+8AQe1On2X2GLlANHJWHIXbMCqWDkQ==
+"@babel/plugin-transform-react-jsx@^7.9.4":
+  version "7.9.4"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.9.4.tgz#86f576c8540bd06d0e95e0b61ea76d55f6cbd03f"
+  integrity sha512-Mjqf3pZBNLt854CK0C/kRuXAnE6H/bo7xYojP+WGtX8glDGSibcwnsWwhwoSuRg0+EBnxPC1ouVnuetUIlPSAw==
   dependencies:
     "@babel/helper-builder-react-jsx" "^7.9.0"
     "@babel/helper-builder-react-jsx-experimental" "^7.9.0"
@@ -1049,14 +1049,14 @@
     "@babel/plugin-transform-react-jsx-self" "^7.0.0"
     "@babel/plugin-transform-react-jsx-source" "^7.0.0"
 
-"@babel/preset-react@^7.9.1":
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.9.1.tgz#b346403c36d58c3bb544148272a0cefd9c28677a"
-  integrity sha512-aJBYF23MPj0RNdp/4bHnAP0NVqqZRr9kl0NAOP4nJCex6OYVio59+dnQzsAWFuogdLyeaKA1hmfUIVZkY5J+TQ==
+"@babel/preset-react@^7.9.4":
+  version "7.9.4"
+  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.9.4.tgz#c6c97693ac65b6b9c0b4f25b948a8f665463014d"
+  integrity sha512-AxylVB3FXeOTQXNXyiuAQJSvss62FEotbX2Pzx3K/7c+MKJMdSg6Ose6QYllkdCFA8EInCJVw7M/o5QbLuA4ZQ==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-transform-react-display-name" "^7.8.3"
-    "@babel/plugin-transform-react-jsx" "^7.9.1"
+    "@babel/plugin-transform-react-jsx" "^7.9.4"
     "@babel/plugin-transform-react-jsx-development" "^7.9.0"
     "@babel/plugin-transform-react-jsx-self" "^7.9.0"
     "@babel/plugin-transform-react-jsx-source" "^7.9.0"
@@ -8338,10 +8338,10 @@ normalize-url@^4.1.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
   integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
 
-now@^17.1.0:
-  version "17.1.0"
-  resolved "https://registry.yarnpkg.com/now/-/now-17.1.0.tgz#1564d20cbb3896fb2249544180bf288c0a79dbc5"
-  integrity sha512-1ZJNAZDVuFu0aCUzWYrOgUQ6mgZLH4mADf4JqbUWH7qkKREB5KTbOElRsVFcvehFon9PICLPEFCiOrwiD9sBKw==
+now@^17.1.1:
+  version "17.1.1"
+  resolved "https://registry.yarnpkg.com/now/-/now-17.1.1.tgz#5e5fade17c3f9c3b7e3900be3febf7c21c7d6935"
+  integrity sha512-Hmh8eMSt4FxS1YBwaLrdJuzEVm6ZtS4JCY0AZE+JTnTtDGHVaQMUI85FaPvasSIhKLa+7xf6v7lmTgM39VW/8w==
 
 nprogress@^0.2.0:
   version "0.2.0"
