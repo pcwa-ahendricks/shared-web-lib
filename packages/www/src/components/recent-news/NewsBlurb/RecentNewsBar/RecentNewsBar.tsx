@@ -40,7 +40,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
               new Date()
             ),
             hide: blurb.metadata.hide,
-            linkURL: isWebUri(blurb.metadata.linkURL) ?? '', // isWebUri returns undefined on failure.
+            linkURL: isWebUri(blurb.metadata.linkURL ?? '') ?? '', // isWebUri returns undefined on failure.
             title: blurb.metadata.title,
             summary: blurb.metadata.summary,
             readMoreCaption: blurb.metadata.readMoreCaption

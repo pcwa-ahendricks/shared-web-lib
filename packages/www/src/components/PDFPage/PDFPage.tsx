@@ -8,9 +8,15 @@ type Props = {
   url: string
   alt: string
   showLoading?: boolean
+  imgixHtmlAttributes?: any
 }
 
-const PDFPage = ({alt, url, showLoading = false}: Props) => {
+const PDFPage = ({
+  alt,
+  url,
+  showLoading = false,
+  imgixHtmlAttributes = {}
+}: Props) => {
   const theme = useTheme<Theme>()
   const [loaded, setLoaded] = useState<boolean>(false)
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -51,12 +57,9 @@ const PDFPage = ({alt, url, showLoading = false}: Props) => {
         <LazyImgix
           src={url}
           htmlAttributes={{
-            'data-optimumx': 1, // Don't need retrieve high-dpr/retina pdf page images.
             onLoad: onLoadHandler,
             alt,
-            style: {
-              width: '100%'
-            }
+            ...imgixHtmlAttributes
           }}
         />
       </ChildBox>

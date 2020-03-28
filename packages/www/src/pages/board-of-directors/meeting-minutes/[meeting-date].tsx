@@ -211,6 +211,9 @@ const DynamicBoardMinutesPage = ({
               showLoading={true}
               alt={`Board Minutes document image for ${meetingDate} - page ${number}/${pages.length}`}
               url={url}
+              imgixHtmlAttributes={{
+                'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+              }}
             />
             <Divider />
           </Box>

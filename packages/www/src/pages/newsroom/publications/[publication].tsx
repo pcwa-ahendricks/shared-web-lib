@@ -195,7 +195,7 @@ const PublicationsPage = ({
         ? enewsData?.objects.map((blast) => ({
             id: blast._id,
             title: blast.title,
-            mailchimpURL: isWebUri(blast.metadata?.mailchimpURL) ?? '', // isWebUri returns undefined on failure.
+            mailchimpURL: isWebUri(blast.metadata?.mailchimpURL ?? '') ?? '', // isWebUri returns undefined on failure.
             distributionDate: parse(
               blast.metadata?.distributionDate,
               "yyyy'-'MM'-'dd'",

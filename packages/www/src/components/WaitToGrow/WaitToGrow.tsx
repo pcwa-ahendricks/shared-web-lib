@@ -34,8 +34,10 @@ const WaitToGrow = ({isIn, children, ...rest}: Props) => {
             onExited={exitedTransHandler}
             {...rest}
           >
-            {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
-            <Box>{children}</Box>
+            <Box>
+              {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
+              {children}
+            </Box>
           </Grow>
         </>
       ) : null,
@@ -66,8 +68,10 @@ const WaitToFade = ({isIn, children, ...rest}: WaitToFadeProps) => {
             onExited={exitedTransHandler}
             {...rest}
           >
-            {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
-            <Box>{children}</Box>
+            <Box>
+              {/* Wrap child of transitions in component with ForwardRef setup to prevent errors. Using a Material-UI component will suffice. */}
+              {children}
+            </Box>
           </Fade>
         </>
       ) : null,

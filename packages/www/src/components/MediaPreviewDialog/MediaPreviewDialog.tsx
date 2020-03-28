@@ -72,7 +72,7 @@ export type MediaPreviewDialogProps = {
   url: string | string[]
   dlUrl?: string
   // imgPlaceholder: string
-} & DialogProps
+} & Partial<DialogProps>
 
 const MediaPreviewDialog = ({
   onClose,
