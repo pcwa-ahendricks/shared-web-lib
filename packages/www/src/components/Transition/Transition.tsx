@@ -7,7 +7,7 @@ import {TransitionProps} from '@material-ui/core/transitions'
 const SlideTransition = forwardRef<unknown, TransitionProps>(
   ({children, ...props}, ref) => (
     <Slide direction="up" ref={ref} {...props}>
-      <>{children}</>
+      <div>{children}</div>
     </Slide>
   )
 )
@@ -16,7 +16,7 @@ SlideTransition.displayName = 'Transition'
 const ZoomTransition = forwardRef<unknown, TransitionProps>(
   ({children, ...props}, ref) => (
     <Zoom ref={ref} {...props}>
-      <>{children}</>
+      <div>{children}</div>
     </Zoom>
   )
 )
