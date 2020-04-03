@@ -4,6 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
+import Head from 'next/head'
 import {
   Typography as Type,
   Box,
@@ -827,7 +828,12 @@ const ShutoffProtectionPage = () => {
   }, [classes, language, languageChangeHandler, selectedDocuments])
 
   return useNgIFrame ? (
-    <Main />
+    <>
+      <Head>
+        <script src="/static/iframeResizer.contentWindow.min.js" async />
+      </Head>
+      <Main />
+    </>
   ) : (
     <PageLayout title="Customer Shutoff Protection" waterSurface>
       <Main />

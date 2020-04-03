@@ -28,6 +28,7 @@
     "corejs",
     "cosmicjs",
     "darksky",
+    "Resizer",
     "darkskyapp",
     "debounced",
     "describedby",

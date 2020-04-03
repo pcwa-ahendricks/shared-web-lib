@@ -424,7 +424,7 @@ const DropzoneUploader: React.RefForwardingComponent<
           className={clsx(classes.dropzone, {
             [classes.isActive]: isDragActive
           })}
-          style={{height: height}}
+          style={{height}}
         >
           <input type="text" {...getInputProps()} />
           <div className={classes.captionContainer}>

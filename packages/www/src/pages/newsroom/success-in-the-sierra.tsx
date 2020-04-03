@@ -1,5 +1,6 @@
 //cspell:ignore Merced usfs
 import React, {useCallback} from 'react'
+import Head from 'next/head'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -207,7 +208,12 @@ const SuccessInTheSierraPage = () => {
   }, [])
 
   return useNgIFrame ? (
-    <Main />
+    <>
+      <Head>
+        <script src="/static/iframeResizer.contentWindow.min.js" async />
+      </Head>
+      <Main />
+    </>
   ) : (
     <PageLayout title="Success in the Sierra" waterSurface>
       <Main />

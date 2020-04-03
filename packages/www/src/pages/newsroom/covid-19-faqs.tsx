@@ -1,6 +1,7 @@
 //cspell:ignore Merced usfs covid SWRCB CMUA
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
+import Head from 'next/head'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -136,7 +137,12 @@ const COVID19FaqsPage = () => {
   }, [])
 
   return useNgIFrame ? (
-    <Main />
+    <>
+      <Head>
+        <script src="/static/iframeResizer.contentWindow.min.js" async />
+      </Head>
+      <Main />
+    </>
   ) : (
     <PageLayout title="COVID-19 FAQs" waterSurface>
       <Main />

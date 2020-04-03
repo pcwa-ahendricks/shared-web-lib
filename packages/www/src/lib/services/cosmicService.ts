@@ -132,10 +132,7 @@ const fileNameUtil = (
     extension: fCorrected.replace(extensionRe, ''),
     date: fSplit[0],
     title: fSplit[1]
-      ? fSplit[1]
-          .replace(/_/g, ' ')
-          .replace(periodToEndRe, '')
-          .trim()
+      ? fSplit[1].replace(/_/g, ' ').replace(periodToEndRe, '').trim()
       : '', // don't call replace on null.
     publishedDate: dateFrmt
       ? (isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
