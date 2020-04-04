@@ -12,9 +12,8 @@
   "private": true,
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead, not Safari 5.1, not ExplorerMobile 11",
   "scripts": {
-    "dev": "yarn next",
-    "start": "yarn next",
-    "next": "next",
+    "dev": "next",
+    "start": "next",
     "build": "next build",
     "export": "next export",
     "analyze": "cross-env BUNDLE_ANALYZE=both next build",
