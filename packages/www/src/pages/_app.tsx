@@ -36,12 +36,35 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
 
 /* NProgress */
+/* Use Timeout. See https://github.com/rstacruz/nprogress/issues/169#issuecomment-461704797 for more info. */
+let progressBarTimeout: NodeJS.Timeout | null
+
+const clearProgressBarTimeout = () => {
+  if (progressBarTimeout) {
+    clearTimeout(progressBarTimeout)
+    progressBarTimeout = null
+  }
+}
+
+const startProgressBar = () => {
+  clearProgressBarTimeout()
+  progressBarTimeout = setTimeout(() => {
+    NProgress.start()
+  }, 200)
+}
+
+const stopProgressBar = () => {
+  clearProgressBarTimeout()
+  NProgress.done()
+}
+/* */
+
 Router.events.on('routeChangeStart', (url) => {
   isDev && console.log(`Loading: ${url}`)
-  NProgress.start()
+  startProgressBar()
 })
-Router.events.on('routeChangeComplete', () => NProgress.done())
-Router.events.on('routeChangeError', () => NProgress.done())
+Router.events.on('routeChangeComplete', () => stopProgressBar())
+Router.events.on('routeChangeError', () => stopProgressBar())
 
 class MyApp extends App {
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
