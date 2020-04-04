@@ -43,7 +43,7 @@
       "src": "/docs/(.*)",
       "dest": "packages/api/src/routes/docs/index.ts?id=$1",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "GET"
       }
@@ -52,7 +52,7 @@
       "src": "/api/forecast(.*)",
       "dest": "packages/api/src/routes/forecast/index.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "GET"
       }
@@ -61,7 +61,7 @@
       "src": "/api/search(.*)",
       "dest": "packages/api/src/routes/search/index.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net"
       }
     },
@@ -69,7 +69,7 @@
       "src": "/api/cosmic/media(.*)",
       "dest": "packages/api/src/routes/cosmic/media.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net"
       }
     },
@@ -77,7 +77,7 @@
       "src": "/api/cosmic/csv-data(.*)",
       "dest": "packages/api/src/routes/cosmic/csv-data.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net"
       }
     },
@@ -85,7 +85,7 @@
       "src": "/api/cosmic/csv(.*)",
       "dest": "packages/api/src/routes/cosmic/csv.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net"
       }
     },
@@ -93,7 +93,7 @@
       "src": "/api/cosmic/objects(.*)",
       "dest": "packages/api/src/routes/cosmic/objects.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net"
       }
     },
@@ -101,7 +101,7 @@
       "src": "/api/cosmic/object-types(.*)",
       "dest": "packages/api/src/routes/cosmic/object-types.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net"
       }
     },
@@ -109,7 +109,7 @@
       "src": "/api/cosmic/uploads(.*)",
       "dest": "packages/api/src/routes/cosmic/uploads.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -118,7 +118,7 @@
       "src": "/api/mail/contact-us(.*)",
       "dest": "packages/api/src/routes/mail/contact-us.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -127,7 +127,7 @@
       "src": "/api/mail/irrigation-controller-rebate(.*)",
       "dest": "packages/api/src/routes/mail/irrigation-controller-rebate.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -136,7 +136,7 @@
       "src": "/api/mail/irrigation-efficiencies-rebate(.*)",
       "dest": "packages/api/src/routes/mail/irrigation-efficiencies-rebate.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -145,7 +145,7 @@
       "src": "/api/mail/lawn-replacement-rebate(.*)",
       "dest": "packages/api/src/routes/mail/lawn-replacement-rebate.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -154,7 +154,7 @@
       "src": "/api/mail/washing-machine-rebate(.*)",
       "dest": "packages/api/src/routes/mail/washing-machine-rebate.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -163,7 +163,7 @@
       "src": "/api/mail/toilet-rebate(.*)",
       "dest": "packages/api/src/routes/mail/toilet-rebate.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -172,7 +172,7 @@
       "src": "/api/mail/account-contact-info(.*)",
       "dest": "packages/api/src/routes/mail/account-contact-info.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST, OPTIONS"
       }
@@ -181,7 +181,7 @@
       "src": "/api/mailchimp/campaigns(.*)",
       "dest": "packages/api/src/routes/mailchimp/campaigns.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "GET"
       }
@@ -190,7 +190,7 @@
       "src": "/api/mailchimp/subscribe(.*)",
       "dest": "packages/api/src/routes/mailchimp/subscribe.ts",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "POST,OPTIONS"
       }
@@ -199,7 +199,7 @@
       "src": "/api/mailchimp/update/(?<id>[^/]+)",
       "dest": "packages/api/src/routes/mailchimp/update.ts?userHashId=$id",
       "headers": {
-        "cache-control": "s-maxage=1,stale-while-revalidate",
+        "cache-control": "s-maxage=1, stale-while-revalidate",
         "access-control-allow-origin": "https://www.pcwa.net",
         "access-control-allow-methods": "PUT,OPTIONS"
       }
@@ -208,14 +208,14 @@
       "src": "/favicon.ico",
       "dest": "packages/www/static/favicon/favicon.ico",
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800"
+        "cache-control": "public, max-age=0, s-maxage=172800"
       }
     },
     {
       "src": "/rate-adjust-2018",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/services/rate-adjust"
       }
     },
@@ -223,7 +223,7 @@
       "src": "/about-pcwa/board-minutes",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/board-of-directors/meeting-minutes"
       }
     },
@@ -231,7 +231,7 @@
       "src": "/about-pcwa/board-agenda",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/board-of-directors/meeting-agendas"
       }
     },
@@ -239,7 +239,7 @@
       "src": "/about-pcwa/board-of-directors/district/(.*)",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/board-of-directors/district-$1"
       }
     },
@@ -247,7 +247,7 @@
       "src": "/about-pcwa/board-of-directors",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/board-of-directors"
       }
     },
@@ -255,7 +255,7 @@
       "src": "/about-pcwa/board-agenda",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/board-of-directors/board-agenda"
       }
     },
@@ -263,7 +263,7 @@
       "src": "/newsroom/news-release",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/newsroom/news-releases"
       }
     },
@@ -271,7 +271,7 @@
       "src": "/stewardship/?",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use"
       }
     },
@@ -279,7 +279,7 @@
       "src": "/stewardship/water-sense",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/watersense"
       }
     },
@@ -287,7 +287,7 @@
       "src": "/stewardship/rebate-programs",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/rebate-programs"
       }
     },
@@ -295,7 +295,7 @@
       "src": "/stewardship/landscape-resources",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/landscape-resources"
       }
     },
@@ -303,7 +303,7 @@
       "src": "/stewardship/house-calls",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/house-calls"
       }
     },
@@ -311,7 +311,7 @@
       "src": "/stewardship/fire-resistant-garden",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/fire-resistant-garden"
       }
     },
@@ -319,7 +319,7 @@
       "src": "/stewardship/tips-for-kids",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/tips-for-kids"
       }
     },
@@ -327,7 +327,7 @@
       "src": "/stewardship/stop-leaks",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/smart-water-use/stop-leaks"
       }
     },
@@ -335,7 +335,7 @@
       "src": "/newsroom/publication",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/newsroom/publications"
       }
     },
@@ -343,7 +343,7 @@
       "src": "/newsroom/multimedia-library/p",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/multimedia-library/photos"
       }
     },
@@ -351,7 +351,7 @@
       "src": "/newsroom/multimedia-library/v",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/multimedia-library/videos"
       }
     },
@@ -359,7 +359,7 @@
       "src": "/recreation/campground",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/recreation/campgrounds"
       }
     },
@@ -367,7 +367,7 @@
       "src": "/recreation/river-flow",
       "status": 301,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800",
+        "cache-control": "public, max-age=0, s-maxage=172800",
         "Location": "https://www.pcwa.net/recreation/river-flows"
       }
     },
@@ -384,7 +384,7 @@
       "dest": "/packages/www/$1",
       "continue": true,
       "headers": {
-        "cache-control": "public, maxage=0, s-maxage=172800"
+        "cache-control": "public, max-age=0, s-maxage=172800"
       }
     }
   ],
