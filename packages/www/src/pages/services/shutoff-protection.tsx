@@ -830,7 +830,11 @@ const ShutoffProtectionPage = () => {
   return useNgIFrame ? (
     <>
       <Head>
-        <script src="/static/iframeResizer.contentWindow.min.js" async />
+        <script src="/static/scripts/iframeResizerOpts.js" defer />
+        <script
+          src="/static/scripts/iframeResizer.contentWindow.min.js"
+          defer
+        />
       </Head>
       <Main />
     </>
