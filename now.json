@@ -208,7 +208,7 @@
       "src": "/favicon.ico",
       "dest": "packages/www/static/favicon/favicon.ico",
       "headers": {
-        "cache-control": "public, max-age=0, s-maxage=172800"
+        "cache-control": "public, max-age=0, s-maxage=2678400"
       }
     },
     {
@@ -373,11 +373,24 @@
     },
     {
       "src": "/sitemap.xml",
-      "dest": "/packages/www/static/sitemap.xml"
+      "dest": "/packages/www/static/sitemap.xml",
+      "headers": {
+        "cache-control": "public, max-age=0, s-maxage=2678400"
+      }
     },
     {
       "src": "/robots.txt",
-      "dest": "/packages/www/static/robots.txt"
+      "dest": "/packages/www/static/robots.txt",
+      "headers": {
+        "cache-control": "public, max-age=0, s-maxage=2678400"
+      }
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/packages/www/static/$1",
+      "headers": {
+        "cache-control": "public, max-age=0, s-maxage=2678400"
+      }
     },
     {
       "src": "/(.*)",
