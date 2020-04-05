@@ -8,6 +8,11 @@
     "packages/**/dist/**/*.js": true,
     "**/yarn-error.log": true
   },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true
+  },
   "cSpell.words": [
     "Subheader",
     "ahart",
