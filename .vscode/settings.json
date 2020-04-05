@@ -1,12 +1,13 @@
 {
   "editor.formatOnSave": true,
   "search.exclude": {
+    "**/.next/**": true,
     "**/node_modules": true,
-    "packages/www/.next": true,
-    "packages/www/out": true,
-    "packages/www/bundles": true,
+    "**/yarn-error.log": true,
     "packages/**/dist/**/*.js": true,
-    "**/yarn-error.log": true
+    "packages/www/.next": true,
+    "packages/www/bundles": true,
+    "packages/www/out": true
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
@@ -168,7 +169,8 @@
   "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
   "files.exclude": {
-    "**/node_modules/**": true,
-    "**/.vscode/**": true
+    "**/.next/**": true,
+    "**/.vscode/**": true,
+    "**/node_modules/**": true
   }
 }
