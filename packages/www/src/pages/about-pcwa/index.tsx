@@ -322,7 +322,7 @@ const GeneralInfoPage = () => {
             <List>
               <ListItem>
                 <Type>
-                  General Manager, Einar Maisch - <GeneralManagerEmail />
+                  General Manager, Andy Fecko - <GeneralManagerEmail />
                 </Type>
                 <Type>
                   , <ClerkToBoardPhone />

@@ -15,6 +15,7 @@
     "**/node_modules/**": true
   },
   "cSpell.words": [
+    "Resizer",
     "Subheader",
     "ahart",
     "ahendricks",
@@ -34,7 +35,6 @@
     "corejs",
     "cosmicjs",
     "darksky",
-    "Resizer",
     "darkskyapp",
     "debounced",
     "describedby",
@@ -48,6 +48,7 @@
     "evenodd",
     "fancylaod",
     "fancyload",
+    "fecko",
     "fieldname",
     "filestream",
     "flowconfig",
