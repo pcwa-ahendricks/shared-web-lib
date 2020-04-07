@@ -85,6 +85,17 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       //   }
       //   break
 
+      /*  These doc links are used and distributed via mail to all treated customers. */
+      case testRe('ccr/alta', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/0945bee0-50d6-11e9-8f45-5ddcaed67e68-Alta2019FINAL.pdf'
+          })
+          .end()
+        break
+      /* */
+
       default:
         res.setHeader('Content-Type', 'text/html')
         res.status(404).send('Page Not Found')
