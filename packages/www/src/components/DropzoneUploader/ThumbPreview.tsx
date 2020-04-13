@@ -147,7 +147,7 @@ const ThumbPreview = ({
           onSuccess={uploadSuccessHandler}
           isUploading={isUploading}
         >
-          <Tooltip title={file.originalName} enterDelay={500}>
+          <Tooltip title={file.originalName ?? ''} enterDelay={500}>
             <div
               className={classes.thumbInner}
               onMouseEnter={() => setThumbHover(file.name)}
