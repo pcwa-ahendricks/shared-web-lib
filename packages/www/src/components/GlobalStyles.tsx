@@ -71,6 +71,10 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     },
     'strong.MuiTypography-root, .MuiTypography-root > strong': {
       fontWeight: 500 // <strong /> uses bold which is too bold for Kiperman font. Use 500 weight instead.
+    },
+    // Fix issue where Dialog can't be scrolled (such as the <MediaDialogOnClick/> dialog on the projects page when the user clicks the project image).
+    '.MuiDialog-container': {
+      maxHeight: '100vh'
     }
     // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
     // '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
