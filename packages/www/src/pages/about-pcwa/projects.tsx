@@ -303,27 +303,48 @@ const ProjectsPage = () => {
                     2020 and complete October 2021.
                   </Type>
                   <Type variant="subtitle1">
-                    Upcoming Work (updated February 7, 2020)
+                    Upcoming Work (updated April 12, 2020)
+                  </Type>
+                  <Type paragraph>
+                    The Contractor will be performing the following construction
+                    activities in the next few weeks:
                   </Type>
                   <ul>
                     <TypeBullet>
                       <Type variant="body1">
-                        The Contractor will be identifying the project area
-                        through flagging and staking the pipe alignment.
+                        Installing temporary construction fencing throughout the
+                        construction corridor.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Utilities will be located and marked along the pipe
-                        alignment by utility owners. The contractor will be
-                        performing exploratory digs along the pipe alignment at
-                        utility crossings to confirm their location.
+                        Continue removing trees and chipping along the
+                        construction corridor.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Marking and removing trees along the construction
-                        corridor.
+                        Continue removing brush along Sierra Oaks Court.
+                      </Type>
+                    </TypeBullet>
+                    <TypeBullet>
+                      <Type variant="body1">
+                        Start installing 18-inch ductile iron pipe at the
+                        Foothill Water Treatment Plant.
+                      </Type>
+                    </TypeBullet>
+                    <TypeBullet>
+                      <Type variant="body1">
+                        Installing traffic control signage at Indian Hill Road
+                        in order for the contractor to extend a culvert along
+                        the edge of the road.
+                      </Type>
+                    </TypeBullet>
+                    <TypeBullet>
+                      <Type variant="body1">
+                        Start the excavation, piping and foundation forms for
+                        the Energy Dissipation Station at the Foothill Water
+                        Treatment Plant.
                       </Type>
                     </TypeBullet>
                   </ul>
