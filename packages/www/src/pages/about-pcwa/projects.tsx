@@ -33,6 +33,7 @@ import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import DownloadIcon from '@material-ui/icons/GetApp'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -248,6 +249,18 @@ const ProjectsPage = () => {
                     current PG&E raw water allotment to meet its expanding
                     service area demands.
                   </Type>
+                  <Spacing />
+                  <Box maxWidth={500} mx="auto" width="100%">
+                    <ResponsiveYouTubePlayer
+                      controls
+                      url="https://www.youtube.com/watch?v=ybTD1BBXypc"
+                      config={{
+                        youtube: {
+                          playerVars: {showinfo: 1}
+                        }
+                      }}
+                    />
+                  </Box>
                   <Spacing />
                   <Type variant="subtitle1" gutterBottom>
                     Description
