@@ -80,7 +80,7 @@ const useStyles = makeStyles(() =>
 )
 
 /* eslint-disable @typescript-eslint/camelcase */
-const MultimediaLibraryPage = ({
+const ResourceLibraryPage = ({
   tabIndex: tabIndexProp,
   err,
   multimedia = [],
@@ -148,9 +148,9 @@ const MultimediaLibraryPage = ({
   const backToGalleriesHandler = useCallback(async () => {
     multimediaDispatch(setSelectedGallery(null))
     const hrefAs = /videos/gi.test(router.asPath)
-      ? '/newsroom/multimedia-library/videos'
-      : '/newsroom/multimedia-library/photos'
-    await router.push('/newsroom/multimedia-library/[...multimedia]', hrefAs)
+      ? '/resource-library/videos'
+      : '/resource-library/photos'
+    await router.push('/resource-library/[...multimedia]', hrefAs)
   }, [multimediaDispatch, router])
 
   useEffect(() => {
@@ -225,15 +225,15 @@ const MultimediaLibraryPage = ({
                 >
                   <LinkTab
                     label="Photos"
-                    href="/newsroom/multimedia-library/[...multimedia]"
-                    as="/newsroom/multimedia-library/photos"
+                    href="/resource-library/[...multimedia]"
+                    as="/resource-library/photos"
                     icon={<PhotoIcon color="action" />}
                     {...a11yProps(0)}
                   />
                   <LinkTab
                     label="Videos"
-                    href="/newsroom/multimedia-library/[...multimedia]"
-                    as="/newsroom/multimedia-library/videos"
+                    href="/resource-library/[...multimedia]"
+                    as="/resource-library/videos"
                     icon={<MovieIcon color="action" />}
                     {...a11yProps(1)}
                   />
@@ -311,4 +311,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 }
 
-export default MultimediaLibraryPage
+export default ResourceLibraryPage

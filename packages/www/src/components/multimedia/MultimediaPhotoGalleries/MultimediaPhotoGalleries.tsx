@@ -111,8 +111,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       multimediaDispatch(setLightboxIndex(index))
       multimediaDispatch(setLightboxViewerOpen(true))
       router.push(
-        `/newsroom/multimedia-library/[...multimedia]`,
-        `/newsroom/multimedia-library/photos/${selectedGallery}/${index}`,
+        `/resource-library/[...multimedia]`,
+        `/resource-library/photos/${selectedGallery}/${index}`,
         {shallow: true}
       )
     },
@@ -292,11 +292,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         block: 'center'
       })
       const routeSegment = newGallery ? `/${newGallery}` : ''
-      const newAsPath = `/newsroom/multimedia-library/photos${routeSegment}`
-      await router.push(
-        '/newsroom/multimedia-library/[...multimedia]',
-        newAsPath
-      )
+      const newAsPath = `/resource-library/photos${routeSegment}`
+      await router.push('/resource-library/[...multimedia]', newAsPath)
     },
     [multimediaDispatch, router]
   )
@@ -320,8 +317,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     multimediaDispatch(setLightboxViewerOpen(false))
     multimediaDispatch(setLightboxIndex(0))
     router.push(
-      `/newsroom/multimedia-library/[...multimedia]`,
-      `/newsroom/multimedia-library/photos/${selectedGallery}`,
+      `/resource-library/[...multimedia]`,
+      `/resource-library/photos/${selectedGallery}`,
       {shallow: true}
     )
   }, [multimediaDispatch, router, selectedGallery])

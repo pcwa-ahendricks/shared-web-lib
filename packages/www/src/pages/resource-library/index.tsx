@@ -1,10 +1,10 @@
 import React from 'react'
 import {GetServerSideProps} from 'next'
 
-const MultimediaLibraryIndexPage = () => <></>
+const ResourceLibraryIndexPage = () => <></>
 
 export const getServerSideProps: GetServerSideProps = async ({res}) => {
-  const location = '/newsroom/multimedia-library/photos'
+  const location = '/resource-library/photos'
   res.writeHead(302, {
     Location: location
   })
@@ -12,4 +12,4 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
   return {props: {}}
 }
 
-export default MultimediaLibraryIndexPage
+export default ResourceLibraryIndexPage

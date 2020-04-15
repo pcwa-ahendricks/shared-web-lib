@@ -302,9 +302,9 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/newsroom/legislationletters'
           },
           {
-            title: 'Multimedia Library',
-            nextLink: '/newsroom/multimedia-library/[...multimedia]',
-            as: '/newsroom/multimedia-library/photos'
+            title: 'Resource Library',
+            nextLink: '/resource-library/[...multimedia]',
+            as: '/resource-library/photos'
           }
         ]
       }

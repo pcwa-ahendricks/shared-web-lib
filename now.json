@@ -344,7 +344,7 @@
       "status": 301,
       "headers": {
         "cache-control": "public, max-age=0, s-maxage=172800",
-        "Location": "https://www.pcwa.net/multimedia-library/photos"
+        "Location": "https://www.pcwa.net/resource-library/photos"
       }
     },
     {
@@ -352,7 +352,7 @@
       "status": 301,
       "headers": {
         "cache-control": "public, max-age=0, s-maxage=172800",
-        "Location": "https://www.pcwa.net/multimedia-library/videos"
+        "Location": "https://www.pcwa.net/resource-library/videos"
       }
     },
     {
