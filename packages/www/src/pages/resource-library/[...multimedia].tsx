@@ -23,6 +23,7 @@ import {
   Breadcrumbs
 } from '@material-ui/core'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import DescriptionIcon from '@material-ui/icons/Description'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
@@ -46,6 +47,7 @@ import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGall
 import lambdaUrl from '@lib/lambdaUrl'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
+import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
 // const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -56,6 +58,7 @@ interface TabPanelProps {
 
 type Props = {
   multimedia?: MultimediaList
+  publications?: MultimediaList
   gallery?: string | null
   tabIndex: number
   lightboxIndex?: number
@@ -65,11 +68,16 @@ type Props = {
 const cosmicGetMediaProps = {
   props: '_id,original_name,url,imgix_url,metadata,name'
 }
-const qs = stringify(
+const multimediaQs = stringify(
   {...cosmicGetMediaProps, folder: 'multimedia-library'},
   true
 )
-const multimediaUrl = `/api/cosmic/media${qs}`
+const publicationsQs = stringify(
+  {...cosmicGetMediaProps, folder: 'publication-library'},
+  true
+)
+const multimediaUrl = `/api/cosmic/media${multimediaQs}`
+const publicationsUrl = `/api/cosmic/media${publicationsQs}`
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -84,6 +92,7 @@ const ResourceLibraryPage = ({
   tabIndex: tabIndexProp,
   err,
   multimedia = [],
+  publications = [],
   gallery = null,
   lightboxIndex
 }: Props) => {
@@ -182,11 +191,11 @@ const ResourceLibraryPage = ({
   }
 
   return (
-    <PageLayout title="Multimedia Library" waterSurface>
+    <PageLayout title="Resource Library" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle
-            title="Multimedia Library"
+            title="Resources & Multimedia Library"
             subtitle="Newsroom"
             hideDivider
           />
@@ -224,6 +233,13 @@ const ResourceLibraryPage = ({
                   aria-label="navigation tabs"
                 >
                   <LinkTab
+                    label="Publications"
+                    href="/resource-library/[...multimedia]"
+                    as="/resource-library/publications"
+                    icon={<DescriptionIcon color="action" />}
+                    {...a11yProps(0)}
+                  />
+                  <LinkTab
                     label="Photos"
                     href="/resource-library/[...multimedia]"
                     as="/resource-library/photos"
@@ -244,10 +260,14 @@ const ResourceLibraryPage = ({
             <Spacing size="x-large" />
 
             <TabPanel value={tabIndex} index={0}>
-              <MultimediaPhotoGalleries multimedia={multimedia} />
+              <MultimediaPublications multimedia={publications} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
+              <MultimediaPhotoGalleries multimedia={multimedia} />
+            </TabPanel>
+
+            <TabPanel value={tabIndex} index={2}>
               <MultimediaVideoGalleries multimedia={multimedia} />
             </TabPanel>
           </div>
@@ -272,12 +292,16 @@ export const getServerSideProps: GetServerSideProps = async ({
     let lightboxIndex: number | null = null
     let tabIndex: number | null = null
     switch (multimediaProp.toLowerCase()) {
-      case 'photos': {
+      case 'publications': {
         tabIndex = 0
         break
       }
-      case 'videos': {
+      case 'photos': {
         tabIndex = 1
+        break
+      }
+      case 'videos': {
+        tabIndex = 2
         break
       }
       default: {
@@ -299,11 +323,21 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
 
     const urlBase = lambdaUrl(req)
-    const multimedia: MultimediaList | undefined = await fetcher(
+
+    const multimedia$: Promise<MultimediaList | undefined> = fetcher(
       `${urlBase}${multimediaUrl}`
     )
+    const publications$: Promise<MultimediaList | undefined> = fetcher(
+      `${urlBase}${publicationsUrl}`
+    )
+    const [multimedia, publications] = await Promise.all([
+      multimedia$,
+      publications$
+    ])
 
-    return {props: {err, tabIndex, multimedia, gallery, lightboxIndex}}
+    return {
+      props: {err, tabIndex, multimedia, publications, gallery, lightboxIndex}
+    }
   } catch (error) {
     console.log(error)
     res.statusCode = 400

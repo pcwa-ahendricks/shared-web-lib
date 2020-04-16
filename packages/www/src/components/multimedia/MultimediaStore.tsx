@@ -15,7 +15,13 @@ type ProviderProps = {
 
 export type PickedMultimediaResponse = Pick<
   CosmicMediaMeta,
-  '_id' | 'original_name' | 'url' | 'imgix_url' | 'metadata' | 'name'
+  | '_id'
+  | 'original_name'
+  | 'url'
+  | 'imgix_url'
+  | 'metadata'
+  | 'name'
+  | 'derivedFilenameAttr'
 >
 
 interface MappedProperties {

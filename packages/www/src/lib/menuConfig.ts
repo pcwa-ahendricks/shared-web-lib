@@ -106,6 +106,11 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Middle Fork American River Project Relicensing',
             href: 'http://relicensing.pcwa.net'
+          },
+          {
+            title: 'Resource Library',
+            nextLink: '/resource-library/[...multimedia]',
+            as: '/resource-library/publications'
           }
         ]
       },
@@ -300,11 +305,6 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Legislation & Letters',
             nextLink: '/newsroom/legislationletters'
-          },
-          {
-            title: 'Resource Library',
-            nextLink: '/resource-library/[...multimedia]',
-            as: '/resource-library/photos'
           }
         ]
       }

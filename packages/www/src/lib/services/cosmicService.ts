@@ -125,15 +125,20 @@ const fileNameUtil = (
     '$1-$3-$5'
   )
   const fSplit = fCorrected.split(/(_(.+)?)|(\.(.+)?)/) // using greedy operator, split on "_" (underscore) or "." decimal characters.
+  const title =
+    fSplit[0] && !fSplit[1]
+      ? fSplit[0]
+      : fSplit[0] && fSplit[1]
+      ? fSplit[1]
+      : '' // don't call replace on null.
+  const date = fSplit[0] && fSplit[1] ? fSplit[0] : ''
   return {
     base: fCorrected.replace(periodToEndRe, ''),
     // do we really need to store this? probably not.
     // 'complete': fCorrected,
     extension: fCorrected.replace(extensionRe, ''),
-    date: fSplit[0],
-    title: fSplit[1]
-      ? fSplit[1].replace(/_/g, ' ').replace(periodToEndRe, '').trim()
-      : '', // don't call replace on null.
+    date,
+    title: title.replace(/_/g, ' ').replace(periodToEndRe, '').trim(),
     publishedDate: dateFrmt
       ? (isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
           ? parse(fSplit[0], dateFrmt, new Date())
