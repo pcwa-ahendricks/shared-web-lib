@@ -7,13 +7,11 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPDFPages,
-  Page,
-  CosmicMedia
+  Page
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
   Theme,
-  Fab,
   useMediaQuery,
   Box,
   Link,
@@ -25,7 +23,6 @@ import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import ErrorPage from '@pages/_error'
-import DownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 import HomeIcon from '@material-ui/icons/Home'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
@@ -36,17 +33,17 @@ import siteReferer from '@lib/siteReferer'
 import fetcher from '@lib/fetcher'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import {stringify} from 'querystringify'
+import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
-type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>
-type QMedia = Pick<
+type PickedMediaResponse = Pick<
   CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size'
 }
 const qs = stringify({...cosmicGetMediaProps, folder: 'news-releases'}, true)
 const newsReleasesUrl = `/api/cosmic/media${qs}`
@@ -54,7 +51,7 @@ const newsReleasesUrl = `/api/cosmic/media${qs}`
 type Props = {
   query: ParsedUrlQuery
   err?: any
-  qMedia?: QMedia
+  qMedia?: PickedMediaResponse
   pages?: Page[]
   selfReferred?: boolean
   releaseDate?: string
@@ -62,12 +59,6 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    downloadIcon: {
-      marginRight: theme.spacing(1)
-    },
-    muiFabSmall: {
-      fontSize: '0.8rem' // Defaults to 0.92rem.
-    },
     pageNo: {
       cursor: 'default'
     },
@@ -167,16 +158,13 @@ const DynamicNewsReleasePage = ({
           </ChildBox>
           {/* z-index allow <Fab/> to float w/ shadow above image below. */}
           <ChildBox flexShrink={0} zIndex={1}>
-            <Fab
+            <DownloadResourceFab
+              caption="Download News Release"
               aria-label="Download news release"
               size={isSMDown ? 'small' : 'medium'}
-              variant={'extended'}
               href={`${qMedia.imgix_url}?dl=${downloadAs}`}
-              classes={{sizeSmall: classes.muiFabSmall}}
-            >
-              <DownloadIcon className={classes.downloadIcon} />
-              Download News Release
-            </Fab>
+              fileSize={qMedia.size}
+            />
           </ChildBox>
         </RespRowBox>
         {pages.map(({number, url}) => (

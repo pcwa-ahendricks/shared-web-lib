@@ -8,13 +8,11 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPDFPages,
-  Page,
-  CosmicMedia
+  Page
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
   Theme,
-  Fab,
   useMediaQuery,
   Link,
   Box,
@@ -26,7 +24,6 @@ import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
-import DownloadIcon from '@material-ui/icons/CloudDownload'
 import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
@@ -37,42 +34,33 @@ import fetcher from '@lib/fetcher'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import siteReferer from '@lib/siteReferer'
 import {useRouter} from 'next/router'
+import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
   query: ParsedUrlQuery
   err?: any
-  qMedia?: QMedia
+  qMedia?: PickedMediaResponse
   pages?: Page[]
   selfReferred?: boolean
   meetingDate?: string
 }
 
-type PickedMediaResponse = Pick<CosmicMedia, 'original_name' | 'imgix_url'>
-type QMedia = Pick<
+type PickedMediaResponse = Pick<
   CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size'
 }
 const qs = stringify({...cosmicGetMediaProps, folder: 'board-minutes'}, true)
 const boardMinutesUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // downloadIcon: ({trigger}: {trigger: boolean}) => ({
-    //   marginRight: trigger ? 0 : theme.spacing(1)
-    // })
-    downloadIcon: {
-      marginRight: theme.spacing(1)
-    },
-    muiFabSmall: {
-      fontSize: '0.8rem' // Defaults to 0.92rem.
-    },
     pageNo: {
       cursor: 'default'
     },
@@ -174,20 +162,13 @@ const DynamicBoardMinutesPage = ({
           </ChildBox>
           {/* z-index allow <Fab/> to float w/ shadow above image below. */}
           <ChildBox flexShrink={0} zIndex={1}>
-            <Fab
+            <DownloadResourceFab
+              caption="Download Minutes"
               aria-label="Download board minutes"
               size={isSMDown ? 'small' : 'medium'}
-              variant={'extended'}
               href={`${qMedia.imgix_url}?dl=${downloadAs}`}
-              classes={{sizeSmall: classes.muiFabSmall}}
-              // style={{position: 'fixed'}}
-              // variant={trigger ? 'round' : 'extended'}
-              // color="secondary"
-            >
-              <DownloadIcon className={classes.downloadIcon} />
-              {/* {trigger ? '' : 'Download Minutes'} */}
-              Download Minutes
-            </Fab>
+              fileSize={qMedia.size}
+            />
           </ChildBox>
         </RespRowBox>
         {pages.map(({number, url}) => (
