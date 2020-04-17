@@ -23,7 +23,7 @@ import {
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
-import ErrorPage from '../../../_error'
+import ErrorPage from '@pages/_error'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'

@@ -3,6 +3,7 @@ import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
 import fetchOk from '@lib/fetch-ok'
 import fetch from 'isomorphic-unfetch'
+import slugify from 'slugify'
 
 export interface UnclaimedPropertyResponse {
   owner: string
@@ -164,13 +165,22 @@ const getMediaPDFPages = async <
   }
 >(
   media: T[],
-  dateStr: string | string[]
+  keyValue: string | string[],
+  keyProp: keyof ReturnType<typeof fileNameUtil> = 'date', // Use date property by default.
+  slugifyKeyValue = false
 ) => {
   const qMedia = media
-    .filter((bm) => bm.derivedFilenameAttr.date === dateStr)
+    .filter(
+      (bm) => (bm.derivedFilenameAttr.extension ?? '').toLowerCase() === 'pdf'
+    )
+    .filter((bm) =>
+      slugifyKeyValue
+        ? slugify(bm.derivedFilenameAttr[keyProp]?.toString() ?? '')
+        : bm.derivedFilenameAttr[keyProp] === keyValue
+    )
     .shift()
   if (!qMedia) {
-    throw `No media for: ${dateStr}`
+    throw `No media for: ${keyValue}`
   }
   const requestLimit = 20
   let pages: Page[] = []

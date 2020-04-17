@@ -1,5 +1,5 @@
 // cspell:ignore Lightbox
-import React, {Fragment} from 'react'
+import React, {useMemo, Fragment} from 'react'
 import NextLink from 'next/link'
 import {
   PickedMultimediaResponse
@@ -8,6 +8,7 @@ import {
 import {Box, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core'
 import {useTheme} from '@material-ui/core/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import slugify from 'slugify'
 
 type Props = {
   publication: PickedMultimediaResponse
@@ -26,13 +27,17 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
   const theme = useTheme()
 
   const thumbUrl = thumbMedia?.imgix_url ?? publication.imgix_url
+  const publicationSlug = useMemo(
+    () => slugify(publication.derivedFilenameAttr?.base ?? ''),
+    [publication]
+  )
 
   return (
     <Fragment>
       <NextLink
         passHref
-        href="/newsroom/news-releases/[release-date]"
-        as={`/newsroom/news-releases/${publication.derivedFilenameAttr?.base}`}
+        href="/resource-library/publications/[publication]"
+        as={`/resource-library/publications/${publicationSlug}`}
         scroll
       >
         <ListItem button component="a">
