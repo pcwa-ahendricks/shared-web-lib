@@ -1,4 +1,4 @@
-// cspell:ignore Frmt
+// cspell:ignore Frmt slugified
 import React, {useMemo} from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {GetServerSideProps} from 'next'
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewslettersPage = ({
+const DynamicPublicationPage = ({
   qMedia,
   pages = [],
   err,
@@ -111,7 +111,7 @@ const DynamicNewslettersPage = ({
   const downloadAs = slugify(qMedia.original_name)
 
   return (
-    <PageLayout title={`E-Pub "${publicationSlug}"`}>
+    <PageLayout title={`"${downloadAs}"`}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
@@ -220,4 +220,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 }
 
-export default DynamicNewslettersPage
+export default DynamicPublicationPage

@@ -175,7 +175,8 @@ const getMediaPDFPages = async <
     )
     .filter((bm) =>
       slugifyKeyValue
-        ? slugify(bm.derivedFilenameAttr[keyProp]?.toString() ?? '')
+        ? slugify(bm.derivedFilenameAttr[keyProp]?.toString() ?? '') ===
+          keyValue
         : bm.derivedFilenameAttr[keyProp] === keyValue
     )
     .shift()

@@ -42,9 +42,12 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
     [mappedPublications]
   )
 
+  // Since we are using getMediaPDFPages() with linked Dynamic Publication page only display PDFs.
   const filteredPublications = useMemo(
     () =>
-      mappedPublications.filter((pub) => !/(cover)/i.test(pub.original_name)),
+      mappedPublications
+        .filter((pub) => pub.derivedFilenameAttr.extension === 'pdf')
+        .filter((pub) => !/(cover)/i.test(pub.original_name)),
     [mappedPublications]
   )
 

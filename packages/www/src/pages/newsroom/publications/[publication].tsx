@@ -47,7 +47,12 @@ import {
 import {GetServerSideProps} from 'next'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import ErrorPage from '@pages/_error'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {
+  RespRowBox,
+  ChildBox,
+  RowBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import Spacing from '@components/boxes/Spacing'
 import {
@@ -383,7 +388,7 @@ const PublicationsPage = ({
                             classes={{root: classes.listItem}}
                           >
                             <ListItemAvatar>
-                              <Box
+                              <ColumnBox
                                 bgcolor={theme.palette.common.white}
                                 borderColor={theme.palette.grey['300']}
                                 border={1}
@@ -397,7 +402,7 @@ const PublicationsPage = ({
                                     alt: `Thumbnail image for ${n.derivedFilenameAttr?.date} Newsletter`
                                   }}
                                 />
-                              </Box>
+                              </ColumnBox>
                             </ListItemAvatar>
                             <ListItemText
                               primary={n.derivedFilenameAttr?.title}

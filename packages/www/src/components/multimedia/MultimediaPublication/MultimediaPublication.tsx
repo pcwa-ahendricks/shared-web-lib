@@ -5,10 +5,11 @@ import {
   PickedMultimediaResponse
   // MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
-import {Box, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core'
+import {ListItem, ListItemAvatar, ListItemText} from '@material-ui/core'
 import {useTheme} from '@material-ui/core/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import slugify from 'slugify'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   publication: PickedMultimediaResponse
@@ -32,6 +33,8 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
     [publication]
   )
 
+  const thumbWith = 100
+
   return (
     <Fragment>
       <NextLink
@@ -42,21 +45,26 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
       >
         <ListItem button component="a">
           <ListItemAvatar>
-            <Box
+            <ColumnBox
               bgcolor={theme.palette.common.white}
               borderColor={theme.palette.grey['300']}
               border={1}
               mr={2}
-              width={100}
+              width={thumbWith}
             >
               <LazyImgix
-                width={100}
+                width={thumbWith}
                 src={thumbUrl}
                 htmlAttributes={{
-                  alt: `Thumbnail image for ${publication.derivedFilenameAttr?.title} publication`
+                  alt: `Thumbnail image for ${publication.derivedFilenameAttr?.title} publication`,
+                  style: {
+                    objectFit: 'cover',
+                    objectPosition: 'center top',
+                    height: thumbWith * (11 / 8.5) // Default thumbnail to 8.5x11 w/h ratio.
+                  }
                 }}
               />
-            </Box>
+            </ColumnBox>
           </ListItemAvatar>
           <ListItemText
             primary={publication.derivedFilenameAttr?.title}
