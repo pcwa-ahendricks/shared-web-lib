@@ -111,7 +111,7 @@ const DynamicPublicationPage = ({
   const downloadAs = slugify(qMedia.original_name)
 
   return (
-    <PageLayout title={`"${downloadAs}"`}>
+    <PageLayout title={downloadAs}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
