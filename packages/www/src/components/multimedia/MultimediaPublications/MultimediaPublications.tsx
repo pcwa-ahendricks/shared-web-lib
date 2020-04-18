@@ -31,7 +31,6 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
   const getThumbMedia = useCallback(
     (filename = '') => {
       const filenameRe = new RegExp(`${filename}.*`, 'i')
-      console.log(filenameRe)
       return mappedPublications
         .filter((pub) => /.+(cover)/i.test(pub.original_name))
         .filter((pub) => {
