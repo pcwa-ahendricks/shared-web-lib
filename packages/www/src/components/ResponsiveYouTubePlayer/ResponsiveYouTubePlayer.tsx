@@ -8,7 +8,7 @@ import {BoxProps} from '@material-ui/core/Box'
 
 type Props = {
   aspectRatio?: number
-} & ReactPlayerProps
+} & Partial<ReactPlayerProps>
 
 type UseStylesProps = {
   aspectRatio: Props['aspectRatio']
