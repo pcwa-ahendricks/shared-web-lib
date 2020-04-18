@@ -1,7 +1,7 @@
 // cspell:ignore Lightbox
 import React, {Fragment, useCallback, useMemo} from 'react'
 import {
-  MultimediaList
+  PublicationList
   // MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
 import {Box, List, Divider} from '@material-ui/core'
@@ -10,7 +10,7 @@ import MultimediaPublication from '../MultimediaPublication/MultimediaPublicatio
 import Spacing from '@components/boxes/Spacing'
 
 type Props = {
-  multimedia?: MultimediaList
+  multimedia?: PublicationList
 }
 
 // const useStyles = makeStyles(() =>

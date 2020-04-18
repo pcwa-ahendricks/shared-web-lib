@@ -204,7 +204,7 @@ export type CosmicMediaResponse = CosmicMedia[]
 export interface CosmicMetadata {
   [key: string]: string | boolean | number
 }
-export interface CosmicMedia {
+export interface CosmicMedia<T = CosmicMetadata> {
   _id: string
   name: string
   original_name: string
@@ -216,14 +216,14 @@ export interface CosmicMedia {
   folder: string
   url: string
   imgix_url: string
-  metadata?: CosmicMetadata
+  metadata?: T
 }
 
 /*
   Represents a custom CosmicMedia object that has extra properties mapped based off
   of original_name, and possibly other properties.
 */
-export interface CosmicMediaMeta extends CosmicMedia {
+export interface CosmicMediaMeta<T = CosmicMetadata> extends CosmicMedia<T> {
   derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
 }
 

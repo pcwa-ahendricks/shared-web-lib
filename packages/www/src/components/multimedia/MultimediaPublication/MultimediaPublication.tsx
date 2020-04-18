@@ -2,7 +2,7 @@
 import React, {useMemo, Fragment} from 'react'
 import NextLink from 'next/link'
 import {
-  PickedMultimediaResponse
+  PickedPublicationResponse
   // MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
 import {ListItem, ListItemAvatar, ListItemText} from '@material-ui/core'
@@ -12,8 +12,8 @@ import slugify from 'slugify'
 import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
-  publication: PickedMultimediaResponse
-  thumbMedia?: PickedMultimediaResponse
+  publication: PickedPublicationResponse
+  thumbMedia?: PickedPublicationResponse
 }
 
 // const useStyles = makeStyles(() =>
@@ -34,6 +34,9 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
   )
 
   const thumbWith = 100
+
+  const title =
+    publication.metadata?.title || publication.derivedFilenameAttr?.title
 
   return (
     <Fragment>
@@ -56,7 +59,7 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
                 width={thumbWith}
                 src={thumbUrl}
                 htmlAttributes={{
-                  alt: `Thumbnail image for ${publication.derivedFilenameAttr?.title} publication`,
+                  alt: `Thumbnail image for ${title} publication`,
                   style: {
                     objectFit: 'cover',
                     objectPosition: 'center top',
@@ -67,7 +70,7 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
             </ColumnBox>
           </ListItemAvatar>
           <ListItemText
-            primary={publication.derivedFilenameAttr?.title}
+            primary={title}
             color="primary"
             primaryTypographyProps={{variant: 'subtitle1'}}
           />

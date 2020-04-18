@@ -13,8 +13,24 @@ type ProviderProps = {
   children: React.ReactNode
 }
 
+type Metadata = {
+  title: string
+  category: string
+}
+
 export type PickedMultimediaResponse = Pick<
   CosmicMediaMeta,
+  | '_id'
+  | 'original_name'
+  | 'url'
+  | 'imgix_url'
+  | 'metadata'
+  | 'name'
+  | 'derivedFilenameAttr'
+>
+
+export type PickedPublicationResponse = Pick<
+  CosmicMediaMeta<Metadata>,
   | '_id'
   | 'original_name'
   | 'url'
@@ -31,6 +47,7 @@ interface MappedProperties {
   paddingPercent?: string // For <ImgixFancy/>, not for videos.
 }
 export type MultimediaList = Array<PickedMultimediaResponse>
+export type PublicationList = Array<PickedPublicationResponse>
 export type MappedMultimedia = PickedMultimediaResponse & MappedProperties
 export type MappedMultimediaList = Array<MappedMultimedia>
 

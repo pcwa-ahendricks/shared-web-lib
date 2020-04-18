@@ -34,7 +34,8 @@ import {
   setSelectedGallery,
   MultimediaList,
   setLightboxIndex,
-  setLightboxViewerOpen
+  setLightboxViewerOpen,
+  PublicationList
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -58,7 +59,7 @@ interface TabPanelProps {
 
 type Props = {
   multimedia?: MultimediaList
-  publications?: MultimediaList
+  publications?: PublicationList
   gallery?: string | null
   tabIndex: number
   lightboxIndex?: number
