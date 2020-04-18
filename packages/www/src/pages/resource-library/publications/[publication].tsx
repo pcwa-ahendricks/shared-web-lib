@@ -1,5 +1,5 @@
 // cspell:ignore Frmt slugified
-import React, {useMemo} from 'react'
+import React from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -31,6 +31,7 @@ import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+import {PublicationLibraryMetadata} from '@components/multimedia/MultimediaStore'
 
 type Props = {
   query: ParsedUrlQuery
@@ -41,13 +42,13 @@ type Props = {
 }
 
 type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size'
+  CosmicMediaMeta<PublicationLibraryMetadata>,
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'metadata'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size,metadata'
 }
 const qs = stringify(
   {...cosmicGetMediaProps, folder: 'publication-library'},
@@ -90,19 +91,18 @@ const DynamicPublicationPage = ({
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   const classes = useStyles()
-  const publicationTitleFrmt = useMemo(
-    () => (qMedia ? qMedia.derivedFilenameAttr?.title : ''),
-    [qMedia]
-  )
 
   if (err || !qMedia) {
     return <ErrorPage statusCode={err.statusCode} />
   }
 
   const downloadAs = slugify(qMedia.original_name)
+  const title = qMedia
+    ? qMedia.metadata?.title || qMedia.derivedFilenameAttr?.title
+    : ''
 
   return (
-    <PageLayout title={downloadAs}>
+    <PageLayout title={title}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
@@ -124,7 +124,7 @@ const DynamicPublicationPage = ({
               </MuiNextLink>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
-                {publicationTitleFrmt}
+                {title}
               </Type>
             </Breadcrumbs>
           </ChildBox>

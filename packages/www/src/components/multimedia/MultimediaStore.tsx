@@ -13,7 +13,7 @@ type ProviderProps = {
   children: React.ReactNode
 }
 
-type Metadata = {
+export type PublicationLibraryMetadata = {
   title: string
   category: string
 }
@@ -30,7 +30,7 @@ export type PickedMultimediaResponse = Pick<
 >
 
 export type PickedPublicationResponse = Pick<
-  CosmicMediaMeta<Metadata>,
+  CosmicMediaMeta<PublicationLibraryMetadata>,
   | '_id'
   | 'original_name'
   | 'url'
