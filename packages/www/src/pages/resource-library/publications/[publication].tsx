@@ -1,5 +1,5 @@
 // cspell:ignore Frmt slugified
-import React from 'react'
+import React, {useCallback} from 'react'
 import {ParsedUrlQuery} from 'querystring'
 import {GetServerSideProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -32,6 +32,8 @@ import fetcher from '@lib/fetcher'
 import queryParamToStr from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import {PublicationLibraryMetadata} from '@components/multimedia/MultimediaStore'
+import Head from 'next/head'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
 
 type Props = {
   query: ParsedUrlQuery
@@ -92,18 +94,14 @@ const DynamicPublicationPage = ({
 
   const classes = useStyles()
 
-  if (err || !qMedia) {
-    return <ErrorPage statusCode={err.statusCode} />
-  }
-
-  const downloadAs = slugify(qMedia.original_name)
+  const downloadAs = slugify(qMedia?.original_name ?? '')
   const title = qMedia
     ? qMedia.metadata?.title || qMedia.derivedFilenameAttr?.title
     : ''
 
-  return (
-    <PageLayout title={title}>
-      {/* Don't use top margin with main box since we want to fill the bgcolor. */}
+  const Main = useCallback(() => {
+    // Don't use top margin with main box since we want to fill the bgcolor. */
+    return (
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
           px={3}
@@ -134,8 +132,8 @@ const DynamicPublicationPage = ({
               caption="Download Publication"
               aria-label="Download publication"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia.size}
+              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
+              fileSize={qMedia?.size}
             />
           </ChildBox>
         </RespRowBox>
@@ -169,6 +167,36 @@ const DynamicPublicationPage = ({
           </Box>
         ))}
       </MainBox>
+    )
+  }, [
+    classes,
+    qMedia,
+    title,
+    downloadAs,
+    theme,
+    isSMDown,
+    pages,
+    publicationSlug
+  ])
+
+  if (err || !qMedia) {
+    return <ErrorPage statusCode={err.statusCode} />
+  }
+
+  return useNgIFrame ? (
+    <>
+      <Head>
+        <script src="/static/scripts/iframeResizerOpts.js" defer />
+        <script
+          src="/static/scripts/iframeResizer.contentWindow.min.js"
+          defer
+        />
+      </Head>
+      <Main />
+    </>
+  ) : (
+    <PageLayout title={title}>
+      <Main />
     </PageLayout>
   )
 }

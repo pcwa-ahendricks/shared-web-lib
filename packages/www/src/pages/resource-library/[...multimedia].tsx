@@ -49,6 +49,8 @@ import lambdaUrl from '@lib/lambdaUrl'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
+import Head from 'next/head'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
 // const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -191,7 +193,18 @@ const ResourceLibraryPage = ({
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  return (
+  return useNgIFrame ? (
+    <>
+      <Head>
+        <script src="/static/scripts/iframeResizerOpts.js" defer />
+        <script
+          src="/static/scripts/iframeResizer.contentWindow.min.js"
+          defer
+        />
+      </Head>
+      <MultimediaPublications multimedia={publications} />
+    </>
+  ) : (
     <PageLayout title="Resource Library" waterSurface>
       <MainBox>
         <WideContainer>
