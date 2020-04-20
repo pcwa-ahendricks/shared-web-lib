@@ -1,13 +1,15 @@
 // cspell:ignore Lightbox
 import React, {Fragment, useCallback, useMemo} from 'react'
 import {
-  PublicationList
+  PublicationList,
+  PickedPublicationResponse
   // MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
-import {Box, List, Divider} from '@material-ui/core'
+import {Box, List, Divider, Typography} from '@material-ui/core'
 import {fileNameUtil} from '@lib/services/cosmicService'
 import MultimediaPublication from '../MultimediaPublication/MultimediaPublication'
 import Spacing from '@components/boxes/Spacing'
+import groupBy from '@lib/groupBy'
 
 type Props = {
   multimedia?: PublicationList
@@ -41,25 +43,55 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
     [mappedPublications]
   )
 
-  // Since we are using getMediaPDFPages() with linked Dynamic Publication page only display PDFs.
-  const filteredPublications = useMemo(
-    () =>
-      mappedPublications
-        .filter((pub) => pub.derivedFilenameAttr.extension === 'pdf')
-        .filter((pub) => !/(cover)/i.test(pub.original_name)),
-    [mappedPublications]
-  )
+  const groupedPublications = useMemo(() => {
+    // Group publication objects by Category into JS Map.
+    const groupedByCategory = [
+      ...groupBy<PickedPublicationResponse, string>(
+        // Since we are using getMediaPDFPages() with linked Dynamic Publication page only display PDFs.
+        mappedPublications
+          .filter((pub) => pub.derivedFilenameAttr.extension === 'pdf')
+          .filter((pub) => !/(cover)/i.test(pub.original_name)),
+        (a) => a.metadata?.category
+      )
+    ] // Spreading Map will convert Map into an Array
+      // Sort individual media objects by title property.
+      .map(([cat, values]) => ({
+        cat,
+        values: values.sort((a, b) => {
+          if ((a.metadata?.title ?? '') < (b.metadata?.title ?? '')) return -1
+          else if ((a.metadata?.title ?? '') > (b.metadata?.title ?? ''))
+            return 1
+          else return 0
+        })
+      }))
+      .sort((a, b) => {
+        if (a.cat < b.cat) return -1
+        if (a.cat > b.cat) return 1
+        else return 0
+      }) // Sort grouped database by Category.
+
+    return groupedByCategory
+  }, [mappedPublications])
 
   return (
     <Box>
       <List>
-        {filteredPublications.map((pub, idx, arry) => (
-          <Fragment key={pub._id}>
-            <MultimediaPublication
-              publication={pub}
-              thumbMedia={getThumbMedia(pub.derivedFilenameAttr?.base)}
-            />
-            {!(arry.length - 1 === idx) ? (
+        {groupedPublications.map((group, grpIndex, arry) => (
+          <Fragment key={grpIndex}>
+            <Typography variant="h3" color="primary">
+              {group.cat}
+            </Typography>
+            <Spacing size="small" />
+            {group.values.map((pub) => (
+              <Fragment key={pub._id}>
+                <MultimediaPublication
+                  publication={pub}
+                  thumbMedia={getThumbMedia(pub.derivedFilenameAttr?.base)}
+                />
+                <Spacing size="x-small" />
+              </Fragment>
+            ))}
+            {!(arry.length - 1 === grpIndex) ? (
               <Spacing size="large">
                 <Divider />
               </Spacing>

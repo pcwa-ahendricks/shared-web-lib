@@ -71,7 +71,7 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
           </ListItemAvatar>
           <ListItemText
             primary={title}
-            color="primary"
+            // color="primary"
             primaryTypographyProps={{variant: 'subtitle1'}}
           />
         </ListItem>

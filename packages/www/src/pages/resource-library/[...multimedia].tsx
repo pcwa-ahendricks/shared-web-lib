@@ -197,7 +197,7 @@ const ResourceLibraryPage = ({
         <WideContainer>
           <PageTitle
             title="Resources & Multimedia Library"
-            subtitle="Newsroom"
+            subtitle="General"
             hideDivider
           />
           <div ref={containerRef}>
