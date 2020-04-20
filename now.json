@@ -356,6 +356,30 @@
       }
     },
     {
+      "src": "/resource-library/p",
+      "status": 301,
+      "headers": {
+        "cache-control": "public, max-age=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/resource-library/photos"
+      }
+    },
+    {
+      "src": "/resource-library/v",
+      "status": 301,
+      "headers": {
+        "cache-control": "public, max-age=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/resource-library/videos"
+      }
+    },
+    {
+      "src": "/resource-library/d",
+      "status": 301,
+      "headers": {
+        "cache-control": "public, max-age=0, s-maxage=172800",
+        "Location": "https://www.pcwa.net/resource-library/documents"
+      }
+    },
+    {
       "src": "/recreation/campground",
       "status": 301,
       "headers": {

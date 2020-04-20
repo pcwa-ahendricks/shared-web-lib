@@ -225,7 +225,7 @@ const ResourceLibraryPage = ({
                     onClick={backToGalleriesHandler}
                     style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
                   >
-                    Back To Galleries
+                    Galleries
                   </MatLink>
                   <Type color="textPrimary">
                     {toTitleCase(selectedGallery.replace(/-/g, ' '), /and|of/g)}
@@ -247,9 +247,9 @@ const ResourceLibraryPage = ({
                   aria-label="navigation tabs"
                 >
                   <LinkTab
-                    label="Publications"
+                    label="Documents"
                     href="/resource-library/[...multimedia]"
-                    as="/resource-library/publications"
+                    as="/resource-library/documents"
                     icon={<DescriptionIcon color="action" />}
                     {...a11yProps(0)}
                   />
@@ -306,7 +306,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     let lightboxIndex: number | null = null
     let tabIndex: number | null = null
     switch (multimediaProp.toLowerCase()) {
-      case 'publications': {
+      case 'documents': {
         tabIndex = 0
         break
       }

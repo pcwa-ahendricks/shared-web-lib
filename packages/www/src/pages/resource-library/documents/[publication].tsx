@@ -114,11 +114,11 @@ const DynamicPublicationPage = ({
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                href="/resource-library/publications"
+                href="/resource-library/documents"
                 className={classes.bcLink}
               >
                 <MinutesIcon className={classes.bcIcon} />
-                Publications
+                Documents
               </MuiNextLink>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />

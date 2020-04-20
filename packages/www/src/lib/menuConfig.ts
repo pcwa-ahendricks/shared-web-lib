@@ -110,7 +110,7 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Resource Library',
             nextLink: '/resource-library/[...multimedia]',
-            as: '/resource-library/publications'
+            as: '/resource-library/documents'
           }
         ]
       },

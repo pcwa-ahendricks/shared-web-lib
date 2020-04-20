@@ -4,7 +4,7 @@ import {GetServerSideProps} from 'next'
 const ResourceLibraryIndexPage = () => <></>
 
 export const getServerSideProps: GetServerSideProps = async ({res}) => {
-  const location = '/resource-library/publications'
+  const location = '/resource-library/documents'
   res.writeHead(302, {
     Location: location
   })
