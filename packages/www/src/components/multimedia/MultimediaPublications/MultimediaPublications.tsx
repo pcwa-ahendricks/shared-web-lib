@@ -21,6 +21,12 @@ type Props = {
 //   })
 // )
 
+enum Sort {
+  'Fact Sheets',
+  'Brochures',
+  'Books'
+}
+
 /* eslint-disable @typescript-eslint/camelcase */
 const MultimediaPublications = ({multimedia = []}: Props) => {
   // const classes = useStyles()
@@ -57,6 +63,7 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
       // Sort individual media objects by title property.
       .map(([cat, values]) => ({
         cat,
+        sort: Object.keys(Sort).indexOf(cat),
         values: values.sort((a, b) => {
           if ((a.metadata?.title ?? '') < (b.metadata?.title ?? '')) return -1
           else if ((a.metadata?.title ?? '') > (b.metadata?.title ?? ''))
@@ -64,11 +71,7 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
           else return 0
         })
       }))
-      .sort((a, b) => {
-        if (a.cat < b.cat) return -1
-        if (a.cat > b.cat) return 1
-        else return 0
-      }) // Sort grouped database by Category.
+      .sort((a, b) => a.sort - b.sort) // Sort grouped database by Category.
 
     return groupedByCategory
   }, [mappedPublications])
