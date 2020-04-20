@@ -1,13 +1,44 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
-import {Typography as Type, Box} from '@material-ui/core'
+import {
+  Typography as Type,
+  Box,
+  makeStyles,
+  createStyles,
+  TypographyProps,
+  Theme
+} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
+import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import Spacing from '@components/boxes/Spacing'
+import MainPhone from '@components/links/MainPhone'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    bulletLi: {
+      listStyleType: 'disc',
+      marginBottom: theme.spacing(1)
+    }
+  })
+)
 
 const ClearingWaterMeterPage = () => {
+  const classes = useStyles()
+  const TypeBullet = useCallback(
+    ({children, ...rest}: TypographyProps<'li'>) => {
+      return (
+        <Type component="li" className={classes.bulletLi} {...rest}>
+          {children}
+        </Type>
+      )
+    },
+    [classes]
+  )
+
   return (
     <PageLayout title="Clearing Your Water Meter" waterSurface>
       <MainBox>
@@ -16,11 +47,38 @@ const ClearingWaterMeterPage = () => {
             title="Please Keep Your Water Meter Clear"
             subtitle="Smart Water Use"
           />
-          <RespRowBox flexSpacing={4}>
-            <ChildBox flex="60%">
-              <Type paragraph>...</Type>
+          <StrongEmphasis variant="subtitle1" color="secondary" paragraph>
+            PCWA requires clear access to water meters at all times!
+          </StrongEmphasis>
+          <Type paragraph>
+            Parked vehicles, overgrown plants, yard debris and construction
+            materials prevent meter readers and maintenance crews from doing
+            their jobs.
+          </Type>
+          <Spacing />
+          <RespRowBox flexSpacing={6}>
+            <ChildBox flex="50%">
+              <Type paragraph>Please keep your meter clear:</Type>
+              <ul>
+                <TypeBullet>
+                  Keep bushes and grass trimmed to the edge of the meter box.
+                </TypeBullet>
+                <TypeBullet>
+                  Remove all branches hanging lower than six feet over the box.
+                </TypeBullet>
+                <TypeBullet>
+                  Keep everything off the meter box, including trash cans and
+                  recycling bins.
+                </TypeBullet>
+              </ul>
+
+              <Spacing />
+              <Type paragraph>
+                Questions? Call Customer Services at <MainPhone />.
+              </Type>
+              <Type paragraph>Thank you for your help!</Type>
             </ChildBox>
-            <ChildBox flex="40%" display="flex">
+            <ChildBox flex="50%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.

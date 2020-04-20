@@ -10,3 +10,13 @@
       format('woff');
   font-display: 'swap';
 }
+@font-face {
+  font-family: 'Dona';
+  font-weight: 500;
+  font-style: italic;
+  src: url('/static/fonts/Dona/Dona-MediumItalic.eot?#iefix')
+      format('embedded-opentype'),
+    url('/static/fonts/Dona/Dona-MediumItalic.woff2') format('woff2'),
+    url('/static/fonts/Dona/Dona-MediumItalic.woff') format('woff');
+  font-display: 'swap';
+}
