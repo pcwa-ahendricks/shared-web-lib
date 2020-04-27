@@ -21,16 +21,14 @@ import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
 import PeopleIcon from '@material-ui/icons/People'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 
+type TypeWithAdornProps = {
+  caption: string
+  children: React.ReactNode
+} & Partial<BoxProps>
+
 const AmericanRiverPage = () => {
   const TypeWithAdornment = useCallback(
-    ({
-      caption,
-      children,
-      ...rest
-    }: {
-      caption: string
-      children: React.ReactNode
-    } & Partial<BoxProps>) => (
+    ({caption, children, ...rest}: TypeWithAdornProps) => (
       <Box display="inline-flex" component="span" mb={1} {...rest}>
         <ColumnBox component="span" justifyContent="center">
           {children}
