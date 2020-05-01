@@ -12,7 +12,7 @@ import {
   Divider,
   useMediaQuery
 } from '@material-ui/core'
-import {grey, yellow} from '@material-ui/core/colors'
+import {grey, yellow, blueGrey} from '@material-ui/core/colors'
 // import {useTheme} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -24,13 +24,13 @@ import {
   RowBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
-// import MainPhone from '@components/links/MainPhone'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NextLink from '@components/NextLink/NextLink'
-// import FancyButton from '@components/FancyButton/FancyButton'
-// import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
-import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import FancyButton from '@components/FancyButton/FancyButton'
+import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
 import MainPhone from '@components/links/MainPhone'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+
 import {PlayListItems} from '@lib/types/youtube'
 import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
@@ -133,7 +133,7 @@ const IrrigationCanalPage = () => {
             </ChildBox>
           </RespRowBox>
 
-          {/* <Box mt={6}>
+          <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>
             <Box mt={4} mb={4}>
               <FancyButton
@@ -142,9 +142,9 @@ const IrrigationCanalPage = () => {
                 variant="contained"
                 target="_blank"
                 rel="noopener noreferrer"
-                href=""
+                href="https://cdn.cosmicjs.com/3d9c5850-8bfb-11ea-939a-cbbf71bd25d2-2020-Aquatic-Weed-Control-Schedule-Calendar.pdf'"
               >
-                2019 Algae Control (Cutrine) Schedule
+                2020 Algae Control Schedule
               </FancyButton>
             </Box>
             <CloseableInfoBox
@@ -165,7 +165,7 @@ const IrrigationCanalPage = () => {
                 <MainPhone />.
               </Type>
             </CloseableInfoBox>
-          </Box> */}
+          </Box>
 
           <Box mt={6}>
             <Type variant="h3" gutterBottom>
