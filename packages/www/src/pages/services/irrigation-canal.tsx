@@ -142,7 +142,7 @@ const IrrigationCanalPage = () => {
                 variant="contained"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://cdn.cosmicjs.com/3d9c5850-8bfb-11ea-939a-cbbf71bd25d2-2020-Aquatic-Weed-Control-Schedule-Calendar.pdf'"
+                href="https://cdn.cosmicjs.com/3d9c5850-8bfb-11ea-939a-cbbf71bd25d2-2020-Aquatic-Weed-Control-Schedule-Calendar.pdf"
               >
                 2020 Algae Control Schedule
               </FancyButton>
