@@ -15,7 +15,7 @@ import {
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 
 const COVID19FaqsPage = () => {
   const MoreInfoItem = useCallback(

@@ -10,7 +10,7 @@
       "NEXT_GOOGLE_MAPS_API_KEY": "@web-google-maps-api-key",
       "NEXT_PI_MAP_MAPBOX_API_KEY": "@web-pi-map-mapbox-api-key",
       "NEXT_DISTRICT_MAP_MAPBOX_API_KEY": "@web-district-map-mapbox-api-key",
-      "NEXT_USE_NG_IFRAME": "yes"
+      "NEXT_USE_NG_IFRAME": "true"
     }
   },
   "env": {

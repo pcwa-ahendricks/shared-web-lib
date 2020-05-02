@@ -33,7 +33,7 @@ import queryParamToStr from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import {PublicationLibraryMetadata} from '@components/multimedia/MultimediaStore'
 import Head from 'next/head'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 
 type Props = {
   query: ParsedUrlQuery
