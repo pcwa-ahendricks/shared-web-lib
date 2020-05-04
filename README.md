@@ -1,5 +1,15 @@
 # Neu! Website
 
+## ENV Variables
+
+To pull in environment variables from Vercel Now
+
+```sh
+now env pull
+```
+
+which will create a `.env` file which should reflect the variables outlined in `.env.example`.
+
 ## Babel Configuration
 
 ### Plugin Order
