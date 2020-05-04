@@ -46,25 +46,15 @@ const formSchema = object()
   .camelCase()
   .strict(true)
   .shape({
-    reason: string()
-      .required()
-      .label('Reason for contacting PCWA'),
-    message: string()
-      .required()
-      .label('Message'),
+    reason: string().required().label('Reason for contacting PCWA'),
+    message: string().required().label('Message'),
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
     name: string().label('Name'),
-    email: string()
-      .email()
-      .label('Email'),
-    phone: string()
-      .min(10)
-      .label('Phone Number'),
-    subject: string()
-      .required()
-      .label('Subject')
+    email: string().email().label('Email'),
+    phone: string().min(10).label('Phone Number'),
+    subject: string().required().label('Subject')
   })
 
 const initialFormValues: FormData = {
