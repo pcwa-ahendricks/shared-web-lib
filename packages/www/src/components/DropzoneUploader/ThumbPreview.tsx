@@ -1,5 +1,5 @@
 // cspell:ignore supportsTouch
-import React, {useState, useCallback, useMemo} from 'react'
+import React, {useState, useCallback} from 'react'
 import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {Box, Button, Tooltip, Theme} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
@@ -117,7 +117,7 @@ const ThumbPreview = ({
   }, [])
 
   // Just show Remove Upload Button on Mobile Devices since the Fab on hover will likely be impossible to click.
-  const removeUploadButtonEl = useMemo(
+  const RemoveUploadButton = useCallback(
     () =>
       supportsTouch ? (
         <Box flexGrow={0}>
@@ -139,7 +139,12 @@ const ThumbPreview = ({
   )
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box
+      display="flex"
+      flexDirection="column"
+      // Placing onMouseLeave here will prevent <RemoveUploadButton/> from disappearing before it can be selected.
+      onMouseLeave={() => setThumbHover(null)}
+    >
       <Box flexGrow={0} className={classes.thumb}>
         <UploadStatusIndicator
           uploadedFiles={uploadedFiles}
@@ -151,7 +156,6 @@ const ThumbPreview = ({
             <div
               className={classes.thumbInner}
               onMouseEnter={() => setThumbHover(file.name)}
-              onMouseLeave={() => setThumbHover(null)}
               onClick={clickHandler(file)}
             >
               {file.ext === 'pdf' ? (
@@ -189,7 +193,7 @@ const ThumbPreview = ({
         </div>
       </Box>
 
-      {removeUploadButtonEl}
+      <RemoveUploadButton />
     </Box>
   )
 }

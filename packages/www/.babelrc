@@ -17,7 +17,7 @@
     "test": {
       "plugins": ["babel-plugin-typescript-to-proptypes"]
     },
-    "stage": {
+    "preview": {
       "plugins": ["babel-plugin-typescript-to-proptypes"]
     },
     "development": {

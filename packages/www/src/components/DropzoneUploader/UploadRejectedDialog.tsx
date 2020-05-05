@@ -11,12 +11,13 @@ import {
   ListItem,
   ListItemText
 } from '@material-ui/core'
-import {DroppedFile} from './types'
+// import {DroppedFile} from './types'
 import {SlideTransition as Transition} from '@components/Transition/Transition'
+import {FileRejection} from 'react-dropzone'
 
 type Props = {
   onClose: () => void
-  rejectedFiles?: DroppedFile[]
+  rejectedFiles?: FileRejection[]
   open?: boolean
   // maxSize?: number
 }
@@ -41,9 +42,13 @@ Props) => {
           The following file(s) cannot be uploaded.
         </DialogContentText>
         <List dense>
-          {rejectedFiles.map((file) => (
-            <ListItem key={file.name}>
-              <ListItemText primary={file.name} secondary={file.type} />
+          {rejectedFiles.map((rejection) => (
+            <ListItem key={rejection.file.name}>
+              <ListItemText
+                // primary={`${rejection.file.name} (${rejection.file.type})`}
+                primary={rejection.file.name}
+                secondary={rejection.errors[0]?.message}
+              />
             </ListItem>
           ))}
         </List>

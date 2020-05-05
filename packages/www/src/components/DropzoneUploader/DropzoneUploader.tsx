@@ -17,7 +17,7 @@ import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
-import {useDropzone} from 'react-dropzone'
+import {useDropzone, DropzoneOptions, FileRejection} from 'react-dropzone'
 import {DroppedFile, UploadedFileAttr} from './types'
 import extension from '@lib/fileExtension'
 import {sequenceArray} from '@lib/util'
@@ -124,7 +124,7 @@ const DropzoneUploader: React.RefForwardingComponent<
 ) => {
   const classes = useStyles()
   const [droppedFiles, setDroppedFiles] = useState<DroppedFile[]>([])
-  const [rejectedFiles, setRejectedFiles] = useState<DroppedFile[]>([])
+  const [rejectedFiles, setRejectedFiles] = useState<FileRejection[]>([])
   const [uploadDroppedFiles, setUploadDroppedFiles] = useState<DroppedFile[]>()
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFileAttr[]>([])
   const [
@@ -321,14 +321,14 @@ const DropzoneUploader: React.RefForwardingComponent<
     removeIsUploadingFiles
   ])
 
-  const dropHandler = useCallback((
-    files: File[]
+  const dropHandler: DropzoneOptions['onDrop'] = useCallback((
+    acceptedFiles: File[]
     // rejectedFiles: Array<any>
   ) => {
     const fileNamePrefix = slugify(generate())
     // console.log('accepted files: ', acceptedFiles)
     // console.log('rejected files: ', rejectedFiles)
-    const sd = [...files]
+    const sd = [...acceptedFiles]
     const newDroppedBlobFiles: DroppedFile[] = sd.map((file) => {
       const newBlobFile: Partial<DroppedFile> = new Blob([file], {
         type: file.type
@@ -393,9 +393,12 @@ const DropzoneUploader: React.RefForwardingComponent<
    * rejectedFiles doesn't contain all the rejected files. Just the files rejected since
    * last onRejected called.
    */
-  const rejectHandler = useCallback((files: any[]) => {
-    setRejectedFiles([...files])
-  }, [])
+  const rejectHandler: DropzoneOptions['onDropRejected'] = useCallback(
+    (fileRejections: FileRejection[]) => {
+      setRejectedFiles([...fileRejections])
+    },
+    []
+  )
 
   const uploadRejectCloseHandler = useCallback(() => {
     setRejectedFiles([])
