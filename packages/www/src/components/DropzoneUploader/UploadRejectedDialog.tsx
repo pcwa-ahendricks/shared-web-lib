@@ -9,10 +9,11 @@ import {
   Link,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Slide
 } from '@material-ui/core'
 // import {DroppedFile} from './types'
-import {SlideTransition as Transition} from '@components/Transition/Transition'
+// import {SlideTransition as Transition} from '@components/Transition/Transition'
 import {FileRejection} from 'react-dropzone'
 
 type Props = {
@@ -34,7 +35,7 @@ Props) => {
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      TransitionComponent={Transition}
+      TransitionComponent={Slide}
     >
       <DialogTitle id="alert-dialog-title">File(s) Rejected</DialogTitle>
       <DialogContent>

@@ -8,7 +8,8 @@ import {
   Fab,
   CircularProgress,
   Theme,
-  Typography as Type
+  Typography as Type,
+  Zoom
   // withMobileDialog
 } from '@material-ui/core'
 import {DialogProps} from '@material-ui/core/Dialog'
@@ -17,7 +18,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import extension from '@lib/fileExtension'
-import {ZoomTransition as Transition} from '@components/Transition/Transition'
+// import {ZoomTransition as Transition} from '@components/Transition/Transition'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -198,7 +199,7 @@ const MediaPreviewDialog = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       PaperProps={{square: true}}
-      TransitionComponent={Transition}
+      TransitionComponent={Zoom}
       classes={{
         paper: classes.paper
       }}

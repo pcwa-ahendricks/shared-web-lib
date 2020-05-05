@@ -5,9 +5,10 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Slide
 } from '@material-ui/core'
-import {SlideTransition as Transition} from '@components/Transition/Transition'
+// import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open?: boolean
@@ -22,7 +23,7 @@ const ConfirmPageLeaveDialog = ({open = false, onCancel, onLeave}: Props) => {
       onClose={onCancel}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      TransitionComponent={Transition}
+      TransitionComponent={Slide}
     >
       <DialogTitle id="alert-dialog-title">Confirm Leave</DialogTitle>
       <DialogContent>
