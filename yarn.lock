@@ -2107,10 +2107,15 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@^13.13.0":
+"@types/node@*":
   version "13.13.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.4.tgz#1581d6c16e3d4803eb079c87d4ac893ee7501c2c"
   integrity sha512-x26ur3dSXgv5AwKS0lNfbjpCakGIduWU1DU91Zz58ONRWrIKGunmZBNv4P7N+e27sJkiGDsw/3fT4AtsqQBrBA==
+
+"@types/node@^13.13.5":
+  version "13.13.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
+  integrity sha512-3ySmiBYJPqgjiHA7oEaIo2Rzz0HrOZ7yrNO5HWyaE5q0lQ3BppDZ3N53Miz8bw2I7gh1/zir2MGVZBvpb1zq9g==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2251,10 +2256,10 @@
   resolved "https://registry.yarnpkg.com/@types/recaptcha2/-/recaptcha2-1.3.0.tgz#299f047cd8a44b83a191d9a28e84822c8facb7aa"
   integrity sha512-Xvn9jkix07Tp8AVygj3E20nvk644SyHVUhC8qU7DFoZhXP9GMMT0lqDKVEyHBzla5iBV2CgvMNk5lo3Mf5ixXw==
 
-"@types/redis@^2.8.19":
-  version "2.8.19"
-  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.19.tgz#a5331c3d97404a2e13b21bcfc01b2b9469500ad3"
-  integrity sha512-93T0Wd7jH+aM3ndIi7duNG9lLABkPHSE2L7zTVZP+JmsByWEaOld7IdMzHAsokM68ypg60hfCcDKPRYfKtqjrA==
+"@types/redis@^2.8.20":
+  version "2.8.20"
+  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.20.tgz#7060fa9d65ccf7ef32f714f05f83a016a20211c8"
+  integrity sha512-IJOvkg+BnCRDlMrrBIasCs8bqddnjiplI26HwsPSeY/biEJaDzAQnjs2i5z5vJelTbi3TIiLUIrKXk7j9Tmi/Q==
   dependencies:
     "@types/node" "*"
 
@@ -7696,10 +7701,10 @@ mkdirp@0.5.5, mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-modernizr@^3.10.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/modernizr/-/modernizr-3.11.0.tgz#2cc645b7f86e6f77419f599a8ad1755d6f70af1e"
-  integrity sha512-OyuUo36z5zwpKJ3TdO0pAWIvgLF4AJEA1WCHimZEoG8ljTJCfi/55omaTd9QJxftaBnjcKGi2bDahg8gBhMRFg==
+modernizr@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/modernizr/-/modernizr-3.11.1.tgz#4980dce884f671316bdc42d627c338681622dd10"
+  integrity sha512-BfEPcQMC9BoSxUNRtg2QmV7g+yoIiak+LkqkS2AnEyvOvi6voDPwpTLi+EtcT3RjcOruWzQM9oQh0h+3FB9x0A==
   dependencies:
     doctrine "^3.0.0"
     file "^0.2.2"
