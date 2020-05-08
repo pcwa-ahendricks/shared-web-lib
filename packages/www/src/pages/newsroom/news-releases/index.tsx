@@ -32,8 +32,7 @@ import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSideba
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
 import {GroupedNewsReleases} from '@components/newsroom/NewsroomStore'
-import {GetServerSideProps} from 'next'
-import lambdaUrl from '@lib/lambdaUrl'
+import {GetStaticProps} from 'next'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
@@ -256,15 +255,27 @@ const NewsReleasesPage = ({initialData}: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
+// export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
+//   try {
+//     const baseUrl = lambdaUrl(req)
+//     const initialData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
+//     return {props: {initialData}}
+//   } catch (error) {
+//     console.log(error)
+//     res.statusCode = 400
+//     return {props: {err: {statusCode: 400}}}
+//   }
+// }
+
+// Called at build time.
+export const getStaticProps: GetStaticProps = async () => {
   try {
-    const baseUrl = lambdaUrl(req)
+    const baseUrl = process.env.NEXT_BASE_URL
     const initialData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
     return {props: {initialData}}
   } catch (error) {
-    console.log(error)
-    res.statusCode = 400
-    return {props: {err: {statusCode: 400}}}
+    console.log('There was an error fetching News Releases.', error)
+    return {props: {}}
   }
 }
 

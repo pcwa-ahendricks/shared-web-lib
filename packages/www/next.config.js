@@ -88,7 +88,8 @@ module.exports = (_phase, {defaultConfig}) => {
       NEXT_PI_MAP_MAPBOX_API_KEY: process.env.NEXT_PI_MAP_MAPBOX_API_KEY,
       NEXT_DISTRICT_MAP_MAPBOX_API_KEY:
         process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY,
-      NEXT_USE_NG_IFRAME: process.env.NEXT_USE_NG_IFRAME
+      NEXT_USE_NG_IFRAME: process.env.NEXT_USE_NG_IFRAME,
+      NEXT_BASE_URL: process.env.NEXT_BASE_URL
     }
   })
 }

@@ -1,7 +1,6 @@
 // cspell:ignore Qmedia
 import React, {useCallback} from 'react'
-import {ParsedUrlQuery} from 'querystring'
-import {GetServerSideProps} from 'next'
+import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -24,26 +23,22 @@ import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
-import HomeIcon from '@material-ui/icons/Home'
+// import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import slugify from 'slugify'
-import lambdaUrl from '@lib/lambdaUrl'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import queryParamToStr from '@lib/services/queryParamToStr'
-import siteReferer from '@lib/siteReferer'
+import {paramToStr} from '@lib/services/queryParamToStr'
 import {useRouter} from 'next/router'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
-  query: ParsedUrlQuery
   err?: any
   qMedia?: PickedMediaResponse
   pages?: Page[]
-  selfReferred?: boolean
   meetingDate?: string
 }
 
@@ -81,15 +76,16 @@ const DynamicBoardMinutesPage = ({
   qMedia,
   pages = [],
   err,
-  meetingDate,
-  selfReferred
+  meetingDate
 }: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const router = useRouter()
 
   const bcBackClickHandler = useCallback(async () => {
-    !selfReferred ? await router.push('/') : router.back()
+    // !selfReferred ? await router.push('/') : router.back()
+    await router.push('/board-of-directors/meeting-minutes')
+
     // Can't get scroll to top to work.
     // const anchor = (
     //   (event.target && event.target.ownerDocument) ||
@@ -100,7 +96,7 @@ const DynamicBoardMinutesPage = ({
     //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
     // }
     // console.log('done scrolling to top.')
-  }, [router, selfReferred])
+  }, [router])
 
   // console.log('bm', bm)
   // console.log(pages)
@@ -119,7 +115,7 @@ const DynamicBoardMinutesPage = ({
     : ''
 
   if (err || !qMedia) {
-    return <ErrorPage statusCode={err.statusCode} />
+    return <ErrorPage statusCode={err?.statusCode} />
   }
 
   const downloadAs = slugify(qMedia.original_name)
@@ -142,7 +138,11 @@ const DynamicBoardMinutesPage = ({
                 className={classes.bcLink}
                 onClick={bcBackClickHandler}
               >
-                {selfReferred ? (
+                <>
+                  <MinutesIcon className={classes.bcIcon} />
+                  Board Minutes
+                </>
+                {/* {selfReferred ? (
                   <>
                     <MinutesIcon className={classes.bcIcon} />
                     Board Minutes
@@ -152,7 +152,7 @@ const DynamicBoardMinutesPage = ({
                     <HomeIcon className={classes.bcIcon} />
                     Go Home
                   </>
-                )}
+                )} */}
               </Link>
               <Type color="textPrimary" className={classes.bcLink}>
                 <DocIcon className={classes.bcIcon} />
@@ -204,13 +204,53 @@ const DynamicBoardMinutesPage = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res,
-  req
-}) => {
+// export const getServerSideProps: GetServerSideProps = async ({
+//   query,
+//   res,
+//   req
+// }) => {
+//   try {
+//     const urlBase = lambdaUrl(req)
+//     const data: PickedMediaResponses | undefined = await fetcher(
+//       `${urlBase}${boardMinutesUrl}`
+//     )
+//     const bm =
+//       data && Array.isArray(data)
+//         ? data.map((bm) => ({
+//             ...bm,
+//             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+//           }))
+//         : []
+//     const meetingDate = queryParamToStr(query['meeting-date'])
+//     const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
+//     const selfReferred = siteReferer(req)
+
+//     return {props: {query, qMedia, pages, meetingDate, selfReferred}}
+//   } catch (error) {
+//     console.log(error)
+//     res.statusCode = 404
+//     return {props: {err: {statusCode: 404}}}
+//   }
+// }
+
+// This function gets called at build time.
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    // Only `/meeting-minutes/1` and `/meeting-minutes/2` are generated at build time
+    paths: [
+      {params: {'meeting-date': '02-20-2020'}},
+      {params: {'meeting-date': '02-06-2020'}}
+    ],
+    // Enable statically generating additional pages
+    // For example: `/meeting-minutes/01-16-2020`
+    fallback: true
+  }
+}
+
+// This also gets called at build time.
+export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = lambdaUrl(req)
+    const urlBase = process.env.NEXT_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${urlBase}${boardMinutesUrl}`
     )
@@ -221,14 +261,12 @@ export const getServerSideProps: GetServerSideProps = async ({
             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
           }))
         : []
-    const meetingDate = queryParamToStr(query['meeting-date'])
+    const meetingDate = paramToStr(params?.['meeting-date'])
     const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
-    const selfReferred = siteReferer(req)
 
-    return {props: {query, qMedia, pages, meetingDate, selfReferred}}
+    return {props: {qMedia, pages, meetingDate}}
   } catch (error) {
     console.log(error)
-    res.statusCode = 404
     return {props: {err: {statusCode: 404}}}
   }
 }

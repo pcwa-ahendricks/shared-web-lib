@@ -29,8 +29,7 @@ import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import {GetServerSideProps} from 'next'
-import lambdaUrl from '@lib/lambdaUrl'
+import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 
 type Props = {
@@ -397,10 +396,22 @@ const OutageInformationPage = ({initialData}: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
+// export const getServerSideProps: GetServerSideProps = async ({req}) => {
+//   try {
+//     const urlBase = lambdaUrl(req)
+//     const initialData = await fetcher(`${urlBase}${outagesUrl}`)
+//     return {props: {initialData}}
+//   } catch (error) {
+//     console.log('There was an error fetching outages.', error)
+//     return {props: {}}
+//   }
+// }
+
+// Called at build time.
+export const getStaticProps: GetStaticProps = async () => {
   try {
-    const urlBase = lambdaUrl(req)
-    const initialData = await fetcher(`${urlBase}${outagesUrl}`)
+    const baseUrl = process.env.NEXT_BASE_URL
+    const initialData = await fetcher(`${baseUrl}${outagesUrl}`)
     return {props: {initialData}}
   } catch (error) {
     console.log('There was an error fetching outages.', error)
