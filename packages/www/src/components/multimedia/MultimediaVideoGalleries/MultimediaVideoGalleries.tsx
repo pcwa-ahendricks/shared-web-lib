@@ -24,7 +24,7 @@ import toTitleCase from '@lib/toTitleCase'
 import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import {useRouter} from 'next/router'
-import FilePlayer from 'react-player/lib/players/FilePlayer'
+import FilePlayer from 'react-player'
 import Spacing from '@components/boxes/Spacing'
 
 type Props = {
@@ -244,7 +244,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
                     height="100%"
                     config={{
                       file: {
-                        attributes: {poster: p.posterUrl, preload: 'none'}
+                        attributes: {poster: p.posterUrl}
                       }
                     }}
                   />

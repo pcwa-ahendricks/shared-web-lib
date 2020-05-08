@@ -2,10 +2,10 @@
 
 ## ENV Variables
 
-To pull in environment variables from Vercel Now
+To pull in environment variables from Vercel
 
 ```sh
-now env pull
+vercel env pull
 ```
 
 which will create a `.env` file which should reflect the variables outlined in `.env.example`.
