@@ -15,7 +15,7 @@ const supportedJimpTypes = [
 ]
 
 export default async (localFilePath: string): Promise<void> => {
-  // Jimp works with Now. GM and Sharp didn't.
+  // Jimp works with Vercel. GM and Sharp didn't.
   if (!existsSync(localFilePath)) {
     throw new Error('File not found.')
   }

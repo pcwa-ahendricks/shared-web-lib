@@ -85,8 +85,9 @@ const COVID19FaqsPage = () => {
             I’m having trouble paying my bill?
           </Type>
           <Type paragraph>
-            If you are having trouble paying your water bill, please contact
-            Customer Services.
+            PCWA is temporarily suspending water shutoffs for customers unable
+            to pay their bill. If you are having trouble paying your water bill,
+            please contact Customer Services.
           </Type>
           <Type paragraph>
             <Link

@@ -1,7 +1,7 @@
 import {stringify} from 'querystringify'
 import fetch from 'node-fetch'
 import {CseResponse} from '../../types/google-cse'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 
 const BASE_URL = 'https://www.googleapis.com/customsearch/v1'
 const GOOGLE_CSE_CX = process.env.NODE_GOOGLE_CSE_CX ?? ''

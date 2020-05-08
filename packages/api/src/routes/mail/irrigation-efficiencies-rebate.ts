@@ -8,7 +8,7 @@ import {
   validateSchema
 } from '../../lib/forms'
 import {postMailJetRequest} from '../../lib/mailjet'
-import {NowResponse, NowRequest} from '@now/node'
+import {NowResponse, NowRequest} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -50,9 +50,7 @@ const bodySchema = object()
       .shape({
         firstName: string().required(),
         lastName: string().required(),
-        email: string()
-          .email()
-          .required(),
+        email: string().email().required(),
         accountNo: string()
           .matches(/^\d+-\d+$/)
           .required(),
@@ -63,27 +61,17 @@ const bodySchema = object()
           (city: string | undefined, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
-        phone: string()
-          .min(10)
-          .required(),
+        phone: string().min(10).required(),
         propertyType: string().required(),
-        treatedCustomer: string()
-          .required()
-          .oneOf(
-            ['Yes'] // "Yes", "No"
-          ),
-        termsAgree: string()
-          .required()
-          .oneOf(['true']),
-        inspectAgree: string()
-          .required()
-          .oneOf(['true']),
+        treatedCustomer: string().required().oneOf(
+          ['Yes'] // "Yes", "No"
+        ),
+        termsAgree: string().required().oneOf(['true']),
+        inspectAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         comments: string().max(200),
-        irrigMethod: string()
-          .required()
-          .notOneOf(['Hand water']), // Case sensitive
+        irrigMethod: string().required().notOneOf(['Hand water']), // Case sensitive
         upgradeLocations: object()
           .required()
           .test(

@@ -5,9 +5,9 @@
   "builds": [
     {
       "src": "packages/www/package.json",
-      "use": "@now/next"
+      "use": "@vercel/next"
     },
-    { "src": "packages/api/src/routes/**/*.ts", "use": "@now/node" }
+    { "src": "packages/api/src/routes/**/*.ts", "use": "@vercel/node" }
   ],
   "routes": [
     {

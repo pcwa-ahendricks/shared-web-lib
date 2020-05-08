@@ -5,3 +5,4 @@ packages/www/out
 packages/api/lib
 node_modules
 yarn.lock
+.env

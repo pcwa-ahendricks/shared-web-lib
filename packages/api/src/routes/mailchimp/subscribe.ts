@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../types/mailchimp'
 import {json} from 'co-body'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 import {getStatus} from '../../lib/mailchimp-util'
 
 const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC ?? ''

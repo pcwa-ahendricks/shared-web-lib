@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import {MailchimpCampaignResponse} from '../../types/mailchimp'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 
 const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC ?? ''
 const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME ?? ''

@@ -13,7 +13,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import NameField from '@components/formFields/NameField'
 import ContactUsMessageField from '@components/formFields/ContactUsMessageField'
-import ContactUsSubjectField from '@components/formFields/ContactUsSubjectField'
+import MultilineTextField from '@components/formFields/MultilineTextField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import ReasonForContactSelectField from '@components/formFields/ReasonForContactSelectField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
@@ -67,7 +67,7 @@ const initialFormValues: FormData = {
   captcha: ''
 }
 
-const ContactUs = () => {
+const ContactUsPage = () => {
   const theme = useTheme()
 
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
@@ -270,7 +270,11 @@ const ContactUs = () => {
                     </ChildBox>
 
                     <ChildBox>
-                      <Field name="subject" component={ContactUsSubjectField} />
+                      <Field
+                        name="subject"
+                        component={MultilineTextField}
+                        label="Subject"
+                      />
                     </ChildBox>
 
                     <ChildBox>
@@ -365,4 +369,4 @@ const ContactUs = () => {
   )
 }
 
-export default ContactUs
+export default ContactUsPage

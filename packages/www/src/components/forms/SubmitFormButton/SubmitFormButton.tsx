@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const SubmitFormButton = ({children, boxProps, ...rest}: Props) => {
+const SubmitFormButton = ({children, boxProps, disabled, ...rest}: Props) => {
   const classes = useStyles()
   const {
     setFieldTouched,
@@ -56,7 +56,8 @@ const SubmitFormButton = ({children, boxProps, ...rest}: Props) => {
         disabled={
           isSubmitting ||
           // || !isValid
-          (!formTouched && !dirty)
+          (!formTouched && !dirty) ||
+          disabled
         }
         {...rest}
       >

@@ -1,4 +1,4 @@
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 import csv from 'csvtojson'
 import {stringify} from 'querystringify'
 import fetch from 'node-fetch'
