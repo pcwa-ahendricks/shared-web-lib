@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An API for neu-web Next site.",
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "scripts": {
     "test": "ava",
