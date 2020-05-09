@@ -29,6 +29,7 @@ import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
@@ -212,20 +213,36 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const data: PickedMediaResponses | undefined = await fetcher(
       `${baseUrl}${newslettersUrl}`
     )
+    if (isDev) {
+      const debug =
+        data && Array.isArray(data)
+          ? data
+              .map((nl) => ({
+                ...nl,
+                derivedFilenameAttr: fileNameUtil(
+                  nl.original_name,
+                  DATE_FNS_FORMAT
+                )
+              }))
+              .filter((nl) => !nl.derivedFilenameAttr?.date)
+              .map((nl) => nl.original_name)
+          : []
+      debug.forEach((i) => console.log(`Debug News Release: ${i}`))
+    }
     const paths =
       data && Array.isArray(data)
         ? data
-            .map((ns) => ({
-              ...ns,
+            .map((nl) => ({
+              ...nl,
               derivedFilenameAttr: fileNameUtil(
-                ns.original_name,
+                nl.original_name,
                 DATE_FNS_FORMAT
               )
             }))
-            .filter((ns) => ns.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((ns) => ({
+            .filter((nl) => nl.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((nl) => ({
               params: {
-                'publish-date': ns.derivedFilenameAttr?.date
+                'publish-date': nl.derivedFilenameAttr?.date
               }
             }))
         : []

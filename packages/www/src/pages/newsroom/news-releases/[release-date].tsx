@@ -31,6 +31,7 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import {stringify} from 'querystringify'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type PickedMediaResponse = Pick<
@@ -230,6 +231,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const data: PickedMediaResponses | undefined = await fetcher(
       `${baseUrl}${newsReleasesUrl}`
     )
+    if (isDev) {
+      const debug =
+        data && Array.isArray(data)
+          ? data
+              .map((nr) => ({
+                ...nr,
+                derivedFilenameAttr: fileNameUtil(
+                  nr.original_name,
+                  DATE_FNS_FORMAT
+                )
+              }))
+              .filter((nr) => !nr.derivedFilenameAttr?.date)
+              .map((nr) => nr.original_name)
+          : []
+      debug.forEach((i) => console.log(`Debug News Release: ${i}`))
+    }
     const paths =
       data && Array.isArray(data)
         ? data
@@ -269,9 +286,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     )
     const nrs =
       data && Array.isArray(data)
-        ? data.map((bm) => ({
-            ...bm,
-            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+        ? data.map((nr) => ({
+            ...nr,
+            derivedFilenameAttr: fileNameUtil(nr.original_name, DATE_FNS_FORMAT)
           }))
         : []
     const releaseDate = paramToStr(params?.['release-date'])

@@ -77,14 +77,16 @@ const NewsReleasesPage = ({initialData}: Props) => {
         ? [
             // Group objects by derived Year into JS Map.
             ...groupBy<CosmicMediaMeta, number>(
-              newsReleasesData.map((bm) => ({
-                ...bm,
-                derivedFilenameAttr: fileNameUtil(
-                  bm.original_name,
-                  DATE_FNS_FORMAT
-                )
-              })),
-              (mbm) => mbm.derivedFilenameAttr?.publishedYear
+              newsReleasesData
+                .map((nr) => ({
+                  ...nr,
+                  derivedFilenameAttr: fileNameUtil(
+                    nr.original_name,
+                    DATE_FNS_FORMAT
+                  )
+                }))
+                .filter((nr) => nr.derivedFilenameAttr?.date), // Don't list links that will ultimately 404.
+              (mnr) => mnr.derivedFilenameAttr?.publishedYear
             )
           ] // Spreading Map will convert Map into an Array.
             // Sort individual media objects by published date property.

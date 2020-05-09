@@ -32,6 +32,7 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import {useRouter} from 'next/router'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -237,6 +238,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const data: PickedMediaResponses | undefined = await fetcher(
       `${urlBase}${boardMinutesUrl}`
     )
+    if (isDev) {
+      const debug =
+        data && Array.isArray(data)
+          ? data
+              .map((bm) => ({
+                ...bm,
+                derivedFilenameAttr: fileNameUtil(
+                  bm.original_name,
+                  DATE_FNS_FORMAT
+                )
+              }))
+              .filter((bm) => !bm.derivedFilenameAttr?.date)
+              .map((bm) => bm.original_name)
+          : []
+      debug.forEach((i) => console.log(`Debug Board Meeting Minutes: ${i}`))
+    }
     const paths =
       data && Array.isArray(data)
         ? data

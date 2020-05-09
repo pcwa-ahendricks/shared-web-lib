@@ -59,13 +59,15 @@ const BoardMinutesPage = () => {
         ? [
             // Group Board Minutes by derived Year into JS Map.
             ...groupBy<CosmicMediaMeta, number>(
-              boardMinutesData.map((bm) => ({
-                ...bm,
-                derivedFilenameAttr: fileNameUtil(
-                  bm.original_name,
-                  DATE_FNS_FORMAT
-                )
-              })),
+              boardMinutesData
+                .map((bm) => ({
+                  ...bm,
+                  derivedFilenameAttr: fileNameUtil(
+                    bm.original_name,
+                    DATE_FNS_FORMAT
+                  )
+                }))
+                .filter((bm) => bm.derivedFilenameAttr?.date), // Don't list links that will ultimately 404.
               (mbm) => mbm.derivedFilenameAttr?.publishedYear
             )
           ] // Spreading Map will convert Map into an Array.
