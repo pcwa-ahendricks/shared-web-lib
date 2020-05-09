@@ -22,6 +22,8 @@ import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinute
 import {CircularProgress} from '@material-ui/core'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
+import fetcher from '@lib/fetcher'
+import {GetStaticProps} from 'next'
 
 type GroupedBoardMinutes = Array<{
   year: number
@@ -30,6 +32,10 @@ type GroupedBoardMinutes = Array<{
     '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
   >[]
 }>
+
+type Props = {
+  initialData?: CosmicMediaResponse
+}
 
 const cosmicGetMediaProps = {
   props: '_id,original_name,imgix_url'
@@ -41,7 +47,7 @@ const params = {
 const qs = stringify({...params}, true)
 const boardMinutesUrl = `/api/cosmic/media${qs}`
 
-const BoardMinutesPage = () => {
+const BoardMinutesPage = ({initialData}: Props) => {
   // const thisYear = useMemo(() => getYear(new Date()).toString(), [])
 
   const [expanded, setExpanded] = useState<boolean | string>(false)
@@ -50,7 +56,8 @@ const BoardMinutesPage = () => {
   }>({})
 
   const {data: boardMinutesData, isValidating} = useSWR<CosmicMediaResponse>(
-    boardMinutesUrl
+    boardMinutesUrl,
+    {initialData}
   )
 
   const boardMinutes: GroupedBoardMinutes = useMemo(
@@ -176,6 +183,18 @@ const BoardMinutesPage = () => {
       </MainBox>
     </PageLayout>
   )
+}
+
+// Called at build time.
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const baseUrl = process.env.NEXT_BASE_URL
+    const initialData = await fetcher(`${baseUrl}${boardMinutesUrl}`)
+    return {props: {initialData}}
+  } catch (error) {
+    console.log('There was an error fetching News Releases.', error)
+    return {props: {}}
+  }
 }
 
 export default BoardMinutesPage
