@@ -207,24 +207,46 @@ const DynamicNewslettersPage = ({
 
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    // Only `/newsletters/2020-04-05` and `/newsletters/2020-02-03` are generated at build time
-    paths: [
-      {params: {'publish-date': '2020-04-05'}},
-      {params: {'publish-date': '2020-02-03'}}
-    ],
-    // Enable statically generating additional pages
-    // For example: `/newsletters/2019-12-01`
-    fallback: true
+  try {
+    const baseUrl = process.env.NEXT_BASE_URL
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${baseUrl}${newslettersUrl}`
+    )
+    const paths =
+      data && Array.isArray(data)
+        ? data
+            .map((bm) => ({
+              ...bm,
+              derivedFilenameAttr: fileNameUtil(
+                bm.original_name,
+                DATE_FNS_FORMAT
+              )
+            }))
+            .map((bm) => ({
+              params: {
+                'publish-date': bm.derivedFilenameAttr?.date
+              }
+            }))
+        : []
+    return {
+      paths,
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
   }
 }
 
 // This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
-      `${urlBase}${newslettersUrl}`
+      `${baseUrl}${newslettersUrl}`
     )
     const newsletters =
       data && Array.isArray(data)
