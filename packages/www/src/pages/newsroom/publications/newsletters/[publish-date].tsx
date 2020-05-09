@@ -126,7 +126,7 @@ const DynamicNewslettersPage = ({
                 <MinutesIcon className={classes.bcIcon} />
                 Newsletters
               </MuiNextLink>
-              <Type color="textPrimary" className={classes.bcLink}>
+              <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {newsletterDateFormatted}
               </Type>

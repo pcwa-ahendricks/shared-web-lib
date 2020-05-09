@@ -120,7 +120,7 @@ const DynamicPublicationPage = ({
                 <MinutesIcon className={classes.bcIcon} />
                 Documents
               </MuiNextLink>
-              <Type color="textPrimary" className={classes.bcLink}>
+              <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {title}
               </Type>

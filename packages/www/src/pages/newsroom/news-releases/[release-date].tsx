@@ -148,7 +148,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
                   </>
                 )} */}
               </Link>
-              <Type color="textPrimary" className={classes.bcLink}>
+              <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {newsReleaseDateFormatted}
               </Type>
