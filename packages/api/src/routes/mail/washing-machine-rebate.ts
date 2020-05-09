@@ -10,7 +10,7 @@ import {
   validateSchema
 } from '../../lib/forms'
 import {postMailJetRequest} from '../../lib/mailjet'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -52,9 +52,7 @@ const bodySchema = object()
       .shape({
         firstName: string().required(),
         lastName: string().required(),
-        email: string()
-          .email()
-          .required(),
+        email: string().email().required(),
         accountNo: string()
           .matches(/^\d+-\d+$/)
           .required(),
@@ -65,31 +63,21 @@ const bodySchema = object()
           (city: string | undefined, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
-        phone: string()
-          .min(10)
-          .required(),
+        phone: string().min(10).required(),
         propertyType: string().required(),
-        treatedCustomer: string()
-          .required()
-          .oneOf(
-            ['Yes'] // "Yes", "No"
-          ),
-        existingHigh: string()
-          .required()
-          .oneOf(
-            ['No'] // "Yes", "No"
-          ),
-        newConstruction: string()
-          .required()
-          .oneOf(
-            ['No'] // "Yes", "No"
-          ),
+        treatedCustomer: string().required().oneOf(
+          ['Yes'] // "Yes", "No"
+        ),
+        existingHigh: string().required().oneOf(
+          ['No'] // "Yes", "No"
+        ),
+        newConstruction: string().required().oneOf(
+          ['No'] // "Yes", "No"
+        ),
         manufacturer: string().required(),
         model: string().required(),
         ceeQualify: string().required(),
-        termsAgree: string()
-          .required()
-          .oneOf(['true']),
+        termsAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         comments: string().max(200),
@@ -106,9 +94,7 @@ const bodySchema = object()
                 .required()
                 .lowercase()
                 .matches(/success/),
-              url: string()
-                .required()
-                .url()
+              url: string().required().url()
             })
           ),
         installPhotos: array()
@@ -123,9 +109,7 @@ const bodySchema = object()
                 .required()
                 .lowercase()
                 .matches(/success/),
-              url: string()
-                .required()
-                .url()
+              url: string().required().url()
             })
           )
       })

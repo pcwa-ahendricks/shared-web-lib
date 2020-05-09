@@ -1,8 +1,7 @@
 // cspell:ignore ffprobe
 import React from 'react'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import YouTubePlayer from 'react-player/lib/players/YouTube'
-import {ReactPlayerProps} from 'react-player'
+import YouTubePlayer, {ReactPlayerProps} from 'react-player'
 import {Box} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 

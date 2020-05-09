@@ -9,7 +9,7 @@ import {
   validateSchema
 } from '../../lib/forms'
 import {postMailJetRequest} from '../../lib/mailjet'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER ?? ''
@@ -42,17 +42,13 @@ const bodySchema = object()
       .camelCase()
       .required()
       .shape({
-        name: string()
-          .required()
-          .max(30),
+        name: string().required().max(30),
         spouseName: string().max(27),
         email: string().email(),
         accountNo: string()
           .matches(/^\d+-\d+$/)
           .required(),
-        address: string()
-          .required()
-          .max(30),
+        address: string().required().max(30),
         previousAddress: string().max(60),
         city: string().required(),
         state: string().required(),

@@ -19,7 +19,7 @@ const getImage = async (imageBuffer: Buffer) => {
 }
 
 export default async (imageBuffer: Buffer): Promise<Buffer> => {
-  // Jimp works with Now. GM and Sharp didn't.
+  // Jimp works with Vercel. GM and Sharp didn't.
 
   const image = await getImage(imageBuffer)
   // Just abort processing all-together if image can't be read. Original (un-processed) image will be used.

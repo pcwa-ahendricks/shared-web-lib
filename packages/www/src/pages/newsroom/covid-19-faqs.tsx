@@ -10,12 +10,13 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemProps
+  ListItemProps,
+  Link
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 
 const COVID19FaqsPage = () => {
   const MoreInfoItem = useCallback(
@@ -84,8 +85,18 @@ const COVID19FaqsPage = () => {
             I’m having trouble paying my bill?
           </Type>
           <Type paragraph>
-            If you are having trouble paying your water bill, please contact
-            Customer Services.
+            PCWA is temporarily suspending water shutoffs for customers unable
+            to pay their bill. If you are having trouble paying your water bill,
+            please contact Customer Services.
+          </Type>
+          <Type paragraph>
+            <Link
+              href="https://cdn.cosmicjs.com/0e0cabe0-90a0-11ea-b5d0-a7204a671dc9-COVID-19-Bilingual-Factsheet-5.5.2020.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Fact Sheet on Water Shutoffs
+            </Link>
           </Type>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>

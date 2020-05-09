@@ -17,7 +17,7 @@ import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import FlexBox from '@components/boxes/FlexBox'
 import Blockquote from '@components/typography/Blockquote'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 
 const SuccessInTheSierraPage = () => {
   const Main = useCallback(() => {

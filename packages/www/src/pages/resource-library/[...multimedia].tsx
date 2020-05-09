@@ -50,7 +50,7 @@ import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
 import Head from 'next/head'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 // const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {

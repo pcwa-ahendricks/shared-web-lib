@@ -10,7 +10,7 @@ import {
 import {json} from 'co-body'
 import {postMailJetRequest} from '../../lib/mailjet'
 const isDev = process.env.NODE_ENV === 'development'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER ?? ''
 
@@ -55,9 +55,7 @@ const bodySchema = object()
       .shape({
         firstName: string().required(),
         lastName: string().required(),
-        email: string()
-          .email()
-          .required(),
+        email: string().email().required(),
         accountNo: string()
           .matches(/^\d+-\d+$/)
           .required(),
@@ -68,17 +66,13 @@ const bodySchema = object()
           (city: string | undefined, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
-        phone: string()
-          .min(10)
-          .required(),
+        phone: string().min(10).required(),
         propertyType: string().required(),
         manufacturer: string().required(),
         model: string().required(),
         additional: string(),
         purchaseDate: date().required(),
-        termsAgree: string()
-          .required()
-          .oneOf(['true']),
+        termsAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         emailAttachments: string(),
@@ -94,9 +88,7 @@ const bodySchema = object()
                 .required()
                 .lowercase()
                 .matches(/success/),
-              url: string()
-                .required()
-                .url()
+              url: string().required().url()
             })
           ),
         cntrlPhotos: array()
@@ -111,9 +103,7 @@ const bodySchema = object()
                 .required()
                 .lowercase()
                 .matches(/success/),
-              url: string()
-                .required()
-                .url()
+              url: string().required().url()
             })
           ),
         addtlSensorPhotos: array()
@@ -134,9 +124,7 @@ const bodySchema = object()
                 .required()
                 .lowercase()
                 .matches(/success/),
-              url: string()
-                .required()
-                .url()
+              url: string().required().url()
             })
           )
       })

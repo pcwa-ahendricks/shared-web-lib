@@ -100,6 +100,20 @@ export interface ContactUsRequestBody {
   formData: ContactUsFormData
 }
 
+export interface WaterWasteFormData {
+  name: string
+  email: string
+  phone: string
+  location: string
+  description: string
+  captcha: string
+  photos: string[]
+}
+
+export interface WaterWasteRequestBody {
+  formData: WaterWasteFormData
+}
+
 export interface WashingMachineRebateFormData {
   firstName: string
   lastName: string
@@ -193,6 +207,7 @@ type RequestBody =
   | WashingMachineRequestBody
   | ToiletRequestBody
   | ContactInfoRequestBody
+  | WaterWasteRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`

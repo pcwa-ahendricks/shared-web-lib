@@ -6,10 +6,11 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Slide
 } from '@material-ui/core'
 import MainPhone from '@components/links/MainPhone'
-import {SlideTransition as Transition} from '@components/Transition/Transition'
+// import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open: boolean
@@ -43,7 +44,7 @@ Props) => {
       onClose={onClose}
       aria-labelledby="form-submit-dialog-title"
       aria-describedby="form-submit-dialog-description"
-      TransitionComponent={Transition}
+      TransitionComponent={Slide}
     >
       <DialogTitle id="form-submit-dialog-title">{dialogTitle}</DialogTitle>
       <DialogContent>

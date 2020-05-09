@@ -23,8 +23,7 @@ import {green} from '@material-ui/core/colors'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {RowBox} from '@components/boxes/FlexBox'
 import UnclaimedPropertyEmail from '@components/links/UnclaimedPropertyEmail'
-import lambdaUrl from '@lib/lambdaUrl'
-import {GetServerSideProps} from 'next'
+import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {UnclaimedPropertyResponse} from '@lib/services/cosmicService'
 
@@ -219,10 +218,22 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
+// export const getServerSideProps: GetServerSideProps = async ({req}) => {
+//   try {
+//     const urlBase = lambdaUrl(req)
+//     const initialData = await fetcher(`${urlBase}${csvDataUrl}`)
+//     return {props: {initialData}}
+//   } catch (error) {
+//     console.log('There was an error fetching unclaimed property data.', error)
+//     return {props: {}}
+//   }
+// }
+
+// Called at build time.
+export const getStaticProps: GetStaticProps = async () => {
   try {
-    const urlBase = lambdaUrl(req)
-    const initialData = await fetcher(`${urlBase}${csvDataUrl}`)
+    const baseUrl = process.env.NEXT_BASE_URL
+    const initialData = await fetcher(`${baseUrl}${csvDataUrl}`)
     return {props: {initialData}}
   } catch (error) {
     console.log('There was an error fetching unclaimed property data.', error)

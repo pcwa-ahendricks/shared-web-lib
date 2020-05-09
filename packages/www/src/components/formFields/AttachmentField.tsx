@@ -77,9 +77,9 @@ const AttachmentField = ({
      */
     if (
       Array.isArray(value) &&
-      value.length === 0 &&
+      value?.length === 0 &&
       prevUploads.current &&
-      prevUploads.current.length !== value.length
+      prevUploads.current.length !== value?.length
     ) {
       resetDropzoneUploader()
     }
@@ -125,7 +125,9 @@ const AttachmentField = ({
         // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
         // accept="image/*, application/pdf"
         accept="image/*"
-        disabled={disabled || isSubmitting || value.length >= UPLOAD_FILE_LIMIT}
+        disabled={
+          disabled || isSubmitting || value?.length >= UPLOAD_FILE_LIMIT
+        }
         maxSize={1 * 1024 * 1024 * UPLOAD_MB_LIMIT}
         {...other}
       />

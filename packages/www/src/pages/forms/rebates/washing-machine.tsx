@@ -48,16 +48,9 @@ const formSchema = object()
   .camelCase()
   .strict(true)
   .shape({
-    firstName: string()
-      .required()
-      .label('First Name'),
-    lastName: string()
-      .required()
-      .label('Last Name'),
-    email: string()
-      .email()
-      .required()
-      .label('Email'),
+    firstName: string().required().label('First Name'),
+    lastName: string().required().label('Last Name'),
+    email: string().email().required().label('Email'),
     accountNo: string()
       .matches(
         /^\d+-\d+$/,
@@ -65,31 +58,19 @@ const formSchema = object()
       )
       .required('An Account Number is required (leading zeros are optional)')
       .label('Account Number'),
-    address: string()
-      .required()
-      .label('Billing Address'),
-    city: string()
-      .required()
-      .label('City'),
+    address: string().required().label('Billing Address'),
+    city: string().required().label('City'),
     otherCity: string()
       .label('City')
       .when('city', (city: string | null, schema: StringSchema) =>
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
-    phone: string()
-      .required()
-      .min(10)
-      .label('Phone Number'),
-    propertyType: string()
-      .required()
-      .label('Property Type'),
-    treatedCustomer: string()
-      .required()
-      .label('Treated Customer')
-      .oneOf(
-        ['Yes'], // "Yes", "No"
-        'You must be a current Placer County Water Agency treated water customer'
-      ),
+    phone: string().required().min(10).label('Phone Number'),
+    propertyType: string().required().label('Property Type'),
+    treatedCustomer: string().required().label('Treated Customer').oneOf(
+      ['Yes'], // "Yes", "No"
+      'You must be a current Placer County Water Agency treated water customer'
+    ),
     existingHigh: string()
       .required()
       .label('Replacing Existing High-Efficiency Washer')
@@ -97,22 +78,13 @@ const formSchema = object()
         ['No'], // "Yes", "No"
         'Replacement of an existing high efficiency washer is not covered by rebate'
       ),
-    newConstruction: string()
-      .required()
-      .label('New Construction')
-      .oneOf(
-        ['No'], // "Yes", "No"
-        'New constructions are not eligible for rebate'
-      ),
-    manufacturer: string()
-      .required()
-      .label('Washing Machine Manufacturer'),
-    model: string()
-      .required()
-      .label('Washing Machine Model'),
-    ceeQualify: string()
-      .required()
-      .label('CEE Tier 3 Water Factor'),
+    newConstruction: string().required().label('New Construction').oneOf(
+      ['No'], // "Yes", "No"
+      'New constructions are not eligible for rebate'
+    ),
+    manufacturer: string().required().label('Washing Machine Manufacturer'),
+    model: string().required().label('Washing Machine Model'),
+    ceeQualify: string().required().label('CEE Tier 3 Water Factor'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -121,9 +93,7 @@ const formSchema = object()
       )
       .label('Agree to Terms'),
     emailAttachments: string().label('Email Attachments'),
-    signature: string()
-      .required()
-      .label('Your signature'),
+    signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
@@ -144,9 +114,7 @@ const formSchema = object()
             .required()
             .lowercase()
             .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
+          url: string().required('Attachment URL is not available').url()
         })
       ),
     installPhotos: array()
@@ -165,9 +133,7 @@ const formSchema = object()
             .required()
             .lowercase()
             .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
+          url: string().required('Attachment URL is not available').url()
         })
       )
   })

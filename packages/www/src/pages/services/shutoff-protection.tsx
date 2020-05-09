@@ -26,7 +26,7 @@ import {RowBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'yes'
+const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 
 type Languages =
   | 'english'

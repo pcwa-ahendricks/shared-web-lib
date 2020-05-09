@@ -5,9 +5,10 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Slide
 } from '@material-ui/core'
-import {SlideTransition as Transition} from '@components/Transition/Transition'
+// import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   onClose: () => void
@@ -26,7 +27,7 @@ const ConfirmRemoveUploadDialog = ({
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      TransitionComponent={Transition}
+      TransitionComponent={Slide}
     >
       <DialogTitle id="alert-dialog-title">Confirm Removal</DialogTitle>
       <DialogContent>

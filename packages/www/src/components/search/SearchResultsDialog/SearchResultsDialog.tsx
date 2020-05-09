@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core'
 import {DialogProps} from '@material-ui/core/Dialog'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-// import {ZoomTransition as Transition} from '@components/Transition/Transition'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 import Pagination from '@components/Pagination'

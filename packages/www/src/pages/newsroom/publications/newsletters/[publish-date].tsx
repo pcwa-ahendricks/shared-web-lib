@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react'
-import {ParsedUrlQuery} from 'querystring'
-import {GetServerSideProps} from 'next'
+import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -26,15 +25,14 @@ import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
-import lambdaUrl from '@lib/lambdaUrl'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import queryParamToStr from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
-  query: ParsedUrlQuery
+  // query: ParsedUrlQuery
   err?: any
   qMedia?: PickedMediaResponse
   pages?: Page[]
@@ -100,7 +98,7 @@ const DynamicNewslettersPage = ({
   )
 
   if (err || !qMedia) {
-    return <ErrorPage statusCode={err.statusCode} />
+    return <ErrorPage statusCode={err?.statusCode} />
   }
 
   const downloadAs = slugify(qMedia.original_name)
@@ -178,13 +176,53 @@ const DynamicNewslettersPage = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res,
-  req
-}) => {
+// export const getServerSideProps: GetServerSideProps = async ({
+//   query,
+//   res,
+//   req
+// }) => {
+//   try {
+//     const urlBase = lambdaUrl(req)
+//     const data: PickedMediaResponses | undefined = await fetcher(
+//       `${urlBase}${newslettersUrl}`
+//     )
+//     const newsletters =
+//       data && Array.isArray(data)
+//         ? data.map((bm) => ({
+//             ...bm,
+//             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+//           }))
+//         : []
+//     const publishDate = queryParamToStr(query['publish-date'])
+//     const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
+
+//     // const selfReferred = (req)
+//     return {props: {query, qMedia, pages, publishDate}}
+//   } catch (error) {
+//     console.log(error)
+//     res.statusCode = 404
+//     return {props: {err: {statusCode: 404}}}
+//   }
+// }
+
+// This function gets called at build time.
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    // Only `/newsletters/2020-04-05` and `/newsletters/2020-02-03` are generated at build time
+    paths: [
+      {params: {'publish-date': '2020-04-05'}},
+      {params: {'publish-date': '2020-02-03'}}
+    ],
+    // Enable statically generating additional pages
+    // For example: `/newsletters/2019-12-01`
+    fallback: true
+  }
+}
+
+// This also gets called at build time.
+export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = lambdaUrl(req)
+    const urlBase = process.env.NEXT_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${urlBase}${newslettersUrl}`
     )
@@ -195,14 +233,12 @@ export const getServerSideProps: GetServerSideProps = async ({
             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
           }))
         : []
-    const publishDate = queryParamToStr(query['publish-date'])
+    const publishDate = paramToStr(params?.['publish-date'])
     const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
 
-    // const selfReferred = (req)
-    return {props: {query, qMedia, pages, publishDate}}
+    return {props: {params, qMedia, pages, publishDate}}
   } catch (error) {
     console.log(error)
-    res.statusCode = 404
     return {props: {err: {statusCode: 404}}}
   }
 }

@@ -5,7 +5,7 @@ import FormData from 'form-data'
 // Importing node-fetch (over isomorphic-unfetch) suppress typescript warning with posting body: FormData.
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../../lib/busboy-error'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 const isDev = process.env.NODE_ENV === 'development'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'

@@ -204,9 +204,10 @@ const SearchInput = () => {
     [searchHandler]
   )
 
-  const inputHasValue = useMemo(() => (searchValue.length > 0 ? true : false), [
-    searchValue
-  ])
+  const inputHasValue = useMemo(
+    () => (searchValue?.length > 0 ? true : false),
+    [searchValue]
+  )
 
   const onPageSearchHandler = useCallback(
     (startIndex: number) => {

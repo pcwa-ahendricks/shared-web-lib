@@ -14,15 +14,13 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "now dev",
-    "now": "now",
+    "dev": "vc dev",
+    "vc": "vc",
     "clean": "rimraf yarn.lock node_modules packages/www/node_modules packages/api/node_modules packages/www/.next",
-    "now:dev-web": "now --prod",
-    "now:forms": "now --prod -A now.forms.json",
-    "now-build": "next build"
+    "vc:dev-web": "vc --prod",
+    "vc:forms": "vc --prod -A vercel.forms.json"
   },
   "devDependencies": {
-    "now": "^18.0.0",
     "rimraf": "^3.0.2"
   }
 }

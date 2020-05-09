@@ -4,3 +4,4 @@ packages/www/.next
 packages/www/out
 packages/api/lib
 yarn.lock
+.env

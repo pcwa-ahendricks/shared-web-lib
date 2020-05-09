@@ -1,18 +1,16 @@
 /* eslint @typescript-eslint/no-var-requires: 0 */
-const isDev = process.env.NODE_ENV === 'development'
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
-const Dotenv = isDev ? require('dotenv-webpack') : null
-const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 const path = require('path')
-const {STATS, NEXT_TARGET = 'server'} = process.env
+const {STATS} = process.env
 
 module.exports = (_phase, {defaultConfig}) => {
   return withBundleAnalyzer({
     ...defaultConfig,
-    target: NEXT_TARGET,
+    target: process.env.NEXT_TARGET,
     analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
     analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
     bundleAnalyzerConfig: {
@@ -52,19 +50,8 @@ module.exports = (_phase, {defaultConfig}) => {
         config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
       }
 
-      /**
-       * Dotenv
-       */
-      // Read the .env file in development mode only. Now configurations store env variables for production, stage, and test environments.
-      if (isDev) {
-        config.plugins.push(
-          new Dotenv({
-            systemvars: true,
-            safe: true,
-            expand: true
-          })
-        )
-      }
+      // To my knowledge {safe: true} will not work with Vercel Now Env variables. Additionally, {silent: true} should be used to suppress erroneous warnings.
+      config.plugins.push(new Dotenv({silent: true}))
 
       /**
        * Fix Mapbox GL JS in production. See https://github.com/mapbox/mapbox-gl-js/issues/4348 for more info.
@@ -72,33 +59,6 @@ module.exports = (_phase, {defaultConfig}) => {
       config.module = {
         ...config.module,
         noParse: /(mapbox-gl)\.js$/
-      }
-
-      /**
-       * If some of the envs are public, like a google maps key, but you still
-       * want to keep them secret from the repo, the following code will allow you
-       * to share some variables with the client, configured at compile time.
-       * See https://github.com/zeit/next.js/blob/canary/examples/with-now-env/next.config.js
-       * Only using Now Secrets in non-development environments. Development environments will
-       * utilize dotenv file. See above.
-       */
-      if (!isDev) {
-        config.plugins.push(
-          new webpack.EnvironmentPlugin({NEXT_RECAPTCHA_SITE_KEY: null}),
-          new webpack.EnvironmentPlugin({NEXT_YOUTUBE_API_KEY: null}),
-          new webpack.EnvironmentPlugin({NEXT_GOOGLE_MAPS_API_KEY: null}),
-          // Same as above
-          // new webpack.DefinePlugin({
-          //   'process.env.NEXT_GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.NEXT_GOOGLE_MAPS_API_KEY)
-          // })
-          new webpack.EnvironmentPlugin({NEXT_PI_MAP_MAPBOX_API_KEY: null}),
-          new webpack.EnvironmentPlugin({
-            NEXT_DISTRICT_MAP_MAPBOX_API_KEY: null
-          }),
-          new webpack.EnvironmentPlugin({
-            NEXT_USE_NG_IFRAME: null
-          })
-        )
       }
 
       // Example. See https://github.com/zeit/next.js/blob/42d656050dca98f4eae58fa0ed29f784400cd048/examples/with-absolute-imports/next.config.js#L5 for more info.
@@ -120,6 +80,16 @@ module.exports = (_phase, {defaultConfig}) => {
       })
 
       return config
+    },
+    env: {
+      NEXT_RECAPTCHA_SITE_KEY: process.env.NEXT_RECAPTCHA_SITE_KEY,
+      NEXT_YOUTUBE_API_KEY: process.env.NEXT_YOUTUBE_API_KEY,
+      NEXT_GOOGLE_MAPS_API_KEY: process.env.NEXT_GOOGLE_MAPS_API_KEY,
+      NEXT_PI_MAP_MAPBOX_API_KEY: process.env.NEXT_PI_MAP_MAPBOX_API_KEY,
+      NEXT_DISTRICT_MAP_MAPBOX_API_KEY:
+        process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY,
+      NEXT_USE_NG_IFRAME: process.env.NEXT_USE_NG_IFRAME,
+      NEXT_BASE_URL: process.env.NEXT_BASE_URL
     }
   })
 }

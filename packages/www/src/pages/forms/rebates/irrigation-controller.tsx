@@ -49,16 +49,9 @@ const formSchema = object()
   .camelCase()
   .strict(true)
   .shape({
-    firstName: string()
-      .required()
-      .label('First Name'),
-    lastName: string()
-      .required()
-      .label('Last Name'),
-    email: string()
-      .email()
-      .required()
-      .label('Email'),
+    firstName: string().required().label('First Name'),
+    lastName: string().required().label('Last Name'),
+    email: string().email().required().label('Email'),
     accountNo: string()
       .matches(
         /^\d+-\d+$/,
@@ -66,30 +59,19 @@ const formSchema = object()
       )
       .required('An Account Number is required (leading zeros are optional)')
       .label('Account Number'),
-    address: string()
-      .required()
-      .label('Billing Address'),
-    city: string()
-      .required()
-      .label('City'),
+    address: string().required().label('Billing Address'),
+    city: string().required().label('City'),
     otherCity: string()
       .label('City')
       .when('city', (city: string | null, schema: StringSchema) =>
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
-    phone: string()
-      .required()
-      .min(10)
-      .label('Phone Number'),
-    propertyType: string()
-      .required()
-      .label('Property Type'),
+    phone: string().required().min(10).label('Phone Number'),
+    propertyType: string().required().label('Property Type'),
     manufacturer: string()
       .required()
       .label('Irrigation Controller Manufacturer'),
-    model: string()
-      .required()
-      .label('Irrigation Controller Model'),
+    model: string().required().label('Irrigation Controller Model'),
     additional: string().label('Additional Sensor or Outdoor Cover'),
     purchaseDate: date()
       .required('A valid purchase date is required')
@@ -102,9 +84,7 @@ const formSchema = object()
       )
       .label('Agree to Terms'),
     emailAttachments: string().label('Email Attachments'),
-    signature: string()
-      .required()
-      .label('Your signature'),
+    signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
@@ -122,9 +102,7 @@ const formSchema = object()
             .required()
             .lowercase()
             .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
+          url: string().required('Attachment URL is not available').url()
         })
       ),
     cntrlPhotos: array()
@@ -143,9 +121,7 @@ const formSchema = object()
             .required()
             .lowercase()
             .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
+          url: string().required('Attachment URL is not available').url()
         })
       ),
     addtlSensorPhotos: array()
@@ -168,9 +144,7 @@ const formSchema = object()
             .required()
             .lowercase()
             .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string()
-            .required('Attachment URL is not available')
-            .url()
+          url: string().required('Attachment URL is not available').url()
         })
       )
   })
@@ -404,7 +378,7 @@ const IrrigationController = () => {
 
                 // If additional field is updated and is blank clear out additional photos.
                 const additionalChangeHandler = (evt: any) => {
-                  if (evt.target.value.length === 0) {
+                  if (evt.target.value?.length === 0) {
                     setFieldValue('addtlSensorPhotos', [])
                   }
                 }

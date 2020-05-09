@@ -20,10 +20,10 @@
   "builds": [
     {
       "src": "packages/www/package.json",
-      "use": "@now/next"
+      "use": "@vercel/next"
     },
-    { "src": "packages/api/src/routes/cosmic/**/*.ts", "use": "@now/node" },
-    { "src": "packages/api/src/routes/mail/**/*.ts", "use": "@now/node" }
+    { "src": "packages/api/src/routes/cosmic/**/*.ts", "use": "@vercel/node" },
+    { "src": "packages/api/src/routes/mail/**/*.ts", "use": "@vercel/node" }
   ],
   "routes": [
     {

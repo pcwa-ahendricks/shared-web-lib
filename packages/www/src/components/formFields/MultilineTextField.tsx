@@ -9,7 +9,7 @@ type Props = {
 } & FieldProps<any> &
   OutlinedTextFieldProps
 
-const ContactUsSubjectField = ({
+const MultilineTextField = ({
   field,
   form,
   required = true,
@@ -30,7 +30,7 @@ const ContactUsSubjectField = ({
       required={required}
       name={name}
       value={value}
-      label="Subject"
+      // label="Subject"
       autoComplete="name"
       variant="outlined"
       helperText={fieldIsTouchedWithError ? currentError : null}
@@ -45,4 +45,4 @@ const ContactUsSubjectField = ({
   )
 }
 
-export default ContactUsSubjectField
+export default MultilineTextField

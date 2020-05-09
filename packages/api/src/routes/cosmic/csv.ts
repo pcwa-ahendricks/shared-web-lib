@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import {compareDesc} from 'date-fns'
-import {NowRequest, NowResponse} from '@now/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../../types/cosmic'
 import lambdaUrl from '../../lib/lambdaUrl'

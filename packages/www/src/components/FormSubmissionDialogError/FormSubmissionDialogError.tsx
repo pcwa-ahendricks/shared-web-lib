@@ -5,10 +5,11 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Slide
 } from '@material-ui/core'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
-import {SlideTransition as Transition} from '@components/Transition/Transition'
+// import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
   open: boolean
@@ -28,7 +29,7 @@ const FormSubmissionDialogError = ({
       onClose={onClose}
       aria-labelledby="form-submit-dialog-title"
       aria-describedby="form-submit-dialog-description"
-      TransitionComponent={Transition}
+      TransitionComponent={Slide}
     >
       <DialogTitle id="form-submit-dialog-title">
         An Error Has Occurred
