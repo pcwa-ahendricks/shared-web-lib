@@ -233,16 +233,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths =
       data && Array.isArray(data)
         ? data
-            .map((bm) => ({
-              ...bm,
+            .map((nr) => ({
+              ...nr,
               derivedFilenameAttr: fileNameUtil(
-                bm.original_name,
+                nr.original_name,
                 DATE_FNS_FORMAT
               )
             }))
-            .map((bm) => ({
+            .filter((nr) => nr.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((nr) => ({
               params: {
-                'release-date': bm.derivedFilenameAttr?.date
+                'release-date': nr.derivedFilenameAttr?.date
               }
             }))
         : []

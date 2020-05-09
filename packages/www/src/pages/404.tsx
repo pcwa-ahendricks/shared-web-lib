@@ -1,5 +1,4 @@
-import React, {useMemo} from 'react'
-import {NextPageContext} from 'next'
+import React, {useCallback} from 'react'
 import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import Head from 'next/head'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
@@ -7,36 +6,23 @@ import {Box, Typography as Type} from '@material-ui/core'
 import WebmasterEmail from '@components/links/WebmasterEmail'
 
 /*
-  Custom error page adapted from https://github.com/zeit/next.js/blob/master/packages/next/pages/_error.tsx. See https://nextjs.org/docs#custom-error-handling for more info.
+  Custom 404 page. See https://nextjs.org/docs/advanced-features/custom-error-page for more info.
 */
 
-const statusCodes: {[code: number]: string} = {
-  400: 'Bad Request',
-  404: 'This page could not be found',
-  405: 'Method Not Allowed',
-  500: 'Internal Server Error'
-}
+const NotFoundPage = () => {
+  const statusCode = 404
+  const title = 'This page could not be found'
 
-type Props = {
-  statusCode: number
-  title?: string
-}
-
-const ErrorPage = ({statusCode, title: titleProp}: Props) => {
-  const title =
-    titleProp || statusCodes[statusCode] || 'An unexpected error has occurred'
-
-  const contactWebmasterEl = useMemo(
-    () =>
-      statusCode === 404 ? (
-        <Box m={6} textAlign="center" width={600} maxWidth="100%">
-          <Type>
-            Can't find the web page you are looking for? Let us know at{' '}
-            <WebmasterEmail />.
-          </Type>
-        </Box>
-      ) : null,
-    [statusCode]
+  const ContactWebmasterEl = useCallback(
+    () => (
+      <Box m={6} textAlign="center" width={600} maxWidth="100%">
+        <Type>
+          Can't find the web page you are looking for? Let us know at{' '}
+          <WebmasterEmail />.
+        </Type>
+      </Box>
+    ),
+    []
   )
 
   return (
@@ -74,21 +60,11 @@ const ErrorPage = ({statusCode, title: titleProp}: Props) => {
               {title}
             </Type>
           </RowBox>
-          {contactWebmasterEl}
+          <ContactWebmasterEl />
         </ColumnBox>
       </ColumnBox>
     </>
   )
 }
 
-ErrorPage.getInitialProps = ({res, err}: NextPageContext) => {
-  const statusCode =
-    res && res.statusCode
-      ? res.statusCode
-      : err && err.statusCode
-      ? err.statusCode
-      : 500
-  return {statusCode}
-}
-
-export default ErrorPage
+export default NotFoundPage

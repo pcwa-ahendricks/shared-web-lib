@@ -247,6 +247,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 DATE_FNS_FORMAT
               )
             }))
+            .filter((bm) => bm.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
             .map((bm) => ({
               params: {
                 'meeting-date': bm.derivedFilenameAttr?.date
