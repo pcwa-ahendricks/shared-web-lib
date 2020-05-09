@@ -98,9 +98,6 @@ const DynamicBoardMinutesPage = ({
     // console.log('done scrolling to top.')
   }, [router])
 
-  // console.log('bm', bm)
-  // console.log(pages)
-
   // const trigger = useScrollTrigger({
   //   disableHysteresis: true,
   //   threshold: 200
@@ -235,15 +232,37 @@ const DynamicBoardMinutesPage = ({
 
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    // Only `/meeting-minutes/1` and `/meeting-minutes/2` are generated at build time
-    paths: [
-      {params: {'meeting-date': '02-20-2020'}},
-      {params: {'meeting-date': '02-06-2020'}}
-    ],
-    // Enable statically generating additional pages
-    // For example: `/meeting-minutes/01-16-2020`
-    fallback: true
+  try {
+    const urlBase = process.env.NEXT_BASE_URL
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${urlBase}${boardMinutesUrl}`
+    )
+    const paths =
+      data && Array.isArray(data)
+        ? data
+            .map((bm) => ({
+              ...bm,
+              derivedFilenameAttr: fileNameUtil(
+                bm.original_name,
+                DATE_FNS_FORMAT
+              )
+            }))
+            .map((bm) => ({
+              params: {
+                'meeting-date': bm.derivedFilenameAttr?.date
+              }
+            }))
+        : []
+    return {
+      paths,
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
   }
 }
 
