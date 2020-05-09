@@ -258,7 +258,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const publishDate = paramToStr(params?.['publish-date'])
     const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
 
-    return {props: {params, qMedia, pages, publishDate}}
+    return {props: {qMedia, pages, publishDate}}
   } catch (error) {
     console.log(error)
     return {props: {err: {statusCode: 404}}}

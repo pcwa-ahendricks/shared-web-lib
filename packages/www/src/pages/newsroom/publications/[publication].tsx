@@ -275,7 +275,7 @@ const PublicationsPage = ({
   )
 
   if (err) {
-    return <ErrorPage statusCode={err.statusCode} />
+    return <ErrorPage statusCode={err?.statusCode} />
   }
 
   return (
