@@ -303,53 +303,63 @@ const ResourceLibraryPage = ({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const baseUrl = process.env.NEXT_BASE_URL
+  try {
+    const baseUrl = process.env.NEXT_BASE_URL
 
-  // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
-  //   `${baseUrl}${multimediaUrl}`
-  // )
-  // const publications$: Promise<MultimediaList | undefined> = fetcher(
-  //   `${baseUrl}${publicationsUrl}`
-  // )
-  // const [multimedia, publications] = await Promise.all([
-  //   multimedia$,
-  //   publications$
-  // ])
+    // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
+    //   `${baseUrl}${multimediaUrl}`
+    // )
+    // const publications$: Promise<MultimediaList | undefined> = fetcher(
+    //   `${baseUrl}${publicationsUrl}`
+    // )
+    // const [multimedia, publications] = await Promise.all([
+    //   multimedia$,
+    //   publications$
+    // ])
 
-  const multimedia: MultimediaList | undefined = await fetcher(
-    `${baseUrl}${multimediaUrl}`
-  )
-  const filteredMultimedia =
-    multimedia && Array.isArray(multimedia)
-      ? multimedia.filter(
-          (p) =>
-            fileExtension(p.name) !== 'mp4' && // No videos.
-            p.metadata?.['video-poster'] !== 'true' && // No video posters
-            p.metadata?.gallery // No photos w/o gallery metadata.
-        )
-      : []
-
-  const photoPaths = [
-    ...groupBy<MappedMultimedia, string>(
-      filteredMultimedia,
-      (a) => a.metadata?.gallery
+    const multimedia: MultimediaList | undefined = await fetcher(
+      `${baseUrl}${multimediaUrl}`
     )
-  ]
-    .map(([gallery, photos]) =>
-      photos.map((_, idx) => ({
-        params: {multimedia: ['photos', gallery, idx.toString()]}
-      }))
-    )
-    .reduce((prev, curVal) => [...prev, ...curVal])
 
-  return {
-    paths: [
-      ...photoPaths
-      // {params: {multimedia: ['documents']}},
-      // {params: {multimedia: ['photos']}},
-      // {params: {multimedia: ['videos']}}
-    ],
-    fallback: true
+    // Use the same filters used in <MultimediaPhotoGalleries/>.
+    const filteredMultimedia =
+      multimedia && Array.isArray(multimedia)
+        ? multimedia.filter(
+            (p) =>
+              fileExtension(p.name) !== 'mp4' && // No videos.
+              p.metadata?.['video-poster'] !== 'true' && // No video posters
+              p.metadata?.gallery // No photos w/o gallery metadata.
+          )
+        : []
+
+    const photoPaths = [
+      ...groupBy<MappedMultimedia, string>(
+        filteredMultimedia,
+        (a) => a.metadata?.gallery
+      )
+    ]
+      .map(([gallery, photos]) =>
+        photos.map((_, idx) => ({
+          params: {multimedia: ['photos', gallery, idx.toString()]}
+        }))
+      )
+      .reduce((prev, curVal) => [...prev, ...curVal])
+
+    return {
+      paths: [
+        ...photoPaths
+        // {params: {multimedia: ['documents']}},
+        // {params: {multimedia: ['photos']}},
+        // {params: {multimedia: ['videos']}}
+      ],
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
   }
 }
 
