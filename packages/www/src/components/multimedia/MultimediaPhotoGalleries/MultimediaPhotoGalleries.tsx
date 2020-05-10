@@ -1,12 +1,5 @@
 // cspell:ignore Lightbox
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  useContext
-} from 'react'
+import React, {useCallback, useMemo, useRef, useContext} from 'react'
 import {
   MultimediaContext,
   setSelectedGallery,
@@ -93,9 +86,6 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const isSM = useMediaQuery(theme.breakpoints.down('sm'))
   const isMD = useMediaQuery(theme.breakpoints.only('md'))
   const isLG = useMediaQuery(theme.breakpoints.up('lg'))
-  const [mappedMultimedia, setMappedMultimedia] = useState<
-    MappedMultimediaList
-  >([])
   const multimediaContext = useContext(MultimediaContext)
   const {
     selectedGallery,
@@ -166,22 +156,23 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     [isSM, isMD, isLG]
   )
 
-  useEffect(() => {
-    const mediaMapped = multimedia.map((m) => {
-      const {width, height, paddingPercent} = galleryImgWidthHeight(
-        m.metadata?.['orientation']
-      )
-      return {
-        ...m,
-        source: m.imgix_url,
-        src: m.imgix_url,
-        paddingPercent,
-        width,
-        height
-      }
-    })
-    setMappedMultimedia(mediaMapped)
-  }, [multimedia, galleryImgWidthHeight])
+  const mappedMultimedia: MappedMultimediaList = useMemo(
+    () =>
+      multimedia.map((m) => {
+        const {width, height, paddingPercent} = galleryImgWidthHeight(
+          m.metadata?.['orientation']
+        )
+        return {
+          ...m,
+          source: m.imgix_url,
+          src: m.imgix_url,
+          paddingPercent,
+          width,
+          height
+        }
+      }),
+    [galleryImgWidthHeight, multimedia]
+  )
 
   const galleryCovers = useMemo(
     () =>
