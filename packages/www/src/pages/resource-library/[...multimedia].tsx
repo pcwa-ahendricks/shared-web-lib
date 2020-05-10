@@ -35,7 +35,8 @@ import {
   MultimediaList,
   setLightboxIndex,
   setLightboxViewerOpen,
-  PublicationList
+  PublicationList,
+  MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -50,6 +51,8 @@ import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
 import Head from 'next/head'
 import useSWR from 'swr'
+import groupBy from '@lib/groupBy'
+import fileExtension from '@lib/fileExtension'
 const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 // const isDev = process.env.NODE_ENV === 'development'
 
@@ -300,7 +303,7 @@ const ResourceLibraryPage = ({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const baseUrl = process.env.NEXT_BASE_URL
+  const baseUrl = process.env.NEXT_BASE_URL
 
   // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
   //   `${baseUrl}${multimediaUrl}`
@@ -313,11 +316,38 @@ export const getStaticPaths: GetStaticPaths = async () => {
   //   publications$
   // ])
 
+  const multimedia: MultimediaList | undefined = await fetcher(
+    `${baseUrl}${multimediaUrl}`
+  )
+  const filteredMultimedia =
+    multimedia && Array.isArray(multimedia)
+      ? multimedia.filter(
+          (p) =>
+            fileExtension(p.name) !== 'mp4' && // No videos.
+            p.metadata?.['video-poster'] !== 'true' && // No video posters
+            p.metadata?.gallery // No photos w/o gallery metadata.
+        )
+      : []
+
+  const photoPaths = [
+    ...groupBy<MappedMultimedia, string>(
+      filteredMultimedia,
+      (a) => a.metadata?.gallery
+    )
+  ]
+    .map(([gallery, photos]) =>
+      photos.map((_, idx) => ({
+        params: {multimedia: ['photos', gallery, idx.toString()]}
+      }))
+    )
+    .reduce((prev, curVal) => [...prev, ...curVal])
+
   return {
     paths: [
-      {params: {multimedia: ['documents']}},
-      {params: {multimedia: ['photos']}},
-      {params: {multimedia: ['videos']}}
+      ...photoPaths
+      // {params: {multimedia: ['documents']}},
+      // {params: {multimedia: ['photos']}},
+      // {params: {multimedia: ['videos']}}
     ],
     fallback: true
   }
