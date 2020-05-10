@@ -20,8 +20,8 @@ import {
 } from '@material-ui/core/styles'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
-import {GetServerSideProps} from 'next'
-import queryParamToStr from '@lib/services/queryParamToStr'
+import {GetStaticPaths, GetStaticProps} from 'next'
+import {paramToStr} from '@lib/services/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
 import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'
@@ -319,10 +319,10 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
-  isDev && console.log('query params: ', JSON.stringify(query))
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  isDev && console.log('query params: ', JSON.stringify(params))
   // Use last character of query param. If that character is not a valid district simply show the index page by setting active director to null.
-  const district = queryParamToStr(query['district'])
+  const district = paramToStr(params?.district)
   const districtNoStrProp = district.substr(-1)
   const districtNoProp = parseInt(districtNoStrProp, 10)
   const noOfDistricts = getMaxDistrict()
@@ -336,6 +336,19 @@ export const getServerSideProps: GetServerSideProps = async ({query}) => {
     return {props: {err: {statusCode: 404}}}
   } else {
     return {props: {district: null}}
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      {params: {district: 'district-1'}},
+      {params: {district: 'district-2'}},
+      {params: {district: 'district-3'}},
+      {params: {district: 'district-4'}},
+      {params: {district: 'district-5'}}
+    ],
+    fallback: false
   }
 }
 
