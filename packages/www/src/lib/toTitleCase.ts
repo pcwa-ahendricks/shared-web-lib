@@ -1,4 +1,5 @@
-const toTitleCase = (str: string, ignore?: RegExp) =>
+// Don't call replace() on undefined.
+const toTitleCase = (str = '', ignore?: RegExp) =>
   str.replace(/\w\S*/g, (txt) =>
     ignore && ignore.test(txt)
       ? txt

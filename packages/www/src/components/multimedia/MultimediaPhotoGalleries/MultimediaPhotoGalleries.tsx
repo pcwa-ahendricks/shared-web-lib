@@ -208,8 +208,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         filteredMappedMultimedia,
         (a) => a.metadata?.gallery
       )
-    ].map(([gallery, photos]) => ({
-      galleryKey: gallery ?? 'misc',
+    ].map(([gallery = 'misc', photos]) => ({
+      galleryKey: gallery,
       label: toTitleCase(gallery.replace(/-/g, ' '), /and|of/g),
       photos: [...photos]
     }))
@@ -222,8 +222,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
             photos,
             (a) => a.metadata?.category
           )
-        ].map(([category, photos]) => ({
-          categoryKey: category ?? 'misc',
+        ].map(([category = 'misc', photos]) => ({
+          categoryKey: category,
           label: toTitleCase(category.replace(/-/g, ' '), /and|of/g),
           photos: [...photos]
         }))
