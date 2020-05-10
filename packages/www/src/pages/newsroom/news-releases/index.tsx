@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useMemo} from 'react'
+import React, {useContext, useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -31,7 +31,11 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
-import {GroupedNewsReleases} from '@components/newsroom/NewsroomStore'
+import {
+  GroupedNewsReleases,
+  NewsroomContext,
+  setNewsReleaseYear
+} from '@components/newsroom/NewsroomStore'
 import {GetStaticProps} from 'next'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
@@ -64,7 +68,9 @@ const newsReleasesUrl = `/api/cosmic/media${qs}`
 const NewsReleasesPage = ({initialData}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
-  const [newsReleaseYear, setNewsReleaseYear] = useState<number>()
+  const newsroomContext = useContext(NewsroomContext)
+  const newsroomDispatch = newsroomContext.dispatch
+  const {newsReleaseYear} = newsroomContext.state
 
   const {data: newsReleasesData} = useSWR<CosmicMediaResponse>(
     newsReleasesUrl,
@@ -117,9 +123,9 @@ const NewsReleasesPage = ({initialData}: Props) => {
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{value: unknown}>) => {
-      setNewsReleaseYear(event.target.value as number)
+      newsroomDispatch(setNewsReleaseYear(event.target.value as number))
     },
-    []
+    [newsroomDispatch]
   )
 
   const newsReleasesForYear = useMemo(

@@ -227,7 +227,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
               .filter((nl) => !nl.derivedFilenameAttr?.date)
               .map((nl) => nl.original_name)
           : []
-      debug.forEach((i) => console.log(`Debug News Release: ${i}`))
+      debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
     }
     const paths =
       data && Array.isArray(data)

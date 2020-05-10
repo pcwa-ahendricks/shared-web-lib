@@ -11,7 +11,6 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
-  getMedia,
   fileNameUtil,
   CosmicMediaMeta,
   CosmicMediaResponse,
@@ -44,8 +43,8 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import {GetServerSideProps} from 'next'
-import queryParamToStr from '@lib/services/queryParamToStr'
+import {GetStaticProps, GetStaticPaths} from 'next'
+import {paramToStr} from '@lib/services/queryParamToStr'
 import ErrorPage from '@pages/_error'
 import {
   RespRowBox,
@@ -59,7 +58,6 @@ import {
   NewsroomContext,
   GroupedNewsletters,
   setNewsletterYear,
-  setNewsletters,
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
@@ -67,10 +65,10 @@ import {isWebUri} from 'valid-url'
 import PublicationCard, {
   PublicationCardProps
 } from '@components/newsroom/PublicationCard/PublicationCard'
-import lambdaUrl from '@lib/lambdaUrl'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetch from 'isomorphic-unfetch'
+import fetcher from '@lib/fetcher'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -86,14 +84,10 @@ interface TabPanelProps {
 }
 
 type Props = {
-  newsletters?: GroupedNewsletters
   tabIndex: number
   initialEnewsBlasts?: CosmicObjectResponse<EnewsBlastMetadata>
+  initialNewsletters?: CosmicMediaResponse
   err?: {statusCode: number}
-}
-
-const cosmicGetMediaProps = {
-  props: '_id,original_name,imgix_url'
 }
 
 export const cosmicFetcher = (
@@ -129,22 +123,69 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+const cosmicGetMediaProps = {
+  props: '_id,original_name,imgix_url'
+}
+const params = {
+  folder: 'newsletters',
+  ...cosmicGetMediaProps
+}
+const qs = stringify({...params}, true)
+const newslettersUrl = `/api/cosmic/media${qs}`
+
 const PublicationsPage = ({
-  newsletters: newslettersProp,
   tabIndex: tabIndexProp,
   err,
-  initialEnewsBlasts
+  initialEnewsBlasts,
+  initialNewsletters
 }: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const [tabIndex, setTabIndex] = useState(0)
   const newsroomContext = useContext(NewsroomContext)
-  const {newsletters, newsletterYear} = newsroomContext.state
   const newsroomDispatch = newsroomContext.dispatch
+  const {newsletterYear} = newsroomContext.state
 
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+
+  const {data: newslettersData} = useSWR<CosmicMediaResponse>(newslettersUrl, {
+    initialData: initialNewsletters
+  })
+
+  const newsletters: GroupedNewsletters = useMemo(
+    () =>
+      newslettersData && Array.isArray(newslettersData)
+        ? [
+            // Group objects by derived Year into JS Map.
+            ...groupBy<CosmicMediaMeta, number>(
+              newslettersData
+                .map((nr) => ({
+                  ...nr,
+                  derivedFilenameAttr: fileNameUtil(
+                    nr.original_name,
+                    DATE_FNS_FORMAT
+                  )
+                }))
+                .filter((nr) => nr.derivedFilenameAttr?.date), // Don't list links that will ultimately 404.
+              (mnr) => mnr.derivedFilenameAttr?.publishedYear
+            )
+          ] // Spreading Map will convert Map into an Array.
+            // Sort individual media objects by published date property.
+            .map(([year, values]) => ({
+              year,
+              values: values.sort((a, b) =>
+                compareDesc(
+                  parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
+                  parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
+                )
+              )
+            }))
+            .sort((a, b) => b.year - a.year) // Sort grouped database by Year.
+        : [],
+    [newslettersData]
+  )
 
   const TabPanel = useCallback(
     ({children, value, index, ...other}: TabPanelProps) => (
@@ -179,12 +220,6 @@ const PublicationsPage = ({
     ),
     []
   )
-
-  useEffect(() => {
-    if (newslettersProp && newslettersProp?.length > 0) {
-      newsroomDispatch(setNewsletters(newslettersProp))
-    }
-  }, [newslettersProp, newsroomDispatch])
 
   const {data: enewsData} = useSWR<CosmicObjectResponse<EnewsBlastMetadata>>(
     ['/api/cosmic/objects', 'enews-blasts', '_id,metadata,status,title'],
@@ -578,55 +613,72 @@ const PublicationsPage = ({
   )
 }
 
-const fetchNewsletters = async (baseUrl: string) => {
-  const bma = await getMedia<CosmicMediaResponse>(
-    {
-      folder: 'newsletters',
-      ...cosmicGetMediaProps
-    },
-    undefined,
-    baseUrl
-  )
-  if (!bma) {
-    return
-  }
-  const bmaEx = bma.map((bm) => ({
-    ...bm,
-    derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-  }))
-  // Group Newsletters by derived Year into JS Map.
-  const grouped = groupBy<CosmicMediaMeta, number>(
-    bmaEx,
-    (mbm) => mbm.derivedFilenameAttr?.publishedYear
-  )
-  // Transform JS Map into a usable Array of Objects.
-  const tmpSortedGroups = [] as GroupedNewsletters
-  for (const [k, v] of grouped) {
-    // Sort individual Newsletters by published date property.
-    tmpSortedGroups.push({
-      year: k,
-      values: [...v].sort((a, b) =>
-        compareDesc(
-          parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
-          parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
-        )
-      )
-    })
-  }
-  // Sort grouped database by Year.
-  const sortedGroups = tmpSortedGroups.sort((a, b) => b.year - a.year)
+// export const getServerSideProps: GetServerSideProps = async ({
+//   query,
+//   res,
+//   req
+// }) => {
+//   try {
+//     const baseUrl = lambdaUrl(req)
+//     const publication = queryParamToStr(query['publication'])
+//     let tabIndex: number
+//     switch (publication.toLowerCase()) {
+//       case 'newsletters': {
+//         tabIndex = 0
+//         break
+//       }
+//       case 'fire-and-water': {
+//         tabIndex = 1
+//         break
+//       }
+//       case 'year-end': {
+//         tabIndex = 2
+//         break
+//       }
+//       case 'enews': {
+//         tabIndex = 3
+//         break
+//       }
+//       default: {
+//         tabIndex = -1
+//         throw new Error('Publication not found')
+//       }
+//     }
 
-  return sortedGroups
+//     const [newsletters, initialEnewsBlasts] = await Promise.all([
+//       fetchNewsletters(baseUrl),
+//       cosmicFetcher(
+//         `${baseUrl}/api/cosmic/objects`,
+//         'enews-blasts',
+//         '_id,metadata,status,title'
+//       )
+//     ])
+
+//     return {props: {newsletters, tabIndex, initialEnewsBlasts}}
+//   } catch (error) {
+//     console.log(error)
+//     res.statusCode = 404
+//     return {props: {err: {statusCode: 404}}}
+//   }
+// }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      {params: {publication: 'newsletters'}},
+      {params: {publication: 'fire-and-water'}},
+      {params: {publication: 'year-end'}},
+      {params: {publication: 'enews'}}
+    ],
+    fallback: false
+  }
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res,
-  req
-}) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = lambdaUrl(req)
-    const publication = queryParamToStr(query['publication'])
+    const baseUrl = process.env.NEXT_BASE_URL
+
+    const publication = paramToStr(params?.publication)
     let tabIndex: number
     switch (publication.toLowerCase()) {
       case 'newsletters': {
@@ -651,8 +703,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     }
 
-    const [newsletters, initialEnewsBlasts] = await Promise.all([
-      fetchNewsletters(baseUrl),
+    const [initialNewslettersData, initialEnewsBlasts] = await Promise.all([
+      fetcher(`${baseUrl}${newslettersUrl}`),
       cosmicFetcher(
         `${baseUrl}/api/cosmic/objects`,
         'enews-blasts',
@@ -660,11 +712,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       )
     ])
 
-    return {props: {newsletters, tabIndex, initialEnewsBlasts}}
+    return {props: {initialNewslettersData, tabIndex, initialEnewsBlasts}}
   } catch (error) {
-    console.log(error)
-    res.statusCode = 404
-    return {props: {err: {statusCode: 404}}}
+    console.log('There was an error fetching Newsletters.', error)
+    return {props: {}}
   }
 }
 
