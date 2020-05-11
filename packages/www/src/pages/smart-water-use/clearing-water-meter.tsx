@@ -17,7 +17,7 @@ import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import Head from 'next/head'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
+const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -34,7 +34,7 @@ import {
   MultimediaList
 } from '@components/multimedia/MultimediaStore'
 import Head from 'next/head'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
+const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 type Props = {
   err?: any

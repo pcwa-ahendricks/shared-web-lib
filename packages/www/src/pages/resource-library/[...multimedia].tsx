@@ -53,7 +53,7 @@ import Head from 'next/head'
 import useSWR from 'swr'
 import groupBy from '@lib/groupBy'
 import fileExtension from '@lib/fileExtension'
-const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
+const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 // const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {

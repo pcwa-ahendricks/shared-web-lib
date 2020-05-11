@@ -3,7 +3,6 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
-const Dotenv = require('dotenv-webpack')
 const {STATS} = process.env
 
 module.exports = (_phase, {defaultConfig}) => {
@@ -49,9 +48,6 @@ module.exports = (_phase, {defaultConfig}) => {
         config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
       }
 
-      // To my knowledge {safe: true} will not work with Vercel Now Env variables. Additionally, {silent: true} should be used to suppress erroneous warnings.
-      config.plugins.push(new Dotenv({silent: true}))
-
       /**
        * Fix Mapbox GL JS in production. See https://github.com/mapbox/mapbox-gl-js/issues/4348 for more info.
        */
@@ -74,8 +70,7 @@ module.exports = (_phase, {defaultConfig}) => {
       NEXT_GOOGLE_MAPS_API_KEY: process.env.NEXT_GOOGLE_MAPS_API_KEY,
       NEXT_PI_MAP_MAPBOX_API_KEY: process.env.NEXT_PI_MAP_MAPBOX_API_KEY,
       NEXT_DISTRICT_MAP_MAPBOX_API_KEY:
-        process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY,
-      NEXT_USE_NG_IFRAME: process.env.NEXT_USE_NG_IFRAME
+        process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY
     }
   })
 }
