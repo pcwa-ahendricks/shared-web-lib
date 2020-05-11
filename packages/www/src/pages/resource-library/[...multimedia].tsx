@@ -309,20 +309,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
     //   `${baseUrl}${multimediaUrl}`
     // )
-    // const publications$: Promise<MultimediaList | undefined> = fetcher(
+    // const documents$: Promise<MultimediaList | undefined> = fetcher(
     //   `${baseUrl}${publicationsUrl}`
     // )
-    // const [multimedia, publications] = await Promise.all([
+    // const [multimedia = [], documents = []] = await Promise.all([
     //   multimedia$,
-    //   publications$
+    //   documents$
     // ])
-
     const multimedia: MultimediaList | undefined = await fetcher(
       `${baseUrl}${multimediaUrl}`
     )
 
+    /* Photo Paths */
     // Use the same filters used in <MultimediaPhotoGalleries/>.
-    const filteredMultimedia =
+    const filteredPhotoMultimedia =
       multimedia && Array.isArray(multimedia)
         ? multimedia.filter(
             (p) =>
@@ -334,7 +334,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const photoPaths = [
       ...groupBy<MappedMultimedia, string>(
-        filteredMultimedia,
+        filteredPhotoMultimedia,
         (a) => a.metadata?.gallery
       )
     ]
@@ -346,13 +346,37 @@ export const getStaticPaths: GetStaticPaths = async () => {
           .concat([{params: {multimedia: ['photos', gallery]}}])
       )
       .reduce((prev, curVal) => [...prev, ...curVal])
+    /* */
+
+    /* Video Paths */
+    // Use the same filters used in <MultimediaPhotoGalleries/>.
+    const filteredVideoMultimedia =
+      multimedia && Array.isArray(multimedia)
+        ? multimedia.filter(
+            (p) =>
+              fileExtension(p.name) === 'mp4' && // Only videos.
+              p.metadata?.['video-poster'] !== 'true' && // No video posters
+              p.metadata?.gallery // No videos w/o gallery metadata
+          )
+        : []
+
+    const videoPaths = [
+      ...groupBy<MappedMultimedia, string>(
+        filteredVideoMultimedia,
+        (a) => a.metadata?.gallery
+      )
+    ].map(([gallery]) => ({params: {multimedia: ['videos', gallery]}}))
+    /* */
 
     return {
       paths: [
         {params: {multimedia: ['documents']}},
         {params: {multimedia: ['photos']}},
         {params: {multimedia: ['videos']}},
-        ...photoPaths
+        // Documents Paths are covered in getStaticPaths() in Dynamic Publication Page.
+        // ...documentPaths
+        ...photoPaths,
+        ...videoPaths
       ],
       fallback: false
     }

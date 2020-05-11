@@ -208,10 +208,10 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         filteredMappedMultimedia,
         (a) => a.metadata?.gallery
       )
-    ].map(([gallery, photos]) => ({
-      galleryKey: gallery,
-      label: toTitleCase(gallery.replace(/-/g, ' '), /and|of/g),
-      photos: [...photos]
+    ].map(([galleryKey, photos]) => ({
+      galleryKey,
+      label: toTitleCase(galleryKey.replace(/-/g, ' '), /and|of/g),
+      photos
     }))
 
     return groupedByGallery
@@ -223,10 +223,10 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
             (a) => a.metadata?.category
           )
           // Default category to a value since those photos are not filtered out or else toUpperCase() will try to execute on undefined below in sort().
-        ].map(([category = 'misc', photos]) => ({
-          categoryKey: category,
-          label: toTitleCase(category.replace(/-/g, ' '), /and|of/g),
-          photos: [...photos]
+        ].map(([categoryKey = 'misc', photos]) => ({
+          categoryKey,
+          label: toTitleCase(categoryKey.replace(/-/g, ' '), /and|of/g),
+          photos
         }))
 
         let index = 0

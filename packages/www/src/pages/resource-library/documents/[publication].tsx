@@ -1,7 +1,6 @@
 // cspell:ignore Frmt slugified
 import React, {useCallback} from 'react'
-import {ParsedUrlQuery} from 'querystring'
-import {GetServerSideProps} from 'next'
+import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
@@ -22,21 +21,22 @@ import {
 import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import ErrorPage from '@pages/_error'
-import MinutesIcon from '@material-ui/icons/UndoOutlined'
+import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
-import lambdaUrl from '@lib/lambdaUrl'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import queryParamToStr from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
-import {PublicationLibraryMetadata} from '@components/multimedia/MultimediaStore'
+import {
+  PublicationLibraryMetadata,
+  MultimediaList
+} from '@components/multimedia/MultimediaStore'
 import Head from 'next/head'
 const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 
 type Props = {
-  query: ParsedUrlQuery
   err?: any
   qMedia?: PickedMediaResponse
   pages?: Page[]
@@ -117,7 +117,7 @@ const DynamicPublicationPage = ({
                 href="/resource-library/documents"
                 className={classes.bcLink}
               >
-                <MinutesIcon className={classes.bcIcon} />
+                <UndoIcon className={classes.bcIcon} />
                 Documents
               </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
@@ -201,15 +201,47 @@ const DynamicPublicationPage = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res,
-  req
-}) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const urlBase = lambdaUrl(req)
+    const baseUrl = process.env.NEXT_BASE_URL
+    const documents: MultimediaList | undefined = await fetcher(
+      `${baseUrl}${publicationUrl}`
+    )
+
+    const documentPaths =
+      documents && Array.isArray(documents)
+        ? documents
+            .map((doc) => ({
+              ...doc,
+              derivedFilenameAttr: fileNameUtil(doc.original_name)
+            }))
+            .filter((doc) => doc.derivedFilenameAttr.extension === 'pdf')
+            .filter((doc) => !/(cover)/i.test(doc.original_name))
+            .map((doc) => ({
+              params: {
+                publication: slugify(doc.derivedFilenameAttr?.base ?? '')
+              }
+            }))
+        : []
+
+    return {
+      paths: [...documentPaths],
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  try {
+    const baseUrl = process.env.NEXT_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
-      `${urlBase}${publicationUrl}`
+      `${baseUrl}${publicationUrl}`
     )
     const publications =
       data && Array.isArray(data)
@@ -219,7 +251,7 @@ export const getServerSideProps: GetServerSideProps = async ({
           }))
         : []
     // Don't need to slugify parameter since it's already slugified.
-    const publicationSlug = queryParamToStr(query['publication'])
+    const publicationSlug = paramToStr(params?.publication)
     const {qMedia, pages} = await getMediaPDFPages(
       publications,
       publicationSlug,
@@ -227,11 +259,9 @@ export const getServerSideProps: GetServerSideProps = async ({
       true
     )
 
-    // const selfReferred = (req)
-    return {props: {query, qMedia, pages, publicationSlug}}
+    return {props: {qMedia, pages, publicationSlug}}
   } catch (error) {
     console.log(error)
-    res.statusCode = 404
     return {props: {err: {statusCode: 404}}}
   }
 }
