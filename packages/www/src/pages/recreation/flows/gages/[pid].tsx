@@ -5,7 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {Box, Typography as Type, Hidden} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
-import {GetServerSideProps} from 'next'
+import {GetStaticPaths, GetStaticProps} from 'next'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
 import {
   fetchElementStreamSet,
@@ -37,7 +37,7 @@ import PiTable from '@components/pi/PiTable/PiTable'
 import gages from '@lib/services/pi/gage-config'
 import useInterval from '@hooks/useInterval'
 import {generate} from 'shortid'
-import queryParamToStr from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/services/queryParamToStr'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
@@ -378,26 +378,54 @@ const DynamicPiPage = ({pid}: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  req,
-  res
-}) => {
-  try {
-    isDev && console.log(JSON.stringify(query))
-    // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
-    const pidParam = queryParamToStr(query['pid'])
-    const pid = pidParam.replace(spacesRe, '-').toLowerCase()
+// export const getServerSideProps: GetServerSideProps = async ({
+//   query,
+//   req,
+//   res
+// }) => {
+//   try {
+//     isDev && console.log(JSON.stringify(query))
+//     // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
+//     const pidParam = queryParamToStr(query['pid'])
+//     const pid = pidParam.replace(spacesRe, '-').toLowerCase()
 
-    // If the pid parameter had a space update the URL so that dashes show in the URL bar.
-    if (pidParam !== pid) {
-      const {url = ''} = req
-      const newLocation = url.replace(spacesRe, '-').toLowerCase()
-      res.writeHead(302, {
-        Location: newLocation
-      })
-      res.end()
-    }
+//     // If the pid parameter had a space update the URL so that dashes show in the URL bar.
+//     if (pidParam !== pid) {
+//       const {url = ''} = req
+//       const newLocation = url.replace(spacesRe, '-').toLowerCase()
+//       res.writeHead(302, {
+//         Location: newLocation
+//       })
+//       res.end()
+//     }
+
+//     return {props: {pid}}
+//   } catch (error) {
+//     console.log('There was an error fetching PI data.', error)
+//     return {props: {}}
+//   }
+// }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = gages
+    .filter((g) => !g.disabled) // No disabled gages.
+    .map(({id = ''}) => id.toLowerCase().replace(spacesRe, '-')) // URL paths should be lowercase w/o spaces.
+    .map((id) => ({
+      params: {pid: id}
+    }))
+
+  return {
+    paths: [...paths],
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  try {
+    isDev && console.log(JSON.stringify(params))
+    // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
+    const pidParam = paramToStr(params?.pid)
+    const pid = pidParam.replace(spacesRe, '-').toLowerCase()
 
     return {props: {pid}}
   } catch (error) {
