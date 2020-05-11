@@ -5,7 +5,7 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheets} from '@material-ui/core/styles'
-import webFontConfig from '@lib/webFontConfig'
+// import webFontConfig from '@lib/webFontConfig'
 import theme from '@lib/material-theme'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -114,7 +114,7 @@ class MyDocument extends Document {
             }}
           /> */}
           {/* Async Web Font Loader */}
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `WebFontConfig = ${JSON.stringify(webFontConfig)};
                 (function(d) {
@@ -125,7 +125,7 @@ class MyDocument extends Document {
                 })(document);
               `
             }}
-          />
+          /> */}
         </Head>
         <body>
           <Main />
