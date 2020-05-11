@@ -55,7 +55,7 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const API_KEY = process.env.NEXT_YOUTUBE_API_KEY || ''
+const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY || ''
 const howToPlaylistId = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
 const youtubeApiUrl = 'https://www.googleapis.com/youtube/v3'
 
