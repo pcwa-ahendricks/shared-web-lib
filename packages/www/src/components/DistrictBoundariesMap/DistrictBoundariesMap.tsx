@@ -29,7 +29,7 @@ if (typeof window !== 'undefined') {
   Geocoder = require('react-map-gl-geocoder').default
 }
 
-const API_KEY = process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
+const API_KEY = process.env.NEXT_PUBLIC_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
 // const useStyles = makeStyles(() =>
 //   createStyles({
 //   })
