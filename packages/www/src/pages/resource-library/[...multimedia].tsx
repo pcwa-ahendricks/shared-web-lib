@@ -339,18 +339,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
       )
     ]
       .map(([gallery, photos]) =>
-        photos.map((_, idx) => ({
-          params: {multimedia: ['photos', gallery, idx.toString()]}
-        }))
+        photos
+          .map((_, idx) => ({
+            params: {multimedia: ['photos', gallery, idx.toString()]}
+          }))
+          .concat([{params: {multimedia: ['photos', gallery]}}])
       )
       .reduce((prev, curVal) => [...prev, ...curVal])
 
     return {
       paths: [
+        {params: {multimedia: ['documents']}},
+        {params: {multimedia: ['photos']}},
+        {params: {multimedia: ['videos']}},
         ...photoPaths
-        // {params: {multimedia: ['documents']}},
-        // {params: {multimedia: ['photos']}},
-        // {params: {multimedia: ['videos']}}
       ],
       fallback: false
     }
