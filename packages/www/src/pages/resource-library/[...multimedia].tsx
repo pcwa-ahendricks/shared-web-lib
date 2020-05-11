@@ -304,7 +304,7 @@ const ResourceLibraryPage = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
     //   `${baseUrl}${multimediaUrl}`
@@ -430,7 +430,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       return {props: {err}}
     }
 
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     const multimedia$: Promise<MultimediaList | undefined> = fetcher(
       `${baseUrl}${multimediaUrl}`

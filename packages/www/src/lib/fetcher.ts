@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch'
 type FetchParameters = Parameters<typeof fetch>
 
 const fetcher = (...args: FetchParameters) =>

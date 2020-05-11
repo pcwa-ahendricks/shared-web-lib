@@ -215,11 +215,6 @@ require('regenerator-runtime/runtime')
 // import repeat from 'core-js/library/fn/string/virtual/repeat'
 // String.prototype.repeat = repeat
 
-/*
-  Ideally we would polyfill fetch here but getInitialProps and getServerSideProps would fail when attempting to fetch due to the fact the fetch would only get polyfill'ed in the client and not the node instance during a server side render. The workaround is to use isomorphic-unfetch as a dependency instead and import fetch from that library whenever it's used in this Next app.
-*/
-// import 'unfetch/polyfill'
-
 import '../lib/modernizr'
 
 import lazysizes from 'lazysizes'
@@ -236,9 +231,9 @@ lazysizes.cfg.blurupMode = 'auto' // default is 'always'
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
 if (!HTMLCanvasElement.prototype.toBlob) {
   Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-    value: function(callback, type, quality) {
+    value: function (callback, type, quality) {
       var dataURL = this.toDataURL(type, quality).split(',')[1]
-      setTimeout(function() {
+      setTimeout(function () {
         var binStr = atob(dataURL),
           len = binStr.length,
           arr = new Uint8Array(len)

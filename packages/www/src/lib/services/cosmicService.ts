@@ -2,7 +2,6 @@
 import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
 import fetchOk from '@lib/fetch-ok'
-import fetch from 'isomorphic-unfetch'
 import slugify from 'slugify'
 
 export interface UnclaimedPropertyResponse {

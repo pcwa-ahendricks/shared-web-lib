@@ -67,7 +67,6 @@ import PublicationCard, {
 } from '@components/newsroom/PublicationCard/PublicationCard'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import fetch from 'isomorphic-unfetch'
 import fetcher from '@lib/fetcher'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
@@ -676,7 +675,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     const publication = paramToStr(params?.publication)
     let tabIndex: number

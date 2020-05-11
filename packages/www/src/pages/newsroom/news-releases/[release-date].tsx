@@ -227,7 +227,7 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${baseUrl}${newsReleasesUrl}`
     )
@@ -266,7 +266,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         : []
     return {
       paths,
-      fallback: false
+      fallback: true
     }
   } catch (error) {
     console.log(error)
@@ -280,7 +280,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${baseUrl}${newsReleasesUrl}`
     )

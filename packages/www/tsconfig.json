@@ -16,7 +16,7 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@lib/*": ["src/lib/*"],
       "@components/*": ["src/components/*"],

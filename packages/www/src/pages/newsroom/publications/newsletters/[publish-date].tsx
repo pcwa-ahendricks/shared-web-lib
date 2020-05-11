@@ -209,7 +209,7 @@ const DynamicNewslettersPage = ({
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${baseUrl}${newslettersUrl}`
     )
@@ -262,7 +262,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${baseUrl}${newslettersUrl}`
     )

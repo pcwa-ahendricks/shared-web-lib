@@ -188,7 +188,7 @@ const BoardMinutesPage = ({initialData}: Props) => {
 // Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const baseUrl = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const initialData = await fetcher(`${baseUrl}${boardMinutesUrl}`)
     return {props: {initialData}}
   } catch (error) {

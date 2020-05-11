@@ -4,7 +4,6 @@ const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
 const Dotenv = require('dotenv-webpack')
-const path = require('path')
 const {STATS} = process.env
 
 module.exports = (_phase, {defaultConfig}) => {
@@ -61,18 +60,6 @@ module.exports = (_phase, {defaultConfig}) => {
         noParse: /(mapbox-gl)\.js$/
       }
 
-      // Example. See https://github.com/zeit/next.js/blob/42d656050dca98f4eae58fa0ed29f784400cd048/examples/with-absolute-imports/next.config.js#L5 for more info.
-      // eslintrc and tsconfig will require similar configurations to support the following.
-      config.resolve.alias['@components'] = path.join(
-        __dirname,
-        'src',
-        'components'
-      )
-      config.resolve.alias['@lib'] = path.join(__dirname, 'src', 'lib')
-      config.resolve.alias['@store'] = path.join(__dirname, 'src', 'store')
-      config.resolve.alias['@hooks'] = path.join(__dirname, 'src', 'hooks')
-      config.resolve.alias['@pages'] = path.join(__dirname, 'src', 'pages')
-
       // Use raw loader for markdown files.
       config.module.rules.push({
         test: /\.md$/,
@@ -88,8 +75,7 @@ module.exports = (_phase, {defaultConfig}) => {
       NEXT_PI_MAP_MAPBOX_API_KEY: process.env.NEXT_PI_MAP_MAPBOX_API_KEY,
       NEXT_DISTRICT_MAP_MAPBOX_API_KEY:
         process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY,
-      NEXT_USE_NG_IFRAME: process.env.NEXT_USE_NG_IFRAME,
-      NEXT_BASE_URL: process.env.NEXT_BASE_URL
+      NEXT_USE_NG_IFRAME: process.env.NEXT_USE_NG_IFRAME
     }
   })
 }

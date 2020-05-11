@@ -234,7 +234,7 @@ const DynamicBoardMinutesPage = ({
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const urlBase = process.env.NEXT_BASE_URL
+    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${urlBase}${boardMinutesUrl}`
     )
@@ -287,7 +287,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = process.env.NEXT_BASE_URL
+    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
       `${urlBase}${boardMinutesUrl}`
     )

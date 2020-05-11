@@ -2,7 +2,6 @@ import prettyBytes from 'pretty-bytes'
 import Busboy from 'busboy'
 // import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
-// Importing node-fetch (over isomorphic-unfetch) suppress typescript warning with posting body: FormData.
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../../lib/busboy-error'
 import {NowRequest, NowResponse} from '@vercel/node'
