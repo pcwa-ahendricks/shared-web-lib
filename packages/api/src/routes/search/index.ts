@@ -27,7 +27,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       },
       true
     )
-    // Need to pass the Referer to custom search. See https://console.developers.google.com/apis/credentials?project=pcwa-website for more info regarding referrer checks.
+    // Need to pass the Referer to custom search. See https://console.cloud.google.com/apis/credentials?project=pcwa-website for more info regarding referrer checks.
     const response = await fetch(`${BASE_URL}${qs}`, {
       headers: {
         Referer: req.headers['referer'] ?? ''
