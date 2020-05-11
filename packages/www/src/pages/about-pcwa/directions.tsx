@@ -6,7 +6,7 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {stringify} from 'querystringify'
 
-const API_KEY = process.env.NEXT_GOOGLE_MAPS_API_KEY || ''
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
 
 const DirectionsPage = () => {
   const qs = stringify(
