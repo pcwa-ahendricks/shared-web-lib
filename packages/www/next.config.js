@@ -65,7 +65,6 @@ module.exports = (_phase, {defaultConfig}) => {
       return config
     },
     env: {
-      NEXT_PI_MAP_MAPBOX_API_KEY: process.env.NEXT_PI_MAP_MAPBOX_API_KEY,
       NEXT_DISTRICT_MAP_MAPBOX_API_KEY:
         process.env.NEXT_DISTRICT_MAP_MAPBOX_API_KEY
     }

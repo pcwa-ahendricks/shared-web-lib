@@ -21,7 +21,7 @@ import PiMapMarker from './PiMapMarker'
 import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 import {PiContext} from '../PiStore'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
-const API_KEY = process.env.NEXT_PI_MAP_MAPBOX_API_KEY ?? ''
+const API_KEY = process.env.NEXT_PUBLIC_PI_MAP_MAPBOX_API_KEY ?? ''
 const isDev = process.env.NODE_ENV === 'development'
 const debugMapMarkerPosition = false // Set back to false when not in use.
 
