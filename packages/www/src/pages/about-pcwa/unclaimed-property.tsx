@@ -41,7 +41,7 @@ const useStyles = makeStyles(() =>
 
 const UnclaimedPropertyPage = ({initialData}: Props) => {
   const classes = useStyles()
-  const deadlineDate = new Date('2019-07-12T17:00:00')
+  const deadlineDate = new Date('2020-07-10T17:00:00')
 
   const deadlinePassedEl = useMemo(
     () =>

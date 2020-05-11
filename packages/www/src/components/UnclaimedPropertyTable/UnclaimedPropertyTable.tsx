@@ -82,9 +82,9 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
     {initialData}
   )
 
-  const unclaimedProperty: UnclaimedProperty[] = useMemo(
-    () =>
-      unclaimedPropertyData && Array.isArray(unclaimedPropertyData)
+  const unclaimedProperty: UnclaimedProperty[] = useMemo(() => {
+    try {
+      return unclaimedPropertyData && Array.isArray(unclaimedPropertyData)
         ? unclaimedPropertyData.map((row) => {
             const amt = row.amount.toString()
             const amountNo = isNumber(amt)
@@ -97,9 +97,15 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
               date: parse(row.date, 'MM/dd/yy', new Date())
             }
           })
-        : [],
-    [unclaimedPropertyData]
-  )
+        : []
+    } catch (error) {
+      console.error(
+        'Error processing Unclaimed Property data. Check uploaded CSV file on Cosmic.'
+      )
+      console.log(error)
+      return []
+    }
+  }, [unclaimedPropertyData])
 
   const logAmountTotal = useCallback(() => {
     if (isDev && unclaimedProperty) {
