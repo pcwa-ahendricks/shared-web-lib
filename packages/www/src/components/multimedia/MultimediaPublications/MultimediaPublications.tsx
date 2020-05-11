@@ -41,9 +41,7 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
       const filenameRe = new RegExp(`${filename}.*`, 'i')
       return mappedPublications
         .filter((pub) => /.+(cover)/i.test(pub.original_name))
-        .filter((pub) => {
-          return filenameRe.test(pub.derivedFilenameAttr?.base)
-        })
+        .filter((pub) => filenameRe.test(pub.derivedFilenameAttr?.base))
         .shift()
     },
     [mappedPublications]

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "New Nextjs PCWA website",
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "main": "index.js",
   "repository": "pcwa.net",

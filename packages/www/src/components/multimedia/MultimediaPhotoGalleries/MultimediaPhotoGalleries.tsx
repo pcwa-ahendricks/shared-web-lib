@@ -1,12 +1,5 @@
 // cspell:ignore Lightbox
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  useContext
-} from 'react'
+import React, {useCallback, useMemo, useRef, useContext} from 'react'
 import {
   MultimediaContext,
   setSelectedGallery,
@@ -93,9 +86,6 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const isSM = useMediaQuery(theme.breakpoints.down('sm'))
   const isMD = useMediaQuery(theme.breakpoints.only('md'))
   const isLG = useMediaQuery(theme.breakpoints.up('lg'))
-  const [mappedMultimedia, setMappedMultimedia] = useState<
-    MappedMultimediaList
-  >([])
   const multimediaContext = useContext(MultimediaContext)
   const {
     selectedGallery,
@@ -166,22 +156,23 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     [isSM, isMD, isLG]
   )
 
-  useEffect(() => {
-    const mediaMapped = multimedia.map((m) => {
-      const {width, height, paddingPercent} = galleryImgWidthHeight(
-        m.metadata?.['orientation']
-      )
-      return {
-        ...m,
-        source: m.imgix_url,
-        src: m.imgix_url,
-        paddingPercent,
-        width,
-        height
-      }
-    })
-    setMappedMultimedia(mediaMapped)
-  }, [multimedia, galleryImgWidthHeight])
+  const mappedMultimedia: MappedMultimediaList = useMemo(
+    () =>
+      multimedia.map((m) => {
+        const {width, height, paddingPercent} = galleryImgWidthHeight(
+          m.metadata?.['orientation']
+        )
+        return {
+          ...m,
+          source: m.imgix_url,
+          src: m.imgix_url,
+          paddingPercent,
+          width,
+          height
+        }
+      }),
+    [galleryImgWidthHeight, multimedia]
+  )
 
   const galleryCovers = useMemo(
     () =>
@@ -212,41 +203,37 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         p.metadata?.['video-poster'] !== 'true' && // No video posters
         p.metadata?.gallery // No photos w/o gallery metadata.
     )
-    const groupedByGallery = groupBy<MappedMultimedia, string>(
-      filteredMappedMultimedia,
-      (a) => a.metadata?.gallery
-    )
-    const groupedByGalleryAsArray = []
-    for (const [k, v] of groupedByGallery) {
-      const galleryKey = k ?? 'misc'
-      groupedByGalleryAsArray.push({
-        galleryKey,
-        label: toTitleCase(galleryKey.replace(/-/g, ' '), /and|of/g),
-        photos: [...v]
-      })
-    }
-    return groupedByGalleryAsArray
+    const groupedByGallery = [
+      ...groupBy<MappedMultimedia, string>(
+        filteredMappedMultimedia,
+        (a) => a.metadata?.gallery
+      )
+    ].map(([galleryKey, photos]) => ({
+      galleryKey,
+      label: toTitleCase(galleryKey.replace(/-/g, ' '), /and|of/g),
+      photos
+    }))
+
+    return groupedByGallery
       .map((v) => {
         const {photos, galleryKey, label} = v
-        const groupedByCategory = groupBy<MappedMultimedia, string>(
-          photos,
-          (a) => a.metadata?.category
-        )
-        const groupedByCategoryAsArray = []
-        for (const [k, v] of groupedByCategory) {
-          // const mappedPhotos = [...v].map((p, index) => ({...p, index}))
-          const categoryKey = k ?? 'misc'
-          groupedByCategoryAsArray.push({
-            categoryKey,
-            label: toTitleCase(categoryKey.replace(/-/g, ' '), /and|of/g),
-            photos: [...v]
-          })
-        }
+        const groupedByCategory = [
+          ...groupBy<MappedMultimedia, string>(
+            photos,
+            (a) => a.metadata?.category
+          )
+          // Default category to a value since those photos are not filtered out or else toUpperCase() will try to execute on undefined below in sort().
+        ].map(([categoryKey = 'misc', photos]) => ({
+          categoryKey,
+          label: toTitleCase(categoryKey.replace(/-/g, ' '), /and|of/g),
+          photos
+        }))
+
         let index = 0
         return {
           galleryKey,
           label,
-          categories: groupedByCategoryAsArray
+          categories: groupedByCategory
             .sort((a, b) => {
               // Sort categories alphabetically.
               const keyA = a.categoryKey.toUpperCase() // ignore upper and lowercase
@@ -259,15 +246,13 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
               }
               return 0 // keys must be equal
             })
-            .map((cat) => {
-              return {
-                ...cat,
-                photos: cat.photos.map((p) => ({...p, index: index++}))
-              }
-            }),
+            .map((cat) => ({
+              ...cat,
+              photos: cat.photos.map((p) => ({...p, index: index++}))
+            })),
           galleryCover:
             galleryCovers.find((c) => c.metadata?.gallery === galleryKey) ??
-            groupedByCategoryAsArray[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
+            groupedByCategory[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
         }
       })
       .sort((a, b) => {

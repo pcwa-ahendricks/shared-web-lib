@@ -32,6 +32,7 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import {useRouter} from 'next/router'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -98,9 +99,6 @@ const DynamicBoardMinutesPage = ({
     // console.log('done scrolling to top.')
   }, [router])
 
-  // console.log('bm', bm)
-  // console.log(pages)
-
   // const trigger = useScrollTrigger({
   //   disableHysteresis: true,
   //   threshold: 200
@@ -154,7 +152,7 @@ const DynamicBoardMinutesPage = ({
                   </>
                 )} */}
               </Link>
-              <Type color="textPrimary" className={classes.bcLink}>
+              <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {boardMeetingDateFormatted}
               </Type>
@@ -235,15 +233,54 @@ const DynamicBoardMinutesPage = ({
 
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    // Only `/meeting-minutes/1` and `/meeting-minutes/2` are generated at build time
-    paths: [
-      {params: {'meeting-date': '02-20-2020'}},
-      {params: {'meeting-date': '02-06-2020'}}
-    ],
-    // Enable statically generating additional pages
-    // For example: `/meeting-minutes/01-16-2020`
-    fallback: true
+  try {
+    const urlBase = process.env.NEXT_BASE_URL
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${urlBase}${boardMinutesUrl}`
+    )
+    if (isDev) {
+      const debug =
+        data && Array.isArray(data)
+          ? data
+              .map((bm) => ({
+                ...bm,
+                derivedFilenameAttr: fileNameUtil(
+                  bm.original_name,
+                  DATE_FNS_FORMAT
+                )
+              }))
+              .filter((bm) => !bm.derivedFilenameAttr?.date)
+              .map((bm) => bm.original_name)
+          : []
+      debug.forEach((i) => console.log(`Debug Board Meeting Minutes: ${i}`))
+    }
+    const paths =
+      data && Array.isArray(data)
+        ? data
+            .map((bm) => ({
+              ...bm,
+              derivedFilenameAttr: fileNameUtil(
+                bm.original_name,
+                DATE_FNS_FORMAT
+              )
+            }))
+            .filter((bm) => bm.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((bm) => ({
+              params: {
+                'meeting-date': bm.derivedFilenameAttr?.date
+              }
+            }))
+        : []
+    return {
+      paths,
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
   }
 }
 

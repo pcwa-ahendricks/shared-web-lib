@@ -29,6 +29,7 @@ import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
@@ -125,7 +126,7 @@ const DynamicNewslettersPage = ({
                 <MinutesIcon className={classes.bcIcon} />
                 Newsletters
               </MuiNextLink>
-              <Type color="textPrimary" className={classes.bcLink}>
+              <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {newsletterDateFormatted}
               </Type>
@@ -207,24 +208,63 @@ const DynamicNewslettersPage = ({
 
 // This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    // Only `/newsletters/2020-04-05` and `/newsletters/2020-02-03` are generated at build time
-    paths: [
-      {params: {'publish-date': '2020-04-05'}},
-      {params: {'publish-date': '2020-02-03'}}
-    ],
-    // Enable statically generating additional pages
-    // For example: `/newsletters/2019-12-01`
-    fallback: true
+  try {
+    const baseUrl = process.env.NEXT_BASE_URL
+    const data: PickedMediaResponses | undefined = await fetcher(
+      `${baseUrl}${newslettersUrl}`
+    )
+    if (isDev) {
+      const debug =
+        data && Array.isArray(data)
+          ? data
+              .map((nl) => ({
+                ...nl,
+                derivedFilenameAttr: fileNameUtil(
+                  nl.original_name,
+                  DATE_FNS_FORMAT
+                )
+              }))
+              .filter((nl) => !nl.derivedFilenameAttr?.date)
+              .map((nl) => nl.original_name)
+          : []
+      debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
+    }
+    const paths =
+      data && Array.isArray(data)
+        ? data
+            .map((nl) => ({
+              ...nl,
+              derivedFilenameAttr: fileNameUtil(
+                nl.original_name,
+                DATE_FNS_FORMAT
+              )
+            }))
+            .filter((nl) => nl.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((nl) => ({
+              params: {
+                'publish-date': nl.derivedFilenameAttr?.date
+              }
+            }))
+        : []
+    return {
+      paths,
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
   }
 }
 
 // This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = process.env.NEXT_BASE_URL
+    const baseUrl = process.env.NEXT_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
-      `${urlBase}${newslettersUrl}`
+      `${baseUrl}${newslettersUrl}`
     )
     const newsletters =
       data && Array.isArray(data)
@@ -236,7 +276,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const publishDate = paramToStr(params?.['publish-date'])
     const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
 
-    return {props: {params, qMedia, pages, publishDate}}
+    return {props: {qMedia, pages, publishDate}}
   } catch (error) {
     console.log(error)
     return {props: {err: {statusCode: 404}}}

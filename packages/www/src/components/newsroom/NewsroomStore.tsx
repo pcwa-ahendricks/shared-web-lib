@@ -3,10 +3,10 @@ import React, {createContext, useReducer} from 'react'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
 interface State {
-  // newsReleaseYear?: number
+  newsReleaseYear?: number
   // newsReleases: GroupedNewsReleases
   newsletterYear?: number
-  newsletters: GroupedNewsletters
+  // newsletters: GroupedNewsletters
   // enewsBlasts: EnewsBlast[]
   enewsDialogOpen: boolean
 }
@@ -41,7 +41,7 @@ export type GroupedNewsReleases = Array<{
 // State
 const initialState: State = {
   // newsReleases: [],
-  newsletters: [],
+  // newsletters: [],
   // enewsBlasts: [],
   enewsDialogOpen: false
 }
@@ -54,20 +54,20 @@ export const NewsroomContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-// const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
+const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
 // const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
 const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
-const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
+// const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
 // const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
 const SET_ENEWS_DIALOG_OPEN: 'SET_ENEWS_DIALOG_OPEN' = 'SET_ENEWS_DIALOG_OPEN'
 
 // Actions
-// export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
-//   return {
-//     type: SET_NEWS_RELEASE_YEAR,
-//     year
-//   }
-// }
+export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
+  return {
+    type: SET_NEWS_RELEASE_YEAR,
+    year
+  }
+}
 
 // export const setNewsReleases = (newsReleases: State['newsReleases']) => {
 //   return {
@@ -83,12 +83,12 @@ export const setNewsletterYear = (year: State['newsletterYear']) => {
   }
 }
 
-export const setNewsletters = (newsletters: State['newsletters']) => {
-  return {
-    type: SET_NEWSLETTERS,
-    newsletters
-  }
-}
+// export const setNewsletters = (newsletters: State['newsletters']) => {
+//   return {
+//     type: SET_NEWSLETTERS,
+//     newsletters
+//   }
+// }
 
 // export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
 //   return {
@@ -107,11 +107,11 @@ export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
 // Reducer
 const newsroomReducer = (state: State, action: any): State => {
   switch (action.type) {
-    // case SET_NEWS_RELEASE_YEAR:
-    //   return {
-    //     ...state,
-    //     newsReleaseYear: action.year
-    //   }
+    case SET_NEWS_RELEASE_YEAR:
+      return {
+        ...state,
+        newsReleaseYear: action.year
+      }
     // case SET_NEWS_RELEASES:
     //   return {
     //     ...state,
@@ -122,11 +122,11 @@ const newsroomReducer = (state: State, action: any): State => {
         ...state,
         newsletterYear: action.year
       }
-    case SET_NEWSLETTERS:
-      return {
-        ...state,
-        newsletters: [...action.newsletters]
-      }
+    // case SET_NEWSLETTERS:
+    //   return {
+    //     ...state,
+    //     newsletters: [...action.newsletters]
+    //   }
     // case SET_ENEWS_BLASTS:
     //   return {
     //     ...state,

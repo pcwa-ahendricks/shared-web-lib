@@ -136,26 +136,24 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
       (p) =>
         fileExtension(p.name) === 'mp4' && // Only videos.
         p.metadata?.['video-poster'] !== 'true' && // No video posters
-        p.metadata?.gallery // No photos w/o gallery metadata.
+        p.metadata?.gallery // No videos w/o gallery metadata.
     )
-    const groupedByGallery = groupBy<MappedMultimedia, string>(
-      filteredMappedMultimedia,
-      (a) => a.metadata?.gallery
-    )
-    const groupedByGalleryAsArray = []
-    for (const [k, v] of groupedByGallery) {
-      const galleryKey = k ?? 'misc'
-      groupedByGalleryAsArray.push({
-        galleryKey,
-        label: toTitleCase(galleryKey.replace(/-/g, ' '), /and|of/g),
-        videos: [...v].map((v, index) => ({
-          ...v,
-          index,
-          posterUrl: `https://cosmicjs.imgix.net/${v.metadata?.['poster-filename']}`
-        }))
-      })
-    }
-    return groupedByGalleryAsArray
+    const groupedByGallery = [
+      ...groupBy<MappedMultimedia, string>(
+        filteredMappedMultimedia,
+        (a) => a.metadata?.gallery
+      )
+    ].map(([galleryKey = 'misc', videos]) => ({
+      galleryKey,
+      label: toTitleCase(galleryKey.replace(/-/g, ' '), /and|of/g),
+      videos: videos.map((v, index) => ({
+        ...v,
+        index,
+        posterUrl: `https://cosmicjs.imgix.net/${v.metadata?.['poster-filename']}`
+      }))
+    }))
+
+    return groupedByGallery
       .map((v) => {
         const {videos, galleryKey, label} = v
         return {

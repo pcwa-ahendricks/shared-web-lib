@@ -25,7 +25,7 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import DescriptionIcon from '@material-ui/icons/Description'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {GetServerSideProps} from 'next'
+import {GetStaticPaths, GetStaticProps} from 'next'
 import ErrorPage from '@pages/_error'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
@@ -35,7 +35,8 @@ import {
   MultimediaList,
   setLightboxIndex,
   setLightboxViewerOpen,
-  PublicationList
+  PublicationList,
+  MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -45,11 +46,13 @@ import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGall
 import {useRouter} from 'next/router'
 import isNumber from 'is-number'
 import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGalleries/MultimediaVideoGalleries'
-import lambdaUrl from '@lib/lambdaUrl'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
 import Head from 'next/head'
+import useSWR from 'swr'
+import groupBy from '@lib/groupBy'
+import fileExtension from '@lib/fileExtension'
 const useNgIFrame = process.env.NEXT_USE_NG_IFRAME === 'true'
 // const isDev = process.env.NODE_ENV === 'development'
 
@@ -60,8 +63,8 @@ interface TabPanelProps {
 }
 
 type Props = {
-  multimedia?: MultimediaList
-  publications?: PublicationList
+  initialMultimediaData?: MultimediaList
+  initialPublicationsData?: PublicationList
   gallery?: string | null
   tabIndex: number
   lightboxIndex?: number
@@ -94,8 +97,8 @@ const useStyles = makeStyles(() =>
 const ResourceLibraryPage = ({
   tabIndex: tabIndexProp,
   err,
-  multimedia = [],
-  publications = [],
+  initialMultimediaData,
+  initialPublicationsData,
   gallery = null,
   lightboxIndex
 }: Props) => {
@@ -107,6 +110,14 @@ const ResourceLibraryPage = ({
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+
+  const {data: multimedia} = useSWR<MultimediaList>(multimediaUrl, {
+    initialData: initialMultimediaData
+  })
+
+  const {data: publications} = useSWR<PublicationList>(publicationsUrl, {
+    initialData: initialPublicationsData
+  })
 
   // const videoPosters = useMemo(
   //   () =>
@@ -190,7 +201,7 @@ const ResourceLibraryPage = ({
   }, [tabIndexProp])
 
   if (err) {
-    return <ErrorPage statusCode={err.statusCode} />
+    return <ErrorPage statusCode={err?.statusCode} />
   }
 
   return useNgIFrame ? (
@@ -291,17 +302,100 @@ const ResourceLibraryPage = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res,
-  req
-}) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  try {
+    const baseUrl = process.env.NEXT_BASE_URL
+
+    // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
+    //   `${baseUrl}${multimediaUrl}`
+    // )
+    // const documents$: Promise<MultimediaList | undefined> = fetcher(
+    //   `${baseUrl}${publicationsUrl}`
+    // )
+    // const [multimedia = [], documents = []] = await Promise.all([
+    //   multimedia$,
+    //   documents$
+    // ])
+    const multimedia: MultimediaList | undefined = await fetcher(
+      `${baseUrl}${multimediaUrl}`
+    )
+
+    /* Photo Paths */
+    // Use the same filters used in <MultimediaPhotoGalleries/>.
+    const filteredPhotoMultimedia =
+      multimedia && Array.isArray(multimedia)
+        ? multimedia.filter(
+            (p) =>
+              fileExtension(p.name) !== 'mp4' && // No videos.
+              p.metadata?.['video-poster'] !== 'true' && // No video posters
+              p.metadata?.gallery // No photos w/o gallery metadata.
+          )
+        : []
+
+    const photoPaths = [
+      ...groupBy<MappedMultimedia, string>(
+        filteredPhotoMultimedia,
+        (a) => a.metadata?.gallery
+      )
+    ]
+      .map(([gallery, photos]) =>
+        photos
+          .map((_, idx) => ({
+            params: {multimedia: ['photos', gallery, idx.toString()]}
+          }))
+          .concat([{params: {multimedia: ['photos', gallery]}}])
+      )
+      .reduce((prev, curVal) => [...prev, ...curVal])
+    /* */
+
+    /* Video Paths */
+    // Use the same filters used in <MultimediaPhotoGalleries/>.
+    const filteredVideoMultimedia =
+      multimedia && Array.isArray(multimedia)
+        ? multimedia.filter(
+            (p) =>
+              fileExtension(p.name) === 'mp4' && // Only videos.
+              p.metadata?.['video-poster'] !== 'true' && // No video posters
+              p.metadata?.gallery // No videos w/o gallery metadata
+          )
+        : []
+
+    const videoPaths = [
+      ...groupBy<MappedMultimedia, string>(
+        filteredVideoMultimedia,
+        (a) => a.metadata?.gallery
+      )
+    ].map(([gallery]) => ({params: {multimedia: ['videos', gallery]}}))
+    /* */
+
+    return {
+      paths: [
+        {params: {multimedia: ['documents']}},
+        {params: {multimedia: ['photos']}},
+        {params: {multimedia: ['videos']}},
+        // Documents Paths are covered in getStaticPaths() in Dynamic Publication Page.
+        // ...documentPaths
+        ...photoPaths,
+        ...videoPaths
+      ],
+      fallback: false
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      paths: [],
+      fallback: true
+    }
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     let err: {statusCode: number} | null = null
     // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
-    const multimediaProp = query['multimedia']?.[0] ?? ''
-    const gallery = query['multimedia']?.[1] ?? null
-    const lightboxIndexParam = query['multimedia']?.[2] ?? null
+    const multimediaProp = params?.multimedia?.[0] ?? ''
+    const gallery = params?.multimedia?.[1] ?? null
+    const lightboxIndexParam = params?.multimedia?.[2] ?? null
     // Set values to null by default to prevent getServerSideProps from attempting to serialize undefined causing a runtime error.
     let lightboxIndex: number | null = null
     let tabIndex: number | null = null
@@ -336,25 +430,31 @@ export const getServerSideProps: GetServerSideProps = async ({
       return {props: {err}}
     }
 
-    const urlBase = lambdaUrl(req)
+    const baseUrl = process.env.NEXT_BASE_URL
 
     const multimedia$: Promise<MultimediaList | undefined> = fetcher(
-      `${urlBase}${multimediaUrl}`
+      `${baseUrl}${multimediaUrl}`
     )
     const publications$: Promise<MultimediaList | undefined> = fetcher(
-      `${urlBase}${publicationsUrl}`
+      `${baseUrl}${publicationsUrl}`
     )
-    const [multimedia, publications] = await Promise.all([
+    const [initialMultimediaData, initialPublicationsData] = await Promise.all([
       multimedia$,
       publications$
     ])
 
     return {
-      props: {err, tabIndex, multimedia, publications, gallery, lightboxIndex}
+      props: {
+        err,
+        tabIndex,
+        initialMultimediaData,
+        initialPublicationsData,
+        gallery,
+        lightboxIndex
+      }
     }
   } catch (error) {
     console.log(error)
-    res.statusCode = 400
     return {props: {err: {statusCode: 400}}}
   }
 }
