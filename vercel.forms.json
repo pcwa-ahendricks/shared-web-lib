@@ -5,7 +5,7 @@
   "build": {
     "env": {
       "NEXT_TARGET": "serverless",
-      "NEXT_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
+      "NEXT_PUBLIC_RECAPTCHA_SITE_KEY": "@web-recaptcha-site-key"
     }
   },
   "env": {

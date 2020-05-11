@@ -9,7 +9,7 @@ type Props = {
   required?: boolean
 } & FieldProps<any>
 
-const RECAPTCHA_SITE_KEY = process.env.NEXT_RECAPTCHA_SITE_KEY || ''
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''
 
 const RecaptchaField = ({
   field,
