@@ -31,6 +31,7 @@ import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+import MuiNextLink from '@components/NextLink/NextLink'
 const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
@@ -131,7 +132,7 @@ const DynamicBoardMinutesPage = ({
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <Link
+              <MuiNextLink
                 color="inherit"
                 // href="/board-of-directors/meeting-minutes"
                 className={classes.bcLink}
@@ -152,7 +153,7 @@ const DynamicBoardMinutesPage = ({
                     Go Home
                   </>
                 )} */}
-              </Link>
+              </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {boardMeetingDateFormatted}

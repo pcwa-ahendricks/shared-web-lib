@@ -31,6 +31,7 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import {stringify} from 'querystringify'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+import MuiNextLink from '@components/NextLink/NextLink'
 const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -84,14 +85,14 @@ const DynamicNewsReleasePage = ({
   const classes = useStyles()
   const router = useRouter()
 
+  console.log(qMedia?.derivedFilenameAttr?.publishedDate ?? '')
+
   const newsReleaseDateFormatted = useMemo(
     () =>
-      qMedia
-        ? format(
-            parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
-            "EEEE',' MMMM do',' yyyy "
-          )
-        : '',
+      format(
+        parseJSON(qMedia?.derivedFilenameAttr?.publishedDate ?? ''),
+        "EEEE',' MMMM do',' yyyy"
+      ) ?? '',
     [qMedia]
   )
 
@@ -127,7 +128,7 @@ const DynamicNewsReleasePage = ({
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <Link
+              <MuiNextLink
                 color="inherit"
                 className={classes.bcLink}
                 href="/newsroom/news-releases"
@@ -136,7 +137,7 @@ const DynamicNewsReleasePage = ({
                   <UndoIcon className={classes.bcIcon} />
                   News Releases
                 </>
-              </Link>
+              </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {newsReleaseDateFormatted}
