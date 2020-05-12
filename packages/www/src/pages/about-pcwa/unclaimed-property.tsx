@@ -218,23 +218,15 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({req}) => {
-//   try {
-//     const urlBase = lambdaUrl(req)
-//     const initialData = await fetcher(`${urlBase}${csvDataUrl}`)
-//     return {props: {initialData}}
-//   } catch (error) {
-//     console.log('There was an error fetching unclaimed property data.', error)
-//     return {props: {}}
-//   }
-// }
-
-// Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const initialData = await fetcher(`${baseUrl}${csvDataUrl}`)
-    return {props: {initialData}}
+    return {
+      props: {initialData},
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
     console.log('There was an error fetching unclaimed property data.', error)
     return {props: {}}

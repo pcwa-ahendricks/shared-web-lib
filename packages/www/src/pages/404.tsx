@@ -33,6 +33,7 @@ const NotFoundPage = () => {
           name="description"
           content="PCWA is a water and energy provider for Placer County, CA."
         />
+        <meta name="robots" content="noindex" />
       </Head>
       <ColumnBox height="100%">
         <Box m={3}>

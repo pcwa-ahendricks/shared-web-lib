@@ -190,7 +190,11 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const initialData = await fetcher(`${baseUrl}${boardMinutesUrl}`)
-    return {props: {initialData}}
+    return {
+      props: {initialData},
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
     console.log('There was an error fetching News Releases.', error)
     return {props: {}}

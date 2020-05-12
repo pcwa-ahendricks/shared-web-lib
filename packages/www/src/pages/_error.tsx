@@ -18,11 +18,11 @@ const statusCodes: {[code: number]: string} = {
 }
 
 type Props = {
-  statusCode: number
+  statusCode?: number
   title?: string
 }
 
-const ErrorPage = ({statusCode, title: titleProp}: Props) => {
+const ErrorPage = ({statusCode = 400, title: titleProp}: Props) => {
   const title =
     titleProp || statusCodes[statusCode] || 'An unexpected error has occurred'
 
@@ -47,6 +47,7 @@ const ErrorPage = ({statusCode, title: titleProp}: Props) => {
           name="description"
           content="PCWA is a water and energy provider for Placer County, CA."
         />
+        <meta name="robots" content="noindex" />
       </Head>
       <ColumnBox height="100%">
         <Box m={3}>

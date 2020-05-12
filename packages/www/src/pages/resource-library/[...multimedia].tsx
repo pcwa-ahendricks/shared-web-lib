@@ -200,8 +200,8 @@ const ResourceLibraryPage = ({
     setTabIndex(tabIndexProp)
   }, [tabIndexProp])
 
-  if (err) {
-    return <ErrorPage statusCode={err?.statusCode} />
+  if (err?.statusCode) {
+    return <ErrorPage statusCode={err.statusCode} />
   }
 
   return useNgIFrame ? (
@@ -451,7 +451,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         initialPublicationsData,
         gallery,
         lightboxIndex
-      }
+      },
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
     }
   } catch (error) {
     console.log(error)

@@ -98,8 +98,10 @@ const DynamicNewslettersPage = ({
     [qMedia]
   )
 
-  if (err || !qMedia) {
-    return <ErrorPage statusCode={err?.statusCode} />
+  if (err?.statusCode) {
+    return <ErrorPage statusCode={err.statusCode} />
+  } else if (!qMedia) {
+    return <ErrorPage statusCode={404} />
   }
 
   const downloadAs = slugify(qMedia.original_name)
@@ -177,36 +179,6 @@ const DynamicNewslettersPage = ({
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   query,
-//   res,
-//   req
-// }) => {
-//   try {
-//     const urlBase = lambdaUrl(req)
-//     const data: PickedMediaResponses | undefined = await fetcher(
-//       `${urlBase}${newslettersUrl}`
-//     )
-//     const newsletters =
-//       data && Array.isArray(data)
-//         ? data.map((bm) => ({
-//             ...bm,
-//             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-//           }))
-//         : []
-//     const publishDate = queryParamToStr(query['publish-date'])
-//     const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
-
-//     // const selfReferred = (req)
-//     return {props: {query, qMedia, pages, publishDate}}
-//   } catch (error) {
-//     console.log(error)
-//     res.statusCode = 404
-//     return {props: {err: {statusCode: 404}}}
-//   }
-// }
-
-// This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -259,7 +231,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-// This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -276,10 +247,14 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const publishDate = paramToStr(params?.['publish-date'])
     const {qMedia, pages} = await getMediaPDFPages(newsletters, publishDate)
 
-    return {props: {qMedia, pages, publishDate}}
+    return {
+      props: {qMedia, pages, publishDate},
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
     console.log(error)
-    return {props: {err: {statusCode: 404}}}
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

@@ -179,8 +179,10 @@ const DynamicPublicationPage = ({
     publicationSlug
   ])
 
-  if (err || !qMedia) {
+  if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
+  } else if (!qMedia) {
+    return <ErrorPage statusCode={404} />
   }
 
   return useNgIFrame ? (
@@ -259,10 +261,14 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       true
     )
 
-    return {props: {qMedia, pages, publicationSlug}}
+    return {
+      props: {qMedia, pages, publicationSlug},
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
     console.log(error)
-    return {props: {err: {statusCode: 404}}}
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

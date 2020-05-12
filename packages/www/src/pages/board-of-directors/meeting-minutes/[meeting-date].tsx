@@ -1,5 +1,5 @@
 // cspell:ignore Qmedia
-import React, {useCallback} from 'react'
+import React from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -30,7 +30,6 @@ import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
-import {useRouter} from 'next/router'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -81,23 +80,23 @@ const DynamicBoardMinutesPage = ({
 }: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
-  const router = useRouter()
+  // const router = useRouter()
 
-  const bcBackClickHandler = useCallback(async () => {
-    // !selfReferred ? await router.push('/') : router.back()
-    await router.push('/board-of-directors/meeting-minutes')
+  // const bcBackClickHandler = useCallback(async () => {
+  //   // !selfReferred ? await router.push('/') : router.back()
+  //   await router.push('/board-of-directors/meeting-minutes')
 
-    // Can't get scroll to top to work.
-    // const anchor = (
-    //   (event.target && event.target.ownerDocument) ||
-    //   document
-    // ).querySelector(`#${backToTopAnchorId}`)
+  //   // Can't get scroll to top to work.
+  //   // const anchor = (
+  //   //   (event.target && event.target.ownerDocument) ||
+  //   //   document
+  //   // ).querySelector(`#${backToTopAnchorId}`)
 
-    // if (anchor) {
-    //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
-    // }
-    // console.log('done scrolling to top.')
-  }, [router])
+  //   // if (anchor) {
+  //   //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
+  //   // }
+  //   // console.log('done scrolling to top.')
+  // }, [router])
 
   // const trigger = useScrollTrigger({
   //   disableHysteresis: true,
@@ -112,8 +111,10 @@ const DynamicBoardMinutesPage = ({
       )
     : ''
 
-  if (err || !qMedia) {
-    return <ErrorPage statusCode={err?.statusCode} />
+  if (err?.statusCode) {
+    return <ErrorPage statusCode={err.statusCode} />
+  } else if (!qMedia) {
+    return <ErrorPage statusCode={404} />
   }
 
   const downloadAs = slugify(qMedia.original_name)
@@ -134,7 +135,7 @@ const DynamicBoardMinutesPage = ({
                 color="inherit"
                 // href="/board-of-directors/meeting-minutes"
                 className={classes.bcLink}
-                onClick={bcBackClickHandler}
+                href="/board-of-directors/meeting-minutes"
               >
                 <>
                   <MinutesIcon className={classes.bcIcon} />
@@ -284,7 +285,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-// This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const urlBase = process.env.NEXT_PUBLIC_BASE_URL
@@ -301,10 +301,14 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const meetingDate = paramToStr(params?.['meeting-date'])
     const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
 
-    return {props: {qMedia, pages, meetingDate}}
+    return {
+      props: {qMedia, pages, meetingDate},
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
     console.log(error)
-    return {props: {err: {statusCode: 404}}}
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

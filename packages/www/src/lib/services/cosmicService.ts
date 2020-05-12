@@ -180,7 +180,10 @@ const getMediaPDFPages = async <
     )
     .shift()
   if (!qMedia) {
-    throw `No media for: ${keyValue}`
+    return {
+      pages: null,
+      qMedia: null
+    }
   }
   const requestLimit = 20
   let pages: Page[] = []

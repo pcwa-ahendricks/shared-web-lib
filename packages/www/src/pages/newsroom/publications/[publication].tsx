@@ -308,8 +308,8 @@ const PublicationsPage = ({
     [isXS, pubCardImgWidth, pubCardImgHeight]
   )
 
-  if (err) {
-    return <ErrorPage statusCode={err?.statusCode} />
+  if (err?.statusCode) {
+    return <ErrorPage statusCode={err.statusCode} />
   }
 
   return (
@@ -612,55 +612,6 @@ const PublicationsPage = ({
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   query,
-//   res,
-//   req
-// }) => {
-//   try {
-//     const baseUrl = lambdaUrl(req)
-//     const publication = queryParamToStr(query['publication'])
-//     let tabIndex: number
-//     switch (publication.toLowerCase()) {
-//       case 'newsletters': {
-//         tabIndex = 0
-//         break
-//       }
-//       case 'fire-and-water': {
-//         tabIndex = 1
-//         break
-//       }
-//       case 'year-end': {
-//         tabIndex = 2
-//         break
-//       }
-//       case 'enews': {
-//         tabIndex = 3
-//         break
-//       }
-//       default: {
-//         tabIndex = -1
-//         throw new Error('Publication not found')
-//       }
-//     }
-
-//     const [newsletters, initialEnewsBlasts] = await Promise.all([
-//       fetchNewsletters(baseUrl),
-//       cosmicFetcher(
-//         `${baseUrl}/api/cosmic/objects`,
-//         'enews-blasts',
-//         '_id,metadata,status,title'
-//       )
-//     ])
-
-//     return {props: {newsletters, tabIndex, initialEnewsBlasts}}
-//   } catch (error) {
-//     console.log(error)
-//     res.statusCode = 404
-//     return {props: {err: {statusCode: 404}}}
-//   }
-// }
-
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
@@ -711,10 +662,14 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       )
     ])
 
-    return {props: {initialNewslettersData, tabIndex, initialEnewsBlasts}}
+    return {
+      props: {initialNewslettersData, tabIndex, initialEnewsBlasts},
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
-    console.log('There was an error fetching Newsletters.', error)
-    return {props: {}}
+    console.log('There was an error fetching Newsletters/E-News Blasts.', error)
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

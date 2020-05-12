@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback} from 'react'
+import React, {useMemo} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -50,7 +50,6 @@ type Props = {
   err?: any
   qMedia?: PickedMediaResponse
   pages?: Page[]
-  // selfReferred?: boolean
   releaseDate?: string
 }
 
@@ -72,12 +71,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
+const DynamicNewsReleasePage = ({
+  qMedia,
+  pages = [],
+  err,
+  releaseDate
+}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   const classes = useStyles()
+  const router = useRouter()
+
   const newsReleaseDateFormatted = useMemo(
     () =>
       qMedia
@@ -89,26 +95,20 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
     [qMedia]
   )
 
-  const router = useRouter()
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    console.log('router.isFallback: ', router.isFallback)
+    console.log('qMedia: ', qMedia)
+    console.log('release date: ', releaseDate)
+    console.log('pages: ', pages)
+    console.log('err: ', err)
+    // return <div>Falling back :)</div>
+  }
 
-  const bcBackClickHandler = useCallback(async () => {
-    // !selfReferred ? await router.push('/') : router.back()
-    await router.push('/newsroom/news-releases')
-
-    // Can't get scroll to top to work.
-    // const anchor = (
-    //   (event.target && event.target.ownerDocument) ||
-    //   document
-    // ).querySelector(`#${backToTopAnchorId}`)
-
-    // if (anchor) {
-    //   anchor.scrollIntoView({behavior: 'smooth', block: 'center'})
-    // }
-    // console.log('done scrolling to top.')
-  }, [router])
-
-  if (err || !qMedia) {
-    return <ErrorPage statusCode={err?.statusCode} />
+  if (err?.statusCode) {
+    return <ErrorPage statusCode={err.statusCode} />
+  } else if (!qMedia) {
+    return <ErrorPage statusCode={404} />
   }
 
   const publishDate = qMedia.derivedFilenameAttr?.date
@@ -130,23 +130,12 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
               <Link
                 color="inherit"
                 className={classes.bcLink}
-                onClick={bcBackClickHandler}
+                href="/newsroom/news-releases"
               >
                 <>
                   <UndoIcon className={classes.bcIcon} />
                   News Releases
                 </>
-                {/* {selfReferred ? (
-                  <>
-                    <UndoIcon className={classes.bcIcon} />
-                    Go Back
-                  </>
-                ) : (
-                  <>
-                    <HomeIcon className={classes.bcIcon} />
-                    Go Home
-                  </>
-                )} */}
               </Link>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
@@ -195,36 +184,6 @@ const DynamicNewsReleasePage = ({qMedia, pages = [], err}: Props) => {
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   res,
-//   req,
-//   query
-// }) => {
-//   try {
-//     const urlBase = lambdaUrl(req)
-//     const data: PickedMediaResponses | undefined = await fetcher(
-//       `${urlBase}${newsReleasesUrl}`
-//     )
-//     const nrs =
-//       data && Array.isArray(data)
-//         ? data.map((bm) => ({
-//             ...bm,
-//             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-//           }))
-//         : []
-//     const releaseDate = queryParamToStr(query['release-date'])
-//     const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
-
-//     const selfReferred = siteReferer(req)
-//     return {props: {query, qMedia, pages, selfReferred, releaseDate}}
-//   } catch (error) {
-//     console.log(error)
-//     res.statusCode = 404
-//     return {props: {err: {statusCode: 404}}}
-//   }
-// }
-
-// This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -266,7 +225,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         : []
     return {
       paths,
-      fallback: true
+      fallback: false
     }
   } catch (error) {
     console.log(error)
@@ -277,7 +236,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-// This also gets called at build time.
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -294,10 +252,18 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const releaseDate = paramToStr(params?.['release-date'])
     const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
 
-    return {props: {qMedia, pages, releaseDate}}
+    return {
+      props: {
+        qMedia,
+        pages,
+        releaseDate
+      },
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      unstable_revalidate: 10
+    }
   } catch (error) {
     console.log(error)
-    return {props: {err: {statusCode: 404}}}
+    return {props: {err: {statusCode: 400}}}
   }
 }
 

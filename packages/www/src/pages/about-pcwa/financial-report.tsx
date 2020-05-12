@@ -70,7 +70,7 @@ const EmployeeBenefitsSummaryPage = () => {
               maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
+                src="https://cosmic-s3.imgix.net/77203970-9470-11ea-8337-c9bd236c80f7-2019-CAFR-for-website.pdf"
                 htmlAttributes={{
                   alt: 'Financial Report Cover Page'
                 }}
@@ -105,6 +105,12 @@ const EmployeeBenefitsSummaryPage = () => {
               >
                 <RowBox justifyContent="space-around">
                   <ImgixThumbLink
+                    url="https://cosmic-s3.imgix.net/77203970-9470-11ea-8337-c9bd236c80f7-2019-CAFR-for-website.pdf"
+                    filename="2019 PCWA CAFR.pdf"
+                    caption="2019 CAFR"
+                    alt="CAFR Report Thumbnail and link for 2019 PCWA CAFR pdf"
+                  />
+                  <ImgixThumbLink
                     url="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     filename="2018 PCWA CAFR.pdf"
                     caption="2018 CAFR"
@@ -116,16 +122,23 @@ const EmployeeBenefitsSummaryPage = () => {
                     caption="2017 CAFR"
                     alt="CAFR Report Thumbnail and link for 2017 PCWA CAFR pdf"
                   />
-                  <ImgixThumbLink
+                  {/* <ImgixThumbLink
                     url="http://cosmic-s3.imgix.net/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
                     filename="2016 PCWA CAFR.pdf"
                     caption="2016 CAFR"
                     alt="CAFR Report Thumbnail and link for 2016 PCWA CAFR pdf"
-                  />
+                  /> */}
                 </RowBox>
                 <Box m={2}>
                   <Type variant="subtitle2">Older CAFR Documents</Type>
                   <RowBox alignItems="center" flexWrap="wrap">
+                    <OlderCAFRLink
+                      title="2016 CAFR Document Link"
+                      href="http://cosmic-s3.imgix.net/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
+                    >
+                      2016
+                    </OlderCAFRLink>
+                    <Type variant="inherit">•</Type>
                     <OlderCAFRLink
                       title="2015 CAFR Document Link"
                       href="//cdn.cosmicjs.com/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"
