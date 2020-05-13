@@ -84,8 +84,6 @@ const DynamicNewsReleasePage = ({
   const classes = useStyles()
   const router = useRouter()
 
-  console.log(qMedia?.derivedFilenameAttr?.publishedDate ?? '')
-
   const newsReleaseDateFormatted = useMemo(
     () =>
       format(
