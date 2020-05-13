@@ -73,6 +73,7 @@
     "smoothscroll-polyfill": "^0.4.4",
     "swr": "^0.2.0",
     "then-sleep": "^1.0.1",
+    "timezone-support": "^2.0.2",
     "valid-url": "^1.0.9",
     "yup": "^0.28.3"
   },

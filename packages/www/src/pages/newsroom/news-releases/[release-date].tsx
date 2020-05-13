@@ -13,7 +13,6 @@ import {
   Theme,
   useMediaQuery,
   Box,
-  Link,
   Typography as Type,
   Divider,
   Breadcrumbs

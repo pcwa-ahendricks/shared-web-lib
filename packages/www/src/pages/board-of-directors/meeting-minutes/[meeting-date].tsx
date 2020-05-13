@@ -13,7 +13,6 @@ import PDFPage from '@components/PDFPage/PDFPage'
 import {
   Theme,
   useMediaQuery,
-  Link,
   Box,
   Typography as Type,
   Divider,

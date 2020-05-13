@@ -1,8 +1,10 @@
 // cspell:ignore Frmt
 import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
+import {convertTimeToDate, findTimeZone, setTimeZone} from 'timezone-support'
 import fetchOk from '@lib/fetch-ok'
 import slugify from 'slugify'
+const TZ = 'America/Los_Angeles'
 
 export interface UnclaimedPropertyResponse {
   owner: string
@@ -103,6 +105,9 @@ const getMedia = async <T>(
   }
 }
 
+/*
+  Since this function is ran from getStaticProps and getStaticPaths any date values parsed will need to have the timezone set to California time or else statically generated pages will use the incorrect local time, often resulting in the wrong date when parsing dates from a string that have a 0 hour. The cleanest and easiest workaround I've found that works is to use convertTimeToDate(setTimeZone()).
+*/
 const fileNameUtil = (
   str: string,
   dateFrmt?: string
@@ -111,7 +116,7 @@ const fileNameUtil = (
   extension: string
   date: string
   title: string
-  publishedDate: string // When used with getServerSideProps Date types will be converted to string, so using Date here could lead to confusion an extra type checking and safe casting.
+  publishedDate: string // When used with getServerSideProps/getStaticProps Date types will be converted to string.
   publishedYear: number
   keyValuePairs?: Array<{}>
 } => {
@@ -132,6 +137,14 @@ const fileNameUtil = (
       ? fSplit[1]
       : '' // don't call replace on null.
   const date = fSplit[0] && fSplit[1] ? fSplit[0] : ''
+  const dateParsed = parse(date, dateFrmt ?? '', new Date())
+  // Date-fns isDate() won't work here since isDate(NaN) returns true.
+  const validatedDate = isValid(dateParsed) ? dateParsed : new Date()
+  const tz = findTimeZone(TZ)
+  // Using actual (parsed) date, over a 'new Date()' instance is required since it will account for daylight savings if applicable for that particular date.
+  const validatedDateTz = convertTimeToDate(
+    setTimeZone(validatedDate, tz, {useUTC: true}) // 'useUTC: false' works too. But there will be an error if this is not explicitly set to either false or true. This seems peculiar and may not be required with future releases of timezone-support.
+  )
   return {
     base: fCorrected.replace(periodToEndRe, ''),
     // do we really need to store this? probably not.
@@ -139,19 +152,8 @@ const fileNameUtil = (
     extension: fCorrected.replace(extensionRe, ''),
     date,
     title: title.replace(/_/g, ' ').replace(periodToEndRe, '').trim(),
-    publishedDate: dateFrmt
-      ? (isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
-          ? parse(fSplit[0], dateFrmt, new Date())
-          : new Date()
-        ).toJSON()
-      : new Date().toJSON(),
-    publishedYear: getYear(
-      dateFrmt
-        ? isValid(parse(fSplit[0], dateFrmt, new Date())) // Date-fns isDate() won't work here since isDate(NaN) returns true.
-          ? parse(fSplit[0], dateFrmt, new Date())
-          : new Date()
-        : new Date()
-    )
+    publishedDate: validatedDateTz.toJSON(),
+    publishedYear: getYear(validatedDateTz)
     // See comments above regarding #matchAll and #pairs.
     // 'keyValuePairs': this.pairs(this.matchAll(str, /{(.+?);(.+?)}/))
   }
