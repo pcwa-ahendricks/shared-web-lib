@@ -90,7 +90,7 @@ const DynamicNewsReleasePage = ({
         parseJSON(qMedia?.derivedFilenameAttr?.publishedDate ?? ''),
         "EEEE',' MMMM do',' yyyy"
       ) ?? '',
-    [qMedia]
+    [qMedia?.derivedFilenameAttr?.publishedDate]
   )
 
   // initially until getStaticProps() finishes running

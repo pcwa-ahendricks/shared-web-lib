@@ -49,16 +49,9 @@ const formSchema = object()
   .camelCase()
   .strict(true)
   .shape({
-    firstName: string()
-      .required()
-      .label('First Name'),
-    lastName: string()
-      .required()
-      .label('Last Name'),
-    email: string()
-      .email()
-      .required()
-      .label('Email'),
+    firstName: string().required().label('First Name'),
+    lastName: string().required().label('Last Name'),
+    email: string().email().required().label('Email'),
     accountNo: string()
       .matches(
         /^\d+-\d+$/,
@@ -66,31 +59,19 @@ const formSchema = object()
       )
       .required('An Account Number is required (leading zeros are optional)')
       .label('Account Number'),
-    address: string()
-      .required()
-      .label('Billing Address'),
-    city: string()
-      .required()
-      .label('City'),
+    address: string().required().label('Billing Address'),
+    city: string().required().label('City'),
     otherCity: string()
       .label('City')
       .when('city', (city: string | null, schema: StringSchema) =>
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
-    phone: string()
-      .required()
-      .min(10)
-      .label('Phone Number'),
-    propertyType: string()
-      .required()
-      .label('Property Type'),
-    treatedCustomer: string()
-      .required()
-      .label('Treated Customer')
-      .oneOf(
-        ['Yes'], // "Yes", "No"
-        'You must be a current Placer County Water Agency treated water customer'
-      ),
+    phone: string().required().min(10).label('Phone Number'),
+    propertyType: string().required().label('Property Type'),
+    treatedCustomer: string().required().label('Treated Customer').oneOf(
+      ['Yes'], // "Yes", "No"
+      'You must be a current Placer County Water Agency treated water customer'
+    ),
     termsAgree: string()
       .required()
       .oneOf(
@@ -105,9 +86,7 @@ const formSchema = object()
         'Must agree to a scheduled site inspection by checking this box'
       )
       .label('Agree to Site Inspection'),
-    signature: string()
-      .required()
-      .label('Your signature'),
+    signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
@@ -121,9 +100,7 @@ const formSchema = object()
         'Artificial grass is not allowed in the rebated portion of the converted landscape'
       )
       .label('Replace lawn with artificial turf'),
-    alreadyStarted: string()
-      .required()
-      .label('Project Status'),
+    alreadyStarted: string().required().label('Project Status'),
     // .oneOf(
     //   ['false'],
     //   "Conversions that are initiated prior to PCWA's approval are ineligible"
@@ -144,13 +121,10 @@ const formSchema = object()
         }
       )
       .label('Approximate Square Feet of Existing Lawn'),
-    irrigMethod: string()
-      .required()
-      .label('Irrigation Method')
-      .notOneOf(
-        ['Hand water'], // Case sensitive
-        'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
-      )
+    irrigMethod: string().required().label('Irrigation Method').notOneOf(
+      ['Hand water'], // Case sensitive
+      'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
+    )
   })
 
 const initialFormValues: RebateFormData = {

@@ -41,9 +41,7 @@ const formSchema = object()
     spouseName: string()
       .max(27, "Spouse's Name must be no more than 27 characters.")
       .label("Spouse's Name"),
-    email: string()
-      .email()
-      .label('Email'),
+    email: string().email().label('Email'),
     accountNo: string()
       .matches(
         /^\d+-\d+$/,
@@ -61,38 +59,20 @@ const formSchema = object()
         'Previous service address(es) must be no more than 60 characters.'
       )
       .label('Previous Services Address'),
-    city: string()
-      .required()
-      .label('City'),
-    state: string()
-      .required()
-      .label('State'),
-    zipCode: string()
-      .required()
-      .label('Zip Code'),
+    city: string().required().label('City'),
+    state: string().required().label('State'),
+    zipCode: string().required().label('Zip Code'),
     // otherCity: string()
     //   .label('City')
     //   .when('city', (city: string | null, schema: StringSchema) =>
     //     city && city.toLowerCase() === 'other' ? schema.required() : schema
     //   ),
-    phone: string()
-      .min(10)
-      .label('Main Phone Number'),
-    cellPhone: string()
-      .min(10)
-      .label('Cell Phone Number'),
-    workPhone: string()
-      .min(10)
-      .label('Work Phone Number'),
-    spousePhone: string()
-      .min(10)
-      .label("Spouse's Phone Number"),
-    lastFourSS: string()
-      .min(4)
-      .label('Last Four Digits of Social Security'),
-    signature: string()
-      .required()
-      .label('Your signature'),
+    phone: string().min(10).label('Main Phone Number'),
+    cellPhone: string().min(10).label('Cell Phone Number'),
+    workPhone: string().min(10).label('Work Phone Number'),
+    spousePhone: string().min(10).label("Spouse's Phone Number"),
+    lastFourSS: string().min(4).label('Last Four Digits of Social Security'),
+    signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox')

@@ -30,9 +30,7 @@ interface FormData {
 }
 
 const schema = object().shape({
-  email: string()
-    .email('Invalid email address')
-    .required('Required')
+  email: string().email('Invalid email address').required('Required')
 })
 
 const generalErrorStr =

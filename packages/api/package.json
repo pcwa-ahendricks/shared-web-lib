@@ -7,8 +7,10 @@
   },
   "scripts": {
     "test": "ava",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch"
+    "type-check": "tsc --noEmit -p .",
+    "type-check:watch": "npm run type-check -- --watch",
+    "format": "prettier --config .prettierrc --write './src/**/*.ts'",
+    "lint": "eslint -c .eslintrc.js '*/**/*.ts'"
   },
   "author": "<ahendricks@pcwa.net>",
   "license": "ISC",
@@ -37,7 +39,7 @@
     "@babel/preset-typescript": "^7.8.3",
     "@types/busboy": "^0.2.3",
     "@types/co-body": "^5.1.0",
-    "@types/node": "^13.13.5",
+    "@types/node": "^14.0.1",
     "@types/node-fetch": "^2.5.6",
     "@types/querystringify": "^2.0.0",
     "@types/recaptcha2": "^1.3.0",
@@ -47,6 +49,7 @@
     "@typescript-eslint/parser": "^2.31.0",
     "@vercel/node": "^1.6.1",
     "ava": "^3.8.2",
+    "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.3",
     "prettier": "^2.0.4",
