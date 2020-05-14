@@ -4,4 +4,4 @@ out/
 public/
 bundles/
 node_modules/
-lib/modernizr.js
+modernizr.js

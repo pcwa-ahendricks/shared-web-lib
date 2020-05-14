@@ -24,7 +24,7 @@
     "format": "prettier --config .prettierrc --write './src/**/*.{ts,tsx,css}'",
     "type-check": "tsc --noEmit -p .",
     "lint": "eslint -c .eslintrc.js '*/**/*.{ts,tsx}'",
-    "build:modernizr": "modernizr -q -c modernizr-config.json -d lib/modernizr.js"
+    "build:modernizr": "modernizr -q -c modernizr-config.json -d src/lib/modernizr.js"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
