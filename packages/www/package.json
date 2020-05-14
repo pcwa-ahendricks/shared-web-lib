@@ -23,7 +23,7 @@
     "analyze:stats": "cross-env STATS=1 next build && cat .next/stats.txt",
     "format": "prettier --config .prettierrc --write './src/**/*.{ts,tsx,css}'",
     "type-check": "tsc --noEmit -p .",
-    "lint": "eslint -c .eslintrc.js '*/**/*.{ts,tsx}",
+    "lint": "eslint -c .eslintrc.js '*/**/*.{ts,tsx}'",
     "build:modernizr": "modernizr -q -c modernizr-config.json -d lib/modernizr.js"
   },
   "dependencies": {

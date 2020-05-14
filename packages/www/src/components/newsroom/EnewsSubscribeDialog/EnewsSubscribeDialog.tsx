@@ -103,10 +103,10 @@ const EnewsSubscribeDialog = () => {
     const errorMessage = /member exists/gi.test(mailchimpError?.title ?? '')
       ? `The email address "${mailchimpError?.email_address}" is already subscribed with PCWA's E-News. You can close this window or enter another email address.`
       : mailchimpError?.title
-      ? mailchimpError.title
+      ? mailchimpError?.title
       : generalErrorStr
     return <DialogContentText>{errorMessage}</DialogContentText>
-  }, [mailchimpError])
+  }, [mailchimpError?.email_address, mailchimpError?.title])
 
   const hasMailchimpError = useMemo(
     () =>

@@ -825,7 +825,13 @@ const ShutoffProtectionPage = () => {
         </NarrowContainer>
       </MainBox>
     )
-  }, [classes, language, languageChangeHandler, selectedDocuments])
+  }, [
+    classes,
+    language,
+    languageChangeHandler,
+    selectedDocuments?.Component,
+    selectedDocuments?.language
+  ])
 
   return useNgIFrame ? (
     <>
