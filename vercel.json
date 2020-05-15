@@ -395,6 +395,5 @@
         "cache-control": "public, max-age=0, s-maxage=172800"
       }
     }
-  ],
-  "regions": ["sfo1"]
+  ]
 }

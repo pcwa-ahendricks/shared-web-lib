@@ -80,7 +80,7 @@ const BoardMinutesLink = ({
 
   return (
     <ChildBox mt={topMargin}>
-      <Link href={url} passHref as={as}>
+      <Link href={url} as={as}>
         <a
           className={classes.link}
           onMouseEnter={() => setIsHover(true)}

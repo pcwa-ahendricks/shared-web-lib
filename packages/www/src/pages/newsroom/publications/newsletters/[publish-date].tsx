@@ -101,10 +101,12 @@ const DynamicNewslettersPage = ({
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
   } else if (!qMedia) {
-    return <ErrorPage statusCode={404} />
+    console.error('No qMedia', qMedia)
+    // [TODO] This has been causing an issue where certain resources/routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
+    // return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = slugify(qMedia.original_name)
+  const downloadAs = slugify(qMedia?.original_name ?? '')
 
   return (
     <PageLayout title={`Newsletter ${publishDate}`}>
@@ -140,8 +142,8 @@ const DynamicNewslettersPage = ({
               caption="Download Newsletter"
               aria-label="Download newsletter"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia.size}
+              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
+              fileSize={qMedia?.size}
             />
           </ChildBox>
         </RespRowBox>

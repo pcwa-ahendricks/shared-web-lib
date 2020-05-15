@@ -192,6 +192,5 @@
         "x-request-path": "$1"
       }
     }
-  ],
-  "regions": ["sfo1"]
+  ]
 }

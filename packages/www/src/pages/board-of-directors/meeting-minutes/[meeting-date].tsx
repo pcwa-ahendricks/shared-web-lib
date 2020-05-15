@@ -80,7 +80,6 @@ const DynamicBoardMinutesPage = ({
 }: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
-  // const router = useRouter()
 
   // const bcBackClickHandler = useCallback(async () => {
   //   // !selfReferred ? await router.push('/') : router.back()
@@ -114,10 +113,12 @@ const DynamicBoardMinutesPage = ({
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
   } else if (!qMedia) {
-    return <ErrorPage statusCode={404} />
+    console.error('No qMedia', qMedia)
+    // [TODO] This has been causing an issue where certain board minutes 404 when linked to in production. Often times those minutes (aka same URL) load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the minutes don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
+    // return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = slugify(qMedia.original_name)
+  const downloadAs = slugify(qMedia?.original_name ?? '')
 
   return (
     <PageLayout title={`Board Minutes ${meetingDate}`}>
@@ -165,8 +166,8 @@ const DynamicBoardMinutesPage = ({
               caption="Download Minutes"
               aria-label="Download board minutes"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia.size}
+              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
+              fileSize={qMedia?.size}
             />
           </ChildBox>
         </RespRowBox>
