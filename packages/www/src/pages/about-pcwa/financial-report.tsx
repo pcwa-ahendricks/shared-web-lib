@@ -70,7 +70,7 @@ const EmployeeBenefitsSummaryPage = () => {
               maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/77203970-9470-11ea-8337-c9bd236c80f7-2019-CAFR-for-website.pdf"
+                src="https://cosmic-s3.imgix.net/793e8170-9624-11ea-b04e-734185112560-2019-PCWA-CAFR-Final-for-Web.pdf"
                 htmlAttributes={{
                   alt: 'Financial Report Cover Page'
                 }}
@@ -105,7 +105,7 @@ const EmployeeBenefitsSummaryPage = () => {
               >
                 <RowBox justifyContent="space-around">
                   <ImgixThumbLink
-                    url="https://cosmic-s3.imgix.net/77203970-9470-11ea-8337-c9bd236c80f7-2019-CAFR-for-website.pdf"
+                    url="https://cosmic-s3.imgix.net/793e8170-9624-11ea-b04e-734185112560-2019-PCWA-CAFR-Final-for-Web.pdf"
                     filename="2019 PCWA CAFR.pdf"
                     caption="2019 CAFR"
                     alt="CAFR Report Thumbnail and link for 2019 PCWA CAFR pdf"

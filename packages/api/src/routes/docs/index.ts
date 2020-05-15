@@ -39,6 +39,14 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
+      case testRe('2019-Comprehensive-Annual-Financial-Report', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/793e8170-9624-11ea-b04e-734185112560-2019-PCWA-CAFR-Final-for-Web.pdf'
+          })
+          .end()
+        break
       case testRe('2018-Comprehensive-Annual-Financial-Report', id):
         res
           .writeHead(REDIRECT_STATUS_CODE, {
