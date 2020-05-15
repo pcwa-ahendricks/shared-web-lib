@@ -649,8 +649,13 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       }
       default: {
         tabIndex = -1
-        throw new Error('Publication not found')
+        // [TODO] This is causing an issue and resulting in 404 when linked to in production. Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out 'throw new Error'. If the path isn't defined in getStaticPaths the page will 404 anyways since 'fallback' is not being used so this workaround isn't terrible. Throwing any error is rather un-necessary, but it would be nice if I understood what the underlying problem is.
+        // throw new Error('Publication not found')
       }
+    }
+
+    if (tabIndex === -1) {
+      console.log('how and why is tabIndex -1?')
     }
 
     const [initialNewslettersData, initialEnewsBlasts] = await Promise.all([
