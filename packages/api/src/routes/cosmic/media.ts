@@ -22,9 +22,11 @@ const client = createClient(redisOpts)
 const hgetAsync = promisify(client.hget).bind(client)
 const hsetAsync = promisify(client.hset).bind(client)
 const expireAsync = promisify(client.expire).bind(client)
+let redisError: RedisError
 
 client.on('error', (err: RedisError) => {
   console.log('Error ' + err)
+  redisError = err
 })
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
@@ -42,22 +44,24 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       true
     )
 
-    // Return Redis data if it exists
-    const redisExists = client.exists()
+    // Return Redis data if it connected and there is no error
+    const redisConnected = client.connected
+    const redisReady = redisConnected && !redisError
     const hash = jsonStringify(query)
     const field = 'data'
     // console.log('Client connected', redisConnected)
     // console.log('Client exists', redisExists)
-    if (redisExists) {
+    if (redisReady) {
       const existingDataStr = await hgetAsync(hash, field)
-      console.log('bar')
       if (existingDataStr) {
         const data = JSON.parse(existingDataStr)
         res.status(200).json(data)
         return
       }
     } else {
-      console.log("Redis doesn't exist. Falling back.")
+      console.log("Redis isn't ready. Falling back.")
+      console.log('Connected: ', redisConnected)
+      console.log('Error: ', redisError)
     }
 
     const response = await fetch(
@@ -72,7 +76,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const {media = []} = data ?? {}
 
     if (!cosmicId) {
-      if (redisExists) {
+      if (redisReady) {
         const setDataStr = JSON.stringify(media)
         await hsetAsync(hash, field, setDataStr)
         await expireAsync(hash, 60 * 5) // 5 minutes
@@ -87,7 +91,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       return
     }
 
-    if (redisExists) {
+    if (redisReady) {
       const setDataStr = JSON.stringify(filteredMedia)
       await hsetAsync(hash, field, setDataStr)
       await expireAsync(hash, 60 * 5) // 5 minutes
