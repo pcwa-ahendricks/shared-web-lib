@@ -44,10 +44,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       true
     )
 
-    const hash = jsonStringify(query)
+    const hash = jsonStringify(query) || 'empty-query'
     const field = 'data'
-    // console.log('Client connected', redisConnected)
-    // console.log('Client exists', redisExists)
     try {
       const existingDataStr = await pTimeout(hgetAsync(hash, field), TIMEOUT)
       if (existingDataStr) {
@@ -74,7 +72,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       try {
         const setDataStr = JSON.stringify(media)
         await pTimeout(hsetAsync(hash, field, setDataStr), TIMEOUT)
-        await expireAsync(hash, 60 * 5) // 5 minutes
+        await pTimeout(expireAsync(hash, 60 * 5), TIMEOUT) // 5 minutes
       } catch (error) {
         console.log(error)
       }
