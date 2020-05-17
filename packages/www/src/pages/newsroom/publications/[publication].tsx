@@ -83,7 +83,7 @@ interface TabPanelProps {
 }
 
 type Props = {
-  tabIndex: number
+  publicationParam?: string
   initialEnewsBlasts?: CosmicObjectResponse<EnewsBlastMetadata>
   initialNewsletters?: CosmicMediaResponse
   err?: {statusCode: number}
@@ -133,10 +133,10 @@ const qs = stringify({...params}, true)
 const newslettersUrl = `/api/cosmic/media${qs}`
 
 const PublicationsPage = ({
-  tabIndex: tabIndexProp,
   err,
   initialEnewsBlasts,
-  initialNewsletters
+  initialNewsletters,
+  publicationParam = ''
 }: Props) => {
   const classes = useStyles()
   const theme = useTheme()
@@ -152,6 +152,31 @@ const PublicationsPage = ({
   const {data: newslettersData} = useSWR<CosmicMediaResponse>(newslettersUrl, {
     initialData: initialNewsletters
   })
+
+  useEffect(() => {
+    console.log('publicationParam: ', publicationParam)
+    switch (publicationParam.toLowerCase()) {
+      case 'newsletters': {
+        setTabIndex(0)
+        break
+      }
+      case 'fire-and-water': {
+        setTabIndex(1)
+        break
+      }
+      case 'year-end': {
+        setTabIndex(2)
+        break
+      }
+      case 'enews': {
+        setTabIndex(3)
+        break
+      }
+      default: {
+        setTabIndex(-1)
+      }
+    }
+  }, [publicationParam])
 
   const newsletters: GroupedNewsletters = useMemo(
     () =>
@@ -274,10 +299,6 @@ const PublicationsPage = ({
   const tabChangeHandler = useCallback((_, newValue) => {
     setTabIndex(newValue)
   }, [])
-
-  useEffect(() => {
-    setTabIndex(tabIndexProp)
-  }, [tabIndexProp])
 
   const sortedEnewsBlasts = useMemo(
     () =>
@@ -628,35 +649,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-    const publication = paramToStr(params?.publication)
-    let tabIndex: number
-    switch (publication.toLowerCase()) {
-      case 'newsletters': {
-        tabIndex = 0
-        break
-      }
-      case 'fire-and-water': {
-        tabIndex = 1
-        break
-      }
-      case 'year-end': {
-        tabIndex = 2
-        break
-      }
-      case 'enews': {
-        tabIndex = 3
-        break
-      }
-      default: {
-        tabIndex = -1
-        // [TODO] This is causing an issue and resulting in 404 when linked to in production. Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out 'throw new Error'. If the path isn't defined in getStaticPaths the page will 404 anyways since 'fallback' is not being used so this workaround isn't terrible. Throwing any error is rather un-necessary, but it would be nice if I understood what the underlying problem is.
-        // throw new Error('Publication not found')
-      }
-    }
-
-    if (tabIndex === -1) {
-      console.log('how and why is tabIndex -1?')
-    }
+    const publicationParam = paramToStr(params?.publication)
 
     const [initialNewslettersData, initialEnewsBlasts] = await Promise.all([
       fetcher(`${baseUrl}${newslettersUrl}`),
@@ -668,7 +661,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     ])
 
     return {
-      props: {initialNewslettersData, tabIndex, initialEnewsBlasts},
+      props: {initialNewslettersData, publicationParam, initialEnewsBlasts},
       // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }

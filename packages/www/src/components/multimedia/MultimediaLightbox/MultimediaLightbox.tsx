@@ -39,8 +39,8 @@ const MultimediaLightbox = ({
       // Don't setLightboxIndex here cause it will cause infinite re-renders. setLightboxIndex will be out-of-sync while Carousel changes image index but it will be set to 0 when the lightbox closes so it doesn't need to be in-sync.
       router.push(
         `/resource-library/[...multimedia]`,
-        `/resource-library/photos/${selectedGallery}/${index}`,
-        {shallow: true}
+        `/resource-library/photos/${selectedGallery}/${index}`
+        // {shallow: true}
       )
     },
     [router, selectedGallery]

@@ -102,8 +102,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       multimediaDispatch(setLightboxViewerOpen(true))
       router.push(
         `/resource-library/[...multimedia]`,
-        `/resource-library/photos/${selectedGallery}/${index}`,
-        {shallow: true}
+        `/resource-library/photos/${selectedGallery}/${index}`
+        // {shallow: true}
       )
     },
     [multimediaDispatch, router, selectedGallery]
@@ -299,12 +299,13 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   )
 
   const onCloseModalHandler = useCallback(() => {
+    const routeSegment = selectedGallery ? `/${selectedGallery}` : ''
     multimediaDispatch(setLightboxViewerOpen(false))
     multimediaDispatch(setLightboxIndex(0))
     router.push(
       `/resource-library/[...multimedia]`,
-      `/resource-library/photos/${selectedGallery}`,
-      {shallow: true}
+      `/resource-library/photos${routeSegment}`
+      // {shallow: true}
     )
   }, [multimediaDispatch, router, selectedGallery])
 

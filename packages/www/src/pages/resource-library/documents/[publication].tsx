@@ -114,7 +114,8 @@ const DynamicPublicationPage = ({
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                href="/resource-library/documents"
+                href="/resource-library/[...multimedia]"
+                as="/resource-library/documents"
                 className={classes.bcLink}
               >
                 <UndoIcon className={classes.bcIcon} />
@@ -170,8 +171,7 @@ const DynamicPublicationPage = ({
     )
   }, [
     classes,
-    qMedia?.imgix_url,
-    qMedia?.size,
+    qMedia,
     title,
     downloadAs,
     theme,

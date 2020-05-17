@@ -180,7 +180,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
   }, [galleryCovers, mappedMultimedia])
 
   const galleryClickHandler = useCallback(
-    (newGallery: string) => async () => {
+    (newGallery: string) => () => {
       multimediaDispatch(setSelectedGallery(newGallery))
       containerRef?.current?.scrollIntoView({
         behavior: 'smooth',
@@ -188,7 +188,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
       })
       const routeSegment = newGallery ? `/${newGallery}` : ''
       const newAsPath = `/resource-library/videos${routeSegment}`
-      await router.push('/resource-library/[...multimedia]', newAsPath)
+      router.push('/resource-library/[...multimedia]', newAsPath)
     },
     [multimediaDispatch, router]
   )

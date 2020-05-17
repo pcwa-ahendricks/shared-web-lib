@@ -65,10 +65,14 @@ interface TabPanelProps {
 type Props = {
   initialMultimediaData?: MultimediaList
   initialPublicationsData?: PublicationList
-  gallery?: string | null
-  tabIndex: number
-  lightboxIndex?: number
+  // gallery?: string | null
+  // tabIndex: number
+  // lightboxIndex?: number
   err?: {statusCode: number}
+  params?: any // debug
+  multimediaParam?: string
+  galleryParam?: string
+  lightboxIndexParam?: string
 }
 
 const cosmicGetMediaProps = {
@@ -95,12 +99,15 @@ const useStyles = makeStyles(() =>
 
 /* eslint-disable @typescript-eslint/camelcase */
 const ResourceLibraryPage = ({
-  tabIndex: tabIndexProp,
   err,
   initialMultimediaData,
   initialPublicationsData,
-  gallery = null,
-  lightboxIndex
+  // gallery = null,
+  // lightboxIndex,
+  multimediaParam = '',
+  galleryParam,
+  lightboxIndexParam,
+  params
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
@@ -110,6 +117,56 @@ const ResourceLibraryPage = ({
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  console.log('Debug params: ', params)
+
+  useEffect(() => {
+    console.log('multimediaParam: ', multimediaParam)
+    switch (multimediaParam.toLowerCase()) {
+      case 'documents': {
+        setTabIndex(0)
+        break
+      }
+      case 'photos': {
+        setTabIndex(1)
+        break
+      }
+      case 'videos': {
+        setTabIndex(2)
+        break
+      }
+      default: {
+        setTabIndex(-1)
+      }
+    }
+  }, [multimediaParam])
+
+  useEffect(() => {
+    console.log('lightboxIndexParam: ', lightboxIndexParam)
+    // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
+    if (isNumber(lightboxIndexParam)) {
+      // lightboxIndex = parseInt(lightboxIndexParam, 10)
+      const v = parseInt(lightboxIndexParam, 10)
+      multimediaDispatch(setLightboxIndex(v))
+      multimediaDispatch(setLightboxViewerOpen(true))
+
+      // if (!(lightboxIndex >= 0)) {
+      // err = {statusCode: 404}
+      // return {props: {}}
+      // }
+      // } else if (lightboxIndexParam) {
+      // err = {statusCode: 404}
+      // return {props: {}}
+    }
+  }, [lightboxIndexParam, multimediaDispatch])
+
+  useEffect(() => {
+    console.log('galleryParam: ', galleryParam)
+    if (galleryParam) {
+      multimediaDispatch(setSelectedGallery(galleryParam))
+    } else {
+      multimediaDispatch(setSelectedGallery(null))
+    }
+  }, [galleryParam, multimediaDispatch])
 
   const {data: multimedia} = useSWR<MultimediaList>(multimediaUrl, {
     initialData: initialMultimediaData
@@ -168,37 +225,18 @@ const ResourceLibraryPage = ({
     []
   )
 
-  const backToGalleriesHandler = useCallback(async () => {
+  const backToGalleriesHandler = useCallback(() => {
     multimediaDispatch(setSelectedGallery(null))
     const hrefAs = /videos/gi.test(router.asPath)
       ? '/resource-library/videos'
       : '/resource-library/photos'
-    await router.push('/resource-library/[...multimedia]', hrefAs)
+    // await router.push('/resource-library/[...multimedia]', hrefAs)
+    router.push('/resource-library/[...multimedia]', hrefAs)
   }, [multimediaDispatch, router])
-
-  useEffect(() => {
-    if (gallery) {
-      multimediaDispatch(setSelectedGallery(gallery))
-    } else {
-      multimediaDispatch(setSelectedGallery(null))
-    }
-  }, [gallery, multimediaDispatch])
-
-  useEffect(() => {
-    // lightboxIndex parameter might be 0 hence OR operator in if check (instead of simple Boolean check).
-    if (lightboxIndex || lightboxIndex === 0) {
-      multimediaDispatch(setLightboxIndex(lightboxIndex))
-      multimediaDispatch(setLightboxViewerOpen(true))
-    }
-  }, [lightboxIndex, multimediaDispatch])
 
   const tabChangeHandler = useCallback((_, newValue) => {
     setTabIndex(newValue)
   }, [])
-
-  useEffect(() => {
-    setTabIndex(tabIndexProp)
-  }, [tabIndexProp])
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
@@ -391,53 +429,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    let err: {statusCode: number} | null = null
+    // const err: {statusCode: number} | null = null
     // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
-    const multimediaProp = params?.multimedia?.[0] ?? ''
-    const gallery = params?.multimedia?.[1] ?? null
-    const lightboxIndexParam = params?.multimedia?.[2] ?? null
-    // Set values to null by default to prevent getServerSideProps from attempting to serialize undefined causing a runtime error.
-    let lightboxIndex: number | null = null
-    let tabIndex: number | null = null
-    switch (multimediaProp.toLowerCase()) {
-      case 'documents': {
-        tabIndex = 0
-        break
-      }
-      case 'photos': {
-        tabIndex = 1
-        break
-      }
-      case 'videos': {
-        tabIndex = 2
-        break
-      }
-      default: {
-        tabIndex = -1
-        err = {statusCode: 404}
-      }
-    }
 
-    // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
-    if (isNumber(lightboxIndexParam)) {
-      lightboxIndex = parseInt(lightboxIndexParam, 10)
-      if (!(lightboxIndex >= 0)) {
-        err = {statusCode: 404}
-        return {props: {err}}
-      }
-    } else if (lightboxIndexParam) {
-      err = {statusCode: 404}
-      return {props: {err}}
-    }
+    let {multimedia = []} = params || {}
+    multimedia = [...multimedia]
+    // [TODO] Not sure why 'resource-library' is ending up in the values array for the 'multimedia' query param for this dynamic catch-all page at times. The workaround is to simply remove the value if it exists in the array.
+    multimedia = multimedia.filter((i) => i !== 'resource-library')
+
+    // Set values to null by default to prevent getStaticProps from attempting to serialize undefined causing an error.
+    const multimediaParam = multimedia?.[0] ?? null
+    const galleryParam = multimedia?.[1] ?? null
+    const lightboxIndexParam = multimedia?.[2] ?? null
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     const multimedia$: Promise<MultimediaList | undefined> = fetcher(
       `${baseUrl}${multimediaUrl}`
     )
+
     const publications$: Promise<MultimediaList | undefined> = fetcher(
       `${baseUrl}${publicationsUrl}`
     )
+
     const [initialMultimediaData, initialPublicationsData] = await Promise.all([
       multimedia$,
       publications$
@@ -445,12 +459,14 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {
-        err,
-        tabIndex,
         initialMultimediaData,
         initialPublicationsData,
-        gallery,
-        lightboxIndex
+        galleryParam,
+        lightboxIndexParam,
+        multimediaParam,
+        // lightboxIndex,
+        // tabIndex,
+        params
       },
       // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
