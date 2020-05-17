@@ -25,7 +25,8 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import DescriptionIcon from '@material-ui/icons/Description'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {GetStaticPaths, GetStaticProps} from 'next'
+// import {GetStaticPaths, GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
@@ -35,8 +36,8 @@ import {
   MultimediaList,
   setLightboxIndex,
   setLightboxViewerOpen,
-  PublicationList,
-  MappedMultimedia
+  PublicationList
+  // MappedMultimedia
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -51,8 +52,8 @@ import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
 import Head from 'next/head'
 import useSWR from 'swr'
-import groupBy from '@lib/groupBy'
-import fileExtension from '@lib/fileExtension'
+// import groupBy from '@lib/groupBy'
+// import fileExtension from '@lib/fileExtension'
 const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 // const isDev = process.env.NODE_ENV === 'development'
 
@@ -340,99 +341,101 @@ const ResourceLibraryPage = ({
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   try {
+//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-    // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
-    //   `${baseUrl}${multimediaUrl}`
-    // )
-    // const documents$: Promise<MultimediaList | undefined> = fetcher(
-    //   `${baseUrl}${publicationsUrl}`
-    // )
-    // const [multimedia = [], documents = []] = await Promise.all([
-    //   multimedia$,
-    //   documents$
-    // ])
-    const multimedia: MultimediaList | undefined = await fetcher(
-      `${baseUrl}${multimediaUrl}`
-    )
+//     // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
+//     //   `${baseUrl}${multimediaUrl}`
+//     // )
+//     // const documents$: Promise<MultimediaList | undefined> = fetcher(
+//     //   `${baseUrl}${publicationsUrl}`
+//     // )
+//     // const [multimedia = [], documents = []] = await Promise.all([
+//     //   multimedia$,
+//     //   documents$
+//     // ])
+//     const multimedia: MultimediaList | undefined = await fetcher(
+//       `${baseUrl}${multimediaUrl}`
+//     )
 
-    /* Photo Paths */
-    // Use the same filters used in <MultimediaPhotoGalleries/>.
-    const filteredPhotoMultimedia =
-      multimedia && Array.isArray(multimedia)
-        ? multimedia.filter(
-            (p) =>
-              fileExtension(p.name) !== 'mp4' && // No videos.
-              p.metadata?.['video-poster'] !== 'true' && // No video posters
-              p.metadata?.gallery // No photos w/o gallery metadata.
-          )
-        : []
+//     /* Photo Paths */
+//     // Use the same filters used in <MultimediaPhotoGalleries/>.
+//     const filteredPhotoMultimedia =
+//       multimedia && Array.isArray(multimedia)
+//         ? multimedia.filter(
+//             (p) =>
+//               fileExtension(p.name) !== 'mp4' && // No videos.
+//               p.metadata?.['video-poster'] !== 'true' && // No video posters
+//               p.metadata?.gallery // No photos w/o gallery metadata.
+//           )
+//         : []
 
-    const photoPaths = [
-      ...groupBy<MappedMultimedia, string>(
-        filteredPhotoMultimedia,
-        (a) => a.metadata?.gallery
-      )
-    ]
-      .map(([gallery, photos]) =>
-        photos
-          .map((_, idx) => ({
-            params: {multimedia: ['photos', gallery, idx.toString()]}
-          }))
-          .concat([{params: {multimedia: ['photos', gallery]}}])
-      )
-      .reduce((prev, curVal) => [...prev, ...curVal])
-    /* */
+//     const photoPaths = [
+//       ...groupBy<MappedMultimedia, string>(
+//         filteredPhotoMultimedia,
+//         (a) => a.metadata?.gallery
+//       )
+//     ]
+//       .map(([gallery, photos]) =>
+//         photos
+//           .map((_, idx) => ({
+//             params: {multimedia: ['photos', gallery, idx.toString()]}
+//           }))
+//           .concat([{params: {multimedia: ['photos', gallery]}}])
+//       )
+//       .reduce((prev, curVal) => [...prev, ...curVal])
+//     /* */
 
-    /* Video Paths */
-    // Use the same filters used in <MultimediaPhotoGalleries/>.
-    const filteredVideoMultimedia =
-      multimedia && Array.isArray(multimedia)
-        ? multimedia.filter(
-            (p) =>
-              fileExtension(p.name) === 'mp4' && // Only videos.
-              p.metadata?.['video-poster'] !== 'true' && // No video posters
-              p.metadata?.gallery // No videos w/o gallery metadata
-          )
-        : []
+//     /* Video Paths */
+//     // Use the same filters used in <MultimediaPhotoGalleries/>.
+//     const filteredVideoMultimedia =
+//       multimedia && Array.isArray(multimedia)
+//         ? multimedia.filter(
+//             (p) =>
+//               fileExtension(p.name) === 'mp4' && // Only videos.
+//               p.metadata?.['video-poster'] !== 'true' && // No video posters
+//               p.metadata?.gallery // No videos w/o gallery metadata
+//           )
+//         : []
 
-    const videoPaths = [
-      ...groupBy<MappedMultimedia, string>(
-        filteredVideoMultimedia,
-        (a) => a.metadata?.gallery
-      )
-    ].map(([gallery]) => ({params: {multimedia: ['videos', gallery]}}))
-    /* */
+//     const videoPaths = [
+//       ...groupBy<MappedMultimedia, string>(
+//         filteredVideoMultimedia,
+//         (a) => a.metadata?.gallery
+//       )
+//     ].map(([gallery]) => ({params: {multimedia: ['videos', gallery]}}))
+//     /* */
 
-    return {
-      paths: [
-        {params: {multimedia: ['documents']}},
-        {params: {multimedia: ['photos']}},
-        {params: {multimedia: ['videos']}},
-        // Documents Paths are covered in getStaticPaths() in Dynamic Publication Page.
-        // ...documentPaths
-        ...photoPaths,
-        ...videoPaths
-      ],
-      fallback: false
-    }
-  } catch (error) {
-    console.log(error)
-    return {
-      paths: [],
-      fallback: true
-    }
-  }
-}
+//     return {
+//       paths: [
+//         {params: {multimedia: ['documents']}},
+//         {params: {multimedia: ['photos']}},
+//         {params: {multimedia: ['videos']}},
+//         // Documents Paths are covered in getStaticPaths() in Dynamic Publication Page.
+//         // ...documentPaths
+//         ...photoPaths,
+//         ...videoPaths
+//       ],
+//       fallback: false
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     return {
+//       paths: [],
+//       fallback: true
+//     }
+//   }
+// }
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+// export const getStaticProps: GetStaticProps = async ({params}) => {
+export const getServerSideProps: GetServerSideProps = async ({query}) => {
   try {
     // const err: {statusCode: number} | null = null
     // URL should be in the form of '.../(multimedia-type)/(gallery)/(lightboxIndex)' (eg. ".../photos/historical/3")
 
-    let {multimedia = []} = params || {}
+    // let {multimedia = []} = params || {}
+    let {multimedia = []} = query || {}
     multimedia = [...multimedia]
     // [TODO] Not sure why 'resource-library' is ending up in the values array for the 'multimedia' query param for this dynamic catch-all page at times. The workaround is to simply remove the value if it exists in the array.
     multimedia = multimedia.filter((i) => i !== 'resource-library')
@@ -466,10 +469,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         multimediaParam,
         // lightboxIndex,
         // tabIndex,
-        params
-      },
+        // params
+        params: query
+      }
       // eslint-disable-next-line @typescript-eslint/camelcase
-      unstable_revalidate: 10
+      // unstable_revalidate: 10
     }
   } catch (error) {
     console.log(error)
