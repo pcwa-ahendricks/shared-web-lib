@@ -118,6 +118,7 @@
     "prefixer",
     "prenow",
     "prettysize",
+    "promisify",
     "proptypes",
     "querystringify",
     "questys",

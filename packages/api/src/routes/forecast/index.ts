@@ -70,7 +70,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
 
     const latLngStr = `${lat},${lng}`
-    const val = await hgetallAsync(latLngStr)
+    const hash = latLngStr
+    const val = await hgetallAsync(hash)
     if (val) {
       res.status(200).json({
         temperature: val.temperature,
@@ -94,7 +95,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const longitudeStr = longitude.toString()
     const temperatureStr = temperature.toString()
     await hmsetAsync([
-      latLngStr,
+      hash,
       'temperature',
       temperatureStr,
       'icon',
@@ -104,7 +105,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       'latitude',
       latitudeStr
     ])
-    await expireAsync(latLngStr, 60 * 7 + 12) // 7 minutes, 12 seconds
+    await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
     res.status(200).json({
       temperature: temperatureStr,
       icon,
