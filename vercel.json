@@ -37,6 +37,14 @@
       }
     },
     {
+      "src": "/api/cosmic/media-cache(.*)",
+      "dest": "packages/api/src/routes/cosmic/media-cache.ts",
+      "headers": {
+        "cache-control": "s-maxage=1, stale-while-revalidate",
+        "access-control-allow-origin": "https://www.pcwa.net"
+      }
+    },
+    {
       "src": "/api/cosmic/media(.*)",
       "dest": "packages/api/src/routes/cosmic/media.ts",
       "headers": {
