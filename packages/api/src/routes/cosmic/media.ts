@@ -5,11 +5,13 @@ import {NowRequest, NowResponse} from '@vercel/node'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import jsonStringify from 'fast-json-stable-stringify'
 import {promisify} from 'util'
+import pTimeout from 'p-timeout'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY ?? ''
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD ?? ''
+const TIMEOUT = 200
 
 const redisOpts: ClientOpts = {
   host: 'db-redis-sfo2-73799-do-user-2129966-0.db.ondigitalocean.com',
@@ -22,11 +24,9 @@ const client = createClient(redisOpts)
 const hgetAsync = promisify(client.hget).bind(client)
 const hsetAsync = promisify(client.hset).bind(client)
 const expireAsync = promisify(client.expire).bind(client)
-let redisError: RedisError
 
 client.on('error', (err: RedisError) => {
   console.log('Error ' + err)
-  redisError = err
 })
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
@@ -44,24 +44,19 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       true
     )
 
-    // Return Redis data if it connected and there is no error
-    const redisConnected = client.connected
-    const redisReady = redisConnected && !redisError
     const hash = jsonStringify(query)
     const field = 'data'
     // console.log('Client connected', redisConnected)
     // console.log('Client exists', redisExists)
-    if (redisReady) {
-      const existingDataStr = await hgetAsync(hash, field)
+    try {
+      const existingDataStr = await pTimeout(hgetAsync(hash, field), TIMEOUT)
       if (existingDataStr) {
         const data = JSON.parse(existingDataStr)
         res.status(200).json(data)
         return
       }
-    } else {
-      console.log("Redis isn't ready. Falling back.")
-      console.log('Connected: ', redisConnected)
-      console.log('Error: ', redisError)
+    } catch (error) {
+      console.log(error)
     }
 
     const response = await fetch(
@@ -76,11 +71,14 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const {media = []} = data ?? {}
 
     if (!cosmicId) {
-      if (redisReady) {
+      try {
         const setDataStr = JSON.stringify(media)
-        await hsetAsync(hash, field, setDataStr)
+        await pTimeout(hsetAsync(hash, field, setDataStr), TIMEOUT)
         await expireAsync(hash, 60 * 5) // 5 minutes
+      } catch (error) {
+        console.log(error)
       }
+
       res.status(200).json(media)
       return
     }
@@ -91,10 +89,12 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       return
     }
 
-    if (redisReady) {
+    try {
       const setDataStr = JSON.stringify(filteredMedia)
-      await hsetAsync(hash, field, setDataStr)
-      await expireAsync(hash, 60 * 5) // 5 minutes
+      await pTimeout(hsetAsync(hash, field, setDataStr), TIMEOUT)
+      await pTimeout(expireAsync(hash, 60 * 5), TIMEOUT) // 5 minutes
+    } catch (error) {
+      console.log(error)
     }
 
     res.status(200).json(filteredMedia)
