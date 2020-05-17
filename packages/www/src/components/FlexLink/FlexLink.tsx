@@ -5,7 +5,7 @@ import {
   makeStyles,
   createStyles
 } from '@material-ui/core'
-import NextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
+import MuiNextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
 import {parse} from 'url'
 import clsx from 'clsx'
 
@@ -75,7 +75,7 @@ const FlexLink = ({
   const flexLinkEl = useMemo(
     () =>
       isNextLink ? (
-        <NextLink
+        <MuiNextLink
           href={href}
           as={as}
           scroll={scroll}
@@ -83,7 +83,7 @@ const FlexLink = ({
           {...rest}
         >
           {children}
-        </NextLink>
+        </MuiNextLink>
       ) : hasHref ? (
         <Link
           href={href}

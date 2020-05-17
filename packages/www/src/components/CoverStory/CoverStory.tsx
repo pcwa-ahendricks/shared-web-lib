@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {Box, BoxProps, Typography as Type} from '@material-ui/core'
 import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
-import MuiNextLink from '@components/NextLink/NextLink'
+// import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 
 export type CoverStoryProps = {
@@ -71,9 +71,9 @@ const CoverStory = ({
         <Spacing size="small" />
         {BodyEl}
         {children}
-        <MuiNextLink variant="subtitle2" href={linkHref}>
+        <FlexLink variant="subtitle2" href={linkHref} {...flexLinkProps}>
           {readMore}
-        </MuiNextLink>
+        </FlexLink>
       </Box>
     </Box>
   )

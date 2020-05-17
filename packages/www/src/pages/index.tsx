@@ -138,7 +138,8 @@ const Index = () => {
             <CoverStory
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
-              linkHref="/newsroom/news-releases/03-03-2020"
+              linkHref="/newsroom/news-releases/[release-date]"
+              flexLinkProps={{as: '/newsroom/news-releases/03-03-2020'}}
               imgixURL="https://cosmic-s3.imgix.net/19d91520-6234-11ea-9b83-bbd594758415-PCWA-signs-USBR-contract002.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}
