@@ -1,6 +1,7 @@
-**/skycons.js
-**/modernizr.js
-**/next.config.js
-**/next/client/polyfills.js
-**/.next
-**/packages/**/dist
+skycons.js
+modernizr.js
+next.config.js
+src/client/polyfills.js
+.next
+.eslintrc.js
+node_modules

@@ -30,12 +30,12 @@ yarn-error.log*
 **/.vscode/chrome
 
 # next
-**/www/out
-**/www/.next
+**/out
+**/.next
 
-**/flow-typed/
+**/flow-typed
 
-packages/**/dist
+**/dist
 
 config.gypi
 .now
