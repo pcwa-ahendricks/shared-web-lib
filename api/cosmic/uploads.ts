@@ -10,8 +10,8 @@ const isDev = process.env.NODE_ENV === 'development'
 const COSMIC_UPLOAD_DIR = 'image-uploads'
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
-// const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY ?? ''
-const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY ?? ''
+// const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
+const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 
 // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
@@ -25,7 +25,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
   const data: Uint8Array[] = [] // Also used as a file size counter for logging.
   let fileName: string
   let fieldName: string
-  const ip = headers['x-forwarded-for'] ?? socket.remoteAddress
+  const ip = headers['x-forwarded-for'] || socket.remoteAddress
 
   busboy.on('file', (fieldname, filestream, filename, _encoding, mimetype) => {
     // don't attach to the files object, if there is no file

@@ -9,8 +9,8 @@ import pTimeout from 'p-timeout'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
-const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY ?? ''
-const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD ?? ''
+const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
+const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
 const TIMEOUT = 200
 
 const redisOpts: ClientOpts = {
@@ -66,7 +66,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
 
     const data: CosmicGetMediaResponse = await response.json()
-    const {media = []} = data ?? {}
+    const {media = []} = data || {}
 
     if (!cosmicId) {
       try {

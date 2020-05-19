@@ -11,7 +11,7 @@ import {
 import {NowRequest, NowResponse} from '@vercel/node'
 const isDev = process.env.NODE_ENV === 'development'
 
-const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER ?? ''
+const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const MAILJET_TEMPLATE_ID = 951337
 

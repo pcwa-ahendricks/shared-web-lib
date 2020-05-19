@@ -5,7 +5,7 @@ import {NowRequest, NowResponse} from '@vercel/node'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
-const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY ?? ''
+const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
@@ -31,7 +31,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
 
     const data: CosmicGetMediaResponse = await response.json()
-    const {media = []} = data ?? {}
+    const {media = []} = data || {}
 
     if (!cosmicId) {
       res.status(200).json(media)

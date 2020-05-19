@@ -1,5 +1,4 @@
 {
-  "editor.formatOnSave": true,
   "search.exclude": {
     "**/.next/**": true,
     "**/node_modules": true,
@@ -181,5 +180,7 @@
     "**/.hg/store/**": true,
     "**/.next/**": true,
     "**/.vscode/**": true
-  }
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSaveTimeout": 20000
 }
