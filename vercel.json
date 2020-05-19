@@ -38,12 +38,10 @@
     },
     {
       "source": "/stewardship/rebate-programs",
-
       "destination": "/smart-water-use/rebate-programs"
     },
     {
       "source": "/stewardship/landscape-resources",
-
       "destination": "/smart-water-use/landscape-resources"
     },
     {
@@ -97,11 +95,11 @@
   ],
   "rewrites": [
     {
-      "source": "sitemap.xml",
+      "source": "/sitemap.xml",
       "destination": "/static/sitemap.xml"
     },
     {
-      "source": "robots.txt",
+      "source": "/robots.txt",
       "destination": "/static/robots.txt"
     }
   ],
