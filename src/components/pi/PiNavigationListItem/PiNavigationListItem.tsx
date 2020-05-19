@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useMemo} from 'react'
 import {
   ListItem,
   ListItemText,
@@ -28,11 +28,12 @@ const useStyles = makeStyles(() =>
 )
 
 const PiNavigationListItem = ({pid, g}: Props) => {
-  const activeRoute = useCallback(
-    (id: string) =>
+  const gageIdSlug = g.id.replace(spacesRe, '-').toLowerCase()
+  const activeRoute = useMemo(
+    () =>
       // Need to compare id to modified pid.
-      pid === id.toLowerCase().replace(spacesRe, '-'),
-    [pid]
+      pid === gageIdSlug,
+    [pid, gageIdSlug]
   )
 
   const isReview = useMemo(() => Boolean(g.review), [g])
@@ -48,13 +49,13 @@ const PiNavigationListItem = ({pid, g}: Props) => {
     <NextLink
       passHref
       href="/recreation/flows/gages/[pid]"
-      as={`/recreation/flows/gages/${g.id}`}
+      as={`/recreation/flows/gages/${gageIdSlug}`}
     >
       <ListItem
         button
         component="a"
         disabled={g.disabled}
-        selected={activeRoute(g.id)}
+        selected={activeRoute}
       >
         <ListItemAvatar>
           <Type

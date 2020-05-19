@@ -3,6 +3,7 @@ import {FormControl, InputLabel, Select, MenuItem} from '@material-ui/core'
 import gages, {GageConfigItem} from '@lib/services/pi/gage-config'
 import {useRouter} from 'next/router'
 import acronym from '@lib/acronym'
+import {spacesRe} from '@pages/recreation/flows/gages/[pid]'
 
 type Props = {
   pid?: string
@@ -18,9 +19,10 @@ const PiNavigationSelect = ({pid}: Props) => {
       }>
     ) => {
       const {value = ''} = event.target
+      const slug = value.replace(spacesRe, '-').toLowerCase()
       router.push(
         '/recreation/flows/gages/[pid]',
-        `/recreation/flows/gages/${value}`
+        `/recreation/flows/gages/${slug}`
       )
     },
     [router]
