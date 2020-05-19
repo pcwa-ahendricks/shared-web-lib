@@ -3,59 +3,42 @@ import fetchOk from '@lib/fetch-ok'
 import {stringify} from 'querystringify'
 import {GageConfigItem} from './gage-config'
 import {
-  PiWebBaseElementsResponse,
-  PiWebElementsResponse,
   PiWebElementStreamSetResponse,
   PiWebElementAttributeStream
 } from './pi-web-api-types'
 
 const baseUrl = 'https://flows.pcwa.net/piwebapi'
 
-const fetchBaseElement = async (
+export const baseElementFetcher = (
+  piApiUrl: string,
   baseElementType: GageConfigItem['baseElement']
 ) => {
-  try {
-    const qs = stringify({path: baseElementType}, true)
-    const url = `${baseUrl}/elements${qs}`
-    return await fetchOk<PiWebBaseElementsResponse>(url)
-  } catch (error) {
-    console.warn(error)
-  }
+  const qs = stringify({path: baseElementType}, true)
+  const url = `${piApiUrl}/elements${qs}`
+  return fetch(url).then((res) => res.json())
 }
 
-const fetchElements = async (
-  baseElementType: GageConfigItem['baseElement']
-) => {
-  try {
-    const baseElement = await fetchBaseElement(baseElementType)
-    if (!baseElement) {
-      throw 'No base element.'
-    }
-    const {WebId} = baseElement
-    const url = `${baseUrl}/elements/${WebId}/elements`
-    return await fetchOk<PiWebElementsResponse>(url)
-  } catch (error) {
-    console.warn(error)
-  }
+export const elementsFetcher = (piApiUrl: string, webId: string) => {
+  const url = `${piApiUrl}/elements/${webId}/elements`
+  return fetch(url).then((res) => res.json())
 }
 
-const fetchElementStreamSet = async (
-  baseElementType: GageConfigItem['baseElement'],
-  elementName: string
-) => {
-  try {
-    const elements = await fetchElements(baseElementType)
-    if (!elements) {
-      throw 'No elements.'
-    }
-    const {Items = []} = elements
-    const {WebId = ''} = Items.find((item) => item.Name === elementName) || {}
-    const url = `${baseUrl}/streamsets/${WebId}/value`
-    return await fetchOk<PiWebElementStreamSetResponse>(url)
-  } catch (error) {
-    console.warn(error)
-  }
+export const elementStreamSetFetcher = (piApiUrl: string, webId: string) => {
+  const url = `${piApiUrl}/streamsets/${webId}/value`
+  return fetch(url).then((res) => res.json())
 }
+
+// export const elementAttrStreamFetcher = (
+//   piApiUrl: string,
+//   webId: string,
+//   startTime: string,
+//   endTime: string,
+//   interval: string
+// ) => {
+//   const qs = stringify({startTime, endTime, interval}, true)
+//   const url = `${piApiUrl}/streams/${webId}/interpolated${qs}`
+//   return fetch(url).then((res) => res.json())
+// }
 
 const fetchElementAttributeStream = async (
   items: PiWebElementStreamSetResponse['Items'],
@@ -77,4 +60,4 @@ const fetchElementAttributeStream = async (
   }
 }
 
-export {fetchElementStreamSet, fetchElementAttributeStream}
+export {fetchElementAttributeStream}

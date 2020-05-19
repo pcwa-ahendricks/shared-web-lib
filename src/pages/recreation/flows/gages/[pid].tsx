@@ -1,4 +1,4 @@
-// cspell:ignore recreationists
+// cspell:ignore recreationists essd streamset
 import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
@@ -8,7 +8,9 @@ import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
 import {
-  fetchElementStreamSet,
+  baseElementFetcher,
+  elementsFetcher,
+  elementStreamSetFetcher,
   fetchElementAttributeStream
 } from '@lib/services/pi/pi'
 import {
@@ -38,14 +40,27 @@ import gages from '@lib/services/pi/gage-config'
 import useInterval from '@hooks/useInterval'
 import {generate} from 'shortid'
 import {paramToStr} from '@lib/services/queryParamToStr'
+import useSWR from 'swr'
+import {
+  PiWebBaseElementsResponse,
+  PiWebElementsResponse,
+  PiWebElementStreamSetResponse
+} from '@lib/services/pi/pi-web-api-types'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
-const TABLE_TIME_INTERVAL = '15m'
+const piApiUrl = 'https://flows.pcwa.net/piwebapi'
+// const qs = stringify({path: baseElementType}, true)
+// const url = `${baseUrl}/elements${qs}`
 
 type Props = {
   pidParam?: string
 }
+
+const TABLE_TIME_INTERVAL = '15m'
+
+const getActiveGage = (pid: string) =>
+  gages.find(({id = ''}) => id.toLowerCase().replace(spacesRe, '-') === pid)
 
 export interface ZippedTableDataItem {
   id: string
@@ -73,19 +88,42 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
     tableData
   } = state
 
-  const fetchStreamSet = useCallback(async () => {
-    if (activeGageItem) {
-      const ess = await fetchElementStreamSet(
-        activeGageItem.baseElement,
-        activeGageItem.id
-      )
-      if (ess && ess.Items) {
-        dispatch(setStreamSetItems(ess.Items))
-      }
+  const {data: baseData} = useSWR<PiWebBaseElementsResponse>(
+    activeGageItem ? [piApiUrl, activeGageItem.baseElement] : null,
+    baseElementFetcher
+  )
+  const {data: elementsData} = useSWR<PiWebElementsResponse>(
+    baseData?.WebId ? [piApiUrl, baseData.WebId] : null,
+    elementsFetcher
+  )
+  const elementDataItems = elementsData?.Items ?? []
+
+  const activeElementData = useMemo(
+    () => elementDataItems.find((item) => item.Name === activeGageItem?.id),
+    [elementDataItems, activeGageItem?.id]
+  )
+
+  const {data: elementsStreamSetData, isValidating: essdIsValidating} = useSWR<
+    PiWebElementStreamSetResponse
+  >(
+    activeElementData?.WebId ? [piApiUrl, activeElementData.WebId] : null,
+    elementStreamSetFetcher
+  )
+
+  // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed. This will prevent extra api calls from happening.
+  useEffect(() => {
+    !essdIsValidating &&
+      elementsStreamSetData?.Items &&
+      dispatch(setIsLoadingStreamSetItems(false))
+  }, [essdIsValidating, dispatch, elementsStreamSetData?.Items])
+
+  useEffect(() => {
+    console.log('trying to set streamset items')
+    if (elementsStreamSetData?.Items) {
+      console.log('setting streamset items')
+      dispatch(setStreamSetItems(elementsStreamSetData?.Items ?? []))
     }
-    // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed. This will prevent extra api calls from happening.
-    dispatch(setIsLoadingStreamSetItems(false))
-  }, [activeGageItem, dispatch])
+  }, [dispatch, elementsStreamSetData?.Items])
 
   const fetchChartAttributeStream = useCallback(async () => {
     dispatch(setIsLoadingChartData(true))
@@ -229,18 +267,10 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
 
   useInterval(timeoutHandler, 1000 * 60 * 5) // 5 minutes.
 
-  // Target whenever activeGageItem changes.
-  useEffect(() => {
-    // console.log('effect firing', activeGageItem && activeGageItem.id)
-    fetchStreamSet()
-  }, [activeGageItem, fetchStreamSet])
-
   useEffect(() => {
     // console.log('useEffect firing due to pid update.')
-    // Need to compare id to modified pid returned from getServerSideProps.
-    const gci = gages.find(
-      ({id = ''}) => id.toLowerCase().replace(spacesRe, '-') === pid
-    )
+    // Need to compare id to modified pid returned from getStaticProps.
+    const gci = getActiveGage(pid)
     if (!gci) {
       return
     }
