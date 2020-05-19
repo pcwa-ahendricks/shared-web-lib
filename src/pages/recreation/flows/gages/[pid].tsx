@@ -44,7 +44,7 @@ export const spacesRe = /(\s|%20)+/g
 const TABLE_TIME_INTERVAL = '15m'
 
 type Props = {
-  pid?: string
+  pidParam?: string
 }
 
 export interface ZippedTableDataItem {
@@ -58,7 +58,8 @@ export interface ZippedTableDataItem {
   }[]
 }
 
-const DynamicPiPage = ({pid}: Props) => {
+const DynamicPiPage = ({pidParam = ''}: Props) => {
+  const pid = pidParam.replace(spacesRe, '-').toLowerCase()
   const router = useRouter()
   const {state, dispatch} = useContext(PiContext)
   const {
@@ -425,9 +426,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     isDev && console.log(JSON.stringify(params))
     // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
     const pidParam = paramToStr(params?.pid)
-    const pid = pidParam.replace(spacesRe, '-').toLowerCase()
 
-    return {props: {pid}}
+    return {props: {pidParam}}
   } catch (error) {
     console.log('There was an error fetching PI data.', error)
     return {props: {}}
