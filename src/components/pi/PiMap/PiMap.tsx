@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useMemo,
-  useContext
-} from 'react'
+import React, {useState, useCallback, useEffect, useMemo} from 'react'
 import MapGL, {
   Marker,
   NavigationControl,
@@ -19,14 +13,15 @@ import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import isNumber from 'is-number'
 import PiMapMarker from './PiMapMarker'
 import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
-import {PiContext} from '../PiStore'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
+import {PiMetadata} from '../PiStore'
 const API_KEY = process.env.NEXT_PUBLIC_PI_MAP_MAPBOX_API_KEY ?? ''
 const isDev = process.env.NODE_ENV === 'development'
 const debugMapMarkerPosition = false // Set back to false when not in use.
 
 type Props = {
   isLoading?: boolean
+  streamSetMeta?: PiMetadata[]
 }
 
 const useStyles = makeStyles(() =>
@@ -55,13 +50,11 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const PiMap = ({isLoading = false}: Props) => {
+const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
   const [markerLatLng, setMarkerLatLng] = useState<{lat: number; lng: number}>()
-  const {state} = useContext(PiContext)
-  const {streamSetMeta} = state
 
   useEffect(() => {
     const lngMeta = streamSetMeta.find((m) => m.name === 'Longitude')

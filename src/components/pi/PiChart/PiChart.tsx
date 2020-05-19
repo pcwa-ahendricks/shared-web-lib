@@ -18,7 +18,7 @@ import {
 // import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 import {useTheme} from '@material-ui/core/styles'
 import {format, differenceInMonths, differenceInDays, parseJSON} from 'date-fns'
-import {AttributeStream, PiContext} from '../PiStore'
+import {PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
@@ -40,24 +40,50 @@ import PiChartDataAttributes from '../PiChartDataAttibutes/PiChartDataAttibutes'
 import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
+import useSWR from 'swr'
+import {piApiUrl} from '@pages/recreation/flows/gages/[pid]'
+import {stringify} from 'querystringify'
+import {PiWebElementAttributeStream} from '@lib/services/pi/pi-web-api-types'
+const isDev = process.env.NODE_ENV === 'development'
 // import {curveCardinal} from 'd3-shape'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
 
 type Props = {
-  data?: AttributeStream
+  attribute: string
+  webId: string
+  startTime: Date
+  endTime: Date
+  gageId: string
 }
 
-const PiChart = ({data}: Props) => {
+const calcInterval = (startDate: Date, endDate: Date) => {
+  const diffInDays = differenceInDays(endDate, startDate)
+  switch (true) {
+    // Day
+    case diffInDays <= 1:
+      return '1m' // 1 minute interval.
+    // Week
+    case diffInDays <= 7:
+      return '15m' // 15 minute interval.
+    // Month
+    case diffInDays <= 32:
+      return '1h' // 1 hour interval.
+    // Quarter
+    case diffInDays <= 92:
+      return '8h' // 8 hour interval.
+    // Semi-Annual
+    case diffInDays <= 183:
+      return '12h' // 12 hour interval.
+    default:
+      return '1d' // 1 day interval
+  }
+}
+
+const PiChart = ({webId, startTime, endTime, attribute, gageId}: Props) => {
   const theme = useTheme<Theme>()
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const {state} = useContext(PiContext)
-  const {
-    streamSetMeta,
-    activeGageItem,
-    chartStartDate,
-    chartEndDate,
-    isLoadingChartData: isLoading
-  } = state
+  const {streamSetMeta, activeGageItem} = state
   const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
     false
   )
@@ -72,22 +98,42 @@ const PiChart = ({data}: Props) => {
     right: Date
   }>(null)
 
+  const interval = calcInterval(startTime, endTime)
+
+  const qs = stringify(
+    {startTime: startTime.toJSON(), endTime: endTime.toJSON(), interval},
+    true
+  )
+  const url = `${piApiUrl}/streams/${webId}/interpolated${qs}`
+
+  const {data, isValidating} = useSWR<PiWebElementAttributeStream>(
+    webId ? url : null
+  )
+
+  isDev &&
+    console.log(
+      `Chart data for ${gageId}, ${attribute} | ${format(
+        startTime,
+        'Pp'
+      )} - ${format(endTime, 'Pp')} | ${interval}`
+    )
+
   // Reset zoom when data changes.
   useEffect(() => {
     setLastDrawLocation(null)
   }, [data])
 
   const attributeLabel = useMemo(() => {
-    if (!data) {
+    if (!attribute) {
       return ''
     }
-    return data.attribute.match(/height/i) ? 'Stage' : data.attribute
-  }, [data])
+    return attribute.match(/height/i) ? 'Stage' : attribute
+  }, [attribute])
 
   const seriesTitle = useMemo(
     () =>
-      data && data.units
-        ? `${attributeLabel} (${data.units.toUpperCase()})`
+      data && data.UnitsAbbreviation
+        ? `${attributeLabel} (${data.UnitsAbbreviation.toUpperCase()})`
         : '',
     [data, attributeLabel]
   )
@@ -102,7 +148,9 @@ const PiChart = ({data}: Props) => {
       ? `Gaging Station ${activeGageItem.id.toUpperCase()}`
       : ''
 
-    const secondPart = data.units ? ` - ${attributeLabel} in ${data.units}` : ''
+    const secondPart = data.UnitsAbbreviation
+      ? ` - ${attributeLabel} in ${data.UnitsAbbreviation}`
+      : ''
     return `${firstPart}${secondPart}`
   }, [
     activeGageItem,
@@ -117,8 +165,8 @@ const PiChart = ({data}: Props) => {
   // Since we are not using an initial value it's mandatory that we don't reduce empty arrays or else we will get a runtime error.
   const maxValue = useMemo(
     () =>
-      data?.items && data?.items?.length > 0
-        ? data?.items.reduce((p, c) => {
+      data && Array.isArray(data.Items)
+        ? data.Items.reduce((p, c) => {
             const q = p ?? c
             return c.Value > q.Value ? c : q
           })
@@ -128,8 +176,8 @@ const PiChart = ({data}: Props) => {
 
   const minValue = useMemo(
     () =>
-      data?.items && data?.items?.length > 0
-        ? data?.items.reduce((p, c) => {
+      data && Array.isArray(data.Items)
+        ? data.Items.reduce((p, c) => {
             const q = p ?? c
             return c.Value < q.Value ? c : q
           })
@@ -152,10 +200,12 @@ const PiChart = ({data}: Props) => {
 
   const csvData = useMemo(
     () =>
-      data?.items.map((item) => ({
-        Timestamp: format(parseJSON(item.Timestamp), 'M/dd/yyyy h:mm aa'),
-        Value: item.Value
-      })),
+      data && Array.isArray(data.Items)
+        ? data.Items.map((item) => ({
+            Timestamp: format(parseJSON(item.Timestamp), 'M/dd/yyyy h:mm aa'),
+            Value: item.Value
+          }))
+        : [],
     [data]
   )
 
@@ -166,8 +216,8 @@ const PiChart = ({data}: Props) => {
 
   const seriesData = useMemo(
     () =>
-      data
-        ? data.items.map((item) => ({
+      data && Array.isArray(data.Items)
+        ? data.Items.map((item) => ({
             x: parseJSON(item.Timestamp).getTime(),
             y: item.Value
           }))
@@ -273,31 +323,31 @@ const PiChart = ({data}: Props) => {
   const tickFormat = useCallback(
     (d: number) => {
       const diffInDays = !lastDrawLocation
-        ? differenceInDays(chartEndDate, chartStartDate)
+        ? differenceInDays(endTime, startTime)
         : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
       if (diffInDays <= 4) {
         return format(new Date(d), "M'/'dd, h aa")
       }
       const diffInMonths = !lastDrawLocation
-        ? differenceInMonths(chartEndDate, chartStartDate)
+        ? differenceInMonths(endTime, startTime)
         : differenceInMonths(lastDrawLocation.right, lastDrawLocation.left)
       if (diffInMonths > 6) {
         return format(new Date(d), "MMM ''yy") // Formatting w/ single-quotes is not intuitive. See https://date-fns.org/v2.4.1/docs/format#description for more info.
       }
       return format(new Date(d), "d'.' MMM")
     },
-    [chartStartDate, chartEndDate, lastDrawLocation]
+    [startTime, endTime, lastDrawLocation]
   )
 
   const tickTotal = useMemo(() => {
     const diffInDays = !lastDrawLocation
-      ? differenceInDays(chartEndDate, chartStartDate)
+      ? differenceInDays(endTime, startTime)
       : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
     if (diffInDays <= 4) {
       return isMdUp ? 8 : 6
     }
     return isMdUp ? 12 : 8
-  }, [isMdUp, lastDrawLocation, chartEndDate, chartStartDate])
+  }, [isMdUp, lastDrawLocation, endTime, startTime])
 
   const onMouseLeaveHandler = useCallback(() => {
     setHintValue(false)
@@ -305,12 +355,12 @@ const PiChart = ({data}: Props) => {
 
   const linearProgressEl = useMemo(
     () =>
-      isLoading ? (
+      isValidating ? (
         <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
           <LinearProgress variant="indeterminate" color="secondary" />
         </Box>
       ) : null,
-    [isLoading]
+    [isValidating]
   )
 
   // const configuredCurve = curveCardinal.tension(0.5)
@@ -329,9 +379,10 @@ const PiChart = ({data}: Props) => {
         {chartTitle}
       </Type>
       <PiChartDataAttributes
-        data={data}
+        items={data?.Items}
         minValue={minValue}
         maxValue={maxValue}
+        interval={interval}
       />
       <Box position="relative" width="100%">
         {/* <Box
@@ -393,14 +444,14 @@ const PiChart = ({data}: Props) => {
         </XYPlot>
       </Box>
       <RowBox justifyContent="flex-end" textAlign="right" fontStyle="italic">
-        {isLoading ? null : (
+        {isValidating ? null : (
           <Type variant="body2">
             {`Generated on ${format(new Date(), "MMM do',' yyyy',' h:mm aa")}`}
           </Type>
         )}
       </RowBox>
       <RowBox justifyContent="flex-end" textAlign="right">
-        {isLoading ? null : (
+        {isValidating ? null : (
           <MuiNextLink
             variant="caption"
             color="textSecondary"

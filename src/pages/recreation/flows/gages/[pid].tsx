@@ -1,4 +1,4 @@
-// cspell:ignore recreationists essd streamset
+// cspell:ignore recreationists essd streamset streamsets
 import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
@@ -7,22 +7,12 @@ import {Box, Typography as Type, Hidden} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
-import {
-  baseElementFetcher,
-  elementsFetcher,
-  elementStreamSetFetcher,
-  fetchElementAttributeStream
-} from '@lib/services/pi/pi'
+import {fetchElementAttributeStream} from '@lib/services/pi/pi'
 import {
   PiContext,
   setStreamSetItems,
   setIsLoadingStreamSetItems,
   setActiveGageItem,
-  setChartData,
-  updateChartData,
-  resetChartData,
-  setIsLoadingChartData,
-  AttributeStream,
   setTableData,
   updateTableData,
   resetTableData,
@@ -46,15 +36,20 @@ import {
   PiWebElementsResponse,
   PiWebElementStreamSetResponse
 } from '@lib/services/pi/pi-web-api-types'
+import {stringify} from 'querystringify'
+import fetcher from '@lib/fetcher'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
-const piApiUrl = 'https://flows.pcwa.net/piwebapi'
+export const piApiUrl = 'https://flows.pcwa.net/piwebapi'
 // const qs = stringify({path: baseElementType}, true)
 // const url = `${baseUrl}/elements${qs}`
 
 type Props = {
   pidParam?: string
+  initialBaseData?: PiWebBaseElementsResponse
+  initialElementsData?: PiWebElementsResponse
+  initialElementsStreamSetData?: PiWebElementStreamSetResponse
 }
 
 const TABLE_TIME_INTERVAL = '15m'
@@ -73,119 +68,95 @@ export interface ZippedTableDataItem {
   }[]
 }
 
-const DynamicPiPage = ({pidParam = ''}: Props) => {
+const DynamicPiPage = ({
+  pidParam = '',
+  initialBaseData,
+  initialElementsData,
+  initialElementsStreamSetData
+}: Props) => {
   const pid = pidParam.replace(spacesRe, '-').toLowerCase()
   const router = useRouter()
   const {state, dispatch} = useContext(PiContext)
   const {
     streamSetItems,
     isLoadingStreamSetItems,
-    chartInterval,
     chartStartDate,
     chartEndDate,
     activeGageItem,
-    chartData,
+    // chartData,
     tableData
   } = state
 
+  /* Request 1 */
+  const qs = stringify({path: activeGageItem?.baseElement}, true)
+  const baseDataUrl = `${piApiUrl}/elements${qs}`
   const {data: baseData} = useSWR<PiWebBaseElementsResponse>(
-    activeGageItem ? [piApiUrl, activeGageItem.baseElement] : null,
-    baseElementFetcher
+    activeGageItem?.baseElement ? baseDataUrl : null,
+    {initialData: initialBaseData}
   )
+  /* */
+  /* Request 2 */
+  const elementsDataUrl = `${piApiUrl}/elements/${baseData?.WebId}/elements`
   const {data: elementsData} = useSWR<PiWebElementsResponse>(
-    baseData?.WebId ? [piApiUrl, baseData.WebId] : null,
-    elementsFetcher
+    baseData?.WebId ? elementsDataUrl : null,
+    {initialData: initialElementsData}
   )
+  /* */
+  /* Request 3 */
   const elementDataItems = elementsData?.Items ?? []
-
   const activeElementData = useMemo(
     () => elementDataItems.find((item) => item.Name === activeGageItem?.id),
     [elementDataItems, activeGageItem?.id]
   )
-
+  const elementsStreamSetDataUrl = `${piApiUrl}/streamsets/${activeElementData?.WebId}/value`
   const {data: elementsStreamSetData, isValidating: essdIsValidating} = useSWR<
     PiWebElementStreamSetResponse
-  >(
-    activeElementData?.WebId ? [piApiUrl, activeElementData.WebId] : null,
-    elementStreamSetFetcher
+  >(activeElementData?.WebId ? elementsStreamSetDataUrl : null, {
+    initialData: initialElementsStreamSetData
+  })
+  /* */
+
+  const essdItems =
+    elementsStreamSetData && elementsStreamSetData?.Items
+      ? elementsStreamSetData?.Items
+      : []
+  const names = essdItems.map((item) => item.Name)
+  const values = essdItems.map((item) => item.Value)
+  // Zip up metadata. If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
+  const streamSetMeta = useMemo(
+    () => names.map((e, idx) => ({name: e, value: values[idx].Value})),
+    [names, values]
   )
 
   // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed. This will prevent extra api calls from happening.
   useEffect(() => {
     !essdIsValidating &&
-      elementsStreamSetData?.Items &&
+      essdItems &&
       dispatch(setIsLoadingStreamSetItems(false))
-  }, [essdIsValidating, dispatch, elementsStreamSetData?.Items])
+  }, [essdIsValidating, dispatch, essdItems])
 
   useEffect(() => {
     console.log('trying to set streamset items')
-    if (elementsStreamSetData?.Items) {
+    if (essdItems) {
       console.log('setting streamset items')
-      dispatch(setStreamSetItems(elementsStreamSetData?.Items ?? []))
+      dispatch(setStreamSetItems(essdItems ?? []))
     }
-  }, [dispatch, elementsStreamSetData?.Items])
+  }, [dispatch, essdItems])
 
-  const fetchChartAttributeStream = useCallback(async () => {
-    dispatch(setIsLoadingChartData(true))
-    dispatch(resetChartData()) // Flush previous items.
-    try {
-      if (
-        activeGageItem &&
-        streamSetItems.length > 0 &&
-        !isLoadingStreamSetItems
-      ) {
-        activeGageItem.chartValues.map(async (attribute, index) => {
-          dispatch(
-            setChartData({
-              attribute,
-              index,
-              items: [],
-              units: ''
-            })
-          )
-          isDev &&
-            console.log(
-              `Chart data for ${activeGageItem.id}, ${attribute} | ${format(
-                chartStartDate,
-                'Pp'
-              )} - ${format(chartEndDate, 'Pp')} | ${chartInterval}`
-            )
-          const eas = await fetchElementAttributeStream(
-            streamSetItems,
+  const unsortedCharts = useMemo(
+    () =>
+      activeGageItem && Array.isArray(activeGageItem.chartValues)
+        ? activeGageItem.chartValues.map((attribute, index) => ({
+            index,
             attribute,
-            chartStartDate.toJSON(),
-            chartEndDate.toJSON(),
-            chartInterval
-          )
-          // Deconstruct response.
-          const {Items: items = [], UnitsAbbreviation: units = ''} = eas ?? {}
-
-          if (items.length > 0) {
-            dispatch(
-              updateChartData({
-                attribute,
-                index,
-                items,
-                units
-              })
-            )
-          }
-          dispatch(setIsLoadingChartData(false))
-        })
-      }
-    } catch (error) {
-      console.log(error)
-      dispatch(setIsLoadingChartData(false))
-    }
-  }, [
-    activeGageItem,
-    streamSetItems,
-    isLoadingStreamSetItems,
-    chartStartDate,
-    chartEndDate,
-    chartInterval,
-    dispatch
-  ])
+            gageId: activeGageItem.id,
+            webId:
+              streamSetItems.find((item) => item.Name === attribute)?.WebId ??
+              ''
+          }))
+        : [],
+    [activeGageItem, streamSetItems]
+  )
 
   const fetchTableAttributeStream = useCallback(async () => {
     dispatch(setIsLoadingTableData(true))
@@ -245,9 +216,9 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
   }, [activeGageItem, streamSetItems, isLoadingStreamSetItems, dispatch])
 
   // Target whenever streamSetItems changes.
-  useEffect(() => {
-    fetchChartAttributeStream()
-  }, [streamSetItems, fetchChartAttributeStream])
+  // useEffect(() => {
+  //   fetchChartAttributeStream()
+  // }, [streamSetItems, fetchChartAttributeStream])
 
   // Target whenever streamSetItems changes. Don't combine this with the useEffect for fetchChartAttributeStream cause we don't want to make a api request every time the chart start/end dates and chart intervals update.
   useEffect(() => {
@@ -274,7 +245,7 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
     if (!gci) {
       return
     }
-    dispatch(setIsLoadingChartData(true)) // Assume that attribute streams will be re-fetched as well.
+    // dispatch(setIsLoadingChartData(true)) // Assume that attribute streams will be re-fetched as well.
     dispatch(setIsLoadingStreamSetItems(true)) // It is important to kick this off prior to setting active gage item. See note in fetchStreamSet().
     dispatch(setActiveGageItem(gci))
   }, [pid, dispatch])
@@ -289,8 +260,8 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
   const sortedChartData = useMemo(() => {
     // [hack] Hot reloading during development messes up the uniqueness of the array of objects. This is addressed with the if block.
     if (isDev) {
-      const filteredArray: AttributeStream[] = []
-      chartData.filter((item) => {
+      const filteredArray: typeof unsortedCharts = []
+      unsortedCharts.filter((item) => {
         const i = filteredArray.findIndex((x) => x.index === item.index)
         if (i <= -1) {
           filteredArray.push({...item})
@@ -299,9 +270,9 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
       })
       return filteredArray.sort((a, b) => a.index - b.index)
     } else {
-      return chartData.sort((a, b) => a.index - b.index)
+      return unsortedCharts.sort((a, b) => a.index - b.index)
     }
-  }, [chartData])
+  }, [unsortedCharts])
 
   const zippedTableData = useMemo(
     () =>
@@ -366,7 +337,10 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
             </Hidden>
             {/* <Type variant="subtitle1">Post: {pid}</Type> */}
             <SectionBox height={400}>
-              <PiMap isLoading={isLoadingStreamSetItems} />
+              <PiMap
+                isLoading={essdIsValidating}
+                streamSetMeta={streamSetMeta}
+              />
             </SectionBox>
             <SectionBox m={3}>
               <Type
@@ -387,8 +361,15 @@ const DynamicPiPage = ({pidParam = ''}: Props) => {
               <PiDateRangeControls />
             </SectionBox>
             <SectionBox>
-              {sortedChartData.map((attribStream) => (
-                <PiChart key={attribStream.index} data={attribStream} />
+              {sortedChartData.map(({index, webId, attribute, gageId}) => (
+                <PiChart
+                  key={index}
+                  gageId={gageId}
+                  webId={webId}
+                  startTime={chartStartDate}
+                  endTime={chartEndDate}
+                  attribute={attribute}
+                />
               ))}
             </SectionBox>
             <SectionBox>
@@ -457,7 +438,39 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
     const pidParam = paramToStr(params?.pid)
 
-    return {props: {pidParam}}
+    /* Get Initial Data */
+    // 1
+    const pid = pidParam.replace(spacesRe, '-').toLowerCase()
+    const activeGageItem = getActiveGage(pid)
+    const qs = stringify({path: activeGageItem?.baseElement}, true)
+    const baseDataUrl = `${piApiUrl}/elements${qs}`
+    const initialBaseData = activeGageItem?.baseElement
+      ? await fetcher<PiWebBaseElementsResponse>(baseDataUrl)
+      : null
+    // 2
+    const elementsDataUrl = `${piApiUrl}/elements/${initialBaseData?.WebId}/elements`
+    const initialElementsData = initialBaseData?.WebId
+      ? await fetcher<PiWebElementsResponse>(elementsDataUrl)
+      : null
+    // 3
+    const elementDataItems = initialElementsData?.Items ?? []
+    const activeElementData = elementDataItems.find(
+      (item) => item.Name === activeGageItem?.id
+    )
+    const elementsStreamSetDataUrl = `${piApiUrl}/streamsets/${activeElementData?.WebId}/value`
+    const initialElementsStreamSetData = activeElementData?.WebId
+      ? await fetcher<PiWebElementStreamSetResponse>(elementsStreamSetDataUrl)
+      : null
+    /* */
+
+    return {
+      props: {
+        pidParam,
+        initialBaseData,
+        initialElementsData,
+        initialElementsStreamSetData
+      }
+    }
   } catch (error) {
     console.log('There was an error fetching PI data.', error)
     return {props: {}}

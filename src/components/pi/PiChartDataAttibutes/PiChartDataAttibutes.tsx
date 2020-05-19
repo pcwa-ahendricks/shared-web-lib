@@ -5,7 +5,7 @@ import {Box, Typography as Type} from '@material-ui/core'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, formatDistance, parseJSON} from 'date-fns'
-import {AttributeStream, PiContext} from '../PiStore'
+import {PiContext} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import clsx from 'clsx'
 import {AttribStreamValue} from '@lib/services/pi/pi-web-api-types'
@@ -13,9 +13,10 @@ import useIsReservoirGage from '../hooks/useIsReservoirGage'
 import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 
 type Props = {
-  data?: AttributeStream
   minValue?: AttribStreamValue | null
   maxValue?: AttribStreamValue | null
+  interval: string
+  items?: AttribStreamValue[]
 }
 
 const useStyles = makeStyles(() =>
@@ -30,14 +31,18 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
+const PiChartDataAttributes = ({
+  minValue,
+  maxValue,
+  interval,
+  items
+}: Props) => {
   const classes = useStyles()
   const {state} = useContext(PiContext)
   const {
     activeGageItem,
     chartStartDate,
     chartEndDate,
-    chartInterval,
     isLoadingChartData: isLoading
   } = state
   const isReservoir = useIsReservoirGage()
@@ -89,22 +94,22 @@ const PiChartDataAttributes = ({data, minValue, maxValue}: Props) => {
     let intervalCaption = ''
     switch (true) {
       // Minute
-      case /\d+m/i.test(chartInterval):
-        intervalCaption = chartInterval.replace(/(\d)(m)/i, '$1 minute')
+      case /\d+m/i.test(interval):
+        intervalCaption = interval.replace(/(\d)(m)/i, '$1 minute')
         break
       // Hour
-      case /\d+h/i.test(chartInterval):
-        intervalCaption = chartInterval.replace(/(\d)(h)/i, '$1 hour')
+      case /\d+h/i.test(interval):
+        intervalCaption = interval.replace(/(\d)(h)/i, '$1 hour')
         break
       // Day
-      case /\d+d/i.test(chartInterval):
-        intervalCaption = chartInterval.replace(/(\d)(d)/i, '$1 day')
+      case /\d+d/i.test(interval):
+        intervalCaption = interval.replace(/(\d)(d)/i, '$1 day')
         break
     }
-    return data && intervalCaption
-      ? `${data.items.length} data points returned in ${intervalCaption} intervals.`
+    return items && intervalCaption
+      ? `${items.length} data points returned in ${intervalCaption} intervals.`
       : ''
-  }, [data, chartInterval])
+  }, [items, interval])
 
   const DataType = ({children, ...rest}: any) => (
     <Type variant="subtitle2" {...rest}>
