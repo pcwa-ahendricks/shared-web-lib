@@ -17,6 +17,7 @@ import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import Head from 'next/head'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -59,7 +60,7 @@ const ClearingWaterMeterPage = () => {
           </Type>
           <Spacing />
           <RespRowBox flexSpacing={6}>
-            <ChildBox flex="50%">
+            <ChildBox flex="55%">
               <Type paragraph>Please keep your meter clear:</Type>
               <ul>
                 <TypeBullet>
@@ -80,7 +81,7 @@ const ClearingWaterMeterPage = () => {
               </Type>
               <Type paragraph>Thank you for your help!</Type>
             </ChildBox>
-            <ChildBox flex="50%" display="flex">
+            <ChildBox flex="45%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -94,6 +95,20 @@ const ClearingWaterMeterPage = () => {
               </Box>
             </ChildBox>
           </RespRowBox>
+
+          <Spacing size="x-large" />
+
+          <Box mx="auto" width="100%">
+            <ResponsiveYouTubePlayer
+              controls
+              url="https://www.youtube.com/watch?v=5Z6ClHaOV9E"
+              config={{
+                youtube: {
+                  playerVars: {showinfo: 1}
+                }
+              }}
+            />
+          </Box>
         </NarrowContainer>
       </MainBox>
     )
