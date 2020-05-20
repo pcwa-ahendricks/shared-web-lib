@@ -383,6 +383,7 @@ const PiChart = ({webId, startTime, endTime, attribute, gageId}: Props) => {
         minValue={minValue}
         maxValue={maxValue}
         interval={interval}
+        isLoading={isValidating}
       />
       <Box position="relative" width="100%">
         {/* <Box

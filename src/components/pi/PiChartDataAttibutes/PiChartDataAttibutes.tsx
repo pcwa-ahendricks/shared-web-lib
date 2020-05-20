@@ -17,6 +17,7 @@ type Props = {
   maxValue?: AttribStreamValue | null
   interval: string
   items?: AttribStreamValue[]
+  isLoading: boolean
 }
 
 const useStyles = makeStyles(() =>
@@ -35,16 +36,12 @@ const PiChartDataAttributes = ({
   minValue,
   maxValue,
   interval,
-  items
+  items,
+  isLoading
 }: Props) => {
   const classes = useStyles()
   const {state} = useContext(PiContext)
-  const {
-    activeGageItem,
-    chartStartDate,
-    chartEndDate,
-    isLoadingChartData: isLoading
-  } = state
+  const {activeGageItem, chartStartDate, chartEndDate} = state
   const isReservoir = useIsReservoirGage()
   const friendlyName = useFriendlyNameMeta()
 

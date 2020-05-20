@@ -67,13 +67,15 @@ const OutageInformationPage = ({initialData}: Props) => {
     (outageType: string) => {
       const re = new RegExp(outageType, 'gi')
       const f =
-        outages?.objects
-          .filter(
-            (outage) =>
-              outage?.metadata.hide_on_website === false &&
-              re.test(outage?.metadata.type)
-          )
-          .map((outage) => outage?.content)?.[0] ?? ''
+        outages && Array.isArray(outages.objects)
+          ? outages.objects
+              .filter(
+                (outage) =>
+                  outage?.metadata.hide_on_website === false &&
+                  re.test(outage?.metadata.type)
+              )
+              .map((outage) => outage?.content)?.[0] ?? ''
+          : []
       return f
     },
     [outages]
