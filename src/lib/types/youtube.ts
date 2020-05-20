@@ -1,6 +1,5 @@
 // cspell:ignore maxres
 // import {stringify} from 'querystringify'
-// import fetchOk from '@lib/fetch-ok'
 
 export interface PlayListItems {
   eTag: string
@@ -54,7 +53,7 @@ export interface PlayListItemSnippet {
 //       true
 //     )
 //     const url = `${youtubeApiUrl}/playlistItems${qs}`
-//     return await fetchOk<PlayListItems>(url)
+//     return await fetcher<PlayListItems>(url)
 //   } catch (error) {
 //     console.warn(error)
 //     return {

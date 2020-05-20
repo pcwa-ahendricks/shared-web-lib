@@ -2,7 +2,7 @@
 import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import {BooleanAsString} from '@lib/safeCastBoolean'
-import fetchOk from '@lib/fetch-ok'
+import fetcher from '@lib/fetcher'
 
 export interface IrrigationControllerRebateFormData {
   firstName: string
@@ -212,7 +212,7 @@ type RequestBody =
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`
   try {
-    return await fetchOk(url, {
+    return await fetcher(url, {
       method: 'POST',
       body: JSON.stringify(body)
     })

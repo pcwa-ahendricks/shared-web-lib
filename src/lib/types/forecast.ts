@@ -1,6 +1,5 @@
 // import {stringify} from 'querystringify'
 // import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-// import fetchOk from '@lib/fetch-ok'
 
 // Using relative URL.
 // const FORECAST_URL = '/api/forecast'
@@ -15,7 +14,7 @@ export interface ForecastResponse {
 // const fetchForecast = async (location: Location) => {
 //   const url = `${FORECAST_URL}${stringify(location.queryParams, true)}`
 //   try {
-//     return await fetchOk<ForecastResponse>(url)
+//     return await fetcher<ForecastResponse>(url)
 //   } catch (error) {
 //     console.warn(error)
 //     return {} as ForecastResponse

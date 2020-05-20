@@ -2,8 +2,8 @@
 import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
 import {convertTimeToDate, findTimeZone, setTimeZone} from 'timezone-support'
-import fetchOk from '@lib/fetch-ok'
 import slugify from 'slugify'
+import fetcher from '@lib/fetcher'
 const TZ = 'America/Los_Angeles'
 
 export interface UnclaimedPropertyResponse {
@@ -22,7 +22,7 @@ export interface Page {
 //   try {
 //     const qs = stringify({type, ...params}, true)
 //     const url = `/api/cosmic/objects${qs}`
-//     const data = await fetchOk<CosmicObjectResponse<T>>(url)
+//     const data = await fetcher<CosmicObjectResponse<T>>(url)
 //     if (!data) {
 //       return []
 //     }
@@ -37,7 +37,7 @@ export interface Page {
 //   try {
 //     const qs = stringify({filename: 'unclaimed-property.csv'}, true)
 //     const url = `/api/cosmic/csv-data${qs}`
-//     const data = await fetchOk<UnclaimedPropertyResponse[]>(url)
+//     const data = await fetcher<UnclaimedPropertyResponse[]>(url)
 //     if (!data) {
 //       return []
 //     }
@@ -61,7 +61,7 @@ export interface Page {
 //   try {
 //     const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
 //     const url = `/api/cosmic/csv-data${qs}`
-//     return await fetchOk(url)
+//     return await fetcher(url)
 //   } catch (error) {
 //     console.warn(error)
 //     throw error
@@ -72,7 +72,7 @@ export interface Page {
 //   try {
 //     const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
 //     const url = `/api/cosmic/csv${qs}`
-//     return await fetchOkText(url)
+//     return await textFetcher(url)
 //   } catch (error) {
 //     console.warn(error)
 //     throw error
@@ -98,7 +98,7 @@ const getMedia = async <T>(
       const qs = stringify(params, true)
       url = url.concat(qs)
     }
-    return await fetchOk<T>(url)
+    return await fetcher<T>(url)
   } catch (error) {
     console.warn(error)
     // throw error
