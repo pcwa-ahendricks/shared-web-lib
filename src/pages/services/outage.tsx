@@ -74,9 +74,10 @@ const OutageInformationPage = ({initialData}: Props) => {
                   outage?.metadata.hide_on_website === false &&
                   re.test(outage?.metadata.type)
               )
-              .map((outage) => outage?.content)?.[0] ?? ''
-          : []
-      return f
+              .map((outage) => outage?.content)
+              .shift()
+          : ''
+      return f ?? ''
     },
     [outages]
   )
@@ -150,7 +151,7 @@ const OutageInformationPage = ({initialData}: Props) => {
         </Type>
       )
     }
-    return Parser(treatedWaterOutagesHTML, options)
+    return Parser(treatedWaterOutagesHTML ?? '', options)
   }, [treatedWaterOutagesHTML, options])
 
   const parsedRawWaterOutagesContent = useMemo(() => {
@@ -161,7 +162,7 @@ const OutageInformationPage = ({initialData}: Props) => {
         </Type>
       )
     }
-    return Parser(rawWaterOutagesHTML, options)
+    return Parser(rawWaterOutagesHTML ?? '', options)
   }, [rawWaterOutagesHTML, options])
 
   const progressEl = useMemo(

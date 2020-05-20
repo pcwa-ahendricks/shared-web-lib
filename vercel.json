@@ -101,6 +101,10 @@
     {
       "source": "/robots.txt",
       "destination": "/static/robots.txt"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/static/favicon/favicon.ico"
     }
   ],
   "headers": [
