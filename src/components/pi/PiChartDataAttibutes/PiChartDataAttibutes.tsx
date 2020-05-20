@@ -5,7 +5,7 @@ import {Box, Typography as Type} from '@material-ui/core'
 // import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, formatDistance, parseJSON} from 'date-fns'
-import {PiContext} from '../PiStore'
+import {PiContext, PiMetadata} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import clsx from 'clsx'
 import {AttribStreamValue} from '@lib/services/pi/pi-web-api-types'
@@ -18,6 +18,7 @@ type Props = {
   interval: string
   items?: AttribStreamValue[]
   isLoading: boolean
+  streamSetMeta?: PiMetadata[]
 }
 
 const useStyles = makeStyles(() =>
@@ -37,13 +38,14 @@ const PiChartDataAttributes = ({
   maxValue,
   interval,
   items,
-  isLoading
+  isLoading,
+  streamSetMeta
 }: Props) => {
   const classes = useStyles()
   const {state} = useContext(PiContext)
   const {activeGageItem, chartStartDate, chartEndDate} = state
   const isReservoir = useIsReservoirGage()
-  const friendlyName = useFriendlyNameMeta()
+  const friendlyName = useFriendlyNameMeta(streamSetMeta)
 
   const gagingStationCaption = useMemo(() => {
     if (!activeGageItem) {

@@ -18,7 +18,7 @@ import {
 // import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
 import {useTheme} from '@material-ui/core/styles'
 import {format, differenceInMonths, differenceInDays, parseJSON} from 'date-fns'
-import {PiContext} from '../PiStore'
+import {PiContext, PiMetadata} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
@@ -44,7 +44,7 @@ import useSWR from 'swr'
 import {piApiUrl} from '@pages/recreation/flows/gages/[pid]'
 import {stringify} from 'querystringify'
 import {PiWebElementAttributeStream} from '@lib/services/pi/pi-web-api-types'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 // import {curveCardinal} from 'd3-shape'
 // import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
 
@@ -53,7 +53,8 @@ type Props = {
   webId: string
   startTime: Date
   endTime: Date
-  gageId: string
+  // gageId: string // just used w/ console.log
+  streamSetMeta?: PiMetadata[]
 }
 
 const calcInterval = (startDate: Date, endDate: Date) => {
@@ -79,15 +80,22 @@ const calcInterval = (startDate: Date, endDate: Date) => {
   }
 }
 
-const PiChart = ({webId, startTime, endTime, attribute, gageId}: Props) => {
+const PiChart = ({
+  webId,
+  startTime,
+  endTime,
+  attribute,
+  // gageId,
+  streamSetMeta
+}: Props) => {
   const theme = useTheme<Theme>()
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const {state} = useContext(PiContext)
-  const {streamSetMeta, activeGageItem} = state
+  const {activeGageItem} = state
   const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
     false
   )
-  const friendlyName = useFriendlyNameMeta()
+  const friendlyName = useFriendlyNameMeta(streamSetMeta)
   const isRiver = useIsRiverGage()
   const isReservoir = useIsReservoirGage()
   const xyPlotRef = useRef<any>()
@@ -110,13 +118,13 @@ const PiChart = ({webId, startTime, endTime, attribute, gageId}: Props) => {
     webId ? url : null
   )
 
-  isDev &&
-    console.log(
-      `Chart data for ${gageId}, ${attribute} | ${format(
-        startTime,
-        'Pp'
-      )} - ${format(endTime, 'Pp')} | ${interval}`
-    )
+  // isDev &&
+  //   console.log(
+  //     `Chart data for ${gageId}, ${attribute} | ${format(
+  //       startTime,
+  //       'Pp'
+  //     )} - ${format(endTime, 'Pp')} | ${interval}`
+  //   )
 
   // Reset zoom when data changes.
   useEffect(() => {
@@ -384,6 +392,7 @@ const PiChart = ({webId, startTime, endTime, attribute, gageId}: Props) => {
         maxValue={maxValue}
         interval={interval}
         isLoading={isValidating}
+        streamSetMeta={streamSetMeta}
       />
       <Box position="relative" width="100%">
         {/* <Box

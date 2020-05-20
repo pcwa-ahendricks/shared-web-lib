@@ -114,7 +114,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
 
   const mapMarkerEl = useMemo(
     () =>
-      markerLatLng?.lng && markerLatLng?.lat ? (
+      markerLatLng && markerLatLng.lng && markerLatLng.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <PiMapMarker size={30} />
         </Marker>
@@ -126,8 +126,9 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
     () =>
       debugMapMarkerPosition &&
       isDev &&
-      markerLatLng?.lng &&
-      markerLatLng?.lat ? (
+      markerLatLng &&
+      markerLatLng.lng &&
+      markerLatLng.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <CrossHairIcon
             style={{
@@ -167,7 +168,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
           <NavigationControl />
         </div>
         <div className={classes.metadataDataList}>
-          <PiMetadataDl isLoading={isLoading} />
+          <PiMetadataDl isLoading={isLoading} streamSetMeta={streamSetMeta} />
         </div>
 
         {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}

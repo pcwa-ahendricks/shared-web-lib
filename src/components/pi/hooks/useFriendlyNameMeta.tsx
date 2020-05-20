@@ -1,9 +1,7 @@
-import {useMemo, useContext} from 'react'
-import {PiContext} from '../PiStore'
+import {useMemo} from 'react'
+import {PiMetadata} from '../PiStore'
 
-const useFriendlyNameMeta = () => {
-  const {state} = useContext(PiContext)
-  const {streamSetMeta: meta} = state
+const useFriendlyNameMeta = (meta: PiMetadata[] = []) => {
   const friendlyName = useMemo(() => {
     const f = meta.find(
       (m) => m.name && m.name && m.name.match(/friendly\s?name/i)

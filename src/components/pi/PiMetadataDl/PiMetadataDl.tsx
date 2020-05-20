@@ -5,11 +5,12 @@ import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {blueGrey} from '@material-ui/core/colors'
 import colorAlpha from 'color-alpha'
 import PiMetadataDlItem from '../PiMetadataDlItem/PiMetadataDlItem'
-import {PiContext} from '../PiStore'
+import {PiContext, PiMetadata} from '../PiStore'
 import isNumber from 'is-number'
 
 type Props = {
   isLoading?: boolean
+  streamSetMeta?: PiMetadata[]
 }
 
 type UseStylesProps = {
@@ -38,9 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const PiMetadataDl = ({isLoading = false}: Props) => {
+const PiMetadataDl = ({isLoading = false, streamSetMeta = []}: Props) => {
   const {state} = useContext(PiContext)
-  const {streamSetMeta, activeGageItem} = state
+  const {activeGageItem} = state
 
   const detailItems = useMemo(
     () =>

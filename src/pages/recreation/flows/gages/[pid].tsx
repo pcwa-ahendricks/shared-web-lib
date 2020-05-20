@@ -7,19 +7,12 @@ import {Box, Typography as Type, Hidden} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
-import {fetchElementAttributeStream} from '@lib/services/pi/pi'
 import {
   PiContext,
-  setStreamSetItems,
-  setIsLoadingStreamSetItems,
   setActiveGageItem,
-  setTableData,
-  updateTableData,
-  resetTableData,
-  setIsLoadingTableData,
   setChartEndDate
 } from '@components/pi/PiStore'
-import {format, parseJSON, startOfMonth, isToday} from 'date-fns'
+import {isToday} from 'date-fns'
 import PiMap from '@components/pi/PiMap/PiMap'
 import SectionBox from '@components/boxes/SectionBox'
 import PiDateRangeControls from '@components/pi/PiDateRangeControls/PiDateRangeControls'
@@ -28,7 +21,6 @@ import disclaimer from '@components/pi/disclaimer'
 import PiTable from '@components/pi/PiTable/PiTable'
 import gages from '@lib/services/pi/gage-config'
 import useInterval from '@hooks/useInterval'
-import {generate} from 'shortid'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import useSWR from 'swr'
 import {
@@ -51,8 +43,6 @@ type Props = {
   initialElementsData?: PiWebElementsResponse
   initialElementsStreamSetData?: PiWebElementStreamSetResponse
 }
-
-const TABLE_TIME_INTERVAL = '15m'
 
 const getActiveGage = (pid: string) =>
   gages.find(({id = ''}) => id.toLowerCase().replace(spacesRe, '-') === pid)
@@ -77,15 +67,7 @@ const DynamicPiPage = ({
   const pid = pidParam.replace(spacesRe, '-').toLowerCase()
   const router = useRouter()
   const {state, dispatch} = useContext(PiContext)
-  const {
-    streamSetItems,
-    isLoadingStreamSetItems,
-    chartStartDate,
-    chartEndDate,
-    activeGageItem,
-    // chartData,
-    tableData
-  } = state
+  const {chartStartDate, chartEndDate, activeGageItem} = state
 
   /* Request 1 */
   const qs = stringify({path: activeGageItem?.baseElement}, true)
@@ -128,21 +110,6 @@ const DynamicPiPage = ({
     [names, values]
   )
 
-  // Only allow fetching of attribute stream data after fetchElementsStreamSet has completed. This will prevent extra api calls from happening.
-  useEffect(() => {
-    !essdIsValidating &&
-      essdItems &&
-      dispatch(setIsLoadingStreamSetItems(false))
-  }, [essdIsValidating, dispatch, essdItems])
-
-  useEffect(() => {
-    console.log('trying to set streamset items')
-    if (essdItems) {
-      console.log('setting streamset items')
-      dispatch(setStreamSetItems(essdItems ?? []))
-    }
-  }, [dispatch, essdItems])
-
   const unsortedCharts = useMemo(
     () =>
       activeGageItem && Array.isArray(activeGageItem.chartValues)
@@ -151,90 +118,21 @@ const DynamicPiPage = ({
             attribute,
             gageId: activeGageItem.id,
             webId:
-              streamSetItems.find((item) => item.Name === attribute)?.WebId ??
-              ''
+              essdItems.find((item) => item.Name === attribute)?.WebId ?? ''
           }))
         : [],
-    [activeGageItem, streamSetItems]
+    [activeGageItem, essdItems]
   )
-
-  const fetchTableAttributeStream = useCallback(async () => {
-    dispatch(setIsLoadingTableData(true))
-    dispatch(resetTableData()) // Flush previous items.
-    const now = new Date()
-    const startDate = startOfMonth(now)
-    const endDate = now
-    try {
-      if (
-        activeGageItem &&
-        streamSetItems.length > 0 &&
-        !isLoadingStreamSetItems
-      ) {
-        activeGageItem.tableValues.map(async (attribute, index) => {
-          dispatch(
-            setTableData({
-              attribute,
-              index,
-              items: [],
-              units: ''
-            })
-          )
-          isDev &&
-            console.log(
-              `Table data for ${activeGageItem.id}, ${attribute} | ${format(
-                startDate,
-                'Pp'
-              )} - ${format(endDate, 'Pp')} | ${TABLE_TIME_INTERVAL}`
-            )
-          const eas = await fetchElementAttributeStream(
-            streamSetItems,
-            attribute,
-            startDate.toJSON(),
-            endDate.toJSON(),
-            TABLE_TIME_INTERVAL
-          )
-          // Deconstruct response.
-          const {Items: items = [], UnitsAbbreviation: units = ''} = eas ?? {}
-
-          if (items.length > 0) {
-            dispatch(
-              updateTableData({
-                attribute,
-                index,
-                items,
-                units
-              })
-            )
-          }
-          dispatch(setIsLoadingTableData(false))
-        })
-      }
-    } catch (error) {
-      console.log(error)
-      dispatch(setIsLoadingTableData(false))
-    }
-  }, [activeGageItem, streamSetItems, isLoadingStreamSetItems, dispatch])
-
-  // Target whenever streamSetItems changes.
-  // useEffect(() => {
-  //   fetchChartAttributeStream()
-  // }, [streamSetItems, fetchChartAttributeStream])
-
-  // Target whenever streamSetItems changes. Don't combine this with the useEffect for fetchChartAttributeStream cause we don't want to make a api request every time the chart start/end dates and chart intervals update.
-  useEffect(() => {
-    fetchTableAttributeStream()
-  }, [streamSetItems, fetchTableAttributeStream])
 
   const timeoutHandler = useCallback(() => {
     isDev && console.log('timer timeout: ', new Date().toLocaleString())
-    fetchTableAttributeStream()
     // If the user hasn't changed the end date assume we want to update the chart data as well.
     // Don't place this if block in fetchChartAttributeStream() cause it will result in in infinite (re)renders.
     if (isToday(chartEndDate)) {
       isDev && console.log('Updating chart end date to current date/time.')
       dispatch(setChartEndDate(new Date()))
     }
-  }, [fetchTableAttributeStream, chartEndDate, dispatch])
+  }, [chartEndDate, dispatch])
 
   useInterval(timeoutHandler, 1000 * 60 * 5) // 5 minutes.
 
@@ -245,8 +143,6 @@ const DynamicPiPage = ({
     if (!gci) {
       return
     }
-    // dispatch(setIsLoadingChartData(true)) // Assume that attribute streams will be re-fetched as well.
-    dispatch(setIsLoadingStreamSetItems(true)) // It is important to kick this off prior to setting active gage item. See note in fetchStreamSet().
     dispatch(setActiveGageItem(gci))
   }, [pid, dispatch])
 
@@ -273,43 +169,6 @@ const DynamicPiPage = ({
       return unsortedCharts.sort((a, b) => a.index - b.index)
     }
   }, [unsortedCharts])
-
-  const zippedTableData = useMemo(
-    () =>
-      // The following reduce fn will zip an array of arrays.
-      // Specifying reduce Type allows us to set the initial value as an array w/o type casting below.
-      tableData.reduce<ZippedTableDataItem[]>((prevItems, curr) => {
-        // This if check just prevents toLowerCase() below from throwing an error due to undefined method.
-        if (!curr.attribute) {
-          return []
-        }
-        const currItems = curr.items
-
-        const newItems = currItems.map((e, i) => {
-          // Assume that the timestamp will match when zipping arrays with map.
-          const timestamp = parseJSON(e.Timestamp)
-          const prevItemsObj = {...prevItems[i]}
-          const prevItemsValues = prevItemsObj.values
-            ? [...prevItemsObj.values]
-            : []
-          return {
-            id: generate(),
-            timestamp,
-            values: [
-              ...prevItemsValues,
-              {
-                attribute: curr.attribute,
-                value: e.Value,
-                units: curr.units,
-                columnNo: curr.index + 2 // Increase by 2 since timestamp will be first column and array's are zero based.
-              }
-            ]
-          }
-        })
-        return newItems
-      }, []),
-    [tableData]
-  )
 
   // console.log('TBL Data', tableData)
   // console.log('ZPD Data', zippedTableData)
@@ -361,14 +220,14 @@ const DynamicPiPage = ({
               <PiDateRangeControls />
             </SectionBox>
             <SectionBox>
-              {sortedChartData.map(({index, webId, attribute, gageId}) => (
+              {sortedChartData.map(({index, webId, attribute}) => (
                 <PiChart
                   key={index}
-                  gageId={gageId}
                   webId={webId}
                   startTime={chartStartDate}
                   endTime={chartEndDate}
                   attribute={attribute}
+                  streamSetMeta={streamSetMeta}
                 />
               ))}
             </SectionBox>
@@ -379,7 +238,8 @@ const DynamicPiPage = ({
                     key={table.metric}
                     metric={table.metric}
                     headers={table.headers}
-                    data={zippedTableData}
+                    streamSetItems={essdItems}
+                    streamSetMeta={streamSetMeta}
                   />
                 ))}
             </SectionBox>

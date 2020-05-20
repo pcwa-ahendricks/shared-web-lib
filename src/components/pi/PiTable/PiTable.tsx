@@ -21,24 +21,44 @@ import {
   LinearProgress
 } from '@material-ui/core'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {PiContext} from '../PiStore'
+import {PiContext, PiMetadata} from '../PiStore'
 import {GageConfigTable} from '@lib/services/pi/gage-config'
-import {ZippedTableDataItem} from '@pages/recreation/flows/gages/[pid]'
+import {
+  ZippedTableDataItem,
+  piApiUrl
+} from '@pages/recreation/flows/gages/[pid]'
 import toTitleCase from '@lib/toTitleCase'
 import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 import useIsRiverGage from '../hooks/useIsRiverGage'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'
-import {isToday, isThisMonth, isValid} from 'date-fns'
+import {
+  // format,
+  startOfMonth,
+  isToday,
+  isThisMonth,
+  isValid,
+  parseJSON
+} from 'date-fns'
 import {stableSort} from '@lib/table-utils'
 import PiTableRow from './PiTableRow'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
 import {SortDirection} from '@material-ui/core/TableCell'
+import useSWR from 'swr'
+import {stringify} from 'querystringify'
+import {
+  PiWebElementAttributeStream,
+  PiWebElementStreamSetResponse
+} from '@lib/services/pi/pi-web-api-types'
+import {generate} from 'shortid'
+// const isDev = process.env.NODE_ENV === 'development'
+const TABLE_TIME_INTERVAL = '15m'
 
 type Props = {
-  data?: ZippedTableDataItem[]
   metric: GageConfigTable['metric']
   headers: GageConfigTable['headers']
+  streamSetItems: PiWebElementStreamSetResponse['Items']
+  streamSetMeta?: PiMetadata[]
 }
 
 export interface TableDataItem extends ZippedTableDataItem {
@@ -108,10 +128,10 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const PiTable = ({data: dataProp, metric, headers}: Props) => {
+const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
   const {state} = useContext(PiContext)
-  const {isLoadingTableData: isLoading, activeGageItem, streamSetMeta} = state
-  const friendlyName = useFriendlyNameMeta()
+  const {activeGageItem} = state
+  const friendlyName = useFriendlyNameMeta(streamSetMeta)
   const isRiver = useIsRiverGage()
   const isReservoir = useIsReservoirGage()
   const theme = useTheme<Theme>()
@@ -123,20 +143,152 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
   const [rowCount, setRowCount] = useState(0)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5) // 5, 10, or 20.
+  const [startDate, setStartDate] = useState<Date>()
+  const [endDate, setEndDate] = useState<Date>()
+
+  // Important, need to be set in state or placed outside the scope of component in order to prevent infinite re-rendering/crashing/requests.
+  useEffect(() => {
+    const now = new Date()
+    setStartDate(startOfMonth(now))
+    setEndDate(now)
+  }, [])
+
+  const tableValues = useMemo(
+    () =>
+      activeGageItem && Array.isArray(activeGageItem.tableValues)
+        ? activeGageItem.tableValues.map((attribute, index) => ({
+            index,
+            attribute,
+            gageId: activeGageItem.id,
+            webId:
+              streamSetItems.find((item: any) => item.Name === attribute)
+                ?.WebId ?? ''
+          }))
+        : [],
+    [activeGageItem, streamSetItems]
+  )
+  const colAValues = tableValues[0]
+  const colBValues = tableValues[1]
+
+  // useEffect(() => {
+  //   isDev &&
+  //     startDate &&
+  //     endDate &&
+  //     console.log(
+  //       `Table data for ${colAValues?.gageId}, ${
+  //         colAValues?.attribute
+  //       } | ${format(startDate, 'Pp')} - ${format(
+  //         endDate,
+  //         'Pp'
+  //       )} | ${TABLE_TIME_INTERVAL}`
+  //     )
+  //   isDev &&
+  //     startDate &&
+  //     endDate &&
+  //     console.log(
+  //       `Table data for ${colBValues?.gageId}, ${
+  //         colBValues?.attribute
+  //       } | ${format(startDate, 'Pp')} - ${format(
+  //         endDate,
+  //         'Pp'
+  //       )} | ${TABLE_TIME_INTERVAL}`
+  //     )
+  // }, [])
+
+  const qs = useMemo(
+    () =>
+      startDate && endDate
+        ? stringify(
+            {
+              startTime: startDate.toJSON(),
+              endTime: endDate.toJSON(),
+              interval: TABLE_TIME_INTERVAL
+            },
+            true
+          )
+        : null,
+    [startDate, endDate]
+  )
+  const webIdA = colAValues?.webId
+  const webIdB = colBValues?.webId
+  const colAUrl = `${piApiUrl}/streams/${webIdA}/interpolated${qs}`
+  const colBUrl = `${piApiUrl}/streams/${webIdB}/interpolated${qs}`
+
+  const {data: colAData, isValidating: colAIsValidating} = useSWR<
+    PiWebElementAttributeStream
+  >(webIdA && qs ? colAUrl : null)
+  const {data: colBData, isValidating: colBIsValidating} = useSWR<
+    PiWebElementAttributeStream
+  >(webIdB && qs ? colBUrl : null)
+
+  const isValidating = colAIsValidating || colBIsValidating
+
+  const tableItems = useMemo(() => {
+    const a = {
+      ...colAValues,
+      items: colAData && colAData.Items ? [...colAData.Items] : [],
+      units:
+        colAData && colAData.UnitsAbbreviation ? colAData.UnitsAbbreviation : ''
+    }
+    const b = {
+      ...colBValues,
+      items: colBData && colBData.Items ? [...colBData.Items] : [],
+      units:
+        colBData && colBData.UnitsAbbreviation ? colBData.UnitsAbbreviation : ''
+    }
+    return [a, b]
+  }, [colAData, colBData, colAValues, colBValues])
+
+  const zippedTableData = useMemo(
+    () =>
+      // The following reduce fn will zip an array of arrays.
+      // Specifying reduce Type allows us to set the initial value as an array w/o type casting below.
+      tableItems.reduce<ZippedTableDataItem[]>((prevItems, curr) => {
+        // This if check just prevents toLowerCase() below from throwing an error due to undefined method.
+        if (!curr.attribute) {
+          return []
+        }
+        const currItems = curr.items
+
+        const newItems = currItems.map((e, i) => {
+          // Assume that the timestamp will match when zipping arrays with map.
+          const timestamp = parseJSON(e.Timestamp)
+          const prevItemsObj = {...prevItems[i]}
+          const prevItemsValues = prevItemsObj.values
+            ? [...prevItemsObj.values]
+            : []
+          return {
+            id: generate(),
+            timestamp,
+            values: [
+              ...prevItemsValues,
+              {
+                attribute: curr.attribute,
+                value: e.Value,
+                units: curr.units,
+                columnNo: curr.index + 2 // Increase by 2 since timestamp will be first column and array's are zero based.
+              }
+            ]
+          }
+        })
+        return newItems
+      }, []),
+    [tableItems]
+  )
 
   useEffect(() => {
-    if (dataProp && metric === 'daily') {
-      const dailyData = dataProp.filter((item) =>
+    if (metric === 'daily') {
+      const dailyData = zippedTableData.filter((item) =>
         isValid(item.timestamp) ? isToday(item.timestamp) : false
       )
       setData(dailyData)
-    } else if (dataProp && metric === 'monthly') {
-      const monthlyData = dataProp.filter((item) =>
+    } else if (metric === 'monthly') {
+      const monthlyData = zippedTableData.filter((item) =>
         isValid(item.timestamp) ? isThisMonth(item.timestamp) : false
       )
       setData(monthlyData)
     }
-  }, [dataProp, metric, headers])
+  }, [zippedTableData, metric, headers])
 
   useEffect(() => {
     const s = stableSort(data, getSorting(order, orderBy))
@@ -150,36 +302,29 @@ const PiTable = ({data: dataProp, metric, headers}: Props) => {
   // console.log('dataProp', dataProp)
 
   const tableTitle = useMemo(() => {
-    if (!data || !streamSetMeta || !activeGageItem) {
-      return ' '
+    if (!data || !activeGageItem) {
+      return ''
     }
+    const gageId = activeGageItem.id ?? ''
     const firstPart = isReservoir
       ? `${friendlyName}`
       : isRiver
-      ? `Gaging Station ${activeGageItem.id.toUpperCase()}`
+      ? `Gaging Station ${gageId.toUpperCase()}`
       : ''
 
     // const secondPart = data.units ? ` - ${attributeLabel} in ${data.units}` : ''
     const secondPart = metric ? ` - ${toTitleCase(metric)} Data` : ''
     return `${firstPart}${secondPart}`
-  }, [
-    activeGageItem,
-    friendlyName,
-    data,
-    streamSetMeta,
-    isRiver,
-    isReservoir,
-    metric
-  ])
+  }, [activeGageItem, friendlyName, data, isRiver, isReservoir, metric])
 
   const linearProgressEl = useMemo(
     () =>
-      isLoading ? (
+      isValidating ? (
         <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
           <LinearProgress variant="indeterminate" color="secondary" />
         </Box>
       ) : null,
-    [isLoading]
+    [isValidating]
   )
 
   const handleRequestSort = useCallback(

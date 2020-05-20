@@ -9,7 +9,7 @@ export interface GageConfigItem {
     | '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
   description: string
   chartValues: string[]
-  tableValues: string[]
+  tableValues: [string, string] // <PiTable/> is configured for two-columns only.
   tables: GageConfigTable[]
   disabled?: boolean
   review?: boolean
