@@ -79,32 +79,6 @@ export interface Page {
 //   }
 // }
 
-const getMedia = async <T>(
-  params = {},
-  cosmicId?: string,
-  urlBase?: string
-): Promise<T | undefined> => {
-  try {
-    if (cosmicId) {
-      params = {
-        ...params,
-        cosmicId
-      }
-    }
-    // Do not interpolate undefined or null as literally 'undefined' or 'null' respectively.
-    urlBase = urlBase ?? ''
-    let url = `${urlBase}/api/cosmic/media`
-    if (Object.keys(params).length > 0) {
-      const qs = stringify(params, true)
-      url = url.concat(qs)
-    }
-    return await fetcher<T>(url)
-  } catch (error) {
-    console.warn(error)
-    // throw error
-  }
-}
-
 /*
   Since this function is ran from getStaticProps and getStaticPaths any date values parsed will need to have the timezone set to California time or else statically generated pages will use the incorrect local time, often resulting in the wrong date when parsing dates from a string that have a 0 hour. The cleanest and easiest workaround I've found that works is to use convertTimeToDate(setTimeZone()).
 */
@@ -273,4 +247,4 @@ interface CosmicOption {
   key?: string
 }
 
-export {getMedia, getMediaPDFPages, fileNameUtil}
+export {getMediaPDFPages, fileNameUtil}
