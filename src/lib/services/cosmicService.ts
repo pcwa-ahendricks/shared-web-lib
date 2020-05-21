@@ -3,7 +3,6 @@ import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
 import {convertTimeToDate, findTimeZone, setTimeZone} from 'timezone-support'
 import slugify from 'slugify'
-import fetcher from '@lib/fetcher'
 const TZ = 'America/Los_Angeles'
 
 export interface UnclaimedPropertyResponse {
