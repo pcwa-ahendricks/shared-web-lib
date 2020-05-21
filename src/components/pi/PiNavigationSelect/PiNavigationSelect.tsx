@@ -18,8 +18,7 @@ const PiNavigationSelect = ({pid}: Props) => {
         value: any
       }>
     ) => {
-      const {value = ''} = event.target
-      const slug = value.replace(spacesRe, '-').toLowerCase()
+      const {value: slug = ''} = event.target
       router.push(
         '/recreation/flows/gages/[pid]',
         `/recreation/flows/gages/${slug}`
@@ -47,11 +46,14 @@ const PiNavigationSelect = ({pid}: Props) => {
             id: 'gage-id'
           }}
         >
-          {gages.map((g) => (
-            <MenuItem key={g.id} value={g.id} disabled={g.disabled}>
-              {menuItemCaption(g)}
-            </MenuItem>
-          ))}
+          {gages.map((g) => {
+            const value = g.id.replace(spacesRe, '-').toLowerCase()
+            return (
+              <MenuItem key={g.id} value={value} disabled={g.disabled}>
+                {menuItemCaption(g)}
+              </MenuItem>
+            )
+          })}
         </Select>
       </FormControl>
     </>

@@ -210,7 +210,7 @@ const gages: GageConfigItem[] = [
     id: 'R6',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Rubicon River below Hell Hole Dam',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -228,7 +228,7 @@ const gages: GageConfigItem[] = [
     id: 'R7',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'South Fork Long Canyon Creek Diversion Tunnel',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -246,7 +246,7 @@ const gages: GageConfigItem[] = [
     id: 'R8',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'North Fork Long Canyon Creek Diversion Tunnel',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -264,7 +264,7 @@ const gages: GageConfigItem[] = [
     id: 'R20',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Middle Fork American above Little Circle Bridge',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -282,7 +282,7 @@ const gages: GageConfigItem[] = [
     id: 'R22',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Rubicon River above Hell Hole Reservoir',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -300,7 +300,7 @@ const gages: GageConfigItem[] = [
     id: 'R23',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Five Lakes Creek above Hell Hole',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -318,7 +318,7 @@ const gages: GageConfigItem[] = [
     id: 'R24',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Middle Fork American River above French Meadows',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -336,7 +336,7 @@ const gages: GageConfigItem[] = [
     id: 'R27',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'South Fork Long Canyon Creek below Diversion',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
@@ -354,7 +354,7 @@ const gages: GageConfigItem[] = [
     id: 'R28',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'North Fork Long Canyon Creek below Diversion',
-    review: true,
+    review: false,
     chartValues: ['Flow', 'Height'],
     tableValues: ['Flow', 'Height'],
     tables: [
