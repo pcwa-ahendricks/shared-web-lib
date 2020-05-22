@@ -110,6 +110,8 @@ Omit<CommonProps, 'currentView'> & {
               className={classes.headerButton}
               disabled={downloadDisabled}
               onClick={downloadPhotoClickHandler}
+              aria-controls="download-image-menu"
+              aria-haspopup="true"
             >
               <DownloadIcon fontSize="large" style={{fill: '#FFFFFF'}} />
             </IconButton>
