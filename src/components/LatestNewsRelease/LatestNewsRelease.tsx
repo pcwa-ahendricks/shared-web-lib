@@ -65,6 +65,7 @@ const LatestNewsRelease = ({...rest}: Props) => {
               )
             }))
             .sort((a, b) => compareDesc(a.publishedDate, b.publishedDate))
+            .filter((lnr) => lnr.derivedFilenameAttr.date) // Don't show a news release that we won't be able to navigate to. getStaticPaths in [release-date] will filter these so prevent the UI from showing these bogus routes.
             .shift()
         : null,
     [latestNewsReleaseData]
@@ -78,7 +79,9 @@ const LatestNewsRelease = ({...rest}: Props) => {
         imgixURL="https://cosmic-s3.imgix.net/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
         linkHref="/newsroom/news-releases/[release-date]"
         flexLinkProps={{
-          as: `/newsroom/news-releases/${latestNewsRelease?.derivedFilenameAttr?.date}`
+          as: `/newsroom/news-releases/${
+            latestNewsRelease?.derivedFilenameAttr?.date ?? 'not-found'
+          }`
         }}
         imgixFancyProps={{
           htmlAttributes: {

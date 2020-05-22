@@ -53,7 +53,7 @@ const Index = () => {
 
   const coverTileTopMargin = 5
 
-  const tileWidth = isLGUp ? 225 : 200
+  const tileWidth = isLGUp ? 176 : 160
 
   return (
     <PageLayout mt={0}>
@@ -158,7 +158,13 @@ const Index = () => {
           <Divider />
         </Spacing>
         {/* Ross wanted the 4 items center aligned for the time being. When <LatestNewsRelease/> is added back to this page we can cut over to the row wrapping flex box layout. */}
-        <RowBox flexWrap="wrap" mt={-coverTileTopMargin} flexSpacing={4}>
+        {/* Ross REALLY wants these centered, no matter what. */}
+        <RowBox
+          flexWrap="wrap"
+          mt={-coverTileTopMargin}
+          flexSpacing={4}
+          justifyContent="center"
+        >
           {/* <RespRowBox
           flexWrap="nowrap"
           alignItems={{xs: 'center', sm: 'flex-start'}}
