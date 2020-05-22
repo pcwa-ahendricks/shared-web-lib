@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CountyWideMasterPlanPage = () => {
   const theme = useTheme()
-  const activeStep = 4
+  const activeStep = 8 // 1-8
   const [activeIndex, setActiveIndex] = useState<number>(activeStep - 1)
   const classes = useStyles({activeIndex, activeStep: activeStep - 1})
 
