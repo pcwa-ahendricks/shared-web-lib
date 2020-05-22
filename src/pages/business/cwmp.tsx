@@ -39,18 +39,25 @@ type UseStylesProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     isActiveStep: {
-      '&.MuiStepIcon-root': {
-        color: theme.palette.primary.main
+      '& .MuiStepIcon-root': {
+        color: theme.palette.secondary.main
       },
       '& .MuiStepLabel-label': {
         fontWeight: 500
       }
     },
-    rootStepLabelIcon: ({activeIndex, activeStep}: UseStylesProps) => ({
+    stepLabel: {
+      '&.MuiStepLabel-label': {
+        '&.MuiStepLabel-completed': {
+          fontWeight: 400
+        }
+      }
+    },
+    stepLabelIcon: ({activeIndex, activeStep}: UseStylesProps) => ({
       '&.MuiStepIcon-active': {
         color:
           activeIndex === activeStep
-            ? theme.palette.primary.main
+            ? theme.palette.secondary.main
             : theme.palette.text.secondary
       }
     }),
@@ -364,13 +371,19 @@ const CountyWideMasterPlanPage = () => {
                         >
                           <StepLabel
                             classes={{
-                              root: clsx({
-                                [classes.isActiveStep]: index === activeStep - 1
-                              })
+                              completed: classes.stepLabel,
+                              label: classes.stepLabel,
+                              root: clsx([
+                                classes.stepLabel,
+                                {
+                                  [classes.isActiveStep]:
+                                    index === activeStep - 1
+                                }
+                              ])
                             }}
                             StepIconProps={{
                               classes: {
-                                root: classes.rootStepLabelIcon
+                                root: classes.stepLabelIcon
                               }
                             }}
                           >
