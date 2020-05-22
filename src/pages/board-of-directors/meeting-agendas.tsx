@@ -109,9 +109,12 @@ const MeetingAgendasPage = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget)
+    },
+    []
+  )
 
   const {data: agendasData, isValidating} = useSWR<AgendaList>(agendasUrl)
 

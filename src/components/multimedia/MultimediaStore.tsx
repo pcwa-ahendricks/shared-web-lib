@@ -7,6 +7,7 @@ interface State {
   multimediaList: MultimediaList
   lightboxIndex: number
   lightboxViewerOpen: boolean
+  lvDownloadMenuOpen: boolean
 }
 
 type ProviderProps = {
@@ -41,22 +42,28 @@ export type PickedPublicationResponse = Pick<
 >
 
 interface MappedProperties {
-  source?: string // For react-images, not for videos.
   width?: number // For <ImgixFancy/>, not for videos.
   height?: number // For <ImgixFancy/>, not for videos.
   paddingPercent?: string // For <ImgixFancy/>, not for videos.
 }
+interface MappedLightboxProperties extends MappedProperties {
+  source: string // For react-images, not for videos.
+}
 export type MultimediaList = Array<PickedMultimediaResponse>
 export type PublicationList = Array<PickedPublicationResponse>
+export type MappedLightboxMultimedia = PickedMultimediaResponse &
+  MappedLightboxProperties
 export type MappedMultimedia = PickedMultimediaResponse & MappedProperties
 export type MappedMultimediaList = Array<MappedMultimedia>
+export type MappedLightboxMultimediaList = Array<MappedLightboxMultimedia>
 
 // State
 const initialState: State = {
   selectedGallery: null,
   multimediaList: [],
   lightboxIndex: 0,
-  lightboxViewerOpen: false
+  lightboxViewerOpen: false,
+  lvDownloadMenuOpen: false
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -72,6 +79,8 @@ const SET_MULTIMEDIA_LIST: 'SET_MULTIMEDIA_LIST' = 'SET_MULTIMEDIA_LIST'
 const SET_LIGHTBOX_INDEX: 'SET_LIGHTBOX_INDEX' = 'SET_LIGHTBOX_INDEX'
 const SET_LIGHTBOX_VIEWER_OPEN: 'SET_LIGHTBOX_VIEWER_OPEN' =
   'SET_LIGHTBOX_VIEWER_OPEN'
+const SET_LV_DOWNLOAD_MENU_OPEN: 'SET_LV_DOWNLOAD_MENU_OPEN' =
+  'SET_LV_DOWNLOAD_MENU_OPEN'
 
 // Actions
 export const setSelectedGallery = (gallery: State['selectedGallery']) => {
@@ -102,6 +111,13 @@ export const setLightboxViewerOpen = (open?: State['lightboxViewerOpen']) => {
   }
 }
 
+export const setLvDownloadMenuOpen = (open?: State['lvDownloadMenuOpen']) => {
+  return {
+    type: SET_LV_DOWNLOAD_MENU_OPEN,
+    open
+  }
+}
+
 // Reducer
 const multimediaReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -124,6 +140,11 @@ const multimediaReducer = (state: State, action: any): State => {
       return {
         ...state,
         lightboxViewerOpen: action.open
+      }
+    case SET_LV_DOWNLOAD_MENU_OPEN:
+      return {
+        ...state,
+        lvDownloadMenuOpen: action.open
       }
     default:
       return state

@@ -6,8 +6,8 @@ import {
   setLightboxIndex,
   setLightboxViewerOpen,
   MultimediaList,
-  MappedMultimedia,
-  MappedMultimediaList
+  MappedLightboxMultimedia,
+  MappedLightboxMultimediaList
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
@@ -39,7 +39,7 @@ export type MultimediaPhotoGallery = {
       url: string // Used w/ videos, not photos.
       metadata?: CosmicMetadata | undefined
       name: string
-      source?: string // For react-images, not for videos.
+      source: string // For react-images, not for videos.
       width?: number // For <ImgixFancy/>, not for videos.
       height?: number // For <ImgixFancy/>, not for videos.
       paddingPercent?: string // For <ImgixFancy/>, not for videos.
@@ -47,9 +47,11 @@ export type MultimediaPhotoGallery = {
     categoryKey: string
     label: string
   }[]
-  galleryCover: MappedMultimedia
+  galleryCover: MappedLightboxMultimedia
 }
-export type LightboxPhotosList = Array<MappedMultimedia & {index: number}>
+export type LightboxPhotosList = Array<
+  MappedLightboxMultimedia & {index: number}
+>
 
 const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
 
@@ -90,7 +92,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const {
     selectedGallery,
     lightboxIndex,
-    lightboxViewerOpen
+    lightboxViewerOpen,
+    lvDownloadMenuOpen
   } = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
   const containerRef = useRef<HTMLDivElement>(null)
@@ -156,7 +159,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     [isSM, isMD, isLG]
   )
 
-  const mappedMultimedia: MappedMultimediaList = useMemo(
+  const mappedMultimedia: MappedLightboxMultimediaList = useMemo(
     () =>
       multimedia.map((m) => {
         const {width, height, paddingPercent} = galleryImgWidthHeight(
@@ -204,7 +207,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         p.metadata?.gallery // No photos w/o gallery metadata.
     )
     const groupedByGallery = [
-      ...groupBy<MappedMultimedia, string>(
+      ...groupBy<MappedLightboxMultimedia, string>(
         filteredMappedMultimedia,
         (a) => a.metadata?.gallery
       )
@@ -218,7 +221,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       .map((v) => {
         const {photos, galleryKey, label} = v
         const groupedByCategory = [
-          ...groupBy<MappedMultimedia, string>(
+          ...groupBy<MappedLightboxMultimedia, string>(
             photos,
             (a) => a.metadata?.category
           )
@@ -290,15 +293,21 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
 
   const allPhotosInCurrentGallery: LightboxPhotosList = useMemo(
     () =>
-      currentGallery?.categories.reduce<LightboxPhotosList>(
-        (prev, {photos}) =>
-          Array.isArray(prev) ? [...prev, ...photos] : [...photos],
-        []
-      ) ?? [],
+      currentGallery && Array.isArray(currentGallery.categories)
+        ? currentGallery.categories.reduce<LightboxPhotosList>(
+            (prev, {photos}) =>
+              Array.isArray(prev) ? [...prev, ...photos] : [...photos],
+            []
+          )
+        : [],
     [currentGallery]
   )
 
   const onCloseModalHandler = useCallback(() => {
+    // Don't close modal when download photo menu backdrop is clicked
+    if (lvDownloadMenuOpen) {
+      return
+    }
     const routeSegment = selectedGallery ? `/${selectedGallery}` : ''
     multimediaDispatch(setLightboxViewerOpen(false))
     multimediaDispatch(setLightboxIndex(0))
@@ -307,7 +316,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       `/resource-library/photos${routeSegment}`
       // {shallow: true}
     )
-  }, [multimediaDispatch, router, selectedGallery])
+  }, [multimediaDispatch, router, selectedGallery, lvDownloadMenuOpen])
 
   const margin = 6 // Used with left and top margin of flexWrap items.
 

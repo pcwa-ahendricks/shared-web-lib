@@ -133,8 +133,8 @@ const DynamicPublicationPage = ({
               caption="Download Publication"
               aria-label="Download publication"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia?.size}
+              href={qMedia ? `${qMedia.imgix_url}?dl=${downloadAs}` : '#'}
+              fileSize={qMedia ? qMedia.size : 0}
             />
           </ChildBox>
         </RespRowBox>

@@ -5,6 +5,7 @@ import MultimediaLightboxView from '@components/multimedia/MultimediaLightboxVie
 import {LightboxPhotosList} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {MultimediaContext} from '../MultimediaStore'
 import {useRouter} from 'next/router'
+import MultimediaLightboxHeader from '../MultimediaLightboxHeader/MultimediaLightboxHeader'
 
 type Props = {
   photos: LightboxPhotosList
@@ -66,6 +67,7 @@ const MultimediaLightbox = ({
                     onViewChange: viewChangeHandler
                   }}
                   components={{
+                    Header: MultimediaLightboxHeader,
                     View: MultimediaLightboxView
                   }}
                 />
