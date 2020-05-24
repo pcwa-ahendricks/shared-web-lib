@@ -1,4 +1,5 @@
-import React, {useMemo} from 'react'
+// cspell:ignore Qmedia
+import React from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -17,55 +18,55 @@ import {
   Divider,
   Breadcrumbs
 } from '@material-ui/core'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
+import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
-import MinutesIcon from '@material-ui/icons/UndoOutlined'
+// import HomeIcon from '@material-ui/icons/Home'
+import BackIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+import MuiNextLink from '@components/NextLink/NextLink'
 const isDev = process.env.NODE_ENV === 'development'
+
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
-  // query: ParsedUrlQuery
   err?: any
   qMedia?: PickedMediaResponse
   pages?: Page[]
-  publishDate?: string
+  agendaSlug?: string
 }
 
 type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
+  CosmicMediaMeta<{type: string; website: boolean}>,
+  | 'original_name'
+  | 'imgix_url'
+  | 'derivedFilenameAttr'
+  | 'size'
+  | 'metadata'
+  | 'url'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size,metadata,url'
 }
-const qs = stringify({...cosmicGetMediaProps, folder: 'newsletters'}, true)
-const newslettersUrl = `/api/cosmic/media${qs}`
+const qs = stringify({...cosmicGetMediaProps, folder: 'agendas'}, true)
+const boardAgendasUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     pageNo: {
       cursor: 'default'
     },
-    pageNoType: {
-      borderRadius: 8,
-      paddingLeft: 4,
-      paddingRight: 4,
-      backgroundColor: theme.palette.common.white,
-      lineHeight: 1.2
-    },
     bcLink: {
-      display: 'flex'
+      display: 'flex',
+      cursor: 'pointer'
     },
     bcIcon: {
       alignSelf: 'center',
@@ -76,40 +77,34 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewslettersPage = ({
+const DynamicBoardAgendasPage = ({
   qMedia,
   pages = [],
   err,
-  publishDate
+  agendaSlug
 }: Props) => {
   const theme = useTheme<Theme>()
-
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   const classes = useStyles()
-  const newsletterDateFormatted = useMemo(
-    () =>
-      qMedia
-        ? format(
-            parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
-            "EEEE',' MMMM do',' yyyy "
-          )
-        : '',
-    [qMedia]
-  )
+  const boardAgendaDateFormatted = qMedia
+    ? format(
+        parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
+        "EEEE',' MMMM do',' yyyy "
+      )
+    : ''
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!qMedia) {
-    console.error('No qMedia', qMedia)
-    // [TODO] This has been causing an issue where certain resources/routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
-    // return <ErrorPage statusCode={404} />
+  } else if (!pages || !qMedia) {
+    console.error('No pages or qMedia', pages, qMedia)
+    return <ErrorPage statusCode={404} />
   }
 
   const downloadAs = slugify(qMedia?.original_name ?? '')
 
   return (
-    <PageLayout title={`Newsletter ${publishDate}`}>
+    <PageLayout title={`Board Agenda ${agendaSlug}`}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
@@ -117,30 +112,30 @@ const DynamicNewslettersPage = ({
           pt={3}
           justifyContent="space-between"
           flexSpacing={2}
-          mb={3} // Keep newsletter away from <Fab/> shadow.
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                href="/newsroom/publications/[publication]"
-                as="/newsroom/publications/newsletters"
                 className={classes.bcLink}
+                href="/board-of-directors/meeting-agendas"
               >
-                <MinutesIcon className={classes.bcIcon} />
-                Newsletters
+                <>
+                  <BackIcon className={classes.bcIcon} />
+                  Board Agendas
+                </>
               </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
-                {newsletterDateFormatted}
+                {boardAgendaDateFormatted}
               </Type>
             </Breadcrumbs>
           </ChildBox>
           {/* z-index allow <Fab/> to float w/ shadow above image below. */}
           <ChildBox flexShrink={0} zIndex={1}>
             <DownloadResourceFab
-              caption="Download Newsletter"
-              aria-label="Download newsletter"
+              caption="Download Agenda"
+              aria-label="Download board agenda"
               size={isSMDown ? 'small' : 'medium'}
               href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
               fileSize={qMedia?.size}
@@ -154,24 +149,23 @@ const DynamicNewslettersPage = ({
                 id={`page-${number}`}
                 position="absolute"
                 zIndex={1}
-                top={3} // Position page number a bit higher than other pdf pages.
+                top={15}
                 textAlign="center"
                 justifyContent="center"
                 width="100%"
                 fontStyle="italic"
                 className={classes.pageNo}
               >
-                <Type
-                  color="primary"
-                  variant={isSMDown ? 'body2' : 'body1'}
-                  className={classes.pageNoType}
-                >{`Page ${number}`}</Type>
+                <Type color="primary">{`Page ${number}`}</Type>
               </RowBox>
             ) : null}
             <PDFPage
               showLoading={true}
-              alt={`Newsletter document image for ${publishDate} - page ${number}/${pages.length}`}
+              alt={`Board Agendas document image for ${agendaSlug} - page ${number}/${pages.length}`}
               url={url}
+              imgixHtmlAttributes={{
+                'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+              }}
             />
             <Divider />
           </Box>
@@ -183,40 +177,40 @@ const DynamicNewslettersPage = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
-      `${baseUrl}${newslettersUrl}`
+      `${urlBase}${boardAgendasUrl}`
     )
     if (isDev) {
       const debug =
         data && Array.isArray(data)
           ? data
-              .map((nl) => ({
-                ...nl,
+              .map((bm) => ({
+                ...bm,
                 derivedFilenameAttr: fileNameUtil(
-                  nl.original_name,
+                  bm.original_name,
                   DATE_FNS_FORMAT
                 )
               }))
-              .filter((nl) => !nl.derivedFilenameAttr.date)
-              .map((nl) => nl.original_name)
+              .filter((bm) => !bm.derivedFilenameAttr.date)
+              .map((bm) => bm.original_name)
           : []
-      debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
+      debug.forEach((i) => console.log(`Debug Board Meeting Agenda: ${i}`))
     }
     const paths =
       data && Array.isArray(data)
         ? data
-            .map((nl) => ({
-              ...nl,
+            .map((bm) => ({
+              ...bm,
               derivedFilenameAttr: fileNameUtil(
-                nl.original_name,
+                bm.original_name,
                 DATE_FNS_FORMAT
               )
             }))
-            .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((nl) => ({
+            .filter((bm) => bm.derivedFilenameAttr.date && bm.metadata?.type) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((bm) => ({
               params: {
-                'publish-date': nl.derivedFilenameAttr.date
+                'agenda-slug': `${bm.derivedFilenameAttr.date}-${bm.metadata?.type}`
               }
             }))
         : []
@@ -235,22 +229,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
-      `${baseUrl}${newslettersUrl}`
+      `${urlBase}${boardAgendasUrl}`
     )
-    const newsletters =
+    const bm =
       data && Array.isArray(data)
         ? data.map((bm) => ({
             ...bm,
             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
           }))
         : []
-    const publishDate = paramToStr(params?.['publish-date'])
-    const {qMedia, pages} = await getMediaPages(newsletters, publishDate)
+    const agendaSlug = paramToStr(params?.['agenda-slug'])
+    const findBy = (agenda: PickedMediaResponse) =>
+      agenda.derivedFilenameAttr?.date + '-' + agenda.metadata?.type ===
+      agendaSlug
+    const {qMedia, pages} = await getMediaPages(bm, null, findBy)
 
     return {
-      props: {qMedia, pages, publishDate},
+      props: {qMedia, pages, agendaSlug},
       // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
@@ -260,4 +257,4 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   }
 }
 
-export default DynamicNewslettersPage
+export default DynamicBoardAgendasPage

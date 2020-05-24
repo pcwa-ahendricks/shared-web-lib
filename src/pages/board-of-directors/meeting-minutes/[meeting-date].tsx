@@ -6,7 +6,7 @@ import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
   CosmicMediaMeta,
-  getMediaPDFPages,
+  getMediaPages,
   Page
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
@@ -44,12 +44,12 @@ type Props = {
 
 type PickedMediaResponse = Pick<
   CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size'
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
 }
 const qs = stringify({...cosmicGetMediaProps, folder: 'board-minutes'}, true)
 const boardMinutesUrl = `/api/cosmic/media${qs}`
@@ -222,7 +222,7 @@ const DynamicBoardMinutesPage = ({
 //           }))
 //         : []
 //     const meetingDate = queryParamToStr(query['meeting-date'])
-//     const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
+//     const {qMedia, pages} = await getMediaPages(bm, meetingDate)
 //     const selfReferred = siteReferer(req)
 
 //     return {props: {query, qMedia, pages, meetingDate, selfReferred}}
@@ -251,7 +251,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
                   DATE_FNS_FORMAT
                 )
               }))
-              .filter((bm) => !bm.derivedFilenameAttr?.date)
+              .filter((bm) => !bm.derivedFilenameAttr.date)
               .map((bm) => bm.original_name)
           : []
       debug.forEach((i) => console.log(`Debug Board Meeting Minutes: ${i}`))
@@ -266,10 +266,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 DATE_FNS_FORMAT
               )
             }))
-            .filter((bm) => bm.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .filter((bm) => bm.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
             .map((bm) => ({
               params: {
-                'meeting-date': bm.derivedFilenameAttr?.date
+                'meeting-date': bm.derivedFilenameAttr.date
               }
             }))
         : []
@@ -300,7 +300,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           }))
         : []
     const meetingDate = paramToStr(params?.['meeting-date'])
-    const {qMedia, pages} = await getMediaPDFPages(bm, meetingDate)
+    const {qMedia, pages} = await getMediaPages(bm, meetingDate)
 
     return {
       props: {qMedia, pages, meetingDate},

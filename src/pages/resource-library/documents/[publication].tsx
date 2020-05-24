@@ -6,7 +6,7 @@ import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
   CosmicMediaMeta,
-  getMediaPDFPages,
+  getMediaPages,
   Page
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
@@ -45,12 +45,17 @@ type Props = {
 
 type PickedMediaResponse = Pick<
   CosmicMediaMeta<PublicationLibraryMetadata>,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'metadata'
+  | 'original_name'
+  | 'imgix_url'
+  | 'derivedFilenameAttr'
+  | 'size'
+  | 'metadata'
+  | 'url'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,metadata'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size,metadata,url'
 }
 const qs = stringify(
   {...cosmicGetMediaProps, folder: 'publication-library'},
@@ -257,12 +262,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         : []
     // Don't need to slugify parameter since it's already slugified.
     const publicationSlug = paramToStr(params?.publication)
-    const {qMedia, pages} = await getMediaPDFPages(
-      publications,
-      publicationSlug,
-      'base',
-      true
-    )
+    // Do slugify base name prop value.
+    const findBy = (pub: PickedMediaResponse) =>
+      slugify(pub.derivedFilenameAttr?.base ?? '') === publicationSlug
+    const {qMedia, pages} = await getMediaPages(publications, null, findBy)
 
     return {
       props: {qMedia, pages, publicationSlug},

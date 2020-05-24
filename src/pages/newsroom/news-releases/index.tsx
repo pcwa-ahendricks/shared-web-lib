@@ -91,7 +91,7 @@ const NewsReleasesPage = ({initialData}: Props) => {
                     DATE_FNS_FORMAT
                   )
                 }))
-                .filter((nr) => nr.derivedFilenameAttr?.date), // Don't list links that will ultimately 404.
+                .filter((nr) => nr.derivedFilenameAttr.date), // Don't list links that will ultimately 404.
               (mnr) => mnr.derivedFilenameAttr?.publishedYear
             )
           ] // Spreading Map will convert Map into an Array.

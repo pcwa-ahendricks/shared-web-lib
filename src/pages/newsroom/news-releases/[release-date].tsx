@@ -5,7 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
   CosmicMediaMeta,
-  getMediaPDFPages,
+  getMediaPages,
   Page
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
@@ -36,12 +36,12 @@ const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type PickedMediaResponse = Pick<
   CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size'
+  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
 const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size'
+  props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
 }
 const qs = stringify({...cosmicGetMediaProps, folder: 'news-releases'}, true)
 const newsReleasesUrl = `/api/cosmic/media${qs}`
@@ -201,7 +201,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
                   DATE_FNS_FORMAT
                 )
               }))
-              .filter((nr) => !nr.derivedFilenameAttr?.date)
+              .filter((nr) => !nr.derivedFilenameAttr.date)
               .map((nr) => nr.original_name)
           : []
       debug.forEach((i) => console.log(`Debug News Release: ${i}`))
@@ -216,10 +216,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 DATE_FNS_FORMAT
               )
             }))
-            .filter((nr) => nr.derivedFilenameAttr?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
             .map((nr) => ({
               params: {
-                'release-date': nr.derivedFilenameAttr?.date
+                'release-date': nr.derivedFilenameAttr.date
               }
             }))
         : []
@@ -250,7 +250,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           }))
         : []
     const releaseDate = paramToStr(params?.['release-date'])
-    const {qMedia, pages} = await getMediaPDFPages(nrs, releaseDate)
+    const {qMedia, pages} = await getMediaPages(nrs, releaseDate)
 
     return {
       props: {

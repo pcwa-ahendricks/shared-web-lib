@@ -2,7 +2,6 @@
 import {stringify} from 'querystringify'
 import {parse, getYear, isValid} from 'date-fns'
 import {convertTimeToDate, findTimeZone, setTimeZone} from 'timezone-support'
-import slugify from 'slugify'
 const TZ = 'America/Los_Angeles'
 
 export interface UnclaimedPropertyResponse {
@@ -132,28 +131,45 @@ const fileNameUtil = (
   }
 }
 
-const getMediaPDFPages = async <
+const getMediaPages = async <
   T extends {
-    derivedFilenameAttr: ReturnType<typeof fileNameUtil>
-    imgix_url: string
+    derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
+    imgix_url?: string
+    url?: string
   }
 >(
   media: T[],
-  keyValue: string | string[],
-  keyProp: keyof ReturnType<typeof fileNameUtil> = 'date', // Use date property by default.
-  slugifyKeyValue = false
+  keyValue: string | string[] | null,
+  // keyProp: keyof ReturnType<typeof fileNameUtil> | null,
+  findBy?: (m: T) => void
 ) => {
+  if (!findBy) {
+    // Use date property by default.
+    findBy = (m: T) => m.derivedFilenameAttr?.['date'] === keyValue
+  }
   const qMedia = media
+    // In case Cosmic API is busted and cdn url is being returned instead of imgix url. Such a rare occurrence will cause page parameter to keep returning the first page (up to requestLimit defined below.) indefinitely and repeatedly.
+    .map((m) =>
+      /imgix/i.test(m.imgix_url ?? '')
+        ? m
+        : {
+            ...m,
+            // eslint-disable-next-line
+            imgix_url: (m.url ?? '').replace(
+              'cdn.cosmicjs.com',
+              'cosmic-s3.imgix.net'
+            )
+          }
+    )
+    // Just use PDFs
+    // Match slug with keyValue for given keyProp.
     .filter(
-      (bm) => (bm.derivedFilenameAttr.extension ?? '').toLowerCase() === 'pdf'
+      (m) =>
+        (m.derivedFilenameAttr?.extension ?? '').toLowerCase() === 'pdf' &&
+        m.imgix_url
     )
-    .filter((bm) =>
-      slugifyKeyValue
-        ? slugify(bm.derivedFilenameAttr[keyProp]?.toString() ?? '') ===
-          keyValue
-        : bm.derivedFilenameAttr[keyProp] === keyValue
-    )
-    .shift()
+    .find(findBy)
+
   if (!qMedia) {
     return {
       pages: null,
@@ -246,4 +262,4 @@ interface CosmicOption {
   key?: string
 }
 
-export {getMediaPDFPages, fileNameUtil}
+export {getMediaPages, fileNameUtil}

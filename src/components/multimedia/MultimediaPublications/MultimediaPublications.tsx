@@ -51,7 +51,7 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
     // Group publication objects by Category into JS Map.
     const groupedByCategory = [
       ...groupBy<PickedPublicationResponse, string>(
-        // Since we are using getMediaPDFPages() with linked Dynamic Publication page only display PDFs.
+        // Since we are using getMediaPages() with linked Dynamic Publication page only display PDFs.
         mappedPublications
           .filter((pub) => pub.derivedFilenameAttr.extension === 'pdf')
           .filter((pub) => !/(cover)/i.test(pub.original_name)),
