@@ -304,7 +304,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   )
 
   const onCloseModalHandler = useCallback(() => {
-    // Don't close modal when download photo menu backdrop is clicked
+    // Don't close modal on backdrop click when download photo menu is open
     if (lvDownloadMenuOpen) {
       return
     }

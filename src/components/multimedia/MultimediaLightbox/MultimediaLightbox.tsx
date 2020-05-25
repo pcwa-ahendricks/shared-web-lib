@@ -59,7 +59,11 @@ const MultimediaLightbox = ({
         <>
           <ModalGateway>
             {viewerIsOpen ? (
-              <Modal onClose={onClose} styles={modalStyling}>
+              <Modal
+                onClose={onClose}
+                styles={modalStyling}
+                closeOnBackdropClick={false} // See <MultimediaLightboxView/> for close on backdrop click
+              >
                 <Carousel
                   views={photos}
                   currentIndex={useCurrentIndex}

@@ -13,7 +13,8 @@ import {
   IconButton,
   Tooltip,
   Menu,
-  MenuItem
+  MenuItem,
+  Hidden
 } from '@material-ui/core'
 import {MultimediaContext, setLvDownloadMenuOpen} from '../MultimediaStore'
 
@@ -46,6 +47,9 @@ const useStyles = makeStyles(() =>
       '&:hover': {
         opacity: 1
       }
+    },
+    menuPaper: {
+      minWidth: 125
     }
   })
 )
@@ -104,69 +108,79 @@ Omit<CommonProps, 'currentView'> & {
   return isModal ? (
     <Box className={classes.header} {...innerProps}>
       <RowBox justifyContent="flex-end" width="100%">
-        <ChildBox flex="0 1 auto">
-          <Tooltip title="download photo" enterDelay={400}>
-            <IconButton
-              className={classes.headerButton}
-              disabled={downloadDisabled}
-              onClick={downloadPhotoClickHandler}
-              aria-controls="download-image-menu"
-              aria-haspopup="true"
+        {/* Mobile users probably don't want to download images. */}
+        <Hidden only="xs" implementation="css">
+          <ChildBox flex="0 1 auto">
+            <Tooltip title="download photo" enterDelay={400}>
+              <IconButton
+                className={classes.headerButton}
+                disabled={downloadDisabled}
+                onClick={downloadPhotoClickHandler}
+                aria-controls="download-image-menu"
+                aria-haspopup="true"
+              >
+                <DownloadIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              id="download-image-menu"
+              anchorEl={anchorEl}
+              // Don't keep mounted cause it will block modal from closing when backdrop is clicked
+              keepMounted={false}
+              open={Boolean(anchorEl)}
+              onClose={menuCloseHandler}
+              classes={{
+                paper: classes.menuPaper
+              }}
             >
-              <DownloadIcon fontSize="large" style={{fill: '#FFFFFF'}} />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            id="download-image-menu"
-            anchorEl={anchorEl}
-            // Don't keep mounted cause it will block modal from closing when backdrop is clicked
-            keepMounted={false}
-            open={Boolean(anchorEl)}
-            onClose={menuCloseHandler}
-          >
-            <MenuItem
-              href={origDownloadUrl}
-              component="a"
-              // Downloading Imgix images using 'dl' query param appear to work better without opening the URL in a new tab
-              // rel="noopener noreferrer"
-              // target="_blank"
-              onClick={menuCloseHandler}
-            >
-              Original
-            </MenuItem>
-            <MenuItem
-              href={largeDownloadUrl}
-              component="a"
-              onClick={menuCloseHandler}
-            >
-              Large
-            </MenuItem>
-            <MenuItem
-              href={medDownloadUrl}
-              component="a"
-              onClick={menuCloseHandler}
-            >
-              Medium
-            </MenuItem>
-            <MenuItem
-              href={smallDownloadUrl}
-              component="a"
-              onClick={menuCloseHandler}
-            >
-              Small
-            </MenuItem>
-          </Menu>
-        </ChildBox>
-        <ChildBox flex="0 1 auto">
-          <Tooltip title="fullscreen (f)" enterDelay={400}>
-            <IconButton
-              className={classes.headerButton}
-              onClick={modalProps?.toggleFullscreen}
-            >
-              <FullscreenIcon fontSize="large" style={{fill: '#FFFFFF'}} />
-            </IconButton>
-          </Tooltip>
-        </ChildBox>
+              <MenuItem
+                href={origDownloadUrl}
+                component="a"
+                // Downloading Imgix images using 'dl' query param appear to work better without opening the URL in a new tab
+                // rel="noopener noreferrer"
+                // target="_blank"
+                onClick={menuCloseHandler}
+              >
+                Original
+              </MenuItem>
+              <MenuItem
+                href={largeDownloadUrl}
+                component="a"
+                onClick={menuCloseHandler}
+              >
+                Large
+              </MenuItem>
+              <MenuItem
+                href={medDownloadUrl}
+                component="a"
+                onClick={menuCloseHandler}
+              >
+                Medium
+              </MenuItem>
+              <MenuItem
+                href={smallDownloadUrl}
+                component="a"
+                onClick={menuCloseHandler}
+              >
+                Small
+              </MenuItem>
+            </Menu>
+          </ChildBox>
+        </Hidden>
+
+        {/* It's unclear if the fullscreen functionality works on mobile browsers. It didn't seem to work with mobile firefox. */}
+        <Hidden only="xs" implementation="css">
+          <ChildBox flex="0 1 auto">
+            <Tooltip title="fullscreen (f)" enterDelay={400}>
+              <IconButton
+                className={classes.headerButton}
+                onClick={modalProps?.toggleFullscreen}
+              >
+                <FullscreenIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+              </IconButton>
+            </Tooltip>
+          </ChildBox>
+        </Hidden>
         <ChildBox>
           <Tooltip title="close (esc)" enterDelay={400}>
             <IconButton className={classes.headerButton} onClick={closeHandler}>
