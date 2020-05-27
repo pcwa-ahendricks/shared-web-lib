@@ -205,9 +205,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         p.metadata?.gallery // No photos w/o gallery metadata.
     )
     const groupedByGallery = [
-      ...groupBy<MappedLightbox, string>(
-        filteredMappedMultimedia,
-        (a) => a.metadata?.gallery
+      ...groupBy<MappedLightbox, string>(filteredMappedMultimedia, (a) =>
+        a.metadata?.gallery?.toLowerCase().trim()
       )
     ].map(([galleryKey, photos]) => ({
       galleryKey,
@@ -219,26 +218,25 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       .map((v) => {
         const {photos, galleryKey, label} = v
         const groupedByCategory = [
-          ...groupBy<MappedLightbox, string>(
-            photos,
-            (a) => a.metadata?.category
+          ...groupBy<MappedLightbox, string>(photos, (a) =>
+            a.metadata?.category?.toLowerCase().trim()
           )
           // Default category to a value since those photos are not filtered out or else toUpperCase() will try to execute on undefined below in sort().
         ].map(([categoryKey = 'misc', photos]) => ({
-          categoryKey,
-          label: toTitleCase(categoryKey.replace(/-/g, ' '), /and|of/g),
+          categoryKey: categoryKey.toLowerCase().trim(),
+          label: toTitleCase(categoryKey.replace(/-/g, ' '), /and|of/g).trim(),
           photos
         }))
 
         let index = 0
         return {
-          galleryKey,
+          galleryKey: galleryKey.toLowerCase().trim(),
           label,
           categories: groupedByCategory
             .sort((a, b) => {
-              // Sort categories alphabetically.
-              const keyA = a.categoryKey.toUpperCase() // ignore upper and lowercase
-              const keyB = b.categoryKey.toUpperCase() // ignore upper and lowercase
+              // Sort categories alphabetically. categoryKey already in lowercase which is helpful for sorting.
+              const keyA = a.categoryKey
+              const keyB = b.categoryKey
               if (keyA < keyB) {
                 return -1 //keyA comes first
               }
@@ -252,14 +250,15 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
               photos: cat.photos.map((p) => ({...p, index: index++}))
             })),
           galleryCover:
-            galleryCovers.find((c) => c.metadata?.gallery === galleryKey) ??
-            groupedByCategory[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
+            galleryCovers.find(
+              (c) => c.metadata?.gallery?.toLowerCase().trim() === galleryKey
+            ) ?? groupedByCategory[0].photos[0] // Default to first image in gallery if a gallery cover is not found.
         }
       })
       .sort((a, b) => {
-        // Sort galleries alphabetically.
-        const keyA = a.galleryKey.toUpperCase() // ignore upper and lowercase
-        const keyB = b.galleryKey.toUpperCase() // ignore upper and lowercase
+        // Sort galleries alphabetically. galleryKey already in lowercase which is helpful for sorting.
+        const keyA = a.galleryKey
+        const keyB = b.galleryKey
         if (keyA < keyB) {
           return -1 //keyA comes first
         }
@@ -269,6 +268,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         return 0 // keys must be equal
       })
   }, [galleryCovers, mappedMultimedia])
+  console.log(galleries)
 
   const galleryClickHandler = useCallback(
     (newGallery: string) => async () => {
