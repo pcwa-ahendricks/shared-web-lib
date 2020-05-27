@@ -22,6 +22,7 @@ import {
   PhotoLibraryMetadata
 } from '../MultimediaStore'
 import filenamify from 'filenamify'
+import fileExtension from '@lib/fileExtension'
 
 type UseStylesProps = {
   interactionIsIdle?: boolean
@@ -79,7 +80,8 @@ const MultimediaLightboxHeader = ({
   /* eslint-disable @typescript-eslint/camelcase */
   const {imgix_url, original_name, metadata} = currentView ?? {}
   const {caption} = metadata ?? {}
-  const downloadAs = filenamify((caption || original_name) ?? '', {
+  const ext = fileExtension(original_name ?? '')
+  const downloadAs = filenamify((`${caption}.${ext}` || original_name) ?? '', {
     maxLength: 255
   })
   const downloadUrlBase = `${imgix_url}?dl=${downloadAs}`
