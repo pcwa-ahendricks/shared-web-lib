@@ -24,11 +24,11 @@ import ErrorPage from '@pages/_error'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
-import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
+import filenamify from 'filenamify'
 const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -106,7 +106,7 @@ const DynamicNewslettersPage = ({
     // return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = slugify(qMedia?.original_name ?? '')
+  const downloadAs = filenamify(qMedia?.original_name ?? '', {maxLength: 255})
 
   return (
     <PageLayout title={`Newsletter ${publishDate}`}>

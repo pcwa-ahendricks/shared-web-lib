@@ -16,7 +16,12 @@ import {
   MenuItem,
   Hidden
 } from '@material-ui/core'
-import {MultimediaContext, setLvDownloadMenuOpen} from '../MultimediaStore'
+import {
+  MultimediaContext,
+  setLvDownloadMenuOpen,
+  PhotoLibraryMetadata
+} from '../MultimediaStore'
+import filenamify from 'filenamify'
 
 type UseStylesProps = {
   interactionIsIdle?: boolean
@@ -59,20 +64,25 @@ const MultimediaLightboxHeader = ({
   modalProps,
   currentView,
   interactionIsIdle
-}: // ...rest
-Omit<CommonProps, 'currentView'> & {
-  currentView?: ViewType & {imgix_url?: string; original_name?: string}
+}: Omit<CommonProps, 'currentView'> & {
+  currentView?: ViewType & {
+    imgix_url?: string
+    original_name?: string
+    metadata: PhotoLibraryMetadata
+  }
 }) => {
   const classes = useStyles({interactionIsIdle})
   const {onClose = null} = modalProps ? modalProps : {}
   const multimediaContext = useContext(MultimediaContext)
   const multimediaDispatch = multimediaContext.dispatch
-  // console.log('cv', currentView)
-  // console.log('rest', rest)
 
   /* eslint-disable @typescript-eslint/camelcase */
-  const {imgix_url, original_name} = currentView ?? {}
-  const downloadUrlBase = `${imgix_url}?dl=${original_name}`
+  const {imgix_url, original_name, metadata} = currentView ?? {}
+  const {caption} = metadata ?? {}
+  const downloadAs = filenamify((caption || original_name) ?? '', {
+    maxLength: 255
+  })
+  const downloadUrlBase = `${imgix_url}?dl=${downloadAs}`
   const origDownloadUrl = downloadUrlBase
   const largeDownloadUrl = `${downloadUrlBase}&w=1200&h=1200`
   const medDownloadUrl = `${downloadUrlBase}&w=900&h=900`

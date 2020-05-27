@@ -18,9 +18,9 @@ import {
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import {format} from 'date-fns'
 import fileExtension from '@lib/fileExtension'
-import slugify from 'slugify'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
+import filenamify from 'filenamify'
 
 export type PublicationCardProps = {
   title: string
@@ -62,7 +62,7 @@ const PublicationCard = ({
   const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
 
   const downloadAs = useMemo(
-    () => `${slugify(title)}.${fileExtension(imgixURL)}`,
+    () => `${filenamify(title, {maxLength: 255})}.${fileExtension(imgixURL)}`,
     [imgixURL, title]
   )
 

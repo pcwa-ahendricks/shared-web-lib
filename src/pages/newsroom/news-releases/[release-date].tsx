@@ -24,13 +24,13 @@ import ErrorPage from '@pages/_error'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 // import HomeIcon from '@material-ui/icons/Home'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
-import slugify from 'slugify'
 import {useRouter} from 'next/router'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/services/queryParamToStr'
 import {stringify} from 'querystringify'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
+import filenamify from 'filenamify'
 const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -112,7 +112,7 @@ const DynamicNewsReleasePage = ({
   }
 
   const publishDate = qMedia?.derivedFilenameAttr?.date
-  const downloadAs = slugify(qMedia?.original_name ?? '')
+  const downloadAs = filenamify(qMedia?.original_name ?? '', {maxLength: 255})
 
   return (
     <PageLayout title={`News Release ${publishDate}`}>

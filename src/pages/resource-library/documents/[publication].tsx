@@ -34,6 +34,7 @@ import {
   PublicationList
 } from '@components/multimedia/MultimediaStore'
 import Head from 'next/head'
+import filenamify from 'filenamify'
 const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 type Props = {
@@ -99,7 +100,7 @@ const DynamicPublicationPage = ({
 
   const classes = useStyles()
 
-  const downloadAs = slugify(qMedia?.original_name ?? '')
+  const downloadAs = filenamify(qMedia?.original_name ?? '', {maxLength: 255})
   const title = qMedia
     ? qMedia.metadata?.title || qMedia.derivedFilenameAttr?.title
     : ''
