@@ -5,14 +5,15 @@ import {
   setSelectedGallery,
   setLightboxIndex,
   setLightboxViewerOpen,
-  MultimediaList,
-  MappedLightboxMultimedia,
-  MappedLightboxMultimediaList
+  PhotoList,
+  MappedLightbox,
+  MappedLightboxList,
+  PhotoLibraryMetadata,
+  MappedPhoto
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-import {CosmicMetadata} from '@lib/services/cosmicService'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
@@ -24,7 +25,7 @@ import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/Multim
 import {useRouter} from 'next/router'
 
 type Props = {
-  multimedia?: MultimediaList
+  multimedia?: PhotoList
 }
 
 export type MultimediaPhotoGallery = {
@@ -37,7 +38,7 @@ export type MultimediaPhotoGallery = {
       original_name: string
       imgix_url: string
       url: string // Used w/ videos, not photos.
-      metadata?: CosmicMetadata | undefined
+      metadata?: PhotoLibraryMetadata
       name: string
       source: string // For react-images, not for videos.
       width?: number // For <ImgixFancy/>, not for videos.
@@ -47,11 +48,8 @@ export type MultimediaPhotoGallery = {
     categoryKey: string
     label: string
   }[]
-  galleryCover: MappedLightboxMultimedia
+  galleryCover: MappedPhoto
 }
-export type LightboxPhotosList = Array<
-  MappedLightboxMultimedia & {index: number}
->
 
 const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
 
@@ -159,7 +157,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     [isSM, isMD, isLG]
   )
 
-  const mappedMultimedia: MappedLightboxMultimediaList = useMemo(
+  const mappedMultimedia: MappedLightboxList = useMemo(
     () =>
       multimedia.map((m) => {
         const {width, height, paddingPercent} = galleryImgWidthHeight(
@@ -167,6 +165,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         )
         return {
           ...m,
+          index: 0, // For type-checking, actual index is set in groupedByGallery
           source: m.imgix_url,
           src: m.imgix_url,
           paddingPercent,
@@ -182,7 +181,6 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       mappedMultimedia.filter(
         (m) =>
           m.metadata?.['gallery-cover'] &&
-          typeof m.metadata?.['gallery-cover'] === 'string' &&
           m.metadata?.['gallery-cover'].toLowerCase() !== 'false'
       ),
     [mappedMultimedia]
@@ -207,7 +205,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         p.metadata?.gallery // No photos w/o gallery metadata.
     )
     const groupedByGallery = [
-      ...groupBy<MappedLightboxMultimedia, string>(
+      ...groupBy<MappedLightbox, string>(
         filteredMappedMultimedia,
         (a) => a.metadata?.gallery
       )
@@ -221,7 +219,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
       .map((v) => {
         const {photos, galleryKey, label} = v
         const groupedByCategory = [
-          ...groupBy<MappedLightboxMultimedia, string>(
+          ...groupBy<MappedLightbox, string>(
             photos,
             (a) => a.metadata?.category
           )
@@ -291,10 +289,10 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
     [galleries, selectedGallery]
   )
 
-  const allPhotosInCurrentGallery: LightboxPhotosList = useMemo(
+  const allPhotosInCurrentGallery: MappedLightboxList = useMemo(
     () =>
       currentGallery && Array.isArray(currentGallery.categories)
-        ? currentGallery.categories.reduce<LightboxPhotosList>(
+        ? currentGallery.categories.reduce<MappedLightboxList>(
             (prev, {photos}) =>
               Array.isArray(prev) ? [...prev, ...photos] : [...photos],
             []

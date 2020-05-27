@@ -2,13 +2,12 @@
 import React, {useMemo, useCallback, useContext} from 'react'
 import Carousel, {Modal, ModalGateway} from 'react-images'
 import MultimediaLightboxView from '@components/multimedia/MultimediaLightboxView/MultimediaLightboxView'
-import {LightboxPhotosList} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
-import {MultimediaContext} from '../MultimediaStore'
+import {MultimediaContext, MappedLightboxList} from '../MultimediaStore'
 import {useRouter} from 'next/router'
 import MultimediaLightboxHeader from '../MultimediaLightboxHeader/MultimediaLightboxHeader'
 
 type Props = {
-  photos: LightboxPhotosList
+  photos: MappedLightboxList
   onClose: () => any
   viewerIsOpen: boolean
   currentIndex: number

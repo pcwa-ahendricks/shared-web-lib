@@ -4,7 +4,7 @@ import {CosmicMediaMeta} from '@lib/services/cosmicService'
 
 interface State {
   selectedGallery: null | string
-  multimediaList: MultimediaList
+  multimediaList: PhotoList | VideoList | PublicationList
   lightboxIndex: number
   lightboxViewerOpen: boolean
   lvDownloadMenuOpen: boolean
@@ -19,8 +19,38 @@ export type PublicationLibraryMetadata = {
   category: string
 }
 
-export type PickedMultimediaResponse = Pick<
-  CosmicMediaMeta,
+export type PhotoLibraryMetadata = {
+  category?: string
+  gallery?: string
+  orientation?: string
+  caption?: string
+  'gallery-cover'?: string // Boolean as string
+  description?: string // Used with "alt" attribute
+  'video-poster'?: string //  Boolean as string used with Array.filter
+}
+
+export type VideoLibraryMetadata = {
+  category?: string
+  gallery?: string
+  'video-poster'?: string // Boolean as string used with Array.filter
+  'poster-filename'?: string // Cosmic filename
+  'gallery-cover'?: string // Boolean as string
+  caption?: string
+}
+
+export type PickedPhotoResponse = Pick<
+  CosmicMediaMeta<PhotoLibraryMetadata>,
+  | '_id'
+  | 'original_name'
+  | 'url'
+  | 'imgix_url'
+  | 'metadata'
+  | 'name'
+  | 'derivedFilenameAttr'
+>
+
+export type PickedVideoResponse = Pick<
+  CosmicMediaMeta<VideoLibraryMetadata>,
   | '_id'
   | 'original_name'
   | 'url'
@@ -47,15 +77,18 @@ interface MappedProperties {
   paddingPercent?: string // For <ImgixFancy/>, not for videos.
 }
 interface MappedLightboxProperties extends MappedProperties {
+  index: number
   source: string // For react-images, not for videos.
 }
-export type MultimediaList = Array<PickedMultimediaResponse>
+export type MappedLightbox = PickedPhotoResponse & MappedLightboxProperties
+export type PhotoList = Array<PickedPhotoResponse>
+export type MappedPhoto = PickedPhotoResponse & MappedProperties
+export type MappedPhotoList = Array<MappedPhoto>
+export type MappedLightboxList = Array<MappedLightbox>
+
 export type PublicationList = Array<PickedPublicationResponse>
-export type MappedLightboxMultimedia = PickedMultimediaResponse &
-  MappedLightboxProperties
-export type MappedMultimedia = PickedMultimediaResponse & MappedProperties
-export type MappedMultimediaList = Array<MappedMultimedia>
-export type MappedLightboxMultimediaList = Array<MappedLightboxMultimedia>
+
+export type VideoList = Array<PickedVideoResponse>
 
 // State
 const initialState: State = {

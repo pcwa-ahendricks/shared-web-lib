@@ -10,14 +10,14 @@ import React, {
 import {
   MultimediaContext,
   setSelectedGallery,
-  MultimediaList,
-  MappedMultimedia,
-  MappedMultimediaList
+  VideoList,
+  VideoLibraryMetadata,
+  MappedPhoto,
+  PickedVideoResponse
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {useMediaQuery, Typography as Type, Box} from '@material-ui/core'
 import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-import {CosmicMetadata} from '@lib/services/cosmicService'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
@@ -28,7 +28,7 @@ import FilePlayer from 'react-player'
 import Spacing from '@components/boxes/Spacing'
 
 type Props = {
-  multimedia?: MultimediaList
+  multimedia?: VideoList
 }
 
 export type MultimediaVideoGallery = {
@@ -41,13 +41,13 @@ export type MultimediaVideoGallery = {
     imgix_url: string
     posterUrl: string
     url: string // Used w/ videos, not photos.
-    metadata?: CosmicMetadata | undefined
+    metadata?: VideoLibraryMetadata
     name: string
     width?: number // For <ImgixFancy/>, not for videos.
     height?: number // For <ImgixFancy/>, not for videos.
     paddingPercent?: string // For <ImgixFancy/>, not for videos.
   }[]
-  galleryCover: MappedMultimedia
+  galleryCover: MappedPhoto
 }
 
 const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
@@ -90,9 +90,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
   const theme = useTheme()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
-  const [mappedMultimedia, setMappedMultimedia] = useState<
-    MappedMultimediaList
-  >([])
+  const [mappedMultimedia, setMappedMultimedia] = useState<VideoList>([])
   const multimediaContext = useContext(MultimediaContext)
   const {selectedGallery} = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
@@ -139,7 +137,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
         p.metadata?.gallery // No videos w/o gallery metadata.
     )
     const groupedByGallery = [
-      ...groupBy<MappedMultimedia, string>(
+      ...groupBy<PickedVideoResponse, string>(
         filteredMappedMultimedia,
         (a) => a.metadata?.gallery
       )

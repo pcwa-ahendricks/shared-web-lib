@@ -197,7 +197,11 @@ export type CosmicMediaResponse = CosmicMedia[]
 export interface CosmicMetadata {
   [key: string]: string | boolean | number
 }
-export interface CosmicMedia<T = CosmicMetadata> {
+export interface CosmicMediaMetadata {
+  [key: string]: string
+}
+
+export interface CosmicMedia<T = CosmicMediaMetadata> {
   _id: string
   name: string
   original_name: string
@@ -216,7 +220,8 @@ export interface CosmicMedia<T = CosmicMetadata> {
   Represents a custom CosmicMedia object that has extra properties mapped based off
   of original_name, and possibly other properties.
 */
-export interface CosmicMediaMeta<T = CosmicMetadata> extends CosmicMedia<T> {
+export interface CosmicMediaMeta<T = CosmicMediaMetadata>
+  extends CosmicMedia<T> {
   derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
 }
 
@@ -247,7 +252,7 @@ export interface CosmicObject<T = CosmicMetadata> {
 
 interface CosmicMetafield {
   required: boolean
-  value: boolean | number | string | string | string
+  value: boolean | number | string
   key: string
   title: string
   type: string

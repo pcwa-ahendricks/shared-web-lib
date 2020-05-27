@@ -31,7 +31,7 @@ import {paramToStr} from '@lib/services/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import {
   PublicationLibraryMetadata,
-  MultimediaList
+  PublicationList
 } from '@components/multimedia/MultimediaStore'
 import Head from 'next/head'
 const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
@@ -214,7 +214,7 @@ const DynamicPublicationPage = ({
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const documents: MultimediaList | undefined = await fetcher(
+    const documents: PublicationList | undefined = await fetcher(
       `${baseUrl}${publicationUrl}`
     )
 

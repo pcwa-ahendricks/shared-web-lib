@@ -33,11 +33,13 @@ import toTitleCase from '@lib/toTitleCase'
 import {
   MultimediaContext,
   setSelectedGallery,
-  MultimediaList,
   setLightboxIndex,
   setLightboxViewerOpen,
   PublicationList,
-  MappedMultimedia
+  VideoList,
+  PhotoList,
+  MappedPhoto,
+  PickedVideoResponse
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -65,7 +67,7 @@ interface TabPanelProps {
 }
 
 type Props = {
-  initialMultimediaData?: MultimediaList
+  initialMultimediaData?: PhotoList | VideoList
   initialPublicationsData?: PublicationList
   // gallery?: string | null
   // tabIndex: number
@@ -170,7 +172,7 @@ const ResourceLibraryPage = ({
     }
   }, [galleryParam, multimediaDispatch])
 
-  const {data: multimedia} = useSWR<MultimediaList>(multimediaUrl, {
+  const {data: multimedia} = useSWR<PhotoList | VideoList>(multimediaUrl, {
     initialData: initialMultimediaData
   })
 
@@ -356,7 +358,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     //   multimedia$,
     //   documents$
     // ])
-    const multimedia: MultimediaList | undefined = await fetcher(
+    const multimedia: PhotoList | VideoList | undefined = await fetcher(
       `${baseUrl}${multimediaUrl}`
     )
 
@@ -364,7 +366,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // Use the same filters used in <MultimediaPhotoGalleries/>.
     const filteredPhotoMultimedia =
       multimedia && Array.isArray(multimedia)
-        ? multimedia.filter(
+        ? (multimedia as PhotoList).filter(
             (p) =>
               fileExtension(p.name) !== 'mp4' && // No videos.
               p.metadata?.['video-poster'] !== 'true' && // No video posters
@@ -373,7 +375,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         : []
 
     const photoPaths = [
-      ...groupBy<MappedMultimedia, string>(
+      ...groupBy<MappedPhoto, string>(
         filteredPhotoMultimedia,
         (a) => a.metadata?.gallery
       )
@@ -392,7 +394,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // Use the same filters used in <MultimediaPhotoGalleries/>.
     const filteredVideoMultimedia =
       multimedia && Array.isArray(multimedia)
-        ? multimedia.filter(
+        ? (multimedia as VideoList).filter(
             (p) =>
               fileExtension(p.name) === 'mp4' && // Only videos.
               p.metadata?.['video-poster'] !== 'true' && // No video posters
@@ -401,7 +403,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         : []
 
     const videoPaths = [
-      ...groupBy<MappedMultimedia, string>(
+      ...groupBy<PickedVideoResponse, string>(
         filteredVideoMultimedia,
         (a) => a.metadata?.gallery
       )
@@ -448,11 +450,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-    const multimedia$: Promise<MultimediaList | undefined> = fetcher(
+    const multimedia$: Promise<VideoList | PhotoList | undefined> = fetcher(
       `${baseUrl}${multimediaUrl}`
     )
 
-    const publications$: Promise<MultimediaList | undefined> = fetcher(
+    const publications$: Promise<PublicationList | undefined> = fetcher(
       `${baseUrl}${publicationsUrl}`
     )
 
