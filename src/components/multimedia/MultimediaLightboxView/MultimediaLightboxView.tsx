@@ -34,9 +34,9 @@ const MultimediaLightboxView = (props: any) => {
   }, [])
 
   // [HACK] Use with custom close on backdrop click. Prevents closing of dialog when image is clicked effectively requiring a click of the actual backdrop (or close button) to close modal. See notes below about react-images closeOnBackdropClick prop limitations.
-  const imageClickHandler = useCallback((event: MouseEvent) => {
-    event.stopPropagation?.()
-  }, [])
+  // const imageClickHandler = useCallback((event: MouseEvent) => {
+  //   event.stopPropagation?.()
+  // }, [])
 
   // [HACK] The <Modal/> closeOnBackdropClick prop doesn't seem to be working. We fix it with a workaround here and with imageClickHandler. In future releases of react-images this workaround may not be needed.
   return (
@@ -70,8 +70,8 @@ const MultimediaLightboxView = (props: any) => {
             maxHeight: '100vh',
             maxWidth: '100%',
             userSelect: 'none'
-          },
-          onClick: imageClickHandler
+          }
+          // onClick: imageClickHandler
         }}
         imgixParams={{fit: 'fill'}}
         src={imgix_url}

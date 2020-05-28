@@ -344,45 +344,38 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         transitionLeaveTimeout={crossFadeDuration}
       >
         {selectedGallery ? (
-          <>
-            {currentGallery?.categories.map((c, categoryIdx) => (
-              <Box key={categoryIdx} mb={6}>
-                <Type variant="h3" color="primary">
-                  {c.label}
-                </Type>
-                <Spacing size="x-small" />
+          currentGallery?.categories.map((c, categoryIdx) => (
+            <Box key={categoryIdx} mb={6}>
+              <Type variant="h3" color="primary">
+                {c.label}
+              </Type>
+              <Spacing size="x-small" />
 
-                <RowBox
-                  key={0}
-                  flexWrap="wrap"
-                  flexSpacing={margin}
-                  mt={-margin}
-                >
-                  {c.photos.map((p) => (
-                    <ChildBox key={p.index} mt={margin}>
-                      <ImgixFancier
-                        htmlAttributes={{
-                          alt:
-                            p.metadata?.description ??
-                            `${p.metadata?.gallery} ${
-                              p.metadata?.category
-                            } photo #${p.index + 1}`
-                          // onClick: imageClickHandler(p.index),
-                        }}
-                        boxProps={{
-                          onClick: imageClickHandler(p.index)
-                        }}
-                        src={p.imgix_url}
-                        width={p.width}
-                        height={p.height}
-                        paddingPercent={p.paddingPercent}
-                      />
-                    </ChildBox>
-                  ))}
-                </RowBox>
-              </Box>
-            ))}
-          </>
+              <RowBox key={0} flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+                {c.photos.map((p) => (
+                  <ChildBox key={p.index} mt={margin}>
+                    <ImgixFancier
+                      htmlAttributes={{
+                        alt:
+                          p.metadata?.description ??
+                          `${p.metadata?.gallery} ${
+                            p.metadata?.category
+                          } photo #${p.index + 1}`
+                        // onClick: imageClickHandler(p.index),
+                      }}
+                      boxProps={{
+                        onClick: imageClickHandler(p.index)
+                      }}
+                      src={p.imgix_url}
+                      width={p.width}
+                      height={p.height}
+                      paddingPercent={p.paddingPercent}
+                    />
+                  </ChildBox>
+                ))}
+              </RowBox>
+            </Box>
+          ))
         ) : (
           <RowBox
             key={1}
