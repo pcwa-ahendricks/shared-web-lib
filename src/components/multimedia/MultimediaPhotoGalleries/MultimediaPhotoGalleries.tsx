@@ -170,7 +170,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
           src: m.imgix_url,
           paddingPercent,
           width,
-          height
+          height,
+          caption: m.metadata?.caption
         }
       }),
     [galleryImgWidthHeight, multimedia]
@@ -268,7 +269,6 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         return 0 // keys must be equal
       })
   }, [galleryCovers, mappedMultimedia])
-  console.log(galleries)
 
   const galleryClickHandler = useCallback(
     (newGallery: string) => async () => {
