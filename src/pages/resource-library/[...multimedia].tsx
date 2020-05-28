@@ -121,7 +121,7 @@ const ResourceLibraryPage = ({
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-  console.log('Debug params: ', params)
+  // console.log('Debug params: ', params)
 
   useEffect(() => {
     console.log('multimediaParam: ', multimediaParam)
