@@ -81,7 +81,11 @@ const MultimediaLightboxHeader = ({
   const {imgix_url, original_name, metadata} = currentView ?? {}
   const {caption} = metadata ?? {}
   const ext = fileExtension(original_name ?? '')
-  const downloadAs = filenamify((`${caption}.${ext}` || original_name) ?? '', {
+  const filename =
+    caption && caption.toLowerCase() !== 'undefined'
+      ? `${caption}.${ext}`
+      : original_name ?? ''
+  const downloadAs = filenamify(filename, {
     maxLength: 255
   })
   const downloadUrlBase = `${imgix_url}?dl=${downloadAs}`
