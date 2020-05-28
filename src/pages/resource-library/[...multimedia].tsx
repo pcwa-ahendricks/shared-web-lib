@@ -110,8 +110,7 @@ const ResourceLibraryPage = ({
   // lightboxIndex,
   multimediaParam = '',
   galleryParam,
-  lightboxIndexParam,
-  params
+  lightboxIndexParam
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
