@@ -69,7 +69,7 @@ const MultimediaLightboxHeader = ({
   currentView?: ViewType & {
     imgix_url?: string
     original_name?: string
-    metadata: PhotoLibraryMetadata
+    metadata?: PhotoLibraryMetadata
   }
 }) => {
   const classes = useStyles({interactionIsIdle})
