@@ -269,7 +269,6 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         return 0 // keys must be equal
       })
   }, [galleryCovers, mappedMultimedia])
-  console.log(galleries)
 
   const galleryClickHandler = useCallback(
     (newGallery: string) => async () => {

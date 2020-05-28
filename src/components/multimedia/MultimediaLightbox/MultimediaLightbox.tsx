@@ -5,6 +5,7 @@ import MultimediaLightboxView from '@components/multimedia/MultimediaLightboxVie
 import {MultimediaContext, MappedLightboxList} from '../MultimediaStore'
 import {useRouter} from 'next/router'
 import MultimediaLightboxHeader from '../MultimediaLightboxHeader/MultimediaLightboxHeader'
+import MultimediaLightboxFooter from '../MultimediaLightboxFooter/MultimediaLightboxFooter'
 
 type Props = {
   photos: MappedLightboxList
@@ -71,7 +72,8 @@ const MultimediaLightbox = ({
                   }}
                   components={{
                     Header: MultimediaLightboxHeader,
-                    View: MultimediaLightboxView
+                    View: MultimediaLightboxView,
+                    Footer: MultimediaLightboxFooter
                   }}
                 />
               </Modal>
