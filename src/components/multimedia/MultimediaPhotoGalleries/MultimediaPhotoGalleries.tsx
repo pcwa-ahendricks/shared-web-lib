@@ -170,7 +170,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
           src: m.imgix_url,
           paddingPercent,
           width,
-          height
+          height,
+          caption: m.metadata?.caption
         }
       }),
     [galleryImgWidthHeight, multimedia]

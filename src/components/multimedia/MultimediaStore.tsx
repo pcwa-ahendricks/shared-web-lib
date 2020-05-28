@@ -78,7 +78,8 @@ interface MappedProperties {
 }
 interface MappedLightboxProperties extends MappedProperties {
   index: number
-  source: string // For react-images, not for videos.
+  source: string // For react-images
+  caption?: string
 }
 export type MappedLightbox = PickedPhotoResponse & MappedLightboxProperties
 export type PhotoList = Array<PickedPhotoResponse>
