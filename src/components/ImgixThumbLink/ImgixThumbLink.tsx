@@ -1,15 +1,11 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  AnchorHTMLAttributes
-} from 'react'
+import React, {useState, useMemo, useCallback} from 'react'
 import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
 import filenamify from 'filenamify'
+import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 type Props = {
   caption?: string
@@ -19,8 +15,7 @@ type Props = {
   alt: string
   paddingPercent?: string
   imageWidth?: BoxProps['width']
-  anchorProps?: AnchorHTMLAttributes<HTMLAnchorElement>
-}
+} & Partial<FlexLinkProps>
 
 type UseStylesProps = {
   isHover: boolean
@@ -53,8 +48,10 @@ const ImgixThumbLink = ({
   margin = 0,
   alt,
   imageWidth: imageWidthProp,
-  anchorProps,
-  paddingPercent = '129.412%' // Default to 8.5x11 ratio (11/8.5*100).
+  paddingPercent = '129.412%', // Default to 8.5x11 ratio (11/8.5*100).
+  href: hrefProp,
+  isNextLink = false,
+  ...rest
 }: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
@@ -78,14 +75,17 @@ const ImgixThumbLink = ({
     filenameProp
   ])
 
+  const href = hrefProp || `${url}?dl=${downloadAs}`
+
   return (
     <Box mt={margin} ml={margin} width="100%">
-      <a
-        href={`${url}?dl=${downloadAs}`}
+      <FlexLink
+        href={href}
         className={classes.link}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
-        {...anchorProps}
+        isNextLink={isNextLink}
+        {...rest}
       >
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy
@@ -105,7 +105,7 @@ const ImgixThumbLink = ({
             {caption}
           </Type>
         </ColumnBox>
-      </a>
+      </FlexLink>
     </Box>
   )
 }

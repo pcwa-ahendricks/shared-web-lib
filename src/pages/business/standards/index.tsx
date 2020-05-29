@@ -30,12 +30,9 @@ const ImprovementStandardsPage = () => {
                   filename="PCWA_Improvement_Standards_2017"
                   url="https://cosmic-s3.imgix.net/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                   alt="2017 PCWA Improvement Standards"
-                  anchorProps={{
-                    target: '_blank',
-                    rel: 'noopener noreferrer',
-                    href:
-                      'https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf'
-                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                 />
                 <Box textAlign="center">
                   <Type variant="caption">

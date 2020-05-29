@@ -25,33 +25,31 @@ const MultimediaGalleryCard = ({
   imageWidth,
   imageHeight,
   ...rest
-}: Props) => {
-  return (
-    <ChildBox width={imageWidth} {...rest}>
-      <Card onClick={onCardClick}>
-        <CardActionArea>
-          <CardMedia component="div">
-            <LazyImgix
-              src={gallery.galleryCover.imgix_url}
-              width={imageWidth}
-              htmlAttributes={{
-                alt: `Thumbnail image for ${gallery.label} gallery`,
-                style: {
-                  height: imageHeight,
-                  objectFit: 'cover'
-                }
-              }}
-            />
-          </CardMedia>
-          <CardContent>
-            <Type gutterBottom variant="h4">
-              {gallery.label}
-            </Type>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </ChildBox>
-  )
-}
+}: Props) => (
+  <ChildBox width={imageWidth} {...rest}>
+    <Card onClick={onCardClick}>
+      <CardActionArea>
+        <CardMedia component="div">
+          <LazyImgix
+            src={gallery.galleryCover.imgix_url}
+            width={imageWidth}
+            htmlAttributes={{
+              alt: `Thumbnail image for ${gallery.label} gallery`,
+              style: {
+                height: imageHeight,
+                objectFit: 'cover'
+              }
+            }}
+          />
+        </CardMedia>
+        <CardContent>
+          <Type gutterBottom variant="h4">
+            {gallery.label}
+          </Type>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </ChildBox>
+)
 
 export default MultimediaGalleryCard

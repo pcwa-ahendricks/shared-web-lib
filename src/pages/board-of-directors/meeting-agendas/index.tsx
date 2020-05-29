@@ -65,7 +65,7 @@ if (typeof window !== 'undefined') {
 }
 
 type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
+  CosmicMediaMeta<{type: string; website: string; debug: string}>,
   'original_name' | 'imgix_url' | 'metadata' | 'url' | 'derivedFilenameAttr'
 >
 
@@ -218,18 +218,26 @@ const MeetingAgendasPage = () => {
               <RowBox key={idx}>
                 <ChildBox>
                   <ImgixThumbLink
+                    isNextLink
                     imageWidth={75}
                     url={item.imgix_url}
-                    anchorProps={{
-                      href: item.url,
-                      rel: 'noopener noreferrer',
-                      target: '_blank'
-                    }}
                     alt={`Thumbnail and link for ${title}`}
+                    as={`/board-of-directors/meeting-agendas/${
+                      item.derivedFilenameAttr?.date + '-' + item.metadata?.type
+                    }`}
+                    href="/board-of-directors/meeting-agendas/[agenda-slug]"
                   />
                 </ChildBox>
                 <ChildBox ml={4}>
-                  <OpenInNewLink pdf href={item.url}>
+                  <OpenInNewLink
+                    pdf
+                    target="_self"
+                    rel=""
+                    as={`/board-of-directors/meeting-agendas/${
+                      item.derivedFilenameAttr?.date + '-' + item.metadata?.type
+                    }`}
+                    href="/board-of-directors/meeting-agendas/[agenda-slug]"
+                  >
                     <Type variant="subtitle1">
                       {item.derivedFilenameAttr?.title}
                     </Type>
@@ -436,12 +444,12 @@ const MeetingAgendasPage = () => {
           <section>
             <OtherAgenda
               list={financeCommitteeAgendas}
-              title="Board of Directors' Finance Committee Agendas"
+              title="Upcoming Board of Directors' Finance Committee Meetings"
             />
             <Spacing factor={2} />
             <OtherAgenda
               list={auditCommitteeAgendas}
-              title="Board of Directors' Audit Committee Agendas"
+              title="Upcoming Board of Directors' Audit Committee Meetings"
             />
           </section>
 

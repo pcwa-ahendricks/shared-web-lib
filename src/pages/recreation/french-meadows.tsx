@@ -160,12 +160,9 @@ const FrenchMeadowsPage = () => {
                   <ImgixThumbLink
                     imageWidth={100}
                     url="https://cosmic-s3.imgix.net/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
-                    anchorProps={{
-                      href:
-                        'https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf',
-                      rel: 'noopener noreferrer',
-                      target: '_blank'
-                    }}
+                    href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
                     alt="Bunker Hill Topographic Quad Map Thumbnail for PDF link"
                   />
                 </ChildBox>

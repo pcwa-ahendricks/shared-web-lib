@@ -149,10 +149,10 @@ const ShutoffProtectionPage = () => {
             <RowBox justifyContent="space-around">
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca825860-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyENbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
+               
+                  target= '_blank'
+                  rel= 'noopener noreferrer'
+                  href=
                     'https://cdn.cosmicjs.com/ca825860-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyENbc123019.pdf'
                 }}
                 caption="Water Shutoff Protection Act Policy"
@@ -160,34 +160,25 @@ const ShutoffProtectionPage = () => {
               /> */}
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
                 caption="Standard PCWA Doortag"
                 alt="Thumbnail and link for Door Tag Sample PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf"
                 caption="Written Notice"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
               />
@@ -267,10 +258,10 @@ const ShutoffProtectionPage = () => {
             <RowBox justifyContent="space-around">
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/caaf82e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicySPbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
+               
+                  target= '_blank'
+                  rel= 'noopener noreferrer'
+                  href=
                     'https://cdn.cosmicjs.com/caaf82e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicySPbc123019.pdf'
                 }}
                 caption="Política de la Ley de Protección de Cierre de Agua"
@@ -278,34 +269,25 @@ const ShutoffProtectionPage = () => {
               /> */}
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
                 caption="Etiqueta de Puerta PCWA Estándar"
                 alt="Miniatura y enlace para el PDF de muestra de etiqueta de puerta"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf"
                 caption="Aviso De Rescisión"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
               />
@@ -374,10 +356,10 @@ const ShutoffProtectionPage = () => {
             <RowBox justifyContent="space-around">
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8cdfb0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyKObc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
+               
+                  target= '_blank'
+                  rel= 'noopener noreferrer'
+                  href=
                     'https://cdn.cosmicjs.com/ca8cdfb0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyKObc123019.pdf'
                 }}
                 caption="물 차단 보호법 정책"
@@ -385,34 +367,25 @@ const ShutoffProtectionPage = () => {
               /> */}
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
                 caption="표준 PCWA 도어 태그"
                 alt="Thumbnail and link for Door Tag Sample PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf"
                 caption="납입 기간 만료 안내"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
               />
@@ -475,10 +448,10 @@ const ShutoffProtectionPage = () => {
             <RowBox justifyContent="space-around">
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8b0af0-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyCHbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
+               
+                  target= '_blank'
+                  rel= 'noopener noreferrer'
+                  href=
                     'https://cdn.cosmicjs.com/ca8b0af0-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyCHbc123019.pdf'
                 }}
                 caption="断水保护法政策"
@@ -486,34 +459,25 @@ const ShutoffProtectionPage = () => {
               /> */}
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
                 caption="标准PCWA门标签"
                 alt="Thumbnail and link for Door Tag Sample PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf"
                 caption="終止通知"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
               />
@@ -591,10 +555,10 @@ const ShutoffProtectionPage = () => {
             <RowBox justifyContent="space-around">
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabe28e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyVIbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
+               
+                  target= '_blank'
+                  rel= 'noopener noreferrer'
+                  href=
                     'https://cdn.cosmicjs.com/cabe28e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyVIbc123019.pdf'
                 }}
                 caption="Chính sách Đạo luật Bảo vệ Tắt nước"
@@ -602,34 +566,25 @@ const ShutoffProtectionPage = () => {
               /> */}
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
                 caption="Thẻ cửa PCWA tiêu chuẩn"
                 alt="Thumbnail and link for Door Tag Sample PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf"
                 caption="Thông Báo Chấm Dứt"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
               />
@@ -713,10 +668,10 @@ const ShutoffProtectionPage = () => {
             <RowBox justifyContent="space-around">
               {/* <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabacd80-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyTAbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
+               
+                  target= '_blank'
+                  rel= 'noopener noreferrer'
+                  href=
                     'https://cdn.cosmicjs.com/cabacd80-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyTAbc123019.pdf'
                 }}
                 caption="Patakaran sa Proteksyon ng Sarhan ng tubig"
@@ -724,34 +679,25 @@ const ShutoffProtectionPage = () => {
               /> */}
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
                 caption="Pamantayan PCWA Tag ng Door"
                 alt="Thumbnail and link for Door Tag Sample PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf"
                 caption="Abiso Sa Paghihinto Ng Serbisyo"
                 alt="Thumbnail and link for service Written Notice PDF"
               />
               <ImgixThumbLink
                 url="https://cosmic-s3.imgix.net/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
-                anchorProps={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  href:
-                    'https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf'
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                 caption="Certification Form"
                 alt="Thumbnail and link for Certification Form PDF"
               />

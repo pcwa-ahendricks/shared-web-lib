@@ -149,12 +149,9 @@ const AmericanRiverPage = () => {
                   <ImgixThumbLink
                     imageWidth={100}
                     url="https://cosmicjs.imgix.net/91c28170-6b3d-11e7-bdae-41a5b4623d18-Michigan_Bluff_20120327.jpg"
-                    anchorProps={{
-                      href:
-                        'https://cdn.cosmicjs.com/9c9fe0b0-6b3d-11e7-a6ad-b9442b1befcc-Michigan_Bluff_20120327.pdf',
-                      rel: 'noopener noreferrer',
-                      target: '_blank'
-                    }}
+                    href="https://cdn.cosmicjs.com/9c9fe0b0-6b3d-11e7-a6ad-b9442b1befcc-Michigan_Bluff_20120327.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
                     alt="Michigan Bluff Topographic Quad Map Thumbnail for PDF link"
                   />
                 </ChildBox>

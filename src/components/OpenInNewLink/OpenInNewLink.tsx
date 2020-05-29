@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Link, Fade, SvgIconProps} from '@material-ui/core'
-import {LinkProps} from '@material-ui/core/Link'
+import {Fade, SvgIconProps} from '@material-ui/core'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import {createStyles, makeStyles} from '@material-ui/core/styles'
@@ -8,6 +7,7 @@ import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {IconProps} from '@material-ui/core/Icon'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import AltIcon from '@material-ui/icons/Language'
+import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 export type OpenInNewLinkProps = {
   children?: React.ReactNode
@@ -21,7 +21,7 @@ export type OpenInNewLinkProps = {
   centerIcon?: boolean
   iconColor?: SvgIconProps['color']
   altIcon?: boolean
-} & LinkProps
+} & FlexLinkProps
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -48,12 +48,13 @@ const OpenInNewLink = ({
   transitionDuration = 250,
   iconFontSize = 'default',
   pdf = false,
-  href,
   showIconAlways = false,
   startAdornment = false,
   iconPadding = 5,
   centerIcon = true,
   iconColor = 'inherit',
+  target = '_blank',
+  rel = 'noopener noreferrer',
   altIcon = false,
   ...rest
 }: OpenInNewLinkProps) => {
@@ -90,11 +91,10 @@ const OpenInNewLink = ({
       onMouseLeave={onMouseLeaveHandler}
     >
       <RowBox display="inline-flex" component="span">
-        <Link
+        <FlexLink
           className={classes.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          href={href}
+          target={target}
+          rel={rel}
           noWrap
           {...rest}
         >
@@ -118,7 +118,7 @@ const OpenInNewLink = ({
               </Fade>
             </ChildBox>
           </RowBox>
-        </Link>
+        </FlexLink>
       </RowBox>
     </NativeListener>
   )

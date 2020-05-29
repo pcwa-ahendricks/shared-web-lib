@@ -123,7 +123,7 @@ const ResourceLibraryPage = ({
   // console.log('Debug params: ', params)
 
   useEffect(() => {
-    console.log('multimediaParam: ', multimediaParam)
+    // console.log('multimediaParam: ', multimediaParam)
     switch (multimediaParam.toLowerCase()) {
       case 'documents': {
         setTabIndex(0)
@@ -144,7 +144,7 @@ const ResourceLibraryPage = ({
   }, [multimediaParam])
 
   useEffect(() => {
-    console.log('lightboxIndexParam: ', lightboxIndexParam)
+    // console.log('lightboxIndexParam: ', lightboxIndexParam)
     // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
     if (isNumber(lightboxIndexParam)) {
       // lightboxIndex = parseInt(lightboxIndexParam, 10)
@@ -163,7 +163,7 @@ const ResourceLibraryPage = ({
   }, [lightboxIndexParam, multimediaDispatch])
 
   useEffect(() => {
-    console.log('galleryParam: ', galleryParam)
+    // console.log('galleryParam: ', galleryParam)
     if (galleryParam) {
       multimediaDispatch(setSelectedGallery(galleryParam))
     } else {
