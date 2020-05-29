@@ -8,8 +8,9 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {ChildBox, RespRowBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
-import {LinkProps} from '@material-ui/core/Link'
-import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import OpenInNewLink, {
+  OpenInNewLinkProps
+} from '@components/OpenInNewLink/OpenInNewLink'
 import {TypographyProps} from '@material-ui/core/Typography'
 import {DividerProps} from '@material-ui/core/Divider'
 
@@ -21,7 +22,7 @@ import {DividerProps} from '@material-ui/core/Divider'
 //   })
 // )
 
-const ResourceLink = ({children, ...rest}: LinkProps) => {
+const ResourceLink = ({children, ...rest}: OpenInNewLinkProps) => {
   return (
     <>
       <OpenInNewLink {...rest}>{children}</OpenInNewLink>

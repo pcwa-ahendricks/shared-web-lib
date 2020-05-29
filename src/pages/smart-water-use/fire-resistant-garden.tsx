@@ -130,10 +130,11 @@ const FireResistantGardenPage = () => {
             subtitle="Smart Water Use"
           />
           <Spacing />
-          <OpenInNewLink href="https://cdn.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf">
-            <Link variant="h4" component="span">
-              As Seen in Fire & Water...
-            </Link>
+          <OpenInNewLink
+            href="https://cdn.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
+            variant="h4"
+          >
+            As Seen in Fire & Water...
           </OpenInNewLink>
 
           <Hidden smUp>
