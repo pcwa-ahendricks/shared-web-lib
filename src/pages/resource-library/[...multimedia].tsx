@@ -373,10 +373,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
           )
         : []
 
+    // Use the same groupBy used in <MultimediaPhotoGalleries/>.
     const photoPaths = [
-      ...groupBy<MappedPhoto, string>(
-        filteredPhotoMultimedia,
-        (a) => a.metadata?.gallery
+      ...groupBy<MappedPhoto, string>(filteredPhotoMultimedia, (a) =>
+        a.metadata?.gallery?.toLowerCase().trim()
       )
     ]
       .map(([gallery, photos]) =>
