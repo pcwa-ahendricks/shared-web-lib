@@ -1,13 +1,12 @@
 import React from 'react'
-import {TextField} from '@material-ui/core'
-import {OutlinedTextFieldProps} from '@material-ui/core/TextField'
+import {TextField, TextFieldProps} from '@material-ui/core'
 import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any> &
-  OutlinedTextFieldProps
+  TextFieldProps
 
 const MultilineTextField = ({
   field,
@@ -15,6 +14,7 @@ const MultilineTextField = ({
   required = true,
   fullWidth = true,
   disabled = false,
+  variant = 'outlined',
   ...other
 }: Props) => {
   const {name, value} = field
@@ -32,7 +32,7 @@ const MultilineTextField = ({
       value={value}
       // label="Subject"
       autoComplete="name"
-      variant="outlined"
+      variant={variant}
       helperText={fieldIsTouchedWithError ? currentError : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

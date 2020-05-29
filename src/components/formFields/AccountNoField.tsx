@@ -1,14 +1,10 @@
 import React, {useCallback} from 'react'
-import {TextField} from '@material-ui/core'
+import {TextField, TextFieldProps} from '@material-ui/core'
 import {useField, useFormikContext} from 'formik'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import ShowMeAccountInfo from '@components/ShowMeAccountInfo/ShowMeAccountInfo'
 
-type Props = {
-  fullWidth?: boolean
-  disabled?: boolean
-  name: string
-}
+type Props = TextFieldProps
 
 const AccountNoField = ({
   fullWidth = true,
@@ -16,7 +12,7 @@ const AccountNoField = ({
   ...other
 }: Props) => {
   const {isSubmitting} = useFormikContext<any>()
-  const [field, meta, helpers] = useField(other)
+  const [field, meta, helpers] = useField(other as any) // [TODO] Remove cast
   const {value, onBlur, name} = field
   const {touched, error} = meta
   const {setValue} = helpers

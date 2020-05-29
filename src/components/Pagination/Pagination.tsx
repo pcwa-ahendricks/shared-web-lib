@@ -1,7 +1,13 @@
 import React, {useMemo, useCallback} from 'react'
-import {PropTypes, StandardProps} from '@material-ui/core'
-import Box, {BoxProps} from '@material-ui/core/Box'
-import {createStyles, WithStyles, withStyles} from '@material-ui/core/styles'
+import {
+  Box,
+  BoxProps,
+  PropTypes,
+  StandardProps,
+  createStyles,
+  WithStyles,
+  withStyles
+} from '@material-ui/core'
 import clsx from 'clsx'
 import PageButton, {PageButtonClassKey, PageVariant} from './PageButton'
 
@@ -58,7 +64,7 @@ export type PaginationProps = Omit<BoxProps, 'onClick'> &
     offset: number
     total: number
     centerRipple?: boolean
-    component?: string | React.ComponentType<Partial<PaginationProps>>
+    // component?: string | React.ComponentType<Partial<PaginationProps>>
     currentPageColor?: PropTypes.Color
     disabled?: boolean
     disableFocusRipple?: boolean

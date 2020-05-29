@@ -2,15 +2,14 @@ import React from 'react'
 import {TextField, TextFieldProps} from '@material-ui/core'
 import {useFormikContext, useField} from 'formik'
 
-type Props = {
-  fullWidth?: boolean
-  disabled?: boolean
-  name: string
-} & TextFieldProps
+type Props = TextFieldProps
 
 const FormTextField = ({
   fullWidth = true,
   disabled = false,
+  variant = 'outlined',
+  margin = 'normal',
+  type = 'text',
   ...other
 }: Props) => {
   // Deprecated implementation using FieldProps.
@@ -29,11 +28,11 @@ const FormTextField = ({
 
   return (
     <TextField
-      type="text"
+      type={type}
       name={name}
       value={value}
-      variant={'outlined' as any} // [HACK] Fix type.
-      margin="normal"
+      variant={variant}
+      margin={margin}
       helperText={fieldIsTouchedWithError ? error : null}
       error={fieldIsTouchedWithError}
       onChange={onChange}

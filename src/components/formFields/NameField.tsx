@@ -1,13 +1,13 @@
 import React from 'react'
 import {TextField} from '@material-ui/core'
-import {OutlinedTextFieldProps} from '@material-ui/core/TextField'
+import {TextFieldProps} from '@material-ui/core/TextField'
 import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any> &
-  OutlinedTextFieldProps
+  TextFieldProps
 
 const LastNameField = ({
   field,
@@ -15,6 +15,7 @@ const LastNameField = ({
   required = false,
   fullWidth = true,
   disabled = false,
+  variant = 'outlined',
   ...other
 }: Props) => {
   const {name, value} = field
@@ -32,7 +33,7 @@ const LastNameField = ({
       value={value}
       label="Name (optional)"
       autoComplete="name"
-      variant="outlined"
+      variant={variant}
       helperText={fieldIsTouchedWithError ? currentError : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}
