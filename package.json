@@ -63,9 +63,9 @@
     "@types/shortid": "^0.0.29",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/valid-url": "^1.0.3",
-    "@types/yup": "^0.28.3",
-    "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/parser": "^2.31.0",
+    "@types/yup": "^0.29.0",
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
     "@vercel/node": "^1.6.1",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "ava": "^3.8.2",
@@ -87,13 +87,13 @@
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
-    "typescript": "3.8.3",
+    "typescript": "3.9.3",
     "webpack-bundle-size-analyzer": "^3.1.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
-    "@date-io/date-fns": "^1.3.13",
-    "@material-ui/core": "4.9.14",
+    "@date-io/date-fns": "<2",
+    "@material-ui/core": "4.10.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "3.2.10",
     "busboy": "^0.3.1",
@@ -114,7 +114,7 @@
     "formik": "2.1.4",
     "html-react-parser": "^0.10.3",
     "is-number": "^7.0.0",
-    "jimp": "^0.10.2",
+    "jimp": "^0.12.1",
     "lazysizes": "^5.2.0",
     "mdi-material-ui": "^6.13.2",
     "mime": "^2.4.5",
@@ -141,7 +141,7 @@
     "react-player": "^2.0.1",
     "react-scroll-parallax": "^2.3.2",
     "react-select": "^3.1.0",
-    "react-vertical-timeline-component": "^2.5.0",
+    "react-vertical-timeline-component": "^3.0.0",
     "react-vis": "^1.11.7",
     "recaptcha2": "^1.3.3",
     "redis": "^3.0.2",
@@ -154,6 +154,6 @@
     "timezone-support": "^2.0.2",
     "valid-url": "^1.0.9",
     "vercel": "^19.0.1",
-    "yup": "^0.28.3"
+    "yup": "^0.29.1"
   }
 }

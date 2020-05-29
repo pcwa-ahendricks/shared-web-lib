@@ -43,7 +43,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
-              'https://cdn.cosmicjs.com/793e8170-9624-11ea-b04e-734185112560-2019-PCWA-CAFR-Final-for-Web.pdf'
+              'https://cdn.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf'
           })
           .end()
         break

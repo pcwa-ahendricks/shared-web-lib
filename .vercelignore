@@ -1,7 +1,5 @@
 **/*.test.js
 **/*.spec.js
-packages/www/.next
-packages/www/out
-packages/api/lib
+.next
 yarn.lock
 .env
