@@ -489,7 +489,6 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
           Submit Application
         </SubmitFormButton>
       </FormBox>
-      >
     </>
   )
 }
