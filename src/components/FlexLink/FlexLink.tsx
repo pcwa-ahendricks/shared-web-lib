@@ -35,6 +35,8 @@ const FlexLink = ({
   isNextLink: isNextLinkProp = true,
   detectNext = false,
   className: classNameProp,
+  target,
+  rel,
   ...rest
 }: FlexLinkProps) => {
   const [href, setHref] = useState(hrefProp)
@@ -80,6 +82,8 @@ const FlexLink = ({
           as={as}
           scroll={scroll}
           className={clsx([classes.link, classNameProp])}
+          rel={rel}
+          target={target}
           {...rest}
         >
           {children}
@@ -87,9 +91,9 @@ const FlexLink = ({
       ) : hasHref ? (
         <Link
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
           className={clsx([classes.link, classNameProp])}
+          rel={rel ?? 'noopener noreferrer'}
+          target={target ?? '_blank'}
           {...rest}
         >
           {children}

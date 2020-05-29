@@ -231,8 +231,7 @@ const MeetingAgendasPage = () => {
                 <ChildBox ml={4}>
                   <OpenInNewLink
                     pdf
-                    target="_self"
-                    rel=""
+                    isNextLink
                     as={`/board-of-directors/meeting-agendas/${
                       item.derivedFilenameAttr?.date + '-' + item.metadata?.type
                     }`}

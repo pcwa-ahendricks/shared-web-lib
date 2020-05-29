@@ -53,9 +53,8 @@ const OpenInNewLink = ({
   iconPadding = 5,
   centerIcon = true,
   iconColor = 'inherit',
-  target = '_blank',
-  rel = 'noopener noreferrer',
   altIcon = false,
+  isNextLink = false,
   ...rest
 }: OpenInNewLinkProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
@@ -93,9 +92,8 @@ const OpenInNewLink = ({
       <RowBox display="inline-flex" component="span">
         <FlexLink
           className={classes.link}
-          target={target}
-          rel={rel}
           noWrap
+          isNextLink={isNextLink}
           {...rest}
         >
           <RowBox

@@ -10,13 +10,12 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
-import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
 
 const EnvironmentalPlanningPage = () => {
   const theme = useTheme()
 
-  const linkProps: OpenInNewLinkProps = {
+  const linkProps: Partial<OpenInNewLinkProps> = {
     noWrap: false,
     showIconAlways: true,
     startAdornment: true,
@@ -26,13 +25,6 @@ const EnvironmentalPlanningPage = () => {
     gutterBottom: true,
     iconColor: 'secondary'
   }
-
-  const ForwardOpenInNewLink = React.forwardRef(
-    (props: OpenInNewLinkProps, ref: React.Ref<any>) => (
-      <OpenInNewLink {...props} {...ref} />
-    )
-  )
-  ForwardOpenInNewLink.displayName = 'OpenInNewLink'
 
   return (
     <PageLayout title="Environmental Planning" waterSurface>
@@ -108,16 +100,15 @@ const EnvironmentalPlanningPage = () => {
               >
                 2007 Western Placer County Groundwater Management Plan
               </OpenInNewLink>
-              <NextLink href="/planning/arbs" passHref>
-                <ForwardOpenInNewLink
-                  {...linkProps}
-                  pdf={false}
-                  target="_self"
-                  altIcon
-                >
-                  2016 American River Basin Study
-                </ForwardOpenInNewLink>
-              </NextLink>
+              <OpenInNewLink
+                {...linkProps}
+                pdf={false}
+                altIcon
+                href="/planning/arbs"
+                isNextLink
+              >
+                2016 American River Basin Study
+              </OpenInNewLink>
 
               <Spacing />
               <Type variant="h3" gutterBottom>
