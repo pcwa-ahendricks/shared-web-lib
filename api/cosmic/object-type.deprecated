@@ -10,7 +10,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
   const {slug, ...rest} = req.query // using request query
   try {
     const qs = stringify(
-      // eslint-disable-next-line @typescript-eslint/camelcase
       {read_key: COSMIC_READ_ACCESS_KEY, ...rest},
       true
     )

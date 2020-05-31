@@ -192,7 +192,6 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialData = await fetcher(`${baseUrl}${boardMinutesUrl}`)
     return {
       props: {initialData},
-      // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
   } catch (error) {

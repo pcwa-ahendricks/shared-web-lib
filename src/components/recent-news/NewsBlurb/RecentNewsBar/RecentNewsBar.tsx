@@ -16,7 +16,6 @@ type Props = {
 } & BoxProps
 
 const params = {
-  // eslint-disable-next-line @typescript-eslint/camelcase
   hide_metafields: true,
   props: '_id,metadata,status,title',
   type: 'news-blurbs'

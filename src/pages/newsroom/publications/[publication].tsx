@@ -95,7 +95,6 @@ export const cosmicFetcher = (
   props: string
 ) => {
   const params = {
-    // eslint-disable-next-line @typescript-eslint/camelcase
     hide_metafields: true,
     props,
     type
@@ -662,7 +661,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {initialNewslettersData, publicationParam, initialEnewsBlasts},
-      // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
   } catch (error) {

@@ -39,7 +39,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       return
     }
     const qs = stringify(
-      // eslint-disable-next-line @typescript-eslint/camelcase
       {read_key: COSMIC_READ_ACCESS_KEY, folder, ...rest},
       true
     )

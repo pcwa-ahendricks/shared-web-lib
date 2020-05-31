@@ -18,7 +18,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
   }
   try {
     const qs = stringify(
-      // eslint-disable-next-line @typescript-eslint/camelcase
       {
         key,
         cx,

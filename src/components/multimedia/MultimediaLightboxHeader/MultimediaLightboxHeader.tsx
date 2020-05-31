@@ -77,7 +77,6 @@ const MultimediaLightboxHeader = ({
   const multimediaContext = useContext(MultimediaContext)
   const multimediaDispatch = multimediaContext.dispatch
 
-  /* eslint-disable @typescript-eslint/camelcase */
   const {imgix_url, original_name, metadata} = currentView ?? {}
   const {caption} = metadata ?? {}
   const ext = fileExtension(original_name ?? '')
@@ -95,8 +94,6 @@ const MultimediaLightboxHeader = ({
   const smallDownloadUrl = `${downloadUrlBase}&w=500&h=500`
 
   const downloadDisabled = !imgix_url || !original_name
-
-  /* eslint-enable @typescript-eslint/camelcase */
 
   const closeHandler = useCallback(
     (event: any) => {

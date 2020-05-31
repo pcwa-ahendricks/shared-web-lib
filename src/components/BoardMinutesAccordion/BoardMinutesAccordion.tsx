@@ -43,7 +43,6 @@ const BoardMinutesAccordion = ({
         {wasExpanded ? (
           <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
             {minutes.map((m) => {
-              /* eslint-disable @typescript-eslint/camelcase */
               const {derivedFilenameAttr, imgix_url} = m
               const {title = '', publishedDate = '', date = ''} =
                 derivedFilenameAttr ?? {}

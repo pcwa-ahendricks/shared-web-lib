@@ -43,7 +43,6 @@ interface OutageMetadata {
 }
 
 const params = {
-  // eslint-disable-next-line @typescript-eslint/camelcase
   hide_metafields: true,
   props: '_id,content,metadata,slug,status,title',
   type: 'outages'
@@ -417,7 +416,6 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialData = await fetcher(`${baseUrl}${outagesUrl}`)
     return {
       props: {initialData},
-      // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
   } catch (error) {

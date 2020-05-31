@@ -27,7 +27,6 @@ enum Sort {
   'Books'
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 const MultimediaPublications = ({multimedia = []}: Props) => {
   // const classes = useStyles()
 

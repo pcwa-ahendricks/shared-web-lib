@@ -78,7 +78,6 @@ const useStyles = makeStyles(() =>
   })
 )
 
-/* eslint-disable @typescript-eslint/camelcase */
 const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()

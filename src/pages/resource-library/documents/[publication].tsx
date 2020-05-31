@@ -270,7 +270,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {qMedia, pages, publicationSlug},
-      // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
   } catch (error) {
