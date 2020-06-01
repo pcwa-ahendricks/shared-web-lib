@@ -9,7 +9,6 @@ const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
 
 module.exports = withPlugins([withBundleAnalyzer, withTM], {
-  target: process.env.NEXT_TARGET,
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
