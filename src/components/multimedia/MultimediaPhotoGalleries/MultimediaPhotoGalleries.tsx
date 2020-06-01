@@ -13,8 +13,13 @@ import {
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme
+} from '@material-ui/core/styles'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 import groupBy from '@lib/groupBy'
@@ -53,7 +58,7 @@ export type MultimediaPhotoGallery = {
 
 const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     trans: {
       '& .cross-fade-leave': {
@@ -74,11 +79,14 @@ const useStyles = makeStyles(() =>
         height: '100% !important', // Fix SSR height. Setting minHeight property won't suffice.
         transition: `height ${crossFadeDuration}ms ease-in-out`
       }
+    },
+    photoCaption: {
+      color: theme.palette.common.white,
+      paddingLeft: theme.spacing(1)
     }
   })
 )
 
-/* eslint-disable @typescript-eslint/camelcase */
 const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
@@ -343,9 +351,9 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
         transitionEnterTimeout={crossFadeDuration}
         transitionLeaveTimeout={crossFadeDuration}
       >
-        {selectedGallery ? (
-          <>
-            {currentGallery?.categories.map((c, categoryIdx) => (
+        <>
+          {selectedGallery ? (
+            currentGallery?.categories?.map((c, categoryIdx) => (
               <Box key={categoryIdx} mb={6}>
                 <Type variant="h3" color="primary">
                   {c.label}
@@ -360,49 +368,70 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                 >
                   {c.photos.map((p) => (
                     <ChildBox key={p.index} mt={margin}>
-                      <ImgixFancier
-                        htmlAttributes={{
-                          alt:
-                            p.metadata?.description ??
-                            `${p.metadata?.gallery} ${
-                              p.metadata?.category
-                            } photo #${p.index + 1}`
-                          // onClick: imageClickHandler(p.index),
-                        }}
-                        boxProps={{
-                          onClick: imageClickHandler(p.index)
-                        }}
-                        src={p.imgix_url}
-                        width={p.width}
-                        height={p.height}
-                        paddingPercent={p.paddingPercent}
-                      />
+                      <ColumnBox>
+                        <ChildBox position="relative">
+                          <ImgixFancier
+                            htmlAttributes={{
+                              alt:
+                                p.metadata?.description ??
+                                `${p.metadata?.gallery} ${
+                                  p.metadata?.category
+                                } photo #${p.index + 1}`
+                              // onClick: imageClickHandler(p.index),
+                            }}
+                            boxProps={{
+                              onClick: imageClickHandler(p.index)
+                            }}
+                            src={p.imgix_url}
+                            width={p.width}
+                            height={p.height}
+                            paddingPercent={p.paddingPercent}
+                          />
+                          {p.metadata?.caption ? (
+                            <ChildBox position="absolute" bottom="0" left="0">
+                              <Type
+                                className={classes.photoCaption}
+                                variant="caption"
+                              >
+                                {p.metadata.caption}
+                              </Type>
+                            </ChildBox>
+                          ) : null}
+                        </ChildBox>
+                        {p.metadata?.caption ? (
+                          <ChildBox>
+                            <Type color="textSecondary" variant="caption">
+                              {p.metadata.caption}
+                            </Type>
+                          </ChildBox>
+                        ) : null}
+                      </ColumnBox>
                     </ChildBox>
                   ))}
                 </RowBox>
               </Box>
-            ))}
-          </>
-        ) : (
-          <RowBox
-            key={1}
-            flexWrap="wrap"
-            flexSpacing={margin}
-            mt={-cardMargin + 2}
-            // justifyContent="space-around"
-          >
-            {galleries.map((g, idx) => (
-              <MultimediaGalleryCard
-                gallery={g}
-                key={idx}
-                mt={cardMargin}
-                imageWidth={cardImageWidth}
-                imageHeight={cardImageHeight}
-                onCardClick={galleryClickHandler(g.galleryKey)}
-              />
-            ))}
-          </RowBox>
-        )}
+            ))
+          ) : (
+            <RowBox
+              key={1}
+              flexWrap="wrap"
+              flexSpacing={margin}
+              mt={-cardMargin + 2}
+              // justifyContent="space-around"
+            >
+              {galleries.map((g, idx) => (
+                <MultimediaGalleryCard
+                  gallery={g}
+                  key={idx}
+                  mt={cardMargin}
+                  imageWidth={cardImageWidth}
+                  imageHeight={cardImageHeight}
+                  onCardClick={galleryClickHandler(g.galleryKey)}
+                />
+              ))}
+            </RowBox>
+          )}
+        </>
       </ReactCSSTransitionReplace>
 
       <MultimediaLightbox
