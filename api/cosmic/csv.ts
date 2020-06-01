@@ -2,8 +2,11 @@ import fetch from 'node-fetch'
 import {compareDesc} from 'date-fns'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
-import {CosmicGetMediaResponse} from '@api-lib/cosmic'
-import lambdaUrl from '@api-lib/lambdaUrl'
+// Won't work with Vercel. Path mappings in tsconfig not supported. See https://vercel.com/docs/runtimes#official-runtimes/node-js/using-typescript-with-the-node-js-runtime for more info.
+// import {CosmicGetMediaResponse} from '@api-lib/cosmic'
+// import lambdaUrl from '@api-lib/lambdaUrl'
+import lambdaUrl from '../../src/lib/api/lambdaUrl'
+import {CosmicGetMediaResponse} from '../../src/lib/api/cosmic'
 
 const MEDIA_FOLDER = 'csv'
 

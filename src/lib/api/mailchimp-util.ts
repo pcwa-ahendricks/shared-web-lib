@@ -1,4 +1,4 @@
-import {MailchimpSubscribeResponse} from '@api-lib/mailchimp'
+import {MailchimpSubscribeResponse} from '../../src/lib/api/mailchimp'
 
 const getStatus = (data: MailchimpSubscribeResponse): number => {
   // Status will come back as string ("'subscribed'" when subscribed successfully) or number (400 when Member Exists).

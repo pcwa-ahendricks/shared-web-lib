@@ -1,6 +1,6 @@
 // cspell:ignore cbarnhill waterefficiency pcwamain customerservices maint
 import reCAPTCHA from 'recaptcha2'
-import {MailJetMessage} from '@api-lib/mailjet'
+import {MailJetMessage} from '../../src/lib/api/mailjet'
 import {ObjectSchema, Shape} from 'yup'
 const isDev = process.env.NODE_ENV === 'development'
 

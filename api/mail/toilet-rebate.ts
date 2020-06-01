@@ -2,13 +2,13 @@
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
 import {string, object, array, StringSchema, number} from 'yup'
 import {format} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '@api-lib/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
 import {
   getRecaptcha,
   AttachmentFieldValue,
   emailRecipientsAppliance,
   validateSchema
-} from '@api-lib/forms'
+} from '../../src/lib/api/forms'
 
 import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'

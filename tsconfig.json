@@ -22,8 +22,8 @@
       "@components/*": ["src/components/*"],
       "@store/*": ["src/store/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"],
-      "@api-lib/*": ["src/lib/api/*"]
+      "@pages/*": ["src/pages/*"]
+      // "../../src/lib/api/*": ["src/lib/api/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,

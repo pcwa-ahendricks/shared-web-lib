@@ -2,7 +2,7 @@
 import fetch from 'node-fetch'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
-import {DarkSkyResponse} from '@api-lib/dark-sky'
+import {DarkSkyResponse} from '../../src/lib/api/dark-sky'
 import {NowRequest, NowResponse} from '@vercel/node'
 
 const DARKSKY_API_KEY = process.env.NODE_DARKSKY_API_KEY || ''

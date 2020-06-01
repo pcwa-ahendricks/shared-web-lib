@@ -5,8 +5,8 @@ import {
   MailJetSendRequest,
   MailJetMessage,
   postMailJetRequest
-} from '@api-lib/mailjet'
-import {getRecaptcha, validateSchema} from '@api-lib/forms'
+} from '../../src/lib/api/mailjet'
+import {getRecaptcha, validateSchema} from '../../src/lib/api/forms'
 
 import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'

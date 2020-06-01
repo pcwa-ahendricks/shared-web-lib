@@ -1,12 +1,12 @@
 // cspell:ignore addtl cbarnhill truthy
 import {string, object, StringSchema} from 'yup'
 import {format} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '@api-lib/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema
-} from '@api-lib/forms'
+} from '../../src/lib/api/forms'
 
 import {NowResponse, NowRequest} from '@vercel/node'
 import {json} from 'co-body'

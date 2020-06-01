@@ -2,12 +2,12 @@
 import {string, object} from 'yup'
 import {format} from 'date-fns'
 import {json} from 'co-body'
-import {MailJetSendRequest, postMailJetRequest} from '@api-lib/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
 import {
   getRecaptcha,
   emailRecipientsCsMaint,
   validateSchema
-} from '@api-lib/forms'
+} from '../../src/lib/api/forms'
 import {NowRequest, NowResponse} from '@vercel/node'
 const isDev = process.env.NODE_ENV === 'development'
 
