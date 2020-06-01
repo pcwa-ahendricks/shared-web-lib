@@ -54,7 +54,10 @@
     "import/no-unresolved": [
       2,
       {"ignore": ["^geojson$", "^@material-ui/core/transitions$"]}
-    ]
+    ],
+    "camelcase": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "react": {

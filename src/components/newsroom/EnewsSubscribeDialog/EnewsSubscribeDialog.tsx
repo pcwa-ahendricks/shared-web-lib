@@ -68,7 +68,6 @@ const EnewsSubscribeDialog = () => {
     async ({email}: FormData, actions: FormikHelpers<FormData>) => {
       try {
         const body: MailchimpSubscribePostBody = {
-          // eslint-disable-next-line @typescript-eslint/camelcase
           email_address: email,
           status: 'subscribed'
         }
@@ -76,12 +75,10 @@ const EnewsSubscribeDialog = () => {
         if (!res.ok) {
           try {
             const data: MailchimpSubscribeResponseBody = await res.json()
-            // eslint-disable-next-line @typescript-eslint/camelcase
             setMailchimpError({...data, email_address: email})
           } catch (err) {
             const text = await res.text()
             const errorTitle = text || res.statusText
-            // eslint-disable-next-line @typescript-eslint/camelcase
             setMailchimpError({title: errorTitle, email_address: email})
             const error = new Error(errorTitle)
             console.warn(error)

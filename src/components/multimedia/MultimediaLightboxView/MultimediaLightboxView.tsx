@@ -6,7 +6,6 @@ import FlexBox from '@components/boxes/FlexBox'
 
 const MultimediaLightboxView = (props: any) => {
   const {data, getStyles, index, modalProps} = props
-  /* eslint-disable @typescript-eslint/camelcase */
   const {alt, imgix_url, metadata} = data
   const {gallery, category} = metadata ?? {}
   // LazyImgix needs a width and height, and the one it calculates is bogus. Use the window dimensions preferably.

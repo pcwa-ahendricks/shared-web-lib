@@ -248,7 +248,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {qMedia, pages, agendaSlug},
-      // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
   } catch (error) {

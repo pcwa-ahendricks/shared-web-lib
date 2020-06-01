@@ -258,7 +258,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         pages,
         releaseDate
       },
-      // eslint-disable-next-line @typescript-eslint/camelcase
       unstable_revalidate: 10
     }
   } catch (error) {

@@ -101,7 +101,6 @@ const useStyles = makeStyles(() =>
   })
 )
 
-/* eslint-disable @typescript-eslint/camelcase */
 const ResourceLibraryPage = ({
   err,
   initialMultimediaData,
@@ -474,7 +473,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         params
         // params: query
       }
-      // eslint-disable-next-line @typescript-eslint/camelcase
       // unstable_revalidate: 10
     }
   } catch (error) {

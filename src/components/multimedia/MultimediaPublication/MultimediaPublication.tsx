@@ -22,7 +22,6 @@ type Props = {
 //   })
 // )
 
-/* eslint-disable @typescript-eslint/camelcase */
 const MultimediaPublication = ({publication, thumbMedia}: Props) => {
   // const classes = useStyles()
   const theme = useTheme()
