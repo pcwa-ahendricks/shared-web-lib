@@ -305,11 +305,12 @@ const menuConfig: MenuConfig[] = [
             title: 'Publications',
             nextLink: '/newsroom/publications/[publication]',
             as: '/newsroom/publications/newsletters'
-          },
-          {
-            title: 'Legislation & Letters',
-            nextLink: '/newsroom/legislationletters'
           }
+          // [TODO]
+          // {
+          //   title: 'Legislation & Letters',
+          //   nextLink: '/newsroom/legislationletters'
+          // }
         ]
       }
     ]
