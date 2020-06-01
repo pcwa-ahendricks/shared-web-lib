@@ -22,7 +22,7 @@ export interface MailJetMessage {
   }
   TemplateLanguage?: boolean
   TemplateID?: number
-  Variables?: {}
+  Variables?: Record<string, unknown>
   To: {Email: string; Name: string}[]
   InlinedAttachments?: MailJetAttachment[]
   Attachments?: MailJetAttachment[]

@@ -1,6 +1,6 @@
 // cspell:ignore cbarnhill waterefficiency pcwamain customerservices maint
 import reCAPTCHA from 'recaptcha2'
-import {MailJetMessage} from '../../src/lib/api/mailjet'
+import {MailJetMessage} from './mailjet'
 import {ObjectSchema, Shape} from 'yup'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -43,7 +43,7 @@ const getRecaptcha = () =>
   })
 
 async function validateSchema(
-  bodySchema: ObjectSchema<Shape<object, any>>,
+  bodySchema: ObjectSchema<Shape<Record<string, unknown>, any>>,
   body: any
 ) {
   const validateOptions = {
