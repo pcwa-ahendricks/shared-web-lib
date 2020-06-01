@@ -1,3 +1,4 @@
+// cspell:ignore COVID
 import React, {useState, useMemo} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -7,7 +8,15 @@ import {
   Typography as Type,
   useMediaQuery,
   Divider,
-  useTheme
+  useTheme,
+  Collapse,
+  IconButton,
+  Theme,
+  makeStyles,
+  createStyles,
+  lighten,
+  darken,
+  Box
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
@@ -17,7 +26,15 @@ import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
 import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
+import {Alert, AlertTitle} from '@material-ui/lab'
+import CloseIcon from '@material-ui/icons/Close'
+// import WarningRoundedIcon from '@material-ui/icons/WarningRounded'
+import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined'
+import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined'
 import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import MainPhone from '@components/links/MainPhone'
+import MuiNextLink from '@components/NextLink/NextLink'
 // import lambdaUrl from '@lib/lambdaUrl'
 // import {GetServerSideProps} from 'next'
 // import {CosmicObjectResponse} from '@lib/services/cosmicService'
@@ -39,11 +56,27 @@ const HERO_IMG_SRC =
 //   })
 // )
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    firstWarningAlert: ({getBackgroundColor}: any) => ({
+      // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
+      background: `linear-gradient(180deg, ${
+        theme.palette.background.default
+      } 0%, ${getBackgroundColor(theme.palette.warning.main, 0.9)} 10%)`
+    })
+  })
+)
+
 const Index = () => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
+  const [alertOpen, setAlertOpen] = useState(true)
+  const [alert2Open, setAlert2Open] = useState(true)
+
+  const getBackgroundColor = theme.palette.type === 'light' ? lighten : darken
+  const classes = useStyles({getBackgroundColor})
 
   const marginTop = useMemo(
     // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
@@ -57,6 +90,63 @@ const Index = () => {
 
   return (
     <PageLayout mt={0}>
+      <Collapse in={alertOpen}>
+        <Alert
+          severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setAlertOpen(false)
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          icon={<ErrorOutlineOutlinedIcon />}
+          classes={{root: classes.firstWarningAlert}}
+        >
+          <AlertTitle>Help with Bill Payments</AlertTitle>
+          Due to financial challenges caused by COVID-19, PCWA is temporarily
+          suspending water shutoffs for customers unable to pay their bill. If
+          you are having trouble paying your bill please contact Customer
+          Services at <CustomerServicesEmail />.
+        </Alert>
+      </Collapse>
+      <Collapse in={alert2Open}>
+        <Alert
+          severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setAlert2Open(false)
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          icon={<HomeWorkOutlinedIcon />}
+        >
+          <AlertTitle>PCWA Business Center Closed </AlertTitle>
+          <Type variant="inherit" gutterBottom component="div">
+            In an effort to reduce the transmission risk of COVID-19, PCWA has
+            closed its business center lobbies until further notice. Staff
+            remains available to assist customers by telephone at <MainPhone />{' '}
+            or by email at <CustomerServicesEmail />.
+          </Type>
+          <Type variant="inherit" component="div">
+            <MuiNextLink href="/newsroom/covid-19-faqs">
+              Frequently Asked Questions
+            </MuiNextLink>{' '}
+            regarding COVID-19 and your drinking water supply.
+          </Type>
+        </Alert>
+      </Collapse>
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{

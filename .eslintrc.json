@@ -53,7 +53,7 @@
     "@typescript-eslint/no-use-before-define": ["error", {"functions": false}],
     "import/no-unresolved": [
       2,
-      {"ignore": ["^geojson$", "^@material-ui/core/transitions$"]}
+      {"ignore": ["^geojson$", "^@material-ui/lab$"]}
     ],
     "camelcase": "off",
     "@typescript-eslint/naming-convention": "off",
