@@ -11,10 +11,9 @@
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead, not Safari 5.1, not ExplorerMobile 11",
   "scripts": {
     "dev": "vc dev",
-    "vc": "vc",
     "clean": "rimraf yarn.lock node_modules .next",
-    "vc:dev-web": "vc --prod",
-    "vc:forms": "vc --prod -A vercel.forms.json",
+    "vc": "vc",
+    "vc:prod": "vc --prod",
     "start": "next",
     "build": "next build",
     "export": "next export",
