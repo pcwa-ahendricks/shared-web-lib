@@ -75,8 +75,7 @@
           ["@lib", "./src/lib"],
           ["@store", "./src/store"],
           ["@hooks", "./src/hooks"],
-          ["@pages", "./src/pages"],
-          ["@api-lib", "./src/lib/api"]
+          ["@pages", "./src/pages"]
         ],
         "extensions": [".ts", ".js", ".tsx", ".jsx", ".json"]
       }

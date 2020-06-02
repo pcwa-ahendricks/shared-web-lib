@@ -17,7 +17,7 @@ type PickedMediaResponse = Pick<
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
-type Props = {} & Partial<CoverTileProps>
+type Props = Partial<CoverTileProps>
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
