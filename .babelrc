@@ -1,25 +1,6 @@
 {
-  "presets": ["next/babel", "@babel/preset-react"],
-  "plugins": [
-    "inline-react-svg",
-    [
-      "transform-assets-import-to-string",
-      {
-        "baseDir": "static",
-        "baseUri": "/public"
-      }
-    ]
-  ],
+  "presets": ["next/babel"],
   "env": {
-    "production": {
-      "plugins": []
-    },
-    "test": {
-      "plugins": ["babel-plugin-typescript-to-proptypes"]
-    },
-    "preview": {
-      "plugins": ["babel-plugin-typescript-to-proptypes"]
-    },
     "development": {
       "plugins": ["babel-plugin-typescript-to-proptypes"]
     }

@@ -10,12 +10,6 @@ vercel env pull
 
 which will create a `.env` file which should reflect the variables outlined in `.env.example`.
 
-## Babel Configuration
-
-### Plugin Order
-
-It appears that placing plugin 'inline-react-svg' before 'transform-assets-import-to-string' plugin corrected a runtime error when navigating to a page that displays an svg. I have not found documentation on repository regarding ordering requirements. Which makes sense cause we don't want to inline an `<img src=""/>` using 'transform-assets-import-to-string' plugin, instead we want the `<svg/>` markup.
-
 ## Todos
 
 - [ ] Add some tests
@@ -36,7 +30,7 @@ Use robots.txt.live over temporary robots.txt.
 
 ...
 
-## Now (Deployments)
+## Vercel (Deployments)
 
 ### Routing
 
@@ -63,13 +57,15 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
 
 ### Old Node Packages Scripts
 
-    "watch": "babel src --watch --out-dir dist --extensions \".ts,.tsx\"",
-    "dev": "npm-run-all -p watch start",
-    "inspect": "node --inspect node_modules/.bin/micro-dev",
-    "build": "npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly --declaration true --allowJs false",
-    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --ignore src/**/\*.spec.js,src/**/\*.test.js",
-    "build:js-src-map": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
+```json
+"watch": "babel src --watch --out-dir dist --extensions \".ts,.tsx\"",
+"dev": "npm-run-all -p watch start",
+"inspect": "node --inspect node_modules/.bin/micro-dev",
+"build": "npm run build:js",
+"build:types": "tsc --emitDeclarationOnly --declaration true --allowJs false",
+"build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --ignore src/**/\*.spec.js,src/**/\*.test.js",
+"build:js-src-map": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
+```
 
 ### About Redirects
 
