@@ -209,7 +209,7 @@ require('core-js/modules/web.queue-microtask')
 require('core-js/modules/web.url')
 require('core-js/modules/web.url.to-json')
 require('core-js/modules/web.url-search-params')
-require('regenerator-runtime/runtime')
+// require('regenerator-runtime/runtime')
 
 // IE 11
 // import repeat from 'core-js/library/fn/string/virtual/repeat'
