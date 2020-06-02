@@ -11,7 +11,6 @@ export type CoverStoryProps = {
   imgixURL: string
   readMore?: string
   imageRatio?: string | number | boolean // Expressed as W:H
-  imgixCropMode?: string
   imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
   body?: string
@@ -22,11 +21,13 @@ const CoverStory = ({
   children,
   readMore = 'Read more...',
   imgixURL,
-  imageRatio = '19:6', // 555w / 175h = 3.17. Roughly 3:1 or more accurately as 19:6
-  imgixCropMode = 'top',
+  // imageRatio = '19:6', // 555w / 175h = 3.17. Roughly 3:1 or more accurately as 19:6
+  // imageRatio = '37:12', // 555w / 180h = 3.0833. More accurately as 37:12
+  // imageRatio = '3:1', // 555w / 185h = 3. 3:1
+  imageRatio = '73:25', // 555w / 190h = 2.921052632. Or 73:25
   linkHref,
-  imgixFancyProps = {},
-  flexLinkProps = {},
+  imgixFancyProps,
+  flexLinkProps,
   body,
   ...rest
 }: CoverStoryProps) => {
@@ -39,6 +40,8 @@ const CoverStory = ({
       ) : null,
     [body]
   )
+  const {imgixParams: imgixParamsProps, ...imgixFancyPropsRest} =
+    imgixFancyProps ?? {}
 
   return (
     <Box {...rest}>
@@ -50,11 +53,14 @@ const CoverStory = ({
           imgixParams={{
             ar: imageRatio,
             fit: 'crop',
-            crop: imgixCropMode,
-            bg: 'ffffff'
+            bg: 'ffffff',
+            ...imgixParamsProps
           }}
-          paddingPercent="31.53%" // Default ratio for a 175h x 555w image.
-          {...imgixFancyProps}
+          // paddingPercent="31.53%" // Default ratio for a 175h x 555w image.
+          // paddingPercent="32.43%" // Default ratio for a 180h x 555w image.
+          // paddingPercent="33.33%" // Default ratio for a 185h x 555w image.
+          paddingPercent="34.23%" // Default ratio for a 190h x 555w image.
+          {...imgixFancyPropsRest}
         />
       </FlexLink>
       <Spacing />

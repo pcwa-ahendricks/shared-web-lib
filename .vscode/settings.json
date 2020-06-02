@@ -185,5 +185,6 @@
     "**/.vscode/**": true
   },
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSaveTimeout": 20000
+  "editor.codeActionsOnSaveTimeout": 20000,
+  "deno.enable": false
 }

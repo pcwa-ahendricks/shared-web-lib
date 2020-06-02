@@ -16,7 +16,6 @@ export type CoverTileProps = {
   imgixURL: string
   readMore?: string
   imageRatio?: string | number | boolean // Expressed as W:H
-  imgixCropMode?: string
   imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
   typeProps?: Partial<TypographyProps>
@@ -26,7 +25,6 @@ const CoverTile = ({
   title,
   imgixURL,
   imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57*7=10.99, 11:7
-  imgixCropMode = 'top',
   linkHref,
   imgixFancyProps,
   flexLinkProps,
@@ -34,6 +32,10 @@ const CoverTile = ({
   ...rest
 }: CoverTileProps) => {
   const theme = useTheme()
+
+  const {imgixParams: imgixParamsProps, ...imgixFancyPropsRest} =
+    imgixFancyProps ?? {}
+
   return (
     <Box {...rest}>
       <FlexLink href={linkHref} {...flexLinkProps}>
@@ -50,11 +52,11 @@ const CoverTile = ({
             imgixParams={{
               ar: imageRatio,
               fit: 'crop',
-              crop: imgixCropMode,
-              bg: 'ffffff'
+              bg: 'ffffff',
+              ...imgixParamsProps
             }}
             paddingPercent="63.64%" // Default ratio for a 140h x 220w image.
-            {...imgixFancyProps}
+            {...imgixFancyPropsRest}
           />
         </Box>
         <Spacing size="small" />

@@ -15,8 +15,7 @@ import {
   makeStyles,
   createStyles,
   lighten,
-  darken,
-  Box
+  darken
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
@@ -194,18 +193,36 @@ const Index = () => {
       <WideContainer>
         <RespRowBox flexSpacing={4}>
           <ChildBox flex="50%">
-            <CoverStory
+            {/* <CoverStory
               title="Water-wise House and Business Calls"
               readMore="More Information..."
               linkHref="/smart-water-use/house-calls"
               imgixURL="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
               imgixFancyProps={{
-                htmlAttributes: {alt: 'Photo of PCWA Water Efficiency staff'}
+                htmlAttributes: {alt: 'Photo of PCWA Water Efficiency staff'},
+                imgixParams: {
+                  crop: 'top'
+                }
               }}
               body="Worried you might have a leak? Want to find ways to use water
                 more efficiently at home or work? Interested in learning more
                 about rebates available from PCWA? Set up your complimentary
                 Water Wise House Call or Business Call today!"
+            /> */}
+
+            <CoverStory
+              title="Special Notice for Businesses Regarding Re-opening"
+              readMore="More Information..."
+              linkHref="/newsroom/business-and-covid-19"
+              imgixURL="https://cosmic-s3.imgix.net/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {alt: 'Photo of PCWA Business Center'}
+              }}
+              body="As we look toward the future of re-opening our businesses and
+              buildings, PCWA feels it is of utmost importance to inform owners and
+              managers of buildings which have been closed for weeks or months due
+              to COVID-19 concerns of the best practices to help ensure the health
+              and safety of the occupants of your buildings."
             />
           </ChildBox>
           <ChildBox flex="50%">
@@ -225,7 +242,7 @@ const Index = () => {
               management on public land."
             /> */}
 
-            <CoverStory
+            {/* <CoverStory
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
               linkHref="/newsroom/news-releases/[release-date]"
@@ -239,7 +256,22 @@ const Index = () => {
               Reclamation (USBR) at a signing ceremony on February 28. The new
               contract, which annually allocates up to 35,000 acre-feet of Central
               Valley Project (CVP) water to PCWA, runs in perpetuity."
-              imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
+            /> */}
+
+            <CoverStory
+              title="2020 Water Spots Video Contest Winners Announced"
+              readMore="Read more…!"
+              linkHref="/newsroom/water-spots-2020"
+              imgixURL="https://cosmic-s3.imgix.net/6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {alt: 'Thumbnail photo of French Meadows'},
+                imgixParams: {
+                  crop: 'top'
+                }
+              }}
+              body="The Regional Water Authority has announced the winners of the 2020
+              Water Spots Video Contest: Be a Leak Detective. The top 3 video
+              winners are from PCWA’s service area!"
             />
           </ChildBox>
         </RespRowBox>
