@@ -1,5 +1,4 @@
 **/*.test.js
 **/*.spec.js
 .next
-yarn.lock
 .env
