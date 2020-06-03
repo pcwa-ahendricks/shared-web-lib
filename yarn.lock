@@ -5968,6 +5968,15 @@ html-dom-parser@0.2.3:
     domhandler "2.4.2"
     htmlparser2 "3.10.1"
 
+html-dom-parser@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/html-dom-parser/-/html-dom-parser-0.3.0.tgz#19864ca42836ec8750b439600633f145ab5409b9"
+  integrity sha512-WDEYpO5gHGKuJbf0rwndGq7yUHJ4xboNj9l9mRGw5RsKFc3jfRozCsGAMu69zXxt4Ol8UkbqubKxu8ys0BLKtA==
+  dependencies:
+    "@types/domhandler" "2.4.1"
+    domhandler "2.4.2"
+    htmlparser2 "3.10.1"
+
 html-react-parser@^0.10.3:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-0.10.5.tgz#d05e3efd8ffaff692007b99b5b7d54f05a6c5f37"
@@ -5975,6 +5984,16 @@ html-react-parser@^0.10.3:
   dependencies:
     "@types/domhandler" "2.4.1"
     html-dom-parser "0.2.3"
+    react-property "1.0.1"
+    style-to-object "0.3.0"
+
+html-react-parser@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-0.11.0.tgz#171b2b05f7785f6b9ea7f330176f983c845c1a64"
+  integrity sha512-9P/shUwmDeqwj4crgrX0OVGF89s5XQqe3o/8Gbt7vptd2fZDDXujcaaKN1jer1/3A/Zdo3Mkdxj8hORQU2WtMQ==
+  dependencies:
+    "@types/domhandler" "2.4.1"
+    html-dom-parser "0.3.0"
     react-property "1.0.1"
     style-to-object "0.3.0"
 
