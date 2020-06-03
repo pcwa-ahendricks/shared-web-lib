@@ -103,7 +103,6 @@
     "filenamify": "^4.1.0",
     "form-data": "^3.0.0",
     "formik": "2.1.4",
-    "gensync": "^1.0.0-beta.1",
     "html-react-parser": "^0.11.0",
     "is-number": "^7.0.0",
     "jimp": "^0.12.1",
