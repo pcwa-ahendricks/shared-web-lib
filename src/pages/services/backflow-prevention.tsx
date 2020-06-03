@@ -19,7 +19,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import BsiOnlineWebsite from '@components/links/BsiOnlineWebsite'
 import BsiOnlinePhone from '@components/links/BsiOnlinePhone'
-import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import BackflowEmail from '@components/links/BackflowEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
@@ -150,7 +150,7 @@ const CrossControlPreventionPage = () => {
             <Type paragraph>
               For more information regarding the Cross-Connection Control
               Program contact PCWA Customer Services at <MainPhone />,{' '}
-              <EightHundredPhone /> or email <CustomerServicesEmail />.
+              <EightHundredPhone /> or email <BackflowEmail />.
             </Type>
           </Box>
           <Box mb={6} mt={6}>
