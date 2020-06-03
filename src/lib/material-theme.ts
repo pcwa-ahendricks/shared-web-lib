@@ -86,9 +86,14 @@ const theme = createMuiTheme({
       default: 'rgba(250, 250, 250, 1)'
     },
     primary: {
-      light: 'rgba(65, 131, 196, 1)',
-      main: 'rgba(0, 55, 104, 1)',
-      dark: 'rgba(1, 40, 73, 1)',
+      // V2:
+      // light: 'rgba(65, 131, 196, 1)',
+      // main: 'rgba(0, 55, 104, 1)',
+      // dark: 'rgba(1, 40, 73, 1)',
+      // V3:
+      dark: '#2e394e',
+      main: '#435270',
+      light: '#68748c',
       contrastText: '#fff'
     },
     secondary: {
@@ -97,9 +102,13 @@ const theme = createMuiTheme({
       // main: 'rgba(114, 181, 73, 1)',
       // dark: 'rgba(95, 150, 61, 1)',
       // V2:
-      light: 'rgba(143, 199, 106, 1)',
-      main: 'rgba(95, 150, 61, 1)',
-      dark: 'rgba(48, 104, 14, 1)',
+      // light: 'rgba(143, 199, 106, 1)',
+      // main: 'rgba(95, 150, 61, 1)',
+      // dark: 'rgba(48, 104, 14, 1)',
+      // V3:
+      dark: '#3e6f31',
+      main: '#599F46',
+      light: '#7ab26b',
       contrastText: '#fff'
     },
     error: {
