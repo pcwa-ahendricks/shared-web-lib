@@ -12,10 +12,10 @@ type Props = {
 } & React.SVGProps<SVGSVGElement>
 
 const PcwaLogo = ({
-  brandFill = '#12456E',
-  missionStatementFill = '#72B549',
-  logoLeftFill = '#12456E',
-  logoRightFill = '#72B549',
+  brandFill = '#435270',
+  missionStatementFill = '#599F46',
+  logoLeftFill = '#435270',
+  logoRightFill = '#599F46',
   preserveAspectRatio = 'xMinYMid meet',
   ...rest
 }: Props) => {
