@@ -316,7 +316,7 @@ const ProjectsPage = () => {
                     2020 and complete October 2021.
                   </Type>
                   <Type variant="subtitle1">
-                    Upcoming Work (updated April 12, 2020)
+                    Upcoming Work (updated June 2, 2020)
                   </Type>
                   <Type paragraph>
                     The Contractor will be performing the following construction
@@ -325,39 +325,40 @@ const ProjectsPage = () => {
                   <ul>
                     <TypeBullet>
                       <Type variant="body1">
-                        Installing temporary construction fencing throughout the
-                        construction corridor.
+                        Installing 18-inch ductile iron pipe at the Foothill
+                        Water Treatment Plant.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Continue removing trees and chipping along the
-                        construction corridor.
+                        Installing 45-inch welded steel pipe off of Ophir Road
+                        on PCWA property.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Continue removing brush along Sierra Oaks Court.
+                        Installing 33-inch welded steel pipe from Sierra Oaks
+                        Court to Glenview Road.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Start installing 18-inch ductile iron pipe at the
-                        Foothill Water Treatment Plant.
+                        Ongoing activities to construct the Energy Dissipation
+                        Station at the Foothill Water Treatment Plant, including
+                        installation of concrete forms, piping and rebar.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Installing traffic control signage at Indian Hill Road
-                        in order for the contractor to extend a culvert along
-                        the edge of the road.
+                        Start excavation and piping the PCWA property on
+                        Hillview Lane for the Dutch Ravine Energy Dissipation
+                        Structure.
                       </Type>
                     </TypeBullet>
                     <TypeBullet>
                       <Type variant="body1">
-                        Start the excavation, piping and foundation forms for
-                        the Energy Dissipation Station at the Foothill Water
-                        Treatment Plant.
+                        Tunneling activities to install a 60-inch welded steel
+                        pipe casing underneath the Union Pacific Railroad.
                       </Type>
                     </TypeBullet>
                   </ul>

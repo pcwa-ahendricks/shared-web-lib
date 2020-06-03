@@ -26,6 +26,7 @@ const NovusIframe = ({...rest}: BoxProps) => {
           {...rest}
         >
           <iframe
+            title="Novus Agenda"
             onLoad={novusIframeLoadedHandler}
             src="https://PCWA.novusagenda.com/agendapublic/meetingsgeneral.aspx"
             frameBorder="0"
