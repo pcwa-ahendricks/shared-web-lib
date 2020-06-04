@@ -143,8 +143,10 @@ const MeetingAgendasPage = () => {
 
   const iCalClickHandler = useCallback(() => {
     const filenameSuffix = format(nextBoardMeeting.date, 'MM-dd-yyyy')
+    // Remove URL from iCal event since it will cause an error when user adds it to an un-supported mail client such as Apple Mail. To make regular expression non-greedy use ".+?" instead of ".*"
+    const noUrlICalEvent = iCalEvent.replace(/url:.+?%0a/i, '')
     setAnchorEl(null)
-    saveAs(iCalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
+    saveAs(noUrlICalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
   }, [iCalEvent])
 
   const agendas: AgendaList = useMemo(
