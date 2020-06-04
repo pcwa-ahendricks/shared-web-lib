@@ -52,17 +52,8 @@ import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
+import {ics, google, yahoo, outlook} from 'calendar-link'
 const isDev = process.env.NODE_ENV === 'development'
-
-// import {ics} from 'calendar-link'
-// Do this instead. See https://github.com/zeit/next.js/wiki/FAQ
-let ics: any, google: any, outlook: any, yahoo: any
-if (typeof window !== 'undefined') {
-  ics = require('calendar-link').ics
-  google = require('calendar-link').google
-  yahoo = require('calendar-link').yahoo
-  outlook = require('calendar-link').outlook
-}
 
 type PickedMediaResponse = Pick<
   CosmicMediaMeta<{type: string; website: string; debug: string}>,
@@ -275,14 +266,13 @@ const MeetingAgendasPage = () => {
   }
 
   return (
-    <PageLayout title="Board Meeting Agendas" waterSurface>
+    <PageLayout title="Board Meetings" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle
-            title="Board of Directors' Meeting Agendas"
+            title="Board of Directors Meetings"
             subtitle="Board of Directors"
           />
-
           <Box>
             <Type paragraph>
               Meeting agendas are posted at least 72 hours prior to the meeting.
@@ -304,19 +294,22 @@ const MeetingAgendasPage = () => {
           <Spacing size="large" />
 
           <section>
+            <Type gutterBottom variant="h2" color="primary">
+              Board Meeting Agendas
+            </Type>
             <NovusIframe />
           </section>
-          <Spacing size="large">
-            <FlexBox>
-              <Box m="auto">
-                <GavelRoundedIcon fontSize="large" color="primary" />
-              </Box>
-            </FlexBox>
-          </Spacing>
           <section id="board-meeting-dates">
+            <Spacing size="large">
+              <FlexBox>
+                <Box m="auto">
+                  <GavelRoundedIcon fontSize="large" color="primary" />
+                </Box>
+              </FlexBox>
+            </Spacing>
             <Box>
               <Type gutterBottom variant="h2" color="primary">
-                Schedule of Upcoming Board of Directors’ Meetings
+                Schedule of Upcoming Board Meetings
               </Type>
               <Type gutterBottom>
                 All Board meetings will be held at the Agency’s Business Center

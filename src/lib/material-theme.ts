@@ -25,7 +25,7 @@ const theme = createMuiTheme({
       fontSize: '2.6rem' // Default: 6rem
     },
     h2: {
-      fontSize: '2rem' // Default: 3.75rem
+      fontSize: '1.95rem' // Default: 3.75rem
       // fontWeight: 400 // Default: 300
     },
     h3: {
@@ -116,13 +116,13 @@ const theme = createMuiTheme({
       main: '#f44336',
       dark: '#d32f2f',
       contrastText: '#fff'
-    },
-    text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.54)',
-      disabled: 'rgba(0, 0, 0, 0.38)',
-      hint: 'rgba(0, 0, 0, 0.38)'
     }
+    // text: {
+    //   primary: 'rgba(0, 0, 0, 0.87)',
+    //   secondary: 'rgba(0, 0, 0, 0.54)',
+    //   disabled: 'rgba(0, 0, 0, 0.38)',
+    //   hint: 'rgba(0, 0, 0, 0.38)'
+    // }
   }
 })
 

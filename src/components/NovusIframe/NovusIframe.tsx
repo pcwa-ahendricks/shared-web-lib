@@ -1,10 +1,10 @@
 // cspell:ignore novus
 import React, {useCallback, useState} from 'react'
 import {Typography as Type, Box, Fade, BoxProps} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+// import {useTheme} from '@material-ui/core/styles'
 
 const NovusIframe = ({...rest}: BoxProps) => {
-  const theme = useTheme()
+  // const theme = useTheme()
   const [iframeIsLoading, setIframeIsLoading] = useState(true)
 
   const novusIframeLoadedHandler = useCallback(() => {
@@ -20,15 +20,15 @@ const NovusIframe = ({...rest}: BoxProps) => {
       </Fade>
       <Fade in={!iframeIsLoading}>
         <Box
-          border={1}
-          borderColor={theme.palette.grey['600']}
-          height={550}
+          // border={1}
+          // borderColor={theme.palette.grey['600']}
+          height={{xs: 1400, md: 1250, lg: 1050}}
           {...rest}
         >
           <iframe
             title="Novus Agenda"
             onLoad={novusIframeLoadedHandler}
-            src="https://PCWA.novusagenda.com/agendapublic/meetingsgeneral.aspx"
+            src="https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx"
             frameBorder="0"
             width="100%"
             height="100%"
