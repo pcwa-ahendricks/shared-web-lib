@@ -12,11 +12,10 @@ export type ForecastData = {
   id: number
   title: string
   data?: {
-    temperature?: string
+    temperature?: number
     icon?: string
-    stationId?: string
-    latitude?: string
-    longitude?: string
+    latitude?: number
+    longitude?: number
   }
 }
 
@@ -38,10 +37,11 @@ const getNatWeatherHref = ({
   longitude,
   latitude
 }: {
-  longitude: string
-  latitude: string
+  longitude: number
+  latitude: number
 }): string =>
-  `https://forecast.weather.gov/MapClick.php?lat=${latitude}&lon=${longitude}`
+  // `https://forecast.weather.gov/MapClick.php?lat=${latitude}&lon=${longitude}`
+  `https://forecast.weather.gov/MapClick.php?w0=t&w7=rain&AheadHour=0&Submit=Submit&&FcstType=graphical&textField1=${latitude}&textField2=${longitude}&site=all&dd=1&menu=1`
 
 const ForecastDisplay = ({forecast}: Props) => {
   const classes = useStyles()
@@ -57,11 +57,12 @@ const ForecastDisplay = ({forecast}: Props) => {
   }, [forecast])
 
   const {title} = forecast
-  const {temperature = '', icon} = forecast?.data ?? {}
+  const {temperature, icon} = forecast?.data ?? {}
 
   const isValidForecast = Boolean(forecast?.data)
 
-  const temperatureFrmt = Math.round(parseFloat(temperature))
+  const temperatureFrmt =
+    temperature || temperature === 0 ? Math.round(temperature).toString() : '?'
   const animatedWeatherEl = useMemo(
     () =>
       isValidForecast && temperature ? (

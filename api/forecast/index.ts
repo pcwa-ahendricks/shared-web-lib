@@ -24,7 +24,8 @@ client.on('error', (err: RedisError) => {
 })
 
 // Only accept requests for the following station ids.
-const ACCEPT_STATIONS = ['KAUN', 'SETC1', 'KLHM'].map((id) => id.toLowerCase())
+const ACCEPT_LATITUDES = [38, 39]
+const ACCEPT_LONGITUDES = [-121, -120]
 
 // National Weather Forecast Endpoint
 // Example grid request - https://api.weather.gov/points/38.9221,-121.05599
@@ -33,60 +34,68 @@ const ACCEPT_STATIONS = ['KAUN', 'SETC1', 'KLHM'].map((id) => id.toLowerCase())
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const {stationId: stationIdParam} = req.query
-    if (!stationIdParam) {
+    const {lat: latParam, lng: lngParam} = req.query
+    if (!latParam || !lngParam) {
       res.status(204).end()
       return
     }
-    const stationId = paramToStr(stationIdParam).toLowerCase()
-    if (!ACCEPT_STATIONS.includes(stationId)) {
+    const latParamStr = paramToStr(latParam)
+    const lngParamStr = paramToStr(lngParam)
+    const latParamNo = parseFloat(latParamStr)
+    const lngParamNo = parseFloat(lngParamStr)
+    const latParamInt = parseInt(latParamStr, 10)
+    const lngParamInt = parseInt(lngParamStr, 10)
+    const latLngStr = `${latParamStr},${lngParamStr}`
+    if (
+      !ACCEPT_LATITUDES.includes(latParamInt) ||
+      !ACCEPT_LONGITUDES.includes(lngParamInt)
+    ) {
       res.status(406).end()
       return
     }
 
-    // const qs = stringify({limit: 5}, true)
-    // This query param isn't well documented
-    // const qs = stringify({require_qc: true}, true)
-    const latestObservationUrl = `https://api.weather.gov/stations/${stationId}/observations/latest`
+    const gridUrl = `https://api.weather.gov/points/${latLngStr}`
 
-    const hash = `nat-weather-${stationId}`
-    const val = await hgetallAsync(hash)
-    if (val) {
+    const hash = `nat-weather-${latLngStr}`
+    const cache = await hgetallAsync(hash)
+    if (cache) {
+      // Convert Redis strings to numbers
+      const longitude = parseFloat(cache.longitude)
+      const latitude = parseFloat(cache.latitude)
+      const temperature = parseFloat(cache.temperature)
       res.status(200).json({
-        temperature: val.temperature,
-        icon: val.icon,
-        stationId: val.stationId,
-        longitude: val.longitude,
-        latitude: val.latitude
+        temperature,
+        icon: cache.icon,
+        longitude,
+        latitude
       })
       return
     }
 
-    const response = await fetch(latestObservationUrl, {
+    const gridResponse = await fetch(gridUrl, {
       headers: {'Content-Type': 'application/geo+json'}
     })
-    if (!response.ok) {
+    if (!gridResponse.ok) {
       res.status(400).end()
       return
     }
-    const data: LatestObservation = await response.json()
-    const {properties, geometry} = data || {}
-    const {temperature: tempObj, icon: iconUrl = '', rawMessage} =
-      properties || {}
-    // "rawMessage": "KLHM 050455Z AUTO 00000KT 10SM CLR 25/12 A2961 RMK AO1",
-    const tempFromMsg = /\s(\d+)\/(\d+)\s/.exec(rawMessage)
-    const t = Array.isArray(tempFromMsg) ? tempFromMsg[1] || '' : ''
-    const defaultTemp = parseFloat(t.trim())
-    let {value: tempC} = tempObj || {}
-    if (!tempC && tempC !== 0) {
-      tempC = defaultTemp
+    const gridData: GridResponse = await gridResponse.json()
+    const {properties: gridProperties} = gridData || {}
+
+    const {forecastHourly: forecastHourlyUrl} = gridProperties
+    const hourlyResponse = await fetch(forecastHourlyUrl, {
+      headers: {'Content-Type': 'application/geo+json'}
+    })
+    if (!hourlyResponse.ok) {
+      res.status(400).end()
+      return
     }
-    // Celsius to Fahrenheit Formula: (°C * 1.8) + 32 = °F
-    const temperature = (tempC * 1.8 + 32).toString()
-    const {coordinates} = geometry || {}
-    const [lng, lat] = coordinates || []
-    const longitude = lng.toString()
-    const latitude = lat.toString()
+    const hourlyForecastData: HourlyForecastResponse = await hourlyResponse.json()
+    const {properties: hourlyDataProperties} = hourlyForecastData || {}
+
+    const {periods} = hourlyDataProperties
+    const currentForecast = periods[0]
+    const {temperature, icon: iconUrl} = currentForecast
 
     let icon: string
     switch (true) {
@@ -268,20 +277,17 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       temperature,
       'icon',
       icon,
-      'stationId',
-      stationId,
       'longitude',
-      longitude,
+      lngParamNo,
       'latitude',
-      latitude
+      latParamNo
     ])
     await expireAsync(hash, 60 * 5) // 5 minutes
     res.status(200).json({
       temperature,
       icon,
-      stationId,
-      longitude,
-      latitude
+      longitude: lngParamNo,
+      latitude: latParamNo
     })
   } catch (error) {
     console.log(error)
@@ -291,72 +297,110 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
 export default mainHandler
 
-interface LatestObservation {
+function paramToStr(param?: string | string[]): string {
+  if (Array.isArray(param)) {
+    param = param.join(',')
+  }
+  return param || '' // Don't use ?? here since it is not supported by Vercel lambda
+}
+
+interface HourlyForecastResponse {
   '@context': (Context | string)[]
-  id: string
   type: string
   geometry: Geometry2
   properties: Properties
 }
 
 interface Properties {
-  '@id': string
-  '@type': string
+  updated: string
+  units: string
+  forecastGenerator: string
+  generatedAt: string
+  updateTime: string
+  validTimes: string
   elevation: Elevation
-  station: string
-  timestamp: string
-  rawMessage: string
-  textDescription: string
+  periods: Period[]
+}
+
+interface Period {
+  number: number
+  name: string
+  startTime: string
+  endTime: string
+  isDaytime: boolean
+  temperature: number
+  temperatureUnit: string
+  temperatureTrend?: any
+  windSpeed: string
+  windDirection: string
   icon: string
-  presentWeather: any[]
-  temperature: Temperature
-  dewpoint: Temperature
-  windDirection: Temperature
-  windSpeed: Temperature
-  windGust: WindGust
-  barometricPressure: Temperature
-  seaLevelPressure: WindGust
-  visibility: Temperature
-  maxTemperatureLast24Hours: MaxTemperatureLast24Hours
-  minTemperatureLast24Hours: MaxTemperatureLast24Hours
-  precipitationLastHour: WindGust
-  precipitationLast3Hours: WindGust
-  precipitationLast6Hours: WindGust
-  relativeHumidity: Temperature
-  windChill: WindGust
-  heatIndex: Temperature
-  cloudLayers: CloudLayer[]
-}
-
-interface CloudLayer {
-  base: Base
-  amount: string
-}
-
-interface Base {
-  value?: any
-  unitCode: string
-}
-
-interface MaxTemperatureLast24Hours {
-  value?: any
-  unitCode: string
-  qualityControl?: any
-}
-
-interface WindGust {
-  value?: any
-  unitCode: string
-  qualityControl: string
-}
-
-interface Temperature {
-  value: number
-  unitCode: string
-  qualityControl: string
+  shortForecast: string
+  detailedForecast: string
 }
 
 interface Elevation {
+  value: number
+  unitCode: string
+}
+
+interface Geometry2 {
+  type: string
+  geometries: Geometry[]
+}
+
+interface Geometry {
+  type: string
+  coordinates: (number[][] | number)[]
+}
+
+interface Context {
+  wx: string
+  geo: string
+  unit: string
+  '@vocab': string
+}
+
+interface GridResponse {
+  '@context': (Context | string)[]
+  id: string
+  type: string
+  geometry: Geometry2
+  properties: Properties2
+}
+
+interface Properties2 {
+  '@id': string
+  '@type': string
+  cwa: string
+  forecastOffice: string
+  gridX: number
+  gridY: number
+  forecast: string
+  forecastHourly: string
+  forecastGridData: string
+  observationStations: string
+  relativeLocation: RelativeLocation
+  forecastZone: string
+  county: string
+  fireWeatherZone: string
+  timeZone: string
+  radarStation: string
+}
+
+interface RelativeLocation {
+  type: string
+  geometry: Geometry2
+  properties: Properties
+}
+
+interface Properties {
+  city: string
+  state: string
+  distance: Distance
+  bearing: Distance
+}
+
+interface Distance {
   value: number
   unitCode: string
 }
@@ -396,13 +440,6 @@ interface Bearing {
 interface Geometry {
   '@id': string
   '@type': string
-}
-
-function paramToStr(param?: string | string[]): string {
-  if (Array.isArray(param)) {
-    param = param.join(',')
-  }
-  return param || '' // Don't use ?? here since it is not supported by Vercel lambda
 }
 
 //     "rain_sleet": {

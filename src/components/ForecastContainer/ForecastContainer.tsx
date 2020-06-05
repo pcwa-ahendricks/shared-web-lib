@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react'
 import {makeStyles, createStyles} from '@material-ui/core/styles'
-import {ForecastResponse} from '@lib/types/forecast'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
@@ -11,23 +10,28 @@ const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
 const apiUrl = '/api/forecast'
 const auburnForecastUrl = `${apiUrl}${stringify(
-  {stationId: 'kaun'}, // lat: 38.9221, lng: -121.0559
+  // {stationId: 'kaun'},
+  {lat: 38.9221, lng: -121.0559},
   true
 )}`
 const rocklinForecastUrl = `${apiUrl}${stringify(
-  {stationId: 'klhm'}, // lat: 38.7905, lng: -121.2353
+  // {stationId: 'klhm'},
+  {lat: 38.7905, lng: -121.2353},
   true
 )}`
 const colfaxForecastUrl = `${apiUrl}${stringify(
-  {stationId: 'setc1'}, // lat: 39.1007, lng: -120.9533
+  // {stationId: 'setc1'},
+  {lat: 39.1007, lng: -120.9533},
   true
 )}`
 const lincolnForecastUrl = `${apiUrl}${stringify(
-  {stationId: 'klhm'}, // lat: 38.8916, lng: -121.293
+  // {stationId: 'klhm'},
+  {lat: 38.8916, lng: -121.293},
   true
 )}`
 const dutchFlatForecastUrl = `${apiUrl}${stringify(
-  {stationId: 'setc1'}, // lat: 39.206, lng: -120.8377
+  // {stationId: 'setc1'},
+  {lat: 39.206, lng: -120.8377},
   true
 )}`
 
@@ -107,3 +111,10 @@ const ForecastContainer = () => {
 }
 
 export default ForecastContainer
+
+interface ForecastResponse {
+  temperature: number
+  icon: string
+  latitude: number
+  longitude: number
+}
