@@ -21,7 +21,7 @@ import {
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {GetStaticPaths, GetStaticProps} from 'next'
-import {paramToStr} from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
 import ErrorPage from '@pages/_error'
 const isDev = process.env.NODE_ENV === 'development'

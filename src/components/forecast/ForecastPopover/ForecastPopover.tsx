@@ -3,8 +3,6 @@ import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {Popover, Theme} from '@material-ui/core'
 import Imgix from 'react-imgix'
 
-const DARKSKY_BG_COLOR = '#313134'
-
 type Props = {
   anchorEl?: HTMLElement | null
   onPopoverClose?: () => any
@@ -18,22 +16,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: theme.spacing(1),
-      backgroundColor: DARKSKY_BG_COLOR
+      backgroundColor: '#FFFFFF'
     },
     popoverContent: {
-      width: 150,
+      width: 250,
       height: 20,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center'
-      // Image display was inconsistent in production. Using react-imgix instead.
-      // background: {
-      //   image: 'url(./static/images/darksky/poweredby-oneline-dark-300.png)',
-      //   repeat: 'no-repeat',
-      //   position: 'center',
-      //   size: 'cover'
-      // }
     }
   })
 )
@@ -65,12 +56,12 @@ const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
         {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
         <Imgix
           height={20}
-          width={150}
-          src="https://cosmic-s3.imgix.net/da7f8630-1c51-11e9-bf46-8b88c19621e9-poweredby-oneline-dark-300.png"
+          width={250}
+          src="https://cosmic-s3.imgix.net/2f700910-a6be-11ea-946a-037ccba8211c-national-weather-service-logo.png"
           imgixParams={{fit: 'crop'}} // Required with ver. 9+
           htmlAttributes={{
             // Don't need to add a style.width when using 'height' and 'width' with <Imgix />.
-            alt: 'Powered by Dark Sky Logo'
+            alt: 'National Weather Service logo'
           }}
         />
       </div>

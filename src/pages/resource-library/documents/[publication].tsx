@@ -27,7 +27,7 @@ import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import {paramToStr} from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import {
   PublicationLibraryMetadata,

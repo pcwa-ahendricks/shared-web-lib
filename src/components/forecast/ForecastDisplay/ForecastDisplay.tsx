@@ -5,7 +5,6 @@ import AnimatedWeather, {
 } from '@components/AnimatedWeather/AnimatedWeather'
 import {useTheme, makeStyles} from '@material-ui/core/styles'
 import {Link, Theme, Typography as Type} from '@material-ui/core'
-// import {DarkSkyData} from '../types'
 
 type Props = {
   forecast: ForecastData
@@ -16,7 +15,8 @@ export type ForecastData = {
   title: string
   data?: {
     temperature?: string
-    icon?: string
+    icon?: IconName
+    stationId?: string
     latitude?: string
     longitude?: string
   }
@@ -36,35 +36,44 @@ const useStyles = makeStyles({
   }
 })
 
-const defaults = {
+const defaults: {
+  icon: IconName
+  color: string
+  size: number
+  animate: boolean
+} = {
   icon: 'CLEAR_DAY',
   color: 'black',
   size: 25,
   animate: true
 }
 
-const getDarkSkyHref = (lngLat: [string, string]): string =>
-  `https://darksky.net/forecast/${lngLat[1]},${lngLat[0]}/us12/en`
+const getNatWeatherHref = ({
+  longitude,
+  latitude
+}: {
+  longitude: string
+  latitude: string
+}): string =>
+  `https://forecast.weather.gov/MapClick.php?lat=${latitude}&lon=${longitude}`
 
 const ForecastDisplay = ({forecast}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
-  const [darkSkyHref, setDarkSkyHref] = useState<string>('#')
+  const [natWeatherHref, setNatWeatherHref] = useState<string>('#')
 
   useEffect(() => {
     const {latitude = null, longitude = null} = forecast?.data ?? {}
+    console.log(latitude, longitude)
     if (latitude && longitude) {
-      setDarkSkyHref(getDarkSkyHref([longitude, latitude]))
+      setNatWeatherHref(getNatWeatherHref({longitude, latitude}))
     } else {
-      setDarkSkyHref('#')
+      setNatWeatherHref('#')
     }
   }, [forecast])
 
   const {title} = forecast
   const {temperature = '', icon = defaults.icon} = forecast?.data ?? {}
-
-  // The icon names returned from API do not match the icon names expected as props for <ReactAnimatedWeather/>. The icon names should be uppercase and should use underscores over dashes.
-  const iconName = icon.toUpperCase().replace(/-/g, '_') as IconName
 
   const isValidForecast = Boolean(forecast?.data)
 
@@ -74,7 +83,7 @@ const ForecastDisplay = ({forecast}: Props) => {
       isValidForecast && temperature ? (
         <div className={classes.container}>
           <AnimatedWeather
-            icon={iconName}
+            icon={icon}
             color={theme.palette.primary.main ?? defaults.color}
             size={defaults.size}
             animate={defaults.animate}
@@ -83,7 +92,7 @@ const ForecastDisplay = ({forecast}: Props) => {
             <Link
               target="_blank"
               rel="noopener noreferrer"
-              href={darkSkyHref}
+              href={natWeatherHref}
               underline="none"
             >{`${temperatureFrmt}° ${title} `}</Link>
           </Type>
@@ -92,8 +101,8 @@ const ForecastDisplay = ({forecast}: Props) => {
     [
       isValidForecast,
       classes,
-      iconName,
-      darkSkyHref,
+      icon,
+      natWeatherHref,
       temperature,
       theme,
       title,

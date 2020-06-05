@@ -21,7 +21,7 @@ import disclaimer from '@components/pi/disclaimer'
 import PiTable from '@components/pi/PiTable/PiTable'
 import gages from '@lib/services/pi/gage-config'
 import useInterval from '@hooks/useInterval'
-import {paramToStr} from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/queryParamToStr'
 import useSWR from 'swr'
 import {
   PiWebBaseElementsResponse,

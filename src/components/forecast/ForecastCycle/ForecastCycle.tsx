@@ -109,7 +109,7 @@ const ForecastCycle = ({
 
   const forecastDisplay = useMemo(
     () =>
-      forecast?.id ? (
+      forecast && forecast.id ? (
         <ForecastDisplay key={forecast.id} forecast={forecast} />
       ) : null,
     [forecast]

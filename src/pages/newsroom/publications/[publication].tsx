@@ -44,7 +44,7 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import {GetStaticProps, GetStaticPaths} from 'next'
-import {paramToStr} from '@lib/services/queryParamToStr'
+import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
 import {
   RespRowBox,

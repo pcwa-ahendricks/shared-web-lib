@@ -234,11 +234,11 @@ const Footer = () => {
             <Link
               variant="body2"
               className={classes.link}
-              href="https://darksky.net/poweredby"
+              href="https://www.weather.gov/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              &nbsp;Dark Sky
+              &nbsp;National Weather Service
             </Link>
           </Box>
         </WideContainer>
