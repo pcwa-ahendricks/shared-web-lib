@@ -19,7 +19,8 @@ import {
   setResults,
   setResponse,
   setBetterTotalItems,
-  setIsIterating
+  setIsIterating,
+  setIsPaging
 } from '../SearchStore'
 import {UiContext, setError} from '@components/ui/UiStore'
 import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
@@ -74,6 +75,7 @@ const SearchInput = () => {
     (error) => {
       searchDispatch(setIsIterating(false))
       searchDispatch(setIsSearching(false))
+      searchDispatch(setIsPaging(false))
       searchDispatch(setDialogOpen(false))
       searchDispatch(setResults([]))
       const preDash = error?.response?.status ?? '500'
@@ -155,9 +157,10 @@ const SearchInput = () => {
   )
 
   const searchHandler = useCallback(
-    async (start = 1) => {
+    async (start = 1, paginationSearch = false) => {
       try {
-        searchDispatch(setIsSearching(true))
+        !paginationSearch && searchDispatch(setIsSearching(true))
+        paginationSearch && searchDispatch(setIsPaging(true))
         searchDispatch(setDialogOpen(true))
         searchDispatch(setResponse(null)) // clear out previous response.
         searchDispatch(setIsIterating(true))
@@ -176,7 +179,8 @@ const SearchInput = () => {
           searchDispatch(setResults(response.items))
           searchDispatch(setResponse(response))
         }
-        searchDispatch(setIsSearching(false))
+        !paginationSearch && searchDispatch(setIsSearching(false))
+        paginationSearch && searchDispatch(setIsPaging(false))
       } catch (error) {
         console.log(error)
         searchErrorHandler(error)
@@ -205,13 +209,13 @@ const SearchInput = () => {
   )
 
   const inputHasValue = useMemo(
-    () => (searchValue?.length > 0 ? true : false),
+    () => (searchValue && searchValue.length > 0 ? true : false),
     [searchValue]
   )
 
   const onPageSearchHandler = useCallback(
-    (startIndex: number) => {
-      searchHandler(startIndex)
+    (startIndex: number, isPaging?: boolean) => {
+      searchHandler(startIndex, isPaging)
     },
     [searchHandler]
   )

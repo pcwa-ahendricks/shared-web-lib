@@ -3,6 +3,7 @@ import {GoogleCseItem, GoogleCseResponse} from './SearchResponse'
 
 interface State {
   isSearching: boolean
+  isPaging: boolean
   isIterating: boolean
   dialogOpen: boolean
   results: GoogleCseItem[]
@@ -17,6 +18,7 @@ type ProviderProps = {
 // State
 const initialState: State = {
   isSearching: false,
+  isPaging: false,
   dialogOpen: false,
   results: [],
   response: null,
@@ -33,6 +35,7 @@ export const SearchContext = createContext<{
 
 // Action Types
 const SET_IS_SEARCHING: 'SET_IS_SEARCHING' = 'SET_IS_SEARCHING'
+const SET_IS_PAGING: 'SET_IS_PAGING' = 'SET_IS_PAGING'
 const SET_IS_ITERATING: 'SET_IS_ITERATING' = 'SET_IS_ITERATING'
 const SET_DIALOG_OPEN: 'SET_DIALOG_OPEN' = 'SET_DIALOG_OPEN'
 const SET_RESULTS: 'SET_RESULTS' = 'SET_RESULTS'
@@ -45,6 +48,12 @@ export const setIsSearching = (isSearching: State['isSearching']) => {
   return {
     type: SET_IS_SEARCHING,
     isSearching
+  }
+}
+export const setIsPaging = (isPaging: State['isPaging']) => {
+  return {
+    type: SET_IS_PAGING,
+    isPaging
   }
 }
 export const setIsIterating = (isIterating: State['isIterating']) => {
@@ -87,6 +96,11 @@ const searchReducer = (state: State, action: any): State => {
       return {
         ...state,
         isSearching: action.isSearching
+      }
+    case SET_IS_PAGING:
+      return {
+        ...state,
+        isPaging: action.isPaging
       }
     case SET_IS_ITERATING:
       return {

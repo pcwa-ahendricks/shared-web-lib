@@ -1,6 +1,5 @@
 import prettyBytes from 'pretty-bytes'
 import Busboy from 'busboy'
-// import resizeImage from '../lib/resize-image'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../../src/lib/api/busboy-error'

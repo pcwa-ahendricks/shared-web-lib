@@ -10,7 +10,7 @@ type Props = {
 export default function WeatherIcon({name, ...rest}: Props) {
   return (
     <Icon
-      className={clsx([classes.wi, name ? classes[`wi-${name}`] : null])}
+      className={clsx([classes.wi, {[classes[`wi-${name}`]]: Boolean(name)}])}
       {...rest}
     />
   )

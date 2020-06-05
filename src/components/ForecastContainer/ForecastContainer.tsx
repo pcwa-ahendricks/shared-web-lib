@@ -11,28 +11,23 @@ const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
 const apiUrl = '/api/forecast'
 const auburnForecastUrl = `${apiUrl}${stringify(
-  // {lat: 38.9221, lng: -121.0559},
-  {stationId: 'kaun'},
+  {stationId: 'kaun'}, // lat: 38.9221, lng: -121.0559
   true
 )}`
 const rocklinForecastUrl = `${apiUrl}${stringify(
-  // {lat: 38.7905, lng: -121.2353},
-  {stationId: 'klhm'},
+  {stationId: 'klhm'}, // lat: 38.7905, lng: -121.2353
   true
 )}`
 const colfaxForecastUrl = `${apiUrl}${stringify(
-  // {lat: 39.1007, lng: -120.9533},
-  {stationId: 'setc1'},
+  {stationId: 'setc1'}, // lat: 39.1007, lng: -120.9533,
   true
 )}`
 const lincolnForecastUrl = `${apiUrl}${stringify(
-  // {lat: 38.8916, lng: -121.293},
-  {stationId: 'klhm'},
+  {stationId: 'klhm'}, // lat: 38.8916, lng: -121.293
   true
 )}`
 const dutchFlatForecastUrl = `${apiUrl}${stringify(
-  // {lat: 39.206, lng: -120.8377},
-  {stationId: 'setc1'},
+  {stationId: 'setc1'}, // lat: 39.206, lng: -120.8377
   true
 )}`
 

@@ -15,7 +15,7 @@ import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 import Pagination from '@components/Pagination'
-import {RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {RowBox} from '@components/boxes/FlexBox'
 import {GoogleCseResponse} from '../SearchResponse'
 import {resultsPerPage} from '@lib/services/googleSearchService'
 
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-type Props = {onPageSearch?: (startIndex: number) => void} & Partial<
-  DialogProps
->
+type Props = {
+  onPageSearch?: (startIndex: number, isPaging?: boolean) => void
+} & Partial<DialogProps>
 
 const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   const classes = useStyles()
@@ -51,7 +51,8 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
     isSearching,
     response,
     betterTotalItems,
-    isIterating
+    isIterating,
+    isPaging
   } = searchState
   const request:
     | GoogleCseResponse['queries']['request'][0]
@@ -125,21 +126,20 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   }, [searchDispatch])
 
   const DialogContentEl = useMemo(
-    () =>
-      isSearching ? (
-        <DialogContent>
-          <RowBox justifyContent="center" alignItems="center">
-            <Box flex="auto" my={5} mx={8}>
+    () => (
+      <DialogContent>
+        {isSearching && !isPaging ? (
+          <FlexBox justifyContent="center" alignItems="center">
+            <Box py={5} px={8} m="auto">
               <CircularProgress classes={{root: classes.contentProgress}} />
             </Box>
-          </RowBox>
-        </DialogContent>
-      ) : (
-        <DialogContent>
+          </FlexBox>
+        ) : (
           <SearchList />
-        </DialogContent>
-      ),
-    [isSearching, classes]
+        )}
+      </DialogContent>
+    ),
+    [isSearching, classes, isPaging]
   )
 
   const paginationClickHandler = useCallback(
@@ -151,7 +151,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
       // console.log('event', event)
       // console.log('requesting offset', offset)
       // console.log('requesting page', page)
-      onPageSearch && onPageSearch(offset + 1)
+      onPageSearch && onPageSearch(offset + 1, true)
     },
     [onPageSearch]
   )
