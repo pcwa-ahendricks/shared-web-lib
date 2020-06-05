@@ -118,4 +118,4 @@ export const directors: Director[] = [
       manager of the Twelve Bridges (master-planned community) in Lincoln.
     `
   }
-]
+].sort((l, r) => l.district - r.district) // Sorting is used by directors.map() in JSX block on dynamic [district] page.

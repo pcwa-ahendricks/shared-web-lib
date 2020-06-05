@@ -168,29 +168,27 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
             </Type>
             <Spacing />
             <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
-              {directors
-                .sort((l, r) => l.district - r.district)
-                .map((director, idx) => (
-                  <ChildBox key={idx} mt={margin}>
-                    <Badge
-                      invisible={director.district !== activeDirector?.district}
-                      badgeContent={
-                        <CheckCircleRoundedIcon
-                          color="secondary"
-                          className={classes.badgeIcon}
-                        />
-                      }
-                    >
-                      <BoardMemberCard
-                        name={director.name}
-                        district={director.district}
-                        imageSrc={director.imgSrc}
-                        chair={director.chair}
-                        viceChair={director.viceChair}
+              {directors.map((director, idx) => (
+                <ChildBox key={idx} mt={margin}>
+                  <Badge
+                    invisible={director.district !== activeDirector?.district}
+                    badgeContent={
+                      <CheckCircleRoundedIcon
+                        color="secondary"
+                        className={classes.badgeIcon}
                       />
-                    </Badge>
-                  </ChildBox>
-                ))}
+                    }
+                  >
+                    <BoardMemberCard
+                      name={director.name}
+                      district={director.district}
+                      imageSrc={director.imgSrc}
+                      chair={director.chair}
+                      viceChair={director.viceChair}
+                    />
+                  </Badge>
+                </ChildBox>
+              ))}
             </RowBox>
             <Spacing />
             <WaitToGrow isIn={Boolean(activeDirector)}>
