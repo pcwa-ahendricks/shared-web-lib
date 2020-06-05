@@ -1,14 +1,12 @@
 // import {stringify} from 'querystringify'
 // import {Location} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 
-import {IconName} from '@components/AnimatedWeather/AnimatedWeather'
-
 // Using relative URL.
 // const FORECAST_URL = '/api/forecast'
 
 export interface ForecastResponse {
   temperature: string
-  icon: IconName
+  icon: string
   stationId: string
   latitude: string
   longitude: string

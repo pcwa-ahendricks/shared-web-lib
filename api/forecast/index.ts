@@ -3,8 +3,7 @@ import fetch from 'node-fetch'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
-import {stringify} from 'querystringify'
-import {IconName} from '@components/AnimatedWeather/AnimatedWeather'
+// import {stringify} from 'querystringify'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
 
@@ -45,9 +44,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       return
     }
 
+    // const qs = stringify({limit: 5}, true)
+    // This query param isn't well documented
     // const qs = stringify({require_qc: true}, true)
-    const qs = stringify({limit: 5}, true)
-    const latestObservationUrl = `https://api.weather.gov/stations/${stationId}/observations${qs}`
+    const latestObservationUrl = `https://api.weather.gov/stations/${stationId}/observations/latest`
 
     const hash = `nat-weather-${stationId}`
     const val = await hgetallAsync(hash)
@@ -69,14 +69,18 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       res.status(400).end()
       return
     }
-    const data: ObservationsResponse = await response.json()
-    const {features} = data
-    const latestObservation = features.find(
-      (f) => f.properties.temperature.value
-    )
-    const {properties, geometry} = latestObservation || {}
-    const {temperature: tempObj, icon: iconUrl = ''} = properties || {}
-    const {value: tempC = NaN} = tempObj || {}
+    const data: LatestObservation = await response.json()
+    const {properties, geometry} = data || {}
+    const {temperature: tempObj, icon: iconUrl = '', rawMessage} =
+      properties || {}
+    // "rawMessage": "KLHM 050455Z AUTO 00000KT 10SM CLR 25/12 A2961 RMK AO1",
+    const tempFromMsg = /\s(\d+)\/(\d+)\s/.exec(rawMessage)
+    const t = Array.isArray(tempFromMsg) ? tempFromMsg[1] || '' : ''
+    const defaultTemp = parseFloat(t.trim())
+    let {value: tempC} = tempObj || {}
+    if (!tempC && tempC !== 0) {
+      tempC = defaultTemp
+    }
     // Celsius to Fahrenheit Formula: (°C * 1.8) + 32 = °F
     const temperature = (tempC * 1.8 + 32).toString()
     const {coordinates} = geometry || {}
@@ -84,43 +88,39 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const longitude = lng.toString()
     const latitude = lat.toString()
 
-    //   export type IconName =
-    // | 'CLEAR_DAY'
-    // | 'CLEAR_NIGHT'
-    // | 'PARTLY_CLOUDY_DAY'
-    // | 'PARTLY_CLOUDY_NIGHT'
-    // | 'CLOUDY'
-    // | 'RAIN'
-    // | 'SLEET'
-    // | 'SNOW'
-    // | 'WIND'
-    // | 'FOG'
-    let icon: IconName
+    let icon: string
     switch (true) {
       case /\/day\/skc\?/i.test(iconUrl):
-        icon = 'CLEAR_DAY'
+        icon = 'day-sunny'
         break
       case /\/night\/skc\?/i.test(iconUrl):
-        icon = 'CLEAR_NIGHT'
+        icon = 'night-clear'
         break
       case /\/day\/few\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_DAY'
+        icon = 'day-cloudy'
         break
       case /\/night\/few\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_NIGHT'
+        icon = 'night-partly-cloudy'
         break
-      case /\day\/sct\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_DAY'
+      case /\/day\/sct\?/i.test(iconUrl):
+        icon = 'day-cloudy-high'
         break
-      case /\night\/sct\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_NIGHT'
+      case /\/night\/sct\?/i.test(iconUrl):
+        icon = 'night-cloudy-high'
         break
-      case /\/bkn\?/i.test(iconUrl):
-        icon = 'CLOUDY'
+      case /\/day\/bkn\?/i.test(iconUrl):
+        icon = 'day-cloudy'
         break
-      case /\/ovc\?/i.test(iconUrl):
-        icon = 'CLOUDY'
+      case /\/night\/bkn\?/i.test(iconUrl):
+        icon = 'night-cloudy'
         break
+      case /\/day\/ovc\?/i.test(iconUrl):
+        icon = 'day-sunny-overcast'
+        break
+      case /\/night\/ovc\?/i.test(iconUrl):
+        icon = 'night-alt-partly-cloudy'
+        break
+      // HERE
       case /\/wind_skc\?/i.test(iconUrl):
         icon = 'WIND'
         break
@@ -247,13 +247,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
 export default mainHandler
 
-interface ObservationsResponse {
+interface LatestObservation {
   '@context': (Context | string)[]
-  type: string
-  features: Feature[]
-}
-
-interface Feature {
   id: string
   type: string
   geometry: Geometry2
@@ -266,32 +261,27 @@ interface Properties {
   elevation: Elevation
   station: string
   timestamp: string
-  rawMessage?: string
+  rawMessage: string
   textDescription: string
   icon: string
-  presentWeather: PresentWeather[]
+  presentWeather: any[]
   temperature: Temperature
   dewpoint: Temperature
   windDirection: Temperature
   windSpeed: Temperature
-  windGust: Temperature
+  windGust: WindGust
   barometricPressure: Temperature
-  seaLevelPressure: SeaLevelPressure
-  visibility: Visibility
+  seaLevelPressure: WindGust
+  visibility: Temperature
   maxTemperatureLast24Hours: MaxTemperatureLast24Hours
   minTemperatureLast24Hours: MaxTemperatureLast24Hours
-  precipitationLastHour: Temperature
-  precipitationLast3Hours: SeaLevelPressure
-  precipitationLast6Hours: SeaLevelPressure
+  precipitationLastHour: WindGust
+  precipitationLast3Hours: WindGust
+  precipitationLast6Hours: WindGust
   relativeHumidity: Temperature
-  windChill: SeaLevelPressure
+  windChill: WindGust
   heatIndex: Temperature
-  cloudLayers: (CloudLayer | CloudLayers2)[]
-}
-
-interface CloudLayers2 {
-  base: Elevation
-  amount: string
+  cloudLayers: CloudLayer[]
 }
 
 interface CloudLayer {
@@ -310,29 +300,16 @@ interface MaxTemperatureLast24Hours {
   qualityControl?: any
 }
 
-interface Visibility {
-  value: number
-  unitCode: string
-  qualityControl: string
-}
-
-interface SeaLevelPressure {
+interface WindGust {
   value?: any
   unitCode: string
   qualityControl: string
 }
 
 interface Temperature {
-  value?: number
+  value: number
   unitCode: string
   qualityControl: string
-}
-
-interface PresentWeather {
-  intensity?: any
-  modifier?: any
-  weather: string
-  rawString: string
 }
 
 interface Elevation {

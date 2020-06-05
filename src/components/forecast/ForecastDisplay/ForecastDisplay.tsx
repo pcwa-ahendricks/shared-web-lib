@@ -1,10 +1,8 @@
 // cspell:ignore frmt
 import React, {useState, useEffect, useMemo} from 'react'
-import AnimatedWeather, {
-  IconName
-} from '@components/AnimatedWeather/AnimatedWeather'
-import {useTheme, makeStyles} from '@material-ui/core/styles'
-import {Link, Theme, Typography as Type} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+import {Link, Typography as Type} from '@material-ui/core'
+import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 
 type Props = {
   forecast: ForecastData
@@ -15,7 +13,7 @@ export type ForecastData = {
   title: string
   data?: {
     temperature?: string
-    icon?: IconName
+    icon?: string
     stationId?: string
     latitude?: string
     longitude?: string
@@ -36,18 +34,6 @@ const useStyles = makeStyles({
   }
 })
 
-const defaults: {
-  icon: IconName
-  color: string
-  size: number
-  animate: boolean
-} = {
-  icon: 'CLEAR_DAY',
-  color: 'black',
-  size: 25,
-  animate: true
-}
-
 const getNatWeatherHref = ({
   longitude,
   latitude
@@ -59,12 +45,10 @@ const getNatWeatherHref = ({
 
 const ForecastDisplay = ({forecast}: Props) => {
   const classes = useStyles()
-  const theme = useTheme<Theme>()
   const [natWeatherHref, setNatWeatherHref] = useState<string>('#')
 
   useEffect(() => {
     const {latitude = null, longitude = null} = forecast?.data ?? {}
-    console.log(latitude, longitude)
     if (latitude && longitude) {
       setNatWeatherHref(getNatWeatherHref({longitude, latitude}))
     } else {
@@ -73,7 +57,7 @@ const ForecastDisplay = ({forecast}: Props) => {
   }, [forecast])
 
   const {title} = forecast
-  const {temperature = '', icon = defaults.icon} = forecast?.data ?? {}
+  const {temperature = '', icon} = forecast?.data ?? {}
 
   const isValidForecast = Boolean(forecast?.data)
 
@@ -82,11 +66,10 @@ const ForecastDisplay = ({forecast}: Props) => {
     () =>
       isValidForecast && temperature ? (
         <div className={classes.container}>
-          <AnimatedWeather
-            icon={icon}
-            color={theme.palette.primary.main ?? defaults.color}
-            size={defaults.size}
-            animate={defaults.animate}
+          <WeatherIcon
+            name={icon}
+            color="primary"
+            // size={defaults.size}
           />
           <Type variant="subtitle2" className={classes.forecastType}>
             <Link
@@ -104,7 +87,6 @@ const ForecastDisplay = ({forecast}: Props) => {
       icon,
       natWeatherHref,
       temperature,
-      theme,
       title,
       temperatureFrmt
     ]
