@@ -90,39 +90,47 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     let icon: string
     switch (true) {
+      // "Fair/clear"
       case /\/day\/skc\?/i.test(iconUrl):
         icon = 'day-sunny'
         break
       case /\/night\/skc\?/i.test(iconUrl):
         icon = 'night-clear'
         break
+      // "A few clouds"
       case /\/day\/few\?/i.test(iconUrl):
         icon = 'day-cloudy'
         break
       case /\/night\/few\?/i.test(iconUrl):
         icon = 'night-partly-cloudy'
         break
+      // "Partly cloudy"
       case /\/day\/sct\?/i.test(iconUrl):
         icon = 'day-cloudy-high'
         break
       case /\/night\/sct\?/i.test(iconUrl):
         icon = 'night-cloudy-high'
         break
+      // "Mostly cloudy"
       case /\/day\/bkn\?/i.test(iconUrl):
         icon = 'day-cloudy'
         break
       case /\/night\/bkn\?/i.test(iconUrl):
         icon = 'night-cloudy'
         break
+      // "Overcast"
       case /\/day\/ovc\?/i.test(iconUrl):
         icon = 'day-sunny-overcast'
         break
       case /\/night\/ovc\?/i.test(iconUrl):
         icon = 'night-alt-partly-cloudy'
         break
-      // HERE
-      case /\/wind_skc\?/i.test(iconUrl):
-        icon = 'WIND'
+      // "Fair/clear and windy"
+      case /\/day\/wind_skc\?/i.test(iconUrl):
+        icon = 'day-windy'
+        break
+      case /\/night\/wind_skc\?/i.test(iconUrl):
+        icon = 'strong-wind'
         break
       case /\/wind_few\?/i.test(iconUrl):
         icon = 'WIND'
@@ -365,22 +373,22 @@ function paramToStr(param?: string | string[]): string {
 //   "@context": [],
 //   "icons": {
 //     "skc": {
-//       "description": "Fair/clear"
+//       "description":
 //     },
 //     "few": {
-//       "description": "A few clouds"
+//
 //     },
 //     "sct": {
-//       "description": "Partly cloudy"
+//       "description":
 //     },
 //     "bkn": {
-//       "description": "Mostly cloudy"
+//       "description":
 //     },
 //     "ovc": {
-//       "description": "Overcast"
+//       "description":
 //     },
 //     "wind_skc": {
-//       "description": "Fair/clear and windy"
+//       "description":
 //     },
 //     "wind_few": {
 //       "description": "A few clouds and windy"

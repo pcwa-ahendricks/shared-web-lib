@@ -20,7 +20,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     listItem: {
       padding: 0,
-      transition: 'opacity 400ms ease',
+      transition: 'opacity 300ms ease',
       opacity: 1,
       '&$isPaging': {
         opacity: 0.4,
