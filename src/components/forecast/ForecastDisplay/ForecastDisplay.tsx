@@ -1,7 +1,7 @@
 // cspell:ignore frmt
 import React, {useState, useEffect, useMemo} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
-import {Link, Typography as Type} from '@material-ui/core'
+import {Link, Typography as Type, Theme} from '@material-ui/core'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 
 type Props = {
@@ -19,7 +19,7 @@ export type ForecastData = {
   }
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -28,10 +28,10 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   forecastType: {
-    paddingLeft: 5,
+    paddingLeft: theme.spacing(1),
     fontWeight: 500 // Subtitle2 is set to 400.
   }
-})
+}))
 
 const getNatWeatherHref = ({
   longitude,
