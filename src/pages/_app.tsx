@@ -90,7 +90,8 @@ class MyApp extends App {
         <GlobalStyles />
         <SWRConfig
           value={{
-            revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy.
+            revalidateOnMount: true, // Revalidate even when initial data is set
+            revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy
             fetcher
           }}
         >
