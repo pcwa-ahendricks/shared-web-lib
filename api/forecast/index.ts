@@ -132,32 +132,68 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       case /\/night\/wind_skc\?/i.test(iconUrl):
         icon = 'strong-wind'
         break
-      case /\/wind_few\?/i.test(iconUrl):
-        icon = 'WIND'
+      // "A few clouds and windy"
+      case /\/day\/wind_few\?/i.test(iconUrl):
+        icon = 'day-cloudy-windy'
         break
-      case /\/wind_sct\?/i.test(iconUrl):
-        icon = 'WIND'
+      case /\/night\/wind_few\?/i.test(iconUrl):
+        icon = 'night-alt-cloudy-windy'
         break
-      case /\/wind_bkn\?/i.test(iconUrl):
-        icon = 'WIND'
+      // "Partly cloudy and windy"
+      case /\/day\/wind_sct\?/i.test(iconUrl):
+        icon = 'day-cloudy-windy'
         break
-      case /\/wind_ovc\?/i.test(iconUrl):
-        icon = 'WIND'
+      case /\/night\/wind_sct\?/i.test(iconUrl):
+        icon = 'night-alt-cloudy-windy'
         break
-      case /\/snow\?/i.test(iconUrl):
-        icon = 'SNOW'
+      // "Mostly cloudy and windy"
+      case /\/day\/wind_bkn\?/i.test(iconUrl):
+        icon = 'day-cloudy-windy'
         break
-      case /\/rain_snow\?/i.test(iconUrl):
-        icon = 'SLEET'
+      case /\/night\/wind_bkn\?/i.test(iconUrl):
+        icon = 'night-alt-cloudy-windy'
         break
-      case /\/rain_sleet\?/i.test(iconUrl):
-        icon = 'SLEET'
+      // "Overcast and windy"
+      case /\/day\/wind_ovc\?/i.test(iconUrl):
+        icon = 'day-cloudy-windy'
         break
-      case /\/snow_sleet\?/i.test(iconUrl):
-        icon = 'SLEET'
+      case /\/night\/wind_ovc\?/i.test(iconUrl):
+        icon = 'night-alt-cloudy-windy'
         break
-      case /\/fzra\?/i.test(iconUrl):
-        icon = 'SLEET'
+      // "Snow"
+      case /\/day\/snow\?/i.test(iconUrl):
+        icon = 'day-snow'
+        break
+      case /\/night\/snow\?/i.test(iconUrl):
+        icon = 'night-alt-snow'
+        break
+      // "Rain/snow"
+      case /\/day\/rain_snow\?/i.test(iconUrl):
+        icon = 'day-rain-mix'
+        break
+      case /\/night\/rain_snow\?/i.test(iconUrl):
+        icon = 'night-alt-rain-mix'
+        break
+      // "Rain/sleet"
+      case /\/day\/rain_sleet\?/i.test(iconUrl):
+        icon = 'day-sleet'
+        break
+      case /\/night\/rain_sleet\?/i.test(iconUrl):
+        icon = 'night-alt-sleet'
+        break
+      // "Snow/sleet"
+      case /\/day\/snow_sleet\?/i.test(iconUrl):
+        icon = 'day-sleet'
+        break
+      case /\/night\/snow_sleet\?/i.test(iconUrl):
+        icon = 'night-alt-sleet'
+        break
+      // "Freezing rain"
+      case /\/day\/fzra\?/i.test(iconUrl):
+        icon = 'day-rain-mix'
+        break
+      case /\/night\/fzra\?/i.test(iconUrl):
+        icon = 'night-alt-rain-mix'
         break
       case /\/rain_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
@@ -369,53 +405,14 @@ function paramToStr(param?: string | string[]): string {
   return param || '' // Don't use ?? here since it is not supported by Vercel lambda
 }
 
-// {
-//   "@context": [],
-//   "icons": {
-//     "skc": {
-//       "description":
-//     },
-//     "few": {
-//
-//     },
-//     "sct": {
-//       "description":
-//     },
-//     "bkn": {
-//       "description":
-//     },
-//     "ovc": {
-//       "description":
-//     },
-//     "wind_skc": {
-//       "description":
-//     },
-//     "wind_few": {
-//       "description": "A few clouds and windy"
-//     },
-//     "wind_sct": {
-//       "description": "Partly cloudy and windy"
-//     },
-//     "wind_bkn": {
-//       "description": "Mostly cloudy and windy"
-//     },
-//     "wind_ovc": {
-//       "description": "Overcast and windy"
-//     },
-//     "snow": {
-//       "description": "Snow"
-//     },
-//     "rain_snow": {
-//       "description": "Rain/snow"
-//     },
 //     "rain_sleet": {
-//       "description": "Rain/sleet"
+//       "description":
 //     },
 //     "snow_sleet": {
-//       "description": "Rain/sleet"
+//       "description":
 //     },
 //     "fzra": {
-//       "description": "Freezing rain"
+//       "description":
 //     },
 //     "rain_fzra": {
 //       "description": "Rain/freezing rain"

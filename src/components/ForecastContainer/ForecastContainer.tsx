@@ -19,7 +19,7 @@ const rocklinForecastUrl = `${apiUrl}${stringify(
   true
 )}`
 const colfaxForecastUrl = `${apiUrl}${stringify(
-  {stationId: 'setc1'}, // lat: 39.1007, lng: -120.9533,
+  {stationId: 'setc1'}, // lat: 39.1007, lng: -120.9533
   true
 )}`
 const lincolnForecastUrl = `${apiUrl}${stringify(
