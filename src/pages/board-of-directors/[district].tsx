@@ -1,6 +1,6 @@
 // cspell:ignore Santini dugan
 import React, {useEffect, useState, useCallback} from 'react'
-import {Typography as Type, Link, Box, Divider} from '@material-ui/core'
+import {Typography as Type, Link, Box, Divider, Badge} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -24,6 +24,7 @@ import {GetStaticPaths, GetStaticProps} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
 import ErrorPage from '@pages/_error'
+import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -44,6 +45,10 @@ const useStyles = makeStyles((theme: Theme) =>
       listStyleType: 'none',
       marginBottom: theme.spacing(1 / 2),
       marginLeft: '-1em'
+    },
+    badgeIcon: {
+      backgroundColor: theme.palette.common.white,
+      borderRadius: 16
     }
   })
 )
@@ -167,13 +172,23 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 .sort((l, r) => l.district - r.district)
                 .map((director, idx) => (
                   <ChildBox key={idx} mt={margin}>
-                    <BoardMemberCard
-                      name={director.name}
-                      district={director.district}
-                      imageSrc={director.imgSrc}
-                      chair={director.chair}
-                      viceChair={director.viceChair}
-                    />
+                    <Badge
+                      invisible={director.district !== activeDirector?.district}
+                      badgeContent={
+                        <CheckCircleRoundedIcon
+                          color="secondary"
+                          className={classes.badgeIcon}
+                        />
+                      }
+                    >
+                      <BoardMemberCard
+                        name={director.name}
+                        district={director.district}
+                        imageSrc={director.imgSrc}
+                        chair={director.chair}
+                        viceChair={director.viceChair}
+                      />
+                    </Badge>
                   </ChildBox>
                 ))}
             </RowBox>

@@ -204,12 +204,21 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       case /\/night\/fzra\?/i.test(iconUrl):
         icon = 'night-alt-rain-mix'
         break
-      case /\/rain_fzra\?/i.test(iconUrl):
+
+      case /\/day\/rain_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
         break
-      case /\/snow_fzra\?/i.test(iconUrl):
+      case /\/night\/rain_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
         break
+
+      case /\/day\/snow_fzra\?/i.test(iconUrl):
+        icon = 'SLEET'
+        break
+      case /\/night\/snow_fzra\?/i.test(iconUrl):
+        icon = 'SLEET'
+        break
+
       case /\/sleet\?/i.test(iconUrl):
         icon = 'SLEET'
         break
@@ -252,23 +261,38 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       case /\/night\/smoke\?/i.test(iconUrl):
         icon = 'PARTLY_CLOUDY_NIGHT'
         break
-      case /\/haze\?/i.test(iconUrl):
+      case /\/day\/haze\?/i.test(iconUrl):
         icon = 'FOG'
         break
-      case /\/hot\?/i.test(iconUrl):
+      case /\/night\/haze\?/i.test(iconUrl):
+        icon = 'FOG'
+        break
+      case /\/day\/hot\?/i.test(iconUrl):
         icon = 'CLEAR_DAY'
         break
-      case /\/cold\?/i.test(iconUrl):
+      case /\/night\/hot\?/i.test(iconUrl):
         icon = 'CLEAR_DAY'
         break
-      case /\/blizzard\?/i.test(iconUrl):
+      case /\/day\/cold\?/i.test(iconUrl):
+        icon = 'CLEAR_DAY'
+        break
+      case /\/night\/cold\?/i.test(iconUrl):
+        icon = 'CLEAR_DAY'
+        break
+      case /\/day\/blizzard\?/i.test(iconUrl):
         icon = 'SNOW'
         break
-      case /\/fog\?/i.test(iconUrl):
+      case /\/night\/blizzard\?/i.test(iconUrl):
+        icon = 'SNOW'
+        break
+      case /\/day\/fog\?/i.test(iconUrl):
+        icon = 'FOG'
+        break
+      case /\/night\/fog\?/i.test(iconUrl):
         icon = 'FOG'
         break
       default:
-        icon = 'CLEAR_DAY'
+        icon = 'cloud'
     }
 
     await hmsetAsync([
