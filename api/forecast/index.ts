@@ -204,87 +204,133 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       case /\/night\/fzra\?/i.test(iconUrl):
         icon = 'night-alt-rain-mix'
         break
-
+      // "Rain/freezing rain"
       case /\/day\/rain_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
         break
       case /\/night\/rain_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
         break
-
+      // "Freezing rain/snow"
       case /\/day\/snow_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
         break
       case /\/night\/snow_fzra\?/i.test(iconUrl):
         icon = 'SLEET'
         break
-
-      case /\/sleet\?/i.test(iconUrl):
+      //  "Sleet"
+      case /\/day\/sleet\?/i.test(iconUrl):
         icon = 'SLEET'
         break
-      case /\/rain\?/i.test(iconUrl):
+      case /\/night\/sleet\?/i.test(iconUrl):
+        icon = 'SLEET'
+        break
+      // "Rain"
+      case /\/day\/rain\?/i.test(iconUrl):
         icon = 'RAIN'
         break
-      case /\/rain_showers\?/i.test(iconUrl):
+      case /\/night\/rain\?/i.test(iconUrl):
         icon = 'RAIN'
         break
-      case /\/rain_showers_hi\?/i.test(iconUrl):
+      // "Rain showers (high cloud cover)"
+      case /\/day\/rain_showers\?/i.test(iconUrl):
         icon = 'RAIN'
         break
-      case /\/tsra\?/i.test(iconUrl):
+      case /\/night\/rain_showers\?/i.test(iconUrl):
         icon = 'RAIN'
         break
-      case /\/tsra_sct\?/i.test(iconUrl):
+      // "Rain showers (low cloud cover)"
+      case /\/day\/rain_showers_hi\?/i.test(iconUrl):
         icon = 'RAIN'
         break
-      case /\/tsra_hi\?/i.test(iconUrl):
+      case /\/night\/rain_showers_hi\?/i.test(iconUrl):
         icon = 'RAIN'
         break
-      case /\/tornado\?/i.test(iconUrl):
+      // "Thunderstorm (high cloud cover)"
+      case /\/day\/tsra\?/i.test(iconUrl):
+        icon = 'RAIN'
+        break
+      case /\/night\/tsra\?/i.test(iconUrl):
+        icon = 'RAIN'
+        break
+      // "Thunderstorm (medium cloud cover)"
+      case /\/day\/tsra_sct\?/i.test(iconUrl):
+        icon = 'RAIN'
+        break
+      case /\/night\/tsra_sct\?/i.test(iconUrl):
+        icon = 'RAIN'
+        break
+      // "Thunderstorm (low cloud cover)"
+      case /\/day\/tsra_hi\?/i.test(iconUrl):
+        icon = 'RAIN'
+        break
+      case /\/night\/tsra_hi\?/i.test(iconUrl):
+        icon = 'RAIN'
+        break
+      // "Tornado"
+      case /\/day\/tornado\?/i.test(iconUrl):
         icon = 'WIND'
         break
-      case /\/hurricane\?/i.test(iconUrl):
+      case /\/night\/tornado\?/i.test(iconUrl):
         icon = 'WIND'
         break
-      case /\/tropical_storm\?/i.test(iconUrl):
+      // "Hurricane conditions"
+      case /\/day\/hurricane\?/i.test(iconUrl):
         icon = 'WIND'
         break
+      case /\/night\/hurricane\?/i.test(iconUrl):
+        icon = 'WIND'
+        break
+      // "Tropical storm conditions"
+      case /\/day\/tropical_storm\?/i.test(iconUrl):
+        icon = 'WIND'
+        break
+      case /\/night\/tropical_storm\?/i.test(iconUrl):
+        icon = 'WIND'
+        break
+      // "Dust"
       case /\/day\/dust\?/i.test(iconUrl):
         icon = 'PARTLY_CLOUDY_DAY'
         break
       case /\/night\/dust\?/i.test(iconUrl):
         icon = 'PARTLY_CLOUDY_NIGHT'
         break
+      // "Smoke"
       case /\/day\/smoke\?/i.test(iconUrl):
         icon = 'PARTLY_CLOUDY_DAY'
         break
       case /\/night\/smoke\?/i.test(iconUrl):
         icon = 'PARTLY_CLOUDY_NIGHT'
         break
+      // "Haze"
       case /\/day\/haze\?/i.test(iconUrl):
         icon = 'FOG'
         break
       case /\/night\/haze\?/i.test(iconUrl):
         icon = 'FOG'
         break
+      // "Hot"
       case /\/day\/hot\?/i.test(iconUrl):
         icon = 'CLEAR_DAY'
         break
       case /\/night\/hot\?/i.test(iconUrl):
         icon = 'CLEAR_DAY'
         break
+      // "Cold"
       case /\/day\/cold\?/i.test(iconUrl):
         icon = 'CLEAR_DAY'
         break
       case /\/night\/cold\?/i.test(iconUrl):
         icon = 'CLEAR_DAY'
         break
+      // "Blizzard"
       case /\/day\/blizzard\?/i.test(iconUrl):
         icon = 'SNOW'
         break
       case /\/night\/blizzard\?/i.test(iconUrl):
         icon = 'SNOW'
         break
+      // "Fog/mist"
       case /\/day\/fog\?/i.test(iconUrl):
         icon = 'FOG'
         break
@@ -465,72 +511,3 @@ interface Geometry {
   '@id': string
   '@type': string
 }
-
-//     "rain_sleet": {
-//       "description":
-//     },
-//     "snow_sleet": {
-//       "description":
-//     },
-//     "fzra": {
-//       "description":
-//     },
-//     "rain_fzra": {
-//       "description": "Rain/freezing rain"
-//     },
-//     "snow_fzra": {
-//       "description": "Freezing rain/snow"
-//     },
-//     "sleet": {
-//       "description": "Sleet"
-//     },
-//     "rain": {
-//       "description": "Rain"
-//     },
-//     "rain_showers": {
-//       "description": "Rain showers (high cloud cover)"
-//     },
-//     "rain_showers_hi": {
-//       "description": "Rain showers (low cloud cover)"
-//     },
-//     "tsra": {
-//       "description": "Thunderstorm (high cloud cover)"
-//     },
-//     "tsra_sct": {
-//       "description": "Thunderstorm (medium cloud cover)"
-//     },
-//     "tsra_hi": {
-//       "description": "Thunderstorm (low cloud cover)"
-//     },
-//     "tornado": {
-//       "description": "Tornado"
-//     },
-//     "hurricane": {
-//       "description": "Hurricane conditions"
-//     },
-//     "tropical_storm": {
-//       "description": "Tropical storm conditions"
-//     },
-//     "dust": {
-//       "description": "Dust"
-//     },
-//     "smoke": {
-//       "description": "Smoke"
-//     },
-//     "haze": {
-//       "description": "Haze"
-//     },
-//     "hot": {
-//       "description": "Hot"
-//     },
-//     "cold": {
-//       "description": "Cold"
-//     },
-//     "blizzard": {
-//       "description": "Blizzard"
-//     },
-//     "fog": {
-//       "description": "Fog/mist"
-//     }
-//   }
-// }
