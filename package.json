@@ -75,12 +75,14 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.2",
     "gensync": "^1.0.0-beta.1",
+    "globby": "^11.0.1",
     "modernizr": "^3.11.1",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
     "typescript": "3.9.5",
-    "webpack-bundle-size-analyzer": "^3.1.0"
+    "webpack-bundle-size-analyzer": "^3.1.0",
+    "xml-formatter": "^2.1.0"
   },
   "dependencies": {
     "@date-io/date-fns": "<2",
