@@ -105,6 +105,10 @@
     {
       "source": "/favicon.ico",
       "destination": "/static/favicon/favicon.ico"
+    },
+    {
+      "source": "/templates/(.*)",
+      "destination": "/404"
     }
   ],
   "headers": [
