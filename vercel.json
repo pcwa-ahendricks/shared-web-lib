@@ -105,30 +105,6 @@
     {
       "source": "/favicon.ico",
       "destination": "/static/favicon/favicon.ico"
-    },
-    {
-      "source": "/templates/basic",
-      "destination": "/404"
-    },
-    {
-      "source": "/templates/responsive-image",
-      "destination": "/404"
-    },
-    {
-      "source": "/typography(.html)?",
-      "destination": "/404"
-    },
-    {
-      "source": "/resource-library",
-      "destination": "/resource-library/documents"
-    },
-    {
-      "source": "/recreation/flows/gages",
-      "destination": "/recreation/flows/gages/r2"
-    },
-    {
-      "source": "/newsroom/publications",
-      "destination": "/newsroom/publications/newsletters"
     }
   ],
   "headers": [
