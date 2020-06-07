@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState, useCallback, useEffect} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -6,7 +6,8 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPages,
-  Page
+  Page,
+  findMediaForPages
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -15,9 +16,15 @@ import {
   Box,
   Typography as Type,
   Divider,
-  Breadcrumbs
+  Breadcrumbs,
+  LinearProgress
 } from '@material-ui/core'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {
+  RowBox,
+  RespRowBox,
+  ChildBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import ErrorPage from '@pages/_error'
@@ -33,10 +40,8 @@ const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
-  // query: ParsedUrlQuery
   err?: any
-  qMedia?: PickedMediaResponse
-  pages?: Page[]
+  media?: PickedMediaResponse
   publishDate?: string
 }
 
@@ -76,12 +81,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewslettersPage = ({
-  qMedia,
-  pages = [],
-  err,
-  publishDate
-}: Props) => {
+const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -89,24 +89,52 @@ const DynamicNewslettersPage = ({
   const classes = useStyles()
   const newsletterDateFormatted = useMemo(
     () =>
-      qMedia
+      media
         ? format(
-            parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
+            parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
             "EEEE',' MMMM do',' yyyy "
           )
         : '',
-    [qMedia]
+    [media]
+  )
+
+  const [additionalPages, setAdditionalPages] = useState<Page[]>([])
+  const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
+
+  const mediaPageHandler = useCallback(async () => {
+    const pages = await getMediaPages(media)
+    if (pages) {
+      const addPages = pages.slice(1)
+      setAdditionalPages(addPages)
+    }
+    setLoadingAddPages(false)
+  }, [media])
+
+  useEffect(() => {
+    setLoadingAddPages(true)
+    mediaPageHandler()
+  }, [mediaPageHandler])
+
+  const progressEl = useMemo(
+    () =>
+      loadingAddPages ? (
+        <ColumnBox width="100%">
+          <LinearProgress color="secondary" />
+        </ColumnBox>
+      ) : null,
+    [loadingAddPages]
   )
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!qMedia) {
-    console.error('No qMedia', qMedia)
+  } else if (!media) {
+    console.error('No media', media)
     // [TODO] This has been causing an issue where certain resources/routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
     // return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = filenamify(qMedia?.original_name ?? '', {maxLength: 255})
+  const downloadAs = filenamify(media?.original_name ?? '', {maxLength: 255})
+  const pageCount = additionalPages.length + 1
 
   return (
     <PageLayout title={`Newsletter ${publishDate}`}>
@@ -142,12 +170,24 @@ const DynamicNewslettersPage = ({
               caption="Download Newsletter"
               aria-label="Download newsletter"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia?.size}
+              href={`${media?.imgix_url}?dl=${downloadAs}`}
+              fileSize={media?.size}
             />
           </ChildBox>
         </RespRowBox>
-        {pages.map(({number, url}) => (
+        <Box position="relative">
+          <PDFPage
+            showLoading={true}
+            alt={`Newsletter document image for ${publishDate} - page 1/${pageCount}`}
+            url={media?.imgix_url ?? ''}
+            imgixHtmlAttributes={{
+              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+            }}
+          />
+          <Divider />
+        </Box>
+        {progressEl}
+        {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
             {number >= 2 ? (
               <RowBox
@@ -170,7 +210,7 @@ const DynamicNewslettersPage = ({
             ) : null}
             <PDFPage
               showLoading={true}
-              alt={`Newsletter document image for ${publishDate} - page ${number}/${pages.length}`}
+              alt={`Newsletter document image for ${publishDate} - page ${number}/${pageCount}`}
               url={url}
             />
             <Divider />
@@ -247,10 +287,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           }))
         : []
     const publishDate = paramToStr(params?.['publish-date'])
-    const {qMedia, pages} = await getMediaPages(newsletters, publishDate)
+    const media = await findMediaForPages(newsletters, publishDate)
 
     return {
-      props: {qMedia, pages, publishDate},
+      props: {media, publishDate},
       unstable_revalidate: 10
     }
   } catch (error) {

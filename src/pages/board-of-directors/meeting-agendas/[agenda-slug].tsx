@@ -1,5 +1,5 @@
-// cspell:ignore Qmedia
-import React from 'react'
+// cspell:ignore media
+import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -7,7 +7,8 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPages,
-  Page
+  Page,
+  findMediaForPages
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -16,11 +17,17 @@ import {
   Box,
   Typography as Type,
   Divider,
-  Breadcrumbs
+  Breadcrumbs,
+  LinearProgress
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {
+  RowBox,
+  RespRowBox,
+  ChildBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import BackIcon from '@material-ui/icons/UndoOutlined'
@@ -37,8 +44,7 @@ const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
   err?: any
-  qMedia?: PickedMediaResponse
-  pages?: Page[]
+  media?: PickedMediaResponse
   agendaSlug?: string
 }
 
@@ -77,31 +83,54 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicBoardAgendasPage = ({
-  qMedia,
-  pages = [],
-  err,
-  agendaSlug
-}: Props) => {
+const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
+  const [additionalPages, setAdditionalPages] = useState<Page[]>([])
+  const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
+
+  const mediaPageHandler = useCallback(async () => {
+    const pages = await getMediaPages(media)
+    if (pages) {
+      const addPages = pages.slice(1)
+      setAdditionalPages(addPages)
+    }
+    setLoadingAddPages(false)
+  }, [media])
+
+  useEffect(() => {
+    setLoadingAddPages(true)
+    mediaPageHandler()
+  }, [mediaPageHandler])
+
+  const progressEl = useMemo(
+    () =>
+      loadingAddPages ? (
+        <ColumnBox width="100%">
+          <LinearProgress color="secondary" />
+        </ColumnBox>
+      ) : null,
+    [loadingAddPages]
+  )
+
   const classes = useStyles()
-  const boardAgendaDateFormatted = qMedia
+  const boardAgendaDateFormatted = media
     ? format(
-        parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
+        parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
         "EEEE',' MMMM do',' yyyy "
       )
     : ''
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!pages || !qMedia) {
-    console.error('No pages or qMedia', pages, qMedia)
+  } else if (!media) {
+    console.error('No media', media)
     return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = filenamify(qMedia?.original_name ?? '')
+  const downloadAs = filenamify(media?.original_name ?? '')
+  const pageCount = additionalPages.length + 1
 
   return (
     <PageLayout title={`Board Agenda ${agendaSlug}`}>
@@ -137,12 +166,24 @@ const DynamicBoardAgendasPage = ({
               caption="Download Agenda"
               aria-label="Download board agenda"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia?.size}
+              href={`${media?.imgix_url}?dl=${downloadAs}`}
+              fileSize={media?.size}
             />
           </ChildBox>
         </RespRowBox>
-        {pages.map(({number, url}) => (
+        <Box position="relative">
+          <PDFPage
+            showLoading={true}
+            alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
+            url={media?.imgix_url ?? ''}
+            imgixHtmlAttributes={{
+              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+            }}
+          />
+          <Divider />
+        </Box>
+        {progressEl}
+        {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
             {number >= 2 ? (
               <RowBox
@@ -161,7 +202,7 @@ const DynamicBoardAgendasPage = ({
             ) : null}
             <PDFPage
               showLoading={true}
-              alt={`Board Agendas document image for ${agendaSlug} - page ${number}/${pages.length}`}
+              alt={`Board Agendas document image for ${agendaSlug} - page ${number}/${pageCount}`}
               url={url}
               imgixHtmlAttributes={{
                 'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
@@ -244,10 +285,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const findBy = (agenda: PickedMediaResponse) =>
       agenda.derivedFilenameAttr?.date + '-' + agenda.metadata?.type ===
       agendaSlug
-    const {qMedia, pages} = await getMediaPages(bm, null, findBy)
+    const media = await findMediaForPages(bm, null, findBy)
 
     return {
-      props: {qMedia, pages, agendaSlug},
+      props: {media, agendaSlug},
       unstable_revalidate: 10
     }
   } catch (error) {

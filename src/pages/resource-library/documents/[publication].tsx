@@ -1,11 +1,12 @@
 // cspell:ignore Frmt slugified
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useState, useMemo} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
   CosmicMediaMeta,
+  findMediaForPages,
   getMediaPages,
   Page
 } from '@lib/services/cosmicService'
@@ -16,9 +17,15 @@ import {
   Box,
   Typography as Type,
   Divider,
-  Breadcrumbs
+  Breadcrumbs,
+  LinearProgress
 } from '@material-ui/core'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {
+  RowBox,
+  RespRowBox,
+  ChildBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
@@ -39,8 +46,7 @@ const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 type Props = {
   err?: any
-  qMedia?: PickedMediaResponse
-  pages?: Page[]
+  media?: PickedMediaResponse
   publicationSlug?: string
 }
 
@@ -88,21 +94,44 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicPublicationPage = ({
-  qMedia,
-  pages = [],
-  err,
-  publicationSlug
-}: Props) => {
+const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   const classes = useStyles()
 
-  const downloadAs = filenamify(qMedia?.original_name ?? '', {maxLength: 255})
-  const title = qMedia
-    ? qMedia.metadata?.title || qMedia.derivedFilenameAttr?.title
+  const [additionalPages, setAdditionalPages] = useState<Page[]>([])
+  const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
+
+  const mediaPageHandler = useCallback(async () => {
+    const pages = await getMediaPages(media)
+    if (pages) {
+      const addPages = pages.slice(1)
+      setAdditionalPages(addPages)
+    }
+    setLoadingAddPages(false)
+  }, [media])
+
+  useEffect(() => {
+    setLoadingAddPages(true)
+    mediaPageHandler()
+  }, [mediaPageHandler])
+
+  const progressEl = useMemo(
+    () =>
+      loadingAddPages ? (
+        <ColumnBox width="100%">
+          <LinearProgress color="secondary" />
+        </ColumnBox>
+      ) : null,
+    [loadingAddPages]
+  )
+
+  const downloadAs = filenamify(media?.original_name ?? '', {maxLength: 255})
+  const pageCount = additionalPages.length + 1
+  const title = media
+    ? media.metadata?.title || media.derivedFilenameAttr?.title
     : ''
 
   const Main = useCallback(() => {
@@ -139,12 +168,24 @@ const DynamicPublicationPage = ({
               caption="Download Publication"
               aria-label="Download publication"
               size={isSMDown ? 'small' : 'medium'}
-              href={qMedia ? `${qMedia.imgix_url}?dl=${downloadAs}` : '#'}
-              fileSize={qMedia ? qMedia.size : 0}
+              href={media ? `${media.imgix_url}?dl=${downloadAs}` : '#'}
+              fileSize={media ? media.size : 0}
             />
           </ChildBox>
         </RespRowBox>
-        {pages.map(({number, url}) => (
+        <Box position="relative">
+          <PDFPage
+            showLoading={true}
+            alt={`Publication image for ${publicationSlug} - page 1/${pageCount}`}
+            url={media?.imgix_url ?? ''}
+            imgixHtmlAttributes={{
+              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+            }}
+          />
+          <Divider />
+        </Box>
+        {progressEl}
+        {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
             {number >= 2 ? (
               <RowBox
@@ -167,7 +208,7 @@ const DynamicPublicationPage = ({
             ) : null}
             <PDFPage
               showLoading={true}
-              alt={`Publication image for ${publicationSlug} - page ${number}/${pages.length}`}
+              alt={`Publication image for ${publicationSlug} - page ${number}/${pageCount}`}
               url={url}
             />
             <Divider />
@@ -177,19 +218,21 @@ const DynamicPublicationPage = ({
     )
   }, [
     classes,
-    qMedia,
+    media,
     title,
     downloadAs,
+    progressEl,
     theme,
     isSMDown,
-    pages,
-    publicationSlug
+    publicationSlug,
+    pageCount,
+    additionalPages
   ])
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!qMedia) {
-    console.error('No qMedia', qMedia)
+  } else if (!media) {
+    console.error('No media', media)
     // [TODO] This has been causing an issue where certain publications and routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
     // return <ErrorPage statusCode={404} />
   }
@@ -266,10 +309,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     // Do slugify base name prop value.
     const findBy = (pub: PickedMediaResponse) =>
       slugify(pub.derivedFilenameAttr?.base ?? '') === publicationSlug
-    const {qMedia, pages} = await getMediaPages(publications, null, findBy)
+    const media = await findMediaForPages(publications, null, findBy)
 
     return {
-      props: {qMedia, pages, publicationSlug},
+      props: {media, publicationSlug},
       unstable_revalidate: 10
     }
   } catch (error) {
