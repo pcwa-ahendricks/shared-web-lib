@@ -107,7 +107,15 @@
       "destination": "/static/favicon/favicon.ico"
     },
     {
-      "source": "/templates/(.*)",
+      "source": "/templates/basic",
+      "destination": "/404"
+    },
+    {
+      "source": "/templates/responsive-image",
+      "destination": "/404"
+    },
+    {
+      "source": "/typography",
       "destination": "/404"
     }
   ],

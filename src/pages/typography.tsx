@@ -4,18 +4,8 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {ColumnBox} from '@components/boxes/FlexBox'
-import {GetServerSideProps} from 'next'
-import ErrorPage from './_error'
-const isDev = process.env.NODE_ENV === 'development'
 
-type Props = {
-  err?: {statusCode: number}
-}
-
-const TypographyPage = ({err}: Props) => {
-  if (err) {
-    return <ErrorPage statusCode={err.statusCode} />
-  }
+const TypographyPage = () => {
   return (
     <PageLayout title="Typography Test">
       <NarrowContainer>
@@ -65,15 +55,6 @@ const TypographyPage = ({err}: Props) => {
       </NarrowContainer>
     </PageLayout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async ({res}) => {
-  if (!isDev) {
-    res.statusCode = 404
-    return {props: {err: {statusCode: 404}}}
-  } else {
-    return {props: {}}
-  }
 }
 
 export default TypographyPage
