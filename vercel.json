@@ -115,7 +115,7 @@
       "destination": "/404"
     },
     {
-      "source": "/typography",
+      "source": "/typography(.html)?",
       "destination": "/404"
     },
     {
