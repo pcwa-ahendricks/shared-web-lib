@@ -117,6 +117,18 @@
     {
       "source": "/typography",
       "destination": "/404"
+    },
+    {
+      "source": "/resource-library",
+      "destination": "/resource-library/documents"
+    },
+    {
+      "source": "/recreation/flows/gages",
+      "destination": "/recreation/flows/gages/r2"
+    },
+    {
+      "source": "/newsroom/publications",
+      "destination": "/newsroom/publications/newsletters"
     }
   ],
   "headers": [
