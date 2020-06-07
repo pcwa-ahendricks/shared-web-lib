@@ -18,7 +18,7 @@ const condRedirects = isDev
         permanent: true
       },
       {
-        source: '/templates/?(.*)',
+        source: '/templates(.*)',
         destination: '/404',
         permanent: true
       }
