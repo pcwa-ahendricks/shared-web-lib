@@ -9,7 +9,7 @@ const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
 const isDev = process.env.NODE_ENV === 'development'
 
-const prodRedirects = isDev
+const condRedirects = isDev
   ? []
   : [
       {
@@ -40,7 +40,7 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
   experimental: {
     async redirects() {
       return [
-        ...prodRedirects,
+        ...condRedirects,
         {
           source: '/resource-library',
           destination: '/resource-library/documents',
