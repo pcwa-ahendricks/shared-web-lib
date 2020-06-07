@@ -1,5 +1,4 @@
-// cspell:ignore Qmedia
-import React from 'react'
+import React, {useEffect, useState, useCallback, useMemo} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -7,7 +6,8 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPages,
-  Page
+  Page,
+  findMediaForPages
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -16,11 +16,17 @@ import {
   Box,
   Typography as Type,
   Divider,
-  Breadcrumbs
+  Breadcrumbs,
+  LinearProgress
 } from '@material-ui/core'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {
+  RowBox,
+  RespRowBox,
+  ChildBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
@@ -37,8 +43,8 @@ const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
   err?: any
-  qMedia?: PickedMediaResponse
-  pages?: Page[]
+  media?: PickedMediaResponse
+  // pages?: Page[]
   meetingDate?: string
 }
 
@@ -72,14 +78,35 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicBoardMinutesPage = ({
-  qMedia,
-  pages = [],
-  err,
-  meetingDate
-}: Props) => {
+const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const [additionalPages, setAdditionalPages] = useState<Page[]>([])
+  const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
+
+  const mediaPageHandler = useCallback(async () => {
+    const pages = await getMediaPages(media)
+    if (pages) {
+      const addPages = pages.slice(1)
+      setAdditionalPages(addPages)
+    }
+    setLoadingAddPages(false)
+  }, [media])
+
+  useEffect(() => {
+    setLoadingAddPages(true)
+    mediaPageHandler()
+  }, [mediaPageHandler])
+
+  const progressEl = useMemo(
+    () =>
+      loadingAddPages ? (
+        <ColumnBox width="100%">
+          <LinearProgress color="secondary" />
+        </ColumnBox>
+      ) : null,
+    [loadingAddPages]
+  )
 
   // const bcBackClickHandler = useCallback(async () => {
   //   // !selfReferred ? await router.push('/') : router.back()
@@ -103,22 +130,23 @@ const DynamicBoardMinutesPage = ({
   // })
   // const classes = useStyles({trigger})
   const classes = useStyles()
-  const boardMeetingDateFormatted = qMedia
+  const boardMeetingDateFormatted = media
     ? format(
-        parseJSON(qMedia.derivedFilenameAttr?.publishedDate ?? ''),
+        parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
         "EEEE',' MMMM do',' yyyy "
       )
     : ''
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!qMedia) {
-    console.error('No qMedia', qMedia)
+  } else if (!media) {
+    console.error('No media', media)
     // [TODO] This has been causing an issue where certain board minutes 404 when linked to in production. Often times those minutes (aka same URL) load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the minutes don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
     // return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = filenamify(qMedia?.original_name ?? '')
+  const downloadAs = filenamify(media?.original_name ?? '')
+  const pageCount = additionalPages.length + 1
 
   return (
     <PageLayout title={`Board Minutes ${meetingDate}`}>
@@ -166,12 +194,24 @@ const DynamicBoardMinutesPage = ({
               caption="Download Minutes"
               aria-label="Download board minutes"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia?.size}
+              href={`${media?.imgix_url}?dl=${downloadAs}`}
+              fileSize={media?.size}
             />
           </ChildBox>
         </RespRowBox>
-        {pages.map(({number, url}) => (
+        <Box position="relative">
+          <PDFPage
+            showLoading={true}
+            alt={`Board Minutes document image for ${meetingDate} - page 1/${pageCount}`}
+            url={media?.imgix_url ?? ''}
+            imgixHtmlAttributes={{
+              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+            }}
+          />
+          <Divider />
+        </Box>
+        {progressEl}
+        {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
             {number >= 2 ? (
               <RowBox
@@ -190,7 +230,7 @@ const DynamicBoardMinutesPage = ({
             ) : null}
             <PDFPage
               showLoading={true}
-              alt={`Board Minutes document image for ${meetingDate} - page ${number}/${pages.length}`}
+              alt={`Board Minutes document image for ${meetingDate} - page ${number}/${pageCount}`}
               url={url}
               imgixHtmlAttributes={{
                 'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
@@ -204,36 +244,6 @@ const DynamicBoardMinutesPage = ({
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   query,
-//   res,
-//   req
-// }) => {
-//   try {
-//     const urlBase = lambdaUrl(req)
-//     const data: PickedMediaResponses | undefined = await fetcher(
-//       `${urlBase}${boardMinutesUrl}`
-//     )
-//     const bm =
-//       data && Array.isArray(data)
-//         ? data.map((bm) => ({
-//             ...bm,
-//             derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-//           }))
-//         : []
-//     const meetingDate = queryParamToStr(query['meeting-date'])
-//     const {qMedia, pages} = await getMediaPages(bm, meetingDate)
-//     const selfReferred = siteReferer(req)
-
-//     return {props: {query, qMedia, pages, meetingDate, selfReferred}}
-//   } catch (error) {
-//     console.log(error)
-//     res.statusCode = 404
-//     return {props: {err: {statusCode: 404}}}
-//   }
-// }
-
-// This function gets called at build time.
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const urlBase = process.env.NEXT_PUBLIC_BASE_URL
@@ -300,10 +310,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           }))
         : []
     const meetingDate = paramToStr(params?.['meeting-date'])
-    const {qMedia, pages} = await getMediaPages(bm, meetingDate)
+    const media = await findMediaForPages(bm, meetingDate)
 
     return {
-      props: {qMedia, pages, meetingDate},
+      props: {media, meetingDate},
       unstable_revalidate: 10
     }
   } catch (error) {

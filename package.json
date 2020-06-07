@@ -125,7 +125,7 @@
     "react-css-transition-replace": "4.0.2",
     "react-dom": "^16.13.0",
     "react-dropzone": "^11.0.1",
-    "react-google-recaptcha": "^2.0.1",
+    "react-google-recaptcha": "^2.1.0",
     "react-images": "^1.1.7",
     "react-imgix": "^9.0.2",
     "react-map-gl": "^5.2.7",
