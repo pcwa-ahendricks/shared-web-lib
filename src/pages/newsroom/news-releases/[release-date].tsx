@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState, useEffect, useCallback} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -6,7 +6,8 @@ import {
   fileNameUtil,
   CosmicMediaMeta,
   getMediaPages,
-  Page
+  Page,
+  findMediaForPages
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -15,9 +16,15 @@ import {
   Box,
   Typography as Type,
   Divider,
-  Breadcrumbs
+  Breadcrumbs,
+  LinearProgress
 } from '@material-ui/core'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {
+  RowBox,
+  RespRowBox,
+  ChildBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import ErrorPage from '@pages/_error'
@@ -48,8 +55,7 @@ const newsReleasesUrl = `/api/cosmic/media${qs}`
 
 type Props = {
   err?: any
-  qMedia?: PickedMediaResponse
-  pages?: Page[]
+  media?: PickedMediaResponse
   releaseDate?: string
 }
 
@@ -71,12 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewsReleasePage = ({
-  qMedia,
-  pages = [],
-  err,
-  releaseDate
-}: Props) => {
+const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -84,35 +85,62 @@ const DynamicNewsReleasePage = ({
   const classes = useStyles()
   const router = useRouter()
 
+  const [additionalPages, setAdditionalPages] = useState<Page[]>([])
+  const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
+
+  const mediaPageHandler = useCallback(async () => {
+    const pages = await getMediaPages(media)
+    if (pages) {
+      const addPages = pages.slice(1)
+      setAdditionalPages(addPages)
+    }
+    setLoadingAddPages(false)
+  }, [media])
+
+  useEffect(() => {
+    setLoadingAddPages(true)
+    mediaPageHandler()
+  }, [mediaPageHandler])
+
+  const progressEl = useMemo(
+    () =>
+      loadingAddPages ? (
+        <ColumnBox width="100%">
+          <LinearProgress color="secondary" />
+        </ColumnBox>
+      ) : null,
+    [loadingAddPages]
+  )
+
   const newsReleaseDateFormatted = useMemo(
     () =>
       format(
-        parseJSON(qMedia?.derivedFilenameAttr?.publishedDate ?? ''),
+        parseJSON(media?.derivedFilenameAttr?.publishedDate ?? ''),
         "EEEE',' MMMM do',' yyyy"
       ) ?? '',
-    [qMedia?.derivedFilenameAttr?.publishedDate]
+    [media?.derivedFilenameAttr?.publishedDate]
   )
 
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
     console.log('router.isFallback: ', router.isFallback)
-    console.log('qMedia: ', qMedia)
+    console.log('media: ', media)
     console.log('release date: ', releaseDate)
-    console.log('pages: ', pages)
     console.log('err: ', err)
     // return <div>Falling back :)</div>
   }
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!qMedia) {
-    console.error('No qMedia', qMedia)
+  } else if (!media) {
+    console.error('No media', media)
     // [TODO] This has been causing an issue where certain resources/routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
     // return <ErrorPage statusCode={404} />
   }
 
-  const publishDate = qMedia?.derivedFilenameAttr?.date
-  const downloadAs = filenamify(qMedia?.original_name ?? '', {maxLength: 255})
+  const publishDate = media?.derivedFilenameAttr?.date
+  const downloadAs = filenamify(media?.original_name ?? '', {maxLength: 255})
+  const pageCount = additionalPages.length + 1
 
   return (
     <PageLayout title={`News Release ${publishDate}`}>
@@ -149,12 +177,24 @@ const DynamicNewsReleasePage = ({
               caption="Download News Release"
               aria-label="Download news release"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${qMedia?.imgix_url}?dl=${downloadAs}`}
-              fileSize={qMedia?.size}
+              href={`${media?.imgix_url}?dl=${downloadAs}`}
+              fileSize={media?.size}
             />
           </ChildBox>
         </RespRowBox>
-        {pages.map(({number, url}) => (
+        <Box position="relative">
+          <PDFPage
+            showLoading={true}
+            alt={`News release document image for ${publishDate} - page 1/${pageCount}`}
+            url={media?.imgix_url ?? ''}
+            imgixHtmlAttributes={{
+              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
+            }}
+          />
+          <Divider />
+        </Box>
+        {progressEl}
+        {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
             {number >= 2 ? (
               <RowBox
@@ -173,7 +213,7 @@ const DynamicNewsReleasePage = ({
             ) : null}
             <PDFPage
               showLoading={true}
-              alt={`News release document image for ${publishDate} - page ${number}/${pages.length}`}
+              alt={`News release document image for ${publishDate} - page ${number}/${pageCount}`}
               url={url}
             />
             <Divider />
@@ -250,12 +290,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           }))
         : []
     const releaseDate = paramToStr(params?.['release-date'])
-    const {qMedia, pages} = await getMediaPages(nrs, releaseDate)
+    const media = await findMediaForPages(nrs, releaseDate)
 
     return {
       props: {
-        qMedia,
-        pages,
+        media,
         releaseDate
       },
       unstable_revalidate: 10

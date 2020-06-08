@@ -75,12 +75,14 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.2",
     "gensync": "^1.0.0-beta.1",
+    "globby": "^11.0.1",
     "modernizr": "^3.11.1",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
     "typescript": "3.9.5",
-    "webpack-bundle-size-analyzer": "^3.1.0"
+    "webpack-bundle-size-analyzer": "^3.1.0",
+    "xml-formatter": "^2.1.0"
   },
   "dependencies": {
     "@date-io/date-fns": "<2",
@@ -123,7 +125,7 @@
     "react-css-transition-replace": "4.0.2",
     "react-dom": "^16.13.0",
     "react-dropzone": "^11.0.1",
-    "react-google-recaptcha": "^2.0.1",
+    "react-google-recaptcha": "^2.1.0",
     "react-images": "^1.1.7",
     "react-imgix": "^9.0.2",
     "react-map-gl": "^5.2.7",

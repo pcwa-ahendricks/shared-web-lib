@@ -7,6 +7,22 @@ const {
 const withTM = require('next-transpile-modules')(['swr']) // Pass the modules you would like to see transpiled
 const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
+const isDev = process.env.NODE_ENV === 'development'
+
+const condRedirects = isDev
+  ? []
+  : [
+      {
+        source: '/typography',
+        destination: '/404',
+        permanent: true
+      },
+      {
+        source: '/templates(.*)',
+        destination: '/404',
+        permanent: true
+      }
+    ]
 
 module.exports = withPlugins([withBundleAnalyzer, withTM], {
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -19,6 +35,28 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     browser: {
       analyzerMode: 'static',
       reportFilename: '../bundles/client.html'
+    }
+  },
+  experimental: {
+    async redirects() {
+      return [
+        ...condRedirects,
+        {
+          source: '/resource-library',
+          destination: '/resource-library/documents',
+          permanent: false
+        },
+        {
+          source: '/recreation/flows/gages',
+          destination: '/recreation/flows/gages/r2',
+          permanent: false
+        },
+        {
+          source: '/newsroom/publications',
+          destination: '/newsroom/publications/newsletters',
+          permanent: false
+        }
+      ]
     }
   },
   webpack: (config) => {

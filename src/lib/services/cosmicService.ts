@@ -90,7 +90,7 @@ const fileNameUtil = (
   title: string
   publishedDate: string // When used with getServerSideProps/getStaticProps Date types will be converted to string.
   publishedYear: number
-  keyValuePairs?: Array<{}>
+  keyValuePairs?: Array<Record<string, unknown>>
 } => {
   // let f = str.replace(/^.*\/|\.[^.]*$/g, '');
   const periodToEndRe = /\.[^.]*$/
@@ -131,7 +131,7 @@ const fileNameUtil = (
   }
 }
 
-const getMediaPages = async <
+const findMediaForPages = async <
   T extends {
     derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
     imgix_url?: string
@@ -147,41 +147,50 @@ const getMediaPages = async <
     // Use date property by default.
     findBy = (m: T) => m.derivedFilenameAttr?.['date'] === keyValue
   }
-  const qMedia = media
-    // In case Cosmic API is busted and cdn url is being returned instead of imgix url. Such a rare occurrence will cause page parameter to keep returning the first page (up to requestLimit defined below.) indefinitely and repeatedly.
-    .map((m) =>
-      /imgix/i.test(m.imgix_url ?? '')
-        ? m
-        : {
-            ...m,
-            // eslint-disable-next-line
-            imgix_url: (m.url ?? '').replace(
-              'cdn.cosmicjs.com',
-              'cosmic-s3.imgix.net'
-            )
-          }
-    )
-    // Just use PDFs
-    // Match slug with keyValue for given keyProp.
-    .filter(
-      (m) =>
-        (m.derivedFilenameAttr?.extension ?? '').toLowerCase() === 'pdf' &&
-        m.imgix_url
-    )
-    .find(findBy)
+  return (
+    media
+      // In case Cosmic API is busted and cdn url is being returned instead of imgix url. Such a rare occurrence will cause page parameter to keep returning the first page (up to requestLimit defined below.) indefinitely and repeatedly.
+      .map((m) =>
+        /imgix/i.test(m.imgix_url ?? '')
+          ? m
+          : {
+              ...m,
+              // eslint-disable-next-line
+              imgix_url: (m.url ?? '').replace(
+                'cdn.cosmicjs.com',
+                'cosmic-s3.imgix.net'
+              )
+            }
+      )
+      // Just use PDFs
+      // Match slug with keyValue for given keyProp.
+      .filter(
+        (m) =>
+          (m.derivedFilenameAttr?.extension ?? '').toLowerCase() === 'pdf' &&
+          m.imgix_url
+      )
+      .find(findBy)
+  )
+}
 
-  if (!qMedia) {
-    return {
-      pages: null,
-      qMedia: null
-    }
+const getMediaPages = async <
+  T extends {
+    derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
+    imgix_url?: string
+    url?: string
+  }
+>(
+  media?: T
+) => {
+  if (!media) {
+    return null
   }
   const requestLimit = 20
   let pages: Page[] = []
   let requestPageNo = 1
   while (requestPageNo <= requestLimit) {
     const qs = stringify({page: requestPageNo}, true)
-    const url = `${qMedia.imgix_url}${qs}`
+    const url = `${media.imgix_url}${qs}`
     const response = await fetch(url)
     if (!response.ok) {
       break
@@ -189,7 +198,7 @@ const getMediaPages = async <
     pages = [...pages, {url, number: requestPageNo}]
     requestPageNo++
   }
-  return {pages, qMedia}
+  return pages
 }
 
 // getMedia takes a Generic type which should match the props given as a query parameter. A full response would match the following export.
@@ -267,4 +276,4 @@ interface CosmicOption {
   key?: string
 }
 
-export {getMediaPages, fileNameUtil}
+export {getMediaPages, fileNameUtil, findMediaForPages}
