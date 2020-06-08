@@ -325,17 +325,17 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
         break
       // "Blizzard"
       case /\/day\/blizzard\?/i.test(iconUrl):
-        icon = 'SNOW'
+        icon = 'day-snow-wind'
         break
       case /\/night\/blizzard\?/i.test(iconUrl):
-        icon = 'SNOW'
+        icon = 'night-alt-snow-wind'
         break
       // "Fog/mist"
       case /\/day\/fog\?/i.test(iconUrl):
-        icon = 'FOG'
+        icon = 'day-fog'
         break
       case /\/night\/fog\?/i.test(iconUrl):
-        icon = 'FOG'
+        icon = 'night-fog'
         break
       default:
         icon = 'cloud'
