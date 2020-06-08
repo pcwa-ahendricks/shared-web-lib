@@ -245,41 +245,41 @@ const ReportWaterWastePage = () => {
                         component={ContactUsMessageField}
                       />
                     </ChildBox>
-
-                    {/* flex="0 0 auto" is an IE11 fix. */}
-                    <Box flex="0 0 auto" my={5}>
-                      <Type
-                        variant="h4"
-                        color="textSecondary"
-                        gutterBottom
-                        className={classes.formGroupTitle}
-                      >
-                        Provide Photo Attachment(s)
-                      </Type>
-                      <Type variant="caption" color="textSecondary">
-                        Note - Only Image file formats can be uploaded (eg.
-                        .jpg, .png). PDF files <em>cannot</em> be uploaded.
-                      </Type>
-
-                      <ColumnBox
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                        my={3}
-                      >
-                        <Field
-                          // disabled={ineligible}
-                          name="photos"
-                          attachmentTitle="Photos"
-                          uploadRoute="water-waste"
-                          onIsUploadingChange={photosAreUploadingHandler}
-                          component={AttachmentField}
-                        />
-                      </ColumnBox>
-                    </Box>
                   </ColumnBox>
-                  <ChildBox>
+                  <Spacing />
+                  {/* flex="0 0 auto" is an IE11 fix. */}
+                  <Box flex="0 0 auto">
+                    <Type
+                      variant="h4"
+                      color="textSecondary"
+                      gutterBottom
+                      className={classes.formGroupTitle}
+                    >
+                      Provide Photo Attachment(s)
+                    </Type>
+                    <Type variant="caption" color="textSecondary">
+                      Note - Only Image file formats can be uploaded (eg. .jpg,
+                      .png). PDF files <em>cannot</em> be uploaded.
+                    </Type>
+
+                    <ColumnBox
+                      justifyContent="flex-start"
+                      alignItems="flex-start"
+                      my={3}
+                    >
+                      <Field
+                        // disabled={ineligible}
+                        name="photos"
+                        attachmentTitle="Photos"
+                        uploadRoute="water-waste"
+                        onIsUploadingChange={photosAreUploadingHandler}
+                        component={AttachmentField}
+                      />
+                    </ColumnBox>
+                  </Box>
+                  <Box>
                     <Field name="captcha" component={RecaptchaField} />
-                  </ChildBox>
+                  </Box>
                   <Spacing />
                   {/* For debugging form reset */}
                   {/* <Button
