@@ -40,7 +40,7 @@ import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButto
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import AttachmentField from '@components/formFields/AttachmentField'
 
-const SERVICE_URI_PATH = 'report-water-waste'
+const SERVICE_URI_PATH = 'water-waste'
 
 const formSchema = object()
   .camelCase()
@@ -276,11 +276,10 @@ const ReportWaterWastePage = () => {
                         />
                       </ColumnBox>
                     </Box>
-
-                    <ChildBox>
-                      <Field name="captcha" component={RecaptchaField} />
-                    </ChildBox>
                   </ColumnBox>
+                  <ChildBox>
+                    <Field name="captcha" component={RecaptchaField} />
+                  </ChildBox>
                   <Spacing />
                   {/* For debugging form reset */}
                   {/* <Button
