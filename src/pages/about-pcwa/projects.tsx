@@ -5,7 +5,6 @@ import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {
-  RowBox,
   ChildBox,
   ChildBoxProps,
   ColumnBox,
