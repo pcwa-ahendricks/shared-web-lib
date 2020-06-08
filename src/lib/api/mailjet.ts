@@ -32,8 +32,8 @@ export interface MailJetMessage {
 }
 
 const API_VER = 'v3.1'
-const MAILJET_KEY = process.env.NODE_MAILJET_KEY ?? ''
-const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET ?? ''
+const MAILJET_KEY = process.env.NODE_MAILJET_KEY || ''
+const MAILJET_SECRET = process.env.NODE_MAILJET_SECRET || ''
 
 const getBasicAuth = () =>
   Buffer.from(`${MAILJET_KEY}:${MAILJET_SECRET}`).toString('base64')

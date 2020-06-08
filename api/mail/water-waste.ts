@@ -6,15 +6,18 @@ import {
   MailJetMessage,
   postMailJetRequest
 } from '../../src/lib/api/mailjet'
-import {getRecaptcha, validateSchema} from '../../src/lib/api/forms'
-
+import {
+  getRecaptcha,
+  validateSchema,
+  AttachmentFieldValue
+} from '../../src/lib/api/forms'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 848345
+const MAILJET_TEMPLATE_ID = 1487509
 
 // Additional email addresses are added to array below.
 const SA_RECIPIENTS: MailJetMessage['To'] = isDev
@@ -31,6 +34,7 @@ interface FormDataObj {
   location: string
   description: string
   captcha: string
+  photos: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -74,7 +78,16 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     // })
 
     const {formData} = body
-    const {email, name, phone, location, description, captcha} = formData
+    const {
+      email,
+      name,
+      phone,
+      location,
+      description,
+      captcha,
+      photos = []
+    } = formData
+    const photoAttachments = photos.map((p) => p.url)
 
     // Only validate recaptcha key in production.
     if (!isDev) {
@@ -124,7 +137,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },
-          Subject: 'Contact Us - PCWA.net',
+          Subject: 'Water Waste - PCWA.net',
           TemplateID: MAILJET_TEMPLATE_ID,
           TemplateLanguage: true,
           Variables: {
@@ -133,7 +146,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             phone,
             location,
             description,
-            submitDate: format(new Date(), 'MMMM do, yyyy')
+            submitDate: format(new Date(), 'MMMM do, yyyy'),
+            photoAttachments
           }
         }
       ]
