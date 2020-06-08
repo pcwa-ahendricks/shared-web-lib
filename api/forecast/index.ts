@@ -206,122 +206,122 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
         break
       // "Rain/freezing rain"
       case /\/day\/rain_fzra\?/i.test(iconUrl):
-        icon = 'SLEET'
+        icon = 'day-hail'
         break
       case /\/night\/rain_fzra\?/i.test(iconUrl):
-        icon = 'SLEET'
+        icon = 'night-alt-hail'
         break
       // "Freezing rain/snow"
       case /\/day\/snow_fzra\?/i.test(iconUrl):
-        icon = 'SLEET'
+        icon = 'day-hail'
         break
       case /\/night\/snow_fzra\?/i.test(iconUrl):
-        icon = 'SLEET'
+        icon = 'night-alt-hail'
         break
       //  "Sleet"
       case /\/day\/sleet\?/i.test(iconUrl):
-        icon = 'SLEET'
+        icon = 'day-rain'
         break
       case /\/night\/sleet\?/i.test(iconUrl):
-        icon = 'SLEET'
+        icon = 'night-alt-rain'
         break
       // "Rain"
       case /\/day\/rain\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'day-showers'
         break
       case /\/night\/rain\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'night-showers'
         break
       // "Rain showers (high cloud cover)"
       case /\/day\/rain_showers\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'day-showers'
         break
       case /\/night\/rain_showers\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'night-showers'
         break
       // "Rain showers (low cloud cover)"
       case /\/day\/rain_showers_hi\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'day-showers'
         break
       case /\/night\/rain_showers_hi\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'night-showers'
         break
       // "Thunderstorm (high cloud cover)"
       case /\/day\/tsra\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'day-storm-showers'
         break
       case /\/night\/tsra\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'night-alt-storm-showers'
         break
       // "Thunderstorm (medium cloud cover)"
       case /\/day\/tsra_sct\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'day-storm-showers'
         break
       case /\/night\/tsra_sct\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'night-alt-storm-showers'
         break
       // "Thunderstorm (low cloud cover)"
       case /\/day\/tsra_hi\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'day-storm-showers'
         break
       case /\/night\/tsra_hi\?/i.test(iconUrl):
-        icon = 'RAIN'
+        icon = 'night-alt-storm-showers'
         break
       // "Tornado"
       case /\/day\/tornado\?/i.test(iconUrl):
-        icon = 'WIND'
+        icon = 'tornado'
         break
       case /\/night\/tornado\?/i.test(iconUrl):
-        icon = 'WIND'
+        icon = 'tornado'
         break
       // "Hurricane conditions"
       case /\/day\/hurricane\?/i.test(iconUrl):
-        icon = 'WIND'
+        icon = 'hurricane'
         break
       case /\/night\/hurricane\?/i.test(iconUrl):
-        icon = 'WIND'
+        icon = 'hurricane'
         break
       // "Tropical storm conditions"
       case /\/day\/tropical_storm\?/i.test(iconUrl):
-        icon = 'WIND'
+        icon = 'day-rain-wind'
         break
       case /\/night\/tropical_storm\?/i.test(iconUrl):
-        icon = 'WIND'
+        icon = 'night-alt-rain-wind'
         break
       // "Dust"
       case /\/day\/dust\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_DAY'
+        icon = 'dust'
         break
       case /\/night\/dust\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_NIGHT'
+        icon = 'dust'
         break
       // "Smoke"
       case /\/day\/smoke\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_DAY'
+        icon = 'smoke'
         break
       case /\/night\/smoke\?/i.test(iconUrl):
-        icon = 'PARTLY_CLOUDY_NIGHT'
+        icon = 'smoke'
         break
       // "Haze"
       case /\/day\/haze\?/i.test(iconUrl):
-        icon = 'FOG'
+        icon = 'day-fog'
         break
       case /\/night\/haze\?/i.test(iconUrl):
-        icon = 'FOG'
+        icon = 'night-fog'
         break
       // "Hot"
       case /\/day\/hot\?/i.test(iconUrl):
-        icon = 'CLEAR_DAY'
+        icon = 'hot'
         break
       case /\/night\/hot\?/i.test(iconUrl):
-        icon = 'CLEAR_DAY'
+        icon = 'night-clear'
         break
       // "Cold"
       case /\/day\/cold\?/i.test(iconUrl):
-        icon = 'CLEAR_DAY'
+        icon = 'snowflake-cold'
         break
       case /\/night\/cold\?/i.test(iconUrl):
-        icon = 'CLEAR_DAY'
+        icon = 'snowflake-cold'
         break
       // "Blizzard"
       case /\/day\/blizzard\?/i.test(iconUrl):
