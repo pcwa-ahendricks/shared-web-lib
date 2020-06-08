@@ -100,7 +100,7 @@ const ProjectsPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Construction Projects" subtitle="General" />
-          <RespRowBox flexSpacing={4}>
+          <RespRowBox flexDirection={{xs: 'column', md: 'row'}} flexSpacing={4}>
             <ColumnOne>
               <ProjectChild>
                 <ConstructionProject>
@@ -129,6 +129,15 @@ const ProjectsPage = () => {
                       the Rubicon River downstream; however, the Agency will be
                       able to use some of the water to increase hydropower
                       generation.
+                    </Type>
+
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Schedule
+                    </Type>
+                    <Type paragraph>
+                      The project is currently in progress and expected to
+                      conclude in October of 2020.
                     </Type>
                     <Spacing />
                     <ColumnBox alignItems="center">
