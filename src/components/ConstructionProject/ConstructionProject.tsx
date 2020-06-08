@@ -10,7 +10,7 @@ const ConstructionProject = ({children, ...rest}: BoxProps) => {
       p={2}
       pb={4}
       bgcolor={theme.palette.common.white}
-      boxShadow={2}
+      boxShadow={3}
       {...rest}
     >
       {children}
