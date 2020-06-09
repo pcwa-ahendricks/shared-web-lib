@@ -26,7 +26,6 @@ const isDev = process.env.NODE_ENV === 'development'
 */
 import '@lib/css/styles.css'
 import '@lib/css/NoCollapseVerticalTimeline.css'
-import '@lib/css/WeatherIcon.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
 /*
