@@ -1,8 +1,14 @@
 // cspell:ignore frmt
 import React, {useState, useEffect, useMemo} from 'react'
-import {makeStyles} from '@material-ui/core/styles'
-import {Link, Typography as Type, Theme} from '@material-ui/core'
+import {
+  Link,
+  Typography as Type,
+  Theme,
+  ButtonBase,
+  makeStyles
+} from '@material-ui/core'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
+import {RowBox} from '@components/boxes/FlexBox'
 
 type Props = {
   forecast: ForecastData
@@ -20,15 +26,8 @@ export type ForecastData = {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    cursor: 'pointer'
-  },
   forecastType: {
-    paddingLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
     fontWeight: 500 // Subtitle2 is set to 400.
   }
 }))
@@ -61,32 +60,34 @@ const ForecastDisplay = ({forecast}: Props) => {
 
   const isValidForecast = Boolean(forecast?.data)
 
+  const linkProps = {
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    href: natWeatherHref
+  }
+
   const temperatureFrmt =
     temperature || temperature === 0 ? Math.round(temperature).toString() : '?'
   const animatedWeatherEl = useMemo(
     () =>
       isValidForecast && temperature ? (
-        <div className={classes.container}>
-          <WeatherIcon
-            name={icon}
-            color="primary"
-            // size={defaults.size}
-          />
+        <RowBox justifyContent="flex-start" alignItems="center">
+          <ButtonBase {...linkProps}>
+            <WeatherIcon name={icon} color="primary" />
+          </ButtonBase>
           <Type variant="subtitle2" className={classes.forecastType}>
             <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              href={natWeatherHref}
+              {...linkProps}
               underline="none"
             >{`${temperatureFrmt}° ${title} `}</Link>
           </Type>
-        </div>
+        </RowBox>
       ) : null,
     [
       isValidForecast,
       classes,
       icon,
-      natWeatherHref,
+      linkProps,
       temperature,
       title,
       temperatureFrmt
