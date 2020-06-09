@@ -1,6 +1,5 @@
 import React from 'react'
 import {Icon, IconProps, makeStyles, createStyles} from '@material-ui/core'
-import styles from './WeatherIcon.module.css'
 import clsx from 'clsx'
 
 type Props = {
@@ -21,7 +20,7 @@ export default function WeatherIcon({name, ...rest}: Props) {
     <Icon
       fontSize="small"
       classes={{root: classes.icon}}
-      className={clsx([styles.wi, {[styles[`wi-${name}`]]: Boolean(name)}])}
+      className={clsx(['wi', {[`wi-${name}`]: Boolean(name)}])}
       {...rest}
     />
   )

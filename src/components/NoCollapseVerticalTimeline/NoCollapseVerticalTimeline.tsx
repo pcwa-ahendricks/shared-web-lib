@@ -3,7 +3,6 @@ import {
   VerticalTimeline,
   VerticalTimelineProps
 } from 'react-vertical-timeline-component'
-import './NoCollapseVerticalTimeline.module.css'
 
 // See NoCollapseVerticalTimeline.module.css for notes.
 

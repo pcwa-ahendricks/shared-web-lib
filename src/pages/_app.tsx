@@ -25,6 +25,8 @@ const isDev = process.env.NODE_ENV === 'development'
   Import an empty css file or any css file for that matter here.
 */
 import '@lib/css/styles.css'
+import '@lib/css/NoCollapseVerticalTimeline.css'
+import '@lib/css/WeatherIcon.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
 /*

@@ -1,4 +1,4 @@
-// cspell:ignore Rickards brickards Arlan usbr anickel
+// cspell:ignore Rickards brickards Arlan usbr anickel Ankur Bhattacharya
 import React, {useCallback} from 'react'
 import {
   Box,
@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:not(:last-child)': {
         marginBottom: theme.spacing(1) / 2
       }
+    },
+    wrapText: {
+      wordBreak: 'break-word'
     }
   })
 )
@@ -166,12 +169,29 @@ const ARBSSidebar = () => {
         <Type variant="body2" color="textSecondary">
           Brian Rickards
         </Type>
-        <Link href="mailto:brickards@pcwa.net">brickards@pcwa.net</Link>
-        <Spacing size="x-small" />
+        <Link
+          href="mailto:brickards@pcwa.net"
+          variant="body2"
+          classes={{root: classes.wrapText}}
+        >
+          brickards@pcwa.net
+        </Link>
+        {/* <Spacing size="x-small" />
         <Type variant="body2" color="textSecondary">
           Arlan Nickel
+        </Type> */}
+        {/* <Link href="mailto:anickel@usbr.gov">anickel@usbr.gov</Link> */}
+        <Spacing size="x-small" />
+        <Type variant="body2" color="textSecondary">
+          Ankur Bhattacharya
         </Type>
-        <Link href="mailto:anickel@usbr.gov">anickel@usbr.gov</Link>
+        <Link
+          href="mailto:ankurbhattacharya@usbr.gov"
+          variant="body2"
+          classes={{root: classes.wrapText}}
+        >
+          ankurbhattacharya@usbr.gov
+        </Link>
       </NavBox>
     </Box>
   )

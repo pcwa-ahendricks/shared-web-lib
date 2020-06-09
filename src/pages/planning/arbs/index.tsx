@@ -58,9 +58,16 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .vertical-timeline-element': {
         margin: `${theme.spacing(4)}px 0`,
         '& .vertical-timeline-element-icon': {
-          width: 40, // defaults to 60px
-          height: 40, // defaults to 60px
+          zIndex: 2, // Icon should appear over call-out arrow tips if and when overlap occurs
+          width: 36, // defaults to 60px
+          height: 36, // defaults to 60px
           top: 15 // defaults to 0
+        },
+        [`${theme.breakpoints.down('sm')}`]: {
+          '& .vertical-timeline-element-icon': {
+            width: 28, // defaults to 60px
+            height: 28 // defaults to 60px
+          }
         },
         '& .vertical-timeline-element-content': {
           paddingTop: theme.spacing(2),
@@ -69,7 +76,18 @@ const useStyles = makeStyles((theme: Theme) =>
         '& .vertical-timeline-element-content .vertical-timeline-element-date': {
           top: 12 // defaults to 6px
         }
+      },
+      '&.vertical-timeline--two-columns': {
+        '& .vertical-timeline-element-content .vertical-timeline-element-date': {
+          paddingRight: theme.spacing(1)
+        }
       }
+      // '&:not(.vertical-timeline--two-columns)': {
+      //   '& $verticalTimelineBar': {
+      //     display: 'none'
+      //   }
+      // }
+
       // '& .vertical-timeline-element:first-child': {
       //   marginTop: 0
       // },
@@ -571,28 +589,41 @@ const ARBSPage = () => {
                     title="Complete Governance"
                   />
                   <TimelineElement
+                    completed
                     date="October 2019"
                     title="Complete Climate Change Data & Model Development"
                   />
                   <TimelineElement
+                    completed
                     date="October 2019"
                     title="Complete Water Supply & Demand Projections"
                   />
                   <TimelineElement
+                    completed
                     date="January 2020"
                     title="Develop & Evaluate Adaptation Strategies"
                   />
                   <TimelineElement
+                    completed
                     date="March 2020"
                     title="Findings & Recommendations"
                   />
                   <TimelineElement
+                    completed
                     date="April 2020"
                     title="Final Technical Sufficiency Review"
                   />
                   <TimelineElement
                     date="June 2020"
+                    title="USBR Sufficiency Review"
+                  />
+                  <TimelineElement
+                    date="October 2020"
                     title="Publish Final Report"
+                  />
+                  <TimelineElement
+                    date="December 2020"
+                    title="Finalize Report"
                   />
 
                   <VerticalTimelineElement
@@ -631,13 +662,13 @@ const ARBSPage = () => {
                     </Type>
                   </ChildBox>
                   <ChildBox>
-                    <Type variant="subtitle1">Arlan Nickel</Type>
+                    <Type variant="subtitle1">Ankur Bhattacharya</Type>
                     <Type
                       variant="subtitle2"
                       color="textSecondary"
                       gutterBottom
                     >
-                      Mid-Pacific Region Basin Study Coordinator, <br />
+                      Title XVI and Basin Study Program Coordinator, <br />
                       Chief (Acting) - Water Supply Branch
                     </Type>
                     <Type variant="body2" paragraph>
@@ -645,9 +676,9 @@ const ARBSPage = () => {
                       Mid-Pacific Regional Office <br />
                       2800 Cottage Way <br />
                       Sacramento, California 95825-1898 <br />
-                      (916) 978-5061 <br />
-                      <Link href="mailto:anickel@usbr.gov">
-                        anickel@usbr.gov
+                      (916) 978-5348 <br />
+                      <Link href="mailto:ankurbhattacharya@usbr.gov">
+                        ankurbhattacharya@usbr.gov
                       </Link>
                     </Type>
                   </ChildBox>
