@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useContext} from 'react'
 import {
   makeStyles,
   createStyles,
@@ -12,6 +12,7 @@ import {
   Box
 } from '@material-ui/core'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
+import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 // import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,16 +27,29 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 const TrendingBarMobile = () => {
+  const {dispatch} = useContext(UiContext)
   const classes = useStyles()
+  const toggleDrawer = useCallback(
+    (openDrawer: boolean) => () => {
+      dispatch(setDrawerViz(openDrawer))
+    },
+    [dispatch]
+  )
   const TrendingLink = useCallback(
     ({title, ...props}: ListItemProps<'a', {button?: true}>) => {
       return (
-        <ListItem button component="a" {...props}>
+        <ListItem
+          button
+          component="a"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+          {...props}
+        >
           <ListItemText primary={title} classes={{primary: classes.type}} />
         </ListItem>
       )
     },
-    [classes]
+    [classes, toggleDrawer]
   )
 
   const TrendingNextLink = useCallback(
@@ -47,13 +61,19 @@ const TrendingBarMobile = () => {
     }: NextLinkProps & ListItemProps<'a', {button?: true}>) => {
       return (
         <NextLink href={href} as={as}>
-          <ListItem button component="a" {...props}>
+          <ListItem
+            button
+            component="a"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+            {...props}
+          >
             <ListItemText primary={title} classes={{primary: classes.type}} />
           </ListItem>
         </NextLink>
       )
     },
-    [classes]
+    [classes, toggleDrawer]
   )
 
   return (

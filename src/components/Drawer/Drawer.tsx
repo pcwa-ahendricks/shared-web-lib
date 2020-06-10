@@ -32,7 +32,7 @@ import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobil
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    foo: {
+    bolder: {
       fontWeight: 500
     },
     nested: {
@@ -115,7 +115,7 @@ const SwipeableTemporaryDrawer = () => {
                 primary="Home"
                 primaryTypographyProps={{
                   color: 'primary',
-                  classes: {colorPrimary: classes.foo}
+                  classes: {colorPrimary: classes.bolder}
                 }}
               />
             </ListItem>
@@ -129,7 +129,10 @@ const SwipeableTemporaryDrawer = () => {
               >
                 <ListItemText
                   primary={cfg.menuName}
-                  primaryTypographyProps={{color: 'primary'}}
+                  primaryTypographyProps={{
+                    color: 'primary',
+                    classes: {colorPrimary: classes.bolder}
+                  }}
                 />
               </ListItem>
               <Collapse in={activeGroup === cfg.key} timeout="auto">

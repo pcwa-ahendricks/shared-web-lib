@@ -58,10 +58,12 @@ const HERO_IMG_SRC =
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     firstWarningAlert: ({getBackgroundColor}: any) => ({
-      // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
-      background: `linear-gradient(180deg, ${
-        theme.palette.background.default
-      } 0%, ${getBackgroundColor(theme.palette.warning.main, 0.9)} 10%)`
+      [`${theme.breakpoints.up('sm')}`]: {
+        // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
+        background: `linear-gradient(180deg, ${
+          theme.palette.background.default
+        } 0%, ${getBackgroundColor(theme.palette.warning.main, 0.9)} 10%)`
+      }
     })
   })
 )
