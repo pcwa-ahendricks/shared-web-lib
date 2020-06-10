@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useMemo,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ListItemProps} from '@material-ui/core/ListItem'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
@@ -34,14 +28,19 @@ import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import {useRouter} from 'next/router'
+import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    foo: {
+      fontWeight: 500
+    },
     nested: {
       paddingLeft: theme.spacing(4)
     },
     subheader: {
-      color: theme.palette.common.black,
+      // color: theme.palette.common.black,
+      color: theme.palette.primary.main,
       textTransform: 'uppercase',
       backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
     }
@@ -51,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const SwipeableTemporaryDrawer = () => {
   const classes = useStyles()
   const [activeGroup, setActiveGroup] = useState<number | null>(null)
+  const router = useRouter()
 
   const {state, dispatch} = useContext(UiContext)
   const theme = useTheme<Theme>()
@@ -66,35 +66,41 @@ const SwipeableTemporaryDrawer = () => {
   // See https://material-ui.com/components/drawers/#swipeable-temporary-drawer for more info.
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
-  const groupSelectHandler = (groupKey: number) => () => {
-    setActiveGroup((currentGroupKey) =>
-      currentGroupKey === groupKey ? null : groupKey
-    )
-  }
+  const groupSelectHandler = useCallback(
+    (groupKey: number) => () => {
+      setActiveGroup((currentGroupKey) =>
+        currentGroupKey === groupKey ? null : groupKey
+      )
+    },
+    []
+  )
 
-  const NavListItem = ({
-    title,
-    ...rest
-  }: {title: string} & ListItemProps<'li', {button?: true}>) => {
-    return (
-      <ListItem
-        component="li"
-        className={classes.nested}
-        button
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-        {...rest}
-      >
-        <ListItemText>
-          <Type variant="caption">{title}</Type>
-        </ListItemText>
-      </ListItem>
-    )
-  }
+  const NavListItem = useCallback(
+    ({
+      title,
+      ...rest
+    }: {title: string} & ListItemProps<'li', {button?: true}>) => {
+      return (
+        <ListItem
+          component="li"
+          className={classes.nested}
+          button
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+          {...rest}
+        >
+          <ListItemText primaryTypographyProps={{color: 'inherit'}}>
+            <Type variant="caption" color="inherit">
+              {title}
+            </Type>
+          </ListItemText>
+        </ListItem>
+      )
+    },
+    [classes, toggleDrawer]
+  )
 
-  const router = useRouter()
-
-  const sideList = useMemo(
+  const SideList = useCallback(
     () => (
       <>
         <List component="nav">
@@ -105,7 +111,13 @@ const SwipeableTemporaryDrawer = () => {
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
             >
-              <ListItemText primary="Home" />
+              <ListItemText
+                primary="Home"
+                primaryTypographyProps={{
+                  color: 'primary',
+                  classes: {colorPrimary: classes.foo}
+                }}
+              />
             </ListItem>
           </Link>
           {menuConfig.map((cfg, idxLvl1) => (
@@ -115,7 +127,10 @@ const SwipeableTemporaryDrawer = () => {
                 onClick={groupSelectHandler(cfg.key)}
                 onKeyDown={groupSelectHandler(cfg.key)}
               >
-                <ListItemText primary={cfg.menuName} />
+                <ListItemText
+                  primary={cfg.menuName}
+                  primaryTypographyProps={{color: 'primary'}}
+                />
               </ListItem>
               <Collapse in={activeGroup === cfg.key} timeout="auto">
                 <List component="div" disablePadding>
@@ -134,9 +149,9 @@ const SwipeableTemporaryDrawer = () => {
                             key={idxLvl3}
                             href={i.nextLink || i.href || '/'}
                             underline="none"
-                            color="textPrimary"
+                            color="primary"
                             as={i.as}
-                            passHref
+                            isNextLink={Boolean(i.nextLink)}
                           >
                             <NavListItem
                               title={i.title}
@@ -155,7 +170,7 @@ const SwipeableTemporaryDrawer = () => {
         <Divider />
       </>
     ),
-    [classes, toggleDrawer, activeGroup, router]
+    [classes, toggleDrawer, activeGroup, router, groupSelectHandler]
   )
 
   // Close the drawer if it's open and window is resized larger.
@@ -178,7 +193,12 @@ const SwipeableTemporaryDrawer = () => {
         disableDiscovery={iOS}
       >
         <ColumnBox width={275} height="100%">
-          <ChildBox>{sideList}</ChildBox>
+          <ChildBox>
+            <SideList />
+          </ChildBox>
+          <ChildBox>
+            <TrendingBarMobile />
+          </ChildBox>
           <ChildBox flex="auto" />
           <ChildBox my={1}>
             <RowBox justifyContent="center" fontStyle="italic">
