@@ -8,9 +8,10 @@ import {
   OutlinedInput,
   Select,
   Theme,
-  Typography as Type
+  Typography as Type,
+  makeStyles,
+  createStyles
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 

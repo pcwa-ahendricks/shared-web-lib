@@ -19,12 +19,13 @@ import {
   Tab,
   Link as MatLink,
   Typography as Type,
+  createStyles,
+  makeStyles,
   TabProps,
   Breadcrumbs
 } from '@material-ui/core'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import DescriptionIcon from '@material-ui/icons/Description'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {GetStaticPaths, GetStaticProps} from 'next'
 // import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'

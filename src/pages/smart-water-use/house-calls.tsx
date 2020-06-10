@@ -1,6 +1,13 @@
 import React from 'react'
-import {useMediaQuery, Box, Typography as Type} from '@material-ui/core'
-import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
+import {
+  useMediaQuery,
+  Box,
+  Typography as Type,
+  useTheme,
+  createStyles,
+  makeStyles,
+  TypographyProps
+} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -10,7 +17,6 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import FlexBox, {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
-import {TypographyProps} from '@material-ui/core/Typography'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 // import MuiNextLink from '@components/NextLink/NextLink'
 // import Imgix from 'react-imgix'

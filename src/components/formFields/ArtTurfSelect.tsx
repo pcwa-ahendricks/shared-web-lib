@@ -6,9 +6,10 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  Theme
+  Theme,
+  makeStyles,
+  createStyles
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 

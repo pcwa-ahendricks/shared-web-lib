@@ -6,12 +6,12 @@ import {
   Zoom,
   Theme,
   useMediaQuery,
-  useScrollTrigger
+  useTheme,
+  useScrollTrigger,
+  IconProps,
+  FabProps
 } from '@material-ui/core'
-import {FabProps} from '@material-ui/core/Fab'
-import {IconProps} from '@material-ui/core/Icon'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
-import {useTheme} from '@material-ui/core/styles'
 import {backToTopAnchorId} from '@components/PageLayout/PageLayout'
 
 /*

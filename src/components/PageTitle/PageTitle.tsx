@@ -3,10 +3,11 @@ import {
   Box,
   Typography as Type,
   Divider,
+  BoxProps,
+  createStyles,
+  makeStyles,
   TypographyProps
 } from '@material-ui/core'
-import {BoxProps} from '@material-ui/core/Box'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 type Props = {
   subtitle?: string

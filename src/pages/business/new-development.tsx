@@ -5,20 +5,23 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import FlexBox, {ColumnBox, RowBox} from '@components/boxes/FlexBox'
-import {Box, useMediaQuery, Typography as Type, Link} from '@material-ui/core'
 import {
   useTheme,
   createStyles,
   makeStyles,
-  Theme
-} from '@material-ui/core/styles'
+  Theme,
+  Box,
+  useMediaQuery,
+  Typography as Type,
+  Link,
+  BoxProps,
+  LinkProps,
+  TypographyProps
+} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import AssignmentLateOutlinedIcon from '@material-ui/icons/AssignmentLateOutlined'
 import Spacing from '@components/boxes/Spacing'
-import {TypographyProps} from '@material-ui/core/Typography'
-import {BoxProps} from '@material-ui/core/Box'
-import {LinkProps} from '@material-ui/core/Link'
 import EngineeringPhone from '@components/links/EngineeringPhone'
 import EngineeringEmail from '@components/links/EngineeringEmail'
 import GisDeptEmail from '@components/links/GisDeptEmail'

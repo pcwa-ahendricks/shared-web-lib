@@ -5,14 +5,12 @@ import {
   ListSubheader,
   Divider,
   Box,
-  Button
-} from '@material-ui/core'
-import {
+  Button,
   createStyles,
   makeStyles,
   useTheme,
   Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 // import {ListItemProps} from '@material-ui/core/ListItem'
 import gages from '@lib/services/pi/gage-config'
 import PiNavigationListItem from '../PiNavigationListItem/PiNavigationListItem'

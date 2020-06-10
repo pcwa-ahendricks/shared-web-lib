@@ -1,12 +1,13 @@
 // cspell:ignore Lightbox
 import React, {useMemo, Fragment} from 'react'
 import NextLink from 'next/link'
+import {PickedPublicationResponse} from '@components/multimedia/MultimediaStore'
 import {
-  PickedPublicationResponse
-  // MappedMultimedia
-} from '@components/multimedia/MultimediaStore'
-import {ListItem, ListItemAvatar, ListItemText} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  useTheme
+} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import slugify from 'slugify'
 import {ColumnBox} from '@components/boxes/FlexBox'

@@ -1,6 +1,15 @@
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Typography as Type, Box, useTheme, Link} from '@material-ui/core'
+import {
+  Typography as Type,
+  Box,
+  useTheme,
+  Link,
+  createStyles,
+  makeStyles,
+  BoxProps,
+  Theme
+} from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -12,11 +21,9 @@ import {
   RowBox
 } from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
-import {BoxProps} from '@material-ui/core/Box'
 import FancyButton, {
   FancyButtonProps
 } from '@components/FancyButton/FancyButton'
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'

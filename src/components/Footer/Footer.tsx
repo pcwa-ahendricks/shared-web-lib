@@ -7,9 +7,11 @@ import {
   Link,
   Theme,
   Typography as Type,
-  useMediaQuery
+  useMediaQuery,
+  createStyles,
+  makeStyles,
+  useTheme
 } from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
 import {RowBox, ColumnBox, RespRowBox} from '@components/boxes/FlexBox'

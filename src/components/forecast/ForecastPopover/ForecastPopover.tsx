@@ -1,6 +1,5 @@
 import React from 'react'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
-import {Popover, Theme} from '@material-ui/core'
+import {Popover, Theme, makeStyles, createStyles} from '@material-ui/core'
 import Imgix from 'react-imgix'
 
 type Props = {

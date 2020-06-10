@@ -1,7 +1,14 @@
 import React, {useState, useMemo, useCallback} from 'react'
-import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
+import {
+  Box,
+  Theme,
+  Typography as Type,
+  useMediaQuery,
+  useTheme,
+  createStyles,
+  makeStyles
+} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
 import filenamify from 'filenamify'

@@ -5,10 +5,11 @@ import {
   GridListTileBar,
   IconButton,
   Theme,
-  Tooltip
+  Tooltip,
+  makeStyles,
+  createStyles
 } from '@material-ui/core'
 import PlayIcon from '@material-ui/icons/PlayCircleOutline'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {PlayListItem} from '@lib/types/youtube'
 
 /*

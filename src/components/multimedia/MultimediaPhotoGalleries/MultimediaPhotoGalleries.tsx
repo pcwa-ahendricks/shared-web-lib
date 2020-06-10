@@ -12,13 +12,15 @@ import {
   MappedPhoto
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {Box, Typography as Type, useMediaQuery} from '@material-ui/core'
 import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
   createStyles,
   makeStyles,
   useTheme,
   Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'

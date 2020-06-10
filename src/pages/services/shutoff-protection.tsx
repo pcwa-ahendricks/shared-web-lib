@@ -13,14 +13,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Divider
-} from '@material-ui/core'
-import {
+  Divider,
   useTheme,
   createStyles,
   makeStyles,
   Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import {RowBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'

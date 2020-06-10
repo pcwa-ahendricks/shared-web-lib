@@ -1,6 +1,5 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
-import {Paper, Theme} from '@material-ui/core'
+import {Paper, Theme, makeStyles} from '@material-ui/core'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import colorAlpha from 'color-alpha'
 

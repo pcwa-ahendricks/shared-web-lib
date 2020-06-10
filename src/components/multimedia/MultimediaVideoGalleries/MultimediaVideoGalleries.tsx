@@ -16,8 +16,14 @@ import {
   PickedVideoResponse
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {useMediaQuery, Typography as Type, Box} from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
+import {
+  useMediaQuery,
+  Typography as Type,
+  Box,
+  createStyles,
+  makeStyles,
+  useTheme
+} from '@material-ui/core'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'

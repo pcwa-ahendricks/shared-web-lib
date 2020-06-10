@@ -1,12 +1,12 @@
 // cspell:ignore
 import React from 'react'
-import {Box, Typography as Type, Divider, Link} from '@material-ui/core'
 import {
+  Box,
+  Typography as Type,
+  Divider,
+  Link,
   useTheme
-  // makeStyles,
-  // createStyles,
-  // Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 
 // const useStyles = makeStyles((theme: Theme) =>

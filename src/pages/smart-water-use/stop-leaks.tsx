@@ -1,7 +1,11 @@
 // cspell:ignore showerheads howto
 import React from 'react'
-import {Typography as Type, Link} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {
+  Typography as Type,
+  Link,
+  createStyles,
+  makeStyles
+} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'

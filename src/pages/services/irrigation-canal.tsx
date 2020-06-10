@@ -10,10 +10,12 @@ import {
   Avatar,
   Theme,
   Divider,
-  useMediaQuery
+  useMediaQuery,
+  createStyles,
+  makeStyles,
+  useTheme
 } from '@material-ui/core'
 import {grey, yellow, blueGrey} from '@material-ui/core/colors'
-// import {useTheme} from '@material-ui/core/styles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -30,10 +32,8 @@ import FancyButton from '@components/FancyButton/FancyButton'
 import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-
 import {PlayListItems} from '@lib/types/youtube'
 import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import EyeIcon from '@material-ui/icons/RemoveRedEye'
 import InletIcon from '@material-ui/icons/VerticalAlignTop'
 import NeighborsIcon from '@material-ui/icons/People'

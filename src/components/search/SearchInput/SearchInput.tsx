@@ -1,11 +1,12 @@
 import React, {useMemo, useCallback, useContext, useState} from 'react'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 import {
   Box,
   InputBase,
   Paper,
   Theme,
-  Typography as Type
+  Typography as Type,
+  makeStyles,
+  createStyles
 } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'

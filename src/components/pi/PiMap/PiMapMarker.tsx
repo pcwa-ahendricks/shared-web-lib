@@ -1,6 +1,5 @@
 import React from 'react'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
-// import {Theme} from '@material-ui/core'
+import {createStyles, makeStyles} from '@material-ui/core'
 
 type Props = {
   size: number

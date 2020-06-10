@@ -5,13 +5,13 @@ import {
   Link as MuiLink,
   Typography as Type,
   Divider,
-  CircularProgress
+  CircularProgress,
+  useTheme
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {useTheme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
 import EventIcon from '@material-ui/icons/Event'

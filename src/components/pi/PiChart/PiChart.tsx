@@ -12,11 +12,10 @@ import {
   Theme,
   Typography as Type,
   useMediaQuery,
-  LinearProgress
+  LinearProgress,
+  useTheme
 } from '@material-ui/core'
 // import {blue} from '@material-ui/core/colors'
-// import {useTheme, makeStyles, createStyles} from '@material-ui/core/styles'
-import {useTheme} from '@material-ui/core/styles'
 import {format, differenceInMonths, differenceInDays, parseJSON} from 'date-fns'
 import {PiContext, PiMetadata} from '../PiStore'
 import {RowBox} from '@components/boxes/FlexBox'

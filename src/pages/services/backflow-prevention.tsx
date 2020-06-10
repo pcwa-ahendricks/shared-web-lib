@@ -7,6 +7,9 @@ import {
   ListItem,
   ListItemText,
   Theme,
+  makeStyles,
+  createStyles,
+  useTheme,
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
@@ -14,7 +17,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import BsiOnlineWebsite from '@components/links/BsiOnlineWebsite'

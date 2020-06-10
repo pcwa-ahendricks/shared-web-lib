@@ -1,6 +1,13 @@
 import React, {useCallback, useContext} from 'react'
-import {makeStyles, useTheme} from '@material-ui/core/styles'
-import {Box, Hidden, Toolbar, Theme, useMediaQuery} from '@material-ui/core'
+import {
+  Box,
+  Hidden,
+  Toolbar,
+  Theme,
+  useMediaQuery,
+  makeStyles,
+  useTheme
+} from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'

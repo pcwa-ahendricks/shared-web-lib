@@ -1,9 +1,8 @@
 // cspell:ignore infobox
 import React from 'react'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {RowBox} from '@components/boxes/FlexBox'
 import {PiMetadata} from '../PiStore'
-import {Typography as Type} from '@material-ui/core'
+import {Typography as Type, createStyles, makeStyles} from '@material-ui/core'
 import clsx from 'clsx'
 
 type Props = {

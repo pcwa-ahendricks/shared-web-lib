@@ -13,9 +13,9 @@ import {
   List,
   ListItem,
   ListItemText,
+  useTheme,
   ListSubheader
 } from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'

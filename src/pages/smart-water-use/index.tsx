@@ -18,7 +18,11 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  useMediaQuery
+  useMediaQuery,
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -34,12 +38,6 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink from '@components/NextLink/NextLink'
 import SectionBox from '@components/boxes/SectionBox'
-import {
-  createStyles,
-  makeStyles,
-  useTheme,
-  Theme
-} from '@material-ui/core/styles'
 import FeedbackIcon from '@material-ui/icons/Feedback'
 import BuildIcon from '@material-ui/icons/BuildOutlined'
 import GaugeIcon from 'mdi-material-ui/Gauge'

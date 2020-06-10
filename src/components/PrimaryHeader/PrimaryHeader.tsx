@@ -6,7 +6,6 @@ import React, {
   useContext,
   useRef
 } from 'react'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 // [TODO] Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {
   AppBar,
@@ -14,10 +13,13 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  PopperProps,
+  makeStyles,
+  createStyles,
+  useTheme,
   Theme,
   useScrollTrigger
 } from '@material-ui/core'
-import {PopperProps} from '@material-ui/core/Popper'
 import MenuIcon from '@material-ui/icons/Menu'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import MegaMenuLink from '@components/megaMenu/MegaMenuLink/MegaMenuLink'

@@ -35,14 +35,12 @@ import {
   ListItemText,
   TabProps,
   Button,
-  useMediaQuery
-} from '@material-ui/core'
-import {
+  useMediaQuery,
   createStyles,
   makeStyles,
   Theme,
   useTheme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
@@ -254,7 +252,7 @@ const PublicationsPage = ({
 
   const enewsBlasts = useMemo(
     () =>
-      enewsData?.objects && Array.isArray(enewsData?.objects)
+      enewsData && Array.isArray(enewsData.objects)
         ? enewsData?.objects.map((blast) => ({
             id: blast._id,
             title: blast.title,

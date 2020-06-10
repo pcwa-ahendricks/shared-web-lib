@@ -4,8 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
-import {Typography as Type, Box} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+import {Typography as Type, Box, useTheme} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewLink, {
   OpenInNewLinkProps

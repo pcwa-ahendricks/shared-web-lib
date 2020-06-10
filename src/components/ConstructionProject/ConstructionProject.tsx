@@ -1,7 +1,5 @@
 import React from 'react'
-import {Box} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
-import {BoxProps} from '@material-ui/core/Box'
+import {Box, useTheme, BoxProps} from '@material-ui/core'
 
 const ConstructionProject = ({children, ...rest}: BoxProps) => {
   const theme = useTheme()

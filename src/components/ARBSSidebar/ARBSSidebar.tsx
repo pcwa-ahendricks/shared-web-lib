@@ -5,14 +5,12 @@ import {
   Typography as Type,
   Divider,
   Link,
-  LinkProps
-} from '@material-ui/core'
-import {
+  LinkProps,
   useTheme,
   makeStyles,
   createStyles,
   Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
 import NavBox from '@components/boxes/NavBox'

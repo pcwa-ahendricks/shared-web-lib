@@ -1,7 +1,14 @@
 // cspell:ignore supportsTouch
 import React, {useState, useCallback} from 'react'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
-import {Box, Button, Tooltip, Theme} from '@material-ui/core'
+import {
+  Box,
+  Button,
+  Tooltip,
+  Theme,
+  makeStyles,
+  createStyles,
+  useTheme
+} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
 import {DroppedFile, UploadedFileAttr} from './types'
 import RemoveUploadFab from './RemoveUploadFab'

@@ -5,10 +5,12 @@ import {
   IconButton,
   Theme,
   Tooltip,
-  Typography as Type
+  Typography as Type,
+  makeStyles,
+  createStyles,
+  useTheme,
+  useMediaQuery
 } from '@material-ui/core'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import delay from 'then-sleep'
 import LazyImgix from '@components/LazyImgix/LazyImgix'

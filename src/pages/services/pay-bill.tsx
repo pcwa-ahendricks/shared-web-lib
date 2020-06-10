@@ -1,6 +1,6 @@
 // cspell:ignore bgcolor
 import React, {useCallback} from 'react'
-import {Box, Typography as Type, Theme, Link} from '@material-ui/core'
+import {Box, Typography as Type, Theme, Link, useTheme} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -11,7 +11,6 @@ import {
   ColumnBox,
   RowBox
 } from '@components/boxes/FlexBox'
-import {useTheme} from '@material-ui/core/styles'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from '@components/NextLink/NextLink'
 import EightHundredPhone from '@components/links/EightHundredPhone'

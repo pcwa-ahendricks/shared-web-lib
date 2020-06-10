@@ -1,13 +1,11 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
 import Link from 'next/link'
 import {
+  makeStyles,
   CardActionArea,
   CardContent,
   CardMedia,
   Card,
-  // Chip,
-  // Box,
   Typography as Type
 } from '@material-ui/core'
 

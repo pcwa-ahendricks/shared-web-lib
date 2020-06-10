@@ -4,9 +4,10 @@ import {
   Snackbar,
   SnackbarContent,
   Theme,
-  Slide
+  Slide,
+  makeStyles,
+  createStyles
 } from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'

@@ -1,12 +1,14 @@
 import React, {useState, useCallback} from 'react'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Typography as Type,
   Theme,
-  Box
+  Box,
+  makeStyles,
+  createStyles,
+  useTheme
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ColumnBox} from '@components/boxes/FlexBox'

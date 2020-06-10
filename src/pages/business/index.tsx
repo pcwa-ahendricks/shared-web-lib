@@ -5,8 +5,13 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
-import {Box, Typography as Type, useMediaQuery, Theme} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
+  Theme,
+  useTheme
+} from '@material-ui/core'
 
 const DoingBusinessPage = () => {
   const theme = useTheme<Theme>()

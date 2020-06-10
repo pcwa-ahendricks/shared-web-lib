@@ -1,7 +1,6 @@
 // cspell:ignore novus
 import React, {useCallback, useState} from 'react'
 import {Typography as Type, Box, Fade, BoxProps} from '@material-ui/core'
-// import {useTheme} from '@material-ui/core/styles'
 
 const NovusIframe = ({...rest}: BoxProps) => {
   // const theme = useTheme()

@@ -1,6 +1,16 @@
 // cspell:ignore bewatersmart arwec usbr
 import React from 'react'
-import {Box, Typography as Type, Link} from '@material-ui/core'
+import {
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme,
+  Box,
+  Typography as Type,
+  BoxProps,
+  TypographyProps,
+  Link
+} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -9,16 +19,8 @@ import LocalDrinkIcon from '@material-ui/icons/LocalDrink'
 import DetectiveIcon from 'mdi-material-ui/AccountSearch'
 import Spacing from '@components/boxes/Spacing'
 import FlexBox from '@components/boxes/FlexBox'
-import {
-  createStyles,
-  makeStyles,
-  useTheme,
-  Theme
-} from '@material-ui/core/styles'
-import {TypographyProps} from '@material-ui/core/Typography'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-import {BoxProps} from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,8 +1,13 @@
 import React from 'react'
-import {Paper, Theme, Tooltip} from '@material-ui/core'
+import {
+  Paper,
+  Theme,
+  Tooltip,
+  makeStyles,
+  createStyles
+} from '@material-ui/core'
 import TrendingLink from '../TrendingLink/TrendingLink'
 import {TrendingUp} from '@material-ui/icons'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

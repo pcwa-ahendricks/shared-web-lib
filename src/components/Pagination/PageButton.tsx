@@ -1,7 +1,14 @@
 import React, {useMemo, useCallback} from 'react'
-import {PropTypes, StandardProps, Theme} from '@material-ui/core'
-import Button, {ButtonProps} from '@material-ui/core/Button'
-import {createStyles, WithStyles, withStyles} from '@material-ui/core/styles'
+import {
+  Button,
+  ButtonProps,
+  PropTypes,
+  StandardProps,
+  Theme,
+  createStyles,
+  WithStyles,
+  withStyles
+} from '@material-ui/core'
 import clsx from 'clsx'
 
 export type PageButtonClassKey =
@@ -31,7 +38,7 @@ export type PageButtonClassKey =
   | 'fullWidth'
 
 const styles = (theme: Theme) =>
-  createStyles<PageButtonClassKey, {}>({
+  createStyles<PageButtonClassKey, any>({
     root: {
       minWidth: 16
     },

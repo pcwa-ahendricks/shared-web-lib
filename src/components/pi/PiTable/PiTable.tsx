@@ -18,9 +18,11 @@ import {
   Toolbar,
   Typography as Type,
   useTheme,
-  LinearProgress
+  LinearProgress,
+  createStyles,
+  makeStyles,
+  SortDirection
 } from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {PiContext, PiMetadata} from '../PiStore'
 import {GageConfigTable} from '@lib/services/pi/gage-config'
 import {
@@ -43,7 +45,6 @@ import {stableSort} from '@lib/table-utils'
 import PiTableRow from './PiTableRow'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
-import {SortDirection} from '@material-ui/core/TableCell'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {

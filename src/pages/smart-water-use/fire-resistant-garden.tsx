@@ -5,7 +5,12 @@ import {
   Typography as Type,
   useMediaQuery,
   Link,
-  Hidden
+  Hidden,
+  createStyles,
+  makeStyles,
+  LinkProps,
+  TypographyProps,
+  useTheme
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -20,11 +25,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import WideContainer from '@components/containers/WideContainer'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
-// import CenterImage from '@components/CenterImage/CenterImage'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-import {TypographyProps} from '@material-ui/core/Typography'
-import {LinkProps} from '@material-ui/core/Link'
 import MuiNextLink from '@components/NextLink/NextLink'
 
 const useStyles = makeStyles(() =>

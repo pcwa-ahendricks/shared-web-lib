@@ -1,6 +1,11 @@
 import React, {useEffect, useMemo} from 'react'
-import {Box, Badge, LinearProgress} from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
+import {
+  Box,
+  Badge,
+  LinearProgress,
+  makeStyles,
+  createStyles
+} from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 import BlockIcon from '@material-ui/icons/Block'
 import {DroppedFile, UploadedFileAttr} from './types'

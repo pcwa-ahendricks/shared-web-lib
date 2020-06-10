@@ -9,7 +9,9 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon
+  ListItemIcon,
+  createStyles,
+  makeStyles
   // Divider
 } from '@material-ui/core'
 import UnclaimedPropertyTable, {
@@ -20,7 +22,6 @@ import SectionBox from '@components/boxes/SectionBox'
 import {format, isBefore} from 'date-fns'
 import CheckIcon from '@material-ui/icons/Check'
 import {green} from '@material-ui/core/colors'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {RowBox} from '@components/boxes/FlexBox'
 import UnclaimedPropertyEmail from '@components/links/UnclaimedPropertyEmail'
 import {GetStaticProps} from 'next'

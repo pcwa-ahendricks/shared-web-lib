@@ -15,14 +15,12 @@ import {
   ListItemProps,
   ListItemTextProps,
   ListItemAvatarProps,
-  Link
-} from '@material-ui/core'
-import {
+  Link,
   makeStyles,
   createStyles,
   useTheme,
   Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import DoneIcon from '@material-ui/icons/Done'
 import MenuBookIcon from '@material-ui/icons/MenuBook'

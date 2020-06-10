@@ -8,22 +8,19 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  TableRow
+  TableRow,
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme,
+  BoxProps
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
-// import {useTheme} from '@material-ui/core/styles'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {
-  createStyles,
-  makeStyles,
-  useTheme,
-  Theme
-} from '@material-ui/core/styles'
-import {BoxProps} from '@material-ui/core/Box'
 import FancyButton from '@components/FancyButton/FancyButton'
 
 function createData(tier: string, cost: number) {

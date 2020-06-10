@@ -1,7 +1,12 @@
 //cspell:ignore publicpurchase
 import React, {useCallback, useState} from 'react'
-import {Typography as Type, Box, Fade, BoxProps} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+import {
+  Typography as Type,
+  Box,
+  Fade,
+  BoxProps,
+  useTheme
+} from '@material-ui/core'
 
 const PublicPurchaseIframe = ({...rest}: BoxProps) => {
   const theme = useTheme()
@@ -26,6 +31,7 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
           {...rest}
         >
           <iframe
+            title="Public Purchase Iframe"
             onLoad={publicPurchaseIframeLoadedHandler}
             src="https://www.publicpurchase.com/gems/pcwa,ca/buyer/public/publicInfo"
             frameBorder="0"

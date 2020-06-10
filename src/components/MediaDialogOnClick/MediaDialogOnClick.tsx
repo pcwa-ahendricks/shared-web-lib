@@ -7,9 +7,11 @@ import {
   Theme,
   Typography as Type,
   useMediaQuery,
-  BoxProps
+  BoxProps,
+  useTheme,
+  createStyles,
+  makeStyles
 } from '@material-ui/core'
-import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import MediaPreviewDialog, {
   MediaPreviewDialogProps
 } from '@components/MediaPreviewDialog/MediaPreviewDialog'

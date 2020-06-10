@@ -14,9 +14,7 @@ import {
   useTheme,
   makeStyles,
   createStyles,
-  Theme
-} from '@material-ui/core/styles'
-import {
+  Theme,
   Typography as Type,
   Divider,
   List,

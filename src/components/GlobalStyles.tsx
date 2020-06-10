@@ -1,6 +1,5 @@
 // cspell:ignore polyfill'd
-import {withStyles} from '@material-ui/core/styles'
-import {Theme} from '@material-ui/core'
+import {Theme, withStyles} from '@material-ui/core'
 import alpha from 'color-alpha'
 
 const GlobalStyles = withStyles((theme: Theme) => ({

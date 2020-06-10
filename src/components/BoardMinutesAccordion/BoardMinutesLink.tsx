@@ -1,8 +1,15 @@
 // cspell:ignore expy
 import React, {useState, useMemo} from 'react'
-import {Box, Theme, Typography as Type, useMediaQuery} from '@material-ui/core'
+import {
+  Box,
+  Theme,
+  Typography as Type,
+  useMediaQuery,
+  useTheme,
+  createStyles,
+  makeStyles
+} from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'

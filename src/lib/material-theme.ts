@@ -1,4 +1,4 @@
-import {createMuiTheme, responsiveFontSizes} from '@material-ui/core/styles'
+import {createMuiTheme, responsiveFontSizes} from '@material-ui/core'
 // import {indigo, green, red} from '@material-ui/core/colors'
 
 const systemFonts = [

@@ -17,7 +17,10 @@ import {
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress
+  LinearProgress,
+  useTheme,
+  createStyles,
+  makeStyles
 } from '@material-ui/core'
 import {
   RowBox,
@@ -25,7 +28,6 @@ import {
   ChildBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
-import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'

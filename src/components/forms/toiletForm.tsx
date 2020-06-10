@@ -1,7 +1,13 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useEffect} from 'react'
-import {Divider, Grid, Theme, Typography as Type} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {
+  Divider,
+  Grid,
+  Theme,
+  Typography as Type,
+  createStyles,
+  makeStyles
+} from '@material-ui/core'
 import {useFormikContext, Field, FieldArray} from 'formik'
 import {ToiletRebateFormData} from '@lib/services/formService'
 import EmailField from '@components/formFields/EmailField'

@@ -1,13 +1,15 @@
 import React from 'react'
-import {Fab, FabProps, Typography as Type} from '@material-ui/core'
-import prettyBytes from 'pretty-bytes'
-import DownloadIcon from '@material-ui/icons/CloudDownload'
 import {
   createStyles,
   makeStyles,
   Theme,
-  useTheme
-} from '@material-ui/core/styles'
+  useTheme,
+  Fab,
+  FabProps,
+  Typography as Type
+} from '@material-ui/core'
+import prettyBytes from 'pretty-bytes'
+import DownloadIcon from '@material-ui/icons/CloudDownload'
 import {CosmicMedia} from '@lib/services/cosmicService'
 
 type Props = {

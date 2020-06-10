@@ -2,8 +2,13 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Box, useMediaQuery, Link} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+import {
+  useTheme,
+  Typography as Type,
+  Box,
+  useMediaQuery,
+  Link
+} from '@material-ui/core'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'

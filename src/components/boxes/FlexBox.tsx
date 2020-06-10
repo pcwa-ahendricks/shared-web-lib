@@ -1,6 +1,5 @@
 import React from 'react'
-import {Box, Theme} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {Box, Theme, createStyles, makeStyles} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'
 

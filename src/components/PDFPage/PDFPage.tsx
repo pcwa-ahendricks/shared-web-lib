@@ -1,7 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {useMediaQuery, Theme, LinearProgress} from '@material-ui/core'
+import {useMediaQuery, Theme, LinearProgress, useTheme} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {useTheme} from '@material-ui/core/styles'
 import {RowBox, ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 
 type Props = {

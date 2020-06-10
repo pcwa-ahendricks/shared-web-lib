@@ -14,16 +14,14 @@ import {
   Tab,
   Tabs,
   Divider,
-  Button
-} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
-import Spacing from '@components/boxes/Spacing'
-import {
+  Button,
   createStyles,
   makeStyles,
   useTheme,
   Theme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
+import LazyImgix from '@components/LazyImgix/LazyImgix'
+import Spacing from '@components/boxes/Spacing'
 import PublicIcon from '@material-ui/icons/Public'
 import PublicPurchaseIframe from '@components/PublicPurchaseIframe/PublicPurchaseIframe'
 import EngineeringEmail from '@components/links/EngineeringEmail'

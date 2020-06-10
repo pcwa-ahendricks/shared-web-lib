@@ -1,10 +1,14 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Fade, SvgIconProps} from '@material-ui/core'
+import {
+  Fade,
+  SvgIconProps,
+  createStyles,
+  makeStyles,
+  IconProps
+} from '@material-ui/core'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
-import {IconProps} from '@material-ui/core/Icon'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import AltIcon from '@material-ui/icons/Language'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'

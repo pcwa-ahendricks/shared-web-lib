@@ -20,14 +20,12 @@ import {
   ListItem,
   ListItemText,
   useMediaQuery,
-  CircularProgress
-} from '@material-ui/core'
-import {
+  CircularProgress,
   makeStyles,
   createStyles,
   Theme,
   useTheme
-} from '@material-ui/core/styles'
+} from '@material-ui/core'
 import GavelRoundedIcon from '@material-ui/icons/GavelRounded'
 import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import NovusIframe from '@components/NovusIframe/NovusIframe'

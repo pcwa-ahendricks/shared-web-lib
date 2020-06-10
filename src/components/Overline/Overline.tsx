@@ -1,7 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
-import {Box, Theme} from '@material-ui/core'
-import {BoxProps} from '@material-ui/core/Box'
+import {Box, Theme, createStyles, makeStyles, BoxProps} from '@material-ui/core'
 import clsx from 'clsx'
 
 type Props = {

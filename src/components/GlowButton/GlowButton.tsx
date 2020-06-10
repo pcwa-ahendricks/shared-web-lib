@@ -1,7 +1,12 @@
 import React from 'react'
-import {ButtonBase, Typography as Type, Theme} from '@material-ui/core'
-import {ButtonBaseProps} from '@material-ui/core/ButtonBase'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
+import {
+  ButtonBase,
+  Typography as Type,
+  Theme,
+  makeStyles,
+  createStyles,
+  ButtonBaseProps
+} from '@material-ui/core'
 
 // color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
 export type GlowButtonProps = {

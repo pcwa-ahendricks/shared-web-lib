@@ -1,7 +1,7 @@
 // cspell:ignore imgix's
 import React from 'react'
 import {buildURL} from 'react-imgix'
-import {makeStyles} from '@material-ui/core/styles'
+import {makeStyles, Box} from '@material-ui/core'
 
 /**
  * Notes:
@@ -18,8 +18,6 @@ const HEIGHT = 100
 
 const useStyles = makeStyles({
   root: {
-    height: HEIGHT,
-    minHeight: HEIGHT,
     backgroundPosition: 'top left',
     backgroundRepeat: 'repeat-x',
     backgroundImage: `url(${buildURL(IMAGE_URL, {h: HEIGHT})})`,
@@ -29,7 +27,7 @@ const useStyles = makeStyles({
 
 const WaterSurfaceImg = () => {
   const classes = useStyles()
-  return <div className={classes.root} />
+  return <Box className={classes.root} height={HEIGHT} minHeight={HEIGHT} />
 }
 
 export default WaterSurfaceImg

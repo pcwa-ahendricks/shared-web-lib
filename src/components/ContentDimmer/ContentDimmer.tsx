@@ -1,7 +1,12 @@
 import React, {useState} from 'react'
-import {Box, Theme, Typography as Type} from '@material-ui/core'
-import {BoxProps} from '@material-ui/core/Box'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {
+  Box,
+  Theme,
+  Typography as Type,
+  createStyles,
+  makeStyles,
+  BoxProps
+} from '@material-ui/core'
 
 type Props = {
   title: string

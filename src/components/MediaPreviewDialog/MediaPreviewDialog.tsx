@@ -8,13 +8,15 @@ import {
   Fab,
   CircularProgress,
   Theme,
+  DialogProps,
   Typography as Type,
-  Zoom
+  Zoom,
+  makeStyles,
+  createStyles,
+  useTheme,
+  useMediaQuery
   // withMobileDialog
 } from '@material-ui/core'
-import {DialogProps} from '@material-ui/core/Dialog'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import extension from '@lib/fileExtension'

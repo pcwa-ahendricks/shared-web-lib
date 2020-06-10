@@ -1,6 +1,5 @@
 import React from 'react'
-import {Box} from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
+import {Box, createStyles, makeStyles} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 
 /*

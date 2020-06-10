@@ -12,9 +12,10 @@ import {
   Theme,
   Toolbar,
   Typography as Type,
-  useTheme
+  useTheme,
+  createStyles,
+  makeStyles
 } from '@material-ui/core'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import useDebounce from '@hooks/useDebounce'

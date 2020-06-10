@@ -1,10 +1,9 @@
 import React, {useMemo} from 'react'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import {Box} from '@material-ui/core'
+import {Box, makeStyles, createStyles} from '@material-ui/core'
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 

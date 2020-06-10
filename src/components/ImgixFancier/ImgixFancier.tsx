@@ -1,7 +1,13 @@
 import React, {useState, useCallback} from 'react'
 import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
-import {Box, Fade, BoxProps} from '@material-ui/core'
-import {makeStyles, createStyles, useTheme} from '@material-ui/core/styles'
+import {
+  Box,
+  Fade,
+  BoxProps,
+  makeStyles,
+  createStyles,
+  useTheme
+} from '@material-ui/core'
 import FlexBox from '@components/boxes/FlexBox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
 

@@ -12,12 +12,14 @@ import {
   Toolbar,
   Typography as Type,
   Theme,
-  Link
+  Link,
+  createStyles,
+  makeStyles,
+  useTheme,
+  TypographyProps
 } from '@material-ui/core'
-import {TypographyProps} from '@material-ui/core/Typography'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
 import WideContainer from '@components/containers/WideContainer'
 import StorageRoundedIcon from '@material-ui/icons/StorageRounded'
 import {RowBox} from '@components/boxes/FlexBox'

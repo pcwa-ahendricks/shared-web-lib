@@ -6,13 +6,13 @@ import MapGL, {
   NavigationControl
   // MapLoadEvent
 } from 'react-map-gl'
-import {useTheme} from '@material-ui/core/styles'
 import {
   Box,
   Grow,
   Typography as Type,
   CircularProgress,
-  useMediaQuery
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import debounce from 'debounce'
 import {directors, Director} from '@lib/directors'

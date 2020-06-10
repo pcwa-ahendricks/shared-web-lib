@@ -1,6 +1,16 @@
 // cspell:ignore Santini dugan
 import React, {useEffect, useState, useCallback} from 'react'
-import {Typography as Type, Link, Box, Divider, Badge} from '@material-ui/core'
+import {
+  useTheme,
+  Theme,
+  makeStyles,
+  createStyles,
+  Typography as Type,
+  Link,
+  Box,
+  Divider,
+  Badge
+} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -12,12 +22,6 @@ import SectionBox from '@components/boxes/SectionBox'
 import DistrictBoundariesMap from '@components/DistrictBoundariesMap/DistrictBoundariesMap'
 import BoardMemberCard from '@components/BoardMemberCard/BoardMemberCard'
 import {directors, Director} from '@lib/directors'
-import {
-  useTheme,
-  Theme,
-  makeStyles,
-  createStyles
-} from '@material-ui/core/styles'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {GetStaticPaths, GetStaticProps} from 'next'

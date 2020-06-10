@@ -18,9 +18,11 @@ import {
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress
+  LinearProgress,
+  useTheme,
+  createStyles,
+  makeStyles
 } from '@material-ui/core'
-import {useTheme, createStyles, makeStyles} from '@material-ui/core/styles'
 import {format, parseJSON} from 'date-fns'
 import {
   RowBox,

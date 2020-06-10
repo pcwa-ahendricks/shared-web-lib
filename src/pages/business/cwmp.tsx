@@ -9,9 +9,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  useTheme
-} from '@material-ui/core/styles'
-import {
+  useTheme,
   Box,
   Typography as Type,
   Stepper,
@@ -22,6 +20,7 @@ import {
   Link,
   List,
   ListItem,
+  ListItemProps,
   ListItemIcon,
   ListItemText
 } from '@material-ui/core'
@@ -29,7 +28,6 @@ import clsx from 'clsx'
 import Spacing from '@components/boxes/Spacing'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import DocIcon from '@material-ui/icons/LibraryBooks'
-import {ListItemProps} from '@material-ui/core/ListItem'
 
 type UseStylesProps = {
   activeIndex: number

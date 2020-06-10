@@ -6,7 +6,6 @@ import React, {
   useState
 } from 'react'
 import {ListItemProps} from '@material-ui/core/ListItem'
-import {makeStyles, useTheme, createStyles} from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
   List,
@@ -17,7 +16,10 @@ import {
   Box,
   Collapse,
   Typography as Type,
-  Divider
+  Divider,
+  makeStyles,
+  useTheme,
+  createStyles
 } from '@material-ui/core'
 import menuConfig from '@lib/menuConfig'
 import Link from 'next/link'

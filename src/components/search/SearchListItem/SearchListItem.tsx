@@ -1,6 +1,5 @@
 import React, {useMemo, useContext} from 'react'
-import {Box, ListItem} from '@material-ui/core'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
+import {Box, ListItem, makeStyles, createStyles} from '@material-ui/core'
 // import {ListItemProps} from '@material-ui/core/ListItem'
 import {SearchContext} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'

@@ -1,7 +1,6 @@
 // cspell:ignore cc'd
 import React, {useState, useCallback, useMemo} from 'react'
-import {Divider, Typography as Type, Box} from '@material-ui/core'
-import {useTheme} from '@material-ui/core/styles'
+import {Divider, Typography as Type, Box, useTheme} from '@material-ui/core'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {

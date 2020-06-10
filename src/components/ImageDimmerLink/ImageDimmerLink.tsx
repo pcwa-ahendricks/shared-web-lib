@@ -1,10 +1,15 @@
 import React, {useState} from 'react'
-import {Box, Theme, Typography as Type} from '@material-ui/core'
-import {BoxProps} from '@material-ui/core/Box'
+import {
+  Box,
+  Theme,
+  Typography as Type,
+  createStyles,
+  makeStyles,
+  BoxProps
+} from '@material-ui/core'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Imgix from 'react-imgix'
 import Link from 'next/link'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 type Props = {
   imgSrc: string

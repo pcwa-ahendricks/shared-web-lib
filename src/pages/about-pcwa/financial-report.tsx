@@ -4,14 +4,21 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Box, Link, Theme} from '@material-ui/core'
+import {
+  Typography as Type,
+  Box,
+  Link,
+  Theme,
+  createStyles,
+  makeStyles,
+  useTheme,
+  ButtonProps,
+  LinkProps
+} from '@material-ui/core'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
-import {ButtonProps} from '@material-ui/core/Button'
-import {LinkProps} from '@material-ui/core/Link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

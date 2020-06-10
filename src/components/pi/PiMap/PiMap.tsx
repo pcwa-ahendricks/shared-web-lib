@@ -8,8 +8,15 @@ import MapGL, {
   FlyToInterpolator
 } from 'react-map-gl'
 import {easeCubic} from 'd3-ease' // 3rd-party easing functions
-import {Box, useMediaQuery, Theme, LinearProgress} from '@material-ui/core'
-import {createStyles, makeStyles, useTheme} from '@material-ui/core/styles'
+import {
+  Box,
+  useMediaQuery,
+  Theme,
+  LinearProgress,
+  createStyles,
+  makeStyles,
+  useTheme
+} from '@material-ui/core'
 import isNumber from 'is-number'
 import PiMapMarker from './PiMapMarker'
 import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'

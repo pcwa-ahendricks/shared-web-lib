@@ -12,13 +12,14 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
+  createStyles,
+  makeStyles,
+  ListItemProps,
   Divider
   // Theme
 } from '@material-ui/core'
 import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {ListItemProps} from '@material-ui/core/ListItem'
-import {createStyles, makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() =>
   createStyles({
