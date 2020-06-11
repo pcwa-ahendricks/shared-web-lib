@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
       // color: theme.palette.primary.main,
       color: theme.palette.text.secondary,
       textTransform: 'uppercase',
+      opacity: 0.9,
+      // fontStyle: 'italic',
       backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
     }
   })
