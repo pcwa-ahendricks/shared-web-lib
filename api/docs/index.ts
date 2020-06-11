@@ -12,7 +12,7 @@ const REDIRECT_STATUS_CODE = 303
 // cspell:ignore CWMP
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const {id} = req.query
+    const {id, sub} = req.query
     switch (true) {
       /*  These doc links are used with "Grand Jury 2015 Report - Responses to Recommendations v3.docx" and generated pdf for Tony Firenzi which was distributed to Board of Directors and made available to the public 11/11/2020. */
       case testRe('CWMP-Implementation-Plan', id):
@@ -94,7 +94,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       //   break
 
       /*  These doc links are used and distributed via mail to all treated customers. */
-      case testRe('ccr/alta', id):
+      case testRe('alta', id) && paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -102,7 +102,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
-      case testRe('ccr/foothill-sunset', id):
+      case testRe('foothill-sunset', id) &&
+        paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -110,7 +111,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
-      case testRe('ccr/monte-vista', id):
+      case testRe('monte-vista', id) &&
+        paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -118,7 +120,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
-      case testRe('ccr/applegate', id):
+      case testRe('applegate', id) &&
+        paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -126,7 +129,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
-      case testRe('ccr/auburn-bowman', id):
+      case testRe('auburn-bowman', id) &&
+        paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -134,7 +138,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
-      case testRe('ccr/bianchi', id):
+      case testRe('bianchi', id) &&
+        paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -142,7 +147,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           })
           .end()
         break
-      case testRe('ccr/colfax', id):
+      case testRe('colfax', id) && paramToLowerStr(sub).toLowerCase() === 'ccr':
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
@@ -172,3 +177,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 }
 
 export default mainHandler
+
+function paramToLowerStr(param?: string | string[]): string {
+  if (Array.isArray(param)) {
+    param = param.join(',').toLowerCase()
+  }
+  return param || '' // Don't use ?? here since it is not supported by Vercel lambda
+}

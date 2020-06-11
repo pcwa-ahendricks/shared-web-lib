@@ -11,7 +11,9 @@
     {
       "source": "/favicon.ico",
       "destination": "/static/favicon/favicon.ico"
-    }
+    },
+    {"source": "/docs/:id", "destination": "/api/docs"},
+    {"source": "/docs/:sub/:id", "destination": "/api/docs"}
   ],
   "headers": [
     {
@@ -24,6 +26,15 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "https://www.pcwa.net"
+        }
+      ]
+    },
+    {
+      "source": "/docs/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }
