@@ -13,7 +13,7 @@ import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import ENewsButton from '@components/eNews/ENewsButton/ENewsButton'
-import EspanolButton from '@components/EspanolButton/EspanolButton'
+// import EspanolButton from '@components/EspanolButton/EspanolButton'
 import SearchInput from '@components/search/SearchInput/SearchInput'
 import GlowButton from '@components/GlowButton/GlowButton'
 import NextGlowButton from '@components/NextGlowButton/NextGlowButton'
@@ -103,7 +103,7 @@ const SecondaryHeader = () => {
           <YoutubeIcon />
         </SocialIconButton>
       </Box>
-      <EspanolButton>Español</EspanolButton>
+      {/* <EspanolButton>Español</EspanolButton> */}
       <SearchInput />
     </Toolbar>
   )

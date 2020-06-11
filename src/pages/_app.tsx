@@ -18,6 +18,7 @@ import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
 import NProgress from 'nprogress'
 const isDev = process.env.NODE_ENV === 'development'
+const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 /*
   [HACK] AMA page is not loading due to use of css import via @zeit/next-css plugin. See
   https://github.com/zeit/next.js/issues/5264 and  https://github.com/zeit/next.js/issues/5291 and 
@@ -35,6 +36,7 @@ import 'react-vertical-timeline-component/style.min.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
+import {initGA} from '@lib/googleAnalytics'
 
 /* NProgress */
 /* Use Timeout. See https://github.com/rstacruz/nprogress/issues/169#issuecomment-461704797 for more info. */
@@ -78,6 +80,12 @@ class MyApp extends App {
 
     isDev && console.log('Applying smoothscroll polyfill')
     smoothscroll.polyfill()
+
+    // Use Google Analytics in Production only on www.pcwa.net
+    if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
+      console.log('Initializing Google Analytics')
+      initGA()
+    }
   }
 
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */

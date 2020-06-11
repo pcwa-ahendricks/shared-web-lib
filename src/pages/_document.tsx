@@ -38,15 +38,11 @@ class MyDocument extends Document {
             name="description"
             content="PCWA is a water and energy provider for Placer County, CA."
           />
-
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-
           {/* IE compat.  */}
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-
           <link rel="stylesheet" href="/static/styles/nprogress.min.css" />
-
           {isDev ? (
             <>
               {/* Development Favicon */}
@@ -95,7 +91,6 @@ class MyDocument extends Document {
               <link rel="manifest" href="/static/favicon/site.webmanifest" />
             </>
           )}
-
           {/* Typography / Font */}
           {/* <link
             rel="stylesheet"
@@ -105,7 +100,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Asap+Condensed:600|Asap:400,500,600|Open+Sans"
             rel="stylesheet"
           /> */}
-
           {/* Use Google Web Font Loader for font loading. */}
           {/* <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" /> */}
           {/* <script

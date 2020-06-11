@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useContext} from 'react'
+import React, {useMemo, useCallback, useContext, useEffect} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
@@ -10,6 +10,10 @@ import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
+import {logPageView} from '@lib/googleAnalytics'
+import Router from 'next/router'
+const isDev = process.env.NODE_ENV === 'development'
+const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -29,8 +33,6 @@ const PageLayout = ({
   bannerComponent,
   ...rest
 }: Props) => {
-  const pageTitle = useMemo(() => `${title} | pcwa.net`, [title])
-
   const uiContext = useContext(UiContext)
   const uiDispatch = uiContext.dispatch
 
@@ -43,10 +45,22 @@ const PageLayout = ({
   const marginTop = useMemo(() => (isSMUp ? 4 : 2), [isSMUp])
   const marginBottom = useMemo(() => (isSMUp ? 10 : 5), [isSMUp])
 
-  const waterSurfaceImgEl = useMemo(
+  const pageTitle = `${title} | pcwa.net`
+
+  const WaterSurface = useCallback(
     () => (waterSurface ? <WaterSurfaceImg /> : null),
     [waterSurface]
   )
+  const Banner = useCallback(() => bannerComponent || null, [bannerComponent])
+
+  useEffect(() => {
+    // Use Google Analytics in Production only on www.pcwa.net
+    if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
+      // [TODO] Comment out logging once configuration is confirmed
+      console.log('Logging page view: ', Router.route)
+      logPageView()
+    }
+  }, [])
 
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
@@ -60,8 +74,8 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
-        {waterSurfaceImgEl}
-        {bannerComponent}
+        <WaterSurface />
+        <Banner />
         <Box flex="1 0 auto" mt={marginTop} mb={marginBottom} {...rest}>
           {children}
         </Box>
