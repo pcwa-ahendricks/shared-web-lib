@@ -9,6 +9,27 @@ const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
 const isDev = process.env.NODE_ENV === 'development'
 
+const miscRedirects = [
+  // Classic (Brenda's www.pcwa.net) stop leaks page.
+  {
+    source: '/water-use-efficiency/stop-leaks(.html)?',
+    destination: '/stewardship/stop-leaks',
+    permanent: true
+  },
+  {
+    source: '/careers/employee-benefits-summary(.html)?',
+    destination: '/career/employee-benefits-summary',
+    permanent: true
+  },
+  // Note - There is also a redirect defined in docs route, which should be preferred over this one
+  {
+    source: '/files/docs/hr/Candidate_Frequently_Asked_Questions(.pdf)?',
+    destination:
+      'https://cdn.cosmicjs.com/9eb06730-ac30-11ea-8daf-c3880e5e9d72-CandidateFrequentlyAskedQuestions.pdf',
+    permanent: false
+  }
+]
+
 // Sensible redirects for index pages
 const indexPageRedirects = [
   {
@@ -302,7 +323,12 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
   },
   experimental: {
     async redirects() {
-      return [...legacyRedirects, ...condRedirects, ...indexPageRedirects]
+      return [
+        ...legacyRedirects,
+        ...condRedirects,
+        ...indexPageRedirects,
+        ...miscRedirects
+      ]
     }
   },
   webpack: (config) => {

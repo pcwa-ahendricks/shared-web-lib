@@ -20,9 +20,15 @@ which will create a `.env` file which should reflect the variables outlined in `
 
 Find **GO-LIVE** tagged comments and address them prior to _Go Live_ date.
 
-Forms Now deployment will no longer be necessary.
-
-Use robots.txt.live over temporary robots.txt.
+- Forms Now deployment will no longer be necessary
+- Use robots.txt.live over temporary robots.txt
+- Set 'printf "https://www.pcwa.net" | vc env add NEXT_PUBLIC_BASE_URL production'
+- Set 'printf "false" | vc env add NEXT_PUBLIC_USE_NG_IFRAME production'
+- Confirm Water Quality links for CCRs are working from Docs api route
+- Confirm redirects are working defined in next.config.json
+- Confirm Google Site Search works
+- Confirm Google Analytics works
+- Confirm Form Submission works
 
 ## Package Dependencies
 

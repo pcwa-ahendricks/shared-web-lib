@@ -7,7 +7,7 @@ function testRe(filename: string, testParam: string | string[]) {
   return regex.test(testParam)
 }
 
-const REDIRECT_STATUS_CODE = 302
+const REDIRECT_STATUS_CODE = 303
 
 // cspell:ignore CWMP
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
@@ -98,11 +98,67 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
         res
           .writeHead(REDIRECT_STATUS_CODE, {
             Location:
-              'https://cdn.cosmicjs.com/0945bee0-50d6-11e9-8f45-5ddcaed67e68-Alta2019FINAL.pdf'
+              'https://cdn.cosmicjs.com/b9e6f0c0-75e2-11ea-8418-4938ccc0888b-Alta2020.pdf'
+          })
+          .end()
+        break
+      case testRe('ccr/foothill-sunset', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/baea7e10-75e2-11ea-8418-4938ccc0888b-Foothill-Sunset2020.pdf'
+          })
+          .end()
+        break
+      case testRe('ccr/monte-vista', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/b92b9000-75e2-11ea-8418-4938ccc0888b-MonteVista2020.pdf'
+          })
+          .end()
+        break
+      case testRe('ccr/applegate', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/b9af8d10-75e2-11ea-8418-4938ccc0888b-Applegate2020.pdf'
+          })
+          .end()
+        break
+      case testRe('ccr/auburn-bowman', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/b902ab40-75e2-11ea-8418-4938ccc0888b-Auburn-Bowman2020.pdf'
+          })
+          .end()
+        break
+      case testRe('ccr/bianchi', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/b9f26270-75e2-11ea-8418-4938ccc0888b-Bianchi2020.pdf'
+          })
+          .end()
+        break
+      case testRe('ccr/colfax', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/b9bbe920-75e2-11ea-8418-4938ccc0888b-Colfax2020.pdf'
           })
           .end()
         break
       /* */
+      case testRe('hr-frequently-asked-questions', id):
+        res
+          .writeHead(REDIRECT_STATUS_CODE, {
+            Location:
+              'https://cdn.cosmicjs.com/9eb06730-ac30-11ea-8daf-c3880e5e9d72-CandidateFrequentlyAskedQuestions.pdf'
+          })
+          .end()
+        break
 
       default:
         res.setHeader('Content-Type', 'text/html')
