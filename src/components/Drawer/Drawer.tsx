@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subheader: {
       // color: theme.palette.common.black,
-      color: theme.palette.primary.main,
+      // color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
       textTransform: 'uppercase',
       backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
     }
