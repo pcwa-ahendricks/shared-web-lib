@@ -29,6 +29,7 @@ import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import {useRouter} from 'next/router'
 import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
+import colorAlpha from 'color-alpha'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,9 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
     subheader: {
       // color: theme.palette.common.black,
       // color: theme.palette.primary.main,
-      color: theme.palette.text.secondary,
+      color: colorAlpha(theme.palette.text.secondary, 0.5), // Defaults to 0.54
       textTransform: 'uppercase',
-      opacity: 0.9,
       // fontStyle: 'italic',
       backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
     }
