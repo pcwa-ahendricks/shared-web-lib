@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import FlexBox, {ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {RowBox} from '@components/boxes/FlexBox'
 import {
   useTheme,
   createStyles,
@@ -40,12 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.grey['800']
     },
     linkItem: {
-      display: 'inline-flex',
-      alignItems: 'center'
+      display: 'inline'
+      // alignItems: 'center'
     },
     linkItemIcon: {
-      paddingLeft: 5
-      // marginRight: theme.spacing(1)
+      paddingLeft: theme.spacing(1 / 2), // Padding will shrink icon
+      marginBottom: theme.spacing(1 / 2), // Margin will not shrink icon
+      verticalAlign: 'middle'
     }
   })
 )
@@ -83,9 +84,9 @@ const NewDevelopmentPage = () => {
       <TightBullet>
         <LinkItem noWrap href={url}>
           {title}
-          <ColumnBox component="span" justifyContent="center">
+          <Box component="span">
             <DescriptionOutlinedIcon className={classes.linkItemIcon} />
-          </ColumnBox>
+          </Box>
         </LinkItem>
         <Type component="span" color="textPrimary">
           {' '}
@@ -289,23 +290,20 @@ const NewDevelopmentPage = () => {
                 href="https://cdn.cosmicjs.com/9ada4ec0-0675-11ea-944c-cfd32d7bf8a6-PCWA-Supplemental-Res-Service-Form.pdf"
               >
                 Supplemental Information for Residential Services Form
-                <ColumnBox component="span" justifyContent="center">
+                <Box component="span">
                   <DescriptionOutlinedIcon className={classes.linkItemIcon} />
-                </ColumnBox>
+                </Box>
               </LinkItem>
               <Type component="span" color="textPrimary">
                 {' '}
                 summarizing the lot sizes. For projects with
                 commercial/industrial or landscape services, please fill out the{' '}
               </Type>
-              <LinkItem
-                noWrap
-                href="https://cdn.cosmicjs.com/9ae10580-0675-11ea-95fe-01afbd7f5f3b-PCWA-Supplemental-Non-Res-Service-Form.pdf"
-              >
+              <LinkItem href="https://cdn.cosmicjs.com/9ae10580-0675-11ea-95fe-01afbd7f5f3b-PCWA-Supplemental-Non-Res-Service-Form.pdf">
                 Supplemental Information for Non-residential Services Form
-                <ColumnBox component="span" justifyContent="center">
+                <Box component="span">
                   <DescriptionOutlinedIcon className={classes.linkItemIcon} />
-                </ColumnBox>
+                </Box>
               </LinkItem>
               <Type component="span" color="textPrimary">
                 . One Non-residential form is required for each size and type of
@@ -346,7 +344,7 @@ const NewDevelopmentPage = () => {
             rights-of-way acceptable to the Agency to ensure the ability to
             access, maintain, repair, and replace those facilities. The{' '}
             <LinkItem href="https://cdn.cosmicjs.com/389aa5d0-0679-11ea-944c-cfd32d7bf8a6-PCWA-Checklist---Right-of-Way-Requirements.pdf">
-              Right-of-Way Requirements Checklist{' '}
+              Right-of-Way Requirements Checklist
               <DescriptionOutlinedIcon className={classes.linkItemIcon} />
             </LinkItem>{' '}
             provides information on what you will be required to submit so that
@@ -357,7 +355,7 @@ const NewDevelopmentPage = () => {
           <Type paragraph>
             When a grant of easement or fee title is necessary, the{' '}
             <LinkItem href="https://cdn.cosmicjs.com/0d075ed0-0701-11ea-944c-cfd32d7bf8a6-PCWA-Checklist---Signing-Authority.pdf">
-              Signing Authority Checklist{' '}
+              Signing Authority Checklist
               <DescriptionOutlinedIcon className={classes.linkItemIcon} />
             </LinkItem>{' '}
             provides helpful guidance on the documentation required for
@@ -388,7 +386,7 @@ const NewDevelopmentPage = () => {
           <Type paragraph>
             Fill out the{' '}
             <LinkItem href="https://cdn.cosmicjs.com/0029f460-0702-11ea-95fe-01afbd7f5f3b-PCWA-Fire-Flow-Request-Form-rev.2014.pdf">
-              Fire Flow Data Request{' '}
+              Fire Flow Data Request
               <DescriptionOutlinedIcon className={classes.linkItemIcon} />
             </LinkItem>{' '}
             to obtain fire flow data. For more information, please contact the

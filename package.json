@@ -56,10 +56,10 @@
     "@types/shortid": "^0.0.29",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/valid-url": "^1.0.3",
-    "@types/yup": "^0.29.2",
+    "@types/yup": "^0.29.3",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
-    "@vercel/node": "^1.6.1",
+    "@vercel/node": "^1.7.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "ava": "^3.8.2",
     "babel-plugin-typescript-to-proptypes": "^1.3.2",
@@ -86,9 +86,9 @@
   },
   "dependencies": {
     "@date-io/date-fns": "<2",
-    "@material-ui/core": "4.10.1",
+    "@material-ui/core": "4.10.2",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.55",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "3.2.10",
     "@types/react-vis": "^1.11.0",
     "busboy": "^0.3.1",
@@ -134,7 +134,7 @@
     "react-markdown": "^4.3.1",
     "react-native-listener": "^1.1.0",
     "react-pdf": "^4.1.0",
-    "react-player": "^2.2.0",
+    "react-player": "^2.3.0",
     "react-scroll-parallax": "^2.3.3",
     "react-select": "^3.1.0",
     "react-vertical-timeline-component": "^3.0.1",
@@ -148,7 +148,7 @@
     "then-sleep": "^1.0.1",
     "timezone-support": "^2.0.2",
     "valid-url": "^1.0.9",
-    "vercel": "^19.0.1",
+    "vercel": "^19.1.0",
     "yup": "^0.29.1"
   }
 }
