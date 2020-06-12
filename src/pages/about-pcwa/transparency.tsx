@@ -178,7 +178,7 @@ const TransparencyPage = () => {
                 <ListItemText primary="Disclosure of Enterprise System Information (SB 272)" />
               </ListItem>
             </NextLink>
-            <NextLink passHref href="/career/employee-benefits-summary">
+            <NextLink passHref href="/careers/employee-benefits-summary">
               <ListItem button>
                 <ListItemText primary="Employee Salary and Benefits" />
               </ListItem>

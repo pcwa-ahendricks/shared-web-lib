@@ -52,15 +52,15 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Recruitment Video',
-            nextLink: '/career/recruitment'
+            nextLink: '/careers/recruitment'
           },
           {
             title: 'Employee Benefits Summary',
-            nextLink: '/career/employee-benefits-summary'
+            nextLink: '/careers/employee-benefits-summary'
           },
           {
             title: 'Salary Schedule',
-            nextLink: '/career/salary-schedule'
+            nextLink: '/careers/salary-schedule'
           }
         ]
       },

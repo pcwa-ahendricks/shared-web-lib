@@ -95,3 +95,6 @@ and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-erro
 - `/stewardship/stop-leaks` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/recreation/campground` Was used on NG version of website. Use plural route instead.
 - `/recreation/river-flow` Was used on NG version of website. Use plural route instead.
+- `/career/salary-schedule` Was used on NG version of website. Use plural route instead.
+- `/career/employee-benefits-summary` Was used on NG version of website. Use plural route instead.
+- `/career/recruitment` Was used on NG version of website. Use plural route instead.

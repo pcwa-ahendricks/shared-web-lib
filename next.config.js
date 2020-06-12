@@ -16,11 +16,6 @@ const miscRedirects = [
     destination: '/stewardship/stop-leaks',
     permanent: true
   },
-  {
-    source: '/careers/employee-benefits-summary(.html)?',
-    destination: '/career/employee-benefits-summary',
-    permanent: true
-  },
   // Note - There is also a redirect defined in docs route, which should be preferred over this one if distributed. Uncertain as to if and where this URL is being used.
   {
     source: '/files/docs/hr/Candidate_Frequently_Asked_Questions(.pdf)?',
@@ -289,6 +284,21 @@ const legacyRedirects = [
   {
     source: '/newsroom/legislationletters/faq',
     destination: '/newsroom/legislation-letters/faq',
+    permanent: true
+  },
+  {
+    source: '/career/employee-benefits-summary',
+    destination: '/careers/employee-benefits-summary',
+    permanent: true
+  },
+  {
+    source: '/career/recruitment',
+    destination: '/careers/recruitment',
+    permanent: true
+  },
+  {
+    source: '/career/salary-schedule',
+    destination: '/careers/salary-schedule',
     permanent: true
   }
 ]

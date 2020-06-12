@@ -102,7 +102,11 @@ const EmployeeBenefitsSummaryPage = () => {
                     </ListSubheader>
                   }
                 >
-                  <ListItem button component="a" href="/career/salary-schedule">
+                  <ListItem
+                    button
+                    component="a"
+                    href="/careers/salary-schedule"
+                  >
                     <ListItemText primary="View Employee Salary Schedule" />
                   </ListItem>
 
