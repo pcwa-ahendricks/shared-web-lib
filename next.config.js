@@ -21,7 +21,7 @@ const miscRedirects = [
     destination: '/career/employee-benefits-summary',
     permanent: true
   },
-  // Note - There is also a redirect defined in docs route, which should be preferred over this one
+  // Note - There is also a redirect defined in docs route, which should be preferred over this one if distributed. Uncertain as to if and where this URL is being used.
   {
     source: '/files/docs/hr/Candidate_Frequently_Asked_Questions(.pdf)?',
     destination:

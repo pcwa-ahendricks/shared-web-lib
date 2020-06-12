@@ -7,7 +7,7 @@ function testRe(filename: string, testParam: string | string[]) {
   return regex.test(testParam)
 }
 
-const REDIRECT_STATUS_CODE = 303
+const REDIRECT_STATUS_CODE = 307
 const NOT_FOUND_ROUTE = 'https://www.pcwa.net/404'
 
 // cspell:ignore CWMP
