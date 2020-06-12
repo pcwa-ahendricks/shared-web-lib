@@ -119,31 +119,31 @@ const WaterQualityPage = () => {
                       </ListSubheader>
                     }
                   >
-                    <ListItemLink href="https://cdn.cosmicjs.com/0945bee0-50d6-11e9-8f45-5ddcaed67e68-Alta2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/alta.pdf">
                       <ListItemText primary="Alta" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://cdn.cosmicjs.com/0565eca0-50d6-11e9-8f45-5ddcaed67e68-Applegate2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/applegate.pdf">
                       <ListItemText primary="Applegate" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://cdn.cosmicjs.com/05b62f80-50d6-11e9-9a20-bd22ccee1c2b-Auburn-Bowman2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/auburn-bowman.pdf">
                       <ListItemText primary="Auburn - Bowman" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="http://cdn.cosmicjs.com/052c3f00-50d6-11e9-9a20-bd22ccee1c2b-Bianchi2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/bianchi.pdf">
                       <ListItemText primary="Bianchi Estates" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://cdn.cosmicjs.com/053566c0-50d6-11e9-8f45-5ddcaed67e68-Colfax2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/colfax.pdf">
                       <ListItemText primary="Colfax" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://cdn.cosmicjs.com/1404e7c0-50d6-11e9-8476-15b71bc03089-Foothill-Sunset2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/foothill-sunset.pdf">
                       <ListItemText primary="Foothill - Sunset" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://cdn.cosmicjs.com/0c508de0-50d6-11e9-8f45-5ddcaed67e68-MonteVista2019FINAL.pdf">
+                    <ListItemLink href="https://www.pcwa.net/docs/ccr/monte-vista.pdf">
                       <ListItemText primary="Monte Vista" />
                     </ListItemLink>
                   </List>
