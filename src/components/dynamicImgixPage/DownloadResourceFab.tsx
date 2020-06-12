@@ -15,7 +15,7 @@ import {CosmicMedia} from '@lib/services/cosmicService'
 type Props = {
   fileSize?: CosmicMedia['size']
   caption?: string
-} & FabProps
+} & Partial<FabProps>
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -14,7 +14,7 @@ type Props = {
   thumbName: string
   onRemove?: (event: any) => void
   thumbHover?: string | null
-} & FabProps
+} & Partial<FabProps>
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
