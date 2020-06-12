@@ -137,7 +137,7 @@ const NewDevelopmentPage = () => {
             m="auto"
             width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
             maxWidth={1400}
-            height={{xs: 250, sm: 350}} // Original Photo is not very tall, so special treatment is given on smaller devices. 'objectFit' is also toggled to help with image display.
+            height={{xs: 250, sm: 300}} // Original Photo is not very tall, so special treatment is given on smaller devices. 'objectFit' is also toggled to help with image display.
             overflow="hidden"
             position="relative"
           >
