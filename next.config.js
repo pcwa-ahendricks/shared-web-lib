@@ -12,16 +12,71 @@ const isDev = process.env.NODE_ENV === 'development'
 const miscRedirects = [
   // Classic (Brenda's www.pcwa.net) stop leaks page.
   {
-    source: '/water-use-efficiency/stop-leaks(.html)?',
+    source: '/water-use-efficiency/stop-leaks(\\.html)?',
     destination: '/stewardship/stop-leaks',
     permanent: true
   },
   // Note - There is also a redirect defined in docs route, which should be preferred over this one if distributed. Uncertain as to if and where this URL is being used.
   {
-    source: '/files/docs/hr/Candidate_Frequently_Asked_Questions(.pdf)?',
+    source: '/files/docs/hr/Candidate_Frequently_Asked_Questions(\\.pdf)?',
     destination:
       'https://cdn.cosmicjs.com/9eb06730-ac30-11ea-8daf-c3880e5e9d72-CandidateFrequentlyAskedQuestions.pdf',
     permanent: false
+  },
+  // Requested by Todd Deacon
+  {
+    source: '/files/docs/fin/vendorapp(\\.pdf)?',
+    destination:
+      'https://cdn.cosmicjs.com/6a72fa30-acf0-11ea-8dee-d7617d15f3b4-VendorApplication.pdf',
+    permanent: false
+  },
+  {
+    source: '/careers/employee-salary-schedule(\\.html)?',
+    destination: '/careers/salary-schedule',
+    permanent: true
+  },
+  {
+    source: '/files/docs/fin/PO-Terms-and-Conditions(\\.pdf)?',
+    destination:
+      'https://cdn.cosmicjs.com/767de300-736a-11e9-83aa-77acac9a281a-PurchaseOrderTermsandConditions.pdf',
+    permanent: false
+  },
+  {
+    source: '/files/docs/fin/EFT(\\.pdf)?',
+    destination:
+      'https://cdn.cosmicjs.com/6a8040a0-acf0-11ea-8dee-d7617d15f3b4-VendorEFTAuthorizationForm.pdf',
+    permanent: false
+  },
+  {
+    source: '/files/docs/wq/Rocklin_Area(\\.pdf)?',
+    destination:
+      'https://cdn.cosmicjs.com/394eafc0-b5e0-11e8-8f62-f9335c363962-Rocklin_Area.pdf',
+    permanent: false
+  },
+  {
+    source: '/water-resrcs/water-quality(\\.html)?',
+    destination: '/services/water-quality',
+    permanent: true
+  },
+  {
+    source: '/Click2GovCX(/index\\.html)?',
+    destination: 'https://ipn.paymentus.com/cp/plco',
+    permanent: true
+  },
+  {
+    source: '/about-pcwa/unclaimed_property',
+    destination: '/about-pcwa/unclaimed-property',
+    permanent: true
+  },
+  {
+    source: '/general-information/agendas(\\.html)?',
+    destination: '/board-of-directors/meeting-agendas',
+    permanent: true
+  },
+  {
+    source: '/general-information/minutes(\\.html)?',
+    destination: '/board-of-directors/meeting-minutes',
+    permanent: true
   }
 ]
 
