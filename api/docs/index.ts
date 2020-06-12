@@ -1,5 +1,5 @@
 import {NowRequest, NowResponse} from '@vercel/node'
-// import fetch from 'node-fetch'
+const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.pcwa.net'
 
 function testRe(filename: string, testParam: string | string[]) {
   testParam = Array.isArray(testParam) ? testParam[0] : testParam
@@ -8,7 +8,7 @@ function testRe(filename: string, testParam: string | string[]) {
 }
 
 const REDIRECT_STATUS_CODE = 307
-const NOT_FOUND_ROUTE = 'https://www.pcwa.net/404'
+const NOT_FOUND_ROUTE = `${publicBaseUrl}/404`
 
 // cspell:ignore CWMP
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
