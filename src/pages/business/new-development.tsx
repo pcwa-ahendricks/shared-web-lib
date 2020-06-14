@@ -285,10 +285,7 @@ const NewDevelopmentPage = () => {
                 Supplemental Service Information Forms – For projects with
                 residential services, please fill out one{' '}
               </Type>
-              <LinkItem
-                noWrap
-                href="https://cdn.cosmicjs.com/9ada4ec0-0675-11ea-944c-cfd32d7bf8a6-PCWA-Supplemental-Res-Service-Form.pdf"
-              >
+              <LinkItem href="https://cdn.cosmicjs.com/9ada4ec0-0675-11ea-944c-cfd32d7bf8a6-PCWA-Supplemental-Res-Service-Form.pdf">
                 Supplemental Information for Residential Services Form
                 <Box component="span">
                   <DescriptionOutlinedIcon className={classes.linkItemIcon} />
