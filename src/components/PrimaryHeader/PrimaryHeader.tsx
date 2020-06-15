@@ -262,7 +262,7 @@ const PrimaryHeader = () => {
             <ChildBox flex="auto">
               <PcwaLogo
                 className={classes.mobileLogo}
-                height={32}
+                height={24}
                 // width="20%"
                 preserveAspectRatio="xMidYMin meet"
                 missionStatementFill="rgba(0,0,0,0)"

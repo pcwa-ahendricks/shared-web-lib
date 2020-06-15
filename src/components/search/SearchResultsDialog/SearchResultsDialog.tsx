@@ -34,6 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dialogPaper: {
       backgroundColor: theme.palette.common.white
+    },
+    dialog: {
+      /* Fix for Mobile Firefox/Safari. Hide horizontal scrollbar. */
+      maxWidth: '100%',
+      overflowX: 'hidden'
+      /* */
     }
   })
 )
@@ -192,7 +198,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
       onClose={closeHandler}
       aria-labelledby="search-results-dialog-title"
       aria-describedby="search-results-dialog-description"
-      classes={{paper: classes.dialogPaper}}
+      classes={{root: classes.dialog, paper: classes.dialogPaper}}
       {...rest}
     >
       <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>
