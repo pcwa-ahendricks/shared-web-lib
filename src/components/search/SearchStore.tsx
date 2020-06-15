@@ -9,6 +9,7 @@ interface State {
   results: GoogleCseItem[]
   response: GoogleCseResponse | null
   betterTotalItems: number
+  inputMobFocused: boolean
 }
 
 type ProviderProps = {
@@ -23,7 +24,8 @@ const initialState: State = {
   results: [],
   response: null,
   betterTotalItems: 0,
-  isIterating: false
+  isIterating: false,
+  inputMobFocused: false
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -34,49 +36,51 @@ export const SearchContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_IS_SEARCHING: 'SET_IS_SEARCHING' = 'SET_IS_SEARCHING'
-const SET_IS_PAGING: 'SET_IS_PAGING' = 'SET_IS_PAGING'
-const SET_IS_ITERATING: 'SET_IS_ITERATING' = 'SET_IS_ITERATING'
-const SET_DIALOG_OPEN: 'SET_DIALOG_OPEN' = 'SET_DIALOG_OPEN'
-const SET_RESULTS: 'SET_RESULTS' = 'SET_RESULTS'
-const SET_RESPONSE: 'SET_RESPONSE' = 'SET_RESPONSE'
-const SET_BETTER_TOTAL_ITEMS: 'SET_BETTER_TOTAL_ITEMS' =
-  'SET_BETTER_TOTAL_ITEMS'
+const Type = {
+  SET_INPUT_MOB_FOCUSED: 'SET_INPUT_MOB_FOCUSED',
+  SET_IS_SEARCHING: 'SET_IS_SEARCHING',
+  SET_IS_PAGING: 'SET_IS_PAGING',
+  SET_IS_ITERATING: 'SET_IS_ITERATING',
+  SET_DIALOG_OPEN: 'SET_DIALOG_OPEN',
+  SET_RESULTS: 'SET_RESULTS',
+  SET_RESPONSE: 'SET_RESPONSE',
+  SET_BETTER_TOTAL_ITEMS: 'SET_BETTER_TOTAL_ITEMS'
+} as const
 
 // Actions
 export const setIsSearching = (isSearching: State['isSearching']) => {
   return {
-    type: SET_IS_SEARCHING,
+    type: Type.SET_IS_SEARCHING,
     isSearching
   }
 }
 export const setIsPaging = (isPaging: State['isPaging']) => {
   return {
-    type: SET_IS_PAGING,
+    type: Type.SET_IS_PAGING,
     isPaging
   }
 }
 export const setIsIterating = (isIterating: State['isIterating']) => {
   return {
-    type: SET_IS_ITERATING,
+    type: Type.SET_IS_ITERATING,
     isIterating
   }
 }
 export const setDialogOpen = (dialogOpen: State['dialogOpen']) => {
   return {
-    type: SET_DIALOG_OPEN,
+    type: Type.SET_DIALOG_OPEN,
     dialogOpen
   }
 }
 export const setResults = (results: State['results']) => {
   return {
-    type: SET_RESULTS,
+    type: Type.SET_RESULTS,
     results
   }
 }
 export const setResponse = (response: State['response']) => {
   return {
-    type: SET_RESPONSE,
+    type: Type.SET_RESPONSE,
     response
   }
 }
@@ -84,35 +88,41 @@ export const setBetterTotalItems = (
   betterTotalItems: State['betterTotalItems']
 ) => {
   return {
-    type: SET_BETTER_TOTAL_ITEMS,
+    type: Type.SET_BETTER_TOTAL_ITEMS,
     betterTotalItems
+  }
+}
+export const setInputMobFocused = (isFocused: State['inputMobFocused']) => {
+  return {
+    type: Type.SET_INPUT_MOB_FOCUSED,
+    isFocused
   }
 }
 
 // Reducer
 const searchReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_IS_SEARCHING:
+    case Type.SET_IS_SEARCHING:
       return {
         ...state,
         isSearching: action.isSearching
       }
-    case SET_IS_PAGING:
+    case Type.SET_IS_PAGING:
       return {
         ...state,
         isPaging: action.isPaging
       }
-    case SET_IS_ITERATING:
+    case Type.SET_IS_ITERATING:
       return {
         ...state,
         isIterating: action.isIterating
       }
-    case SET_DIALOG_OPEN:
+    case Type.SET_DIALOG_OPEN:
       return {
         ...state,
         dialogOpen: action.dialogOpen
       }
-    case SET_RESULTS: {
+    case Type.SET_RESULTS: {
       const newResults =
         action.results && Array.isArray(action.results)
           ? [...action.results]
@@ -123,17 +133,22 @@ const searchReducer = (state: State, action: any): State => {
       }
     }
     // Don't need items in response since we are saving those in "results".
-    case SET_RESPONSE: {
+    case Type.SET_RESPONSE: {
       const newResponse = action.response ? {...action.response} : {}
       return {
         ...state,
         response: {...newResponse, items: []}
       }
     }
-    case SET_BETTER_TOTAL_ITEMS:
+    case Type.SET_BETTER_TOTAL_ITEMS:
       return {
         ...state,
         betterTotalItems: action.betterTotalItems
+      }
+    case Type.SET_INPUT_MOB_FOCUSED:
+      return {
+        ...state,
+        inputMobFocused: action.isFocused
       }
     default:
       return state

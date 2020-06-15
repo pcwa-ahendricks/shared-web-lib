@@ -8,7 +8,7 @@ import {isWebUri} from 'valid-url'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
-import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
+import {NewsBlurbMetadata} from '@components/recent-news/RecentNews'
 
 type Props = {
   noOfBlurbs?: number

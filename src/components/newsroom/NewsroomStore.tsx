@@ -54,17 +54,19 @@ export const NewsroomContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR' = 'SET_NEWS_RELEASE_YEAR'
-// const SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' = 'SET_NEWS_RELEASES'
-const SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR' = 'SET_NEWSLETTER_YEAR'
-// const SET_NEWSLETTERS: 'SET_NEWSLETTERS' = 'SET_NEWSLETTERS'
-// const SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' = 'SET_ENEWS_BLASTS'
-const SET_ENEWS_DIALOG_OPEN: 'SET_ENEWS_DIALOG_OPEN' = 'SET_ENEWS_DIALOG_OPEN'
+const Type = {
+  SET_NEWS_RELEASE_YEAR: 'SET_NEWS_RELEASE_YEAR',
+  // SET_NEWS_RELEASES: 'SET_NEWS_RELEASES' ,
+  SET_NEWSLETTER_YEAR: 'SET_NEWSLETTER_YEAR',
+  // SET_NEWSLETTERS: 'SET_NEWSLETTERS' ,
+  // SET_ENEWS_BLASTS: 'SET_ENEWS_BLASTS' ,
+  SET_ENEWS_DIALOG_OPEN: 'SET_ENEWS_DIALOG_OPEN'
+} as const
 
 // Actions
 export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
   return {
-    type: SET_NEWS_RELEASE_YEAR,
+    type: Type.SET_NEWS_RELEASE_YEAR,
     year
   }
 }
@@ -78,28 +80,28 @@ export const setNewsReleaseYear = (year: State['newsReleaseYear']) => {
 
 export const setNewsletterYear = (year: State['newsletterYear']) => {
   return {
-    type: SET_NEWSLETTER_YEAR,
+    type: Type.SET_NEWSLETTER_YEAR,
     year
   }
 }
 
 // export const setNewsletters = (newsletters: State['newsletters']) => {
 //   return {
-//     type: SET_NEWSLETTERS,
+//     type: Type.SET_NEWSLETTERS,
 //     newsletters
 //   }
 // }
 
 // export const setEnewsBlasts = (enewsBlasts: State['enewsBlasts']) => {
 //   return {
-//     type: SET_ENEWS_BLASTS,
+//     type: Type.SET_ENEWS_BLASTS,
 //     enewsBlasts
 //   }
 // }
 
 export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
   return {
-    type: SET_ENEWS_DIALOG_OPEN,
+    type: Type.SET_ENEWS_DIALOG_OPEN,
     open
   }
 }
@@ -107,32 +109,32 @@ export const setEnewsDialogOpen = (open: State['enewsDialogOpen']) => {
 // Reducer
 const newsroomReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_NEWS_RELEASE_YEAR:
+    case Type.SET_NEWS_RELEASE_YEAR:
       return {
         ...state,
         newsReleaseYear: action.year
       }
-    // case SET_NEWS_RELEASES:
+    // case Type.SET_NEWS_RELEASES:
     //   return {
     //     ...state,
     //     newsReleases: [...action.newsReleases]
     //   }
-    case SET_NEWSLETTER_YEAR:
+    case Type.SET_NEWSLETTER_YEAR:
       return {
         ...state,
         newsletterYear: action.year
       }
-    // case SET_NEWSLETTERS:
+    // case Type.SET_NEWSLETTERS:
     //   return {
     //     ...state,
     //     newsletters: [...action.newsletters]
     //   }
-    // case SET_ENEWS_BLASTS:
+    // case Type.SET_ENEWS_BLASTS:
     //   return {
     //     ...state,
     //     enewsBlasts: [...action.enewsBlasts]
     //   }
-    case SET_ENEWS_DIALOG_OPEN:
+    case Type.SET_ENEWS_DIALOG_OPEN:
       return {
         ...state,
         enewsDialogOpen: action.open

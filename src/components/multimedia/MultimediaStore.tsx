@@ -108,46 +108,46 @@ export const MultimediaContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_SELECTED_GALLERY: 'SET_SELECTED_GALLERY' = 'SET_SELECTED_GALLERY'
-const SET_MULTIMEDIA_LIST: 'SET_MULTIMEDIA_LIST' = 'SET_MULTIMEDIA_LIST'
-const SET_LIGHTBOX_INDEX: 'SET_LIGHTBOX_INDEX' = 'SET_LIGHTBOX_INDEX'
-const SET_LIGHTBOX_VIEWER_OPEN: 'SET_LIGHTBOX_VIEWER_OPEN' =
-  'SET_LIGHTBOX_VIEWER_OPEN'
-const SET_LV_DOWNLOAD_MENU_OPEN: 'SET_LV_DOWNLOAD_MENU_OPEN' =
-  'SET_LV_DOWNLOAD_MENU_OPEN'
+const Type = {
+  SET_SELECTED_GALLERY: 'SET_SELECTED_GALLERY',
+  SET_MULTIMEDIA_LIST: 'SET_MULTIMEDIA_LIST',
+  SET_LIGHTBOX_INDEX: 'SET_LIGHTBOX_INDEX',
+  SET_LIGHTBOX_VIEWER_OPEN: 'SET_LIGHTBOX_VIEWER_OPEN',
+  SET_LV_DOWNLOAD_MENU_OPEN: 'SET_LV_DOWNLOAD_MENU_OPEN'
+} as const
 
 // Actions
 export const setSelectedGallery = (gallery: State['selectedGallery']) => {
   return {
-    type: SET_SELECTED_GALLERY,
+    type: Type.SET_SELECTED_GALLERY,
     gallery
   }
 }
 
 export const setMultimediaList = (multimedia: State['multimediaList']) => {
   return {
-    type: SET_MULTIMEDIA_LIST,
+    type: Type.SET_MULTIMEDIA_LIST,
     multimedia
   }
 }
 
 export const setLightboxIndex = (index?: State['lightboxIndex'] | null) => {
   return {
-    type: SET_LIGHTBOX_INDEX,
+    type: Type.SET_LIGHTBOX_INDEX,
     index
   }
 }
 
 export const setLightboxViewerOpen = (open?: State['lightboxViewerOpen']) => {
   return {
-    type: SET_LIGHTBOX_VIEWER_OPEN,
+    type: Type.SET_LIGHTBOX_VIEWER_OPEN,
     open
   }
 }
 
 export const setLvDownloadMenuOpen = (open?: State['lvDownloadMenuOpen']) => {
   return {
-    type: SET_LV_DOWNLOAD_MENU_OPEN,
+    type: Type.SET_LV_DOWNLOAD_MENU_OPEN,
     open
   }
 }
@@ -155,27 +155,27 @@ export const setLvDownloadMenuOpen = (open?: State['lvDownloadMenuOpen']) => {
 // Reducer
 const multimediaReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_SELECTED_GALLERY:
+    case Type.SET_SELECTED_GALLERY:
       return {
         ...state,
         selectedGallery: action.gallery
       }
-    case SET_MULTIMEDIA_LIST:
+    case Type.SET_MULTIMEDIA_LIST:
       return {
         ...state,
         multimediaList: [...action.multimedia]
       }
-    case SET_LIGHTBOX_INDEX:
+    case Type.SET_LIGHTBOX_INDEX:
       return {
         ...state,
         lightboxIndex: action.index ?? 0
       }
-    case SET_LIGHTBOX_VIEWER_OPEN:
+    case Type.SET_LIGHTBOX_VIEWER_OPEN:
       return {
         ...state,
         lightboxViewerOpen: action.open
       }
-    case SET_LV_DOWNLOAD_MENU_OPEN:
+    case Type.SET_LV_DOWNLOAD_MENU_OPEN:
       return {
         ...state,
         lvDownloadMenuOpen: action.open

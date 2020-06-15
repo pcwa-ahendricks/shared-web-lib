@@ -23,9 +23,10 @@ export const ForecastContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_ACTIVE_CYCLE_FORECAST_ID: 'SET_ACTIVE_CYCLE_FORECAST_ID' =
-  'SET_ACTIVE_CYCLE_FORECAST_ID'
-const SET_CYCLE_TIMEOUT_ID: 'SET_CYCLE_TIMEOUT_ID' = 'SET_CYCLE_TIMEOUT_ID'
+const Type = {
+  SET_ACTIVE_CYCLE_FORECAST_ID: 'SET_ACTIVE_CYCLE_FORECAST_ID',
+  SET_CYCLE_TIMEOUT_ID: 'SET_CYCLE_TIMEOUT_ID'
+} as const
 
 // Actions
 
@@ -33,14 +34,14 @@ export const setActiveCycleForecastId = (
   activeCycleForecastId: State['activeCycleForecastId']
 ) => {
   return {
-    type: SET_ACTIVE_CYCLE_FORECAST_ID,
+    type: Type.SET_ACTIVE_CYCLE_FORECAST_ID,
     activeCycleForecastId
   }
 }
 
 export const setCycleTimeoutId = (cycleTimeoutId: State['cycleTimeoutId']) => {
   return {
-    type: SET_CYCLE_TIMEOUT_ID,
+    type: Type.SET_CYCLE_TIMEOUT_ID,
     cycleTimeoutId
   }
 }
@@ -48,12 +49,12 @@ export const setCycleTimeoutId = (cycleTimeoutId: State['cycleTimeoutId']) => {
 // Reducer
 const forecastReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_ACTIVE_CYCLE_FORECAST_ID:
+    case Type.SET_ACTIVE_CYCLE_FORECAST_ID:
       return {
         ...state,
         activeCycleForecastId: action.activeCycleForecastId
       }
-    case SET_CYCLE_TIMEOUT_ID:
+    case Type.SET_CYCLE_TIMEOUT_ID:
       return {
         ...state,
         cycleTimeoutId: action.cycleTimeoutId

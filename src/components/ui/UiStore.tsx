@@ -23,45 +23,47 @@ export const UiContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_ERROR: 'SET_ERROR' = 'SET_ERROR'
-const DISMISS_ERROR: 'DISMISS_ERROR' = 'DISMISS_ERROR'
-const SET_DRAWER_VIZ: 'SET_DRAWER_VIZ' = 'SET_DRAWER_VIZ'
+const Type = {
+  SET_ERROR: 'SET_ERROR',
+  DISMISS_ERROR: 'DISMISS_ERROR',
+  SET_DRAWER_VIZ: 'SET_DRAWER_VIZ'
+} as const
 
 // Actions
 export const setDrawerViz = (open: State['drawerOpen']) => {
   return {
-    type: SET_DRAWER_VIZ,
+    type: Type.SET_DRAWER_VIZ,
     open
   }
 }
 
 export const setError = (error: State['error']) => {
   return {
-    type: SET_ERROR,
+    type: Type.SET_ERROR,
     error
   }
 }
 
 export const dismissError = () => {
   return {
-    type: DISMISS_ERROR
+    type: Type.DISMISS_ERROR
   }
 }
 
 // Reducer
 const uiReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_DRAWER_VIZ:
+    case Type.SET_DRAWER_VIZ:
       return {
         ...state,
         drawerOpen: action.open
       }
-    case SET_ERROR:
+    case Type.SET_ERROR:
       return {
         ...state,
         error: {...action.error}
       }
-    case DISMISS_ERROR:
+    case Type.DISMISS_ERROR:
       return {
         ...state,
         error: null

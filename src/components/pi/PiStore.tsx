@@ -46,28 +46,30 @@ export const PiContext = createContext<{
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
-const SET_ACTIVE_GAGE_ITEM: 'SET_ACTIVE_GAGE_ITEM' = 'SET_ACTIVE_GAGE_ITEM'
-const SET_CHART_START_DATE: 'SET_CHART_START_DATE' = 'SET_CHART_START_DATE'
-const SET_CHART_END_DATE: 'SET_CHART_END_DATE' = 'SET_CHART_END_DATE'
+const Type = {
+  SET_ACTIVE_GAGE_ITEM: 'SET_ACTIVE_GAGE_ITEM',
+  SET_CHART_START_DATE: 'SET_CHART_START_DATE',
+  SET_CHART_END_DATE: 'SET_CHART_END_DATE'
+} as const
 
 // Actions
 export const setActiveGageItem = (item: State['activeGageItem']) => {
   return {
-    type: SET_ACTIVE_GAGE_ITEM,
+    type: Type.SET_ACTIVE_GAGE_ITEM,
     item
   }
 }
 
 export const setChartStartDate = (startDate: Date) => {
   return {
-    type: SET_CHART_START_DATE,
+    type: Type.SET_CHART_START_DATE,
     startDate
   }
 }
 
 export const setChartEndDate = (endDate: Date) => {
   return {
-    type: SET_CHART_END_DATE,
+    type: Type.SET_CHART_END_DATE,
     endDate
   }
 }
@@ -75,18 +77,18 @@ export const setChartEndDate = (endDate: Date) => {
 // Reducer
 const piReducer = (state: State, action: any): State => {
   switch (action.type) {
-    case SET_ACTIVE_GAGE_ITEM:
+    case Type.SET_ACTIVE_GAGE_ITEM:
       return {
         ...state,
         activeGageItem: {...action.item}
       }
-    case SET_CHART_START_DATE:
+    case Type.SET_CHART_START_DATE:
       return {
         ...state,
         chartStartDate: cloneDate(action.startDate)
         // chartInterval: calcInterval(action.startDate, state.chartEndDate)
       }
-    case SET_CHART_END_DATE:
+    case Type.SET_CHART_END_DATE:
       return {
         ...state,
         chartEndDate: cloneDate(action.endDate)

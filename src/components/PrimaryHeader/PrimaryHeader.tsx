@@ -32,6 +32,8 @@ import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
 import colorAlpha from 'color-alpha'
 import useDebounce from '@hooks/useDebounce'
+import SearchInput from '@components/search/SearchInput/SearchInput'
+import {SearchContext} from '@components/search/SearchStore'
 
 const APP_BAR_HEIGHT = {
   dense: 48,
@@ -46,6 +48,7 @@ type UseStylesProps = {
   isXS__: boolean
   stuck: boolean
   // parentFixed: Props['parentFixed']
+  inputMobFocused: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -98,9 +101,9 @@ const useStyles = makeStyles((theme: Theme) => {
         : '0px 1px 3px 0px rgba(0,0,0,0.0),0px 1px 1px 0px rgba(0,0,0,0),0px 2px 1px -1px rgba(0,0,0,0)'
     }),
     menuButton: {
-      marginLeft: -12,
-      marginRight: 20
+      marginLeft: -12
     },
+
     popper: {
       zIndex: 1,
       '& $arrow': {
@@ -155,6 +158,11 @@ const useStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.down('sm')]: {
         maxWidth: stuck ? 100 : 140
       }
+    }),
+    mobileLogo: ({inputMobFocused}: UseStylesProps) => ({
+      '-webkit-transition': 'opacity 300ms ease-out',
+      transition: 'opacity 300ms ease-out',
+      opacity: inputMobFocused ? 0 : 1
     })
   })
 })
@@ -170,7 +178,6 @@ const PrimaryHeader = () => {
   // useMediaQuery always returns false on page load, regardless of device width. isSMUp is used to prevent the PCWA logo showing up real quickly on mobile devices by waiting for a truthy non-XS value.
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isXS__ = useDebounce(isXS, 100)
-  const classes = useStyles({isXS, isXS__, stuck: stuck})
   // Custom width defined by point at which menu links overlap svg logo.
   const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
   const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)
@@ -179,6 +186,9 @@ const PrimaryHeader = () => {
   const [activeLinkEl, setActiveLinkEl] = useState<HTMLElement | null>(null)
 
   const {state, dispatch} = useContext(UiContext)
+  const {state: searchState} = useContext(SearchContext)
+  const {inputMobFocused} = searchState
+  const classes = useStyles({isXS, isXS__, stuck: stuck, inputMobFocused})
 
   useEffect(() => {
     if (!popperOpen) {
@@ -239,7 +249,7 @@ const PrimaryHeader = () => {
             justifyContent="space-between"
             display={isXS ? 'flex' : 'none'}
           >
-            <ChildBox flex="auto">
+            <ChildBox flex="1 0 auto">
               <IconButton
                 className={classes.menuButton}
                 color="inherit"
@@ -249,18 +259,20 @@ const PrimaryHeader = () => {
                 <MenuIcon />
               </IconButton>
             </ChildBox>
-            {/* <ChildBox flex="auto" maxWidth={80}>
+            <ChildBox flex="auto">
               <PcwaLogo
-                // height="90%"
+                className={classes.mobileLogo}
+                height={32}
                 // width="20%"
+                preserveAspectRatio="xMidYMin meet"
                 missionStatementFill="rgba(0,0,0,0)"
                 brandFill={theme.palette.grey[200]}
                 logoLeftFill={theme.palette.grey[200]}
                 logoRightFill={theme.palette.grey[300]}
               />
-            </ChildBox> */}
-            <ChildBox flex="1 0 auto" textAlign="right">
-              {/* [TODO] Site Search Button Here */}
+            </ChildBox>
+            <ChildBox flex="0 1 auto">
+              <SearchInput />
             </ChildBox>
           </RowBox>
           {/* See media query above for class logoContainer. */}

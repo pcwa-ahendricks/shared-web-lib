@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useContext, useState} from 'react'
+import React, {useMemo, useCallback, useContext, useState, useRef} from 'react'
 import {
   Box,
   InputBase,
@@ -6,10 +6,11 @@ import {
   Theme,
   Typography as Type,
   makeStyles,
-  createStyles
+  createStyles,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
-import SearchIcon from '@material-ui/icons/Search'
 import colorAlpha from 'color-alpha'
 import search from '@lib/services/googleSearchService'
 import SearchResultsDialog from '../SearchResultsDialog/SearchResultsDialog'
@@ -21,13 +22,20 @@ import {
   setResponse,
   setBetterTotalItems,
   setIsIterating,
-  setIsPaging
+  setIsPaging,
+  setInputMobFocused
 } from '../SearchStore'
 import {UiContext, setError} from '@components/ui/UiStore'
 import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
 import {GoogleCseResponse} from '../SearchResponse'
 import WebmasterEmail from '@components/links/WebmasterEmail'
+import SearchIcon from '@material-ui/icons/Search'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 // import delay from 'then-sleep'
+
+type UseStylesProps = {
+  inputMobFocused: boolean
+}
 
 const maxBetterTotalResultsHackIterations = 5 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
 
@@ -41,32 +49,54 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       color: theme.palette.common.white
     },
-    inputWithFocus: {},
+    inputFocus: {},
     input: {
       maxWidth: 100,
       '-webkit-transition': 'max-width 500ms ease',
-      transition: 'width 500ms ease',
-      '&$inputWithFocus': {
+      transition: 'max-width 500ms ease',
+      '&$inputFocus': {
         maxWidth: 175
       },
       marginLeft: theme.spacing(2),
       flex: '1 1 auto'
-    }
+    },
+    inputMobile: {
+      marginLeft: theme.spacing(2)
+    },
     // withStartAdornment: {
     //   paddingLeft: theme.spacing( 1)
     // }
+    searchButtonMobile: {
+      marginRight: -12
+    },
+    sBtnMobContainer: ({inputMobFocused}: UseStylesProps) => ({
+      transition: 'opacity 300ms ease-out',
+      opacity: inputMobFocused ? 0 : 1
+    }),
+    sInputMobContainer: ({inputMobFocused}: UseStylesProps) => ({
+      opacity: inputMobFocused ? 1 : 0,
+      maxWidth: inputMobFocused ? 175 : 0,
+      transition:
+        'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease',
+      '-webkit-transition':
+        'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease'
+    })
   })
 )
 const SearchInput = () => {
-  const classes = useStyles()
   // const inputRef = useRef<HTMLInputElement>()
-  const searchContext = useContext(SearchContext)
-  const uiContext = useContext(UiContext)
-  const searchDispatch = searchContext.dispatch
-  const uiDispatch = uiContext.dispatch
+  const {dispatch: searchDispatch, state: searchState} = useContext(
+    SearchContext
+  )
+  const {dispatch: uiDispatch} = useContext(UiContext)
+  const {inputMobFocused} = searchState
   // const searchState = searchContext.state
   // const {dialogOpen} = searchState
   const [searchValue, setSearchValue] = useState('')
+  const theme = useTheme()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const classes = useStyles({inputMobFocused})
+  const inputMobileRef = useRef<HTMLInputElement>()
 
   const inputChangeHandler = useCallback((e) => {
     setSearchValue(e.target.value)
@@ -221,6 +251,54 @@ const SearchInput = () => {
     [searchHandler]
   )
 
+  const focusHandler = useCallback(() => {
+    searchDispatch(setInputMobFocused(true))
+  }, [searchDispatch])
+  const blurHandler = useCallback(() => {
+    searchDispatch(setInputMobFocused(false))
+  }, [searchDispatch])
+
+  const sButtonMobileClickHandler = useCallback(() => {
+    inputMobileRef?.current?.focus?.()
+  }, [])
+
+  if (isXS) {
+    return (
+      <>
+        <RowBox alignItems="center" justifyContent="flex-end">
+          <ChildBox className={classes.sInputMobContainer}>
+            <Paper elevation={0} square={false}>
+              <InputBase
+                inputRef={inputMobileRef}
+                value={searchValue}
+                type="search"
+                margin="none"
+                onChange={inputChangeHandler}
+                onKeyPress={keyPressHandler}
+                className={classes.inputMobile}
+                placeholder="Search..."
+                onFocus={focusHandler}
+                onBlur={blurHandler}
+              />
+            </Paper>
+          </ChildBox>
+          <ChildBox className={classes.sBtnMobContainer}>
+            <IconButton
+              className={classes.searchButtonMobile}
+              color="inherit"
+              aria-label="Site Search"
+              onClick={sButtonMobileClickHandler}
+              disabled={inputMobFocused} // Button already transparent, but disable click as well
+            >
+              <SearchIcon />
+            </IconButton>
+          </ChildBox>
+        </RowBox>
+        <SearchResultsDialog onPageSearch={onPageSearchHandler} />
+      </>
+    )
+  }
+
   return (
     <>
       <Paper className={classes.root} elevation={0} square={false}>
@@ -238,7 +316,7 @@ const SearchInput = () => {
           placeholder="Search..."
           classes={{
             // inputAdornedStart: classes.withStartAdornment,
-            focused: classes.inputWithFocus
+            focused: classes.inputFocus
           }}
         />
         <IconButton
