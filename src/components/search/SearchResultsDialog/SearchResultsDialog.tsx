@@ -24,11 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentProgress: {
       display: 'flex',
-      width: '100%'
+      width: '100%',
+      height: '100%'
+    },
+    svgProgress: {
+      flex: 'auto' // [FIX] this fixes issues where spinner is not visible in Safari
     },
     paginationProgress: {
       display: 'flex',
       width: '100%',
+      height: '100%',
       padding: theme.spacing(1)
     },
     dialogPaper: {
@@ -113,7 +118,12 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
         {isSearching && !isPaging ? (
           <FlexBox justifyContent="center" alignItems="center">
             <Box py={5} px={8} m="auto">
-              <CircularProgress classes={{root: classes.contentProgress}} />
+              <CircularProgress
+                classes={{
+                  root: classes.contentProgress,
+                  svg: classes.svgProgress
+                }}
+              />
             </Box>
           </FlexBox>
         ) : (
@@ -151,7 +161,9 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
           onClick={paginationClickHandler}
         />
       ) : !isSearching ? (
-        <CircularProgress classes={{root: classes.paginationProgress}} />
+        <CircularProgress
+          classes={{root: classes.paginationProgress, svg: classes.svgProgress}}
+        />
       ) : null,
     [
       betterTotalItems,

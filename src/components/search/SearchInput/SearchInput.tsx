@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useContext, useState, useRef} from 'react'
+import React, {useCallback, useContext, useState, useRef} from 'react'
 import {
   Box,
   InputBase,
@@ -198,7 +198,7 @@ const SearchInput = () => {
         searchDispatch(setIsIterating(true))
         // if (inputRef.current) {
         if (searchValue) {
-          // await delay(5000)
+          // await delay(500000) // For debugging!
           const response = await search({q: searchValue, start})
           if (!response) {
             throw new Error('There was an error during search.')
