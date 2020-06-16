@@ -1,4 +1,4 @@
-import React, {useContext, useCallback, useMemo} from 'react'
+import React, {useContext, useCallback} from 'react'
 import {
   Box,
   Button,
@@ -18,7 +18,6 @@ import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 import Pagination from '@components/Pagination'
 import FlexBox, {RowBox} from '@components/boxes/FlexBox'
-import {GoogleCseResponse} from '../SearchResponse'
 import {resultsPerPage} from '@lib/services/googleSearchService'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,18 +61,6 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
     isIterating,
     isPaging
   } = searchState
-  const request:
-    | GoogleCseResponse['queries']['request'][0]
-    | null = useMemo(
-    () =>
-      response &&
-      response.queries &&
-      response.queries.request &&
-      response.queries.request[0]
-        ? response.queries.request[0]
-        : null,
-    [response]
-  )
 
   // const previousPage:
   //   | GoogleCseResponse['queries']['previousPage'][0]
@@ -99,11 +86,6 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   //   [response]
   // )
 
-  const searchTerms = useMemo(
-    () => (request && request.searchTerms ? request.searchTerms : '...'),
-    [request]
-  )
-
   // const totalResults = useMemo(
   //   () =>
   //     request && request.totalResults && parseInt(request.totalResults, 10)
@@ -112,28 +94,20 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   //   [request]
   // )
 
-  const count = useMemo(() => (request && request.count ? request.count : 0), [
-    request
-  ])
-
-  const startIndex = useMemo(
-    () => (request && request.startIndex ? request.startIndex : 1),
-    [request]
-  )
-
-  const offset = useMemo(() => startIndex - 1, [startIndex])
-
-  const dialogTitle = useMemo(
-    () =>
-      isSearching ? 'Searching...' : `Search Results for "${searchTerms}"`,
-    [isSearching, searchTerms]
-  )
+  const request = response?.queries?.request?.[0]
+  const searchTerms = request?.searchTerms ?? '...'
+  const count = request?.count ?? 0
+  const startIndex = request?.startIndex ?? 1
+  const offset = startIndex - 1
+  const dialogTitle = isSearching
+    ? 'Searching...'
+    : `Search Results for "${searchTerms}"`
 
   const closeHandler = useCallback(() => {
     searchDispatch(setDialogOpen(false))
   }, [searchDispatch])
 
-  const DialogContentEl = useMemo(
+  const DialogContentEx = useCallback(
     () => (
       <DialogContent>
         {isSearching && !isPaging ? (
@@ -167,7 +141,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   // Only need to show Pagination when we have more than a single page worth of results (IE. No "< 1 >").
   // Wait to show Pagination until after isIterating is complete and we have the best total items guess.
   // Don't show Pagination while dialog content progress is spinning too (no double spinner).
-  const paginationEl = useMemo(
+  const PaginationEx = useCallback(
     () =>
       betterTotalItems > count && !isIterating ? (
         <Pagination
@@ -202,10 +176,10 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
       {...rest}
     >
       <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>
-      {DialogContentEl}
+      <DialogContentEx />
       <DialogActions>
         <RowBox justifyContent="space-around" width="100%">
-          {paginationEl}
+          <PaginationEx />
         </RowBox>
         <Button onClick={closeHandler} color="primary">
           Close
