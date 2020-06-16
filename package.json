@@ -147,6 +147,7 @@
     "swr": "^0.2.3",
     "then-sleep": "^1.0.1",
     "timezone-support": "^2.0.2",
+    "use-debounce": "^3.4.2",
     "valid-url": "^1.0.9",
     "vercel": "^19.1.0",
     "yup": "^0.29.1"

@@ -24,6 +24,7 @@ const DirectionsPage = () => {
         <WideContainer>
           <PageTitle title="Directions to PCWA" subtitle="General" />
           <iframe
+            title="Google Maps Iframe"
             width="100%"
             height="550"
             frameBorder="0"

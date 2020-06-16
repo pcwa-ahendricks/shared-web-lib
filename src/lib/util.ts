@@ -1,4 +1,4 @@
-export async function sequenceArray(array: any[], fn: Function) {
+export async function sequenceArray(array: any[], fn: (args: any) => any) {
   const results = []
   for (let i = 0; i < array.length; i++) {
     const r = await fn(array[i])

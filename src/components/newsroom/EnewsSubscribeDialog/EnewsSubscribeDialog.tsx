@@ -156,7 +156,7 @@ const EnewsSubscribeDialog = () => {
                 <WaitToGrow isIn={!submittedWithoutError}>
                   <FormTextField
                     name="email"
-                    autoFocus
+                    // autoFocus
                     margin="dense"
                     id="name"
                     label="Email Address"

@@ -67,7 +67,10 @@ const SmartWaterUsePage = () => {
   const [expanded, setExpanded] = useState<string | false>(false)
 
   const handleChange = useCallback(
-    (panel: string) => (_event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    (panel: string) => (
+      _event: React.ChangeEvent<Record<string, unknown>>,
+      isExpanded: boolean
+    ) => {
       setExpanded(isExpanded ? panel : false)
     },
     []

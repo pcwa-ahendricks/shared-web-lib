@@ -14,13 +14,13 @@ import {
   useMediaQuery,
   useTheme
 } from '@material-ui/core'
-import debounce from 'debounce'
 import {directors, Director} from '@lib/directors'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import useMapUnsupported from '@hooks/useMapIsUnsupported'
 import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
 // import usePrevious from '@hooks/usePrevious'
 import useSupportsTouch from '@hooks/useSupportsTouch'
+import {useDebouncedCallback} from 'use-debounce'
 
 // import Geocoder from 'react-map-gl-geocoder'
 // do this instead. See https://github.com/zeit/next.js/wiki/FAQ and https://github.com/SamSamskies/react-map-gl-geocoder/issues/36#issuecomment-517969447
@@ -85,15 +85,16 @@ const DistrictBoundariesMap = () => {
     setActiveDistrict(bosId)
   }, [])
 
-  const onHoverHandler = useCallback(
-    (evt) => {
+  // Debounce callback
+  const [onHoverHandler] = useDebouncedCallback(
+    // function
+    (evt: any) => {
       const {features = []} = evt ?? {}
       distillDistrict(features)
     },
-    [distillDistrict]
+    // delay in ms
+    30
   )
-
-  const onHoverHandler__ = useCallback(debounce(onHoverHandler, 30), [])
 
   const queryDistrict = useCallback(() => {
     const map = mapRef.current
@@ -173,7 +174,7 @@ const DistrictBoundariesMap = () => {
         mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
         mapboxApiAccessToken={API_KEY}
         onViewStateChange={onViewStateChange}
-        onHover={onHoverHandler__}
+        onHover={onHoverHandler}
         onClick={onClickHandler}
         onTransitionEnd={onTransitionEndHandler}
         onTransitionStart={onTransitionStartHandler}

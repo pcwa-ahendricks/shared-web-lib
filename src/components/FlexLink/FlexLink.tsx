@@ -114,6 +114,7 @@ const FlexLink = ({
       href,
       isNextLink,
       as,
+      muiNextLinkHref,
       rest,
       scroll,
       hasHref,
