@@ -6,7 +6,7 @@ import {
   Typography as Type
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import BoardMinutesLink from './BoardMinutesLink'
 
@@ -47,14 +47,14 @@ const BoardMinutesAccordion = ({
               const {title = '', publishedDate = '', date = ''} =
                 derivedFilenameAttr ?? {}
               return (
-                <BoardMinutesLink
-                  key={m._id}
-                  imgixUrl={imgix_url}
-                  title={title}
-                  publishedDate={publishedDate}
-                  date={date}
-                  topMargin={margin}
-                />
+                <ChildBox key={m._id} mt={margin}>
+                  <BoardMinutesLink
+                    imgixUrl={imgix_url}
+                    title={title}
+                    publishedDate={publishedDate}
+                    date={date}
+                  />
+                </ChildBox>
               )
             })}
           </RowBox>

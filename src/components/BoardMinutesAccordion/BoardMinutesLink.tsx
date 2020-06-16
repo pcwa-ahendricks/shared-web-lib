@@ -10,7 +10,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
+import {ColumnBox} from '@components/boxes/FlexBox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'
 import clsx from 'clsx'
@@ -27,7 +27,6 @@ type Props = {
   publishedDate: string
   title: string
   imgixUrl: CosmicMediaMeta['imgix_url']
-  topMargin?: number
 }
 
 type UseStylesProps = {
@@ -50,10 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
         : theme.palette.primary.main
     }),
     link: {
-      textDecoration: 'none',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
+      textDecoration: 'none'
     },
     thumbnailContainer: ({isHover}: UseStylesProps) => ({
       boxShadow: '1px 1px 4px #ccc',
@@ -64,13 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BoardMinutesLink = ({
-  date,
-  publishedDate,
-  imgixUrl,
-  title,
-  topMargin = 0
-}: Props) => {
+const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
@@ -86,46 +76,45 @@ const BoardMinutesLink = ({
   ])
 
   return (
-    <ChildBox mt={topMargin}>
-      <Link href={url} as={as}>
-        <a
-          className={classes.link}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-        >
-          <Box width={imageWidth} className={classes.thumbnailContainer}>
-            <ImgixFancy
-              paddingPercent="129.412%"
-              // height={100} // Don't specify height since it will break 'data-optimumx' LazySizes plugin.
-              lqipWidth={20}
-              src={imgixUrl}
-              htmlAttributes={{
-                alt: 'Board Minutes Thumbnail',
-                'data-optimumx': 1, // Don't need retrieve high-dpr/retina images.
-                'data-lowsrc': '/static/images/minutes-placeholder.jpg', // Use static asset so we are not making a bunch of silly LQIP requests for a small blurry image that usually looks very similar.
-                style: {
-                  backgroundColor: theme.palette.common.white
-                }
-              }}
-            />
-          </Box>
-          <ColumnBox textAlign="center" mt={1}>
-            <Type
-              variant="body2"
-              className={clsx([classes.caption, classes.dateCaption])}
-            >
-              {format(boardMeetingDate, 'MM-dd-yyyy')}
-            </Type>
-            <Type
-              variant="body2"
-              className={clsx([classes.caption, classes.titleCaption])}
-            >
-              {title}
-            </Type>
-          </ColumnBox>
-        </a>
-      </Link>
-    </ChildBox>
+    <Link href={url} as={as}>
+      <ColumnBox
+        alignItems="center"
+        className={classes.link}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        <Box width={imageWidth} className={classes.thumbnailContainer}>
+          <ImgixFancy
+            paddingPercent="129.412%"
+            // height={100} // Don't specify height since it will break 'data-optimumx' LazySizes plugin.
+            lqipWidth={20}
+            src={imgixUrl}
+            htmlAttributes={{
+              alt: 'Board Minutes Thumbnail',
+              'data-optimumx': 1, // Don't need retrieve high-dpr/retina images.
+              'data-lowsrc': '/static/images/minutes-placeholder.jpg', // Use static asset so we are not making a bunch of silly LQIP requests for a small blurry image that usually looks very similar.
+              style: {
+                backgroundColor: theme.palette.common.white
+              }
+            }}
+          />
+        </Box>
+        <ColumnBox textAlign="center" mt={1}>
+          <Type
+            variant="body2"
+            className={clsx([classes.caption, classes.dateCaption])}
+          >
+            {format(boardMeetingDate, 'MM-dd-yyyy')}
+          </Type>
+          <Type
+            variant="body2"
+            className={clsx([classes.caption, classes.titleCaption])}
+          >
+            {title}
+          </Type>
+        </ColumnBox>
+      </ColumnBox>
+    </Link>
   )
 }
 
