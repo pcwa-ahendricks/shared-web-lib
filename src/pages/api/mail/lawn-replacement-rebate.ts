@@ -1,20 +1,21 @@
 // cspell:ignore addtl cbarnhill truthy
 import {string, object, StringSchema} from 'yup'
 import {format} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import isNumber from 'is-number'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema
-} from '../../src/lib/api/forms'
+} from '../../../lib/api/forms'
 
-import {NowResponse, NowRequest} from '@vercel/node'
+import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 762551
+const MAILJET_TEMPLATE_ID = 765489
 
 interface FormDataObj {
   firstName: string
@@ -28,17 +29,14 @@ interface FormDataObj {
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   irrigMethod: string
-  upgradeLocations: {
-    [key: string]: boolean
-  }
-  upgradeOpts: {
-    [key: string]: boolean
-  }
-  termsAgree: string
   inspectAgree: string
+  termsAgree: string
   signature: string
   captcha: string
   comments: string
+  useArtTurf: string
+  alreadyStarted: string
+  approxSqFeet: string
 }
 
 const bodySchema = object()
@@ -72,19 +70,21 @@ const bodySchema = object()
         captcha: string().required(),
         comments: string().max(200),
         irrigMethod: string().required().notOneOf(['Hand water']), // Case sensitive
-        upgradeLocations: object()
+        useArtTurf: string().required().oneOf(['false']),
+        alreadyStarted: string().required(),
+        approxSqFeet: string()
           .required()
           .test(
-            'has-one-location-option',
-            'upgradeLocations has no truth',
-            hasTrueValue
-          ),
-        upgradeOpts: object()
-          .required()
-          .test(
-            'has-one-upgrade-option',
-            'upgradeOpts has no truth',
-            hasTrueValue
+            'min-sq-feet',
+            'A minimum of 300 square feet of lawn must be converted',
+            (val: string): boolean => {
+              const stripped = val && val.replace(/[^0-9.]/, '')
+              if (isNumber(stripped)) {
+                const valAsNo = Math.round(parseFloat(stripped))
+                return valAsNo >= 300
+              }
+              return false
+            }
           )
       })
   })
@@ -113,8 +113,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       propertyType,
       treatedCustomer,
       irrigMethod,
-      upgradeLocations,
-      upgradeOpts,
+      useArtTurf,
+      approxSqFeet,
+      alreadyStarted,
       termsAgree,
       signature,
       captcha,
@@ -145,9 +146,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     if (city.toLowerCase() === 'other') {
       city = otherCity
     }
-
-    const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
-    const mappedUpgradeOpts = mapTruthyKeys(upgradeOpts)
 
     const replyToName = `${firstName} ${lastName}`
 
@@ -185,8 +183,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             propertyType,
             treatedCustomer,
             irrigMethod,
-            upgradeLocations: mappedUpgradeLocations,
-            upgradeOpts: mappedUpgradeOpts,
+            useArtTurf,
+            approxSqFeet,
+            alreadyStarted,
             submitDate: format(new Date(), 'MMMM do, yyyy'),
             termsAgree,
             signature,
@@ -210,26 +209,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     console.error('Mailjet sendMail error status: ', error.statusCode)
     res.status(500).end()
   }
-}
-
-function hasTrueValue(value: any): boolean {
-  return (
-    value &&
-    typeof value === 'object' &&
-    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
-  )
-}
-
-function mapTruthyKeys(obj: any) {
-  return Object.keys(obj)
-    .map((key) => {
-      if (obj[key] === true) {
-        return key
-      } else {
-        return null
-      }
-    })
-    .filter(Boolean)
 }
 
 export default mainHandler

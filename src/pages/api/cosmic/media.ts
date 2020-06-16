@@ -1,5 +1,5 @@
 import {stringify} from 'querystringify'
-import {CosmicGetMediaResponse} from '../../src/lib/api/cosmic'
+import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 import fetch from 'node-fetch'
 import {NowRequest, NowResponse} from '@vercel/node'
 

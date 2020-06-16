@@ -1,26 +1,22 @@
-// cspell:ignore addtl cbarnhill
-import {string, object, array, date, StringSchema, ArraySchema} from 'yup'
-import {format, parseISO} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
+// cspell:ignore cbarnhill
+// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
+import {string, object, array, StringSchema} from 'yup'
+import {format} from 'date-fns'
+import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
-  emailRecipientsIrrigation,
+  AttachmentFieldValue,
+  emailRecipientsAppliance,
   validateSchema
-} from '../../src/lib/api/forms'
+} from '../../../lib/api/forms'
+
+import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
-import {NowRequest, NowResponse} from '@vercel/node'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 755362
-
-// const Mailjet = require('node-mailjet').connect(MAILJET_KEY, MAILJET_SECRET)
-
-interface AttachmentFieldValue {
-  status: string
-  url: string
-}
+const MAILJET_TEMPLATE_ID = 879852
 
 interface FormDataObj {
   firstName: string
@@ -32,17 +28,19 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
+  existingHigh: '' | 'Yes' | 'No'
+  newConstruction: '' | 'Yes' | 'No'
   manufacturer: string
   model: string
-  additional?: string
-  purchaseDate: string // Incoming date will be type 'string', not a Date Object.
+  ceeQualify: string
   termsAgree: string
   signature: string
   captcha: string
   emailAttachments: string
+  comments: string
   receipts: AttachmentFieldValue[]
-  cntrlPhotos: AttachmentFieldValue[]
-  addtlSensorPhotos?: AttachmentFieldValue[]
+  installPhotos: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -67,13 +65,22 @@ const bodySchema = object()
         ),
         phone: string().min(10).required(),
         propertyType: string().required(),
+        treatedCustomer: string().required().oneOf(
+          ['Yes'] // "Yes", "No"
+        ),
+        existingHigh: string().required().oneOf(
+          ['No'] // "Yes", "No"
+        ),
+        newConstruction: string().required().oneOf(
+          ['No'] // "Yes", "No"
+        ),
         manufacturer: string().required(),
         model: string().required(),
-        additional: string(),
-        purchaseDate: date().required(),
+        ceeQualify: string().required(),
         termsAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
+        comments: string().max(200),
         emailAttachments: string(),
         receipts: array()
           .when(
@@ -90,32 +97,11 @@ const bodySchema = object()
               url: string().required().url()
             })
           ),
-        cntrlPhotos: array()
+        installPhotos: array()
           .when(
             'emailAttachments',
             (emailAttachments: string, schema: StringSchema) =>
               emailAttachments === 'true' ? schema : schema.required()
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        addtlSensorPhotos: array()
-          .when(
-            ['additional', 'emailAttachments'],
-            (
-              additional: string[] | undefined,
-              emailAttachments: string,
-              schema: ArraySchema<string>
-            ) =>
-              additional && emailAttachments !== 'true'
-                ? schema.required()
-                : schema
           )
           .of(
             object({
@@ -131,16 +117,12 @@ const bodySchema = object()
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const data = await json(req)
+    const data: any = await json(req)
     const body: {
       formData: FormDataObj
     } = data
 
     await validateSchema(bodySchema, body)
-
-    // const sendEmail = Mailjet.post('send', {
-    //   version: 'v3.1'
-    // })
 
     const {formData} = body
     const {
@@ -153,15 +135,17 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       propertyType,
       manufacturer,
       model,
-      additional,
-      purchaseDate,
       emailAttachments = '',
       receipts = [],
-      cntrlPhotos = [],
-      addtlSensorPhotos = [],
+      installPhotos = [],
       termsAgree,
       signature,
-      captcha
+      captcha,
+      comments = '',
+      treatedCustomer,
+      existingHigh,
+      newConstruction,
+      ceeQualify
     } = formData
     let {city = '', accountNo} = formData
 
@@ -189,23 +173,12 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       city = otherCity
     }
 
-    let purchaseDateStr = ''
-    try {
-      // Must convert string to Date prior to format() using Date() constructor or parseISO()
-      const parsedDate = parseISO(purchaseDate)
-      purchaseDateStr = format(parsedDate, 'MM/dd/yyyy')
-    } catch (error) {
-      res.status(400).send('Invalid Date')
-      return
-    }
-
     const receiptImages = receipts.map((attachment) => attachment.url)
-    const cntrlImages = cntrlPhotos.map((attachment) => attachment.url)
-    const addtlSensorImages = addtlSensorPhotos.map(
-      (attachment) => attachment.url
-    )
+    const installImages = installPhotos.map((attachment) => attachment.url)
 
     const replyToName = `${firstName} ${lastName}`
+
+    const commentsLength = comments.length
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -217,7 +190,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsIrrigation],
+          To: [{Email: email, Name: replyToName}, ...emailRecipientsAppliance],
           ReplyTo: {
             Email: email,
             Name: replyToName
@@ -237,37 +210,24 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             email,
             phone,
             propertyType,
-            purchaseDateStr,
             manufacturer,
             model,
-            additional,
+            treatedCustomer,
+            existingHigh,
+            newConstruction,
+            ceeQualify,
             submitDate: format(new Date(), 'MMMM do, yyyy'),
             emailAttachments,
             receiptImages,
-            cntrlImages,
-            addtlSensorImages,
+            installImages,
             termsAgree,
             signature,
-            // Mailjet Template language errors will occur and the message will be "blocked" if template attempts to conditionally show section using boolean. Comparing strings works so boolean values are cast to string.
-            hasAddtlSensorImages:
-              addtlSensorImages && addtlSensorImages.length > 0
-                ? 'true'
-                : 'false'
+            comments,
+            commentsLength
           }
         }
       ]
     }
-
-    // We are not actually attaching the attachments, but rather displaying the images inline in the email using the provided URI strings.
-    // try {
-    //   if (attachments && attachments.length > 0) {
-    //     const sendAttachments = await attach(attachments)
-    //     requestBody.Messages[0].Attachments = sendAttachments
-    //   }
-    // } catch (error) {
-    //   isDev && console.log(error)
-    //   throw createError(500, 'Error processing attachments.')
-    // }
 
     isDev &&
       console.log(
@@ -275,24 +235,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
         JSON.stringify(requestBody, null, 2)
       )
 
-    // See note above about Attachments.
-    // const splitMessages = splitUpLargeMessage(requestBody.Messages[0])
-    // requestBody.Messages = [...splitMessages]
-    // console.log(requestBody.Messages.length)
-    // const messageSendRequests: Array<MailJetSendRequest> = splitMessages.map(
-    //   (msg) => ({
-    //     Messages: [{...msg}]
-    //   })
-    // )
-    // const allPromises = await messageSendRequests.map((request) =>
-    //   postMailJetRequest(request)
-    // )
-    // const data = await Promise.all(allPromises)
-
     const postMailData = await postMailJetRequest(requestBody)
     res.status(200).json(postMailData)
   } catch (error) {
-    // isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     res.status(500).end()
   }

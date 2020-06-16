@@ -2,7 +2,7 @@
 import {stringify} from 'querystringify'
 // Won't work with Vercel. Path mappings in tsconfig not supported. See https://vercel.com/docs/runtimes#official-runtimes/node-js/using-typescript-with-the-node-js-runtime for more info.
 // import {CosmicGetMediaResponse} from '@api-lib/cosmic'
-import {CosmicGetMediaResponse} from '../../src/lib/api/cosmic'
+import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 import fetch from 'node-fetch'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {RedisError, createClient, ClientOpts} from 'redis'

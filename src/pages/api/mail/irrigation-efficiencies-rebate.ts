@@ -1,22 +1,20 @@
-// cspell:ignore cbarnhill watersense
-// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema, number} from 'yup'
+// cspell:ignore addtl cbarnhill truthy
+import {string, object, StringSchema} from 'yup'
 import {format} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
-  AttachmentFieldValue,
-  emailRecipientsAppliance,
+  emailRecipientsIrrigation,
   validateSchema
-} from '../../src/lib/api/forms'
+} from '../../../lib/api/forms'
 
-import {NowRequest, NowResponse} from '@vercel/node'
+import {NowResponse, NowRequest} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 881955
+const MAILJET_TEMPLATE_ID = 762551
 
 interface FormDataObj {
   firstName: string
@@ -28,21 +26,19 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
-  noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'
-  builtPriorCutoff: '' | 'Yes' | 'No'
-  manufacturerModel: {
-    manufacturer: string
-    model: string
-  }[]
-  watersenseApproved: string
+  irrigMethod: string
+  upgradeLocations: {
+    [key: string]: boolean
+  }
+  upgradeOpts: {
+    [key: string]: boolean
+  }
   termsAgree: string
+  inspectAgree: string
   signature: string
   captcha: string
-  emailAttachments: string
   comments: string
-  receipts: AttachmentFieldValue[]
-  installPhotos: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -67,56 +63,28 @@ const bodySchema = object()
         ),
         phone: string().min(10).required(),
         propertyType: string().required(),
-        noOfToilets: number().required().moreThan(0),
         treatedCustomer: string().required().oneOf(
           ['Yes'] // "Yes", "No"
         ),
-        builtPriorCutoff: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
-        ),
-        manufacturerModel: array()
-          .required()
-          .of(
-            object({
-              manufacturer: string().required(),
-              model: string().required()
-            })
-          ),
-        watersenseApproved: string().required(),
         termsAgree: string().required().oneOf(['true']),
+        inspectAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
         comments: string().max(200),
-        emailAttachments: string(),
-        receipts: array()
-          .when(
-            'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
-              emailAttachments === 'true' ? schema : schema.required()
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
+        irrigMethod: string().required().notOneOf(['Hand water']), // Case sensitive
+        upgradeLocations: object()
+          .required()
+          .test(
+            'has-one-location-option',
+            'upgradeLocations has no truth',
+            hasTrueValue
           ),
-        installPhotos: array()
-          .when(
-            'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
-              emailAttachments === 'true' ? schema : schema.required()
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
+        upgradeOpts: object()
+          .required()
+          .test(
+            'has-one-upgrade-option',
+            'upgradeOpts has no truth',
+            hasTrueValue
           )
       })
   })
@@ -130,6 +98,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     await validateSchema(bodySchema, body)
 
+    // const sendEmail = Mailjet.post('send', {
+    //   version: 'v3.1'
+    // })
+
     const {formData} = body
     const {
       email,
@@ -139,18 +111,14 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       otherCity = '',
       phone,
       propertyType,
-      emailAttachments = '',
-      receipts = [],
-      installPhotos = [],
+      treatedCustomer,
+      irrigMethod,
+      upgradeLocations,
+      upgradeOpts,
       termsAgree,
       signature,
       captcha,
-      comments = '',
-      treatedCustomer,
-      builtPriorCutoff,
-      manufacturerModel = [],
-      watersenseApproved,
-      noOfToilets = 1
+      comments = ''
     } = formData
     let {city = '', accountNo} = formData
 
@@ -178,13 +146,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       city = otherCity
     }
 
-    const receiptImages = receipts.map((attachment) => attachment.url)
-    const installImages = installPhotos.map((attachment) => attachment.url)
+    const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
+    const mappedUpgradeOpts = mapTruthyKeys(upgradeOpts)
 
     const replyToName = `${firstName} ${lastName}`
-
-    // const noOfAppliances = manufacturerModel.length.toString()
-    const noOfToiletsStr = noOfToilets.toString()
 
     const commentsLength = comments.length
 
@@ -198,7 +163,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsAppliance],
+          To: [{Email: email, Name: replyToName}, ...emailRecipientsIrrigation],
           ReplyTo: {
             Email: email,
             Name: replyToName
@@ -219,14 +184,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             phone,
             propertyType,
             treatedCustomer,
-            builtPriorCutoff,
-            manufacturerModel,
-            noOfToiletsStr,
-            watersenseApproved,
+            irrigMethod,
+            upgradeLocations: mappedUpgradeLocations,
+            upgradeOpts: mappedUpgradeOpts,
             submitDate: format(new Date(), 'MMMM do, yyyy'),
-            emailAttachments,
-            receiptImages,
-            installImages,
             termsAgree,
             signature,
             comments,
@@ -245,9 +206,30 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const postMailData = await postMailJetRequest(requestBody)
     res.status(200).json(postMailData)
   } catch (error) {
+    // isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     res.status(500).end()
   }
+}
+
+function hasTrueValue(value: any): boolean {
+  return (
+    value &&
+    typeof value === 'object' &&
+    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
+  )
+}
+
+function mapTruthyKeys(obj: any) {
+  return Object.keys(obj)
+    .map((key) => {
+      if (obj[key] === true) {
+        return key
+      } else {
+        return null
+      }
+    })
+    .filter(Boolean)
 }
 
 export default mainHandler

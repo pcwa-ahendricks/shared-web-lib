@@ -1,14 +1,14 @@
-// cspell:ignore cbarnhill
+// cspell:ignore cbarnhill watersense
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema} from 'yup'
+import {string, object, array, StringSchema, number} from 'yup'
 import {format} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '../../src/lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
   AttachmentFieldValue,
   emailRecipientsAppliance,
   validateSchema
-} from '../../src/lib/api/forms'
+} from '../../../lib/api/forms'
 
 import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'
@@ -16,7 +16,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 879852
+const MAILJET_TEMPLATE_ID = 881955
 
 interface FormDataObj {
   firstName: string
@@ -28,12 +28,14 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   propertyType: string
+  noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'
-  existingHigh: '' | 'Yes' | 'No'
-  newConstruction: '' | 'Yes' | 'No'
-  manufacturer: string
-  model: string
-  ceeQualify: string
+  builtPriorCutoff: '' | 'Yes' | 'No'
+  manufacturerModel: {
+    manufacturer: string
+    model: string
+  }[]
+  watersenseApproved: string
   termsAgree: string
   signature: string
   captcha: string
@@ -65,18 +67,22 @@ const bodySchema = object()
         ),
         phone: string().min(10).required(),
         propertyType: string().required(),
+        noOfToilets: number().required().moreThan(0),
         treatedCustomer: string().required().oneOf(
           ['Yes'] // "Yes", "No"
         ),
-        existingHigh: string().required().oneOf(
-          ['No'] // "Yes", "No"
+        builtPriorCutoff: string().required().oneOf(
+          ['Yes'] // "Yes", "No"
         ),
-        newConstruction: string().required().oneOf(
-          ['No'] // "Yes", "No"
-        ),
-        manufacturer: string().required(),
-        model: string().required(),
-        ceeQualify: string().required(),
+        manufacturerModel: array()
+          .required()
+          .of(
+            object({
+              manufacturer: string().required(),
+              model: string().required()
+            })
+          ),
+        watersenseApproved: string().required(),
         termsAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
@@ -133,8 +139,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       otherCity = '',
       phone,
       propertyType,
-      manufacturer,
-      model,
       emailAttachments = '',
       receipts = [],
       installPhotos = [],
@@ -143,9 +147,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       captcha,
       comments = '',
       treatedCustomer,
-      existingHigh,
-      newConstruction,
-      ceeQualify
+      builtPriorCutoff,
+      manufacturerModel = [],
+      watersenseApproved,
+      noOfToilets = 1
     } = formData
     let {city = '', accountNo} = formData
 
@@ -177,6 +182,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const installImages = installPhotos.map((attachment) => attachment.url)
 
     const replyToName = `${firstName} ${lastName}`
+
+    // const noOfAppliances = manufacturerModel.length.toString()
+    const noOfToiletsStr = noOfToilets.toString()
 
     const commentsLength = comments.length
 
@@ -210,12 +218,11 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             email,
             phone,
             propertyType,
-            manufacturer,
-            model,
             treatedCustomer,
-            existingHigh,
-            newConstruction,
-            ceeQualify,
+            builtPriorCutoff,
+            manufacturerModel,
+            noOfToiletsStr,
+            watersenseApproved,
             submitDate: format(new Date(), 'MMMM do, yyyy'),
             emailAttachments,
             receiptImages,

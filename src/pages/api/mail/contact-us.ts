@@ -1,23 +1,20 @@
 // cspell:ignore customerservices pcwamain
-import {string, object, array} from 'yup'
+import {string, object} from 'yup'
 import {format} from 'date-fns'
 import {
   MailJetSendRequest,
   MailJetMessage,
   postMailJetRequest
-} from '../../src/lib/api/mailjet'
-import {
-  getRecaptcha,
-  validateSchema,
-  AttachmentFieldValue
-} from '../../src/lib/api/forms'
+} from '../../../lib/api/mailjet'
+import {getRecaptcha, validateSchema} from '../../../lib/api/forms'
+
 import {NowRequest, NowResponse} from '@vercel/node'
 import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 1487509
+const MAILJET_TEMPLATE_ID = 848345
 
 // Additional email addresses are added to array below.
 const SA_RECIPIENTS: MailJetMessage['To'] = isDev
@@ -29,12 +26,12 @@ const SA_RECIPIENTS: MailJetMessage['To'] = isDev
 
 interface FormDataObj {
   name: string
+  message: string
   email: string
+  subject: string
+  reason: string
   phone: string
-  location: string
-  description: string
   captcha: string
-  photos: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -44,23 +41,15 @@ const bodySchema = object()
       .camelCase()
       .required()
       .shape({
+        reason: string().required(),
+        message: string().required(),
         captcha: string().required(
           'Checking this box is required for security purposes'
         ),
+        subject: string().required(),
         name: string(),
         email: string().email(),
-        phone: string().min(10),
-        location: string().required(),
-        description: string().required(),
-        photos: array().of(
-          object({
-            status: string()
-              .required()
-              .lowercase()
-              .matches(/success/),
-            url: string().required().url()
-          })
-        )
+        phone: string().min(10)
       })
   })
 
@@ -82,12 +71,11 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       email,
       name,
       phone,
-      location,
-      description,
-      captcha,
-      photos = []
+      reason,
+      message,
+      subject = '',
+      captcha
     } = formData
-    const photoAttachments = photos.map((p) => p.url)
 
     // Only validate recaptcha key in production.
     if (!isDev) {
@@ -104,7 +92,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const mainRecipients: MailJetMessage['To'] = isDev
       ? []
-      : [{Email: 'waterefficiency@pcwa.net', Name: 'Water Efficiency'}]
+      : subject.toLowerCase() === 'clerk to the board'
+      ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
+      : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
 
     // If user specified an email address include it.
     const senderRecipients: MailJetMessage['To'] = email
@@ -137,17 +127,17 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },
-          Subject: 'Water Waste - PCWA.net',
+          Subject: 'Contact Us - PCWA.net',
           TemplateID: MAILJET_TEMPLATE_ID,
           TemplateLanguage: true,
           Variables: {
             email,
             name,
             phone,
-            location,
-            description,
-            submitDate: format(new Date(), 'MMMM do, yyyy'),
-            photoAttachments
+            reason,
+            message,
+            subject,
+            submitDate: format(new Date(), 'MMMM do, yyyy')
           }
         }
       ]
