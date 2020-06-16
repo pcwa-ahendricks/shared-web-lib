@@ -69,11 +69,13 @@ const theme = createMuiTheme({
       lineHeight: '1.66' // Default: 2.66
     },
     subtitle1: {
-      fontSize: '1.1rem' // Default: 1rem
+      fontSize: '1.1rem', // Default: 1rem
+      lineHeight: 1.5 // default: 1.75
     },
     subtitle2: {
-      fontSize: '0.975rem' // Default: 0.875rem
+      fontSize: '0.975rem', // Default: 0.875rem
       // fontWeight: 400 // Default: 500
+      lineHeight: 1.4 // default: 1.57
     }
   },
   palette: {

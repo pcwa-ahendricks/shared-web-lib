@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback, useState} from 'react'
 import {
   Box,
   BoxProps,
@@ -32,13 +32,28 @@ const CoverTile = ({
   ...rest
 }: CoverTileProps) => {
   const theme = useTheme()
+  const [hover, setHover] = useState<boolean>()
 
   const {imgixParams: imgixParamsProps, ...imgixFancyPropsRest} =
     imgixFancyProps ?? {}
 
+  const buttonEnterHandler = useCallback(() => {
+    setHover(true)
+  }, [])
+
+  const buttonLeaveHandler = useCallback(() => {
+    setHover(false)
+  }, [])
+
+  const titleColor: TypographyProps['color'] = hover ? 'secondary' : 'primary'
+
   return (
-    <Box {...rest}>
-      <FlexLink href={linkHref} {...flexLinkProps}>
+    <Box
+      onMouseEnter={buttonEnterHandler}
+      onMouseLeave={buttonLeaveHandler}
+      {...rest}
+    >
+      <FlexLink href={linkHref} underline="none" {...flexLinkProps}>
         <Box
           borderRadius={4}
           overflow="hidden"
@@ -60,7 +75,7 @@ const CoverTile = ({
           />
         </Box>
         <Spacing size="small" />
-        <Type variant="subtitle1" color="primary" {...typeProps}>
+        <Type variant="subtitle1" color={titleColor} {...typeProps}>
           {title}
         </Type>
       </FlexLink>

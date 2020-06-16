@@ -30,8 +30,8 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
 
   const recentNews = useMemo(
     () =>
-      recentNewsBlurbs?.objects && Array.isArray(recentNewsBlurbs?.objects)
-        ? recentNewsBlurbs?.objects.map((blurb) => ({
+      recentNewsBlurbs && Array.isArray(recentNewsBlurbs.objects)
+        ? recentNewsBlurbs.objects.map((blurb) => ({
             id: blurb._id,
             releaseDate: parse(
               blurb.metadata.releaseDate,

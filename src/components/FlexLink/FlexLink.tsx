@@ -40,6 +40,7 @@ const FlexLink = ({
   ...rest
 }: FlexLinkProps) => {
   const [href, setHref] = useState(hrefProp)
+  const [detectedNext, setDetectedNext] = useState<boolean>()
   const [as, setAs] = useState(asProp)
   const classes = useStyles()
 
@@ -67,18 +68,23 @@ const FlexLink = ({
       } else {
         setHref(path ?? '')
       }
+      setDetectedNext(true)
     } else {
       setHref(hrefProp)
+      setDetectedNext(true)
     }
   }, [hrefProp, detectNext])
 
   const hasHref = useMemo(() => href.length > 0, [href])
 
+  // wait for detection to complete (if "detectNext" is true) to pass href to Next Link
+  const muiNextLinkHref = detectNext && !detectedNext ? '#' : href
+
   const flexLinkEl = useMemo(
     () =>
       isNextLink ? (
         <MuiNextLink
-          href={href}
+          href={muiNextLinkHref}
           as={as}
           scroll={scroll}
           className={clsx([classes.link, classNameProp])}
@@ -112,6 +118,8 @@ const FlexLink = ({
       scroll,
       hasHref,
       classes,
+      rel,
+      target,
       classNameProp
     ]
   )
