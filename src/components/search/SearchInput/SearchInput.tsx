@@ -190,6 +190,7 @@ const SearchInput = () => {
   const searchHandler = useCallback(
     async (start = 1, paginationSearch = false) => {
       try {
+        inputMobileRef?.current?.blur?.() // Un-focus input on search. Prevents small white input from appearing after closing dialog. It seems that this needs to be called before dialog is open or else blur() won't do anything.
         !paginationSearch && searchDispatch(setIsSearching(true))
         paginationSearch && searchDispatch(setIsPaging(true))
         searchDispatch(setDialogOpen(true))
@@ -239,10 +240,7 @@ const SearchInput = () => {
     [searchHandler]
   )
 
-  const inputHasValue = useMemo(
-    () => (searchValue && searchValue.length > 0 ? true : false),
-    [searchValue]
-  )
+  const inputHasValue = searchValue?.length > 0 ? true : false
 
   const onPageSearchHandler = useCallback(
     (startIndex: number, isPaging?: boolean) => {
