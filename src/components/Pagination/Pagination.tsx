@@ -27,7 +27,7 @@ export interface PagePosition {
   position: Position
 }
 
-const styles = createStyles<PaginationClassKey, {}>({
+const styles = createStyles<PaginationClassKey, PaginationProps>({
   root: {},
   rootCurrent: {},
   rootEllipsis: {},

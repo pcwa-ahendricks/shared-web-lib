@@ -34,6 +34,15 @@ interface Spec {
 const specs: Spec[] = [
   {
     id: 1,
+    title: 'Pipe Material and Steel Pipe',
+    section: 'Div. 3 - Sec. 1, Page 51 and Div. 3 - Sec. 6, Page 89',
+    revision: 'Revision 2',
+    url:
+      'https://cdn.cosmicjs.com/f46e8230-b01b-11ea-bbb7-b70da071f778-Final-Appr-Spec-Rev-1-2020.pdf',
+    approved: parse('06/12/2020', 'MM/dd/yyyy', new Date())
+  },
+  {
+    id: 2,
     title: 'Pipeline Layout and Clearances',
     section: 'Div. 2 - Sec. 1, Page 24',
     revision: 'Revision 1',

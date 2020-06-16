@@ -60,7 +60,7 @@ const ToiletWatersenseRadioField = ({
 
   // RadioGroup is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched.
   const changeHandler = useCallback(
-    (_evt: React.ChangeEvent<{}>, value: string) => {
+    (_evt: React.ChangeEvent<HTMLInputElement>, value: string) => {
       const newValue = value
       setFieldValue(name, newValue, true)
       setFieldTouched(name, true)
