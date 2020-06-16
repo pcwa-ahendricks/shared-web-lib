@@ -1,9 +1,9 @@
 const errorMessages = {
-  BAD_MIME_TYPE: 'Unexpected File type' as 'Unexpected File type',
-  UNKNOWN_ERROR: 'An Error Occurred' as 'An Error Occurred',
-  NO_FILENAME: 'Filename is absent' as 'Filename is absent',
-  PROCESSING_ERROR: 'Error during image processing' as 'Error during image processing',
-  UPLOAD_ERROR: 'Error during media upload' as 'Error during media upload'
+  BAD_MIME_TYPE: 'Unexpected File type',
+  UNKNOWN_ERROR: 'An Error Occurred',
+  NO_FILENAME: 'Filename is absent',
+  PROCESSING_ERROR: 'Error during image processing',
+  UPLOAD_ERROR: 'Error during media upload'
 
   // LIMIT_FILE_SIZE: 'File too large',
   // LIMIT_FILE_COUNT: 'Too many files',
@@ -11,7 +11,7 @@ const errorMessages = {
   // LIMIT_FIELD_VALUE: 'Field value too long',
   // LIMIT_FIELD_COUNT: 'Too many fields',
   // LIMIT_UNEXPECTED_FILE: 'Unexpected field'
-}
+} as const
 
 class BusboyError extends Error {
   public constructor(code: BusboyErrorCode = 'UNKNOWN_ERROR', field?: any) {
