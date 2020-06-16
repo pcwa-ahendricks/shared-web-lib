@@ -26,7 +26,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import {Field, connect, FormikProps, FieldProps} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
-import useDebounce from '@hooks/useDebounce'
+import {useDebounce} from 'use-debounce'
 import {
   EligibilityDialog,
   EligibilityMobileStepper,
@@ -68,10 +68,10 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
-  const debouncedLastTouchedIndex = useDebounce(lastTouchedIndex, 800)
+  const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps(), [])
   const maxSteps = useMemo(() => getSteps().length, [])
-  const prevTouched = useRef<{}>()
+  const prevTouched = useRef<Record<string, unknown>>()
   const prevLastTouchedIndex = useRef<number>()
 
   const {touched = {}, errors = {}} = formik || {}

@@ -7,7 +7,7 @@ import {
   createStyles,
   PopperProps
 } from '@material-ui/core'
-import useDebounce from '@hooks/useDebounce'
+import {useDebounce} from 'use-debounce'
 import {ToolbarVariant} from '@components/PrimaryHeader/PrimaryHeader'
 
 const POPOVER_TRAN_EXIT_DURATION = 150
@@ -72,7 +72,7 @@ const MegaMenuPopper = ({
   const classes = useStyles()
   const arrowRef = useRef(null)
   const [popperTransActive, setPopperTransActive] = useState(false)
-  const debouncedPopperTransActive = useDebounce(
+  const [debouncedPopperTransActive] = useDebounce(
     popperTransActive,
     POPOVER_TRAN_EXIT_DURATION
   )

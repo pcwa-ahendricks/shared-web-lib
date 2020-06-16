@@ -31,7 +31,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
 import colorAlpha from 'color-alpha'
-import useDebounce from '@hooks/useDebounce'
+import {useDebounce} from 'use-debounce'
 import SearchInput from '@components/search/SearchInput/SearchInput'
 import {SearchContext} from '@components/search/SearchStore'
 
@@ -177,7 +177,7 @@ const PrimaryHeader = () => {
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   // useMediaQuery always returns false on page load, regardless of device width. isSMUp is used to prevent the PCWA logo showing up real quickly on mobile devices by waiting for a truthy non-XS value.
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const isXS__ = useDebounce(isXS, 100)
+  const [isXS__] = useDebounce(isXS, 100)
   // Custom width defined by point at which menu links overlap svg logo.
   const hideLogoQuery = useMediaQuery('@media screen and (max-width: 660px)')
   const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null)

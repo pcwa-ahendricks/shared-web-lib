@@ -26,6 +26,8 @@ import {useDebouncedCallback} from 'use-debounce'
 // do this instead. See https://github.com/zeit/next.js/wiki/FAQ and https://github.com/SamSamskies/react-map-gl-geocoder/issues/36#issuecomment-517969447
 let Geocoder: any
 if (typeof window !== 'undefined') {
+  // [TODO]
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   Geocoder = require('react-map-gl-geocoder').default
 }
 

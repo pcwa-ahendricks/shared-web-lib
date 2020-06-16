@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core'
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
-import useDebounce from '@hooks/useDebounce'
+import {useDebounce} from 'use-debounce'
 import UnclaimedPropertyTableRow from './UnclaimedPropertyTableRow'
 import {UnclaimedPropertyResponse} from '@lib/services/cosmicService'
 import {stringify} from 'querystringify'
@@ -174,8 +174,8 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
     unclaimedProperty.length
   )
   const [inputFilter, setInputFilter] = useState('')
-  const debFilteredRowCount = useDebounce(filteredRowCount, 200)
-  const debInputFilter = useDebounce(inputFilter, 200)
+  const [debFilteredRowCount] = useDebounce(filteredRowCount, 200)
+  const [debInputFilter] = useDebounce(inputFilter, 200)
 
   useEffect(() => {
     const f = unclaimedProperty.filter((row) => {

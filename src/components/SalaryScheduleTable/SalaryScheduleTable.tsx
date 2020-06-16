@@ -22,11 +22,11 @@ import {generate} from 'shortid'
 import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import SalaryScheduleRow from '@components/SalaryScheduleTable/SalaryScheduleRow'
-import useDebounce from '@hooks/useDebounce'
 import DlSalaryScheduleCsvButton from '@components/SalaryScheduleTable/DlSalaryScheduleCsvButton'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import {textFetcher} from '@lib/fetcher'
+import {useDebounce} from 'use-debounce'
 
 interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -252,8 +252,8 @@ const SalaryScheduleTable = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10) // 10, 15, or 25.
   const [filteredRowCount, setFilteredRowCount] = useState(salaryData.length)
   const [classTitleFilter, setClassTitleFilter] = useState('')
-  const debFilteredRowCount = useDebounce(filteredRowCount, 200)
-  const debClassTitleFilter = useDebounce(classTitleFilter, 200)
+  const [debFilteredRowCount] = useDebounce(filteredRowCount, 200)
+  const [debClassTitleFilter] = useDebounce(classTitleFilter, 200)
 
   useEffect(() => {
     const f = salaryData.filter((row) => {
