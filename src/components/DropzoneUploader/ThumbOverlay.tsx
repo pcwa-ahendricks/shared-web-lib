@@ -34,7 +34,11 @@ const ThumbOverlay = ({src}: Props) => {
 
   return (
     <div className={classes.box}>
-      <img src={src} className={classes.img} />
+      <img
+        src={src}
+        className={classes.img}
+        alt="Thumbnail for uploaded file"
+      />
       <div className="overbox">
         <div className={clsx('title overtext')}> Title </div>
         <div className={clsx('tagline overtext')}> Tagline </div>
