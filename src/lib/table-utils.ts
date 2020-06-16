@@ -13,8 +13,8 @@ const desc = <T extends {[index: string]: any}>(
   }
   return 0
 }
-
-const stableSort = <T extends any>(array: T[], cmp: any): T[] => {
+// [index: string]: any;
+const stableSort = <T>(array: T[], cmp: any): T[] => {
   const sorted = array
     .map((el, index) => [el, index])
     .sort((a: any, b: any) => {
@@ -26,7 +26,7 @@ const stableSort = <T extends any>(array: T[], cmp: any): T[] => {
   return [...sorted]
 }
 
-const getSorting = <T extends any>(order: SortDirection, orderBy: string) =>
+const getSorting = <T>(order: SortDirection, orderBy: string) =>
   order === 'desc'
     ? (a: T, b: T) => desc<T>(a, b, orderBy)
     : (a: T, b: T) => -desc<T>(a, b, orderBy)
