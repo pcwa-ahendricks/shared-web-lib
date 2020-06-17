@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     buttonText: {
+      color: theme.palette.primary.dark,
       fontSize: '0.9rem',
       textAlign: 'inherit',
       padding: '3px 8px' // Default: 6px 8px;
@@ -43,7 +44,6 @@ const MMNavLink = ({children, href, as, isNextLink = true}: Props) => {
     <FlexButton
       href={href}
       as={as}
-      color="primary"
       isNextLink={isNextLink}
       classes={{root: classes.button, text: classes.buttonText}}
     >

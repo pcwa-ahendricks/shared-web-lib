@@ -19,6 +19,7 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     groupName: {
+      color: theme.palette.primary.dark,
       // color: theme.palette.grey[100]
       paddingLeft: 8 // Match NavLink buttonText class and this divider class.
     },
@@ -53,7 +54,6 @@ const MMContent = ({contentKey = 1}: Props) => {
             <ColumnBox flex="0 1 auto" key={groupIdx} m={2}>
               <Type
                 variant="overline"
-                color="textPrimary"
                 noWrap={true}
                 className={classes.groupName}
               >
