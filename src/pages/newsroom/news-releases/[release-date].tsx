@@ -188,9 +188,6 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
             showLoading={true}
             alt={`News release document image for ${publishDate} - page 1/${pageCount}`}
             url={media?.imgix_url ?? ''}
-            imgixHtmlAttributes={{
-              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
-            }}
           />
           <Divider />
         </Box>

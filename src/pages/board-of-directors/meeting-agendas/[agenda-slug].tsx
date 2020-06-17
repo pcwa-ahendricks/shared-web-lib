@@ -178,9 +178,6 @@ const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
             showLoading={true}
             alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
             url={media?.imgix_url ?? ''}
-            imgixHtmlAttributes={{
-              'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
-            }}
           />
           <Divider />
         </Box>
@@ -206,9 +203,6 @@ const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
               showLoading={true}
               alt={`Board Agendas document image for ${agendaSlug} - page ${number}/${pageCount}`}
               url={url}
-              imgixHtmlAttributes={{
-                'data-optimumx': 1 // Don't need retrieve high-dpr/retina pdf page images.
-              }}
             />
             <Divider />
           </Box>
