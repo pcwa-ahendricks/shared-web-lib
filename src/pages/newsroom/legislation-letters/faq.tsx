@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(1)
     },
     questionOpenIcon: {
+      marginRight: 2, // Fine tune spacing
       marginLeft: theme.spacing(-2), // Shift question heading to the back (left) a bit
       paddingRight: theme.spacing(1),
       transform: 'scaleX(-1)'
