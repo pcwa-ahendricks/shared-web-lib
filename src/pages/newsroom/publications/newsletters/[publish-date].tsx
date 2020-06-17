@@ -85,10 +85,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
   const theme = useTheme<Theme>()
-
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
-
+  const isXS = useMediaQuery(theme.breakpoints.down('xs'))
   const classes = useStyles()
+
   const newsletterDateFormatted = useMemo(
     () =>
       media
@@ -188,7 +188,7 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
         {progressEl}
         {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
-            {number >= 2 ? (
+            {number >= 2 && !isXS ? (
               <RowBox
                 id={`page-${number}`}
                 position="absolute"

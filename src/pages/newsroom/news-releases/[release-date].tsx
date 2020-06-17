@@ -82,6 +82,7 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
   const theme = useTheme<Theme>()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.down('xs'))
 
   const classes = useStyles()
   const router = useRouter()
@@ -194,7 +195,7 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
         {progressEl}
         {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
-            {number >= 2 ? (
+            {number >= 2 && !isXS ? (
               <RowBox
                 id={`page-${number}`}
                 position="absolute"

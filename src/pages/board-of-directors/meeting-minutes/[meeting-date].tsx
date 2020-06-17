@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.down('xs'))
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
 
@@ -212,7 +213,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
         {progressEl}
         {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
-            {number >= 2 ? (
+            {number >= 2 && !isXS ? (
               <RowBox
                 id={`page-${number}`}
                 position="absolute"
