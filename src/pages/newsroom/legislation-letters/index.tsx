@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -16,7 +16,9 @@ import {
   createStyles,
   Theme,
   Link,
-  Divider
+  Divider,
+  LinkProps,
+  TypographyProps
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
@@ -108,7 +110,7 @@ export default function LegislationAndLettersPage() {
     }
   ]
 
-  const [expanded, setExpanded] = useState<string | false>(false)
+  const [expanded, setExpanded] = useState<string | false>('panel1')
   const classes = useStyles()
 
   const handleChange = (panel: string) => (
@@ -117,6 +119,59 @@ export default function LegislationAndLettersPage() {
   ) => {
     setExpanded(isExpanded ? panel : false)
   }
+
+  const IssueTitle = useCallback(
+    ({children, ...props}: Partial<LinkProps>) => (
+      <Link
+        gutterBottom
+        variant="subtitle2"
+        target="_blank"
+        rel="noopener noreferrer"
+        {...props}
+      >
+        {children}
+      </Link>
+    ),
+    []
+  )
+
+  const CategoryTitle = useCallback(
+    ({children, ...props}: Partial<TypographyProps>) => (
+      <>
+        <Type variant="subtitle1" color="secondary" {...props}>
+          {children}
+        </Type>
+        <Spacing size="small" />
+      </>
+    ),
+    []
+  )
+
+  const LocalityTitle = useCallback(
+    ({children, ...props}: Partial<TypographyProps>) => (
+      <>
+        <Type variant="h6" {...props}>
+          {children}
+        </Type>
+        <Spacing size="small">
+          <Divider />
+        </Spacing>
+      </>
+    ),
+    []
+  )
+
+  const StatusCaption = useCallback(
+    ({children, ...props}: Partial<TypographyProps>) => (
+      <>
+        <Type variant="body2" {...props}>
+          <StrongEmphasis color="primary">Status:</StrongEmphasis>{' '}
+          <em>{children}</em>
+        </Type>
+      </>
+    ),
+    []
+  )
 
   return (
     <PageLayout title="Legislation and Letters" waterSurface>
@@ -185,27 +240,14 @@ export default function LegislationAndLettersPage() {
                 id="panel1bh-header"
               >
                 <Type>2017 - 2019</Type>
-                {/* <Type>I am an expansion panel</Type> */}
               </ExpansionPanelSummary>
               <ExpansionPanelDetails classes={{root: classes.panelDetails}}>
                 <Box bgcolor="white" pt={2}>
-                  <Type variant="h6">State Issues</Type>
-                  <Spacing size="small">
-                    <Divider />
-                  </Spacing>
-                  <Type variant="subtitle1" color="secondary" gutterBottom>
-                    Water Tax
-                  </Type>
-                  <Spacing size="small" />
-                  <Link
-                    gutterBottom
-                    variant="subtitle2"
-                    target="_blank"
-                    href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB623"
-                    rel="noopener noreferrer"
-                  >
+                  <LocalityTitle>State Issues</LocalityTitle>
+                  <CategoryTitle>Water Tax</CategoryTitle>
+                  <IssueTitle href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB623">
                     Senate Bill 623
-                  </Link>
+                  </IssueTitle>
                   <Type variant="body2" paragraph>
                     PCWA opposes a proposed water tax on all residential and
                     commercial customer water bills. Thanks to a majority of
@@ -216,49 +258,37 @@ export default function LegislationAndLettersPage() {
                     placing a tax on your water bill is not the proper funding
                     solution.
                   </Type>
-                  <Link
-                    variant="body2"
-                    href="https://cdn.cosmicjs.com/ee9a3670-8912-11e7-85fa-19e32a3becc0-20170606_SB-623-Monning.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    PCWA Opposition Letter to Assembly Environmental Safety and
-                    Toxic Materials Committee
-                  </Link>
+                  <Type>
+                    <Link
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/ee9a3670-8912-11e7-85fa-19e32a3becc0-20170606_SB-623-Monning.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PCWA Opposition Letter to Assembly Environmental Safety
+                      and Toxic Materials Committee
+                    </Link>
+                  </Type>
                   <Spacing size="x-small" />
-                  <Type variant="body2">
-                    <StrongEmphasis color="primary">Status:</StrongEmphasis>{' '}
-                    <em>
-                      Passed out of the Senate as a two-year bill. Pending
-                      action in Assembly Rules Committee.
-                    </em>
-                  </Type>
+                  <StatusCaption>
+                    Passed out of the Senate as a two-year bill. Pending action
+                    in Assembly Rules Committee.
+                  </StatusCaption>
+                  {/*  */}
                   <Spacing />
-                  <Type variant="subtitle1" color="secondary" gutterBottom>
+                  <CategoryTitle>
                     Urban Water Management Planning & Water Use Efficiency
-                  </Type>
-                  <Spacing size="small" />
-                  <Link
-                    gutterBottom
-                    variant="subtitle2"
-                    target="_blank"
-                    href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180AB1668"
-                    rel="noopener noreferrer"
-                  >
+                  </CategoryTitle>
+                  {/*  */}
+                  <IssueTitle href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180AB1668">
                     Assembly Bill 1668
-                  </Link>{' '}
+                  </IssueTitle>{' '}
                   <Type variant="subtitle2" color="primary" component="span">
                     and
                   </Type>{' '}
-                  <Link
-                    gutterBottom
-                    variant="subtitle2"
-                    target="_blank"
-                    href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB606"
-                    rel="noopener noreferrer"
-                  >
+                  <IssueTitle href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB606">
                     Senate Bill 606
-                  </Link>
+                  </IssueTitle>
                   <Type variant="body2" paragraph>
                     PCWA voiced opposition against new requirements for water
                     management planning and water use targets. Part of Governor
@@ -272,19 +302,255 @@ export default function LegislationAndLettersPage() {
                     businesses.
                   </Type>
                   {/* <Spacing size="x-small" /> */}
-                  <Type variant="body2">
-                    <StrongEmphasis color="primary">Status:</StrongEmphasis>{' '}
-                    <em>
-                      Both bills have passed out of houses of origin. Senate
-                      Bill 606 is on Assembly floor ready for a final vote.
-                      Assembly Bill 1668 is pending action in the Senate Rules
-                      Committee.
-                    </em>
+                  <StatusCaption>
+                    Both bills have passed out of houses of origin. Senate Bill
+                    606 is on Assembly floor ready for a final vote. Assembly
+                    Bill 1668 is pending action in the Senate Rules Committee.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing />
+                  <IssueTitle href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180AB1654">
+                    Assembly Bill 1654
+                  </IssueTitle>{' '}
+                  <Type variant="subtitle2" color="primary" component="span">
+                    and
+                  </Type>{' '}
+                  <IssueTitle href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180AB968">
+                    968
+                  </IssueTitle>
+                  <Type variant="body2" paragraph>
+                    PCWA supports Assembly Bills 1654 and 968, which provided an
+                    alternative approach to water management planning and water
+                    use targets. These bills promoted water use efficiency and a
+                    robust drought response while ensuring local agencies
+                    continue to control their water supplies. These bills
+                    optimize PCWA’s ability to plan and prepare for future
+                    droughts which benefits our long-term water use efficiency.
                   </Type>
+                  <Type>
+                    <Link
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/cfd9c500-e67f-11e7-a671-ab91e302e67a-4-10-2017_Support_of_Legislation.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PCWA support letter to Assemblymember Blanca Rubio
+                    </Link>
+                  </Type>
+                  <Spacing size="x-small" />
+                  <StatusCaption>
+                    Both bills held under submission in Assembly Appropriations
+                    Committee.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing />
+                  <IssueTitle href="https://cdn.cosmicjs.com/84d95150-e67b-11e7-bb4c-6f40540093ad-1-10-2017_Urban Water Conservation Workshop comment letter.pdf">
+                    Urban Water Conservation Workshop – Comment Letter
+                  </IssueTitle>{' '}
+                  <Type variant="body2" paragraph>
+                    PCWA commented on emergency drought regulations in February
+                    2017, requesting for the expiration of such regulations.
+                    Although regulators felt compelled to institute emergency
+                    regulations for mandatory water conservation during the
+                    height of the drought, PCWA has demonstrated the ability to
+                    meet demands over multiple years whether conditions are wet
+                    or dry.
+                  </Type>
+                  {/*  */}
+                  <Spacing />
+                  <CategoryTitle>California WaterFix</CategoryTitle>
+                  {/*  */}
+                  <Type variant="body2" paragraph>
+                    PCWA opposes California’s WaterFix project as currently
+                    proposed. WaterFix, commonly referred to as the "Twin
+                    Tunnels," proposes to add additional points of diversion for
+                    the State Water Project and Central Valley Project in the
+                    north Delta, on the Sacramento River, and convey water
+                    through two tunnels to destinations south of the Delta. By
+                    adding points of diversion in the north Delta, the
+                    California Department of Water Resources and the United
+                    States Bureau of Reclamation will have the ability to move
+                    more stored water from north-of-Delta reservoirs to central
+                    and southern California, which could adversely affect water
+                    supplies in the American River watershed, including lower
+                    water levels in Folsom Reservoir.
+                  </Type>
+                  <Type>
+                    <Link
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/8af1e9a0-e688-11e7-bf31-b7cc55a09d69-2016-08-31 Testimony of Einar Maisch on the Matter of CA DWR and USBR Request for a Change in Point of Diversion for CA WaterFix.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Testimony of Einar Maisch Before the State Water Resources
+                      Control Board
+                    </Link>
+                  </Type>
+                  <Type>
+                    <Link
+                      paragraph
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/65cc0660-e688-11e7-8d0b-c90b31884282-08-28-2017_PCWA_Files_Suit_Agaisnt_California_WaterFix.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PCWA News Release: PCWA Files Suit Against California
+                      WaterFix
+                    </Link>
+                  </Type>
+                  <Spacing size="x-small" />
+                  <StatusCaption>
+                    The WaterFix project is currently obtaining regulatory
+                    permits necessary to construct and operate the project. PCWA
+                    is actively working with regional partners in all legal and
+                    regulatory proceedings to defend the region’s interests.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing />
+                  <CategoryTitle>Wild and Scenic Rivers</CategoryTitle>
+                  {/*  */}
+                  <IssueTitle href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180AB975">
+                    Assembly Bill 975
+                  </IssueTitle>
+                  <Type variant="body2" paragraph>
+                    PCWA opposes expansion of California’s Wild and Scenic
+                    Rivers Act. As proposed, Assembly Bill 975 would increase
+                    the scope of “wild and scenic” designations from immediately
+                    adjacent to a river to one-quarter mile on either side of
+                    the river. Such an expansion threatens to usurp local land
+                    use planning authority, force private land owners to use
+                    special treatment rules that do not exist under federal law,
+                    and hinder fire-fighting efforts on state and federal land.
+                  </Type>
+                  <Type>
+                    <Link
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/5a95ce70-e5e8-11e7-b28a-cd7c8fbfdd99-Oppose_letter_AB_975.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PCWA opposition letter to Assemblyman Kevin Kiley
+                    </Link>
+                  </Type>
+                  <Spacing size="x-small" />
+                  <StatusCaption>
+                    Ordered to the inactive file by author.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing size="large" />
+                  {/*  */}
+                  <LocalityTitle>Federal Issues</LocalityTitle>
+                  <CategoryTitle>Wildfires and Watersheds</CategoryTitle>
+                  {/*  */}
+                  <IssueTitle href="https://www.congress.gov/bill/115th-congress/house-bill/2936/text">
+                    H.R. 2936 - The Resilient Federal Forests Act of 2017
+                  </IssueTitle>
+                  <Type variant="body2" paragraph>
+                    PCWA supports the Resilient Federal Forests Act of 2017 as a
+                    member of a western water interest coalition effort in
+                    support of active management and secure federal funding.
+                    H.R. 2936 would implement proactive management standards for
+                    forests and includes a solution to the current
+                    fire-borrowing problem that impacts the ability of the
+                    Forest Service to respond to wildfires and fund other
+                    essential programs.
+                  </Type>
+                  <Type>
+                    <Link
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/ce8ffec0-e441-11e7-817a-115aad0bd4bb-H.R.2936 Westerman 2.0 letter.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Water coalition support letter to House Committee on
+                      Energy and Natural Resources
+                    </Link>
+                  </Type>
+                  <Spacing size="x-small" />
+                  <StatusCaption>
+                    Introduced in the House on June 20, 2017. Passed the House
+                    on November 1, 2017. Pending action in the Senate Committee
+                    on Agriculture.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing />
+                  <IssueTitle href="https://www.congress.gov/bill/115th-congress/senate-bill/2068?q=%7B%22search%22%3A%5B%22s+2068%22%5D%7D&r=1">
+                    S. 2068 - Wildfire Prevention and Mitigation Act of 2017
+                  </IssueTitle>
+                  <Type variant="body2" paragraph>
+                    PCWA supports the Wildfire Prevention and Mitigation Act of
+                    2017 as a member of a western water interest coalition
+                    effort in support of active management and secure federal
+                    funding. S. 2068 directs the Department of Agriculture to
+                    create a categorical exclusion for immediate action in
+                    critical response situations due to disease and insect
+                    infestations, threats to watersheds, and other high-risk
+                    areas. The legislation also streamlines environmental review
+                    for ecosystem restoration projects by requiring the U.S.
+                    Forest Service to consider only two alternatives during the
+                    planning process: an "action" alternative and a "no action"
+                    alternative.
+                  </Type>
+                  <Type>
+                    <Link
+                      variant="body2"
+                      href="https://cdn.cosmicjs.com/ce9bbe90-e441-11e7-b63a-e3c5cbbbeb2f-WaterCoalition EPA Wildfire Final 10.23.17.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Water coalition support letter to Senate Committee on
+                      Environment and Public Works
+                    </Link>
+                  </Type>
+                  <Spacing size="x-small" />
+                  <StatusCaption>
+                    Introduced in the Senate on December 2, 2017. Pending action
+                    in the Committee on Environment and Public Works.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing />
+                  <IssueTitle href="https://www.congress.gov/bill/115th-congress/house-bill/1873?q=%7B%22search%22%3A%5B%22LaMalfa+fire%22%5D%7D&r=6">
+                    H.R.1873 - Electricity Reliability and Forest Protection Act
+                  </IssueTitle>
+                  <Type variant="body2" paragraph>
+                    PCWA supports the Electricity Reliability Act of 2017. This
+                    bipartisan legislation provides power companies with greater
+                    flexibility to conduct vegetation management activities in
+                    rights-of-way on federal lands. H.R. 1873 would expedite and
+                    streamline the process by which the Departments of the
+                    Interior and Agriculture approve vegetation management
+                    plans. It also would direct the Departments to modify
+                    regulations to minimize the need for case-by-case or annual
+                    approvals of routine vegetation management.
+                  </Type>
+                  {/* <Spacing size="x-small" /> */}
+                  <StatusCaption>
+                    Introduced in the House on April 4, 2017. Passed the House
+                    on June 21, 2017. Pending action in the Senate Committee on
+                    Energy and Natural Resources.
+                  </StatusCaption>
+                  {/*  */}
+                  <Spacing />
+                  <IssueTitle href="https://cdn.cosmicjs.com/45beaf60-e67b-11e7-a671-ab91e302e67a-3-1-2017_Fecko.PCWA.3.12017.WPTestimony.pdf">
+                    Testimony to the U.S. House Subcommittee on Water, Power and
+                    Oceans
+                  </IssueTitle>
+                  <Type variant="body2" paragraph>
+                    PCWA provided comments and concerns to the U.S. House
+                    Subcommittee on Water, Power and Oceans about critical
+                    infrastructure and regulatory streamlining necessary to
+                    promote public safety and water supply reliability for the
+                    western region’s farms, cities, homes and businesses. PCWA
+                    urged Congress to keep the western region which includes
+                    Placer County a part of the U.S. economy to maintain
+                    facilities during droughts and floods and grow its economy
+                    further.
+                  </Type>
+                  {/*  */}
                 </Box>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel
+            {/* <ExpansionPanel
               expanded={expanded === 'panel2'}
               onChange={handleChange('panel2')}
             >
@@ -303,7 +569,7 @@ export default function LegislationAndLettersPage() {
                   convallis laoreet laoreet.
                 </Type>
               </ExpansionPanelDetails>
-            </ExpansionPanel>
+            </ExpansionPanel> */}
           </Box>
         </NarrowContainer>
       </MainBox>
