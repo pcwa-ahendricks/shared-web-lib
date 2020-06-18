@@ -33,82 +33,82 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function LegislationAndLettersPage() {
-  const archivedLegislationByYear = [
-    {
-      year: 2016,
-      issues: [
-        {
-          href:
-            'https://cdn.cosmicjs.com/2901a8f0-e67b-11e7-bb4c-6f40540093ad-12-19-2016_Comments_on_Making_Conservation_a_California_Way_of_Life_Public_Review_Draft.pdf',
-          title:
-            '"Making Conservation a California Way of Life" - Comment Letter',
-          captions: ['Dec. 19, 2016'],
-          body:
-            'State Water Resources Control Board, Department of Water Resources'
-        },
-        {
-          href:
-            'https://cdn.cosmicjs.com/0cf8fe60-e67b-11e7-a671-ab91e302e67a-3-17-2016_Emergency_Conservation_Regulations.pdf',
-          title: 'Emergency Conservation Regulations - Reporting',
-          captions: ['Mar. 17, 2016'],
-          body: 'State Water Resources Control Board'
-        },
-        {
-          href:
-            'https://cdn.cosmicjs.com/e38cbee0-e67a-11e7-bb4c-6f40540093ad-1-27-2016_PCWA_comment_letter_on_Conservation_Extended_Emergency_Regulation.pdf',
-          title: 'Extended Emergency Conservation Regulations – Comment Letter',
-          captions: ['Jan. 27, 2016'],
-          body: 'State Water Resources Control Board'
-        }
-      ]
-    },
-    {
-      year: 2015,
-      issues: [
-        {
-          href:
-            'https://cdn.cosmicjs.com/c31807a0-e67a-11e7-9b23-bf7bb9136344-12-18-2015_Response_to_Water_Conservation_Warning_Letter.pdf',
-          title:
-            'Water Conservation Formal Enforcement Warning – Response Letter',
-          captions: ['Dec. 18, 2015'],
-          body: 'State Water Resources Control Board'
-        },
-        {
-          href:
-            'https://cdn.cosmicjs.com/68d222d0-e67a-11e7-9b23-bf7bb9136344-10-30-2015_PCWA_Comments_on_BDCP-California_WaterFix_RDEIR-SDEIS.pdf',
-          title:
-            'Bay Delta Conservation Plan/California WaterFix – Comment Letter',
-          captions: [
-            'Recirculated Draft Environmental Impact Report/Supplemental Draft Environmental Impact Statement',
-            'Oct. 30, 2015'
-          ],
-          body: 'State of California'
-        },
-        {
-          href:
-            'https://cdn.cosmicjs.com/33ae77c0-e67a-11e7-b7f0-25517ee21796-10-6-2015_Comments_on_Upcoming_Hearing_Regarding_Senate_Bill_S_1894_and_House_Bill_HR_2898.pdf',
-          title:
-            'U.S. Senate Bill 1894 and House Bill 2898: Addresses four-year drought and protects against future dry year cycles – Comment Letter',
-          captions: ['Oct. 6, 2015'],
-          body: 'Energy and Natural Resources Committee'
-        }
-      ]
-    },
-    {
-      year: 2014,
-      issues: [
-        {
-          href:
-            'https://cdn.cosmicjs.com/042d0f70-e67a-11e7-9b23-bf7bb9136344-7-28-2014_PCWA_BDCP_Comments.pdf',
-          title:
-            'Bay Delta Conservation Plan Draft Implementing Agreement and Draft Environmental Impact Report/Environmental Impact Statement – Comment Letter',
-          captions: ['Jul. 28, 2014'],
-          body:
-            'National Marine Fisheries Service, U.S. Department of the Interior & California Natural Resources Agency'
-        }
-      ]
-    }
-  ]
+  // const archivedLegislationByYear = [
+  //   {
+  //     year: 2016,
+  //     issues: [
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/2901a8f0-e67b-11e7-bb4c-6f40540093ad-12-19-2016_Comments_on_Making_Conservation_a_California_Way_of_Life_Public_Review_Draft.pdf',
+  //         title:
+  //           '"Making Conservation a California Way of Life" - Comment Letter',
+  //         captions: ['Dec. 19, 2016'],
+  //         body:
+  //           'State Water Resources Control Board, Department of Water Resources'
+  //       },
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/0cf8fe60-e67b-11e7-a671-ab91e302e67a-3-17-2016_Emergency_Conservation_Regulations.pdf',
+  //         title: 'Emergency Conservation Regulations - Reporting',
+  //         captions: ['Mar. 17, 2016'],
+  //         body: 'State Water Resources Control Board'
+  //       },
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/e38cbee0-e67a-11e7-bb4c-6f40540093ad-1-27-2016_PCWA_comment_letter_on_Conservation_Extended_Emergency_Regulation.pdf',
+  //         title: 'Extended Emergency Conservation Regulations – Comment Letter',
+  //         captions: ['Jan. 27, 2016'],
+  //         body: 'State Water Resources Control Board'
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     year: 2015,
+  //     issues: [
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/c31807a0-e67a-11e7-9b23-bf7bb9136344-12-18-2015_Response_to_Water_Conservation_Warning_Letter.pdf',
+  //         title:
+  //           'Water Conservation Formal Enforcement Warning – Response Letter',
+  //         captions: ['Dec. 18, 2015'],
+  //         body: 'State Water Resources Control Board'
+  //       },
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/68d222d0-e67a-11e7-9b23-bf7bb9136344-10-30-2015_PCWA_Comments_on_BDCP-California_WaterFix_RDEIR-SDEIS.pdf',
+  //         title:
+  //           'Bay Delta Conservation Plan/California WaterFix – Comment Letter',
+  //         captions: [
+  //           'Recirculated Draft Environmental Impact Report/Supplemental Draft Environmental Impact Statement',
+  //           'Oct. 30, 2015'
+  //         ],
+  //         body: 'State of California'
+  //       },
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/33ae77c0-e67a-11e7-b7f0-25517ee21796-10-6-2015_Comments_on_Upcoming_Hearing_Regarding_Senate_Bill_S_1894_and_House_Bill_HR_2898.pdf',
+  //         title:
+  //           'U.S. Senate Bill 1894 and House Bill 2898: Addresses four-year drought and protects against future dry year cycles – Comment Letter',
+  //         captions: ['Oct. 6, 2015'],
+  //         body: 'Energy and Natural Resources Committee'
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     year: 2014,
+  //     issues: [
+  //       {
+  //         href:
+  //           'https://cdn.cosmicjs.com/042d0f70-e67a-11e7-9b23-bf7bb9136344-7-28-2014_PCWA_BDCP_Comments.pdf',
+  //         title:
+  //           'Bay Delta Conservation Plan Draft Implementing Agreement and Draft Environmental Impact Report/Environmental Impact Statement – Comment Letter',
+  //         captions: ['Jul. 28, 2014'],
+  //         body:
+  //           'National Marine Fisheries Service, U.S. Department of the Interior & California Natural Resources Agency'
+  //       }
+  //     ]
+  //   }
+  // ]
 
   const [expanded, setExpanded] = useState<string | false>('panel1')
   const classes = useStyles()
