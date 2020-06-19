@@ -29,6 +29,7 @@ Find **GO-LIVE** tagged comments and address them prior to _Go Live_ date.
 - Confirm Google Site Search works
 - Confirm Google Analytics works
 - Confirm Form Submission works
+- assets/\* should 404 for removal from Google Search
 
 ## Package Dependencies
 

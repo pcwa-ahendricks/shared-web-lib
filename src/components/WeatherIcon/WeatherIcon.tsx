@@ -6,6 +6,7 @@ import styles from './WeatherIcon.module.css'
 
 type Props = {
   name?: string
+  className: any // [TODO]
 } & IconProps
 
 const useStyles = makeStyles(() =>
@@ -16,13 +17,21 @@ const useStyles = makeStyles(() =>
   })
 )
 
-export default function WeatherIcon({name, ...rest}: Props) {
+export default function WeatherIcon({
+  className: classNameProp,
+  name,
+  ...rest
+}: Props) {
   const classes = useStyles()
   return (
     <Icon
       fontSize="small"
       classes={{root: classes.icon}}
-      className={clsx([styles.wi, {[styles[`wi-${name}`]]: Boolean(name)}])}
+      className={clsx([
+        styles.wi,
+        {[styles[`wi-${name}`]]: Boolean(name)},
+        classNameProp
+      ])}
       {...rest}
     />
   )

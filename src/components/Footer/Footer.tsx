@@ -28,6 +28,7 @@ import PhoneIcon from 'mdi-material-ui/PhoneOutline'
 import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
+import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 
 const useFooterStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,11 @@ const useFooterStyles = makeStyles((theme: Theme) =>
     link: {
       color: theme.palette.grey[200],
       fontSize: '0.9rem'
+    },
+    weatherIcon: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      fontSize: '1rem'
     }
   })
 )
@@ -230,8 +236,13 @@ const Footer = () => {
               &nbsp;&nbsp;Placer County Water Agency
             </MuiNextLink>
             <Type variant="body2" component="span" className={classes.subtle}>
-              &nbsp;&nbsp;All Rights
-              Reserved&nbsp;&nbsp;&#9830;&nbsp;&nbsp;Weather Provided by
+              &nbsp;&nbsp;All Rights Reserved
+              <WeatherIcon
+                name="cloud"
+                fontSize="small"
+                className={classes.weatherIcon}
+              />
+              Weather Provided by
             </Type>
             <Link
               variant="body2"
