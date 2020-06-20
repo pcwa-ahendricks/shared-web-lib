@@ -6,7 +6,7 @@ import styles from './WeatherIcon.module.css'
 
 type Props = {
   name?: string
-  className: any // [TODO]
+  className?: any // [TODO]
 } & IconProps
 
 const useStyles = makeStyles(() =>
