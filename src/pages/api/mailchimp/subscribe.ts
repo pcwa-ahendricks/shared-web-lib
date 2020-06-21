@@ -22,7 +22,7 @@ export const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const url = `${BASE_URL}/${MAILCHIMP_API_VERSION}/lists/${MAILCHIMP_PRIMARY_LIST}/members`
     const response = await fetch(url, {
       method: 'POST',
-      body, // don't JSON.stringify() body since it's a string already
+      body, // Don't JSON.stringify() body since it's a string already. Doing so will cause an error. See https://stackoverflow.com/questions/10967105/json-stringify-escaping-without-need for more info.
       headers: {
         'Content-type': 'application/json',
         Authorization: `Basic ${basicAuth}`

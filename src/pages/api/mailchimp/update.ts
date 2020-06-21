@@ -26,7 +26,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const response = await fetch(url, {
       method: 'PUT',
-      body, // don't JSON.stringify() body since it's a string already
+      body, // Don't JSON.stringify() body since it's a string already. Doing so will cause an error. See https://stackoverflow.com/questions/10967105/json-stringify-escaping-without-need for more info.
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Basic ${basicAuth}`
