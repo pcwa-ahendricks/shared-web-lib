@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../../lib/api/mailchimp'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {getStatus} from '../../../lib/api/mailchimp-util'
+import {stringify} from 'querystringify'
 
 const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC || ''
 const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME || ''
@@ -21,9 +22,9 @@ export const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const url = `${BASE_URL}/${MAILCHIMP_API_VERSION}/lists/${MAILCHIMP_PRIMARY_LIST}/members`
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(body),
+      body,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json',
         Authorization: `Basic ${basicAuth}`
       }
     })
