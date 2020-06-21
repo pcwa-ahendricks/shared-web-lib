@@ -26,7 +26,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const response = await fetch(url, {
       method: 'PUT',
-      body,
+      body, // don't JSON.stringify() body since it's a string already
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Basic ${basicAuth}`

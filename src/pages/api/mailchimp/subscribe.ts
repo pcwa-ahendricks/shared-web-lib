@@ -22,7 +22,7 @@ export const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const url = `${BASE_URL}/${MAILCHIMP_API_VERSION}/lists/${MAILCHIMP_PRIMARY_LIST}/members`
     const response = await fetch(url, {
       method: 'POST',
-      body,
+      body, // don't JSON.stringify() body since it's a string already
       headers: {
         'Content-type': 'application/json',
         Authorization: `Basic ${basicAuth}`
