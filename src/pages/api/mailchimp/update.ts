@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../../lib/api/mailchimp'
-import {json} from 'co-body'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {getStatus} from '../../../lib/api/mailchimp-util'
 
@@ -18,7 +17,7 @@ const basicAuth = Buffer.from(
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const body = await json(req)
+    const {body} = req
     const {userHashId} = req.query
     if (!userHashId) {
       throw new Error('No user hash id specified for put request to Mailchimp.')

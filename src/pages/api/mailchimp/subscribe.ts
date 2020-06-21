@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../../lib/api/mailchimp'
-import {json} from 'co-body'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {getStatus} from '../../../lib/api/mailchimp-util'
 
@@ -18,7 +17,7 @@ const basicAuth = Buffer.from(
 
 export const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const body = await json(req)
+    const {body} = req
     const url = `${BASE_URL}/${MAILCHIMP_API_VERSION}/lists/${MAILCHIMP_PRIMARY_LIST}/members`
     const response = await fetch(url, {
       method: 'POST',

@@ -17,19 +17,6 @@
   ],
   "headers": [
     {
-      "source": "/api/mail/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "OPTIONS, HEAD, GET, POST"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://www.pcwa.net"
-        }
-      ]
-    },
-    {
       "source": "/api/(.*)",
       "headers": [
         {

@@ -1,7 +1,6 @@
 // cspell:ignore maint
 import {string, object} from 'yup'
 import {format} from 'date-fns'
-import {json} from 'co-body'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
@@ -64,10 +63,12 @@ const bodySchema = object()
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const data: any = await json(req)
     const body: {
       formData: FormDataObj
-    } = data
+    } = req.body
+    if (!body) {
+      res.status(400).end()
+    }
 
     await validateSchema(bodySchema, body)
 

@@ -9,7 +9,6 @@ import {
 import {getRecaptcha, validateSchema} from '../../../lib/api/forms'
 
 import {NowRequest, NowResponse} from '@vercel/node'
-import {json} from 'co-body'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -55,10 +54,12 @@ const bodySchema = object()
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const data = await json(req)
     const body: {
       formData: FormDataObj
-    } = data
+    } = req.body
+    if (!body) {
+      res.status(400).end()
+    }
 
     await validateSchema(bodySchema, body)
 
