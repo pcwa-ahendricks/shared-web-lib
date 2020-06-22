@@ -1,5 +1,5 @@
 // cspell:ignore bgcolor
-import React from 'react'
+import React, {useCallback, useContext} from 'react'
 import {
   Box,
   ButtonBase,
@@ -29,6 +29,10 @@ import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
+import {
+  NewsroomContext,
+  setEnewsDialogOpen
+} from '@components/newsroom/NewsroomStore'
 
 const useFooterStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,6 +78,12 @@ const Footer = () => {
   const classes = useFooterStyles()
   const theme = useTheme()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const newsroomContext = useContext(NewsroomContext)
+  const newsroomDispatch = newsroomContext.dispatch
+
+  const subscribeEnewsHandler = useCallback(() => {
+    newsroomDispatch(setEnewsDialogOpen(true))
+  }, [newsroomDispatch])
 
   return (
     <Box>
@@ -176,7 +186,7 @@ const Footer = () => {
               </GlowLightGreen>
               <SubtleDivider />
               <GlowLightGreen>
-                <ButtonBase>
+                <ButtonBase onClick={subscribeEnewsHandler}>
                   <ColumnBox>
                     <Box>
                       <EmailIcon />
