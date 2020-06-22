@@ -121,3 +121,10 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 }
 
 export default mainHandler
+
+// Don't use body parsing with Busboy. It will break upload functionality!
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
