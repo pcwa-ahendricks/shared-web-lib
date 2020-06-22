@@ -104,7 +104,7 @@ const ForecastContainer = () => {
 
   return (
     <Box display="block" flex="0 0 200px">
-      <ForecastCycle className={classes.forecast} forecasts={forecasts} />
+      {/* <ForecastCycle className={classes.forecast} forecasts={forecasts} /> */}
     </Box>
   )
 }
