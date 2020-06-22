@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
+// import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
@@ -101,6 +101,8 @@ const ForecastContainer = () => {
       dutchFlatForecast
     ]
   )
+
+  console.log(forecasts, classes)
 
   return (
     <Box display="block" flex="0 0 200px">
