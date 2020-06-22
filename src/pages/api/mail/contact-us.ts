@@ -54,20 +54,21 @@ const bodySchema = object()
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const body: {
-      formData: FormDataObj
-    } = req.body
-    if (!body) {
+    const {body} = req
+    // body is string.
+    const bodyParsed: {formData: FormDataObj} = JSON.parse(body)
+    if (!bodyParsed) {
       res.status(400).end()
+      return
     }
 
-    await validateSchema(bodySchema, body)
+    await validateSchema(bodySchema, bodyParsed)
 
     // const sendEmail = Mailjet.post('send', {
     //   version: 'v3.1'
     // })
 
-    const {formData} = body
+    const {formData} = bodyParsed
     const {
       email,
       name,
@@ -154,7 +155,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     res.status(200).json(postData)
   } catch (error) {
     // isDev && console.log(error)
-    console.error('Mailjet sendMail error status: ', error.statusCode)
+    console.error('Mailjet sendMail error status: ', error)
     res.status(500).end()
   }
 }

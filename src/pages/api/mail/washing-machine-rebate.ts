@@ -116,16 +116,17 @@ const bodySchema = object()
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const body: {
-      formData: FormDataObj
-    } = req.body
-    if (!body) {
+    const {body} = req
+    // body is string.
+    const bodyParsed: {formData: FormDataObj} = JSON.parse(body)
+    if (!bodyParsed) {
       res.status(400).end()
+      return
     }
 
-    await validateSchema(bodySchema, body)
+    await validateSchema(bodySchema, bodyParsed)
 
-    const {formData} = body
+    const {formData} = bodyParsed
     const {
       email,
       firstName,
