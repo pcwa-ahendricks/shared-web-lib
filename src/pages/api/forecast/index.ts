@@ -34,6 +34,9 @@ const ACCEPT_LONGITUDES = [-121, -120]
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
     const {lat: latParam, lng: lngParam} = req.query
     if (!latParam || !lngParam) {
       res.status(204).end()

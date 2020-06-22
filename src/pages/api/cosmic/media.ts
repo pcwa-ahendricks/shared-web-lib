@@ -9,6 +9,7 @@ const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const {query} = req
     const {folder, cosmicId, ...rest} = query // using request query
     // 'folder' is a required query parameter (cosmicId is optional)

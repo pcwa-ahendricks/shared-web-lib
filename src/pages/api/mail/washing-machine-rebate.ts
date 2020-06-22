@@ -116,6 +116,12 @@ const bodySchema = object()
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader(
+      'Cache-Control',
+      'private, no-cache, no-store, must-revalidate'
+    )
+    res.setHeader('Expires', '-1')
+    res.setHeader('Pragma', 'no-cache')
     const {body} = req
     // body is string.
     const bodyParsed: {formData: FormDataObj} = JSON.parse(body)

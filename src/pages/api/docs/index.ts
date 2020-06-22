@@ -13,6 +13,9 @@ const NOT_FOUND_ROUTE = `${publicBaseUrl}/404`
 // cspell:ignore CWMP
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate')
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
     const {id, sub} = req.query
     if (!sub) {
       switch (true) {

@@ -17,6 +17,12 @@ const basicAuth = Buffer.from(
 
 export const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader(
+      'Cache-Control',
+      'private, no-cache, no-store, must-revalidate'
+    )
+    res.setHeader('Expires', '-1')
+    res.setHeader('Pragma', 'no-cache')
     const {body} = req
     const url = `${BASE_URL}/${MAILCHIMP_API_VERSION}/lists/${MAILCHIMP_PRIMARY_LIST}/members`
     const response = await fetch(url, {

@@ -8,6 +8,7 @@ import lambdaUrl from '../../../lib/api/lambdaUrl'
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const qs = stringify({...req.query}, true)
     const baseURL = lambdaUrl(req)
     const csvResponse = await fetch(`${baseURL}/api/cosmic/csv${qs}`)

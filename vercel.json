@@ -14,33 +14,5 @@
     },
     {"source": "/docs/:id", "destination": "/api/docs"},
     {"source": "/docs/:sub/:id", "destination": "/api/docs"}
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=1,stale-while-revalidate"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://www.pcwa.net"
-        }
-      ]
-    },
-    {
-      "source": "/docs/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "OPTIONS, HEAD, GET"
-        }
-      ]
-    }
   ]
 }

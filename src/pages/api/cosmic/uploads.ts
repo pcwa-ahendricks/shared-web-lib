@@ -17,6 +17,9 @@ const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
+  res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+  res.setHeader('Expires', '-1')
+  res.setHeader('Pragma', 'no-cache')
   const {headers, socket} = req
   const {uploadRoute} = req.query
   const busboy = new Busboy({headers})

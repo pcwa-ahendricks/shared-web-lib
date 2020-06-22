@@ -8,6 +8,7 @@ const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const qs = stringify({read_key: COSMIC_READ_ACCESS_KEY, ...req.query}, true)
     const response = await fetch(
       `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/object-types${qs}`

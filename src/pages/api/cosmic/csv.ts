@@ -12,6 +12,7 @@ const MEDIA_FOLDER = 'csv'
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const baseURL = lambdaUrl(req)
     const {filename} = req.query
     const qs = stringify(
