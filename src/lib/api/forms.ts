@@ -15,7 +15,7 @@ const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 const emailRecipientsIrrigation: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
-      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
       {Name: 'Water Efficiency', Email: 'waterefficiency@pcwa.net'},
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
@@ -23,7 +23,7 @@ const emailRecipientsIrrigation: MailJetMessage['To'] = isDev
 const emailRecipientsAppliance: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
-      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
       {Name: 'Water Efficiency', Email: 'rebates@pcwa.net'},
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
@@ -31,7 +31,7 @@ const emailRecipientsAppliance: MailJetMessage['To'] = isDev
 const emailRecipientsCsMaint: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
-      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
       {Name: 'Customer Services', Email: 'customerservices@pcwa.net'},
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]

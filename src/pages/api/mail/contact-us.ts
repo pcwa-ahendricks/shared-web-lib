@@ -19,7 +19,7 @@ const MAILJET_TEMPLATE_ID = 848345
 const SA_RECIPIENTS: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
-      {Name: 'Abe', Email: 'webmaster@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
