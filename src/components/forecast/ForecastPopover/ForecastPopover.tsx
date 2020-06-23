@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#FFFFFF'
     },
     popoverContent: {
-      width: 250,
-      height: 20,
+      width: 200,
+      height: 19,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -54,13 +54,13 @@ const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
       <div className={classes.popoverContent}>
         {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
         <Imgix
-          height={20}
-          width={250}
-          src="https://cosmic-s3.imgix.net/2f700910-a6be-11ea-946a-037ccba8211c-national-weather-service-logo.png"
+          height={19}
+          width={200}
+          src="https://imgix.cosmicjs.com/d54a92d0-b58a-11ea-8cde-8d7fdbde2e60-poweredbyclimacellblack.svg"
           imgixParams={{fit: 'crop'}} // Required with ver. 9+
           htmlAttributes={{
             // Don't need to add a style.width when using 'height' and 'width' with <Imgix />.
-            alt: 'National Weather Service logo'
+            alt: 'Climacell logo'
           }}
         />
       </div>
