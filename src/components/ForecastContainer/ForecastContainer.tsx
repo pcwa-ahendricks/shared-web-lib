@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {Box, makeStyles, createStyles} from '@material-ui/core'
+import {WeatherCode} from '@lib/types/climacell'
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
@@ -114,7 +115,10 @@ export default ForecastContainer
 
 interface ForecastResponse {
   temperature: number
-  icon: string
+  weatherCode: WeatherCode
+  sunrise: string
+  sunset: string
+  observationTime: string
   latitude: number
   longitude: number
 }
