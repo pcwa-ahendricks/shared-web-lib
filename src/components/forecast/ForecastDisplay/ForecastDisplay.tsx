@@ -1,4 +1,4 @@
-// cspell:ignore frmt
+// cspell:ignore frmt clima climacell
 import React, {useState, useEffect, useMemo} from 'react'
 import {
   Link,
@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {RowBox} from '@components/boxes/FlexBox'
+import {WeatherCode} from '@lib/types/climacell'
 
 type Props = {
   forecast: ForecastData
@@ -19,7 +20,10 @@ export type ForecastData = {
   title: string
   data?: {
     temperature?: number
-    icon?: string
+    weatherCode?: WeatherCode
+    sunrise?: string
+    sunset?: string
+    observationTime?: string
     latitude?: number
     longitude?: number
   }
@@ -56,7 +60,8 @@ const ForecastDisplay = ({forecast}: Props) => {
   }, [forecast])
 
   const {title} = forecast
-  const {temperature, icon} = forecast?.data ?? {}
+  const {temperature, weatherCode, sunrise, sunset, observationTime} =
+    forecast?.data ?? {}
 
   const isValidForecast = Boolean(forecast?.data)
 
@@ -73,7 +78,14 @@ const ForecastDisplay = ({forecast}: Props) => {
       isValidForecast && temperature ? (
         <RowBox justifyContent="flex-start" alignItems="center">
           <ButtonBase {...linkProps}>
-            <WeatherIcon name={icon} color="primary" />
+            <WeatherIcon
+              weatherCode={weatherCode}
+              observationTime={observationTime}
+              sunrise={sunrise}
+              sunset={sunset}
+              color="primary"
+            />
+            {/* <ClimaCellIcon weatherCode={weatherCode} color="primary" /> */}
           </ButtonBase>
           <Type variant="subtitle2" className={classes.forecastType}>
             <Link
@@ -86,11 +98,14 @@ const ForecastDisplay = ({forecast}: Props) => {
     [
       isValidForecast,
       classes,
-      icon,
+      weatherCode,
       linkProps,
       temperature,
       title,
-      temperatureFrmt
+      observationTime,
+      temperatureFrmt,
+      sunrise,
+      sunset
     ]
   )
 

@@ -1,11 +1,12 @@
-// cspell:ignore promisify hgetall hmset
+// cspell:ignore promisify hgetall hmset weathercode clima apikey climacell
 import fetch from 'node-fetch'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
-// import {stringify} from 'querystringify'
+import {stringify} from 'querystringify'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
+const CLIMACELL_API_KEY = process.env.NODE_CLIMACELL_API_KEY || ''
 
 const redisOpts: ClientOpts = {
   host: 'db-redis-sfo2-73799-do-user-2129966-0.db.ondigitalocean.com',
@@ -29,12 +30,9 @@ const ACCEPT_LONGITUDES = [-121, -120]
 
 // National Weather Forecast Endpoint
 // Example grid request - https://api.weather.gov/points/38.9221,-121.05599
-// Example hourly forecast request - https://api.weather.gov/gridpoints/STO/58,79/forecast/hourly
-// Example current observations request - https://api.weather.gov/stations/kaun/observations/latest
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
     const {lat: latParam, lng: lngParam} = req.query
@@ -57,9 +55,19 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       return
     }
 
-    const gridUrl = `https://api.weather.gov/points/${latLngStr}`
+    const qs = stringify(
+      {
+        lon: lngParamStr,
+        lat: latParamStr,
+        apikey: CLIMACELL_API_KEY,
+        unit_system: 'us',
+        fields: 'temp,weather_code,sunrise,sunset'
+      },
+      true
+    )
+    const apiUrl = `https://api.climacell.co/v3/weather/realtime${qs}`
 
-    const hash = `nat-weather-${latLngStr}`
+    const hash = `climacell-weather-${latLngStr}`
     const cache = await hgetallAsync(hash)
     if (cache) {
       // Convert Redis strings to numbers
@@ -68,299 +76,75 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       const temperature = parseFloat(cache.temperature)
       res.status(200).json({
         temperature,
-        icon: cache.icon,
+        weatherCode: cache.weatherCode,
+        sunrise: cache.sunrise,
+        sunset: cache.sunset,
+        observationTime: cache.observationTime,
         longitude,
         latitude
       })
       return
     }
 
-    const gridResponse = await fetch(gridUrl, {
-      headers: {'Content-Type': 'application/geo+json'}
-    })
-    if (!gridResponse.ok) {
+    const response = await fetch(apiUrl)
+    if (!response.ok) {
       res.status(400).end()
       return
     }
-    const gridData: GridResponse = await gridResponse.json()
-    const {properties: gridProperties} = gridData || {}
+    const data: ClimaCellResponse = await response.json()
 
-    const {forecastHourly: forecastHourlyUrl} = gridProperties
-    const hourlyResponse = await fetch(forecastHourlyUrl, {
-      headers: {'Content-Type': 'application/geo+json'}
-    })
-    if (!hourlyResponse.ok) {
-      res.status(400).end()
-      return
-    }
-    const hourlyForecastData: HourlyForecastResponse = await hourlyResponse.json()
-    const {properties: hourlyDataProperties} = hourlyForecastData || {}
-
-    const {periods} = hourlyDataProperties
-    const currentForecast = periods[0]
-    const {temperature, icon: iconUrl} = currentForecast
-
-    let icon: string
-    switch (true) {
-      // "Fair/clear"
-      case /\/day\/skc\?/i.test(iconUrl):
-        icon = 'day-sunny'
-        break
-      case /\/night\/skc\?/i.test(iconUrl):
-        icon = 'night-clear'
-        break
-      // "A few clouds"
-      case /\/day\/few\?/i.test(iconUrl):
-        icon = 'day-cloudy'
-        break
-      case /\/night\/few\?/i.test(iconUrl):
-        icon = 'night-partly-cloudy'
-        break
-      // "Partly cloudy"
-      case /\/day\/sct\?/i.test(iconUrl):
-        icon = 'day-cloudy-high'
-        break
-      case /\/night\/sct\?/i.test(iconUrl):
-        icon = 'night-cloudy-high'
-        break
-      // "Mostly cloudy"
-      case /\/day\/bkn\?/i.test(iconUrl):
-        icon = 'day-cloudy'
-        break
-      case /\/night\/bkn\?/i.test(iconUrl):
-        icon = 'night-cloudy'
-        break
-      // "Overcast"
-      case /\/day\/ovc\?/i.test(iconUrl):
-        icon = 'day-sunny-overcast'
-        break
-      case /\/night\/ovc\?/i.test(iconUrl):
-        icon = 'night-alt-partly-cloudy'
-        break
-      // "Fair/clear and windy"
-      case /\/day\/wind_skc\?/i.test(iconUrl):
-        icon = 'day-windy'
-        break
-      case /\/night\/wind_skc\?/i.test(iconUrl):
-        icon = 'strong-wind'
-        break
-      // "A few clouds and windy"
-      case /\/day\/wind_few\?/i.test(iconUrl):
-        icon = 'day-cloudy-windy'
-        break
-      case /\/night\/wind_few\?/i.test(iconUrl):
-        icon = 'night-alt-cloudy-windy'
-        break
-      // "Partly cloudy and windy"
-      case /\/day\/wind_sct\?/i.test(iconUrl):
-        icon = 'day-cloudy-windy'
-        break
-      case /\/night\/wind_sct\?/i.test(iconUrl):
-        icon = 'night-alt-cloudy-windy'
-        break
-      // "Mostly cloudy and windy"
-      case /\/day\/wind_bkn\?/i.test(iconUrl):
-        icon = 'day-cloudy-windy'
-        break
-      case /\/night\/wind_bkn\?/i.test(iconUrl):
-        icon = 'night-alt-cloudy-windy'
-        break
-      // "Overcast and windy"
-      case /\/day\/wind_ovc\?/i.test(iconUrl):
-        icon = 'day-cloudy-windy'
-        break
-      case /\/night\/wind_ovc\?/i.test(iconUrl):
-        icon = 'night-alt-cloudy-windy'
-        break
-      // "Snow"
-      case /\/day\/snow\?/i.test(iconUrl):
-        icon = 'day-snow'
-        break
-      case /\/night\/snow\?/i.test(iconUrl):
-        icon = 'night-alt-snow'
-        break
-      // "Rain/snow"
-      case /\/day\/rain_snow\?/i.test(iconUrl):
-        icon = 'day-rain-mix'
-        break
-      case /\/night\/rain_snow\?/i.test(iconUrl):
-        icon = 'night-alt-rain-mix'
-        break
-      // "Rain/sleet"
-      case /\/day\/rain_sleet\?/i.test(iconUrl):
-        icon = 'day-sleet'
-        break
-      case /\/night\/rain_sleet\?/i.test(iconUrl):
-        icon = 'night-alt-sleet'
-        break
-      // "Snow/sleet"
-      case /\/day\/snow_sleet\?/i.test(iconUrl):
-        icon = 'day-sleet'
-        break
-      case /\/night\/snow_sleet\?/i.test(iconUrl):
-        icon = 'night-alt-sleet'
-        break
-      // "Freezing rain"
-      case /\/day\/fzra\?/i.test(iconUrl):
-        icon = 'day-rain-mix'
-        break
-      case /\/night\/fzra\?/i.test(iconUrl):
-        icon = 'night-alt-rain-mix'
-        break
-      // "Rain/freezing rain"
-      case /\/day\/rain_fzra\?/i.test(iconUrl):
-        icon = 'day-hail'
-        break
-      case /\/night\/rain_fzra\?/i.test(iconUrl):
-        icon = 'night-alt-hail'
-        break
-      // "Freezing rain/snow"
-      case /\/day\/snow_fzra\?/i.test(iconUrl):
-        icon = 'day-hail'
-        break
-      case /\/night\/snow_fzra\?/i.test(iconUrl):
-        icon = 'night-alt-hail'
-        break
-      //  "Sleet"
-      case /\/day\/sleet\?/i.test(iconUrl):
-        icon = 'day-rain'
-        break
-      case /\/night\/sleet\?/i.test(iconUrl):
-        icon = 'night-alt-rain'
-        break
-      // "Rain"
-      case /\/day\/rain\?/i.test(iconUrl):
-        icon = 'day-showers'
-        break
-      case /\/night\/rain\?/i.test(iconUrl):
-        icon = 'night-showers'
-        break
-      // "Rain showers (high cloud cover)"
-      case /\/day\/rain_showers\?/i.test(iconUrl):
-        icon = 'day-showers'
-        break
-      case /\/night\/rain_showers\?/i.test(iconUrl):
-        icon = 'night-showers'
-        break
-      // "Rain showers (low cloud cover)"
-      case /\/day\/rain_showers_hi\?/i.test(iconUrl):
-        icon = 'day-showers'
-        break
-      case /\/night\/rain_showers_hi\?/i.test(iconUrl):
-        icon = 'night-showers'
-        break
-      // "Thunderstorm (high cloud cover)"
-      case /\/day\/tsra\?/i.test(iconUrl):
-        icon = 'day-storm-showers'
-        break
-      case /\/night\/tsra\?/i.test(iconUrl):
-        icon = 'night-alt-storm-showers'
-        break
-      // "Thunderstorm (medium cloud cover)"
-      case /\/day\/tsra_sct\?/i.test(iconUrl):
-        icon = 'day-storm-showers'
-        break
-      case /\/night\/tsra_sct\?/i.test(iconUrl):
-        icon = 'night-alt-storm-showers'
-        break
-      // "Thunderstorm (low cloud cover)"
-      case /\/day\/tsra_hi\?/i.test(iconUrl):
-        icon = 'day-storm-showers'
-        break
-      case /\/night\/tsra_hi\?/i.test(iconUrl):
-        icon = 'night-alt-storm-showers'
-        break
-      // "Tornado"
-      case /\/day\/tornado\?/i.test(iconUrl):
-        icon = 'tornado'
-        break
-      case /\/night\/tornado\?/i.test(iconUrl):
-        icon = 'tornado'
-        break
-      // "Hurricane conditions"
-      case /\/day\/hurricane\?/i.test(iconUrl):
-        icon = 'hurricane'
-        break
-      case /\/night\/hurricane\?/i.test(iconUrl):
-        icon = 'hurricane'
-        break
-      // "Tropical storm conditions"
-      case /\/day\/tropical_storm\?/i.test(iconUrl):
-        icon = 'day-rain-wind'
-        break
-      case /\/night\/tropical_storm\?/i.test(iconUrl):
-        icon = 'night-alt-rain-wind'
-        break
-      // "Dust"
-      case /\/day\/dust\?/i.test(iconUrl):
-        icon = 'dust'
-        break
-      case /\/night\/dust\?/i.test(iconUrl):
-        icon = 'dust'
-        break
-      // "Smoke"
-      case /\/day\/smoke\?/i.test(iconUrl):
-        icon = 'smoke'
-        break
-      case /\/night\/smoke\?/i.test(iconUrl):
-        icon = 'smoke'
-        break
-      // "Haze"
-      case /\/day\/haze\?/i.test(iconUrl):
-        icon = 'day-fog'
-        break
-      case /\/night\/haze\?/i.test(iconUrl):
-        icon = 'night-fog'
-        break
-      // "Hot"
-      case /\/day\/hot\?/i.test(iconUrl):
-        icon = 'hot'
-        break
-      case /\/night\/hot\?/i.test(iconUrl):
-        icon = 'night-clear'
-        break
-      // "Cold"
-      case /\/day\/cold\?/i.test(iconUrl):
-        icon = 'snowflake-cold'
-        break
-      case /\/night\/cold\?/i.test(iconUrl):
-        icon = 'snowflake-cold'
-        break
-      // "Blizzard"
-      case /\/day\/blizzard\?/i.test(iconUrl):
-        icon = 'day-snow-wind'
-        break
-      case /\/night\/blizzard\?/i.test(iconUrl):
-        icon = 'night-alt-snow-wind'
-        break
-      // "Fog/mist"
-      case /\/day\/fog\?/i.test(iconUrl):
-        icon = 'day-fog'
-        break
-      case /\/night\/fog\?/i.test(iconUrl):
-        icon = 'night-fog'
-        break
-      default:
-        icon = 'cloud'
-    }
+    const {
+      weather_code,
+      lat,
+      lon,
+      temp,
+      sunrise: sunriseData,
+      sunset: sunsetData,
+      observation_time
+    } = data
+    const {value: temperature} = temp
+    const {value: weatherCode} = weather_code
+    const sunrise = sunriseData.value
+    const sunset = sunsetData.value
+    const {value: observationTime} = observation_time
 
     await hmsetAsync([
       hash,
       'temperature',
       temperature,
-      'icon',
-      icon,
+      'weatherCode',
+      weatherCode,
       'longitude',
       lngParamNo,
       'latitude',
-      latParamNo
+      latParamNo,
+      'sunrise',
+      sunrise,
+      'sunset',
+      sunset,
+      'observationTime',
+      observationTime
     ])
-    await expireAsync(hash, 60 * 5) // 5 minutes
+
+    /*
+      There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.
+      We want to make 5 different requests all day long.
+      We can only make 1,000 requests for free in a day (or 1,440 minutes).
+      1,000 / 5 = 200 requests a day for all 5 locations
+      1,440 / 200 = 7.2 minutes apart
+      60 * 7.2 = 432 seconds
+    */
+    await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
+
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     res.status(200).json({
-      temperature,
-      icon,
-      longitude: lngParamNo,
-      latitude: latParamNo
+      temperature, // number
+      weatherCode, // string
+      sunrise, // string
+      sunset, // string
+      observationTime, // string
+      longitude: lon, // number
+      latitude: lat // number
     })
   } catch (error) {
     console.log(error)
@@ -377,140 +161,28 @@ function paramToStr(param?: string | string[]): string {
   return param || '' // Don't use ?? here since it is not supported by Vercel lambda
 }
 
-interface HourlyForecastResponse {
-  '@context': (Context | string)[]
-  type: string
-  geometry: Geometry2
-  properties: Properties
+interface ClimaCellResponse {
+  lat: number
+  lon: number
+  temp: Temp
+  sunrise: Sunrise
+  sunset: Sunset
+  weather_code: Weathercode
+  observation_time: Weathercode
 }
 
-interface Properties {
-  updated: string
+interface Weathercode {
+  value: string
+}
+
+interface Sunrise {
+  value: string
+}
+interface Sunset {
+  value: string
+}
+
+interface Temp {
+  value: number
   units: string
-  forecastGenerator: string
-  generatedAt: string
-  updateTime: string
-  validTimes: string
-  elevation: Elevation
-  periods: Period[]
-}
-
-interface Period {
-  number: number
-  name: string
-  startTime: string
-  endTime: string
-  isDaytime: boolean
-  temperature: number
-  temperatureUnit: string
-  temperatureTrend?: any
-  windSpeed: string
-  windDirection: string
-  icon: string
-  shortForecast: string
-  detailedForecast: string
-}
-
-interface Elevation {
-  value: number
-  unitCode: string
-}
-
-interface Geometry2 {
-  type: string
-  geometries: Geometry[]
-}
-
-interface Geometry {
-  type: string
-  coordinates: (number[][] | number)[]
-}
-
-interface Context {
-  wx: string
-  geo: string
-  unit: string
-  '@vocab': string
-}
-
-interface GridResponse {
-  '@context': (Context | string)[]
-  id: string
-  type: string
-  geometry: Geometry2
-  properties: Properties2
-}
-
-interface Properties2 {
-  '@id': string
-  '@type': string
-  cwa: string
-  forecastOffice: string
-  gridX: number
-  gridY: number
-  forecast: string
-  forecastHourly: string
-  forecastGridData: string
-  observationStations: string
-  relativeLocation: RelativeLocation
-  forecastZone: string
-  county: string
-  fireWeatherZone: string
-  timeZone: string
-  radarStation: string
-}
-
-interface RelativeLocation {
-  type: string
-  geometry: Geometry2
-  properties: Properties
-}
-
-interface Properties {
-  city: string
-  state: string
-  distance: Distance
-  bearing: Distance
-}
-
-interface Distance {
-  value: number
-  unitCode: string
-}
-
-interface Geometry2 {
-  type: string
-  coordinates: number[]
-}
-
-interface Context {
-  wx: string
-  s: string
-  geo: string
-  unit: string
-  '@vocab': string
-  geometry: Geometry
-  city: string
-  state: string
-  distance: Geometry
-  bearing: Bearing
-  value: Value
-  unitCode: Geometry
-  forecastOffice: Bearing
-  forecastGridData: Bearing
-  publicZone: Bearing
-  county: Bearing
-}
-
-interface Value {
-  '@id': string
-}
-
-interface Bearing {
-  '@type': string
-}
-
-interface Geometry {
-  '@id': string
-  '@type': string
 }
