@@ -1,5 +1,5 @@
-// cspell:ignore frmt clima climacell
-import React, {useState, useEffect, useMemo} from 'react'
+// cspell:ignore frmt
+import React, {useMemo} from 'react'
 import {
   Link,
   Typography as Type,
@@ -7,25 +7,29 @@ import {
   ButtonBase,
   makeStyles
 } from '@material-ui/core'
-import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {RowBox} from '@components/boxes/FlexBox'
-import {WeatherCode} from '@lib/types/climacell'
+import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 
 type Props = {
-  forecast: ForecastData
+  forecast: ForecastDataset
 }
 
-export type ForecastData = {
+export type ForecastDataset = {
   id: number
   title: string
   data?: {
-    temperature?: number
-    weatherCode?: WeatherCode
-    sunrise?: string
-    sunset?: string
-    observationTime?: string
-    latitude?: number
-    longitude?: number
+    temperature: number
+    main: string
+    description: string
+    icon: string
+    longitude: number
+    latitude: number
+    sunrise: number
+    sunset: number
+    dateTime: number
+    name: string
+    id: number
+    weatherId: number
   }
 }
 
@@ -36,39 +40,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const getNatWeatherHref = ({
-  longitude,
-  latitude
-}: {
-  longitude: number
-  latitude: number
-}): string =>
-  // `https://forecast.weather.gov/MapClick.php?lat=${latitude}&lon=${longitude}`
-  `https://forecast.weather.gov/MapClick.php?w0=t&w7=rain&AheadHour=0&Submit=Submit&&FcstType=graphical&textField1=${latitude}&textField2=${longitude}&site=all&dd=1&menu=1`
-
 const ForecastDisplay = ({forecast}: Props) => {
   const classes = useStyles()
-  const [natWeatherHref, setNatWeatherHref] = useState<string>('#')
-
-  useEffect(() => {
-    const {latitude = null, longitude = null} = forecast?.data ?? {}
-    if (latitude && longitude) {
-      setNatWeatherHref(getNatWeatherHref({longitude, latitude}))
-    } else {
-      setNatWeatherHref('#')
-    }
-  }, [forecast])
 
   const {title} = forecast
-  const {temperature, weatherCode, sunrise, sunset, observationTime} =
+  const {temperature, dateTime, id, sunrise, sunset, weatherId} =
     forecast?.data ?? {}
+  // const iconUrl = `https://openweathermap.org/img/wn/${icon}.png`
+  // const iconUrl2x = `https://openweathermap.org/img/wn/${icon}@2x.png`
+
+  const openWeatherUrl = id ? `https://openweathermap.org/city/${id}` : '#'
 
   const isValidForecast = Boolean(forecast?.data)
 
   const linkProps = {
     target: '_blank',
     rel: 'noopener noreferrer',
-    href: natWeatherHref
+    href: openWeatherUrl
   }
 
   const temperatureFrmt =
@@ -78,14 +66,21 @@ const ForecastDisplay = ({forecast}: Props) => {
       isValidForecast && temperature ? (
         <RowBox justifyContent="flex-start" alignItems="center">
           <ButtonBase {...linkProps}>
+            {/* <img
+              data-sizes="auto"
+              className="lazyload"
+              alt={`Current Conditions: ${description} in ${name}`}
+              data-src={iconUrl}
+              data-srcset={`${iconUrl} 1x, ${iconUrl2x} 2x`}
+            /> */}
             <WeatherIcon
-              weatherCode={weatherCode}
-              observationTime={observationTime}
+              temp={temperature}
+              weatherCode={weatherId}
+              observationTime={dateTime}
               sunrise={sunrise}
               sunset={sunset}
               color="primary"
             />
-            {/* <ClimaCellIcon weatherCode={weatherCode} color="primary" /> */}
           </ButtonBase>
           <Type variant="subtitle2" className={classes.forecastType}>
             <Link
@@ -97,15 +92,18 @@ const ForecastDisplay = ({forecast}: Props) => {
       ) : null,
     [
       isValidForecast,
+      weatherId,
       classes,
-      weatherCode,
       linkProps,
       temperature,
       title,
-      observationTime,
       temperatureFrmt,
+      // iconUrl,
+      // iconUrl2x,
+      // name,
       sunrise,
-      sunset
+      sunset,
+      dateTime
     ]
   )
 

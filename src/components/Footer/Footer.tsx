@@ -257,11 +257,11 @@ const Footer = () => {
             <Link
               variant="body2"
               className={classes.link}
-              href="https://www.climacell.co/"
+              href="https://openweathermap.org/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              &nbsp;climacell
+              &nbsp;OpenWeather
             </Link>
           </Box>
         </WideContainer>

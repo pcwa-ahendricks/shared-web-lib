@@ -1,4 +1,4 @@
-// cspell:ignore promisify hgetall hmset weathercode clima apikey climacell
+// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
 import fetch from 'node-fetch'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
@@ -6,7 +6,7 @@ import {NowRequest, NowResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
-const CLIMACELL_API_KEY = process.env.NODE_CLIMACELL_API_KEY || ''
+const OPENWEATHERMAP_API_KEY = process.env.NODE_OPENWEATHERMAP_API_KEY || ''
 
 const redisOpts: ClientOpts = {
   host: 'db-redis-sfo2-73799-do-user-2129966-0.db.ondigitalocean.com',
@@ -42,8 +42,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
     const latParamStr = paramToStr(latParam)
     const lngParamStr = paramToStr(lngParam)
-    const latParamNo = parseFloat(latParamStr)
-    const lngParamNo = parseFloat(lngParamStr)
+    // const latParamNo = parseFloat(latParamStr)
+    // const lngParamNo = parseFloat(lngParamStr)
     const latParamInt = parseInt(latParamStr, 10)
     const lngParamInt = parseInt(lngParamStr, 10)
     const latLngStr = `${latParamStr},${lngParamStr}`
@@ -59,27 +59,37 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       {
         lon: lngParamStr,
         lat: latParamStr,
-        apikey: CLIMACELL_API_KEY,
-        unit_system: 'us',
-        fields: 'temp,weather_code,sunrise,sunset'
+        appid: OPENWEATHERMAP_API_KEY,
+        units: 'imperial'
       },
       true
     )
-    const apiUrl = `https://api.climacell.co/v3/weather/realtime${qs}`
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
+    console.log(apiUrl)
 
-    const hash = `climacell-weather-${latLngStr}`
+    const hash = `openweathermap-${latLngStr}`
     const cache = await hgetallAsync(hash)
     if (cache) {
       // Convert Redis strings to numbers
       const longitude = parseFloat(cache.longitude)
       const latitude = parseFloat(cache.latitude)
       const temperature = parseFloat(cache.temperature)
+      const sunrise = parseFloat(cache.sunrise)
+      const sunset = parseFloat(cache.sunset)
+      const dateTime = parseFloat(cache.dateTime)
+      const id = parseFloat(cache.id)
+      const weatherId = parseFloat(cache.weatherId)
       res.status(200).json({
         temperature,
-        weatherCode: cache.weatherCode,
-        sunrise: cache.sunrise,
-        sunset: cache.sunset,
-        observationTime: cache.observationTime,
+        sunrise,
+        sunset,
+        dateTime,
+        name: cache.name,
+        main: cache.main,
+        description: cache.description,
+        icon: cache.icon,
+        id,
+        weatherId,
         longitude,
         latitude
       })
@@ -91,39 +101,41 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       res.status(400).end()
       return
     }
-    const data: ClimaCellResponse = await response.json()
+    const data: OpenWeatherMapResponse = await response.json()
 
-    const {
-      weather_code,
-      lat,
-      lon,
-      temp,
-      sunrise: sunriseData,
-      sunset: sunsetData,
-      observation_time
-    } = data
-    const {value: temperature} = temp
-    const {value: weatherCode} = weather_code
-    const sunrise = sunriseData.value
-    const sunset = sunsetData.value
-    const {value: observationTime} = observation_time
+    const {coord, weather, main, dt, sys, name, id} = data
+    const {lat, lon} = coord
+    const [weatherNow] = weather
+    const {main: weatherMain, description, icon, id: weatherId} = weatherNow
+    const {temp: temperature} = main
+    const {sunrise, sunset} = sys
 
     await hmsetAsync([
       hash,
       'temperature',
       temperature,
-      'weatherCode',
-      weatherCode,
+      'main',
+      weatherMain,
+      'description',
+      description,
+      'icon',
+      icon,
       'longitude',
-      lngParamNo,
+      lon,
       'latitude',
-      latParamNo,
+      lat,
       'sunrise',
       sunrise,
       'sunset',
       sunset,
-      'observationTime',
-      observationTime
+      'dateTime',
+      dt,
+      'name',
+      name,
+      'id',
+      id,
+      'weatherId',
+      weatherId
     ])
 
     /*
@@ -134,17 +146,23 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       1,440 / 200 = 7.2 minutes apart
       60 * 7.2 = 432 seconds
     */
-    await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
+    // await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
+    await expireAsync(hash, 60 * 5) // 5 minutes
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     res.status(200).json({
       temperature, // number
-      weatherCode, // string
-      sunrise, // string
-      sunset, // string
-      observationTime, // string
+      main: weatherMain, // string
+      description, // string
+      icon, // string
       longitude: lon, // number
-      latitude: lat // number
+      latitude: lat, // number
+      sunrise, // number
+      sunset, // number
+      dateTime: dt, // number
+      name, // string
+      id, // number
+      weatherId // number
     })
   } catch (error) {
     console.log(error)
@@ -161,28 +179,56 @@ function paramToStr(param?: string | string[]): string {
   return param || '' // Don't use ?? here since it is not supported by Vercel lambda
 }
 
-interface ClimaCellResponse {
-  lat: number
+interface OpenWeatherMapResponse {
+  coord: Coord
+  weather: Weather[]
+  base: string
+  main: Main
+  visibility: number
+  wind: Wind
+  clouds: Clouds
+  dt: number
+  sys: Sys
+  timezone: number
+  id: number
+  name: string
+  cod: number
+}
+
+interface Sys {
+  type: number
+  id: number
+  country: string
+  sunrise: number
+  sunset: number
+}
+
+interface Clouds {
+  all: number
+}
+
+interface Wind {
+  speed: number
+  deg: number
+}
+
+interface Main {
+  temp: number
+  feels_like: number
+  temp_min: number
+  temp_max: number
+  pressure: number
+  humidity: number
+}
+
+interface Weather {
+  id: number
+  main: string
+  description: string
+  icon: string
+}
+
+interface Coord {
   lon: number
-  temp: Temp
-  sunrise: Sunrise
-  sunset: Sunset
-  weather_code: Weathercode
-  observation_time: Weathercode
-}
-
-interface Weathercode {
-  value: string
-}
-
-interface Sunrise {
-  value: string
-}
-interface Sunset {
-  value: string
-}
-
-interface Temp {
-  value: number
-  units: string
+  lat: number
 }

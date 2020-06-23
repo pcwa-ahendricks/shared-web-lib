@@ -2,9 +2,10 @@ import React, {useMemo} from 'react'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import {ForecastData} from '@components/forecast/ForecastDisplay/ForecastDisplay'
+import {ForecastDataset} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {Box, makeStyles, createStyles} from '@material-ui/core'
-import {WeatherCode} from '@lib/types/climacell'
+
+type ForecastData = ForecastDataset['data']
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
@@ -47,26 +48,23 @@ const useStyles = makeStyles(() =>
 const ForecastContainer = () => {
   const classes = useStyles()
 
-  const {data: auburnForecast} = useSWR<ForecastResponse>(auburnForecastUrl, {
+  const {data: auburnForecast} = useSWR<ForecastData>(auburnForecastUrl, {
     refreshInterval
   })
-  const {data: rocklinForecast} = useSWR<ForecastResponse>(rocklinForecastUrl, {
+  const {data: rocklinForecast} = useSWR<ForecastData>(rocklinForecastUrl, {
     refreshInterval
   })
-  const {data: colfaxForecast} = useSWR<ForecastResponse>(colfaxForecastUrl, {
+  const {data: colfaxForecast} = useSWR<ForecastData>(colfaxForecastUrl, {
     refreshInterval
   })
-  const {data: lincolnForecast} = useSWR<ForecastResponse>(lincolnForecastUrl, {
+  const {data: lincolnForecast} = useSWR<ForecastData>(lincolnForecastUrl, {
     refreshInterval
   })
-  const {data: dutchFlatForecast} = useSWR<ForecastResponse>(
-    dutchFlatForecastUrl,
-    {
-      refreshInterval
-    }
-  )
+  const {data: dutchFlatForecast} = useSWR<ForecastData>(dutchFlatForecastUrl, {
+    refreshInterval
+  })
 
-  const forecasts: ForecastData[] = useMemo(
+  const forecasts: ForecastDataset[] = useMemo(
     () => [
       {
         id: 1,
@@ -111,13 +109,3 @@ const ForecastContainer = () => {
 }
 
 export default ForecastContainer
-
-interface ForecastResponse {
-  temperature: number
-  weatherCode: WeatherCode
-  sunrise: string
-  sunset: string
-  observationTime: string
-  latitude: number
-  longitude: number
-}
