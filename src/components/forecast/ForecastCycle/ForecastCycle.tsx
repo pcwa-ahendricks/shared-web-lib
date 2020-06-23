@@ -7,7 +7,7 @@ import React, {
   useContext
 } from 'react'
 import ForecastDisplay, {
-  ForecastData
+  ForecastDataset
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, makeStyles, BoxProps} from '@material-ui/core'
@@ -23,7 +23,7 @@ import useInterval from '@hooks/useInterval'
 type Props = {
   cycleInterval?: number
   crossFadeDuration?: number
-  forecasts?: ForecastData[]
+  forecasts?: ForecastDataset[]
 } & BoxProps
 
 interface UseStylesProps {
