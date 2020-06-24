@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-// import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
+import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastDataset} from '@components/forecast/ForecastDisplay/ForecastDisplay'
@@ -101,10 +101,9 @@ const ForecastContainer = () => {
     ]
   )
 
-  console.log(classes, forecasts)
   return (
     <Box display="block" flex="0 0 200px">
-      {/* <ForecastCycle className={classes.forecast} forecasts={forecasts} /> */}
+      <ForecastCycle className={classes.forecast} forecasts={forecasts} />
     </Box>
   )
 }
