@@ -32,7 +32,7 @@ const lincolnForecastUrl = `${apiUrl}${stringify(
 )}`
 const dutchFlatForecastUrl = `${apiUrl}${stringify(
   // {stationId: 'setc1'},
-  {lat: 39.206, lng: -120.8377},
+  {lat: 39.2075, lng: -120.8103},
   true
 )}`
 

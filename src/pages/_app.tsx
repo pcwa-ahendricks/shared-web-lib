@@ -83,7 +83,7 @@ class MyApp extends App {
 
     // Use Google Analytics in Production only on www.pcwa.net
     if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
-      console.log('Initializing Google Analytics')
+      // console.log('Initializing Google Analytics')
       initGA()
     }
   }
