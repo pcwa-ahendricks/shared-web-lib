@@ -66,13 +66,13 @@ export default function WeatherIcon({
       case weatherCode === 800 && isDay && ((temp && temp <= 98) || !temp):
         return 'day-sunny'
 
-      case weatherCode === 800 && !isDay && ((temp && temp <= 95) || !temp):
+      case weatherCode === 800 && !isDay && ((temp && temp <= 85) || !temp):
         return 'night-clear'
 
       case weatherCode === 800 && isDay && temp && temp > 98:
         return 'hot'
 
-      case weatherCode === 800 && !isDay && temp && temp > 95:
+      case weatherCode === 800 && !isDay && temp && temp > 85:
         return 'hot'
 
       // "A few clouds"
