@@ -34,6 +34,7 @@ import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/Recen
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MainPhone from '@components/links/MainPhone'
 import MuiNextLink from '@components/NextLink/NextLink'
+import CollectionsEmail from '@components/links/CollectionsEmail'
 // import lambdaUrl from '@lib/lambdaUrl'
 // import {GetServerSideProps} from 'next'
 // import {CosmicObjectResponse} from '@lib/services/cosmicService'
@@ -113,7 +114,7 @@ const Index = () => {
           Due to financial challenges caused by COVID-19, PCWA is temporarily
           suspending water shutoffs for customers unable to pay their bill. If
           you are having trouble paying your bill please contact Customer
-          Services at <CustomerServicesEmail />.
+          Services at <CollectionsEmail />.
         </Alert>
       </Collapse>
       <Collapse in={alert2Open}>
