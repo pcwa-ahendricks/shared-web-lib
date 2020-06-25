@@ -1,7 +1,6 @@
 import React, {useCallback, useContext} from 'react'
 import {
   Box,
-  Hidden,
   Toolbar,
   Theme,
   useMediaQuery,
@@ -60,11 +59,8 @@ const SecondaryHeader = () => {
 
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
-      {/* Don't use CSS implementation of hide cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
-      <Hidden smDown implementation="js">
-        {/* <DynamicForecast /> */}
-        <ForecastContainer />
-      </Hidden>
+      {/* Don't use CSS implementation of <Hidden/> cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
+      <ForecastContainer flex="auto" />
       <Box component="span" flexGrow={1} />
       <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages

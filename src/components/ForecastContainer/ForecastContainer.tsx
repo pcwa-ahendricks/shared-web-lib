@@ -1,9 +1,15 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastDataset} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import {Box, makeStyles, createStyles} from '@material-ui/core'
+import {
+  Box,
+  makeStyles,
+  createStyles,
+  useMediaQuery,
+  BoxProps
+} from '@material-ui/core'
 
 type ForecastData = ForecastDataset['data']
 
@@ -45,24 +51,45 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const ForecastContainer = () => {
+const ForecastContainer = ({...props}: BoxProps) => {
   const classes = useStyles()
+  const [ready, setReady] = useState(false)
+  const noForecast = useMediaQuery('@media screen and (max-width: 885px)')
 
-  const {data: auburnForecast} = useSWR<ForecastData>(auburnForecastUrl, {
-    refreshInterval
-  })
-  const {data: rocklinForecast} = useSWR<ForecastData>(rocklinForecastUrl, {
-    refreshInterval
-  })
-  const {data: colfaxForecast} = useSWR<ForecastData>(colfaxForecastUrl, {
-    refreshInterval
-  })
-  const {data: lincolnForecast} = useSWR<ForecastData>(lincolnForecastUrl, {
-    refreshInterval
-  })
-  const {data: dutchFlatForecast} = useSWR<ForecastData>(dutchFlatForecastUrl, {
-    refreshInterval
-  })
+  useEffect(() => {
+    setReady(true)
+  }, [])
+
+  const {data: auburnForecast} = useSWR<ForecastData>(
+    ready && !noForecast ? auburnForecastUrl : null,
+    {
+      refreshInterval
+    }
+  )
+  const {data: rocklinForecast} = useSWR<ForecastData>(
+    ready && !noForecast ? rocklinForecastUrl : null,
+    {
+      refreshInterval
+    }
+  )
+  const {data: colfaxForecast} = useSWR<ForecastData>(
+    ready && !noForecast ? colfaxForecastUrl : null,
+    {
+      refreshInterval
+    }
+  )
+  const {data: lincolnForecast} = useSWR<ForecastData>(
+    ready && !noForecast ? lincolnForecastUrl : null,
+    {
+      refreshInterval
+    }
+  )
+  const {data: dutchFlatForecast} = useSWR<ForecastData>(
+    ready && !noForecast ? dutchFlatForecastUrl : null,
+    {
+      refreshInterval
+    }
+  )
 
   const forecasts: ForecastDataset[] = useMemo(
     () => [
@@ -101,8 +128,12 @@ const ForecastContainer = () => {
     ]
   )
 
+  if (noForecast) {
+    return null
+  }
+
   return (
-    <Box display="block" flex="0 0 200px">
+    <Box {...props}>
       <ForecastCycle className={classes.forecast} forecasts={forecasts} />
     </Box>
   )
