@@ -1,6 +1,26 @@
 # Neu! Website
 
-## ENV Variables
+> www.pcwa.net
+
+## Deploying Updates
+
+Vercel provides integrations for the [Neu! Web](https://github.com/placercountywater/neu-web) GitHub, allowing for automatic deployments on every branch push and merge.
+
+The easiest way to use a Git Integration is to think of the _master_ branch as production, ie. [https://www.pcwa.net](https://www.pcwa.net). Every time a pull/merge request is made to any other branch, Vercel will create a unique deployment, allowing you to view the changes in a preview deployment before merging to _master_.
+
+When merging to the _master_ branch, a Production Deployment is made, making the latest changes available to [https://www.pcwa.net](https://www.pcwa.net) automatically.
+
+It is **highly recommended** that the _develop_ branch be used for general updates and development. Committed changes can be previewed prior to merging into _master_ branch!
+
+The Vercel Git Integrations provide the following benefits:
+
+- Preview Deployments for every push for every branch
+- Production Deployments for the most recent changes from the _master_ branch
+- Instant rollbacks when reverting changes assigned to a custom domain, ie. [https://www.pcwa.net](https://www.pcwa.net)
+
+## Development
+
+### ENV Variables
 
 To pull in environment variables from Vercel
 
@@ -31,50 +51,11 @@ Find **GO-LIVE** tagged comments and address them prior to _Go Live_ date.
 - Confirm Form Submission works
 - assets/\* should 404 for removal from Google Search
 
-## Package Dependencies
-
-### Next.js
-
-...
-
-## Vercel (Deployments)
-
-### Routing
-
-When routes are added to next.js app, relevant sub-routes will likely need added to the Now configuration rewrite rule if they don't have their own respective index page. Failure to rewrite to 404 will result in that sub-route showing a directory listing. See [https://zeit.co/docs/v2/routing/directory-listing#disabling-the-directory-listing](https://zeit.co/docs/v2/routing/directory-listing#disabling-the-directory-listing) for more info regarding Now directory listing.
-
 ## Miscellaneous
 
-### Convert Images
-
-Convert baseline jpeg images to progressive jpegs with the following.
-
-    jpegtran -copy none -progressive -outfile inlet-progressive.jpg inlet.jpg
-
-### Material Theme
-
-Theme generated with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/)
-
-See [this link](https://material-ui.com/style/color/#official-color-tool) for more info on Palette.
-
-### Now 2 Routes with Next 9
-
-The following is a good workaround: [workaround](https://github.com/zeit/now-builders/issues/825)
-and [spectrum discussion](https://spectrum.chat/zeit/now/custom-next-js-404-error-page-in-monorepo-deployment~fc329387-e24e-4d87-967c-a6672c6be46f)
-
-### Old Node Packages Scripts
-
-```json
-"watch": "babel src --watch --out-dir dist --extensions \".ts,.tsx\"",
-"dev": "npm-run-all -p watch start",
-"inspect": "node --inspect node_modules/.bin/micro-dev",
-"build": "npm run build:js",
-"build:types": "tsc --emitDeclarationOnly --declaration true --allowJs false",
-"build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --ignore src/**/\*.spec.js,src/**/\*.test.js",
-"build:js-src-map": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
-```
-
 ### About Redirects
+
+See `next.config.js` for redirects.
 
 - `/rate-adjust-2018` Was used on NG version of website.
 - `/about-pcwa/board-minutes` Was used on NG version of website. Stopped using "about-pcwa/board-minutes" for board minutes URL.

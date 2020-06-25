@@ -53,13 +53,10 @@ import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGall
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
-import Head from 'next/head'
 import useSWR from 'swr'
 import groupBy from '@lib/groupBy'
 import fileExtension from '@lib/fileExtension'
 import {ParsedUrlQuery} from 'querystring'
-const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
-// const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -245,18 +242,7 @@ const ResourceLibraryPage = ({
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  return useNgIFrame ? (
-    <>
-      <Head>
-        <script src="/static/scripts/iframeResizerOpts.js" defer />
-        <script
-          src="/static/scripts/iframeResizer.contentWindow.min.js"
-          defer
-        />
-      </Head>
-      <MultimediaPublications multimedia={publications} />
-    </>
-  ) : (
+  return (
     <PageLayout title="Resource Library" waterSurface>
       <MainBox>
         <WideContainer>

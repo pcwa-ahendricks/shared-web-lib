@@ -42,9 +42,7 @@ import {
   PublicationLibraryMetadata,
   PublicationList
 } from '@components/multimedia/MultimediaStore'
-import Head from 'next/head'
 import filenamify from 'filenamify'
-const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 type Props = {
   err?: any
@@ -136,9 +134,17 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
     ? media.metadata?.title || media.derivedFilenameAttr?.title
     : ''
 
-  const Main = useCallback(() => {
-    // Don't use top margin with main box since we want to fill the bgcolor. */
-    return (
+  if (err?.statusCode) {
+    return <ErrorPage statusCode={err.statusCode} />
+  } else if (!media) {
+    console.error('No media', media)
+    // [TODO] This has been causing an issue where certain publications and routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
+    // return <ErrorPage statusCode={404} />
+  }
+
+  // Don't use top margin with main box since we want to fill the bgcolor. */
+  return (
+    <PageLayout title={title}>
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
         <RespRowBox
           px={3}
@@ -214,42 +220,6 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
           </Box>
         ))}
       </MainBox>
-    )
-  }, [
-    classes,
-    media,
-    title,
-    downloadAs,
-    progressEl,
-    theme,
-    isSMDown,
-    publicationSlug,
-    pageCount,
-    additionalPages
-  ])
-
-  if (err?.statusCode) {
-    return <ErrorPage statusCode={err.statusCode} />
-  } else if (!media) {
-    console.error('No media', media)
-    // [TODO] This has been causing an issue where certain publications and routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
-    // return <ErrorPage statusCode={404} />
-  }
-
-  return useNgIFrame ? (
-    <>
-      <Head>
-        <script src="/static/scripts/iframeResizerOpts.js" defer />
-        <script
-          src="/static/scripts/iframeResizer.contentWindow.min.js"
-          defer
-        />
-      </Head>
-      <Main />
-    </>
-  ) : (
-    <PageLayout title={title}>
-      <Main />
     </PageLayout>
   )
 }

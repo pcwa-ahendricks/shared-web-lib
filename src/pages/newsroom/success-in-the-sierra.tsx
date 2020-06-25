@@ -1,6 +1,5 @@
 //cspell:ignore Merced usfs
-import React, {useCallback} from 'react'
-import Head from 'next/head'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -17,11 +16,10 @@ import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import FlexBox from '@components/boxes/FlexBox'
 import Blockquote from '@components/typography/Blockquote'
-const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 const SuccessInTheSierraPage = () => {
-  const Main = useCallback(() => {
-    return (
+  return (
+    <PageLayout title="Success in the Sierra" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Success in the Sierra" subtitle="Newsroom" />
@@ -204,23 +202,6 @@ const SuccessInTheSierraPage = () => {
           />
         </NarrowContainer>
       </MainBox>
-    )
-  }, [])
-
-  return useNgIFrame ? (
-    <>
-      <Head>
-        <script src="/static/scripts/iframeResizerOpts.js" defer />
-        <script
-          src="/static/scripts/iframeResizer.contentWindow.min.js"
-          defer
-        />
-      </Head>
-      <Main />
-    </>
-  ) : (
-    <PageLayout title="Success in the Sierra" waterSurface>
-      <Main />
     </PageLayout>
   )
 }

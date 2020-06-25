@@ -16,9 +16,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
-import Head from 'next/head'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,8 +40,8 @@ const ClearingWaterMeterPage = () => {
     [classes]
   )
 
-  const Main = useCallback(() => {
-    return (
+  return (
+    <PageLayout title="Clearing Your Water Meter" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle
@@ -111,23 +109,6 @@ const ClearingWaterMeterPage = () => {
           </Box>
         </NarrowContainer>
       </MainBox>
-    )
-  }, [])
-
-  return useNgIFrame ? (
-    <>
-      <Head>
-        <script src="/static/scripts/iframeResizerOpts.js" defer />
-        <script
-          src="/static/scripts/iframeResizer.contentWindow.min.js"
-          defer
-        />
-      </Head>
-      <Main />
-    </>
-  ) : (
-    <PageLayout title="Clearing Your Water Meter" waterSurface>
-      <Main />
     </PageLayout>
   )
 }

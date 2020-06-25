@@ -1,7 +1,6 @@
 //cspell:ignore Merced usfs covid SWRCB CMUA
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import Head from 'next/head'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -16,7 +15,6 @@ import {
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 const COVID19FaqsPage = () => {
   const MoreInfoItem = useCallback(
@@ -40,8 +38,8 @@ const COVID19FaqsPage = () => {
     },
     []
   )
-  const Main = useCallback(() => {
-    return (
+  return (
+    <PageLayout title="COVID-19 FAQs" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Water Supply & COVID-19 FAQs" subtitle="Newsroom" />
@@ -144,23 +142,6 @@ const COVID19FaqsPage = () => {
           </List>
         </NarrowContainer>
       </MainBox>
-    )
-  }, [])
-
-  return useNgIFrame ? (
-    <>
-      <Head>
-        <script src="/static/scripts/iframeResizerOpts.js" defer />
-        <script
-          src="/static/scripts/iframeResizer.contentWindow.min.js"
-          defer
-        />
-      </Head>
-      <Main />
-    </>
-  ) : (
-    <PageLayout title="COVID-19 FAQs" waterSurface>
-      <Main />
     </PageLayout>
   )
 }

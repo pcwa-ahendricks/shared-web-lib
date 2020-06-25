@@ -4,7 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import Head from 'next/head'
 import {
   Typography as Type,
   Box,
@@ -24,7 +23,6 @@ import {RowBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
-const useNgIFrame = process.env.NEXT_PUBLIC_USE_NG_IFRAME === 'true'
 
 type Languages =
   | 'english'
@@ -711,8 +709,8 @@ const ShutoffProtectionPage = () => {
     [language, documents]
   )
 
-  const Main = useCallback(() => {
-    return (
+  return (
+    <PageLayout title="Customer Shutoff Protection" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Water Shutoff Protection Act" subtitle="Services" />
@@ -768,29 +766,6 @@ const ShutoffProtectionPage = () => {
           </ReactCSSTransitionReplace>
         </NarrowContainer>
       </MainBox>
-    )
-  }, [
-    classes,
-    language,
-    languageChangeHandler,
-    selectedDocuments?.Component,
-    selectedDocuments?.language
-  ])
-
-  return useNgIFrame ? (
-    <>
-      <Head>
-        <script src="/static/scripts/iframeResizerOpts.js" defer />
-        <script
-          src="/static/scripts/iframeResizer.contentWindow.min.js"
-          defer
-        />
-      </Head>
-      <Main />
-    </>
-  ) : (
-    <PageLayout title="Customer Shutoff Protection" waterSurface>
-      <Main />
     </PageLayout>
   )
 }
