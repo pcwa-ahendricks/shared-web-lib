@@ -60,6 +60,7 @@ export default function WeatherIcon({
     [observationTimeDate, sunriseDate, sunsetDate]
   )
 
+  // See https://openweathermap.org/weather-conditions and https://erikflowers.github.io/weather-icons for more info
   const switchName = useMemo(() => {
     switch (true) {
       // clear
@@ -159,6 +160,42 @@ export default function WeatherIcon({
       // light thunderstorm
       case weatherCode === 211 || 210:
         return 'thunderstorm'
+
+      // Drizzle (group)
+      // light
+      case weatherCode === (300 || 301 || 310 || 311) && isDay:
+        return 'day-sleet'
+      case weatherCode === (300 || 301 || 310 || 311) && !isDay:
+        return 'night-alt-sleet'
+      // heavy
+      case weatherCode === (302 || 312 || 313 || 314 || 321) && isDay:
+        return 'day-rain-mix'
+      case weatherCode === (302 || 312 || 313 || 314 || 321) && !isDay:
+        return 'night-alt-rain-mix'
+
+      // Rain (group)
+      // light
+      case weatherCode === (500 || 501 || 511 || 520 || 521) && isDay:
+        return 'day-showers'
+      case weatherCode === (500 || 501 || 511 || 520 || 521) && !isDay:
+        return 'night-alt-showers'
+      // heavy
+      case weatherCode === (502 || 503 || 504 || 522 || 531) && isDay:
+        return 'day-rain'
+      case weatherCode === (502 || 503 || 504 || 522 || 531) && !isDay:
+        return 'night-alt-rain'
+
+      // Snow (group)
+      // light
+      case weatherCode ===
+        (600 || 611 || 612 || 613 || 615 || 616 || 620 || 621) && isDay:
+        return 'day-snow'
+      case weatherCode ===
+        (600 || 611 || 612 || 613 || 615 || 616 || 620 || 621) && !isDay:
+        return 'night-alt-snow'
+      // heavy
+      case weatherCode === (601 || 602 || 622):
+        return 'snowflake-cold'
 
       default:
         return 'cloud'
