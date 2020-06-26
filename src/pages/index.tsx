@@ -30,11 +30,13 @@ import CloseIcon from '@material-ui/icons/Close'
 // import WarningRoundedIcon from '@material-ui/icons/WarningRounded'
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined'
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined'
+import WebIcon from '@material-ui/icons/Web'
 import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MainPhone from '@components/links/MainPhone'
 import MuiNextLink from '@components/NextLink/NextLink'
 import CollectionsEmail from '@components/links/CollectionsEmail'
+import IeOnly from '@components/boxes/IeOnly'
 // import lambdaUrl from '@lib/lambdaUrl'
 // import {GetServerSideProps} from 'next'
 // import {CosmicObjectResponse} from '@lib/services/cosmicService'
@@ -75,6 +77,7 @@ const Index = () => {
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const [alertOpen, setAlertOpen] = useState(true)
+  const [ieAlertOpen, setIeAlertOpen] = useState(true)
   const [alert2Open, setAlert2Open] = useState(true)
 
   const getBackgroundColor = theme.palette.type === 'light' ? lighten : darken
@@ -149,6 +152,32 @@ const Index = () => {
           </Type>
         </Alert>
       </Collapse>
+      <IeOnly>
+        <Collapse in={ieAlertOpen}>
+          <Alert
+            severity="warning"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setIeAlertOpen(false)
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            icon={<WebIcon />}
+          >
+            <AlertTitle>Note Regarding Web Browser Compatibility</AlertTitle>
+            The PCWA website has limited support for Microsoft's Internet
+            Explorer 11. Please consider viewing this site with a different Web
+            Browser such as Microsoft Edge, Mozilla Firefox, Google Chrome, or
+            Apple's Safari.
+          </Alert>
+        </Collapse>
+      </IeOnly>
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
