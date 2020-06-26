@@ -3,8 +3,11 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
-// Fix error with IE11 and swr.
-const withTM = require('next-transpile-modules')(['swr']) // Pass the modules you would like to see transpiled
+// Fix error with IE11 and swr and filenamify dependency.
+const withTM = require('next-transpile-modules')([
+  'swr',
+  'filename-reserved-regex'
+]) // Pass the modules you would like to see transpiled
 const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
 const isDev = process.env.NODE_ENV === 'development'
