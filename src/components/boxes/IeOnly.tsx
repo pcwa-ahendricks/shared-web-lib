@@ -4,12 +4,14 @@ import clsx from 'clsx'
 
 const useStyles = makeStyles(() =>
   createStyles({
-    '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
-      '&$ieOnly': {
-        display: 'block'
+    ieOnly: {
+      '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
+        '&$root': {
+          display: 'block'
+        }
       }
     },
-    ieOnly: {
+    root: {
       display: 'none'
     }
   })
@@ -17,7 +19,7 @@ const useStyles = makeStyles(() =>
 export default function IeOnly({className, children, ...props}: BoxProps) {
   const classes = useStyles()
   return (
-    <Box className={clsx([className, classes.ieOnly])} {...props}>
+    <Box className={clsx([className, classes.root, classes.ieOnly])} {...props}>
       {children}
     </Box>
   )
