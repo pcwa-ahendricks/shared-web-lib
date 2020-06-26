@@ -50,7 +50,7 @@ import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import {ics, google, yahoo, outlook} from '@lib/calendar-link'
+import {ics, google, yahoo, outlook} from 'calendar-link'
 const isDev = process.env.NODE_ENV === 'development'
 
 type PickedMediaResponse = Pick<
