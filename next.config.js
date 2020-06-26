@@ -35,9 +35,9 @@ const miscRedirects = [
     destination: '/careers/salary-schedule',
     permanent: true
   },
-  // link found on https://careers.pcwa.net/ in side navigation
+  // Link found on https://careers.pcwa.net/ in side navigation.
   {
-    source: '/career/employee-benefits-summary(\\.html)?',
+    source: '/careers/employee-benefits-summary(\\.html)?',
     destination: '/careers/employee-benefits-summary',
     permanent: true
   },
