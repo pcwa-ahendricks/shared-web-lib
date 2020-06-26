@@ -118,20 +118,22 @@ const MeetingAgendasPage = () => {
   }
 
   const iCalEvent = useMemo(
-    () => (ics && typeof ics === 'function' ? ics(event) : ''),
+    () => (ics && typeof ics === 'function' && event ? ics(event) : ''),
     [event]
   ) // standard ICS calendar base on https://icalendar.org/
 
   const yahooEventHref = useMemo(
-    () => (yahoo && typeof yahoo === 'function' ? yahoo(event) : ''),
+    () => (yahoo && typeof yahoo === 'function' && event ? yahoo(event) : ''),
     [event]
   )
   const googleEventHref = useMemo(
-    () => (google && typeof google === 'function' ? google(event) : ''),
+    () =>
+      google && typeof google === 'function' && event ? google(event) : '',
     [event]
   )
   const outlookEventHref = useMemo(
-    () => (outlook && typeof outlook === 'function' ? outlook(event) : ''),
+    () =>
+      outlook && typeof outlook === 'function' && event ? outlook(event) : '',
     [event]
   )
 
