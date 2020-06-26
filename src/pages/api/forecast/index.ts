@@ -65,7 +65,6 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       true
     )
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
-    console.log(apiUrl)
 
     const hash = `openweathermap-${latLngStr}`
     const cache = await hgetallAsync(hash)
