@@ -5,15 +5,11 @@ import clsx from 'clsx'
 const useStyles = makeStyles(() =>
   createStyles({
     ieOnly: ({display}: {display: string}) => ({
+      display: 'none',
       '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
-        '&$root': {
-          display
-        }
+        display
       }
-    }),
-    root: {
-      display: 'none'
-    }
+    })
   })
 )
 export default function IeOnly({
@@ -24,7 +20,7 @@ export default function IeOnly({
 }: BoxProps) {
   const classes = useStyles({display})
   return (
-    <Box className={clsx([className, classes.root, classes.ieOnly])} {...props}>
+    <Box className={clsx([className, classes.ieOnly])} {...props}>
       {children}
     </Box>
   )
