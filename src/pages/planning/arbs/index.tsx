@@ -667,7 +667,6 @@ const ARBSPage = () => {
                       gutterBottom
                     >
                       Title XVI and Basin Study Program Coordinator, <br />
-                      Chief (Acting) - Water Supply Branch
                     </Type>
                     <Type variant="body2" paragraph>
                       Reclamation <br />
