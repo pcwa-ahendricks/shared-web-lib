@@ -1,10 +1,17 @@
 import React, {createContext, useReducer} from 'react'
 import {ErrorDialogError} from './ErrorDialog/ErrorDialog'
 
+export interface Alert {
+  position: number
+  hidden: boolean
+  active: boolean
+  ieOnly: boolean
+}
+
 interface State {
   drawerOpen: boolean
   error?: ErrorDialogError | null
-  alerts: {position: number; hidden: boolean; active: boolean}[]
+  alerts: Alert[]
 }
 
 type ProviderProps = {
@@ -14,11 +21,7 @@ type ProviderProps = {
 // State
 const initialState: State = {
   drawerOpen: false,
-  alerts: [
-    {position: 1, hidden: false, active: true},
-    {position: 2, hidden: false, active: true},
-    {position: 3, hidden: false, active: true}
-  ]
+  alerts: []
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -34,7 +37,8 @@ const Type = {
   DISMISS_ERROR: 'DISMISS_ERROR',
   SET_DRAWER_VIZ: 'SET_DRAWER_VIZ',
   SET_ALERT_HIDDEN: 'SET_ALERT_HIDDEN',
-  SET_ALERT_ACTIVE: 'SET_ALERT_ACTIVE'
+  SET_ALERT_ACTIVE: 'SET_ALERT_ACTIVE',
+  ADD_ALERT: 'ADD_ALERT'
 } as const
 
 // Actions
@@ -84,6 +88,23 @@ export const setAlertActive = ({
   }
 }
 
+export const addAlert = ({
+  position,
+  active = true,
+  hidden = false,
+  ieOnly = false
+}: {
+  position: number
+  active?: boolean
+  hidden?: boolean
+  ieOnly?: boolean
+}) => {
+  return {
+    type: Type.ADD_ALERT,
+    payload: {position, active, hidden, ieOnly}
+  }
+}
+
 // Reducer
 const uiReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -122,21 +143,40 @@ const uiReducer = (state: State, action: any): State => {
       }
     }
     case Type.SET_ALERT_ACTIVE: {
-      const {alerts: currentAlerts} = state
-      const alertIndex = currentAlerts.findIndex(
+      const {alerts} = state
+      const alertIndex = alerts.findIndex(
         (alert) => alert.position === action.payload.position
       )
-      const updateAlert = currentAlerts.splice(alertIndex, 1).shift()
+      const updateAlert = alerts.splice(alertIndex, 1).shift()
       if (updateAlert) {
         updateAlert.active = action.payload.active
         return {
           ...state,
-          alerts: [...currentAlerts, {...updateAlert}]
+          alerts: [...alerts, {...updateAlert}]
         }
       } else {
         return {
           ...state,
-          alerts: [...currentAlerts]
+          alerts: [...alerts]
+        }
+      }
+    }
+    case Type.ADD_ALERT: {
+      const {alerts} = state
+      const {payload} = action || {}
+      // Don't add alert if an alert already exists at that position.
+      const alertIndex = alerts.findIndex(
+        (alert) => alert.position === action.payload.position
+      )
+      console.log('alerts', alerts)
+      if (alertIndex >= 0) {
+        return {
+          ...state
+        }
+      } else {
+        return {
+          ...state,
+          alerts: [...alerts, {...payload}]
         }
       }
     }
