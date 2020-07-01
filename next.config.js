@@ -261,6 +261,21 @@ const legacyRedirects = [
     permanent: true
   },
   {
+    source: '/newsroom/publication/enews',
+    destination: '/newsroom/publications/enews',
+    permanent: true
+  },
+  {
+    source: '/newsroom/publication/year-end',
+    destination: '/newsroom/publications/year-end',
+    permanent: true
+  },
+  {
+    source: '/newsroom/publication/fire-and-water',
+    destination: '/newsroom/publications/fire-and-water',
+    permanent: true
+  },
+  {
     source: '/stewardship/water-sense',
     destination: '/smart-water-use/watersense',
     permanent: true
