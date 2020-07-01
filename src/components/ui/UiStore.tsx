@@ -4,6 +4,7 @@ import {ErrorDialogError} from './ErrorDialog/ErrorDialog'
 interface State {
   drawerOpen: boolean
   error?: ErrorDialogError | null
+  alerts: {position: number; hidden: boolean; active: boolean}[]
 }
 
 type ProviderProps = {
@@ -12,7 +13,12 @@ type ProviderProps = {
 
 // State
 const initialState: State = {
-  drawerOpen: false
+  drawerOpen: false,
+  alerts: [
+    {position: 1, hidden: false, active: true},
+    {position: 2, hidden: false, active: true},
+    {position: 3, hidden: false, active: true}
+  ]
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -26,7 +32,9 @@ export const UiContext = createContext<{
 const Type = {
   SET_ERROR: 'SET_ERROR',
   DISMISS_ERROR: 'DISMISS_ERROR',
-  SET_DRAWER_VIZ: 'SET_DRAWER_VIZ'
+  SET_DRAWER_VIZ: 'SET_DRAWER_VIZ',
+  SET_ALERT_HIDDEN: 'SET_ALERT_HIDDEN',
+  SET_ALERT_ACTIVE: 'SET_ALERT_ACTIVE'
 } as const
 
 // Actions
@@ -50,6 +58,32 @@ export const dismissError = () => {
   }
 }
 
+export const setAlertHidden = ({
+  position,
+  hidden
+}: {
+  position: number
+  hidden: boolean
+}) => {
+  return {
+    type: Type.SET_ALERT_HIDDEN,
+    payload: {position, hidden}
+  }
+}
+
+export const setAlertActive = ({
+  position,
+  active
+}: {
+  position: number
+  active: boolean
+}) => {
+  return {
+    type: Type.SET_ALERT_ACTIVE,
+    payload: {position, active}
+  }
+}
+
 // Reducer
 const uiReducer = (state: State, action: any): State => {
   switch (action.type) {
@@ -68,6 +102,44 @@ const uiReducer = (state: State, action: any): State => {
         ...state,
         error: null
       }
+    case Type.SET_ALERT_HIDDEN: {
+      const {alerts: currentAlerts} = state
+      const alertIndex = currentAlerts.findIndex(
+        (alert) => alert.position === action.payload.position
+      )
+      const updateAlert = currentAlerts.splice(alertIndex, 1).shift()
+      if (updateAlert) {
+        updateAlert.hidden = action.payload.hidden
+        return {
+          ...state,
+          alerts: [...currentAlerts, {...updateAlert}]
+        }
+      } else {
+        return {
+          ...state,
+          alerts: [...currentAlerts]
+        }
+      }
+    }
+    case Type.SET_ALERT_ACTIVE: {
+      const {alerts: currentAlerts} = state
+      const alertIndex = currentAlerts.findIndex(
+        (alert) => alert.position === action.payload.position
+      )
+      const updateAlert = currentAlerts.splice(alertIndex, 1).shift()
+      if (updateAlert) {
+        updateAlert.active = action.payload.active
+        return {
+          ...state,
+          alerts: [...currentAlerts, {...updateAlert}]
+        }
+      } else {
+        return {
+          ...state,
+          alerts: [...currentAlerts]
+        }
+      }
+    }
     default:
       return state
   }

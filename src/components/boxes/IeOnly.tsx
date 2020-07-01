@@ -1,24 +1,36 @@
 import React from 'react'
-import {Box, makeStyles, createStyles, BoxProps} from '@material-ui/core'
+import {
+  Box,
+  makeStyles,
+  createStyles,
+  BoxProps,
+  useMediaQuery
+} from '@material-ui/core'
 import clsx from 'clsx'
 
 const useStyles = makeStyles(() =>
   createStyles({
-    ieOnly: ({display}: {display: string}) => ({
-      display: 'none',
-      '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
-        display
-      }
+    ieOnly: ({
+      displayVal,
+      matches
+    }: {
+      displayVal: string
+      matches: boolean
+    }) => ({
+      display: matches ? displayVal : 'none'
     })
   })
 )
 export default function IeOnly({
-  display = 'block',
+  display: displayVal = 'block',
   className,
   children,
   ...props
 }: BoxProps) {
-  const classes = useStyles({display})
+  const matches = useMediaQuery(
+    '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)'
+  )
+  const classes = useStyles({displayVal, matches})
   return (
     <Box className={clsx([className, classes.ieOnly])} {...props}>
       {children}

@@ -2,16 +2,17 @@ import React, {useMemo, useCallback, useContext, useEffect} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {Box, Hidden, useMediaQuery, useTheme, BoxProps} from '@material-ui/core'
+import {Hidden, useMediaQuery, useTheme, BoxProps} from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
 import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import {logPageView} from '@lib/googleAnalytics'
 import Router from 'next/router'
+import Alerts from '@components/Alerts/Alerts'
 const isDev = process.env.NODE_ENV === 'development'
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -56,8 +57,6 @@ const PageLayout = ({
   useEffect(() => {
     // Use Google Analytics in Production only on www.pcwa.net
     if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
-      // [TODO] Comment out logging once configuration is confirmed
-      console.log('Logging page view: ', Router.route)
       logPageView()
     }
   }, [])
@@ -74,11 +73,14 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
+        <ChildBox flex="1 0 auto">
+          <Alerts />
+        </ChildBox>
         <WaterSurface />
         <Banner />
-        <Box flex="1 0 auto" mt={marginTop} mb={marginBottom} {...rest}>
+        <ChildBox flex="1 0 auto" mt={marginTop} mb={marginBottom} {...rest}>
           {children}
-        </Box>
+        </ChildBox>
         <Footer />
       </ColumnBox>
       <ScrollToTop />
