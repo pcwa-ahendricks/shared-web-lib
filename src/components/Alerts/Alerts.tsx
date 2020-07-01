@@ -53,7 +53,7 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         }
         return ieAlert
       })
-  }, [matchesIe, uiDispatch, alerts])
+  }, [matchesIe, uiDispatch, alerts, ready])
 
   return (
     <>
