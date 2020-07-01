@@ -26,7 +26,6 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
 
   useEffect(() => {
     // If client is IE11 skip so alerts don't get re-activated and re-shown.
-    alerts
     if (matchesIe) {
       return
     }
