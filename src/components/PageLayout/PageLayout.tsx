@@ -11,7 +11,6 @@ import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import {logPageView} from '@lib/googleAnalytics'
-import Router from 'next/router'
 import Alerts from '@components/Alerts/Alerts'
 const isDev = process.env.NODE_ENV === 'development'
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
