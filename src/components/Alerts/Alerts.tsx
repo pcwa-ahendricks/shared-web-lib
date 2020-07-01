@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {Typography as Type} from '@material-ui/core'
 import {AlertTitle} from '@material-ui/lab'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
@@ -23,10 +23,15 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
   const matchesIe = useMatchesIe()
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    setReady(true)
+  }, [])
 
   useEffect(() => {
     // If client is IE11 skip so alerts don't get re-activated and re-shown.
-    if (matchesIe) {
+    if (matchesIe || !ready) {
       return
     }
     // If client is not IE11 hide and inactivate IE only alerts.
