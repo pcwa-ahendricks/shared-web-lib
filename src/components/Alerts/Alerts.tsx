@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react'
-import {Typography as Type, useMediaQuery} from '@material-ui/core'
+import {Typography as Type} from '@material-ui/core'
 import {AlertTitle} from '@material-ui/lab'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MainPhone from '@components/links/MainPhone'
@@ -11,6 +11,7 @@ import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined'
 import WebIcon from '@material-ui/icons/Web'
 import {UiContext, setAlertHidden, setAlertActive} from '@components/ui/UiStore'
 import CollapsibleAlert from './CollapsibleAlert'
+import useMatchesIe from '@hooks/useMatchesIe'
 
 export type AlertsProps = {
   bottomBgGradient?: boolean
@@ -19,9 +20,7 @@ export type AlertsProps = {
 
 export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
   const uiContext = useContext(UiContext)
-  const matchesIe = useMediaQuery(
-    '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)'
-  )
+  const matchesIe = useMatchesIe()
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
 

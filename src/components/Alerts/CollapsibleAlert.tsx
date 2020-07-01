@@ -8,8 +8,7 @@ import {
   Theme,
   makeStyles,
   useTheme,
-  createStyles,
-  useMediaQuery
+  createStyles
 } from '@material-ui/core'
 import {Alert, AlertProps} from '@material-ui/lab'
 import {
@@ -19,6 +18,7 @@ import {
   addAlert
 } from '@components/ui/UiStore'
 import CloseIcon from '@material-ui/icons/Close'
+import useMatchesIe from '@hooks/useMatchesIe'
 
 export type CollapsibleAlertProps = {
   position: number
@@ -74,9 +74,7 @@ export default function CollapsibleAlert({
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
   const theme = useTheme()
-  const matchesIe = useMediaQuery(
-    '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)'
-  )
+  const matchesIe = useMatchesIe()
   const bgColor = theme.palette.type === 'light' ? lighten : darken
   const classes = useStyles({bgColor, matchesIe})
 
