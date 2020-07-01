@@ -168,7 +168,6 @@ const uiReducer = (state: State, action: any): State => {
       const alertIndex = alerts.findIndex(
         (alert) => alert.position === action.payload.position
       )
-      console.log('alerts', alerts)
       if (alertIndex >= 0) {
         return {
           ...state
