@@ -58,7 +58,7 @@ const Index = () => {
   const tileWidth = isLGUp ? 176 : 160
 
   return (
-    <PageLayout mt={0}>
+    <PageLayout mt={0} alertsProps={{bottomBgGradient: false}}>
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{

@@ -97,6 +97,7 @@ const FireResistantGardenPage = () => {
   return (
     <PageLayout
       title="Fire Resistant Garden"
+      alertsProps={{bottomBgGradient: false}}
       bannerComponent={
         <FlexBox>
           <Box

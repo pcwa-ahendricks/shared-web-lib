@@ -130,6 +130,7 @@ const NewDevelopmentPage = () => {
   return (
     <PageLayout
       title="New Development Process"
+      alertsProps={{bottomBgGradient: false}}
       bannerComponent={
         // Setting flex basis/flex shrink here is required by Safari.
         <FlexBox flex="1 0 auto">

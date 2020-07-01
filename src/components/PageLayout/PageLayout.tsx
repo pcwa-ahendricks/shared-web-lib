@@ -11,7 +11,7 @@ import {ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import {logPageView} from '@lib/googleAnalytics'
-import Alerts from '@components/Alerts/Alerts'
+import Alerts, {AlertsProps} from '@components/Alerts/Alerts'
 const isDev = process.env.NODE_ENV === 'development'
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -23,6 +23,7 @@ type Props = {
   title?: string
   waterSurface?: boolean
   bannerComponent?: React.ReactElement
+  alertsProps?: AlertsProps
 } & BoxProps
 
 const PageLayout = ({
@@ -31,6 +32,7 @@ const PageLayout = ({
   description = 'PCWA is a water and energy provider for Placer County, CA.',
   waterSurface = false,
   bannerComponent,
+  alertsProps,
   ...rest
 }: Props) => {
   const uiContext = useContext(UiContext)
@@ -73,7 +75,7 @@ const PageLayout = ({
         </Hidden>
         <HeaderContainer />
         <ChildBox flex="1 0 auto">
-          <Alerts />
+          <Alerts {...alertsProps} />
         </ChildBox>
         <WaterSurface />
         <Banner />

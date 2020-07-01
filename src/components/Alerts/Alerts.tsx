@@ -24,6 +24,10 @@ import WebIcon from '@material-ui/icons/Web'
 import clsx from 'clsx'
 import {UiContext, setAlertHidden, setAlertActive} from '@components/ui/UiStore'
 
+export type AlertsProps = {
+  bottomBgGradient?: boolean
+  topGbGradient?: boolean
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     // alert: {},
@@ -55,7 +59,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default function Alerts() {
+export default function Alerts({
+  bottomBgGradient = true,
+  topGbGradient = true
+}: AlertsProps) {
   const theme = useTheme()
   const bgColor = theme.palette.type === 'light' ? lighten : darken
   const uiContext = useContext(UiContext)
@@ -150,9 +157,17 @@ export default function Alerts() {
             root: clsx([
               {
                 [classes.firstAlert]:
-                  isFirstAlert(1) && !isFirstAndLastAlert(1),
-                [classes.lastAlert]: isLastAlert(1) && !isFirstAndLastAlert(1),
-                [classes.firstAndLastAlert]: isFirstAndLastAlert(1)
+                  isFirstAlert(1) &&
+                  topGbGradient &&
+                  (!isFirstAndLastAlert(1) ||
+                    (isFirstAndLastAlert(1) && !bottomBgGradient)),
+                [classes.lastAlert]:
+                  isLastAlert(1) &&
+                  bottomBgGradient &&
+                  (!isFirstAndLastAlert(1) ||
+                    (isFirstAndLastAlert(1) && !topGbGradient)),
+                [classes.firstAndLastAlert]:
+                  isFirstAndLastAlert(1) && topGbGradient && bottomBgGradient
               }
             ])
           }}
@@ -182,9 +197,17 @@ export default function Alerts() {
             root: clsx([
               {
                 [classes.firstAlert]:
-                  isFirstAlert(2) && !isFirstAndLastAlert(2),
-                [classes.lastAlert]: isLastAlert(2) && !isFirstAndLastAlert(2),
-                [classes.firstAndLastAlert]: isFirstAndLastAlert(2)
+                  isFirstAlert(2) &&
+                  topGbGradient &&
+                  (!isFirstAndLastAlert(2) ||
+                    (isFirstAndLastAlert(2) && !bottomBgGradient)),
+                [classes.lastAlert]:
+                  isLastAlert(2) &&
+                  bottomBgGradient &&
+                  (!isFirstAndLastAlert(2) ||
+                    (isFirstAndLastAlert(2) && !topGbGradient)),
+                [classes.firstAndLastAlert]:
+                  isFirstAndLastAlert(2) && topGbGradient && bottomBgGradient
               }
             ])
           }}
@@ -223,10 +246,17 @@ export default function Alerts() {
               root: clsx([
                 {
                   [classes.firstAlert]:
-                    isFirstAlert(3) && !isFirstAndLastAlert(3),
+                    isFirstAlert(3) &&
+                    topGbGradient &&
+                    (!isFirstAndLastAlert(3) ||
+                      (isFirstAndLastAlert(3) && !bottomBgGradient)),
                   [classes.lastAlert]:
-                    isLastAlert(3) && !isFirstAndLastAlert(3),
-                  [classes.firstAndLastAlert]: isFirstAndLastAlert(3)
+                    isLastAlert(3) &&
+                    bottomBgGradient &&
+                    (!isFirstAndLastAlert(3) ||
+                      (isFirstAndLastAlert(3) && !topGbGradient)),
+                  [classes.firstAndLastAlert]:
+                    isFirstAndLastAlert(3) && topGbGradient && bottomBgGradient
                 }
               ])
             }}

@@ -46,6 +46,7 @@ const HouseCallsPage = () => {
   return (
     <PageLayout
       title="House Calls"
+      alertsProps={{bottomBgGradient: false}}
       bannerComponent={
         <FlexBox>
           <Box
