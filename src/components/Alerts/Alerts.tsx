@@ -25,6 +25,11 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
   const {alerts} = uiState
 
   useEffect(() => {
+    // If client is IE11 skip so alerts don't get re-activated and re-shown.
+    alerts
+    if (matchesIe) {
+      return
+    }
     // If client is not IE11 hide and inactivate IE only alerts.
     alerts
       .filter((alert) => alert.ieOnly)
