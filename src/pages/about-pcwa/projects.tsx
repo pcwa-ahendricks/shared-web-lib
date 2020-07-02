@@ -268,7 +268,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated June 2, 2020)
+                      Upcoming Work (updated July 2, 2020)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
