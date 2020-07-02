@@ -277,20 +277,28 @@ const ProjectsPage = () => {
                     <ul>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 18-inch ductile iron pipe at the Foothill
-                          Water Treatment Plant.
+                          Installing 18-inch ductile iron pipe across country
+                          between Sierra Oaks Court and Glenview Road.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 45-inch welded steel pipe off of Ophir Road
-                          on PCWA property.
+                          Continue installing the 45-inch welded steel pipe off
+                          of Ophir Road on PCWA property.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 33-inch welded steel pipe from Sierra Oaks
-                          Court to Glenview Road.
+                          Installing 33-inch welded steel pipe across country
+                          between Sierra Oaks Court and Glenview Road.
+                        </Type>
+                      </TypeBullet>
+                      <TypeBullet>
+                        <Type variant="body1">
+                          Installing 33-inch welded steel pipe through Glenview
+                          Road. Includes the shutdown of a portion of Glenview
+                          Road for ten days. Road closure signage will be
+                          posted.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
@@ -303,15 +311,16 @@ const ProjectsPage = () => {
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Start excavation and piping the PCWA property on
-                          Hillview Lane for the Dutch Ravine Energy Dissipation
-                          Structure.
+                          Ongoing activities to construct the Dutch Ravine
+                          Energy Dissipation Structure at PCWA property located
+                          on Hillview Lane, including installation of concrete
+                          forms, piping and rebar.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Tunneling activities to install a 60-inch welded steel
-                          pipe casing underneath the Union Pacific Railroad.
+                          Installing the pipe within the recently completed
+                          casing at the Union Pacific Railroad.
                         </Type>
                       </TypeBullet>
                     </ul>
