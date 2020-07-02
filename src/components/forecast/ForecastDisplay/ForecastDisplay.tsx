@@ -5,7 +5,8 @@ import {
   Typography as Type,
   Theme,
   ButtonBase,
-  makeStyles
+  makeStyles,
+  LinkProps
 } from '@material-ui/core'
 import {RowBox} from '@components/boxes/FlexBox'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
@@ -56,7 +57,8 @@ const ForecastDisplay = ({forecast}: Props) => {
   const linkProps = {
     target: '_blank',
     rel: 'noopener noreferrer',
-    href: openWeatherUrl
+    href: openWeatherUrl,
+    'aria-label': `Weather Forecast for ${title}`
   }
 
   const temperatureFrmt =

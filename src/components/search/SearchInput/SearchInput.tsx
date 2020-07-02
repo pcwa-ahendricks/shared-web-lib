@@ -8,7 +8,8 @@ import {
   makeStyles,
   createStyles,
   useMediaQuery,
-  useTheme
+  useTheme,
+  FormControl
 } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import colorAlpha from 'color-alpha'
@@ -277,6 +278,10 @@ const SearchInput = () => {
                 placeholder="Search..."
                 onFocus={focusHandler}
                 onBlur={blurHandler}
+                inputProps={{
+                  'aria-label': 'site search',
+                  id: 'site-search'
+                }}
               />
             </Paper>
           </ChildBox>
@@ -315,6 +320,10 @@ const SearchInput = () => {
           classes={{
             // inputAdornedStart: classes.withStartAdornment,
             focused: classes.inputFocus
+          }}
+          inputProps={{
+            'aria-label': 'site search',
+            id: 'site-search'
           }}
         />
         <IconButton
