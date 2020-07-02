@@ -5,8 +5,7 @@ import {
   Typography as Type,
   Theme,
   ButtonBase,
-  makeStyles,
-  LinkProps
+  makeStyles
 } from '@material-ui/core'
 import {RowBox} from '@components/boxes/FlexBox'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
