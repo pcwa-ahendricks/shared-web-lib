@@ -3,7 +3,6 @@ import {Url} from 'url'
 
 interface MenuConfig {
   key: number
-  tabIndex: number
   menuName: string
   groups: Group[]
 }
@@ -23,7 +22,6 @@ interface Item {
 const menuConfig: MenuConfig[] = [
   {
     key: 1,
-    tabIndex: 1,
     menuName: 'About',
     groups: [
       {
@@ -148,7 +146,6 @@ const menuConfig: MenuConfig[] = [
   },
   {
     key: 2,
-    tabIndex: 2,
     menuName: 'Customer Services',
     groups: [
       {
@@ -241,7 +238,6 @@ const menuConfig: MenuConfig[] = [
   },
   {
     key: 3,
-    tabIndex: 3,
     menuName: 'Business With PCWA',
     groups: [
       {
@@ -291,7 +287,6 @@ const menuConfig: MenuConfig[] = [
   },
   {
     key: 4,
-    tabIndex: 4,
     menuName: 'Newsroom',
     groups: [
       {

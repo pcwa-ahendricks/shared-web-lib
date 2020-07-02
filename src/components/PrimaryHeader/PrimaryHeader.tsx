@@ -326,7 +326,6 @@ const PrimaryHeader = () => {
                   <MegaMenuLink
                     // For type checking only.
                     describedbyId={id ?? undefined}
-                    tabIdx={menuItem.tabIndex}
                     onLinkClick={handleClick}
                     onLinkEnter={(event, el) =>
                       enterMenuHandler(event, el, menuItem.key)

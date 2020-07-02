@@ -18,7 +18,6 @@ type Props = {
   onLinkLeave: () => any
   onBottomBunEnter: () => any
   children: React.ReactNode
-  tabIdx?: number
   linkMargin?: string | number
   describedbyId?: string
   parentActiveEl?: HTMLElement | null
@@ -44,7 +43,6 @@ const MegaMenuLink = ({
   onLinkLeave,
   onBottomBunEnter,
   parentActiveEl,
-  tabIdx,
   typographyClass,
   linkMargin,
   ...rest
@@ -86,7 +84,6 @@ const MegaMenuLink = ({
             onFocus={handleLinkEnter}
             onMouseEnter={handleLinkEnter}
             variant="button"
-            tabIndex={tabIdx}
           >
             <Type color="inherit" variant="inherit" {...rest}>
               {children}
