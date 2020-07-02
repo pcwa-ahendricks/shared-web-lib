@@ -8,8 +8,7 @@ import {
   makeStyles,
   createStyles,
   useMediaQuery,
-  useTheme,
-  FormControl
+  useTheme
 } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import colorAlpha from 'color-alpha'
