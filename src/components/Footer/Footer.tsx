@@ -28,7 +28,7 @@ import PhoneIcon from 'mdi-material-ui/PhoneOutline'
 import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
-// import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
+import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {
   NewsroomContext,
   setEnewsDialogOpen
@@ -241,19 +241,19 @@ const Footer = () => {
           <Box bgcolor="inherit">
             <Type variant="body2" component="span" className={classes.subtle}>
               Copyright &copy; 2019
-            </Type>
+            </Type>{' '}
             <MuiNextLink href="/" className={classes.link}>
-              &nbsp;&nbsp;Placer County Water Agency
-            </MuiNextLink>
+              Placer County Water Agency
+            </MuiNextLink>{' '}
             <Type variant="body2" component="span" className={classes.subtle}>
-              &nbsp;&nbsp;All Rights Reserved{' | '}
-              {/* <WeatherIcon
+              All Rights Reserved
+              <WeatherIcon
                 name="cloud"
                 fontSize="small"
                 className={classes.weatherIcon}
-              /> */}
+              />
               Weather Provided by
-            </Type>
+            </Type>{' '}
             <Link
               variant="body2"
               className={classes.link}
@@ -261,7 +261,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              &nbsp;OpenWeather
+              OpenWeather
             </Link>
           </Box>
         </WideContainer>
