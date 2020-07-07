@@ -74,7 +74,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     if (!cosmicId) {
       try {
         const setDataStr = JSON.stringify(media)
-        await pTimeout(hsetAsync(hash, field, setDataStr), TIMEOUT)
+        await pTimeout(hsetAsync([hash, field, setDataStr]), TIMEOUT)
         await pTimeout(expireAsync(hash, 60 * 5), TIMEOUT) // 5 minutes
       } catch (error) {
         console.log(error)
@@ -92,7 +92,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     try {
       const setDataStr = JSON.stringify(filteredMedia)
-      await pTimeout(hsetAsync(hash, field, setDataStr), TIMEOUT)
+      await pTimeout(hsetAsync([hash, field, setDataStr]), TIMEOUT)
       await pTimeout(expireAsync(hash, 60 * 5), TIMEOUT) // 5 minutes
     } catch (error) {
       console.log(error)
