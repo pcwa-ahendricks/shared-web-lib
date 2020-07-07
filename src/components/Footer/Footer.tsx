@@ -28,7 +28,7 @@ import PhoneIcon from 'mdi-material-ui/PhoneOutline'
 import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
-import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
+// import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {
   NewsroomContext,
   setEnewsDialogOpen
@@ -246,12 +246,12 @@ const Footer = () => {
               &nbsp;&nbsp;Placer County Water Agency
             </MuiNextLink>
             <Type variant="body2" component="span" className={classes.subtle}>
-              &nbsp;&nbsp;All Rights Reserved
-              <WeatherIcon
+              &nbsp;&nbsp;All Rights Reserved{' | '}
+              {/* <WeatherIcon
                 name="cloud"
                 fontSize="small"
                 className={classes.weatherIcon}
-              />
+              /> */}
               Weather Provided by
             </Type>
             <Link

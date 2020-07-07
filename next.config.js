@@ -450,10 +450,10 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     /**
      * Fix Mapbox GL JS in production. See https://github.com/mapbox/mapbox-gl-js/issues/4348 for more info.
      */
-    config.module = {
-      ...config.module,
-      noParse: /(mapbox-gl)\.js$/
-    }
+    // config.module = {
+    //   ...config.module,
+    //   noParse: /(mapbox-gl)\.js$/
+    // }
 
     // Use raw loader for markdown files.
     config.module.rules.push({

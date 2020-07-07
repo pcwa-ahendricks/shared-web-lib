@@ -1,5 +1,4 @@
 import React, {useMemo, useState, useEffect} from 'react'
-import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastDataset} from '@components/forecast/ForecastDisplay/ForecastDisplay'
@@ -10,6 +9,11 @@ import {
   useMediaQuery,
   BoxProps
 } from '@material-ui/core'
+import dynamic from 'next/dynamic'
+// import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
+const DynamicForecastCycle = dynamic(() =>
+  import('@components/forecast/ForecastCycle/ForecastCycle')
+)
 
 type ForecastData = ForecastDataset['data']
 
@@ -134,7 +138,10 @@ const ForecastContainer = ({...props}: BoxProps) => {
 
   return (
     <Box {...props}>
-      <ForecastCycle className={classes.forecast} forecasts={forecasts} />
+      <DynamicForecastCycle
+        className={classes.forecast}
+        forecasts={forecasts}
+      />
     </Box>
   )
 }
