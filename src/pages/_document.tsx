@@ -42,7 +42,15 @@ class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           {/* IE compat.  */}
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+
+          {!isDev ? (
+            <link rel="preconnect" href="https://www.google-analytics.com" />
+          ) : null}
+          <link rel="preconnect" href="https://cosmic-s3.imgix.net" />
+          <link rel="preconnect" href="https://imgix.cosmicjs.com" />
+
           <link rel="stylesheet" href="/static/styles/nprogress.min.css" />
+
           {isDev ? (
             <>
               {/* Development Favicon */}
