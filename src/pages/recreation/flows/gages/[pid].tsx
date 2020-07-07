@@ -174,7 +174,11 @@ const DynamicPiPage = ({
   // console.log('ZPD Data', zippedTableData)
 
   return (
-    <PageLayout title="Reservoir & Stream Flows" mt={0}>
+    <PageLayout
+      title="Reservoir & Stream Flows"
+      mt={0}
+      alertsProps={{bottomBgGradient: false}}
+    >
       {/* Don't use top margin with this page. */}
       <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}

@@ -8,7 +8,7 @@
       format('woff2'),
     url('/static/fonts/Kiperman/Kiperman-BoldItalic-757a783b90.woff')
       format('woff');
-  font-display: 'swap';
+  font-display: swap;
 }
 @font-face {
   font-family: 'Dona';
@@ -18,5 +18,5 @@
       format('embedded-opentype'),
     url('/static/fonts/Dona/Dona-MediumItalic.woff2') format('woff2'),
     url('/static/fonts/Dona/Dona-MediumItalic.woff') format('woff');
-  font-display: 'swap';
+  font-display: swap;
 }

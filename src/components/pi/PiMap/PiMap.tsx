@@ -160,7 +160,8 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
         mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
         onViewportChange={viewportChangeHandler}
         mapboxApiAccessToken={API_KEY}
-        scrollZoom={isSmDown ? false : true}
+        // scrollZoom={isSmDown ? false : true}
+        scrollZoom={false}
         dragPan={isSmDown ? false : true}
       >
         {mapMarkerEl}
