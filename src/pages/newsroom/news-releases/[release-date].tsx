@@ -28,7 +28,7 @@ import {
   ChildBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
-import {format, parseJSON} from 'date-fns'
+import {format, parseJSON, isValid} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
@@ -114,14 +114,13 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
     [loadingAddPages]
   )
 
-  const newsReleaseDateFormatted = useMemo(
-    () =>
-      format(
-        parseJSON(media?.derivedFilenameAttr?.publishedDate ?? ''),
-        "EEEE',' MMMM do',' yyyy"
-      ) ?? '',
-    [media?.derivedFilenameAttr?.publishedDate]
-  )
+  const newsReleaseDateFormatted = useMemo(() => {
+    const pubDate = media?.derivedFilenameAttr?.publishedDate ?? ''
+    const parsedPubDate = parseJSON(pubDate)
+    return isValid(parsedPubDate)
+      ? format(parsedPubDate, "EEEE',' MMMM do',' yyyy")
+      : ''
+  }, [media?.derivedFilenameAttr?.publishedDate])
 
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
