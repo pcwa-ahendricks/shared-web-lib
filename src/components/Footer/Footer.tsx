@@ -37,7 +37,7 @@ import {
 const useFooterStyles = makeStyles((theme: Theme) =>
   createStyles({
     subtle: {
-      color: theme.palette.grey[500],
+      color: theme.palette.grey[400],
       fontSize: '0.9rem'
     },
     link: {

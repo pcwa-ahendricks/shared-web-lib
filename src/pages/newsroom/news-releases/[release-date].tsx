@@ -290,6 +290,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const releaseDate = paramToStr(params?.['release-date'])
     const media = await findMediaForPages(nrs, releaseDate)
 
+    if (!media || !releaseDate) {
+      throw 'No media or no release date'
+    }
+
     return {
       props: {
         media,
