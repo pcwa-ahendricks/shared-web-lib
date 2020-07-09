@@ -45,7 +45,7 @@ const CoverStory = ({
 
   return (
     <Box {...rest}>
-      <FlexLink href={linkHref} {...flexLinkProps}>
+      <FlexLink href={linkHref} aria-label={title} {...flexLinkProps}>
         <ImgixFancy
           src={imgixURL}
           // In case imgix returns a partially transparent image use bg to background fill w/ white.
@@ -77,7 +77,12 @@ const CoverStory = ({
         <Spacing size="small" />
         {BodyEl}
         {children}
-        <FlexLink variant="subtitle2" href={linkHref} {...flexLinkProps}>
+        <FlexLink
+          variant="subtitle2"
+          href={linkHref}
+          aria-label={title}
+          {...flexLinkProps}
+        >
           {readMore}
         </FlexLink>
       </Box>

@@ -279,7 +279,7 @@ const SearchInput = () => {
                 onBlur={blurHandler}
                 inputProps={{
                   'aria-label': 'site search',
-                  id: 'site-search'
+                  id: 'mobile-site-search'
                 }}
               />
             </Paper>

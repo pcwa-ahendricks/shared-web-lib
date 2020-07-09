@@ -53,7 +53,12 @@ const CoverTile = ({
       onMouseLeave={buttonLeaveHandler}
       {...rest}
     >
-      <FlexLink href={linkHref} underline="none" {...flexLinkProps}>
+      <FlexLink
+        href={linkHref}
+        underline="none"
+        aria-label={title}
+        {...flexLinkProps}
+      >
         <Box
           borderRadius={4}
           overflow="hidden"
