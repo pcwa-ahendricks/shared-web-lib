@@ -50,12 +50,15 @@ const ServicesPage = () => {
                   </NextLink>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/stewardship">
+                  <NextLink variant="h6" href="/smart-water-use">
                     How to Save Water
                   </NextLink>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/stewardship/rebate-programs">
+                  <NextLink
+                    variant="h6"
+                    href="/smart-water-use/rebate-programs"
+                  >
                     Rebate Programs
                   </NextLink>
                 </ListItem>
