@@ -12,7 +12,7 @@ import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
-const DEADLINE = 'August 7th, 2020'
+const DEADLINE = 'August 14th, 2020'
 
 export default function AnnualCanalSurveyPage() {
   const theme = useTheme()
