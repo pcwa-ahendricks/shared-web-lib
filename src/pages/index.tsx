@@ -211,8 +211,9 @@ const Index = () => {
             <CoverTile
               title="Canal Customer Survey"
               imgixURL="https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg"
-              linkHref="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
-              flexLinkProps={{isNextLink: false}}
+              // linkHref="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
+              linkHref="/services/annual-canal-survey"
+              flexLinkProps={{isNextLink: true}}
               imgixFancyProps={{
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Canal Customer Survey'

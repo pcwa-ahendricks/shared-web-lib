@@ -7,7 +7,7 @@ import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
-const ResponsiveImageTemplatePage = () => {
+export default function ResponsiveImageTemplatePage() {
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -36,5 +36,3 @@ const ResponsiveImageTemplatePage = () => {
     </PageLayout>
   )
 }
-
-export default ResponsiveImageTemplatePage
