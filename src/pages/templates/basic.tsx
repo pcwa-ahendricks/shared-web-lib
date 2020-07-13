@@ -4,7 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 
-const BasicTemplatePage = () => {
+export default function BasicTemplatePage() {
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -15,5 +15,3 @@ const BasicTemplatePage = () => {
     </PageLayout>
   )
 }
-
-export default BasicTemplatePage

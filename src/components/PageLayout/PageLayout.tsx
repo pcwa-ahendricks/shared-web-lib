@@ -74,7 +74,7 @@ const PageLayout = ({
           <Drawer />
         </Hidden>
         <HeaderContainer />
-        <ChildBox flex="1 0 auto">
+        <ChildBox flex="0 0 auto">
           <Alerts {...alertsProps} />
         </ChildBox>
         <WaterSurface />
