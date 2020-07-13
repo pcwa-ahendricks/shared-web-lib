@@ -62,6 +62,15 @@ const SecondaryHeader = () => {
       {/* Don't use CSS implementation of <Hidden/> cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
       <ForecastContainer flex="auto" />
       <Box component="span" flexGrow={1} />
+      <GlowButton
+        size="small"
+        aria-label="Link"
+        href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Canal Survey
+      </GlowButton>
       <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages
       </NextGlowButton>
@@ -70,14 +79,14 @@ const SecondaryHeader = () => {
       </ENewsButton>
       <NextGlowButton
         size="small"
-        aria-label="Link"
+        aria-label="Board Meeting Agendas Link"
         href="/board-of-directors/meeting-agendas"
       >
         Board Meetings
       </NextGlowButton>
       <GlowButton
         size="small"
-        aria-label="Link"
+        aria-label="Canal Survey Link"
         href="https://ipn.paymentus.com/cp/plco"
         target="_blank"
         rel="noopener noreferrer"

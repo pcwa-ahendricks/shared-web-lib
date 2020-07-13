@@ -209,6 +209,19 @@ const Index = () => {
         > */}
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
+              title="Canal Customer Survey"
+              imgixURL="https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg"
+              linkHref="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
+              flexLinkProps={{isNextLink: false}}
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Thumbnail and link for Canal Customer Survey'
+                }
+              }}
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+            <CoverTile
               title="Pay My Bill"
               imgixURL="https://cosmic-s3.imgix.net/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png"
               linkHref="https://ipn.paymentus.com/cp/plco"
@@ -256,17 +269,22 @@ const Index = () => {
               }}
             />
           </ChildBox>
-          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          {/* <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <LatestNewsRelease />
-          </ChildBox>
+          </ChildBox> */}
+
           {/* </RespRowBox> */}
         </RowBox>
         <Spacing size="large">
           <Divider />
         </Spacing>
-        <Type variant="h6" color="textSecondary" gutterBottom>
+
+        {/* <LatestNewsRelease /> */}
+
+        <Type variant="h5" color="textSecondary" gutterBottom>
           Recent News
         </Type>
+        <Spacing size="small" />
         <RecentNewsBar />
       </WideContainer>
     </PageLayout>
