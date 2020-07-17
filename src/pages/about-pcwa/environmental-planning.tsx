@@ -126,6 +126,20 @@ const EnvironmentalPlanningPage = () => {
                 Initial Study & Negative Declaration for the PCWA Weather
                 Modification Project
               </OpenInNewLink>
+              <OpenInNewLink
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/c92cd580-c87c-11ea-b44f-f5c7da208e23-NOI-for-MFIB.pdf"
+              >
+                Notice of Intent for the Middle Fork Interbay Sediment
+                Management Project
+              </OpenInNewLink>
+              <OpenInNewLink
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/ca6f4090-c87c-11ea-b44f-f5c7da208e23-MFIBDraftCEQA06252020.pdf"
+              >
+                Initial Study and Mitigated Negative Declaration for the Middle
+                Fork Interbay Sediment Management Project
+              </OpenInNewLink>
             </ChildBox>
           </RespRowBox>
         </NarrowContainer>
