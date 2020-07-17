@@ -5,6 +5,7 @@ import {
   Theme,
   useMediaQuery,
   makeStyles,
+  Typography as Type,
   useTheme
 } from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
@@ -60,15 +61,21 @@ const SecondaryHeader = () => {
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
       {/* Don't use CSS implementation of <Hidden/> cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
-      <ForecastContainer flex="auto" />
-      <Box component="span" flexGrow={1} />
+      <ForecastContainer />
       <NextGlowButton
         size="small"
         aria-label="Link"
         href="/services/annual-canal-survey"
       >
-        Canal Survey
+        <Type
+          variant="inherit"
+          style={{fontWeight: 600, fontSize: '0.9rem', paddingLeft: 16}}
+          color="secondary"
+        >
+          Canal Survey
+        </Type>
       </NextGlowButton>
+      <Box component="span" flexGrow={1} />
       <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages
       </NextGlowButton>
