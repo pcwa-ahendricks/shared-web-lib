@@ -121,8 +121,8 @@ export default function AnnualCanalSurveyPage() {
               <ChildBox flex="0 1 30%">
                 <ImgixThumbLink
                   imageWidth={160}
-                  url="https://imgix.cosmicjs.com/20f39320-c554-11ea-88e1-9f819bfb6e4c-ACWS2020bc070120.pdf"
-                  href="https://cdn.cosmicjs.com/20f39320-c554-11ea-88e1-9f819bfb6e4c-ACWS2020bc070120.pdf"
+                  url="https://imgix.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
+                  href="https://cdn.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
                   rel="noopener noreferrer"
                   target="_blank"
                   alt="Thumbnail and link for Mail-in Survey Document"
@@ -132,7 +132,7 @@ export default function AnnualCanalSurveyPage() {
                     <Link
                       variant="inherit"
                       color="inherit"
-                      href="https://cdn.cosmicjs.com/20f39320-c554-11ea-88e1-9f819bfb6e4c-ACWS2020bc070120.pdf"
+                      href="https://cdn.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -142,7 +142,7 @@ export default function AnnualCanalSurveyPage() {
                   <Type variant="caption">
                     A printable survey in PDF format for mail-in. See{' '}
                     <Link
-                      href="https://cdn.cosmicjs.com/20fc93d0-c554-11ea-88e1-9f819bfb6e4c-ACWS2020-sampleBC070220.pdf"
+                      href="https://cdn.cosmicjs.com/f42dbdc0-c887-11ea-b44f-f5c7da208e23-ACWS2020-sampleBC070220.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
