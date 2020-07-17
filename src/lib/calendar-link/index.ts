@@ -1,3 +1,4 @@
+// cspell:ignore eventify
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import {stringify} from 'querystringify'
