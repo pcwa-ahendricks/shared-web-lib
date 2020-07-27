@@ -28,7 +28,7 @@ const miscRedirects = [
   },
   // Requested by Todd Deacon
   {
-    source: '/files/docs/fin/vendorapp(\\.pdf)?',
+    source: '/files/docs/fin/(vendorapp|VENDORAPP)(\\.pdf)?',
     destination:
       'https://cdn.cosmicjs.com/6a72fa30-acf0-11ea-8dee-d7617d15f3b4-VendorApplication.pdf',
     permanent: false
