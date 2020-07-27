@@ -27,6 +27,7 @@ const miscRedirects = [
     permanent: false
   },
   // Requested by Todd Deacon
+  // It seems the regexp urls are case-insensitive in development mode and case-sensitive in production environments. It's unclear if there is an easier workaround. See https://github.com/vercel/next.js/discussions/9081 and https://github.com/pillarjs/path-to-regexp#readme for more info.
   {
     source: '/files/docs/fin/(vendorapp|VENDORAPP)(\\.pdf)?',
     destination:
