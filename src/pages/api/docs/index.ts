@@ -107,6 +107,16 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             .end()
           break
 
+        // Vendor Application link is used in Vendor Letter PDF. Chris Bonnenfant has more info on use of this link and how Vendor Letter is distributed.
+        case testRe('vendorapp', id):
+          res
+            .writeHead(REDIRECT_STATUS_CODE, {
+              Location:
+                'https://cdn.cosmicjs.com/6a72fa30-acf0-11ea-8dee-d7617d15f3b4-VendorApplication.pdf'
+            })
+            .end()
+          break
+
         default:
           // res.setHeader('Content-Type', 'text/html')
           // res.status(404).send('Page Not Found')
