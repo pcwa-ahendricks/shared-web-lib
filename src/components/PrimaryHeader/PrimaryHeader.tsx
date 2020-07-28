@@ -54,7 +54,7 @@ type UseStylesProps = {
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     megaMenuLink: {
-      textTransform: 'capitalize'
+      textTransform: 'uppercase'
     },
     // Responsive font size for Mega Menu links. Default fontSize is 1rem.
     '@media screen and (max-width: 680px)': {
