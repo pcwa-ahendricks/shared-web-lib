@@ -459,7 +459,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         // tabIndex,
         params
         // params: query
-      }
+      },
       revalidate: 5
     }
   } catch (error) {
