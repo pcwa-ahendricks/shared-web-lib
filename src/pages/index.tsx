@@ -1,4 +1,4 @@
-// cspell:ignore COVID
+// cspell:ignore COVID perc
 import React, {useState, useMemo} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -56,6 +56,9 @@ const Index = () => {
   const coverTileTopMargin = 5
 
   const tileWidth = isLGUp ? 176 : 160
+
+  const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
+  const coverStoryPadPerc = '45.05%' // default ratio for a 250h x 555w image.
 
   return (
     <PageLayout mt={0} alertsProps={{bottomBgGradient: false}}>
@@ -124,6 +127,8 @@ const Index = () => {
             /> */}
 
             <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
               title="Special Notice for Businesses Regarding Re-opening"
               readMore="More Information..."
               linkHref="/newsroom/business-and-covid-19"
@@ -171,7 +176,8 @@ const Index = () => {
               Valley Project (CVP) water to PCWA, runs in perpetuity."
             /> */}
 
-            <CoverStory
+            {/* 2020 Water Spots */}
+            {/* <CoverStory
               title="2020 Water Spots Video Contest Winners Announced"
               readMore="Read more…!"
               linkHref="/newsroom/water-spots-2020"
@@ -185,6 +191,24 @@ const Index = () => {
               body="The Regional Water Authority has announced the winners of the 2020
               Water Spots Video Contest: Be a Leak Detective. The top 3 video
               winners are from PCWA’s service area!"
+            /> */}
+
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="Is it time to spruce up your sprinkler system?"
+              readMore="Visit our rebate page"
+              linkHref="/smart-water-use/rebate-programs"
+              imgixURL="https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Thumbnail photo of Water Efficiency Technician'
+                },
+                imgixParams: {
+                  // crop: 'top'
+                }
+              }}
+              body="PCWA has rebates available to help with the cost of high-efficiency rotator sprinklers, drip irrigation, and weather-based sprinkler timers. Apply today online."
             />
           </ChildBox>
         </RespRowBox>

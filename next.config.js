@@ -90,6 +90,12 @@ const miscRedirects = [
     source: '/general-information/minutes(\\.html)?',
     destination: '/board-of-directors/meeting-minutes',
     permanent: true
+  },
+  // Rebates redirect due to Social Media posting.
+  {
+    source: '/rebates',
+    destination: 'smart-water-use/rebate-programs',
+    permanent: true
   }
 ]
 
