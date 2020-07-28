@@ -659,7 +659,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {initialNewslettersData, publicationParam, initialEnewsBlasts},
-      unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log('There was an error fetching Newsletters/E-News Blasts.', error)

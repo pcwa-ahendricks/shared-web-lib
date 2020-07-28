@@ -405,7 +405,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         ...photoPaths,
         ...videoPaths
       ],
-      fallback: false
+      fallback: true
     }
   } catch (error) {
     console.log(error)
@@ -460,7 +460,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         params
         // params: query
       }
-      // unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)

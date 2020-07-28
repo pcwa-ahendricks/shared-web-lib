@@ -299,7 +299,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         media,
         releaseDate
       },
-      unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)

@@ -261,7 +261,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         : []
     return {
       paths,
-      fallback: false
+      fallback: true
     }
   } catch (error) {
     console.log(error)
@@ -290,7 +290,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, publishDate},
-      unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)

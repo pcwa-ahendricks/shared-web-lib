@@ -225,7 +225,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialData = await fetcher(`${baseUrl}${csvDataUrl}`)
     return {
       props: {initialData},
-      unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log('There was an error fetching unclaimed property data.', error)

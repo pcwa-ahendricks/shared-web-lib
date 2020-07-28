@@ -249,7 +249,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths: [...documentPaths],
-      fallback: false
+      fallback: true
     }
   } catch (error) {
     console.log(error)
@@ -282,7 +282,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, publicationSlug},
-      unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)

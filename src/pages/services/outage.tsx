@@ -416,7 +416,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialData = await fetcher(`${baseUrl}${outagesUrl}`)
     return {
       props: {initialData},
-      unstable_revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log('There was an error fetching outages.', error)

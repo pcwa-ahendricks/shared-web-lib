@@ -6,7 +6,10 @@ const {
 // Fix error with IE11 and swr and filenamify dependency.
 const withTM = require('next-transpile-modules')([
   'swr',
-  'filename-reserved-regex'
+  'filename-reserved-regex',
+  'TextProgress', // uses css modules
+  'WeatherIcon', // uses css modules
+  'StrongEmphasis' // uses css modules
 ]) // Pass the modules you would like to see transpiled
 const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
@@ -27,7 +30,7 @@ const miscRedirects = [
     permanent: false
   },
   // Requested by Todd Deacon
-  // It seems the regexp urls are case-insensitive in development mode and case-sensitive in production environments. It's unclear if there is an easier workaround. See https://github.com/vercel/next.js/discussions/9081 and https://github.com/pillarjs/path-to-regexp#readme for more info.
+  // It seems the regexp urls are case-insensitive in development mode and case-sensitive in production environments. It's unclear if there is an easier workaround. See https://nextjs.org/blog/next-9-5#support-for-rewrites-redirects-and-headers and https://github.com/pillarjs/path-to-regexp#readme for more info.
   {
     source: '/files/docs/fin/(vendorapp|VENDORAPP)(\\.pdf)?',
     destination:
@@ -411,15 +414,13 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       reportFilename: '../bundles/client.html'
     }
   },
-  experimental: {
-    async redirects() {
-      return [
-        ...legacyRedirects,
-        ...condRedirects,
-        ...indexPageRedirects,
-        ...miscRedirects
-      ]
-    }
+  async redirects() {
+    return [
+      ...legacyRedirects,
+      ...condRedirects,
+      ...indexPageRedirects,
+      ...miscRedirects
+    ]
   },
   webpack: (config) => {
     // Fixes npm packages that depend on `fs` module, as seen on https://github.com/zeit/now-examples/blob/master/nextjs/next.config.js
