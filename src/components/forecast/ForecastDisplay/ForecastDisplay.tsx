@@ -83,7 +83,7 @@ const ForecastDisplay = ({forecast}: Props) => {
               color="primary"
             />
           </ButtonBase>
-          <Type variant="subtitle2" className={classes.forecastType}>
+          <Type variant="subtitle2" className={classes.forecastType} noWrap>
             <Link
               {...linkProps}
               underline="none"
