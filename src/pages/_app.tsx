@@ -38,6 +38,7 @@ import 'react-vertical-timeline-component/style.min.css'
 // import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
 import {initGA} from '@lib/googleAnalytics'
+import Head from 'next/head'
 
 /* NProgress */
 /* Use Timeout. See https://github.com/rstacruz/nprogress/issues/169#issuecomment-461704797 for more info. */
@@ -94,38 +95,55 @@ class MyApp extends App {
     const {Component, pageProps} = this.props
     /* Wrap every page in Jss and Theme providers. ThemeProvider makes the theme available down the React tree thanks to React context. */
     return (
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <GlobalStyles />
-        <SWRConfig
-          value={{
-            revalidateOnMount: true, // Revalidate even when initial data is set
-            revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy
-            fetcher
-          }}
-        >
-          <PiProvider>
-            <UiProvider>
-              <NewsroomContext>
-                <MultimediaProvider>
-                  <ForecastProvider>
-                    <SearchProvider>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <ParallaxProvider>
-                          {/* Pass pageContext to the _document though the renderPage enhancer
+      <>
+        <Head>
+          {/* See https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md */}
+          {/* Use minimum-scale=1 to enable GPU rasterization */}
+          {/* Use viewport-fil=cover to enable intended "apple-mobile-web-app-status-bar-style"
+              behavior.
+          */}
+          <meta
+            name="viewport"
+            content={
+              'user-scalable=0, initial-scale=1, shrink-to-fit=no, ' +
+              'minimum-scale=1, width=device-width, height=device-height, ' +
+              'viewport-fit=cover'
+            }
+          />
+        </Head>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <GlobalStyles />
+          <SWRConfig
+            value={{
+              revalidateOnMount: true, // Revalidate even when initial data is set
+              revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy
+              fetcher
+            }}
+          >
+            <PiProvider>
+              <UiProvider>
+                <NewsroomContext>
+                  <MultimediaProvider>
+                    <ForecastProvider>
+                      <SearchProvider>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                          <ParallaxProvider>
+                            {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                          <Component {...pageProps} />
-                        </ParallaxProvider>
-                      </MuiPickersUtilsProvider>
-                    </SearchProvider>
-                  </ForecastProvider>
-                </MultimediaProvider>
-              </NewsroomContext>
-            </UiProvider>
-          </PiProvider>
-        </SWRConfig>
-      </ThemeProvider>
+                            <Component {...pageProps} />
+                          </ParallaxProvider>
+                        </MuiPickersUtilsProvider>
+                      </SearchProvider>
+                    </ForecastProvider>
+                  </MultimediaProvider>
+                </NewsroomContext>
+              </UiProvider>
+            </PiProvider>
+          </SWRConfig>
+        </ThemeProvider>
+      </>
     )
   }
   /* eslint-enable @typescript-eslint/explicit-member-accessibility */

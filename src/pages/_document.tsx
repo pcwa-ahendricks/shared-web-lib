@@ -22,18 +22,6 @@ class MyDocument extends Document {
       <html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          {/* Use minimum-scale=1 to enable GPU rasterization */}
-          {/* Use viewport-fil=cover to enable intended "apple-mobile-web-app-status-bar-style"
-              behavior.
-          */}
-          <meta
-            name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, shrink-to-fit=no, ' +
-              'minimum-scale=1, width=device-width, height=device-height, ' +
-              'viewport-fit=cover'
-            }
-          />
           <meta
             name="description"
             content="PCWA is a water and energy provider for Placer County, CA."
