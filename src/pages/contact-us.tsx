@@ -30,7 +30,6 @@ import FlexBox, {
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
-import AnswerServicePhone from '@components/links/AnswerServicePhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -337,10 +336,8 @@ const ContactUsPage = () => {
                 Trouble Contacting Us By Phone?
               </Type>
               <Type variant="body1" paragraph color="textSecondary">
-                In the event you are unable to get through on our main phone
-                number, please call our answering service directly at{' '}
-                <AnswerServicePhone />, or email us at <CustomerServicesEmail />
-                .
+                In the event you are unable to get through our main phone number
+                feel free to email us at <CustomerServicesEmail />.
               </Type>
             </Box>
           </Box>
