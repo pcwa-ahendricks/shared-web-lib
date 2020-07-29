@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     '@media screen and (min-width: 1400px)': {
       megaMenuLink: {
-        fontSize: '1.1rem'
+        fontSize: '1.05rem'
       }
     },
     toolbar: {
