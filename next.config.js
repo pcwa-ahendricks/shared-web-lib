@@ -6,10 +6,10 @@ const {
 // Fix error with IE11 and swr and filenamify dependency.
 const withTM = require('next-transpile-modules')([
   'swr',
-  'filename-reserved-regex'
+  'filename-reserved-regex',
   // 'TextProgress', // uses css modules
   // 'WeatherIcon', // uses css modules
-  // 'StrongEmphasis' // uses css modules
+  'StrongEmphasis' // uses css modules
 ]) // Pass the modules you would like to see transpiled
 const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
