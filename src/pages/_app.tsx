@@ -17,18 +17,12 @@ import SearchProvider from '@components/search/SearchStore'
 import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
 import NProgress from 'nprogress'
-const isDev = process.env.NODE_ENV === 'development'
-const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
-/*
-  [HACK] AMA page is not loading due to use of css import via @zeit/next-css plugin. See
-  https://github.com/zeit/next.js/issues/5264 and  https://github.com/zeit/next.js/issues/5291 and 
-  https://github.com/zeit/next.js/issues/5598.
-  Import an empty css file or any css file for that matter here.
-*/
+import Head from 'next/head'
 import '@lib/css/styles.css'
 import '@lib/css/NoCollapseVerticalTimeline.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
+import {initGA} from '@lib/googleAnalytics'
 /*
 Global External Styles
 */
@@ -37,8 +31,9 @@ import 'react-vertical-timeline-component/style.min.css'
 // import 'mapbox-gl/dist/mapbox-gl.css'
 // import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
-import {initGA} from '@lib/googleAnalytics'
-import Head from 'next/head'
+
+const isDev = process.env.NODE_ENV === 'development'
+const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 /* NProgress */
 /* Use Timeout. See https://github.com/rstacruz/nprogress/issues/169#issuecomment-461704797 for more info. */
