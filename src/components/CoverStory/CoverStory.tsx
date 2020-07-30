@@ -75,6 +75,8 @@ const CoverStory = ({
           href={linkHref}
           // gutterBottom
           color="primary"
+          aria-label={title}
+          {...flexLinkProps}
         >
           {title}
         </FlexLink>

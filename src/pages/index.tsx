@@ -126,7 +126,7 @@ const Index = () => {
                 Water Wise House Call or Business Call today!"
             /> */}
 
-            <CoverStory
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Special Notice for Businesses Regarding Re-opening"
@@ -141,6 +141,25 @@ const Index = () => {
               managers of buildings which have been closed for weeks or months due
               to COVID-19 concerns of the best practices to help ensure the health
               and safety of the occupants of your buildings."
+            /> */}
+
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="Drought-Proofing PCWA’s Water Supply"
+              readMore="Watch video on our YouTube Channel"
+              flexLinkProps={{
+                isNextLink: false
+              }}
+              linkHref="https://youtu.be/FMId8W8x8ik"
+              imgixURL="https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg"
+              imgixFancyProps={{
+                imgixParams: {
+                  crop: 'top'
+                },
+                htmlAttributes: {alt: 'Aerial view of construction site.'}
+              }}
+              body="Placer County is home to some of the highest-quality water in the world. Though our water supply here is more reliable than many other California communities, droughts are predicted to become more severe and demands will intensify. PCWA has invested in our water system to increase our ability to pump, treat, store and move water when and where needed. Watch this video to learn more."
             />
           </ChildBox>
           <ChildBox flex="50%">
