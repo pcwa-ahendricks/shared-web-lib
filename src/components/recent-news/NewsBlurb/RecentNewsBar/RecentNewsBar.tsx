@@ -24,7 +24,7 @@ const qs = stringify({...params}, true)
 const recentNewsBlurbsUrl = `/api/cosmic/objects${qs}`
 
 const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
-  const {data: recentNewsBlurbs, isValidating} = useSWR<
+  const {data: recentNewsBlurbs} = useSWR<
     CosmicObjectResponse<NewsBlurbMetadata>
   >(recentNewsBlurbsUrl)
 
@@ -59,7 +59,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
 
   const recentNewsBarEl = useMemo(
     () =>
-      isValidating ? (
+      !recentNewsBlurbs ? (
         <TextProgress caption="Loading Recent News..." />
       ) : (
         <RespRowBox justifyContent="space-between" flexSpacing={4} {...rest}>
@@ -75,7 +75,7 @@ const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
           ))}
         </RespRowBox>
       ),
-    [sortedAndFilteredNews, isValidating, rest]
+    [sortedAndFilteredNews, recentNewsBlurbs, rest]
   )
 
   return <Box minHeight={200}>{recentNewsBarEl}</Box>
