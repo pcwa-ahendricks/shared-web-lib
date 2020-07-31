@@ -33,7 +33,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       }
     })
     if (!response.ok) {
-      res.status(400).end()
+      res.status(response.status || 400).end()
       return
     }
     const data: CseResponse = await response.json()

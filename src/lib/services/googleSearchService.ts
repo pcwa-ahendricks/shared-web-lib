@@ -1,6 +1,6 @@
 import {stringify} from 'querystringify'
 import {GoogleCseResponse} from '@components/search/SearchResponse'
-import fetcher from '@lib/fetcher'
+// import fetcher from '@lib/fetcher'
 
 // See https://developers.google.com/custom-search/v1/cse/list for more info.
 export interface GoogleCseParamOpts {
@@ -31,7 +31,11 @@ const search = async (params: GoogleCseParamOpts) => {
     true
   )}`
   // Don't catch this error since we handle that in <SearchInput/>.
-  return await fetcher<GoogleCseResponse>(url)
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw response
+  }
+  return (await response.json()) as GoogleCseResponse
 }
 
 export default search

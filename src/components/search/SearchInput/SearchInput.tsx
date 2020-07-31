@@ -109,11 +109,11 @@ const SearchInput = () => {
       searchDispatch(setIsPaging(false))
       searchDispatch(setDialogOpen(false))
       searchDispatch(setResults([]))
-      const preDash = error?.response?.status ?? '500'
+      const preDash = error?.status ?? '500'
       // Use request.responseText (aka. response.request.responseText) if available, or use response.statusText if available, or use error.message if available, or use generic error caption.
       const postDash =
-        error?.request?.responseText ??
-        error?.response?.statusText ??
+        error?.responseText ??
+        error?.statusText ??
         error?.message ??
         'An error occurred.'
       const dialogError: ErrorDialogError = {
@@ -200,9 +200,6 @@ const SearchInput = () => {
         if (searchValue) {
           // await delay(500000) // For debugging!
           const response = await search({q: searchValue, start})
-          if (!response) {
-            throw new Error('There was an error during search.')
-          }
           const initialTotalItems = getTotalResults(response)
           if (initialTotalItems) {
             searchDispatch(setBetterTotalItems(initialTotalItems))
