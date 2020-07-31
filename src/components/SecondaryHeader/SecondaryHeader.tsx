@@ -53,6 +53,7 @@ const SecondaryHeader = () => {
   const noSocialIcons = useMediaQuery('@media screen and (max-width: 690px)')
   const newsroomContext = useContext(NewsroomContext)
   const newsroomDispatch = newsroomContext.dispatch
+  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
 
   const subscribeEnewsHandler = useCallback(() => {
     newsroomDispatch(setEnewsDialogOpen(true))
@@ -114,7 +115,7 @@ const SecondaryHeader = () => {
         </SocialIconButton>
       </Box>
       {/* <EspanolButton>Español</EspanolButton> */}
-      <SearchInput />
+      {isSMUp ? <SearchInput /> : null}
     </Toolbar>
   )
 }

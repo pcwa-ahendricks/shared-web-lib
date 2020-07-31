@@ -18,7 +18,8 @@ import {
   createStyles,
   useTheme,
   Theme,
-  useScrollTrigger
+  useScrollTrigger,
+  useMediaQuery
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
@@ -27,7 +28,6 @@ import MegaMenuPopper from '@components/megaMenu/MegaMenuPopper/MegaMenuPopper'
 import MMContent from '@components/MMContent/MMContent'
 import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
 import menuConfig from '@lib/menuConfig'
 import colorAlpha from 'color-alpha'
@@ -271,9 +271,7 @@ const PrimaryHeader = () => {
                 logoRightFill={theme.palette.grey[300]}
               />
             </ChildBox>
-            <ChildBox flex="0 1 auto">
-              <SearchInput />
-            </ChildBox>
+            <ChildBox flex="0 1 auto">{isXS ? <SearchInput /> : null}</ChildBox>
           </RowBox>
           {/* See media query above for class logoContainer. */}
           {/* <Hidden only="xs" implementation="css"> */}

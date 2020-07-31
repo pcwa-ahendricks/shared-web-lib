@@ -1,6 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {makeStyles, createStyles} from '@material-ui/core/styles'
-import {Box, Button} from '@material-ui/core'
+import {makeStyles, createStyles, Box, Button} from '@material-ui/core'
 
 // Inspiration: https://www.kevinpeters.net/adding-object-properties-conditionally-with-es-6
 // More info at: https://material-ui.com/styles/api/#makestyles-styles-options-hook
