@@ -211,7 +211,7 @@ const SearchInput = () => {
         !paginationSearch && searchDispatch(setIsSearching(false))
         paginationSearch && searchDispatch(setIsPaging(false))
       } catch (error) {
-        console.log(error)
+        console.warn(error)
         searchErrorHandler(error)
       }
     },
