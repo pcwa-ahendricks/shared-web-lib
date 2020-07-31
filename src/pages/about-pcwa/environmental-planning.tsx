@@ -113,19 +113,19 @@ const EnvironmentalPlanningPage = () => {
               <Type variant="h3" gutterBottom>
                 Environmental Review
               </Type>
-              <OpenInNewLink
+              {/* <OpenInNewLink
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/eb914a90-44bf-11e8-b4ba-c9828ea342a7-Notice of Intent for the PCWA Weather Modification Project.pdf"
               >
                 Notice of Intent for the PCWA Weather Modification Project
-              </OpenInNewLink>
-              <OpenInNewLink
+              </OpenInNewLink> */}
+              {/* <OpenInNewLink
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/ee018740-44bf-11e8-b763-09a3ef6c77b1-Initial Study & Negative Declaration for the PCWA Weather Modification Project.pdf"
               >
                 Initial Study & Negative Declaration for the PCWA Weather
                 Modification Project
-              </OpenInNewLink>
+              </OpenInNewLink> */}
               <OpenInNewLink
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/c92cd580-c87c-11ea-b44f-f5c7da208e23-NOI-for-MFIB.pdf"
