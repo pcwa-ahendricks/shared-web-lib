@@ -16,7 +16,14 @@ import {
   CosmicMediaResponse,
   CosmicObjectResponse
 } from '@lib/services/cosmicService'
-import {compareDesc, parseJSON, format, parseISO, parse} from 'date-fns'
+import {
+  compareDesc,
+  parseJSON,
+  format,
+  parseISO,
+  parse,
+  addMonths
+} from 'date-fns'
 import NextLink, {LinkProps} from 'next/link'
 import groupBy from '@lib/groupBy'
 import {
@@ -326,6 +333,17 @@ const PublicationsPage = ({
     [isXS, pubCardImgWidth, pubCardImgHeight]
   )
 
+  const formatNewsletterDate = useCallback((media: any) => {
+    const pubMonth = media?.derivedFilenameAttr?.publishedDate
+      ? parseJSON(media.derivedFilenameAttr.publishedDate)
+      : null
+    const nextMonth = pubMonth ? addMonths(pubMonth, 1) : null
+    if (pubMonth && nextMonth) {
+      return `${format(pubMonth, 'MMMM')} - ${format(nextMonth, 'MMMM')}`
+    }
+    return ''
+  }, [])
+
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
   }
@@ -458,12 +476,7 @@ const PublicationsPage = ({
                             </ListItemAvatar>
                             <ListItemText
                               primary={n.derivedFilenameAttr?.title}
-                              secondary={format(
-                                parseISO(
-                                  n.derivedFilenameAttr?.publishedDate ?? ''
-                                ),
-                                'MMMM do'
-                              )}
+                              secondary={formatNewsletterDate(n)}
                             />
                           </ListItem>
                         </NextLink>

@@ -28,7 +28,7 @@ import {
   ChildBox,
   ColumnBox
 } from '@components/boxes/FlexBox'
-import {format, parseJSON} from 'date-fns'
+import {format, parseJSON, addMonths, getYear} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
@@ -89,16 +89,31 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
   const classes = useStyles()
 
-  const newsletterDateFormatted = useMemo(
-    () =>
-      media
-        ? format(
-            parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
-            "EEEE',' MMMM do',' yyyy "
-          )
-        : '',
-    [media]
-  )
+  const newsletterDateFormatted = useMemo(() => {
+    const pubMonth = media?.derivedFilenameAttr?.publishedDate
+      ? parseJSON(media.derivedFilenameAttr.publishedDate)
+      : null
+    const nextMonth = pubMonth ? addMonths(pubMonth, 1) : null
+    if (pubMonth && nextMonth) {
+      const thisYear = getYear(pubMonth)
+      return `${format(pubMonth, 'MMMM')} - ${format(
+        nextMonth,
+        'MMMM'
+      )}, ${thisYear}`
+    }
+    return ''
+  }, [media])
+
+  // const newsletterDateFormatted = useMemo(
+  //   () =>
+  //     media
+  //       ? format(
+  //           parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
+  //           "EEEE',' MMMM do',' yyyy "
+  //         )
+  //       : '',
+  //   [media]
+  // )
 
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
