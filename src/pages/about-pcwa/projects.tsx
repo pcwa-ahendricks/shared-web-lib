@@ -1,4 +1,4 @@
-// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod
+// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -268,7 +268,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated July 2, 2020)
+                      Upcoming Work (updated August 7, 2020)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
@@ -278,49 +278,36 @@ const ProjectsPage = () => {
                       <TypeBullet>
                         <Type variant="body1">
                           Installing 18-inch ductile iron pipe across country
-                          between Sierra Oaks Court and Glenview Road.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Continue installing the 45-inch welded steel pipe off
-                          of Ophir Road on PCWA property.
+                          between Indian Hill Road and Hillview Lane.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Installing 33-inch welded steel pipe across country
-                          between Sierra Oaks Court and Glenview Road.
+                          between Indian Hill Road and Hillview Lane.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 33-inch welded steel pipe through Glenview
-                          Road. Includes the shutdown of a portion of Glenview
-                          Road for ten days. Road closure signage will be
-                          posted.
+                          Installing 33-inch welded steel pipe along Indian Hill
+                          Road. Traffic delays are expected.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Energy Dissipation
-                          Station at the Foothill Water Treatment Plant,
-                          including installation of concrete forms, piping and
-                          rebar.
+                          Station at the Foothill Water Treatment Plant, include
+                          pouring concrete, installing rebar, and installing
+                          mechanical equipment.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Dutch Ravine
                           Energy Dissipation Structure at PCWA property located
-                          on Hillview Lane, including installation of concrete
-                          forms, piping and rebar.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Installing the pipe within the recently completed
-                          casing at the Union Pacific Railroad.
+                          on Hillview Lane, include pouring concrete, installing
+                          rebar, installing mechanical equipment and installing
+                          electrical power.
                         </Type>
                       </TypeBullet>
                     </ul>
