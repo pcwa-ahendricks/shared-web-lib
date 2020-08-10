@@ -144,10 +144,10 @@ const EmployeeBenefitsSummaryPage = () => {
                   </ListItemLink>
                   {/* <Divider /> */}
                   <ListItemLink href="https://cdn.cosmicjs.com/f04ff3f0-96da-11ea-8a8b-3ffd2fc1bd84-Power-System-MOU.pdf">
-                    <ListItemText primary="PCWA Power System MOU" />
+                    <ListItemText primary="PCWA Power Systems MOU" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://cdn.cosmicjs.com/69d03e70-9950-11ea-b9f1-9be2699692d5-Water-Systems-MOU.pdf">
+                  <ListItemLink href="https://cdn.cosmicjs.com/4ee48220-db26-11ea-84a8-4b73110d28e6-Water-Systems-MOU.pdf">
                     <ListItemText primary="PCWA Water Systems MOU" />
                   </ListItemLink>
                 </List>
