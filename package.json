@@ -111,7 +111,7 @@
     "mime": "^2.4.5",
     "next": "^9.5.2",
     "next-compose-plugins": "^2.2.0",
-    "next-transpile-modules": "^4.0.3",
+    "next-transpile-modules": "^4.1.0",
     "node-fetch": "^2.6.0",
     "nprogress": "^0.2.0",
     "p-timeout": "^3.2.0",
