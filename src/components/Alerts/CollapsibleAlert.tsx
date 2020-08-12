@@ -7,7 +7,8 @@ import {
   Theme,
   makeStyles,
   useTheme,
-  createStyles
+  createStyles,
+  useMediaQuery
 } from '@material-ui/core'
 import {Alert, AlertProps} from '@material-ui/lab'
 import {
@@ -36,46 +37,42 @@ const useStyles = makeStyles((theme: Theme) =>
       topBgGradient,
       isFirstAndLastAlert,
       bottomBgGradient,
-      isLastAlert
+      isLastAlert,
+      isSMUp,
+      isXS
     }: any) => ({
       // First Alert
       ...(isFirstAlert &&
+        isSMUp &&
         topBgGradient &&
         (!isFirstAndLastAlert ||
           (isFirstAndLastAlert && !bottomBgGradient)) && {
-          [`${theme.breakpoints.up('sm')}`]: {
-            // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
-            background: `linear-gradient(180deg, ${
-              theme.palette.background.default
-            } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%)`
-          }
-        }),
-      // Last Alert
-      ...(isLastAlert &&
-        bottomBgGradient &&
-        (!isFirstAndLastAlert || (isFirstAndLastAlert && !topBgGradient)) && {
-          background: `linear-gradient(0deg, ${
+          // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
+          background: `linear-gradient(180deg, ${
             theme.palette.background.default
           } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%)`
         }),
-      // First and Last Alert
-      ...(isFirstAndLastAlert &&
+      // First and Last Alert (SM)
+      ...(isSMUp &&
+        isFirstAndLastAlert &&
         topBgGradient &&
         bottomBgGradient && {
-          [`${theme.breakpoints.up('sm')}`]: {
-            background: `linear-gradient(180deg, ${
-              theme.palette.background.default
-            } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%, ${bgColor(
-              theme.palette.warning.main,
-              0.9
-            )} 92%, ${theme.palette.background.default} 100%  )`
-          },
-          [`${theme.breakpoints.only('xs')}`]: {
+          background: `linear-gradient(180deg, ${
+            theme.palette.background.default
+          } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%, ${bgColor(
+            theme.palette.warning.main,
+            0.9
+          )} 92%, ${theme.palette.background.default} 100%  )`
+        }),
+      // First and Last Alert (XS), or Last Alert
+      ...((isXS && isFirstAndLastAlert && topBgGradient && bottomBgGradient) ||
+        (isLastAlert &&
+          bottomBgGradient &&
+          (!isFirstAndLastAlert || (isFirstAndLastAlert && !topBgGradient)) && {
             background: `linear-gradient(0deg, ${
               theme.palette.background.default
             } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%)`
-          }
-        })
+          }))
     })
   })
 )
@@ -96,6 +93,8 @@ export default function CollapsibleAlert({
   const theme = useTheme()
   // const matchesIe = useMatchesIe()
   const bgColor = theme.palette.type === 'light' ? lighten : darken
+  const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   useEffect(() => {
     // Position will never be zero.
@@ -128,12 +127,12 @@ export default function CollapsibleAlert({
     () => activeAlerts.findIndex((alert) => alert.position === position) === 0,
     [activeAlerts, position]
   )
-  const isLastAlert = useMemo(() => {
-    return (
+  const isLastAlert = useMemo(
+    () =>
       activeAlerts.findIndex((alert) => alert.position === position) ===
-      activeAlerts.length - 1
-    )
-  }, [activeAlerts, position])
+      activeAlerts.length - 1,
+    [activeAlerts, position]
+  )
 
   const isFirstAndLastAlert = useMemo(() => {
     const idx = activeAlerts.findIndex((alert) => alert.position === position)
@@ -142,14 +141,15 @@ export default function CollapsibleAlert({
 
   const classes = useStyles({
     bgColor,
+    isXS,
     // matchesIe,
     isFirstAlert,
     topBgGradient,
     isFirstAndLastAlert,
     bottomBgGradient,
-    isLastAlert
+    isLastAlert,
+    isSMUp
   })
-  console.log(isFirstAlert)
   const collapseHandler = useCallback(
     (hidden) => () => {
       uiDispatch(setAlertHidden({position, hidden}))
