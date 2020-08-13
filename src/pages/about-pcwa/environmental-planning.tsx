@@ -137,8 +137,8 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/ca6f4090-c87c-11ea-b44f-f5c7da208e23-MFIBDraftCEQA06252020.pdf"
               >
-                Initial Study and Mitigated Negative Declaration for the Middle
-                Fork Interbay Sediment Management Project
+                Subsequent Impact Report for the Middle Fork Interbay Sediment
+                Management Project
               </OpenInNewLink>
             </ChildBox>
           </RespRowBox>
