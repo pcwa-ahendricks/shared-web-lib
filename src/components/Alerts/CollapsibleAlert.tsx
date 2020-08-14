@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       isSMUp,
       isXS
     }: any) => ({
-      // First Alert
+      // First Alert (SM)
       ...(isFirstAlert &&
         isSMUp &&
         topBgGradient &&
@@ -91,7 +91,6 @@ export default function CollapsibleAlert({
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
   const theme = useTheme()
-  // const matchesIe = useMatchesIe()
   const bgColor = theme.palette.type === 'light' ? lighten : darken
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
