@@ -117,7 +117,7 @@ const formSchema = object()
       .test(
         'min-sq-feet',
         'A minimum of 300 square feet of lawn must be converted',
-        (val: string): boolean => {
+        (val): boolean => {
           const stripped = val && val.replace(/[^0-9.]/, '')
           if (isNumber(stripped)) {
             const valAsNo = Math.round(parseFloat(stripped))
