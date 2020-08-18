@@ -95,6 +95,10 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
     setViewport(vp)
   }, [])
 
+  const errorHandler = useCallback((e) => {
+    console.log('an error occurred', e)
+  }, [])
+
   useEffect(() => {
     if (!markerLatLng) {
       return
@@ -165,12 +169,13 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
           {...viewport}
           width="100%"
           height="100%"
-          mapStyle="mapbox://styles/pcwa-mapbox/ckdyz0u670b2019nu41v3zd9b"
+          mapStyle="mapbox://styles/pcwa-mapbox/cixt9lzbz001b2roeqfv6aydm"
           onViewportChange={viewportChangeHandler}
           mapboxApiAccessToken={API_KEY}
           // scrollZoom={isSmDown ? false : true}
           scrollZoom={false}
           dragPan={isSmDown ? false : true}
+          onError={errorHandler}
         >
           {mapMarkerEl}
           {debugMapMarkerPositionEl}
