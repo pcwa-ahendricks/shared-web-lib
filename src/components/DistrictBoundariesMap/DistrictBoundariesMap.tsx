@@ -99,6 +99,11 @@ const DistrictBoundariesMap = () => {
     30
   )
 
+  const errorHandler = useCallback((e) => {
+    // Catch errors so page doesn't break when map breaks
+    console.log('An error occurred', e)
+  }, [])
+
   const queryDistrict = useCallback(() => {
     const map = mapRef.current
     if (map && lastResultCoords) {
@@ -190,6 +195,7 @@ const DistrictBoundariesMap = () => {
           onViewStateChange={onViewStateChange}
           onHover={onHoverHandler}
           onClick={onClickHandler}
+          onError={errorHandler}
           onTransitionEnd={onTransitionEndHandler}
           onTransitionStart={onTransitionStartHandler}
           onTransitionInterrupt={onTransitionEndHandler}
