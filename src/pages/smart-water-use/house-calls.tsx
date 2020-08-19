@@ -48,7 +48,8 @@ const HouseCallsPage = () => {
       title="House Calls"
       alertsProps={{bottomBgGradient: false}}
       bannerComponent={
-        <FlexBox>
+        // flexShrink fix for Safari
+        <FlexBox flexShrink={0}>
           <Box
             m="auto"
             width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
