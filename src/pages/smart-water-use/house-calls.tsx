@@ -18,7 +18,7 @@ import FlexBox, {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-// import MuiNextLink from '@components/NextLink/NextLink'
+import MuiNextLink from '@components/NextLink/NextLink'
 // import Imgix from 'react-imgix'
 
 const useStyles = makeStyles(() =>
@@ -92,20 +92,51 @@ const HouseCallsPage = () => {
           <PageTitle title="We Make House Calls!" subtitle="Smart Water Use" />
           <Spacing />
           <Type variant="h3" component="em" color="primary">
-            Schedule a Water Wise House Call or Business Call Today
+            {/* Schedule a Water Wise House Call or Business Call Today */}
+            PCWA is Here for You Even When We Must Be Apart
           </Type>
           <Spacing />
           <RespRowBox flexSpacing={6}>
             <ChildBox flex="60%">
-              <Type paragraph>
+              {/* <Type paragraph>
                 Worried you might have a leak? Want to find ways to use water
                 more efficiently at home or work? Interested in learning more
                 about money- and water-saving rebates available from PCWA? Set
                 up your complimentary Water Wise House Call or Business Call
                 today! A trained water efficiency professional will visit your
                 home or business to:
+              </Type> */}
+              <Type paragraph>
+                At PCWA, we want you to know that we’re here for you even when
+                we must be further apart to keep everyone safe during the
+                COVID-19 emergency.
               </Type>
-              <ul>
+              <Type paragraph>
+                PCWA is continuing to offer our conservation team’s expertise if
+                you find a sudden spike in your water bill or think your home
+                might have a leak. Rather than offering an in-person Water Wise
+                House Call, our team will review your water use remotely, check
+                your water meter for signs that there may be a leak, and follow
+                up with a phone call to share our findings and information about
+                potential rebates.
+              </Type>
+              <Type paragraph>
+                PCWA’s rebate program is available to help you increase water
+                efficiency and potentially lower your water bill. Check out our
+                rebates for upgrading to a beautiful, low-maintenance water-wise
+                landscape and for incorporating high-efficiency appliances into
+                your home. Information and applications are available on our
+                website on{' '}
+                <MuiNextLink href="/smart-water-use/rebate-programs">
+                  our rebates page.
+                </MuiNextLink>
+              </Type>
+              <Type paragraph>
+                If you’d like to learn more about PCWA’s water efficiency
+                services or rebates, contact our Customer Services team at{' '}
+                <MainPhone />.
+              </Type>
+              {/* <ul>
                 <TypeBullet>
                   Review your sprinkler system and provide watering suggestions
                 </TypeBullet>
@@ -130,12 +161,12 @@ const HouseCallsPage = () => {
                   Identify rebates perfect for your home and business
                 </TypeBullet>
                 <TypeBullet>And more!</TypeBullet>
-              </ul>
-              <Type paragraph>
+              </ul> */}
+              {/* <Type paragraph>
                 Water Wise House Calls or Business Calls are offered Monday
                 through Friday and typically last about an hour. Schedule yours
                 today by calling PCWA Customer Services at <MainPhone />.
-              </Type>
+              </Type> */}
             </ChildBox>
             <ChildBox flex="40%" display="flex">
               {/* <ChildBox
