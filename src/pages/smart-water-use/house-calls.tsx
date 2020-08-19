@@ -3,10 +3,10 @@ import {
   useMediaQuery,
   Box,
   Typography as Type,
-  useTheme,
-  createStyles,
-  makeStyles,
-  TypographyProps
+  useTheme
+  // createStyles,
+  // makeStyles,
+  // TypographyProps
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -21,27 +21,27 @@ import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/Respons
 import MuiNextLink from '@components/NextLink/NextLink'
 // import Imgix from 'react-imgix'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    bulletLi: {
-      listStyleType: 'circle',
-      marginBottom: 2
-    }
-  })
-)
+// const useStyles = makeStyles(() =>
+//   createStyles({
+//     bulletLi: {
+//       listStyleType: 'circle',
+//       marginBottom: 2
+//     }
+//   })
+// )
 
 const HouseCallsPage = () => {
-  const classes = useStyles()
+  // const classes = useStyles()
   const theme = useTheme()
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
 
-  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
-    return (
-      <Type component="li" className={classes.bulletLi} {...rest}>
-        {children}
-      </Type>
-    )
-  }
+  // const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
+  //   return (
+  //     <Type component="li" className={classes.bulletLi} {...rest}>
+  //       {children}
+  //     </Type>
+  //   )
+  // }
 
   return (
     <PageLayout
