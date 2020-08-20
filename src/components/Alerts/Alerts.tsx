@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {Typography as Type} from '@material-ui/core'
 import {AlertTitle} from '@material-ui/lab'
-import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-import MainPhone from '@components/links/MainPhone'
+// import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+// import MainPhone from '@components/links/MainPhone'
 import MuiNextLink from '@components/NextLink/NextLink'
 import CollectionsEmail from '@components/links/CollectionsEmail'
 import IeOnly from '@components/boxes/IeOnly'
@@ -69,9 +69,11 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         {/* <Type variant="inherit" gutterBottom component="div"> */}
         The PCWA business center lobby is open 8am to 5pm, Monday – Friday. Per
         state and county guidelines related to COVID-19, visitors must wear face
-        masks when inside the business center. Please contact Customer Services
-        with any questions at <MainPhone /> or by email at{' '}
-        <CustomerServicesEmail underline="always" />.{/* </Type> */}
+        masks when inside the business center.
+        {/* Please contact Customer Services */}
+        {/* with any questions at <MainPhone /> or by email at{' '} */}
+        {/* <CustomerServicesEmail underline="always" />.
+        </Type> */}
       </CollapsibleAlert>
       <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
@@ -97,8 +99,9 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         <Type variant="inherit" component="div">
           <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
             Frequently Asked Questions
-          </MuiNextLink>{' '}
-          regarding COVID-19 and your drinking water supply.
+          </MuiNextLink>
+          {/* {' '} */}
+          {/* regarding COVID-19 and your drinking water supply. */}
         </Type>
       </CollapsibleAlert>
       {/* <CollapsibleAlert
