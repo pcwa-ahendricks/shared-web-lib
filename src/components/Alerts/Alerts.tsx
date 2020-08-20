@@ -97,6 +97,7 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
       >
         <AlertTitle>COVID-19 and Your Drinking Water</AlertTitle>
         <Type variant="inherit" component="div">
+          See our{' '}
           <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
             Frequently Asked Questions
           </MuiNextLink>
