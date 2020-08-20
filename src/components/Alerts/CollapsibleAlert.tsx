@@ -18,6 +18,7 @@ import {
   addAlert
 } from '@components/ui/UiStore'
 import CloseIcon from '@material-ui/icons/Close'
+// import {PaletteColor} from '@material-ui/core/styles/createPalette'
 // import useMatchesIe from '@hooks/useMatchesIe'
 
 export type CollapsibleAlertProps = {
@@ -48,30 +49,21 @@ const useStyles = makeStyles((theme: Theme) =>
         (!isFirstAndLastAlert ||
           (isFirstAndLastAlert && !bottomBgGradient)) && {
           // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
-          background: `linear-gradient(180deg, ${
-            theme.palette.background.default
-          } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%)`
+          background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${bgColor} 8%)`
         }),
       // First and Last Alert (SM)
       ...(isSMUp &&
         isFirstAndLastAlert &&
         topBgGradient &&
         bottomBgGradient && {
-          background: `linear-gradient(180deg, ${
-            theme.palette.background.default
-          } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%, ${bgColor(
-            theme.palette.warning.main,
-            0.9
-          )} 92%, ${theme.palette.background.default} 100%  )`
+          background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${bgColor} 8%, ${bgColor} 92%, ${theme.palette.background.default} 100%  )`
         }),
       // First and Last Alert (XS), or Last Alert
       ...((isXS && isFirstAndLastAlert && topBgGradient && bottomBgGradient) ||
         (isLastAlert &&
           bottomBgGradient &&
           (!isFirstAndLastAlert || (isFirstAndLastAlert && !topBgGradient)) && {
-            background: `linear-gradient(0deg, ${
-              theme.palette.background.default
-            } 0%, ${bgColor(theme.palette.warning.main, 0.9)} 8%)`
+            background: `linear-gradient(0deg, ${theme.palette.background.default} 0%, ${bgColor} 8%)`
           }))
     })
   })
@@ -85,13 +77,32 @@ export default function CollapsibleAlert({
   children,
   bottomBgGradient = true,
   topBgGradient = true,
+  severity,
   ...rest
 }: CollapsibleAlertProps & AlertProps) {
   const uiContext = useContext(UiContext)
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
   const theme = useTheme()
-  const bgColor = theme.palette.type === 'light' ? lighten : darken
+  const paletteType = theme.palette.type === 'light' ? lighten : darken
+  let palette: string
+  console.log(severity)
+  switch (severity) {
+    case 'success':
+      palette = theme.palette.success.main
+      break
+    case 'warning':
+      palette = theme.palette.warning.main
+      break
+    case 'error':
+      palette = theme.palette.error.main
+      break
+    default:
+      palette = theme.palette.info.main
+      break
+  }
+  console.log(palette)
+  const bgColor = paletteType(palette, 0.9)
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
@@ -173,6 +184,7 @@ export default function CollapsibleAlert({
             <CloseIcon fontSize="inherit" />
           </IconButton>
         }
+        severity={severity}
         classes={{root: classes.alertRoot}}
         {...rest}
       >

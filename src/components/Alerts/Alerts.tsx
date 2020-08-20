@@ -61,6 +61,28 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
         position={1}
+        severity="info"
+        icon={<HomeWorkOutlinedIcon />}
+      >
+        <AlertTitle>PCWA Business Center Open</AlertTitle>
+        <Type variant="inherit" gutterBottom component="div">
+          The PCWA business center lobby is open 8am to 5pm, Monday – Friday.
+          Per state and county guidelines related to COVID-19, visitors must
+          wear face masks when inside the business center. Please contact
+          Customer Services with any questions at <MainPhone /> or by email at{' '}
+          <CustomerServicesEmail underline="always" />.
+        </Type>
+        <Type variant="inherit" component="div">
+          <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
+            <strong>Frequently Asked Questions</strong>
+          </MuiNextLink>{' '}
+          regarding COVID-19 and your drinking water supply.
+        </Type>
+      </CollapsibleAlert>
+      <CollapsibleAlert
+        bottomBgGradient={bottomBgGradient}
+        topBgGradient={topBgGradient}
+        position={2}
         severity="warning"
         icon={<ErrorOutlineOutlinedIcon />}
       >
@@ -68,9 +90,9 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         Due to financial challenges caused by COVID-19, PCWA is temporarily
         suspending water shutoffs for customers unable to pay their bill. If you
         are having trouble paying your bill please contact Customer Services at{' '}
-        <CollectionsEmail />.
+        <CollectionsEmail underline="always" />.
       </CollapsibleAlert>
-      <CollapsibleAlert
+      {/* <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
         position={2}
@@ -90,7 +112,7 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
           </MuiNextLink>{' '}
           regarding COVID-19 and your drinking water supply.
         </Type>
-      </CollapsibleAlert>
+      </CollapsibleAlert> */}
       <IeOnly>
         <CollapsibleAlert
           position={3}
