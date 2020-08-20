@@ -86,7 +86,6 @@ export default function CollapsibleAlert({
   const theme = useTheme()
   const paletteType = theme.palette.type === 'light' ? lighten : darken
   let palette: string
-  console.log(severity)
   switch (severity) {
     case 'success':
       palette = theme.palette.success.main
@@ -101,7 +100,6 @@ export default function CollapsibleAlert({
       palette = theme.palette.info.main
       break
   }
-  console.log(palette)
   const bgColor = paletteType(palette, 0.9)
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))

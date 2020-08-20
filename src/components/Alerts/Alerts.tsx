@@ -8,6 +8,7 @@ import CollectionsEmail from '@components/links/CollectionsEmail'
 import IeOnly from '@components/boxes/IeOnly'
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined'
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined'
+import HelpIcon from '@material-ui/icons/HelpOutline'
 import WebIcon from '@material-ui/icons/Web'
 import {UiContext, setAlertHidden, setAlertActive} from '@components/ui/UiStore'
 import CollapsibleAlert from './CollapsibleAlert'
@@ -65,19 +66,12 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         icon={<HomeWorkOutlinedIcon />}
       >
         <AlertTitle>PCWA Business Center Open</AlertTitle>
-        <Type variant="inherit" gutterBottom component="div">
-          The PCWA business center lobby is open 8am to 5pm, Monday – Friday.
-          Per state and county guidelines related to COVID-19, visitors must
-          wear face masks when inside the business center. Please contact
-          Customer Services with any questions at <MainPhone /> or by email at{' '}
-          <CustomerServicesEmail underline="always" />.
-        </Type>
-        <Type variant="inherit" component="div">
-          <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
-            <strong>Frequently Asked Questions</strong>
-          </MuiNextLink>{' '}
-          regarding COVID-19 and your drinking water supply.
-        </Type>
+        {/* <Type variant="inherit" gutterBottom component="div"> */}
+        The PCWA business center lobby is open 8am to 5pm, Monday – Friday. Per
+        state and county guidelines related to COVID-19, visitors must wear face
+        masks when inside the business center. Please contact Customer Services
+        with any questions at <MainPhone /> or by email at{' '}
+        <CustomerServicesEmail underline="always" />.{/* </Type> */}
       </CollapsibleAlert>
       <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
@@ -91,6 +85,21 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
         suspending water shutoffs for customers unable to pay their bill. If you
         are having trouble paying your bill please contact Customer Services at{' '}
         <CollectionsEmail underline="always" />.
+      </CollapsibleAlert>
+      <CollapsibleAlert
+        bottomBgGradient={bottomBgGradient}
+        topBgGradient={topBgGradient}
+        position={3}
+        severity="warning"
+        icon={<HelpIcon />}
+      >
+        <AlertTitle>COVID-19 and Your Drinking Water</AlertTitle>
+        <Type variant="inherit" component="div">
+          <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
+            Frequently Asked Questions
+          </MuiNextLink>{' '}
+          regarding COVID-19 and your drinking water supply.
+        </Type>
       </CollapsibleAlert>
       {/* <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
