@@ -25,7 +25,7 @@ export type AlertsProps = {
 
 interface OutageMetadata {
   collapsible: boolean
-  heading: '<p>PCWA Business Center Open</p>'
+  heading: string
   material_ui_icon_family: string
   material_ui_icon_name: string
   position: number
@@ -51,7 +51,7 @@ export default function Alerts({
   const uiContext = useContext(UiContext)
   const matchesIe = useMatchesIe()
   const {dispatch: uiDispatch, state: uiState} = uiContext
-  const {alerts} = uiState
+  const {alerts: alertsState} = uiState
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function Alerts({
       return
     }
     // If client is not IE11 hide and inactivate IE only alerts.
-    alerts
+    alertsState
       .filter((alert) => alert.ieOnly)
       .map((ieAlert) => {
         if (ieAlert?.active !== matchesIe) {
@@ -82,7 +82,7 @@ export default function Alerts({
         }
         return ieAlert
       })
-  }, [matchesIe, uiDispatch, alerts, ready])
+  }, [matchesIe, uiDispatch, alertsState, ready])
 
   const {data: alertsData} = useSWR<CosmicObjectResponse<OutageMetadata>>(
     alertsUrl,
@@ -92,7 +92,7 @@ export default function Alerts({
     }
   )
   console.log(alertsData)
-  const fetchedAlerts = useMemo(
+  const alerts = useMemo(
     () =>
       alertsData && Array.isArray(alertsData?.objects)
         ? alertsData.objects.map(({metadata, content, _id}) => ({
@@ -103,11 +103,11 @@ export default function Alerts({
         : [],
     [alertsData]
   )
-  console.log(fetchedAlerts)
+  console.log(alerts)
 
   return (
     <>
-      {fetchedAlerts.map((alert) => (
+      {alerts.map((alert) => (
         <CollapsibleAlert
           key={alert._id}
           bottomBgGradient={bottomBgGradient}
