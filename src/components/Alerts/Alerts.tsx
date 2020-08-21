@@ -1,6 +1,6 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, {useState, useContext, useEffect, useMemo} from 'react'
 import {Typography as Type} from '@material-ui/core'
-import {AlertTitle} from '@material-ui/lab'
+import {AlertTitle, AlertProps} from '@material-ui/lab'
 // import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 // import MainPhone from '@components/links/MainPhone'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -13,13 +13,41 @@ import WebIcon from '@material-ui/icons/Web'
 import {UiContext, setAlertHidden, setAlertActive} from '@components/ui/UiStore'
 import CollapsibleAlert from './CollapsibleAlert'
 import useMatchesIe from '@hooks/useMatchesIe'
+import useSWR from 'swr'
+import {CosmicObjectResponse} from '@lib/services/cosmicService'
+import {stringify} from 'querystringify'
 
 export type AlertsProps = {
   bottomBgGradient?: boolean
   topBgGradient?: boolean
+  initialData?: CosmicObjectResponse<OutageMetadata>
 }
 
-export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
+interface OutageMetadata {
+  collapsible: boolean
+  heading: '<p>PCWA Business Center Open</p>'
+  material_ui_icon_family: string
+  material_ui_icon_name: string
+  position: number
+  severity: AlertProps['severity']
+}
+
+const params = {
+  hide_metafields: true,
+  props: '_id,content,metadata,status,title',
+  type: 'alerts'
+}
+
+const qs = stringify({...params}, true)
+const alertsUrl = `/api/cosmic/objects${qs}`
+
+const refreshInterval = 1000 * 60 * 2 // Two minute interval.
+
+export default function Alerts({
+  bottomBgGradient,
+  topBgGradient,
+  initialData
+}: AlertsProps) {
   const uiContext = useContext(UiContext)
   const matchesIe = useMatchesIe()
   const {dispatch: uiDispatch, state: uiState} = uiContext
@@ -56,8 +84,41 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
       })
   }, [matchesIe, uiDispatch, alerts, ready])
 
+  const {data: alertsData} = useSWR<CosmicObjectResponse<OutageMetadata>>(
+    alertsUrl,
+    {
+      initialData,
+      refreshInterval
+    }
+  )
+  console.log(alertsData)
+  const fetchedAlerts = useMemo(
+    () =>
+      alertsData && Array.isArray(alertsData?.objects)
+        ? alertsData.objects.map(({metadata, content, _id}) => ({
+            ...metadata,
+            content,
+            _id
+          }))
+        : [],
+    [alertsData]
+  )
+  console.log(fetchedAlerts)
+
   return (
     <>
+      {fetchedAlerts.map((alert) => (
+        <CollapsibleAlert
+          key={alert._id}
+          bottomBgGradient={bottomBgGradient}
+          topBgGradient={topBgGradient}
+          position={alert.position}
+          severity={alert.severity}
+        >
+          <AlertTitle>{alert.heading}</AlertTitle>
+          {alert.content}
+        </CollapsibleAlert>
+      ))}
       <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
@@ -128,7 +189,7 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
       </CollapsibleAlert> */}
       <IeOnly>
         <CollapsibleAlert
-          position={3}
+          position={0}
           ieOnly
           bottomBgGradient={bottomBgGradient}
           topBgGradient={topBgGradient}

@@ -105,8 +105,8 @@ export default function CollapsibleAlert({
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   useEffect(() => {
-    // Position will never be zero.
-    if (position) {
+    // Position may be zero.
+    if (position || position === 0) {
       uiDispatch(addAlert({position, hidden, active, ieOnly}))
     }
   }, [uiDispatch, position, hidden, active, ieOnly])
