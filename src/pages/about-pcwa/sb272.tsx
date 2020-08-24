@@ -47,7 +47,7 @@ const Sb272Page = () => {
   const theme = useTheme()
   const classes = useStyles()
 
-  const lastReviewDate = 'August 7, 2020'
+  const lastReviewDate = 'August 24, 2020'
 
   const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
@@ -59,19 +59,19 @@ const Sb272Page = () => {
 
   const rows = [
     {
-      vendor: 'Sungard HTE',
-      product: 'Naviline Select',
+      vendor: 'Central Square',
+      product: 'Naviline',
       purpose: 'Enterprise Resource Planning (ERP)',
       dataType: 'AS400',
-      custodian: 'Information Services',
+      custodian: 'Information Technology',
       modified: 'Daily',
-      updated: 'Monthly'
+      updated: 'Bi-annually'
     },
     {
       vendor: 'E.S.R.I',
       product: 'ArcGIS',
-      purpose: 'GIS',
-      dataType: 'PostgreSQL',
+      purpose: 'Geographic Information Systems',
+      dataType: 'MS SQL Server',
       custodian: 'Technical Services',
       modified: 'Daily',
       updated: 'Monthly'
@@ -81,9 +81,18 @@ const Sb272Page = () => {
       product: 'Questys',
       purpose: 'Document Imaging / Management',
       dataType: 'PDF',
-      custodian: 'Information Services',
+      custodian: 'Information Technology',
       modified: 'Daily',
       updated: 'Monthly'
+    },
+    {
+      vendor: 'NovusAgenda',
+      product: 'Granicus',
+      purpose: 'Meeting Agendas',
+      dataType: 'PDF/web',
+      custodian: 'Information Technology',
+      modified: 'Daily',
+      updated: 'Annually'
     }
   ]
 
