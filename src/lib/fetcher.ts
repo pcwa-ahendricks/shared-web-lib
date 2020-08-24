@@ -1,6 +1,6 @@
 type FetchParameters = Parameters<typeof fetch>
 
-const fetcher = <T = any>(...args: FetchParameters) =>
+const fetcher = <T>(...args: FetchParameters) =>
   fetch(...args).then((res) => {
     if (!res.ok) {
       throw res
@@ -9,7 +9,12 @@ const fetcher = <T = any>(...args: FetchParameters) =>
   })
 
 const textFetcher = (...args: FetchParameters) =>
-  fetch(...args).then((res) => res.text())
+  fetch(...args).then((res) => {
+    if (!res.ok) {
+      throw res
+    }
+    return res.text() as Promise<string>
+  })
 
 export default fetcher
 export {textFetcher}

@@ -1,17 +1,9 @@
 import React, {useState, useContext, useEffect, useMemo} from 'react'
-import {Typography as Type} from '@material-ui/core'
 import {AlertTitle, AlertProps} from '@material-ui/lab'
-// import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-// import MainPhone from '@components/links/MainPhone'
-import MuiNextLink from '@components/NextLink/NextLink'
-import CollectionsEmail from '@components/links/CollectionsEmail'
 import IeOnly from '@components/boxes/IeOnly'
-import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined'
-import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined'
-import HelpIcon from '@material-ui/icons/HelpOutline'
 import WebIcon from '@material-ui/icons/Web'
 import {UiContext, setAlertHidden, setAlertActive} from '@components/ui/UiStore'
-import CollapsibleAlert from './CollapsibleAlert'
+import CollapsibleAlert, {CollapsibleCosmicAlert} from './CollapsibleAlert'
 import useMatchesIe from '@hooks/useMatchesIe'
 import useSWR from 'swr'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
@@ -30,6 +22,7 @@ interface OutageMetadata {
   material_ui_icon_name: string
   position: number
   severity: AlertProps['severity']
+  hidden: boolean
 }
 
 const params = {
@@ -91,35 +84,40 @@ export default function Alerts({
       refreshInterval
     }
   )
-  console.log(alertsData)
+
   const alerts = useMemo(
     () =>
       alertsData && Array.isArray(alertsData?.objects)
-        ? alertsData.objects.map(({metadata, content, _id}) => ({
-            ...metadata,
-            content,
-            _id
-          }))
+        ? alertsData.objects
+            .filter((a) => !a.metadata.hidden)
+            .map(({metadata, content, _id}) => ({
+              ...metadata,
+              content,
+              _id
+            }))
+            .sort((a, b) => a.position - b.position)
         : [],
     [alertsData]
   )
-  console.log(alerts)
 
   return (
     <>
       {alerts.map((alert) => (
-        <CollapsibleAlert
+        <CollapsibleCosmicAlert
           key={alert._id}
           bottomBgGradient={bottomBgGradient}
           topBgGradient={topBgGradient}
           position={alert.position}
           severity={alert.severity}
-        >
-          <AlertTitle>{alert.heading}</AlertTitle>
-          {alert.content}
-        </CollapsibleAlert>
+          muiIconName={alert.material_ui_icon_name}
+          muiIconFamily={alert.material_ui_icon_family}
+          headingHtmlStr={alert.heading}
+          contentHtmlStr={alert.content}
+          collapsible={alert.collapsible}
+        />
       ))}
-      <CollapsibleAlert
+
+      {/* <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
         position={1}
@@ -127,16 +125,12 @@ export default function Alerts({
         icon={<HomeWorkOutlinedIcon />}
       >
         <AlertTitle>PCWA Business Center Open</AlertTitle>
-        {/* <Type variant="inherit" gutterBottom component="div"> */}
         The PCWA business center lobby is open 8am to 5pm, Monday – Friday. Per
         state and county guidelines related to COVID-19, visitors must wear face
         masks when inside the business center.
-        {/* Please contact Customer Services */}
-        {/* with any questions at <MainPhone /> or by email at{' '} */}
-        {/* <CustomerServicesEmail underline="always" />.
-        </Type> */}
-      </CollapsibleAlert>
-      <CollapsibleAlert
+      </CollapsibleAlert>  */}
+
+      {/* <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
         position={2}
@@ -148,8 +142,9 @@ export default function Alerts({
         suspending water shutoffs for customers unable to pay their bill. If you
         are having trouble paying your bill please contact Customer Services at{' '}
         <CollectionsEmail underline="always" />.
-      </CollapsibleAlert>
-      <CollapsibleAlert
+      </CollapsibleAlert> */}
+
+      {/* <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
         position={3}
@@ -162,10 +157,9 @@ export default function Alerts({
           <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
             Frequently Asked Questions
           </MuiNextLink>
-          {/* {' '} */}
-          {/* regarding COVID-19 and your drinking water supply. */}
         </Type>
-      </CollapsibleAlert>
+      </CollapsibleAlert> */}
+
       {/* <CollapsibleAlert
         bottomBgGradient={bottomBgGradient}
         topBgGradient={topBgGradient}
@@ -187,6 +181,7 @@ export default function Alerts({
           regarding COVID-19 and your drinking water supply.
         </Type>
       </CollapsibleAlert> */}
+
       <IeOnly>
         <CollapsibleAlert
           position={0}

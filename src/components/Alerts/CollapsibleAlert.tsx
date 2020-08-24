@@ -8,9 +8,11 @@ import {
   makeStyles,
   useTheme,
   createStyles,
-  useMediaQuery
+  Typography as Type,
+  useMediaQuery,
+  SvgIcon
 } from '@material-ui/core'
-import {Alert, AlertProps} from '@material-ui/lab'
+import {Alert, AlertProps, AlertTitle} from '@material-ui/lab'
 import {
   UiContext,
   setAlertHidden,
@@ -18,6 +20,10 @@ import {
   addAlert
 } from '@components/ui/UiStore'
 import CloseIcon from '@material-ui/icons/Close'
+import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
+import useSWR from 'swr'
+import {textFetcher} from '@lib/fetcher'
+import FlexLink from '@components/FlexLink/FlexLink'
 // import {PaletteColor} from '@material-ui/core/styles/createPalette'
 // import useMatchesIe from '@hooks/useMatchesIe'
 
@@ -25,10 +31,18 @@ export type CollapsibleAlertProps = {
   position: number
   hidden?: boolean
   active?: boolean
+  collapsible?: boolean
   ieOnly?: boolean
   bottomBgGradient?: boolean
   topBgGradient?: boolean
-}
+} & AlertProps
+
+type CollapsibleCosmicAlertProps = {
+  muiIconName?: string
+  muiIconFamily?: string
+  headingHtmlStr?: string
+  contentHtmlStr?: string
+} & CollapsibleAlertProps
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,11 +89,12 @@ export default function CollapsibleAlert({
   active,
   ieOnly,
   children,
+  collapsible = true,
   bottomBgGradient = true,
   topBgGradient = true,
   severity,
   ...rest
-}: CollapsibleAlertProps & AlertProps) {
+}: CollapsibleAlertProps) {
   const uiContext = useContext(UiContext)
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
@@ -173,14 +188,16 @@ export default function CollapsibleAlert({
     <Collapse in={showAlert} onExited={exitedHandler}>
       <Alert
         action={
-          <IconButton
-            aria-label="close alert"
-            color="inherit"
-            size="small"
-            onClick={collapseHandler(true)}
-          >
-            <CloseIcon fontSize="inherit" />
-          </IconButton>
+          collapsible ? (
+            <IconButton
+              aria-label="close alert"
+              color="inherit"
+              size="small"
+              onClick={collapseHandler(true)}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          ) : null
         }
         severity={severity}
         classes={{root: classes.alertRoot}}
@@ -191,3 +208,95 @@ export default function CollapsibleAlert({
     </Collapse>
   )
 }
+
+const CollapsibleCosmicAlert = ({
+  children,
+  muiIconFamily = 'baseline',
+  muiIconName,
+  headingHtmlStr = '',
+  contentHtmlStr = '',
+  ...props
+}: CollapsibleCosmicAlertProps) => {
+  const {data: svgIconText = ''} = useSWR<string>(
+    muiIconName
+      ? `https://material-icons.github.io/material-icons/svg/${muiIconName}/${muiIconFamily}.svg`
+      : null,
+    textFetcher
+  )
+
+  const iconParserOptions: HTMLReactParserOptions = useMemo(
+    () => ({
+      replace: ({children, attribs, name}) => {
+        if (name === 'svg') {
+          return (
+            <SvgIcon {...attribs}>
+              {/* Recursive parsing un-necessary with <svg/> elements */}
+              {/* {domToReact(children, parserOptions)} */}
+              {domToReact(children)}
+            </SvgIcon>
+          )
+        }
+      }
+    }),
+    []
+  )
+  const bodyParserOptions: HTMLReactParserOptions = useMemo(
+    () => ({
+      replace: ({children, attribs, name}) => {
+        if (name === 'p') {
+          return (
+            <Type
+              {...attribs}
+              color="inherit"
+              variant="inherit"
+              paragraph={false}
+            >
+              {domToReact(children, bodyParserOptions)}
+            </Type>
+          )
+        } else if (name === 'a') {
+          return (
+            <FlexLink
+              {...attribs}
+              underline="always"
+              variant="inherit"
+              detectNext
+            >
+              {/* Recursive parsing un-necessary with <a/> elements */}
+              {/* {domToReact(children, parserOptions)} */}
+              {domToReact(children)}
+            </FlexLink>
+          )
+        }
+      }
+    }),
+    []
+  )
+
+  const ParsedSvgIcon = useCallback(() => {
+    const parsed = Parser(svgIconText, iconParserOptions)
+    return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
+  }, [svgIconText, iconParserOptions])
+
+  const ParsedHeading = useCallback(() => {
+    const parsed = Parser(headingHtmlStr, bodyParserOptions)
+    return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
+  }, [headingHtmlStr, bodyParserOptions])
+
+  const ParsedContent = useCallback(() => {
+    const parsed = Parser(contentHtmlStr, bodyParserOptions)
+    return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
+  }, [contentHtmlStr, bodyParserOptions])
+
+  return (
+    <CollapsibleAlert icon={<ParsedSvgIcon />} {...props}>
+      <AlertTitle>
+        <ParsedHeading />
+      </AlertTitle>
+      <ParsedContent />
+      {children}
+    </CollapsibleAlert>
+  )
+}
+
+export {CollapsibleCosmicAlert}
