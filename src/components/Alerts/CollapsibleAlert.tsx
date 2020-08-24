@@ -1,3 +1,4 @@
+// cspell:ignore focusable
 import React, {useContext, useMemo, useCallback, useEffect} from 'react'
 import {
   Collapse,
@@ -24,8 +25,6 @@ import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import useSWR from 'swr'
 import {textFetcher} from '@lib/fetcher'
 import FlexLink from '@components/FlexLink/FlexLink'
-// import {PaletteColor} from '@material-ui/core/styles/createPalette'
-// import useMatchesIe from '@hooks/useMatchesIe'
 
 export type CollapsibleAlertProps = {
   position: number
@@ -288,14 +287,31 @@ const CollapsibleCosmicAlert = ({
     return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
   }, [contentHtmlStr, bodyParserOptions])
 
+  const SvgIconEx = useCallback(() => {
+    return svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />
+  }, [svgIconText])
+
   return (
-    <CollapsibleAlert icon={<ParsedSvgIcon />} {...props}>
+    <CollapsibleAlert icon={<SvgIconEx />} {...props}>
       <AlertTitle>
         <ParsedHeading />
       </AlertTitle>
       <ParsedContent />
       {children}
     </CollapsibleAlert>
+  )
+}
+
+function EmptyIcon() {
+  return (
+    <SvgIcon
+      style={{opacity: 0}}
+      focusable={false}
+      viewBox="0 0 24 24"
+      aria-hidden={true}
+      width={24}
+      height={24}
+    />
   )
 }
 

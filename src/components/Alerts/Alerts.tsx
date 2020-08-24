@@ -12,7 +12,7 @@ import {stringify} from 'querystringify'
 export type AlertsProps = {
   bottomBgGradient?: boolean
   topBgGradient?: boolean
-  initialData?: CosmicObjectResponse<OutageMetadata>
+  // initialData?: CosmicObjectResponse<OutageMetadata>
 }
 
 interface OutageMetadata {
@@ -36,11 +36,7 @@ const alertsUrl = `/api/cosmic/objects${qs}`
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
-export default function Alerts({
-  bottomBgGradient,
-  topBgGradient,
-  initialData
-}: AlertsProps) {
+export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
   const uiContext = useContext(UiContext)
   const matchesIe = useMatchesIe()
   const {dispatch: uiDispatch, state: uiState} = uiContext
@@ -80,7 +76,6 @@ export default function Alerts({
   const {data: alertsData} = useSWR<CosmicObjectResponse<OutageMetadata>>(
     alertsUrl,
     {
-      initialData,
       refreshInterval
     }
   )
