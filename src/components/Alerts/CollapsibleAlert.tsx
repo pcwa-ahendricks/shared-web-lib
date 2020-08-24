@@ -43,6 +43,40 @@ type CollapsibleCosmicAlertProps = {
   contentHtmlStr?: string
 } & CollapsibleAlertProps
 
+const iconParserOptions: HTMLReactParserOptions = {
+  replace: ({children, attribs, name}) => {
+    if (name === 'svg') {
+      return (
+        <SvgIcon {...attribs}>
+          {/* Recursive parsing un-necessary with <svg/> elements */}
+          {/* {domToReact(children, parserOptions)} */}
+          {domToReact(children)}
+        </SvgIcon>
+      )
+    }
+  }
+}
+
+const bodyParserOptions: HTMLReactParserOptions = {
+  replace: ({children, attribs, name}) => {
+    if (name === 'p') {
+      return (
+        <Type {...attribs} color="inherit" variant="inherit" paragraph={false}>
+          {domToReact(children, bodyParserOptions)}
+        </Type>
+      )
+    } else if (name === 'a') {
+      return (
+        <FlexLink {...attribs} underline="always" variant="inherit" detectNext>
+          {/* Recursive parsing un-necessary with <a/> elements */}
+          {/* {domToReact(children, parserOptions)} */}
+          {domToReact(children)}
+        </FlexLink>
+      )
+    }
+  }
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     alertRoot: ({
@@ -208,14 +242,14 @@ export default function CollapsibleAlert({
   )
 }
 
-const CollapsibleCosmicAlert = ({
+function CollapsibleCosmicAlert({
   children,
   muiIconFamily = 'baseline',
   muiIconName,
   headingHtmlStr = '',
   contentHtmlStr = '',
   ...props
-}: CollapsibleCosmicAlertProps) => {
+}: CollapsibleCosmicAlertProps) {
   const {data: svgIconText = ''} = useSWR<string>(
     muiIconName
       ? `https://material-icons.github.io/material-icons/svg/${muiIconName}/${muiIconFamily}.svg`
@@ -223,69 +257,20 @@ const CollapsibleCosmicAlert = ({
     textFetcher
   )
 
-  const iconParserOptions: HTMLReactParserOptions = useMemo(
-    () => ({
-      replace: ({children, attribs, name}) => {
-        if (name === 'svg') {
-          return (
-            <SvgIcon {...attribs}>
-              {/* Recursive parsing un-necessary with <svg/> elements */}
-              {/* {domToReact(children, parserOptions)} */}
-              {domToReact(children)}
-            </SvgIcon>
-          )
-        }
-      }
-    }),
-    []
-  )
-  const bodyParserOptions: HTMLReactParserOptions = useMemo(
-    () => ({
-      replace: ({children, attribs, name}) => {
-        if (name === 'p') {
-          return (
-            <Type
-              {...attribs}
-              color="inherit"
-              variant="inherit"
-              paragraph={false}
-            >
-              {domToReact(children, bodyParserOptions)}
-            </Type>
-          )
-        } else if (name === 'a') {
-          return (
-            <FlexLink
-              {...attribs}
-              underline="always"
-              variant="inherit"
-              detectNext
-            >
-              {/* Recursive parsing un-necessary with <a/> elements */}
-              {/* {domToReact(children, parserOptions)} */}
-              {domToReact(children)}
-            </FlexLink>
-          )
-        }
-      }
-    }),
-    []
-  )
-
   const ParsedSvgIcon = useCallback(() => {
     const parsed = Parser(svgIconText, iconParserOptions)
     return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
-  }, [svgIconText, iconParserOptions])
+  }, [svgIconText])
 
   const ParsedHeading = useCallback(() => {
     const parsed = Parser(headingHtmlStr, bodyParserOptions)
     return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
-  }, [headingHtmlStr, bodyParserOptions])
+  }, [headingHtmlStr])
 
   const ParsedContent = useCallback(() => {
     const parsed = Parser(contentHtmlStr, bodyParserOptions)
     return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
-  }, [contentHtmlStr, bodyParserOptions])
+  }, [contentHtmlStr])
 
   const SvgIconEx = useCallback(() => {
     return svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />
