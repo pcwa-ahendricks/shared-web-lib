@@ -24,6 +24,7 @@ type Props = {
   waterSurface?: boolean
   bannerComponent?: React.ReactElement
   alertsProps?: AlertsProps
+  initialAlertsData?: AlertsProps['initialData']
 } & BoxProps
 
 const PageLayout = ({
@@ -32,6 +33,7 @@ const PageLayout = ({
   description = 'PCWA is a water and energy provider for Placer County, CA.',
   waterSurface = false,
   bannerComponent,
+  initialAlertsData,
   alertsProps,
   ...rest
 }: Props) => {
@@ -75,7 +77,7 @@ const PageLayout = ({
         </Hidden>
         <HeaderContainer />
         <ChildBox flex="0 0 auto">
-          <Alerts {...alertsProps} />
+          <Alerts initialData={initialAlertsData} {...alertsProps} />
         </ChildBox>
         <WaterSurface />
         <Banner />

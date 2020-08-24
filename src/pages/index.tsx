@@ -19,15 +19,18 @@ import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
 // import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
 // import WarningRoundedIcon from '@material-ui/icons/WarningRounded'
-import RecentNewsBar from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
-// import lambdaUrl from '@lib/lambdaUrl'
-// import {GetServerSideProps} from 'next'
-// import {CosmicObjectResponse} from '@lib/services/cosmicService'
-// import {NewsBlurbMetadata} from '@components/recent-news/RecentNewsStore'
+import RecentNewsBar, {
+  RecentNewsBarProps
+} from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
+import {GetStaticProps} from 'next'
+import fetcher from '@lib/fetcher'
+import {stringify} from 'querystringify'
+import {AlertsProps} from '@components/Alerts/Alerts'
 
-// type Props = {
-//   recentNewsData: CosmicObjectResponse<NewsBlurbMetadata>
-// }
+type Props = {
+  initialAlertsData?: AlertsProps['initialData']
+  initialNewsBlurbsData?: RecentNewsBarProps['initialData']
+}
 
 const HERO_IMG_SRC =
   'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
@@ -41,7 +44,7 @@ const HERO_IMG_SRC =
 //   })
 // )
 
-const Index = () => {
+const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
@@ -61,7 +64,11 @@ const Index = () => {
   const coverStoryPadPerc = '45.05%' // default ratio for a 250h x 555w image.
 
   return (
-    <PageLayout mt={0} alertsProps={{bottomBgGradient: false}}>
+    <PageLayout
+      initialAlertsData={initialAlertsData}
+      mt={0}
+      alertsProps={{bottomBgGradient: false}}
+    >
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
@@ -329,7 +336,7 @@ const Index = () => {
           Recent News
         </Type>
         <Spacing size="small" />
-        <RecentNewsBar />
+        <RecentNewsBar initialData={initialNewsBlurbsData} />
       </WideContainer>
     </PageLayout>
   )
@@ -349,5 +356,36 @@ const Index = () => {
 //     return {props: {}}
 //   }
 // }
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const alertsParams = {
+      hide_metafields: true,
+      props: '_id,content,metadata,status,title',
+      type: 'alerts'
+    }
+
+    const alertsQs = stringify({...alertsParams}, true)
+    const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
+    const initialAlertsData = await fetcher(alertsUrl)
+    /* */
+    const newsBlurbsParams = {
+      hide_metafields: true,
+      props: '_id,content,metadata,status,title',
+      type: '_id,metadata,status,title'
+    }
+    const newsBlurbsQs = stringify({...newsBlurbsParams}, true)
+    const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
+    const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
+    return {
+      props: {initialAlertsData, initialNewsBlurbsData},
+      revalidate: 5
+    }
+  } catch (error) {
+    console.log('There was an error fetching alerts and/or news blurbs', error)
+    return {props: {}}
+  }
+}
 
 export default Index

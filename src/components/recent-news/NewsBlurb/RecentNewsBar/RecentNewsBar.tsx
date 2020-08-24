@@ -10,9 +10,9 @@ import {stringify} from 'querystringify'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {NewsBlurbMetadata} from '@components/recent-news/RecentNews'
 
-type Props = {
+export type RecentNewsBarProps = {
   noOfBlurbs?: number
-  // initialData?: CosmicObjectResponse<NewsBlurbMetadata>
+  initialData?: CosmicObjectResponse<NewsBlurbMetadata>
 } & BoxProps
 
 const params = {
@@ -23,10 +23,14 @@ const params = {
 const qs = stringify({...params}, true)
 const recentNewsBlurbsUrl = `/api/cosmic/objects${qs}`
 
-const RecentNewsBar = ({noOfBlurbs = 4, ...rest}: Props) => {
+const RecentNewsBar = ({
+  initialData,
+  noOfBlurbs = 4,
+  ...rest
+}: RecentNewsBarProps) => {
   const {data: recentNewsBlurbs} = useSWR<
     CosmicObjectResponse<NewsBlurbMetadata>
-  >(recentNewsBlurbsUrl)
+  >(recentNewsBlurbsUrl, {initialData})
 
   const recentNews = useMemo(
     () =>

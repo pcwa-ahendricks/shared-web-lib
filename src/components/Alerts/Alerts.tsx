@@ -12,10 +12,10 @@ import {stringify} from 'querystringify'
 export type AlertsProps = {
   bottomBgGradient?: boolean
   topBgGradient?: boolean
-  // initialData?: CosmicObjectResponse<OutageMetadata>
+  initialData?: CosmicObjectResponse<AlertMetadata>
 }
 
-interface OutageMetadata {
+interface AlertMetadata {
   collapsible: boolean
   heading: string
   material_ui_icon_family: string
@@ -36,7 +36,11 @@ const alertsUrl = `/api/cosmic/objects${qs}`
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
-export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
+export default function Alerts({
+  bottomBgGradient,
+  topBgGradient,
+  initialData
+}: AlertsProps) {
   const uiContext = useContext(UiContext)
   const matchesIe = useMatchesIe()
   const {dispatch: uiDispatch, state: uiState} = uiContext
@@ -73,10 +77,11 @@ export default function Alerts({bottomBgGradient, topBgGradient}: AlertsProps) {
       })
   }, [matchesIe, uiDispatch, alertsState, ready])
 
-  const {data: alertsData} = useSWR<CosmicObjectResponse<OutageMetadata>>(
+  const {data: alertsData} = useSWR<CosmicObjectResponse<AlertMetadata>>(
     alertsUrl,
     {
-      refreshInterval
+      refreshInterval,
+      initialData
     }
   )
 
