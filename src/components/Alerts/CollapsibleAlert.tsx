@@ -272,9 +272,10 @@ function CollapsibleCosmicAlert({
     return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
   }, [contentHtmlStr])
 
-  const SvgIconEx = useCallback(() => {
-    return svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />
-  }, [svgIconText])
+  const SvgIconEx = useCallback(
+    () => (svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />),
+    [svgIconText]
+  )
 
   return (
     <CollapsibleAlert icon={<SvgIconEx />} {...props}>

@@ -52,15 +52,53 @@ const outagesUrl = `/api/cosmic/objects${qs}`
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
+const options: HTMLReactParserOptions = {
+  replace: ({children, attribs, name}) => {
+    // if (!attribs) return
+
+    // Strip ALL Style properties from HTML.
+    if (attribs?.style) {
+      attribs.style = ''
+    }
+
+    if (name === 'em') {
+      return (
+        <Type style={{fontStyle: 'italic'}} variant="body1" component="span">
+          {domToReact(children, options)}
+        </Type>
+      )
+    } else if (name === 'u') {
+      return (
+        <Type variant="h3" component="span">
+          {domToReact(children, options)}
+        </Type>
+      )
+    } else if (name === 'strong') {
+      return (
+        <Type variant="h6" component="span">
+          {domToReact(children, options)}
+        </Type>
+      )
+    } else if (name === 'p') {
+      return (
+        <Type variant="body1" paragraph>
+          {domToReact(children, options)}
+        </Type>
+      )
+    }
+  }
+}
+
 const OutageInformationPage = ({initialData}: Props) => {
   const theme = useTheme<Theme>()
 
-  const {data: outages, isValidating} = useSWR<
-    CosmicObjectResponse<OutageMetadata>
-  >(outagesUrl, {
-    initialData,
-    refreshInterval
-  })
+  const {data: outages} = useSWR<CosmicObjectResponse<OutageMetadata>>(
+    outagesUrl,
+    {
+      initialData,
+      refreshInterval
+    }
+  )
 
   const outageContent = useCallback(
     (outageType: string) => {
@@ -74,75 +112,15 @@ const OutageInformationPage = ({initialData}: Props) => {
                   re.test(outage?.metadata.type)
               )
               .map((outage) => outage?.content)
-              .shift()
+              .shift() // [0]
           : ''
       return f ?? ''
     },
     [outages]
   )
 
-  const treatedWaterOutagesHTML = useMemo(() => outageContent('treated'), [
-    outageContent
-  ])
-
-  const rawWaterOutagesHTML = useMemo(() => outageContent('irrigation'), [
-    outageContent
-  ])
-
-  const options: HTMLReactParserOptions = useMemo(
-    () => ({
-      replace: ({children, attribs, name}) => {
-        // if (!attribs) return
-
-        // Strip ALL Style properties from HTML.
-        if (attribs?.style) {
-          attribs.style = ''
-        }
-
-        if (name === 'em') {
-          return (
-            <Type
-              style={{fontStyle: 'italic'}}
-              variant="body1"
-              component="span"
-            >
-              {domToReact(children, options)}
-            </Type>
-          )
-        }
-
-        if (name === 'u') {
-          return (
-            <Type variant="h3" component="span">
-              {domToReact(children, options)}
-            </Type>
-          )
-        }
-
-        if (name === 'strong') {
-          return (
-            <Type variant="h6" component="span">
-              {domToReact(children, options)}
-            </Type>
-          )
-        }
-
-        /* Lastly */
-        if (name === 'p') {
-          return (
-            <Type variant="body1" paragraph>
-              {domToReact(children, options)}
-            </Type>
-          )
-        }
-      }
-    }),
-    []
-  )
-
-  // console.log(hexToRgb(theme.palette.grey['100']))
-
   const parsedTreatedWaterOutagesContent = useMemo(() => {
+    const treatedWaterOutagesHTML = outageContent('treated')
     if (!treatedWaterOutagesHTML) {
       return (
         <Type variant="body2" paragraph>
@@ -150,10 +128,11 @@ const OutageInformationPage = ({initialData}: Props) => {
         </Type>
       )
     }
-    return Parser(treatedWaterOutagesHTML ?? '', options)
-  }, [treatedWaterOutagesHTML, options])
+    return <>{Parser(treatedWaterOutagesHTML ?? '', options)}</>
+  }, [outageContent])
 
   const parsedRawWaterOutagesContent = useMemo(() => {
+    const rawWaterOutagesHTML = outageContent('irrigation')
     if (!rawWaterOutagesHTML) {
       return (
         <Type variant="body2" paragraph>
@@ -161,12 +140,12 @@ const OutageInformationPage = ({initialData}: Props) => {
         </Type>
       )
     }
-    return Parser(rawWaterOutagesHTML ?? '', options)
-  }, [rawWaterOutagesHTML, options])
+    return <>{Parser(rawWaterOutagesHTML ?? '', options)}</>
+  }, [outageContent])
 
   const progressEl = useMemo(
     () =>
-      isValidating ? (
+      !outages ? (
         <ColumnBox
           position="absolute"
           width="100%"
@@ -178,7 +157,7 @@ const OutageInformationPage = ({initialData}: Props) => {
           </RowBox>
         </ColumnBox>
       ) : null,
-    [isValidating]
+    [outages]
   )
 
   return (
@@ -215,7 +194,7 @@ const OutageInformationPage = ({initialData}: Props) => {
               </Box>
               <Box position="relative" minHeight={250}>
                 {progressEl}
-                {!isValidating ? (
+                {outages ? (
                   <>
                     <Box
                       bgcolor={theme.palette.common.white}
