@@ -4,7 +4,7 @@ import LazyImgix, {LazyImgixProps} from '@components/LazyImgix/LazyImgix'
 import clsx from 'clsx'
 
 type Props = {
-  lqipSrc?: string
+  lqipSrc?: string // base64 string
   lqipWidth?: number
   paddingPercent?: string
   htmlAttributes?: any
@@ -69,15 +69,13 @@ const useStyles = makeStyles({
 const ImgixFancy = ({
   src,
   className: classNameProp,
-  lqipSrc: lqipSrcProp,
-  lqipWidth = 40,
+  lqipSrc,
   htmlAttributes,
   paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
   sizes = 'auto', // Auto - This is a Lazysizes feature, not an react-imgix feature. Note - "sizes" is the Imgix prop while lazysizes uses "data-sizes".
   ...rest
 }: ImgixFancyProps) => {
   const classes = useStyles({paddingPercent})
-  const dataLowsrc = lqipSrcProp ?? `${src}?fm=jpg&w=${lqipWidth}` // low quality image
   return (
     <Box className={classes.mediabox}>
       <LazyImgix
@@ -86,7 +84,7 @@ const ImgixFancy = ({
         sizes={sizes}
         htmlAttributes={{
           // 'data-expand': -400, // Debug
-          'data-lowsrc': dataLowsrc,
+          'data-lowsrc': lqipSrc,
           ...htmlAttributes
         }}
         {...rest}

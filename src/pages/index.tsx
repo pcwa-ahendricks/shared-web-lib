@@ -40,6 +40,8 @@ const DROUGHT_PROOF_IMG_SRC =
   'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg'
 const WATER_TECH_IMG_SRC =
   'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg'
+const CANAL_SURVEY_IMG_SRC =
+  'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg'
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
@@ -269,11 +271,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Canal Customer Survey"
-              imgixURL="https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg"
+              imgixURL={CANAL_SURVEY_IMG_SRC}
               // linkHref="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
               linkHref="/services/annual-canal-survey"
               flexLinkProps={{isNextLink: true}}
               imgixFancyProps={{
+                lqipSrc: lqip?.canalSurvey,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Canal Customer Survey'
                 }
@@ -394,7 +397,8 @@ export const getStaticProps: GetStaticProps = async () => {
         url: DROUGHT_PROOF_IMG_SRC,
         key: 'droughtProof'
       },
-      {url: WATER_TECH_IMG_SRC, key: 'waterTech'}
+      {url: WATER_TECH_IMG_SRC, key: 'waterTech'},
+      {url: CANAL_SURVEY_IMG_SRC, key: 'canalSurvey'}
     ])
     return {
       props: {initialAlertsData, initialNewsBlurbsData, lqip},
