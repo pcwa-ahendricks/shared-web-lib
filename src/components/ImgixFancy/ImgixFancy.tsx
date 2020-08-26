@@ -16,6 +16,9 @@ interface UseStylesProps {
   paddingPercent: Props['paddingPercent']
 }
 
+const lightGrey =
+  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QCMRXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAACigAwAEAAAAAQAAABkAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/AABEIABkAKAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/3QAEAAP/2gAMAwEAAhEDEQA/APUPDGlIkSfL2rtba1VVHFYXh4Dyk+ldPF0FAB5Ix0qrc2qsp4q/UUvSgDgfE+lI8T/L2rkf7GX+7+lei+IAvlP9K5jC0Af/0PVvDOpK8SfN2rsra4DKOa8v8Jf6tK9AsvuigDY80YqvcXAVTzTe1Ub37poA53xNqSpE/wA3auT/ALWX+9V7xZ/q3rjqAP/Z'
+
 /* Lazysizes and ls.blur-up plugin styles. See https://github.com/aFarkas/lazysizes/tree/master/plugins/blur-up. */
 const useStyles = makeStyles({
   mediabox: ({paddingPercent}: UseStylesProps) => ({
@@ -46,7 +49,7 @@ const useStyles = makeStyles({
       // transition: 'opacity 1000ms, filter 1500ms', // Original
       transition: 'opacity 800ms, filter 1200ms',
       transform: 'scale(1.2)',
-      '-webkit-transform': 'scale(1.2)'
+      '-webkit-transform': 'scale(1.6)'
     },
     '& .ls-blur-up-img.ls-inview.ls-original-loaded': {
       opacity: 0,
@@ -69,7 +72,7 @@ const useStyles = makeStyles({
 const ImgixFancy = ({
   src,
   className: classNameProp,
-  lqipSrc,
+  lqipSrc = lightGrey,
   htmlAttributes,
   paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
   sizes = 'auto', // Auto - This is a Lazysizes feature, not an react-imgix feature. Note - "sizes" is the Imgix prop while lazysizes uses "data-sizes".
