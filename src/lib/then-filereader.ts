@@ -1,4 +1,5 @@
-export default function readAsDataUrlAsync(inputFile: Blob) {
+// Note - this/FileReader API won't work in getStaticProps
+export default function readAsDataUrlAsync(inputFile: Blob): Promise<string> {
   const temporaryFileReader = new FileReader()
 
   return new Promise((resolve, reject) => {
@@ -8,7 +9,12 @@ export default function readAsDataUrlAsync(inputFile: Blob) {
     }
 
     temporaryFileReader.onload = () => {
-      resolve(temporaryFileReader.result)
+      const result = temporaryFileReader.result ?? ''
+      if (typeof result === 'string') {
+        resolve(result)
+      } else {
+        reject(new DOMException('Parsed input file is not a string'))
+      }
     }
     temporaryFileReader.readAsDataURL(inputFile)
   })

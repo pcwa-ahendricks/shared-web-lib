@@ -26,16 +26,20 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import readAsDataUrlAsync from '@lib/then-filereader'
+import imgixLqipPlaceholder, {Lqip} from '@lib/imgixLqipPlaceholders'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
   initialNewsBlurbsData?: RecentNewsBarProps['initialData']
-  lqipSrc?: string
+  lqip?: Lqip
 }
 
 const HERO_IMG_SRC =
   'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
+const DROUGHT_PROOF_IMG_SRC =
+  'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg'
+const WATER_TECH_IMG_SRC =
+  'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg'
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
@@ -46,7 +50,7 @@ const HERO_IMG_SRC =
 //   })
 // )
 
-const Index = ({initialAlertsData, initialNewsBlurbsData, lqipSrc}: Props) => {
+const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
@@ -74,7 +78,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqipSrc}: Props) => {
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
-          lqipSrc,
+          lqipSrc: lqip?.hero,
           paddingPercent: '66.6495%',
           src: HERO_IMG_SRC,
           imgixParams: {bri: -5, high: -15},
@@ -162,8 +166,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqipSrc}: Props) => {
                 isNextLink: false
               }}
               linkHref="https://youtu.be/FMId8W8x8ik"
-              imgixURL="https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg"
+              imgixURL={DROUGHT_PROOF_IMG_SRC}
               imgixFancyProps={{
+                lqipSrc: lqip?.droughtProof,
                 imgixParams: {
                   crop: 'top'
                 },
@@ -228,8 +233,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqipSrc}: Props) => {
               title="Is it time to spruce up your sprinkler system?"
               readMore="Visit our rebate page"
               linkHref="/smart-water-use/rebate-programs"
-              imgixURL="https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg"
+              imgixURL={WATER_TECH_IMG_SRC}
               imgixFancyProps={{
+                lqipSrc: lqip?.waterTech,
                 htmlAttributes: {
                   alt: 'Thumbnail photo of Water Efficiency Technician'
                 },
@@ -382,15 +388,23 @@ export const getStaticProps: GetStaticProps = async () => {
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
-    const imageRes = await fetch(`${HERO_IMG_SRC}?fm=jpg&w=40`)
-    const blob = await imageRes.blob()
-    const lqipSrc = await readAsDataUrlAsync(blob)
+    const lqip = await imgixLqipPlaceholder([
+      {url: HERO_IMG_SRC, key: 'hero'},
+      {
+        url: DROUGHT_PROOF_IMG_SRC,
+        key: 'droughtProof'
+      },
+      {url: WATER_TECH_IMG_SRC, key: 'waterTech'}
+    ])
     return {
-      props: {initialAlertsData, initialNewsBlurbsData, lqipSrc},
+      props: {initialAlertsData, initialNewsBlurbsData, lqip},
       revalidate: 5
     }
   } catch (error) {
-    console.log('There was an error fetching alerts and/or news blurbs', error)
+    console.log(
+      'There was an error fetching alerts and/or news blurbs and/or lqips',
+      error
+    )
     return {props: {}}
   }
 }
