@@ -1,5 +1,5 @@
 // cspell:ignore expy
-import React, {useState, useMemo, forwardRef, Ref} from 'react'
+import React, {useState, useMemo, forwardRef} from 'react'
 import {
   Box,
   Theme,
