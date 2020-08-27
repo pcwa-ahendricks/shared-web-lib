@@ -1,8 +1,8 @@
 import React, {useState, useCallback} from 'react'
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Typography as Type,
   Theme,
   Box,
@@ -56,19 +56,19 @@ const RateAdjustFAQ = () => {
           Frequently Asked Questions
         </Type>
       </Box>
-      <ExpansionPanel
+      <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1')}
         classes={{root: classes.expansionPanel}}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
           <Type variant="subtitle2">Why the increase?</Type>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
               There are two reasons for the proposed adjustment in rates. The
@@ -89,21 +89,21 @@ const RateAdjustFAQ = () => {
               updating, operating, and maintaining PCWA’s water system.
             </Type>
           </ColumnBox>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
         expanded={expanded === 'panel2'}
         onChange={handleChange('panel2')}
         classes={{root: classes.expansionPanel}}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
           <Type variant="subtitle2">When did PCWA last raise rates?</Type>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
               Prior to the creation of the Zone 6, PCWA conducted rate increases
@@ -114,15 +114,15 @@ const RateAdjustFAQ = () => {
             <Type variant="body2">Zone 2 in 2008</Type>
             <Type variant="body2">Zone 3 in 2009</Type>
           </ColumnBox>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
 
-      <ExpansionPanel
+      <Accordion
         expanded={expanded === 'panel3'}
         onChange={handleChange('panel3')}
         classes={{root: classes.expansionPanel}}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3bh-content"
           id="panel3bh-header"
@@ -130,8 +130,8 @@ const RateAdjustFAQ = () => {
           <Type variant="subtitle2">
             Are there any programs to help with my bill?
           </Type>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
               PCWA makes every accommodation possible for customers who
@@ -140,15 +140,15 @@ const RateAdjustFAQ = () => {
               <MainPhone />.
             </Type>
           </ColumnBox>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
 
-      <ExpansionPanel
+      <Accordion
         expanded={expanded === 'panel4'}
         onChange={handleChange('panel4')}
         classes={{root: classes.expansionPanel}}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
@@ -157,8 +157,8 @@ const RateAdjustFAQ = () => {
             Can revenue from the Agency’s Middle Fork Hydroelectric Project be
             used to offset some of the rate increase?
           </Type>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
               Because the Middle Fork Project is a county-wide asset (the
@@ -172,29 +172,29 @@ const RateAdjustFAQ = () => {
               Agency Act.
             </Type>
           </ColumnBox>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
 
-      <ExpansionPanel
+      <Accordion
         expanded={expanded === 'panel5'}
         onChange={handleChange('panel5')}
         classes={{root: classes.expansionPanel}}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel5bh-content"
           id="panel5bh-header"
         >
           <Type variant="subtitle2">When will the new rates take effect?</Type>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
               The new rates will take effect January 1, 2018.
             </Type>
           </ColumnBox>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   )
 }

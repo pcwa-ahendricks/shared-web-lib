@@ -1,9 +1,9 @@
 import React from 'react'
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  Typography as Type
+  Accordion,
+  Typography as Type,
+  AccordionSummary,
+  AccordionDetails
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
@@ -31,15 +31,15 @@ const BoardMinutesAccordion = ({
   wasExpanded = false
 }: Props) => {
   return (
-    <ExpansionPanel expanded={expanded === year} onChange={onChange(year)}>
-      <ExpansionPanelSummary
+    <Accordion expanded={expanded === year} onChange={onChange(year)}>
+      <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`${year}-board-minutes-panel-content`}
         id={`${year}-board-minutes-panel-header`}
       >
         <Type variant="inherit">{year}</Type>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         {wasExpanded ? (
           <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
             {minutes.map((m) => {
@@ -61,8 +61,8 @@ const BoardMinutesAccordion = ({
         ) : (
           <div />
         )}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

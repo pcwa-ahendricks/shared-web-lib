@@ -8,10 +8,10 @@ import NextButton from '@components/NextButton/NextButton'
 import {
   Typography as Type,
   Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Box,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
   makeStyles,
   createStyles,
   Theme,
@@ -230,18 +230,18 @@ export default function LegislationAndLettersPage() {
             </ChildBox>
           </RowBox>
           <Box>
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel1'}
               onChange={handleChange('panel1')}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
               >
                 <Type>2017 - 2019</Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails classes={{root: classes.panelDetails}}>
+              </AccordionSummary>
+              <AccordionDetails classes={{root: classes.panelDetails}}>
                 <Box bgcolor="white" pt={2}>
                   <LocalityTitle>State Issues</LocalityTitle>
                   <CategoryTitle>Water Tax</CategoryTitle>
@@ -548,28 +548,28 @@ export default function LegislationAndLettersPage() {
                   </Type>
                   {/*  */}
                 </Box>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            {/* <ExpansionPanel
+              </AccordionDetails>
+            </Accordion>
+            {/* <Accordion
               expanded={expanded === 'panel2'}
               onChange={handleChange('panel2')}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2bh-content"
                 id="panel2bh-header"
               >
                 <Type>Users</Type>
                 <Type>You are currently not an owner</Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <Type>
                   Donec placerat, lectus sed mattis semper, neque lectus feugiat
                   lectus, varius pulvinar diam eros in elit. Pellentesque
                   convallis laoreet laoreet.
                 </Type>
-              </ExpansionPanelDetails>
-            </ExpansionPanel> */}
+              </AccordionDetails>
+            </Accordion> */}
           </Box>
         </NarrowContainer>
       </MainBox>

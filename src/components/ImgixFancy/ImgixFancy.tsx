@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 type Props = {
   lqipSrc?: string // base64 string
-  lqipWidth?: number
   paddingPercent?: string
   htmlAttributes?: any
 }

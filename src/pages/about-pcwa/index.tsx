@@ -22,6 +22,8 @@ import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
+import {Lqip, imgixLqipPlaceholders} from '@lib/imgixLqipPlaceholders'
+import {GetStaticProps} from 'next'
 
 const BANNER_IMG_SRC =
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -31,7 +33,11 @@ const BANNER_IMG_SRC =
 //   })
 // )
 
-const GeneralInfoPage = () => {
+type Props = {
+  lqip?: Lqip
+}
+
+const GeneralInfoPage = ({lqip}: Props) => {
   // const classes = useStyles()
   // const theme = useTheme<Theme>()
 
@@ -95,6 +101,7 @@ const GeneralInfoPage = () => {
             <ImgixFancyParallaxBanner
               amount={0.1}
               imgixFancyProps={{
+                lqipSrc: lqip?.[BANNER_IMG_SRC],
                 paddingPercent: '66.66667%',
                 src: BANNER_IMG_SRC,
                 imgixParams: {bri: -5, high: -15},
@@ -341,6 +348,19 @@ const GeneralInfoPage = () => {
       </MainBox>
     </PageLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const lqip = await imgixLqipPlaceholders([BANNER_IMG_SRC])
+    return {
+      props: {lqip},
+      revalidate: 5
+    }
+  } catch (error) {
+    console.log('There was an error fetching lqips', error)
+    return {props: {}}
+  }
 }
 
 export default GeneralInfoPage

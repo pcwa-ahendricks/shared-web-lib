@@ -452,11 +452,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       initialPublicationsData = []
     ] = await Promise.all([multimedia$, publications$])
 
+    // Don't produce base64 images with non-imgix links and/or videos; Doing so will crash everything.
     const lqip = await imgixLqipPlaceholders(
       initialMultimediaData
-        ?.filter((m) => /imgix.cosmicjs.com/i.test(m.imgix_url))
-        .filter((m) => /(.jpg|.png)$/i.test(m.imgix_url))
-        .map((m) => m.imgix_url)
+        ?.map((m) => m.imgix_url)
+        .filter((u) => /imgix.cosmicjs.com/i.test(u) && /(.jpg|.png)$/i.test(u))
     )
 
     return {

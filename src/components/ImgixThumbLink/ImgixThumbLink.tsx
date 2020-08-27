@@ -97,7 +97,6 @@ const ImgixThumbLink = ({
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy
             paddingPercent={paddingPercent}
-            lqipWidth={20}
             src={url}
             htmlAttributes={{
               alt: alt,

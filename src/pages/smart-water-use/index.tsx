@@ -8,10 +8,10 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  ExpansionPanelActions,
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Card,
   CardActionArea,
@@ -326,12 +326,12 @@ const SmartWaterUsePage = () => {
             <Spacing />
             <Type variant="h4">Outdoor Tips</Type>
             <Spacing size="small" />
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel1'}
               onChange={handleChange('panel1')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
@@ -340,8 +340,8 @@ const SmartWaterUsePage = () => {
                   Don’t wash your driveway and sidewalk with water; use a broom
                   instead
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 5 gallons per minute.
@@ -361,8 +361,8 @@ const SmartWaterUsePage = () => {
                     storm drain and into our waterways).
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-              <ExpansionPanelActions>
+              </AccordionDetails>
+              <AccordionActions>
                 <Button
                   fullWidth
                   color="secondary"
@@ -372,15 +372,15 @@ const SmartWaterUsePage = () => {
                 >
                   Be Water Smart Website
                 </Button>
-              </ExpansionPanelActions>
-            </ExpansionPanel>
+              </AccordionActions>
+            </Accordion>
 
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel2'}
               onChange={handleChange('panel2')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2bh-content"
                 id="panel2bh-header"
@@ -389,8 +389,8 @@ const SmartWaterUsePage = () => {
                   Use low-water use native and drought-tolerant plants in your
                   yard or garden
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 90 gallons per 1,000 square feet each time you water.
@@ -409,8 +409,8 @@ const SmartWaterUsePage = () => {
                     plants and upgrading inefficient irrigation equipment.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-              <ExpansionPanelActions>
+              </AccordionDetails>
+              <AccordionActions>
                 <NextButton
                   href="/smart-water-use/rebate-programs"
                   color="secondary"
@@ -418,15 +418,15 @@ const SmartWaterUsePage = () => {
                 >
                   Learn More About Rebates
                 </NextButton>
-              </ExpansionPanelActions>
-            </ExpansionPanel>
+              </AccordionActions>
+            </Accordion>
 
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel3'}
               onChange={handleChange('panel3')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel3bh-content"
                 id="panel3bh-header"
@@ -435,8 +435,8 @@ const SmartWaterUsePage = () => {
                   Add two to three inches of organic mulch around trees and
                   plants to reduce evaporation
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 30 gallons per 1,000 square feet each time you water.
@@ -448,14 +448,14 @@ const SmartWaterUsePage = () => {
                     soil temperature and breaks down into nutrients for plants.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
               expanded={expanded === 'panel4'}
               onChange={handleChange('panel4')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel4bh-content"
                 id="panel4bh-header"
@@ -463,8 +463,8 @@ const SmartWaterUsePage = () => {
                 <Type variant="subtitle2">
                   Water your yard early in the morning or later at night
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 50 gallons each time you water.
@@ -478,15 +478,15 @@ const SmartWaterUsePage = () => {
                     landscape can save 50 gallons every time you water.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
 
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel5'}
               onChange={handleChange('panel5')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel5bh-content"
                 id="panel5bh-header"
@@ -494,8 +494,8 @@ const SmartWaterUsePage = () => {
                 <Type variant="subtitle2">
                   Adjust sprinklers to avoid overspray and runoff
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves more than 40 gallons every time you water.
@@ -509,18 +509,18 @@ const SmartWaterUsePage = () => {
                     periods to allow better absorption.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
 
             <Spacing />
             <Type variant="h4">Indoor Tips</Type>
             <Spacing size="small" />
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel6'}
               onChange={handleChange('panel6')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel6bh-content"
                 id="panel6bh-header"
@@ -529,8 +529,8 @@ const SmartWaterUsePage = () => {
                   Turn off the water when rinsing dishes, soaping hands,
                   brushing teeth or shaving
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 2.5 gallons per minute or about 10 gallons per day.
@@ -546,14 +546,14 @@ const SmartWaterUsePage = () => {
                     (or more than 3,650 gallons a year).
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
               expanded={expanded === 'panel7'}
               onChange={handleChange('panel7')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel7bh-content"
                 id="panel7bh-header"
@@ -562,8 +562,8 @@ const SmartWaterUsePage = () => {
                   Check plumbing and appliances for leaks and fix them within 48
                   hours
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Fixing leaky faucets saves 15-20 gallons per day per leak,
@@ -578,14 +578,14 @@ const SmartWaterUsePage = () => {
                     water to the problem area until it can be repaired.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
               expanded={expanded === 'panel8'}
               onChange={handleChange('panel8')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel8bh-content"
                 id="panel8bh-header"
@@ -594,8 +594,8 @@ const SmartWaterUsePage = () => {
                   Install a high-efficiency WaterSense labeled toilet (1.28
                   gallons per flush)
                 </Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 19 gallons per person/day.
@@ -612,8 +612,8 @@ const SmartWaterUsePage = () => {
                     high-efficiency models.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-              <ExpansionPanelActions>
+              </AccordionDetails>
+              <AccordionActions>
                 <Button
                   rel="noopener noreferrer"
                   target="_blank"
@@ -630,22 +630,22 @@ const SmartWaterUsePage = () => {
                 >
                   Learn More About Rebates
                 </NextButton>
-              </ExpansionPanelActions>
-            </ExpansionPanel>
+              </AccordionActions>
+            </Accordion>
 
-            <ExpansionPanel
+            <Accordion
               expanded={expanded === 'panel9'}
               onChange={handleChange('panel9')}
               classes={{root: classes.expansionPanel}}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel9bh-content"
                 id="panel9bh-header"
               >
                 <Type variant="subtitle2">Wash only full loads of clothes</Type>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <ColumnBox>
                   <Type variant="body1" paragraph>
                     Saves 15 to 45 gallons per load.
@@ -662,8 +662,8 @@ const SmartWaterUsePage = () => {
                     high-efficiency models.
                   </Type>
                 </ColumnBox>
-              </ExpansionPanelDetails>
-              <ExpansionPanelActions>
+              </AccordionDetails>
+              <AccordionActions>
                 <NextButton
                   href="/smart-water-use/rebate-programs"
                   color="secondary"
@@ -671,8 +671,8 @@ const SmartWaterUsePage = () => {
                 >
                   Learn More About Rebates
                 </NextButton>
-              </ExpansionPanelActions>
-            </ExpansionPanel>
+              </AccordionActions>
+            </Accordion>
           </SectionBox>
           <Spacing size="large" factor={2} />
           <SectionBox>

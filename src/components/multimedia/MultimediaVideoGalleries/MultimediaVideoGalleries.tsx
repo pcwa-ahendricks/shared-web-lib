@@ -152,7 +152,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
       videos: videos.map((v, index) => ({
         ...v,
         index,
-        posterUrl: `https://cosmicjs.imgix.net/${v.metadata?.['poster-filename']}`
+        posterUrl: `https://imgix.cosmicjs.com/${v.metadata?.['poster-filename']}`
       }))
     }))
 
