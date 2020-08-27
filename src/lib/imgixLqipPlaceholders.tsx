@@ -4,11 +4,6 @@ import {sequenceArray} from './util'
 
 type ImgixProps = React.ComponentProps<typeof Imgix>
 
-interface Param {
-  url: string
-  imgixParams?: ImgixProps['imgixParams']
-}
-
 export interface Lqip {
   [key: string]: string
 }
