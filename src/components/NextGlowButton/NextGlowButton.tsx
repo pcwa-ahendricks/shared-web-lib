@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef, Ref} from 'react'
 import Link, {LinkProps} from 'next/link'
 import GlowButton, {GlowButtonProps} from '@components/GlowButton/GlowButton'
 
@@ -9,8 +9,8 @@ type NextGlowButtonProps = {
 } & GlowButtonProps
 
 // Using React.forwardRef made Typescript warnings and console error warnings go away. Not clear if this is implemented correctly.
-const ForwardGlowButton = React.forwardRef(
-  ({children, color, size, ...rest}: GlowButtonProps, ref: React.Ref<any>) => (
+const ForwardGlowButton = forwardRef(
+  ({children, color, size, ...rest}: GlowButtonProps, ref: Ref<any>) => (
     <GlowButton {...rest} {...ref} color={color} size={size}>
       {children}
     </GlowButton>

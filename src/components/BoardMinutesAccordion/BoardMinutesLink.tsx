@@ -1,5 +1,5 @@
 // cspell:ignore expy
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, forwardRef, Ref} from 'react'
 import {
   Box,
   Theme,
@@ -7,7 +7,8 @@ import {
   useMediaQuery,
   useTheme,
   createStyles,
-  makeStyles
+  makeStyles,
+  BoxProps
 } from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {ColumnBox} from '@components/boxes/FlexBox'
@@ -60,6 +61,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+const ColumnBoxEx = forwardRef(({children, ...props}: BoxProps, ref) => (
+  <ColumnBox {...props} {...ref}>
+    {children}
+  </ColumnBox>
+))
+ColumnBoxEx.displayName = 'ColumnBoxEx'
+
 const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
@@ -80,7 +88,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
 
   return (
     <Link href={url} as={as}>
-      <ColumnBox
+      <ColumnBoxEx
         alignItems="center"
         className={classes.link}
         onMouseEnter={() => setIsHover(true)}
@@ -115,7 +123,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
             {title}
           </Type>
         </ColumnBox>
-      </ColumnBox>
+      </ColumnBoxEx>
     </Link>
   )
 }
