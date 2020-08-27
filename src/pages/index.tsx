@@ -407,7 +407,11 @@ export const getStaticProps: GetStaticProps = async () => {
       HERO_IMG_SRC,
       DROUGHT_PROOF_IMG_SRC,
       WATER_TECH_IMG_SRC,
-      CANAL_SURVEY_IMG_SRC
+      CANAL_SURVEY_IMG_SRC,
+      PAYMENTUS_LOGO_IMG_SRC,
+      OUTAGES_IMG_SRC,
+      PROJECTS_IMG_SRC,
+      BOARD_MEETING_IMG_SRC
     ])
     return {
       props: {initialAlertsData, initialNewsBlurbsData, lqip},
