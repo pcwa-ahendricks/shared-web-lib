@@ -27,7 +27,6 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import DescriptionIcon from '@material-ui/icons/Description'
 import {GetStaticPaths, GetStaticProps} from 'next'
-// import {GetServerSideProps} from 'next'
 import ErrorPage from '@pages/_error'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
@@ -40,7 +39,9 @@ import {
   VideoList,
   PhotoList,
   MappedPhoto,
-  PickedVideoResponse
+  PickedVideoResponse,
+  PickedPhotoResponse,
+  PickedPublicationResponse
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -57,6 +58,7 @@ import useSWR from 'swr'
 import groupBy from '@lib/groupBy'
 import fileExtension from '@lib/fileExtension'
 import {ParsedUrlQuery} from 'querystring'
+import {imgixLqipPlaceholders, Lqip} from '@lib/imgixLqipPlaceholders'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -75,6 +77,7 @@ type Props = {
   galleryParam?: string
   lightboxIndexParam?: string
   params?: ParsedUrlQuery // debug
+  lqip?: Lqip
 }
 
 const cosmicGetMediaProps = {
@@ -107,7 +110,8 @@ const ResourceLibraryPage = ({
   // lightboxIndex,
   multimediaParam = '',
   galleryParam,
-  lightboxIndexParam
+  lightboxIndexParam,
+  lqip
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
@@ -316,7 +320,7 @@ const ResourceLibraryPage = ({
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
-              <MultimediaPhotoGalleries multimedia={multimedia} />
+              <MultimediaPhotoGalleries multimedia={multimedia} lqip={lqip} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={2}>
@@ -435,18 +439,25 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-    const multimedia$: Promise<VideoList | PhotoList | undefined> = fetcher(
-      `${baseUrl}${multimediaUrl}`
-    )
+    const multimedia$: Promise<
+      Array<PickedVideoResponse | PickedPhotoResponse> | undefined
+    > = fetcher(`${baseUrl}${multimediaUrl}`)
 
-    const publications$: Promise<PublicationList | undefined> = fetcher(
-      `${baseUrl}${publicationsUrl}`
-    )
+    const publications$: Promise<
+      Array<PickedPublicationResponse> | undefined
+    > = fetcher(`${baseUrl}${publicationsUrl}`)
 
-    const [initialMultimediaData, initialPublicationsData] = await Promise.all([
-      multimedia$,
-      publications$
-    ])
+    const [
+      initialMultimediaData = [],
+      initialPublicationsData = []
+    ] = await Promise.all([multimedia$, publications$])
+
+    const lqip = await imgixLqipPlaceholders(
+      initialMultimediaData
+        ?.filter((m) => /imgix.cosmicjs.com/i.test(m.imgix_url))
+        .filter((m) => /(.jpg|.png)$/i.test(m.imgix_url))
+        .map((m) => m.imgix_url)
+    )
 
     return {
       props: {
@@ -457,7 +468,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         multimediaParam,
         // lightboxIndex,
         // tabIndex,
-        params
+        params,
+        lqip
         // params: query
       },
       revalidate: 5

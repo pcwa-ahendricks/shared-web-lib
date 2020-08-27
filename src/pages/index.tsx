@@ -26,7 +26,7 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import imgixLqipPlaceholder, {Lqip} from '@lib/imgixLqipPlaceholders'
+import {Lqip, imgixLqipPlaceholders} from '@lib/imgixLqipPlaceholders'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -42,6 +42,14 @@ const WATER_TECH_IMG_SRC =
   'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg'
 const CANAL_SURVEY_IMG_SRC =
   'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg'
+const PAYMENTUS_LOGO_IMG_SRC =
+  'https://cosmic-s3.imgix.net/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png'
+const OUTAGES_IMG_SRC =
+  'https://cosmic-s3.imgix.net/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg'
+const PROJECTS_IMG_SRC =
+  'https://cosmic-s3.imgix.net/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg'
+const BOARD_MEETING_IMG_SRC =
+  'https://cosmic-s3.imgix.net/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png'
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
@@ -80,7 +88,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
-          lqipSrc: lqip?.hero,
+          lqipSrc: lqip?.[HERO_IMG_SRC],
           paddingPercent: '66.6495%',
           src: HERO_IMG_SRC,
           imgixParams: {bri: -5, high: -15},
@@ -170,7 +178,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
               linkHref="https://youtu.be/FMId8W8x8ik"
               imgixURL={DROUGHT_PROOF_IMG_SRC}
               imgixFancyProps={{
-                lqipSrc: lqip?.droughtProof,
+                lqipSrc: lqip?.[DROUGHT_PROOF_IMG_SRC],
                 imgixParams: {
                   crop: 'top'
                 },
@@ -237,7 +245,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
               linkHref="/smart-water-use/rebate-programs"
               imgixURL={WATER_TECH_IMG_SRC}
               imgixFancyProps={{
-                lqipSrc: lqip?.waterTech,
+                lqipSrc: lqip?.[WATER_TECH_IMG_SRC],
                 htmlAttributes: {
                   alt: 'Thumbnail photo of Water Efficiency Technician'
                 },
@@ -276,7 +284,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
               linkHref="/services/annual-canal-survey"
               flexLinkProps={{isNextLink: true}}
               imgixFancyProps={{
-                lqipSrc: lqip?.canalSurvey,
+                lqipSrc: lqip?.[CANAL_SURVEY_IMG_SRC],
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Canal Customer Survey'
                 }
@@ -286,10 +294,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Pay My Bill"
-              imgixURL="https://cosmic-s3.imgix.net/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png"
+              imgixURL={PAYMENTUS_LOGO_IMG_SRC}
               linkHref="https://ipn.paymentus.com/cp/plco"
               flexLinkProps={{isNextLink: false}}
               imgixFancyProps={{
+                lqipSrc: lqip?.[PAYMENTUS_LOGO_IMG_SRC],
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Pay My Bill Using Paymentus'
                 }
@@ -299,9 +308,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Outage Information"
-              imgixURL="https://cosmic-s3.imgix.net/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg"
+              imgixURL={OUTAGES_IMG_SRC}
               linkHref="/services/outage"
               imgixFancyProps={{
+                lqipSrc: lqip?.[OUTAGES_IMG_SRC],
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Current PCWA Water Outages Page'
                 }
@@ -311,9 +321,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Current Projects"
-              imgixURL="https://cosmic-s3.imgix.net/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg"
+              imgixURL={PROJECTS_IMG_SRC}
               linkHref="/about-pcwa/projects"
               imgixFancyProps={{
+                lqipSrc: lqip?.[PROJECTS_IMG_SRC],
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Current Projects'
                 }
@@ -323,9 +334,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Board Meeting Agendas"
-              imgixURL="https://cosmic-s3.imgix.net/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png"
+              imgixURL={BOARD_MEETING_IMG_SRC}
               linkHref="/board-of-directors/meeting-agendas"
               imgixFancyProps={{
+                lqipSrc: lqip?.[BOARD_MEETING_IMG_SRC],
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Board Meeting Agendas'
                 }
@@ -391,14 +403,11 @@ export const getStaticProps: GetStaticProps = async () => {
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
-    const lqip = await imgixLqipPlaceholder([
-      {url: HERO_IMG_SRC, key: 'hero'},
-      {
-        url: DROUGHT_PROOF_IMG_SRC,
-        key: 'droughtProof'
-      },
-      {url: WATER_TECH_IMG_SRC, key: 'waterTech'},
-      {url: CANAL_SURVEY_IMG_SRC, key: 'canalSurvey'}
+    const lqip = await imgixLqipPlaceholders([
+      HERO_IMG_SRC,
+      DROUGHT_PROOF_IMG_SRC,
+      WATER_TECH_IMG_SRC,
+      CANAL_SURVEY_IMG_SRC
     ])
     return {
       props: {initialAlertsData, initialNewsBlurbsData, lqip},

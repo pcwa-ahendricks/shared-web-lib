@@ -30,9 +30,11 @@ import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
+import {Lqip} from '@lib/imgixLqipPlaceholders'
 
 type Props = {
   multimedia?: PhotoList
+  lqip?: Lqip
 }
 
 export type MultimediaPhotoGallery = {
@@ -89,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
+const MultimediaPhotoGalleries = ({multimedia = [], lqip}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -373,6 +375,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                       <ColumnBox>
                         <ChildBox position="relative">
                           <ImgixFancier
+                            lqipSrc={lqip?.[p.imgix_url]}
                             htmlAttributes={{
                               alt:
                                 p.metadata?.description ??
