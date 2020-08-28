@@ -392,7 +392,7 @@ const MultimediaPhotoGalleries = ({multimedia = [], lqip}: Props) => {
                             height={p.height}
                             paddingPercent={p.paddingPercent}
                           />
-                          {p.metadata?.caption ? (
+                          {/* {p.metadata?.caption ? (
                             <ChildBox position="absolute" bottom="0" left="0">
                               <Type
                                 className={classes.photoCaption}
@@ -401,7 +401,7 @@ const MultimediaPhotoGalleries = ({multimedia = [], lqip}: Props) => {
                                 {p.metadata.caption}
                               </Type>
                             </ChildBox>
-                          ) : null}
+                          ) : null} */}
                         </ChildBox>
                         {p.metadata?.caption ? (
                           <ChildBox>
