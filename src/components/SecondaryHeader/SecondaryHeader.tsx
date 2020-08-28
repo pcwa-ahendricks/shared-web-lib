@@ -6,7 +6,8 @@ import {
   useMediaQuery,
   makeStyles,
   Typography as Type,
-  useTheme
+  useTheme,
+  createStyles
 } from '@material-ui/core'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -35,16 +36,24 @@ import {
 // )
 
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
-const useStyles = makeStyles({
-  toolbar: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexGrow: 1,
-    overflowX: 'hidden'
-  }
-})
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    survey: {
+      color: theme.palette.secondary.dark,
+      fontWeight: 600,
+      fontSize: '0.9rem',
+      paddingLeft: 16
+    },
+    toolbar: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      flexGrow: 1,
+      overflowX: 'hidden'
+    }
+  })
+)
 
 const SecondaryHeader = () => {
   const classes = useStyles()
@@ -68,11 +77,7 @@ const SecondaryHeader = () => {
         aria-label="Link"
         href="/services/annual-canal-survey"
       >
-        <Type
-          variant="inherit"
-          style={{fontWeight: 600, fontSize: '0.9rem', paddingLeft: 16}}
-          color="secondary"
-        >
+        <Type variant="inherit" className={classes.survey}>
           Canal Survey
         </Type>
       </NextGlowButton>
