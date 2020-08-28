@@ -31,7 +31,11 @@ const BoardMinutesAccordion = ({
   wasExpanded = false
 }: Props) => {
   return (
-    <Accordion expanded={expanded === year} onChange={onChange(year)}>
+    <Accordion
+      expanded={expanded === year}
+      onChange={onChange(year)}
+      TransitionProps={{unmountOnExit: true}} // May help with performance
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`${year}-board-minutes-panel-content`}
