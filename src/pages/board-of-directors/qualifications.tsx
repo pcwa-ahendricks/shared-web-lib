@@ -57,8 +57,8 @@ const BoardOfDirectorsQualificationsPage = () => {
               for more information.
             </Type>
             <Type paragraph>
-              Contact Board of Directors through the Agency Secretary/Clerk to
-              the Board at <ClerkToBoardEmail /> or <ClerkToBoardPhone />.
+              Contact Board of Directors through the Clerk to the Board at{' '}
+              <ClerkToBoardEmail /> or <ClerkToBoardPhone />.
             </Type>
             <Type variant="h3" gutterBottom>
               Director Qualifications

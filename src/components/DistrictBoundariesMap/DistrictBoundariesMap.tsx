@@ -171,10 +171,12 @@ const DistrictBoundariesMap = () => {
   return (
     <>
       <Head>
+        {/* yarn why @mapbox/mapbox-gl-geocoder */}
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css"
+          href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
           rel="stylesheet"
         />
+        {/* yarn why mapbox-gl */}
         <link
           href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css"
           rel="stylesheet"

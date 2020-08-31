@@ -456,8 +456,8 @@ const MeetingAgendasPage = () => {
             </MuiNextLink>
           </Type>
           <Type paragraph>
-            For more information, contact the Agency Secretary/Clerk to the
-            Board at <ClerkToBoardEmail />
+            For more information, contact the Clerk to the Board at{' '}
+            <ClerkToBoardEmail />
           </Type>
         </WideContainer>
       </MainBox>
