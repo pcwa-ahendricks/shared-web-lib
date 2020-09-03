@@ -66,7 +66,7 @@ const MultimediaLightboxView = (props: any) => {
           style: {
             height: 'auto',
             width: 'auto',
-            maxHeight: '90vh',
+            maxHeight: '88vh',
             maxWidth: '100%',
             userSelect: 'none'
           }
