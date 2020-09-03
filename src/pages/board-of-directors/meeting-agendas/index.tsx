@@ -87,6 +87,25 @@ const params = {
 const qs = stringify({...params}, true)
 const agendasUrl = `/api/cosmic/media${qs}`
 
+// Set event as an object
+const event = {
+  title: 'PCWA Board Meeting',
+  description: nextBoardMeeting.note || '',
+  start: nextBoardMeeting.date,
+  end: addHours(nextBoardMeeting.date, 2),
+  // duration: [2, 'hour'],
+  allDay: false
+}
+
+const iCalEvent = ics && typeof ics === 'function' && event ? ics(event) : ''
+// standard ICS calendar base on https://icalendar.org/
+const yahooEventHref =
+  yahoo && typeof yahoo === 'function' && event ? yahoo(event) : ''
+const googleEventHref =
+  google && typeof google === 'function' && event ? google(event) : ''
+const outlookEventHref =
+  outlook && typeof outlook === 'function' && event ? outlook(event) : ''
+
 const MeetingAgendasPage = () => {
   const classes = useStyles()
   const theme = useTheme()
@@ -107,36 +126,6 @@ const MeetingAgendasPage = () => {
 
   const {data: agendasData, isValidating} = useSWR<AgendaList>(agendasUrl)
 
-  // Set event as an object
-  const event = {
-    title: 'PCWA Board Meeting',
-    description: nextBoardMeeting.note || '',
-    start: nextBoardMeeting.date,
-    end: addHours(nextBoardMeeting.date, 2),
-    // duration: [2, 'hour'],
-    allDay: false
-  }
-
-  const iCalEvent = useMemo(
-    () => (ics && typeof ics === 'function' && event ? ics(event) : ''),
-    [event]
-  ) // standard ICS calendar base on https://icalendar.org/
-
-  const yahooEventHref = useMemo(
-    () => (yahoo && typeof yahoo === 'function' && event ? yahoo(event) : ''),
-    [event]
-  )
-  const googleEventHref = useMemo(
-    () =>
-      google && typeof google === 'function' && event ? google(event) : '',
-    [event]
-  )
-  const outlookEventHref = useMemo(
-    () =>
-      outlook && typeof outlook === 'function' && event ? outlook(event) : '',
-    [event]
-  )
-
   const handleClose = useCallback(() => {
     setAnchorEl(null)
   }, [])
@@ -147,7 +136,7 @@ const MeetingAgendasPage = () => {
     const noUrlICalEvent = iCalEvent.replace(/url:.+?%0a/i, '')
     setAnchorEl(null)
     saveAs(noUrlICalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
-  }, [iCalEvent])
+  }, [])
 
   const agendas: AgendaList = useMemo(
     () =>
@@ -169,35 +158,36 @@ const MeetingAgendasPage = () => {
         : [],
     [agendasData]
   )
-  const financeCommitteeAgendas: AgendaList = useMemo(
-    () =>
-      agendas.filter(
-        (agenda) =>
-          agenda.metadata?.type?.toString().toLowerCase() ===
-          'finance-committee'
-      ),
-    [agendas]
-  )
 
-  const auditCommitteeAgendas: AgendaList = useMemo(
-    () =>
-      agendas.filter(
-        (agenda) =>
-          agenda.metadata?.type?.toString().toLowerCase() === 'audit-committee'
-      ),
-    [agendas]
-  )
-  const otherCommitteeAgendas: AgendaList = useMemo(
-    () =>
-      agendas.filter(
-        (agenda) =>
-          agenda.metadata?.type?.toString().toLowerCase() !==
-            'audit-committee' &&
-          agenda.metadata?.type?.toString().toLowerCase() !==
-            'finance-committee'
-      ),
-    [agendas]
-  )
+  // const financeCommitteeAgendas: AgendaList = useMemo(
+  //   () =>
+  //     agendas.filter(
+  //       (agenda) =>
+  //         agenda.metadata?.type?.toString().toLowerCase() ===
+  //         'finance-committee'
+  //     ),
+  //   [agendas]
+  // )
+
+  // const auditCommitteeAgendas: AgendaList = useMemo(
+  //   () =>
+  //     agendas.filter(
+  //       (agenda) =>
+  //         agenda.metadata?.type?.toString().toLowerCase() === 'audit-committee'
+  //     ),
+  //   [agendas]
+  // )
+  // const otherCommitteeAgendas: AgendaList = useMemo(
+  //   () =>
+  //     agendas.filter(
+  //       (agenda) =>
+  //         agenda.metadata?.type?.toString().toLowerCase() !==
+  //           'audit-committee' &&
+  //         agenda.metadata?.type?.toString().toLowerCase() !==
+  //           'finance-committee'
+  //     ),
+  //   [agendas]
+  // )
 
   const OtherAgenda = ({title, list}: {title: string; list: AgendaList}) => {
     return (
@@ -447,11 +437,8 @@ const MeetingAgendasPage = () => {
           </section>
           <Spacing size="x-large" factor={2} />
           <section>
-            <OtherAgenda
-              list={financeCommitteeAgendas}
-              title="Upcoming Board of Directors' Finance Committee Meetings"
-            />
-            <Spacing factor={2} />
+            <OtherAgenda list={agendas} title="Upcoming Committee Meetings" />
+            {/* <Spacing factor={2} />
             <OtherAgenda
               list={auditCommitteeAgendas}
               title="Upcoming Board of Directors' Audit Committee Meetings"
@@ -460,7 +447,7 @@ const MeetingAgendasPage = () => {
             <OtherAgenda
               list={otherCommitteeAgendas}
               title="Other Upcoming Board of Directors' Committee Meetings"
-            />
+            /> */}
           </section>
 
           <Spacing size="x-large" factor={2} />
