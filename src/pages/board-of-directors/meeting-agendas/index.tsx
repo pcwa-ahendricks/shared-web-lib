@@ -187,6 +187,17 @@ const MeetingAgendasPage = () => {
       ),
     [agendas]
   )
+  const otherCommitteeAgendas: AgendaList = useMemo(
+    () =>
+      agendas.filter(
+        (agenda) =>
+          agenda.metadata?.type?.toString().toLowerCase() !==
+            'audit-committee' &&
+          agenda.metadata?.type?.toString().toLowerCase() !==
+            'finance-committee'
+      ),
+    [agendas]
+  )
 
   const OtherAgenda = ({title, list}: {title: string; list: AgendaList}) => {
     return (
@@ -444,6 +455,11 @@ const MeetingAgendasPage = () => {
             <OtherAgenda
               list={auditCommitteeAgendas}
               title="Upcoming Board of Directors' Audit Committee Meetings"
+            />
+            <Spacing factor={2} />
+            <OtherAgenda
+              list={otherCommitteeAgendas}
+              title="Other Upcoming Board of Directors' Committee Meetings"
             />
           </section>
 
