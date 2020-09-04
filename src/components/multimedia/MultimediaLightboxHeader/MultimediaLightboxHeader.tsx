@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useContext, useEffect} from 'react'
 import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import FullscreenIcon from '@material-ui/icons/Fullscreen'
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit'
 import DownloadIcon from '@material-ui/icons/GetApp'
 import CloseIcon from '@material-ui/icons/Close'
 // [TODO] why?
@@ -73,7 +74,7 @@ const MultimediaLightboxHeader = ({
   }
 }) => {
   const classes = useStyles({interactionIsIdle})
-  const {onClose = null} = modalProps ? modalProps : {}
+  const {onClose = null, isFullscreen} = modalProps ? modalProps : {}
   const multimediaContext = useContext(MultimediaContext)
   const multimediaDispatch = multimediaContext.dispatch
 
@@ -189,7 +190,14 @@ const MultimediaLightboxHeader = ({
                 className={classes.headerButton}
                 onClick={modalProps?.toggleFullscreen}
               >
-                <FullscreenIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+                {!isFullscreen ? (
+                  <FullscreenIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+                ) : (
+                  <FullscreenExitIcon
+                    fontSize="large"
+                    style={{fill: '#FFFFFF'}}
+                  />
+                )}
               </IconButton>
             </Tooltip>
           </ChildBox>
