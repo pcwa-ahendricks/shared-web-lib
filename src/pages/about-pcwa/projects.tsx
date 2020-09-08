@@ -268,7 +268,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated August 7, 2020)
+                      Upcoming Work (updated September 8, 2020)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
@@ -278,36 +278,43 @@ const ProjectsPage = () => {
                       <TypeBullet>
                         <Type variant="body1">
                           Installing 18-inch ductile iron pipe across country
-                          between Indian Hill Road and Hillview Lane.
+                          between the railroad tracks and the hydraulic control
+                          standpipe located off Chantry Hill Road.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 33-inch welded steel pipe across country
-                          between Indian Hill Road and Hillview Lane.
+                          Installing 39-inch welded steel pipe across country
+                          between the railroad tracks and the hydraulic control
+                          standpipe located off of Chantry Hill Road.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 33-inch welded steel pipe along Indian Hill
-                          Road. Traffic delays are expected.
+                          Work through roadways, and traffic delays, are not
+                          anticipated in September.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Energy Dissipation
                           Station at the Foothill Water Treatment Plant, include
-                          pouring concrete, installing rebar, and installing
-                          mechanical equipment.
+                          stripping walls, forming and pouring concrete ceiling,
+                          and commencing installation of esthetic concrete
+                          masonry units on walls. Installation of electrical,
+                          plumbing and mechanical is ongoing. Concrete walls are
+                          complete.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Dutch Ravine
                           Energy Dissipation Structure at PCWA property located
-                          on Hillview Lane, include pouring concrete, installing
-                          rebar, installing mechanical equipment and installing
-                          electrical power.
+                          on Hillview Lane include installing large wear plates
+                          and setting up false work for pouring the concrete
+                          ceiling on the pit. Installation of electrical,
+                          plumbing and mechanical is ongoing. Concrete
+                          basement/pit walls are complete.
                         </Type>
                       </TypeBullet>
                     </ul>
