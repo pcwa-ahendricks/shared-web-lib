@@ -76,8 +76,8 @@ const bodySchema = object()
           .test(
             'min-sq-feet',
             'A minimum of 300 square feet of lawn must be converted',
-            (val): boolean => {
-              const stripped = val && val.replace(/[^0-9.]/, '')
+            (val) => {
+              const stripped = (val && val.replace(/[^0-9.]/, '')) || ''
               if (isNumber(stripped)) {
                 const valAsNo = Math.round(parseFloat(stripped))
                 return valAsNo >= 300

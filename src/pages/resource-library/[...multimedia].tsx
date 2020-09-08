@@ -149,7 +149,7 @@ const ResourceLibraryPage = ({
     // Convert lightbox index parameter to number, and 404 anything that IS something and isn't a number.
     if (isNumber(lightboxIndexParam)) {
       // lightboxIndex = parseInt(lightboxIndexParam, 10)
-      const v = parseInt(lightboxIndexParam, 10)
+      const v = parseInt(lightboxIndexParam ?? '', 10)
       multimediaDispatch(setLightboxIndex(v))
       multimediaDispatch(setLightboxViewerOpen(true))
 

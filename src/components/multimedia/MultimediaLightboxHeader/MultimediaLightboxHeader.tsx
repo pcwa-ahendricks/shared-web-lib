@@ -74,7 +74,7 @@ const MultimediaLightboxHeader = ({
   }
 }) => {
   const classes = useStyles({interactionIsIdle})
-  const {onClose = null, isFullscreen} = modalProps ? modalProps : {}
+  const {onClose = null, isFullscreen = false} = modalProps ? modalProps : {}
   const multimediaContext = useContext(MultimediaContext)
   const multimediaDispatch = multimediaContext.dispatch
 
