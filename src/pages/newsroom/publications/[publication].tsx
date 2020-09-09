@@ -494,6 +494,18 @@ const PublicationsPage = ({
                 >
                   <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="Fire & Water - 2020"
+                      publishedDate={parse(
+                        '09/09/2020',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf"
+                      imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
+                    />
+                  </ChildBox>
+                  {/* <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="Fire & Water - 2019"
                       publishedDate={parse(
                         '06/01/2019',
@@ -526,9 +538,9 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://cosmic-s3.imgix.net/6c45e8a0-e681-11e7-8b87-05a286370fcd-2017_Fire Water.pdf"
                       thumbImgixURL="https://cosmic-s3.imgix.net/228a8870-4871-11ea-83cb-8f40f59ef2f9-fire-water-2017-thumbnail.png"
-                      imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
+                      imgixCropMode="mid"
                     />
-                  </ChildBox>
+                  </ChildBox> */}
                 </RowBox>
               </TabPanel>
               <TabPanel value={tabIndex} index={2}>
