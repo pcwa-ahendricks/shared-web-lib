@@ -22,8 +22,8 @@ import {
   setLvDownloadMenuOpen,
   PhotoLibraryMetadata
 } from '../MultimediaStore'
-import filenamify from 'filenamify'
 import fileExtension from '@lib/fileExtension'
+import slugify from 'slugify'
 
 type UseStylesProps = {
   interactionIsIdle?: boolean
@@ -85,9 +85,7 @@ const MultimediaLightboxHeader = ({
     caption && caption.toLowerCase() !== 'undefined'
       ? `${caption}.${ext}`
       : original_name ?? ''
-  const downloadAs = filenamify(filename, {
-    maxLength: 255
-  })
+  const downloadAs = slugify(filename)
   const downloadUrlBase = `${imgix_url}?dl=${downloadAs}`
   const origDownloadUrl = downloadUrlBase
   const largeDownloadUrl = `${downloadUrlBase}&w=1200&h=1200`

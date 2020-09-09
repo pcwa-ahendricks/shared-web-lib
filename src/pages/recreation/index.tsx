@@ -16,7 +16,7 @@ import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import Spacing from '@components/boxes/Spacing'
-import filenamify from 'filenamify'
+import slugify from 'slugify'
 
 const recreationMapUrl =
   'https://cdn.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
@@ -114,7 +114,7 @@ const RecreationPage = () => {
                     mediaName={recreationMapAlt}
                     mediaPreviewDialogProps={{
                       showActions: true,
-                      dlUrl: `${recreationMapImgixUrl}?dl=${filenamify(
+                      dlUrl: `${recreationMapImgixUrl}?dl=${slugify(
                         recreationMapAlt
                       )}.pdf`
                     }}
@@ -150,7 +150,7 @@ const RecreationPage = () => {
                     mediaName={exploringTheMfAlt}
                     mediaPreviewDialogProps={{
                       showActions: true,
-                      dlUrl: `${exploringTheMfImgixUrl}?dl=${filenamify(
+                      dlUrl: `${exploringTheMfImgixUrl}?dl=${slugify(
                         exploringTheMfAlt
                       )}.pdf`
                     }}

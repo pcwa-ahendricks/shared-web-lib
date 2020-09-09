@@ -37,7 +37,7 @@ import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
-import filenamify from 'filenamify'
+import slugify from 'slugify'
 const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -150,7 +150,7 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
     // return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = filenamify(media?.original_name ?? '', {maxLength: 255})
+  const downloadAs = slugify(media?.original_name ?? '')
   const pageCount = additionalPages.length + 1
 
   return (

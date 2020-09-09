@@ -39,7 +39,7 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
-import filenamify from 'filenamify'
+import slugify from 'slugify'
 const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
@@ -132,7 +132,7 @@ const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
     return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = filenamify(media?.original_name ?? '')
+  const downloadAs = slugify(media?.original_name ?? '')
   const pageCount = additionalPages.length + 1
 
   return (

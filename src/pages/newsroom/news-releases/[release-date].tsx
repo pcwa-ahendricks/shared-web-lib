@@ -38,7 +38,7 @@ import {paramToStr} from '@lib/queryParamToStr'
 import {stringify} from 'querystringify'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
-import filenamify from 'filenamify'
+import slugify from 'slugify'
 const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -140,7 +140,7 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
   }
 
   const publishDate = media?.derivedFilenameAttr?.date
-  const downloadAs = filenamify(media?.original_name ?? '', {maxLength: 255})
+  const downloadAs = slugify(media?.original_name ?? '')
   const pageCount = additionalPages.length + 1
 
   return (

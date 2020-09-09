@@ -42,7 +42,6 @@ import {
   PublicationLibraryMetadata,
   PublicationList
 } from '@components/multimedia/MultimediaStore'
-import filenamify from 'filenamify'
 
 type Props = {
   err?: any
@@ -128,7 +127,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
     [loadingAddPages]
   )
 
-  const downloadAs = filenamify(media?.original_name ?? '', {maxLength: 255})
+  const downloadAs = slugify(media?.original_name ?? '')
   const pageCount = additionalPages.length + 1
   const title = media
     ? media.metadata?.title || media.derivedFilenameAttr?.title

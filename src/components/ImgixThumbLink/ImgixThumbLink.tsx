@@ -11,8 +11,8 @@ import {
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {ColumnBox} from '@components/boxes/FlexBox'
 import {BoxProps} from '@material-ui/core/Box'
-import filenamify from 'filenamify'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
+import slugify from 'slugify'
 
 type Props = {
   caption?: string
@@ -78,9 +78,7 @@ const ImgixThumbLink = ({
     setIsHover(false)
   }, [])
 
-  const downloadAs = useMemo(() => filenamify(filenameProp, {maxLength: 255}), [
-    filenameProp
-  ])
+  const downloadAs = useMemo(() => slugify(filenameProp), [filenameProp])
 
   const href = hrefProp || `${url}?dl=${downloadAs}`
 
