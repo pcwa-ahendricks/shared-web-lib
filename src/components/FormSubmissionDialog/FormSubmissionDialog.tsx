@@ -1,4 +1,3 @@
-// cspell:ignore waterefficiency
 import React, {useMemo} from 'react'
 import {
   Button,

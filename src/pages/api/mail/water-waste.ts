@@ -112,7 +112,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const mainRecipients: MailJetMessage['To'] = isDev
       ? []
-      : [{Email: 'waterefficiency@pcwa.net', Name: 'Water Efficiency'}]
+      : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
 
     // If user specified an email address include it.
     const senderRecipients: MailJetMessage['To'] = email

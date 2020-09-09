@@ -1,4 +1,3 @@
-// cspell:ignore waterefficiency cust
 import React from 'react'
 import {
   Button,

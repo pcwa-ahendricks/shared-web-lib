@@ -1,4 +1,3 @@
-// cspell:ignore waterefficiency
 import React, {useCallback} from 'react'
 import {
   Switch,

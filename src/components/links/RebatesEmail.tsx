@@ -1,5 +1,3 @@
-// cspell:ignore waterefficiency
-
 import React from 'react'
 import Link, {LinkProps} from '@material-ui/core/Link'
 
