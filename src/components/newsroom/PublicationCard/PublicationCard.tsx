@@ -20,7 +20,7 @@ import {format} from 'date-fns'
 import fileExtension from '@lib/fileExtension'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
-import filenamify from 'filenamify'
+import slugify from 'slugify'
 
 export type PublicationCardProps = {
   title: string
@@ -61,8 +61,9 @@ const PublicationCard = ({
   const [actionAreaIsHover, setActionAreaIsHover] = useState<boolean>(false)
   const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
 
+  // Don't use filenamify with imgix dl query parameter since it requires a safe URL.
   const downloadAs = useMemo(
-    () => `${filenamify(title, {maxLength: 255})}.${fileExtension(imgixURL)}`,
+    () => `${slugify(title)}.${fileExtension(imgixURL)}`,
     [imgixURL, title]
   )
 
