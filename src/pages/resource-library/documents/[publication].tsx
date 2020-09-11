@@ -104,7 +104,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
 
   const mediaPageHandler = useCallback(async () => {
-    const pages = await getMediaPages(media)
+    const pages = await getMediaPages(media?.imgix_url)
     if (pages) {
       const addPages = pages.slice(1)
       setAdditionalPages(addPages)

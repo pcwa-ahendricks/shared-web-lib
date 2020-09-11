@@ -173,16 +173,8 @@ const findMediaForPages = async <
   )
 }
 
-const getMediaPages = async <
-  T extends {
-    derivedFilenameAttr?: ReturnType<typeof fileNameUtil>
-    imgix_url?: string
-    url?: string
-  }
->(
-  media?: T
-) => {
-  if (!media) {
+const getMediaPages = async (imgixUrl?: string) => {
+  if (!imgixUrl) {
     return null
   }
   const requestLimit = 20
@@ -190,7 +182,7 @@ const getMediaPages = async <
   let requestPageNo = 1
   while (requestPageNo <= requestLimit) {
     const qs = stringify({page: requestPageNo}, true)
-    const url = `${media.imgix_url}${qs}`
+    const url = `${imgixUrl}${qs}`
     const response = await fetch(url)
     if (!response.ok) {
       break
