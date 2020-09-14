@@ -1,4 +1,4 @@
-// cspell:ignore novus ical
+// cspell:ignore novus ical thenby
 import React, {useMemo, useCallback, Fragment, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -31,6 +31,7 @@ import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import NovusIframe from '@components/NovusIframe/NovusIframe'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink from '@components/NextLink/NextLink'
+import {firstBy} from 'thenby'
 import {
   futureBoardMeetingDates,
   nextBoardMeeting
@@ -40,25 +41,45 @@ import {
   format,
   formatDistanceToNow,
   addHours,
-  parseISO
+  parse,
+  startOfDay,
+  isBefore
 } from 'date-fns'
 import {saveAs} from 'file-saver'
 import FlexBox, {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
-import {CosmicMediaMeta, fileNameUtil} from '@lib/services/cosmicService'
+import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ics, google, yahoo, outlook} from '@lib/calendar-link'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta<{type: string; website: string; debug: string}>,
-  'original_name' | 'imgix_url' | 'metadata' | 'url' | 'derivedFilenameAttr'
->
+type Props = {
+  initialData?: CosmicObjectResponse<AgendaMetadata>
+}
 
-type AgendaList = PickedMediaResponse[]
+const refreshInterval = 1000 * 60 * 2 // Two minute interval.
+const endOfBusinessDayHour = 17
+
+interface AgendaMetadata {
+  agenda_pdf: {
+    imgix_url: string
+    url: string
+  }
+  date: string
+  time: string
+  sort_order: number
+  hidden: boolean
+}
+const params = {
+  hide_metafields: true,
+  props: '_id,metadata,status,title',
+  type: 'agendas'
+}
+const qs = stringify({...params}, true)
+const agendasUrl = `/api/cosmic/objects${qs}`
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -76,16 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-// Note - using useMemo here is imperative so fetchAgendas() doesn't get called on each render.
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,metadata,url,derivedFilenameAttr'
-}
-const params = {
-  folder: 'agendas',
-  ...cosmicGetMediaProps
-}
-const qs = stringify({...params}, true)
-const agendasUrl = `/api/cosmic/media${qs}`
 
 // Set event as an object
 const event = {
@@ -106,7 +117,7 @@ const googleEventHref =
 const outlookEventHref =
   outlook && typeof outlook === 'function' && event ? outlook(event) : ''
 
-const MeetingAgendasPage = () => {
+const MeetingAgendasPage = ({initialData}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
@@ -124,7 +135,10 @@ const MeetingAgendasPage = () => {
     []
   )
 
-  const {data: agendasData, isValidating} = useSWR<AgendaList>(agendasUrl)
+  const {data: agendasData} = useSWR<CosmicObjectResponse<AgendaMetadata>>(
+    agendasUrl,
+    {initialData, refreshInterval}
+  )
 
   const handleClose = useCallback(() => {
     setAnchorEl(null)
@@ -138,135 +152,36 @@ const MeetingAgendasPage = () => {
     saveAs(noUrlICalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
   }, [])
 
-  const agendas: AgendaList = useMemo(
+  const agendas = useMemo(
     () =>
-      agendasData && Array.isArray(agendasData)
-        ? agendasData
-            .map((bm) => ({
-              ...bm,
-              derivedFilenameAttr: fileNameUtil(
-                bm.original_name,
-                DATE_FNS_FORMAT
-              )
+      agendasData && Array.isArray(agendasData.objects)
+        ? agendasData.objects
+            .map((agenda) => ({
+              dateTime: parse(
+                `${agenda.metadata.date}:${agenda.metadata.time}`,
+                "yyyy'-'MM'-'dd':'HHmm",
+                new Date()
+              ),
+              ...agenda
             }))
-            .filter(
-              (bm) =>
-                bm.metadata?.website?.toString().toLowerCase() === 'true' ||
-                (bm.metadata?.debug?.toString().toLowerCase() === 'true' &&
-                  isDev)
+            // Hide agendas that are explicitly hidden.
+            .filter((agenda) => !agenda.metadata?.hidden)
+            // Hide agendas on the close of business for a given date.
+            .filter((agenda) =>
+              isBefore(
+                agenda.dateTime,
+                addHours(startOfDay(agenda.dateTime), endOfBusinessDayHour)
+              )
+            )
+            // Sort by date and time then by sort order.
+            .sort(
+              firstBy((a: any, b: any) => compareAsc(a, b)).thenBy(
+                (a, b) => a.order - b.order
+              )
             )
         : [],
     [agendasData]
   )
-
-  // const financeCommitteeAgendas: AgendaList = useMemo(
-  //   () =>
-  //     agendas.filter(
-  //       (agenda) =>
-  //         agenda.metadata?.type?.toString().toLowerCase() ===
-  //         'finance-committee'
-  //     ),
-  //   [agendas]
-  // )
-
-  // const auditCommitteeAgendas: AgendaList = useMemo(
-  //   () =>
-  //     agendas.filter(
-  //       (agenda) =>
-  //         agenda.metadata?.type?.toString().toLowerCase() === 'audit-committee'
-  //     ),
-  //   [agendas]
-  // )
-  // const otherCommitteeAgendas: AgendaList = useMemo(
-  //   () =>
-  //     agendas.filter(
-  //       (agenda) =>
-  //         agenda.metadata?.type?.toString().toLowerCase() !==
-  //           'audit-committee' &&
-  //         agenda.metadata?.type?.toString().toLowerCase() !==
-  //           'finance-committee'
-  //     ),
-  //   [agendas]
-  // )
-
-  const OtherAgenda = ({title, list}: {title: string; list: AgendaList}) => {
-    return (
-      <>
-        <Type gutterBottom variant="h4">
-          {title}:
-        </Type>
-        <Box
-          p={3}
-          bgcolor={theme.palette.common.white}
-          boxShadow={1}
-          borderRadius={2}
-        >
-          {isValidating ? (
-            <FlexBox height={75}>
-              <Box m="auto">
-                <CircularProgress color="secondary" variant="indeterminate" />
-              </Box>
-            </FlexBox>
-          ) : list.length > 0 ? (
-            list.map((item, idx) => (
-              <RowBox key={idx}>
-                <ChildBox>
-                  <ImgixThumbLink
-                    isNextLink
-                    imageWidth={75}
-                    url={item.imgix_url}
-                    alt={`Thumbnail and link for ${title}`}
-                    as={`/board-of-directors/meeting-agendas/${
-                      item.derivedFilenameAttr?.date + '-' + item.metadata?.type
-                    }`}
-                    href="/board-of-directors/meeting-agendas/[agenda-slug]"
-                  />
-                </ChildBox>
-                <ChildBox ml={4}>
-                  <OpenInNewLink
-                    pdf
-                    isNextLink
-                    as={`/board-of-directors/meeting-agendas/${
-                      item.derivedFilenameAttr?.date + '-' + item.metadata?.type
-                    }`}
-                    href="/board-of-directors/meeting-agendas/[agenda-slug]"
-                  >
-                    <Type variant="subtitle1">
-                      {item.derivedFilenameAttr?.title}
-                    </Type>
-                  </OpenInNewLink>
-                  <Type variant="subtitle2" color="textSecondary" gutterBottom>
-                    {format(
-                      parseISO(item.derivedFilenameAttr?.publishedDate ?? ''),
-                      "eeee',' MMMM do, yyyy"
-                    )}
-                  </Type>
-                  <Type variant="body2" paragraph>
-                    Click the title link (or thumbnail image on left) to view
-                    the agenda, and for additional information including the
-                    time and location of this meeting.
-                  </Type>
-                </ChildBox>
-              </RowBox>
-            ))
-          ) : (
-            <RowBox fontStyle="italic" alignItems="center">
-              <ChildBox
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-              >
-                <InboxRoundedIcon fontSize="large" color="disabled" />
-              </ChildBox>
-              <ChildBox ml={4}>
-                <Type color="textSecondary">None at this time.</Type>
-              </ChildBox>
-            </RowBox>
-          )}
-        </Box>
-      </>
-    )
-  }
 
   return (
     <PageLayout title="Board Meetings" waterSurface>
@@ -437,7 +352,89 @@ const MeetingAgendasPage = () => {
           </section>
           <Spacing size="x-large" factor={2} />
           <section>
-            <OtherAgenda list={agendas} title="Upcoming Committee Meetings" />
+            {/* <CommitteeAgendas title="Upcoming Committee Meetings" /> */}
+
+            <Type gutterBottom variant="h4">
+              {/* {title}: */}
+              Upcoming Committee Meetings:
+            </Type>
+            <Box
+              p={3}
+              bgcolor={theme.palette.common.white}
+              boxShadow={1}
+              borderRadius={2}
+            >
+              {!agendas ? (
+                <FlexBox height={75}>
+                  <Box m="auto">
+                    <CircularProgress
+                      color="secondary"
+                      variant="indeterminate"
+                    />
+                  </Box>
+                </FlexBox>
+              ) : agendas.length > 0 ? (
+                agendas.map((item, idx) => (
+                  <RowBox key={idx}>
+                    <ChildBox>
+                      <ImgixThumbLink
+                        isNextLink
+                        imageWidth={75}
+                        url={item.metadata.agenda_pdf.imgix_url}
+                        alt={`Thumbnail and link for ${item.title}`}
+                        as={`/board-of-directors/meeting-agendas/${
+                          // item.derivedFilenameAttr?.date + '-' + item.metadata?.type
+                          format(item.dateTime, DATE_FNS_FORMAT) +
+                          '-' +
+                          item.title
+                        }`}
+                        href="/board-of-directors/meeting-agendas/[agenda-slug]"
+                      />
+                    </ChildBox>
+                    <ChildBox ml={4}>
+                      <OpenInNewLink
+                        pdf
+                        isNextLink
+                        as={`/board-of-directors/meeting-agendas/${
+                          // item.derivedFilenameAttr?.date + '-' + item.metadata?.type
+                          format(item.dateTime, DATE_FNS_FORMAT) +
+                          '-' +
+                          item.title
+                        }`}
+                        href="/board-of-directors/meeting-agendas/[agenda-slug]"
+                      >
+                        <Type variant="subtitle1">{item.title}</Type>
+                      </OpenInNewLink>
+                      <Type
+                        variant="subtitle2"
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        {format(item.dateTime, "eeee',' MMMM do, yyyy")}
+                      </Type>
+                      <Type variant="body2" paragraph>
+                        Click the title link (or thumbnail image on left) to
+                        view the agenda, and for additional information
+                        including the time and location of this meeting.
+                      </Type>
+                    </ChildBox>
+                  </RowBox>
+                ))
+              ) : (
+                <RowBox fontStyle="italic" alignItems="center">
+                  <ChildBox
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <InboxRoundedIcon fontSize="large" color="disabled" />
+                  </ChildBox>
+                  <ChildBox ml={4}>
+                    <Type color="textSecondary">None at this time.</Type>
+                  </ChildBox>
+                </RowBox>
+              )}
+            </Box>
             {/* <Spacing factor={2} />
             <OtherAgenda
               list={auditCommitteeAgendas}
