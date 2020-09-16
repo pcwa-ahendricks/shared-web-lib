@@ -249,6 +249,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths =
       data && Array.isArray(data.objects)
         ? data.objects
+            .filter((a) => !a.metadata.hidden)
             .filter((a) => a.title && a.metadata?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
             // Note - Just date (not time) is used with route name.
             .map((a) => ({
@@ -284,7 +285,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const agenda =
       data && Array.isArray(data.objects)
-        ? data.objects.find((a) => slugify(a.title) === agendaTitleSlug)
+        ? data.objects
+            .filter((a) => !a.metadata.hidden) // Don't allow navigation to hidden agendas.
+            .find((a) => slugify(a.title) === agendaTitleSlug)
         : null
 
     if (!agenda) {
