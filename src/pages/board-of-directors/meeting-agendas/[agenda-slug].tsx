@@ -287,7 +287,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       data && Array.isArray(data.objects)
         ? data.objects
             .filter((a) => !a.metadata.hidden) // Don't allow navigation to hidden agendas.
-            .find((a) => slugify(a.title) === agendaTitleSlug)
+            .find(
+              (a) =>
+                slugify(a.title) === agendaTitleSlug &&
+                a.metadata.date === agendaDateStr
+            )
         : null
 
     if (!agenda) {
