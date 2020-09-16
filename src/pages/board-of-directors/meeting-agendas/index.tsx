@@ -170,8 +170,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
             // Hide agendas on the close of business for a given date.
             .filter((agenda) =>
               isBefore(
-                // new Date(),
-                agenda.dateTime,
+                new Date(),
                 addHours(startOfDay(agenda.dateTime), endOfBusinessDayHour)
               )
             )

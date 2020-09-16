@@ -4,8 +4,6 @@ import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
-  fileNameUtil,
-  CosmicMediaMeta,
   getMediaPages,
   Page,
   CosmicObjectResponse
@@ -69,17 +67,6 @@ type Props = {
   agendaTitle?: string
   agendaDateStr?: string
 }
-
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta<{type: string; website: boolean}>,
-  | 'original_name'
-  | 'imgix_url'
-  | 'derivedFilenameAttr'
-  | 'size'
-  | 'metadata'
-  | 'url'
->
-type PickedMediaResponses = PickedMediaResponse[]
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -246,42 +233,31 @@ const DynamicBoardAgendasPage = ({
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const urlBase = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
+    const data = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
       `${urlBase}${agendasUrl}`
     )
+
     if (isDev) {
       const debug =
-        data && Array.isArray(data)
-          ? data
-              .map((bm) => ({
-                ...bm,
-                derivedFilenameAttr: fileNameUtil(
-                  bm.original_name,
-                  DATE_FNS_FORMAT
-                )
-              }))
-              .filter((bm) => !bm.derivedFilenameAttr.date)
-              .map((bm) => bm.original_name)
+        data && Array.isArray(data.objects)
+          ? data.objects
+              .filter((a) => !a.title || !a.metadata?.date)
+              .map((a) => slugify(`${a.metadata.date} - ${a.title}`))
           : []
       debug.forEach((i) => console.log(`Debug Board Meeting Agenda: ${i}`))
     }
     const paths =
-      data && Array.isArray(data)
-        ? data
-            .map((bm) => ({
-              ...bm,
-              derivedFilenameAttr: fileNameUtil(
-                bm.original_name,
-                DATE_FNS_FORMAT
-              )
-            }))
-            .filter((bm) => bm.derivedFilenameAttr.date && bm.metadata?.type) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((bm) => ({
+      data && Array.isArray(data.objects)
+        ? data.objects
+            .filter((a) => a.title && a.metadata?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            // Note - Just date (not time) is used with route name.
+            .map((a) => ({
               params: {
-                'agenda-slug': `${bm.derivedFilenameAttr.date}-${bm.metadata?.type}`
+                'agenda-slug': slugify(`${a.metadata.date} - ${a.title}`)
               }
             }))
         : []
+
     return {
       paths,
       fallback: true
@@ -314,7 +290,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     if (!agenda) {
       return {props: {err: {statusCode: 404}}}
     }
-    console.log('pdf', agenda.metadata.agenda_pdf)
     const agendaImgixUrl = agenda?.metadata.agenda_pdf.imgix_url
     const agendaTitle = agenda?.title
 
