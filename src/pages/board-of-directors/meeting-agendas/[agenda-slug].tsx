@@ -149,7 +149,7 @@ const DynamicBoardAgendasPage = ({
     return <ErrorPage statusCode={err.statusCode} />
   }
 
-  const downloadAs = slugify(agendaTitle)
+  const downloadAs = `${slugify(agendaTitle)}_${agendaDateStr}`
   const pageCount = additionalPages.length + 1
 
   return (
