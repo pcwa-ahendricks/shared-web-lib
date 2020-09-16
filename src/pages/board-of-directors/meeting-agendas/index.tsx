@@ -54,6 +54,7 @@ import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ics, google, yahoo, outlook} from '@lib/calendar-link'
+import slugify from 'slugify'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -169,6 +170,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
             // Hide agendas on the close of business for a given date.
             .filter((agenda) =>
               isBefore(
+                // new Date(),
                 agenda.dateTime,
                 addHours(startOfDay(agenda.dateTime), endOfBusinessDayHour)
               )
@@ -374,52 +376,51 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                   </Box>
                 </FlexBox>
               ) : agendas.length > 0 ? (
-                agendas.map((item, idx) => (
-                  <RowBox key={idx}>
-                    <ChildBox>
-                      <ImgixThumbLink
-                        isNextLink
-                        imageWidth={75}
-                        url={item.metadata.agenda_pdf.imgix_url}
-                        alt={`Thumbnail and link for ${item.title}`}
-                        as={`/board-of-directors/meeting-agendas/${
-                          // item.derivedFilenameAttr?.date + '-' + item.metadata?.type
-                          format(item.dateTime, DATE_FNS_FORMAT) +
-                          '-' +
-                          item.title
-                        }`}
-                        href="/board-of-directors/meeting-agendas/[agenda-slug]"
-                      />
-                    </ChildBox>
-                    <ChildBox ml={4}>
-                      <OpenInNewLink
-                        pdf
-                        isNextLink
-                        as={`/board-of-directors/meeting-agendas/${
-                          // item.derivedFilenameAttr?.date + '-' + item.metadata?.type
-                          format(item.dateTime, DATE_FNS_FORMAT) +
-                          '-' +
-                          item.title
-                        }`}
-                        href="/board-of-directors/meeting-agendas/[agenda-slug]"
-                      >
-                        <Type variant="subtitle1">{item.title}</Type>
-                      </OpenInNewLink>
-                      <Type
-                        variant="subtitle2"
-                        color="textSecondary"
-                        gutterBottom
-                      >
-                        {format(item.dateTime, "eeee',' MMMM do, yyyy")}
-                      </Type>
-                      <Type variant="body2" paragraph>
-                        Click the title link (or thumbnail image on left) to
-                        view the agenda, and for additional information
-                        including the time and location of this meeting.
-                      </Type>
-                    </ChildBox>
-                  </RowBox>
-                ))
+                agendas.map((item, idx) => {
+                  // Don't slugify route (ie "/")
+                  const linkAs = `/board-of-directors/meeting-agendas/${
+                    // item.derivedFilenameAttr?.date + '-' + item.metadata?.type
+                    slugify(
+                      format(item.dateTime, DATE_FNS_FORMAT) + '-' + item.title
+                    )
+                  }`
+                  return (
+                    <RowBox key={idx}>
+                      <ChildBox>
+                        <ImgixThumbLink
+                          isNextLink
+                          imageWidth={75}
+                          url={item.metadata.agenda_pdf.imgix_url}
+                          alt={`Thumbnail and link for ${item.title}`}
+                          as={linkAs}
+                          href="/board-of-directors/meeting-agendas/[agenda-slug]"
+                        />
+                      </ChildBox>
+                      <ChildBox ml={4}>
+                        <OpenInNewLink
+                          pdf
+                          isNextLink
+                          as={linkAs}
+                          href="/board-of-directors/meeting-agendas/[agenda-slug]"
+                        >
+                          <Type variant="subtitle1">{item.title}</Type>
+                        </OpenInNewLink>
+                        <Type
+                          variant="subtitle2"
+                          color="textSecondary"
+                          gutterBottom
+                        >
+                          {format(item.dateTime, "eeee',' MMMM do, yyyy")}
+                        </Type>
+                        <Type variant="body2" paragraph>
+                          Click the title link (or thumbnail image on left) to
+                          view the agenda, and for additional information
+                          including the time and location of this meeting.
+                        </Type>
+                      </ChildBox>
+                    </RowBox>
+                  )
+                })
               ) : (
                 <RowBox fontStyle="italic" alignItems="center">
                   <ChildBox

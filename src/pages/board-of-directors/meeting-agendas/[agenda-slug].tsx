@@ -1,4 +1,4 @@
-// cspell:ignore media
+// cspell:ignore media filesize
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -8,7 +8,7 @@ import {
   CosmicMediaMeta,
   getMediaPages,
   Page,
-  findMediaForPages
+  CosmicObjectResponse
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
@@ -23,7 +23,7 @@ import {
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import {format, parseJSON} from 'date-fns'
+import {format, parse} from 'date-fns'
 import {
   RowBox,
   RespRowBox,
@@ -44,10 +44,30 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
+interface AgendaMetadata {
+  agenda_pdf: {
+    imgix_url: string
+    url: string
+  }
+  date: string
+  time: string
+  sort_order: number
+  hidden: boolean
+}
+const params = {
+  hide_metafields: true,
+  props: '_id,metadata,status,title',
+  type: 'agendas'
+}
+const qs = stringify({...params}, true)
+const agendasUrl = `/api/cosmic/objects${qs}`
+
 type Props = {
   err?: any
-  media?: PickedMediaResponse
   agendaSlug?: string
+  agendaImgixUrl?: string
+  agendaTitle?: string
+  agendaDateStr?: string
 }
 
 type PickedMediaResponse = Pick<
@@ -60,12 +80,6 @@ type PickedMediaResponse = Pick<
   | 'url'
 >
 type PickedMediaResponses = PickedMediaResponse[]
-
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,metadata,url'
-}
-const qs = stringify({...cosmicGetMediaProps, folder: 'agendas'}, true)
-const boardAgendasUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -85,22 +99,29 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
+const DynamicBoardAgendasPage = ({
+  agendaImgixUrl = '',
+  agendaTitle = '',
+  agendaDateStr = '',
+  err,
+  agendaSlug
+}: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
 
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
+  const [agendaFilesize, setAgendaFilesize] = useState<number>()
 
   const mediaPageHandler = useCallback(async () => {
-    const pages = await getMediaPages(media?.imgix_url)
+    const pages = await getMediaPages(agendaImgixUrl)
     if (pages) {
-      const addPages = pages.slice(1)
+      const addPages = pages.slice(1) // Remove first page.
       setAdditionalPages(addPages)
     }
     setLoadingAddPages(false)
-  }, [media])
+  }, [agendaImgixUrl])
 
   useEffect(() => {
     setLoadingAddPages(true)
@@ -118,21 +139,30 @@ const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
   )
 
   const classes = useStyles()
-  const boardAgendaDateFormatted = media
+  const boardAgendaDateFormatted = agendaDateStr
     ? format(
-        parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
+        parse(agendaDateStr, DATE_FNS_FORMAT, new Date()),
         "EEEE',' MMMM do',' yyyy "
       )
     : ''
 
+  useEffect(() => {
+    const f = async () => {
+      const res = await fetch(agendaImgixUrl)
+      const b = await res.blob()
+      const {size} = b
+      if (typeof size === 'number') {
+        setAgendaFilesize(size)
+      }
+    }
+    f()
+  }, [agendaImgixUrl])
+
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!media) {
-    console.error('No media', media)
-    return <ErrorPage statusCode={404} />
   }
 
-  const downloadAs = slugify(media?.original_name ?? '')
+  const downloadAs = slugify(agendaTitle)
   const pageCount = additionalPages.length + 1
 
   return (
@@ -169,8 +199,8 @@ const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
               caption="Download Agenda"
               aria-label="Download board agenda"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${media?.imgix_url}?dl=${downloadAs}`}
-              fileSize={media?.size}
+              href={`${agendaImgixUrl}?dl=${downloadAs}`}
+              fileSize={agendaFilesize}
             />
           </ChildBox>
         </RespRowBox>
@@ -178,7 +208,7 @@ const DynamicBoardAgendasPage = ({media, err, agendaSlug}: Props) => {
           <PDFPage
             showLoading={true}
             alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
-            url={media?.imgix_url ?? ''}
+            url={agendaImgixUrl}
           />
           <Divider />
         </Box>
@@ -217,7 +247,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const urlBase = process.env.NEXT_PUBLIC_BASE_URL
     const data: PickedMediaResponses | undefined = await fetcher(
-      `${urlBase}${boardAgendasUrl}`
+      `${urlBase}${agendasUrl}`
     )
     if (isDev) {
       const debug =
@@ -268,24 +298,33 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const urlBase = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
-      `${urlBase}${boardAgendasUrl}`
+    const data = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
+      `${urlBase}${agendasUrl}`
     )
-    const bm =
-      data && Array.isArray(data)
-        ? data.map((bm) => ({
-            ...bm,
-            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
-          }))
-        : []
+
     const agendaSlug = paramToStr(params?.['agenda-slug'])
-    const findBy = (agenda: PickedMediaResponse) =>
-      agenda.derivedFilenameAttr?.date + '-' + agenda.metadata?.type ===
-      agendaSlug
-    const media = await findMediaForPages(bm, null, findBy)
+    const agendaDateStr = agendaSlug.substr(0, 10)
+    const agendaTitleSlug = agendaSlug.substr(11)
+
+    const agenda =
+      data && Array.isArray(data.objects)
+        ? data.objects.find((a) => slugify(a.title) === agendaTitleSlug)
+        : null
+
+    if (!agenda) {
+      return {props: {err: {statusCode: 404}}}
+    }
+    console.log('pdf', agenda.metadata.agenda_pdf)
+    const agendaImgixUrl = agenda?.metadata.agenda_pdf.imgix_url
+    const agendaTitle = agenda?.title
 
     return {
-      props: {media, agendaSlug},
+      props: {
+        agendaDateStr,
+        agendaSlug,
+        agendaTitle,
+        agendaImgixUrl
+      },
       revalidate: 5
     }
   } catch (error) {
