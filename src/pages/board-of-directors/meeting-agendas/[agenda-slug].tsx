@@ -295,7 +295,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         : null
 
     if (!agenda) {
-      return {props: {err: {statusCode: 404}}}
+      return {props: {err: {statusCode: 404}}, revalidate: 5}
     }
     const agendaImgixUrl = agenda?.metadata.agenda_pdf.imgix_url
     const agendaTitle = agenda?.title
