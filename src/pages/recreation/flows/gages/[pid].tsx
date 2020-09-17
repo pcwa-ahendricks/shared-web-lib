@@ -30,6 +30,8 @@ import {
 } from '@lib/services/pi/pi-web-api-types'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
+import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
+import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
@@ -85,7 +87,9 @@ const DynamicPiPage = ({
   )
   /* */
   /* Request 3 */
-  const elementDataItems = elementsData?.Items ?? []
+  const elementDataItems = useMemo(() => elementsData?.Items ?? [], [
+    elementsData
+  ])
   const activeElementData = useMemo(
     () => elementDataItems.find((item) => item.Name === activeGageItem?.id),
     [elementDataItems, activeGageItem?.id]
@@ -98,10 +102,13 @@ const DynamicPiPage = ({
   })
   /* */
 
-  const essdItems =
-    elementsStreamSetData && elementsStreamSetData?.Items
-      ? elementsStreamSetData?.Items
-      : []
+  const essdItems = useMemo(
+    () =>
+      elementsStreamSetData && elementsStreamSetData?.Items
+        ? elementsStreamSetData?.Items
+        : [],
+    [elementsStreamSetData]
+  )
   const names = essdItems.map((item) => item.Name)
   const values = essdItems.map((item) => item.Value)
   // Zip up metadata. If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
@@ -179,6 +186,17 @@ const DynamicPiPage = ({
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
+      <CollapsibleAlert
+        bottomBgGradient={false}
+        topBgGradient={false}
+        position={4}
+        severity="error"
+        // icon={<HomeWorkOutlinedIcon />}
+      >
+        <AlertTitle>Scheduled Maintenance for River Flows Page</AlertTitle>
+        PCWA River Flows will be unavailable due to scheduled maintenance on
+        Monday, September 21st from 6:00am until 12:00pm.
+      </CollapsibleAlert>
       {/* Don't use top margin with this page. */}
       <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}
