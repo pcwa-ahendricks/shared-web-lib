@@ -189,7 +189,7 @@ const DynamicPiPage = ({
       <CollapsibleAlert
         bottomBgGradient={false}
         topBgGradient={false}
-        position={4}
+        position={99} // Shouldn't conflict with Cosmic alerts.
         severity="error"
         // icon={<HomeWorkOutlinedIcon />}
       >
