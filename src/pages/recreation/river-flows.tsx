@@ -24,6 +24,8 @@ import NextLink from 'next/link'
 import {useRouter} from 'next/router'
 import defaultPageGage from '@components/pi/defaultPageGage'
 
+const cardImageHeight = 200
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.common.white
     },
     media: {
-      height: 200
+      height: cardImageHeight
     }
   })
 )
@@ -97,11 +99,18 @@ const ResponsiveImageTemplatePage = () => {
           <FlexBox>
             <Card className={classes.card}>
               <CardActionArea onClick={cardClickHandler}>
-                <CardMedia
-                  className={classes.media}
-                  image="https://cosmicjs.imgix.net/6635fa60-61c3-11e7-9d28-7b65c66a2644-French_Meadows_Inlet_04.jpg"
-                  title="A Photo of the Middle Fork American River near French Meadows Reservoir"
-                />
+                <CardMedia component="div" className={classes.media}>
+                  <LazyImgix
+                    src="https://cosmicjs.imgix.net/6635fa60-61c3-11e7-9d28-7b65c66a2644-French_Meadows_Inlet_04.jpg"
+                    htmlAttributes={{
+                      alt: `A Photo of the Middle Fork American River near French Meadows Reservoir`,
+                      style: {
+                        height: cardImageHeight,
+                        objectFit: 'cover'
+                      }
+                    }}
+                  />
+                </CardMedia>
                 <CardContent>
                   <Type gutterBottom variant="h5" component="h2">
                     Recorded River & Reservoir Conditions
