@@ -30,8 +30,8 @@ import {
 } from '@lib/services/pi/pi-web-api-types'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
-import {AlertTitle} from '@material-ui/lab'
+// import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
+// import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
@@ -186,7 +186,7 @@ const DynamicPiPage = ({
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <CollapsibleAlert
+      {/* <CollapsibleAlert
         bottomBgGradient={false}
         topBgGradient={false}
         position={101} // Don't conflict with Cosmic alerts. Use 101-199 for page specific alerts.
@@ -196,7 +196,7 @@ const DynamicPiPage = ({
         <AlertTitle>Scheduled Maintenance for River Flows Page</AlertTitle>
         PCWA River Flows will be unavailable due to scheduled maintenance on
         Monday, September 21st from 6:00am until 12:00pm.
-      </CollapsibleAlert>
+      </CollapsibleAlert> */}
       {/* Don't use top margin with this page. */}
       <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}
