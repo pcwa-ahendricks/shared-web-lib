@@ -108,11 +108,18 @@ const EnvironmentalPlanningPage = () => {
               >
                 2016 American River Basin Study
               </OpenInNewLink>
+              <OpenInNewLink
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/f6925ec0-027c-11eb-be35-433e751f849e-NRMP-ReportApril-2009.pdf"
+              >
+                Natural Resources Management Plan
+              </OpenInNewLink>
 
               <Spacing />
-              <Type variant="h3" gutterBottom>
+              {/* <Type variant="h3" gutterBottom>
                 Environmental Review
-              </Type>
+              </Type> */}
+
               {/* <OpenInNewLink
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/eb914a90-44bf-11e8-b4ba-c9828ea342a7-Notice of Intent for the PCWA Weather Modification Project.pdf"
@@ -126,7 +133,8 @@ const EnvironmentalPlanningPage = () => {
                 Initial Study & Negative Declaration for the PCWA Weather
                 Modification Project
               </OpenInNewLink> */}
-              <OpenInNewLink
+
+              {/* <OpenInNewLink
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/c92cd580-c87c-11ea-b44f-f5c7da208e23-NOI-for-MFIB.pdf"
               >
@@ -139,7 +147,7 @@ const EnvironmentalPlanningPage = () => {
               >
                 Subsequent Impact Report for the Middle Fork Interbay Sediment
                 Management Project
-              </OpenInNewLink>
+              </OpenInNewLink> */}
             </ChildBox>
           </RespRowBox>
         </NarrowContainer>
