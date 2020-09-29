@@ -50,6 +50,8 @@ const PROJECTS_IMG_SRC =
   'https://cosmic-s3.imgix.net/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg'
 const BOARD_MEETING_IMG_SRC =
   'https://cosmic-s3.imgix.net/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png'
+const FIRE_AND_WATER_IMG_SRC =
+  'https://imgix.cosmicjs.com/dab28f40-f2e1-11ea-a3de-692d5982216c-Fire--Water-Cover---2020.jpg'
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
@@ -166,8 +168,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
               to COVID-19 concerns of the best practices to help ensure the health
               and safety of the occupants of your buildings."
             /> */}
-
-            <CoverStory
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Drought-Proofing PCWA’s Water Supply"
@@ -185,6 +186,24 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
                 htmlAttributes: {alt: 'Aerial view of construction site.'}
               }}
               body="Placer County is home to some of the highest-quality water in the world. Though our water supply here is more reliable than many other California communities, droughts are predicted to become more severe and demands will intensify. PCWA has invested in our water system to increase our ability to pump, treat, store and move water when and where needed. Watch this video to learn more."
+            /> */}
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="Fire & Water, 2020 Edition"
+              flexLinkProps={{
+                isNextLink: false
+              }}
+              linkHref="https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf"
+              imgixURL={FIRE_AND_WATER_IMG_SRC}
+              imgixFancyProps={{
+                lqipSrc: lqip?.[FIRE_AND_WATER_IMG_SRC],
+                // imgixParams: {
+                //   crop: 'top'
+                // },
+                htmlAttributes: {alt: 'Cover page of Fire & Water publication'}
+              }}
+              body="Fire & Water is a special publication sponsored by PCWA to provide timely information to residents about vital fire and water issues. Read the 2020 edition with contributions from Cal Fire, Placer County, Tahoe National Forest, and more.  "
             />
           </ChildBox>
           <ChildBox flex="50%">
