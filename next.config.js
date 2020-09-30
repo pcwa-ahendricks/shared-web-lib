@@ -51,7 +51,7 @@ const miscRedirects = [
   {
     source: '/files/docs/fin/PO-Terms-and-Conditions(\\.pdf)?',
     destination:
-      'https://cdn.cosmicjs.com/767de300-736a-11e9-83aa-77acac9a281a-PurchaseOrderTermsandConditions.pdf',
+      'https://cdn.cosmicjs.com/f57a9a30-034d-11eb-9528-f5a6da2be217-Purchase-Order-Terms-and-Conditions.pdf',
     permanent: false
   },
   {
