@@ -26,10 +26,13 @@ const EnvironmentalPlanningPage = () => {
   }
 
   return (
-    <PageLayout title="Environmental Planning" waterSurface>
+    <PageLayout title="Environmental Planning & Compliance" waterSurface>
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Environmental Planning" subtitle="General" />
+          <PageTitle
+            title="Environmental Planning & Compliance"
+            subtitle="General"
+          />
           <RespRowBox flexSpacing={6}>
             <ChildBox flex="35%" display="flex">
               <Box
@@ -141,6 +144,18 @@ const EnvironmentalPlanningPage = () => {
                 Notice of Intent for the Middle Fork Interbay Sediment
                 Management Project
               </OpenInNewLink>
+              <OpenInNewLink
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/ca6f4090-c87c-11ea-b44f-f5c7da208e23-MFIBDraftCEQA06252020.pdf"
+              >
+                Subsequent Impact Report for the Middle Fork Interbay Sediment
+                Management Project
+              </OpenInNewLink> */}
+              {/* 
+              <Spacing />
+              <Type variant="h3" gutterBottom>
+                FERC Relicensing & Compliance
+              </Type>
               <OpenInNewLink
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/ca6f4090-c87c-11ea-b44f-f5c7da208e23-MFIBDraftCEQA06252020.pdf"

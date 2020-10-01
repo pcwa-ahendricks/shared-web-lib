@@ -71,7 +71,7 @@ const menuConfig: MenuConfig[] = [
           },
           {title: 'Contact Us', nextLink: '/contact-us'},
           {
-            title: 'Environmental Planning',
+            title: 'Environmental Planning & Compliance',
             nextLink: '/about-pcwa/environmental-planning'
           },
           {
