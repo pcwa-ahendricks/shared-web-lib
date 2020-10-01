@@ -51,7 +51,7 @@ const PROJECTS_IMG_SRC =
 const BOARD_MEETING_IMG_SRC =
   'https://cosmic-s3.imgix.net/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png'
 const FIRE_AND_WATER_IMG_SRC =
-  'https://imgix.cosmicjs.com/dab28f40-f2e1-11ea-a3de-692d5982216c-Fire--Water-Cover---2020.jpg'
+  'https://imgix.cosmicjs.com/005050e0-0415-11eb-b508-690c39111331-FW-Home-page-thumbnail.jpg'
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
