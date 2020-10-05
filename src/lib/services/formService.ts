@@ -78,6 +78,7 @@ export interface LawnReplacementRebateFormData {
   irrigMethod: string
   useArtTurf: BooleanAsString
   alreadyStarted: BooleanAsString
+  upgradeLocations: IrrigUpgradeLocationOpts
 }
 
 export interface LawnReplacementRequestBody {

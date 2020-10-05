@@ -5,14 +5,32 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
-import {Typography as Type, Box, useTheme} from '@material-ui/core'
+import {
+  Typography as Type,
+  Box,
+  useTheme,
+  makeStyles,
+  createStyles,
+  Theme
+} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    openInNewLinkBox: {
+      '& strong, b': {
+        color: theme.palette.primary.light
+      }
+    }
+  })
+)
+
 const EnvironmentalPlanningPage = () => {
+  const classes = useStyles()
   const theme = useTheme()
 
   const linkProps: Partial<OpenInNewLinkProps> = {
@@ -28,11 +46,11 @@ const EnvironmentalPlanningPage = () => {
 
   const OpenInNewLinkBox = useCallback(
     (props: OpenInNewLinkProps) => (
-      <Box>
+      <Box className={classes.openInNewLinkBox}>
         <OpenInNewLink {...props} />
       </Box>
     ),
-    []
+    [classes]
   )
 
   return (
@@ -219,25 +237,26 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/a9ad3cf0-0372-11eb-9528-f5a6da2be217-DraftRECNov2012.pdf"
               >
-                Recreation Plan
+                Recreation Plan <strong>[Draft]</strong>
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/d61b4ac0-0372-11eb-9528-f5a6da2be217-DraftSMPFeb2011.pdf"
               >
-                Sediment Management Plan
+                Sediment Management Plan <strong>[Draft]</strong>
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/8e6a7a70-0372-11eb-9528-f5a6da2be217-DraftSREGPNov2012.pdf"
               >
-                Streamflow and Reservoir Elevation Gaging Plan
+                Streamflow and Reservoir Elevation Gaging Plan{' '}
+                <strong>[Draft]</strong>
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/d5cc6770-0372-11eb-9528-f5a6da2be217-DraftTSMPNov2012.pdf"
               >
-                Transportation System Management Plan
+                Transportation System Management Plan <strong>[Draft]</strong>
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}

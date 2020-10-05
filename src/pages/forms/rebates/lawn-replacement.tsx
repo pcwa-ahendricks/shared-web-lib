@@ -48,6 +48,9 @@ import FormValidate from '@components/forms/FormValidate/FormValidate'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
+import IrrigUpgradeLocationCheckboxes, {
+  formControlItems as initialIrrigUpgradeLocationOpts
+} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
 
@@ -130,7 +133,14 @@ const formSchema = object()
     irrigMethod: string().required().label('Irrigation Method').notOneOf(
       ['Hand water'], // Case sensitive
       'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
-    )
+    ),
+    upgradeLocations: object()
+      .required()
+      .test(
+        'has-one-location-option',
+        'You must select at least one location option',
+        hasTrueValue
+      )
   })
 
 const initialFormValues: RebateFormData = {
@@ -152,7 +162,8 @@ const initialFormValues: RebateFormData = {
   irrigMethod: '',
   approxSqFeet: '',
   useArtTurf: '',
-  alreadyStarted: ''
+  alreadyStarted: '',
+  upgradeLocations: {...initialIrrigUpgradeLocationOpts}
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -413,6 +424,22 @@ const LawnReplacement = () => {
                                 component={AlreadyStartedSelect}
                               />
                             </Grid>
+                            <Grid item xs={12}>
+                              <Type
+                                variant="h5"
+                                color="textPrimary"
+                                gutterBottom
+                              >
+                                Location of the irrigation equipment you plan to
+                                upgrade
+                              </Type>
+
+                              <Field
+                                name="upgradeLocations"
+                                disabled={ineligible}
+                                component={IrrigUpgradeLocationCheckboxes}
+                              />
+                            </Grid>
                           </Grid>
 
                           <Grid container spacing={5}>
@@ -668,3 +695,11 @@ const LawnReplacement = () => {
 }
 
 export default LawnReplacement
+
+function hasTrueValue(value: any): boolean {
+  return (
+    value &&
+    typeof value === 'object' &&
+    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
+  )
+}

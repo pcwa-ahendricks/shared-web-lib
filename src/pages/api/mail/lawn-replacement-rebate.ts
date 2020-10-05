@@ -36,6 +36,9 @@ interface FormDataObj {
   useArtTurf: string
   alreadyStarted: string
   approxSqFeet: string
+  upgradeLocations: {
+    [key: string]: boolean
+  }
 }
 
 const bodySchema = object()
@@ -84,6 +87,13 @@ const bodySchema = object()
               }
               return false
             }
+          ),
+        upgradeLocations: object()
+          .required()
+          .test(
+            'has-one-location-option',
+            'upgradeLocations has no truth',
+            hasTrueValue
           )
       })
   })
@@ -119,6 +129,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       otherCity = '',
       phone,
       propertyType,
+      upgradeLocations,
       treatedCustomer,
       irrigMethod,
       useArtTurf,
@@ -157,6 +168,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const replyToName = `${firstName} ${lastName}`
 
+    const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
     const commentsLength = comments.length
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
@@ -189,6 +201,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             email,
             phone,
             propertyType,
+            upgradeLocations: mappedUpgradeLocations,
             treatedCustomer,
             irrigMethod,
             useArtTurf,
@@ -220,3 +233,23 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 }
 
 export default mainHandler
+
+function mapTruthyKeys(obj: any) {
+  return Object.keys(obj)
+    .map((key) => {
+      if (obj[key] === true) {
+        return key
+      } else {
+        return null
+      }
+    })
+    .filter(Boolean)
+}
+
+function hasTrueValue(value: any): boolean {
+  return (
+    value &&
+    typeof value === 'object' &&
+    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
+  )
+}
