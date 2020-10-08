@@ -25,16 +25,25 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 interface Material {
   id: number
   title: string
-  revision: string
+  // revision: string
   url: string
   approved: Date
 }
 
-const materials: Material[] = []
+const materials: Material[] = [
+  {
+    id: 1,
+    title: 'Appendix D - Pre-Approved Materials list',
+    approved: new Date('2020-10-08T17:00:00'),
+    // revision: '1',
+    url:
+      'https://cdn.cosmicjs.com/07146070-097d-11eb-8384-23ea516820cc-Appendix-D---Pre-Approved-Materials.pdf'
+  }
+]
 
 const MaterialsListUpdatesPage = () => {
   const theme = useTheme()
-  const MaterialListItem = ({title, revision, approved}: Material) => {
+  const MaterialListItem = ({title, approved}: Material) => {
     return (
       <RespRowBox alignItems="center">
         {/* minWidth aides with ellipsis display with noWrap prop. */}
@@ -44,11 +53,11 @@ const MaterialsListUpdatesPage = () => {
             {title}
           </Type>
         </ChildBox>
-        <ChildBox flex="20%" minWidth={0}>
+        {/* <ChildBox flex="20%" minWidth={0}>
           <Type variant="body2" noWrap>
             {revision}
           </Type>
-        </ChildBox>
+        </ChildBox> */}
         <ChildBox flex="35%" minWidth={0}>
           <Type variant="body2" noWrap>
             Approved {format(approved, 'MM/dd/yyyy')}
