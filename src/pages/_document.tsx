@@ -3,7 +3,7 @@
 
 // ./pages/_document.js
 import React from 'react'
-import Document, {Head, Main, NextScript} from 'next/document'
+import Document, {Html, Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheets} from '@material-ui/core'
 // import webFontConfig from '@lib/webFontConfig'
 import theme from '@lib/material-theme'
@@ -19,7 +19,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <html lang="en" dir="ltr">
+      <Html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
           <meta
@@ -121,7 +121,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }
