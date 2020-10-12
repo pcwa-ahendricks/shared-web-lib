@@ -172,13 +172,14 @@ const DistrictBoundariesMap = () => {
     <>
       <Head>
         {/* yarn why @mapbox/mapbox-gl-geocoder */}
-        <link
+        {/* (Versioning) Less confusing when simply imported in _app.tsx. Stylesheet is relatively small. */}
+        {/* <link
           href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
           rel="stylesheet"
-        />
+        /> */}
         {/* yarn why mapbox-gl */}
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
           rel="stylesheet"
         />
       </Head>
