@@ -44,7 +44,7 @@ type CollapsibleCosmicAlertProps = {
 } & CollapsibleAlertProps
 
 const iconParserOptions: HTMLReactParserOptions = {
-  replace: ({children, attribs, name}) => {
+  replace: ({children = [], attribs, name}) => {
     if (name === 'svg') {
       return (
         <SvgIcon {...attribs}>
@@ -58,7 +58,7 @@ const iconParserOptions: HTMLReactParserOptions = {
 }
 
 const bodyParserOptions: HTMLReactParserOptions = {
-  replace: ({children, attribs, name}) => {
+  replace: ({children = [], attribs, name}) => {
     if (name === 'p') {
       return (
         <Type {...attribs} color="inherit" variant="inherit" paragraph={false}>
@@ -274,7 +274,7 @@ function CollapsibleCosmicAlert({
 
   const SvgIconEx = useCallback(
     () => (svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />),
-    [svgIconText]
+    [svgIconText, ParsedSvgIcon]
   )
 
   return (

@@ -53,7 +53,7 @@ const outagesUrl = `/api/cosmic/objects${qs}`
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
 const options: HTMLReactParserOptions = {
-  replace: ({children, attribs, name}) => {
+  replace: ({children = [], attribs, name}) => {
     // if (!attribs) return
 
     // Strip ALL Style properties from HTML.

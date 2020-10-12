@@ -13,7 +13,7 @@ export type FlexLinkProps = {
   children: React.ReactNode
   isNextLink?: boolean
   detectNext?: boolean
-} & MuiNextLinkProps
+} & Partial<MuiNextLinkProps>
 
 const IS_NEXT_RE = /^http(s)?:\/\/(www\.)?pcwa\.net/i // http or https. www sub-domain optional. url lib requires protocol so regular expression should expect protocol too.
 const IS_NEWS_RELEASE_RE = /^\/newsroom\/news-releases\/.+/i
@@ -51,13 +51,14 @@ const FlexLink = ({
 
   // Note - Detection using Regular Expression will override isNextLink prop value.
   const isNextLink = useMemo(
-    () => (!detectNext ? isNextLinkProp : IS_NEXT_RE.test(hrefProp)),
+    () =>
+      !detectNext ? isNextLinkProp : hrefProp && IS_NEXT_RE.test(hrefProp),
     [isNextLinkProp, detectNext, hrefProp]
   )
 
   // Strip www.pcwa.net out of Next links and set "as" prop accordingly.
   useEffect(() => {
-    if (detectNext && IS_NEXT_RE.test(hrefProp)) {
+    if (detectNext && hrefProp && IS_NEXT_RE.test(hrefProp)) {
       const {path} = parse(hrefProp)
       if (IS_NEWS_RELEASE_RE.test(path ?? '')) {
         setAs(path ?? '')
@@ -75,10 +76,10 @@ const FlexLink = ({
     }
   }, [hrefProp, detectNext])
 
-  const hasHref = useMemo(() => href.length > 0, [href])
+  const hasHref = useMemo(() => href && href.length > 0, [href])
 
   // wait for detection to complete (if "detectNext" is true) to pass href to Next Link
-  const muiNextLinkHref = detectNext && !detectedNext ? '#' : href
+  const muiNextLinkHref = !href || (detectNext && !detectedNext) ? '#' : href
 
   const flexLinkEl = useMemo(
     () =>
