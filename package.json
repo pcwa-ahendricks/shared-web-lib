@@ -24,7 +24,7 @@
     "format": "prettier --config .prettierrc --write './src/**/*.{ts,tsx,css}'",
     "type-check": "tsc --noEmit -p .",
     "type-check:watch": "npm run type-check -- --watch",
-    "lint": "eslint -c .eslintrc.json 'src/**/*.{ts,tsx}' 'api/**/*.ts'",
+    "lint": "eslint -c .eslintrc.json 'src/**/*.{ts,tsx}'",
     "build:modernizr": "modernizr -q -c modernizr-config.json -d src/lib/modernizr.js",
     "test": "ava"
   },
