@@ -18,7 +18,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
 import EventIcon from '@material-ui/icons/Event'
-import WavesIcon from '@material-ui/icons/Waves'
+// import WavesIcon from '@material-ui/icons/Waves'
 import FlexBox, {
   RespRowBox,
   ChildBox,
@@ -249,7 +249,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                 color={theme.palette.grey['800']}
               >
                 <RowBox alignItems="center">
-                  <WavesIcon
+                  <EventIcon
                     color="inherit"
                     style={{
                       marginRight: theme.spacing(1),
@@ -278,7 +278,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                   .
                 </Type>
               </Box>
-              <Spacing />
+              {/* <Spacing />
               <Box
                 bgcolor={theme.palette.grey['100']}
                 p={2}
@@ -314,10 +314,9 @@ const OutageInformationPage = ({initialData}: Props) => {
                   </MuiLink>
                   .
                 </Type>
-              </Box>
-
+              </Box> */}
+              <Spacing size="large" />
               <Box
-                mt={8}
                 boxShadow={2}
                 p={2}
                 bgcolor={theme.palette.grey['100']}
