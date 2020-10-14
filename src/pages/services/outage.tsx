@@ -4,10 +4,13 @@ import {
   Theme,
   Link as MuiLink,
   Typography as Type,
+  lighten,
+  darken,
   Divider,
   CircularProgress,
   useTheme
 } from '@material-ui/core'
+// import {blueGrey} from '@material-ui/core/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -15,6 +18,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
 import EventIcon from '@material-ui/icons/Event'
+import WavesIcon from '@material-ui/icons/Waves'
 import FlexBox, {
   RespRowBox,
   ChildBox,
@@ -91,6 +95,7 @@ const options: HTMLReactParserOptions = {
 
 const OutageInformationPage = ({initialData}: Props) => {
   const theme = useTheme<Theme>()
+  const paletteType = theme.palette.type === 'light' ? lighten : darken
 
   const {data: outages} = useSWR<CosmicObjectResponse<OutageMetadata>>(
     outagesUrl,
@@ -238,6 +243,43 @@ const OutageInformationPage = ({initialData}: Props) => {
             </ChildBox>
             <ChildBox flex="35%">
               <Box
+                bgcolor={paletteType(theme.palette.warning.main, 0.92)}
+                p={2}
+                boxShadow={2}
+                color={theme.palette.grey['800']}
+              >
+                <RowBox alignItems="center">
+                  <WavesIcon
+                    color="inherit"
+                    style={{
+                      marginRight: theme.spacing(1),
+                      alignSelf: 'stretch'
+                      // color: blueGrey[400]
+                    }}
+                  />
+                  <Type gutterBottom variant="subtitle2" color="textPrimary">
+                    2020 Annual PG&E Fall Canal Outage Schedule
+                  </Type>
+                </RowBox>
+                <Type paragraph variant="body2" color="inherit">
+                  Every year PG&E conducts it's Fall Canal Water Outage in order
+                  to perform maintenance and inspection of it's canals. To see
+                  start and end dates and to find out more information about
+                  these outages{' '}
+                  <MuiLink
+                    href="https://cdn.cosmicjs.com/0d155d70-0e3d-11eb-9f4c-e15314e49fa9-2020-Annual-PGE-Fall-Canal-Outage.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Link to 2020 Annual PG&E Fall Canal Outage Schedule"
+                    underline="always"
+                  >
+                    <ClickOrTap /> here for the current Schedule
+                  </MuiLink>
+                  .
+                </Type>
+              </Box>
+              <Spacing />
+              <Box
                 bgcolor={theme.palette.grey['100']}
                 p={2}
                 boxShadow={2}
@@ -266,6 +308,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Link to 2020 Canal Cleaning Schedule"
+                    underline="always"
                   >
                     <ClickOrTap /> here for Zone 1 and Zone 3
                   </MuiLink>
