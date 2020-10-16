@@ -268,7 +268,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated September 8, 2020)
+                      Upcoming Work (updated October 15, 2020)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
@@ -277,44 +277,53 @@ const ProjectsPage = () => {
                     <ul>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 18-inch ductile iron pipe across country
-                          between the railroad tracks and the hydraulic control
-                          standpipe located off Chantry Hill Road.
+                          Cleaning up work areas, and installing permanent
+                          fence.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installing 39-inch welded steel pipe across country
-                          between the railroad tracks and the hydraulic control
-                          standpipe located off of Chantry Hill Road.
+                          Installing stormwater pollution prevention material
+                          and hydroseed in anticipation of winter in areas where
+                          the raw water and treated water pipe have been
+                          installed.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Work through roadways, and traffic delays, are not
-                          anticipated in September.
+                          anticipated in October.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Energy Dissipation
-                          Station at the Foothill Water Treatment Plant, include
-                          stripping walls, forming and pouring concrete ceiling,
-                          and commencing installation of esthetic concrete
-                          masonry units on walls. Installation of electrical,
-                          plumbing and mechanical is ongoing. Concrete walls are
-                          complete.
+                          Station at the Foothill Water Treatment Plant,
+                          continue installation of esthetic concrete masonry
+                          units and glass blocks on walls. Installation of
+                          electrical, plumbing and mechanical is ongoing.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Dutch Ravine
                           Energy Dissipation Structure at PCWA property located
-                          on Hillview Lane include installing large wear plates
-                          and setting up false work for pouring the concrete
-                          ceiling on the pit. Installation of electrical,
-                          plumbing and mechanical is ongoing. Concrete
-                          basement/pit walls are complete.
+                          on Hillview Lane. Installation of electrical, plumbing
+                          and mechanical is ongoing. Concrete basement/pit walls
+                          are complete.
+                        </Type>
+                      </TypeBullet>
+                      <TypeBullet>
+                        <Type variant="body1">
+                          Grading for the Hydraulic Control Standpipe that will
+                          be located adjacent to Indian Hill Road.
+                        </Type>
+                      </TypeBullet>
+                      <TypeBullet>
+                        <Type variant="body1">
+                          Installation of the 36-inch and 42-inch overflow pipe
+                          from the Hydraulic Control Standpipe to the railroad
+                          tracks. .
                         </Type>
                       </TypeBullet>
                     </ul>
