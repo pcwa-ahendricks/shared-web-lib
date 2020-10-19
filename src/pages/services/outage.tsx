@@ -4,8 +4,8 @@ import {
   Theme,
   Link as MuiLink,
   Typography as Type,
-  lighten,
-  darken,
+  // lighten,
+  // darken,
   Divider,
   CircularProgress,
   useTheme
@@ -95,7 +95,7 @@ const options: HTMLReactParserOptions = {
 
 const OutageInformationPage = ({initialData}: Props) => {
   const theme = useTheme<Theme>()
-  const paletteType = theme.palette.type === 'light' ? lighten : darken
+  // const paletteType = theme.palette.type === 'light' ? lighten : darken
 
   const {data: outages} = useSWR<CosmicObjectResponse<OutageMetadata>>(
     outagesUrl,
@@ -243,7 +243,8 @@ const OutageInformationPage = ({initialData}: Props) => {
             </ChildBox>
             <ChildBox flex="35%">
               <Box
-                bgcolor={paletteType(theme.palette.warning.main, 0.92)}
+                // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
+                bgcolor={theme.palette.common.white}
                 p={2}
                 boxShadow={2}
                 color={theme.palette.grey['800']}
