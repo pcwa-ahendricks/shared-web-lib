@@ -365,7 +365,7 @@ const NewDevelopmentPage = () => {
           </Type>
           <Type paragraph>
             Should you have questions regarding right-of-way matters pertaining
-            to your project you can contact the Right of Way Technician at{' '}
+            to your project you can contact the Real Property Program Manager at{' '}
             <EngineeringPhone />.
           </Type>
           <Spacing size="x-large" />
