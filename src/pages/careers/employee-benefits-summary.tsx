@@ -139,7 +139,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     <ListItemText primary="PCWA Confidential Employees Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://cdn.cosmicjs.com/dd3bec20-6b35-11e7-860a-a98685e05496-MANAGEMENT-PLAN.pdf">
+                  <ListItemLink href="https://cdn.cosmicjs.com/b8485250-1a2d-11eb-8601-231d57220dcf-Mgt-Comp-Plan---Updated-Final---10.29.20.pdf">
                     <ListItemText primary="PCWA Management Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
