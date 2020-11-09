@@ -224,12 +224,12 @@ const GoodsAndServicesPage = () => {
               Services
             </Type>
             <Type paragraph>
-              PCWA utilizes Exigis RiskWorks, a third-party insurance compliance
-              service to collect and verify that all insurance requirements are
-              met. No work will be performed by any vendor on PCWA property
-              prior to 100% compliance with the insurance requirements. The
-              information listed below are the typical requirements. Best rating
-              of A-7 or better.
+              PCWA utilizes a third-party insurance compliance service to
+              collect and verify that all insurance requirements are met. No
+              work will be performed by any vendor on PCWA property prior to
+              100% compliance with the insurance requirements. The information
+              listed below are the typical requirements. Best rating of A-7 or
+              better.
             </Type>
             <Type paragraph>
               <strong>Commercial General Liability*</strong> - Not less than
