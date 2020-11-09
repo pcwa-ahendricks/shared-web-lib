@@ -277,33 +277,6 @@ const IrrigationEffEligibilityDialog = ({
 
 export default connect(IrrigationEffEligibilityDialog)
 
-function getSteps() {
-  return [
-    {
-      index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer? ',
-      fieldName: 'treatedCustomer',
-      content: <QuestionOne />
-    },
-    {
-      index: 1,
-      label: 'How is your landscape currently irrigated?',
-      fieldName: 'irrigMethod',
-      content: <QuestionTwo />
-    }
-  ]
-}
-
-function getStepContent(stepNo: number) {
-  const found = getSteps().find((step) => step.index === stepNo)
-  return found ? found.content : null
-}
-
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.fieldName === fieldName)
-  return found ? found.index : null
-}
-
 const useQuestionStyles = makeStyles((theme: Theme) =>
   createStyles({
     qualifyMsg: {
@@ -435,4 +408,31 @@ const QuestionTwo = () => {
       }}
     </Field>
   )
+}
+
+function getSteps() {
+  return [
+    {
+      index: 0,
+      label: 'Are you a Placer County Water Agency treated water customer? ',
+      fieldName: 'treatedCustomer',
+      content: <QuestionOne />
+    },
+    {
+      index: 1,
+      label: 'How is your landscape currently irrigated?',
+      fieldName: 'irrigMethod',
+      content: <QuestionTwo />
+    }
+  ]
+}
+
+function getStepContent(stepNo: number) {
+  const found = getSteps().find((step) => step.index === stepNo)
+  return found ? found.content : null
+}
+
+function getStepIndex(fieldName: string) {
+  const found = getSteps().find((step) => step.fieldName === fieldName)
+  return found ? found.index : null
 }

@@ -89,7 +89,7 @@ const DistrictBoundariesMap = () => {
   }, [])
 
   // Debounce callback
-  const [onHoverHandler] = useDebouncedCallback(
+  const {callback: onHoverHandler} = useDebouncedCallback(
     // function
     (evt: any) => {
       const {features = []} = evt ?? {}
