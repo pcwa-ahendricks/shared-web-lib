@@ -132,6 +132,7 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
   }
 
   if (err?.statusCode) {
+    console.log('what happened?', err)
     return <ErrorPage statusCode={err.statusCode} />
   } else if (!media) {
     console.error('No media', media)
