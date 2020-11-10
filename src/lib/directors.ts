@@ -41,7 +41,7 @@ export const directors: Director[] = [
     district: 5,
     districtCaption: 'Supervisorial District 5',
     viceChair: true,
-    termExp: 2020,
+    termExp: 2024,
     email: 'district5@pcwa.net',
     bio: `
       Elected in November 2012 to the PCWA Board of Directors, Mr. Alpine represents
@@ -85,7 +85,7 @@ export const directors: Director[] = [
     district: 4,
     districtCaption: 'Supervisorial District 4',
     chair: true,
-    termExp: 2020,
+    termExp: 2024,
     email: 'district4@pcwa.net',
     bio: `
       Elected in November 2012 to the PCWA Board of Directors, Mr. Dugan represents
@@ -104,7 +104,7 @@ export const directors: Director[] = [
     alt: 'Photo of Mike Lee',
     district: 3,
     districtCaption: 'Supervisorial District 3',
-    termExp: 2020,
+    termExp: 2024,
     email: 'district3@pcwa.net',
     bio: `
       Elected in November 2000 to the PCWA Board of Directors. He represents District 3,
