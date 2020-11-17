@@ -26,32 +26,36 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import {Lqip, imgixLqipPlaceholders} from '@lib/imgixLqipPlaceholders'
+import {getLqips} from 'next-then-image-util'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
   initialNewsBlurbsData?: RecentNewsBarProps['initialData']
-  lqip?: Lqip
+  lqips: (string | null)[]
 }
+// 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
+const images = [
+  'https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg',
+  'https://imgix.cosmicjs.com/005050e0-0415-11eb-b508-690c39111331-FW-Home-page-thumbnail.jpg',
+  'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg?format=auto&fit=crop&ar=19:6&bg=ffffff&ixlib=react-9.0.2',
+  'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg',
+  'https://imgix.cosmicjs.com/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png',
+  'https://imgix.cosmicjs.com/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg',
+  'https://imgix.cosmicjs.com/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
+  'https://imgix.cosmicjs.com/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png'
+] as const
 
-const HERO_IMG_SRC =
-  'https://cosmic-s3.imgix.net/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg'
-const DROUGHT_PROOF_IMG_SRC =
-  'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg'
-const WATER_TECH_IMG_SRC =
-  'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg'
-const CANAL_SURVEY_IMG_SRC =
-  'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg'
-const PAYMENTUS_LOGO_IMG_SRC =
-  'https://cosmic-s3.imgix.net/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png'
-const OUTAGES_IMG_SRC =
-  'https://cosmic-s3.imgix.net/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg'
-const PROJECTS_IMG_SRC =
-  'https://cosmic-s3.imgix.net/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg'
-const BOARD_MEETING_IMG_SRC =
-  'https://cosmic-s3.imgix.net/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png'
-const FIRE_AND_WATER_IMG_SRC =
-  'https://imgix.cosmicjs.com/005050e0-0415-11eb-b508-690c39111331-FW-Home-page-thumbnail.jpg'
+// DROUGHT_PROOF_IMG_SRC,
+const [
+  heroImgSrc,
+  fireWaterImgSrc,
+  waterTechImgSrc,
+  canalSurveyImgSrc,
+  paymentusLogoImgSrc,
+  outagesImgSrc,
+  projectImgSrc,
+  boardMeetingImgSrc
+] = images
 
 // [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
 // const useStyles = makeStyles(() =>
@@ -62,7 +66,7 @@ const FIRE_AND_WATER_IMG_SRC =
 //   })
 // )
 
-const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
+const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
@@ -80,6 +84,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
 
   const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
   const coverStoryPadPerc = '45.05%' // default ratio for a 250h x 555w image.
+  const [
+    heroImgSrcLqip,
+    fireWaterImgSrcLqip,
+    waterTechImgSrcLqip,
+    canalSurveyImgSrcLqip,
+    paymentusLogoImgSrcLqip,
+    outagesImgSrcLqip,
+    projectImgSrcLqip,
+    boardMeetingImgSrcLqip
+  ] = lqips
 
   return (
     <PageLayout
@@ -90,9 +104,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
-          lqipSrc: lqip?.[HERO_IMG_SRC],
+          lqipSrc: heroImgSrcLqip,
           paddingPercent: '66.6495%',
-          src: HERO_IMG_SRC,
+          src: heroImgSrc,
           imgixParams: {bri: -5, high: -15},
           htmlAttributes: {
             alt: 'A photo of French Meadows Reservoir inlet',
@@ -179,7 +193,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
               linkHref="https://youtu.be/FMId8W8x8ik"
               imgixURL={DROUGHT_PROOF_IMG_SRC}
               imgixFancyProps={{
-                lqipSrc: lqip?.[DROUGHT_PROOF_IMG_SRC],
+                lqipSrc: DROUGHT_PROOF_IMG_SRCLqip,
                 imgixParams: {
                   crop: 'top'
                 },
@@ -195,9 +209,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
                 isNextLink: false
               }}
               linkHref="https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf"
-              imgixURL={FIRE_AND_WATER_IMG_SRC}
+              imgixURL={fireWaterImgSrc}
               imgixFancyProps={{
-                lqipSrc: lqip?.[FIRE_AND_WATER_IMG_SRC],
+                lqipSrc: fireWaterImgSrcLqip,
                 // imgixParams: {
                 //   crop: 'top'
                 // },
@@ -262,9 +276,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
               title="Is it time to spruce up your sprinkler system?"
               readMore="Visit our rebate page"
               linkHref="/smart-water-use/rebate-programs"
-              imgixURL={WATER_TECH_IMG_SRC}
+              imgixURL={waterTechImgSrc}
               imgixFancyProps={{
-                lqipSrc: lqip?.[WATER_TECH_IMG_SRC],
+                lqipSrc: waterTechImgSrcLqip,
                 htmlAttributes: {
                   alt: 'Thumbnail photo of Water Efficiency Technician'
                 },
@@ -298,12 +312,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Canal Customer Survey"
-              imgixURL={CANAL_SURVEY_IMG_SRC}
-              // linkHref="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
+              imgixURL={canalSurveyImgSrc}
+              // paymentusLogoImgSrc="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
               linkHref="/services/annual-canal-survey"
               flexLinkProps={{isNextLink: true}}
               imgixFancyProps={{
-                lqipSrc: lqip?.[CANAL_SURVEY_IMG_SRC],
+                lqipSrc: canalSurveyImgSrcLqip,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Canal Customer Survey'
                 }
@@ -313,11 +327,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Pay My Bill"
-              imgixURL={PAYMENTUS_LOGO_IMG_SRC}
+              imgixURL={paymentusLogoImgSrc}
               linkHref="https://ipn.paymentus.com/cp/plco"
               flexLinkProps={{isNextLink: false}}
               imgixFancyProps={{
-                lqipSrc: lqip?.[PAYMENTUS_LOGO_IMG_SRC],
+                lqipSrc: paymentusLogoImgSrcLqip,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Pay My Bill Using Paymentus'
                 }
@@ -327,10 +341,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Outage Information"
-              imgixURL={OUTAGES_IMG_SRC}
+              imgixURL={outagesImgSrc}
               linkHref="/services/outage"
               imgixFancyProps={{
-                lqipSrc: lqip?.[OUTAGES_IMG_SRC],
+                lqipSrc: outagesImgSrcLqip,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Current PCWA Water Outages Page'
                 }
@@ -340,10 +354,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Current Projects"
-              imgixURL={PROJECTS_IMG_SRC}
+              imgixURL={projectImgSrc}
               linkHref="/about-pcwa/projects"
               imgixFancyProps={{
-                lqipSrc: lqip?.[PROJECTS_IMG_SRC],
+                lqipSrc: projectImgSrcLqip,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Current Projects'
                 }
@@ -353,10 +367,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqip}: Props) => {
           <ChildBox width={tileWidth} mt={coverTileTopMargin}>
             <CoverTile
               title="Board Meeting Agendas"
-              imgixURL={BOARD_MEETING_IMG_SRC}
+              imgixURL={boardMeetingImgSrc}
               linkHref="/board-of-directors/meeting-agendas"
               imgixFancyProps={{
-                lqipSrc: lqip?.[BOARD_MEETING_IMG_SRC],
+                lqipSrc: boardMeetingImgSrcLqip,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Board Meeting Agendas'
                 }
@@ -422,18 +436,9 @@ export const getStaticProps: GetStaticProps = async () => {
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
-    const lqip = await imgixLqipPlaceholders([
-      HERO_IMG_SRC,
-      DROUGHT_PROOF_IMG_SRC,
-      WATER_TECH_IMG_SRC,
-      CANAL_SURVEY_IMG_SRC,
-      PAYMENTUS_LOGO_IMG_SRC,
-      OUTAGES_IMG_SRC,
-      PROJECTS_IMG_SRC,
-      BOARD_MEETING_IMG_SRC
-    ])
+    const lqips = await getLqips(images)
     return {
-      props: {initialAlertsData, initialNewsBlurbsData, lqip},
+      props: {initialAlertsData, initialNewsBlurbsData, lqips},
       revalidate: 5
     }
   } catch (error) {
@@ -441,7 +446,7 @@ export const getStaticProps: GetStaticProps = async () => {
       'There was an error fetching alerts and/or news blurbs and/or lqips',
       error
     )
-    return {props: {}}
+    return {props: {lqips: []}}
   }
 }
 

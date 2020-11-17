@@ -4,7 +4,7 @@ import LazyImgix, {LazyImgixProps} from '@components/LazyImgix/LazyImgix'
 import clsx from 'clsx'
 
 type Props = {
-  lqipSrc?: string // base64 string
+  lqipSrc?: string | null // base64 string
   paddingPercent?: string
   htmlAttributes?: any
 }
