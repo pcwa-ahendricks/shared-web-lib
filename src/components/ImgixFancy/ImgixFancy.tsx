@@ -44,12 +44,12 @@ const useStyles = makeStyles({
     },
     /* Scaling the blur up image prevents visible loading of lazy loaded image at edges of blur effect. */
     '& .ls-blur-up-img': {
-      filter: 'blur(10px)',
+      filter: 'blur(28px)',
       opacity: 1,
       // transition: 'opacity 1000ms, filter 1500ms', // Original
       transition: 'opacity 800ms, filter 1200ms',
       transform: 'scale(1.2)',
-      '-webkit-transform': 'scale(1.6)'
+      '-webkit-transform': 'scale(1.2)'
     },
     '& .ls-blur-up-img.ls-inview.ls-original-loaded': {
       opacity: 0,
