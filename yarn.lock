@@ -7422,10 +7422,10 @@ next-compose-plugins@^2.2.0:
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
   integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
 
-next-then-image-util@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/next-then-image-util/-/next-then-image-util-0.0.4.tgz#c5717c08aaf67c75e515addcb3c6d287292d588b"
-  integrity sha512-R4R5gpjXoOYRb/GqQ32dWt30CQvp/Y9hZ/GHykVj67YHdb66IP6P539lGH7MtmwdAMSKweIlvRpYOfaYe6sHFg==
+next-then-image-util@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/next-then-image-util/-/next-then-image-util-0.0.6.tgz#e4f1a93dfa8d42ce8663d363fffefda817d88718"
+  integrity sha512-ZGIVqOs4K8/JouP39dgR3R9Yeq0YtjcXSjgsTjrWCGDLQcdrQ70gIJDY7WJqfCmpVR8zOgYZ9Fq9uFLUfAVqxQ==
   dependencies:
     sharp "^0.26.2"
 

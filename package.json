@@ -109,7 +109,7 @@
     "mime": "^2.4.5",
     "next": "^10.0.1",
     "next-compose-plugins": "^2.2.0",
-    "next-then-image-util": "^0.0.4",
+    "next-then-image-util": "^0.0.6",
     "next-transpile-modules": "^4.1.0",
     "node-fetch": "^2.6.0",
     "nprogress": "^0.2.0",

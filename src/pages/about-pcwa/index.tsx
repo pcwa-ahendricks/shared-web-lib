@@ -22,11 +22,13 @@ import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
-import {Lqip, imgixLqipPlaceholders} from '@lib/imgixLqipPlaceholders'
 import {GetStaticProps} from 'next'
+import {getLqips} from 'next-then-image-util'
 
-const BANNER_IMG_SRC =
+const images = [
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
+] as const
+const [bannerImgSrc] = images
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -34,12 +36,13 @@ const BANNER_IMG_SRC =
 // )
 
 type Props = {
-  lqip?: Lqip
+  lqips: (string | null)[]
 }
 
-const GeneralInfoPage = ({lqip}: Props) => {
+const GeneralInfoPage = ({lqips}: Props) => {
   // const classes = useStyles()
   // const theme = useTheme<Theme>()
+  const [bannerImgSrcLqip] = lqips
 
   return (
     <PageLayout title="About PCWA" waterSurface>
@@ -101,9 +104,9 @@ const GeneralInfoPage = ({lqip}: Props) => {
             <ImgixFancyParallaxBanner
               amount={0.1}
               imgixFancyProps={{
-                lqipSrc: lqip?.[BANNER_IMG_SRC],
+                lqipSrc: bannerImgSrcLqip,
                 paddingPercent: '66.66667%',
-                src: BANNER_IMG_SRC,
+                src: bannerImgSrc,
                 imgixParams: {bri: -5, high: -15},
                 htmlAttributes: {
                   alt: 'Photo of Hell Hole Reservoir'
@@ -352,14 +355,14 @@ const GeneralInfoPage = ({lqip}: Props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const lqip = await imgixLqipPlaceholders([BANNER_IMG_SRC])
+    const lqips = await getLqips(images)
     return {
-      props: {lqip},
+      props: {lqips},
       revalidate: 5
     }
   } catch (error) {
     console.log('There was an error fetching lqips', error)
-    return {props: {}}
+    return {props: {lqips: []}}
   }
 }
 
