@@ -23,18 +23,16 @@ import {
 } from '@material-ui/core'
 import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
-import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
 import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
-import {Lqip} from '@lib/imgixLqipPlaceholders'
+import ImageFancier from '@components/ImageFancier/ImageFancier'
 
 type Props = {
   multimedia?: PhotoList
-  lqip?: Lqip
 }
 
 export type MultimediaPhotoGallery = {
@@ -91,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const MultimediaPhotoGalleries = ({multimedia = [], lqip}: Props) => {
+const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -370,29 +368,27 @@ const MultimediaPhotoGalleries = ({multimedia = [], lqip}: Props) => {
                   flexSpacing={margin}
                   mt={-margin}
                 >
-                  {c.photos.map((p) => (
-                    <ChildBox key={p.index} mt={margin}>
-                      <ColumnBox>
-                        <ChildBox position="relative">
-                          <ImgixFancier
-                            lqipSrc={lqip?.[p.imgix_url]}
-                            htmlAttributes={{
-                              alt:
+                  {c.photos.map((p) => {
+                    return (
+                      <ChildBox key={p.index} mt={margin}>
+                        <ColumnBox>
+                          <ChildBox position="relative">
+                            <ImageFancier
+                              alt={
                                 p.metadata?.description ??
                                 `${p.metadata?.gallery} ${
                                   p.metadata?.category
                                 } photo #${p.index + 1}`
-                              // onClick: imageClickHandler(p.index),
-                            }}
-                            boxProps={{
-                              onClick: imageClickHandler(p.index)
-                            }}
-                            src={p.imgix_url}
-                            width={p.width}
-                            height={p.height}
-                            paddingPercent={p.paddingPercent}
-                          />
-                          {/* {p.metadata?.caption ? (
+                                // onClick: imageClickHandler(p.index),
+                              }
+                              boxProps={{
+                                onClick: imageClickHandler(p.index)
+                              }}
+                              src={p.imgix_url}
+                              width={p.width ?? 0}
+                              height={p.height ?? 0}
+                            />
+                            {/* {p.metadata?.caption ? (
                             <ChildBox position="absolute" bottom="0" left="0">
                               <Type
                                 className={classes.photoCaption}
@@ -402,17 +398,18 @@ const MultimediaPhotoGalleries = ({multimedia = [], lqip}: Props) => {
                               </Type>
                             </ChildBox>
                           ) : null} */}
-                        </ChildBox>
-                        {p.metadata?.caption ? (
-                          <ChildBox>
-                            <Type color="textSecondary" variant="caption">
-                              {p.metadata.caption}
-                            </Type>
                           </ChildBox>
-                        ) : null}
-                      </ColumnBox>
-                    </ChildBox>
-                  ))}
+                          {p.metadata?.caption ? (
+                            <ChildBox>
+                              <Type color="textSecondary" variant="caption">
+                                {p.metadata.caption}
+                              </Type>
+                            </ChildBox>
+                          ) : null}
+                        </ColumnBox>
+                      </ChildBox>
+                    )
+                  })}
                 </RowBox>
               </Box>
             ))

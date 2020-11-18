@@ -5,14 +5,14 @@ import clsx from 'clsx'
 
 type Props = {
   lqipSrc?: string | null // base64 string
-  paddingPercent?: string
+  paddingPercent?: number | null
   htmlAttributes?: any
 }
 
 export type ImgixFancyProps = Props & LazyImgixProps
 
 interface UseStylesProps {
-  paddingPercent: Props['paddingPercent']
+  paddingPercent: number
 }
 
 // This is a 40px width version of /static/images/grey.jpg
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     '-webkit-transform': 'translate3d(0, 0, 0)',
     transform: 'translate3d(0, 0, 0)',
-    paddingBottom: paddingPercent,
+    paddingBottom: `${paddingPercent}%`,
     '& .mediabox-img.ls-blur-up-is-loading, .mediabox-img.lazyload:not([src])': {
       visibility: 'hidden'
     },
@@ -74,10 +74,11 @@ const ImgixFancy = ({
   className: classNameProp,
   lqipSrc = lightGrey,
   htmlAttributes,
-  paddingPercent = '66.6667%', // Height / Width * 100 to calculate intrinsic ratio.
+  paddingPercent: paddingPercentProp, // Height / Width * 100 to calculate intrinsic ratio.
   sizes = 'auto', // Auto - This is a Lazysizes feature, not an react-imgix feature. Note - "sizes" is the Imgix prop while lazysizes uses "data-sizes".
   ...rest
 }: ImgixFancyProps) => {
+  const paddingPercent = paddingPercentProp ?? 66.6667
   const classes = useStyles({paddingPercent})
   return (
     <Box className={classes.mediabox}>

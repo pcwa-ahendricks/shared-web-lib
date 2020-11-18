@@ -96,7 +96,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
       >
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy
-            paddingPercent="129.412%"
+            paddingPercent={129.412}
             // height={100} // Don't specify height since it will break 'data-optimumx' LazySizes plugin.
             src={imgixUrl}
             lqipSrc={minutesLqip}

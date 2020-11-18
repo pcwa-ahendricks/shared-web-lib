@@ -23,7 +23,7 @@ import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/Respons
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
 import {GetStaticProps} from 'next'
-import {getLqips} from 'next-then-image-util'
+import {getLqips, Lqip} from 'next-then-image-util'
 
 const images = [
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -36,7 +36,7 @@ const [bannerImgSrc] = images
 // )
 
 type Props = {
-  lqips: (string | null)[]
+  lqips: Lqip[]
 }
 
 const GeneralInfoPage = ({lqips}: Props) => {
@@ -104,8 +104,8 @@ const GeneralInfoPage = ({lqips}: Props) => {
             <ImgixFancyParallaxBanner
               amount={0.1}
               imgixFancyProps={{
-                lqipSrc: bannerImgSrcLqip,
-                paddingPercent: '66.66667%',
+                lqipSrc: bannerImgSrcLqip.b64,
+                paddingPercent: bannerImgSrcLqip.ratio,
                 src: bannerImgSrc,
                 imgixParams: {bri: -5, high: -15},
                 htmlAttributes: {

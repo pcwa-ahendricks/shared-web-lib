@@ -104,7 +104,7 @@ const PublicationCard = ({
               width={cardMediaWidth}
               // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
               imgixParams={{fit: 'crop', crop: imgixCropMode, bg: 'ffffff'}}
-              paddingPercent={`${(cardMediaHeight / cardMediaWidth) * 100}%`}
+              paddingPercent={(cardMediaHeight / cardMediaWidth) * 100}
               isHover={actionAreaIsHover}
             />
           </CardMedia>

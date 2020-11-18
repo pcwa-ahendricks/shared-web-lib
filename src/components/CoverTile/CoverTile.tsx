@@ -75,7 +75,7 @@ const CoverTile = ({
               bg: 'ffffff',
               ...imgixParamsProps
             }}
-            paddingPercent="63.64%" // Default ratio for a 140h x 220w image.
+            paddingPercent={63.64} // Default ratio for a 140h x 220w image.
             {...imgixFancyPropsRest}
           />
         </Box>

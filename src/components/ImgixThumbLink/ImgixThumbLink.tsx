@@ -20,7 +20,7 @@ type Props = {
   filename?: string
   margin?: number
   alt: string
-  paddingPercent?: string
+  paddingPercent?: number
   imageWidth?: BoxProps['width']
 } & Partial<FlexLinkProps>
 
@@ -55,7 +55,7 @@ const ImgixThumbLink = ({
   margin = 0,
   alt,
   imageWidth: imageWidthProp,
-  paddingPercent = '129.412%', // Default to 8.5x11 ratio (11/8.5*100).
+  paddingPercent = 129.412, // Default to 8.5x11 ratio (11/8.5*100).
   href: hrefProp,
   isNextLink = false,
   ...rest

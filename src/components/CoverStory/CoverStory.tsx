@@ -11,7 +11,7 @@ export type CoverStoryProps = {
   imgixURL: string
   readMore?: string
   imageRatio?: string | number | boolean // Expressed as W:H
-  paddingPercent?: string
+  paddingPercent?: number
   imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
   body?: string
@@ -27,7 +27,7 @@ const CoverStory = ({
   // imageRatio = '3:1', // 555w / 185h = 3. 3:1
   // imageRatio = '73:25', // 555w / 190h = 2.921052632. Or 73:25
   // imageRatio = '32:13', // 555w / 225h = 2.466666667. Or 32:13
-  paddingPercent = '31.53%', // Default ratio for a 175h x 555w image.
+  paddingPercent = 31.53, // Default ratio for a 175h x 555w image.
   // paddingPercent="32.43%", // Default ratio for a 180h x 555w image.
   // paddingPercent="33.33%", // Default ratio for a 185h x 555w image.
   // paddingPercent="34.23%", // Default ratio for a 190h x 555w image.

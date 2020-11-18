@@ -58,7 +58,6 @@ import useSWR from 'swr'
 import groupBy from '@lib/groupBy'
 import fileExtension from '@lib/fileExtension'
 import {ParsedUrlQuery} from 'querystring'
-import {imgixLqipPlaceholders, Lqip} from '@lib/imgixLqipPlaceholders'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -77,7 +76,6 @@ type Props = {
   galleryParam?: string
   lightboxIndexParam?: string
   params?: ParsedUrlQuery // debug
-  lqip?: Lqip
 }
 
 const cosmicGetMediaProps = {
@@ -110,8 +108,7 @@ const ResourceLibraryPage = ({
   // lightboxIndex,
   multimediaParam = '',
   galleryParam,
-  lightboxIndexParam,
-  lqip
+  lightboxIndexParam
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
@@ -320,7 +317,7 @@ const ResourceLibraryPage = ({
             </TabPanel>
 
             <TabPanel value={tabIndex} index={1}>
-              <MultimediaPhotoGalleries multimedia={multimedia} lqip={lqip} />
+              <MultimediaPhotoGalleries multimedia={multimedia} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={2}>
@@ -453,11 +450,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     ] = await Promise.all([multimedia$, publications$])
 
     // Don't produce base64 images with non-imgix links and/or videos; Doing so will crash everything.
-    const lqip = await imgixLqipPlaceholders(
-      initialMultimediaData
-        ?.map((m) => m.imgix_url)
-        .filter((u) => /imgix.cosmicjs.com/i.test(u) && /(.jpg|.png)$/i.test(u))
-    )
 
     return {
       props: {
@@ -468,8 +460,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         multimediaParam,
         // lightboxIndex,
         // tabIndex,
-        params,
-        lqip
+        params
         // params: query
       },
       revalidate: 5
