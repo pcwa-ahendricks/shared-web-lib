@@ -30,6 +30,7 @@ import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
+import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 
 type Props = {
   multimedia?: PhotoList
@@ -373,14 +374,15 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                       <ChildBox key={p.index} mt={margin}>
                         <ColumnBox>
                           <ChildBox position="relative">
-                            <ImageFancier
-                              alt={
-                                p.metadata?.description ??
-                                `${p.metadata?.gallery} ${
-                                  p.metadata?.category
-                                } photo #${p.index + 1}`
+                            <ImgixFancier
+                              htmlAttributes={{
+                                alt:
+                                  p.metadata?.description ??
+                                  `${p.metadata?.gallery} ${
+                                    p.metadata?.category
+                                  } photo #${p.index + 1}`
                                 // onClick: imageClickHandler(p.index),
-                              }
+                              }}
                               boxProps={{
                                 onClick: imageClickHandler(p.index)
                               }}

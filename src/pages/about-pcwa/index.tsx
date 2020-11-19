@@ -22,8 +22,6 @@ import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
-import {GetStaticProps} from 'next'
-import {getLqips, Lqip} from 'next-then-image-util'
 
 const images = [
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -35,14 +33,9 @@ const [bannerImgSrc] = images
 //   })
 // )
 
-type Props = {
-  lqips: Lqip[]
-}
-
-const GeneralInfoPage = ({lqips}: Props) => {
+const GeneralInfoPage = () => {
   // const classes = useStyles()
   // const theme = useTheme<Theme>()
-  const [bannerImgSrcLqip] = lqips
 
   return (
     <PageLayout title="About PCWA" waterSurface>
@@ -104,8 +97,8 @@ const GeneralInfoPage = ({lqips}: Props) => {
             <ImgixFancyParallaxBanner
               amount={0.1}
               imgixFancyProps={{
-                lqipSrc: bannerImgSrcLqip.b64,
-                paddingPercent: bannerImgSrcLqip.ratio,
+                // lqipSrc: bannerImgSrcLqip.b64,
+                paddingPercent: 66.67,
                 src: bannerImgSrc,
                 imgixParams: {bri: -5, high: -15},
                 htmlAttributes: {
@@ -351,19 +344,6 @@ const GeneralInfoPage = ({lqips}: Props) => {
       </MainBox>
     </PageLayout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const lqips = await getLqips(images)
-    return {
-      props: {lqips},
-      revalidate: 5
-    }
-  } catch (error) {
-    console.log('There was an error fetching lqips', error)
-    return {props: {lqips: []}}
-  }
 }
 
 export default GeneralInfoPage

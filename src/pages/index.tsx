@@ -26,12 +26,10 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import {getLqips, Lqip} from 'next-then-image-util'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
   initialNewsBlurbsData?: RecentNewsBarProps['initialData']
-  lqips: Lqip[]
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 const images = [
@@ -66,7 +64,7 @@ const [
 //   })
 // )
 
-const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
+const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const [heroOverlayIn, setHeroOverlayIn] = useState(false)
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
@@ -84,16 +82,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
 
   const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
   const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
-  const [
-    heroImgSrcLqip,
-    fireWaterImgSrcLqip,
-    waterTechImgSrcLqip,
-    canalSurveyImgSrcLqip,
-    paymentusLogoImgSrcLqip,
-    outagesImgSrcLqip,
-    projectImgSrcLqip,
-    boardMeetingImgSrcLqip
-  ] = lqips
+  // const [
+  //   heroImgSrcLqip
+  // fireWaterImgSrcLqip,
+  // waterTechImgSrcLqip,
+  // canalSurveyImgSrcLqip,
+  // paymentusLogoImgSrcLqip,
+  // outagesImgSrcLqip,
+  // projectImgSrcLqip,
+  // boardMeetingImgSrcLqip
+  // ] = lqips
 
   return (
     <PageLayout
@@ -104,9 +102,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
       <ImgixFancyParallaxBanner
         amount={0.1}
         imgixFancyProps={{
-          lqipSrc: heroImgSrcLqip.b64,
-          // paddingPercent: '66.6495%',
-          paddingPercent: heroImgSrcLqip.ratio,
+          // lqipSrc: heroImgSrcLqip.b64,
+          paddingPercent: 66.6495,
+          // paddingPercent: heroImgSrcLqip.ratio,
           src: heroImgSrc,
           imgixParams: {bri: -5, high: -15},
           htmlAttributes: {
@@ -212,7 +210,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               linkHref="https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf"
               imgixURL={fireWaterImgSrc}
               imgixFancyProps={{
-                lqipSrc: fireWaterImgSrcLqip.b64,
+                // lqipSrc: fireWaterImgSrcLqip.b64,
                 // imgixParams: {
                 //   crop: 'top'
                 // },
@@ -279,7 +277,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               linkHref="/smart-water-use/rebate-programs"
               imgixURL={waterTechImgSrc}
               imgixFancyProps={{
-                lqipSrc: waterTechImgSrcLqip.b64,
+                // lqipSrc: waterTechImgSrcLqip.b64,
                 htmlAttributes: {
                   alt: 'Thumbnail photo of Water Efficiency Technician'
                 },
@@ -318,7 +316,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               linkHref="/services/annual-canal-survey"
               flexLinkProps={{isNextLink: true}}
               imgixFancyProps={{
-                lqipSrc: canalSurveyImgSrcLqip.b64,
+                // lqipSrc: canalSurveyImgSrcLqip.b64,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Canal Customer Survey'
                 }
@@ -332,7 +330,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               linkHref="https://ipn.paymentus.com/cp/plco"
               flexLinkProps={{isNextLink: false}}
               imgixFancyProps={{
-                lqipSrc: paymentusLogoImgSrcLqip.b64,
+                // lqipSrc: paymentusLogoImgSrcLqip.b64,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Pay My Bill Using Paymentus'
                 }
@@ -345,7 +343,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               imgixURL={outagesImgSrc}
               linkHref="/services/outage"
               imgixFancyProps={{
-                lqipSrc: outagesImgSrcLqip.b64,
+                // lqipSrc: outagesImgSrcLqip.b64,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Current PCWA Water Outages Page'
                 }
@@ -358,7 +356,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               imgixURL={projectImgSrc}
               linkHref="/about-pcwa/projects"
               imgixFancyProps={{
-                lqipSrc: projectImgSrcLqip.b64,
+                // lqipSrc: projectImgSrcLqip.b64,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Current Projects'
                 }
@@ -371,7 +369,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData, lqips}: Props) => {
               imgixURL={boardMeetingImgSrc}
               linkHref="/board-of-directors/meeting-agendas"
               imgixFancyProps={{
-                lqipSrc: boardMeetingImgSrcLqip.b64,
+                // lqipSrc: boardMeetingImgSrcLqip.b64,
                 htmlAttributes: {
                   alt: 'Thumbnail and link for Board Meeting Agendas'
                 }
@@ -437,9 +435,8 @@ export const getStaticProps: GetStaticProps = async () => {
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
-    const lqips = await getLqips(images)
     return {
-      props: {initialAlertsData, initialNewsBlurbsData, lqips},
+      props: {initialAlertsData, initialNewsBlurbsData},
       revalidate: 5
     }
   } catch (error) {
@@ -447,7 +444,7 @@ export const getStaticProps: GetStaticProps = async () => {
       'There was an error fetching alerts and/or news blurbs and/or lqips',
       error
     )
-    return {props: {lqips: []}}
+    return {props: {}}
   }
 }
 
