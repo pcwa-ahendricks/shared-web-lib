@@ -29,7 +29,6 @@ import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
-import ImageFancier from '@components/ImageFancier/ImageFancier'
 import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
 
 type Props = {
