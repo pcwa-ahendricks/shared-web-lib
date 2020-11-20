@@ -27,7 +27,7 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import DescriptionIcon from '@material-ui/icons/Description'
 import {GetStaticPaths, GetStaticProps} from 'next'
-import ErrorPage from '@pages/_error'
+// import ErrorPage from '@pages/_error'
 import Spacing from '@components/boxes/Spacing'
 import toTitleCase from '@lib/toTitleCase'
 import {
