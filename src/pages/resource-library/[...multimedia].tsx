@@ -240,7 +240,8 @@ const ResourceLibraryPage = ({
   }, [])
 
   if (err?.statusCode) {
-    return <ErrorPage statusCode={err.statusCode} />
+    console.log(err)
+    // return <ErrorPage statusCode={err.statusCode} />
   }
 
   return (
