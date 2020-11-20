@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   mediabox: ({paddingPercent}: UseStylesProps) => ({
     position: 'relative',
     display: 'block',
-    height: 0,
+    height: '100%',
     width: '100%',
     overflow: 'hidden',
     '-webkit-transform': 'translate3d(0, 0, 0)',
