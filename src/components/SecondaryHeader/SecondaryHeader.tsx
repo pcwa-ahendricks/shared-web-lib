@@ -5,7 +5,7 @@ import {
   Theme,
   useMediaQuery,
   makeStyles,
-  Typography as Type,
+  // Typography as Type,
   useTheme,
   createStyles
 } from '@material-ui/core'
@@ -72,7 +72,7 @@ const SecondaryHeader = () => {
     <Toolbar variant="dense" className={classes.toolbar}>
       {/* Don't use CSS implementation of <Hidden/> cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
       <ForecastContainer width={155} overflow="hidden" />
-      <NextGlowButton
+      {/* <NextGlowButton
         size="small"
         aria-label="Link"
         href="/services/annual-canal-survey"
@@ -80,7 +80,7 @@ const SecondaryHeader = () => {
         <Type variant="inherit" className={classes.survey}>
           Canal Survey
         </Type>
-      </NextGlowButton>
+      </NextGlowButton> */}
       <Box component="span" flexGrow={1} />
       <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages
