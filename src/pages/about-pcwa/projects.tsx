@@ -268,7 +268,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated October 15, 2020)
+                      Upcoming Work (updated December 1, 2020)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
@@ -277,53 +277,74 @@ const ProjectsPage = () => {
                     <ul>
                       <TypeBullet>
                         <Type variant="body1">
-                          Cleaning up work areas, and installing permanent
-                          fence.
+                          Work through roadways, and traffic delays, are not
+                          anticipated.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Installing stormwater pollution prevention material
-                          and hydroseed in anticipation of winter in areas where
-                          the raw water and treated water pipe have been
-                          installed.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Work through roadways, and traffic delays, are not
-                          anticipated in October.
+                          and hydroseed in anticipation of winter in
+                          construction areas.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Energy Dissipation
                           Station at the Foothill Water Treatment Plant,
-                          continue installation of esthetic concrete masonry
-                          units and glass blocks on walls. Installation of
-                          electrical, plumbing and mechanical is ongoing.
+                          continue installation of interior valves and piping.
+                          Installation of roof scaffolding, forms and
+                          reinforcing.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Dutch Ravine
                           Energy Dissipation Structure at PCWA property located
-                          on Hillview Lane. Installation of electrical, plumbing
-                          and mechanical is ongoing. Concrete basement/pit walls
-                          are complete.
+                          on Hillview Lane. Installation of canopy, electrical,
+                          and paving.
+                        </Type>
+                      </TypeBullet>
+                      <TypeBullet>
+                        <Type variant="body1" component="div">
+                          Ongoing activities to construct the Hydraulic Control
+                          Standpipe that will be located adjacent to Indian Hill
+                          Road. Installation of the following:
+                          <ul style={{listStyleType: 'none'}}>
+                            <li>
+                              Underground piping and equipment in anticipation
+                              of concrete slab pour for ring wall and overflow
+                              basin deck;
+                            </li>
+                            <li>Drain base;</li>
+                            <li>12-Inch pipe drain;</li>
+                            <li>
+                              Backfill, compact and grade, around ring wall for
+                              site access; and
+                            </li>
+                            <li>
+                              Receive and construct Hydraulic Control Standpipe.
+                            </li>
+                          </ul>
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Grading for the Hydraulic Control Standpipe that will
-                          be located adjacent to Indian Hill Road.
+                          Continue installation of the 36-inch and 42-inch
+                          overflow pipe from the Hydraulic Control Standpipe to
+                          the railroad tracks.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installation of the 36-inch and 42-inch overflow pipe
-                          from the Hydraulic Control Standpipe to the railroad
-                          tracks. .
+                          Installation of 12-inch treated water pipe at the
+                          Foothill Water Treatment plant.
+                        </Type>
+                      </TypeBullet>
+                      <TypeBullet>
+                        <Type variant="body1">
+                          Installation of 39-inch raw water pipe from the Dutch
+                          Ravine Turnout to the railroad tracks.
                         </Type>
                       </TypeBullet>
                     </ul>
