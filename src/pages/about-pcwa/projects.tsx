@@ -310,7 +310,7 @@ const ProjectsPage = () => {
                           Ongoing activities to construct the Hydraulic Control
                           Standpipe that will be located adjacent to Indian Hill
                           Road. Installation of the following:
-                          <ul style={{listStyleType: 'none'}}>
+                          <ul style={{listStyleType: 'disc'}}>
                             <li>
                               Underground piping and equipment in anticipation
                               of concrete slab pour for ring wall and overflow

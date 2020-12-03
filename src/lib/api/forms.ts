@@ -9,7 +9,8 @@ export interface AttachmentFieldValue {
   url: string
 }
 
-const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
+const RECAPTCHA_SITE_KEY =
+  process.env.NEXT_PUBLIC_SPLOSH_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
 const emailRecipientsIrrigation: MailJetMessage['To'] = isDev
