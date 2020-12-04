@@ -685,7 +685,7 @@ const SmartWaterUsePage = () => {
               justifyContent={{xs: 'flex-start', sm: 'center'}}
               alignItems={{xs: 'center', sm: 'stretch'}}
             >
-              <ChildBox maxWidth={300}>
+              {/* <ChildBox maxWidth={300}>
                 <Card>
                   <CardActionArea
                     href="http://www.ecolandscape.org/new-ca/index.html"
@@ -725,7 +725,7 @@ const SmartWaterUsePage = () => {
                     </Button>
                   </CardActions>
                 </Card>
-              </ChildBox>
+              </ChildBox> */}
 
               <ChildBox maxWidth={300}>
                 <Card>
