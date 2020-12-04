@@ -230,7 +230,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 <RowBox flexWrap="wrap" flexSpacing={3} mt={-topMargin}>
                   <BudgetDoc
                     aria-label="View 2021 Budget"
-                    href="https://imgix.cosmicjs.com/cb87d4a0-2b65-11eb-8245-31a0d5eed227-2021-Proposed-Budget-Document.pdf"
+                    href="https://imgix.cosmicjs.com/2587d420-3659-11eb-810b-1546423a80f5-2021-Adopted-Budget-for-website.pdf"
                   >
                     2021 Budget
                   </BudgetDoc>
