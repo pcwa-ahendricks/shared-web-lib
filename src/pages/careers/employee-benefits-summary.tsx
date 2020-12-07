@@ -135,11 +135,11 @@ const EmployeeBenefitsSummaryPage = () => {
                     </ListSubheader>
                   }
                 >
-                  <ListItemLink href="https://cdn.cosmicjs.com/f22a0bd0-6b35-11e7-a2a2-c992b2b93cb7-CONFIDENTIAL-PLAN.pdf">
+                  <ListItemLink href="https://cdn.cosmicjs.com/856b6d30-38dd-11eb-9178-3f6d9415ab76-CONFIDENTIAL-EMPLOYEES-COMPENSATION-PLAN----Effective-1-1-2021.pdf">
                     <ListItemText primary="PCWA Confidential Employees Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://cdn.cosmicjs.com/b8485250-1a2d-11eb-8601-231d57220dcf-Mgt-Comp-Plan---Updated-Final---10.29.20.pdf">
+                  <ListItemLink href="https://cdn.cosmicjs.com/80cbcd60-38dd-11eb-9178-3f6d9415ab76-MANAGEMENT-COMPENSATION-PLAN-Effective-1-1-2021.pdf">
                     <ListItemText primary="PCWA Management Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
