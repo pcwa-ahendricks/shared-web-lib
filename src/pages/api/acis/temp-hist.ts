@@ -25,17 +25,26 @@ client.on('error', (err: RedisError) => {
   console.log('Error ' + err)
 })
 
-const mainHandler = async (_req: NowRequest, res: NowResponse) => {
+const ACCEPT_SIDS = ['KBLU']
+
+const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
+    const {sid: sidParam} = req.query
+    const sid = paramToStr(sidParam).toUpperCase()
+    if (!ACCEPT_SIDS.includes(sid)) {
+      res.status(406).end()
+      return
+    }
     const yesterday = subDays(new Date(), 1)
     const eDate = format(yesterday, 'yyyy-MM-dd')
 
+    isDev && console.log(`SID: ${sid}`)
     isDev && console.log(`Using end date: ${eDate}`)
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
 
     const body = {
-      sid: 'KBLU 5',
+      sid,
       meta: ['name', 'state', 'valid_daterange', 'sids'],
       elems: [
         {
@@ -66,7 +75,7 @@ const mainHandler = async (_req: NowRequest, res: NowResponse) => {
     }
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
-    const hash = `acis-temperature-hist-${eDate}`
+    const hash = `acis-temperature-hist-${sid}-${eDate}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       isDev && console.log('returning cache copy...')
@@ -99,3 +108,10 @@ const mainHandler = async (_req: NowRequest, res: NowResponse) => {
 }
 
 export default mainHandler
+
+function paramToStr(param?: string | string[]): string {
+  if (Array.isArray(param)) {
+    param = param.join(',')
+  }
+  return param || '' // Don't use ?? here since it is not supported by Vercel lambda
+}
