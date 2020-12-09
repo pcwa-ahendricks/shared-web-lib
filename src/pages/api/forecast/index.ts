@@ -37,7 +37,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
     const {lat: latParam, lng: lngParam} = req.query
     if (!latParam || !lngParam) {
-      client.quit()
+      // client.quit()
       res.status(204).end()
       return
     }
@@ -52,7 +52,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       !ACCEPT_LATITUDES.includes(latParamInt) ||
       !ACCEPT_LONGITUDES.includes(lngParamInt)
     ) {
-      client.quit()
+      // client.quit()
       res.status(406).end()
       return
     }
@@ -80,7 +80,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       const dateTime = parseFloat(cache.dateTime)
       const id = parseFloat(cache.id)
       const weatherId = parseFloat(cache.weatherId)
-      client.quit()
+      // client.quit()
       res.status(200).json({
         temperature,
         sunrise,
@@ -100,7 +100,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const response = await fetch(apiUrl)
     if (!response.ok) {
-      client.quit()
+      // client.quit()
       res.status(400).end()
       return
     }
@@ -153,7 +153,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     await expireAsync(hash, 60 * 5) // 5 minutes
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
-    client.quit()
+    // client.quit()
     res.status(200).json({
       temperature, // number
       main: weatherMain, // string
@@ -170,7 +170,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     })
   } catch (error) {
     console.log(error)
-    client.quit()
+    // client.quit()
     res.status(500).end()
   }
 }
