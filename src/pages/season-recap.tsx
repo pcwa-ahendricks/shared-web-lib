@@ -10,16 +10,20 @@ import {stringify} from 'querystringify'
 import {blue, brown, deepOrange, green, red} from '@material-ui/core/colors'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@kevinmoe/enhanced-calendar'
-import {BasicTooltip} from '@nivo/tooltip'
+// import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
-import {Defs} from '@nivo/core'
+import {Defs, useTheme as useNivoTheme} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
 import isNumber from 'is-number'
+// import {ChildBox, RowBox} from '@components/boxes/FlexBox'
+import SquareIcon from 'mdi-material-ui/Square'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 
 type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
+  const nivoTheme = useNivoTheme()
   const [waterYear] = useState(2020)
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid: 'kblu', waterYear}, true)
@@ -179,6 +183,7 @@ export default function SeasonRecapPage() {
     )
   }
 
+  console.log(nivoTheme)
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -364,13 +369,35 @@ export default function SeasonRecapPage() {
                   value > 0 ? 'warmer' : 'cooler'
                 }`
                 return (
-                  <BasicTooltip
-                    id={day}
-                    value={newVal}
-                    color={color}
-                    enableChip={true}
-                  />
+                  <Box
+                    bgcolor={theme.palette.background.default}
+                    px={1}
+                    py={0.5}
+                    boxShadow={4}
+                  >
+                    <RowBox alignItems="center">
+                      <ColumnBox justifyContent="center" pr={0.5}>
+                        <SquareIcon fontSize="small" style={{color}} />
+                      </ColumnBox>
+                      <ChildBox style={{marginTop: 2, paddingRight: 6}}>
+                        <Type variant="caption">{day}</Type>
+                      </ChildBox>
+                      <ChildBox style={{marginTop: 2}}>
+                        <Type variant="caption">
+                          <strong>{newVal}</strong>
+                        </Type>
+                      </ChildBox>
+                    </RowBox>
+                  </Box>
                 )
+                // return (
+                // <BasicTooltip
+                //   id={day}
+                //   value={newVal}
+                //   color={color}
+                //   enableChip={true}
+                // />
+                // )
               }}
               granularity="month"
               emptyColor={theme.palette.grey[200]}
