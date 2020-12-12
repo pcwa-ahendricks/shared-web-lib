@@ -472,6 +472,11 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       loader: 'raw-loader'
     })
 
+    // [FIX] https://github.com/pmndrs/react-spring/issues/1078
+    config.module.rules.push({
+      test: /react-spring/,
+      sideEffects: true
+    })
     return config
   }
 })
