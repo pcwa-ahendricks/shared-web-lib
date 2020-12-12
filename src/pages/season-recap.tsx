@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState} from 'react'
 // import alpha from 'color-alpha'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -14,12 +14,15 @@ import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
+import isNumber from 'is-number'
 
 type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const qs = stringify({sid: 'kblu'}, true)
+  const [waterYear, setWaterYear] = useState(2020)
+  const prevWaterYear = waterYear - 1
+  const qs = stringify({sid: 'kblu', waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
     `/api/acis/temp-hist${qs}`
@@ -74,23 +77,35 @@ export default function SeasonRecapPage() {
     }),
     [tempResponse]
   )
+  console.log(tempResponse?.data)
 
   const tempObservedData = useMemo(
     () => ({
       id: 'Observed Range',
-      data: (
-        tempResponse?.data.map((i) => [
-          {
+      data:
+        tempResponse?.data
+          .map((i) => ({
             x: i[0],
-            y: parseFloat(i[1] ?? '')
-          },
-          {x: i[0], y: parseFloat(i[2] ?? '')},
-          {x: i[0], y: null}
-        ]) ?? []
-      ).reduce((p, c) => [...p, ...c], [])
+            y0: parseFloat(i[1] ?? ''),
+            y1: parseFloat(i[2] ?? '')
+          }))
+          // NaN's in dataset, resulting from missing data marked as "M" in Acis datasets, will break nivo graph at the start of the first NaN occurrence (null values are okay)
+          .filter((i) => isNumber(i.y0) && isNumber(i.y1))
+          .map(({x, y0, y1}) => {
+            return [
+              {
+                x,
+                y: y0
+              },
+              {x, y: y1},
+              {x, y: null}
+            ]
+          })
+          .reduce((p, c) => [...p, ...c], []) ?? []
     }),
     [tempResponse]
   )
+
   const tempObservedDiffData = useMemo(
     () =>
       tempResponse?.data.map((i) => ({
@@ -169,7 +184,7 @@ export default function SeasonRecapPage() {
       <MainBox>
         <WideContainer>
           <PageTitle title="Basic Template" subtitle="Page Subtitle" />
-          <Box height={400}>
+          <Box height={{xs: 400, lg: 450}}>
             <ResponsiveLine
               data={[
                 tempObservedData,
@@ -179,7 +194,7 @@ export default function SeasonRecapPage() {
                 tempNormalHighData
               ]}
               // colors={{scheme: 'red_yellow_green'}}
-              colors={[blue[700], green[200], red[200], brown[100], brown[100]]}
+              colors={[blue[700], green[100], red[100], brown[100], brown[100]]}
               margin={{top: 50, right: 140, bottom: 50, left: 60}}
               xScale={{
                 type: 'time',
@@ -340,8 +355,8 @@ export default function SeasonRecapPage() {
           >
             <ResponsiveEnhancedCalendar
               data={tempObservedDiffData}
-              from="2020-10-02"
-              to="2021-09-30"
+              from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+              to={`${waterYear}-09-30`}
               // monthSpacing={monthSpacing}
               tooltip={({value, day, color}) => {
                 if (value === undefined || isNaN(value)) return null

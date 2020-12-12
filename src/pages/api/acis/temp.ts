@@ -4,7 +4,8 @@ import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
 import jsonify from 'redis-jsonify'
-import {format, getYear, isFuture, parse, subDays} from 'date-fns'
+import {format, parse, subDays, isFuture} from 'date-fns'
+import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 const isDev = process.env.NODE_ENV === 'development'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
@@ -29,24 +30,32 @@ const ACCEPT_SIDS = ['KBLU']
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const {sid: sidParam} = req.query
+    const {sid: sidParam, waterYear: waterYearParam} = req.query
     const sid = paramToStr(sidParam).toUpperCase()
-    if (!ACCEPT_SIDS.includes(sid)) {
+    const waterYear = parseInt(paramToStr(waterYearParam), 10)
+    if (
+      !ACCEPT_SIDS.includes(sid) ||
+      !lastTenWaterYears().includes(waterYear)
+    ) {
       res.status(406).end()
       return
     }
-    const yesterday = subDays(new Date(), 1)
-    const eDate = format(yesterday, 'yyyy-MM-dd')
-    const year = getYear(new Date())
-    const startOfWaterYearGuess = parse(
-      `${year}-10-01`,
+    const startOfWaterYear = parse(
+      `${waterYear - 1}-10-01`,
       'yyyy-MM-dd',
       new Date()
     )
-    const startOfWaterYear = isFuture(startOfWaterYearGuess)
-      ? parse(`${year - 1}-10-01`, 'yyyy-MM-dd', new Date())
-      : startOfWaterYearGuess
+    // No future water years
+    if (isFuture(startOfWaterYear)) {
+      res.status(406).end()
+      return
+    }
+    const endOfWaterYear = parse(`${waterYear}-09-30`, 'yyyy-MM-dd', new Date())
+    const yesterday = subDays(new Date(), 1)
     const sDate = format(startOfWaterYear, 'yyyy-MM-dd')
+    const eDate = isFuture(endOfWaterYear)
+      ? format(yesterday, 'yyyy-MM-dd')
+      : format(endOfWaterYear, 'yyyy-MM-dd')
 
     isDev && console.log(`SID: ${sid}`)
     isDev && console.log(`Using start date: ${sDate}`)
@@ -81,7 +90,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
-    const hash = `acis-temperature-${sid}-${eDate}`
+    const hash = `acis-temperature-${sDate}_${eDate}-${sid}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       isDev && console.log('returning cache copy...')
@@ -102,7 +111,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const data = await response.json()
     await setAsync(hash, data)
-    await expireAsync(hash, 60 * 60 * 6) // 6 hours
+    await expireAsync(hash, 60 * 60 * 24) // 24 hours
+    // await expireAsync(hash, 60 * 1) // 1 min
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     isDev && console.log('returning fresh copy...')

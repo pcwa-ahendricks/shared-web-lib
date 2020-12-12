@@ -4,7 +4,8 @@ import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
 import jsonify from 'redis-jsonify'
-import {format, subDays} from 'date-fns'
+import {format, isFuture, parse, subDays} from 'date-fns'
+import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 const isDev = process.env.NODE_ENV === 'development'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
@@ -29,15 +30,22 @@ const ACCEPT_SIDS = ['KBLU']
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
-    const {sid: sidParam} = req.query
+    const {sid: sidParam, waterYear: waterYearParam} = req.query
     const sid = paramToStr(sidParam).toUpperCase()
-    if (!ACCEPT_SIDS.includes(sid)) {
+    const waterYear = parseInt(paramToStr(waterYearParam), 10)
+    if (
+      !ACCEPT_SIDS.includes(sid) ||
+      !lastTenWaterYears().includes(waterYear)
+    ) {
       res.status(406).end()
       return
     }
     const yesterday = subDays(new Date(), 1)
-    const eDate = format(yesterday, 'yyyy-MM-dd')
-
+    const endOfWaterYear = parse(`${waterYear}-09-30`, 'yyyy-MM-dd', new Date())
+    // const eDate = format(yesterday, 'yyyy-MM-dd')
+    const eDate = isFuture(endOfWaterYear)
+      ? format(yesterday, 'yyyy-MM-dd')
+      : format(endOfWaterYear, 'yyyy-MM-dd')
     isDev && console.log(`SID: ${sid}`)
     isDev && console.log(`Using end date: ${eDate}`)
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
