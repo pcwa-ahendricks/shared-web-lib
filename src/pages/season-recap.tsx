@@ -7,7 +7,6 @@ import WideContainer from '@components/containers/WideContainer'
 import {Layer, Point, ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-// import round from '@lib/round'
 import {blue, brown, deepOrange, green, red} from '@material-ui/core/colors'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@lib/enhanced-calendar'
@@ -25,7 +24,6 @@ export default function SeasonRecapPage() {
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
     `/api/acis/temp-hist${qs}`
   )
-  console.log(tempHistResponse)
   const tempHistHighData = useMemo(
     () => ({
       id: 'Historical High',
@@ -54,7 +52,6 @@ export default function SeasonRecapPage() {
     }),
     [tempHistResponse, tempResponse]
   )
-  console.log(tempHistHighData)
   const tempNormalHighData = useMemo(
     () => ({
       id: 'Normal High Range',
@@ -113,6 +110,7 @@ export default function SeasonRecapPage() {
   // const mouseLeaveCalHandler = useCallback(() => setMonthSpacing(0), [])
 
   const AreaLayer: Layer = ({series, xScale, yScale}) => {
+    // Using area() is easier with combined series data.
     const y1SeriesData = series.find((s) => s.id === 'Normal High Range')?.data
     const y0SeriesData = series.find((s) => s.id === 'Normal Low Range')?.data
     if (
