@@ -1,10 +1,10 @@
-import React, {useMemo, useState} from 'react'
+import React, {useCallback, useMemo, useState} from 'react'
 // import alpha from 'color-alpha'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {Layer, Point, ResponsiveLine} from '@nivo/line'
+import {CustomLayerProps, Layer, Point, ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {blue, brown, deepOrange, green, red} from '@material-ui/core/colors'
@@ -12,7 +12,7 @@ import {Box, useTheme, Typography as Type} from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@kevinmoe/nivo-fork-calendar'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
-import {Defs, useTheme as useNivoTheme} from '@nivo/core'
+import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
 import isNumber from 'is-number'
 // import {ChildBox, RowBox} from '@components/boxes/FlexBox'
@@ -23,7 +23,6 @@ type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const nivoTheme = useNivoTheme()
   const [waterYear] = useState(2020)
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid: 'kblu', waterYear}, true)
@@ -81,7 +80,6 @@ export default function SeasonRecapPage() {
     }),
     [tempResponse]
   )
-  console.log(tempResponse?.data)
 
   const tempObservedData = useMemo(
     () => ({
@@ -128,62 +126,61 @@ export default function SeasonRecapPage() {
   // const mouseEnterCalHandler = useCallback(() => setMonthSpacing(12), [])
   // const mouseLeaveCalHandler = useCallback(() => setMonthSpacing(0), [])
 
-  const AreaLayer: Layer = ({series, xScale, yScale}) => {
-    // Using area() is easier with combined series data.
-    const y1SeriesData = series.find((s) => s.id === 'Normal High Range')?.data
-    const y0SeriesData = series.find((s) => s.id === 'Normal Low Range')?.data
-    if (
-      !y1SeriesData ||
-      y1SeriesData.length <= 0 ||
-      !y0SeriesData ||
-      y0SeriesData.length <= 0
-    )
-      return null
-    const seriesData: any = y1SeriesData.map((i, idx) => ({
-      ...i,
-      data: {
-        x: i.data.x,
-        y0: y0SeriesData[idx].data.y,
-        y1: i.data.y
-      }
-    }))
-    // console.log('all', seriesData)
-    const areaGenerator = area()
-      .x((h: any) => xScale(h.data.x))
-      .y0((h: any) => yScale(h.data.y0))
-      .y1((h: any) => yScale(h.data.y1))
-      .curve(curveMonotoneX)
-    const d = areaGenerator(seriesData)
-    if (!d) {
-      return null
-    }
-    return (
-      <>
-        <Defs
-          defs={[
-            {
-              id: 'pattern',
-              type: 'patternLines',
-              background: 'transparent',
-              color: brown[200],
-              lineWidth: 1,
-              spacing: 5,
-              rotation: -45
-            }
-          ]}
-        />
-        <path
-          d={d}
-          fill="url(#pattern)"
-          fillOpacity={0.5}
-          // stroke={brown[100]}
-          // strokeWidth={1}
-        />
-      </>
-    )
-  }
+  const AreaLayer: Layer = useCallback(
+    ({series, xScale, yScale}: CustomLayerProps) => {
+      // Using area() is easier with combined series data.
+      const y1SeriesData =
+        series.find((s) => s.id === 'Normal High Range')?.data ?? []
+      const y0SeriesData =
+        series.find((s) => s.id === 'Normal Low Range')?.data ?? []
+      if (y1SeriesData.length <= 0 || y0SeriesData.length <= 0) return null
 
-  console.log(nivoTheme)
+      const seriesData = y1SeriesData.map((i, idx) => ({
+        ...i,
+        data: {
+          x: i.data.x,
+          y0: y0SeriesData[idx].data.y,
+          y1: i.data.y
+        }
+      }))
+
+      const areaGenerator = area<typeof seriesData[0]>()
+        .x(({data}) => xScale(data.x ? data.x : ''))
+        .y0(({data}) => yScale(data.y0 ? data.y0 : ''))
+        .y1(({data}) => yScale(data.y1 ? data.y1 : ''))
+        .curve(curveMonotoneX)
+      const d = areaGenerator(seriesData)
+      if (!d) {
+        return null
+      }
+      return (
+        <>
+          <Defs
+            defs={[
+              {
+                id: 'pattern',
+                type: 'patternLines',
+                background: 'transparent',
+                color: brown[200],
+                lineWidth: 1,
+                spacing: 5,
+                rotation: -45
+              }
+            ]}
+          />
+          <path
+            d={d}
+            fill="url(#pattern)"
+            fillOpacity={0.5}
+            // stroke={brown[100]}
+            // strokeWidth={1}
+          />
+        </>
+      )
+    },
+    []
+  )
+
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
