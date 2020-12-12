@@ -20,7 +20,7 @@ type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const [waterYear, setWaterYear] = useState(2020)
+  const [waterYear] = useState(2020)
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid: 'kblu', waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
