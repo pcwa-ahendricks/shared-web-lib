@@ -133,7 +133,6 @@ export default function SeasonRecapPage() {
         series.find((s) => s.id === 'Normal High Range')?.data ?? []
       const y0SeriesData =
         series.find((s) => s.id === 'Normal Low Range')?.data ?? []
-      if (y1SeriesData.length <= 0 || y0SeriesData.length <= 0) return null
 
       const seriesData = y1SeriesData.map((i, idx) => ({
         ...i,
