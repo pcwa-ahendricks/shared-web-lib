@@ -41,17 +41,14 @@ export default function SeasonRecapPage() {
           y: parseFloat(i[1] ?? '')
         })) ?? []
       ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
-        const rTotal = prev
-          .map((i) => i.actual)
-          .filter((actl) => isNumber(actl)) // Don't sum NaN
-          .reduce((total, actl) => total + actl, 0)
-
         const actual = isNumber(curr.y) ? curr.y : 0
+        const prevLastY = prev.slice(-1)[0]?.y
+        const prevTotal = isNumber(prevLastY) ? prevLastY : 0
         return [
           ...prev,
           {
             ...curr,
-            y: rTotal + actual,
+            y: prevTotal + actual,
             actual
           }
         ]
