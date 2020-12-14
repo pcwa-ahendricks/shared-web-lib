@@ -5,7 +5,6 @@ import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
 import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
-import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 const isDev = process.env.NODE_ENV === 'development'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
@@ -33,10 +32,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const {sid: sidParam, waterYear: waterYearParam} = req.query
     const sid = paramToStr(sidParam).toUpperCase()
     const waterYear = parseInt(paramToStr(waterYearParam), 10)
-    if (
-      !ACCEPT_SIDS.includes(sid) ||
-      !lastTenWaterYears().includes(waterYear)
-    ) {
+    if (!ACCEPT_SIDS.includes(sid)) {
       res.status(406).end()
       return
     }
@@ -64,27 +60,21 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
 
     const body = {
-      sid,
-      meta: ['valid_daterange', 'name', 'state', 'sids'],
       elems: [
         {
-          name: 'pcpn',
-          duration: 1,
-          interval: 'dly'
-        },
-        {
           interval: 'dly',
-          normal: '1',
-          name: 'pcpn',
-          duration: 1
+          duration: 'dly',
+          name: 'pcpn'
         }
       ],
+      sid: 'KBLU 5',
       sDate,
-      eDate
+      eDate,
+      meta: []
     }
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
-    const hash = `acis-precipitation-${sDate}_${eDate}-${sid}`
+    const hash = `acis-precipitation-hist-yr-${sDate}_${eDate}-${sid}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       isDev && console.log('returning cache copy...')
