@@ -12,6 +12,7 @@ import {
   brown,
   deepOrange,
   green,
+  orange,
   purple,
   red
 } from '@material-ui/core/colors'
@@ -25,12 +26,13 @@ import isNumber from 'is-number'
 // import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {getMonth, getYear, parse} from 'date-fns'
 
 type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const [waterYear] = useState(2020)
+  const [waterYear] = useState(2021)
   const [sid] = useState('kblu')
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid, waterYear}, true)
@@ -42,7 +44,6 @@ export default function SeasonRecapPage() {
   const {data: precipHistResponse} = useSWR<PrecipHistResponse>(
     `/api/acis/precip-hist${qs}`
   )
-  console.log(precipHistResponse)
 
   const precipAccumData = useMemo(
     () => ({
@@ -69,26 +70,23 @@ export default function SeasonRecapPage() {
     [precipResponse]
   )
 
-  const precipAccumHistHighYear = useMemo(
-    () =>
-      precipHistResponse?.data
-        .reduce((prev, curr) => {
-          const prevValue = parseFloat(prev?.[1]?.[0])
-          const currValue = parseFloat(curr[1][0])
-          if (!isNumber(prevValue)) {
-            return curr
-          }
-          return isNumber(currValue) && currValue > prevValue ? curr : prev
-        })[0]
-        ?.substr(0, 4),
-    [precipHistResponse]
-  )
+  const precipAccumHistHighYear = useMemo(() => {
+    const highYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
+      const prevValue = parseFloat(prev?.[1]?.[0])
+      const currValue = parseFloat(curr[1][0])
+      if (!isNumber(prevValue)) {
+        return curr
+      }
+      return isNumber(currValue) && currValue > prevValue ? curr : prev
+    })[0]
+    return parseWaterYear(highYearDateStr)
+  }, [precipHistResponse])
   const qsPrecipHigh = stringify(
     {sid: 'kblu', waterYear: precipAccumHistHighYear},
     true
   )
   const {data: precipAccumHistHighResponse} = useSWR<PrecipResponse>(
-    precipAccumHistHighYear ? `/api/acis/precip${qsPrecipHigh}` : null
+    precipAccumHistHighYear ? `/api/acis/precip-hist-yr${qsPrecipHigh}` : null
   )
   const precipAccumHistHighData = useMemo(
     () => ({
@@ -96,26 +94,74 @@ export default function SeasonRecapPage() {
       data: (
         precipAccumHistHighResponse?.data.map((i, idx) => ({
           // x: i[0],
-          x: precipResponse?.data[idx][0] ?? '',
+          x: precipResponse?.data[idx]?.[0] ?? '',
           y: parseFloat(i[1] ?? '')
         })) ?? []
-      ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
-        const actual = isNumber(curr.y) ? curr.y : 0
-        const prevLastY = prev.slice(-1)[0]?.y
-        const prevTotal = isNumber(prevLastY) ? prevLastY : 0
-        return [
-          ...prev,
-          {
-            ...curr,
-            y: prevTotal + actual,
-            actual
-          }
-        ]
-      }, [])
+      )
+        .filter((i) => i.x)
+        .reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+          const actual = isNumber(curr.y) ? curr.y : 0
+          const prevLastY = prev.slice(-1)[0]?.y
+          const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+          return [
+            ...prev,
+            {
+              ...curr,
+              y: prevTotal + actual,
+              actual
+            }
+          ]
+        }, [])
     }),
     [precipAccumHistHighResponse, precipResponse]
   )
-  console.log(precipAccumHistHighData)
+
+  const precipAccumHistLowYear = useMemo(() => {
+    const lowYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
+      const prevValue = parseFloat(prev?.[1]?.[0])
+      const currValue = parseFloat(curr[1][0])
+      if (!isNumber(prevValue)) {
+        return curr
+      }
+      return isNumber(currValue) && currValue < prevValue ? curr : prev
+    })[0]
+    return parseWaterYear(lowYearDateStr)
+  }, [precipHistResponse])
+
+  const qsPrecipLow = stringify(
+    {sid: 'kblu', waterYear: precipAccumHistLowYear},
+    true
+  )
+  const {data: precipAccumHistLowResponse} = useSWR<PrecipResponse>(
+    precipAccumHistLowYear ? `/api/acis/precip-hist-yr${qsPrecipLow}` : null
+  )
+  const precipAccumHistLowData = useMemo(
+    () => ({
+      id: 'Recorded Low',
+      data: (
+        precipAccumHistLowResponse?.data.map((i, idx) => ({
+          // x: i[0],
+          x: precipResponse?.data[idx]?.[0] ?? '',
+          y: parseFloat(i[1] ?? '')
+        })) ?? []
+      )
+        .filter((i) => i.x)
+        .reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+          const actual = isNumber(curr.y) ? curr.y : 0
+          const prevLastY = prev.slice(-1)[0]?.y
+          const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+          return [
+            ...prev,
+            {
+              ...curr,
+              y: prevTotal + actual,
+              actual
+            }
+          ]
+        }, [])
+    }),
+    [precipAccumHistLowResponse, precipResponse]
+  )
 
   const precipNormalAccumData = useMemo(
     () => ({
@@ -125,22 +171,28 @@ export default function SeasonRecapPage() {
           x: i[0],
           y: parseFloat(i[2] ?? '')
         })) ?? []
-      ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
-        const actual = isNumber(curr.y) ? curr.y : 0
-        const prevLastY = prev.slice(-1)[0]?.y
-        const prevTotal = isNumber(prevLastY) ? prevLastY : 0
-        return [
-          ...prev,
-          {
-            ...curr,
-            y: prevTotal + actual,
-            actual
-          }
-        ]
-      }, [])
+      )
+        .filter((i) => i.x)
+        .reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+          const actual = isNumber(curr.y) ? curr.y : 0
+          const prevLastY = prev.slice(-1)[0]?.y
+          const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+          return [
+            ...prev,
+            {
+              ...curr,
+              y: prevTotal + actual,
+              actual
+            }
+          ]
+        }, [])
     }),
     [precipResponse]
   )
+
+  // console.log(precipAccumHistHighYear)
+  // console.log(precipAccumHistHighResponse)
+  // console.log(precipAccumHistHighData)
 
   const tempHistHighData = useMemo(
     () => ({
@@ -192,6 +244,16 @@ export default function SeasonRecapPage() {
     }),
     [tempResponse]
   )
+
+  // Add a 20% margin to the chart on the Y axis for the top.
+  const precipYScaleMax = useMemo(() => {
+    const high = precipAccumHistHighData?.data.slice(-1)[0]?.y
+    if (!isNumber(high)) {
+      return null
+    }
+    const buffer = high * 0.2
+    return round(high + buffer, 0)
+  }, [precipAccumHistHighData])
 
   const tempObservedData = useMemo(
     () => ({
@@ -302,9 +364,10 @@ export default function SeasonRecapPage() {
               data={[
                 precipAccumData,
                 precipNormalAccumData,
-                precipAccumHistHighData
+                precipAccumHistHighData,
+                precipAccumHistLowData
               ]}
-              colors={[blue[800], brown[200], purple[100]]}
+              colors={[blue[800], brown[200], purple[100], orange[100]]}
               margin={{top: 50, right: 170, bottom: 50, left: 60}}
               xScale={{
                 type: 'time',
@@ -316,7 +379,7 @@ export default function SeasonRecapPage() {
               yScale={{
                 type: 'linear',
                 min: 0,
-                max: 150,
+                max: precipYScaleMax ?? 'auto',
                 stacked: false,
                 reverse: false
               }}
@@ -683,4 +746,17 @@ interface PrecipMeta {
 
 interface PrecipHistResponse {
   data: [string, [string, number]][]
+}
+
+function parseWaterYear(dateStr?: string) {
+  if (!dateStr) {
+    return null
+  }
+  const highYearDate = parse(dateStr, 'yyyy-MM-dd', new Date())
+  const month = getMonth(highYearDate) + 1
+  const year = getYear(highYearDate)
+  if ([10, 11, 12].indexOf(month) >= 0) {
+    return year + 1
+  }
+  return year
 }
