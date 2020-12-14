@@ -287,8 +287,8 @@ const EmployeeBenefitsSummaryPage = () => {
               </Type>
               <Type paragraph>
                 <strong>Classic Members</strong>: 2.7% @ 55, single highest
-                year; Agency pays 3.5% of the employee share, and employee pays
-                4.5%.
+                year; employee pays 8.0% of their salary towards the employee's
+                retirement contribution.
               </Type>
               <Type variant="subtitle1" gutterBottom>
                 Social Security
