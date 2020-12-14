@@ -7,7 +7,14 @@ import WideContainer from '@components/containers/WideContainer'
 import {CustomLayerProps, Layer, Point, ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import {blue, brown, deepOrange, green, red} from '@material-ui/core/colors'
+import {
+  blue,
+  brown,
+  deepOrange,
+  green,
+  purple,
+  red
+} from '@material-ui/core/colors'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@kevinmoe/nivo-fork-calendar'
 // import {BasicTooltip} from '@nivo/tooltip'
@@ -23,14 +30,19 @@ type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const [waterYear] = useState(2021)
+  const [waterYear] = useState(2020)
+  const [sid] = useState('kblu')
   const prevWaterYear = waterYear - 1
-  const qs = stringify({sid: 'kblu', waterYear}, true)
+  const qs = stringify({sid, waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
     `/api/acis/temp-hist${qs}`
   )
   const {data: precipResponse} = useSWR<PrecipResponse>(`/api/acis/precip${qs}`)
+  const {data: precipHistResponse} = useSWR<PrecipHistResponse>(
+    `/api/acis/precip-hist${qs}`
+  )
+  console.log(precipHistResponse)
 
   const precipAccumData = useMemo(
     () => ({
@@ -39,6 +51,79 @@ export default function SeasonRecapPage() {
         precipResponse?.data.map((i) => ({
           x: i[0],
           y: parseFloat(i[1] ?? '')
+        })) ?? []
+      ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+        const actual = isNumber(curr.y) ? curr.y : 0
+        const prevLastY = prev.slice(-1)[0]?.y
+        const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+        return [
+          ...prev,
+          {
+            ...curr,
+            y: prevTotal + actual,
+            actual
+          }
+        ]
+      }, [])
+    }),
+    [precipResponse]
+  )
+
+  const precipAccumHistHighYear = useMemo(
+    () =>
+      precipHistResponse?.data
+        .reduce((prev, curr) => {
+          const prevValue = parseFloat(prev?.[1]?.[0])
+          const currValue = parseFloat(curr[1][0])
+          if (!isNumber(prevValue)) {
+            return curr
+          }
+          return isNumber(currValue) && currValue > prevValue ? curr : prev
+        })[0]
+        ?.substr(0, 4),
+    [precipHistResponse]
+  )
+  const qsPrecipHigh = stringify(
+    {sid: 'kblu', waterYear: precipAccumHistHighYear},
+    true
+  )
+  const {data: precipAccumHistHighResponse} = useSWR<PrecipResponse>(
+    precipAccumHistHighYear ? `/api/acis/precip${qsPrecipHigh}` : null
+  )
+  const precipAccumHistHighData = useMemo(
+    () => ({
+      id: 'Recorded High',
+      data: (
+        precipAccumHistHighResponse?.data.map((i, idx) => ({
+          // x: i[0],
+          x: precipResponse?.data[idx][0] ?? '',
+          y: parseFloat(i[1] ?? '')
+        })) ?? []
+      ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+        const actual = isNumber(curr.y) ? curr.y : 0
+        const prevLastY = prev.slice(-1)[0]?.y
+        const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+        return [
+          ...prev,
+          {
+            ...curr,
+            y: prevTotal + actual,
+            actual
+          }
+        ]
+      }, [])
+    }),
+    [precipAccumHistHighResponse, precipResponse]
+  )
+  console.log(precipAccumHistHighData)
+
+  const precipNormalAccumData = useMemo(
+    () => ({
+      id: 'Normal Accum. Precip.',
+      data: (
+        precipResponse?.data.map((i) => ({
+          x: i[0],
+          y: parseFloat(i[2] ?? '')
         })) ?? []
       ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
         const actual = isNumber(curr.y) ? curr.y : 0
@@ -214,8 +299,12 @@ export default function SeasonRecapPage() {
           <PageTitle title="Basic Template" subtitle="Page Subtitle" />
           <Box height={{xs: 400, lg: 450}}>
             <ResponsiveLine
-              data={[precipAccumData]}
-              colors={[blue[700]]}
+              data={[
+                precipAccumData,
+                precipNormalAccumData,
+                precipAccumHistHighData
+              ]}
+              colors={[blue[800], brown[200], purple[100]]}
               margin={{top: 50, right: 170, bottom: 50, left: 60}}
               xScale={{
                 type: 'time',
@@ -227,7 +316,7 @@ export default function SeasonRecapPage() {
               yScale={{
                 type: 'linear',
                 min: 0,
-                max: 60,
+                max: 150,
                 stacked: false,
                 reverse: false
               }}
@@ -590,4 +679,8 @@ interface PrecipMeta {
   sids: string[]
   name: string
   valid_daterange: string[][]
+}
+
+interface PrecipHistResponse {
+  data: [string, [string, number]][]
 }

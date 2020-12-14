@@ -1,11 +1,11 @@
-// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
+// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid maxmissing mcnt
 import fetch from 'node-fetch'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
 import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
-// import lastTenWaterYears from '@lib/api/lastTenWaterYears'
+import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 const isDev = process.env.NODE_ENV === 'development'
 
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
@@ -34,28 +34,19 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const sid = paramToStr(sidParam).toUpperCase()
     const waterYear = parseInt(paramToStr(waterYearParam), 10)
     if (
-      !ACCEPT_SIDS.includes(sid) //||
-      // !lastTenWaterYears().includes(waterYear)
+      !ACCEPT_SIDS.includes(sid) ||
+      !lastTenWaterYears().includes(waterYear)
     ) {
       res.status(406).end()
       return
     }
-    const startOfWaterYear = parse(
-      `${waterYear - 1}-10-01`,
-      'yyyy-MM-dd',
-      new Date()
-    )
-    // No future water years
-    if (isFuture(startOfWaterYear)) {
-      res.status(406).end()
-      return
-    }
+
     const endOfWaterYear = parse(`${waterYear}-09-30`, 'yyyy-MM-dd', new Date())
     const yesterday = subDays(new Date(), 1)
-    const sDate = format(startOfWaterYear, 'yyyy-MM-dd')
-    const eDate = isFuture(endOfWaterYear)
-      ? format(yesterday, 'yyyy-MM-dd')
-      : format(endOfWaterYear, 'yyyy-MM-dd')
+    const eDateDt = isFuture(endOfWaterYear) ? yesterday : endOfWaterYear
+    const eDate = format(eDateDt, 'yyy-MM-dd')
+    // This query differs from temp in that the start date is the end date of the water year for 1940, not 10-01 (the start).
+    const sDate = `1940-${format(eDateDt, 'MM-dd')}`
 
     isDev && console.log(`SID: ${sid}`)
     isDev && console.log(`Using start date: ${sDate}`)
@@ -65,18 +56,18 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const body = {
       sid,
-      meta: ['valid_daterange', 'name', 'state', 'sids'],
+      meta: [],
       elems: [
         {
+          interval: [1, 0, 0],
+          reduce: {
+            reduce: 'sum',
+            add: 'mcnt'
+          },
+          maxmissing: '30',
           name: 'pcpn',
-          duration: 1,
-          interval: 'dly'
-        },
-        {
-          interval: 'dly',
-          normal: '1',
-          name: 'pcpn',
-          duration: 1
+          season_start: '10-01',
+          duration: 'std'
         }
       ],
       sDate,
@@ -84,7 +75,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
-    const hash = `acis-precipitation-${sDate}_${eDate}-${sid}`
+    const hash = `acis-precipitation-hist-${sDate}_${eDate}-${sid}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       isDev && console.log('returning cache copy...')
@@ -104,6 +95,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
 
     const data = await response.json()
+
     await setAsync(hash, data)
     await expireAsync(hash, 60 * 60 * 24) // 24 hours
     // await expireAsync(hash, 60 * 1) // 1 min
