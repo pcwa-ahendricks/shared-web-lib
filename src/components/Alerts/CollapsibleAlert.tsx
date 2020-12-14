@@ -274,7 +274,7 @@ function CollapsibleCosmicAlert({
 
   const SvgIconEx = useCallback(
     () => (svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />),
-    [svgIconText]
+    [svgIconText, ParsedSvgIcon]
   )
 
   return (

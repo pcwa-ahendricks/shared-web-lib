@@ -42,9 +42,9 @@ const miscRedirects = [
     destination: '/careers/salary-schedule',
     permanent: true
   },
-  // Link found on https://careers.pcwa.net/ in side navigation.
+  // Link found on https://careers.pcwa.net/ in side navigation. Don't redirect the actual path cause that will not work, ie. just redirect the '.html' variant.
   {
-    source: '/careers/employee-benefits-summary(\\.html)?',
+    source: '/careers/employee-benefits-summary.html',
     destination: '/careers/employee-benefits-summary',
     permanent: true
   },
