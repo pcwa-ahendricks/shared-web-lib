@@ -1,5 +1,5 @@
+// cspell:ignore actl accum
 import React, {useCallback, useMemo, useState} from 'react'
-// import alpha from 'color-alpha'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -23,13 +23,43 @@ type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const [waterYear] = useState(2020)
+  const [waterYear] = useState(2021)
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid: 'kblu', waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
     `/api/acis/temp-hist${qs}`
   )
+  const {data: precipResponse} = useSWR<PrecipResponse>(`/api/acis/precip${qs}`)
+
+  const precipAccumData = useMemo(
+    () => ({
+      id: 'Accumulated Precipitation',
+      data: (
+        precipResponse?.data.map((i) => ({
+          x: i[0],
+          y: parseFloat(i[1] ?? '')
+        })) ?? []
+      ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+        const rTotal = prev
+          .map((i) => i.actual)
+          .filter((actl) => isNumber(actl)) // Don't sum NaN
+          .reduce((total, actl) => total + actl, 0)
+
+        const actual = isNumber(curr.y) ? curr.y : 0
+        return [
+          ...prev,
+          {
+            ...curr,
+            y: rTotal + actual,
+            actual
+          }
+        ]
+      }, [])
+    }),
+    [precipResponse]
+  )
+
   const tempHistHighData = useMemo(
     () => ({
       id: 'Historical High',
@@ -185,6 +215,81 @@ export default function SeasonRecapPage() {
       <MainBox>
         <WideContainer>
           <PageTitle title="Basic Template" subtitle="Page Subtitle" />
+          <Box height={{xs: 400, lg: 450}}>
+            <ResponsiveLine
+              data={[precipAccumData]}
+              colors={[blue[700]]}
+              margin={{top: 50, right: 170, bottom: 50, left: 60}}
+              xScale={{
+                type: 'time',
+                format: '%Y-%m-%d',
+                useUTC: false,
+                precision: 'day'
+              }}
+              xFormat="time:%Y-%m-%d"
+              yScale={{
+                type: 'linear',
+                min: 0,
+                max: 60,
+                stacked: false,
+                reverse: false
+              }}
+              yFormat=" >-.1f"
+              curve="monotoneX"
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                format: '%b %d',
+                tickValues: 'every 1 month',
+                legend: 'Date',
+                legendOffset: -12
+              }}
+              axisLeft={{
+                orient: 'left',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'Precipitation (inches)',
+                legendOffset: -40,
+                legendPosition: 'middle'
+              }}
+              enablePoints={false}
+              // pointSize={10}
+              pointColor={{theme: 'background'}}
+              pointBorderWidth={2}
+              pointBorderColor={{from: 'serieColor'}}
+              pointLabelYOffset={-12}
+              crosshairType="x"
+              useMesh={true}
+              // enableSlices="x"
+              legends={[
+                {
+                  anchor: 'bottom-right',
+                  direction: 'column',
+                  justify: false,
+                  translateX: 100,
+                  translateY: 0,
+                  itemsSpacing: 0,
+                  itemDirection: 'left-to-right',
+                  itemWidth: 80,
+                  itemHeight: 20,
+                  itemOpacity: 0.75,
+                  symbolSize: 12,
+                  symbolShape: 'circle',
+                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                  effects: [
+                    {
+                      on: 'hover',
+                      style: {
+                        itemBackground: 'rgba(0, 0, 0, .03)',
+                        itemOpacity: 1
+                      }
+                    }
+                  ]
+                }
+              ]}
+            />
+          </Box>
           <Box height={{xs: 400, lg: 450}}>
             <ResponsiveLine
               data={[
@@ -397,8 +502,8 @@ export default function SeasonRecapPage() {
               }}
               granularity="month"
               emptyColor={theme.palette.grey[200]}
-              minValue={-25}
-              maxValue={25}
+              minValue={-22}
+              maxValue={22}
               margin={{top: 40, right: 40, bottom: 40, left: 40}}
               // yearSpacing={40}
               monthBorderColor="#ffffff"
@@ -472,6 +577,18 @@ interface TempHistResponse {
 }
 
 interface TempHistMeta {
+  state: string
+  sids: string[]
+  name: string
+  valid_daterange: string[][]
+}
+
+interface PrecipResponse {
+  meta: PrecipMeta
+  data: string[][]
+}
+
+interface PrecipMeta {
   state: string
   sids: string[]
   name: string
