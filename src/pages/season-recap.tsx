@@ -1,5 +1,5 @@
 // cspell:ignore actl accum
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -23,7 +23,11 @@ import {
   Typography as Type,
   Paper,
   Tabs,
-  Tab
+  Tab,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@kevinmoe/nivo-fork-calendar'
 // import {BasicTooltip} from '@nivo/tooltip'
@@ -35,6 +39,7 @@ import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
+import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -46,7 +51,8 @@ type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const [waterYear] = useState(2021)
+  const menuItems = useMemo(() => lastTenWaterYears().sort((a, b) => b - a), [])
+  const [waterYear, setWaterYear] = useState(2018)
   const [sid] = useState('kblu')
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid, waterYear}, true)
@@ -222,10 +228,6 @@ export default function SeasonRecapPage() {
       : null
   }, [precipAccumData, precipNormalAccumData])
 
-  // console.log(precipAccumHistHighYear)
-  // console.log(precipAccumHistHighResponse)
-  // console.log(precipAccumHistHighData)
-
   const tempHistHighData = useMemo(
     () => ({
       id: 'Historical High',
@@ -388,6 +390,46 @@ export default function SeasonRecapPage() {
   ) => {
     setValue(newValue)
   }
+  const yearSelectHandler = (event: React.ChangeEvent<{value: unknown}>) => {
+    setWaterYear(event.target.value as number)
+  }
+
+  type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
+  const [precipDataset, setPrecipDataset] = useState<LineDataProp>([])
+  useEffect(() => {
+    setTimeout(() => {
+      setPrecipDataset([
+        precipAccumData,
+        precipNormalAccumData,
+        precipAccumHistHighData,
+        precipAccumHistLowData
+      ])
+    })
+  }, [
+    precipAccumData,
+    precipNormalAccumData,
+    precipAccumHistHighData,
+    precipAccumHistLowData
+  ])
+
+  const [tempDataset, setTempDataset] = useState<LineDataProp>([])
+  useEffect(() => {
+    setTimeout(() => {
+      setTempDataset([
+        tempObservedData,
+        tempHistLowData,
+        tempHistHighData,
+        tempNormalLowData,
+        tempNormalHighData
+      ])
+    })
+  }, [
+    tempObservedData,
+    tempHistLowData,
+    tempHistHighData,
+    tempNormalLowData,
+    tempNormalHighData
+  ])
 
   return (
     <PageLayout title="Page Template" waterSurface>
@@ -416,6 +458,23 @@ export default function SeasonRecapPage() {
               />
             </Tabs>
           </Paper>
+
+          <FormControl style={{minWidth: 140}}>
+            <InputLabel id="demo-simple-select-label">Water Year</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={waterYear}
+              onChange={yearSelectHandler}
+            >
+              {menuItems.map((y, idx) => (
+                <MenuItem key={idx} value={y}>
+                  {y}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
           <TabPanel value={value} index={0}>
             {precipAccumDiff ? (
               <Type variant="h4">
@@ -427,12 +486,7 @@ export default function SeasonRecapPage() {
             ) : null}
             <Box height={{xs: 400, lg: 450}}>
               <ResponsiveLine
-                data={[
-                  precipAccumData,
-                  precipNormalAccumData,
-                  precipAccumHistHighData,
-                  precipAccumHistLowData
-                ]}
+                data={precipDataset}
                 colors={[blue[800], brown[200], purple[100], orange[100]]}
                 margin={{top: 50, right: 170, bottom: 50, left: 60}}
                 xScale={{
@@ -542,13 +596,7 @@ export default function SeasonRecapPage() {
           <TabPanel value={value} index={1}>
             <Box height={{xs: 400, lg: 450}}>
               <ResponsiveLine
-                data={[
-                  tempObservedData,
-                  tempHistLowData,
-                  tempHistHighData,
-                  tempNormalLowData,
-                  tempNormalHighData
-                ]}
+                data={tempDataset}
                 // colors={{scheme: 'red_yellow_green'}}
                 colors={[
                   blue[700],
