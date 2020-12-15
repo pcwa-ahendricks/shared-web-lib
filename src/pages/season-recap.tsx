@@ -40,6 +40,7 @@ import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
+import slugify from 'slugify'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -49,13 +50,27 @@ interface TabPanelProps {
 
 type PointDataMeta = Point['data'] & {historicalYear?: string}
 
+const stationIds = [
+  '040897 2', // Blue Canyon
+  '040383 2',
+  '041912 2',
+  '043134 2',
+  '043491 2',
+  '048758 2',
+  '043891 2' // Hell Hole
+]
+
 export default function SeasonRecapPage() {
   const theme = useTheme()
-  const menuItems = useMemo(() => lastTenWaterYears().sort((a, b) => b - a), [])
+  const wtrYrMenuItems = useMemo(
+    () => lastTenWaterYears().sort((a, b) => b - a),
+    []
+  )
+  const stationMenuItems = stationIds
   const [waterYear, setWaterYear] = useState(2018)
-  const [sid] = useState('kblu')
+  const [sid, setSid] = useState('040897 2')
   const prevWaterYear = waterYear - 1
-  const qs = stringify({sid, waterYear}, true)
+  const qs = stringify({sid: slugify(sid), waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
     `/api/acis/temp-hist${qs}`
@@ -110,8 +125,9 @@ export default function SeasonRecapPage() {
     })[0]
     return parseWaterYear(highYearDateStr)
   }, [precipHistResponse])
+
   const qsPrecipHigh = stringify(
-    {sid: 'kblu', waterYear: precipAccumHistHighYear},
+    {sid, waterYear: precipAccumHistHighYear},
     true
   )
   const {data: precipAccumHistHighResponse} = useSWR<PrecipResponse>(
@@ -157,10 +173,7 @@ export default function SeasonRecapPage() {
     return parseWaterYear(lowYearDateStr)
   }, [precipHistResponse])
 
-  const qsPrecipLow = stringify(
-    {sid: 'kblu', waterYear: precipAccumHistLowYear},
-    true
-  )
+  const qsPrecipLow = stringify({sid, waterYear: precipAccumHistLowYear}, true)
   const {data: precipAccumHistLowResponse} = useSWR<PrecipResponse>(
     precipAccumHistLowYear ? `/api/acis/precip-hist-yr${qsPrecipLow}` : null
   )
@@ -223,7 +236,9 @@ export default function SeasonRecapPage() {
     const precipAccum = precipAccumData.data.slice(-1)[0]?.y ?? null
     const precipAccumNormal = precipNormalAccumData.data.slice(-1)[0]?.y ?? null
 
-    return isNumber(precipAccum) && isNumber(precipAccumNormal)
+    return isNumber(precipAccum) &&
+      isNumber(precipAccumNormal) &&
+      precipAccumNormal !== 0 // Don't show infinity values when Normal data is not present
       ? round((precipAccum / precipAccumNormal) * 100, 0)
       : null
   }, [precipAccumData, precipNormalAccumData])
@@ -232,9 +247,9 @@ export default function SeasonRecapPage() {
     () => ({
       id: 'Historical High',
       data:
-        tempHistResponse?.smry[0]
+        tempHistResponse?.smry?.[0]
           .map((i, idx) => ({
-            x: tempResponse?.data[idx]?.[0],
+            x: tempResponse?.data?.[idx]?.[0],
             y: i[0],
             historicalYear: i[1]
           }))
@@ -246,9 +261,9 @@ export default function SeasonRecapPage() {
     () => ({
       id: 'Historical Low',
       data:
-        tempHistResponse?.smry[1]
+        tempHistResponse?.smry?.[1]
           .map((i, idx) => ({
-            x: tempResponse?.data[idx]?.[0],
+            x: tempResponse?.data?.[idx]?.[0],
             y: i[0],
             historicalYear: i[1]
           }))
@@ -260,7 +275,7 @@ export default function SeasonRecapPage() {
     () => ({
       id: 'Normal High Range',
       data:
-        tempResponse?.data.map((i) => ({
+        tempResponse?.data?.map((i) => ({
           x: i[0],
           y: parseFloat(i[3] ?? '')
         })) ?? []
@@ -271,7 +286,7 @@ export default function SeasonRecapPage() {
     () => ({
       id: 'Normal Low Range',
       data:
-        tempResponse?.data.map((i) => ({
+        tempResponse?.data?.map((i) => ({
           x: i[0],
           y: parseFloat(i[4] ?? '')
         })) ?? []
@@ -294,7 +309,7 @@ export default function SeasonRecapPage() {
       id: 'Observed Range',
       data:
         tempResponse?.data
-          .map((i) => ({
+          ?.map((i) => ({
             x: i[0],
             y0: parseFloat(i[1] ?? ''),
             y1: parseFloat(i[2] ?? '')
@@ -318,7 +333,7 @@ export default function SeasonRecapPage() {
 
   const tempObservedDiffData = useMemo(
     () =>
-      tempResponse?.data.map((i) => ({
+      tempResponse?.data?.map((i) => ({
         day: i[0],
         value: parseFloat(i[1] ?? '') - parseFloat(i[3] ?? '')
       })) ?? [],
@@ -382,16 +397,19 @@ export default function SeasonRecapPage() {
     },
     []
   )
-  const [value, setValue] = useState(0)
+  const [tabValue, setTabValue] = useState(0)
 
   const handleChange = (
     _event: React.ChangeEvent<Record<string, unknown>>,
     newValue: any
   ) => {
-    setValue(newValue)
+    setTabValue(newValue)
   }
   const yearSelectHandler = (event: React.ChangeEvent<{value: unknown}>) => {
     setWaterYear(event.target.value as number)
+  }
+  const stationSelectHandler = (event: React.ChangeEvent<{value: unknown}>) => {
+    setSid(event.target.value as string)
   }
 
   type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
@@ -439,7 +457,7 @@ export default function SeasonRecapPage() {
 
           <Paper square>
             <Tabs
-              value={value}
+              value={tabValue}
               onChange={handleChange}
               variant="fullWidth"
               indicatorColor="secondary"
@@ -460,14 +478,14 @@ export default function SeasonRecapPage() {
           </Paper>
 
           <FormControl style={{minWidth: 140}}>
-            <InputLabel id="demo-simple-select-label">Water Year</InputLabel>
+            <InputLabel id="water-year-select-label">Water Year</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="water-year-select-label"
+              id="water-year-select"
               value={waterYear}
               onChange={yearSelectHandler}
             >
-              {menuItems.map((y, idx) => (
+              {wtrYrMenuItems.map((y, idx) => (
                 <MenuItem key={idx} value={y}>
                   {y}
                 </MenuItem>
@@ -475,7 +493,23 @@ export default function SeasonRecapPage() {
             </Select>
           </FormControl>
 
-          <TabPanel value={value} index={0}>
+          <FormControl>
+            <InputLabel id="station-select-label">Station</InputLabel>
+            <Select
+              labelId="station-select-label"
+              id="station-select"
+              value={sid}
+              onChange={stationSelectHandler}
+            >
+              {stationMenuItems.map((y, idx) => (
+                <MenuItem key={idx} value={y}>
+                  {y}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <TabPanel value={tabValue} index={0}>
             {precipAccumDiff ? (
               <Type variant="h4">
                 <Type color="primary" variant="inherit">
@@ -593,7 +627,7 @@ export default function SeasonRecapPage() {
             </Box>
           </TabPanel>
 
-          <TabPanel value={value} index={1}>
+          <TabPanel value={tabValue} index={1}>
             <Box height={{xs: 400, lg: 450}}>
               <ResponsiveLine
                 data={tempDataset}
@@ -865,7 +899,7 @@ export default function SeasonRecapPage() {
 
 interface TempResponse {
   meta: TempMeta
-  data: string[][]
+  data?: string[][]
 }
 
 interface TempMeta {
