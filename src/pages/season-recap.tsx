@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {
   blue,
+  blueGrey,
   brown,
   deepOrange,
   green,
@@ -16,17 +17,30 @@ import {
   purple,
   red
 } from '@material-ui/core/colors'
-import {Box, useTheme, Typography as Type} from '@material-ui/core'
+import {
+  Box,
+  useTheme,
+  Typography as Type,
+  Paper,
+  Tabs,
+  Tab
+} from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@kevinmoe/nivo-fork-calendar'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
 import isNumber from 'is-number'
-// import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
+import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
+
+interface TabPanelProps {
+  children?: React.ReactNode
+  index: any
+  value: any
+}
 
 type PointDataMeta = Point['data'] & {historicalYear?: string}
 
@@ -67,6 +81,15 @@ export default function SeasonRecapPage() {
         ]
       }, [])
     }),
+    [precipResponse]
+  )
+
+  const precipData = useMemo(
+    () =>
+      precipResponse?.data.map((i) => ({
+        day: i[0],
+        value: parseFloat(i[1] ?? '')
+      })) ?? [],
     [precipResponse]
   )
 
@@ -190,6 +213,15 @@ export default function SeasonRecapPage() {
     [precipResponse]
   )
 
+  const precipAccumDiff = useMemo(() => {
+    const precipAccum = precipAccumData.data.slice(-1)[0]?.y ?? null
+    const precipAccumNormal = precipNormalAccumData.data.slice(-1)[0]?.y ?? null
+
+    return isNumber(precipAccum) && isNumber(precipAccumNormal)
+      ? round((precipAccum / precipAccumNormal) * 100, 0)
+      : null
+  }, [precipAccumData, precipNormalAccumData])
+
   // console.log(precipAccumHistHighYear)
   // console.log(precipAccumHistHighResponse)
   // console.log(precipAccumHistHighData)
@@ -291,11 +323,6 @@ export default function SeasonRecapPage() {
     [tempResponse]
   )
 
-  // console.log(tempNormalHighData)
-  // console.log(tempNormalLowData)
-  // console.log(tempObservedData)
-  // console.log(tempObservedDiffData)
-
   // const [monthSpacing, setMonthSpacing] = useState(0)
   // const mouseEnterCalHandler = useCallback(() => setMonthSpacing(12), [])
   // const mouseLeaveCalHandler = useCallback(() => setMonthSpacing(0), [])
@@ -353,354 +380,435 @@ export default function SeasonRecapPage() {
     },
     []
   )
+  const [value, setValue] = useState(0)
+
+  const handleChange = (
+    _event: React.ChangeEvent<Record<string, unknown>>,
+    newValue: any
+  ) => {
+    setValue(newValue)
+  }
 
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Basic Template" subtitle="Page Subtitle" />
-          <Box height={{xs: 400, lg: 450}}>
-            <ResponsiveLine
-              data={[
-                precipAccumData,
-                precipNormalAccumData,
-                precipAccumHistHighData,
-                precipAccumHistLowData
-              ]}
-              colors={[blue[800], brown[200], purple[100], orange[100]]}
-              margin={{top: 50, right: 170, bottom: 50, left: 60}}
-              xScale={{
-                type: 'time',
-                format: '%Y-%m-%d',
-                useUTC: false,
-                precision: 'day'
-              }}
-              xFormat="time:%Y-%m-%d"
-              yScale={{
-                type: 'linear',
-                min: 0,
-                max: precipYScaleMax ?? 'auto',
-                stacked: false,
-                reverse: false
-              }}
-              yFormat=" >-.1f"
-              curve="monotoneX"
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                format: '%b %d',
-                tickValues: 'every 1 month',
-                legend: 'Date',
-                legendOffset: -12
-              }}
-              axisLeft={{
-                orient: 'left',
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: 'Precipitation (inches)',
-                legendOffset: -40,
-                legendPosition: 'middle'
-              }}
-              enablePoints={false}
-              // pointSize={10}
-              pointColor={{theme: 'background'}}
-              pointBorderWidth={2}
-              pointBorderColor={{from: 'serieColor'}}
-              pointLabelYOffset={-12}
-              crosshairType="x"
-              useMesh={true}
-              // enableSlices="x"
-              legends={[
-                {
-                  anchor: 'bottom-right',
-                  direction: 'column',
-                  justify: false,
-                  translateX: 100,
-                  translateY: 0,
-                  itemsSpacing: 0,
-                  itemDirection: 'left-to-right',
-                  itemWidth: 80,
-                  itemHeight: 20,
-                  itemOpacity: 0.75,
-                  symbolSize: 12,
-                  symbolShape: 'circle',
-                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                  effects: [
-                    {
-                      on: 'hover',
-                      style: {
-                        itemBackground: 'rgba(0, 0, 0, .03)',
-                        itemOpacity: 1
+
+          <Paper square>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="fullWidth"
+              indicatorColor="secondary"
+              textColor="secondary"
+              aria-label="icon label tabs example"
+            >
+              <Tab
+                icon={<WeatherIcon name="raindrop" />}
+                label="PRECIPITATION"
+                {...a11yProps(0)}
+              />
+              <Tab
+                icon={<WeatherIcon name="day-sunny" />}
+                label="TEMPERATURE"
+                {...a11yProps(1)}
+              />
+            </Tabs>
+          </Paper>
+          <TabPanel value={value} index={0}>
+            {precipAccumDiff ? (
+              <Type variant="h4">
+                <Type color="primary" variant="inherit">
+                  <strong>{precipAccumDiff}%</strong>
+                </Type>{' '}
+                of Normal Average
+              </Type>
+            ) : null}
+            <Box height={{xs: 400, lg: 450}}>
+              <ResponsiveLine
+                data={[
+                  precipAccumData,
+                  precipNormalAccumData,
+                  precipAccumHistHighData,
+                  precipAccumHistLowData
+                ]}
+                colors={[blue[800], brown[200], purple[100], orange[100]]}
+                margin={{top: 50, right: 170, bottom: 50, left: 60}}
+                xScale={{
+                  type: 'time',
+                  format: '%Y-%m-%d',
+                  useUTC: false,
+                  precision: 'day'
+                }}
+                xFormat="time:%Y-%m-%d"
+                yScale={{
+                  type: 'linear',
+                  min: 0,
+                  max: precipYScaleMax ?? 'auto',
+                  stacked: false,
+                  reverse: false
+                }}
+                yFormat=" >-.1f"
+                curve="monotoneX"
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  format: '%b %d',
+                  tickValues: 'every 1 month',
+                  legend: 'Date',
+                  legendOffset: -12
+                }}
+                axisLeft={{
+                  orient: 'left',
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0,
+                  legend: 'Precipitation (inches)',
+                  legendOffset: -40,
+                  legendPosition: 'middle'
+                }}
+                enablePoints={false}
+                // pointSize={10}
+                pointColor={{theme: 'background'}}
+                pointBorderWidth={2}
+                pointBorderColor={{from: 'serieColor'}}
+                pointLabelYOffset={-12}
+                crosshairType="x"
+                useMesh={true}
+                // enableSlices="x"
+                legends={[
+                  {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    justify: false,
+                    translateX: 100,
+                    translateY: 0,
+                    itemsSpacing: 0,
+                    itemDirection: 'left-to-right',
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    itemOpacity: 0.75,
+                    symbolSize: 12,
+                    symbolShape: 'circle',
+                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                    effects: [
+                      {
+                        on: 'hover',
+                        style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1
+                        }
                       }
-                    }
-                  ]
-                }
-              ]}
-            />
-          </Box>
-          <Box height={{xs: 400, lg: 450}}>
-            <ResponsiveLine
-              data={[
-                tempObservedData,
-                tempHistLowData,
-                tempHistHighData,
-                tempNormalLowData,
-                tempNormalHighData
-              ]}
-              // colors={{scheme: 'red_yellow_green'}}
-              colors={[blue[700], green[100], red[100], brown[100], brown[100]]}
-              margin={{top: 50, right: 140, bottom: 50, left: 60}}
-              xScale={{
-                type: 'time',
-                format: '%Y-%m-%d',
-                useUTC: false,
-                precision: 'day'
-              }}
-              xFormat="time:%Y-%m-%d"
-              yScale={{
-                type: 'linear',
-                min: -10,
-                max: 120,
-                stacked: false,
-                reverse: false
-              }}
-              yFormat=" >-.0f"
-              curve="monotoneX"
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                format: '%b %d',
-                tickValues: 'every 1 month',
-                legend: 'Date',
-                legendOffset: -12
-              }}
-              axisLeft={{
-                orient: 'left',
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: 'Temperature (°F)',
-                legendOffset: -40,
-                legendPosition: 'middle'
-              }}
-              enablePoints={false}
-              // pointSize={10}
-              pointColor={{theme: 'background'}}
-              pointBorderWidth={2}
-              pointBorderColor={{from: 'serieColor'}}
-              pointLabelYOffset={-12}
-              crosshairType="x"
-              useMesh={true}
-              layers={[
-                AreaLayer,
-                'grid',
-                'markers',
-                'axes',
-                'areas',
-                'crosshair',
-                'lines',
-                'points',
-                'slices',
-                'mesh',
-                'legends'
-              ]}
-              legends={[
-                {
-                  anchor: 'bottom-right',
-                  direction: 'column',
-                  justify: false,
-                  translateX: 100,
-                  translateY: 0,
-                  itemsSpacing: 0,
-                  itemDirection: 'left-to-right',
-                  itemWidth: 80,
-                  itemHeight: 20,
-                  itemOpacity: 0.75,
-                  symbolSize: 12,
-                  symbolShape: 'circle',
-                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                  effects: [
-                    {
-                      on: 'hover',
-                      style: {
-                        itemBackground: 'rgba(0, 0, 0, .03)',
-                        itemOpacity: 1
+                    ]
+                  }
+                ]}
+              />
+            </Box>
+
+            <Box height={200}>
+              <ResponsiveEnhancedCalendar
+                data={precipData}
+                from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+                to={`${waterYear}-09-30`}
+                // monthSpacing={monthSpacing}
+                granularity="month"
+                emptyColor={theme.palette.grey[200]}
+                minValue={-0.66}
+                maxValue={2}
+                margin={{top: 40, right: 40, bottom: 40, left: 40}}
+                // yearSpacing={40}
+                monthBorderColor="#ffffff"
+                dayBorderWidth={2}
+                dayBorderColor="#ffffff"
+                // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
+                colors={[blueGrey[100], blue[200], blue[400], blue[700]]}
+                legends={[
+                  {
+                    anchor: 'bottom-right',
+                    direction: 'row',
+                    translateY: 36,
+                    itemCount: 4,
+                    itemWidth: 42,
+                    itemHeight: 36,
+                    itemsSpacing: 14,
+                    itemDirection: 'right-to-left'
+                  }
+                ]}
+              />
+            </Box>
+          </TabPanel>
+
+          <TabPanel value={value} index={1}>
+            <Box height={{xs: 400, lg: 450}}>
+              <ResponsiveLine
+                data={[
+                  tempObservedData,
+                  tempHistLowData,
+                  tempHistHighData,
+                  tempNormalLowData,
+                  tempNormalHighData
+                ]}
+                // colors={{scheme: 'red_yellow_green'}}
+                colors={[
+                  blue[700],
+                  green[100],
+                  red[100],
+                  brown[100],
+                  brown[100]
+                ]}
+                margin={{top: 50, right: 140, bottom: 50, left: 60}}
+                xScale={{
+                  type: 'time',
+                  format: '%Y-%m-%d',
+                  useUTC: false,
+                  precision: 'day'
+                }}
+                xFormat="time:%Y-%m-%d"
+                yScale={{
+                  type: 'linear',
+                  min: -10,
+                  max: 120,
+                  stacked: false,
+                  reverse: false
+                }}
+                yFormat=" >-.0f"
+                curve="monotoneX"
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  format: '%b %d',
+                  tickValues: 'every 1 month',
+                  legend: 'Date',
+                  legendOffset: -12
+                }}
+                axisLeft={{
+                  orient: 'left',
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0,
+                  legend: 'Temperature (°F)',
+                  legendOffset: -40,
+                  legendPosition: 'middle'
+                }}
+                enablePoints={false}
+                // pointSize={10}
+                pointColor={{theme: 'background'}}
+                pointBorderWidth={2}
+                pointBorderColor={{from: 'serieColor'}}
+                pointLabelYOffset={-12}
+                crosshairType="x"
+                useMesh={true}
+                layers={[
+                  AreaLayer,
+                  'grid',
+                  'markers',
+                  'axes',
+                  'areas',
+                  'crosshair',
+                  'lines',
+                  'points',
+                  'slices',
+                  'mesh',
+                  'legends'
+                ]}
+                legends={[
+                  {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    justify: false,
+                    translateX: 100,
+                    translateY: 0,
+                    itemsSpacing: 0,
+                    itemDirection: 'left-to-right',
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    itemOpacity: 0.75,
+                    symbolSize: 12,
+                    symbolShape: 'circle',
+                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                    effects: [
+                      {
+                        on: 'hover',
+                        style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1
+                        }
                       }
-                    }
-                  ]
-                }
-              ]}
-              enableSlices="x"
-              sliceTooltip={({slice}) => {
-                return (
-                  <Box
-                    bgcolor={theme.palette.common.white}
-                    p={[1, 1.5]}
-                    style={{
-                      border: '1px solid #ccc'
-                    }}
-                  >
-                    {/* <div>x: {slice.id}</div> */}
-                    {slice.points.map((point, idx) => {
-                      const data: PointDataMeta = point.data
-                      const historicalHighYear = data.historicalYear?.substring(
-                        0,
-                        4
-                      )
-                      const historicalLowYear = data.historicalYear?.substring(
-                        0,
-                        4
-                      )
-                      const isHistorical = /historical/i.test(
-                        point.serieId.toString()
-                      )
-                      const isHistoricalLow = /historical low/i.test(
-                        point.serieId.toString()
-                      )
-                      const isHistoricalHigh = /historical high/i.test(
-                        point.serieId.toString()
-                      )
-                      const historicalYear = isHistoricalHigh
-                        ? historicalHighYear
-                        : isHistoricalLow
-                        ? historicalLowYear
-                        : ''
-                      // if (isHistoricalHigh) {
-                      //   console.log('slice', slice)
-                      //   console.log('point', point)
-                      //   console.log('idx', idx)
-                      // }
-                      return (
-                        <Box key={point.id}>
-                          {idx === 0 ? (
-                            <Type variant="caption">
-                              <strong>{point.data.xFormatted}</strong>
-                            </Type>
-                          ) : null}
-                          <Box
-                            px={1}
-                            style={{
-                              color: point.serieColor
-                            }}
-                          >
-                            <Type variant="caption">
-                              <strong>{point.serieId}</strong>{' '}
-                              {point.data.yFormatted}
-                              &deg;
-                              {isHistorical ? (
-                                <Type color="textSecondary" variant="inherit">
-                                  <em> ({historicalYear})</em>
-                                </Type>
-                              ) : null}
-                            </Type>
+                    ]
+                  }
+                ]}
+                enableSlices="x"
+                sliceTooltip={({slice}) => {
+                  return (
+                    <Box
+                      bgcolor={theme.palette.common.white}
+                      p={[1, 1.5]}
+                      style={{
+                        border: '1px solid #ccc'
+                      }}
+                    >
+                      {/* <div>x: {slice.id}</div> */}
+                      {slice.points.map((point, idx) => {
+                        const data: PointDataMeta = point.data
+                        const historicalHighYear = data.historicalYear?.substring(
+                          0,
+                          4
+                        )
+                        const historicalLowYear = data.historicalYear?.substring(
+                          0,
+                          4
+                        )
+                        const isHistorical = /historical/i.test(
+                          point.serieId.toString()
+                        )
+                        const isHistoricalLow = /historical low/i.test(
+                          point.serieId.toString()
+                        )
+                        const isHistoricalHigh = /historical high/i.test(
+                          point.serieId.toString()
+                        )
+                        const historicalYear = isHistoricalHigh
+                          ? historicalHighYear
+                          : isHistoricalLow
+                          ? historicalLowYear
+                          : ''
+                        // if (isHistoricalHigh) {
+                        //   console.log('slice', slice)
+                        //   console.log('point', point)
+                        //   console.log('idx', idx)
+                        // }
+                        return (
+                          <Box key={point.id}>
+                            {idx === 0 ? (
+                              <Type variant="caption">
+                                <strong>{point.data.xFormatted}</strong>
+                              </Type>
+                            ) : null}
+                            <Box
+                              px={1}
+                              style={{
+                                color: point.serieColor
+                              }}
+                            >
+                              <Type variant="caption">
+                                <strong>{point.serieId}</strong>{' '}
+                                {point.data.yFormatted}
+                                &deg;
+                                {isHistorical ? (
+                                  <Type color="textSecondary" variant="inherit">
+                                    <em> ({historicalYear})</em>
+                                  </Type>
+                                ) : null}
+                              </Type>
+                            </Box>
                           </Box>
-                        </Box>
-                      )
-                    })}
-                  </Box>
-                )
-              }}
-            />
-          </Box>
-          <Box
-            height={200}
-            // onMouseEnter={mouseEnterCalHandler}
-            // onMouseLeave={mouseLeaveCalHandler}
-          >
-            <ResponsiveEnhancedCalendar
-              data={tempObservedDiffData}
-              from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
-              to={`${waterYear}-09-30`}
-              // monthSpacing={monthSpacing}
-              tooltip={({value, day, color}) => {
-                if (value === undefined || isNaN(value)) return null
-                const newVal = `${round(Math.abs(value))}° ${
-                  value > 0 ? 'warmer' : 'cooler'
-                }`
-                return (
-                  <Box
-                    bgcolor={theme.palette.background.default}
-                    px={1}
-                    py={0.5}
-                    boxShadow={4}
-                  >
-                    <RowBox alignItems="center">
-                      <ColumnBox justifyContent="center" pr={0.5}>
-                        <SquareIcon fontSize="small" style={{color}} />
-                      </ColumnBox>
-                      <ChildBox style={{marginTop: 2, paddingRight: 6}}>
-                        <Type variant="caption">{day}</Type>
-                      </ChildBox>
-                      <ChildBox style={{marginTop: 2}}>
-                        <Type variant="caption">
-                          <strong>{newVal}</strong>
-                        </Type>
-                      </ChildBox>
-                    </RowBox>
-                  </Box>
-                )
-                // return (
-                // <BasicTooltip
-                //   id={day}
-                //   value={newVal}
-                //   color={color}
-                //   enableChip={true}
-                // />
-                // )
-              }}
-              granularity="month"
-              emptyColor={theme.palette.grey[200]}
-              minValue={-22}
-              maxValue={22}
-              margin={{top: 40, right: 40, bottom: 40, left: 40}}
-              // yearSpacing={40}
-              monthBorderColor="#ffffff"
-              dayBorderWidth={2}
-              dayBorderColor="#ffffff"
-              // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-              colors={[
-                // '#a50026',
-                // '#d73026',
-                // '#f46d43',
-                // '#fead61',
-                // '#fee091',
-                // blue[900],
-                blue[700],
-                // blue[400],
-                blue[300],
-                blue[100],
-                // '#feffbf', // light yellow
-                // theme.palette.grey[400],
-                // green[100],
-                // alpha('#d7ffc1', 0.4),
-                brown[100],
-                deepOrange[100],
-                deepOrange[300],
-                // deepOrange[400],
-                deepOrange[700]
-                // deepOrange[900]
-                // '#ebe4d2',
-                // '#e0f3f8',
-                // '#a0cad9',
-                // '#74add1',
-                // '#4475b4',
-                // '#313695'
-              ]}
-              legends={[
-                {
-                  anchor: 'bottom-right',
-                  direction: 'row',
-                  translateY: 36,
-                  itemCount: 4,
-                  itemWidth: 42,
-                  itemHeight: 36,
-                  itemsSpacing: 14,
-                  itemDirection: 'right-to-left'
-                }
-              ]}
-            />
-          </Box>
+                        )
+                      })}
+                    </Box>
+                  )
+                }}
+              />
+            </Box>
+            <Box
+              height={200}
+              // onMouseEnter={mouseEnterCalHandler}
+              // onMouseLeave={mouseLeaveCalHandler}
+            >
+              <ResponsiveEnhancedCalendar
+                data={tempObservedDiffData}
+                from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+                to={`${waterYear}-09-30`}
+                // monthSpacing={monthSpacing}
+                tooltip={({value, day, color}) => {
+                  if (value === undefined || isNaN(value)) return null
+                  const newVal = `${round(Math.abs(value))}° ${
+                    value > 0 ? 'warmer' : 'cooler'
+                  }`
+                  return (
+                    <Box
+                      bgcolor={theme.palette.background.default}
+                      px={1}
+                      py={0.5}
+                      boxShadow={4}
+                    >
+                      <RowBox alignItems="center">
+                        <ColumnBox justifyContent="center" pr={0.5}>
+                          <SquareIcon fontSize="small" style={{color}} />
+                        </ColumnBox>
+                        <ChildBox style={{marginTop: 2, paddingRight: 6}}>
+                          <Type variant="caption">{day}</Type>
+                        </ChildBox>
+                        <ChildBox style={{marginTop: 2}}>
+                          <Type variant="caption">
+                            <strong>{newVal}</strong>
+                          </Type>
+                        </ChildBox>
+                      </RowBox>
+                    </Box>
+                  )
+                  // return (
+                  // <BasicTooltip
+                  //   id={day}
+                  //   value={newVal}
+                  //   color={color}
+                  //   enableChip={true}
+                  // />
+                  // )
+                }}
+                granularity="month"
+                emptyColor={theme.palette.grey[200]}
+                minValue={-22}
+                maxValue={22}
+                margin={{top: 40, right: 40, bottom: 40, left: 40}}
+                // yearSpacing={40}
+                monthBorderColor="#ffffff"
+                dayBorderWidth={2}
+                dayBorderColor="#ffffff"
+                // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
+                colors={[
+                  // '#a50026',
+                  // '#d73026',
+                  // '#f46d43',
+                  // '#fead61',
+                  // '#fee091',
+                  // blue[900],
+                  blue[700],
+                  // blue[400],
+                  blue[300],
+                  blue[100],
+                  // '#feffbf', // light yellow
+                  // theme.palette.grey[400],
+                  // green[100],
+                  // alpha('#d7ffc1', 0.4),
+                  brown[100],
+                  deepOrange[100],
+                  deepOrange[300],
+                  // deepOrange[400],
+                  deepOrange[700]
+                  // deepOrange[900]
+                  // '#ebe4d2',
+                  // '#e0f3f8',
+                  // '#a0cad9',
+                  // '#74add1',
+                  // '#4475b4',
+                  // '#313695'
+                ]}
+                legends={[
+                  {
+                    anchor: 'bottom-right',
+                    direction: 'row',
+                    translateY: 36,
+                    itemCount: 4,
+                    itemWidth: 42,
+                    itemHeight: 36,
+                    itemsSpacing: 14,
+                    itemDirection: 'right-to-left'
+                  }
+                ]}
+              />
+            </Box>
+          </TabPanel>
         </WideContainer>
       </MainBox>
     </PageLayout>
@@ -759,4 +867,27 @@ function parseWaterYear(dateStr?: string) {
     return year + 1
   }
   return year
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
+  }
+}
+
+function TabPanel(props: TabPanelProps) {
+  const {children, value, index, ...other} = props
+
+  return (
+    <Box
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box p={3}>{children}</Box>}
+    </Box>
+  )
 }
