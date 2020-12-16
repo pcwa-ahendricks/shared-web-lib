@@ -4,6 +4,7 @@ import FormData from 'form-data'
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
 import {NowRequest, NowResponse} from '@vercel/node'
+import {dLog} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'
@@ -34,15 +35,14 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     if (!filename) return filestream.resume()
     // only allow image types to by processed
     if (!ACCEPTING_MIME_TYPES_RE.test(mimetype)) {
-      isDev && console.log('Tried to upload file with mime type: ', mimetype)
+      dLog('Tried to upload file with mime type: ', mimetype)
       // Don't throw createError() inside busboy event callbacks.
       return abortWithCode('BAD_MIME_TYPE')
     }
     filestream.on('data', (chunk: Buffer) => {
       data.push(chunk)
       // Log file progress when in development
-      isDev &&
-        console.log(`File [${fieldname}] got ${prettyBytes(data.length)}`) // log progress
+      dLog(`File [${fieldname}] got ${prettyBytes(data.length)}`) // log progress
     })
 
     filestream.on('end', () => {
@@ -116,7 +116,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
    * Draining the stream is important. If this is not performed, sometimes the request will not send back a response code. This can be tested by sending an un-accepted mime type at the same time as acceptable mime types in batch.
    */
   function drainStream(stream: any) {
-    isDev && console.log('Draining stream...')
+    dLog('Draining stream...')
     stream.on('readable', stream.read.bind(stream))
   }
 

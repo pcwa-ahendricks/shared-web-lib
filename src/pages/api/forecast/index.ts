@@ -1,19 +1,12 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
 import fetch from 'node-fetch'
-import {RedisError, createClient, ClientOpts} from 'redis'
+import {RedisError, createClient} from 'redis'
 import {promisify} from 'util'
 import {NowRequest, NowResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
+import {redisOpts} from '@lib/api/shared'
 
-const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
 const OPENWEATHERMAP_API_KEY = process.env.NODE_OPENWEATHERMAP_API_KEY || ''
-
-const redisOpts: ClientOpts = {
-  host: 'db-redis-sfo2-73799-do-user-2129966-0.db.ondigitalocean.com',
-  port: 25061,
-  password: REDIS_CACHE_PASSWORD,
-  tls: {} // Required when using Digital Ocean Managed Redis database.
-}
 
 const client = createClient(redisOpts)
 const hgetallAsync = promisify(client.hgetall).bind(client)

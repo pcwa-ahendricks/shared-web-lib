@@ -7,8 +7,7 @@ import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import {ACCEPT_SIDS} from '@lib/api/acis'
-import {paramToStr, redisOpts} from '@lib/api/shared'
-const isDev = process.env.NODE_ENV === 'development'
+import {dLog, paramToStr, redisOpts} from '@lib/api/shared'
 
 const client = jsonify(createClient(redisOpts))
 const getAsync = promisify(client.get).bind(client)
@@ -48,9 +47,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       ? format(yesterday, 'yyyy-MM-dd')
       : format(endOfWaterYear, 'yyyy-MM-dd')
 
-    isDev && console.log(`SID: ${sid}`)
-    isDev && console.log(`Using start date: ${sDate}`)
-    isDev && console.log(`Using end date: ${eDate}`)
+    dLog(`SID: ${sid}`)
+    dLog(`Using start date: ${sDate}`)
+    dLog(`Using end date: ${eDate}`)
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
 
@@ -78,7 +77,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const hash = `acis-precipitation-${sDate}_${eDate}-${sid}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
-      isDev && console.log('returning cache copy...')
+      dLog('returning cache copy...')
       res.status(200).json(cache)
       return
     }
@@ -100,7 +99,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     // await expireAsync(hash, 60 * 1) // 1 min
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
-    isDev && console.log('returning fresh copy...')
+    dLog('returning fresh copy...')
     res.status(200).json(data)
   } catch (error) {
     console.log(error)
