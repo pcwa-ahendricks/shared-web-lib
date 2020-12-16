@@ -8,6 +8,7 @@ import {
   validateSchema
 } from '../../../lib/api/forms'
 import {NowRequest, NowResponse} from '@vercel/node'
+import {dLog} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -161,11 +162,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       ]
     }
 
-    isDev &&
-      console.log(
-        'Mailjet Request Body: ',
-        JSON.stringify(requestBody, null, 2)
-      )
+    dLog('Mailjet Request Body: ', JSON.stringify(requestBody, null, 2))
 
     const postMailData = await postMailJetRequest(requestBody)
     res.status(200).json(postMailData)
