@@ -131,7 +131,8 @@ export const boardMeetings: Array<BoardMeeting> = [
   {date: '11-5-2020 2:00PM'},
   {date: '11-19-2020 2:00PM'},
   {date: '12-7-2020 2:00PM'},
-  {date: '12-17-2020 2:00PM'}
+  {date: '12-17-2020 2:00PM'},
+  {date: '1-7-2021 2:00PM'}
 ]
 
 const parseFn = (dateStr: string) =>
