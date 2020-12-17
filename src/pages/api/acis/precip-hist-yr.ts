@@ -57,14 +57,14 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
           name: 'pcpn'
         }
       ],
-      sid: 'KBLU 5',
+      sid,
       sDate,
       eDate,
       meta: []
     }
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
-    const hash = `acis-precipitation-hist-yr-${sDate}_${eDate}-${sid}`
+    const hash = `acis-precip-hist-yr-${sDate}_${eDate}-${sid}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       dLog('returning cache copy...')

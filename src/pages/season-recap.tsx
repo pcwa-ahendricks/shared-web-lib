@@ -14,7 +14,6 @@ import {
   deepOrange,
   green,
   orange,
-  purple,
   red,
   teal
 } from '@material-ui/core/colors'
@@ -459,10 +458,10 @@ export default function SeasonRecapPage() {
   useEffect(() => {
     setTimeout(() => {
       setPrecipDataset([
-        {...precipAccumHistLowData},
-        {...precipAccumHistHighData},
-        {...precipNormalAccumData},
-        {...precipAccumData}
+        precipAccumHistLowData,
+        precipAccumHistHighData,
+        precipNormalAccumData,
+        precipAccumData
       ])
     })
   }, [
@@ -885,6 +884,7 @@ export default function SeasonRecapPage() {
                 // monthSpacing={monthSpacing}
                 granularity="month"
                 emptyColor={theme.palette.grey[200]}
+                undefinedColor={theme.palette.grey[700]}
                 minValue={-0.66}
                 maxValue={2}
                 margin={{top: 40, right: 40, bottom: 40, left: 40}}
@@ -1150,6 +1150,7 @@ export default function SeasonRecapPage() {
                 }}
                 granularity="month"
                 emptyColor={theme.palette.grey[200]}
+                undefinedColor={theme.palette.grey[700]}
                 minValue={-22}
                 maxValue={22}
                 margin={{top: 40, right: 40, bottom: 40, left: 40}}

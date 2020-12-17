@@ -252,9 +252,9 @@
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
 "@kevinmoe/nivo-fork-calendar@^0.63.0":
-  version "0.63.1"
-  resolved "https://registry.yarnpkg.com/@kevinmoe/nivo-fork-calendar/-/nivo-fork-calendar-0.63.1.tgz#7e6f35ee70add019136f4c157604acbb8d76214f"
-  integrity sha512-fdBDBitWiuReQRH3KzLyjS2vhzJLyclN4wvRiH0RgpkFnKutow261eyMq8i7DPS+kKu5+BkLJdNHQJApj8rsgg==
+  version "0.63.3"
+  resolved "https://registry.yarnpkg.com/@kevinmoe/nivo-fork-calendar/-/nivo-fork-calendar-0.63.3.tgz#b096b96bc92d51f64855f7ad9a42a2d7e45a4693"
+  integrity sha512-8yKAhTDGrXbrkvTewIXQksZFeS8OaLrI/sZHhh+4rnb1U0EN1h6XkuQ4y/soOlc41wQ4HtxdlkxJdTkXoOJu4g==
   dependencies:
     "@nivo/core" "0.63.0"
     "@nivo/legends" "0.63.0"
