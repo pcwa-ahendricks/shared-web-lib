@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {CustomLayerProps, Layer, Point, ResponsiveLine} from '@nivo/line'
+import {CustomLayer, CustomLayerProps, Point, ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {
@@ -91,7 +91,6 @@ export default function SeasonRecapPage() {
   const {data: precipMoSmryResponse} = useSWR<PrecipMoSmryResponse>(
     `/api/acis/precip-monthly-smry${qs}`
   )
-  console.log(precipMoSmryResponse)
 
   const precipMoSmryData = useMemo(() => {
     const smryData = precipMoSmryResponse?.smry[0] ?? []
@@ -380,7 +379,7 @@ export default function SeasonRecapPage() {
   // const mouseEnterCalHandler = useCallback(() => setMonthSpacing(12), [])
   // const mouseLeaveCalHandler = useCallback(() => setMonthSpacing(0), [])
 
-  const AreaLayer: Layer = useCallback(
+  const AreaLayer: CustomLayer = useCallback(
     ({series, xScale, yScale}: CustomLayerProps) => {
       // Using area() is easier with combined series data.
       const y1SeriesData =
@@ -460,10 +459,10 @@ export default function SeasonRecapPage() {
   useEffect(() => {
     setTimeout(() => {
       setPrecipDataset([
-        {...precipAccumData},
-        {...precipNormalAccumData},
+        {...precipAccumHistLowData},
         {...precipAccumHistHighData},
-        {...precipAccumHistLowData}
+        {...precipNormalAccumData},
+        {...precipAccumData}
       ])
     })
   }, [
@@ -494,32 +493,94 @@ export default function SeasonRecapPage() {
 
   const [showHistPrecip, setShowHistPrecip] = useState(false)
 
-  const histPrecipSwitchHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setShowHistPrecip(event.target.checked)
-  }
+  const histPrecipSwitchHandler = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setShowHistPrecip(event.target.checked)
+    },
+    []
+  )
 
-  const precipMoSmryChartColors = [
-    blue[500],
-    alpha(brown[100], 0.6),
-    ...(showHistPrecip ? [alpha(teal[200], 0.4)] : []),
-    ...(showHistPrecip ? [alpha(red[200], 0.6)] : [])
-  ]
+  const precipMoSmryChartColors = useMemo(
+    () => [
+      blue[600],
+      alpha(brown[100], 0.6),
+      ...(showHistPrecip ? [alpha(teal[200], 0.4)] : []),
+      ...(showHistPrecip ? [alpha(orange[200], 0.6)] : [])
+    ],
+    [showHistPrecip]
+  )
 
-  const precipMoSmryChartKeys = [
-    'actualPrecip',
-    'meanPrecip',
-    ...(showHistPrecip ? ['highPrecip'] : []),
-    ...(showHistPrecip ? ['lowPrecip'] : [])
-  ]
+  const precipMoSmryChartKeys = useMemo(
+    () => [
+      'actualPrecip',
+      'meanPrecip',
+      ...(showHistPrecip ? ['highPrecip'] : []),
+      ...(showHistPrecip ? ['lowPrecip'] : [])
+    ],
+    [showHistPrecip]
+  )
 
-  const precipMoSmryChartLegendLabels = [
-    'Precipitation',
-    'Historical Average',
-    ...(showHistPrecip ? ['Historical High'] : []),
-    ...(showHistPrecip ? ['Historical Low'] : [])
-  ]
+  const precipMoSmryChartLegendLabels = useMemo(
+    () => [
+      'Precipitation',
+      'Historical Average',
+      ...(showHistPrecip ? ['Historical High'] : []),
+      ...(showHistPrecip ? ['Historical Low'] : [])
+    ],
+    [showHistPrecip]
+  )
+
+  const styleById = useMemo(
+    () =>
+      ({
+        'Accumulated Precipitation': {
+          strokeWidth: 5
+        },
+        'Recorded High': {
+          strokeWidth: 2,
+          strokeDasharray: '4, 3'
+        },
+        'Recorded Low': {
+          strokeWidth: 2,
+          strokeDasharray: '4, 3'
+        },
+        'Normal Accum. Precip.': {
+          strokeDasharray: '1, 10',
+          strokeWidth: 5,
+          strokeLinejoin: 'round',
+          strokeLinecap: 'round'
+        },
+        default: {
+          strokeWidth: 2
+        }
+      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
+    []
+  )
+
+  const PrecipLines: CustomLayer = useMemo(
+    () => ({series, lineGenerator, xScale, yScale}) => {
+      return series.map(({id, data, color}) => {
+        const idStr = id.toString()
+        return (
+          <path
+            key={id}
+            d={lineGenerator(
+              data.map((d) => ({
+                ...(d.data?.x != null &&
+                  d.data?.y != undefined && {x: xScale(d.data?.x)}),
+                ...(d.data?.y != null &&
+                  d.data?.y != undefined && {y: yScale(d.data?.y)})
+              }))
+            )}
+            fill="none"
+            stroke={color}
+            style={styleById[idStr] || styleById.default}
+          />
+        )
+      })
+    },
+    [styleById]
+  )
 
   return (
     <PageLayout title="Page Template" waterSurface>
@@ -593,7 +654,21 @@ export default function SeasonRecapPage() {
             <Box height={{xs: 400, lg: 450}}>
               <ResponsiveLine
                 data={precipDataset}
-                colors={[blue[800], brown[200], purple[100], orange[100]]}
+                colors={[orange[300], teal[200], brown[200], blue[600]]}
+                // layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends']}
+                layers={[
+                  'grid',
+                  'markers',
+                  'axes',
+                  'areas',
+                  'crosshair',
+                  // 'lines',
+                  PrecipLines,
+                  'points',
+                  'slices',
+                  'mesh',
+                  'legends'
+                ]}
                 margin={{top: 50, right: 170, bottom: 50, left: 60}}
                 xScale={{
                   type: 'time',
