@@ -1,3 +1,5 @@
+// cspell:ignore maxmissing
+
 export const ACCEPT_SIDS = [
   '040897 2', // Blue Canyon
   '040383 2',
@@ -7,3 +9,4 @@ export const ACCEPT_SIDS = [
   '048758 2',
   '043891 2' // Hell Hole
 ]
+export const maxmissing = '28'

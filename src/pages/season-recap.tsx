@@ -15,7 +15,8 @@ import {
   green,
   orange,
   purple,
-  red
+  red,
+  teal
 } from '@material-ui/core/colors'
 import {
   Box,
@@ -27,7 +28,11 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  Switch,
+  MenuItem,
+  FormLabel,
+  FormGroup,
+  FormControlLabel
 } from '@material-ui/core'
 import {ResponsiveEnhancedCalendar} from '@kevinmoe/nivo-fork-calendar'
 // import {BasicTooltip} from '@nivo/tooltip'
@@ -41,6 +46,10 @@ import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import slugify from 'slugify'
+import {ResponsiveBar} from '@nivo/bar'
+import {BoxLegendSvg} from '@nivo/legends'
+import alpha from 'color-alpha'
+import Spacing from '@components/boxes/Spacing'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -67,7 +76,7 @@ export default function SeasonRecapPage() {
     []
   )
   const stationMenuItems = stationIds
-  const [waterYear, setWaterYear] = useState(2018)
+  const [waterYear, setWaterYear] = useState(2021)
   const [sid, setSid] = useState('040897 2')
   const prevWaterYear = waterYear - 1
   const qs = stringify({sid: slugify(sid), waterYear}, true)
@@ -79,6 +88,33 @@ export default function SeasonRecapPage() {
   const {data: precipHistResponse} = useSWR<PrecipHistResponse>(
     `/api/acis/precip-hist${qs}`
   )
+  const {data: precipMoSmryResponse} = useSWR<PrecipMoSmryResponse>(
+    `/api/acis/precip-monthly-smry${qs}`
+  )
+  console.log(precipMoSmryResponse)
+
+  const precipMoSmryData = useMemo(() => {
+    const smryData = precipMoSmryResponse?.smry[0] ?? []
+    const data = precipMoSmryResponse?.data.find((i) => {
+      const [iYear] = i
+      return parseInt(iYear, 10) === waterYear
+    })
+    return (
+      data?.[1].map((m, idx) => {
+        const mean = parseFloat(smryData[idx][0])
+        const high = parseFloat(smryData[idx][1][0])
+        const low = parseFloat(smryData[idx][2][0])
+        return {
+          month: getWtrYrMonth(idx),
+          actualPrecip: isNumber(parseFloat(m)) ? parseFloat(m) : 0,
+          meanPrecip: isNumber(mean) ? mean : 0,
+          highPrecip: isNumber(high) ? high : 0,
+          lowPrecip: isNumber(low) ? low : 0,
+          label: `${waterYear - 1}-${waterYear}`
+        }
+      }) ?? []
+    )
+  }, [waterYear, precipMoSmryResponse])
 
   const precipAccumData = useMemo(
     () => ({
@@ -399,28 +435,35 @@ export default function SeasonRecapPage() {
   )
   const [tabValue, setTabValue] = useState(0)
 
-  const handleChange = (
-    _event: React.ChangeEvent<Record<string, unknown>>,
-    newValue: any
-  ) => {
-    setTabValue(newValue)
-  }
-  const yearSelectHandler = (event: React.ChangeEvent<{value: unknown}>) => {
-    setWaterYear(event.target.value as number)
-  }
-  const stationSelectHandler = (event: React.ChangeEvent<{value: unknown}>) => {
-    setSid(event.target.value as string)
-  }
+  const handleChange = useCallback(
+    (_event: React.ChangeEvent<Record<string, unknown>>, newValue: any) => {
+      setTabValue(newValue)
+    },
+    []
+  )
+
+  const yearSelectHandler = useCallback(
+    (event: React.ChangeEvent<{value: unknown}>) => {
+      setWaterYear(event.target.value as number)
+    },
+    []
+  )
+  const stationSelectHandler = useCallback(
+    (event: React.ChangeEvent<{value: unknown}>) => {
+      setSid(event.target.value as string)
+    },
+    []
+  )
 
   type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
   const [precipDataset, setPrecipDataset] = useState<LineDataProp>([])
   useEffect(() => {
     setTimeout(() => {
       setPrecipDataset([
-        precipAccumData,
-        precipNormalAccumData,
-        precipAccumHistHighData,
-        precipAccumHistLowData
+        {...precipAccumData},
+        {...precipNormalAccumData},
+        {...precipAccumHistHighData},
+        {...precipAccumHistLowData}
       ])
     })
   }, [
@@ -448,6 +491,35 @@ export default function SeasonRecapPage() {
     tempNormalLowData,
     tempNormalHighData
   ])
+
+  const [showHistPrecip, setShowHistPrecip] = useState(false)
+
+  const histPrecipSwitchHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setShowHistPrecip(event.target.checked)
+  }
+
+  const precipMoSmryChartColors = [
+    blue[500],
+    alpha(brown[100], 0.6),
+    ...(showHistPrecip ? [alpha(teal[200], 0.4)] : []),
+    ...(showHistPrecip ? [alpha(red[200], 0.6)] : [])
+  ]
+
+  const precipMoSmryChartKeys = [
+    'actualPrecip',
+    'meanPrecip',
+    ...(showHistPrecip ? ['highPrecip'] : []),
+    ...(showHistPrecip ? ['lowPrecip'] : [])
+  ]
+
+  const precipMoSmryChartLegendLabels = [
+    'Precipitation',
+    'Historical Average',
+    ...(showHistPrecip ? ['Historical High'] : []),
+    ...(showHistPrecip ? ['Historical Low'] : [])
+  ]
 
   return (
     <PageLayout title="Page Template" waterSurface>
@@ -594,6 +666,142 @@ export default function SeasonRecapPage() {
               />
             </Box>
 
+            <Spacing size="large" />
+            <RowBox justifyContent="flex-end">
+              <ChildBox>
+                <FormControl component="fieldset" size="small">
+                  <FormLabel component="legend">Chart Options</FormLabel>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          size="small"
+                          checked={showHistPrecip}
+                          onChange={histPrecipSwitchHandler}
+                          name="showHistPrecip"
+                        />
+                      }
+                      label="Show Historical High/Low"
+                    />
+                  </FormGroup>
+                  {/* <FormHelperText> year range?</FormHelperText> */}
+                </FormControl>
+              </ChildBox>
+            </RowBox>
+            <Box height={450}>
+              <ResponsiveBar
+                data={precipMoSmryData}
+                keys={precipMoSmryChartKeys}
+                indexBy="month"
+                margin={{top: 50, right: 140, bottom: 50, left: 60}}
+                padding={0.3}
+                valueScale={{type: 'linear'}}
+                indexScale={{type: 'band', round: true}}
+                colors={precipMoSmryChartColors}
+                groupMode="grouped"
+                defs={[
+                  // {
+                  //   id: 'dots',
+                  //   type: 'patternDots',
+                  //   background: 'inherit',
+                  //   color: '#38bcb2',
+                  //   size: 4,
+                  //   padding: 1,
+                  //   stagger: true
+                  // },
+                  {
+                    id: 'lines',
+                    type: 'patternLines',
+                    background: 'inherit',
+                    color: alpha(brown[200], 0.2),
+                    rotation: -45,
+                    lineWidth: 3,
+                    spacing: 10
+                  }
+                ]}
+                // fill={[
+                //   {
+                //     match: {
+                //       id: ''
+                //     },
+                //     id: 'dots'
+                //   },
+                //   {
+                //     match: {
+                //       id: 'meanPrecip'
+                //     },
+                //     id: 'lines'
+                //   }
+                // ]}
+                borderColor={{from: 'color', modifiers: [['darker', 1.6]]}}
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0
+                  // legend: 'Month',
+                  // legendPosition: 'middle',
+                  // legendOffset: 32
+                }}
+                axisLeft={{
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0,
+                  legend: 'Precipitation (inches)',
+                  legendPosition: 'middle',
+                  legendOffset: -40
+                }}
+                // d looks like {
+                //   "id": "actualPrecip",
+                //   "value": 1.92,
+                //   "index": 1,
+                //   "indexValue": "Dec",
+                //   "data": {
+                //     "actualPrecip": 1.92,
+                //     "month": "Dec",
+                //     "label": "2020-2021"
+                //   }
+                // }
+                enableLabel={false}
+                // labelSkipWidth={12}
+                // labelSkipHeight={12}
+                // labelTextColor={{from: 'color', modifiers: [['darker', 1.6]]}}
+                // label={(d: any) => `${d.data.label}`}
+                // layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations']}
+                layers={['grid', 'axes', 'bars', 'markers', BarLegend]}
+                legends={[
+                  {
+                    data: precipMoSmryChartKeys.map((id, index) => ({
+                      id,
+                      color: precipMoSmryChartColors[index],
+                      label: precipMoSmryChartLegendLabels[index]
+                    })),
+                    dataFrom: 'keys',
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    justify: false,
+                    translateX: 120,
+                    translateY: 0,
+                    itemsSpacing: 2,
+                    itemWidth: 100,
+                    itemHeight: 20,
+                    itemDirection: 'left-to-right',
+                    itemOpacity: 0.85,
+                    symbolSize: 20,
+                    effects: [
+                      {
+                        on: 'hover',
+                        style: {
+                          itemOpacity: 1
+                        }
+                      }
+                    ]
+                  }
+                ]}
+              />
+            </Box>
+
             <Box height={200}>
               <ResponsiveEnhancedCalendar
                 data={precipData}
@@ -623,6 +831,32 @@ export default function SeasonRecapPage() {
                     itemDirection: 'right-to-left'
                   }
                 ]}
+                tooltip={({value, day, color}) => {
+                  if (value === undefined || isNaN(value)) return null
+                  return (
+                    <Box
+                      bgcolor={theme.palette.common.white}
+                      px={1}
+                      py={0.5}
+                      boxShadow={4}
+                      borderRadius={3}
+                    >
+                      <RowBox alignItems="center">
+                        <ColumnBox justifyContent="center" pr={0.5}>
+                          <SquareIcon fontSize="small" style={{color}} />
+                        </ColumnBox>
+                        <ChildBox style={{marginTop: 2, paddingRight: 6}}>
+                          <Type variant="caption">{day}:</Type>
+                        </ChildBox>
+                        <ChildBox style={{marginTop: 2}}>
+                          <Type variant="caption">
+                            <strong>{`${round(value, 1)}"`}</strong>
+                          </Type>
+                        </ChildBox>
+                      </RowBox>
+                    </Box>
+                  )
+                }}
               />
             </Box>
           </TabPanel>
@@ -809,17 +1043,18 @@ export default function SeasonRecapPage() {
                   }`
                   return (
                     <Box
-                      bgcolor={theme.palette.background.default}
+                      bgcolor={theme.palette.common.white}
                       px={1}
                       py={0.5}
                       boxShadow={4}
+                      borderRadius={3}
                     >
                       <RowBox alignItems="center">
                         <ColumnBox justifyContent="center" pr={0.5}>
                           <SquareIcon fontSize="small" style={{color}} />
                         </ColumnBox>
                         <ChildBox style={{marginTop: 2, paddingRight: 6}}>
-                          <Type variant="caption">{day}</Type>
+                          <Type variant="caption">{day}:</Type>
                         </ChildBox>
                         <ChildBox style={{marginTop: 2}}>
                           <Type variant="caption">
@@ -971,5 +1206,79 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && <Box p={3}>{children}</Box>}
     </Box>
+  )
+}
+
+interface PrecipMoSmryResponse {
+  meta: PrecipMoSmryMeta
+  data: [string, string[]][]
+  smry: [string, string[], string[]][][]
+}
+
+interface PrecipMoSmryMeta {
+  state: string
+  sids: string[]
+  name: string
+}
+
+function getWtrYrMonth(index: number) {
+  switch (index) {
+    case 0:
+      return 'Oct'
+    case 1:
+      return 'Nov'
+    case 2:
+      return 'Dec'
+    case 3:
+      return 'Jan'
+    case 4:
+      return 'Feb'
+    case 5:
+      return 'Mar'
+    case 6:
+      return 'Apr'
+    case 7:
+      return 'May'
+    case 8:
+      return 'Jun'
+    case 9:
+      return 'Jul'
+    case 10:
+      return 'Aug'
+    case 11:
+      return 'Sep'
+    default:
+      return 'Other'
+  }
+}
+
+function BarLegend({
+  height,
+  legends,
+  width
+}: {
+  height: React.ComponentProps<typeof BoxLegendSvg>['containerHeight']
+  width: React.ComponentProps<typeof BoxLegendSvg>['containerWidth']
+  legends: React.ComponentProps<typeof ResponsiveBar>['legends']
+}) {
+  if (!legends || legends.length <= 0) {
+    return <></>
+  }
+  return (
+    <>
+      {legends.map((legend) => {
+        if (!legend || !legend.data) {
+          return <></>
+        }
+        return (
+          <BoxLegendSvg
+            key={JSON.stringify(legend.data.map(({id}) => id))}
+            {...legend}
+            containerHeight={height}
+            containerWidth={width}
+          />
+        )
+      })}
+    </>
   )
 }
