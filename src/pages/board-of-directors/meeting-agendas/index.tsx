@@ -46,7 +46,12 @@ import {
   isBefore
 } from 'date-fns'
 import {saveAs} from 'file-saver'
-import FlexBox, {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {
+  RespRowBox,
+  ChildBox,
+  RowBox,
+  ColumnBox
+} from '@components/boxes/FlexBox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
@@ -100,14 +105,16 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 // Set event as an object
-const event = {
-  title: 'PCWA Board Meeting',
-  description: nextBoardMeeting.note || '',
-  start: nextBoardMeeting.date,
-  end: addHours(nextBoardMeeting.date, 2),
-  // duration: [2, 'hour'],
-  allDay: false
-}
+const event = nextBoardMeeting?.date
+  ? {
+      title: 'PCWA Board Meeting',
+      description: nextBoardMeeting?.note || '',
+      start: nextBoardMeeting?.date,
+      end: addHours(nextBoardMeeting.date, 2),
+      // duration: [2, 'hour'],
+      allDay: false
+    }
+  : null
 
 const iCalEvent = ics && typeof ics === 'function' && event ? ics(event) : ''
 // standard ICS calendar base on https://icalendar.org/
@@ -146,7 +153,9 @@ const MeetingAgendasPage = ({initialData}: Props) => {
   }, [])
 
   const iCalClickHandler = useCallback(() => {
-    const filenameSuffix = format(nextBoardMeeting.date, 'MM-dd-yyyy')
+    const filenameSuffix = nextBoardMeeting?.date
+      ? format(nextBoardMeeting.date, 'MM-dd-yyyy')
+      : ''
     // Remove URL from iCal event since it will cause an error when user adds it to an un-supported mail client such as Apple Mail. To make regular expression non-greedy use ".+?" instead of ".*"
     const noUrlICalEvent = iCalEvent.replace(/url:.+?%0a/i, '')
     setAnchorEl(null)
@@ -247,106 +256,122 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                   alignItems="center"
                 >
                   <ChildBox>
-                    <CardContent>
-                      {/* <Type
+                    {nextBoardMeeting?.date ? (
+                      <>
+                        <CardContent>
+                          {/* <Type
                     className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
                     Title ...
                   </Type> */}
-                      <Type variant="h3">
-                        {format(
-                          nextBoardMeeting.date,
-                          "eeee',' MMMM do '@' h':'mm aaaa"
-                        )}
-                      </Type>
-                      <Type className={classes.pos} color="textSecondary">
-                        In {formatDistanceToNow(nextBoardMeeting.date)}
-                      </Type>
-                      <Type variant="body2" component="p">
-                        {nextBoardMeeting.note
-                          ? nextBoardMeeting.note
-                          : 'Next Regular Board of Directors’ meeting.'}
-                      </Type>
-                    </CardContent>
-                    <CardActions>
-                      <Box>
-                        <Button
-                          color="secondary"
-                          aria-controls="add-to-calendar-menu"
-                          aria-haspopup="true"
-                          onClick={handleClick}
-                        >
-                          Add to my Calendar
-                        </Button>
-                        <Menu
-                          id="add-to-calendar-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={handleClose}
-                          disableBackdropClick={false}
-                        >
-                          <MenuItem onClick={iCalClickHandler}>
-                            iCalendar
-                          </MenuItem>
-                          <MenuItem
-                            href={googleEventHref}
-                            component="a"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            onClick={handleClose}
-                          >
-                            Google Calendar
-                          </MenuItem>
-                          <MenuItem
-                            href={outlookEventHref}
-                            component="a"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            onClick={handleClose}
-                          >
-                            Outlook
-                          </MenuItem>
-                          <MenuItem
-                            href={yahooEventHref}
-                            component="a"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            onClick={handleClose}
-                          >
-                            Yahoo
-                          </MenuItem>
-                        </Menu>
-                      </Box>
-                    </CardActions>
-                  </ChildBox>
 
-                  <ChildBox>
-                    <Box
-                      p={3}
-                      // bgcolor={theme.palette.common.white}
-                      // boxShadow={2}
-                      // borderRadius={2}
-                    >
-                      <Type variant="subtitle1">
-                        Future Board Meeting Dates
-                      </Type>
-                      <List dense>
-                        {followingFourBoardMeetings.map((bm, idx, arry) => (
-                          <Fragment key={idx}>
-                            <ListItem>
-                              <ListItemText
-                                primary={format(bm, "MMM'.' do',' h:mm aaaa")}
-                              />
-                            </ListItem>
-                            {arry.length !== idx + 1 ? <Divider /> : null}
-                          </Fragment>
-                        ))}
-                      </List>
-                    </Box>
+                          <Type variant="h3">
+                            {format(
+                              nextBoardMeeting.date,
+                              "eeee',' MMMM do '@' h':'mm aaaa"
+                            )}
+                          </Type>
+                          <Type className={classes.pos} color="textSecondary">
+                            In {formatDistanceToNow(nextBoardMeeting.date)}
+                          </Type>
+                          <Type variant="body2" component="p">
+                            {nextBoardMeeting.note
+                              ? nextBoardMeeting.note
+                              : 'Next Regular Board of Directors’ meeting.'}
+                          </Type>
+                        </CardContent>
+                        <CardActions>
+                          <Box>
+                            <Button
+                              color="secondary"
+                              aria-controls="add-to-calendar-menu"
+                              aria-haspopup="true"
+                              onClick={handleClick}
+                            >
+                              Add to my Calendar
+                            </Button>
+                            <Menu
+                              id="add-to-calendar-menu"
+                              anchorEl={anchorEl}
+                              keepMounted
+                              open={Boolean(anchorEl)}
+                              onClose={handleClose}
+                              disableBackdropClick={false}
+                            >
+                              <MenuItem onClick={iCalClickHandler}>
+                                iCalendar
+                              </MenuItem>
+                              <MenuItem
+                                href={googleEventHref}
+                                component="a"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                onClick={handleClose}
+                              >
+                                Google Calendar
+                              </MenuItem>
+                              <MenuItem
+                                href={outlookEventHref}
+                                component="a"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                onClick={handleClose}
+                              >
+                                Outlook
+                              </MenuItem>
+                              <MenuItem
+                                href={yahooEventHref}
+                                component="a"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                onClick={handleClose}
+                              >
+                                Yahoo
+                              </MenuItem>
+                            </Menu>
+                          </Box>
+                        </CardActions>
+                      </>
+                    ) : (
+                      <>
+                        <CardContent>
+                          <ColumnBox justifyContent="center" minHeight={50}>
+                            <Type variant="h4" color="textSecondary">
+                              <em>No meetings scheduled at this time.</em>
+                            </Type>
+                          </ColumnBox>
+                        </CardContent>
+                      </>
+                    )}
                   </ChildBox>
+                  {followingFourBoardMeetings.length > 0 ? (
+                    <ChildBox>
+                      <Box
+                        p={3}
+                        // bgcolor={theme.palette.common.white}
+                        // boxShadow={2}
+                        // borderRadius={2}
+                      >
+                        <Type variant="subtitle1">
+                          Future Board Meeting Dates
+                        </Type>
+                        <List dense>
+                          {followingFourBoardMeetings.map((bm, idx, arry) => (
+                            <Fragment key={idx}>
+                              <ListItem>
+                                <ListItemText
+                                  primary={format(bm, "MMM'.' do',' h:mm aaaa")}
+                                />
+                              </ListItem>
+                              {arry.length !== idx + 1 ? <Divider /> : null}
+                            </Fragment>
+                          ))}
+                        </List>
+                      </Box>
+                    </ChildBox>
+                  ) : null}
                 </RespRowBox>
               </Card>
             </Box>

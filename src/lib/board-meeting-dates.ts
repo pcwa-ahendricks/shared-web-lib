@@ -132,7 +132,12 @@ export const boardMeetings: Array<BoardMeeting> = [
   {date: '11-19-2020 2:00PM'},
   {date: '12-7-2020 2:00PM'},
   {date: '12-17-2020 2:00PM'},
-  {date: '1-7-2021 2:00PM'}
+  {date: '1-7-2021 2:00PM'},
+  {date: '1-21-2021 2:00PM'},
+  {date: '2-4-2021 2:00PM'},
+  {date: '2-18-2021 2:00PM'},
+  {date: '3-4-2021 2:00PM'},
+  {date: '3-18-2021 2:00PM'}
 ]
 
 const parseFn = (dateStr: string) =>
@@ -150,10 +155,19 @@ export const futureBoardMeetings = boardMeetings.filter((bm) =>
 
 // export const nextBoardMeetingDate = min(futureBoardMeetingDates)
 
-export const nextBoardMeeting = futureBoardMeetings.reduce((p, v) => {
+export const nextBoardMeeting = futureBoardMeetings.reduce<
+  | {
+      note?: string
+      date: Date
+    }
+  | undefined
+>((p, v) => {
   const vDate = parseFn(v.date)
-  if (!p.date) {
+  if (!vDate && !p) {
+    return
+  }
+  if (!p?.date) {
     return {...v, date: vDate}
   }
   return isBefore(p.date, vDate) ? {...p, date: p.date} : {...v, date: vDate}
-}, {} as {note?: string; date: Date})
+}, undefined)
