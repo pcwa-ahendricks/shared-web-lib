@@ -7,16 +7,7 @@ import WideContainer from '@components/containers/WideContainer'
 import {CustomLayer, CustomLayerProps, Point, ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import {
-  blue,
-  blueGrey,
-  brown,
-  deepOrange,
-  green,
-  orange,
-  red,
-  teal
-} from '@material-ui/core/colors'
+import {blue, brown, green, orange, red, teal} from '@material-ui/core/colors'
 import {
   Box,
   useTheme,
@@ -33,14 +24,12 @@ import {
   FormGroup,
   FormControlLabel
 } from '@material-ui/core'
-import {ResponsiveEnhancedCalendar} from '@kevinmoe/nivo-fork-calendar'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
 import isNumber from 'is-number'
-import SquareIcon from 'mdi-material-ui/Square'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -49,6 +38,9 @@ import {ResponsiveBar} from '@nivo/bar'
 import {BoxLegendSvg} from '@nivo/legends'
 import alpha from 'color-alpha'
 import Spacing from '@components/boxes/Spacing'
+import PrecipCalendar from '@components/season-recap/PrecipCalendar'
+import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
+import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -143,7 +135,8 @@ export default function SeasonRecapPage() {
     () =>
       precipResponse?.data.map((i) => ({
         day: i[0],
-        value: parseFloat(i[1] ?? '')
+        // Trace values are effectively 0.
+        value: i[1]?.toLowerCase() === 't' ? 0 : parseFloat(i[1] ?? '')
       })) ?? [],
     [precipResponse]
   )
@@ -327,16 +320,6 @@ export default function SeasonRecapPage() {
     }),
     [tempResponse]
   )
-
-  // Add a 20% margin to the chart on the Y axis for the top.
-  const precipYScaleMax = useMemo(() => {
-    const high = precipAccumHistHighData?.data.slice(-1)[0]?.y
-    if (!isNumber(high)) {
-      return null
-    }
-    const buffer = high * 0.2
-    return round(high + buffer, 0)
-  }, [precipAccumHistHighData])
 
   const tempObservedData = useMemo(
     () => ({
@@ -529,58 +512,6 @@ export default function SeasonRecapPage() {
     [showHistPrecip]
   )
 
-  const styleById = useMemo(
-    () =>
-      ({
-        'Accumulated Precipitation': {
-          strokeWidth: 5
-        },
-        'Recorded High': {
-          strokeWidth: 2,
-          strokeDasharray: '4, 3'
-        },
-        'Recorded Low': {
-          strokeWidth: 2,
-          strokeDasharray: '4, 3'
-        },
-        'Normal Accum. Precip.': {
-          strokeDasharray: '1, 10',
-          strokeWidth: 5,
-          strokeLinejoin: 'round',
-          strokeLinecap: 'round'
-        },
-        default: {
-          strokeWidth: 2
-        }
-      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
-    []
-  )
-
-  const PrecipLines: CustomLayer = useMemo(
-    () => ({series, lineGenerator, xScale, yScale}) => {
-      return series.map(({id, data, color}) => {
-        const idStr = id.toString()
-        return (
-          <path
-            key={id}
-            d={lineGenerator(
-              data.map((d) => ({
-                ...(d.data?.x != null &&
-                  d.data?.y != undefined && {x: xScale(d.data?.x)}),
-                ...(d.data?.y != null &&
-                  d.data?.y != undefined && {y: yScale(d.data?.y)})
-              }))
-            )}
-            fill="none"
-            stroke={color}
-            style={styleById[idStr] || styleById.default}
-          />
-        )
-      })
-    },
-    [styleById]
-  )
-
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -651,93 +582,7 @@ export default function SeasonRecapPage() {
               </Type>
             ) : null}
             <Box height={{xs: 400, lg: 450}}>
-              <ResponsiveLine
-                data={precipDataset}
-                colors={[orange[300], teal[200], brown[200], blue[600]]}
-                // layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends']}
-                layers={[
-                  'grid',
-                  'markers',
-                  'axes',
-                  'areas',
-                  'crosshair',
-                  // 'lines',
-                  PrecipLines,
-                  'points',
-                  'slices',
-                  'mesh',
-                  'legends'
-                ]}
-                margin={{top: 50, right: 170, bottom: 50, left: 60}}
-                xScale={{
-                  type: 'time',
-                  format: '%Y-%m-%d',
-                  useUTC: false,
-                  precision: 'day'
-                }}
-                xFormat="time:%Y-%m-%d"
-                yScale={{
-                  type: 'linear',
-                  min: 0,
-                  max: precipYScaleMax ?? 'auto',
-                  stacked: false,
-                  reverse: false
-                }}
-                yFormat=" >-.1f"
-                curve="monotoneX"
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  format: '%b %d',
-                  tickValues: 'every 1 month',
-                  legend: 'Date',
-                  legendOffset: -12
-                }}
-                axisLeft={{
-                  orient: 'left',
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Precipitation (inches)',
-                  legendOffset: -40,
-                  legendPosition: 'middle'
-                }}
-                enablePoints={false}
-                // pointSize={10}
-                pointColor={{theme: 'background'}}
-                pointBorderWidth={2}
-                pointBorderColor={{from: 'serieColor'}}
-                pointLabelYOffset={-12}
-                crosshairType="x"
-                useMesh={true}
-                // enableSlices="x"
-                legends={[
-                  {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    justify: false,
-                    translateX: 100,
-                    translateY: 0,
-                    itemsSpacing: 0,
-                    itemDirection: 'left-to-right',
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemOpacity: 0.75,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                    effects: [
-                      {
-                        on: 'hover',
-                        style: {
-                          itemBackground: 'rgba(0, 0, 0, .03)',
-                          itemOpacity: 1
-                        }
-                      }
-                    ]
-                  }
-                ]}
-              />
+              <PrecipAccumLine precipDataset={precipDataset} />
             </Box>
 
             <Spacing size="large" />
@@ -877,61 +722,10 @@ export default function SeasonRecapPage() {
             </Box>
 
             <Box height={200}>
-              <ResponsiveEnhancedCalendar
-                data={precipData}
-                from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
-                to={`${waterYear}-09-30`}
-                // monthSpacing={monthSpacing}
-                granularity="month"
-                emptyColor={theme.palette.grey[200]}
-                undefinedColor={theme.palette.grey[700]}
-                minValue={-0.66}
-                maxValue={2}
-                margin={{top: 40, right: 40, bottom: 40, left: 40}}
-                // yearSpacing={40}
-                monthBorderColor="#ffffff"
-                dayBorderWidth={2}
-                dayBorderColor="#ffffff"
-                // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-                colors={[blueGrey[100], blue[200], blue[400], blue[700]]}
-                legends={[
-                  {
-                    anchor: 'bottom-right',
-                    direction: 'row',
-                    translateY: 36,
-                    itemCount: 4,
-                    itemWidth: 42,
-                    itemHeight: 36,
-                    itemsSpacing: 14,
-                    itemDirection: 'right-to-left'
-                  }
-                ]}
-                tooltip={({value, day, color}) => {
-                  if (value === undefined || isNaN(value)) return null
-                  return (
-                    <Box
-                      bgcolor={theme.palette.common.white}
-                      px={1}
-                      py={0.5}
-                      boxShadow={4}
-                      borderRadius={3}
-                    >
-                      <RowBox alignItems="center">
-                        <ColumnBox justifyContent="center" pr={0.5}>
-                          <SquareIcon fontSize="small" style={{color}} />
-                        </ColumnBox>
-                        <ChildBox style={{marginTop: 2, paddingRight: 6}}>
-                          <Type variant="caption">{day}:</Type>
-                        </ChildBox>
-                        <ChildBox style={{marginTop: 2}}>
-                          <Type variant="caption">
-                            <strong>{`${round(value, 1)}"`}</strong>
-                          </Type>
-                        </ChildBox>
-                      </RowBox>
-                    </Box>
-                  )
-                }}
+              <PrecipCalendar
+                precipData={precipData}
+                waterYear={waterYear}
+                prevWaterYear={prevWaterYear}
               />
             </Box>
           </TabPanel>
@@ -1106,99 +900,10 @@ export default function SeasonRecapPage() {
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
             >
-              <ResponsiveEnhancedCalendar
-                data={tempObservedDiffData}
-                from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
-                to={`${waterYear}-09-30`}
-                // monthSpacing={monthSpacing}
-                tooltip={({value, day, color}) => {
-                  if (value === undefined || isNaN(value)) return null
-                  const newVal = `${round(Math.abs(value))}° ${
-                    value > 0 ? 'warmer' : 'cooler'
-                  }`
-                  return (
-                    <Box
-                      bgcolor={theme.palette.common.white}
-                      px={1}
-                      py={0.5}
-                      boxShadow={4}
-                      borderRadius={3}
-                    >
-                      <RowBox alignItems="center">
-                        <ColumnBox justifyContent="center" pr={0.5}>
-                          <SquareIcon fontSize="small" style={{color}} />
-                        </ColumnBox>
-                        <ChildBox style={{marginTop: 2, paddingRight: 6}}>
-                          <Type variant="caption">{day}:</Type>
-                        </ChildBox>
-                        <ChildBox style={{marginTop: 2}}>
-                          <Type variant="caption">
-                            <strong>{newVal}</strong>
-                          </Type>
-                        </ChildBox>
-                      </RowBox>
-                    </Box>
-                  )
-                  // return (
-                  // <BasicTooltip
-                  //   id={day}
-                  //   value={newVal}
-                  //   color={color}
-                  //   enableChip={true}
-                  // />
-                  // )
-                }}
-                granularity="month"
-                emptyColor={theme.palette.grey[200]}
-                undefinedColor={theme.palette.grey[700]}
-                minValue={-22}
-                maxValue={22}
-                margin={{top: 40, right: 40, bottom: 40, left: 40}}
-                // yearSpacing={40}
-                monthBorderColor="#ffffff"
-                dayBorderWidth={2}
-                dayBorderColor="#ffffff"
-                // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-                colors={[
-                  // '#a50026',
-                  // '#d73026',
-                  // '#f46d43',
-                  // '#fead61',
-                  // '#fee091',
-                  // blue[900],
-                  blue[700],
-                  // blue[400],
-                  blue[300],
-                  blue[100],
-                  // '#feffbf', // light yellow
-                  // theme.palette.grey[400],
-                  // green[100],
-                  // alpha('#d7ffc1', 0.4),
-                  brown[100],
-                  deepOrange[100],
-                  deepOrange[300],
-                  // deepOrange[400],
-                  deepOrange[700]
-                  // deepOrange[900]
-                  // '#ebe4d2',
-                  // '#e0f3f8',
-                  // '#a0cad9',
-                  // '#74add1',
-                  // '#4475b4',
-                  // '#313695'
-                ]}
-                legends={[
-                  {
-                    anchor: 'bottom-right',
-                    direction: 'row',
-                    translateY: 36,
-                    itemCount: 4,
-                    itemWidth: 42,
-                    itemHeight: 36,
-                    itemsSpacing: 14,
-                    itemDirection: 'right-to-left'
-                  }
-                ]}
+              <TempDiffCalendar
+                tempObservedDiffData={tempObservedDiffData}
+                waterYear={waterYear}
+                prevWaterYear={prevWaterYear}
               />
             </Box>
           </TabPanel>
@@ -1328,6 +1033,8 @@ function getWtrYrMonth(index: number) {
   }
 }
 
+// Need a custom legend for bar chart. See
+// See https://codesandbox.io/s/nivo-bar-example-nf86t?file=/index.js
 function BarLegend({
   height,
   legends,
