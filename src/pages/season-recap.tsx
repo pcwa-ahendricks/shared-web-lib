@@ -4,13 +4,11 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {CustomLayer, CustomLayerProps, Point, ResponsiveLine} from '@nivo/line'
+import {ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
-import {blue, brown, green, orange, red, teal} from '@material-ui/core/colors'
 import {
   Box,
-  useTheme,
   Typography as Type,
   Paper,
   Tabs,
@@ -26,29 +24,24 @@ import {
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
-import {Defs} from '@nivo/core'
-import {area, curveMonotoneX} from 'd3-shape'
 import isNumber from 'is-number'
 import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import slugify from 'slugify'
-import {ResponsiveBar} from '@nivo/bar'
-import {BoxLegendSvg} from '@nivo/legends'
-import alpha from 'color-alpha'
 import Spacing from '@components/boxes/Spacing'
 import PrecipCalendar from '@components/season-recap/PrecipCalendar'
 import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
 import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
+import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
+import TempRangeLine from '@components/season-recap/TempRangeLine'
 
 interface TabPanelProps {
   children?: React.ReactNode
   index: any
   value: any
 }
-
-type PointDataMeta = Point['data'] & {historicalYear?: string}
 
 const stationIds = [
   '040897 2', // Blue Canyon
@@ -61,7 +54,6 @@ const stationIds = [
 ]
 
 export default function SeasonRecapPage() {
-  const theme = useTheme()
   const wtrYrMenuItems = useMemo(
     () => lastTenWaterYears().sort((a, b) => b - a),
     []
@@ -361,59 +353,6 @@ export default function SeasonRecapPage() {
   // const mouseEnterCalHandler = useCallback(() => setMonthSpacing(12), [])
   // const mouseLeaveCalHandler = useCallback(() => setMonthSpacing(0), [])
 
-  const AreaLayer: CustomLayer = useCallback(
-    ({series, xScale, yScale}: CustomLayerProps) => {
-      // Using area() is easier with combined series data.
-      const y1SeriesData =
-        series.find((s) => s.id === 'Normal High Range')?.data ?? []
-      const y0SeriesData =
-        series.find((s) => s.id === 'Normal Low Range')?.data ?? []
-
-      const seriesData = y1SeriesData.map((i, idx) => ({
-        ...i,
-        data: {
-          x: i.data.x,
-          y0: y0SeriesData[idx].data.y,
-          y1: i.data.y
-        }
-      }))
-
-      const areaGenerator = area<typeof seriesData[0]>()
-        .x(({data}) => xScale(data.x ? data.x : ''))
-        .y0(({data}) => yScale(data.y0 ? data.y0 : ''))
-        .y1(({data}) => yScale(data.y1 ? data.y1 : ''))
-        .curve(curveMonotoneX)
-      const d = areaGenerator(seriesData)
-      if (!d) {
-        return null
-      }
-      return (
-        <>
-          <Defs
-            defs={[
-              {
-                id: 'pattern',
-                type: 'patternLines',
-                background: 'transparent',
-                color: brown[200],
-                lineWidth: 1,
-                spacing: 5,
-                rotation: -45
-              }
-            ]}
-          />
-          <path
-            d={d}
-            fill="url(#pattern)"
-            fillOpacity={0.5}
-            // stroke={brown[100]}
-            // strokeWidth={1}
-          />
-        </>
-      )
-    },
-    []
-  )
   const [tabValue, setTabValue] = useState(0)
 
   const handleChange = useCallback(
@@ -480,36 +419,6 @@ export default function SeasonRecapPage() {
       setShowHistPrecip(event.target.checked)
     },
     []
-  )
-
-  const precipMoSmryChartColors = useMemo(
-    () => [
-      blue[600],
-      alpha(brown[100], 0.6),
-      ...(showHistPrecip ? [alpha(teal[200], 0.4)] : []),
-      ...(showHistPrecip ? [alpha(orange[200], 0.6)] : [])
-    ],
-    [showHistPrecip]
-  )
-
-  const precipMoSmryChartKeys = useMemo(
-    () => [
-      'actualPrecip',
-      'meanPrecip',
-      ...(showHistPrecip ? ['highPrecip'] : []),
-      ...(showHistPrecip ? ['lowPrecip'] : [])
-    ],
-    [showHistPrecip]
-  )
-
-  const precipMoSmryChartLegendLabels = useMemo(
-    () => [
-      'Precipitation',
-      'Historical Average',
-      ...(showHistPrecip ? ['Historical High'] : []),
-      ...(showHistPrecip ? ['Historical Low'] : [])
-    ],
-    [showHistPrecip]
   )
 
   return (
@@ -608,116 +517,9 @@ export default function SeasonRecapPage() {
               </ChildBox>
             </RowBox>
             <Box height={450}>
-              <ResponsiveBar
-                data={precipMoSmryData}
-                keys={precipMoSmryChartKeys}
-                indexBy="month"
-                margin={{top: 50, right: 140, bottom: 50, left: 60}}
-                padding={0.3}
-                valueScale={{type: 'linear'}}
-                indexScale={{type: 'band', round: true}}
-                colors={precipMoSmryChartColors}
-                groupMode="grouped"
-                defs={[
-                  // {
-                  //   id: 'dots',
-                  //   type: 'patternDots',
-                  //   background: 'inherit',
-                  //   color: '#38bcb2',
-                  //   size: 4,
-                  //   padding: 1,
-                  //   stagger: true
-                  // },
-                  {
-                    id: 'lines',
-                    type: 'patternLines',
-                    background: 'inherit',
-                    color: alpha(brown[200], 0.2),
-                    rotation: -45,
-                    lineWidth: 3,
-                    spacing: 10
-                  }
-                ]}
-                // fill={[
-                //   {
-                //     match: {
-                //       id: ''
-                //     },
-                //     id: 'dots'
-                //   },
-                //   {
-                //     match: {
-                //       id: 'meanPrecip'
-                //     },
-                //     id: 'lines'
-                //   }
-                // ]}
-                borderColor={{from: 'color', modifiers: [['darker', 1.6]]}}
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0
-                  // legend: 'Month',
-                  // legendPosition: 'middle',
-                  // legendOffset: 32
-                }}
-                axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Precipitation (inches)',
-                  legendPosition: 'middle',
-                  legendOffset: -40
-                }}
-                // d looks like {
-                //   "id": "actualPrecip",
-                //   "value": 1.92,
-                //   "index": 1,
-                //   "indexValue": "Dec",
-                //   "data": {
-                //     "actualPrecip": 1.92,
-                //     "month": "Dec",
-                //     "label": "2020-2021"
-                //   }
-                // }
-                enableLabel={false}
-                // labelSkipWidth={12}
-                // labelSkipHeight={12}
-                // labelTextColor={{from: 'color', modifiers: [['darker', 1.6]]}}
-                // label={(d: any) => `${d.data.label}`}
-                // layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations']}
-                layers={['grid', 'axes', 'bars', 'markers', BarLegend]}
-                legends={[
-                  {
-                    data: precipMoSmryChartKeys.map((id, index) => ({
-                      id,
-                      color: precipMoSmryChartColors[index],
-                      label: precipMoSmryChartLegendLabels[index]
-                    })),
-                    dataFrom: 'keys',
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    justify: false,
-                    translateX: 120,
-                    translateY: 0,
-                    itemsSpacing: 2,
-                    itemWidth: 100,
-                    itemHeight: 20,
-                    itemDirection: 'left-to-right',
-                    itemOpacity: 0.85,
-                    symbolSize: 20,
-                    effects: [
-                      {
-                        on: 'hover',
-                        style: {
-                          itemOpacity: 1
-                        }
-                      }
-                    ]
-                  }
-                ]}
+              <PrecipMonthGroupBar
+                precipMoSmryData={precipMoSmryData}
+                showHistPrecip={showHistPrecip}
               />
             </Box>
 
@@ -732,168 +534,7 @@ export default function SeasonRecapPage() {
 
           <TabPanel value={tabValue} index={1}>
             <Box height={{xs: 400, lg: 450}}>
-              <ResponsiveLine
-                data={tempDataset}
-                // colors={{scheme: 'red_yellow_green'}}
-                colors={[
-                  blue[700],
-                  green[100],
-                  red[100],
-                  brown[100],
-                  brown[100]
-                ]}
-                margin={{top: 50, right: 140, bottom: 50, left: 60}}
-                xScale={{
-                  type: 'time',
-                  format: '%Y-%m-%d',
-                  useUTC: false,
-                  precision: 'day'
-                }}
-                xFormat="time:%Y-%m-%d"
-                yScale={{
-                  type: 'linear',
-                  min: -10,
-                  max: 120,
-                  stacked: false,
-                  reverse: false
-                }}
-                yFormat=" >-.0f"
-                curve="monotoneX"
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  format: '%b %d',
-                  tickValues: 'every 1 month',
-                  legend: 'Date',
-                  legendOffset: -12
-                }}
-                axisLeft={{
-                  orient: 'left',
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Temperature (°F)',
-                  legendOffset: -40,
-                  legendPosition: 'middle'
-                }}
-                enablePoints={false}
-                // pointSize={10}
-                pointColor={{theme: 'background'}}
-                pointBorderWidth={2}
-                pointBorderColor={{from: 'serieColor'}}
-                pointLabelYOffset={-12}
-                crosshairType="x"
-                useMesh={true}
-                layers={[
-                  AreaLayer,
-                  'grid',
-                  'markers',
-                  'axes',
-                  'areas',
-                  'crosshair',
-                  'lines',
-                  'points',
-                  'slices',
-                  'mesh',
-                  'legends'
-                ]}
-                legends={[
-                  {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    justify: false,
-                    translateX: 100,
-                    translateY: 0,
-                    itemsSpacing: 0,
-                    itemDirection: 'left-to-right',
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemOpacity: 0.75,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                    effects: [
-                      {
-                        on: 'hover',
-                        style: {
-                          itemBackground: 'rgba(0, 0, 0, .03)',
-                          itemOpacity: 1
-                        }
-                      }
-                    ]
-                  }
-                ]}
-                enableSlices="x"
-                sliceTooltip={({slice}) => {
-                  return (
-                    <Box
-                      bgcolor={theme.palette.common.white}
-                      p={[1, 1.5]}
-                      style={{
-                        border: '1px solid #ccc'
-                      }}
-                    >
-                      {/* <div>x: {slice.id}</div> */}
-                      {slice.points.map((point, idx) => {
-                        const data: PointDataMeta = point.data
-                        const historicalHighYear = data.historicalYear?.substring(
-                          0,
-                          4
-                        )
-                        const historicalLowYear = data.historicalYear?.substring(
-                          0,
-                          4
-                        )
-                        const isHistorical = /historical/i.test(
-                          point.serieId.toString()
-                        )
-                        const isHistoricalLow = /historical low/i.test(
-                          point.serieId.toString()
-                        )
-                        const isHistoricalHigh = /historical high/i.test(
-                          point.serieId.toString()
-                        )
-                        const historicalYear = isHistoricalHigh
-                          ? historicalHighYear
-                          : isHistoricalLow
-                          ? historicalLowYear
-                          : ''
-                        // if (isHistoricalHigh) {
-                        //   console.log('slice', slice)
-                        //   console.log('point', point)
-                        //   console.log('idx', idx)
-                        // }
-                        return (
-                          <Box key={point.id}>
-                            {idx === 0 ? (
-                              <Type variant="caption">
-                                <strong>{point.data.xFormatted}</strong>
-                              </Type>
-                            ) : null}
-                            <Box
-                              px={1}
-                              style={{
-                                color: point.serieColor
-                              }}
-                            >
-                              <Type variant="caption">
-                                <strong>{point.serieId}</strong>{' '}
-                                {point.data.yFormatted}
-                                &deg;
-                                {isHistorical ? (
-                                  <Type color="textSecondary" variant="inherit">
-                                    <em> ({historicalYear})</em>
-                                  </Type>
-                                ) : null}
-                              </Type>
-                            </Box>
-                          </Box>
-                        )
-                      })}
-                    </Box>
-                  )
-                }}
-              />
+              <TempRangeLine tempDataset={tempDataset} />
             </Box>
             <Box
               height={200}
@@ -1031,37 +672,4 @@ function getWtrYrMonth(index: number) {
     default:
       return 'Other'
   }
-}
-
-// Need a custom legend for bar chart. See
-// See https://codesandbox.io/s/nivo-bar-example-nf86t?file=/index.js
-function BarLegend({
-  height,
-  legends,
-  width
-}: {
-  height: React.ComponentProps<typeof BoxLegendSvg>['containerHeight']
-  width: React.ComponentProps<typeof BoxLegendSvg>['containerWidth']
-  legends: React.ComponentProps<typeof ResponsiveBar>['legends']
-}) {
-  if (!legends || legends.length <= 0) {
-    return <></>
-  }
-  return (
-    <>
-      {legends.map((legend) => {
-        if (!legend || !legend.data) {
-          return <></>
-        }
-        return (
-          <BoxLegendSvg
-            key={JSON.stringify(legend.data.map(({id}) => id))}
-            {...legend}
-            containerHeight={height}
-            containerWidth={width}
-          />
-        )
-      })}
-    </>
-  )
 }
