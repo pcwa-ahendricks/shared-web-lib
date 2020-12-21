@@ -38,6 +38,7 @@ import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
 import TempRangeLine from '@components/season-recap/TempRangeLine'
 import {multiFetcher} from '@lib/fetcher'
 import toTitleCase from '@lib/toTitleCase'
+import StnMap from '@components/season-recap/StnMap'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -57,6 +58,14 @@ const stationIds = [
   '043891 2'
 ] as const
 type StationId = typeof stationIds[number]
+
+type StationInfo =
+  | Partial<
+      {
+        [key in StationId]: StationMeta
+      }
+    >
+  | undefined
 
 export default function SeasonRecapPage() {
   const wtrYrMenuItems = useMemo(
@@ -79,14 +88,7 @@ export default function SeasonRecapPage() {
   )
   const stationInfo = useMemo(
     () =>
-      stationIds.reduce<
-        | Partial<
-            {
-              [key in StationId]: StationMeta
-            }
-          >
-        | undefined
-      >((prev, stn) => {
+      stationIds.reduce<StationInfo>((prev, stn) => {
         const res = stationMetaResponse?.find((m) =>
           m.meta[0].sids.find((s) => s === stn)
         )
@@ -105,6 +107,10 @@ export default function SeasonRecapPage() {
     [stationMetaResponse, countyResponse]
   )
   console.log(stationInfo)
+  const selectedStationInfo = useMemo(
+    () => (stationInfo ? stationInfo[sid] : null),
+    [sid, stationInfo]
+  )
 
   const qs = stringify({sid: slugify(sid), waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
@@ -176,6 +182,7 @@ export default function SeasonRecapPage() {
       })) ?? [],
     [precipResponse]
   )
+  // console.log(precipResponse)
 
   const precipAccumHistHighYear = useMemo(() => {
     const highYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
@@ -524,6 +531,10 @@ export default function SeasonRecapPage() {
             </Select>
           </FormControl>
 
+          <Box height={300}>
+            <StnMap stationInfo={selectedStationInfo} />
+          </Box>
+
           <TabPanel value={tabValue} index={0}>
             {precipAccumDiff ? (
               <Type variant="h4">
@@ -728,7 +739,7 @@ interface StationMetaResponse {
   meta: StationMeta[]
 }
 
-interface StationMeta {
+export interface StationMeta {
   valid_daterange: string[][]
   name: string
   ll: number[]
