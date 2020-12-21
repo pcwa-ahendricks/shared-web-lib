@@ -77,7 +77,7 @@ export default function TempRangeLine({tempDataset}: Props) {
       data={tempDataset}
       // colors={{scheme: 'red_yellow_green'}}
       colors={[blue[700], green[100], red[100], brown[100], brown[100]]}
-      margin={{top: 50, right: 140, bottom: 50, left: 60}}
+      margin={{top: 50, right: 50, bottom: 60, left: 50}}
       xScale={{
         type: 'time',
         format: '%Y-%m-%d',
@@ -134,14 +134,14 @@ export default function TempRangeLine({tempDataset}: Props) {
       ]}
       legends={[
         {
-          anchor: 'bottom-right',
-          direction: 'column',
+          anchor: 'bottom',
+          direction: 'row',
           justify: false,
-          translateX: 100,
-          translateY: 0,
+          translateX: 0,
+          translateY: 60,
           itemsSpacing: 0,
           itemDirection: 'left-to-right',
-          itemWidth: 80,
+          itemWidth: 130,
           itemHeight: 20,
           itemOpacity: 0.75,
           symbolSize: 12,

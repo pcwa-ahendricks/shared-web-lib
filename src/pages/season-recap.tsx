@@ -509,7 +509,7 @@ export default function SeasonRecapPage() {
             >
               {wtrYrMenuItems.map((y, idx) => (
                 <MenuItem key={idx} value={y}>
-                  {y}
+                  {`${y - 1}-${y}`}
                 </MenuItem>
               ))}
             </Select>

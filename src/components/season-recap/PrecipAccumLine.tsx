@@ -100,7 +100,7 @@ export default function PrecipAccumLine({precipDataset}: Props) {
         'mesh',
         'legends'
       ]}
-      margin={{top: 50, right: 170, bottom: 50, left: 60}}
+      margin={{top: 50, right: 50, bottom: 60, left: 50}}
       xScale={{
         type: 'time',
         format: '%Y-%m-%d',
@@ -145,14 +145,14 @@ export default function PrecipAccumLine({precipDataset}: Props) {
       // enableSlices="x"
       legends={[
         {
-          anchor: 'bottom-right',
-          direction: 'column',
+          anchor: 'bottom',
+          direction: 'row',
           justify: false,
-          translateX: 100,
-          translateY: 0,
+          translateX: 0,
+          translateY: 60,
           itemsSpacing: 0,
           itemDirection: 'left-to-right',
-          itemWidth: 80,
+          itemWidth: 160,
           itemHeight: 20,
           itemOpacity: 0.75,
           symbolSize: 12,

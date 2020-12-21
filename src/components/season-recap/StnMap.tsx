@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useMemo} from 'react'
+import React, {useState, useCallback, useEffect, useMemo, useRef} from 'react'
 import MapGL, {
   Marker,
   NavigationControl,
@@ -62,6 +62,8 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const [mapWest, setMapWest] = useState<number>()
+  const [mapEast, setMapEast] = useState<number>()
 
   const longitude = useMemo(() => {
     const lng = stationInfo?.ll[0]
@@ -92,19 +94,20 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
   }, [])
 
   useEffect(() => {
-    if (!longitude || !latitude) {
+    if (!longitude || !latitude || !mapWest || !mapEast) {
       return
     }
+
     setViewport((currentViewport) => ({
       ...currentViewport,
       zoom: 10,
-      longitude,
       latitude,
+      longitude: longitude - 0.5 * 0.45 * (mapWest - mapEast),
       transitionDuration: 1500,
       transitionInterpolator: new FlyToInterpolator(),
       transitionEasing: easeCubic
     }))
-  }, [longitude, latitude])
+  }, [longitude, latitude, mapWest, mapEast])
 
   const linearProgressEl = useMemo(
     () =>
@@ -142,6 +145,18 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     ) : null
   }, [longitude, latitude])
 
+  const mapRef = useRef<MapGL>(null)
+
+  useEffect(() => {
+    const bounds = mapRef.current?.getMap().getBounds()
+    if (bounds) {
+      const w = bounds.getWest()
+      const e = bounds.getEast()
+      setMapWest(w)
+      setMapEast(e)
+    }
+  }, [mapRef])
+
   return (
     <>
       <Head>
@@ -153,6 +168,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
       <Box position="relative" height="100%">
         {linearProgressEl}
         <MapGL
+          ref={mapRef}
           {...viewport}
           width="100%"
           height="100%"
