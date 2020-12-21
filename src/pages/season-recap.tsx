@@ -1,4 +1,4 @@
-// cspell:ignore actl accum
+// cspell:ignore actl accum climdiv frmt
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -36,6 +36,8 @@ import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
 import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
 import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
 import TempRangeLine from '@components/season-recap/TempRangeLine'
+import {multiFetcher} from '@lib/fetcher'
+import toTitleCase from '@lib/toTitleCase'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -43,25 +45,67 @@ interface TabPanelProps {
   value: any
 }
 
+type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
+
 const stationIds = [
-  '040897 2', // Blue Canyon
+  '040897 2',
   '040383 2',
   '041912 2',
   '043134 2',
   '043491 2',
   '048758 2',
-  '043891 2' // Hell Hole
-]
+  '043891 2'
+] as const
+type StationId = typeof stationIds[number]
 
 export default function SeasonRecapPage() {
   const wtrYrMenuItems = useMemo(
     () => lastTenWaterYears().sort((a, b) => b - a),
     []
   )
-  const stationMenuItems = stationIds
+
+  const stationIdUrls = stationIds.map(
+    (sid) => `/api/acis/station-meta${stringify({sid: slugify(sid)}, true)}`
+  )
+
+  const {data: countyResponse} = useSWR<CountyMetaResponse>('/api/acis/county')
   const [waterYear, setWaterYear] = useState(2021)
-  const [sid, setSid] = useState('040897 2')
+  const [sid, setSid] = useState<StationId>('040897 2')
   const prevWaterYear = waterYear - 1
+
+  const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
+    stationIdUrls,
+    multiFetcher
+  )
+  const stationInfo = useMemo(
+    () =>
+      stationIds.reduce<
+        | Partial<
+            {
+              [key in StationId]: StationMeta
+            }
+          >
+        | undefined
+      >((prev, stn) => {
+        const res = stationMetaResponse?.find((m) =>
+          m.meta[0].sids.find((s) => s === stn)
+        )
+        const resData = res?.meta[0]
+        const prevObj = prev ?? {}
+        if (!resData) {
+          return {...prevObj}
+        }
+        const countyName =
+          countyResponse?.meta.find((c) => c.id === resData?.county)?.name ??
+          resData?.county ??
+          ''
+        resData.county = countyName
+        return {...prevObj, [stn]: resData}
+      }, undefined),
+    [stationMetaResponse, countyResponse]
+  )
+  console.log(stationInfo)
+
   const qs = stringify({sid: slugify(sid), waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
@@ -370,12 +414,11 @@ export default function SeasonRecapPage() {
   )
   const stationSelectHandler = useCallback(
     (event: React.ChangeEvent<{value: unknown}>) => {
-      setSid(event.target.value as string)
+      setSid(event.target.value as StationId)
     },
     []
   )
 
-  type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
   const [precipDataset, setPrecipDataset] = useState<LineDataProp>([])
   useEffect(() => {
     setTimeout(() => {
@@ -473,9 +516,9 @@ export default function SeasonRecapPage() {
               value={sid}
               onChange={stationSelectHandler}
             >
-              {stationMenuItems.map((y, idx) => (
+              {stationIds.map((y, idx) => (
                 <MenuItem key={idx} value={y}>
-                  {y}
+                  {frmtStnName(stationInfo?.[y]?.name ?? y)}
                 </MenuItem>
               ))}
             </Select>
@@ -672,4 +715,30 @@ function getWtrYrMonth(index: number) {
     default:
       return 'Other'
   }
+}
+
+interface CountyMetaResponse {
+  meta: CountyMeta[]
+}
+interface CountyMeta {
+  name: string
+  id: string
+}
+interface StationMetaResponse {
+  meta: StationMeta[]
+}
+
+interface StationMeta {
+  valid_daterange: string[][]
+  name: string
+  ll: number[]
+  sids: string[]
+  county: string
+  state: string
+  elev: number
+  climdiv: string
+}
+
+function frmtStnName(name: string) {
+  return toTitleCase(name, /ap|sw|\s2\s/gi)
 }

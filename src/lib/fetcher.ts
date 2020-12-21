@@ -8,6 +8,10 @@ const fetcher = <T>(...args: FetchParameters) =>
     return res.json() as Promise<T>
   })
 
+const multiFetcher = <T>(...urls: string[]) => {
+  return Promise.all(urls.map((url) => fetcher<T>(url)))
+}
+
 const textFetcher = (...args: FetchParameters) =>
   fetch(...args).then((res) => {
     if (!res.ok) {
@@ -17,4 +21,4 @@ const textFetcher = (...args: FetchParameters) =>
   })
 
 export default fetcher
-export {textFetcher}
+export {textFetcher, multiFetcher}
