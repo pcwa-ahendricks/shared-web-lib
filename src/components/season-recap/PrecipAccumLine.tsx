@@ -67,7 +67,7 @@ export default function PrecipAccumLine({precipDataset}: Props) {
             d={lineGenerator(
               data.map((d) => ({
                 ...(d.data?.x != null &&
-                  d.data?.y != undefined && {x: xScale(d.data?.x)}),
+                  d.data?.x != undefined && {x: xScale(d.data?.x)}),
                 ...(d.data?.y != null &&
                   d.data?.y != undefined && {y: yScale(d.data?.y)})
               }))

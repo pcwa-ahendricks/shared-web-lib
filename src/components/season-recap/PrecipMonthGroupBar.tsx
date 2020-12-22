@@ -175,7 +175,7 @@ export default function PrecipMonthGroupBar({
           translateX: 0,
           translateY: 60,
           itemsSpacing: 2,
-          itemWidth: 100,
+          itemWidth: 130,
           itemHeight: 20,
           itemDirection: 'left-to-right',
           itemOpacity: 0.85,

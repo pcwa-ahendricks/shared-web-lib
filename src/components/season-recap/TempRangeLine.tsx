@@ -7,7 +7,7 @@ import {
   ResponsiveLine,
   Point
 } from '@nivo/line'
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
@@ -72,6 +72,65 @@ export default function TempRangeLine({tempDataset}: Props) {
     },
     []
   )
+  const tempDataLength = tempDataset
+    .find((s) => s.id === 'Observed Range')
+    ?.data.filter((v) => v.y).length
+  const obsRangeWidth = useMemo(() => {
+    const length = tempDataLength ? tempDataLength / 2 : null
+    console.log(length)
+    switch (true) {
+      case !length:
+        return 2
+      case length && length > 275:
+        return 1
+      case length && length > 150:
+        return 1.5
+      case length && length > 100:
+        return 2
+      default:
+        return 3
+    }
+  }, [tempDataLength])
+
+  const styleById = useMemo(
+    () =>
+      ({
+        // 'Observed Range': {
+        //   strokeWidth: 1
+        // },
+        default: {
+          strokeWidth: 2.0
+        }
+      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
+    []
+  )
+  const TempLines: CustomLayer = useMemo(
+    () => ({series, lineGenerator, xScale, yScale}) => {
+      return series.map(({id, data, color}) => {
+        const idStr = id.toString()
+        if (id === 'Observed Range') {
+          return
+        }
+        return (
+          <path
+            key={id}
+            d={lineGenerator(
+              data.map((d) => ({
+                ...(d.data?.x != null &&
+                  d.data?.x != undefined && {x: xScale(d.data?.x)}),
+                ...(d.data?.y != null &&
+                  d.data?.y != undefined && {y: yScale(d.data?.y)})
+              }))
+            )}
+            fill="none"
+            stroke={color}
+            style={styleById[idStr] || styleById.default}
+          />
+        )
+      })
+    },
+    [styleById]
+  )
   return (
     <ResponsiveLine
       data={tempDataset}
@@ -119,6 +178,7 @@ export default function TempRangeLine({tempDataset}: Props) {
       pointLabelYOffset={-12}
       crosshairType="x"
       useMesh={true}
+      lineWidth={obsRangeWidth}
       layers={[
         AreaLayer,
         'grid',
@@ -126,6 +186,7 @@ export default function TempRangeLine({tempDataset}: Props) {
         'axes',
         'areas',
         'crosshair',
+        TempLines,
         'lines',
         'points',
         'slices',
