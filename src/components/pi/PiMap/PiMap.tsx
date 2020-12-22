@@ -160,7 +160,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
     <>
       <Head>
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css"
           rel="stylesheet"
         />
       </Head>

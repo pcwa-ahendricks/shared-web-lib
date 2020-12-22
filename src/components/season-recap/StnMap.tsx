@@ -102,7 +102,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
       ...currentViewport,
       zoom: 10,
       latitude,
-      longitude: longitude - 0.5 * 0.45 * (mapWest - mapEast),
+      longitude: longitude - 0.25 * (mapWest - mapEast),
       transitionDuration: 1500,
       transitionInterpolator: new FlyToInterpolator(),
       transitionEasing: easeCubic
@@ -161,7 +161,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     <>
       <Head>
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css"
           rel="stylesheet"
         />
       </Head>
