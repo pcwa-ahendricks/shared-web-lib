@@ -75,12 +75,12 @@ export default function TempRangeLine({tempDataset}: Props) {
   const tempDataLength = tempDataset
     .find((s) => s.id === 'Observed Range')
     ?.data.filter((v) => v.y).length
-  const obsRangeWidth = useMemo(() => {
+
+  const obsRangeLineWidth = useMemo(() => {
     const length = tempDataLength ? tempDataLength / 2 : null
-    console.log(length)
     switch (true) {
       case !length:
-        return 2
+        return 3
       case length && length > 275:
         return 1
       case length && length > 150:
@@ -92,17 +92,34 @@ export default function TempRangeLine({tempDataset}: Props) {
     }
   }, [tempDataLength])
 
+  const recordLineWidth = useMemo(() => {
+    const length = tempDataLength ? tempDataLength / 2 : null
+    switch (true) {
+      case !length:
+        return 2
+      case length && length > 275:
+        return 1.5
+      case length && length > 150:
+        return 1.75
+      default:
+        return 2
+    }
+  }, [tempDataLength])
+
   const styleById = useMemo(
     () =>
       ({
-        // 'Observed Range': {
-        //   strokeWidth: 1
-        // },
+        'Historical High': {
+          strokeWidth: recordLineWidth
+        },
+        'Historical Low': {
+          strokeWidth: recordLineWidth
+        },
         default: {
           strokeWidth: 2.0
         }
       } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
-    []
+    [recordLineWidth]
   )
   const TempLines: CustomLayer = useMemo(
     () => ({series, lineGenerator, xScale, yScale}) => {
@@ -178,7 +195,7 @@ export default function TempRangeLine({tempDataset}: Props) {
       pointLabelYOffset={-12}
       crosshairType="x"
       useMesh={true}
-      lineWidth={obsRangeWidth}
+      lineWidth={obsRangeLineWidth}
       layers={[
         AreaLayer,
         'grid',
