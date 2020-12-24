@@ -67,6 +67,8 @@ type StationInfo =
     >
   | undefined
 
+const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
+
 export default function SeasonRecapPage() {
   const wtrYrMenuItems = useMemo(
     () => lastTenWaterYears().sort((a, b) => b - a),
@@ -113,16 +115,24 @@ export default function SeasonRecapPage() {
   )
 
   const qs = stringify({sid: slugify(sid), waterYear}, true)
-  const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`)
+  const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`, {
+    refreshInterval
+  })
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
-    `/api/acis/temp-hist${qs}`
+    `/api/acis/temp-hist${qs}`,
+    {refreshInterval}
   )
-  const {data: precipResponse} = useSWR<PrecipResponse>(`/api/acis/precip${qs}`)
+  const {data: precipResponse} = useSWR<PrecipResponse>(
+    `/api/acis/precip${qs}`,
+    {refreshInterval}
+  )
   const {data: precipHistResponse} = useSWR<PrecipHistResponse>(
-    `/api/acis/precip-hist${qs}`
+    `/api/acis/precip-hist${qs}`,
+    {refreshInterval}
   )
   const {data: precipMoSmryResponse} = useSWR<PrecipMoSmryResponse>(
-    `/api/acis/precip-monthly-smry${qs}`
+    `/api/acis/precip-monthly-smry${qs}`,
+    {refreshInterval}
   )
 
   const precipMoSmryData = useMemo(() => {
@@ -201,7 +211,8 @@ export default function SeasonRecapPage() {
     true
   )
   const {data: precipAccumHistHighResponse} = useSWR<PrecipResponse>(
-    precipAccumHistHighYear ? `/api/acis/precip-hist-yr${qsPrecipHigh}` : null
+    precipAccumHistHighYear ? `/api/acis/precip-hist-yr${qsPrecipHigh}` : null,
+    {refreshInterval}
   )
   const precipAccumHistHighData = useMemo(
     () => ({
@@ -245,7 +256,8 @@ export default function SeasonRecapPage() {
 
   const qsPrecipLow = stringify({sid, waterYear: precipAccumHistLowYear}, true)
   const {data: precipAccumHistLowResponse} = useSWR<PrecipResponse>(
-    precipAccumHistLowYear ? `/api/acis/precip-hist-yr${qsPrecipLow}` : null
+    precipAccumHistLowYear ? `/api/acis/precip-hist-yr${qsPrecipLow}` : null,
+    {refreshInterval}
   )
   const precipAccumHistLowData = useMemo(
     () => ({
@@ -470,6 +482,20 @@ export default function SeasonRecapPage() {
     },
     []
   )
+  const TabPanel = useCallback(
+    ({children, value, index, ...other}: TabPanelProps) => (
+      <Box
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && <Box p={3}>{children}</Box>}
+      </Box>
+    ),
+    []
+  )
 
   return (
     <PageLayout title="Page Template" waterSurface>
@@ -577,7 +603,7 @@ export default function SeasonRecapPage() {
               />
             </Box>
 
-            <Box height={200}>
+            <Box height={{xs: 200, lg: 300}}>
               <PrecipCalendar
                 precipData={precipData}
                 waterYear={waterYear}
@@ -591,7 +617,7 @@ export default function SeasonRecapPage() {
               <TempRangeLine tempDataset={tempDataset} />
             </Box>
             <Box
-              height={200}
+              height={{xs: 200, lg: 300}}
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
             >
@@ -649,42 +675,6 @@ interface PrecipHistResponse {
   data: [string, [string, number]][]
 }
 
-function parseWaterYear(dateStr?: string) {
-  if (!dateStr) {
-    return null
-  }
-  const highYearDate = parse(dateStr, 'yyyy-MM-dd', new Date())
-  const month = getMonth(highYearDate) + 1
-  const year = getYear(highYearDate)
-  if ([10, 11, 12].indexOf(month) >= 0) {
-    return year + 1
-  }
-  return year
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
-  }
-}
-
-function TabPanel(props: TabPanelProps) {
-  const {children, value, index, ...other} = props
-
-  return (
-    <Box
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </Box>
-  )
-}
-
 interface PrecipMoSmryResponse {
   meta: PrecipMoSmryMeta
   data: [string, string[]][]
@@ -695,6 +685,32 @@ interface PrecipMoSmryMeta {
   state: string
   sids: string[]
   name: string
+}
+
+interface CountyMetaResponse {
+  meta: CountyMeta[]
+}
+interface CountyMeta {
+  name: string
+  id: string
+}
+interface StationMetaResponse {
+  meta: StationMeta[]
+}
+
+export interface StationMeta {
+  valid_daterange: string[][]
+  name: string
+  ll: number[]
+  sids: string[]
+  county: string
+  state: string
+  elev: number
+  climdiv: string
+}
+
+function frmtStnName(name: string) {
+  return toTitleCase(name, /ap|sw|\s2\s/gi)
 }
 
 function getWtrYrMonth(index: number) {
@@ -727,29 +743,22 @@ function getWtrYrMonth(index: number) {
       return 'Other'
   }
 }
-
-interface CountyMetaResponse {
-  meta: CountyMeta[]
-}
-interface CountyMeta {
-  name: string
-  id: string
-}
-interface StationMetaResponse {
-  meta: StationMeta[]
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
+  }
 }
 
-export interface StationMeta {
-  valid_daterange: string[][]
-  name: string
-  ll: number[]
-  sids: string[]
-  county: string
-  state: string
-  elev: number
-  climdiv: string
-}
-
-function frmtStnName(name: string) {
-  return toTitleCase(name, /ap|sw|\s2\s/gi)
+function parseWaterYear(dateStr?: string) {
+  if (!dateStr) {
+    return null
+  }
+  const highYearDate = parse(dateStr, 'yyyy-MM-dd', new Date())
+  const month = getMonth(highYearDate) + 1
+  const year = getYear(highYearDate)
+  if ([10, 11, 12].indexOf(month) >= 0) {
+    return year + 1
+  }
+  return year
 }

@@ -66,7 +66,7 @@ export default function TempDiffCalendar({
       }}
       granularity="month"
       emptyColor={theme.palette.grey[200]}
-      undefinedColor={theme.palette.grey[700]}
+      undefinedColor={theme.palette.grey[600]}
       minValue={-22}
       maxValue={22}
       margin={{top: 40, right: 40, bottom: 40, left: 40}}

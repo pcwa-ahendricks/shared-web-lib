@@ -29,7 +29,7 @@ export default function PrecipCalendar({
       // monthSpacing={monthSpacing}
       granularity="month"
       emptyColor={theme.palette.grey[200]}
-      undefinedColor={theme.palette.grey[700]}
+      undefinedColor={theme.palette.grey[600]}
       minValue={-0.66}
       maxValue={2}
       margin={{top: 40, right: 40, bottom: 40, left: 40}}

@@ -115,11 +115,11 @@ const HouseCallsPage = () => {
               <Type paragraph>
                 PCWA is continuing to offer our conservation team’s expertise if
                 you find a sudden spike in your water bill or think your home
-                might have a leak. Rather than offering an in-person Water Wise
-                House Call, our team will review your water use remotely, check
-                your water meter for signs that there may be a leak, and follow
-                up with a phone call to share our findings and information about
-                potential rebates.
+                might have a leak. Rather than scheduling an in-person Water
+                Wise House Call, our team will review your historical water use
+                from our records, then may check your water meter for signs that
+                there may be a leak, and follow up with a phone call to share
+                our findings and information about potential rebates.
               </Type>
               <Type paragraph>
                 PCWA’s rebate program is available to help you increase water
