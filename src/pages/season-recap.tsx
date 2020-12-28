@@ -84,6 +84,71 @@ export default function SeasonRecapPage() {
   const [sid, setSid] = useState<StationId>('040897 2')
   const prevWaterYear = waterYear - 1
 
+  const multiStnQs = stringify({waterYear}, true)
+  const {data: multiStnPrecipSmryRes} = useSWR<MultiStnSmryResponse>(
+    `/api/acis/multi-stn-precip-smry${multiStnQs}`
+  )
+  const multiStnPrecipSmryData = useMemo(() => {
+    // Only return station data for stations that have data for all three values
+    const filtered = multiStnPrecipSmryRes?.data.filter((d) =>
+      d.data.every((v) => isNumber(v))
+    )
+    const mapped = filtered?.map((d) => ({
+      ...d,
+      meta: {
+        ...d.meta,
+        county:
+          countyResponse?.meta.find((c) => c.id === d.meta.county)?.name ?? ''
+      },
+      data: [
+        ...d.data.map((d) => parseFloat(d)),
+        (parseFloat(d.data[0]) / parseFloat(d.data[1])) * 100
+      ] as [number, number, number, number]
+    }))
+    return mapped ?? []
+  }, [multiStnPrecipSmryRes, countyResponse])
+  console.log(multiStnPrecipSmryData)
+
+  const mfoo = multiStnPrecipSmryData.map((d) => d.data[3])
+  const precipPerc =
+    mfoo.reduce((prev, curr) => {
+      const a = prev + curr
+      return a
+    }, 0) / mfoo.length
+  console.log('precip average: ', precipPerc)
+
+  const {data: multiStnSnowSmryRes} = useSWR<MultiStnSmryResponse>(
+    `/api/acis/multi-stn-snow-smry${multiStnQs}`
+  )
+  const multiStnSnowSmryData = useMemo(() => {
+    // Only return station data for stations that have data for all three values
+    const filtered = multiStnSnowSmryRes?.data.filter((d) =>
+      d.data.every((v) => isNumber(v))
+    )
+    const mapped = filtered?.map((d) => ({
+      ...d,
+      meta: {
+        ...d.meta,
+        county:
+          countyResponse?.meta.find((c) => c.id === d.meta.county)?.name ?? ''
+      },
+      data: [
+        ...d.data.map((d) => parseFloat(d)),
+        (parseFloat(d.data[0]) / parseFloat(d.data[1])) * 100
+      ] as [number, number, number, number]
+    }))
+    return mapped ?? []
+  }, [multiStnSnowSmryRes, countyResponse])
+  console.log(multiStnSnowSmryData)
+
+  const snowFoo = multiStnSnowSmryData.map((d) => d.data[3])
+  const snowPerc =
+    snowFoo.reduce((prev, curr) => {
+      const a = prev + curr
+      return a
+    }, 0) / snowFoo.length
+  console.log('snow average: ', snowPerc)
+
   const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
     stationIdUrls,
     multiFetcher
@@ -108,7 +173,7 @@ export default function SeasonRecapPage() {
       }, undefined),
     [stationMetaResponse, countyResponse]
   )
-  console.log(stationInfo)
+  // console.log(stationInfo)
   const selectedStationInfo = useMemo(
     () => (stationInfo ? stationInfo[sid] : null),
     [sid, stationInfo]
@@ -709,6 +774,24 @@ export interface StationMeta {
   climdiv: string
 }
 
+interface MultiStnSmryResponse {
+  data: MultiStnSmryDatum[]
+}
+
+interface MultiStnSmryDatum {
+  meta: MultiStnSmryMeta
+  data: string[]
+}
+
+interface MultiStnSmryMeta {
+  name: string
+  ll: number[]
+  sids: string[]
+  county: string
+  state: string
+  elev: number
+}
+
 function frmtStnName(name: string) {
   return toTitleCase(name, /ap|sw|\s2\s/gi)
 }
@@ -743,6 +826,7 @@ function getWtrYrMonth(index: number) {
       return 'Other'
   }
 }
+
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
