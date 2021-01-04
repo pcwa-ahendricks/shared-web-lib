@@ -11,6 +11,7 @@ import {
   Divider,
   Badge
 } from '@material-ui/core'
+import Image from 'next/image'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -148,11 +149,12 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
               textAlign="center"
             >
               <Box mx="auto" mb={1} width="100%">
-                <LazyImgix
-                  src="https://cosmic-s3.imgix.net/6396ea70-2da5-11ea-a6d4-f90f4871ce6f-Board-of-Directors-2020.jpg"
-                  htmlAttributes={{
-                    alt: 'PCWA Board of Directors - December 2020'
-                  }}
+                <Image
+                  layout="intrinsic"
+                  src="https://imgix.cosmicjs.com/bacf1310-4b97-11eb-a634-e3044e07df5c-PCWA-Board-of-Directors-2021.jpg"
+                  alt="PCWA Board of Directors - December 2020"
+                  width={500}
+                  height={395}
                 />
               </Box>
               <Type variant="caption">
