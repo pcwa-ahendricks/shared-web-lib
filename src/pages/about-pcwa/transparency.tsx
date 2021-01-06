@@ -211,11 +211,11 @@ const TransparencyPage = () => {
             <ListItem
               button
               component="a"
-              href="https://cdn.cosmicjs.com/7227db30-37be-11ea-bfe8-5b62c3bdf959-2020-rules-and-regs010220.pdf"
+              href="https://cdn.cosmicjs.com/a7c478e0-5057-11eb-a850-c512f60eb904-2021-rules-and-regsbc010521.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ListItemText primary="2020 Rules and Regulations" />
+              <ListItemText primary="2021 Rules and Regulations" />
             </ListItem>
 
             <ListItem
