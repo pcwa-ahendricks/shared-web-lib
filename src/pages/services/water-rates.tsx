@@ -28,49 +28,49 @@ function createData(tier: string, cost: number) {
 }
 
 const fixedRows = [
-  createData('5/8-inch', 19.09),
-  createData('3/4-inch', 26.77),
-  createData('1-inch', 42.16),
-  createData('1-1/2-inch', 80.6),
-  createData('2-inch', 126.74),
-  createData('3-inch', 272.84),
-  createData('4-inch', 465.07),
-  createData('6-inch', 1041.78),
-  createData('8-inch', 1234.01)
+  createData('5/8-inch', 19.24),
+  createData('3/4-inch', 26.98),
+  createData('1-inch', 42.5),
+  createData('1-1/2-inch', 81.24),
+  createData('2-inch', 127.75),
+  createData('3-inch', 275.02),
+  createData('4-inch', 468.79),
+  createData('6-inch', 1050.11),
+  createData('8-inch', 1243.88)
 ]
 
 const fixedChargeMDU = [
-  createData('Per Dwelling Unit Charge', 15.38),
-  createData('Per Meter Component Charge', 3.7)
+  createData('Per Dwelling Unit Charge', 15.5),
+  createData('Per Meter Component Charge', 3.73)
 ]
 
 const renewAndReplacementRows = [
-  createData('5/8-inch', 18.89),
-  createData('3/4-inch', 28.34),
-  createData('1-inch', 47.23),
-  createData('1-1/2-inch', 94.46),
-  createData('2-inch', 151.15),
-  createData('3-inch', 330.64),
-  createData('4-inch', 566.8),
-  createData('6-inch', 1275.3),
-  createData('8-inch', 1511.47)
+  createData('5/8-inch', 19.04),
+  createData('3/4-inch', 28.57),
+  createData('1-inch', 47.61),
+  createData('1-1/2-inch', 95.22),
+  createData('2-inch', 152.36),
+  createData('3-inch', 333.29),
+  createData('4-inch', 571.33),
+  createData('6-inch', 1285.5),
+  createData('8-inch', 1523.56)
 ]
 
 const commodityResidentialRows = [
-  createData('First 900 CF (per 100 CF)', 1.56),
-  createData('Next 1,900 CF (per 100 CF)', 1.77),
-  createData('Next 2,800 CF (per 100 CF)', 1.89)
+  createData('First 900 CF (per 100 CF)', 1.57),
+  createData('Next 1,900 CF (per 100 CF)', 1.78),
+  createData('Next 2,800 CF (per 100 CF)', 1.91)
 ]
 
 const commodityNonResidentialRows = [
-  createData('Commercial (per 100 CF)', 1.67),
-  createData('Landscape (per 100 CF)', 1.77),
+  createData('Commercial (per 100 CF)', 1.68),
+  createData('Landscape (per 100 CF)', 1.78),
   createData('Industrial / Resale (per 100 CF)', 0.41)
 ]
 
 const commodityDeprivedRows = [
-  createData('First 900 CF (per 100 CF)', 1.56),
-  createData('Next 1,900 CF (per 100 CF)', 1.77),
+  createData('First 900 CF (per 100 CF)', 1.57),
+  createData('Next 1,900 CF (per 100 CF)', 1.78),
   createData('Next 2,800 CF (per 100 CF)', 0.2)
 ]
 
@@ -204,9 +204,14 @@ const WaterRatesPage = () => {
               <Type paragraph>
                 Within the Western Water System within Zone 6.
               </Type>
+              {/* <RowBox justifyContent="space-between"> */}
               <Type variant="h3" gutterBottom>
                 Rates
               </Type>
+              {/* <Type variant="caption" gutterBottom>
+                  <em>last updated : {'foo'}</em>
+                </Type> */}
+              {/* </RowBox> */}
               <Type paragraph>
                 Applicable rates for metered treated water service includes a
                 monthly Fixed Charge which is based upon the size of the
