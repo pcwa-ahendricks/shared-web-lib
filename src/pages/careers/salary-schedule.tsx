@@ -4,9 +4,29 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type} from '@material-ui/core'
-import SalaryScheduleTable from '@components/SalaryScheduleTable/SalaryScheduleTable'
+import SalaryScheduleTable, {
+  SalaryScheduleResponse
+} from '@components/SalaryScheduleTable/SalaryScheduleTable'
+import {stringify} from 'querystringify'
+import useSWR from 'swr'
+import fetcher, {textFetcher} from '@lib/fetcher'
+import {GetStaticProps} from 'next'
 
-const SalarySchedulePage = () => {
+type Props = {
+  initialData?: SalaryScheduleResponse[]
+}
+
+const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
+const csvUrl = `/api/cosmic/csv${qs}`
+const csvDataUrl = `/api/cosmic/csv-data${qs}`
+
+const SalarySchedulePage = ({initialData}: Props) => {
+  const {data: salaryCsv} = useSWR<string>(csvUrl, textFetcher) // Use text() with fetch method.
+  const {data: salaryCsvData, isValidating} = useSWR<SalaryScheduleResponse[]>(
+    csvDataUrl,
+    {initialData}
+  )
+
   return (
     <PageLayout title="Employee Salary Schedule" waterSurface>
       <MainBox>
@@ -27,10 +47,30 @@ const SalarySchedulePage = () => {
             those positions which have been designated as confidential.
           </Type>
         </WideContainer>
-        <SalaryScheduleTable />
+        <SalaryScheduleTable
+          salaryCsv={salaryCsv}
+          salaryCsvData={salaryCsvData}
+          isValidating={isValidating}
+        />
       </MainBox>
     </PageLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const initialData = await fetcher<SalaryScheduleResponse[]>(
+      `${baseUrl}${csvDataUrl}`
+    )
+    return {
+      props: {initialData},
+      revalidate: 5
+    }
+  } catch (error) {
+    console.log('There was an error fetching outages.', error)
+    return {props: {}}
+  }
 }
 
 export default SalarySchedulePage

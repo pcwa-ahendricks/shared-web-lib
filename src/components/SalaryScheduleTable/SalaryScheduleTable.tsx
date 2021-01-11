@@ -23,12 +23,9 @@ import round from '@lib/round'
 import noNaN from '@lib/noNaN'
 import SalaryScheduleRow from '@components/SalaryScheduleTable/SalaryScheduleRow'
 import DlSalaryScheduleCsvButton from '@components/SalaryScheduleTable/DlSalaryScheduleCsvButton'
-import {stringify} from 'querystringify'
-import useSWR from 'swr'
-import {textFetcher} from '@lib/fetcher'
 import {useDebounce} from 'use-debounce'
 
-interface SalaryScheduleResponse {
+export interface SalaryScheduleResponse {
   'CLASS CODE': string
   'CLASSIFICATION TITLE': string
   PLAN: string
@@ -80,6 +77,12 @@ export interface SalaryScheduleData extends SalaryScheduleResponse {
 
 type HeadRowId = keyof SalaryScheduleData
 
+type Props = {
+  salaryCsv?: string
+  salaryCsvData?: SalaryScheduleResponse[]
+  isValidating: boolean
+}
+
 const useStyles = makeStyles(() =>
   createStyles({
     tableWrapper: {
@@ -106,11 +109,11 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
-const csvUrl = `/api/cosmic/csv${qs}`
-const csvDataUrl = `/api/cosmic/csv-data${qs}`
-
-const SalaryScheduleTable = () => {
+const SalaryScheduleTable = ({
+  salaryCsvData,
+  isValidating,
+  salaryCsv
+}: Props) => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
   const [sortFilterSalaryData, setSortFilterSalaryData] = useState<
@@ -118,11 +121,6 @@ const SalaryScheduleTable = () => {
   >([])
   const [order, setOrder] = useState<'asc' | 'desc'>('asc') // SortDirection doesn't work here due to possible false value.
   const [orderBy, setOrderBy] = useState<HeadRowId>('CLASSIFICATION TITLE')
-
-  const {data: salaryCsv} = useSWR<string>(csvUrl, textFetcher) // Use text() with fetch method.
-  const {data: salaryCsvData, isValidating} = useSWR<SalaryScheduleResponse[]>(
-    csvDataUrl
-  )
 
   const salaryData = useMemo(
     () =>

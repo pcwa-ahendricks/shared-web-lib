@@ -94,7 +94,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@7.12.5", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.0", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.7":
+"@babel/runtime@7.12.5", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.0", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.7":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
@@ -459,11 +459,11 @@
     react-is "^16.8.0 || ^17.0.0"
 
 "@math.gl/web-mercator@^3.1.3":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@math.gl/web-mercator/-/web-mercator-3.3.2.tgz#e85e4efab8c74edd549f20121ba680b0f466e9cd"
-  integrity sha512-84NNnwP97Xwm1ynZzat1BuEU2uLyIw0gzG5uvGMrAzezny2P38+E2cUK8t9eptKa8gjk2MaC7hhcO0saFCZTHw==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@math.gl/web-mercator/-/web-mercator-3.4.1.tgz#bf16ec19719c7e13f5009e0d75059e45999ed285"
+  integrity sha512-5LAVmo5U25GY5YIxbI3D0J7r97B9AM5pAcWxnF9YhJx44DSVAYfMdiSISOfS+ivKuBFX44mFZvV9j75QY5aDkQ==
   dependencies:
-    "@babel/runtime" "^7.0.0"
+    "@babel/runtime" "^7.12.0"
     gl-matrix "^3.0.0"
 
 "@mdn/browser-compat-data@^2.0.7":
@@ -8033,9 +8033,9 @@ react-map-gl-geocoder@^2.1.6:
     viewport-mercator-project "6.1.1"
 
 react-map-gl@^5.2.10:
-  version "5.2.11"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-5.2.11.tgz#d961c5a018a549e062b1541455c8cc2f345eb6d0"
-  integrity sha512-Ux2Ss7+yh5IBkkPgvA9axbUi3WLaB5jEZdIbs2VUffBOyouWtdu6JFM0EV1PRk/ZRdDy5RzlkwNkP/jCsFCkGQ==
+  version "5.2.12"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-5.2.12.tgz#41d77e9f6865893152d7bc05792718f2c4404ba6"
+  integrity sha512-NqkwTKS6jhlD76/B23/5E9mkSVxcgWZzkQ/gHOWv0xBDkG1KDRr+IdKAs1MEHO5U8MspM6Q0UvPlDoC2OhC2bQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
     mapbox-gl "^1.0.0"
