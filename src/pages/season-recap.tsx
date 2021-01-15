@@ -26,7 +26,8 @@ import {
   Theme,
   createStyles,
   Divider,
-  Hidden
+  Hidden,
+  Grow
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
@@ -103,7 +104,7 @@ export default function SeasonRecapPage() {
   )
 
   const {data: countyResponse} = useSWR<CountyMetaResponse>('/api/acis/county')
-  const [waterYear, setWaterYear] = useState(2021)
+  const [waterYear, setWaterYear] = useState(getYear(new Date()))
   const [sid, setSid] = useState<StationId>('040897 2')
   const prevWaterYear = waterYear - 1
   const [percNormalPrecipSrc] = useState(
@@ -578,6 +579,7 @@ export default function SeasonRecapPage() {
     tempNormalLowData,
     tempNormalHighData
   ])
+  console.log(tempResponse)
 
   const [showHistPrecip, setShowHistPrecip] = useState(false)
 
@@ -674,38 +676,44 @@ export default function SeasonRecapPage() {
               />
             </Tabs>
           </Paper>
-
-          <FormControl style={{minWidth: 140}}>
-            <InputLabel id="water-year-select-label">Water Year</InputLabel>
-            <Select
-              labelId="water-year-select-label"
-              id="water-year-select"
-              value={waterYear}
-              onChange={yearSelectHandler}
-            >
-              {wtrYrMenuItems.map((y, idx) => (
-                <MenuItem key={idx} value={y}>
-                  {`${y - 1}-${y}`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl>
-            <InputLabel id="station-select-label">Station</InputLabel>
-            <Select
-              labelId="station-select-label"
-              id="station-select"
-              value={sid}
-              onChange={stationSelectHandler}
-            >
-              {stationIds.map((y, idx) => (
-                <MenuItem key={idx} value={y}>
-                  {frmtStnName(stationInfo?.[y]?.name ?? y)}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <Spacing />
+          <RowBox justifyContent="flex-start" flexSpacing={5}>
+            <ChildBox flex="0 1 25%">
+              <FormControl style={{minWidth: 140}} fullWidth>
+                <InputLabel id="water-year-select-label">Water Year</InputLabel>
+                <Select
+                  labelId="water-year-select-label"
+                  id="water-year-select"
+                  value={waterYear}
+                  onChange={yearSelectHandler}
+                >
+                  {wtrYrMenuItems.map((y, idx) => (
+                    <MenuItem key={idx} value={y}>
+                      {`${y - 1}-${y}`}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </ChildBox>
+            <ChildBox flex="0 1 25%">
+              <FormControl fullWidth>
+                <InputLabel id="station-select-label">Station</InputLabel>
+                <Select
+                  labelId="station-select-label"
+                  id="station-select"
+                  value={sid}
+                  onChange={stationSelectHandler}
+                >
+                  {stationIds.map((y, idx) => (
+                    <MenuItem key={idx} value={y}>
+                      {frmtStnName(stationInfo?.[y]?.name ?? y)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </ChildBox>
+          </RowBox>
+          <Spacing />
 
           <Box height={300}>
             <StnMap stationInfo={selectedStationInfo} />
@@ -716,23 +724,25 @@ export default function SeasonRecapPage() {
             <Type variant="h4" align="center">
               Accumulated Precipitation
             </Type>
-            <Type
-              variant="caption"
-              align="center"
-              color="textSecondary"
-              component="header"
-            >
-              {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
-              <Type variant="inherit" color="inherit">
-                <em>
-                  {' '}
-                  (using{' '}
-                  {precipResponse?.meta.valid_daterange[0][0].substr(0, 4)}-
-                  {precipResponse?.meta.valid_daterange[0][1].substr(0, 4)} for
-                  historical data)
-                </em>
+            <Grow in={Boolean(precipResponse)}>
+              <Type
+                variant="caption"
+                align="center"
+                color="textSecondary"
+                component="header"
+              >
+                {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
+                <Type variant="inherit" color="inherit">
+                  <em>
+                    {' '}
+                    (using{' '}
+                    {precipResponse?.meta.valid_daterange[0][0].substr(0, 4)}-
+                    {precipResponse?.meta.valid_daterange[0][1].substr(0, 4)}{' '}
+                    for historical data)
+                  </em>
+                </Type>
               </Type>
-            </Type>{' '}
+            </Grow>
             <Box height={{xs: 400, lg: 450}} position="relative">
               <WaitToFade isIn={Boolean(precipAccumDiff)}>
                 <Box position="absolute" top={64} left={64} zIndex={2}>
@@ -753,15 +763,18 @@ export default function SeasonRecapPage() {
             </Spacing>
             <Type variant="h4" align="center">
               Monthly Summarized Precipitation
-            </Type>{' '}
-            <Type
-              variant="caption"
-              align="center"
-              color="textSecondary"
-              component="header"
-            >
-              {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
             </Type>
+
+            <Grow in={Boolean(precipResponse)}>
+              <Type
+                variant="caption"
+                align="center"
+                color="textSecondary"
+                component="header"
+              >
+                {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
+              </Type>
+            </Grow>
             <RowBox justifyContent="flex-end">
               <ChildBox>
                 <FormControl component="fieldset" size="small">
@@ -795,14 +808,16 @@ export default function SeasonRecapPage() {
             <Type variant="h4" align="center">
               Actual Precipitation
             </Type>
-            <Type
-              variant="caption"
-              align="center"
-              color="textSecondary"
-              component="header"
-            >
-              {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
-            </Type>
+            <Grow in={Boolean(precipResponse)}>
+              <Type
+                variant="caption"
+                align="center"
+                color="textSecondary"
+                component="header"
+              >
+                {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
+              </Type>
+            </Grow>
             <Box height={{xs: 200, lg: 300}}>
               <PrecipCalendar
                 precipData={precipData}
@@ -816,25 +831,47 @@ export default function SeasonRecapPage() {
             <Spacing size="x-large" />
             <Type variant="h4" align="center">
               Observed Temperature Ranges
-            </Type>{' '}
-            <Type
-              variant="caption"
-              align="center"
-              color="textSecondary"
-              component="header"
-            >
-              {tempHistResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
-              <Type variant="inherit" color="inherit">
-                <em>
-                  {' '}
-                  (using{' '}
-                  {tempHistResponse?.meta.valid_daterange[0][0].substr(0, 4)}-
-                  {tempHistResponse?.meta.valid_daterange[0][1].substr(0, 4)}{' '}
-                  for historical data)
-                </em>
-              </Type>
             </Type>
-            <Box height={{xs: 400, lg: 450}}>
+
+            <Grow in={Boolean(tempHistResponse?.meta)}>
+              <Type
+                variant="caption"
+                align="center"
+                color="textSecondary"
+                component="header"
+              >
+                {tempHistResponse?.meta?.name},{' '}
+                {`${waterYear - 1}-${waterYear}`}
+                <Type variant="inherit" color="inherit">
+                  <em>
+                    {' '}
+                    (using{' '}
+                    {tempHistResponse?.meta?.valid_daterange[0][0].substr(0, 4)}
+                    -
+                    {tempHistResponse?.meta?.valid_daterange[0][1].substr(0, 4)}{' '}
+                    for historical data)
+                  </em>
+                </Type>
+              </Type>
+            </Grow>
+            <Box height={{xs: 400, lg: 450}} position="relative">
+              <WaitToFade isIn={Boolean(tempResponse?.error)}>
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  zIndex={3}
+                  style={{transform: 'translate(-50%, -50%)'}}
+                >
+                  <Paper elevation={2} square>
+                    <Box p={1}>
+                      <Type variant="h4" align="center" color="error">
+                        <strong>{toTitleCase(tempResponse?.error)}</strong>
+                      </Type>
+                    </Box>
+                  </Paper>
+                </Box>
+              </WaitToFade>
               <TempRangeLine tempDataset={tempDataset} />
             </Box>
             <Spacing size="x-large">
@@ -843,19 +880,39 @@ export default function SeasonRecapPage() {
             <Type variant="h4" align="center">
               Temperature Departure From Normal
             </Type>
-            <Type
-              variant="caption"
-              align="center"
-              color="textSecondary"
-              component="header"
-            >
-              {tempResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
-            </Type>
+            <Grow in={Boolean(tempResponse?.meta)}>
+              <Type
+                variant="caption"
+                align="center"
+                color="textSecondary"
+                component="header"
+              >
+                {tempResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
+              </Type>
+            </Grow>
             <Box
               height={{xs: 200, lg: 300}}
+              position="relative"
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
             >
+              <WaitToFade isIn={Boolean(tempResponse?.error)}>
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  zIndex={2}
+                  style={{transform: 'translate(-50%, -50%)'}}
+                >
+                  <Paper elevation={3} square>
+                    <Box p={1}>
+                      <Type variant="h4" align="center" color="error">
+                        <strong>{toTitleCase(tempResponse?.error)}</strong>
+                      </Type>
+                    </Box>
+                  </Paper>
+                </Box>
+              </WaitToFade>
               <TempDiffCalendar
                 tempObservedDiffData={tempObservedDiffData}
                 waterYear={waterYear}
@@ -872,6 +929,7 @@ export default function SeasonRecapPage() {
 interface TempResponse {
   meta: TempMeta
   data?: string[][]
+  error?: string
 }
 
 interface TempMeta {
@@ -883,8 +941,9 @@ interface TempMeta {
   name: string
 }
 interface TempHistResponse {
-  meta: TempHistMeta
-  smry: string[][][]
+  meta?: TempHistMeta
+  smry?: string[][][]
+  error?: string
 }
 
 interface TempHistMeta {
