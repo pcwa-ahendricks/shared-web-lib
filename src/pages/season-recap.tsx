@@ -32,7 +32,7 @@ import {
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import isNumber from 'is-number'
-import {ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -683,8 +683,11 @@ export default function SeasonRecapPage() {
             </ToggleButtonGroup>
           </Box>
           <Spacing />
+          <Type variant="h4" gutterBottom>
+            Precipitation Maps
+          </Type>
           <RowBox flexSpacing={2}>
-            <ChildBox flex="auto">
+            <ChildBox flex="33.33%">
               <MediaDialogOnClick
                 mediaName="Actual Precipitation"
                 mediaUrl={precipSrc}
@@ -699,8 +702,11 @@ export default function SeasonRecapPage() {
                   className={classes.mediaDialogImg}
                 />
               </MediaDialogOnClick>
+              <ColumnBox mt={1} alignItems="center">
+                <Type variant="caption">Actual Precipitation</Type>
+              </ColumnBox>
             </ChildBox>
-            <ChildBox flex="auto">
+            <ChildBox flex="33.33%">
               <MediaDialogOnClick
                 mediaName="Departure from Normal"
                 mediaUrl={departNormalPrecipSrc}
@@ -715,8 +721,11 @@ export default function SeasonRecapPage() {
                   className={classes.mediaDialogImg}
                 />
               </MediaDialogOnClick>
+              <ColumnBox mt={1} alignItems="center">
+                <Type variant="caption">Departure from Normal</Type>
+              </ColumnBox>
             </ChildBox>
-            <ChildBox flex="auto">
+            <ChildBox flex="33.33%">
               <MediaDialogOnClick
                 mediaName="Percent of Normal"
                 mediaUrl={percNormalPrecipSrc}
@@ -731,6 +740,9 @@ export default function SeasonRecapPage() {
                   className={classes.mediaDialogImg}
                 />
               </MediaDialogOnClick>
+              <ColumnBox mt={1} alignItems="center">
+                <Type variant="caption">Percent of Normal</Type>
+              </ColumnBox>
             </ChildBox>
           </RowBox>
 
