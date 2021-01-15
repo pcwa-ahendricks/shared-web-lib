@@ -32,7 +32,12 @@ import {
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import isNumber from 'is-number'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {
+  ChildBox,
+  ColumnBox,
+  RespRowBox,
+  RowBox
+} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -677,7 +682,7 @@ export default function SeasonRecapPage() {
   }, [regionalTimeFrame])
 
   return (
-    <PageLayout title="Page Template" waterSurface>
+    <PageLayout title="Season Recap" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Season Recap" />
@@ -705,7 +710,7 @@ export default function SeasonRecapPage() {
           <Type variant="h4" gutterBottom>
             Precipitation Maps
           </Type>
-          <RowBox flexSpacing={2}>
+          <RespRowBox flexSpacing={2}>
             <ChildBox flex="33.33%">
               <MediaDialogOnClick
                 mediaName="Actual Precipitation"
@@ -763,7 +768,7 @@ export default function SeasonRecapPage() {
                 <Type variant="caption">Percent of Normal</Type>
               </ColumnBox>
             </ChildBox>
-          </RowBox>
+          </RespRowBox>
 
           <Spacing size="large" factor={2} />
 
@@ -936,12 +941,8 @@ export default function SeasonRecapPage() {
                 {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
             </Grow>
-            <Box height={{xs: 200, lg: 300}}>
-              <PrecipCalendar
-                precipData={precipData}
-                waterYear={waterYear}
-                prevWaterYear={prevWaterYear}
-              />
+            <Box height={{xs: 650, sm: 200, lg: 300}}>
+              <PrecipCalendar precipData={precipData} waterYear={waterYear} />
             </Box>
           </TabPanel>
 
@@ -1009,7 +1010,7 @@ export default function SeasonRecapPage() {
               </Type>
             </Grow>
             <Box
-              height={{xs: 200, lg: 300}}
+              height={{xs: 650, sm: 200, lg: 300}}
               position="relative"
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
@@ -1034,7 +1035,6 @@ export default function SeasonRecapPage() {
               <TempDiffCalendar
                 tempObservedDiffData={tempObservedDiffData}
                 waterYear={waterYear}
-                prevWaterYear={prevWaterYear}
               />
             </Box>
           </TabPanel>

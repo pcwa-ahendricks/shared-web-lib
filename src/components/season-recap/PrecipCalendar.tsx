@@ -4,29 +4,38 @@ import {
   CalendarDatum
 } from '@kevinmoe/nivo-fork-calendar'
 import round from '@lib/round'
-import {Box, Typography as Type, useTheme} from '@material-ui/core'
+import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
+  useTheme
+} from '@material-ui/core'
 import {blueGrey, blue} from '@material-ui/core/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
 
 type Props = {
   waterYear: number
-  prevWaterYear: number
   precipData: CalendarDatum[]
 }
 
-export default function PrecipCalendar({
-  waterYear,
-  prevWaterYear,
-  precipData
-}: Props) {
+export default function PrecipCalendar({waterYear, precipData}: Props) {
   const theme = useTheme()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   return (
     <ResponsiveEnhancedCalendar
+      direction="horizontal"
+      // granularity="month"
+      // weekDirection="horizontal"
+      monthSpacing={!isXS ? undefined : 16}
+      // yearSpacing={18}
       data={precipData}
-      from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+      breakpoint={!isXS ? undefined : 3}
+      weekDirection={!isXS ? 'vertical' : 'horizontal'}
+      from={`${waterYear - 1}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
       to={`${waterYear}-09-30`}
       // monthSpacing={monthSpacing}
+      // granularity={!isXS ? 'month' : 'year'}
       granularity="month"
       emptyColor={theme.palette.grey[200]}
       undefinedColor={theme.palette.grey[600]}

@@ -4,27 +4,38 @@ import {
   CalendarDatum
 } from '@kevinmoe/nivo-fork-calendar'
 import round from '@lib/round'
-import {Box, Typography as Type, useTheme} from '@material-ui/core'
+import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
+  useTheme
+} from '@material-ui/core'
 import {blue, brown, deepOrange} from '@material-ui/core/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
 
 type Props = {
   waterYear: number
-  prevWaterYear: number
   tempObservedDiffData: CalendarDatum[]
 }
 
 export default function TempDiffCalendar({
   waterYear,
-  prevWaterYear,
   tempObservedDiffData
 }: Props) {
   const theme = useTheme()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   return (
     <ResponsiveEnhancedCalendar
+      direction="horizontal"
+      // granularity="month"
+      // weekDirection="horizontal"
+      monthSpacing={!isXS ? undefined : 16}
+      // yearSpacing={18}
+      breakpoint={!isXS ? undefined : 3}
+      weekDirection={!isXS ? 'vertical' : 'horizontal'}
       data={tempObservedDiffData}
-      from={`${prevWaterYear}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+      from={`${waterYear - 1}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
       to={`${waterYear}-09-30`}
       // monthSpacing={monthSpacing}
       tooltip={({value, day, color}) => {
