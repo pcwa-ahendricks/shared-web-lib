@@ -1,4 +1,4 @@
-// cspell:ignore actl accum climdiv frmt perc
+// cspell:ignore actl accum climdiv frmt perc Prcp dprt Nrml rgnl
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import Image from 'next/image'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -48,12 +48,15 @@ import toTitleCase from '@lib/toTitleCase'
 import StnMap from '@components/season-recap/StnMap'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
+import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
 
 interface TabPanelProps {
   children?: React.ReactNode
   index: any
   value: any
 }
+
+type RegionalTimeFrame = 'waterYear' | 'last30Days'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 
@@ -75,6 +78,27 @@ type StationInfo =
       }
     >
   | undefined
+
+const prcNrmlPrcpImgSrc = {
+  waterYear:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPNormCA.png',
+  last30Days:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPNormCA.png'
+} as const
+
+const dprtNrmlPrecipImgSrc = {
+  waterYear:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDeptCA.png',
+  last30Days:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDeptCA.png'
+} as const
+
+const precipImgSrc = {
+  waterYear:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDataCA.png',
+  last30Days:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDataCA.png'
+} as const
 
 const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
 
@@ -107,12 +131,13 @@ export default function SeasonRecapPage() {
   const [waterYear, setWaterYear] = useState(getYear(new Date()))
   const [sid, setSid] = useState<StationId>('040897 2')
   const prevWaterYear = waterYear - 1
-  const [percNormalPrecipSrc] = useState(
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPNormCA.png'
+  const [percNormalPrecipSrc, setPercNormalPrecipSrc] = useState<string>(
+    prcNrmlPrcpImgSrc.waterYear
   )
-  const [departNormalPrecipSrc] = useState(
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDeptCA.png'
+  const [departNormalPrecipSrc, setDepartNormalPrecipSrc] = useState<string>(
+    dprtNrmlPrecipImgSrc.waterYear
   )
+  const [precipSrc, setPrecipSrc] = useState<string>(precipImgSrc.waterYear)
 
   const multiStnQs = stringify({waterYear}, true)
   const {data: multiStnPrecipSmryRes} = useSWR<MultiStnSmryResponse>(
@@ -604,6 +629,34 @@ export default function SeasonRecapPage() {
     []
   )
 
+  const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
+    'waterYear'
+  )
+
+  const rgnlTmFrmHandler = useCallback((_e, timeFrame: RegionalTimeFrame) => {
+    // Enforce a value (ie. don't allow un-select)
+    if (timeFrame !== null) {
+      setRegionalTimeFrame(timeFrame)
+    }
+  }, [])
+
+  useEffect(() => {
+    switch (regionalTimeFrame) {
+      case 'waterYear':
+        setPercNormalPrecipSrc(prcNrmlPrcpImgSrc.waterYear)
+        setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc.waterYear)
+        setPrecipSrc(precipImgSrc.waterYear)
+        break
+      case 'last30Days':
+        setPercNormalPrecipSrc(prcNrmlPrcpImgSrc.last30Days)
+        setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc.last30Days)
+        setPrecipSrc(precipImgSrc.last30Days)
+        break
+      default:
+        break
+    }
+  }, [regionalTimeFrame])
+
   return (
     <PageLayout title="Page Template" waterSurface>
       <MainBox>
@@ -614,19 +667,35 @@ export default function SeasonRecapPage() {
             Regional Conditions
           </Type>
           <Spacing />
+          <Box>
+            <ToggleButtonGroup
+              value={regionalTimeFrame}
+              exclusive
+              onChange={rgnlTmFrmHandler}
+              aria-label="regional time frame"
+            >
+              <ToggleButton value="last30Days" aria-label="last 30 days">
+                Last 30 days
+              </ToggleButton>
+              <ToggleButton value="waterYear" aria-label="current water year">
+                Current Water Year
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+          <Spacing />
           <RowBox flexSpacing={2}>
             <ChildBox flex="auto">
               <MediaDialogOnClick
-                mediaName="Percent of Normal"
-                mediaUrl={percNormalPrecipSrc}
+                mediaName="Actual Precipitation"
+                mediaUrl={precipSrc}
                 mediaExt="png"
               >
                 <Image
-                  src={percNormalPrecipSrc}
+                  src={precipSrc}
                   layout="responsive"
                   height={850}
                   width={1100}
-                  alt="Percent of Normal Precipitation for California"
+                  alt="Actual Precipitation for California"
                   className={classes.mediaDialogImg}
                 />
               </MediaDialogOnClick>
@@ -647,35 +716,29 @@ export default function SeasonRecapPage() {
                 />
               </MediaDialogOnClick>
             </ChildBox>
+            <ChildBox flex="auto">
+              <MediaDialogOnClick
+                mediaName="Percent of Normal"
+                mediaUrl={percNormalPrecipSrc}
+                mediaExt="png"
+              >
+                <Image
+                  src={percNormalPrecipSrc}
+                  layout="responsive"
+                  height={850}
+                  width={1100}
+                  alt="Percent of Normal Precipitation for California"
+                  className={classes.mediaDialogImg}
+                />
+              </MediaDialogOnClick>
+            </ChildBox>
           </RowBox>
 
-          <Spacing />
+          <Spacing size="large" factor={2} />
 
           <Type variant="h2" color="primary">
             Local/Station Conditions
           </Type>
-
-          <Paper square>
-            <Tabs
-              value={tabValue}
-              onChange={handleChange}
-              variant="fullWidth"
-              indicatorColor="secondary"
-              textColor="secondary"
-              aria-label="icon label tabs example"
-            >
-              <Tab
-                icon={<WeatherIcon name="raindrop" />}
-                label="PRECIPITATION"
-                {...a11yProps(0)}
-              />
-              <Tab
-                icon={<WeatherIcon name="day-sunny" />}
-                label="TEMPERATURE"
-                {...a11yProps(1)}
-              />
-            </Tabs>
-          </Paper>
           <Spacing />
           <RowBox justifyContent="flex-start" flexSpacing={5}>
             <ChildBox flex="0 1 25%">
@@ -713,12 +776,36 @@ export default function SeasonRecapPage() {
               </FormControl>
             </ChildBox>
           </RowBox>
+
           <Spacing />
 
           <Box height={300}>
             <StnMap stationInfo={selectedStationInfo} />
           </Box>
 
+          <Spacing />
+
+          <Paper square>
+            <Tabs
+              value={tabValue}
+              onChange={handleChange}
+              variant="fullWidth"
+              indicatorColor="secondary"
+              textColor="secondary"
+              aria-label="icon label tabs example"
+            >
+              <Tab
+                icon={<WeatherIcon name="raindrop" />}
+                label="PRECIPITATION"
+                {...a11yProps(0)}
+              />
+              <Tab
+                icon={<WeatherIcon name="thermometer" />}
+                label="TEMPERATURE"
+                {...a11yProps(1)}
+              />
+            </Tabs>
+          </Paper>
           <TabPanel value={tabValue} index={0}>
             <Spacing size="x-large" />
             <Type variant="h4" align="center">
