@@ -152,7 +152,6 @@ export default function SeasonRecapPage() {
   const {data: countyResponse} = useSWR<CountyMetaResponse>('/api/acis/county')
   const [waterYear, setWaterYear] = useState(getYear(new Date()))
   const [sid, setSid] = useState<StationId>('040897 2')
-  const prevWaterYear = waterYear - 1
 
   const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
     DEFAULT_REGIONAL_TIME_FRAME
