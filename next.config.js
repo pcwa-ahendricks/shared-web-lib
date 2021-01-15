@@ -429,7 +429,12 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     ]
   },
   images: {
-    domains: ['cosmicjs.imgix.net', 'imgix.cosmicjs.com', 'cosmic-s3.imgix.net']
+    domains: [
+      'cosmicjs.imgix.net',
+      'imgix.cosmicjs.com',
+      'cosmic-s3.imgix.net',
+      'hprcc.unl.edu'
+    ]
   },
   webpack: (config) => {
     // Fixes npm packages that depend on `fs` module, as seen on https://github.com/zeit/now-examples/blob/master/nextjs/next.config.js
