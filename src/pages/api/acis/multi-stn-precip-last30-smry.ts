@@ -36,31 +36,29 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     dLog(`Using end date: ${eDate}`)
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
+    console.log(eDate)
 
     const body = {
       elems: [
         {
-          name: 'snow',
+          name: 'pcpn',
           interval: 'dly',
-          duration: 'std',
-          season_start: '10-01',
+          duration: 30,
           reduce: {reduce: 'sum'},
           maxmissing
         },
         {
-          name: 'snow',
+          name: 'pcpn',
           interval: 'dly',
-          duration: 'std',
-          season_start: '10-01',
+          duration: 30,
           reduce: {reduce: 'sum'},
           maxmissing,
           normal: 1
         },
         {
-          name: 'snow',
+          name: 'pcpn',
           interval: 'dly',
-          duration: 'std',
-          season_start: '10-01',
+          duration: 30,
           reduce: {reduce: 'sum'},
           maxmissing,
           normal: 'departure'
@@ -73,7 +71,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const apiUrl = 'https://data.rcc-acis.org/MultiStnData'
 
-    const hash = `acis-snow-season-smry-_${eDate}`
+    const hash = `acis-precip-last30-smry-_${eDate}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       dLog('returning cache copy...')

@@ -57,8 +57,16 @@ interface TabPanelProps {
 }
 
 type RegionalTimeFrame = 'waterYear' | 'last30Days'
+type MultiStnPrcpSmryUrlBase =
+  | '/api/acis/multi-stn-precip-seas-smry'
+  | '/api/acis/multi-stn-precip-last30-smry'
+type MultiStnSnowSmryUrlBase =
+  | '/api/acis/multi-stn-snow-seas-smry'
+  | '/api/acis/multi-stn-snow-last30-smry'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
+
+const DEFAULT_REGIONAL_TIME_FRAME = 'waterYear' as RegionalTimeFrame
 
 const stationIds = [
   '040897 2',
@@ -100,6 +108,15 @@ const precipImgSrc = {
     'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDataCA.png'
 } as const
 
+const multiStnPrcpSmryUrls = {
+  waterYear: '/api/acis/multi-stn-precip-seas-smry',
+  last30Days: '/api/acis/multi-stn-precip-last30-smry'
+} as const
+const multiStnSnowSmryUrls = {
+  waterYear: '/api/acis/multi-stn-snow-seas-smry',
+  last30Days: '/api/acis/multi-stn-snow-last30-smry'
+} as const
+
 const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -131,17 +148,35 @@ export default function SeasonRecapPage() {
   const [waterYear, setWaterYear] = useState(getYear(new Date()))
   const [sid, setSid] = useState<StationId>('040897 2')
   const prevWaterYear = waterYear - 1
+
+  const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
+    DEFAULT_REGIONAL_TIME_FRAME
+  )
+
+  const rgnlTmFrmHandler = useCallback((_e, timeFrame: RegionalTimeFrame) => {
+    // Enforce a value (ie. don't allow un-select)
+    if (timeFrame !== null) {
+      setRegionalTimeFrame(timeFrame)
+    }
+  }, [])
+
   const [percNormalPrecipSrc, setPercNormalPrecipSrc] = useState<string>(
-    prcNrmlPrcpImgSrc.waterYear
+    prcNrmlPrcpImgSrc[regionalTimeFrame]
   )
   const [departNormalPrecipSrc, setDepartNormalPrecipSrc] = useState<string>(
-    dprtNrmlPrecipImgSrc.waterYear
+    dprtNrmlPrecipImgSrc[regionalTimeFrame]
   )
-  const [precipSrc, setPrecipSrc] = useState<string>(precipImgSrc.waterYear)
+  const [precipSrc, setPrecipSrc] = useState<string>(
+    precipImgSrc[regionalTimeFrame]
+  )
 
   const multiStnQs = stringify({waterYear}, true)
+  const [
+    multiStnPrcpSmryUrlBase,
+    setMultiStnPrcpSmryUrlBase
+  ] = useState<MultiStnPrcpSmryUrlBase>(multiStnPrcpSmryUrls[regionalTimeFrame])
   const {data: multiStnPrecipSmryRes} = useSWR<MultiStnSmryResponse>(
-    `/api/acis/multi-stn-precip-smry${multiStnQs}`
+    `${multiStnPrcpSmryUrlBase}${multiStnQs}`
   )
   const multiStnPrecipSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
@@ -162,7 +197,8 @@ export default function SeasonRecapPage() {
     }))
     return mapped ?? []
   }, [multiStnPrecipSmryRes, countyResponse])
-  console.log(multiStnPrecipSmryData)
+  console.log('multiStnPrecipSmryRes', multiStnPrecipSmryRes)
+  console.log('multiStnPrecipSmryData', multiStnPrecipSmryData)
 
   const multiStnPrecipSmryPerc = useMemo(
     () => multiStnPrecipSmryData.map((d) => d.data[3]),
@@ -178,8 +214,12 @@ export default function SeasonRecapPage() {
   )
   console.log('precip average: ', precipPerc)
 
+  const [
+    multiStnSnowSmryUrlBase,
+    setMultiStnSnowSmryUrlBase
+  ] = useState<MultiStnSnowSmryUrlBase>(multiStnSnowSmryUrls[regionalTimeFrame])
   const {data: multiStnSnowSmryRes} = useSWR<MultiStnSmryResponse>(
-    `/api/acis/multi-stn-snow-smry${multiStnQs}`
+    `${multiStnSnowSmryUrlBase}${multiStnQs}`
   )
   const multiStnSnowSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
@@ -200,7 +240,7 @@ export default function SeasonRecapPage() {
     }))
     return mapped ?? []
   }, [multiStnSnowSmryRes, countyResponse])
-  console.log(multiStnSnowSmryData)
+  console.log('multiStnSnowSmryData', multiStnSnowSmryData)
 
   const multiStnSnowSmryPerc = useMemo(
     () => multiStnSnowSmryData.map((d) => d.data[3]),
@@ -604,7 +644,6 @@ export default function SeasonRecapPage() {
     tempNormalLowData,
     tempNormalHighData
   ])
-  console.log(tempResponse)
 
   const [showHistPrecip, setShowHistPrecip] = useState(false)
 
@@ -629,32 +668,12 @@ export default function SeasonRecapPage() {
     []
   )
 
-  const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
-    'waterYear'
-  )
-
-  const rgnlTmFrmHandler = useCallback((_e, timeFrame: RegionalTimeFrame) => {
-    // Enforce a value (ie. don't allow un-select)
-    if (timeFrame !== null) {
-      setRegionalTimeFrame(timeFrame)
-    }
-  }, [])
-
   useEffect(() => {
-    switch (regionalTimeFrame) {
-      case 'waterYear':
-        setPercNormalPrecipSrc(prcNrmlPrcpImgSrc.waterYear)
-        setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc.waterYear)
-        setPrecipSrc(precipImgSrc.waterYear)
-        break
-      case 'last30Days':
-        setPercNormalPrecipSrc(prcNrmlPrcpImgSrc.last30Days)
-        setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc.last30Days)
-        setPrecipSrc(precipImgSrc.last30Days)
-        break
-      default:
-        break
-    }
+    setPercNormalPrecipSrc(prcNrmlPrcpImgSrc[regionalTimeFrame])
+    setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc[regionalTimeFrame])
+    setPrecipSrc(precipImgSrc[regionalTimeFrame])
+    setMultiStnPrcpSmryUrlBase(multiStnPrcpSmryUrls[regionalTimeFrame])
+    setMultiStnSnowSmryUrlBase(multiStnSnowSmryUrls[regionalTimeFrame])
   }, [regionalTimeFrame])
 
   return (
