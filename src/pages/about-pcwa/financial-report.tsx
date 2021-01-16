@@ -113,20 +113,23 @@ const EmployeeBenefitsSummaryPage = () => {
               >
                 <RowBox justifyContent="space-around">
                   <ImgixThumbLink
-                    url="https://cosmic-s3.imgix.net/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
-                    filename="2019 PCWA CAFR.pdf"
+                    // url="https://cosmic-s3.imgix.net/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                    // filename="2019 PCWA CAFR.pdf"
+                    href="https://cosmic-s3.imgix.net/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     caption="2019 CAFR"
                     alt="CAFR Report Thumbnail and link for 2019 PCWA CAFR pdf"
                   />
                   <ImgixThumbLink
-                    url="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
-                    filename="2018 PCWA CAFR.pdf"
+                    // url="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
+                    // filename="2018 PCWA CAFR.pdf"
+                    href="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     caption="2018 CAFR"
                     alt="CAFR Report Thumbnail and link for 2018 PCWA CAFR pdf"
                   />
                   <ImgixThumbLink
-                    url="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
-                    filename="2017 PCWA CAFR.pdf"
+                    // url="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
+                    // filename="2017 PCWA CAFR.pdf"
+                    href="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     caption="2017 CAFR"
                     alt="CAFR Report Thumbnail and link for 2017 PCWA CAFR pdf"
                   />

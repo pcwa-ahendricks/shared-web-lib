@@ -16,7 +16,7 @@ import slugify from 'slugify'
 
 type Props = {
   caption?: string
-  url: string
+  url?: string
   filename?: string
   margin?: number
   alt: string
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textDecoration: 'none',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      outline: 'none' // Don't show outline
     },
     thumbnailContainer: ({isHover}: UseStylesProps) => ({
       boxShadow: '1px 1px 4px #ccc',
@@ -95,7 +96,7 @@ const ImgixThumbLink = ({
         <Box width={imageWidth} className={classes.thumbnailContainer}>
           <ImgixFancy
             paddingPercent={paddingPercent}
-            src={url}
+            src={url || href}
             htmlAttributes={{
               alt: alt,
               style: {
