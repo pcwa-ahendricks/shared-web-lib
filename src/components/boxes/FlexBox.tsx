@@ -26,32 +26,16 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     respRowBox: ({flexSpacing, respBreakAt, respElseAt}: UseStylesProps) => ({
       [theme.breakpoints.down(respBreakAt)]: {
-        '&.useFlexSpacing': {
+        ...(flexSpacing && {
+          marginTop: theme.spacing(flexSpacing) * -1
+        }),
+        '& > .childBox': {
           ...(flexSpacing && {
-            marginTop: theme.spacing(flexSpacing) * -1
-          }),
-          '& > .childBox': {
-            ...(flexSpacing && {
-              marginTop: theme.spacing(flexSpacing)
-            })
-          }
+            marginTop: theme.spacing(flexSpacing)
+          })
         }
       },
       [theme.breakpoints.up(respElseAt)]: {
-        '&.useFlexSpacing': {
-          ...(flexSpacing && {
-            marginLeft: theme.spacing(flexSpacing) * -1
-          }),
-          '& > .childBox': {
-            ...(flexSpacing && {
-              marginLeft: theme.spacing(flexSpacing)
-            })
-          }
-        }
-      }
-    }),
-    rowBox: ({flexSpacing}: UseStylesProps) => ({
-      '&.useFlexSpacing': {
         ...(flexSpacing && {
           marginLeft: theme.spacing(flexSpacing) * -1
         }),
@@ -61,6 +45,16 @@ const useStyles = makeStyles((theme: Theme) =>
           })
         }
       }
+    }),
+    rowBox: ({flexSpacing}: UseStylesProps) => ({
+      ...(flexSpacing && {
+        marginLeft: theme.spacing(flexSpacing) * -1
+      }),
+      '& > .childBox': {
+        ...(flexSpacing && {
+          marginLeft: theme.spacing(flexSpacing)
+        })
+      }
     })
   })
 )
@@ -68,15 +62,13 @@ const useStyles = makeStyles((theme: Theme) =>
 const useColBoxStyles = makeStyles((theme: Theme) =>
   createStyles({
     colBox: ({flexSpacing}: ColBoxUseStylesProps) => ({
-      '&.useFlexSpacing': {
+      ...(flexSpacing && {
+        marginTop: theme.spacing(flexSpacing) * -1
+      }),
+      '& > .childBox': {
         ...(flexSpacing && {
-          marginTop: theme.spacing(flexSpacing) * -1
-        }),
-        '& > .childBox': {
-          ...(flexSpacing && {
-            marginTop: theme.spacing(flexSpacing)
-          })
-        }
+          marginTop: theme.spacing(flexSpacing)
+        })
       }
     })
   })
@@ -97,23 +89,9 @@ export type ChildBoxProps = {
   noshrink 	  flex: 1 0 auto
 */
 
-const FlexBox = ({
-  children,
-  flexSpacing,
-  className: classNameProp,
-  ...rest
-}: Props) => {
+const FlexBox = ({children, ...rest}: Props) => {
   return (
-    <Box
-      display="flex"
-      className={clsx([
-        classNameProp,
-        {
-          ['useFlexSpacing']: flexSpacing
-        }
-      ])}
-      {...rest}
-    >
+    <Box display="flex" {...rest}>
       {children}
     </Box>
   )
