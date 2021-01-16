@@ -18,7 +18,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import BsiOnlineWebsite from '@components/links/BsiOnlineWebsite'
 import BsiOnlinePhone from '@components/links/BsiOnlinePhone'
 import BackflowEmail from '@components/links/BackflowEmail'
@@ -52,7 +52,7 @@ const CrossControlPreventionPage = () => {
             title="Cross-Connection Control Program"
             subtitle="Services"
           />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="1 1 60%">
               <article>
                 <Type variant="h4" gutterBottom>
@@ -92,7 +92,7 @@ const CrossControlPreventionPage = () => {
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Box>
             <Type variant="h4" gutterBottom>

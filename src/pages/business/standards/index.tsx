@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box, Link, Divider} from '@material-ui/core'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import Spacing from '@components/boxes/Spacing'
@@ -19,7 +19,7 @@ const ImprovementStandardsPage = () => {
             title="Improvement Standards"
             subtitle="Business with PCWA"
           />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="25%" display="flex">
               <Box
                 mx="auto"
@@ -28,7 +28,7 @@ const ImprovementStandardsPage = () => {
                 <ImgixThumbLink
                   imageWidth="100%"
                   filename="PCWA_Improvement_Standards_2017"
-                  url="https://cosmic-s3.imgix.net/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
+                  url="https://imgix.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                   alt="2017 PCWA Improvement Standards"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -64,7 +64,7 @@ const ImprovementStandardsPage = () => {
                 checking the latest updates below.
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing>
             <Divider />
           </Spacing>

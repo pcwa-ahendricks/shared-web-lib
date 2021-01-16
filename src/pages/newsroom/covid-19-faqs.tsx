@@ -123,7 +123,7 @@ const COVID19FaqsPage = () => {
                 }}
               />
             </MoreInfoItem>
-            <MoreInfoItem href="https://cosmic-s3.imgix.net/5445ad20-6aec-11ea-82cf-555ee8e7f42a-drinking-water-fact-sheet-3.19.20002.pdf">
+            <MoreInfoItem href="https://imgix.cosmicjs.com/5445ad20-6aec-11ea-82cf-555ee8e7f42a-drinking-water-fact-sheet-3.19.20002.pdf">
               <ListItemText
                 primary="SWRCB: Link to Drinking Water Fact Sheet"
                 primaryTypographyProps={{

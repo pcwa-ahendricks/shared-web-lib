@@ -18,7 +18,7 @@ import {
   Theme,
   ListItemIcon
 } from '@material-ui/core'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
@@ -65,7 +65,7 @@ const EmployeeBenefitsSummaryPage = () => {
             title="Employee Salary and Benefits Summary"
             subtitle="Careers"
           />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
@@ -153,7 +153,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 </List>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <SectionBox mt={6}>
             <Type variant="h2" color="primary">
               Benefits Overview
@@ -199,7 +199,12 @@ const EmployeeBenefitsSummaryPage = () => {
                 PERSCare). The Agency's current monthly contribution towards the
                 premium is:
               </Type>
-              <RespRowBox justifyContent="space-around" mb={3} flexSpacing={2}>
+              <RowBox
+                responsive
+                justifyContent="space-around"
+                mb={3}
+                flexSpacing={2}
+              >
                 <ChildBox textAlign="center">
                   <Type variant="overline">Employee only</Type>
                   <Type variant="subtitle2">
@@ -227,7 +232,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     )}
                   </Type>
                 </ChildBox>
-              </RespRowBox>
+              </RowBox>
 
               <Type variant="subtitle1" gutterBottom>
                 Dental Insurance

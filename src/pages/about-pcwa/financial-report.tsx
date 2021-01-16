@@ -15,7 +15,7 @@ import {
   ButtonProps,
   LinkProps
 } from '@material-ui/core'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     olderCafrLink: {
       padding: 3,
-      color: theme.palette.primary.light
+      color: theme.palette.primary.light,
+      outline: 'none'
     }
   })
 )
@@ -70,7 +71,7 @@ const EmployeeBenefitsSummaryPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Financial Reports" subtitle="General" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
@@ -78,7 +79,7 @@ const EmployeeBenefitsSummaryPage = () => {
               maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                src="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                 htmlAttributes={{
                   alt: 'Financial Report Cover Page'
                 }}
@@ -113,28 +114,28 @@ const EmployeeBenefitsSummaryPage = () => {
               >
                 <RowBox justifyContent="space-around">
                   <ImgixThumbLink
-                    // url="https://cosmic-s3.imgix.net/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                    // url="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     // filename="2019 PCWA CAFR.pdf"
-                    href="https://cosmic-s3.imgix.net/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                    href="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     caption="2019 CAFR"
                     alt="CAFR Report Thumbnail and link for 2019 PCWA CAFR pdf"
                   />
                   <ImgixThumbLink
-                    // url="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
+                    // url="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     // filename="2018 PCWA CAFR.pdf"
-                    href="https://cosmic-s3.imgix.net/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
+                    href="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     caption="2018 CAFR"
                     alt="CAFR Report Thumbnail and link for 2018 PCWA CAFR pdf"
                   />
                   <ImgixThumbLink
-                    // url="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
+                    // url="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     // filename="2017 PCWA CAFR.pdf"
-                    href="http://cosmic-s3.imgix.net/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
+                    href="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     caption="2017 CAFR"
                     alt="CAFR Report Thumbnail and link for 2017 PCWA CAFR pdf"
                   />
                   {/* <ImgixThumbLink
-                    url="http://cosmic-s3.imgix.net/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
+                    url="https://imgix.cosmicjs.com/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
                     filename="2016 PCWA CAFR.pdf"
                     caption="2016 CAFR"
                     alt="CAFR Report Thumbnail and link for 2016 PCWA CAFR pdf"
@@ -145,77 +146,77 @@ const EmployeeBenefitsSummaryPage = () => {
                   <RowBox alignItems="center" flexWrap="wrap">
                     <OlderCAFRLink
                       title="2016 CAFR Document Link"
-                      href="http://cosmic-s3.imgix.net/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
+                      href="https://imgix.cosmicjs.com/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
                     >
                       2016
                     </OlderCAFRLink>
                     <Type variant="inherit">•</Type>
                     <OlderCAFRLink
                       title="2015 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"
                     >
                       2015
                     </OlderCAFRLink>
                     <Type variant="inherit">•</Type>
                     <OlderCAFRLink
                       title="2014 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/1764a1b0-d87e-11e8-b627-0bd59229ea68-2014 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/1764a1b0-d87e-11e8-b627-0bd59229ea68-2014 CAFR.pdf"
                     >
                       2014
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2013 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/14d54440-d87e-11e8-8793-13fe540ddec9-2013 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/14d54440-d87e-11e8-8793-13fe540ddec9-2013 CAFR.pdf"
                     >
                       2013
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2012 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/19694b50-d87e-11e8-b627-0bd59229ea68-2012 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/19694b50-d87e-11e8-b627-0bd59229ea68-2012 CAFR.pdf"
                     >
                       2012
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2011 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/178bffd0-d87e-11e8-808f-f94458761064-2011 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/178bffd0-d87e-11e8-808f-f94458761064-2011 CAFR.pdf"
                     >
                       2011
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2010 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/167a41b0-d87e-11e8-8793-13fe540ddec9-2010 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/167a41b0-d87e-11e8-8793-13fe540ddec9-2010 CAFR.pdf"
                     >
                       2010
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2009 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/17fbb190-d87e-11e8-b627-0bd59229ea68-2009 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/17fbb190-d87e-11e8-b627-0bd59229ea68-2009 CAFR.pdf"
                     >
                       2009
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2008 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/1567e750-d87e-11e8-b627-0bd59229ea68-2008 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/1567e750-d87e-11e8-b627-0bd59229ea68-2008 CAFR.pdf"
                     >
                       2008
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2007 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/11fea4a0-d87e-11e8-b627-0bd59229ea68-2007 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/11fea4a0-d87e-11e8-b627-0bd59229ea68-2007 CAFR.pdf"
                     >
                       2007
                     </OlderCAFRLink>
                     •
                     <OlderCAFRLink
                       title="2006 CAFR Document Link"
-                      href="//cdn.cosmicjs.com/1264b970-d87e-11e8-8793-13fe540ddec9-2006 CAFR.pdf"
+                      href="https://cdn.cosmicjs.com/1264b970-d87e-11e8-8793-13fe540ddec9-2006 CAFR.pdf"
                     >
                       2006
                     </OlderCAFRLink>
@@ -304,7 +305,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

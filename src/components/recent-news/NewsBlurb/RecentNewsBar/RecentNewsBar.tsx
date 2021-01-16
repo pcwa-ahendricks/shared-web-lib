@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {BoxProps, Box} from '@material-ui/core'
 import NewsBlurb from '../NewsBlurb'
 import {compareDesc, parseJSON, parse} from 'date-fns'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import TextProgress from '@components/TextProgress/TextProgress'
 import {isWebUri} from 'valid-url'
 import useSWR from 'swr'
@@ -66,7 +66,12 @@ const RecentNewsBar = ({
       !recentNewsBlurbs ? (
         <TextProgress caption="Loading Recent News..." />
       ) : (
-        <RespRowBox justifyContent="space-between" flexSpacing={4} {...rest}>
+        <RowBox
+          responsive
+          justifyContent="space-between"
+          flexSpacing={4}
+          {...rest}
+        >
           {sortedAndFilteredNews.map((blurb) => (
             <ChildBox key={blurb.id} flex="25%">
               <NewsBlurb
@@ -77,7 +82,7 @@ const RecentNewsBar = ({
               />
             </ChildBox>
           ))}
-        </RespRowBox>
+        </RowBox>
       ),
     [sortedAndFilteredNews, recentNewsBlurbs, rest]
   )

@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -57,7 +57,7 @@ const ClearingWaterMeterPage = () => {
             their jobs.
           </Type>
           <Spacing />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="55%">
               <Type paragraph>Please keep your meter clear:</Type>
               <ul>
@@ -85,14 +85,14 @@ const ClearingWaterMeterPage = () => {
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
                 <LazyImgix
-                  src="https://cosmic-s3.imgix.net/e6eb9890-8330-11ea-a5d4-3b7865d7bc61-Meter-Clear-Graphic.JPG"
+                  src="https://imgix.cosmicjs.com/e6eb9890-8330-11ea-a5d4-3b7865d7bc61-Meter-Clear-Graphic.JPG"
                   htmlAttributes={{
                     alt: 'Illustration showing how to clear your water meter'
                   }}
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
 
           <Spacing size="x-large" />
 

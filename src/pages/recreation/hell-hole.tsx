@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box, BoxProps} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -41,7 +41,7 @@ const HellHolePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Hell Hole Reservoir" subtitle="Recreation" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="40%" display="flex">
               <Box
                 mx="auto"
@@ -67,7 +67,7 @@ const HellHolePage = () => {
                 are the main activities here.
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>
             Fishing
@@ -98,7 +98,7 @@ const HellHolePage = () => {
             Guide to Northern California Backroads &amp; 4-Wheel Drive Trails.
           </Type>
           <Spacing />
-          <RespRowBox justifyContent="space-around">
+          <RowBox responsive justifyContent="space-around">
             <ChildBox>
               <ColumnBox alignItems="center">
                 <TypeWithAdornment caption="Mileage">
@@ -116,7 +116,7 @@ const HellHolePage = () => {
                 <Type variant="h5">Difficult</Type>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

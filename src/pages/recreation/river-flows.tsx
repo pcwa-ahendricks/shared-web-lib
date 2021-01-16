@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import FlexBox, {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import FlexBox, {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -55,7 +55,7 @@ const ResponsiveImageTemplatePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="American River Flows" subtitle="Recreation" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type paragraph>
                 PCWA currently coordinates with the California Department of
@@ -93,7 +93,7 @@ const ResponsiveImageTemplatePage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
 
           <Spacing size="x-large" />
           <FlexBox>

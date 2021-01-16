@@ -19,7 +19,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import FancyButton from '@components/FancyButton/FancyButton'
 
@@ -137,7 +137,7 @@ const WaterRatesPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Water Rates" subtitle="Services" />
-          <RespRowBox flexSpacing={8}>
+          <RowBox responsive flexSpacing={8}>
             <ChildBox flex={{xs: '100%', sm: '60%'}}>
               <Type variant="h3" gutterBottom>
                 Overview of Treated Water Billing Components
@@ -181,7 +181,7 @@ const WaterRatesPage = () => {
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Box mt={6}>
             <Type variant="h2" gutterBottom>
               Zone 6 Treated Water Rates

@@ -16,7 +16,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {ChildBox, RespRowBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import SectionBox from '@components/boxes/SectionBox'
@@ -95,7 +95,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
       <MainBox>
         <WideContainer>
           <PageTitle title="PCWA Board of Directors" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type paragraph>
                 The five member Board of Directors comprise the governing body
@@ -165,7 +165,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 (Vice Chair), District 3
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
           <SectionBox>
             <Type>
@@ -204,7 +204,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 p={4}
                 borderRadius={3}
               >
-                <RespRowBox flexSpacing={4}>
+                <RowBox responsive flexSpacing={4}>
                   <ChildBox flex="auto">
                     <Box textAlign="center">
                       <Type variant="h3" color="primary" gutterBottom>
@@ -239,7 +239,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                       />
                     </Box>
                   </ChildBox>
-                </RespRowBox>
+                </RowBox>
               </Box>
             </WaitToGrow>
           </SectionBox>

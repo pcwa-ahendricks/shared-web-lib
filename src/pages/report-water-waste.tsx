@@ -26,7 +26,7 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 // import MainPhone from '@components/links/MainPhone'
 // import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -99,9 +99,10 @@ const ReportWaterWastePage = () => {
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
-  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
-    boolean
-  >(false)
+  const [
+    formSubmitDialogErrorOpen,
+    setFormSubmitDialogErrorOpen
+  ] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -116,7 +117,7 @@ const ReportWaterWastePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Report Water Waste" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%">
               <Type paragraph>
                 Water conservation is always important. Everyone can do their
@@ -141,7 +142,7 @@ const ReportWaterWastePage = () => {
                 />
               </Box>
             </ChildBox> */}
-          </RespRowBox>
+          </RowBox>
 
           <Spacing size="large" factor={2} />
           {/* <Type variant="h3" color="primary" gutterBottom>
@@ -208,7 +209,7 @@ const ReportWaterWastePage = () => {
                         </Grid> */}
 
                     <ChildBox>
-                      <RespRowBox flexSpacing={5}>
+                      <RowBox responsive flexSpacing={5}>
                         <ChildBox flex="60%">
                           <Field
                             name="email"
@@ -225,7 +226,7 @@ const ReportWaterWastePage = () => {
                             margin="none"
                           />
                         </ChildBox>
-                      </RespRowBox>
+                      </RowBox>
                     </ChildBox>
 
                     <ChildBox>

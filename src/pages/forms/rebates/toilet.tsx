@@ -158,9 +158,10 @@ const Toilet = () => {
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
-  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
-    boolean
-  >(false)
+  const [
+    formSubmitDialogErrorOpen,
+    setFormSubmitDialogErrorOpen
+  ] = useState<boolean>(false)
   const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
     false
   )

@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
-import {RowBox, ColumnBox, RespRowBox} from '@components/boxes/FlexBox'
+import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -89,7 +89,8 @@ const Footer = () => {
     <Box>
       <Box bgcolor={theme.palette.primary.main} color={theme.palette.grey[200]}>
         <WideContainer mt={4} mb={4}>
-          <RespRowBox
+          <RowBox
+            responsive
             bgcolor="inherit"
             alignItems={{xs: 'center', sm: 'stretch'}} // IE doesn't like 'initial'
           >
@@ -233,7 +234,7 @@ const Footer = () => {
                 </GlowLightGreen>
               </RowBox>
             </ColumnBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </Box>
       <Box bgcolor={theme.palette.primary.dark}>

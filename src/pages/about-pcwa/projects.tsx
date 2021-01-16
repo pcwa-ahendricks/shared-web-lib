@@ -8,7 +8,7 @@ import {
   ChildBox,
   ChildBoxProps,
   ColumnBox,
-  RespRowBox
+  RowBox
 } from '@components/boxes/FlexBox'
 import {
   useTheme,
@@ -98,7 +98,11 @@ const ProjectsPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Construction Projects" subtitle="General" />
-          <RespRowBox flexDirection={{xs: 'column', md: 'row'}} flexSpacing={4}>
+          <RowBox
+            responsive
+            flexDirection={{xs: 'column', md: 'row'}}
+            flexSpacing={4}
+          >
             <ColumnOne>
               <ProjectChild>
                 <ConstructionProject>
@@ -140,11 +144,11 @@ const ProjectsPage = () => {
                     <Spacing />
                     <ColumnBox alignItems="center">
                       <MediaDialogOnClick
-                        mediaUrl="https://cosmic-s3.imgix.net/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
+                        mediaUrl="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
                         mediaName="Photo of Hell Hole Dam construction"
                       >
                         <LazyImgix
-                          src="https://cosmic-s3.imgix.net/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
+                          src="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
                           imgixParams={{border: '1,AAAAAA'}}
                           htmlAttributes={{
                             alt: 'Photo of Hell Hole Dam construction',
@@ -350,11 +354,11 @@ const ProjectsPage = () => {
                     <Spacing size="large" />
                     <ColumnBox alignItems="center">
                       <MediaDialogOnClick
-                        mediaUrl="https://cosmic-s3.imgix.net/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
+                        mediaUrl="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
                         mediaName="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
                       >
                         <LazyImgix
-                          src="https://cosmic-s3.imgix.net/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
+                          src="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
                           imgixParams={{border: '1,AAAAAA'}}
                           htmlAttributes={{
                             alt:
@@ -375,7 +379,7 @@ const ProjectsPage = () => {
                             className={classes.inlineFlex}
                             noWrap
                             variant="inherit"
-                            href="https://cosmic-s3.imgix.net/6b388000-3ead-11e9-b946-75ef47721136-Foothill-Pipeline-Alignment-Figure-Figure-3.pdf?dl=Foothill-Pipeline-Alignment_Figure-3.pdf"
+                            href="https://imgix.cosmicjs.com/6b388000-3ead-11e9-b946-75ef47721136-Foothill-Pipeline-Alignment-Figure-Figure-3.pdf?dl=Foothill-Pipeline-Alignment_Figure-3.pdf"
                           >
                             download pdf
                             <ColumnBox
@@ -500,11 +504,11 @@ const ProjectsPage = () => {
                     <Spacing size="large" />
                     <ColumnBox alignItems="center">
                       <MediaDialogOnClick
-                        mediaUrl="https://cosmic-s3.imgix.net/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
+                        mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
                         mediaName="Map Figure of Alta Loop Pipeline Project"
                       >
                         <LazyImgix
-                          src="https://cosmic-s3.imgix.net/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
+                          src="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
                           imgixParams={{border: '1,AAAAAA'}}
                           htmlAttributes={{
                             alt: 'Map Figure of Alta Loop Pipeline Project',
@@ -596,7 +600,7 @@ const ProjectsPage = () => {
                 </ConstructionProject>
               </ProjectChild>
             </ColumnTwo>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

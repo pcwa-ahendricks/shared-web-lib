@@ -14,7 +14,7 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 // import {RespRowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import FlexBox, {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import FlexBox, {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
@@ -59,7 +59,7 @@ const HouseCallsPage = () => {
             position="relative"
           >
             <LazyImgix
-              src="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+              src="https://imgix.cosmicjs.com/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
               htmlAttributes={{
                 alt: 'PCWA Water Efficiency Team',
                 style: {
@@ -79,7 +79,7 @@ const HouseCallsPage = () => {
           overflow="hidden"
         >
           <LazyImgix
-            src="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+            src="https://imgix.cosmicjs.com/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
             htmlAttributes={{
               alt: 'PCWA Water Efficiency Team',
             }}
@@ -97,7 +97,7 @@ const HouseCallsPage = () => {
             PCWA is Here for You Even When We Must Be Apart
           </Type>
           <Spacing />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="60%">
               {/* <Type paragraph>
                 Worried you might have a leak? Want to find ways to use water
@@ -175,7 +175,7 @@ const HouseCallsPage = () => {
                 width={{xs: '70vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
               >
                 <LazyImgix
-                  src="https://cosmic-s3.imgix.net/e62faff0-c430-11e9-b25b-79fa6aa7c400-Mychel-Teater-adjusting-sprinkler.tif"
+                  src="https://imgix.cosmicjs.com/e62faff0-c430-11e9-b25b-79fa6aa7c400-Mychel-Teater-adjusting-sprinkler.tif"
                   htmlAttributes={{
                     alt: 'Meter Efficiency Technician adjusting sprinkler',
                   }}
@@ -194,7 +194,7 @@ const HouseCallsPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
         </WideContainer>
       </MainBox>

@@ -5,12 +5,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  RespRowBox,
-  ChildBox,
-  ColumnBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from '@components/NextLink/NextLink'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -36,7 +31,7 @@ const PayBillPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Bill Payment Options" subtitle="Services" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
@@ -141,7 +136,7 @@ const PayBillPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>
             <Type variant="h5" gutterBottom>
               Refund Policy

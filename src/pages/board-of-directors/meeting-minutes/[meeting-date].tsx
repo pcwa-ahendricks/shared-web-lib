@@ -23,12 +23,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import {format, parseJSON} from 'date-fns'
-import {
-  RowBox,
-  RespRowBox,
-  ChildBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
@@ -155,7 +150,8 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
     <PageLayout title={`Board Minutes ${meetingDate}`}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
-        <RespRowBox
+        <RowBox
+          responsive
           px={3}
           pt={3}
           justifyContent="space-between"
@@ -201,7 +197,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
               fileSize={media?.size}
             />
           </ChildBox>
-        </RespRowBox>
+        </RowBox>
         <Box position="relative">
           <PDFPage
             showLoading={true}

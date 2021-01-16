@@ -178,9 +178,10 @@ const IrrigationEfficiencies = () => {
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
-  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
-    boolean
-  >(false)
+  const [
+    formSubmitDialogErrorOpen,
+    setFormSubmitDialogErrorOpen
+  ] = useState<boolean>(false)
   const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
     false
   )
@@ -485,7 +486,7 @@ const IrrigationEfficiencies = () => {
                               <ReviewTermsConditions
                                 pageCount={3}
                                 fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://cosmic-s3.imgix.net/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
                               />
                               <Field
                                 name="termsAgree"

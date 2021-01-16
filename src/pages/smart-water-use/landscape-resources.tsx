@@ -6,7 +6,7 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {ChildBox, RespRowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink, {
   OpenInNewLinkProps
@@ -60,7 +60,7 @@ const LandscapeResourcesPage = () => {
             water-wise landscape and water efficient irrigation system.
           </Type>
           <Spacing />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="33.3%">
               <Type variant="subtitle1" gutterBottom color="primary">
                 Local Nurseries & Growers
@@ -308,7 +308,7 @@ const LandscapeResourcesPage = () => {
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

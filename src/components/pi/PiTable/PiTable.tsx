@@ -215,12 +215,14 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
   const colAUrl = `${piApiUrl}/streams/${webIdA}/interpolated${qs}`
   const colBUrl = `${piApiUrl}/streams/${webIdB}/interpolated${qs}`
 
-  const {data: colAData, isValidating: colAIsValidating} = useSWR<
-    PiWebElementAttributeStream
-  >(webIdA && qs ? colAUrl : null)
-  const {data: colBData, isValidating: colBIsValidating} = useSWR<
-    PiWebElementAttributeStream
-  >(webIdB && qs ? colBUrl : null)
+  const {
+    data: colAData,
+    isValidating: colAIsValidating
+  } = useSWR<PiWebElementAttributeStream>(webIdA && qs ? colAUrl : null)
+  const {
+    data: colBData,
+    isValidating: colBIsValidating
+  } = useSWR<PiWebElementAttributeStream>(webIdB && qs ? colBUrl : null)
 
   const isValidating = colAIsValidating || colBIsValidating
 

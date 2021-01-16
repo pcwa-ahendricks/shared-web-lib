@@ -5,7 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import NextLink from '@components/NextLink/NextLink'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -26,7 +26,7 @@ const ServicesPage = () => {
             questions, solve problems and make referrals to other departments.
             See the sections below for specific information:
           </Type>
-          <RespRowBox mt={4} flexSpacing={4}>
+          <RowBox responsive mt={4} flexSpacing={4}>
             <ChildBox flex="0 1 auto">
               <List dense disablePadding>
                 <ListItem>
@@ -121,7 +121,7 @@ const ServicesPage = () => {
                 allowFullScreen
               /> */}
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Box mt={4}>
             <Type paragraph>
               The PCWA Business Center is open Monday – Friday from 8:00 a.m. to

@@ -51,12 +51,7 @@ import {
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
-import {
-  RespRowBox,
-  ChildBox,
-  RowBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import Spacing from '@components/boxes/Spacing'
 import {
@@ -400,7 +395,7 @@ const PublicationsPage = ({
           </AppBar>
 
           <Spacing size="large" />
-          <RespRowBox flexSpacing={4} width="100%">
+          <RowBox responsive flexSpacing={4} width="100%">
             <ChildBox flex="auto">
               <TabPanel value={tabIndex} index={0}>
                 <Spacing />
@@ -512,7 +507,7 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://cosmic-s3.imgix.net/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
+                      imgixURL="https://imgix.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
                     />
                   </ChildBox>
                   <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
@@ -523,8 +518,8 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://cosmic-s3.imgix.net/50f7b4e0-8c64-11e9-a2aa-e111fd002881-Fire-and-Water-2018.pdf"
-                      thumbImgixURL="https://cosmic-s3.imgix.net/1c9bd360-4871-11ea-83cb-8f40f59ef2f9-fire-water-2018-thumbnail.png"
+                      imgixURL="https://imgix.cosmicjs.com/50f7b4e0-8c64-11e9-a2aa-e111fd002881-Fire-and-Water-2018.pdf"
+                      thumbImgixURL="https://imgix.cosmicjs.com/1c9bd360-4871-11ea-83cb-8f40f59ef2f9-fire-water-2018-thumbnail.png"
                       imgixCropMode="bottom"
                     />
                   </ChildBox>
@@ -536,8 +531,8 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://cosmic-s3.imgix.net/6c45e8a0-e681-11e7-8b87-05a286370fcd-2017_Fire Water.pdf"
-                      thumbImgixURL="https://cosmic-s3.imgix.net/228a8870-4871-11ea-83cb-8f40f59ef2f9-fire-water-2017-thumbnail.png"
+                      imgixURL="https://imgix.cosmicjs.com/6c45e8a0-e681-11e7-8b87-05a286370fcd-2017_Fire Water.pdf"
+                      thumbImgixURL="https://imgix.cosmicjs.com/228a8870-4871-11ea-83cb-8f40f59ef2f9-fire-water-2017-thumbnail.png"
                       imgixCropMode="mid"
                     />
                   </ChildBox> */}
@@ -558,7 +553,7 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://cosmic-s3.imgix.net/1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf"
+                      imgixURL="https://imgix.cosmicjs.com/1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf"
                     />
                   </ChildBox>
                   <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
@@ -569,7 +564,7 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://cosmic-s3.imgix.net/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf"
+                      imgixURL="https://imgix.cosmicjs.com/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf"
                     />
                   </ChildBox>
                   <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
@@ -580,13 +575,13 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://cosmic-s3.imgix.net/8c7f3aa0-dc67-11e7-990e-7f57b6eb4a14-PCWA_2017_Year_End_Report.pdf"
+                      imgixURL="https://imgix.cosmicjs.com/8c7f3aa0-dc67-11e7-990e-7f57b6eb4a14-PCWA_2017_Year_End_Report.pdf"
                     />
                   </ChildBox>
                 </RowBox>
               </TabPanel>
               <TabPanel value={tabIndex} index={3}>
-                <RespRowBox flexSpacing={4}>
+                <RowBox responsive flexSpacing={4}>
                   <ChildBox flex="50%">
                     <Type paragraph>
                       As your water provider, we’re committed to keeping you
@@ -609,7 +604,7 @@ const PublicationsPage = ({
                   <ChildBox flex="50%" display="flex">
                     <Box mx="auto">
                       <LazyImgix
-                        src="https://cosmic-s3.imgix.net/d8c86140-c4cd-11e7-bedc-43d6110cf0dd-e-news.png"
+                        src="https://imgix.cosmicjs.com/d8c86140-c4cd-11e7-bedc-43d6110cf0dd-e-news.png"
                         htmlAttributes={{
                           alt:
                             "Photo of Page Header to PCWA's E-News periodic email subscription"
@@ -617,7 +612,7 @@ const PublicationsPage = ({
                       />
                     </Box>
                   </ChildBox>
-                </RespRowBox>
+                </RowBox>
 
                 <Spacing size="large" />
 
@@ -648,7 +643,7 @@ const PublicationsPage = ({
             <ChildBox>
               <NewsroomSidebar />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

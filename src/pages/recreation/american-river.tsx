@@ -5,12 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
-import {
-  RespRowBox,
-  ChildBox,
-  ColumnBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box, Link, BoxProps} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -51,7 +46,7 @@ const AmericanRiverPage = () => {
             title="Middle Fork American River Area"
             subtitle="Recreation"
           />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="40%" display="flex">
               <Box
                 mx="auto"
@@ -77,7 +72,7 @@ const AmericanRiverPage = () => {
                 recreation such as fishing and picnicking.
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>
             Fishing
@@ -107,7 +102,7 @@ const AmericanRiverPage = () => {
             available.
           </Type>
           <Spacing />
-          <RespRowBox justifyContent="space-between">
+          <RowBox responsive justifyContent="space-between">
             <ChildBox>
               <ColumnBox alignItems="center">
                 <TypeWithAdornment caption="Mileage">
@@ -140,9 +135,9 @@ const AmericanRiverPage = () => {
                 <Type variant="h5">Moderate</Type>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="x-large" factor={2} />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox>
               <RowBox flexSpacing={3}>
                 <ChildBox flex={{xs: '1 1 auto', sm: '0 0 100px'}}>
@@ -182,7 +177,7 @@ const AmericanRiverPage = () => {
                 </Type>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Type variant="h3" gutterBottom>
             Picnicking

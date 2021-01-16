@@ -19,12 +19,7 @@ import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
 import EventIcon from '@material-ui/icons/Event'
 // import WavesIcon from '@material-ui/icons/Waves'
-import FlexBox, {
-  RespRowBox,
-  ChildBox,
-  RowBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import FlexBox, {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
@@ -171,7 +166,7 @@ const OutageInformationPage = ({initialData}: Props) => {
         <WideContainer>
           <PageTitle title="Outage Information" subtitle="Services" />
 
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%" display="flex" flexDirection="column">
               <Box mt={0}>
                 <Type paragraph>
@@ -405,7 +400,7 @@ const OutageInformationPage = ({initialData}: Props) => {
 
               <RowBox mt={{xs: 6, sm: 6}} justifyContent="center">
                 <LazyImgix
-                  src="https://cosmic-s3.imgix.net/9a973a70-fc31-11e9-bead-495f6403df62-outage-img1.jpg"
+                  src="https://imgix.cosmicjs.com/9a973a70-fc31-11e9-bead-495f6403df62-outage-img1.jpg"
                   htmlAttributes={{
                     alt: 'Photo of PCWA Flume',
                     style: {width: '100%', maxWidth: 275}
@@ -413,7 +408,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                 />
               </RowBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

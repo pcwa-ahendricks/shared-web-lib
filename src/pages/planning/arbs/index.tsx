@@ -32,7 +32,7 @@ import {
 } from 'react-vertical-timeline-component'
 import {lightBlue} from '@material-ui/core/colors'
 import alpha from 'color-alpha'
-import {ChildBox, ColumnBox, RespRowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'
@@ -219,7 +219,7 @@ const ARBSPage = () => {
         <WideContainer>
           <PageTitle title="American River Basin Study" subtitle="Planning" />
 
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox>
               <ARBSSidebar />
             </ChildBox>
@@ -429,7 +429,7 @@ const ARBSPage = () => {
                           alt:
                             'U.S. Department of the Interior, Bureau of Reclamation logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/02c6cf90-31a5-11ea-96a7-8146ec741192-bor.png"
+                        src="https://imgix.cosmicjs.com/02c6cf90-31a5-11ea-96a7-8146ec741192-bor.png"
                       />
                     </LIAvatar>
                     <LIText
@@ -443,7 +443,7 @@ const ARBSPage = () => {
                         htmlAttributes={{
                           alt: 'Placer County Water Agency logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/05c801a0-31a5-11ea-96a7-8146ec741192-pcwa.png"
+                        src="https://imgix.cosmicjs.com/05c801a0-31a5-11ea-96a7-8146ec741192-pcwa.png"
                       />
                     </LIAvatar>
                     <LIText primary="Placer County Water Agency (PCWA)" />
@@ -454,7 +454,7 @@ const ARBSPage = () => {
                         htmlAttributes={{
                           alt: 'City of Roseville logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/083c35f0-31a5-11ea-96a7-8146ec741192-cor.png"
+                        src="https://imgix.cosmicjs.com/083c35f0-31a5-11ea-96a7-8146ec741192-cor.png"
                       />
                     </LIAvatar>
                     <LIText primary="City of Roseville (Roseville)" />
@@ -465,7 +465,7 @@ const ARBSPage = () => {
                         htmlAttributes={{
                           alt: 'City of Sacramento logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/0abd89a0-31a5-11ea-96a7-8146ec741192-cos.jpg"
+                        src="https://imgix.cosmicjs.com/0abd89a0-31a5-11ea-96a7-8146ec741192-cos.jpg"
                       />
                     </LIAvatar>
                     <LIText primary="City of Sacramento (Sacramento)" />
@@ -476,7 +476,7 @@ const ARBSPage = () => {
                         htmlAttributes={{
                           alt: 'El Dorado County Water Agency logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/0d083cf0-31a5-11ea-96a7-8146ec741192-edcwapadded.png"
+                        src="https://imgix.cosmicjs.com/0d083cf0-31a5-11ea-96a7-8146ec741192-edcwapadded.png"
                       />
                     </LIAvatar>
                     <LIText primary="El Dorado County Water Agency (EDCWA)" />
@@ -487,7 +487,7 @@ const ARBSPage = () => {
                         htmlAttributes={{
                           alt: 'City of Folsom logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/0ee5d690-31a5-11ea-96a7-8146ec741192-cof.png"
+                        src="https://imgix.cosmicjs.com/0ee5d690-31a5-11ea-96a7-8146ec741192-cof.png"
                       />
                     </LIAvatar>
                     <LIText primary="City of Folsom (Folsom)" />
@@ -498,7 +498,7 @@ const ARBSPage = () => {
                         htmlAttributes={{
                           alt: 'Regional Water Authority logo'
                         }}
-                        src="https://cosmic-s3.imgix.net/10e5ec50-31a5-11ea-96a7-8146ec741192-rwablue.jpg"
+                        src="https://imgix.cosmicjs.com/10e5ec50-31a5-11ea-96a7-8146ec741192-rwablue.jpg"
                       />
                     </LIAvatar>
                     <LIText primary="Regional Water Authority (RWA)" />
@@ -639,7 +639,11 @@ const ARBSPage = () => {
                 Contact Information - Co-Study Managers
               </Type>
               <Box bgcolor={theme.palette.common.white} boxShadow={1} p={4}>
-                <RespRowBox justifyContent="space-around" flexSpacing={2}>
+                <RowBox
+                  responsive
+                  justifyContent="space-around"
+                  flexSpacing={2}
+                >
                   <ChildBox>
                     <Type variant="subtitle1">Brian Rickards</Type>
                     <Type
@@ -679,10 +683,10 @@ const ARBSPage = () => {
                       </Link>
                     </Type>
                   </ChildBox>
-                </RespRowBox>
+                </RowBox>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

@@ -14,12 +14,7 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {
-  ChildBox,
-  RespRowBox,
-  ColumnBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton, {
   FancyButtonProps
@@ -114,7 +109,7 @@ const RebateProgramsPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Rebate Programs" subtitle="Smart Water Use" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="45%">
               <Type paragraph>
                 PCWA is proud to offer a variety of rebate programs which help
@@ -132,15 +127,15 @@ const RebateProgramsPage = () => {
             </ChildBox>
             <ChildBox flex="55%">
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/2b569170-af32-11e9-90f6-45e304c90a10-untitled.png"
+                src="https://imgix.cosmicjs.com/2b569170-af32-11e9-90f6-45e304c90a10-untitled.png"
                 htmlAttributes={{
                   alt: 'Water Efficient Garden'
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
-          <RespRowBox flexSpacing={8}>
+          <RowBox responsive flexSpacing={8}>
             <ChildBox flex="50%">
               <Type variant="h3" color="primary">
                 Residential Rebate Programs
@@ -250,7 +245,7 @@ const RebateProgramsPage = () => {
                     <ColumnBox>
                       <TermsAndConditionsButton
                         caption="Washer Rebate Requirements"
-                        href="https://cosmic-s3.imgix.net/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
+                        href="https://imgix.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
                         label="Washer Rebate Requirements"
                       />
                       <ApplyNowButton
@@ -350,7 +345,7 @@ const RebateProgramsPage = () => {
                 </ChildBox>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="x-large" />
           <ColumnBox alignItems="center">
             <Type variant="h4" gutterBottom color="primary">

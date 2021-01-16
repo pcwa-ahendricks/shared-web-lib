@@ -21,12 +21,7 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import FlexBox, {
-  ColumnBox,
-  RespRowBox,
-  ChildBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import FlexBox, {ColumnBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -71,9 +66,10 @@ const ContactUsPage = () => {
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
-  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
-    boolean
-  >(false)
+  const [
+    formSubmitDialogErrorOpen,
+    setFormSubmitDialogErrorOpen
+  ] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -88,7 +84,7 @@ const ContactUsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Contact Us" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%">
               <Type paragraph>
                 The PCWA Business Center is open Monday – Friday from 8:00 a.m.
@@ -124,7 +120,7 @@ const ContactUsPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Box
             bgcolor={theme.palette.grey['100']}
@@ -247,7 +243,7 @@ const ContactUsPage = () => {
                         </Grid> */}
 
                     <ChildBox>
-                      <RespRowBox flexSpacing={5}>
+                      <RowBox responsive flexSpacing={5}>
                         <ChildBox flex="60%">
                           <Field
                             name="email"
@@ -264,7 +260,7 @@ const ContactUsPage = () => {
                             margin="none"
                           />
                         </ChildBox>
-                      </RespRowBox>
+                      </RowBox>
                     </ChildBox>
 
                     <ChildBox>

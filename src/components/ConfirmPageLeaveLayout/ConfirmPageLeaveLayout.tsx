@@ -16,9 +16,10 @@ const ConfirmPageLeaveLayout = ({
   onDialogLeave
 }: Props) => {
   const router = useRouter()
-  const [confirmPgLeaveDialogOpen, setConfirmPgLeaveDialogOpen] = useState<
-    boolean
-  >(false)
+  const [
+    confirmPgLeaveDialogOpen,
+    setConfirmPgLeaveDialogOpen
+  ] = useState<boolean>(false)
   const [lastRouteChange, setLastRouteChange] = useState<string>('')
 
   const handleRouteChange = useCallback(

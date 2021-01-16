@@ -10,7 +10,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON, format, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {RespRowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import {
   Box,
   Typography as Type,
@@ -141,9 +141,9 @@ const NewsReleasesPage = ({initialData}: Props) => {
       <MainBox>
         <WideContainer>
           <PageTitle title="News Releases" subtitle="Newsroom" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="auto">
-              <RespRowBox flexSpacing={4}>
+              <RowBox responsive flexSpacing={4}>
                 <ChildBox flex="30%" display="flex">
                   <Box
                     mx="auto"
@@ -170,7 +170,7 @@ const NewsReleasesPage = ({initialData}: Props) => {
                     interest.
                   </Type>
                 </ChildBox>
-              </RespRowBox>
+              </RowBox>
               <Spacing />
               <Box>
                 <Type color="primary" variant="subtitle1">
@@ -256,7 +256,7 @@ const NewsReleasesPage = ({initialData}: Props) => {
             <ChildBox>
               <NewsroomSidebar />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

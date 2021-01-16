@@ -16,12 +16,7 @@ import {
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {
-  RespRowBox,
-  RowBox,
-  ColumnBox,
-  ChildBox
-} from '@components/boxes/FlexBox'
+import {RowBox, ColumnBox, ChildBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {blueGrey} from '@material-ui/core/colors'
 // import QuoteCloseIcon from '@material-ui/icons/FormatQuote'
@@ -31,7 +26,7 @@ import FancyButton from '@components/FancyButton/FancyButton'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 
 const tsaImageUrl =
-  'https://cosmic-s3.imgix.net/2c559c90-c5c8-11e9-aaff-5105a05bb7d4-treated-services-areas.jpg'
+  'https://imgix.cosmicjs.com/2c559c90-c5c8-11e9-aaff-5105a05bb7d4-treated-services-areas.jpg'
 const tsaImageAlt = 'Map of Treated Water Services Areas'
 
 const WaterQualityPage = () => {
@@ -80,7 +75,7 @@ const WaterQualityPage = () => {
               For your reference, please click on the appropriate link to view
               the report for your service area:
             </Type>
-            <RespRowBox flexSpacing={4}>
+            <RowBox responsive flexSpacing={4}>
               <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
                 <ColumnBox alignItems="center">
                   <MediaDialogOnClick
@@ -149,7 +144,7 @@ const WaterQualityPage = () => {
                   </List>
                 </Box>
               </ChildBox>
-            </RespRowBox>
+            </RowBox>
           </Box>
 
           <Box mt={6} p={{xs: 2, sm: 4, md: 6}} bgcolor={blueGrey[50]}>

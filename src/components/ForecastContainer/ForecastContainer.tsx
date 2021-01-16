@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core'
 import dynamic from 'next/dynamic'
 // import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
-const DynamicForecastCycle = dynamic(() =>
-  import('@components/forecast/ForecastCycle/ForecastCycle')
+const DynamicForecastCycle = dynamic(
+  () => import('@components/forecast/ForecastCycle/ForecastCycle')
 )
 
 type ForecastData = ForecastDataset['data']

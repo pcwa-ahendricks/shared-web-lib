@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
@@ -14,7 +14,7 @@ const AccountMaintenancePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Account Maintenance" subtitle="Services" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="1 1 60%">
               <Type paragraph>
                 To open or close&nbsp;a water service account with PCWA, call
@@ -34,13 +34,13 @@ const AccountMaintenancePage = () => {
               maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/ca540d40-c38a-11e9-bd35-0d553d15132e-account-maintenance-img1.jpg"
+                src="https://imgix.cosmicjs.com/ca540d40-c38a-11e9-bd35-0d553d15132e-account-maintenance-img1.jpg"
                 htmlAttributes={{
                   alt: 'Water Efficiency Technician Photo'
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Box mt={6}>
             <Type variant="h3" gutterBottom>
               Treated Water

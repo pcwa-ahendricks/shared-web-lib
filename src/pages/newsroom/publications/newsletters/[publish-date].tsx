@@ -22,12 +22,7 @@ import {
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import {
-  RowBox,
-  RespRowBox,
-  ChildBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import {format, parseJSON, addMonths, getYear} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
@@ -157,7 +152,8 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
     <PageLayout title={`Newsletter ${publishDate}`}>
       {/* Don't use top margin with main box since we want to fill the bgcolor. */}
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
-        <RespRowBox
+        <RowBox
+          responsive
           px={3}
           pt={3}
           justifyContent="space-between"
@@ -191,7 +187,7 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
               fileSize={media?.size}
             />
           </ChildBox>
-        </RespRowBox>
+        </RowBox>
         <Box position="relative">
           <PDFPage
             showLoading={true}

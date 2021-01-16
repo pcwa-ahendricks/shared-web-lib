@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   Link
 } from '@material-ui/core'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import WideContainer from '@components/containers/WideContainer'
@@ -66,7 +66,7 @@ const RateAdjustPage = () => {
           </Type>
 
           <Box mt={6}>
-            <RespRowBox flexSpacing={3}>
+            <RowBox responsive flexSpacing={3}>
               <ChildBox>
                 <RateAdjustFAQ />
               </ChildBox>
@@ -100,7 +100,7 @@ const RateAdjustPage = () => {
                     </Box>
                     <Box flex="33.33">
                       <ImgixThumbLink
-                        url="https://cosmic-s3.imgix.net/d796c8b0-fa7d-11e9-ac85-afda513db67b-PCWA-Cost-of-Service-Study---Final-Report.pdf"
+                        url="https://imgix.cosmicjs.com/d796c8b0-fa7d-11e9-ac85-afda513db67b-PCWA-Cost-of-Service-Study---Final-Report.pdf"
                         filename="PCWA Cost of Service Study.pdf"
                         caption="2017 Cost of Service – Rate Study"
                         alt="Thumbnail and link for Cost of Service Study"
@@ -124,7 +124,7 @@ const RateAdjustPage = () => {
                   </Box>
                 </Box>
               </ChildBox>
-            </RespRowBox>
+            </RowBox>
           </Box>
         </WideContainer>
       </MainBox>

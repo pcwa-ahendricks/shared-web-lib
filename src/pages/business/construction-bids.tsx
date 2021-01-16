@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import InboxIcon from '@material-ui/icons/Inbox'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -95,7 +95,7 @@ const ConstructionBidsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Construction Bids" subtitle="Business with PCWA" />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="40%" display="flex">
               <Box
                 mx="auto"
@@ -116,7 +116,7 @@ const ConstructionBidsPage = () => {
                 reliability and redundance of operations for years to come.
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
           <Type variant="h2" color="primary" gutterBottom>
             Bid Opportunities and Public Purchase

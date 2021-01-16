@@ -2,6 +2,7 @@ import React from 'react'
 import {Box, Theme, createStyles, makeStyles} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'
+import {BreakpointValues} from '@material-ui/core/styles/createBreakpoints'
 
 type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
 type UseStylesProps = {flexSpacing?: number}
@@ -9,7 +10,7 @@ type UseStylesProps = {flexSpacing?: number}
 /*
   Note, using a dynamic className such as useFlexSpacing did not work when applying specificity with a selector such as '&$useFlexSpacing'. Note sure why, but the workaround is to simply apply the className as a string.
 
-  [TODO] Using flexSpacing with <RespRowBox/> is very opinionated with it's current setup. It assumes the same top and left margin will be used with Flex Column and Flex Row layouts respectively. In addition, generally, using flexWrap with <RespRowBox/> will be avoided due to use of top margin's with <ChildBox/>. The workaround in both cases is to simply not use <RespRowBox/> and use
+  [TODO] Using flexSpacing with <RowBox responsive/> is very opinionated with it's current setup. It assumes the same top and left margin will be used with Flex Column and Flex Row layouts respectively. In addition, generally, using flexWrap with <RowBox responsive/> will be avoided due to use of top margin's with <ChildBox/>. The workaround in both cases is to simply not use <RowBox responsive/> and use
    <RowBox flexDirection={{xs: 'column', sm: 'row'}} /> with custom top margins passed in as props while using the flexSpacing prop to control left margins.
 */
 
@@ -93,9 +94,24 @@ const RowBox = ({
   children,
   flexSpacing,
   className: classNameProp,
+  responsive = false,
   ...rest
-}: Props) => {
+}: Props & {responsive?: boolean | BreakpointValues}) => {
   const classes = useStyles({flexSpacing})
+
+  if (responsive) {
+    return (
+      <FlexBox
+        flexDirection={{xs: 'column', sm: 'row'}}
+        className={clsx([classes.respRowBox, classNameProp])}
+        flexSpacing={flexSpacing}
+        {...rest}
+      >
+        {children}
+      </FlexBox>
+    )
+  }
+
   return (
     <FlexBox
       flexDirection="row"
@@ -127,25 +143,6 @@ const ColumnBox = ({
   )
 }
 
-const RespRowBox = ({
-  children,
-  flexSpacing,
-  className: classNameProp,
-  ...rest
-}: Props) => {
-  const classes = useStyles({flexSpacing})
-  return (
-    <FlexBox
-      flexDirection={{xs: 'column', sm: 'row'}}
-      className={clsx([classes.respRowBox, classNameProp])}
-      flexSpacing={flexSpacing}
-      {...rest}
-    >
-      {children}
-    </FlexBox>
-  )
-}
-
 const ChildBox = ({
   children,
   className: classNameProp,
@@ -158,5 +155,5 @@ const ChildBox = ({
   )
 }
 
-export {RowBox, RespRowBox, ColumnBox, ChildBox, FlexBox}
+export {RowBox, ColumnBox, ChildBox, FlexBox}
 export default FlexBox

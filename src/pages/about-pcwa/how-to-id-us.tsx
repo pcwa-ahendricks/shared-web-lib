@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
@@ -20,7 +20,7 @@ const HowToIDUsPage = () => {
             title="How to Identify a PCWA Service Employee"
             subtitle="General"
           />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="35%" display="flex">
               <Box
                 mx="auto"
@@ -55,9 +55,9 @@ const HowToIDUsPage = () => {
                 </strong>
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%">
               <Type variant="h2" color="secondary" gutterBottom>
                 Identify us by our apparel!
@@ -94,7 +94,7 @@ const HowToIDUsPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

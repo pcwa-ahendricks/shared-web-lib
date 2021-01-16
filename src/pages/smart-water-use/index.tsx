@@ -28,12 +28,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  RespRowBox,
-  ChildBox,
-  RowBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -83,7 +78,7 @@ const SmartWaterUsePage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Smart Water Use" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type variant="h3" color="primary">
                 Lay the Groundwork for Water Savings and Healthy Plants
@@ -137,7 +132,7 @@ const SmartWaterUsePage = () => {
               >
                 <ChildBox width={{xs: '70%', sm: '100%'}}>
                   <LazyImgix
-                    src="https://cosmic-s3.imgix.net/b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"
+                    src="https://imgix.cosmicjs.com/b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"
                     htmlAttributes={{
                       alt:
                         'Lay the ground work for water saving and healthy plants. Fall is a great time to add water-wise plants and upgrade your irrigation.'
@@ -168,7 +163,7 @@ const SmartWaterUsePage = () => {
                     </Type>
                     <ChildBox width={100} m="auto">
                       <LazyImgix
-                        src="https://cosmic-s3.imgix.net/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
+                        src="https://imgix.cosmicjs.com/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
                         htmlAttributes={{
                           alt: 'WaterSense logo'
                         }}
@@ -178,7 +173,7 @@ const SmartWaterUsePage = () => {
                 </ChildBox>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <SectionBox>
             <Type paragraph>
@@ -221,7 +216,7 @@ const SmartWaterUsePage = () => {
             <Type variant="h3" gutterBottom color="primary">
               Water Efficiency
             </Type>
-            <RespRowBox flexSpacing={1} justifyContent="space-between">
+            <RowBox responsive flexSpacing={1} justifyContent="space-between">
               <ChildBox flex="0 1 60%">
                 <Type paragraph>
                   We in Placer County are fortunate to be surrounded by
@@ -256,7 +251,7 @@ const SmartWaterUsePage = () => {
                   </Type>
                 </Box>
               </ChildBox>
-            </RespRowBox>
+            </RowBox>
             <Spacing />
             <Box bgcolor={theme.palette.common.white} p={3} boxShadow={1}>
               <Type variant="h4" gutterBottom>
@@ -680,7 +675,8 @@ const SmartWaterUsePage = () => {
               Water-Wise Landscape Resources
             </Type>
             <Spacing />
-            <RespRowBox
+            <RowBox
+              responsive
               flexSpacing={isSMDown ? 4 : 6}
               justifyContent={{xs: 'flex-start', sm: 'center'}}
               alignItems={{xs: 'center', sm: 'stretch'}}
@@ -804,7 +800,7 @@ const SmartWaterUsePage = () => {
                   </CardActions>
                 </Card>
               </ChildBox>
-            </RespRowBox>
+            </RowBox>
           </SectionBox>
         </WideContainer>
       </MainBox>

@@ -25,7 +25,7 @@ const SuccessInTheSierraPage = () => {
           <PageTitle title="Success in the Sierra" subtitle="Newsroom" />
 
           <LazyImgix
-            src="https://cosmic-s3.imgix.net/c6e4fd40-30ae-11ea-96a7-8146ec741192-French-Meadows-Forest-Restoration-Project002.jpg"
+            src="https://imgix.cosmicjs.com/c6e4fd40-30ae-11ea-96a7-8146ec741192-French-Meadows-Forest-Restoration-Project002.jpg"
             htmlAttributes={{
               alt: 'French Meadows Forest Restoration Project in action'
             }}
@@ -61,7 +61,7 @@ const SuccessInTheSierraPage = () => {
                 position="relative"
               >
                 <LazyImgix
-                  src="https://cosmic-s3.imgix.net/c2f41400-30ae-11ea-96a7-8146ec741192-French-Meadows-ReservoirPCWA004.jpg"
+                  src="https://imgix.cosmicjs.com/c2f41400-30ae-11ea-96a7-8146ec741192-French-Meadows-ReservoirPCWA004.jpg"
                   htmlAttributes={{
                     alt: 'Aerial view of French Meadows Reservoir',
                     style: {
@@ -178,7 +178,7 @@ const SuccessInTheSierraPage = () => {
               position="relative"
             >
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/cba9b140-30ae-11ea-96a7-8146ec741192-French-Meadows-Partnersgroup1.jpg"
+                src="https://imgix.cosmicjs.com/cba9b140-30ae-11ea-96a7-8146ec741192-French-Meadows-Partnersgroup1.jpg"
                 htmlAttributes={{
                   alt: 'Group photo of French Meadows Partners Group',
                   style: {
@@ -195,7 +195,7 @@ const SuccessInTheSierraPage = () => {
           <Spacing size="large" />
 
           <LazyImgix
-            src="https://cosmic-s3.imgix.net/01072cd0-30b6-11ea-bfe8-5b62c3bdf959-Success-in-the-Sierra-Partnership-Logos.png"
+            src="https://imgix.cosmicjs.com/01072cd0-30b6-11ea-bfe8-5b62c3bdf959-Success-in-the-Sierra-Partnership-Logos.png"
             htmlAttributes={{
               alt: 'Partnership and Affiliation logos'
             }}

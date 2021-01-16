@@ -20,12 +20,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  RespRowBox,
-  ChildBox,
-  RowBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NextLink from '@components/NextLink/NextLink'
 import FancyButton from '@components/FancyButton/FancyButton'
@@ -82,7 +77,7 @@ const IrrigationCanalPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Irrigation Canal Information" subtitle="Services" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="1 1 60%">
               <Type paragraph>
                 PCWA's primary source of water is delivered through canals
@@ -125,13 +120,13 @@ const IrrigationCanalPage = () => {
               minWidth="200px" // Don't let image get too small either.
             >
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/1e395470-c3a3-11e9-a5a7-bbdca6cf5b93-irrigation-canal-img1.jpg"
+                src="https://imgix.cosmicjs.com/1e395470-c3a3-11e9-a5a7-bbdca6cf5b93-irrigation-canal-img1.jpg"
                 htmlAttributes={{
                   alt: 'PCWA Canal photo'
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
 
           <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>

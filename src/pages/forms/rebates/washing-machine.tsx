@@ -218,15 +218,17 @@ const WashingMachine = () => {
   )
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [installPhotosIsUploading, setInstallPhotosIsUploading] = useState<
-    boolean
-  >(false)
+  const [
+    installPhotosIsUploading,
+    setInstallPhotosIsUploading
+  ] = useState<boolean>(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
     false
   )
-  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] = useState<
-    boolean
-  >(false)
+  const [
+    formSubmitDialogErrorOpen,
+    setFormSubmitDialogErrorOpen
+  ] = useState<boolean>(false)
   const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
     false
   )
@@ -616,7 +618,7 @@ const WashingMachine = () => {
                             <ReviewTermsConditions
                               pageCount={2}
                               fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://cosmic-s3.imgix.net/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
+                              termsConditionsUrl="https://imgix.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
                             />
                             <Type
                               variant="body1"

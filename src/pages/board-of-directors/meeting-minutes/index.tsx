@@ -10,12 +10,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {
-  RespRowBox,
-  ChildBox,
-  ColumnBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
@@ -148,7 +143,7 @@ const BoardMinutesPage = ({initialData}: Props) => {
             title="Board of Directors' Meeting Minutes"
             subtitle="Board of Directors"
           />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox
               flex={{xs: '100%', sm: '65%'}}
               position="relative"
@@ -181,7 +176,7 @@ const BoardMinutesPage = ({initialData}: Props) => {
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

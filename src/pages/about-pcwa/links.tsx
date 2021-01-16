@@ -18,7 +18,7 @@ import {
   Divider
   // Theme
 } from '@material-ui/core'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const useStyles = makeStyles(() =>
@@ -69,7 +69,7 @@ const LinksPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Links" subtitle="General" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox
               flex="auto"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
@@ -111,7 +111,7 @@ const LinksPage = () => {
                 </Type>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Box mt={3}>
             <RowBox justifyContent="space-between">
               <ChildBox flex="1 1 45%">

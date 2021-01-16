@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -61,7 +61,7 @@ const EnvironmentalPlanningPage = () => {
             title="Environmental Planning & Compliance"
             subtitle="General"
           />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="35%" display="flex">
               <Box
                 mx="auto"
@@ -289,7 +289,7 @@ const EnvironmentalPlanningPage = () => {
                 Water Temperature Monitoring Plan
               </OpenInNewLinkBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

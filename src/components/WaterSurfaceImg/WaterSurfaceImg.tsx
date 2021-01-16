@@ -28,7 +28,7 @@ const WaterSurfaceImg = () => {
         <Image
           layout="fill"
           objectFit="cover"
-          src="https://cosmic-s3.imgix.net/80212870-8e98-11e8-b9a6-bb6cb34bfd65-bg-water-surface_80.jpg"
+          src="https://imgix.cosmicjs.com/80212870-8e98-11e8-b9a6-bb6cb34bfd65-bg-water-surface_80.jpg"
           alt="Drinking water surface background image"
           priority
         />

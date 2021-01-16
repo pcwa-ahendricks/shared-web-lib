@@ -9,7 +9,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 
@@ -31,7 +31,7 @@ const WaterSensePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="WaterSense" subtitle="Smart Water Use" />
-          <RespRowBox justifyContent="space-between" alignItems="center">
+          <RowBox responsive justifyContent="space-between" alignItems="center">
             <ChildBox textAlign="center" p={2}>
               <Type variant="h2" gutterBottom>
                 Look for the{' '}
@@ -54,14 +54,14 @@ const WaterSensePage = () => {
             </ChildBox>
             <ChildBox>
               <LazyImgix
-                src="https://cosmic-s3.imgix.net/69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
+                src="https://imgix.cosmicjs.com/69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
                 htmlAttributes={{
                   alt: 'Look for WaterSense Logo',
                   style: {width: '100%', maxWidth: 275}
                 }}
               />
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Box mt={6}>
             <Type paragraph>
               WaterSense is a national program from the U.S. Environmental

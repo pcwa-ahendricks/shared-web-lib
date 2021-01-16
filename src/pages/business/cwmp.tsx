@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {
   createStyles,
   makeStyles,
@@ -140,7 +140,7 @@ const CountyWideMasterPlanPage = () => {
             title="County-Wide Master Plan"
             subtitle="Business with PCWA"
           />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="60%">
               <Type paragraph>
                 On November 19, 1992, the Placer County Water Agency Board of
@@ -164,7 +164,7 @@ const CountyWideMasterPlanPage = () => {
                   <ChildBox flex="0 1 30%">
                     <ImgixThumbLink
                       imageWidth={160}
-                      url="https://cosmic-s3.imgix.net/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
+                      url="https://imgix.cosmicjs.com/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
                       href="https://opti.rmcwater.com/pcwa/login.php"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -191,7 +191,7 @@ const CountyWideMasterPlanPage = () => {
                   <ChildBox flex="0 1 30%">
                     <ImgixThumbLink
                       imageWidth={160}
-                      url="https://cosmic-s3.imgix.net/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
+                      url="https://imgix.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
                       href="https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -421,7 +421,7 @@ const CountyWideMasterPlanPage = () => {
                 </List>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

@@ -46,12 +46,7 @@ import {
   isBefore
 } from 'date-fns'
 import {saveAs} from 'file-saver'
-import FlexBox, {
-  RespRowBox,
-  ChildBox,
-  RowBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import FlexBox, {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
@@ -249,7 +244,8 @@ const MeetingAgendasPage = ({initialData}: Props) => {
               </Type>
               <Spacing />
               <Card className={classes.card}>
-                <RespRowBox
+                <RowBox
+                  responsive
                   flexSpacing={isSMUp ? 4 : 1}
                   width="100%"
                   justifyContent="space-around"
@@ -372,7 +368,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                       </Box>
                     </ChildBox>
                   ) : null}
-                </RespRowBox>
+                </RowBox>
               </Card>
             </Box>
           </section>

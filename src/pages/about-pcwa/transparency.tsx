@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -25,7 +25,7 @@ const TransparencyPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Transparency Information" subtitle="General" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type paragraph>
                 PCWA is committed to the principles of accountability and
@@ -53,7 +53,7 @@ const TransparencyPage = () => {
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
                 <LazyImgix
-                  src="https://cosmic-s3.imgix.net/3bcfc830-bd91-11e7-9abf-9bcadf03ca02-PCWA_Board_Transparency_Certificate.jpg"
+                  src="https://imgix.cosmicjs.com/3bcfc830-bd91-11e7-9abf-9bcadf03ca02-PCWA_Board_Transparency_Certificate.jpg"
                   htmlAttributes={{
                     alt:
                       'Photo of PCWA presented with Transparency excellence certificate'
@@ -61,7 +61,7 @@ const TransparencyPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large">
             <Divider />
           </Spacing>

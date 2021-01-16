@@ -99,7 +99,7 @@ const StopLeaksPage = () => {
                 </ChildBox>
                 <ChildBox width={100} flex="0 0 auto">
                   <LazyImgix
-                    src="https://cosmic-s3.imgix.net/69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
+                    src="https://imgix.cosmicjs.com/69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
                     htmlAttributes={{
                       alt: 'Look for WaterSense Logo'
                     }}

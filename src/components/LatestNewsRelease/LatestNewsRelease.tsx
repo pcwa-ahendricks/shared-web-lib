@@ -43,9 +43,10 @@ const useStyles = makeStyles(() =>
 const LatestNewsRelease = ({...rest}: Props) => {
   const classes = useStyles()
 
-  const {data: latestNewsReleaseData, isValidating} = useSWR<
-    PickedMediaResponses
-  >(latestNewsReleaseUrl)
+  const {
+    data: latestNewsReleaseData,
+    isValidating
+  } = useSWR<PickedMediaResponses>(latestNewsReleaseUrl)
 
   const latestNewsRelease = useMemo(
     () =>
@@ -76,7 +77,7 @@ const LatestNewsRelease = ({...rest}: Props) => {
       <CoverTile
         typeProps={{variant: 'subtitle2'}}
         title={latestNewsRelease?.derivedFilenameAttr?.title ?? ''}
-        imgixURL="https://cosmic-s3.imgix.net/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
+        imgixURL="https://imgix.cosmicjs.com/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
         linkHref="/newsroom/news-releases/[release-date]"
         flexLinkProps={{
           as: `/newsroom/news-releases/${

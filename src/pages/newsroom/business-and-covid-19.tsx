@@ -56,7 +56,7 @@ const BusinessAndCovid19Page = () => {
           </Type>
           <Spacing size="large" factor={2} />
           <LazyImgix
-            src="https://cosmic-s3.imgix.net/6e6c3700-962a-11ea-b04e-734185112560-PCWA-Sign-2019.jpg"
+            src="https://imgix.cosmicjs.com/6e6c3700-962a-11ea-b04e-734185112560-PCWA-Sign-2019.jpg"
             htmlAttributes={{alt: 'PCWA Business Center'}}
           />
         </NarrowContainer>

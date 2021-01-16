@@ -182,7 +182,7 @@ const WaterSpots2020Page = () => {
 
           <Spacing size="large" />
           <LazyImgix
-            src="https://cosmic-s3.imgix.net/6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
+            src="https://imgix.cosmicjs.com/6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
             htmlAttributes={{
               alt: 'Water Spots Contest Logo'
             }}

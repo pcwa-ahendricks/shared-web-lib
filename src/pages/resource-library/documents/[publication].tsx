@@ -23,12 +23,7 @@ import {
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import {
-  RowBox,
-  RespRowBox,
-  ChildBox,
-  ColumnBox
-} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
@@ -145,7 +140,8 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
   return (
     <PageLayout title={title}>
       <MainBox mt={0} bgcolor={theme.palette.common.white}>
-        <RespRowBox
+        <RowBox
+          responsive
           px={3}
           pt={3}
           justifyContent="space-between"
@@ -179,7 +175,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
               fileSize={media ? media.size : 0}
             />
           </ChildBox>
-        </RespRowBox>
+        </RowBox>
         <Box position="relative">
           <PDFPage
             showLoading={true}

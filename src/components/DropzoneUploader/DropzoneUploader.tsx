@@ -136,9 +136,10 @@ const DropzoneUploader: React.RefForwardingComponent<
     confirmRemoveUpload,
     setConfirmRemoveUpload
   ] = useState<DroppedFile | null>(null)
-  const [showConfirmClearUploads, setShowConfirmClearUploads] = useState<
-    boolean
-  >(false)
+  const [
+    showConfirmClearUploads,
+    setShowConfirmClearUploads
+  ] = useState<boolean>(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [isUploadingFileNames, setIsUploadingFileNames] = useState<string[]>([])
 

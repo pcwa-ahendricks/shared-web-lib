@@ -74,9 +74,10 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [installPhotosIsUploading, setInstallPhotosIsUploading] = useState<
-    boolean
-  >(false)
+  const [
+    installPhotosIsUploading,
+    setInstallPhotosIsUploading
+  ] = useState<boolean>(false)
 
   const receiptIsUploadingHandler = useCallback((isUploading) => {
     setReceiptIsUploading(isUploading)
@@ -397,7 +398,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Toilet-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://cosmic-s3.imgix.net/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                termsConditionsUrl="https://imgix.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>

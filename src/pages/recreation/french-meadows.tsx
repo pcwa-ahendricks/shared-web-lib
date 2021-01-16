@@ -4,12 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
-import {
-  RespRowBox,
-  ChildBox,
-  ColumnBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box, Link, BoxProps} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -49,7 +44,7 @@ const FrenchMeadowsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="French Meadows Reservoir" subtitle="Recreation" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="40%" display="flex">
               <Box
                 mx="auto"
@@ -82,7 +77,7 @@ const FrenchMeadowsPage = () => {
                 American River upstream from the reservoir.
               </Type>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>
             Fishing
@@ -118,7 +113,7 @@ const FrenchMeadowsPage = () => {
             riding is outstanding on this trail as well.
           </Type>
           <Spacing />
-          <RespRowBox justifyContent="space-between">
+          <RowBox responsive justifyContent="space-between">
             <ChildBox>
               <ColumnBox alignItems="center">
                 <TypeWithAdornment caption="Mileage">
@@ -151,15 +146,15 @@ const FrenchMeadowsPage = () => {
                 <Type variant="h5">Moderate</Type>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing size="x-large" factor={2} />
-          <RespRowBox flexSpacing={6}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox>
               <RowBox flexSpacing={3}>
                 <ChildBox flex={{xs: '1 1 auto', sm: '0 0 100px'}}>
                   <ImgixThumbLink
                     imageWidth={100}
-                    url="https://cosmic-s3.imgix.net/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
+                    url="https://imgix.cosmicjs.com/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
                     href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -197,7 +192,7 @@ const FrenchMeadowsPage = () => {
                 </Type>
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Type variant="h3" gutterBottom>
             Picnicking

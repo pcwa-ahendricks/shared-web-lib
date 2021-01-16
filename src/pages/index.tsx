@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
-import {RowBox, RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
@@ -146,13 +146,13 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       </Hidden>
       <Spacing size="large" />
       <WideContainer>
-        <RespRowBox flexSpacing={4}>
+        <RowBox responsive flexSpacing={4}>
           <ChildBox flex="50%">
             {/* <CoverStory
               title="Water-wise House and Business Calls"
               readMore="More Information..."
               linkHref="/smart-water-use/house-calls"
-              imgixURL="https://cosmic-s3.imgix.net/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+              imgixURL="https://imgix.cosmicjs.com/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Photo of PCWA Water Efficiency staff'},
                 imgixParams: {
@@ -171,7 +171,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title="Special Notice for Businesses Regarding Re-opening"
               readMore="More Information..."
               linkHref="/newsroom/business-and-covid-19"
-              imgixURL="https://cosmic-s3.imgix.net/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg"
+              imgixURL="https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Photo of PCWA Business Center'}
               }}
@@ -224,7 +224,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."
               linkHref="/newsroom/success-in-the-sierra"
-              imgixURL="https://cosmic-s3.imgix.net/c2f41400-30ae-11ea-96a7-8146ec741192-French-Meadows-ReservoirPCWA004.jpg"
+              imgixURL="https://imgix.cosmicjs.com/c2f41400-30ae-11ea-96a7-8146ec741192-French-Meadows-ReservoirPCWA004.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}
               }}
@@ -241,7 +241,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               readMore="See Story..."
               linkHref="/newsroom/news-releases/[release-date]"
               flexLinkProps={{as: '/newsroom/news-releases/03-03-2020'}}
-              imgixURL="https://cosmic-s3.imgix.net/19d91520-6234-11ea-9b83-bbd594758415-PCWA-signs-USBR-contract002.jpg"
+              imgixURL="https://imgix.cosmicjs.com/19d91520-6234-11ea-9b83-bbd594758415-PCWA-signs-USBR-contract002.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}
               }}
@@ -257,7 +257,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title="2020 Water Spots Video Contest Winners Announced"
               readMore="Read more…!"
               linkHref="/newsroom/water-spots-2020"
-              imgixURL="https://cosmic-s3.imgix.net/6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
+              imgixURL="https://imgix.cosmicjs.com/6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Thumbnail photo of French Meadows'},
                 imgixParams: {
@@ -288,7 +288,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="PCWA has rebates available to help with the cost of high-efficiency rotator sprinklers, drip irrigation, and weather-based sprinkler timers. Apply today online."
             />
           </ChildBox>
-        </RespRowBox>
+        </RowBox>
 
         <Spacing size="large">
           <Divider />
@@ -301,7 +301,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           flexSpacing={4}
           justifyContent="center"
         >
-          {/* <RespRowBox
+          {/* <RowBox responsive
           flexWrap="nowrap"
           alignItems={{xs: 'center', sm: 'flex-start'}}
           mt={-coverTileTopMargin}
@@ -380,7 +380,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <LatestNewsRelease />
           </ChildBox> */}
 
-          {/* </RespRowBox> */}
+          {/* </RowBox> */}
         </RowBox>
         <Spacing size="large">
           <Divider />

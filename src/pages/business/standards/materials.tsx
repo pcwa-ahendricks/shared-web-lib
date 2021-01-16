@@ -14,7 +14,7 @@ import {
   Box,
   useTheme
 } from '@material-ui/core'
-import {RowBox, ChildBox, RespRowBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
@@ -45,7 +45,7 @@ const MaterialsListUpdatesPage = () => {
   const theme = useTheme()
   const MaterialListItem = ({title, approved}: Material) => {
     return (
-      <RespRowBox alignItems="center">
+      <RowBox responsive alignItems="center">
         {/* minWidth aides with ellipsis display with noWrap prop. */}
         <ChildBox flex="45%" minWidth={0}>
           {/* Inheriting variant will break ellipsis display with <Typography/>. */}
@@ -63,7 +63,7 @@ const MaterialsListUpdatesPage = () => {
             Approved {format(approved, 'MM/dd/yyyy')}
           </Type>
         </ChildBox>
-      </RespRowBox>
+      </RowBox>
     )
   }
   return (

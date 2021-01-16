@@ -15,7 +15,7 @@ export interface Director {
 export const directors: Director[] = [
   {
     imgSrc:
-      'https://cosmic-s3.imgix.net/55199cd0-006c-11e8-9f74-c182a209ec69-Director_Gray_Allen_2017_Closeup.jpg',
+      'https://imgix.cosmicjs.com/55199cd0-006c-11e8-9f74-c182a209ec69-Director_Gray_Allen_2017_Closeup.jpg',
     name: 'Gray Allen',
     alt: 'Photo of Gray Allen',
     district: 1,
@@ -35,7 +35,7 @@ export const directors: Director[] = [
   },
   {
     imgSrc:
-      'https://cosmic-s3.imgix.net/c82f6720-e417-11e7-a3cb-3977faa7cc79-Chair_Alpine_2017_Closeup_01.jpg',
+      'https://imgix.cosmicjs.com/c82f6720-e417-11e7-a3cb-3977faa7cc79-Chair_Alpine_2017_Closeup_01.jpg',
     name: 'Josh Alpine',
     alt: 'Photo of Josh Alpine',
     district: 5,
@@ -54,7 +54,7 @@ export const directors: Director[] = [
   },
   {
     imgSrc:
-      'https://cosmic-s3.imgix.net/ca563ec0-e417-11e7-a3cb-3977faa7cc79-Director_Santini_2017_Closeup_01.jpg',
+      'https://imgix.cosmicjs.com/ca563ec0-e417-11e7-a3cb-3977faa7cc79-Director_Santini_2017_Closeup_01.jpg',
     name: 'Primo Santini',
     alt: 'Photo of Primo Santini',
     district: 2,
@@ -80,7 +80,7 @@ export const directors: Director[] = [
   },
   {
     imgSrc:
-      'https://cosmic-s3.imgix.net/aa45fd50-440c-11e8-9090-4f91f013ee62-robert_dugan.jpg',
+      'https://imgix.cosmicjs.com/aa45fd50-440c-11e8-9090-4f91f013ee62-robert_dugan.jpg',
     name: 'Robert Dugan',
     alt: 'Photo of Robert Dugan',
     district: 4,
@@ -100,7 +100,7 @@ export const directors: Director[] = [
   },
   {
     imgSrc:
-      'https://cosmic-s3.imgix.net/c9f50bf0-e417-11e7-a3cb-3977faa7cc79-Director_Lee_2017_Closeup_01.jpg',
+      'https://imgix.cosmicjs.com/c9f50bf0-e417-11e7-a3cb-3977faa7cc79-Director_Lee_2017_Closeup_01.jpg',
     name: 'Mike Lee',
     alt: 'Photo of Mike Lee',
     district: 3,

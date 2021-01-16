@@ -15,12 +15,7 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import FlexBox, {
-  ColumnBox,
-  RespRowBox,
-  ChildBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import FlexBox, {ColumnBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import WideContainer from '@components/containers/WideContainer'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
@@ -86,7 +81,7 @@ const FireResistantGardenPage = () => {
   const FirstAsideImage = () => {
     return (
       <LazyImgix
-        src="https://cosmic-s3.imgix.net/bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
+        src="https://imgix.cosmicjs.com/bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
         htmlAttributes={{
           alt: 'Boys Scouts with Auburn Fire'
         }}
@@ -109,7 +104,7 @@ const FireResistantGardenPage = () => {
             position="relative"
           >
             <LazyImgix
-              src="https://cosmic-s3.imgix.net/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg"
+              src="https://imgix.cosmicjs.com/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg"
               htmlAttributes={{
                 alt: 'PCWA Water Efficiency Team',
                 style: {
@@ -146,7 +141,7 @@ const FireResistantGardenPage = () => {
             </Box>
           </Hidden>
 
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="50%">
               <Box mt={4}>
                 <Type paragraph>
@@ -180,7 +175,7 @@ const FireResistantGardenPage = () => {
                     </ExtLink>
                   </TypeBullet>
                   <TypeBullet>
-                    <ExtLink href="https://cosmic-s3.imgix.net/7647c4d0-ad73-11e9-8ba7-dba4340cf409-MF-L2.1-050719.pdf">
+                    <ExtLink href="https://imgix.cosmicjs.com/7647c4d0-ad73-11e9-8ba7-dba4340cf409-MF-L2.1-050719.pdf">
                       View the landscape design plan
                     </ExtLink>
                   </TypeBullet>
@@ -288,7 +283,7 @@ const FireResistantGardenPage = () => {
                 </Hidden>
                 <ChildBox>
                   <LazyImgix
-                    src="https://cosmic-s3.imgix.net/48ddc470-ad6b-11e9-910a-9dd8fa8729ee-Boys-Scouts-with-Auburn-Fire008.jpg"
+                    src="https://imgix.cosmicjs.com/48ddc470-ad6b-11e9-910a-9dd8fa8729ee-Boys-Scouts-with-Auburn-Fire008.jpg"
                     htmlAttributes={{
                       alt: 'Boys Scouts with Auburn Fire'
                     }}
@@ -299,7 +294,7 @@ const FireResistantGardenPage = () => {
                   <RowBox flexSpacing={plantImgSpacing} flexWrap="wrap" mt={-2}>
                     <ChildBox mt={2} flex={plantImgChildFlex}>
                       <LazyImgix
-                        src="https://cosmic-s3.imgix.net/e7e0c090-ad61-11e9-910a-9dd8fa8729ee-Rosy-Glow-Barberry.jpg"
+                        src="https://imgix.cosmicjs.com/e7e0c090-ad61-11e9-910a-9dd8fa8729ee-Rosy-Glow-Barberry.jpg"
                         htmlAttributes={{
                           alt: 'Rosy Glow Barberry',
                           style: plantImgStyle
@@ -308,7 +303,7 @@ const FireResistantGardenPage = () => {
                     </ChildBox>
                     <ChildBox mt={2} flex={plantImgChildFlex}>
                       <LazyImgix
-                        src="https://cosmic-s3.imgix.net/e7850c00-ad61-11e9-910a-9dd8fa8729ee-Gold-Dust-Aucuba.jpg"
+                        src="https://imgix.cosmicjs.com/e7850c00-ad61-11e9-910a-9dd8fa8729ee-Gold-Dust-Aucuba.jpg"
                         htmlAttributes={{
                           alt: 'Gold Dust Aucuba',
                           style: plantImgStyle
@@ -317,7 +312,7 @@ const FireResistantGardenPage = () => {
                     </ChildBox>
                     <ChildBox mt={2} flex={plantImgChildFlex}>
                       <LazyImgix
-                        src="https://cosmic-s3.imgix.net/e7749140-ad61-11e9-8aa7-c50c7cc602b8-Dwarf-Butterfly-Bush.jpg"
+                        src="https://imgix.cosmicjs.com/e7749140-ad61-11e9-8aa7-c50c7cc602b8-Dwarf-Butterfly-Bush.jpg"
                         htmlAttributes={{
                           alt: 'Dwarf Butterfly Bush',
                           style: plantImgStyle
@@ -326,7 +321,7 @@ const FireResistantGardenPage = () => {
                     </ChildBox>
                     <ChildBox mt={2} flex={plantImgChildFlex}>
                       <LazyImgix
-                        src="https://cosmic-s3.imgix.net/e711fee0-ad61-11e9-8aa7-c50c7cc602b8-African-Iris.jpg"
+                        src="https://imgix.cosmicjs.com/e711fee0-ad61-11e9-8aa7-c50c7cc602b8-African-Iris.jpg"
                         htmlAttributes={{
                           alt: 'African Iris',
                           style: plantImgStyle
@@ -337,7 +332,7 @@ const FireResistantGardenPage = () => {
                 </ChildBox>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>

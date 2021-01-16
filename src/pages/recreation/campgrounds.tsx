@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RespRowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -57,7 +57,7 @@ const CampgroundsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Campgrounds" subtitle="Recreation" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type paragraph>
                 High on the western slope of the Sierra, near the headwaters of
@@ -89,7 +89,7 @@ const CampgroundsPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Box>
             <Type variant="h3" gutterBottom>
@@ -111,7 +111,7 @@ const CampgroundsPage = () => {
             </Type>
           </Box>
           <Spacing />
-          <RespRowBox justifyContent="space-between" flexSpacing={3}>
+          <RowBox responsive justifyContent="space-between" flexSpacing={3}>
             <ChildBox>
               <Type variant="subtitle1" color="primary">
                 French Meadows Area Campgrounds:
@@ -135,7 +135,7 @@ const CampgroundsPage = () => {
                 </TypeLi>
               </Ul>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Box>
             <Type paragraph>
@@ -164,7 +164,7 @@ const CampgroundsPage = () => {
           </Box>
 
           <Spacing size="large" />
-          <RespRowBox justifyContent="space-between" flexSpacing={3}>
+          <RowBox responsive justifyContent="space-between" flexSpacing={3}>
             <ChildBox>
               <Type variant="subtitle1" color="primary">
                 Hell Hole Area Campgrounds:
@@ -183,7 +183,7 @@ const CampgroundsPage = () => {
                 <TypeLi>Upper Hell Hole Campground (5 mile hike)</TypeLi>
               </Ul>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
           <Spacing />
           <Box>
             <Type paragraph>

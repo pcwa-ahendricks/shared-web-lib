@@ -4,7 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
-import {RespRowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -21,15 +21,15 @@ import slugify from 'slugify'
 const recreationMapUrl =
   'https://cdn.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
 const recreationMapImgixUrl =
-  'https://cosmic-s3.imgix.net/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
+  'https://imgix.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
 const recreationMapAlt = 'Recreation Area Map'
 
 const exploringTheMfUrl =
   'https://cdn.cosmicjs.com/b6257d80-70b2-11e8-b89a-91a6fa50a41c-PCWA MFP Rec Brochure v1.pdf'
 const exploringTheMfImgixUrl =
-  'https://cosmic-s3.imgix.net/b6257d80-70b2-11e8-b89a-91a6fa50a41c-PCWA%20MFP%20Rec%20Brochure%20v1.pdf'
+  'https://imgix.cosmicjs.com/b6257d80-70b2-11e8-b89a-91a6fa50a41c-PCWA%20MFP%20Rec%20Brochure%20v1.pdf'
 const exploringTheMfCoverImgixUrl =
-  'https://cosmic-s3.imgix.net/4e56e830-70b5-11e8-b214-8b4449b867c7-PCWA%20MFP%20Rec%20Brochure%20v1%20-%20cover.jpg'
+  'https://imgix.cosmicjs.com/4e56e830-70b5-11e8-b214-8b4449b867c7-PCWA%20MFP%20Rec%20Brochure%20v1%20-%20cover.jpg'
 const exploringTheMfAlt =
   'Exploring the Middle Fork American River Watershed Brochure'
 
@@ -41,7 +41,7 @@ const RecreationPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Recreation" />
-          <RespRowBox flexSpacing={4}>
+          <RowBox responsive flexSpacing={4}>
             <ChildBox flex="60%">
               <Type paragraph>
                 A wide variety of land and water-based recreational
@@ -76,11 +76,11 @@ const RecreationPage = () => {
                 />
               </Box>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
 
           <Spacing size="large" />
           <Box p={{xs: 2, sm: 4, md: 6}} bgcolor={blueGrey[50]}>
-            <RespRowBox flexSpacing={4}>
+            <RowBox responsive flexSpacing={4}>
               <ChildBox flex="auto">
                 <Type paragraph>
                   This{' '}
@@ -135,9 +135,9 @@ const RecreationPage = () => {
                   </Box>
                 </ColumnBox>
               </ChildBox>
-            </RespRowBox>
+            </RowBox>
             <Spacing size="large" />
-            <RespRowBox flexSpacing={4}>
+            <RowBox responsive flexSpacing={4}>
               <ChildBox
                 flex={{xs: '1 1 auto', sm: '0 0 150px'}}
                 order={{xs: 1, sm: 0}}
@@ -189,7 +189,7 @@ const RecreationPage = () => {
                   <em>Note, this is a large PDF file.</em>
                 </Type>
               </ChildBox>
-            </RespRowBox>
+            </RowBox>
           </Box>
         </NarrowContainer>
       </MainBox>

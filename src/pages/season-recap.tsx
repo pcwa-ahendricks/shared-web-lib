@@ -32,12 +32,7 @@ import {
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import isNumber from 'is-number'
-import {
-  ChildBox,
-  ColumnBox,
-  RespRowBox,
-  RowBox
-} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -709,7 +704,7 @@ export default function SeasonRecapPage() {
           <Type variant="h4" gutterBottom>
             Precipitation Maps
           </Type>
-          <RespRowBox flexSpacing={2}>
+          <RowBox responsive flexSpacing={2}>
             <ChildBox flex="33.33%">
               <MediaDialogOnClick
                 mediaName="Actual Precipitation"
@@ -767,7 +762,7 @@ export default function SeasonRecapPage() {
                 <Type variant="caption">Percent of Normal</Type>
               </ColumnBox>
             </ChildBox>
-          </RespRowBox>
+          </RowBox>
 
           <Spacing size="large" factor={2} />
 

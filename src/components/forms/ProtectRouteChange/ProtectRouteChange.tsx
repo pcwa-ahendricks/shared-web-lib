@@ -8,9 +8,10 @@ type Props = {
 
 const ProtectRouteChange = ({children}: Props) => {
   const {dirty} = useFormikContext<any>()
-  const [shouldConfirmRouteChange, setShouldConfirmRouteChange] = useState<
-    boolean
-  >(false)
+  const [
+    shouldConfirmRouteChange,
+    setShouldConfirmRouteChange
+  ] = useState<boolean>(false)
 
   useEffect(() => {
     setShouldConfirmRouteChange(Boolean(dirty))

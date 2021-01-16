@@ -59,12 +59,12 @@ const meetings: Meeting[] = [
       {
         title: `Slideshow Presentation`,
         url:
-          'https://cosmic-s3.imgix.net/d5193160-ea1d-11e9-ba4d-0371f77c56f3-ARBSWorkshop1v7.pdf'
+          'https://imgix.cosmicjs.com/d5193160-ea1d-11e9-ba4d-0371f77c56f3-ARBSWorkshop1v7.pdf'
       },
       {
         title: `Slideshow Presentation - Video`,
         url:
-          'https://cosmic-s3.imgix.net/de4ed410-ea1d-11e9-b46c-c33ce7177bb8-2019-10-03-10.02-American-River-Basin-Study-Workshop-1---Assessing-Climate-Change-Challenges.mp4'
+          'https://imgix.cosmicjs.com/de4ed410-ea1d-11e9-b46c-c33ce7177bb8-2019-10-03-10.02-American-River-Basin-Study-Workshop-1---Assessing-Climate-Change-Challenges.mp4'
       }
     ]
   },
@@ -127,7 +127,7 @@ const meetings: Meeting[] = [
     title: 'Executive Steering Committee Meeting #2',
     date: '2017-03-03T21:00:00.000Z',
     agendaUrl:
-      'https://cosmic-s3.imgix.net/b661a970-3269-11ea-bfe8-5b62c3bdf959-agenda.pdf',
+      'https://imgix.cosmicjs.com/b661a970-3269-11ea-bfe8-5b62c3bdf959-agenda.pdf',
     attachments: [
       {
         title: `Slideshow Presentation`,
@@ -154,22 +154,22 @@ const meetings: Meeting[] = [
     title: 'Executive Steering Committee Meeting #1',
     date: '2016-12-06T21:30:00.000Z',
     agendaUrl:
-      'https://cosmic-s3.imgix.net/430b7280-3269-11ea-96a7-8146ec741192-agenda.pdf',
+      'https://imgix.cosmicjs.com/430b7280-3269-11ea-96a7-8146ec741192-agenda.pdf',
     attachments: [
       {
         title: 'Meeting Notes',
         url:
-          'https://cosmic-s3.imgix.net/42ff1670-3269-11ea-bfe8-5b62c3bdf959-meeting-notes.pdf'
+          'https://imgix.cosmicjs.com/42ff1670-3269-11ea-bfe8-5b62c3bdf959-meeting-notes.pdf'
       },
       {
         title: 'ARBS Plan of Study (Draft)',
         url:
-          'https://cosmic-s3.imgix.net/43487b80-3269-11ea-bfe8-5b62c3bdf959-ARBSPOSDraft20161203clean.pdf'
+          'https://imgix.cosmicjs.com/43487b80-3269-11ea-bfe8-5b62c3bdf959-ARBSPOSDraft20161203clean.pdf'
       },
       {
         title: 'Memorandum Of Agreement (Draft)',
         url:
-          'https://cosmic-s3.imgix.net/42f21e20-3269-11ea-96a7-8146ec741192-MOA-ARBS-Draft-20161206.pdf'
+          'https://imgix.cosmicjs.com/42f21e20-3269-11ea-96a7-8146ec741192-MOA-ARBS-Draft-20161206.pdf'
       }
     ]
   }
