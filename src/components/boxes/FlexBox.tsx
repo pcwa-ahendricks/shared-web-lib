@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {Box, Theme, createStyles, makeStyles} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'
-import {BreakpointValues} from '@material-ui/core/styles/createBreakpoints'
+import {Breakpoint} from '@material-ui/core/styles/createBreakpoints'
 
 type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
 type UseStylesProps = {flexSpacing?: number}
@@ -96,26 +96,37 @@ const RowBox = ({
   className: classNameProp,
   responsive = false,
   ...rest
-}: Props & {responsive?: boolean | BreakpointValues}) => {
+}: Props & {responsive?: boolean | Breakpoint}) => {
   const classes = useStyles({flexSpacing})
 
-  if (responsive) {
-    return (
-      <FlexBox
-        flexDirection={{xs: 'column', sm: 'row'}}
-        className={clsx([classes.respRowBox, classNameProp])}
-        flexSpacing={flexSpacing}
-        {...rest}
-      >
-        {children}
-      </FlexBox>
-    )
-  }
+  const flexDirection = useMemo(() => {
+    switch (responsive) {
+      case false:
+        return 'row'
+      case true:
+      case 'xs':
+        return {xs: 'column', sm: 'row'}
+      case 'sm':
+        return {xs: 'column', md: 'row'}
+      case 'md':
+        return {xs: 'column', lg: 'row'}
+      case 'lg':
+        return {xs: 'column', xl: 'row'}
+      default:
+        return 'row'
+    }
+  }, [responsive])
 
   return (
     <FlexBox
-      flexDirection="row"
-      className={clsx([classes.rowBox, classNameProp])}
+      flexDirection={flexDirection}
+      className={clsx([
+        {
+          [classes.respRowBox]: responsive,
+          [classes.rowBox]: !responsive
+        },
+        classNameProp
+      ])}
       flexSpacing={flexSpacing}
       {...rest}
     >
