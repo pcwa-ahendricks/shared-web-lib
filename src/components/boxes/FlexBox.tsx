@@ -27,34 +27,28 @@ const useStyles = makeStyles((theme: Theme) =>
     respRowBox: ({flexSpacing, respBreakAt, respElseAt}: UseStylesProps) => ({
       [theme.breakpoints.down(respBreakAt)]: {
         ...(flexSpacing && {
-          marginTop: theme.spacing(flexSpacing) * -1
-        }),
-        '& > .childBox': {
-          ...(flexSpacing && {
+          marginTop: theme.spacing(flexSpacing) * -1,
+          '& > .childBox': {
             marginTop: theme.spacing(flexSpacing)
-          })
-        }
+          }
+        })
       },
       [theme.breakpoints.up(respElseAt)]: {
         ...(flexSpacing && {
-          marginLeft: theme.spacing(flexSpacing) * -1
-        }),
-        '& > .childBox': {
-          ...(flexSpacing && {
+          marginLeft: theme.spacing(flexSpacing) * -1,
+          '& > .childBox': {
             marginLeft: theme.spacing(flexSpacing)
-          })
-        }
+          }
+        })
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
       ...(flexSpacing && {
-        marginLeft: theme.spacing(flexSpacing) * -1
-      }),
-      '& > .childBox': {
-        ...(flexSpacing && {
+        marginLeft: theme.spacing(flexSpacing) * -1,
+        '& > .childBox': {
           marginLeft: theme.spacing(flexSpacing)
-        })
-      }
+        }
+      })
     })
   })
 )
@@ -63,13 +57,11 @@ const useColBoxStyles = makeStyles((theme: Theme) =>
   createStyles({
     colBox: ({flexSpacing}: ColBoxUseStylesProps) => ({
       ...(flexSpacing && {
-        marginTop: theme.spacing(flexSpacing) * -1
-      }),
-      '& > .childBox': {
-        ...(flexSpacing && {
+        marginTop: theme.spacing(flexSpacing) * -1,
+        '& > .childBox': {
           marginTop: theme.spacing(flexSpacing)
-        })
-      }
+        }
+      })
     })
   })
 )
