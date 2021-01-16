@@ -32,7 +32,7 @@ import {
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import isNumber from 'is-number'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -1032,6 +1032,32 @@ export default function SeasonRecapPage() {
               />
             </Box>
           </TabPanel>
+          <Spacing size="x-large" factor={2} />
+          <RowBox responsive flexSpacing={2} justifyContent="center">
+            <ChildBox flex="50%" alignSelf="center">
+              <Type align="center" variant="subtitle1">
+                Data provided by
+              </Type>
+            </ChildBox>
+            <ChildBox flex="50%">
+              <Box mx="auto" width="100%" maxWidth="80vw">
+                <a
+                  href="https://www.rcc-acis.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{outline: 'none'}}
+                >
+                  <Image
+                    src="https://imgix.cosmicjs.com/f8524320-582f-11eb-a689-4365686df91b-ACISlogo.png"
+                    width={912}
+                    height={117}
+                    layout="responsive"
+                    alt="Applied Climate Information System logo"
+                  />
+                </a>
+              </Box>
+            </ChildBox>
+          </RowBox>
         </WideContainer>
       </MainBox>
     </PageLayout>
