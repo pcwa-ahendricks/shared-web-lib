@@ -16,7 +16,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {ChildBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import SectionBox from '@components/boxes/SectionBox'
@@ -141,13 +141,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 </LinkItem>
               </ul>
             </ChildBox>
-            <ChildBox
-              flex="40%"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              textAlign="center"
-            >
+            <ColumnBox child flex="40%" alignItems="center" textAlign="center">
               <Box mx="auto" mb={1} width="100%">
                 <Image
                   layout="intrinsic"
@@ -164,7 +158,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 District 2; Joshua Alpine (Chair), District 5; and Mike Lee
                 (Vice Chair), District 3
               </Type>
-            </ChildBox>
+            </ColumnBox>
           </RowBox>
           <Spacing size="large" />
           <SectionBox>

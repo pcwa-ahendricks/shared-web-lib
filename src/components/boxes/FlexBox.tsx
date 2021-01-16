@@ -7,8 +7,13 @@ import {
   BreakpointValues
 } from '@material-ui/core/styles/createBreakpoints'
 
-type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
-type UseStylesProps = {
+type Props = {
+  flexSpacing?: number
+  children?: React.ReactNode
+  child?: boolean
+} & BoxProps
+
+type RowBoxUseStylesProps = {
   flexSpacing?: number
   respBreakAt: Breakpoint
   respElseAt: Breakpoint
@@ -22,9 +27,13 @@ type ColBoxUseStylesProps = {flexSpacing?: number}
    <RowBox flexDirection={{xs: 'column', sm: 'row'}} /> with custom top margins passed in as props while using the flexSpacing prop to control left margins.
 */
 
-const useStyles = makeStyles((theme: Theme) =>
+const useRowBoxStyles = makeStyles((theme: Theme) =>
   createStyles({
-    respRowBox: ({flexSpacing, respBreakAt, respElseAt}: UseStylesProps) => ({
+    respRowBox: ({
+      flexSpacing,
+      respBreakAt,
+      respElseAt
+    }: RowBoxUseStylesProps) => ({
       [theme.breakpoints.down(respBreakAt)]: {
         ...(flexSpacing && {
           marginTop: theme.spacing(flexSpacing) * -1,
@@ -42,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
         })
       }
     }),
-    rowBox: ({flexSpacing}: UseStylesProps) => ({
+    rowBox: ({flexSpacing}: RowBoxUseStylesProps) => ({
       ...(flexSpacing && {
         marginLeft: theme.spacing(flexSpacing) * -1,
         '& > .childBox': {
@@ -81,9 +90,18 @@ export type ChildBoxProps = {
   noshrink 	  flex: 1 0 auto
 */
 
-const FlexBox = ({children, ...rest}: Props) => {
+const FlexBox = ({
+  children,
+  child = false,
+  className: classNameProp,
+  ...rest
+}: Props) => {
   return (
-    <Box display="flex" {...rest}>
+    <Box
+      display="flex"
+      className={clsx([{['childBox']: child}, classNameProp])}
+      {...rest}
+    >
       {children}
     </Box>
   )
@@ -117,7 +135,7 @@ const RowBox = ({
     return breakpoints[idx + 1].key
   }, [breakpoints, respBreakAt])
 
-  const classes = useStyles({flexSpacing, respBreakAt, respElseAt})
+  const classes = useRowBoxStyles({flexSpacing, respBreakAt, respElseAt})
 
   const flexDirection = useMemo(() => {
     switch (responsive) {

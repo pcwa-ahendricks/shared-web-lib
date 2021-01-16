@@ -443,13 +443,9 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                 })
               ) : (
                 <RowBox fontStyle="italic" alignItems="center">
-                  <ChildBox
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                  >
+                  <ColumnBox child justifyContent="center">
                     <InboxRoundedIcon fontSize="large" color="disabled" />
-                  </ChildBox>
+                  </ColumnBox>
                   <ChildBox ml={4}>
                     <Type color="textSecondary">None at this time.</Type>
                   </ChildBox>

@@ -5,7 +5,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from '@components/NextLink/NextLink'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -123,7 +123,7 @@ const PayBillPage = () => {
                 </PayOptionBox>
               </ColumnBox>
             </ChildBox>
-            <ChildBox flex="40%" display="flex">
+            <FlexBox child flex="40%">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -135,7 +135,7 @@ const PayBillPage = () => {
                   }}
                 />
               </Box>
-            </ChildBox>
+            </FlexBox>
           </RowBox>
           <Box mt={4} boxShadow={1} bgcolor={theme.palette.common.white} p={2}>
             <Type variant="h5" gutterBottom>

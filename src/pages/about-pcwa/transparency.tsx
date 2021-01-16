@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {ChildBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -47,7 +47,7 @@ const TransparencyPage = () => {
                 .
               </Type>
             </ChildBox>
-            <ChildBox flex="40%" display="flex">
+            <FlexBox child flex="40%">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -60,7 +60,7 @@ const TransparencyPage = () => {
                   }}
                 />
               </Box>
-            </ChildBox>
+            </FlexBox>
           </RowBox>
           <Spacing size="large">
             <Divider />

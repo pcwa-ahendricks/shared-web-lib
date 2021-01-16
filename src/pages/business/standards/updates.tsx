@@ -14,7 +14,7 @@ import {
   Box,
   useTheme
 } from '@material-ui/core'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
@@ -186,14 +186,9 @@ const StandardDrawingsUpdatesPage = () => {
             <ChildBox flex="1 1 auto">
               <Divider />
             </ChildBox>
-            <ChildBox
-              flexGrow={0}
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-            >
+            <ColumnBox child flexGrow={0} alignItems="center">
               <AssignmentTurnedInIcon color="secondary" />
-            </ChildBox>
+            </ColumnBox>
             <ChildBox flexGrow={0}>
               <Type variant="h5">Standards</Type>
             </ChildBox>
