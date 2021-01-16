@@ -1,9 +1,13 @@
 // cspell:ignore accum
+import SquareIcon from 'mdi-material-ui/Square'
 import alpha from 'color-alpha'
 import {orange, teal, brown, blue} from '@material-ui/core/colors'
 import {ResponsiveBar} from '@nivo/bar'
 import {BoxLegendSvg} from '@nivo/legends'
 import React, {useCallback, useMemo} from 'react'
+import {Box, useTheme, Typography as Type} from '@material-ui/core'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import round from '@lib/round'
 
 type Props = {
   precipMoSmryData: Record<string, unknown>[]
@@ -14,6 +18,7 @@ export default function PrecipMonthGroupBar({
   precipMoSmryData,
   showHistPrecip
 }: Props) {
+  const theme = useTheme()
   const precipMoSmryChartColors = useMemo(
     () => [
       blue[600],
@@ -190,6 +195,50 @@ export default function PrecipMonthGroupBar({
           ]
         }
       ]}
+      tooltip={({value, data, color, id, indexValue}) => {
+        const highYear = (data?.highDate ?? '').toString().substr(0, 4)
+        const lowYear = (data?.lowDate ?? '').toString().substr(0, 4)
+
+        const getLabel = () => {
+          switch (id) {
+            case 'actualPrecip':
+              return 'Actual'
+            case 'meanPrecip':
+              return 'Average'
+            case 'lowPrecip':
+              return `Low (${lowYear})`
+            case 'highPrecip':
+              return `High (${highYear})`
+            default:
+              return ''
+          }
+        }
+        const label = getLabel().concat(` - ${indexValue}`)
+        if (value === undefined || isNaN(value)) return null
+        return (
+          <Box
+            bgcolor={theme.palette.common.white}
+            // px={1}
+            // py={0.5}
+            // boxShadow={4}
+            // borderRadius={3}
+          >
+            <RowBox alignItems="center">
+              <ColumnBox justifyContent="center" pr={0.5}>
+                <SquareIcon fontSize="small" style={{color}} />
+              </ColumnBox>
+              <ChildBox style={{marginTop: 2, paddingRight: 6}}>
+                <Type variant="caption">{label}:</Type>
+              </ChildBox>
+              <ChildBox style={{marginTop: 2}}>
+                <Type variant="caption">
+                  <strong>{`${round(value, 1)}"`}</strong>
+                </Type>
+              </ChildBox>
+            </RowBox>
+          </Box>
+        )
+      }}
     />
   )
 }

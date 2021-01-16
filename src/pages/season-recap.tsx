@@ -317,13 +317,17 @@ export default function SeasonRecapPage() {
       data?.[1].map((m, idx) => {
         const mean = parseFloat(smryData[idx][0])
         const high = parseFloat(smryData[idx][1][0])
+        const highDate = smryData[idx][1][1]
         const low = parseFloat(smryData[idx][2][0])
+        const lowDate = smryData[idx][2][1]
         return {
           month: getWtrYrMonth(idx),
           actualPrecip: isNumber(parseFloat(m)) ? parseFloat(m) : 0,
           meanPrecip: isNumber(mean) ? mean : 0,
           highPrecip: isNumber(high) ? high : 0,
+          highDate,
           lowPrecip: isNumber(low) ? low : 0,
+          lowDate,
           label: `${waterYear - 1}-${waterYear}`
         }
       }) ?? []
@@ -883,17 +887,33 @@ export default function SeasonRecapPage() {
               Monthly Summarized Precipitation
             </Type>
 
-            <Grow in={Boolean(precipResponse)}>
+            <Grow in={Boolean(precipMoSmryResponse)}>
               <Type
                 variant="caption"
                 align="center"
                 color="textSecondary"
                 component="header"
               >
-                {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
+                {precipMoSmryResponse?.meta.name},{' '}
+                {`${waterYear - 1}-${waterYear} `}
+                <Type variant="inherit" color="inherit">
+                  <em>
+                    (using{' '}
+                    {precipMoSmryResponse?.meta.valid_daterange[0][0].substr(
+                      0,
+                      4
+                    )}
+                    -
+                    {precipMoSmryResponse?.meta.valid_daterange[0][1].substr(
+                      0,
+                      4
+                    )}{' '}
+                    for historical data)
+                  </em>
+                </Type>
               </Type>
             </Grow>
-            <RowBox justifyContent="flex-end">
+            <RowBox justifyContent="flex-end" mt={3}>
               <ChildBox>
                 <FormControl component="fieldset" size="small">
                   <FormLabel component="legend">Chart Options</FormLabel>
@@ -1118,6 +1138,7 @@ interface PrecipMoSmryMeta {
   state: string
   sids: string[]
   name: string
+  valid_daterange: string[][]
 }
 
 interface CountyMetaResponse {

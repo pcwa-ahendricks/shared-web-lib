@@ -71,11 +71,11 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       sid,
       sDate: 'por',
       eDate,
-      meta: ['name', 'state', 'sids']
+      meta: ['name', 'state', 'sids', 'valid_daterange']
     }
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
-    const hash = `acis-precip-mnthly-smry-por_${eDate}-${sid}`
+    const hash = `acis-precip-mnthly-smry_${eDate}-${sid}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       dLog('returning cache copy...')
