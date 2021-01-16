@@ -32,7 +32,7 @@ import {
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import isNumber from 'is-number'
-import FlexBox, {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -146,6 +146,7 @@ export default function SeasonRecapPage() {
 
   const {data: countyResponse} = useSWR<CountyMetaResponse>('/api/acis/county')
   const [waterYear, setWaterYear] = useState(getYear(new Date()))
+  const [regionalWaterYear] = useState(getYear(new Date()))
   const [sid, setSid] = useState<StationId>('040897 2')
 
   const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
@@ -169,7 +170,7 @@ export default function SeasonRecapPage() {
     precipImgSrc[regionalTimeFrame]
   )
 
-  const multiStnQs = stringify({waterYear}, true)
+  const multiStnQs = stringify({waterYear: regionalWaterYear}, true)
   const [
     multiStnPrcpSmryUrlBase,
     setMultiStnPrcpSmryUrlBase
