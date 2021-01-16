@@ -1,11 +1,16 @@
 import React, {useMemo} from 'react'
-import {Box, Theme, createStyles, makeStyles} from '@material-ui/core'
+import {Box, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'
 import {Breakpoint} from '@material-ui/core/styles/createBreakpoints'
 
 type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
-type UseStylesProps = {flexSpacing?: number}
+type UseStylesProps = {
+  flexSpacing?: number
+  respBreakAt: Breakpoint
+  respElseAt: Breakpoint
+}
+type ColBoxUseStylesProps = {flexSpacing?: number}
 
 /*
   Note, using a dynamic className such as useFlexSpacing did not work when applying specificity with a selector such as '&$useFlexSpacing'. Note sure why, but the workaround is to simply apply the className as a string.
@@ -16,37 +21,58 @@ type UseStylesProps = {flexSpacing?: number}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    respRowBox: ({flexSpacing}: UseStylesProps) => ({
-      [theme.breakpoints.only('xs')]: {
+    respRowBox: ({flexSpacing, respBreakAt, respElseAt}: UseStylesProps) => ({
+      [theme.breakpoints.down(respBreakAt)]: {
         '&.useFlexSpacing': {
-          marginTop: theme.spacing(flexSpacing ?? 0) * -1,
+          ...(flexSpacing && {
+            marginTop: theme.spacing(flexSpacing) * -1
+          }),
           '& > .childBox': {
-            marginTop: theme.spacing(flexSpacing ?? 0)
+            ...(flexSpacing && {
+              marginTop: theme.spacing(flexSpacing)
+            })
           }
         }
       },
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up(respElseAt)]: {
         '&.useFlexSpacing': {
-          marginLeft: theme.spacing(flexSpacing ?? 0) * -1,
+          ...(flexSpacing && {
+            marginLeft: theme.spacing(flexSpacing) * -1
+          }),
           '& > .childBox': {
-            marginLeft: theme.spacing(flexSpacing ?? 0)
+            ...(flexSpacing && {
+              marginLeft: theme.spacing(flexSpacing)
+            })
           }
         }
       }
     }),
     rowBox: ({flexSpacing}: UseStylesProps) => ({
       '&.useFlexSpacing': {
-        marginLeft: theme.spacing(flexSpacing ?? 0) * -1,
+        ...(flexSpacing && {
+          marginLeft: theme.spacing(flexSpacing) * -1
+        }),
         '& > .childBox': {
-          marginLeft: theme.spacing(flexSpacing ?? 0)
+          ...(flexSpacing && {
+            marginLeft: theme.spacing(flexSpacing)
+          })
         }
       }
-    }),
-    colBox: ({flexSpacing}: UseStylesProps) => ({
+    })
+  })
+)
+
+const useColBoxStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    colBox: ({flexSpacing}: ColBoxUseStylesProps) => ({
       '&.useFlexSpacing': {
-        marginTop: theme.spacing(flexSpacing ?? 0) * -1,
+        ...(flexSpacing && {
+          marginTop: theme.spacing(flexSpacing) * -1
+        }),
         '& > .childBox': {
-          marginTop: theme.spacing(flexSpacing ?? 0)
+          ...(flexSpacing && {
+            marginTop: theme.spacing(flexSpacing)
+          })
         }
       }
     })
@@ -97,7 +123,27 @@ const RowBox = ({
   responsive = false,
   ...rest
 }: Props & {responsive?: boolean | Breakpoint}) => {
-  const classes = useStyles({flexSpacing})
+  const respBreakAt = useMemo(
+    () => (!responsive || responsive === true ? 'xs' : responsive),
+    [responsive]
+  )
+  const theme = useTheme()
+  const breakpoints = useMemo(() => {
+    // [TODO] - Remove any type cast
+    const bv: any = theme.breakpoints.values
+    return Object.keys(bv)
+      .map((k) => ({
+        key: k as Breakpoint,
+        value: bv[k]
+      }))
+      .sort((a, b) => a.value - b.value)
+  }, [theme])
+  const respElseAt = useMemo(() => {
+    const idx = breakpoints.findIndex((a) => a.key === respBreakAt)
+    return breakpoints[idx + 1].key
+  }, [breakpoints, respBreakAt])
+
+  const classes = useStyles({flexSpacing, respBreakAt, respElseAt})
 
   const flexDirection = useMemo(() => {
     switch (responsive) {
@@ -141,7 +187,7 @@ const ColumnBox = ({
   className: classNameProp,
   ...rest
 }: Props) => {
-  const classes = useStyles({flexSpacing})
+  const classes = useColBoxStyles({flexSpacing})
   return (
     <FlexBox
       flexDirection="column"
