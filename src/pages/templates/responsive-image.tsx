@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import FlexBox, {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {Typography as Type, Box} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
@@ -17,7 +17,7 @@ export default function ResponsiveImageTemplatePage() {
             <ChildBox flex="60%">
               <Type paragraph>...</Type>
             </ChildBox>
-            <ChildBox flex="40%" display="flex">
+            <FlexBox child flex="40%">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -29,7 +29,7 @@ export default function ResponsiveImageTemplatePage() {
                   }}
                 />
               </Box>
-            </ChildBox>
+            </FlexBox>
           </RowBox>
         </NarrowContainer>
       </MainBox>

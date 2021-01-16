@@ -6,6 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear'
 import {FieldArrayRenderProps, FormikProps} from 'formik'
 import FormTextField from '@components/formFields/FormTextField'
 import {ToiletRebateFormData as RebateFormData} from '@lib/services/formService'
+import FlexBox from '@components/boxes/FlexBox'
 
 type Props = {
   disabled?: boolean
@@ -45,7 +46,7 @@ const ToiletMfgModelsField = ({disabled = false, ...arrayHelpers}: Props) => {
                 <Grid item xs={12} sm={2}>
                   {items.length - index === 1 &&
                   (item.model || item.manufacturer || index === 0) ? (
-                    <Box display="flex" height="100%" alignItems="center">
+                    <FlexBox height="100%" alignItems="center">
                       <Box flex="0 0 auto">
                         <Tooltip
                           title="Add additional toilet/urinal"
@@ -66,7 +67,7 @@ const ToiletMfgModelsField = ({disabled = false, ...arrayHelpers}: Props) => {
                           </Fab>
                         </Tooltip>
                       </Box>
-                    </Box>
+                    </FlexBox>
                   ) : null}
                   {items.length - index !== 1 ||
                   (!item.model && !item.manufacturer && index !== 0) ? (

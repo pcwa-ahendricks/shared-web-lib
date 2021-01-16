@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import FlexBox, {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,
@@ -62,7 +62,7 @@ const EnvironmentalPlanningPage = () => {
             subtitle="General"
           />
           <RowBox responsive flexSpacing={6}>
-            <ChildBox flex="35%" display="flex">
+            <FlexBox child flex="35%">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -74,7 +74,7 @@ const EnvironmentalPlanningPage = () => {
                   }}
                 />
               </Box>
-            </ChildBox>
+            </FlexBox>
             <ChildBox flex="65%">
               <Type variant="h3" gutterBottom>
                 Planning and Studies

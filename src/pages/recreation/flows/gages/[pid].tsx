@@ -30,6 +30,7 @@ import {
 } from '@lib/services/pi/pi-web-api-types'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
+import {RowBox} from '@components/boxes/FlexBox'
 // import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
 // import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
@@ -204,10 +205,7 @@ const DynamicPiPage = ({
       {/* Don't use top margin with this page. */}
       <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}
-        <Box
-          display="flex"
-          flexDirection={{xs: 'column', sm: 'column', md: 'row'}}
-        >
+        <RowBox responsive="sm">
           {/* Using js implementation here will cause Highcharts to load charts with wrong width. CSS implementation is faster anyways. */}
           <Hidden smDown implementation="css">
             <Box width={300} flexShrink={0} flexGrow={0}>
@@ -270,7 +268,7 @@ const DynamicPiPage = ({
                 ))}
             </SectionBox>
           </Box>
-        </Box>
+        </RowBox>
       </MainBox>
     </PageLayout>
   )

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import AltIcon from '@material-ui/icons/Language'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
@@ -106,9 +106,8 @@ const OpenInNewLink = ({
             flexDirection={startAdornment ? 'row-reverse' : 'row'}
           >
             <ChildBox>{children}</ChildBox>
-            <ChildBox
-              display="flex"
-              flexDirection="column"
+            <ColumnBox
+              child
               component="span"
               justifyContent={centerIcon ? 'center' : 'flex-start'}
             >
@@ -118,7 +117,7 @@ const OpenInNewLink = ({
               >
                 {linkIconEl}
               </Fade>
-            </ChildBox>
+            </ColumnBox>
           </RowBox>
         </FlexLink>
       </RowBox>

@@ -79,17 +79,17 @@ const ProjectsPage = () => {
 
   const ColumnOne = useCallback(({children, ...props}) => {
     return (
-      <ChildBox flex="1 1 50%" display="flex" flexDirection="column" {...props}>
+      <ColumnBox child flex="1 1 50%" {...props}>
         {children}
-      </ChildBox>
+      </ColumnBox>
     )
   }, [])
 
   const ColumnTwo = useCallback(({children, ...props}) => {
     return (
-      <ChildBox flex="1 1 50%" display="flex" flexDirection="column" {...props}>
+      <ColumnBox child flex="1 1 50%" {...props}>
         {children}
-      </ChildBox>
+      </ColumnBox>
     )
   }, [])
 
@@ -98,11 +98,7 @@ const ProjectsPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Construction Projects" subtitle="General" />
-          <RowBox
-            responsive
-            flexDirection={{xs: 'column', md: 'row'}}
-            flexSpacing={4}
-          >
+          <RowBox responsive="sm" flexSpacing={4}>
             <ColumnOne>
               <ProjectChild>
                 <ConstructionProject>

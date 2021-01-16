@@ -19,6 +19,7 @@ import {UploadStatus} from '@lib/services/uploadService'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
 import useSupportsTouch from '@hooks/useSupportsTouch'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   file: DroppedFile
@@ -146,9 +147,7 @@ const ThumbPreview = ({
   )
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
+    <ColumnBox
       // Placing onMouseLeave here will prevent <RemoveUploadButton/> from disappearing before it can be selected.
       onMouseLeave={() => setThumbHover(null)}
     >
@@ -201,7 +200,7 @@ const ThumbPreview = ({
       </Box>
 
       <RemoveUploadButton />
-    </Box>
+    </ColumnBox>
   )
 }
 

@@ -124,12 +124,7 @@ const SmartWaterUsePage = () => {
               </Type>
             </ChildBox>
             <ChildBox flex="33.3%">
-              <ColumnBox
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                flexSpacing={4}
-              >
+              <ColumnBox alignItems="center" flexSpacing={4}>
                 <ChildBox width={{xs: '70%', sm: '100%'}}>
                   <LazyImgix
                     src="https://imgix.cosmicjs.com/b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"

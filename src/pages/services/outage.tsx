@@ -167,7 +167,7 @@ const OutageInformationPage = ({initialData}: Props) => {
           <PageTitle title="Outage Information" subtitle="Services" />
 
           <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="65%" display="flex" flexDirection="column">
+            <ColumnBox child flex="65%">
               <Box mt={0}>
                 <Type paragraph>
                   From time-to-time, water outages will occur. A water outage
@@ -235,7 +235,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                   Customer Services Department at <MainPhone />.
                 </Type>
               </Box>
-            </ChildBox>
+            </ColumnBox>
             <ChildBox flex="35%">
               <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}

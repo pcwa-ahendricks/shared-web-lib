@@ -121,10 +121,10 @@ const WaterRatesPage = () => {
   const TableLayoutRow = ({children, ...rest}: BoxProps) => {
     return (
       <RowBox
+        responsive
         flexSpacing={flexLeftMargin}
         flexWrap="wrap"
         mt={-flexTopMargin}
-        flexDirection={{xs: 'column', sm: 'row'}}
         {...rest}
       >
         {children}
