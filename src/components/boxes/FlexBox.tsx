@@ -2,7 +2,10 @@ import React, {useMemo} from 'react'
 import {Box, Theme, createStyles, makeStyles, useTheme} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
 import clsx from 'clsx'
-import {Breakpoint} from '@material-ui/core/styles/createBreakpoints'
+import {
+  Breakpoint,
+  BreakpointValues
+} from '@material-ui/core/styles/createBreakpoints'
 
 type Props = {flexSpacing?: number; children?: React.ReactNode} & BoxProps
 type UseStylesProps = {
@@ -128,16 +131,17 @@ const RowBox = ({
     [responsive]
   )
   const theme = useTheme()
-  const breakpoints = useMemo(() => {
-    // [TODO] - Remove any type cast
-    const bv: any = theme.breakpoints.values
-    return Object.keys(bv)
-      .map((k) => ({
-        key: k as Breakpoint,
-        value: bv[k]
-      }))
-      .sort((a, b) => a.value - b.value)
-  }, [theme])
+  const breakpoints = useMemo(
+    () =>
+      // For typescript reference see https://fettblog.eu/typescript-better-object-keys
+      Object.keys(theme.breakpoints.values)
+        .map((k) => ({
+          key: k as keyof BreakpointValues,
+          value: theme.breakpoints.values[k as keyof BreakpointValues]
+        }))
+        .sort((a, b) => a.value - b.value),
+    [theme]
+  )
   const respElseAt = useMemo(() => {
     const idx = breakpoints.findIndex((a) => a.key === respBreakAt)
     return breakpoints[idx + 1].key
