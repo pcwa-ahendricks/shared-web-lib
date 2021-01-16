@@ -165,7 +165,6 @@ const RowBox = ({
         },
         classNameProp
       ])}
-      flexSpacing={flexSpacing}
       {...rest}
     >
       {children}
@@ -184,7 +183,6 @@ const ColumnBox = ({
     <FlexBox
       flexDirection="column"
       className={clsx([classes.colBox, classNameProp])}
-      flexSpacing={flexSpacing}
       {...rest}
     >
       {children}
