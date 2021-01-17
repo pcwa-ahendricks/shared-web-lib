@@ -25,6 +25,7 @@ import CrossHairIcon from '@material-ui/icons/CloseRounded'
 import Head from 'next/head'
 import {StationMeta} from '@pages/season-recap'
 import {orange} from '@material-ui/core/colors'
+import delay from 'then-sleep'
 const API_KEY = process.env.NEXT_PUBLIC_STATION_MAP_MAPBOX_API_KEY ?? ''
 
 type Props = {
@@ -148,13 +149,17 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
   const mapRef = useRef<MapGL>(null)
 
   useEffect(() => {
-    const bounds = mapRef.current?.getMap().getBounds()
-    if (bounds) {
-      const w = bounds.getWest()
-      const e = bounds.getEast()
-      setMapWest(w)
-      setMapEast(e)
+    const fn = async () => {
+      await delay(1000)
+      const bounds = mapRef.current?.getMap().getBounds()
+      if (bounds) {
+        const w = bounds.getWest()
+        const e = bounds.getEast()
+        setMapWest(w)
+        setMapEast(e)
+      }
     }
+    fn()
   }, [mapRef])
 
   return (
