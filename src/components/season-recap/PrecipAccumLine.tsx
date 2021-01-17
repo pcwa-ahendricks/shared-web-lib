@@ -211,7 +211,7 @@ export default function PrecipAccumLine({
               <ColumnBox justifyContent="center" pr={0.5}>
                 <SquareIcon fontSize="small" style={{color}} />
               </ColumnBox>
-              <ChildBox style={{marginTop: 2, paddingRight: 6}}>
+              <ChildBox style={{paddingRight: 6}}>
                 <Type variant="caption">
                   {label}{' '}
                   <Type variant="inherit">
@@ -220,7 +220,7 @@ export default function PrecipAccumLine({
                   :
                 </Type>
               </ChildBox>
-              <ChildBox style={{marginTop: 2}}>
+              <ChildBox>
                 <Type variant="caption">
                   <strong>{yFormatted}"</strong>
                 </Type>

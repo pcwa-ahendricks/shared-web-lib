@@ -1,5 +1,11 @@
-// cspell:ignore accum
-import {brown, green, red, blue} from '@material-ui/core/colors'
+// cspell:ignore accum rnge nrml
+import {
+  brown,
+  green,
+  red,
+  blue,
+  blueGrey as grey
+} from '@material-ui/core/colors'
 import {
   Serie,
   CustomLayer,
@@ -11,6 +17,12 @@ import React, {useCallback, useMemo} from 'react'
 import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
+import ShowChartIcon from '@material-ui/icons/ShowChart'
+import DragHandleIcon from '@material-ui/icons/DragHandle'
+import BarChartIcon from '@material-ui/icons/BarChart'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {LegendProps} from '@nivo/legends'
+import isNumber from 'is-number'
 
 type Props = {
   tempDataset: Serie[]
@@ -148,11 +160,37 @@ export default function TempRangeLine({tempDataset}: Props) {
     },
     [styleById]
   )
+
+  const colors = [blue[700], green[100], red[100], brown[100], brown[100]]
+
+  const legendConfig: LegendProps['data'] = [
+    {
+      id: 'Observed Range"',
+      color: colors[0],
+      label: 'Observed Range'
+    },
+    {
+      id: 'Normal High/Low Range',
+      color: colors[4],
+      label: 'Average Range'
+    },
+    {
+      id: 'Historical High',
+      color: colors[2],
+      label: 'Historical High'
+    },
+    {
+      id: 'Historical Low',
+      color: colors[1],
+      label: 'Historical Low'
+    }
+  ]
+
   return (
     <ResponsiveLine
       data={tempDataset}
       // colors={{scheme: 'red_yellow_green'}}
-      colors={[blue[700], green[100], red[100], brown[100], brown[100]]}
+      colors={colors}
       margin={{top: 50, right: 50, bottom: 60, left: 50}}
       xScale={{
         type: 'time',
@@ -212,6 +250,7 @@ export default function TempRangeLine({tempDataset}: Props) {
       ]}
       legends={[
         {
+          data: legendConfig,
           anchor: 'bottom',
           direction: 'row',
           justify: false,
@@ -238,62 +277,163 @@ export default function TempRangeLine({tempDataset}: Props) {
       ]}
       enableSlices="x"
       sliceTooltip={({slice}) => {
+        const {points} = slice
+
+        const obsRngePts = points
+          .filter((p) => /observed range/i.test(p.serieId.toString()))
+          .sort((a, b) => {
+            const left =
+              typeof a.data.y === 'number'
+                ? a.data.y
+                : parseFloat(a.data.y.toString())
+            const right =
+              typeof b.data.y === 'number'
+                ? b.data.y
+                : parseFloat(b.data.y.toString())
+            return left - right
+          })
+
+        const noData =
+          !isNumber(obsRngePts[0]?.data.y) || !isNumber(obsRngePts[1]?.data.y)
+
+        const ObsRangeLabel = () => (
+          <RowBox alignItems="center">
+            <ColumnBox justifyContent="center" pr={0.5}>
+              <BarChartIcon
+                fontSize="small"
+                style={{color: noData ? grey[200] : obsRngePts[0]?.serieColor}}
+              />
+            </ColumnBox>
+            <ChildBox style={{paddingRight: 6}}>
+              <Type variant="caption">Observed Range:</Type>
+            </ChildBox>
+            <ChildBox>
+              <Type variant="caption">
+                <strong>
+                  {!noData ? (
+                    <>
+                      {`${obsRngePts[0]?.data.yFormatted}`}&deg; -{' '}
+                      {`${obsRngePts[1]?.data.yFormatted}`}&deg;
+                    </>
+                  ) : (
+                    <Type variant="inherit" color="error">
+                      <em>No Data</em>
+                    </Type>
+                  )}
+                </strong>
+              </Type>
+            </ChildBox>
+          </RowBox>
+        )
+        const nrmlRngePts = points
+          .filter((p) => /normal.*range/i.test(p.serieId.toString()))
+          .sort((a, b) => {
+            const left =
+              typeof a.data.y === 'number'
+                ? a.data.y
+                : parseFloat(a.data.y.toString())
+            const right =
+              typeof b.data.y === 'number'
+                ? b.data.y
+                : parseFloat(b.data.y.toString())
+            return left - right
+          })
+
+        const noNrmlData =
+          !isNumber(nrmlRngePts[0]?.data.y) || !isNumber(nrmlRngePts[1]?.data.y)
+
+        const NrmlRangeLabel = () => (
+          <RowBox alignItems="center">
+            <ColumnBox justifyContent="center" pr={0.5}>
+              <DragHandleIcon
+                fontSize="small"
+                style={{color: nrmlRngePts[0]?.serieColor}}
+              />
+            </ColumnBox>
+
+            <ChildBox style={{paddingRight: 6}}>
+              <Type variant="caption">Average Range:</Type>
+            </ChildBox>
+            <ChildBox>
+              <Type variant="caption">
+                <strong>
+                  {!noNrmlData ? (
+                    <>
+                      {`${nrmlRngePts[0]?.data.yFormatted}`}&deg; -{' '}
+                      {`${nrmlRngePts[1]?.data.yFormatted}`}&deg;
+                    </>
+                  ) : (
+                    <Type variant="inherit" color="error">
+                      <em>No Data</em>
+                    </Type>
+                  )}
+                </strong>
+              </Type>
+            </ChildBox>
+          </RowBox>
+        )
+
+        const highLowLabels = points
+          .filter((p) => !/observed range/i.test(p.serieId.toString()))
+          .filter((p) => !/normal.*range/i.test(p.serieId.toString()))
+          .map((point) => {
+            const {serieId, id, serieColor} = point
+            const data: PointDataMeta = point.data
+            const historicalHighYear = data.historicalYear?.substring(0, 4)
+            const historicalLowYear = data.historicalYear?.substring(0, 4)
+            const isHistorical = /historical/i.test(serieId.toString())
+            const isHistoricalLow = /historical low/i.test(serieId.toString())
+            const isHistoricalHigh = /historical high/i.test(serieId.toString())
+            const historicalYear = isHistoricalHigh
+              ? historicalHighYear
+              : isHistoricalLow
+              ? historicalLowYear
+              : ''
+            // if (isHistoricalHigh) {
+            //   console.log('slice', slice)
+            //   console.log('point', point)
+            //   console.log('idx', idx)
+            // }
+            return (
+              <RowBox alignItems="center" key={id}>
+                <ColumnBox justifyContent="center" pr={0.5}>
+                  <ShowChartIcon fontSize="small" style={{color: serieColor}} />
+                </ColumnBox>
+                <ChildBox style={{paddingRight: 6}}>
+                  <Type variant="caption">{serieId}:</Type>
+                </ChildBox>
+                <ChildBox>
+                  <Type variant="caption">
+                    <strong>
+                      {data.yFormatted}
+                      &deg;
+                    </strong>
+                    {isHistorical ? (
+                      <Type color="textSecondary" variant="inherit">
+                        <em> ({historicalYear})</em>
+                      </Type>
+                    ) : null}
+                  </Type>
+                </ChildBox>
+              </RowBox>
+            )
+          })
+        const HighLabel = () => highLowLabels[0] ?? null
+        const LowLabel = () => highLowLabels[1] ?? null
         return (
           <Box
             bgcolor={theme.palette.common.white}
-            p={[1, 1.5]}
-            style={{
-              border: '1px solid #ccc'
-            }}
+            px={1}
+            py={0.5}
+            boxShadow={4}
+            borderRadius={3}
           >
             {/* <div>x: {slice.id}</div> */}
-            {slice.points.map((point, idx) => {
-              const data: PointDataMeta = point.data
-              const historicalHighYear = data.historicalYear?.substring(0, 4)
-              const historicalLowYear = data.historicalYear?.substring(0, 4)
-              const isHistorical = /historical/i.test(point.serieId.toString())
-              const isHistoricalLow = /historical low/i.test(
-                point.serieId.toString()
-              )
-              const isHistoricalHigh = /historical high/i.test(
-                point.serieId.toString()
-              )
-              const historicalYear = isHistoricalHigh
-                ? historicalHighYear
-                : isHistoricalLow
-                ? historicalLowYear
-                : ''
-              // if (isHistoricalHigh) {
-              //   console.log('slice', slice)
-              //   console.log('point', point)
-              //   console.log('idx', idx)
-              // }
-              return (
-                <Box key={point.id}>
-                  {idx === 0 ? (
-                    <Type variant="caption">
-                      <strong>{point.data.xFormatted}</strong>
-                    </Type>
-                  ) : null}
-                  <Box
-                    px={1}
-                    style={{
-                      color: point.serieColor
-                    }}
-                  >
-                    <Type variant="caption">
-                      <strong>{point.serieId}</strong> {point.data.yFormatted}
-                      &deg;
-                      {isHistorical ? (
-                        <Type color="textSecondary" variant="inherit">
-                          <em> ({historicalYear})</em>
-                        </Type>
-                      ) : null}
-                    </Type>
-                  </Box>
-                </Box>
-              )
-            })}
+            <Type variant="caption">{points[0].data.xFormatted}</Type>
+            <ObsRangeLabel />
+            <NrmlRangeLabel />
+            <HighLabel />
+            <LowLabel />
           </Box>
         )
       }}
