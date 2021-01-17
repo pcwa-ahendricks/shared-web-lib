@@ -66,7 +66,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       ],
       county: ['06057', '06061', '06017'],
       date: eDate,
-      meta: ['name', 'state', 'll', 'sids', 'elev', 'county']
+      meta: ['name', 'state', 'll', 'sids', 'elev', 'county', 'valid_daterange']
     }
 
     const apiUrl = 'https://data.rcc-acis.org/MultiStnData'

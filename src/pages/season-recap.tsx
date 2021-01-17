@@ -27,7 +27,8 @@ import {
   createStyles,
   Divider,
   Hidden,
-  Grow
+  Grow,
+  Link
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
@@ -49,6 +50,7 @@ import StnMap from '@components/season-recap/StnMap'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
+import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -56,13 +58,16 @@ interface TabPanelProps {
   value: any
 }
 
-type RegionalTimeFrame = 'waterYear' | 'last30Days'
+type RegionalTimeFrame = 'waterYear' | 'last30Days' | 'last7Days'
+
 type MultiStnPrcpSmryUrlBase =
   | '/api/acis/multi-stn-precip-seas-smry'
   | '/api/acis/multi-stn-precip-last30-smry'
+  | '/api/acis/multi-stn-precip-last7-smry'
 type MultiStnSnowSmryUrlBase =
   | '/api/acis/multi-stn-snow-seas-smry'
   | '/api/acis/multi-stn-snow-last30-smry'
+  | '/api/acis/multi-stn-snow-last7-smry'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 
@@ -91,30 +96,35 @@ const prcNrmlPrcpImgSrc = {
   waterYear:
     'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPNormCA.png',
   last30Days:
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPNormCA.png'
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPNormCA.png',
+  last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPNormCA.png'
 } as const
 
 const dprtNrmlPrecipImgSrc = {
   waterYear:
     'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDeptCA.png',
   last30Days:
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDeptCA.png'
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDeptCA.png',
+  last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPDeptCA.png'
 } as const
 
 const precipImgSrc = {
   waterYear:
     'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDataCA.png',
   last30Days:
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDataCA.png'
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDataCA.png',
+  last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPDataCA.png'
 } as const
 
 const multiStnPrcpSmryUrls = {
   waterYear: '/api/acis/multi-stn-precip-seas-smry',
-  last30Days: '/api/acis/multi-stn-precip-last30-smry'
+  last30Days: '/api/acis/multi-stn-precip-last30-smry',
+  last7Days: '/api/acis/multi-stn-precip-last7-smry'
 } as const
 const multiStnSnowSmryUrls = {
   waterYear: '/api/acis/multi-stn-snow-seas-smry',
-  last30Days: '/api/acis/multi-stn-snow-last30-smry'
+  last30Days: '/api/acis/multi-stn-snow-last30-smry',
+  last7Days: '/api/acis/multi-stn-snow-last7-smry'
 } as const
 
 const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
@@ -128,6 +138,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         cursor: 'pointer'
       }
+    },
+    regionalPercent: {
+      fontSize: 36
     }
   })
 )
@@ -197,8 +210,14 @@ export default function SeasonRecapPage() {
     }))
     return mapped ?? []
   }, [multiStnPrecipSmryRes, countyResponse])
-  console.log('multiStnPrecipSmryRes', multiStnPrecipSmryRes)
-  console.log('multiStnPrecipSmryData', multiStnPrecipSmryData)
+  console.log(multiStnPrecipSmryData)
+
+  const multiStnPrecipSmryStns = multiStnPrecipSmryData
+    .map((d) => d.meta.name)
+    .filter((value, index, self) => self.indexOf(value) === index)
+  const multiStnPrecipSmryCounties = multiStnPrecipSmryData
+    .map((d) => d.meta.county)
+    .filter((value, index, self) => self.indexOf(value) === index)
 
   const multiStnPrecipSmryPerc = useMemo(
     () => multiStnPrecipSmryData.map((d) => d.data[3]),
@@ -212,7 +231,6 @@ export default function SeasonRecapPage() {
       }, 0) / multiStnPrecipSmryPerc.length,
     [multiStnPrecipSmryPerc]
   )
-  console.log('precip average: ', precipPerc)
 
   const [
     multiStnSnowSmryUrlBase,
@@ -240,7 +258,13 @@ export default function SeasonRecapPage() {
     }))
     return mapped ?? []
   }, [multiStnSnowSmryRes, countyResponse])
-  console.log('multiStnSnowSmryData', multiStnSnowSmryData)
+
+  const multiStnSnowSmryStns = multiStnSnowSmryData
+    .map((d) => d.meta.name)
+    .filter((value, index, self) => self.indexOf(value) === index)
+  const multiStnSnowSmryCounties = multiStnSnowSmryData
+    .map((d) => d.meta.county)
+    .filter((value, index, self) => self.indexOf(value) === index)
 
   const multiStnSnowSmryPerc = useMemo(
     () => multiStnSnowSmryData.map((d) => d.data[3]),
@@ -254,7 +278,6 @@ export default function SeasonRecapPage() {
       }, 0) / multiStnSnowSmryPerc.length,
     [multiStnSnowSmryPerc]
   )
-  console.log('snow average: ', snowPerc)
 
   const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
     stationIdUrls,
@@ -698,6 +721,9 @@ export default function SeasonRecapPage() {
               onChange={rgnlTmFrmHandler}
               aria-label="regional time frame"
             >
+              <ToggleButton value="last7Days" aria-label="last 7 days">
+                Last 7 days
+              </ToggleButton>
               <ToggleButton value="last30Days" aria-label="last 30 days">
                 Last 30 days
               </ToggleButton>
@@ -706,10 +732,75 @@ export default function SeasonRecapPage() {
               </ToggleButton>
             </ToggleButtonGroup>
           </Box>
-          <Spacing />
+          <Spacing size="large" />
+          {/* <Type align="center" variant="body1">
+            <em>The greater region has received</em>
+          </Type> */}
+          <Paper square={false} elevation={0}>
+            <RowBox p={1}>
+              <ChildBox flex="auto">
+                <Type variant="body1" align="center" style={{fontSize: 20}}>
+                  <em>
+                    In the{' '}
+                    <StrongEmphasis variant="inherit" color="primary">
+                      {regionalTimeFrame === 'waterYear'
+                        ? 'current water year'
+                        : regionalTimeFrame === 'last30Days'
+                        ? 'last 30 days'
+                        : regionalTimeFrame === 'last7Days'
+                        ? 'last 7 days'
+                        : ''}
+                    </StrongEmphasis>{' '}
+                    the greater region has received
+                  </em>
+                </Type>
+              </ChildBox>
+            </RowBox>
+            <RowBox justifyContent="space-around" pt={1} px={2} pb={3}>
+              <Grow in={isNumber(precipPerc)}>
+                <ColumnBox child alignItems="center">
+                  <Type
+                    variant="body1"
+                    className={classes.regionalPercent}
+                    align="center"
+                  >
+                    {round(precipPerc, 0)}%
+                  </Type>
+                  <Type align="center">
+                    {' '}
+                    of the Average <u>Rainfall</u>.
+                  </Type>
+                  <Type align="center" variant="body2">
+                    Using data from {multiStnPrecipSmryStns.length} stations in{' '}
+                    {multiStnPrecipSmryCounties.length} count
+                    {multiStnPrecipSmryCounties.length > 1 ? 'ies' : 'y'}.
+                  </Type>
+                </ColumnBox>
+              </Grow>
+              <Grow in={isNumber(snowPerc)}>
+                <ColumnBox child alignItems="center">
+                  <Type variant="body1" className={classes.regionalPercent}>
+                    {round(snowPerc, 0)}%
+                  </Type>
+                  <Type>
+                    {' '}
+                    of the Average <u>Snowfall</u>
+                  </Type>
+                  <Type align="center" variant="body2">
+                    Using data from {multiStnSnowSmryStns.length} stations in{' '}
+                    {multiStnSnowSmryCounties.length} count
+                    {multiStnSnowSmryCounties.length > 1 ? 'ies' : 'y'}.
+                  </Type>
+                </ColumnBox>
+              </Grow>
+            </RowBox>
+          </Paper>
+          <Spacing size="large" />
+          {/* <RowBox justifyContent="space-between"> */}
           <Type variant="h4" gutterBottom>
             Precipitation Maps
           </Type>
+          {/* </RowBox> */}
           <RowBox responsive flexSpacing={2}>
             <ChildBox flex="33.33%">
               <MediaDialogOnClick
@@ -769,6 +860,21 @@ export default function SeasonRecapPage() {
               </ColumnBox>
             </ChildBox>
           </RowBox>
+          <Spacing size="large" />
+          <Type variant="caption" color="textSecondary">
+            <em>
+              Climate Maps are provided by{' '}
+              <Link
+                style={{outline: 'none'}}
+                variant="inherit"
+                href="https://hprcc.unl.edu"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                High Plains Regional Climate Center
+              </Link>
+            </em>
+          </Type>
 
           <Spacing size="large" factor={2} />
 
