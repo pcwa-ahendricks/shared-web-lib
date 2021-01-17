@@ -466,7 +466,7 @@ export default function SeasonRecapPage() {
 
   const precipNormalAccumData = useMemo(
     () => ({
-      id: 'Normal Accum. Precip.',
+      id: 'Average Accum. Precip.',
       data: (
         precipResponse?.data.map((i) => ({
           x: i[0],

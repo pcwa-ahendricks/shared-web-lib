@@ -54,7 +54,7 @@ export default function PrecipAccumLine({
           strokeWidth: 2,
           strokeDasharray: '4, 3'
         },
-        'Normal Accum. Precip.': {
+        'Average Accum. Precip.': {
           strokeDasharray: '1, 10',
           strokeWidth: 5,
           strokeLinejoin: 'round',
@@ -187,7 +187,7 @@ export default function PrecipAccumLine({
           switch (serieId) {
             case 'Accumulated Precip.':
               return 'Accumulated on'
-            case 'Normal Accum. Precip.':
+            case 'Average Accum. Precip.':
               return 'Average on'
             case 'Recorded Low':
               return `Low (${lowYear}) on`
