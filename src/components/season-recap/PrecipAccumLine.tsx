@@ -1,14 +1,24 @@
 // cspell:ignore accum
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import round from '@lib/round'
+import {Box, Typography as Type, useTheme} from '@material-ui/core'
+import SquareIcon from 'mdi-material-ui/Square'
 import {orange, teal, brown, blue} from '@material-ui/core/colors'
 import {CustomLayer, Serie, ResponsiveLine, Datum} from '@nivo/line'
 import React, {useMemo} from 'react'
 
 type Props = {
   precipDataset: Serie[]
+  lowYear: number | null
+  highYear: number | null
 }
 
-export default function PrecipAccumLine({precipDataset}: Props) {
+export default function PrecipAccumLine({
+  precipDataset,
+  highYear,
+  lowYear
+}: Props) {
+  const theme = useTheme()
   // Add a 10% margin to the chart on the Y axis for the top.
   const precipYScaleMax = useMemo(() => {
     const high = precipDataset
@@ -33,7 +43,7 @@ export default function PrecipAccumLine({precipDataset}: Props) {
   const styleById = useMemo(
     () =>
       ({
-        'Accumulated Precipitation': {
+        'Accumulated Precip.': {
           strokeWidth: 5
         },
         'Recorded High': {
@@ -169,6 +179,56 @@ export default function PrecipAccumLine({precipDataset}: Props) {
           ]
         }
       ]}
+      tooltip={({point}) => {
+        const {serieColor: color, serieId, data} = point
+        const {y, yFormatted, xFormatted} = data
+
+        const getLabel = () => {
+          switch (serieId) {
+            case 'Accumulated Precip.':
+              return 'Accumulated on'
+            case 'Normal Accum. Precip.':
+              return 'Average on'
+            case 'Recorded Low':
+              return `Low (${lowYear}) on`
+            case 'Recorded High':
+              return `High (${highYear}) on`
+            default:
+              return ''
+          }
+        }
+        const label = getLabel()
+        if (y === undefined) return null
+        return (
+          <Box
+            bgcolor={theme.palette.common.white}
+            px={1}
+            py={0.5}
+            boxShadow={4}
+            borderRadius={3}
+          >
+            <RowBox alignItems="center">
+              <ColumnBox justifyContent="center" pr={0.5}>
+                <SquareIcon fontSize="small" style={{color}} />
+              </ColumnBox>
+              <ChildBox style={{marginTop: 2, paddingRight: 6}}>
+                <Type variant="caption">
+                  {label}{' '}
+                  <Type variant="inherit">
+                    <strong>{xFormatted}</strong>
+                  </Type>
+                  :
+                </Type>
+              </ChildBox>
+              <ChildBox style={{marginTop: 2}}>
+                <Type variant="caption">
+                  <strong>{yFormatted}"</strong>
+                </Type>
+              </ChildBox>
+            </RowBox>
+          </Box>
+        )
+      }}
     />
   )
 }

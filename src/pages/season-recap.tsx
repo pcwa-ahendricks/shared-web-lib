@@ -336,7 +336,7 @@ export default function SeasonRecapPage() {
 
   const precipAccumData = useMemo(
     () => ({
-      id: 'Accumulated Precipitation',
+      id: 'Accumulated Precip.',
       data: (
         precipResponse?.data.map((i) => ({
           x: i[0],
@@ -390,12 +390,13 @@ export default function SeasonRecapPage() {
     precipAccumHistHighYear ? `/api/acis/precip-hist-yr${qsPrecipHigh}` : null,
     {refreshInterval}
   )
+
   const precipAccumHistHighData = useMemo(
     () => ({
       id: 'Recorded High',
       data: (
         precipAccumHistHighResponse?.data.map((i, idx) => ({
-          // x: i[0],
+          // x: i[0], // High date
           x: precipResponse?.data[idx]?.[0] ?? '',
           y: parseFloat(i[1] ?? '')
         })) ?? []
@@ -878,7 +879,11 @@ export default function SeasonRecapPage() {
                   </Paper>
                 </Box>
               </WaitToFade>
-              <PrecipAccumLine precipDataset={precipDataset} />
+              <PrecipAccumLine
+                precipDataset={precipDataset}
+                highYear={precipAccumHistHighYear}
+                lowYear={precipAccumHistLowYear}
+              />
             </Box>
             <Spacing size="x-large">
               <Divider />
