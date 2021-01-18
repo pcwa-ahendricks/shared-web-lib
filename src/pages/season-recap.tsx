@@ -1,4 +1,4 @@
-// cspell:ignore actl accum climdiv frmt perc Prcp dprt Nrml rgnl
+// cspell:ignore actl accum climdiv frmt perc Prcp dprt Nrml rgnl stns mxtemp
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import Image from 'next/image'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -68,6 +68,10 @@ type MultiStnSnowSmryUrlBase =
   | '/api/acis/multi-stn-snow-seas-smry'
   | '/api/acis/multi-stn-snow-last30-smry'
   | '/api/acis/multi-stn-snow-last7-smry'
+type MultiStnMxTempSmryUrlBase =
+  | '/api/acis/multi-stn-mxtemp-seas-smry'
+  | '/api/acis/multi-stn-mxtemp-last30-smry'
+  | '/api/acis/multi-stn-mxtemp-last7-smry'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 
@@ -116,6 +120,14 @@ const precipImgSrc = {
   last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPDataCA.png'
 } as const
 
+const tempDepartImgSrc = {
+  waterYear:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterTDeptCA.png',
+  last30Days:
+    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dTDeptCA.png',
+  last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dTDeptCA.png'
+} as const
+
 const multiStnPrcpSmryUrls = {
   waterYear: '/api/acis/multi-stn-precip-seas-smry',
   last30Days: '/api/acis/multi-stn-precip-last30-smry',
@@ -125,6 +137,11 @@ const multiStnSnowSmryUrls = {
   waterYear: '/api/acis/multi-stn-snow-seas-smry',
   last30Days: '/api/acis/multi-stn-snow-last30-smry',
   last7Days: '/api/acis/multi-stn-snow-last7-smry'
+} as const
+const multiStnMxTempSmryUrls = {
+  waterYear: '/api/acis/multi-stn-mxtemp-seas-smry',
+  last30Days: '/api/acis/multi-stn-mxtemp-last30-smry',
+  last7Days: '/api/acis/multi-stn-mxtemp-last7-smry'
 } as const
 
 const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
@@ -139,8 +156,11 @@ const useStyles = makeStyles((theme: Theme) =>
         cursor: 'pointer'
       }
     },
-    regionalPercent: {
+    regionalStat: {
       fontSize: 36
+    },
+    regionalStatSub: {
+      fontSize: 24
     }
   })
 )
@@ -182,8 +202,12 @@ export default function SeasonRecapPage() {
   const [precipSrc, setPrecipSrc] = useState<string>(
     precipImgSrc[regionalTimeFrame]
   )
+  const [tempDepartSrc, setTempDepartSrc] = useState<string>(
+    tempDepartImgSrc[regionalTimeFrame]
+  )
 
   const multiStnQs = stringify({waterYear: regionalWaterYear}, true)
+
   const [
     multiStnPrcpSmryUrlBase,
     setMultiStnPrcpSmryUrlBase
@@ -210,7 +234,6 @@ export default function SeasonRecapPage() {
     }))
     return mapped ?? []
   }, [multiStnPrecipSmryRes, countyResponse])
-  console.log(multiStnPrecipSmryData)
 
   const multiStnPrecipSmryStns = multiStnPrecipSmryData
     .map((d) => d.meta.name)
@@ -232,6 +255,7 @@ export default function SeasonRecapPage() {
     [multiStnPrecipSmryPerc]
   )
 
+  /* Regional Snow */
   const [
     multiStnSnowSmryUrlBase,
     setMultiStnSnowSmryUrlBase
@@ -279,6 +303,68 @@ export default function SeasonRecapPage() {
     [multiStnSnowSmryPerc]
   )
 
+  /* Regional Max Temp */
+  const [
+    multiStnMxTempSmryUrlBase,
+    setMultiStnMxTempSmryUrlBase
+  ] = useState<MultiStnMxTempSmryUrlBase>(
+    multiStnMxTempSmryUrls[regionalTimeFrame]
+  )
+  const {data: multiStnMxTempSmryRes} = useSWR<MultiStnSmryResponse>(
+    `${multiStnMxTempSmryUrlBase}${multiStnQs}`
+  )
+  const multiStnMxTempSmryData = useMemo(() => {
+    // Only return station data for stations that have data for all three values
+    const filtered = multiStnMxTempSmryRes?.data.filter((d) =>
+      d.data.every((v) => isNumber(v))
+    )
+    const mapped = filtered?.map((d) => ({
+      ...d,
+      meta: {
+        ...d.meta,
+        county:
+          countyResponse?.meta.find((c) => c.id === d.meta.county)?.name ?? ''
+      },
+      data: [
+        ...d.data.map((d) => parseFloat(d)),
+        (parseFloat(d.data[0]) / parseFloat(d.data[1])) * 100
+      ] as [number, number, number, number]
+    }))
+    return mapped ?? []
+  }, [multiStnMxTempSmryRes, countyResponse])
+
+  const multiStnMxTempSmryStns = multiStnMxTempSmryData
+    .map((d) => d.meta.name)
+    .filter((value, index, self) => self.indexOf(value) === index)
+  const multiStnMxTempSmryCounties = multiStnMxTempSmryData
+    .map((d) => d.meta.county)
+    .filter((value, index, self) => self.indexOf(value) === index)
+
+  const multiStnMxTempSmryPerc = useMemo(
+    () => multiStnMxTempSmryData.map((d) => d.data[3]),
+    [multiStnMxTempSmryData]
+  )
+  const multiStnMxTempSmryDprt = useMemo(
+    () => multiStnMxTempSmryData.map((d) => d.data[2]),
+    [multiStnMxTempSmryData]
+  )
+  const mxTempPerc = useMemo(
+    () =>
+      multiStnMxTempSmryPerc.reduce((prev, curr) => {
+        const a = prev + curr
+        return a
+      }, 0) / multiStnMxTempSmryPerc.length,
+    [multiStnMxTempSmryPerc]
+  )
+  const mxTempDepart = useMemo(
+    () =>
+      multiStnMxTempSmryDprt.reduce((prev, curr) => {
+        const a = prev + curr
+        return a
+      }, 0) / multiStnMxTempSmryDprt.length,
+    [multiStnMxTempSmryDprt]
+  )
+
   const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
     stationIdUrls,
     multiFetcher
@@ -303,7 +389,7 @@ export default function SeasonRecapPage() {
       }, undefined),
     [stationMetaResponse, countyResponse]
   )
-  // console.log(stationInfo)
+
   const selectedStationInfo = useMemo(
     () => (stationInfo ? stationInfo[sid] : null),
     [sid, stationInfo]
@@ -391,7 +477,6 @@ export default function SeasonRecapPage() {
       })) ?? [],
     [precipResponse]
   )
-  // console.log(precipResponse)
 
   const precipAccumHistHighYear = useMemo(() => {
     const highYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
@@ -700,8 +785,10 @@ export default function SeasonRecapPage() {
     setPercNormalPrecipSrc(prcNrmlPrcpImgSrc[regionalTimeFrame])
     setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc[regionalTimeFrame])
     setPrecipSrc(precipImgSrc[regionalTimeFrame])
+    setTempDepartSrc(tempDepartImgSrc[regionalTimeFrame])
     setMultiStnPrcpSmryUrlBase(multiStnPrcpSmryUrls[regionalTimeFrame])
     setMultiStnSnowSmryUrlBase(multiStnSnowSmryUrls[regionalTimeFrame])
+    setMultiStnMxTempSmryUrlBase(multiStnMxTempSmryUrls[regionalTimeFrame])
   }, [regionalTimeFrame])
 
   return (
@@ -737,62 +824,143 @@ export default function SeasonRecapPage() {
             <em>The greater region has received</em>
           </Type> */}
           <Paper square={false} elevation={0}>
-            <RowBox p={1}>
-              <ChildBox flex="auto">
-                <Type variant="body1" align="center" style={{fontSize: 20}}>
-                  <em>
-                    In the{' '}
-                    <StrongEmphasis variant="inherit" color="primary">
-                      {regionalTimeFrame === 'waterYear'
-                        ? 'current water year'
-                        : regionalTimeFrame === 'last30Days'
-                        ? 'last 30 days'
-                        : regionalTimeFrame === 'last7Days'
-                        ? 'last 7 days'
-                        : ''}
-                    </StrongEmphasis>{' '}
-                    the greater region has received
-                  </em>
-                </Type>
-              </ChildBox>
-            </RowBox>
             <RowBox justifyContent="space-around" pt={1} px={2} pb={3}>
-              <Grow in={isNumber(precipPerc)}>
-                <ColumnBox child alignItems="center">
-                  <Type
-                    variant="body1"
-                    className={classes.regionalPercent}
-                    align="center"
-                  >
-                    {round(precipPerc, 0)}%
-                  </Type>
-                  <Type align="center">
-                    {' '}
-                    of the Average <u>Rainfall</u>.
-                  </Type>
-                  <Type align="center" variant="body2">
-                    Using data from {multiStnPrecipSmryStns.length} stations in{' '}
-                    {multiStnPrecipSmryCounties.length} count
-                    {multiStnPrecipSmryCounties.length > 1 ? 'ies' : 'y'}.
-                  </Type>
-                </ColumnBox>
-              </Grow>
-              <Grow in={isNumber(snowPerc)}>
-                <ColumnBox child alignItems="center">
-                  <Type variant="body1" className={classes.regionalPercent}>
-                    {round(snowPerc, 0)}%
-                  </Type>
-                  <Type>
-                    {' '}
-                    of the Average <u>Snowfall</u>
-                  </Type>
-                  <Type align="center" variant="body2">
-                    Using data from {multiStnSnowSmryStns.length} stations in{' '}
-                    {multiStnSnowSmryCounties.length} count
-                    {multiStnSnowSmryCounties.length > 1 ? 'ies' : 'y'}.
-                  </Type>
-                </ColumnBox>
-              </Grow>
+              <ColumnBox>
+                <RowBox p={1}>
+                  <ChildBox flex="auto">
+                    <Type variant="body1" align="center" style={{fontSize: 20}}>
+                      <em>
+                        In the{' '}
+                        <StrongEmphasis variant="inherit" color="primary">
+                          {regionalTimeFrame === 'waterYear'
+                            ? 'current water year'
+                            : regionalTimeFrame === 'last30Days'
+                            ? 'last 30 days'
+                            : regionalTimeFrame === 'last7Days'
+                            ? 'last 7 days'
+                            : ''}
+                        </StrongEmphasis>{' '}
+                        the greater region has received...
+                      </em>
+                    </Type>
+                  </ChildBox>
+                </RowBox>
+                <RowBox>
+                  <Grow in={isNumber(precipPerc)}>
+                    <ColumnBox child alignItems="center">
+                      <Type
+                        variant="body1"
+                        className={classes.regionalStat}
+                        align="center"
+                      >
+                        {isNumber(precipPerc)
+                          ? `${round(precipPerc, 0)}%`
+                          : null}
+                      </Type>
+                      <Type align="center">
+                        {' '}
+                        of the Average <u>Rainfall</u>
+                      </Type>
+                      <Box maxWidth="80%">
+                        <Type align="center" variant="body2">
+                          Using data from {multiStnPrecipSmryStns.length}{' '}
+                          stations in {multiStnPrecipSmryCounties.length} count
+                          {multiStnPrecipSmryCounties.length > 1 ? 'ies' : 'y'}.
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                  </Grow>
+                  <Grow in={isNumber(snowPerc)}>
+                    <ColumnBox child alignItems="center">
+                      <Type variant="body1" className={classes.regionalStat}>
+                        {isNumber(snowPerc) ? `${round(snowPerc, 0)}%` : null}
+                      </Type>
+                      <Type>
+                        {' '}
+                        of the Average <u>Snowfall</u>
+                      </Type>
+                      <Box maxWidth="80%">
+                        <Type align="center" variant="body2">
+                          Using data from {multiStnSnowSmryStns.length} stations
+                          in {multiStnSnowSmryCounties.length} count
+                          {multiStnSnowSmryCounties.length > 1 ? 'ies' : 'y'}.
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                  </Grow>
+                </RowBox>
+              </ColumnBox>
+              <ColumnBox>
+                <RowBox p={1}>
+                  <ChildBox flex="auto">
+                    <Type variant="body1" align="center" style={{fontSize: 20}}>
+                      <em>and has been...</em>
+                    </Type>
+                  </ChildBox>
+                </RowBox>
+                <RowBox>
+                  <Grow in={isNumber(mxTempDepart)}>
+                    <ColumnBox child alignItems="center">
+                      <Box position="relative">
+                        <Type
+                          variant="body1"
+                          className={classes.regionalStat}
+                          component="header"
+                        >
+                          {isNumber(mxTempDepart)
+                            ? Math.abs(round(mxTempDepart, 1))
+                            : null}
+                          <Box
+                            component="span"
+                            position="absolute"
+                            top={10}
+                            right={-28}
+                          >
+                            <WeatherIcon
+                              fontSize="default"
+                              name="fahrenheit"
+                              style={{
+                                verticalAlign: 'top'
+                              }}
+                            />
+                          </Box>
+                        </Type>
+                      </Box>
+                      <Type
+                        variant="body1"
+                        className={classes.regionalStatSub}
+                        component="header"
+                        style={{marginTop: -16}}
+                      >
+                        {isNumber(mxTempDepart)
+                          ? mxTempDepart > 0
+                            ? 'warmer'
+                            : 'cooler'
+                          : null}
+                      </Type>
+                      <Type>Daily on Average</Type>
+                      <Type>
+                        <em>
+                          {isNumber(mxTempPerc) ? (
+                            <>
+                              (or {Math.abs(100 - round(mxTempPerc, 0))}%{' '}
+                              {mxTempPerc > 100 ? 'warmer' : 'cooler'})
+                            </>
+                          ) : null}
+                        </em>
+                      </Type>
+                      <Box maxWidth="80%">
+                        <Type align="center" variant="body2">
+                          Using daily max temperature data from{' '}
+                          {multiStnMxTempSmryStns.length} stations in{' '}
+                          {multiStnMxTempSmryCounties.length} count
+                          {multiStnMxTempSmryCounties.length > 1 ? 'ies' : 'y'}.
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                  </Grow>
+                </RowBox>
+              </ColumnBox>
             </RowBox>
           </Paper>
           <Spacing size="large" />
@@ -857,6 +1025,32 @@ export default function SeasonRecapPage() {
               </MediaDialogOnClick>
               <ColumnBox mt={1} alignItems="center">
                 <Type variant="caption">Percent of Normal</Type>
+              </ColumnBox>
+            </ChildBox>
+          </RowBox>
+          <Spacing size="large" />
+          <Type variant="h4" gutterBottom>
+            Temperature Maps
+          </Type>
+          {/* </RowBox> */}
+          <RowBox responsive flexSpacing={2}>
+            <ChildBox flex="0 1 33.33%">
+              <MediaDialogOnClick
+                mediaName="Temperature Departure"
+                mediaUrl={tempDepartSrc}
+                mediaExt="png"
+              >
+                <Image
+                  src={tempDepartSrc}
+                  layout="responsive"
+                  height={850}
+                  width={1100}
+                  alt="Departure from Normal Temperature for California"
+                  className={classes.mediaDialogImg}
+                />
+              </MediaDialogOnClick>
+              <ColumnBox mt={1} alignItems="center">
+                <Type variant="caption">Departure from Normal Temperature</Type>
               </ColumnBox>
             </ChildBox>
           </RowBox>
