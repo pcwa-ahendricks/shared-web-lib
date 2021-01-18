@@ -793,10 +793,10 @@ export default function SeasonRecapPage() {
   }, [regionalTimeFrame])
 
   return (
-    <PageLayout title="Season Recap" waterSurface>
+    <PageLayout title="Weather & Climate" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle title="Season Recap" />
+          <PageTitle subtitle="Season Recap" title="Weather & Climate" />
           <Spacing />
           <Type variant="h2" color="primary">
             Regional Conditions
