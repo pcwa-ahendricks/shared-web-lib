@@ -51,6 +51,7 @@ import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClic
 import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import {grey} from '@material-ui/core/colors'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -913,13 +914,14 @@ export default function SeasonRecapPage() {
                           <Box
                             component="span"
                             position="absolute"
-                            top={10}
-                            right={-28}
+                            top={8}
+                            right={-34}
                           >
                             <WeatherIcon
-                              fontSize="default"
                               name="fahrenheit"
                               style={{
+                                fontSize: 32,
+                                color: grey[800],
                                 verticalAlign: 'top'
                               }}
                             />
