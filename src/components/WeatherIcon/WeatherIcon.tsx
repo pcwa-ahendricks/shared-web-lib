@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import {isAfter, isBefore} from 'date-fns'
 // Font loading using @font-face seems to work with css modules but I don't see where that's documented online. See https://nextjs.org/docs/basic-features/built-in-css-support for more info.
 import styles from './WeatherIcon.module.css'
-import {isNumber} from 'util'
 
 const HOT = 97
 
@@ -39,15 +38,18 @@ export default function WeatherIcon({
 }: Props) {
   const classes = useStyles()
   const sunriseDate = useMemo(
-    () => (isNumber(sunrise) ? new Date(sunrise * 1000) : null),
+    () => (typeof sunrise === 'number' ? new Date(sunrise * 1000) : null),
     [sunrise]
   )
   const sunsetDate = useMemo(
-    () => (isNumber(sunset) ? new Date(sunset * 1000) : null),
+    () => (typeof sunset === 'number' ? new Date(sunset * 1000) : null),
     [sunset]
   )
   const observationTimeDate = useMemo(
-    () => (isNumber(observationTime) ? new Date(observationTime * 1000) : null),
+    () =>
+      typeof observationTime === 'number'
+        ? new Date(observationTime * 1000)
+        : null,
     [observationTime]
   )
   const isDay = useMemo(
