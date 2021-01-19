@@ -28,7 +28,8 @@ import {
   Divider,
   Hidden,
   Grow,
-  Link
+  Link,
+  Popover
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
@@ -149,6 +150,13 @@ const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    popover: {
+      pointerEvents: 'none'
+    },
+    paper: {
+      padding: theme.spacing(1),
+      backgroundColor: theme.palette.common.white
+    },
     mediaDialogImg: {
       borderWidth: '1px !important',
       borderColor: `${theme.palette.grey[300]} !important`,
@@ -162,6 +170,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     regionalStatSub: {
       fontSize: 24
+    },
+    hasPopover: {
+      cursor: 'pointer',
+      whiteSpace: 'nowrap'
     }
   })
 )
@@ -209,6 +221,7 @@ export default function SeasonRecapPage() {
 
   const multiStnQs = stringify({waterYear: regionalWaterYear}, true)
 
+  /* Regional Precip */
   const [
     multiStnPrcpSmryUrlBase,
     setMultiStnPrcpSmryUrlBase
@@ -230,7 +243,10 @@ export default function SeasonRecapPage() {
       },
       data: [
         ...d.data.map((d) => parseFloat(d)),
-        (parseFloat(d.data[0]) / parseFloat(d.data[1])) * 100
+        // Don't divide by zero
+        (parseFloat(d.data[0]) /
+          (parseFloat(d.data[1]) === 0 ? 0.0000001 : parseFloat(d.data[1]))) *
+          100
       ] as [number, number, number, number]
     }))
     return mapped ?? []
@@ -239,9 +255,12 @@ export default function SeasonRecapPage() {
   const multiStnPrecipSmryStns = multiStnPrecipSmryData
     .map((d) => d.meta.name)
     .filter((value, index, self) => self.indexOf(value) === index)
+    .sort()
   const multiStnPrecipSmryCounties = multiStnPrecipSmryData
     .map((d) => d.meta.county)
     .filter((value, index, self) => self.indexOf(value) === index)
+    .sort()
+    .reverse()
 
   const multiStnPrecipSmryPerc = useMemo(
     () => multiStnPrecipSmryData.map((d) => d.data[3]),
@@ -278,7 +297,10 @@ export default function SeasonRecapPage() {
       },
       data: [
         ...d.data.map((d) => parseFloat(d)),
-        (parseFloat(d.data[0]) / parseFloat(d.data[1])) * 100
+        (parseFloat(d.data[0]) /
+          // Don't divide by zero
+          (parseFloat(d.data[1]) === 0 ? 0.0000001 : parseFloat(d.data[1]))) *
+          100
       ] as [number, number, number, number]
     }))
     return mapped ?? []
@@ -287,14 +309,18 @@ export default function SeasonRecapPage() {
   const multiStnSnowSmryStns = multiStnSnowSmryData
     .map((d) => d.meta.name)
     .filter((value, index, self) => self.indexOf(value) === index)
+    .sort()
   const multiStnSnowSmryCounties = multiStnSnowSmryData
     .map((d) => d.meta.county)
     .filter((value, index, self) => self.indexOf(value) === index)
+    .sort()
+    .reverse()
 
   const multiStnSnowSmryPerc = useMemo(
     () => multiStnSnowSmryData.map((d) => d.data[3]),
     [multiStnSnowSmryData]
   )
+
   const snowPerc = useMemo(
     () =>
       multiStnSnowSmryPerc.reduce((prev, curr) => {
@@ -328,7 +354,10 @@ export default function SeasonRecapPage() {
       },
       data: [
         ...d.data.map((d) => parseFloat(d)),
-        (parseFloat(d.data[0]) / parseFloat(d.data[1])) * 100
+        (parseFloat(d.data[0]) /
+          // Don't divide by zero
+          (parseFloat(d.data[1]) === 0 ? 0.0000001 : parseFloat(d.data[1]))) *
+          100
       ] as [number, number, number, number]
     }))
     return mapped ?? []
@@ -337,9 +366,12 @@ export default function SeasonRecapPage() {
   const multiStnMxTempSmryStns = multiStnMxTempSmryData
     .map((d) => d.meta.name)
     .filter((value, index, self) => self.indexOf(value) === index)
+    .sort()
   const multiStnMxTempSmryCounties = multiStnMxTempSmryData
     .map((d) => d.meta.county)
     .filter((value, index, self) => self.indexOf(value) === index)
+    .sort()
+    .reverse()
 
   const multiStnMxTempSmryPerc = useMemo(
     () => multiStnMxTempSmryData.map((d) => d.data[3]),
@@ -792,6 +824,96 @@ export default function SeasonRecapPage() {
     setMultiStnMxTempSmryUrlBase(multiStnMxTempSmryUrls[regionalTimeFrame])
   }, [regionalTimeFrame])
 
+  const [regSnowStnAnchorEl, setRegSnowStnAnchorEl] = useState(null)
+
+  const handleRegSnowStnPopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      setRegSnowStnAnchorEl(event.currentTarget as any)
+    },
+    []
+  )
+
+  const handleRegSnowStnPopoverClose = useCallback(() => {
+    setRegSnowStnAnchorEl(null)
+  }, [])
+
+  const regSnowStnPopoverOpen = Boolean(regSnowStnAnchorEl)
+
+  const [regSnowCntyAnchorEl, setRegSnowCntyAnchorEl] = useState(null)
+
+  const handleRegSnowCntyPopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      setRegSnowCntyAnchorEl(event.currentTarget as any)
+    },
+    []
+  )
+
+  const handleRegSnowCntyPopoverClose = useCallback(() => {
+    setRegSnowCntyAnchorEl(null)
+  }, [])
+
+  const regSnowCntyPopoverOpen = Boolean(regSnowCntyAnchorEl)
+
+  const [regPrecipStnAnchorEl, setRegPrecipStnAnchorEl] = useState(null)
+
+  const handleRegPrecipStnPopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      setRegPrecipStnAnchorEl(event.currentTarget as any)
+    },
+    []
+  )
+
+  const handleRegPrecipStnPopoverClose = useCallback(() => {
+    setRegPrecipStnAnchorEl(null)
+  }, [])
+
+  const regPrecipStnPopoverOpen = Boolean(regPrecipStnAnchorEl)
+
+  const [regPrecipCntyAnchorEl, setRegPrecipCntyAnchorEl] = useState(null)
+
+  const handleRegPrecipCntyPopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      setRegPrecipCntyAnchorEl(event.currentTarget as any)
+    },
+    []
+  )
+
+  const handleRegPrecipCntyPopoverClose = useCallback(() => {
+    setRegPrecipCntyAnchorEl(null)
+  }, [])
+
+  const regPrecipCntyPopoverOpen = Boolean(regPrecipCntyAnchorEl)
+
+  const [regTempStnAnchorEl, setRegTempStnAnchorEl] = useState(null)
+
+  const handleRegTempStnPopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      setRegTempStnAnchorEl(event.currentTarget as any)
+    },
+    []
+  )
+
+  const handleRegTempStnPopoverClose = useCallback(() => {
+    setRegTempStnAnchorEl(null)
+  }, [])
+
+  const regTempStnPopoverOpen = Boolean(regTempStnAnchorEl)
+
+  const [regTempCntyAnchorEl, setRegTempCntyAnchorEl] = useState(null)
+
+  const handleRegTempCntyPopoverOpen = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      setRegTempCntyAnchorEl(event.currentTarget as any)
+    },
+    []
+  )
+
+  const handleRegTempCntyPopoverClose = useCallback(() => {
+    setRegTempCntyAnchorEl(null)
+  }, [])
+
+  const regTempCntyPopoverOpen = Boolean(regTempCntyAnchorEl)
+
   return (
     <PageLayout title="Weather & Climate" waterSurface>
       <MainBox>
@@ -858,15 +980,101 @@ export default function SeasonRecapPage() {
                           ? `${round(precipPerc, 0)}%`
                           : null}
                       </Type>
-                      <Type align="center">
-                        {' '}
-                        of the Average <u>Rainfall</u>
-                      </Type>
+                      <Type align="center"> of the Average Rainfall</Type>
                       <Box maxWidth="80%">
                         <Type align="center" variant="body2">
-                          Using data from {multiStnPrecipSmryStns.length}{' '}
-                          stations in {multiStnPrecipSmryCounties.length} count
-                          {multiStnPrecipSmryCounties.length > 1 ? 'ies' : 'y'}.
+                          Using data from{' '}
+                          <Type
+                            variant="inherit"
+                            className={classes.hasPopover}
+                            aria-owns={
+                              regPrecipStnPopoverOpen
+                                ? 'regional-precip-stations-popover'
+                                : undefined
+                            }
+                            aria-haspopup="true"
+                            onMouseEnter={handleRegPrecipStnPopoverOpen}
+                            onMouseLeave={handleRegPrecipStnPopoverClose}
+                          >
+                            <u>{multiStnPrecipSmryStns.length} stations</u>
+                          </Type>{' '}
+                          <Popover
+                            id="regional-precip-stations-popover"
+                            className={classes.popover}
+                            classes={{
+                              paper: classes.paper
+                            }}
+                            open={regPrecipStnPopoverOpen}
+                            anchorEl={regPrecipStnAnchorEl}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                            onClose={handleRegPrecipStnPopoverClose}
+                            disableRestoreFocus
+                          >
+                            <>
+                              <Type variant="body2">Stations include:</Type>
+                              {multiStnPrecipSmryStns.map((s) => (
+                                <Type key={s} variant="body1">
+                                  {toTitleCase(s)}
+                                </Type>
+                              ))}
+                            </>
+                          </Popover>{' '}
+                          in{' '}
+                          <Type
+                            variant="inherit"
+                            className={classes.hasPopover}
+                            aria-owns={
+                              regPrecipCntyPopoverOpen
+                                ? 'regional-precip-counties-popover'
+                                : undefined
+                            }
+                            aria-haspopup="true"
+                            onMouseEnter={handleRegPrecipCntyPopoverOpen}
+                            onMouseLeave={handleRegPrecipCntyPopoverClose}
+                          >
+                            <u>
+                              {multiStnPrecipSmryCounties.length} count
+                              {multiStnPrecipSmryCounties.length > 1
+                                ? 'ies'
+                                : 'y'}
+                            </u>
+                          </Type>
+                          <Popover
+                            id="regional-precip-counties-popover"
+                            className={classes.popover}
+                            classes={{
+                              paper: classes.paper
+                            }}
+                            open={regPrecipCntyPopoverOpen}
+                            anchorEl={regPrecipCntyAnchorEl}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                            onClose={handleRegPrecipCntyPopoverClose}
+                            disableRestoreFocus
+                          >
+                            <>
+                              <Type variant="body2">Counties include:</Type>
+                              {multiStnPrecipSmryCounties.map((s) => (
+                                <Type key={s} variant="body1">
+                                  {toTitleCase(s)}
+                                </Type>
+                              ))}
+                            </>
+                          </Popover>
+                          .
                         </Type>
                       </Box>
                     </ColumnBox>
@@ -876,15 +1084,101 @@ export default function SeasonRecapPage() {
                       <Type variant="body1" className={classes.regionalStat}>
                         {isNumber(snowPerc) ? `${round(snowPerc, 0)}%` : null}
                       </Type>
-                      <Type>
-                        {' '}
-                        of the Average <u>Snowfall</u>
-                      </Type>
+                      <Type> of the Average Snowfall</Type>
                       <Box maxWidth="80%">
                         <Type align="center" variant="body2">
-                          Using data from {multiStnSnowSmryStns.length} stations
-                          in {multiStnSnowSmryCounties.length} count
-                          {multiStnSnowSmryCounties.length > 1 ? 'ies' : 'y'}.
+                          Using data from{' '}
+                          <Type
+                            variant="inherit"
+                            className={classes.hasPopover}
+                            aria-owns={
+                              regSnowStnPopoverOpen
+                                ? 'regional-snowfall-stations-popover'
+                                : undefined
+                            }
+                            aria-haspopup="true"
+                            onMouseEnter={handleRegSnowStnPopoverOpen}
+                            onMouseLeave={handleRegSnowStnPopoverClose}
+                          >
+                            <u>{multiStnSnowSmryStns.length} stations</u>
+                          </Type>
+                          <Popover
+                            id="regional-snowfall-stations-popover"
+                            className={classes.popover}
+                            classes={{
+                              paper: classes.paper
+                            }}
+                            open={regSnowStnPopoverOpen}
+                            anchorEl={regSnowStnAnchorEl}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                            onClose={handleRegSnowStnPopoverClose}
+                            disableRestoreFocus
+                          >
+                            <>
+                              <Type variant="body2">Stations include:</Type>
+                              {multiStnSnowSmryStns.map((s) => (
+                                <Type key={s} variant="body1">
+                                  {toTitleCase(s)}
+                                </Type>
+                              ))}
+                            </>
+                          </Popover>{' '}
+                          in{' '}
+                          <Type
+                            variant="inherit"
+                            className={classes.hasPopover}
+                            aria-owns={
+                              regSnowCntyPopoverOpen
+                                ? 'regional-snowfall-counties-popover'
+                                : undefined
+                            }
+                            aria-haspopup="true"
+                            onMouseEnter={handleRegSnowCntyPopoverOpen}
+                            onMouseLeave={handleRegSnowCntyPopoverClose}
+                          >
+                            <u>
+                              {multiStnSnowSmryCounties.length} count
+                              {multiStnSnowSmryCounties.length > 1
+                                ? 'ies'
+                                : 'y'}
+                            </u>
+                          </Type>
+                          .
+                          <Popover
+                            id="regional-snowfall-counties-popover"
+                            className={classes.popover}
+                            classes={{
+                              paper: classes.paper
+                            }}
+                            open={regSnowCntyPopoverOpen}
+                            anchorEl={regSnowCntyAnchorEl}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                            onClose={handleRegSnowCntyPopoverClose}
+                            disableRestoreFocus
+                          >
+                            <>
+                              <Type variant="body2">Counties include:</Type>
+                              {multiStnSnowSmryCounties.map((s) => (
+                                <Type key={s} variant="body1">
+                                  {toTitleCase(s)}
+                                </Type>
+                              ))}
+                            </>
+                          </Popover>
                         </Type>
                       </Box>
                     </ColumnBox>
@@ -954,9 +1248,97 @@ export default function SeasonRecapPage() {
                       <Box maxWidth="80%">
                         <Type align="center" variant="body2">
                           Using daily max temperature data from{' '}
-                          {multiStnMxTempSmryStns.length} stations in{' '}
-                          {multiStnMxTempSmryCounties.length} count
-                          {multiStnMxTempSmryCounties.length > 1 ? 'ies' : 'y'}.
+                          <Type
+                            variant="inherit"
+                            className={classes.hasPopover}
+                            aria-owns={
+                              regTempStnPopoverOpen
+                                ? 'regional-temp-stations-popover'
+                                : undefined
+                            }
+                            aria-haspopup="true"
+                            onMouseEnter={handleRegTempStnPopoverOpen}
+                            onMouseLeave={handleRegTempStnPopoverClose}
+                          >
+                            <u>{multiStnMxTempSmryStns.length} stations</u>
+                          </Type>{' '}
+                          <Popover
+                            id="regional-temp-stations-popover"
+                            className={classes.popover}
+                            classes={{
+                              paper: classes.paper
+                            }}
+                            open={regTempStnPopoverOpen}
+                            anchorEl={regTempStnAnchorEl}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                            onClose={handleRegTempStnPopoverClose}
+                            disableRestoreFocus
+                          >
+                            <>
+                              <Type variant="body2">Stations include:</Type>
+                              {multiStnMxTempSmryStns.map((s) => (
+                                <Type key={s} variant="body1">
+                                  {toTitleCase(s)}
+                                </Type>
+                              ))}
+                            </>
+                          </Popover>{' '}
+                          in{' '}
+                          <Type
+                            variant="inherit"
+                            className={classes.hasPopover}
+                            aria-owns={
+                              regTempCntyPopoverOpen
+                                ? 'regional-temp-counties-popover'
+                                : undefined
+                            }
+                            aria-haspopup="true"
+                            onMouseEnter={handleRegTempCntyPopoverOpen}
+                            onMouseLeave={handleRegTempCntyPopoverClose}
+                          >
+                            <u>
+                              {multiStnMxTempSmryCounties.length} count
+                              {multiStnMxTempSmryCounties.length > 1
+                                ? 'ies'
+                                : 'y'}
+                            </u>
+                          </Type>
+                          <Popover
+                            id="regional-temp-counties-popover"
+                            className={classes.popover}
+                            classes={{
+                              paper: classes.paper
+                            }}
+                            open={regTempCntyPopoverOpen}
+                            anchorEl={regTempCntyAnchorEl}
+                            anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left'
+                            }}
+                            onClose={handleRegTempCntyPopoverClose}
+                            disableRestoreFocus
+                          >
+                            <>
+                              <Type variant="body2">Counties include:</Type>
+                              {multiStnMxTempSmryCounties.map((s) => (
+                                <Type key={s} variant="body1">
+                                  {toTitleCase(s)}
+                                </Type>
+                              ))}
+                            </>
+                          </Popover>
+                          .
                         </Type>
                       </Box>
                     </ColumnBox>
