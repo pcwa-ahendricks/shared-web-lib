@@ -35,7 +35,7 @@ const useRowBoxStyles = makeStyles((theme: Theme) =>
       respElseAt
     }: RowBoxUseStylesProps) => ({
       [theme.breakpoints.down(respBreakAt)]: {
-        ...(flexSpacing && {
+        ...(typeof flexSpacing === 'number' && {
           marginTop: theme.spacing(flexSpacing) * -1,
           '& > .childBox': {
             marginTop: theme.spacing(flexSpacing)
@@ -43,7 +43,7 @@ const useRowBoxStyles = makeStyles((theme: Theme) =>
         })
       },
       [theme.breakpoints.up(respElseAt)]: {
-        ...(flexSpacing && {
+        ...(typeof flexSpacing === 'number' && {
           marginLeft: theme.spacing(flexSpacing) * -1,
           '& > .childBox': {
             marginLeft: theme.spacing(flexSpacing)
@@ -52,7 +52,7 @@ const useRowBoxStyles = makeStyles((theme: Theme) =>
       }
     }),
     rowBox: ({flexSpacing}: RowBoxUseStylesProps) => ({
-      ...(flexSpacing && {
+      ...(typeof flexSpacing === 'number' && {
         marginLeft: theme.spacing(flexSpacing) * -1,
         '& > .childBox': {
           marginLeft: theme.spacing(flexSpacing)
@@ -65,7 +65,7 @@ const useRowBoxStyles = makeStyles((theme: Theme) =>
 const useColBoxStyles = makeStyles((theme: Theme) =>
   createStyles({
     colBox: ({flexSpacing}: ColBoxUseStylesProps) => ({
-      ...(flexSpacing && {
+      ...(typeof flexSpacing === 'number' && {
         marginTop: theme.spacing(flexSpacing) * -1,
         '& > .childBox': {
           marginTop: theme.spacing(flexSpacing)
