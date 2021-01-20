@@ -19,6 +19,12 @@ type RowBoxUseStylesProps = {
   respElseAt: Breakpoint
 }
 type ColBoxUseStylesProps = {flexSpacing?: number}
+export type RowBoxProps = Props & {responsive?: boolean | Breakpoint}
+export type ChildBoxProps = {
+  children?: React.ReactNode
+} & BoxProps
+export type {Props as FlexBoxProps}
+export type {Props as ColumnBoxProps}
 
 /*
   Note, using a dynamic className such as useFlexSpacing did not work when applying specificity with a selector such as '&$useFlexSpacing'. Note sure why, but the workaround is to simply apply the className as a string.
@@ -75,10 +81,6 @@ const useColBoxStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export type ChildBoxProps = {
-  children?: React.ReactNode
-} & BoxProps
-
 /*
   Useful terminology/abbreviations from https://github.com/angular/flex-layout/wiki/fxFlex-API
   alias 	    Equivalent CSS
@@ -113,7 +115,7 @@ const RowBox = ({
   className: classNameProp,
   responsive = false,
   ...rest
-}: Props & {responsive?: boolean | Breakpoint}) => {
+}: RowBoxProps) => {
   const respBreakAt = useMemo(
     () => (!responsive || responsive === true ? 'xs' : responsive),
     [responsive]
