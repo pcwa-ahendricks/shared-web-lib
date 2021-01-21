@@ -264,7 +264,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 htmlAttributes: {alt: 'Photo of PCWA Business Center'}
               }}
               body="As we look toward the future of re-opening our businesses and
-              buildings, PCWA feels it is of utmost importance to inform owners and
+              buildings, PCWA believes it is of utmost importance to inform owners and
               managers of buildings which have been closed for weeks or months due
               to COVID-19 concerns of the best practices to help ensure the health
               and safety of the occupants of your buildings."
