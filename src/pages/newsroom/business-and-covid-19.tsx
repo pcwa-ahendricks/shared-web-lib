@@ -63,7 +63,7 @@ const BusinessAndCovid19Page = () => {
             htmlAttributes={{alt: 'PCWA Business Center'}}
           /> */}
           <Image
-            src="https://imgix.cosmicjs.com/43bfede0-5c21-11eb-afa6-e9412ba0a77c-PCWA-Special-Notice-Water-Cycling-Shutdowns-1-page-V1bc011121.pdf?fm=png&border=3,eaeaea"
+            src="https://imgix.cosmicjs.com/43bfede0-5c21-11eb-afa6-e9412ba0a77c-PCWA-Special-Notice-Water-Cycling-Shutdowns-1-page-V1bc011121.pdf?border=3,eaeaea"
             layout="responsive"
             alt="Special Notice for Businesses Regarding Re-opening Mailer"
             width={700}
