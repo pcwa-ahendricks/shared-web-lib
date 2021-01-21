@@ -168,22 +168,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
-              title="Special Notice for Businesses Regarding Re-opening"
-              readMore="More Information..."
-              linkHref="/newsroom/business-and-covid-19"
-              imgixURL="https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg"
-              imgixFancyProps={{
-                htmlAttributes: {alt: 'Photo of PCWA Business Center'}
-              }}
-              body="As we look toward the future of re-opening our businesses and
-              buildings, PCWA feels it is of utmost importance to inform owners and
-              managers of buildings which have been closed for weeks or months due
-              to COVID-19 concerns of the best practices to help ensure the health
-              and safety of the occupants of your buildings."
-            /> */}
-            {/* <CoverStory
-              imageRatio={coverStoryImageRatio}
-              paddingPercent={coverStoryPadPerc}
               title="Drought-Proofing PCWA’s Water Supply"
               readMore="Watch video on our YouTube Channel"
               flexLinkProps={{
@@ -268,8 +252,24 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               Water Spots Video Contest: Be a Leak Detective. The top 3 video
               winners are from PCWA’s service area!"
             /> */}
-
             <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="Special Notice for Businesses Regarding Re-opening"
+              readMore="More Information..."
+              linkHref="/newsroom/business-and-covid-19"
+              imgixURL="https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg"
+              imgixFancyProps={{
+                htmlAttributes: {alt: 'Photo of PCWA Business Center'}
+              }}
+              body="As we look toward the future of re-opening our businesses and
+              buildings, PCWA feels it is of utmost importance to inform owners and
+              managers of buildings which have been closed for weeks or months due
+              to COVID-19 concerns of the best practices to help ensure the health
+              and safety of the occupants of your buildings."
+            />
+
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Is it time to spruce up your sprinkler system?"
@@ -286,7 +286,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 }
               }}
               body="PCWA has rebates available to help with the cost of high-efficiency rotator sprinklers, drip irrigation, and weather-based sprinkler timers. Apply today online."
-            />
+            /> */}
           </ChildBox>
         </RowBox>
 
