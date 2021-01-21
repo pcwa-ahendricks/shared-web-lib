@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type, Link} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import Image from 'next/image'
 
 const BusinessAndCovid19Page = () => {
   return (
@@ -58,9 +58,17 @@ const BusinessAndCovid19Page = () => {
             Reduced Operation”
           </Type>
           <Spacing size="large" factor={2} />
-          <LazyImgix
+          {/* <LazyImgix
             src="https://imgix.cosmicjs.com/6e6c3700-962a-11ea-b04e-734185112560-PCWA-Sign-2019.jpg"
             htmlAttributes={{alt: 'PCWA Business Center'}}
+          /> */}
+          <Image
+            src="https://imgix.cosmicjs.com/43bfede0-5c21-11eb-afa6-e9412ba0a77c-PCWA-Special-Notice-Water-Cycling-Shutdowns-1-page-V1bc011121.pdf?fm=png&border=3,eaeaea"
+            layout="responsive"
+            alt="Special Notice for Businesses Regarding Re-opening Mailer"
+            width={700}
+            height={905}
+            quality={100}
           />
         </NarrowContainer>
       </MainBox>
