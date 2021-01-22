@@ -26,6 +26,7 @@ type Props = {
   popperMessage?: string
   popperAnchorStyle?: React.CSSProperties
   mediaPreviewDialogProps?: Partial<MediaPreviewDialogProps>
+  mediaDialogOpen?: boolean
 } & Partial<BoxProps>
 
 const useStyles = makeStyles(() =>
@@ -47,6 +48,7 @@ const MediaDialogOnClick = ({
   mediaUrl,
   timeout = 350,
   mediaPreviewDialogProps,
+  mediaDialogOpen: mediaDialogOpenProp = false,
   ...rest
 }: Props) => {
   const theme = useTheme<Theme>()
@@ -58,7 +60,9 @@ const MediaDialogOnClick = ({
 
   const noTransPaper = colorAlpha(theme.palette.background.paper, 1)
 
-  const [mediaDialogOpen, setMediaDialogOpen] = useState<boolean>(false)
+  const [mediaDialogOpen, setMediaDialogOpen] = useState<boolean>(
+    mediaDialogOpenProp
+  )
 
   const [anchorEl, setAnchorEl] = useState(null)
 
