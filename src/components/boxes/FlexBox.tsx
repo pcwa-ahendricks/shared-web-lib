@@ -27,7 +27,6 @@ type RowBoxUseStylesProps = {
   wrapSpacing?: number
   respBreakAt: Breakpoint
   respElseAt: Breakpoint
-  flexWrap?: boolean
 }
 type ColBoxUseStylesProps = {flexSpacing?: number}
 export type RowBoxProps = Props & {responsive?: boolean | Breakpoint}
@@ -89,9 +88,7 @@ const useRowBoxStyles = makeStyles((theme: Theme) =>
     }: RowBoxUseStylesProps) => ({
       [theme.breakpoints.down(respBreakAt)]: {
         ...(typeof flexSpacing === 'number' && {
-          ...(typeof wrapSpacing !== 'number' && {
-            marginTop: theme.spacing(flexSpacing) * -1
-          }),
+          marginTop: theme.spacing(flexSpacing) * -1,
           '& > .flexBox__child': {
             marginTop: theme.spacing(flexSpacing)
             // This bit is redundant with Column layout
@@ -216,7 +213,6 @@ const RowBox = ({
     flexSpacing,
     respBreakAt,
     respElseAt,
-    flexWrap: isFlexWrap,
     wrapSpacing
   })
 
