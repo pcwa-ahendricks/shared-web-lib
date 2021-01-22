@@ -362,15 +362,10 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                 </Type>
                 <Spacing size="x-small" />
 
-                <RowBox
-                  key={0}
-                  flexWrap="wrap"
-                  flexSpacing={margin}
-                  mt={-margin}
-                >
+                <RowBox key={0} flexWrap="wrap" flexSpacing={margin}>
                   {c.photos.map((p) => {
                     return (
-                      <ChildBox key={p.index} mt={margin}>
+                      <ChildBox key={p.index}>
                         <ColumnBox>
                           <ChildBox position="relative">
                             <ImgixFancier
@@ -419,14 +414,13 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
               key={1}
               flexWrap="wrap"
               flexSpacing={margin}
-              mt={-cardMargin + 2}
+              wrapSpacing={cardMargin}
               // justifyContent="space-around"
             >
               {galleries.map((g, idx) => (
                 <MultimediaGalleryCard
                   gallery={g}
                   key={idx}
-                  mt={cardMargin}
                   imageWidth={cardImageWidth}
                   imageHeight={cardImageHeight}
                   onCardClick={galleryClickHandler(g.galleryKey)}

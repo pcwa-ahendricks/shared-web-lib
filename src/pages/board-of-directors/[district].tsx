@@ -167,9 +167,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
               biography below.
             </Type>
             <Spacing />
-            <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+            <RowBox flexWrap="wrap" flexSpacing={margin}>
               {directors.map((director, idx) => (
-                <ChildBox key={idx} mt={margin}>
+                <ChildBox key={idx}>
                   <Badge
                     invisible={director.district !== activeDirector?.district}
                     badgeContent={

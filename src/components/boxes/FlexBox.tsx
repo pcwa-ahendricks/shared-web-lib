@@ -7,21 +7,33 @@ import {
   BreakpointValues
 } from '@material-ui/core/styles/createBreakpoints'
 
+type EnhancedFlexProp =
+  | BoxProps['flex']
+  | boolean
+  | 'grow'
+  | 'nogrow'
+  | 'noshrink'
+
 type Props = {
   flexSpacing?: number
+  wrapSpacing?: number
   children?: React.ReactNode
   child?: boolean
-} & BoxProps
+  flex?: EnhancedFlexProp
+} & Omit<BoxProps, 'flex'>
 
 type RowBoxUseStylesProps = {
   flexSpacing?: number
+  wrapSpacing?: number
   respBreakAt: Breakpoint
   respElseAt: Breakpoint
+  flexWrap?: boolean
 }
 type ColBoxUseStylesProps = {flexSpacing?: number}
 export type RowBoxProps = Props & {responsive?: boolean | Breakpoint}
 export type ChildBoxProps = {
   children?: React.ReactNode
+  flex?: EnhancedFlexProp
 } & BoxProps
 export type {Props as FlexBoxProps}
 export type {Props as ColumnBoxProps}
@@ -33,37 +45,94 @@ export type {Props as ColumnBoxProps}
    <RowBox flexDirection={{xs: 'column', sm: 'row'}} /> with custom top margins passed in as props while using the flexSpacing prop to control left margins.
 */
 
+/*
+  See links for more info:
+  https://www.w3schools.com/cssref/css3_pr_flex.asp
+  Useful terminology/abbreviations from https://github.com/angular/flex-layout/wiki/fxFlex-API
+  alias 	    Equivalent CSS:
+  initial 	  flex: 0 1 auto
+  auto 	      flex: <grow> <shrink> 100%
+  none 	      flex: 0 0 auto
+  grow 	      flex: 1 1 100%
+  nogrow 	    flex: 0 1 auto
+  noshrink 	  flex: 1 0 auto
+*/
+
+const useEnhancedFlexProp = (flexProp: EnhancedFlexProp): BoxProps['flex'] => {
+  const flex = useMemo(() => {
+    switch (flexProp) {
+      case true:
+        return 'auto' // Or '1 1 auto'
+      case false:
+        return '0 0 auto' // Or 'none'
+      case 'grow':
+        return '1 1 100%'
+      case 'nogrow':
+        return '0 1 auto' // Or 'initial'
+      case 'noshrink':
+        return '1 0 auto'
+      default:
+        return flexProp
+    }
+  }, [flexProp])
+
+  return flex
+}
+
 const useRowBoxStyles = makeStyles((theme: Theme) =>
   createStyles({
     respRowBox: ({
       flexSpacing,
+      wrapSpacing,
       respBreakAt,
       respElseAt
     }: RowBoxUseStylesProps) => ({
       [theme.breakpoints.down(respBreakAt)]: {
         ...(typeof flexSpacing === 'number' && {
-          marginTop: theme.spacing(flexSpacing) * -1,
-          '& > .childBox': {
+          ...(typeof wrapSpacing !== 'number' && {
+            marginTop: theme.spacing(flexSpacing) * -1
+          }),
+          '& > .flexBox__child': {
             marginTop: theme.spacing(flexSpacing)
+            // This bit is redundant with Column layout
+            // ...(flexWrap && {
+            //   marginTop: theme.spacing(flexSpacing)
+            // })
           }
         })
       },
       [theme.breakpoints.up(respElseAt)]: {
         ...(typeof flexSpacing === 'number' && {
-          marginLeft: theme.spacing(flexSpacing) * -1,
-          '& > .childBox': {
+          marginLeft: theme.spacing(flexSpacing) * -1
+        }),
+        ...(typeof wrapSpacing === 'number' && {
+          marginTop: theme.spacing(wrapSpacing * -1)
+        }),
+        '& > .flexBox__child': {
+          ...(typeof flexSpacing === 'number' && {
             marginLeft: theme.spacing(flexSpacing)
-          }
-        })
+          }),
+          ...(typeof wrapSpacing === 'number' && {
+            marginTop: theme.spacing(wrapSpacing)
+          })
+        }
       }
     }),
-    rowBox: ({flexSpacing}: RowBoxUseStylesProps) => ({
+    rowBox: ({flexSpacing, wrapSpacing}: RowBoxUseStylesProps) => ({
       ...(typeof flexSpacing === 'number' && {
-        marginLeft: theme.spacing(flexSpacing) * -1,
-        '& > .childBox': {
+        marginLeft: theme.spacing(flexSpacing) * -1
+      }),
+      ...(typeof wrapSpacing === 'number' && {
+        marginTop: theme.spacing(wrapSpacing * -1)
+      }),
+      '& > .flexBox__child': {
+        ...(typeof flexSpacing === 'number' && {
           marginLeft: theme.spacing(flexSpacing)
-        }
-      })
+        }),
+        ...(typeof wrapSpacing === 'number' && {
+          marginTop: theme.spacing(wrapSpacing)
+        })
+      }
     })
   })
 )
@@ -73,7 +142,7 @@ const useColBoxStyles = makeStyles((theme: Theme) =>
     colBox: ({flexSpacing}: ColBoxUseStylesProps) => ({
       ...(typeof flexSpacing === 'number' && {
         marginTop: theme.spacing(flexSpacing) * -1,
-        '& > .childBox': {
+        '& > .flexBox__child': {
           marginTop: theme.spacing(flexSpacing)
         }
       })
@@ -81,16 +150,14 @@ const useColBoxStyles = makeStyles((theme: Theme) =>
   })
 )
 
-/*
-  Useful terminology/abbreviations from https://github.com/angular/flex-layout/wiki/fxFlex-API
-  alias 	    Equivalent CSS
-  grow 	      flex: 1 1 100%
-  initial 	  flex: 0 1 auto
-  auto 	      flex: <grow> <shrink> 100%
-  none 	      flex: 0 0 auto
-  nogrow 	    flex: 0 1 auto
-  noshrink 	  flex: 1 0 auto
-*/
+const EnhancedBox = ({children, flex: flexProp, ...rest}: Props) => {
+  const flex = useEnhancedFlexProp(flexProp)
+  return (
+    <Box flex={flex} {...rest}>
+      {children}
+    </Box>
+  )
+}
 
 const FlexBox = ({
   children,
@@ -99,13 +166,13 @@ const FlexBox = ({
   ...rest
 }: Props) => {
   return (
-    <Box
+    <EnhancedBox
       display="flex"
-      className={clsx([{['childBox']: child}, classNameProp])}
+      className={clsx([{['flexBox__child']: child}, classNameProp])}
       {...rest}
     >
       {children}
-    </Box>
+    </EnhancedBox>
   )
 }
 
@@ -114,6 +181,8 @@ const RowBox = ({
   flexSpacing,
   className: classNameProp,
   responsive = false,
+  flexWrap,
+  wrapSpacing: wrapSpacingProp,
   ...rest
 }: RowBoxProps) => {
   const respBreakAt = useMemo(
@@ -137,7 +206,19 @@ const RowBox = ({
     return breakpoints[idx + 1].key
   }, [breakpoints, respBreakAt])
 
-  const classes = useRowBoxStyles({flexSpacing, respBreakAt, respElseAt})
+  const isFlexWrap = flexWrap === 'wrap'
+  const wrapSpacing = !isFlexWrap
+    ? undefined
+    : typeof wrapSpacingProp === 'number'
+    ? wrapSpacingProp
+    : flexSpacing
+  const classes = useRowBoxStyles({
+    flexSpacing,
+    respBreakAt,
+    respElseAt,
+    flexWrap: isFlexWrap,
+    wrapSpacing
+  })
 
   const flexDirection = useMemo(() => {
     switch (responsive) {
@@ -167,6 +248,7 @@ const RowBox = ({
         },
         classNameProp
       ])}
+      flexWrap={flexWrap}
       {...rest}
     >
       {children}
@@ -198,9 +280,9 @@ const ChildBox = ({
   ...rest
 }: ChildBoxProps) => {
   return (
-    <Box className={clsx(['childBox', classNameProp])} {...rest}>
+    <EnhancedBox className={clsx(['flexBox__child', classNameProp])} {...rest}>
       {children}
-    </Box>
+    </EnhancedBox>
   )
 }
 

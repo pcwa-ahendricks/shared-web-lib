@@ -110,7 +110,6 @@ const WaterRatesPage = () => {
     return (
       <ChildBox
         flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
-        mt={flexTopMargin}
         {...rest}
       >
         {children}
@@ -124,7 +123,7 @@ const WaterRatesPage = () => {
         responsive
         flexSpacing={flexLeftMargin}
         flexWrap="wrap"
-        mt={-flexTopMargin}
+        wrapSpacing={flexTopMargin}
         {...rest}
       >
         {children}

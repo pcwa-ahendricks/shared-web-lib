@@ -291,8 +291,12 @@ const FireResistantGardenPage = () => {
                 </ChildBox>
 
                 <ChildBox>
-                  <RowBox flexSpacing={plantImgSpacing} flexWrap="wrap" mt={-2}>
-                    <ChildBox mt={2} flex={plantImgChildFlex}>
+                  <RowBox
+                    flexSpacing={plantImgSpacing}
+                    flexWrap="wrap"
+                    wrapSpacing={2}
+                  >
+                    <ChildBox flex={plantImgChildFlex}>
                       <LazyImgix
                         src="https://imgix.cosmicjs.com/e7e0c090-ad61-11e9-910a-9dd8fa8729ee-Rosy-Glow-Barberry.jpg"
                         htmlAttributes={{
@@ -301,7 +305,7 @@ const FireResistantGardenPage = () => {
                         }}
                       />
                     </ChildBox>
-                    <ChildBox mt={2} flex={plantImgChildFlex}>
+                    <ChildBox flex={plantImgChildFlex}>
                       <LazyImgix
                         src="https://imgix.cosmicjs.com/e7850c00-ad61-11e9-910a-9dd8fa8729ee-Gold-Dust-Aucuba.jpg"
                         htmlAttributes={{
@@ -310,7 +314,7 @@ const FireResistantGardenPage = () => {
                         }}
                       />
                     </ChildBox>
-                    <ChildBox mt={2} flex={plantImgChildFlex}>
+                    <ChildBox flex={plantImgChildFlex}>
                       <LazyImgix
                         src="https://imgix.cosmicjs.com/e7749140-ad61-11e9-8aa7-c50c7cc602b8-Dwarf-Butterfly-Bush.jpg"
                         htmlAttributes={{
@@ -319,7 +323,7 @@ const FireResistantGardenPage = () => {
                         }}
                       />
                     </ChildBox>
-                    <ChildBox mt={2} flex={plantImgChildFlex}>
+                    <ChildBox flex={plantImgChildFlex}>
                       <LazyImgix
                         src="https://imgix.cosmicjs.com/e711fee0-ad61-11e9-8aa7-c50c7cc602b8-African-Iris.jpg"
                         htmlAttributes={{

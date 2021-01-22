@@ -48,11 +48,9 @@ const EmployeeBenefitsSummaryPage = () => {
     )
   }
 
-  const topMargin = 3
-
   const BudgetDoc = ({children, ...props}: ButtonProps<'a'>) => {
     return (
-      <ChildBox mt={topMargin}>
+      <ChildBox>
         <FancyButton
           variant="contained"
           hoverText="View PDF"
@@ -231,7 +229,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   An overview and details of PCWA's most current operating and
                   capital budget:
                 </Type>
-                <RowBox flexWrap="wrap" flexSpacing={3} mt={-topMargin}>
+                <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
                     aria-label="View 2021 Budget"
                     href="https://imgix.cosmicjs.com/0df66860-3b10-11eb-9818-c3d1278ec8ae-2021-Adopted-Budget---website.pdf"
@@ -275,7 +273,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   Presentations provided during regular PCWA Board of Director's
                   Meeting
                 </Type>
-                <RowBox flexWrap="wrap" flexSpacing={3} mt={-topMargin}>
+                <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
                     color="primary"
                     aria-label="View 2021 Budget Presentation"

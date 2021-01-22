@@ -299,7 +299,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         {/* Ross REALLY wants these centered, no matter what. */}
         <RowBox
           flexWrap="wrap"
-          mt={-coverTileTopMargin}
+          wrapSpacing={coverTileTopMargin}
           flexSpacing={4}
           justifyContent="center"
         >
@@ -310,7 +310,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           flexSpacing={4}
           justifyContent="space-around"
         > */}
-          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth}>
             <CoverTile
               title="Canal Customer Survey"
               imgixURL={canalSurveyImgSrc}
@@ -325,7 +325,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth}>
             <CoverTile
               title="Pay My Bill"
               imgixURL={paymentusLogoImgSrc}
@@ -339,7 +339,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth}>
             <CoverTile
               title="Outage Information"
               imgixURL={outagesImgSrc}
@@ -352,7 +352,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth}>
             <CoverTile
               title="Current Projects"
               imgixURL={projectImgSrc}
@@ -365,7 +365,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-          <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          <ChildBox width={tileWidth}>
             <CoverTile
               title="Board Meeting Agendas"
               imgixURL={boardMeetingImgSrc}
@@ -378,7 +378,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-          {/* <ChildBox width={tileWidth} mt={coverTileTopMargin}>
+          {/* <ChildBox width={tileWidth} >
             <LatestNewsRelease />
           </ChildBox> */}
 

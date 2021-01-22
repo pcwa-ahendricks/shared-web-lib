@@ -53,6 +53,7 @@ import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import {grey} from '@material-ui/core/colors'
+import StationInfo from '@components/season-recap/StationInfo'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -1499,8 +1500,11 @@ export default function SeasonRecapPage() {
 
           <Spacing />
 
-          <Box height={300}>
+          <Box height={300} position="relative">
             <StnMap stationInfo={selectedStationInfo} />
+            <Box position="absolute" top={0} right={0}>
+              <StationInfo stationInfo={selectedStationInfo} />
+            </Box>
           </Box>
 
           <Spacing />

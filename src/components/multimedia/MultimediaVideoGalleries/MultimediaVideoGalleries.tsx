@@ -234,9 +234,9 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
       >
         {selectedGallery ? (
           <>
-            <RowBox key={0} flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+            <RowBox key={0} flexWrap="wrap" flexSpacing={margin}>
               {currentGallery?.videos.map((p) => (
-                <ChildBox key={p.index} mt={margin}>
+                <ChildBox key={p.index}>
                   <FilePlayer
                     className={classes.player}
                     controls
@@ -265,14 +265,13 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
             key={1}
             flexWrap="wrap"
             flexSpacing={margin}
-            mt={-cardMargin + 2}
+            wrapSpacing={cardMargin}
             // justifyContent="space-around"
           >
             {galleries.map((g, idx) => (
               <MultimediaGalleryCard
                 gallery={g}
                 key={idx}
-                mt={cardMargin}
                 imageWidth={cardImageWidth}
                 imageHeight={cardImageHeight}
                 onCardClick={galleryClickHandler(g.galleryKey)}

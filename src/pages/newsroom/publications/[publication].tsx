@@ -485,9 +485,9 @@ const PublicationsPage = ({
                 <RowBox
                   flexWrap="wrap"
                   flexSpacing={isXS ? 0 : pubCardMargin}
-                  mt={-pubCardMargin}
+                  wrapSpacing={pubCardMargin}
                 >
-                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2020"
                       publishedDate={parse(
@@ -499,7 +499,7 @@ const PublicationsPage = ({
                       imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
                     />
                   </ChildBox>
-                  {/* <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  {/* <ChildBox  width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2019"
                       publishedDate={parse(
@@ -510,7 +510,7 @@ const PublicationsPage = ({
                       imgixURL="https://imgix.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
                     />
                   </ChildBox>
-                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  <ChildBox  width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2018"
                       publishedDate={parse(
@@ -523,7 +523,7 @@ const PublicationsPage = ({
                       imgixCropMode="bottom"
                     />
                   </ChildBox>
-                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  <ChildBox  width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2017"
                       publishedDate={parse(
@@ -543,9 +543,9 @@ const PublicationsPage = ({
                 <RowBox
                   flexWrap="wrap"
                   flexSpacing={isXS ? 0 : pubCardMargin}
-                  mt={-pubCardMargin}
+                  wrapSpacing={pubCardMargin}
                 >
-                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="2019 Year End Report"
                       publishedDate={parse(
@@ -556,7 +556,7 @@ const PublicationsPage = ({
                       imgixURL="https://imgix.cosmicjs.com/1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf"
                     />
                   </ChildBox>
-                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="2018 Year End Report"
                       publishedDate={parse(
@@ -567,7 +567,7 @@ const PublicationsPage = ({
                       imgixURL="https://imgix.cosmicjs.com/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf"
                     />
                   </ChildBox>
-                  <ChildBox mt={pubCardMargin} width={isXS ? '100%' : 'auto'}>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="2017 Year End Report"
                       publishedDate={parse(

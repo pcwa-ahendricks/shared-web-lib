@@ -45,13 +45,13 @@ const BoardMinutesAccordion = ({
       </AccordionSummary>
       <AccordionDetails>
         {wasExpanded ? (
-          <RowBox flexWrap="wrap" flexSpacing={margin} mt={-margin}>
+          <RowBox flexWrap="wrap" flexSpacing={margin}>
             {minutes.map((m) => {
               const {derivedFilenameAttr, imgix_url} = m
               const {title = '', publishedDate = '', date = ''} =
                 derivedFilenameAttr ?? {}
               return (
-                <ChildBox key={m._id} mt={margin}>
+                <ChildBox key={m._id}>
                   <BoardMinutesLink
                     imgixUrl={imgix_url}
                     title={title}

@@ -1,7 +1,7 @@
 import React from 'react'
-import {Box, makeStyles, createStyles} from '@material-ui/core'
+import {makeStyles, createStyles} from '@material-ui/core'
 import {BoxProps} from '@material-ui/core/Box'
-import {RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 
 type Props = {children: React.ReactNode; containerProps?: BoxProps} & BoxProps
 
@@ -17,8 +17,8 @@ const NarrowContainer = ({children, containerProps, ...rest}: Props) => {
   const classes = useStyles()
   return (
     <RowBox justifyContent="space-around" {...containerProps}>
-      <Box
-        flex="auto"
+      <ChildBox
+        flex
         width="100%" // IE fix
         maxWidth={700} // Ported from original pcwa.net website (Semantic-UI).
         ml={2}
@@ -27,7 +27,7 @@ const NarrowContainer = ({children, containerProps, ...rest}: Props) => {
         {...rest}
       >
         {children}
-      </Box>
+      </ChildBox>
     </RowBox>
   )
 }
