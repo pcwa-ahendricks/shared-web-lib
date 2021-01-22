@@ -210,6 +210,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               paddingPercent={coverStoryPadPerc}
               title="Water-Wise Home"
               linkHref="/smart-water-use/water-wise-home"
+              readMore="See brochure"
               imgixURL={fireWaterImgSrc}
               imgixFancyProps={{
                 // lqipSrc: fireWaterImgSrcLqip.b64,

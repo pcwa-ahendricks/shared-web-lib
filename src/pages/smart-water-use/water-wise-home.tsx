@@ -5,8 +5,15 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Image from 'next/image'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import {Button, createStyles, makeStyles, Theme} from '@material-ui/core'
+import {
+  Button,
+  createStyles,
+  makeStyles,
+  Theme,
+  Typography
+} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
+import {RowBox} from '@components/boxes/FlexBox'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,6 +50,12 @@ export default function ResponsiveImageTemplatePage() {
               className={classes.mediaDialogImg}
             />
           </MediaDialogOnClick>
+          <Spacing size="small" />
+          <RowBox justifyContent="flex-end">
+            <Typography variant="caption">
+              Originally featured in PCWA's Fire & Water (2020)
+            </Typography>
+          </RowBox>
           <Spacing />
           <Button href="https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG?dl=waterwise-home.jpg">
             Download Water-Wise Home Brochure
