@@ -33,7 +33,6 @@ export default function StationInfo({stationInfo}: Props) {
   const hasItems = stationInfo && Object.keys(stationInfo).length > 0
   const {name, elev, county, state} = stationInfo ?? {}
 
-  console.log(stationInfo)
   return (
     <WaitToFade isIn={Boolean(hasItems)}>
       <Box position="relative">
