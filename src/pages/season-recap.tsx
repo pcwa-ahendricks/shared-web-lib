@@ -962,11 +962,11 @@ export default function SeasonRecapPage() {
               </ToggleButton>
             </ToggleButtonGroup>
           </Box>
-          <Spacing size="large" />
+          <Spacing />
           {/* <Type align="center" variant="body1">
             <em>The greater region has received</em>
           </Type> */}
-          <Paper square={false} elevation={0}>
+          <Paper square={false} elevation={0} component={Box}>
             <RowBox
               responsive
               flexSpacing={4}
