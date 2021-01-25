@@ -103,7 +103,8 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
       ...currentViewport,
       zoom: 10,
       latitude,
-      longitude: longitude - 0.25 * (mapWest - mapEast),
+      // longitude: longitude - 0.05 * (mapWest - mapEast),
+      longitude: longitude - 0.0 * (mapWest - mapEast),
       transitionDuration: 1500,
       transitionInterpolator: new FlyToInterpolator(),
       transitionEasing: easeCubic

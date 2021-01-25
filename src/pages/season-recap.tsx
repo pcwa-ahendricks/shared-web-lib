@@ -1502,7 +1502,7 @@ export default function SeasonRecapPage() {
 
           <Box height={300} position="relative">
             <StnMap stationInfo={selectedStationInfo} />
-            <Box position="absolute" top={0} right={0}>
+            <Box position="absolute" top={24} right={24}>
               <StationInfo stationInfo={selectedStationInfo} />
             </Box>
           </Box>
