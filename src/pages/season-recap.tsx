@@ -967,8 +967,15 @@ export default function SeasonRecapPage() {
             <em>The greater region has received</em>
           </Type> */}
           <Paper square={false} elevation={0}>
-            <RowBox justifyContent="space-around" pt={1} px={2} pb={3}>
-              <ColumnBox>
+            <RowBox
+              responsive
+              flexSpacing={4}
+              justifyContent="space-around"
+              pt={1}
+              px={2}
+              pb={3}
+            >
+              <ColumnBox child>
                 <RowBox p={1}>
                   <ChildBox flex="auto">
                     <Type variant="body1" align="center" style={{fontSize: 20}}>
@@ -1211,7 +1218,7 @@ export default function SeasonRecapPage() {
                   </ColumnBox>
                 </RowBox>
               </ColumnBox>
-              <ColumnBox>
+              <ColumnBox child>
                 <RowBox p={1}>
                   <ChildBox flex="auto">
                     <Type variant="body1" align="center" style={{fontSize: 20}}>
