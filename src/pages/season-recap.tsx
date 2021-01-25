@@ -35,7 +35,7 @@ import {
 // import {BasicTooltip} from '@nivo/tooltip'
 import round from '@lib/round'
 import isNumber from 'is-number'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -966,7 +966,7 @@ export default function SeasonRecapPage() {
           {/* <Type align="center" variant="body1">
             <em>The greater region has received</em>
           </Type> */}
-          <Paper square={false} elevation={0} component={Box}>
+          <Paper square={false} elevation={0} component={FlexBox}>
             <RowBox
               responsive
               flexSpacing={4}
