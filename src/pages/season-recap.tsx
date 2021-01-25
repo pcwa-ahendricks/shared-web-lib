@@ -55,6 +55,7 @@ import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import {grey} from '@material-ui/core/colors'
 import StationInfo from '@components/season-recap/StationInfo'
+const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -90,6 +91,7 @@ const stationIds = [
   '048758 2',
   '043891 2'
 ] as const
+
 type StationId = typeof stationIds[number]
 
 type StationInfo =
@@ -433,6 +435,7 @@ export default function SeasonRecapPage() {
     () => (stationInfo ? stationInfo[sid] : null),
     [sid, stationInfo]
   )
+  // console.log(selectedStationInfo)
 
   const qs = stringify({sid: slugify(sid), waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`, {
@@ -454,6 +457,11 @@ export default function SeasonRecapPage() {
     `/api/acis/precip-monthly-smry${qs}`,
     {refreshInterval}
   )
+  const {data: snowfallResponse} = useSWR<PrecipResponse>(
+    `/api/acis/snowfall${qs}`,
+    {refreshInterval}
+  )
+  console.log(snowfallResponse)
 
   const precipMoSmryData = useMemo(() => {
     const smryData = precipMoSmryResponse?.smry[0] ?? []
@@ -517,6 +525,43 @@ export default function SeasonRecapPage() {
     [precipResponse]
   )
 
+  const snowfallAccumData = useMemo(
+    () => ({
+      id: 'Accumulated Snowfall.',
+      data: (
+        snowfallResponse?.data.map((i) => ({
+          x: i[0],
+          y: parseFloat(i[1] ?? '')
+        })) ?? []
+      ).reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+        const actual = isNumber(curr.y) ? curr.y : 0
+        const prevLastY = prev.slice(-1)[0]?.y
+        const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+        return [
+          ...prev,
+          {
+            ...curr,
+            y: prevTotal + actual,
+            actual
+          }
+        ]
+      }, [])
+    }),
+    [snowfallResponse]
+  )
+
+  const snowfallData = useMemo(
+    () =>
+      snowfallResponse?.data.map((i) => ({
+        day: i[0],
+        // Trace values are effectively 0.
+        value: i[1]?.toLowerCase() === 't' ? 0 : parseFloat(i[1] ?? '')
+      })) ?? [],
+    [snowfallResponse]
+  )
+
+  console.log(snowfallAccumData)
+  console.log(snowfallData)
   const precipAccumHistHighYear = useMemo(() => {
     const highYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
       const prevValue = parseFloat(prev?.[1]?.[0])
@@ -1555,12 +1600,19 @@ export default function SeasonRecapPage() {
             >
               <Tab
                 icon={<WeatherIcon name="raindrop" />}
-                label="PRECIPITATION"
+                label="Precipitation"
                 {...a11yProps(0)}
               />
+              {isDev ? (
+                <Tab
+                  icon={<WeatherIcon name="snowflake-cold" />}
+                  label="Snowfall"
+                  {...a11yProps(1)}
+                />
+              ) : null}
               <Tab
                 icon={<WeatherIcon name="thermometer" />}
-                label="TEMPERATURE"
+                label="Temperature"
                 {...a11yProps(1)}
               />
             </Tabs>
@@ -1688,8 +1740,15 @@ export default function SeasonRecapPage() {
               <PrecipCalendar precipData={precipData} waterYear={waterYear} />
             </Box>
           </TabPanel>
-
-          <TabPanel value={tabValue} index={1}>
+          {isDev ? (
+            <TabPanel value={tabValue} index={1}>
+              <Spacing size="x-large" />
+              <Type variant="h4" align="center">
+                Accumulated Snowfall
+              </Type>
+            </TabPanel>
+          ) : null}
+          <TabPanel value={tabValue} index={2}>
             <Spacing size="x-large" />
             <Type variant="h4" align="center">
               Observed Temperature Ranges
