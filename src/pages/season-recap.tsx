@@ -1981,7 +1981,7 @@ export default function SeasonRecapPage() {
               </Box>
             </TabPanel>
           ) : null}
-          <TabPanel value={tabValue} index={2}>
+          <TabPanel value={tabValue} index={isDev ? 2 : 1}>
             <Spacing size="x-large" />
             <Type variant="h4" align="center">
               Observed Temperature Ranges
