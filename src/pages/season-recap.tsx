@@ -313,6 +313,7 @@ export default function SeasonRecapPage() {
     }))
     return mapped ?? []
   }, [multiStnSnowSmryRes, countyResponse])
+  console.log(multiStnSnowSmryData)
 
   const multiStnSnowSmryStns = multiStnSnowSmryData
     .map((d) => d.meta.name)
