@@ -293,9 +293,10 @@ export default function SeasonRecapPage() {
 
   const multiStnSnowSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
-    const filtered = multiStnSnowSmryRes?.data.filter((d) =>
-      d.data.every((v) => isNumber(v))
-    )
+    const filtered = multiStnSnowSmryRes?.data
+      .filter((d) => d.data.every((v) => isNumber(v)))
+      .filter((d) => d.meta.name?.toUpperCase() !== 'GRASS VALLEY NO. 2')
+
     const mapped = filtered?.map((d) => ({
       ...d,
       meta: {
