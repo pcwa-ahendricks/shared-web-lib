@@ -71,7 +71,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
 
     const apiUrl = 'https://data.rcc-acis.org/MultiStnData'
 
-    const hash = `acis-snow-last30-smry-_${eDate}`
+    const hash = `acis-snow-last30_2-smry-_${eDate}`
     const cache = await getAsync(hash)
     if (cache && typeof cache === 'object') {
       dLog('returning cache copy...')
@@ -93,7 +93,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const data = await response.json()
 
     await setAsync(hash, data)
-    await expireAsync(hash, 60 * 60 * 24) // 24 hours
+    await expireAsync(hash, 60 * 60 * 3) // 3 hours
     // await expireAsync(hash, 60 * 1) // 1 min
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
