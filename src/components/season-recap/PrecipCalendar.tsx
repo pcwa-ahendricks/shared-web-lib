@@ -1,7 +1,8 @@
 import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {
   ResponsiveEnhancedCalendar,
-  CalendarDatum
+  CalendarDatum,
+  EnhancedCalendarSvgProps
 } from '@kevinmoe/nivo-fork-calendar'
 import round from '@lib/round'
 import {
@@ -17,9 +18,13 @@ import React from 'react'
 type Props = {
   waterYear: number
   precipData: CalendarDatum[]
-}
+} & Partial<EnhancedCalendarSvgProps>
 
-export default function PrecipCalendar({waterYear, precipData}: Props) {
+export default function PrecipCalendar({
+  waterYear,
+  precipData,
+  ...rest
+}: Props) {
   const theme = useTheme()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   return (
@@ -86,6 +91,7 @@ export default function PrecipCalendar({waterYear, precipData}: Props) {
           </Box>
         )
       }}
+      {...rest}
     />
   )
 }

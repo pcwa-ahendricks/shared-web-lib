@@ -55,6 +55,7 @@ import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import {grey} from '@material-ui/core/colors'
 import StationInfo from '@components/season-recap/StationInfo'
+import SnowfallAccumLine from '@components/season-recap/SnowAccumLine'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -461,7 +462,10 @@ export default function SeasonRecapPage() {
     `/api/acis/snowfall${qs}`,
     {refreshInterval}
   )
-  console.log(snowfallResponse)
+  const {data: snowfallHistResponse} = useSWR<PrecipHistResponse>(
+    `/api/acis/snowfall-hist${qs}`,
+    {refreshInterval}
+  )
 
   const precipMoSmryData = useMemo(() => {
     const smryData = precipMoSmryResponse?.smry[0] ?? []
@@ -527,7 +531,7 @@ export default function SeasonRecapPage() {
 
   const snowfallAccumData = useMemo(
     () => ({
-      id: 'Accumulated Snowfall.',
+      id: 'Accumulated Snowfall',
       data: (
         snowfallResponse?.data.map((i) => ({
           x: i[0],
@@ -560,8 +564,6 @@ export default function SeasonRecapPage() {
     [snowfallResponse]
   )
 
-  console.log(snowfallAccumData)
-  console.log(snowfallData)
   const precipAccumHistHighYear = useMemo(() => {
     const highYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
       const prevValue = parseFloat(prev?.[1]?.[0])
@@ -573,6 +575,18 @@ export default function SeasonRecapPage() {
     })[0]
     return parseWaterYear(highYearDateStr)
   }, [precipHistResponse])
+
+  const snowfallAccumHistHighYear = useMemo(() => {
+    const highYearDateStr = snowfallHistResponse?.data.reduce((prev, curr) => {
+      const prevValue = parseFloat(prev?.[1]?.[0])
+      const currValue = parseFloat(curr[1][0])
+      if (!isNumber(prevValue)) {
+        return curr
+      }
+      return isNumber(currValue) && currValue > prevValue ? curr : prev
+    })[0]
+    return parseWaterYear(highYearDateStr)
+  }, [snowfallHistResponse])
 
   const qsPrecipHigh = stringify(
     {sid, waterYear: precipAccumHistHighYear},
@@ -610,7 +624,44 @@ export default function SeasonRecapPage() {
     }),
     [precipAccumHistHighResponse, precipResponse]
   )
+  const qsSnowfallHigh = stringify(
+    {sid, waterYear: snowfallAccumHistHighYear},
+    true
+  )
+  const {data: snowfallAccumHistHighResponse} = useSWR<PrecipResponse>(
+    snowfallAccumHistHighYear
+      ? `/api/acis/snowfall-hist-yr${qsSnowfallHigh}`
+      : null,
+    {refreshInterval}
+  )
 
+  const snowfallAccumHistHighData = useMemo(
+    () => ({
+      id: 'Recorded High',
+      data: (
+        snowfallAccumHistHighResponse?.data.map((i, idx) => ({
+          // x: i[0], // High date
+          x: snowfallResponse?.data[idx]?.[0] ?? '',
+          y: parseFloat(i[1] ?? '')
+        })) ?? []
+      )
+        .filter((i) => i.x)
+        .reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+          const actual = isNumber(curr.y) ? curr.y : 0
+          const prevLastY = prev.slice(-1)[0]?.y
+          const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+          return [
+            ...prev,
+            {
+              ...curr,
+              y: prevTotal + actual,
+              actual
+            }
+          ]
+        }, [])
+    }),
+    [snowfallAccumHistHighResponse, snowfallResponse]
+  )
   const precipAccumHistLowYear = useMemo(() => {
     const lowYearDateStr = precipHistResponse?.data.reduce((prev, curr) => {
       const prevValue = parseFloat(prev?.[1]?.[0])
@@ -623,9 +674,31 @@ export default function SeasonRecapPage() {
     return parseWaterYear(lowYearDateStr)
   }, [precipHistResponse])
 
+  const snowfallAccumHistLowYear = useMemo(() => {
+    const lowYearDateStr = snowfallHistResponse?.data.reduce((prev, curr) => {
+      const prevValue = parseFloat(prev?.[1]?.[0])
+      const currValue = parseFloat(curr[1][0])
+      if (!isNumber(prevValue)) {
+        return curr
+      }
+      return isNumber(currValue) && currValue < prevValue ? curr : prev
+    })[0]
+    return parseWaterYear(lowYearDateStr)
+  }, [snowfallHistResponse])
+
   const qsPrecipLow = stringify({sid, waterYear: precipAccumHistLowYear}, true)
   const {data: precipAccumHistLowResponse} = useSWR<PrecipResponse>(
     precipAccumHistLowYear ? `/api/acis/precip-hist-yr${qsPrecipLow}` : null,
+    {refreshInterval}
+  )
+  const qsSnowfallLow = stringify(
+    {sid, waterYear: snowfallAccumHistLowYear},
+    true
+  )
+  const {data: snowfallAccumHistLowResponse} = useSWR<PrecipResponse>(
+    snowfallAccumHistLowYear
+      ? `/api/acis/snowfall-hist-yr${qsSnowfallLow}`
+      : null,
     {refreshInterval}
   )
   const precipAccumHistLowData = useMemo(
@@ -655,6 +728,33 @@ export default function SeasonRecapPage() {
     }),
     [precipAccumHistLowResponse, precipResponse]
   )
+  const snowfallAccumHistLowData = useMemo(
+    () => ({
+      id: 'Recorded Low',
+      data: (
+        snowfallAccumHistLowResponse?.data.map((i, idx) => ({
+          // x: i[0],
+          x: snowfallResponse?.data[idx]?.[0] ?? '',
+          y: parseFloat(i[1] ?? '')
+        })) ?? []
+      )
+        .filter((i) => i.x)
+        .reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+          const actual = isNumber(curr.y) ? curr.y : 0
+          const prevLastY = prev.slice(-1)[0]?.y
+          const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+          return [
+            ...prev,
+            {
+              ...curr,
+              y: prevTotal + actual,
+              actual
+            }
+          ]
+        }, [])
+    }),
+    [snowfallAccumHistLowResponse, snowfallResponse]
+  )
 
   const precipNormalAccumData = useMemo(
     () => ({
@@ -682,6 +782,32 @@ export default function SeasonRecapPage() {
     }),
     [precipResponse]
   )
+  const snowfallNormalAccumData = useMemo(
+    () => ({
+      id: 'Average Accum. Snowfall',
+      data: (
+        snowfallResponse?.data.map((i) => ({
+          x: i[0],
+          y: parseFloat(i[2] ?? '')
+        })) ?? []
+      )
+        .filter((i) => i.x)
+        .reduce<{y: number; x: string; actual: number}[]>((prev, curr) => {
+          const actual = isNumber(curr.y) ? curr.y : 0
+          const prevLastY = prev.slice(-1)[0]?.y
+          const prevTotal = isNumber(prevLastY) ? prevLastY : 0
+          return [
+            ...prev,
+            {
+              ...curr,
+              y: prevTotal + actual,
+              actual
+            }
+          ]
+        }, [])
+    }),
+    [snowfallResponse]
+  )
 
   const precipAccumDiff = useMemo(() => {
     const precipAccum = precipAccumData.data.slice(-1)[0]?.y ?? null
@@ -693,6 +819,18 @@ export default function SeasonRecapPage() {
       ? round((precipAccum / precipAccumNormal) * 100, 0)
       : null
   }, [precipAccumData, precipNormalAccumData])
+
+  const snowfallAccumDiff = useMemo(() => {
+    const snowfallAccum = snowfallAccumData.data.slice(-1)[0]?.y ?? null
+    const snowfallAccumNormal =
+      snowfallNormalAccumData.data.slice(-1)[0]?.y ?? null
+
+    return isNumber(snowfallAccum) &&
+      isNumber(snowfallAccumNormal) &&
+      snowfallAccumNormal !== 0 // Don't show infinity values when Normal data is not present
+      ? round((snowfallAccum / snowfallAccumNormal) * 100, 0)
+      : null
+  }, [snowfallAccumData, snowfallNormalAccumData])
 
   const tempHistHighData = useMemo(
     () => ({
@@ -821,6 +959,23 @@ export default function SeasonRecapPage() {
     precipNormalAccumData,
     precipAccumHistHighData,
     precipAccumHistLowData
+  ])
+
+  const [snowfallDataset, setSnowfallDataset] = useState<LineDataProp>([])
+  useEffect(() => {
+    setTimeout(() => {
+      setSnowfallDataset([
+        snowfallAccumHistLowData,
+        snowfallAccumHistHighData,
+        snowfallNormalAccumData,
+        snowfallAccumData
+      ])
+    })
+  }, [
+    snowfallAccumData,
+    snowfallNormalAccumData,
+    snowfallAccumHistHighData,
+    snowfallAccumHistLowData
   ])
 
   const [tempDataset, setTempDataset] = useState<LineDataProp>([])
@@ -1745,7 +1900,83 @@ export default function SeasonRecapPage() {
               <Spacing size="x-large" />
               <Type variant="h4" align="center">
                 Accumulated Snowfall
+              </Type>{' '}
+              <Grow in={Boolean(snowfallResponse)}>
+                <Type
+                  variant="caption"
+                  align="center"
+                  color="textSecondary"
+                  component="header"
+                >
+                  {snowfallResponse?.meta.name},{' '}
+                  {`${waterYear - 1}-${waterYear}`}
+                  <Type variant="inherit" color="inherit">
+                    <em>
+                      {' '}
+                      (using{' '}
+                      {snowfallResponse?.meta.valid_daterange[0][0].substr(
+                        0,
+                        4
+                      )}
+                      -
+                      {snowfallResponse?.meta.valid_daterange[0][1].substr(
+                        0,
+                        4
+                      )}{' '}
+                      for historical data)
+                    </em>
+                  </Type>
+                </Type>
+              </Grow>
+              <Box height={{xs: 400, lg: 450}} position="relative">
+                <WaitToFade isIn={Boolean(snowfallAccumDiff)}>
+                  <Box position="absolute" top={64} left={64} zIndex={2}>
+                    <Paper elevation={2} square>
+                      <Box p={1}>
+                        <Type
+                          variant="caption"
+                          align="center"
+                          component="header"
+                        >
+                          <Hidden smDown>Accumulated </Hidden>
+                          <strong>{snowfallAccumDiff}%</strong> of Normal
+                          Average
+                        </Type>
+                      </Box>
+                    </Paper>
+                  </Box>
+                </WaitToFade>
+                <SnowfallAccumLine
+                  snowfallDataset={snowfallDataset}
+                  highYear={snowfallAccumHistHighYear}
+                  lowYear={snowfallAccumHistLowYear}
+                />
+              </Box>
+              <Spacing size="x-large">
+                <Divider />
+              </Spacing>
+              <Type variant="h4" align="center">
+                Actual Snowfall
               </Type>
+              <Grow in={Boolean(snowfallResponse)}>
+                <Type
+                  variant="caption"
+                  align="center"
+                  color="textSecondary"
+                  component="header"
+                >
+                  {snowfallResponse?.meta.name},{' '}
+                  {`${waterYear - 1}-${waterYear}`}
+                </Type>
+              </Grow>
+              <Box height={{xs: 650, sm: 200, lg: 300}}>
+                <PrecipCalendar
+                  precipData={snowfallData}
+                  waterYear={waterYear}
+                  minValue={0}
+                  maxValue={10}
+                />
+              </Box>
             </TabPanel>
           ) : null}
           <TabPanel value={tabValue} index={2}>
