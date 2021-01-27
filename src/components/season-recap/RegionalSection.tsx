@@ -221,6 +221,7 @@ export default function RegionalSection({countyResponse}: Props) {
     const filtered = multiStnSnowSmryRes?.data
       .filter((d) => d.data.every((v) => isNumber(v)))
       .filter((d) => d.meta.name?.toUpperCase() !== 'GRASS VALLEY NO. 2')
+      .filter((d) => d.meta.name?.toUpperCase() !== 'NEVADA CITY')
 
     const mapped = filtered?.map((d) => ({
       ...d,
