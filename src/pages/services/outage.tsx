@@ -269,7 +269,7 @@ const OutageInformationPage = ({initialData}: Props) => {
                     title="Link to 2020 Annual PG&E Fall Canal Outage Schedule"
                     underline="always"
                   >
-                    <ClickOrTap /> here for the current Schedule
+                    <ClickOrTap /> here for the 2020 Schedule
                   </MuiLink>
                   .
                 </Type>

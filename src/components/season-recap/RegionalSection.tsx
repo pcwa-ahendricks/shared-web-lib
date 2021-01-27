@@ -220,6 +220,7 @@ export default function RegionalSection({countyResponse}: Props) {
     // Only return station data for stations that have data for all three values
     const filtered = multiStnSnowSmryRes?.data
       .filter((d) => d.data.every((v) => isNumber(v)))
+      // These stations sometimes show bogus data
       .filter((d) => d.meta.name?.toUpperCase() !== 'GRASS VALLEY NO. 2')
       .filter((d) => d.meta.name?.toUpperCase() !== 'NEVADA CITY')
 
