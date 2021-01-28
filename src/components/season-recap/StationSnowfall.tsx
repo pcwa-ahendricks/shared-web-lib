@@ -3,7 +3,6 @@ import React, {useMemo, useState, useEffect, useCallback} from 'react'
 import {
   Typography as Type,
   Divider,
-  Grow,
   Box,
   Paper,
   Hidden
