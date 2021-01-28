@@ -23,8 +23,7 @@ import {
   FormGroup,
   FormControlLabel,
   Divider,
-  Hidden,
-  Grow
+  Hidden
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
@@ -47,6 +46,7 @@ import StationInfo from '@components/season-recap/StationInfo'
 import RegionalSection from '@components/season-recap/RegionalSection'
 import StationSnowfall from '@components/season-recap/StationSnowfall'
 import round from '@lib/round'
+import Animate, {AnimateProps} from '@components/Animate/Animate'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -510,6 +510,15 @@ export default function SeasonRecapPage() {
     []
   )
 
+  const Fade = useCallback(
+    ({children, ...rest}: Partial<AnimateProps>) => (
+      <Animate name="fadeIn" hideUntilAnimate {...rest}>
+        {children}
+      </Animate>
+    ),
+    []
+  )
+
   return (
     <PageLayout title="Weather & Climate" waterSurface>
       <MainBox>
@@ -605,7 +614,7 @@ export default function SeasonRecapPage() {
             <Type variant="h4" align="center">
               Accumulated Precipitation
             </Type>
-            <Grow in={Boolean(precipResponse)}>
+            <Fade animate={Boolean(precipResponse)}>
               <Type
                 variant="caption"
                 align="center"
@@ -623,7 +632,7 @@ export default function SeasonRecapPage() {
                   </em>
                 </Type>
               </Type>
-            </Grow>
+            </Fade>
             <Box height={{xs: 400, lg: 450}} position="relative">
               <WaitToFade isIn={Boolean(precipAccumDiff)}>
                 <Box position="absolute" top={64} left={64} zIndex={2}>
@@ -650,7 +659,7 @@ export default function SeasonRecapPage() {
               Monthly Summarized Precipitation
             </Type>
 
-            <Grow in={Boolean(precipMoSmryResponse)}>
+            <Fade animate={Boolean(precipMoSmryResponse)}>
               <Type
                 variant="caption"
                 align="center"
@@ -675,7 +684,7 @@ export default function SeasonRecapPage() {
                   </em>
                 </Type>
               </Type>
-            </Grow>
+            </Fade>
             <RowBox justifyContent="flex-end" mt={3}>
               <ChildBox>
                 <FormControl component="fieldset" size="small">
@@ -709,7 +718,7 @@ export default function SeasonRecapPage() {
             <Type variant="h4" align="center">
               Actual Precipitation
             </Type>
-            <Grow in={Boolean(precipResponse)}>
+            <Fade animate={Boolean(precipResponse)}>
               <Type
                 variant="caption"
                 align="center"
@@ -718,7 +727,7 @@ export default function SeasonRecapPage() {
               >
                 {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
-            </Grow>
+            </Fade>
             <Box height={{xs: 650, sm: 200, lg: 300}}>
               <PrecipCalendar precipData={precipData} waterYear={waterYear} />
             </Box>
@@ -734,7 +743,7 @@ export default function SeasonRecapPage() {
               Observed Temperature Ranges
             </Type>
 
-            <Grow in={Boolean(tempHistResponse?.meta)}>
+            <Fade animate={Boolean(tempHistResponse?.meta)}>
               <Type
                 variant="caption"
                 align="center"
@@ -754,7 +763,7 @@ export default function SeasonRecapPage() {
                   </em>
                 </Type>
               </Type>
-            </Grow>
+            </Fade>
             <Box height={{xs: 400, lg: 450}} position="relative">
               <WaitToFade isIn={Boolean(tempResponse?.error)}>
                 <Box
@@ -781,7 +790,7 @@ export default function SeasonRecapPage() {
             <Type variant="h4" align="center">
               Temperature Departure From Normal
             </Type>
-            <Grow in={Boolean(tempResponse?.meta)}>
+            <Fade animate={Boolean(tempResponse?.meta)}>
               <Type
                 variant="caption"
                 align="center"
@@ -790,7 +799,7 @@ export default function SeasonRecapPage() {
               >
                 {tempResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
-            </Grow>
+            </Fade>
             <Box
               height={{xs: 650, sm: 200, lg: 300}}
               position="relative"

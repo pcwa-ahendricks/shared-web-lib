@@ -5,7 +5,6 @@ import {
   Box,
   Typography as Type,
   Paper,
-  Grow,
   Link,
   Popover,
   createStyles,
@@ -26,6 +25,7 @@ import {stringify} from 'querystringify'
 import {getYear} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/season-recap'
+import Animate, {AnimateProps} from '@components/Animate/Animate'
 
 type Props = {countyResponse?: CountyMetaResponse}
 
@@ -242,8 +242,6 @@ export default function RegionalSection({countyResponse}: Props) {
     return mapped ?? []
   }, [multiStnSnowSmryRes, countyResponse])
 
-  console.log(multiStnSnowSmryData)
-
   const multiStnSnowSmryStns = multiStnSnowSmryData
     .map((d) => d.meta.name)
     .filter((value, index, self) => self.indexOf(value) === index)
@@ -450,6 +448,16 @@ export default function RegionalSection({countyResponse}: Props) {
     ),
     []
   )
+
+  const Zoom = useCallback(
+    ({children, ...rest}: Partial<AnimateProps>) => (
+      <Animate name="zoomIn" hideUntilAnimate speed="faster" {...rest}>
+        {children}
+      </Animate>
+    ),
+    []
+  )
+
   return (
     <>
       <Type variant="h2" color="primary">
@@ -510,7 +518,7 @@ export default function RegionalSection({countyResponse}: Props) {
             <RowBox>
               <ColumnBox child alignItems="center" position="relative">
                 {multiStnPrecipSmryResValidating ? <AbsSpinner /> : null}
-                <Grow in={isNumber(precipPerc)}>
+                <Zoom animate={isNumber(precipPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type
                       variant="body1"
@@ -617,11 +625,11 @@ export default function RegionalSection({countyResponse}: Props) {
                       </Type>
                     </Box>
                   </ColumnBox>
-                </Grow>
+                </Zoom>
               </ColumnBox>
               <ColumnBox child alignItems="center" position="relative">
                 {multiStnSnowSmryResValidating ? <AbsSpinner /> : null}
-                <Grow in={isNumber(snowPerc)}>
+                <Zoom animate={isNumber(snowPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type variant="body1" className={classes.regionalStat}>
                       {isNumber(snowPerc) ? `${round(snowPerc, 0)}%` : null}
@@ -722,7 +730,7 @@ export default function RegionalSection({countyResponse}: Props) {
                       </Type>
                     </Box>
                   </ColumnBox>
-                </Grow>
+                </Zoom>
               </ColumnBox>
             </RowBox>
           </ColumnBox>
@@ -737,7 +745,7 @@ export default function RegionalSection({countyResponse}: Props) {
             <RowBox>
               <ColumnBox child alignItems="center" position="relative">
                 {multiStnMxTempSmryResValidating ? <AbsSpinner /> : null}
-                <Grow in={isNumber(mxTempDepart)}>
+                <Zoom animate={isNumber(mxTempDepart)}>
                   <ColumnBox child alignItems="center">
                     <Box position="relative">
                       <Type
@@ -885,7 +893,7 @@ export default function RegionalSection({countyResponse}: Props) {
                       </Type>
                     </Box>
                   </ColumnBox>
-                </Grow>
+                </Zoom>
               </ColumnBox>
             </RowBox>
           </ColumnBox>

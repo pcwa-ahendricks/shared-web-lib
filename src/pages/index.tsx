@@ -3,7 +3,6 @@ import React, {useState, useMemo} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
-  Fade,
   Hidden,
   Typography as Type,
   useMediaQuery,

@@ -404,12 +404,12 @@ const condRedirects = isDev
         source: '/templates(.*)',
         destination: '/404',
         permanent: true
-      },
-      {
-        source: '/season-recap(.*)',
-        destination: '/404',
-        permanent: true
       }
+      // {
+      //   source: '/season-recap(.*)',
+      //   destination: '/404',
+      //   permanent: true
+      // }
     ]
 
 module.exports = withPlugins([withBundleAnalyzer, withTM], {

@@ -1,5 +1,5 @@
 // cspell:ignore accum
-import React, {useMemo, useState, useEffect} from 'react'
+import React, {useMemo, useState, useEffect, useCallback} from 'react'
 import {
   Typography as Type,
   Divider,
@@ -25,6 +25,7 @@ import {
 import isNumber from 'is-number'
 import PrecipCalendar from './PrecipCalendar'
 import {ResponsiveLine} from '@nivo/line'
+import Animate, {AnimateProps} from '@components/Animate/Animate'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 type Props = {
@@ -229,13 +230,27 @@ export default function StationSnowfall({waterYear, sid}: Props) {
     snowfallAccumHistLowData
   ])
 
+  const Fade = useCallback(
+    ({children, ...rest}: Partial<AnimateProps>) => (
+      <Animate
+        name="fadeIn"
+        animate={Boolean(snowfallResponse)}
+        hideUntilAnimate
+        {...rest}
+      >
+        {children}
+      </Animate>
+    ),
+    [snowfallResponse]
+  )
+
   return (
     <>
       <Spacing size="x-large" />
       <Type variant="h4" align="center">
         Accumulated Snowfall
       </Type>{' '}
-      <Grow in={Boolean(snowfallResponse)}>
+      <Fade>
         <Type
           variant="caption"
           align="center"
@@ -252,7 +267,7 @@ export default function StationSnowfall({waterYear, sid}: Props) {
             </em>
           </Type>
         </Type>
-      </Grow>
+      </Fade>
       <Box height={{xs: 400, lg: 450}} position="relative">
         <WaitToFade isIn={Boolean(snowfallAccumDiff)}>
           <Box position="absolute" top={64} left={64} zIndex={2}>
@@ -278,7 +293,7 @@ export default function StationSnowfall({waterYear, sid}: Props) {
       <Type variant="h4" align="center">
         Actual Snowfall
       </Type>
-      <Grow in={Boolean(snowfallResponse)}>
+      <Fade>
         <Type
           variant="caption"
           align="center"
@@ -287,7 +302,7 @@ export default function StationSnowfall({waterYear, sid}: Props) {
         >
           {snowfallResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
         </Type>
-      </Grow>
+      </Fade>
       <Box height={{xs: 650, sm: 200, lg: 300}}>
         <PrecipCalendar
           precipData={snowfallData}
