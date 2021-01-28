@@ -127,7 +127,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         <Animate
           // speed="slow"
           name="fadeIn"
-          delay={2}
+          delay={1}
           hideUntilAnimate
           animate={heroOverlayIn}
         >
