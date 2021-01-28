@@ -1,8 +1,7 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import {
   Box,
-  Fade,
   BoxProps,
   makeStyles,
   createStyles,
@@ -10,6 +9,7 @@ import {
 } from '@material-ui/core'
 import FlexBox from '@components/boxes/FlexBox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
+import Animate from '@components/Animate/Animate'
 
 type Props = {
   boxProps?: BoxProps
@@ -17,7 +17,7 @@ type Props = {
 }
 
 interface UseStylesProps {
-  isHover: boolean
+  isHover?: boolean
 }
 
 const useStyles = makeStyles(() =>
@@ -50,22 +50,31 @@ const ImgixFancier = ({
   width,
   height,
   boxProps,
-  isHover: isHoverProp = false,
+  isHover: isHoverProp,
   ...rest
 }: ImgixFancyProps & Props) => {
-  const [isHover, setIsHover] = useState<boolean>(false)
+  const [isHover, setIsHover] = useState<boolean>() // For animation to work properly this must be initialized as undefined
 
-  const isHovering = isHover || isHoverProp
-  const classes = useStyles({isHover: isHovering})
+  useEffect(() => {
+    setIsHover(isHoverProp)
+  }, [isHoverProp])
+
+  const classes = useStyles({isHover: isHover})
   const theme = useTheme()
 
   const mouseEnterHandler = useCallback(() => {
-    setIsHover(true)
-  }, [])
+    // Use of isHoverProp is exclusive
+    if (isHoverProp === undefined) {
+      setIsHover(true)
+    }
+  }, [isHoverProp])
 
   const mouseLeaveHandler = useCallback(() => {
-    setIsHover(false)
-  }, [])
+    // Use of isHoverProp is exclusive
+    if (isHoverProp === undefined) {
+      setIsHover(false)
+    }
+  }, [isHoverProp])
 
   return (
     <Box
@@ -99,9 +108,14 @@ const ImgixFancier = ({
         height="100%"
         zIndex={3}
       >
-        <Fade in={isHovering}>
+        <Animate
+          name={isHover ? 'fadeIn' : 'fadeOut'}
+          hideUntilAnimate
+          animate={isHover !== undefined}
+          speed="fast"
+        >
           <SearchRoundedIcon fontSize="large" color="inherit" />
-        </Fade>
+        </Animate>
       </FlexBox>
       <ImgixFancy
         height={height}

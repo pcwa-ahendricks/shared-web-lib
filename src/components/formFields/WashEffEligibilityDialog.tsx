@@ -277,30 +277,6 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
 
 export default connect(WashEffEligibilityDialog)
 
-function getSteps() {
-  return [
-    {
-      index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer?',
-      fieldName: 'treatedCustomer',
-      content: <QuestionOne />
-    },
-    {
-      index: 1,
-      label:
-        'Are you replacing an existing high efficiency clothes washing machine with another new high efficiency clothes washing machine?',
-      fieldName: 'existingHigh',
-      content: <QuestionTwo />
-    },
-    {
-      index: 2,
-      label: 'Is your house New Construction?',
-      fieldName: 'newConstruction',
-      content: <QuestionThree />
-    }
-  ]
-}
-
 function getStepContent(stepNo: number) {
   const found = getSteps().find((step) => step.index === stepNo)
   return found ? found.content : null
@@ -505,4 +481,28 @@ const QuestionThree = () => {
       }}
     </Field>
   )
+}
+
+function getSteps() {
+  return [
+    {
+      index: 0,
+      label: 'Are you a Placer County Water Agency treated water customer?',
+      fieldName: 'treatedCustomer',
+      content: <QuestionOne />
+    },
+    {
+      index: 1,
+      label:
+        'Are you replacing an existing high efficiency clothes washing machine with another new high efficiency clothes washing machine?',
+      fieldName: 'existingHigh',
+      content: <QuestionTwo />
+    },
+    {
+      index: 2,
+      label: 'Is your house New Construction?',
+      fieldName: 'newConstruction',
+      content: <QuestionThree />
+    }
+  ]
 }

@@ -58,7 +58,7 @@ const PublicationCard = ({
   const classes = useStyles({cardMediaHeight})
   const theme = useTheme()
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
-  const [actionAreaIsHover, setActionAreaIsHover] = useState<boolean>(false)
+  const [actionAreaIsHover, setActionAreaIsHover] = useState<boolean>() // For animation w/ <ImgixFancier/> to work properly this must be initialized as undefined
   const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
 
   // Don't use filenamify with imgix dl query parameter since it requires a safe URL.

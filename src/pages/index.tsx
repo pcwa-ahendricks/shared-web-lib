@@ -26,6 +26,7 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
+import Animate from '@components/Animate/Animate'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -124,7 +125,13 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           maxHeight: '45vh'
         }}
       >
-        <Fade timeout={2000} in={heroOverlayIn}>
+        <Animate
+          // speed="slow"
+          name="fadeIn"
+          delay={2}
+          hideUntilAnimate
+          animate={heroOverlayIn}
+        >
           <RowBox
             justifyContent="space-around"
             alignItems="center"
@@ -142,7 +149,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </RowBox>
-        </Fade>
+        </Animate>
       </ImgixFancyParallaxBanner>
       <Hidden only="xs" implementation="css">
         <TrendingBar />

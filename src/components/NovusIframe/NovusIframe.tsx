@@ -1,8 +1,9 @@
 // cspell:ignore novus
 import React, {useCallback, useState} from 'react'
-import {Typography as Type, Box, Fade, BoxProps} from '@material-ui/core'
+import {Typography as Type, Box, BoxProps} from '@material-ui/core'
 import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
+import Animate from '@components/Animate/Animate'
 
 const NovusIframe = ({...rest}: BoxProps) => {
   // const theme = useTheme()
@@ -14,16 +15,30 @@ const NovusIframe = ({...rest}: BoxProps) => {
 
   return (
     <Box position="relative" width="100%">
-      <Fade in={iframeIsLoading}>
-        <Box position="absolute" top={0} bottom={0} left={0} right={0}>
-          <Type>Novus Agenda is loading...</Type>
-        </Box>
-      </Fade>
-      <Fade in={!iframeIsLoading}>
+      <Animate
+        name="fadeOut"
+        animate={!iframeIsLoading}
+        position="absolute"
+        speed="fast"
+        top={0}
+        bottom={0}
+        left={0}
+        right={0}
+        zIndex={1}
+      >
+        <Type>Novus Agenda is loading...</Type>
+      </Animate>
+      <Animate
+        name="fadeIn"
+        animate={!iframeIsLoading}
+        hideUntilAnimate
+        speed="fast"
+        height={{xs: 1400, md: 1250, lg: 1050}}
+      >
         <IeNever
           // border={1}
           // borderColor={theme.palette.grey['600']}
-          height={{xs: 1400, md: 1250, lg: 1050}}
+          height="inherit"
           {...rest}
         >
           <iframe
@@ -36,9 +51,9 @@ const NovusIframe = ({...rest}: BoxProps) => {
             scrolling="auto"
           />
         </IeNever>
-      </Fade>
+      </Animate>
       {/* iframe onLoad doesn't work with IE */}
-      <IeOnly height={{xs: 1400, md: 1250, lg: 1050}} {...rest}>
+      <IeOnly height="inherit" {...rest}>
         <iframe
           title="Novus Agenda"
           onLoad={novusIframeLoadedHandler}

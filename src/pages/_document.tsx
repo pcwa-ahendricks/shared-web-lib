@@ -1,3 +1,4 @@
+// cspell:ignore preconnect
 // _document is only rendered on the server side and not on the client side
 // Event handlers like onClick can't be added to this file
 
@@ -36,6 +37,7 @@ class MyDocument extends Document {
           ) : null}
           <link rel="preconnect" href="https://cosmic-s3.imgix.net" />
           <link rel="preconnect" href="https://imgix.cosmicjs.com" />
+          <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
           <link rel="stylesheet" href="/static/styles/nprogress.min.css" />
 

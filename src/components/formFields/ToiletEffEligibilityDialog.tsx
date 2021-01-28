@@ -282,23 +282,6 @@ const ToiletEffEligibilityDialog = ({
 
 export default ToiletEffEligibilityDialog
 
-function getSteps(props: any) {
-  return [
-    {
-      index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer?',
-      name: 'treatedCustomer' as ToiletRebateFormDataProp,
-      content: <QuestionOneField type="hidden" {...props} />
-    },
-    {
-      index: 1,
-      label: 'Was your building(s) built prior to 1994?',
-      name: 'builtPriorCutoff' as ToiletRebateFormDataProp,
-      content: <QuestionTwoField type="hidden" {...props} />
-    }
-  ]
-}
-
 function getStepContent(stepNo: number, props: any) {
   const found = getSteps({...props}).find((step) => step.index === stepNo)
   return found ? found.content : null
@@ -433,4 +416,21 @@ const QuestionTwoField = (props: any) => {
       </WaitToGrow>
     </>
   )
+}
+
+function getSteps(props: any) {
+  return [
+    {
+      index: 0,
+      label: 'Are you a Placer County Water Agency treated water customer?',
+      name: 'treatedCustomer' as ToiletRebateFormDataProp,
+      content: <QuestionOneField type="hidden" {...props} />
+    },
+    {
+      index: 1,
+      label: 'Was your building(s) built prior to 1994?',
+      name: 'builtPriorCutoff' as ToiletRebateFormDataProp,
+      content: <QuestionTwoField type="hidden" {...props} />
+    }
+  ]
 }
