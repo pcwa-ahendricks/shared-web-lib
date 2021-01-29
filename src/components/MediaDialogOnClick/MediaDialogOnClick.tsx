@@ -20,6 +20,7 @@ import colorAlpha from 'color-alpha'
 type Props = {
   mediaName: string
   mediaUrl: string
+  mediaExt?: string
   children: React.ReactNode
   timeout?: number
   popperMessage?: string
@@ -42,6 +43,7 @@ const MediaDialogOnClick = ({
   children,
   popperMessage = 'Click to view larger image',
   popperAnchorStyle = {},
+  mediaExt,
   mediaName,
   mediaUrl,
   timeout = 350,

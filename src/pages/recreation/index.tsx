@@ -110,6 +110,7 @@ const RecreationPage = () => {
                   <MediaDialogOnClick
                     width="100%" // Grow image on small devices when resized from big to small.
                     mediaUrl={`${recreationMapImgixUrl}?fm=jpg`}
+                    mediaExt="jpg"
                     mediaName={recreationMapAlt}
                     mediaPreviewDialogProps={{
                       showActions: true,
@@ -145,6 +146,7 @@ const RecreationPage = () => {
                   <MediaDialogOnClick
                     width={{xs: '60%', sm: '100%'}} // Grow image on small devices when resized from big to small.
                     mediaUrl={`${exploringTheMfCoverImgixUrl}?fm=jpg`}
+                    mediaExt="jpg"
                     mediaName={exploringTheMfAlt}
                     mediaPreviewDialogProps={{
                       showActions: true,
