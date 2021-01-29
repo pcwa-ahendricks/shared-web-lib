@@ -80,7 +80,6 @@ const WaterQualityPage = () => {
                 <ColumnBox alignItems="center">
                   <MediaDialogOnClick
                     mediaUrl={tsaImageUrl}
-                    mediaExt="jpg"
                     mediaName={tsaImageAlt}
                   >
                     <LazyImgix
