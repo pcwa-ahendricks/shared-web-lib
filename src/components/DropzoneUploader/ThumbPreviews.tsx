@@ -27,7 +27,6 @@ const ThumbPreviews = ({
         <MediaPreviewDialog
           url={showThumbDialogFile.previewUrl}
           name={showThumbDialogFile.name}
-          ext={showThumbDialogFile.ext}
           open={showThumbDialog}
           onClose={() => setShowThumbDialog(false)}
         />
