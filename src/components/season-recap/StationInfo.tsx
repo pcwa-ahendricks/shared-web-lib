@@ -8,7 +8,7 @@ import {
 import colorAlpha from 'color-alpha'
 import {blueGrey} from '@material-ui/core/colors'
 import {StationMeta} from '@pages/season-recap'
-import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
+import Animate from '@components/Animate/Animate'
 // import round from '@lib/round'
 
 type Props = {
@@ -34,29 +34,32 @@ export default function StationInfo({stationInfo}: Props) {
   const {name, elev, county, state} = stationInfo ?? {}
 
   return (
-    <WaitToFade isIn={Boolean(hasItems)}>
-      <Box position="relative">
-        <Box
-          position="absolute"
-          height="100%"
-          width="100%"
-          className={classes.blurry}
-        />
+    <Animate
+      name="fadeIn"
+      animate={Boolean(hasItems)}
+      hideUntilAnimate
+      position="relative"
+    >
+      <Box
+        position="absolute"
+        height="100%"
+        width="100%"
+        className={classes.blurry}
+      />
 
-        <Box className={classes.infoBoxPanel} borderRadius={4} p={2}>
-          <Type variant="subtitle1" color="primary">
-            {name}
-          </Type>
-          <Type variant="subtitle2">
-            {county}, {state}
-          </Type>
-          <Type variant="subtitle2">Elevation: {elev?.toLocaleString()}'</Type>
-          {/* <Type variant="subtitle2">
+      <Box className={classes.infoBoxPanel} borderRadius={4} p={2}>
+        <Type variant="subtitle1" color="primary">
+          {name}
+        </Type>
+        <Type variant="subtitle2">
+          {county}, {state}
+        </Type>
+        <Type variant="subtitle2">Elevation: {elev?.toLocaleString()}'</Type>
+        {/* <Type variant="subtitle2">
           Long/Lat {longLat?.[0] ? round(longLat?.[0], 3) : null},{' '}
           {longLat?.[1] ? round(longLat?.[1], 3) : null}
         </Type> */}
-        </Box>
       </Box>
-    </WaitToFade>
+    </Animate>
   )
 }
