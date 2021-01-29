@@ -104,7 +104,6 @@ const IrrigEffTermsConditions = ({
           onClose={() => setDialogOpen(false)}
           name={fileName}
           url={usePreviewUrls}
-          ext="jpg"
           scroll="body"
           fullWidth={false}
           maxWidth="xl"

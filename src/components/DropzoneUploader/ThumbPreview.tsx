@@ -6,17 +6,14 @@ import {
   Tooltip,
   Theme,
   makeStyles,
-  createStyles,
-  useTheme
+  createStyles
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
 import {DroppedFile, UploadedFileAttr} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
-import {Document, Page} from 'react-pdf'
 import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import clsx from 'clsx'
 import useSupportsTouch from '@hooks/useSupportsTouch'
 import {ColumnBox} from '@components/boxes/FlexBox'
@@ -97,8 +94,6 @@ const ThumbPreview = ({
   isUploading = false
 }: Props) => {
   // const [uploadSuccess, setUploadSuccess] = useState<boolean>()
-  const theme = useTheme<Theme>()
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [thumbHover, setThumbHover] = useState<string | null>()
   const supportsTouch = useSupportsTouch()
 
@@ -164,23 +159,18 @@ const ThumbPreview = ({
               onMouseEnter={() => setThumbHover(file.name)}
               onClick={clickHandler(file)}
             >
-              {file.ext === 'pdf' ? (
-                // <img src="/static/images/pdf.svg" />
-                <Document file={file.previewUrl}>
-                  {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
-                  <Page pageNumber={1} width={isXS ? 64 : 110} scale={1} />
-                </Document>
-              ) : (
-                // Using data-src="..." as a fallback shouldn't be necessary with IE11 if polyfill is used. See https://github.com/aFarkas/lazysizes/blob/gh-pages/README.md#responsive-image-support-picture-andor-srcset for more info.
-                <img
-                  data-sizes="auto"
-                  src="/static/images/placeholder-camera.png"
-                  srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                  data-srcset={file.previewUrl}
-                  className={clsx(['lazyload', classes.thumbImg])}
-                  alt={`Thumbnail for ${file.name} upload`}
-                />
-              )}
+              {/* Using data-src="..." as a fallback shouldn't be necessary with
+              IE11 if polyfill is used. See
+              https://github.com/aFarkas/lazysizes/blob/gh-pages/README.md#responsive-image-support-picture-andor-srcset
+              for more info. */}
+              <img
+                data-sizes="auto"
+                src="/static/images/placeholder-camera.png"
+                srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                data-srcset={file.previewUrl}
+                className={clsx(['lazyload', classes.thumbImg])}
+                alt={`Thumbnail for ${file.name} upload`}
+              />
             </div>
           </Tooltip>
           {/* <div className={classes.fileNameOverlay}>

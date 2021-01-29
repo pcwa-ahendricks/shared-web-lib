@@ -134,7 +134,6 @@ const MediaDialogOnClick = ({
         onClose={() => setMediaDialogOpen(false)}
         name={mediaName}
         url={mediaUrl}
-        ext={mediaExt}
         scroll="body"
         fullWidth={false}
         maxWidth="xl"

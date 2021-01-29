@@ -1,25 +1,19 @@
 import React, {useMemo, useCallback} from 'react'
-import {Document, Page} from 'react-pdf'
 import {
   Button,
   Dialog,
   DialogContent,
   DialogActions,
   Fab,
-  CircularProgress,
   Theme,
   DialogProps,
-  Typography as Type,
   Zoom,
   makeStyles,
-  createStyles,
-  useTheme,
-  useMediaQuery
+  createStyles
   // withMobileDialog
 } from '@material-ui/core'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
-import extension from '@lib/fileExtension'
 // import {ZoomTransition as Transition} from '@components/Transition/Transition'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -68,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 export type MediaPreviewDialogProps = {
   name: string
-  ext?: string
   open: boolean
   onClose: () => void
   showActions?: boolean
@@ -80,7 +73,6 @@ export type MediaPreviewDialogProps = {
 const MediaPreviewDialog = ({
   onClose,
   name,
-  ext = extension(name),
   // imgPlaceholder,
   url,
   dlUrl,
@@ -89,28 +81,6 @@ const MediaPreviewDialog = ({
   ...rest
 }: MediaPreviewDialogProps) => {
   const classes = useStyles()
-  const theme = useTheme<Theme>()
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-
-  const renderLoadingHandler = useMemo(
-    () => (
-      <div className={classes.loadingPDF}>
-        <Type
-          variant="h4"
-          paragraph
-          className={classes.ieFixFlexColumnDirection}
-        >
-          Loading PDF...
-        </Type>
-        <CircularProgress
-          variant="indeterminate"
-          disableShrink={true}
-          className={classes.ieFixFlexColumnDirection}
-        />
-      </div>
-    ),
-    [classes]
-  )
 
   const getImgEl = useCallback(
     (url: string, key?: string | number) => (
@@ -133,30 +103,6 @@ const MediaPreviewDialog = ({
         ? url.map((urlItem, idx) => getImgEl(urlItem, idx))
         : getImgEl(url),
     [url, getImgEl]
-  )
-
-  const dialogContentEl = useMemo(
-    () => (
-      <DialogContent
-        className={classes.dialogContent}
-        // classes={{root: classes.dialogContentRoot}}
-      >
-        {ext === 'pdf' ? ( // <img src="/static/images/pdf.svg" />
-          <Document file={url} loading={renderLoadingHandler}>
-            {/* Since Border-box sizing is used width needs to be calculated. Use devtools to calculate. */}
-            <Page
-              pageNumber={1}
-              width={isXS ? 200 : 450}
-              scale={1}
-              renderAnnotationLayer={false} // Prevents large blank <div/> appearing below certain PDFs.
-            />
-          </Document>
-        ) : (
-          <div>{imgEl}</div>
-        )}
-      </DialogContent>
-    ),
-    [ext, imgEl, url, isXS, renderLoadingHandler, classes]
   )
 
   const dialogActionsEl = useMemo(
@@ -209,7 +155,12 @@ const MediaPreviewDialog = ({
     >
       <>
         {fabEl}
-        {dialogContentEl}
+        <DialogContent
+          className={classes.dialogContent}
+          // classes={{root: classes.dialogContentRoot}}
+        >
+          <div>{imgEl}</div>
+        </DialogContent>
         {dialogActionsEl}
       </>
     </Dialog>
