@@ -386,7 +386,6 @@ const ARBSPage = () => {
                 <ColumnBox alignItems="center">
                   <MediaDialogOnClick
                     mediaUrl={mapImageUrl}
-                    mediaExt="jpg"
                     mediaName={mapImageAlt}
                   >
                     <LazyImgix
