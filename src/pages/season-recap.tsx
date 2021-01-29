@@ -41,7 +41,6 @@ import TempRangeLine from '@components/season-recap/TempRangeLine'
 import {multiFetcher} from '@lib/fetcher'
 import toTitleCase from '@lib/toTitleCase'
 import StnMap from '@components/season-recap/StnMap'
-import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
 import StationInfo from '@components/season-recap/StationInfo'
 import RegionalSection from '@components/season-recap/RegionalSection'
 import StationSnowfall from '@components/season-recap/StationSnowfall'
@@ -634,18 +633,24 @@ export default function SeasonRecapPage() {
               </Type>
             </Fade>
             <Box height={{xs: 400, lg: 450}} position="relative">
-              <WaitToFade isIn={Boolean(precipAccumDiff)}>
-                <Box position="absolute" top={64} left={64} zIndex={2}>
-                  <Paper elevation={2} square>
-                    <Box p={1}>
-                      <Type variant="caption" align="center" component="header">
-                        <Hidden smDown>Accumulated </Hidden>
-                        <strong>{precipAccumDiff}%</strong> of Normal Average
-                      </Type>
-                    </Box>
-                  </Paper>
-                </Box>
-              </WaitToFade>
+              <Animate
+                hideUntilAnimate
+                name="fadeIn"
+                animate={Boolean(precipAccumDiff)}
+                position="absolute"
+                top={64}
+                left={64}
+                zIndex={2}
+              >
+                <Paper elevation={2} square>
+                  <Box p={1}>
+                    <Type variant="caption" align="center" component="header">
+                      <Hidden smDown>Accumulated </Hidden>
+                      <strong>{precipAccumDiff}%</strong> of Normal Average
+                    </Type>
+                  </Box>
+                </Paper>
+              </Animate>
               <PrecipAccumLine
                 precipDataset={precipDataset}
                 highYear={precipAccumHistHighYear}
@@ -765,23 +770,24 @@ export default function SeasonRecapPage() {
               </Type>
             </Fade>
             <Box height={{xs: 400, lg: 450}} position="relative">
-              <WaitToFade isIn={Boolean(tempResponse?.error)}>
-                <Box
-                  position="absolute"
-                  top="50%"
-                  left="50%"
-                  zIndex={3}
-                  style={{transform: 'translate(-50%, -50%)'}}
-                >
-                  <Paper elevation={2} square>
-                    <Box p={1}>
-                      <Type variant="h4" align="center" color="error">
-                        <strong>{toTitleCase(tempResponse?.error)}</strong>
-                      </Type>
-                    </Box>
-                  </Paper>
-                </Box>
-              </WaitToFade>
+              <Animate
+                animate={Boolean(tempResponse?.error)}
+                name="fadeIn"
+                hideUntilAnimate
+                position="absolute"
+                top="50%"
+                left="50%"
+                zIndex={3}
+                style={{transform: 'translate(-50%, -50%)'}}
+              >
+                <Paper elevation={2} square>
+                  <Box p={1}>
+                    <Type variant="h4" align="center" color="error">
+                      <strong>{toTitleCase(tempResponse?.error)}</strong>
+                    </Type>
+                  </Box>
+                </Paper>
+              </Animate>
               <TempRangeLine tempDataset={tempDataset} />
             </Box>
             <Spacing size="x-large">
@@ -806,23 +812,24 @@ export default function SeasonRecapPage() {
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
             >
-              <WaitToFade isIn={Boolean(tempResponse?.error)}>
-                <Box
-                  position="absolute"
-                  top="50%"
-                  left="50%"
-                  zIndex={2}
-                  style={{transform: 'translate(-50%, -50%)'}}
-                >
-                  <Paper elevation={3} square>
-                    <Box p={1}>
-                      <Type variant="h4" align="center" color="error">
-                        <strong>{toTitleCase(tempResponse?.error)}</strong>
-                      </Type>
-                    </Box>
-                  </Paper>
-                </Box>
-              </WaitToFade>
+              <Animate
+                animate={Boolean(tempResponse?.error)}
+                hideUntilAnimate
+                name="fadeIn"
+                position="absolute"
+                top="50%"
+                left="50%"
+                zIndex={2}
+                style={{transform: 'translate(-50%, -50%)'}}
+              >
+                <Paper elevation={3} square>
+                  <Box p={1}>
+                    <Type variant="h4" align="center" color="error">
+                      <strong>{toTitleCase(tempResponse?.error)}</strong>
+                    </Type>
+                  </Box>
+                </Paper>
+              </Animate>
               <TempDiffCalendar
                 tempObservedDiffData={tempObservedDiffData}
                 waterYear={waterYear}

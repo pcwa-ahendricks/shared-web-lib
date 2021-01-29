@@ -13,7 +13,6 @@ import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import round from '@lib/round'
 import Spacing from '@components/boxes/Spacing'
-import {WaitToFade} from '@components/WaitToGrow/WaitToGrow'
 import {
   PrecipResponse,
   PrecipHistResponse,
@@ -268,18 +267,22 @@ export default function StationSnowfall({waterYear, sid}: Props) {
         </Type>
       </Fade>
       <Box height={{xs: 400, lg: 450}} position="relative">
-        <WaitToFade isIn={Boolean(snowfallAccumDiff)}>
-          <Box position="absolute" top={64} left={64} zIndex={2}>
-            <Paper elevation={2} square>
-              <Box p={1}>
-                <Type variant="caption" align="center" component="header">
-                  <Hidden smDown>Accumulated </Hidden>
-                  <strong>{snowfallAccumDiff}%</strong> of Normal Average
-                </Type>
-              </Box>
-            </Paper>
-          </Box>
-        </WaitToFade>
+        <Fade
+          animate={Boolean(snowfallAccumDiff)}
+          position="absolute"
+          top={64}
+          left={64}
+          zIndex={2}
+        >
+          <Paper elevation={2} square>
+            <Box p={1}>
+              <Type variant="caption" align="center" component="header">
+                <Hidden smDown>Accumulated </Hidden>
+                <strong>{snowfallAccumDiff}%</strong> of Normal Average
+              </Type>
+            </Box>
+          </Paper>
+        </Fade>
         <SnowfallAccumLine
           snowfallDataset={snowfallDataset}
           highYear={snowfallAccumHistHighYear}
