@@ -68,7 +68,7 @@ const [
 // )
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
-  const [heroOverlayIn, setHeroOverlayIn] = useState(false)
+  const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
@@ -104,20 +104,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     >
       <ImgixFancyParallaxBanner
         amount={0.1}
-        imgixFancyProps={{
-          // lqipSrc: heroImgSrcLqip.b64,
-          paddingPercent: 66.6495,
-          // paddingPercent: heroImgSrcLqip.ratio,
-          src: heroImgSrc,
-          imgixParams: {bri: -5, high: -15},
-          htmlAttributes: {
-            alt: 'A photo of French Meadows Reservoir inlet',
-            style: {
-              // [HACK] Keep the image vertically centered on wide layout.
-              marginTop
-            },
-            onLoad: () => setHeroOverlayIn(true)
-          }
+        marginTop={marginTop}
+        ImageProps={{
+          width: 900,
+          height: 600,
+          priority: true,
+          src: `${heroImgSrc}${stringify({bri: -5, high: -15}, true)}`,
+          alt: 'A photo of French Meadows Reservoir inlet'
+          // See comment above regarding onLoad support
+          // onLoad: () => setHeroOverlayIn(true),
+          // paddingPercent: 66.6495,
         }}
         style={{
           height: '50vw',

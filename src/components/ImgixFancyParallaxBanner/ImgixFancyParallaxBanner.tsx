@@ -1,17 +1,19 @@
 import React from 'react'
 import {ParallaxBanner, ParallaxBannerProps} from 'react-scroll-parallax'
-import ImgixFancy, {ImgixFancyProps} from '../ImgixFancy/ImgixFancy'
 import {Box} from '@material-ui/core'
+import Image, {ImageProps} from 'next/image'
 
 type Props = {
-  imgixFancyProps: ImgixFancyProps
+  ImageProps: ImageProps
   children?: React.ReactNode
   amount?: number
+  marginTop?: any
 } & Partial<ParallaxBannerProps>
 
 const ImgixFancyParallaxBanner = ({
   amount = 0.1,
-  imgixFancyProps,
+  ImageProps,
+  marginTop,
   children,
   ...rest
 }: Props) => {
@@ -19,7 +21,15 @@ const ImgixFancyParallaxBanner = ({
     <ParallaxBanner
       layers={[
         {
-          children: <ImgixFancy {...imgixFancyProps} />,
+          children: (
+            <Box
+              style={{
+                marginTop: marginTop
+              }}
+            >
+              <Image layout="responsive" {...ImageProps} />
+            </Box>
+          ),
           amount: amount
         }
       ]}

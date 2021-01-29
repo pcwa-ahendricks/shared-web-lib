@@ -96,14 +96,12 @@ const GeneralInfoPage = () => {
           <Box mt={12} maxWidth={1400} flex="1 1 auto">
             <ImgixFancyParallaxBanner
               amount={0.1}
-              imgixFancyProps={{
-                // lqipSrc: bannerImgSrcLqip.b64,
-                paddingPercent: 66.67,
+              ImageProps={{
+                width: 800,
+                height: 533,
+                priority: true,
                 src: bannerImgSrc,
-                imgixParams: {bri: -5, high: -15},
-                htmlAttributes: {
-                  alt: 'Photo of Hell Hole Reservoir'
-                }
+                alt: 'Photo of Hell Hole Reservoir'
               }}
               style={{
                 height: '50vw',
