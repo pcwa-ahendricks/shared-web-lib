@@ -1,10 +1,27 @@
 //cspell:ignore publicpurchase
 import React, {useCallback, useState} from 'react'
-import {Typography as Type, Box, BoxProps, useTheme} from '@material-ui/core'
+import {
+  Typography as Type,
+  createStyles,
+  makeStyles,
+  Box,
+  BoxProps,
+  useTheme
+} from '@material-ui/core'
 import Animate from '@components/Animate/Animate'
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    loadingCaption: {
+      userSelect: 'none',
+      pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
+    }
+  })
+)
 
 const PublicPurchaseIframe = ({...rest}: BoxProps) => {
   const theme = useTheme()
+  const classes = useStyles()
   const [iframeIsLoading, setIframeIsLoading] = useState(true)
 
   const publicPurchaseIframeLoadedHandler = useCallback(() => {
@@ -19,10 +36,9 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
         position="absolute"
         speed="fast"
         top={0}
-        bottom={0}
         left={0}
-        right={0}
         zIndex={1}
+        className={classes.loadingCaption}
       >
         <Type>Public Purchase is loading...</Type>
       </Animate>

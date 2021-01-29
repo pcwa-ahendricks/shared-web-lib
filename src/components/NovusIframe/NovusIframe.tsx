@@ -21,7 +21,6 @@ const useStyles = makeStyles(() =>
 )
 
 const NovusIframe = ({...rest}: BoxProps) => {
-  // const theme = useTheme()
   const classes = useStyles()
   const [iframeIsLoading, setIframeIsLoading] = useState(true)
 
