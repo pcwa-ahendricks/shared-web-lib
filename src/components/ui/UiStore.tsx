@@ -1,5 +1,7 @@
 import React, {createContext, useReducer} from 'react'
 import {ErrorDialogError} from './ErrorDialog/ErrorDialog'
+type ValueOf<T> = T[keyof T]
+type AnimateDone = ValueOf<State['animateDone']>
 
 export interface Alert {
   position: number
@@ -12,6 +14,9 @@ interface State {
   drawerOpen: boolean
   error?: ErrorDialogError | null
   alerts: Alert[]
+  animateDone: {
+    home: boolean
+  }
 }
 
 type ProviderProps = {
@@ -21,7 +26,10 @@ type ProviderProps = {
 // State
 const initialState: State = {
   drawerOpen: false,
-  alerts: []
+  alerts: [],
+  animateDone: {
+    home: false
+  }
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -38,7 +46,8 @@ const Type = {
   SET_DRAWER_VIZ: 'SET_DRAWER_VIZ',
   SET_ALERT_HIDDEN: 'SET_ALERT_HIDDEN',
   SET_ALERT_ACTIVE: 'SET_ALERT_ACTIVE',
-  ADD_ALERT: 'ADD_ALERT'
+  ADD_ALERT: 'ADD_ALERT',
+  SET_ANIMATE_DONE: 'SET_ANIMATE_DONE'
 } as const
 
 // Actions
@@ -102,6 +111,17 @@ export const addAlert = ({
   return {
     type: Type.ADD_ALERT,
     payload: {position, active, hidden, ieOnly}
+  }
+}
+
+export const setAnimateDone = (
+  key: keyof State['animateDone'],
+  done: AnimateDone
+) => {
+  return {
+    type: Type.SET_ANIMATE_DONE,
+    done,
+    key
   }
 }
 
@@ -179,6 +199,14 @@ const uiReducer = (state: State, action: any): State => {
         }
       }
     }
+    case Type.SET_ANIMATE_DONE:
+      return {
+        ...state,
+        animateDone: {
+          ...state.animateDone,
+          [action.key]: action.done
+        }
+      }
     default:
       return state
   }

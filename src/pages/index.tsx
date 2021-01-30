@@ -1,5 +1,5 @@
 // cspell:ignore COVID perc
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useEffect, useContext} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
@@ -26,6 +26,7 @@ import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import Animate from '@components/Animate/Animate'
+import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -96,6 +97,15 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   // boardMeetingImgSrcLqip
   // ] = lqips
 
+  const uiContext = useContext(UiContext)
+  const {state: uiState, dispatch: uiDispatch} = uiContext
+  const {home: homeAnimateDone} = uiState.animateDone
+  useEffect(() => {
+    return () => {
+      uiDispatch(setAnimateDone('home', true))
+    }
+  }, [uiDispatch])
+
   return (
     <PageLayout
       initialAlertsData={initialAlertsData}
@@ -124,8 +134,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           // speed="slow"
           name="fadeIn"
           delay={1}
-          hideUntilAnimate
-          animate={heroOverlayIn}
+          hideUntilAnimate={!homeAnimateDone}
+          animate={heroOverlayIn && !homeAnimateDone}
         >
           <RowBox
             justifyContent="space-around"
