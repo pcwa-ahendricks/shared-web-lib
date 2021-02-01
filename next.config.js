@@ -71,6 +71,12 @@ const miscRedirects = [
     destination: '/services/water-quality',
     permanent: true
   },
+  // Used by Customer Services in mailer
+  {
+    source: '/customer-services/water-quality(\\.html)?',
+    destination: '/services/water-quality',
+    permanent: true
+  },
   {
     source: '/Click2GovCX(/index\\.html)?',
     destination: 'https://ipn.paymentus.com/cp/plco',
