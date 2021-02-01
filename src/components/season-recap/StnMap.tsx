@@ -4,8 +4,9 @@ import MapGL, {
   NavigationControl,
   // Fullscreen mode messes up window width when exiting fullscreen. It's not really needed so it's commented out for now.
   // FullscreenControl,
-  ViewState,
-  FlyToInterpolator
+  ViewportProps,
+  FlyToInterpolator,
+  MapRef
 } from 'react-map-gl'
 import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
@@ -79,7 +80,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     }
   }, [stationInfo])
 
-  const [viewport, setViewport] = useState<Partial<ViewState>>({
+  const [viewport, setViewport] = useState<Partial<ViewportProps>>({
     latitude,
     longitude,
     zoom: 10
@@ -147,7 +148,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     ) : null
   }, [longitude, latitude])
 
-  const mapRef = useRef<MapGL>(null)
+  const mapRef = useRef<MapRef>(null)
 
   useEffect(() => {
     const fn = async () => {
@@ -167,8 +168,9 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     <>
       <Head>
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
           rel="stylesheet"
+          key="mapbox-gl.css"
         />
       </Head>
       <Box position="relative" height="100%">

@@ -1,9 +1,9 @@
 // cspell:ignore bbox touchevents
 import React, {useCallback, useState, useRef, useEffect} from 'react'
 import MapGL, {
-  ViewStateChangeInfo,
-  ViewState,
-  NavigationControl
+  MapRef,
+  NavigationControl,
+  ViewportProps
   // MapLoadEvent
 } from 'react-map-gl'
 import {
@@ -40,12 +40,12 @@ const API_KEY = process.env.NEXT_PUBLIC_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
 
 const DistrictBoundariesMap = () => {
   const theme = useTheme()
-  const [viewState, setViewState] = useState<ViewState>({
+  const [viewState, setViewState] = useState<ViewportProps>({
     latitude: 38.90128,
     longitude: -121.10076,
     zoom: 8
   })
-  const onViewStateChange = useCallback(({viewState}: ViewStateChangeInfo) => {
+  const onViewStateChange = useCallback(({viewState}) => {
     setViewState({...viewState})
   }, [])
   const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
@@ -60,7 +60,7 @@ const DistrictBoundariesMap = () => {
   // const prevLastResultCoords = usePrevious(lastResultCoords)
   // const [map, setMap] = useState<mapboxgl.Map>()
 
-  const mapRef = useRef<MapGL>(null)
+  const mapRef = useRef<MapRef>(null)
   const mapIsUnsupported = useMapUnsupported()
   const supportsTouch = useSupportsTouch()
 
@@ -179,8 +179,9 @@ const DistrictBoundariesMap = () => {
         /> */}
         {/* yarn why mapbox-gl */}
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
           rel="stylesheet"
+          key="mapbox-gl.css"
         />
       </Head>
       <ContentDimmer
