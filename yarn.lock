@@ -6758,10 +6758,10 @@ react-map-gl-geocoder@^2.1.6:
     prop-types "^15.7.2"
     viewport-mercator-project "6.1.1"
 
-react-map-gl@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-6.1.2.tgz#c9ac83168c9d9fa432c3b13f410ad56acdace18c"
-  integrity sha512-vOUQoGA54dGHBSw7Z0rfo6YPJem4+rPcwZkO0jVYBH6rLTjL+ivBf197vVBH5jwxaLzevza48FGl2vuy/g7E7Q==
+react-map-gl@^6.1.3:
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-6.1.3.tgz#636d62ac3261a8ee7f36c8537bbf5a89bfba5428"
+  integrity sha512-KqcOTOUtKipOX+1ztXd/3ObfHr/j9xBmTl3SczDRuR4D6ZEhjYjWjwn7Fvs+1nyQBD/fSMMl53zH6kS2T0KEtg==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@types/geojson" "^7946.0.7"
