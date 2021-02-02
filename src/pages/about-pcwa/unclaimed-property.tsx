@@ -42,7 +42,7 @@ const useStyles = makeStyles(() =>
 
 const UnclaimedPropertyPage = ({initialData}: Props) => {
   const classes = useStyles()
-  const deadlineDate = useMemo(() => new Date('2020-07-10T17:00:00'), [])
+  const deadlineDate = useMemo(() => new Date('2021-07-10T17:00:00'), [])
 
   const deadlinePassedEl = useMemo(
     () =>
@@ -67,16 +67,16 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
           <PageTitle title="Unclaimed Property" subtitle="General" />
           {/* 5:00 p.m. on Friday July 12, 2019 */}
           <SectionBox>
-            <Type paragraph>
+            {/* <Type paragraph>
               Placer County Water Agency hereby provides notice to owners of
               record of unclaimed money in the Agency's possession that any
-              unclaimed money from the 2015 Calendar Year will escheat to the
+              unclaimed money from the 2020 Calendar Year will escheat to the
               Agency by operation of law if not claimed by{' '}
               <em>
                 {format(deadlineDate, "h':'mm aaaa 'on' cccc MMMM do',' yyyy")}
               </em>
               . {deadlinePassedEl}
-            </Type>
+            </Type> */}
 
             <Type paragraph>
               California Government Code Sections 50050 through 50057 provides
