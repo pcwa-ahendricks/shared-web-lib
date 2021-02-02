@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -19,7 +19,7 @@ import UnclaimedPropertyTable, {
 } from '@components/UnclaimedPropertyTable/UnclaimedPropertyTable'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
-import {format, isBefore} from 'date-fns'
+// import {isBefore, format} from 'date-fns'
 import CheckIcon from '@material-ui/icons/Check'
 import {green} from '@material-ui/core/colors'
 import {RowBox} from '@components/boxes/FlexBox'
@@ -42,15 +42,15 @@ const useStyles = makeStyles(() =>
 
 const UnclaimedPropertyPage = ({initialData}: Props) => {
   const classes = useStyles()
-  const deadlineDate = useMemo(() => new Date('2020-07-10T17:00:00'), [])
+  // const deadlineDate = useMemo(() => new Date('2021-07-10T17:00:00'), [])
 
-  const deadlinePassedEl = useMemo(
-    () =>
-      isBefore(deadlineDate, new Date()) ? (
-        <strong>(Deadline Passed)</strong>
-      ) : null,
-    [deadlineDate]
-  )
+  // const deadlinePassedEl = useMemo(
+  //   () =>
+  //     isBefore(deadlineDate, new Date()) ? (
+  //       <strong>(Deadline Passed)</strong>
+  //     ) : null,
+  //   [deadlineDate]
+  // )
 
   // const MiddleDivider = () => {
   //   return (
@@ -67,16 +67,16 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
           <PageTitle title="Unclaimed Property" subtitle="General" />
           {/* 5:00 p.m. on Friday July 12, 2019 */}
           <SectionBox>
-            <Type paragraph>
+            {/* <Type paragraph>
               Placer County Water Agency hereby provides notice to owners of
               record of unclaimed money in the Agency's possession that any
-              unclaimed money from the 2015 Calendar Year will escheat to the
+              unclaimed money from the 2020 Calendar Year will escheat to the
               Agency by operation of law if not claimed by{' '}
               <em>
                 {format(deadlineDate, "h':'mm aaaa 'on' cccc MMMM do',' yyyy")}
               </em>
               . {deadlinePassedEl}
-            </Type>
+            </Type> */}
 
             <Type paragraph>
               California Government Code Sections 50050 through 50057 provides
