@@ -1022,7 +1022,7 @@ function relativePrecip(percent?: number) {
     return null
   }
   const roundedPerc = round(percent, 0)
-  if (roundedPerc > 100) {
+  if (roundedPerc > 110) {
     return `${round(roundedPerc / 100, 1)}x`
   }
   return `${roundedPerc}%`
@@ -1033,7 +1033,7 @@ function isPrecipPercent(percent?: number) {
     return false
   }
   const roundedPerc = round(percent, 0)
-  if (roundedPerc <= 100) {
+  if (roundedPerc <= 110) {
     return true
   }
   return false
