@@ -8,7 +8,7 @@ import {
   LinearProgress
 } from '@material-ui/core'
 import styles from './TextProgress.module.css'
-import FlexBox from '@components/boxes/FlexBox'
+import FlexBox from 'mui-sleazebox'
 
 type Props = {
   caption?: string

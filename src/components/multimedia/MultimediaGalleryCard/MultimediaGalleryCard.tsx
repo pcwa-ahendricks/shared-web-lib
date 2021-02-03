@@ -8,7 +8,7 @@ import {
   Typography as Type
 } from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {ChildBox} from '@components/boxes/FlexBox'
+import {ChildBox} from 'mui-sleazebox'
 import {MultimediaPhotoGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {MultimediaVideoGallery} from '../MultimediaVideoGalleries/MultimediaVideoGalleries'
 

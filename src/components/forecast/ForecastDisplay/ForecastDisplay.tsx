@@ -7,7 +7,7 @@ import {
   ButtonBase,
   makeStyles
 } from '@material-ui/core'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RowBox} from 'mui-sleazebox'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 
 type Props = {

@@ -51,7 +51,7 @@ import {
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
-import {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
+import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import Spacing from '@components/boxes/Spacing'
 import {

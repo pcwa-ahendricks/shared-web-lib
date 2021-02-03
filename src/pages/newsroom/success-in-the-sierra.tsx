@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import FlexBox from '@components/boxes/FlexBox'
+import FlexBox from 'mui-sleazebox'
 import Blockquote from '@components/typography/Blockquote'
 
 const SuccessInTheSierraPage = () => {

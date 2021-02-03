@@ -23,7 +23,7 @@ import {
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'

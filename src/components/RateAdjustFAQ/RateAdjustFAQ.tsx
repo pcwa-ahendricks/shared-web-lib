@@ -11,7 +11,7 @@ import {
   useTheme
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 
 const useStyles = makeStyles((theme: Theme) =>

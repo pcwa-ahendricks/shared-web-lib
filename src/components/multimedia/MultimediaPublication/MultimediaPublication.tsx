@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import slugify from 'slugify'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox} from 'mui-sleazebox'
 
 type Props = {
   publication: PickedPublicationResponse

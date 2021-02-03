@@ -2,7 +2,7 @@
 import React, {useCallback, useState, useEffect} from 'react'
 import {Box, CircularProgress, useTheme} from '@material-ui/core'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import FlexBox from '@components/boxes/FlexBox'
+import FlexBox from 'mui-sleazebox'
 
 const MultimediaLightboxView = (props: any) => {
   const {data, getStyles, index, modalProps} = props

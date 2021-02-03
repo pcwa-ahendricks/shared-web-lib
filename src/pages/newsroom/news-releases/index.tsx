@@ -10,7 +10,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON, format, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import {
   Box,
   Typography as Type,

@@ -23,7 +23,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import {format, parseJSON} from 'date-fns'
-import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'

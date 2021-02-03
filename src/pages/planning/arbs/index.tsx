@@ -32,7 +32,7 @@ import {
 } from 'react-vertical-timeline-component'
 import {lightBlue} from '@material-ui/core/colors'
 import alpha from 'color-alpha'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'

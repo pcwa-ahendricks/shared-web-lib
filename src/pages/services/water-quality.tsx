@@ -16,7 +16,7 @@ import {
   Typography as Type,
   useMediaQuery
 } from '@material-ui/core'
-import {RowBox, ColumnBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {blueGrey} from '@material-ui/core/colors'
 // import QuoteCloseIcon from '@material-ui/icons/FormatQuote'

@@ -11,7 +11,7 @@ import {
   BoxProps
 } from '@material-ui/core'
 import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox} from 'mui-sleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'
 import clsx from 'clsx'

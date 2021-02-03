@@ -15,7 +15,7 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import FlexBox, {ColumnBox, ChildBox, RowBox} from '@components/boxes/FlexBox'
+import FlexBox, {ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import WideContainer from '@components/containers/WideContainer'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
