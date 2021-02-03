@@ -640,7 +640,7 @@ export default function RegionalSection({countyResponse}: Props) {
                       {relativePrecip(snowPerc)}
                     </Type>
                     <Box maxWidth="90%">
-                      <Type>
+                      <Type align="center">
                         {isPrecipPercent(snowPerc) ? 'of ' : null} the Average
                         Snowfall
                       </Type>
