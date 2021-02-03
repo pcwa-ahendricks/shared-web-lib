@@ -1,11 +1,13 @@
 // cspell:ignore bbox touchevents
 import React, {useCallback, useState, useRef, useEffect} from 'react'
 import MapGL, {
+  FlyToInterpolator,
   MapRef,
   NavigationControl,
   ViewportProps
   // MapLoadEvent
 } from 'react-map-gl'
+import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
   Box,
   Grow,
@@ -20,23 +22,27 @@ import useMapUnsupported from '@hooks/useMapIsUnsupported'
 import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
 // import usePrevious from '@hooks/usePrevious'
 import useSupportsTouch from '@hooks/useSupportsTouch'
+import NoPinch from '@components/NoPinch/NoPinch'
 import {useDebouncedCallback} from 'use-debounce'
 import Head from 'next/head'
-
-import Geocoder from 'react-map-gl-geocoder'
-// do this instead. See https://github.com/zeit/next.js/wiki/FAQ and https://github.com/SamSamskies/react-map-gl-geocoder/issues/36#issuecomment-517969447
-// let Geocoder: any
-// if (typeof window !== 'undefined') {
-//   // [TODO]
-//   // eslint-disable-next-line @typescript-eslint/no-var-requires
-//   Geocoder = require('react-map-gl-geocoder').default
-// }
+import MatGeocoder from 'react-mui-mapbox-geocoder'
 
 const API_KEY = process.env.NEXT_PUBLIC_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
 // const useStyles = makeStyles(() =>
 //   createStyles({
 //   })
 // )
+
+type GeocoderResult = {
+  bbox: [number, number, number, number]
+  center: number[]
+  place_name: string
+  place_type: string[]
+  relevance: number
+  text: string
+  address: string
+  context: any[]
+} & GeoJSON.Feature<GeoJSON.Point>
 
 const DistrictBoundariesMap = () => {
   const theme = useTheme()
@@ -53,9 +59,9 @@ const DistrictBoundariesMap = () => {
   const [activeDistrict, setActiveDistrict] = useState<string>()
   const [activeDirector, setActiveDirector] = useState<Director | null>()
   const [showDistrictOverlay, setShowDistrictOverlay] = useState(true)
-  const [lastResultCoords, setLastResultCoords] = useState<
-    [number, number] | null
-  >(null)
+  const [lastResultCoords, setLastResultCoords] = useState<number[] | null>(
+    null
+  )
   const [isTransitioning, setIsTransitioning] = useState(false)
   // const prevLastResultCoords = usePrevious(lastResultCoords)
   // const [map, setMap] = useState<mapboxgl.Map>()
@@ -65,16 +71,7 @@ const DistrictBoundariesMap = () => {
   const supportsTouch = useSupportsTouch()
   // const [mapIsLoaded, setMapIsLoaded] = useState(false)
 
-  const containerRef = useRef<HTMLDivElement>(null)
   // const mapLoadHandler = useCallback(() => setMapIsLoaded(true), [])
-
-  const geocoderViewportChangeHandler = useCallback(
-    (viewState) => {
-      const geocoderDefaultOverrides = {transitionDuration: 1000}
-      onViewStateChange({viewState, ...geocoderDefaultOverrides})
-    },
-    [onViewStateChange]
-  )
 
   const distillDistrict = useCallback((features: any[]) => {
     const firstFeature = features
@@ -111,7 +108,8 @@ const DistrictBoundariesMap = () => {
   const queryDistrict = useCallback(() => {
     const map = mapRef.current
     if (map && lastResultCoords) {
-      const features = map.queryRenderedFeatures(lastResultCoords, {
+      const [one, two] = lastResultCoords
+      const features = map.queryRenderedFeatures([one, two], {
         layers: ['pcwa-districts-fill']
       })
       distillDistrict(features)
@@ -122,12 +120,24 @@ const DistrictBoundariesMap = () => {
     queryDistrict()
   }, [lastResultCoords, queryDistrict])
 
-  const onResultHandler = useCallback((evt) => {
-    const {result} = evt
-    const {geometry} = result
-    const {coordinates} = geometry
-    setLastResultCoords(coordinates ?? null)
-  }, [])
+  const onResultHandler = useCallback(
+    (evt: GeocoderResult) => {
+      const {geometry} = evt
+      const {coordinates} = geometry
+      setLastResultCoords(coordinates ?? null)
+      const newViewState = {
+        ...viewState,
+        longitude: coordinates[0],
+        latitude: coordinates[1],
+        zoom: 16,
+        transitionDuration: 1000,
+        transitionInterpolator: new FlyToInterpolator(),
+        transitionEasing: easeCubic
+      }
+      setViewState({...newViewState})
+    },
+    [setViewState, viewState]
+  )
 
   const onClickHandler = useCallback(() => {
     setShowDistrictOverlay(true)
@@ -172,6 +182,7 @@ const DistrictBoundariesMap = () => {
   const dimmerSubtitle = supportsTouch
     ? 'Click or tap an area on the map to find out more about a particular location. Click this message to begin.'
     : 'Hover your mouse over the map to find out more about a particular location. Click this message to begin.'
+
   return (
     <>
       <Head>
@@ -193,75 +204,89 @@ const DistrictBoundariesMap = () => {
         subtitle={dimmerSubtitle}
         position="relative"
       >
-        <div ref={containerRef}>
-          <MapGL
-            ref={mapRef}
-            minZoom={8}
-            width="100%"
-            height={500}
-            mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
-            mapboxApiAccessToken={API_KEY}
-            onViewStateChange={onViewStateChange}
-            onHover={onHoverHandler}
-            onClick={onClickHandler}
-            onError={errorHandler}
-            onTransitionEnd={onTransitionEndHandler}
-            onTransitionStart={onTransitionStartHandler}
-            onTransitionInterrupt={onTransitionEndHandler}
-            scrollZoom={isXsDown ? false : true}
-            {...viewState}
-            // onMouseMove={onHoverHandler}
-            // onLoad={onLoadHandler}
+        <MapGL
+          ref={mapRef}
+          minZoom={8}
+          width="100%"
+          height={500}
+          mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
+          mapboxApiAccessToken={API_KEY}
+          onViewStateChange={onViewStateChange}
+          onHover={onHoverHandler}
+          onClick={onClickHandler}
+          onError={errorHandler}
+          onTransitionEnd={onTransitionEndHandler}
+          onTransitionStart={onTransitionStartHandler}
+          onTransitionInterrupt={onTransitionEndHandler}
+          scrollZoom={isXsDown ? false : true}
+          {...viewState}
+          // onMouseMove={onHoverHandler}
+          // onLoad={onLoadHandler}
+        >
+          <Box
+            position="absolute"
+            left={theme.spacing(1)}
+            bottom={theme.spacing(12)}
           >
-            <Box
+            <NavigationControl onViewStateChange={onViewStateChange} />
+          </Box>
+          <Grow in={showDistrictOverlay}>
+            <ColumnBox
               position="absolute"
-              left={theme.spacing(1)}
-              bottom={theme.spacing(1)}
+              top={isXsDown ? 'auto' : theme.spacing(1)}
+              bottom={isXsDown ? theme.spacing(5) : 'auto'}
+              right={theme.spacing(1)}
+              bgcolor={theme.palette.common.white}
+              p={1}
+              borderRadius={3}
+              boxShadow={4}
+              borderColor={theme.palette.grey['400']}
+              alignItems="center"
+              minWidth={200}
             >
-              <NavigationControl onViewStateChange={onViewStateChange} />
-            </Box>
-            <Grow in={showDistrictOverlay}>
-              <ColumnBox
-                position="absolute"
-                top={isXsDown ? 'auto' : theme.spacing(1)}
-                bottom={isXsDown ? theme.spacing(5) : 'auto'}
-                right={theme.spacing(1)}
-                bgcolor={theme.palette.common.white}
-                p={1}
-                borderRadius={3}
-                boxShadow={4}
-                borderColor={theme.palette.grey['400']}
-                alignItems="center"
-                minWidth={200}
-              >
-                {isTransitioning ? (
-                  <CircularProgress color="secondary" />
-                ) : (
-                  <Type variant="subtitle1">
-                    {activeDirector && activeDirector.districtCaption
-                      ? activeDirector.districtCaption
-                      : 'Outside PCWA District Limits'}
-                  </Type>
-                )}
-                {!isTransitioning && activeDirector && activeDirector.name ? (
-                  <Type variant="subtitle2">{activeDirector.name}</Type>
-                ) : null}
-              </ColumnBox>
-            </Grow>
-            <Geocoder
-              mapRef={mapRef}
-              onResult={onResultHandler}
-              containerRef={containerRef}
-              onViewportChange={geocoderViewportChangeHandler}
-              mapboxApiAccessToken={API_KEY}
-              position="top-left"
-              country="us"
-              proximity={{longitude: -121.0681, latitude: 38.9197}}
-              bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
-              zoom={15}
-            />
-          </MapGL>
-        </div>
+              {isTransitioning ? (
+                <CircularProgress color="secondary" />
+              ) : (
+                <Type variant="subtitle1">
+                  {activeDirector && activeDirector.districtCaption
+                    ? activeDirector.districtCaption
+                    : 'Outside PCWA District Limits'}
+                </Type>
+              )}
+              {!isTransitioning && activeDirector && activeDirector.name ? (
+                <Type variant="subtitle2">{activeDirector.name}</Type>
+              ) : null}
+            </ColumnBox>
+          </Grow>
+          {/* <Geocoder
+            mapRef={map}
+            onResult={onResultHandler}
+            onViewportChange={geocoderViewportChangeHandler}
+            mapboxApiAccessToken={API_KEY}
+            position="top-left"
+            country="us"
+            proximity={{longitude: -121.0681, latitude: 38.9197}}
+            bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
+            zoom={15}
+          /> */}
+          <Box
+            position="absolute"
+            left={theme.spacing(1)}
+            top={theme.spacing(1)}
+          >
+            <NoPinch>
+              <MatGeocoder
+                disableUnderline
+                inputPlaceholder="Search for Address"
+                accessToken={API_KEY}
+                onSelect={onResultHandler}
+                country="us"
+                proximity={{longitude: -121.0681, latitude: 38.9197}}
+                bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
+              />
+            </NoPinch>
+          </Box>
+        </MapGL>
       </ContentDimmer>
     </>
   )

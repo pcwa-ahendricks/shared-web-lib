@@ -29,7 +29,6 @@ Global External Styles
 import 'react-vertical-timeline-component/style.min.css'
 // Use Next <Head/> to load css on any page where these components are used
 // import 'mapbox-gl/dist/mapbox-gl.css'
-import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'react-vis/dist/style.css'
 
 const isDev = process.env.NODE_ENV === 'development'
