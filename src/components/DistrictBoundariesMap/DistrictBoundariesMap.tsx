@@ -283,6 +283,9 @@ const DistrictBoundariesMap = () => {
                 country="us"
                 proximity={{longitude: -121.0681, latitude: 38.9197}}
                 bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
+                inputPaperProps={{
+                  style: {backgroundColor: theme.palette.common.white}
+                }}
               />
             </NoPinch>
           </Box>
