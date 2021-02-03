@@ -23,14 +23,14 @@ import useSupportsTouch from '@hooks/useSupportsTouch'
 import {useDebouncedCallback} from 'use-debounce'
 import Head from 'next/head'
 
-// import Geocoder from 'react-map-gl-geocoder'
+import Geocoder from 'react-map-gl-geocoder'
 // do this instead. See https://github.com/zeit/next.js/wiki/FAQ and https://github.com/SamSamskies/react-map-gl-geocoder/issues/36#issuecomment-517969447
-let Geocoder: any
-if (typeof window !== 'undefined') {
-  // [TODO]
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  Geocoder = require('react-map-gl-geocoder').default
-}
+// let Geocoder: any
+// if (typeof window !== 'undefined') {
+//   // [TODO]
+//   // eslint-disable-next-line @typescript-eslint/no-var-requires
+//   Geocoder = require('react-map-gl-geocoder').default
+// }
 
 const API_KEY = process.env.NEXT_PUBLIC_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
 // const useStyles = makeStyles(() =>
@@ -63,6 +63,10 @@ const DistrictBoundariesMap = () => {
   const mapRef = useRef<MapRef>(null)
   const mapIsUnsupported = useMapUnsupported()
   const supportsTouch = useSupportsTouch()
+  // const [mapIsLoaded, setMapIsLoaded] = useState(false)
+
+  const containerRef = useRef<HTMLDivElement>(null)
+  // const mapLoadHandler = useCallback(() => setMapIsLoaded(true), [])
 
   const geocoderViewportChangeHandler = useCallback(
     (viewState) => {
@@ -187,65 +191,67 @@ const DistrictBoundariesMap = () => {
       <ContentDimmer
         title="Find Out Which PCWA District You Are In"
         subtitle={dimmerSubtitle}
+        position="relative"
       >
-        <MapGL
-          ref={mapRef}
-          {...viewState}
-          minZoom={8}
-          width="100%"
-          height={500}
-          mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
-          mapboxApiAccessToken={API_KEY}
-          onViewStateChange={onViewStateChange}
-          onHover={onHoverHandler}
-          onClick={onClickHandler}
-          onError={errorHandler}
-          onTransitionEnd={onTransitionEndHandler}
-          onTransitionStart={onTransitionStartHandler}
-          onTransitionInterrupt={onTransitionEndHandler}
-          scrollZoom={isXsDown ? false : true}
-          // onMouseMove={onHoverHandler}
-          // onLoad={onLoadHandler}
-        >
-          <Box
-            position="absolute"
-            left={theme.spacing(1)}
-            bottom={theme.spacing(1)}
+        <div ref={containerRef}>
+          <MapGL
+            ref={mapRef}
+            minZoom={8}
+            width="100%"
+            height={500}
+            mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
+            mapboxApiAccessToken={API_KEY}
+            onViewStateChange={onViewStateChange}
+            onHover={onHoverHandler}
+            onClick={onClickHandler}
+            onError={errorHandler}
+            onTransitionEnd={onTransitionEndHandler}
+            onTransitionStart={onTransitionStartHandler}
+            onTransitionInterrupt={onTransitionEndHandler}
+            scrollZoom={isXsDown ? false : true}
+            {...viewState}
+            // onMouseMove={onHoverHandler}
+            // onLoad={onLoadHandler}
           >
-            <NavigationControl onViewStateChange={onViewStateChange} />
-          </Box>
-          <Grow in={showDistrictOverlay}>
-            <ColumnBox
+            <Box
               position="absolute"
-              top={isXsDown ? 'auto' : theme.spacing(1)}
-              bottom={isXsDown ? theme.spacing(5) : 'auto'}
-              right={theme.spacing(1)}
-              bgcolor={theme.palette.common.white}
-              p={1}
-              borderRadius={3}
-              boxShadow={4}
-              borderColor={theme.palette.grey['400']}
-              alignItems="center"
-              minWidth={200}
+              left={theme.spacing(1)}
+              bottom={theme.spacing(1)}
             >
-              {isTransitioning ? (
-                <CircularProgress color="secondary" />
-              ) : (
-                <Type variant="subtitle1">
-                  {activeDirector && activeDirector.districtCaption
-                    ? activeDirector.districtCaption
-                    : 'Outside PCWA District Limits'}
-                </Type>
-              )}
-              {!isTransitioning && activeDirector && activeDirector.name ? (
-                <Type variant="subtitle2">{activeDirector.name}</Type>
-              ) : null}
-            </ColumnBox>
-          </Grow>
-          {Geocoder ? (
+              <NavigationControl onViewStateChange={onViewStateChange} />
+            </Box>
+            <Grow in={showDistrictOverlay}>
+              <ColumnBox
+                position="absolute"
+                top={isXsDown ? 'auto' : theme.spacing(1)}
+                bottom={isXsDown ? theme.spacing(5) : 'auto'}
+                right={theme.spacing(1)}
+                bgcolor={theme.palette.common.white}
+                p={1}
+                borderRadius={3}
+                boxShadow={4}
+                borderColor={theme.palette.grey['400']}
+                alignItems="center"
+                minWidth={200}
+              >
+                {isTransitioning ? (
+                  <CircularProgress color="secondary" />
+                ) : (
+                  <Type variant="subtitle1">
+                    {activeDirector && activeDirector.districtCaption
+                      ? activeDirector.districtCaption
+                      : 'Outside PCWA District Limits'}
+                  </Type>
+                )}
+                {!isTransitioning && activeDirector && activeDirector.name ? (
+                  <Type variant="subtitle2">{activeDirector.name}</Type>
+                ) : null}
+              </ColumnBox>
+            </Grow>
             <Geocoder
               mapRef={mapRef}
               onResult={onResultHandler}
+              containerRef={containerRef}
               onViewportChange={geocoderViewportChangeHandler}
               mapboxApiAccessToken={API_KEY}
               position="top-left"
@@ -254,8 +260,8 @@ const DistrictBoundariesMap = () => {
               bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
               zoom={15}
             />
-          ) : null}
-        </MapGL>
+          </MapGL>
+        </div>
       </ContentDimmer>
     </>
   )

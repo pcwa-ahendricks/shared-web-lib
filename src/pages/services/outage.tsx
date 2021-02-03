@@ -52,38 +52,42 @@ const outagesUrl = `/api/cosmic/objects${qs}`
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
 const options: HTMLReactParserOptions = {
-  replace: ({children = [], attribs, name}) => {
-    // if (!attribs) return
+  // [TODO] Fix any type
+  replace: (domNode: any) => {
+    if (domNode.attribs) {
+      const {attribs, name, children} = domNode
+      // if (!attribs) return
 
-    // Strip ALL Style properties from HTML.
-    if (attribs?.style) {
-      attribs.style = ''
-    }
+      // Strip ALL Style properties from HTML.
+      if (attribs.style) {
+        attribs.style = ''
+      }
 
-    if (name === 'em') {
-      return (
-        <Type style={{fontStyle: 'italic'}} variant="body1" component="span">
-          {domToReact(children, options)}
-        </Type>
-      )
-    } else if (name === 'u') {
-      return (
-        <Type variant="h3" component="span">
-          {domToReact(children, options)}
-        </Type>
-      )
-    } else if (name === 'strong') {
-      return (
-        <Type variant="h6" component="span">
-          {domToReact(children, options)}
-        </Type>
-      )
-    } else if (name === 'p') {
-      return (
-        <Type variant="body1" paragraph>
-          {domToReact(children, options)}
-        </Type>
-      )
+      if (name === 'em') {
+        return (
+          <Type style={{fontStyle: 'italic'}} variant="body1" component="span">
+            {domToReact(children, options)}
+          </Type>
+        )
+      } else if (name === 'u') {
+        return (
+          <Type variant="h3" component="span">
+            {domToReact(children, options)}
+          </Type>
+        )
+      } else if (name === 'strong') {
+        return (
+          <Type variant="h6" component="span">
+            {domToReact(children, options)}
+          </Type>
+        )
+      } else if (name === 'p') {
+        return (
+          <Type variant="body1" paragraph>
+            {domToReact(children, options)}
+          </Type>
+        )
+      }
     }
   }
 }
