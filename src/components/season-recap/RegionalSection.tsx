@@ -525,9 +525,14 @@ export default function RegionalSection({countyResponse}: Props) {
                       className={classes.regionalStat}
                       align="center"
                     >
-                      {isNumber(precipPerc) ? `${round(precipPerc, 0)}%` : null}
+                      {relativePrecip(precipPerc)}
                     </Type>
-                    <Type align="center"> of the Average Rainfall</Type>
+                    <Box maxWidth="90%">
+                      <Type align="center">
+                        {isPrecipPercent(precipPerc) ? 'of ' : null} the Average
+                        Rainfall
+                      </Type>
+                    </Box>
                     <Box maxWidth="80%">
                       <Type align="center" variant="body2">
                         Using data from{' '}
@@ -632,9 +637,14 @@ export default function RegionalSection({countyResponse}: Props) {
                 <Zoom animate={isNumber(snowPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type variant="body1" className={classes.regionalStat}>
-                      {isNumber(snowPerc) ? `${round(snowPerc, 0)}%` : null}
+                      {relativePrecip(snowPerc)}
                     </Type>
-                    <Type> of the Average Snowfall</Type>
+                    <Box maxWidth="90%">
+                      <Type>
+                        {isPrecipPercent(snowPerc) ? 'of ' : null} the Average
+                        Snowfall
+                      </Type>
+                    </Box>
                     <Box maxWidth="80%">
                       <Type align="center" variant="body2">
                         Using data from{' '}
@@ -785,7 +795,9 @@ export default function RegionalSection({countyResponse}: Props) {
                           : 'cooler'
                         : null}
                     </Type>
-                    <Type>Daily on Average</Type>
+                    <Box maxWidth="90%">
+                      <Type align="center">Daily on Average</Type>
+                    </Box>
                     <Type>
                       <em>
                         {isNumber(mxTempPerc) ? (
@@ -1003,6 +1015,28 @@ export default function RegionalSection({countyResponse}: Props) {
       </Type>
     </>
   )
+}
+
+function relativePrecip(percent?: number) {
+  if (!percent || !isNumber(percent)) {
+    return null
+  }
+  const roundedPerc = round(percent, 0)
+  if (roundedPerc > 100) {
+    return `${round(roundedPerc / 100, 1)}x`
+  }
+  return `${roundedPerc}%`
+}
+
+function isPrecipPercent(percent?: number) {
+  if (!percent || !isNumber(percent)) {
+    return false
+  }
+  const roundedPerc = round(percent, 0)
+  if (roundedPerc <= 100) {
+    return true
+  }
+  return false
 }
 
 interface MultiStnSmryResponse {
