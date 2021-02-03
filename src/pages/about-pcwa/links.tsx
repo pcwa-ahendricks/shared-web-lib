@@ -18,7 +18,7 @@ import {
   Divider
   // Theme
 } from '@material-ui/core'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const useStyles = makeStyles(() =>

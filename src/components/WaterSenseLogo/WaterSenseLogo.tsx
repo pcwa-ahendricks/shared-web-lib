@@ -6,7 +6,7 @@ import {
   makeStyles,
   createStyles
 } from '@material-ui/core'
-import {RowBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 
 const useStyles = makeStyles(() =>

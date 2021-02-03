@@ -17,7 +17,7 @@ import {
   useTheme
 } from '@material-ui/core'
 import {directors, Director} from '@lib/directors'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/boxes/FlexBox'
 import useMapUnsupported from '@hooks/useMapIsUnsupported'
 import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
 // import usePrevious from '@hooks/usePrevious'

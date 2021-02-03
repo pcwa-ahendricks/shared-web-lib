@@ -22,7 +22,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import {format, parse} from 'date-fns'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import BackIcon from '@material-ui/icons/UndoOutlined'

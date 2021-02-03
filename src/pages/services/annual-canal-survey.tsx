@@ -10,7 +10,7 @@ import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {Alert} from '@material-ui/lab'
 import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 const DEADLINE = 'August 14th, 2020'
 

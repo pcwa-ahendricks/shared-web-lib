@@ -8,7 +8,7 @@ import {
   Button,
   useTheme
 } from '@material-ui/core'
-import {ColumnBox, RowBox} from 'mui-sleazebox'
+import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {DatePicker} from '@material-ui/pickers'
 import {PiContext, setChartStartDate, setChartEndDate} from '../PiStore'
 import {subYears, subQuarters, subMonths, subWeeks, startOfDay} from 'date-fns'

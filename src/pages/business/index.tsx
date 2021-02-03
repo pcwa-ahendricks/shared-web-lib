@@ -4,7 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import {
   Box,
   Typography as Type,

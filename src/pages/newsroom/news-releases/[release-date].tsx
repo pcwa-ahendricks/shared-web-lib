@@ -22,7 +22,7 @@ import {
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import {format, parseJSON, isValid} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@material-ui/icons/UndoOutlined'

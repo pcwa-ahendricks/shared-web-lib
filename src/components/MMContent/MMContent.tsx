@@ -10,7 +10,7 @@ import {
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
 import menuConfig from '@lib/menuConfig'
-import {RowBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   contentKey?: number | null

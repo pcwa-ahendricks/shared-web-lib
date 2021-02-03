@@ -15,7 +15,7 @@ import {
   ButtonProps,
   LinkProps
 } from '@material-ui/core'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'

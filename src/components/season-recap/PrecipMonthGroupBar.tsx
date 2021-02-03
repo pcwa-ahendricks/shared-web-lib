@@ -6,7 +6,7 @@ import {ResponsiveBar} from '@nivo/bar'
 import {BoxLegendSvg} from '@nivo/legends'
 import React, {useCallback, useMemo} from 'react'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import round from '@lib/round'
 
 type Props = {

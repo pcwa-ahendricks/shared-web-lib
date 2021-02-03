@@ -9,7 +9,7 @@ import {
 // import {blue} from '@material-ui/core/colors'
 import {format, formatDistance, parseJSON} from 'date-fns'
 import {PiContext, PiMetadata} from '../PiStore'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/boxes/FlexBox'
 import clsx from 'clsx'
 import {AttribStreamValue} from '@lib/services/pi/pi-web-api-types'
 import useIsReservoirGage from '../hooks/useIsReservoirGage'

@@ -17,7 +17,7 @@ import {
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 import Pagination from '@components/Pagination'
-import FlexBox, {RowBox} from 'mui-sleazebox'
+import FlexBox, {RowBox} from '@components/boxes/FlexBox'
 import {resultsPerPage} from '@lib/services/googleSearchService'
 
 const useStyles = makeStyles((theme: Theme) =>

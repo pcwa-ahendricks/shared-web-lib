@@ -27,7 +27,7 @@ import {
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'

@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   Link
 } from '@material-ui/core'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/boxes/FlexBox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import WideContainer from '@components/containers/WideContainer'

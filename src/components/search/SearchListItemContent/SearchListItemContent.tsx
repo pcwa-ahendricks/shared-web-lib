@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/boxes/FlexBox'
 import Parser from 'html-react-parser'
 import SearchListItemUrlIcon from '../SearchListItemUrlIcon/SearchListItemUrlIcon'
 

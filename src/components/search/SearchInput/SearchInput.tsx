@@ -30,7 +30,7 @@ import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
 import {GoogleCseResponse} from '../SearchResponse'
 import WebmasterEmail from '@components/links/WebmasterEmail'
 import SearchIcon from '@material-ui/icons/Search'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 // import delay from 'then-sleep'
 
 type UseStylesProps = {

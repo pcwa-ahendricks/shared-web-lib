@@ -19,7 +19,7 @@ import {
   Theme
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/boxes/FlexBox'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'

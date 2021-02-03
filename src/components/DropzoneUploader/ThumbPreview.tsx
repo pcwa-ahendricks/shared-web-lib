@@ -16,7 +16,7 @@ import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
 import clsx from 'clsx'
 import useSupportsTouch from '@hooks/useSupportsTouch'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 type Props = {
   file: DroppedFile

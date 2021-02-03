@@ -7,7 +7,7 @@ import {
   createStyles,
   useTheme
 } from '@material-ui/core'
-import FlexBox from 'mui-sleazebox'
+import FlexBox from '@components/boxes/FlexBox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
 import Animate from '@components/Animate/Animate'
 

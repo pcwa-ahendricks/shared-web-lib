@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
-import {ChildBox, ColumnBox, RowBox, FlexBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox, FlexBox} from '@components/boxes/FlexBox'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import toTitleCase from '@lib/toTitleCase'
 import isNumber from 'is-number'

@@ -20,7 +20,7 @@ import {Box, useTheme, Typography as Type} from '@material-ui/core'
 import ShowChartIcon from '@material-ui/icons/ShowChart'
 import DragHandleIcon from '@material-ui/icons/DragHandle'
 import BarChartIcon from '@material-ui/icons/BarChart'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import {LegendProps} from '@nivo/legends'
 import isNumber from 'is-number'
 

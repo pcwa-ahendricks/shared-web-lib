@@ -24,7 +24,7 @@ import {
   makeStyles,
   useTheme
 } from '@material-ui/core'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
 import fileExtension from '@lib/fileExtension'

@@ -33,7 +33,7 @@ import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitc
 import RebatesEmail from '@components/links/RebatesEmail'
 import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/boxes/FlexBox'
 
 const MAX_TOILETS = 25
 const MIN_TOILETS = 1

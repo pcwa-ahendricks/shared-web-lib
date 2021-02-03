@@ -4,7 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import {
   Typography as Type,
   Box,

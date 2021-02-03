@@ -14,7 +14,7 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton, {
   FancyButtonProps

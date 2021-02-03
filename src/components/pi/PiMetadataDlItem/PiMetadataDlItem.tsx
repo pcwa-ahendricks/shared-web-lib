@@ -1,6 +1,6 @@
 // cspell:ignore infobox
 import React from 'react'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/boxes/FlexBox'
 import {PiMetadata} from '../PiStore'
 import {Typography as Type, createStyles, makeStyles} from '@material-ui/core'
 import clsx from 'clsx'

@@ -14,7 +14,7 @@ import {
   Box,
   useTheme
 } from '@material-ui/core'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'

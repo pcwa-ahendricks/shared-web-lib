@@ -46,7 +46,7 @@ import {
   isBefore
 } from 'date-fns'
 import {saveAs} from 'file-saver'
-import FlexBox, {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
+import FlexBox, {ChildBox, RowBox, ColumnBox} from '@components/boxes/FlexBox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
 import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'

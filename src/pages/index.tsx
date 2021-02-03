@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/boxes/FlexBox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
