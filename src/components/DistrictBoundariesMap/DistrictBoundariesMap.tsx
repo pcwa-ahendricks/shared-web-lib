@@ -130,7 +130,7 @@ const DistrictBoundariesMap = () => {
         longitude: coordinates[0],
         latitude: coordinates[1],
         zoom: 16,
-        transitionDuration: 1000,
+        transitionDuration: 2000,
         transitionInterpolator: new FlyToInterpolator(),
         transitionEasing: easeCubic
       }
