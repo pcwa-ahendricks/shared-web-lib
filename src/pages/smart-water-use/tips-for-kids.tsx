@@ -1,5 +1,5 @@
 // cspell:ignore bewatersmart arwec usbr
-import React from 'react'
+import React, {useCallback} from 'react'
 import {
   createStyles,
   makeStyles,
@@ -45,27 +45,36 @@ const TipsForKidsPage = () => {
   const classes = useStyles()
   const theme = useTheme()
 
-  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
-    return (
-      <Type component="li" className={classes.bulletLi} {...rest}>
-        {children}
-      </Type>
-    )
-  }
+  const TypeBullet = useCallback(
+    ({children, ...rest}: TypographyProps<'li'>) => {
+      return (
+        <Type component="li" className={classes.bulletLi} {...rest}>
+          {children}
+        </Type>
+      )
+    },
+    [classes]
+  )
 
-  const TightBullet = ({children, ...rest}: TypographyProps<'li'>) => {
-    return (
-      <Type component="li" className={classes.tightBulletLi} {...rest}>
-        <Disc />
-        {children}
-      </Type>
-    )
-  }
+  const Disc = useCallback(
+    ({...rest}: BoxProps) => (
+      <Box className={classes.disc} {...rest}>
+        •
+      </Box>
+    ),
+    [classes]
+  )
 
-  const Disc = ({...rest}: BoxProps) => (
-    <Box className={classes.disc} {...rest}>
-      •
-    </Box>
+  const TightBullet = useCallback(
+    ({children, ...rest}: TypographyProps<'li'>) => {
+      return (
+        <Type component="li" className={classes.tightBulletLi} {...rest}>
+          <Disc />
+          {children}
+        </Type>
+      )
+    },
+    [classes, Disc]
   )
 
   return (

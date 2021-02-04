@@ -14,7 +14,10 @@ import {
   Typography as Type,
   CircularProgress,
   useMediaQuery,
-  useTheme
+  useTheme,
+  makeStyles,
+  createStyles,
+  Theme
 } from '@material-ui/core'
 import {directors, Director} from '@lib/directors'
 import {ColumnBox} from 'mui-sleazebox'
@@ -26,6 +29,17 @@ import NoPinch from '@components/NoPinch/NoPinch'
 import {useDebouncedCallback} from 'use-debounce'
 import Head from 'next/head'
 import MatGeocoder from 'react-mui-mapbox-geocoder'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    geocoderPaper: {
+      backgroundColor: theme.palette.common.white,
+      '&:hover,&:active,&.inputContainerFocused': {
+        backgroundColor: theme.palette.common.white
+      }
+    }
+  })
+)
 
 const API_KEY = process.env.NEXT_PUBLIC_DISTRICT_MAP_MAPBOX_API_KEY ?? ''
 // const useStyles = makeStyles(() =>
@@ -46,6 +60,8 @@ type GeocoderResult = {
 
 const DistrictBoundariesMap = () => {
   const theme = useTheme()
+  const classes = useStyles()
+
   const [viewState, setViewState] = useState<ViewportProps>({
     latitude: 38.90128,
     longitude: -121.10076,
@@ -284,7 +300,7 @@ const DistrictBoundariesMap = () => {
                 proximity={{longitude: -121.0681, latitude: 38.9197}}
                 bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
                 inputPaperProps={{
-                  style: {backgroundColor: theme.palette.common.white}
+                  className: classes.geocoderPaper
                 }}
               />
             </NoPinch>
