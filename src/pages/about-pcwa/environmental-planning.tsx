@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import FlexBox, {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {FlexBox, RowBox, ChildBox} from 'mui-sleazebox'
 import {
   Typography as Type,
   Box,

@@ -30,7 +30,7 @@ import {
 } from '@lib/services/pi/pi-web-api-types'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RowBox} from 'mui-sleazebox'
 // import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
 // import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'

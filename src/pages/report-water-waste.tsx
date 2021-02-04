@@ -26,7 +26,7 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox, RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {ColumnBox, RowBox, ChildBox} from 'mui-sleazebox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 // import MainPhone from '@components/links/MainPhone'
 // import EightHundredPhone from '@components/links/EightHundredPhone'

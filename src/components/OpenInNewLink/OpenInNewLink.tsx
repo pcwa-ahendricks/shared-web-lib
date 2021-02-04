@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import {RowBox, ChildBox, ColumnBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import AltIcon from '@material-ui/icons/Language'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'

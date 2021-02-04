@@ -1,5 +1,5 @@
 // cspell:ignore accum
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
 import {Box, Typography as Type, useTheme} from '@material-ui/core'
 import SquareIcon from 'mdi-material-ui/Square'

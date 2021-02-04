@@ -13,7 +13,7 @@ import {
   Typography
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RowBox} from 'mui-sleazebox'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

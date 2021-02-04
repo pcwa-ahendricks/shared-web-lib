@@ -18,7 +18,7 @@ import {
 // import {blue} from '@material-ui/core/colors'
 import {format, differenceInMonths, differenceInDays, parseJSON} from 'date-fns'
 import {PiContext, PiMetadata} from '../PiStore'
-import {RowBox} from '@components/boxes/FlexBox'
+import {RowBox} from 'mui-sleazebox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
 // [todo] Someday types will become available and we can yarn add -D @types/react-vis

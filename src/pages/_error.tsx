@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {NextPageContext} from 'next'
-import {ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ColumnBox, RowBox} from 'mui-sleazebox'
 import Head from 'next/head'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import {Box, Typography as Type} from '@material-ui/core'

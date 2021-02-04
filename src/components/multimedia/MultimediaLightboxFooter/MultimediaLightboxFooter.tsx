@@ -9,7 +9,7 @@ import {
   useMediaQuery
 } from '@material-ui/core'
 import {PhotoLibraryMetadata} from '../MultimediaStore'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from 'mui-sleazebox'
 
 type UseStylesProps = {
   interactionIsIdle?: boolean

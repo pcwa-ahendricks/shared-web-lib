@@ -18,7 +18,7 @@ import {
   Theme,
   ListItemIcon
 } from '@material-ui/core'
-import {RowBox, ChildBox} from '@components/boxes/FlexBox'
+import {RowBox, ChildBox} from 'mui-sleazebox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'

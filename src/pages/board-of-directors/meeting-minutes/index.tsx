@@ -10,7 +10,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {ChildBox, ColumnBox, RowBox} from '@components/boxes/FlexBox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'

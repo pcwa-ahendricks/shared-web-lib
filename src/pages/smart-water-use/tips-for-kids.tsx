@@ -18,7 +18,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink'
 import DetectiveIcon from 'mdi-material-ui/AccountSearch'
 import Spacing from '@components/boxes/Spacing'
-import FlexBox from '@components/boxes/FlexBox'
+import {FlexBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 

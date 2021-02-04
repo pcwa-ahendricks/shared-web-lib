@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
-import {ColumnBox} from '@components/boxes/FlexBox'
+import {ColumnBox} from 'mui-sleazebox'
 
 type Props = {
   typographyClass?: any
