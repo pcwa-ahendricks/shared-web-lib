@@ -145,8 +145,8 @@ export default function SeasonRecapPage() {
   )
 
   const precipMoSmryData = useMemo(() => {
-    const smryData = precipMoSmryResponse?.smry[0] ?? []
-    const data = precipMoSmryResponse?.data.find((i) => {
+    const smryData = precipMoSmryResponse?.smry?.[0] ?? []
+    const data = precipMoSmryResponse?.data?.find((i) => {
       const [iYear] = i
       return parseInt(iYear, 10) === waterYear
     })
@@ -671,17 +671,17 @@ export default function SeasonRecapPage() {
                 color="textSecondary"
                 component="header"
               >
-                {precipMoSmryResponse?.meta.name},{' '}
+                {precipMoSmryResponse?.meta?.name},{' '}
                 {`${waterYear - 1}-${waterYear} `}
                 <Type variant="inherit" color="inherit">
                   <em>
                     (using{' '}
-                    {precipMoSmryResponse?.meta.valid_daterange[0][0].substr(
+                    {precipMoSmryResponse?.meta?.valid_daterange[0][0].substr(
                       0,
                       4
                     )}
                     -
-                    {precipMoSmryResponse?.meta.valid_daterange[0][1].substr(
+                    {precipMoSmryResponse?.meta?.valid_daterange[0][1].substr(
                       0,
                       4
                     )}{' '}
@@ -912,9 +912,9 @@ export interface PrecipHistResponse {
 }
 
 interface PrecipMoSmryResponse {
-  meta: PrecipMoSmryMeta
-  data: [string, string[]][]
-  smry: [string, string[], string[]][][]
+  meta?: PrecipMoSmryMeta
+  data?: [string, string[]][]
+  smry?: [string, string[], string[]][][]
 }
 
 interface PrecipMoSmryMeta {
