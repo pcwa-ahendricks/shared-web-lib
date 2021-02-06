@@ -146,6 +146,13 @@ const EnvironmentalPlanningPage = () => {
                 Natural Resources Management Plan
               </OpenInNewLinkBox>
 
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://imgix.cosmicjs.com/a0516f00-6817-11eb-bf71-a9528da73ec2-MVGB-2018-2019-Annual-Report-FINAL01222021.pdf"
+              >
+                Martis Valley Groundwater Annual Report
+              </OpenInNewLinkBox>
+
               <Spacing />
               {/* <Type variant="h3" gutterBottom>
                 Environmental Review
