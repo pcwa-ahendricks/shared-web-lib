@@ -150,7 +150,8 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://imgix.cosmicjs.com/a0516f00-6817-11eb-bf71-a9528da73ec2-MVGB-2018-2019-Annual-Report-FINAL01222021.pdf"
               >
-                Martis Valley Groundwater Annual Report
+                Martis Valley Groundwater Basin Annual Report for Water Years
+                2018, 2019
               </OpenInNewLinkBox>
 
               <Spacing />
