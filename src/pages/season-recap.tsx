@@ -127,8 +127,13 @@ export default function SeasonRecapPage() {
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`, {
     refreshInterval
   })
+  // Use the previous year for Temperature History so that the observed range for current year is visible outside that historical high/low on the Temperature Line chart
+  const tempHistQs = stringify(
+    {sid: slugify(sid), waterYear: waterYear - 1},
+    true
+  )
   const {data: tempHistResponse} = useSWR<TempHistResponse>(
-    `/api/acis/temp-hist${qs}`,
+    `/api/acis/temp-hist${tempHistQs}`,
     {refreshInterval}
   )
   const {data: precipResponse} = useSWR<PrecipResponse>(

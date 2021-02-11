@@ -911,32 +911,34 @@ export default function RegionalSection({countyResponse}: Props) {
           </ColumnBox>
         </RowBox>
       </Paper>
-      <Spacing size="large" />
+      <Spacing size="x-large" />
       {/* <RowBox justifyContent="space-between"> */}
-      <Type variant="h4" gutterBottom>
-        Precipitation Maps
-      </Type>
-      {/* </RowBox> */}
       <RowBox responsive flexSpacing={2}>
-        <ChildBox flex="33.33%">
-          <MediaDialogOnClick
-            mediaName="Actual Precipitation"
-            mediaUrl={precipSrc}
-          >
-            <Image
-              src={precipSrc}
-              layout="responsive"
-              height={850}
-              width={1100}
-              alt="Actual Precipitation for California"
-              className={classes.mediaDialogImg}
-            />
-          </MediaDialogOnClick>
-          <ColumnBox mt={1} alignItems="center">
-            <Type variant="caption">Actual Precipitation</Type>
-          </ColumnBox>
-        </ChildBox>
-        <ChildBox flex="33.33%">
+        <ChildBox flex="67%">
+          <Type variant="h4" gutterBottom>
+            Precipitation Maps
+          </Type>
+          {/* </RowBox> */}
+          <RowBox responsive flexSpacing={2}>
+            <ChildBox flex="33.33%">
+              <MediaDialogOnClick
+                mediaName="Actual Precipitation"
+                mediaUrl={precipSrc}
+              >
+                <Image
+                  src={precipSrc}
+                  layout="responsive"
+                  height={850}
+                  width={1100}
+                  alt="Actual Precipitation for California"
+                  className={classes.mediaDialogImg}
+                />
+              </MediaDialogOnClick>
+              <ColumnBox mt={1} alignItems="center">
+                <Type variant="caption">Actual Precipitation</Type>
+              </ColumnBox>
+            </ChildBox>
+            {/* <ChildBox flex="33.33%">
           <MediaDialogOnClick
             mediaName="Departure from Normal"
             mediaUrl={departNormalPrecipSrc}
@@ -953,49 +955,51 @@ export default function RegionalSection({countyResponse}: Props) {
           <ColumnBox mt={1} alignItems="center">
             <Type variant="caption">Departure from Normal</Type>
           </ColumnBox>
+        </ChildBox> */}
+            <ChildBox flex="33.33%">
+              <MediaDialogOnClick
+                mediaName="Percent of Normal"
+                mediaUrl={percNormalPrecipSrc}
+              >
+                <Image
+                  src={percNormalPrecipSrc}
+                  layout="responsive"
+                  height={850}
+                  width={1100}
+                  alt="Percent of Normal Precipitation for California"
+                  className={classes.mediaDialogImg}
+                />
+              </MediaDialogOnClick>
+              <ColumnBox mt={1} alignItems="center">
+                <Type variant="caption">Percent of Normal</Type>
+              </ColumnBox>
+            </ChildBox>
+          </RowBox>
         </ChildBox>
-        <ChildBox flex="33.33%">
-          <MediaDialogOnClick
-            mediaName="Percent of Normal"
-            mediaUrl={percNormalPrecipSrc}
-          >
-            <Image
-              src={percNormalPrecipSrc}
-              layout="responsive"
-              height={850}
-              width={1100}
-              alt="Percent of Normal Precipitation for California"
-              className={classes.mediaDialogImg}
-            />
-          </MediaDialogOnClick>
-          <ColumnBox mt={1} alignItems="center">
-            <Type variant="caption">Percent of Normal</Type>
-          </ColumnBox>
-        </ChildBox>
-      </RowBox>
-      <Spacing size="large" />
-      <Type variant="h4" gutterBottom>
-        Temperature Maps
-      </Type>
-      {/* </RowBox> */}
-      <RowBox responsive flexSpacing={2}>
-        <ChildBox flex="0 1 33.33%">
-          <MediaDialogOnClick
-            mediaName="Temperature Departure"
-            mediaUrl={tempDepartSrc}
-          >
-            <Image
-              src={tempDepartSrc}
-              layout="responsive"
-              height={850}
-              width={1100}
-              alt="Departure from Normal Temperature for California"
-              className={classes.mediaDialogImg}
-            />
-          </MediaDialogOnClick>
-          <ColumnBox mt={1} alignItems="center">
-            <Type variant="caption">Departure from Normal Temperature</Type>
-          </ColumnBox>
+        {/* <Spacing size="large" /> */}
+        <ChildBox flex="33%">
+          <Type variant="h4" gutterBottom>
+            Temperature Maps
+          </Type>
+
+          <ChildBox flex>
+            <MediaDialogOnClick
+              mediaName="Temperature Departure"
+              mediaUrl={tempDepartSrc}
+            >
+              <Image
+                src={tempDepartSrc}
+                layout="responsive"
+                height={850}
+                width={1100}
+                alt="Departure from Normal Temperature for California"
+                className={classes.mediaDialogImg}
+              />
+            </MediaDialogOnClick>
+            <ColumnBox mt={1} alignItems="center">
+              <Type variant="caption">Departure from Normal Temperature</Type>
+            </ColumnBox>
+          </ChildBox>
         </ChildBox>
       </RowBox>
       <Spacing size="large" />
