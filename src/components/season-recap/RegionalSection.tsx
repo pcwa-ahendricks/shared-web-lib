@@ -54,13 +54,13 @@ const prcNrmlPrcpImgSrc = {
   last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPNormCA.png'
 } as const
 
-const dprtNrmlPrecipImgSrc = {
-  waterYear:
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDeptCA.png',
-  last30Days:
-    'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDeptCA.png',
-  last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPDeptCA.png'
-} as const
+// const dprtNrmlPrecipImgSrc = {
+//   waterYear:
+//     'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/WaterPDeptCA.png',
+//   last30Days:
+//     'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/30dPDeptCA.png',
+//   last7Days: 'https://hprcc.unl.edu/products/maps/acis/subrgn/CA/7dPDeptCA.png'
+// } as const
 
 const precipImgSrc = {
   waterYear:
@@ -140,9 +140,9 @@ export default function RegionalSection({countyResponse}: Props) {
   const [percNormalPrecipSrc, setPercNormalPrecipSrc] = useState<string>(
     prcNrmlPrcpImgSrc[regionalTimeFrame]
   )
-  const [departNormalPrecipSrc, setDepartNormalPrecipSrc] = useState<string>(
-    dprtNrmlPrecipImgSrc[regionalTimeFrame]
-  )
+  // const [departNormalPrecipSrc, setDepartNormalPrecipSrc] = useState<string>(
+  //   dprtNrmlPrecipImgSrc[regionalTimeFrame]
+  // )
   const [precipSrc, setPrecipSrc] = useState<string>(
     precipImgSrc[regionalTimeFrame]
   )
@@ -337,7 +337,7 @@ export default function RegionalSection({countyResponse}: Props) {
 
   useEffect(() => {
     setPercNormalPrecipSrc(prcNrmlPrcpImgSrc[regionalTimeFrame])
-    setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc[regionalTimeFrame])
+    // setDepartNormalPrecipSrc(dprtNrmlPrecipImgSrc[regionalTimeFrame])
     setPrecipSrc(precipImgSrc[regionalTimeFrame])
     setTempDepartSrc(tempDepartImgSrc[regionalTimeFrame])
     setMultiStnPrcpSmryUrlBase(multiStnPrcpSmryUrls[regionalTimeFrame])
