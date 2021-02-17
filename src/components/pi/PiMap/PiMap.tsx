@@ -4,10 +4,10 @@ import MapGL, {
   NavigationControl,
   // Fullscreen mode messes up window width when exiting fullscreen. It's not really needed so it's commented out for now.
   // FullscreenControl,
-  FlyToInterpolator,
+  // FlyToInterpolator,
   ViewportProps
 } from 'react-map-gl'
-import {easeCubic} from 'd3-ease' // 3rd-party easing functions
+// import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
   Box,
   useMediaQuery,
