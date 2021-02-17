@@ -19,6 +19,15 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const {id, sub} = req.query
     if (!sub) {
       switch (true) {
+        /*  This link was requested by Melissa Cope & Carrie Parks */
+        case testRe('Rating-Agency-Presentation-2021', id):
+          res
+            .writeHead(REDIRECT_STATUS_CODE, {
+              Location:
+                'https://cdn.cosmicjs.com/0a6be740-70b4-11eb-8efd-79fa1dda8407-2021-PCWA-Rating-Agency-Presentation-2.16.2021.pptx'
+            })
+            .end()
+          break
         /*  These doc links are used with "Grand Jury 2015 Report - Responses to Recommendations v3.docx" and generated pdf for Tony Firenzi which was distributed to Board of Directors and made available to the public 11/11/2020. */
         case testRe('CWMP-Implementation-Plan', id):
           res

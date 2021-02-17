@@ -176,7 +176,14 @@ const SwipeableTemporaryDrawer = () => {
         <Divider />
       </>
     ),
-    [classes, toggleDrawer, activeGroup, router, groupSelectHandler]
+    [
+      classes,
+      toggleDrawer,
+      activeGroup,
+      router,
+      groupSelectHandler,
+      NavListItem
+    ]
   )
 
   // Close the drawer if it's open and window is resized larger.
