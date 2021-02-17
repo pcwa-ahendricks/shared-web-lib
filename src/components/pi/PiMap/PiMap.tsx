@@ -92,7 +92,10 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   })
 
   const viewportChangeHandler = useCallback((vp) => {
-    setViewport(vp)
+    // console.log(vp)
+    if (vp) {
+      setViewport(vp)
+    }
   }, [])
 
   const errorHandler = useCallback((e) => {
@@ -101,6 +104,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   }, [])
 
   useEffect(() => {
+    // console.log(markerLatLng)
     if (!markerLatLng) {
       return
     }
@@ -108,10 +112,10 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
       ...currentViewport,
       zoom: 12,
       longitude: markerLatLng.lng,
-      latitude: markerLatLng.lat,
-      transitionDuration: 1500,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionEasing: easeCubic
+      latitude: markerLatLng.lat
+      // transitionDuration: 1500,
+      // transitionInterpolator: new FlyToInterpolator(),
+      // transitionEasing: easeCubic
     }))
   }, [markerLatLng])
 
