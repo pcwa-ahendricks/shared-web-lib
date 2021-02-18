@@ -31,6 +31,7 @@ import {
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {RowBox} from 'mui-sleazebox'
+import withTimeout from '@lib/withTimeout'
 // import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
 // import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
@@ -327,14 +328,21 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const pid = pidParam.replace(spacesRe, '-').toLowerCase()
     const activeGageItem = getActiveGage(pid)
     const qs = stringify({path: activeGageItem?.baseElement}, true)
+    const timeout = 8000
     const baseDataUrl = `${piApiUrl}/elements${qs}`
     const initialBaseData = activeGageItem?.baseElement
-      ? await fetcher<PiWebBaseElementsResponse>(baseDataUrl)
+      ? await withTimeout<PiWebBaseElementsResponse>(
+          timeout,
+          fetcher<PiWebBaseElementsResponse>(baseDataUrl)
+        )
       : null
     // 2
     const elementsDataUrl = `${piApiUrl}/elements/${initialBaseData?.WebId}/elements`
     const initialElementsData = initialBaseData?.WebId
-      ? await fetcher<PiWebElementsResponse>(elementsDataUrl)
+      ? await withTimeout<PiWebElementsResponse>(
+          timeout,
+          fetcher<PiWebElementsResponse>(elementsDataUrl)
+        )
       : null
     // 3
     const elementDataItems = initialElementsData?.Items ?? []
@@ -343,7 +351,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     )
     const elementsStreamSetDataUrl = `${piApiUrl}/streamsets/${activeElementData?.WebId}/value`
     const initialElementsStreamSetData = activeElementData?.WebId
-      ? await fetcher<PiWebElementStreamSetResponse>(elementsStreamSetDataUrl)
+      ? await withTimeout<PiWebElementStreamSetResponse>(
+          timeout,
+          fetcher<PiWebElementStreamSetResponse>(elementsStreamSetDataUrl)
+        )
       : null
     /* */
 
