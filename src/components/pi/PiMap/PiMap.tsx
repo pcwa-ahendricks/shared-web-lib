@@ -4,10 +4,10 @@ import MapGL, {
   NavigationControl,
   // Fullscreen mode messes up window width when exiting fullscreen. It's not really needed so it's commented out for now.
   // FullscreenControl,
-  // FlyToInterpolator,
+  FlyToInterpolator,
   ViewportProps
 } from 'react-map-gl'
-// import {easeCubic} from 'd3-ease' // 3rd-party easing functions
+import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
   Box,
   useMediaQuery,
@@ -62,7 +62,12 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const [ready, setReady] = useState(false)
   const [markerLatLng, setMarkerLatLng] = useState<{lat: number; lng: number}>()
+
+  useEffect(() => {
+    setTimeout(() => setReady(true))
+  }, [])
 
   useEffect(() => {
     const lngMeta = streamSetMeta.find((m) => m.name === 'Longitude')
@@ -92,10 +97,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   })
 
   const viewportChangeHandler = useCallback((vp) => {
-    // console.log(vp)
-    if (vp) {
-      setViewport(vp)
-    }
+    setViewport(vp ?? {})
   }, [])
 
   const errorHandler = useCallback((e) => {
@@ -112,12 +114,12 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
       ...currentViewport,
       zoom: 12,
       longitude: markerLatLng.lng,
-      latitude: markerLatLng.lat
-      // transitionDuration: 1500,
-      // transitionInterpolator: new FlyToInterpolator(),
-      // transitionEasing: easeCubic
+      latitude: markerLatLng.lat,
+      transitionDuration: ready ? 1500 : undefined,
+      transitionInterpolator: ready ? new FlyToInterpolator() : undefined,
+      transitionEasing: ready ? easeCubic : undefined
     }))
-  }, [markerLatLng])
+  }, [markerLatLng, ready])
 
   const linearProgressEl = useMemo(
     () =>
