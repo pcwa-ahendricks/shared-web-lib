@@ -32,6 +32,7 @@ import {
   Highlight,
   MarkSeries
 } from 'react-vis'
+import type {HighlightArea} from 'react-vis'
 import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
 import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
@@ -98,12 +99,10 @@ const PiChart = ({
   const isRiver = useIsRiverGage()
   const isReservoir = useIsReservoirGage()
   const xyPlotRef = useRef<any>()
-  const [lastDrawLocation, setLastDrawLocation] = useState<null | {
-    // bottom: number
-    // top: number
-    left: Date
-    right: Date
-  }>(null)
+  const [
+    lastDrawLocation,
+    setLastDrawLocation
+  ] = useState<HighlightArea | null>(null)
 
   const interval = calcInterval(startTime, endTime)
 
@@ -270,7 +269,7 @@ const PiChart = ({
   //   }
   // }, [lastDrawLocation])
 
-  const onBrushEndHandler = useCallback((area: {left: Date; right: Date}) => {
+  const onBrushEndHandler = useCallback((area: HighlightArea | null) => {
     // If use just clicked the graph prevent any errors.
     if (!area) {
       return
@@ -329,15 +328,17 @@ const PiChart = ({
 
   const tickFormat = useCallback(
     (d: number) => {
-      const diffInDays = !lastDrawLocation
-        ? differenceInDays(endTime, startTime)
-        : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
+      const diffInDays =
+        !lastDrawLocation || !lastDrawLocation.right || !lastDrawLocation.left
+          ? differenceInDays(endTime, startTime)
+          : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
       if (diffInDays <= 4) {
         return format(new Date(d), "M'/'dd, h aa")
       }
-      const diffInMonths = !lastDrawLocation
-        ? differenceInMonths(endTime, startTime)
-        : differenceInMonths(lastDrawLocation.right, lastDrawLocation.left)
+      const diffInMonths =
+        !lastDrawLocation || !lastDrawLocation.right || !lastDrawLocation.left
+          ? differenceInMonths(endTime, startTime)
+          : differenceInMonths(lastDrawLocation.right, lastDrawLocation.left)
       if (diffInMonths > 6) {
         return format(new Date(d), "MMM ''yy") // Formatting w/ single-quotes is not intuitive. See https://date-fns.org/v2.4.1/docs/format#description for more info.
       }
@@ -347,9 +348,10 @@ const PiChart = ({
   )
 
   const tickTotal = useMemo(() => {
-    const diffInDays = !lastDrawLocation
-      ? differenceInDays(endTime, startTime)
-      : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
+    const diffInDays =
+      !lastDrawLocation || !lastDrawLocation.right || !lastDrawLocation.left
+        ? differenceInDays(endTime, startTime)
+        : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
     if (diffInDays <= 4) {
       return isMdUp ? 8 : 6
     }
@@ -436,11 +438,11 @@ const PiChart = ({
           <LineSeries
             color={theme.palette.primary.light}
             opacity={0.95}
-            strokeWidth={1.9} // Defaults to 2px.
+            // strokeWidth={1.9} // Defaults to 2px.
             curve={configuredCurve}
             data={seriesData}
             onNearestX={onNearestXHandler}
-            style={{fill: 'none'}}
+            style={{fill: 'none', strokeWidth: 1.9}}
           />
           {markSeriesEl}
           <Highlight
