@@ -1,18 +1,16 @@
 // cspell:ignore unparse
 import React from 'react'
-import Button, {ButtonProps} from '@material-ui/core'
+import Button, {ButtonProps} from '@material-ui/core/Button'
 import {unparse} from 'papaparse'
 import {saveAs} from 'file-saver'
 
 type Props = {
-  children?: React.ReactNode
   data?: any[]
   header?: string
   footer?: string
   fileName?: string
-  onClick?: (evt: any) => void
   onError?: (error: any) => void
-} & ButtonProps
+} & Partial<ButtonProps>
 
 const DlCsvButton = ({
   data = [],
