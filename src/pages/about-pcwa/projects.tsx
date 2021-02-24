@@ -263,7 +263,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated January 15, 2021)
+                      Upcoming Work (updated February 23, 2021)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
@@ -279,17 +279,18 @@ const ProjectsPage = () => {
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installation of 33-inch raw water pipe from the Energy
-                          Dissipation Station, through Powerhouse Road, and
-                          through Sierra Oaks Court.
+                          Installation of 33-inch raw water pipe and 18-inch
+                          treated water pipe from the Energy Dissipation
+                          Station, through Powerhouse Road, and through Sierra
+                          Oaks Court.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Energy Dissipation
                           Station at the Foothill Water Treatment Plant,
-                          continue installation of roofing, including pouring
-                          concrete, and installing trusses.
+                          including installation door frames, housekeeping pads,
+                          and electrical. Continue installation of the roofing.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
@@ -297,26 +298,23 @@ const ProjectsPage = () => {
                           Minor activities on the Dutch Ravine Energy
                           Dissipation Structure at PCWA property located on
                           Hillview Lane. Installation of PG&E electrical
-                          service, painting canopy and installing canopy roof.
+                          service, site grading, and installing and painting
+                          canopy roof.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1" component="div">
-                          Hydraulic Control Standpipe are on hold. Water tank is
-                          anticipated to be delivered and erected starting in
-                          mid-February.
+                          Continue the erection of the Hydraulic Control
+                          Standpipe. The contractor is currently installing
+                          walls on the tank and will soon be installing the
+                          floor and the roof.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installation of 12-inch treated water pipe at the
-                          Foothill Water Treatment plant.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Continue installation of 39-inch raw water pipe from
-                          the Dutch Ravine Turnout to the railroad tracks.
+                          Continue the installation of 12-inch and 18- inch
+                          treated water pipe at the Foothill Water Treatment
+                          plant.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
