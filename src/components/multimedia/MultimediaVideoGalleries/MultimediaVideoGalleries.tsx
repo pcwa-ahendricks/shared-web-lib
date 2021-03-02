@@ -42,7 +42,7 @@ export type MultimediaVideoGallery = {
   label: string
   videos: {
     index: number
-    _id: string
+    id: string
     original_name: string
     imgix_url: string
     posterUrl: string

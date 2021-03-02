@@ -9,9 +9,22 @@ const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
   try {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
-    const qs = stringify({read_key: COSMIC_READ_ACCESS_KEY, ...req.query}, true)
+    const {query: reqQuery} = req
+    const {query, ...restQuery} = reqQuery
+    console.log(query)
+    const qs = stringify(
+      {
+        read_key: COSMIC_READ_ACCESS_KEY,
+        ...restQuery,
+        query
+      },
+      true
+    )
+    console.log(
+      `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
+    )
     const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/objects${qs}`
+      `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
     )
     if (!response.ok) {
       res.status(400).send('Response not ok')

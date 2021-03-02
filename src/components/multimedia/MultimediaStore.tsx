@@ -40,7 +40,7 @@ export type VideoLibraryMetadata = {
 
 export type PickedPhotoResponse = Pick<
   CosmicMediaMeta<PhotoLibraryMetadata>,
-  | '_id'
+  | 'id'
   | 'original_name'
   | 'url'
   | 'imgix_url'
@@ -51,7 +51,7 @@ export type PickedPhotoResponse = Pick<
 
 export type PickedVideoResponse = Pick<
   CosmicMediaMeta<VideoLibraryMetadata>,
-  | '_id'
+  | 'id'
   | 'original_name'
   | 'url'
   | 'imgix_url'
@@ -62,7 +62,7 @@ export type PickedVideoResponse = Pick<
 
 export type PickedPublicationResponse = Pick<
   CosmicMediaMeta<PublicationLibraryMetadata>,
-  | '_id'
+  | 'id'
   | 'original_name'
   | 'url'
   | 'imgix_url'

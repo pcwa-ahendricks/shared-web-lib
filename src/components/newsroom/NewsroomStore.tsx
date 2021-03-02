@@ -26,7 +26,7 @@ export type GroupedNewsletters = Array<{
   year: number
   values: Pick<
     CosmicMediaMeta,
-    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+    'id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
   >[]
 }>
 
@@ -34,7 +34,7 @@ export type GroupedNewsReleases = Array<{
   year: number
   values: Pick<
     CosmicMediaMeta,
-    '_id' | 'original_name' | 'url' | 'imgix_url' | 'derivedFilenameAttr'
+    'id' | 'original_name' | 'url' | 'imgix_url' | 'derivedFilenameAttr'
   >[]
 }>
 

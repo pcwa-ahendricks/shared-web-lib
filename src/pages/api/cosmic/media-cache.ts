@@ -84,7 +84,7 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
       return
     }
 
-    const filteredMedia = media.filter((doc) => doc._id === cosmicId)
+    const filteredMedia = media.filter((doc) => doc.id === cosmicId)
     if (!filteredMedia || !(filteredMedia.length > 0)) {
       res.status(204).end()
       return
