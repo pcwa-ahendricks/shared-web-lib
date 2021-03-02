@@ -17,8 +17,10 @@ export type RecentNewsBarProps = {
 
 const params = {
   hide_metafields: true,
-  props: '_id,metadata,status,title',
-  type: 'news-blurbs'
+  props: 'id,metadata,status,title',
+  query: JSON.stringify({
+    type: 'news-blurbs'
+  })
 }
 const qs = stringify({...params}, true)
 const recentNewsBlurbsUrl = `/api/cosmic/objects${qs}`
@@ -36,7 +38,7 @@ const RecentNewsBar = ({
     () =>
       recentNewsBlurbs && Array.isArray(recentNewsBlurbs.objects)
         ? recentNewsBlurbs.objects.map((blurb) => ({
-            id: blurb._id,
+            id: blurb.id,
             releaseDate: parse(
               blurb.metadata.releaseDate,
               "yyyy'-'MM'-'dd'",

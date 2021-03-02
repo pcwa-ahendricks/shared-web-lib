@@ -84,7 +84,7 @@ type CosmicAddMediaResponse = {
 }
 
 // type GetMedia = {
-//   _id: string,
+//   id: string,
 //   name: string,
 //   original_name: string,
 //   size: number,

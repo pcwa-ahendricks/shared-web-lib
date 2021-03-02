@@ -10,7 +10,7 @@ export interface NewsBlurbMetadata {
 }
 
 export interface NewsBlurb {
-  id: string // Cosmic _id
+  id: string // Cosmic id
   linkURL?: string
   releaseDate: Date // Will parse Cosmic string as Date object
   title: string

@@ -49,8 +49,10 @@ interface AgendaMetadata {
 }
 const params = {
   hide_metafields: true,
-  props: '_id,metadata,status,title',
-  type: 'agendas'
+  props: 'id,metadata,status,title',
+  query: JSON.stringify({
+    type: 'agendas'
+  })
 }
 const qs = stringify({...params}, true)
 const agendasUrl = `/api/cosmic/objects${qs}`

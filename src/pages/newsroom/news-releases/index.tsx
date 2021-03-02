@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const cosmicGetMediaProps = {
-  props: '_id,original_name,url,imgix_url'
+  props: 'id,original_name,url,imgix_url'
 }
 const params = {
   folder: 'news-releases',

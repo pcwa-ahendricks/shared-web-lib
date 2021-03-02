@@ -7,7 +7,7 @@ export interface CosmicAddMediaResponse {
 }
 
 export interface GetMedia {
-  _id: string
+  id: string
   name: string
   original_name: string
   size: number
