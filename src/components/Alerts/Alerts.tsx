@@ -18,17 +18,19 @@ export type AlertsProps = {
 interface AlertMetadata {
   collapsible: boolean
   heading: string
-  material_ui_icon_family: string
+  material_ui_icon_family: {key: string; value: string}
   material_ui_icon_name: string
   position: number
-  severity: AlertProps['severity']
+  severity: {key: string; value: AlertProps['severity']}
   hidden: boolean
 }
 
 const params = {
   hide_metafields: true,
-  props: '_id,content,metadata,status,title',
-  type: 'alerts'
+  props: 'id,content,metadata,status,title',
+  query: JSON.stringify({
+    type: 'alerts'
+  })
 }
 
 const qs = stringify({...params}, true)
@@ -84,16 +86,15 @@ export default function Alerts({
       initialData
     }
   )
-
   const alerts = useMemo(
     () =>
       alertsData && Array.isArray(alertsData?.objects)
         ? alertsData.objects
             .filter((a) => !a.metadata.hidden)
-            .map(({metadata, content, _id}) => ({
+            .map(({metadata, content, id}) => ({
               ...metadata,
               content,
-              _id
+              id
             }))
             .sort((a, b) => a.position - b.position)
         : [],
@@ -104,13 +105,13 @@ export default function Alerts({
     <>
       {alerts.map((alert) => (
         <CollapsibleCosmicAlert
-          key={alert._id}
+          key={alert.id}
           bottomBgGradient={bottomBgGradient}
           topBgGradient={topBgGradient}
           position={alert.position}
-          severity={alert.severity}
+          severity={alert.severity.value}
           muiIconName={alert.material_ui_icon_name}
-          muiIconFamily={alert.material_ui_icon_family}
+          muiIconFamily={alert.material_ui_icon_family.value}
           headingHtmlStr={alert.heading}
           contentHtmlStr={alert.content}
           collapsible={alert.collapsible}

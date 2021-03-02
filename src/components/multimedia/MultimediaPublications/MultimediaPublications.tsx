@@ -83,7 +83,7 @@ const MultimediaPublications = ({multimedia = []}: Props) => {
             </Typography>
             <Spacing size="small" />
             {group.values.map((pub) => (
-              <Fragment key={pub._id}>
+              <Fragment key={pub.id}>
                 <MultimediaPublication
                   publication={pub}
                   thumbMedia={getThumbMedia(pub.derivedFilenameAttr?.base)}

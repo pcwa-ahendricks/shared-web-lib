@@ -79,7 +79,7 @@ type Props = {
 }
 
 const cosmicGetMediaProps = {
-  props: '_id,original_name,url,imgix_url,metadata,name'
+  props: 'id,original_name,url,imgix_url,metadata,name'
 }
 const multimediaQs = stringify(
   {...cosmicGetMediaProps, folder: 'multimedia-library'},

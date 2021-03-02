@@ -41,7 +41,7 @@ export type MultimediaPhotoGallery = {
   categories: {
     photos: {
       index: number
-      _id: string
+      id: string
       original_name: string
       imgix_url: string
       url: string // Used w/ videos, not photos.

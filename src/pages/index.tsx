@@ -434,7 +434,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 //     const data = await recentNewsFetcher(
 //       `${urlBase}/api/cosmic/objects`,
 //       'news-blurbs',
-//       '_id,metadata,status,title'
+//       'id,metadata,status,title'
 //     )
 //     return {props: {recentNewsData: data}}
 //   } catch (error) {
@@ -448,20 +448,24 @@ export const getStaticProps: GetStaticProps = async () => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const alertsParams = {
       hide_metafields: true,
-      props: '_id,content,metadata,status,title',
-      type: 'alerts'
+      props: 'id,content,metadata,status,title',
+      query: JSON.stringify({
+        type: 'alerts'
+      })
     }
 
-    const alertsQs = stringify({...alertsParams}, true)
+    const alertsQs = stringify(alertsParams, true)
     const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
     const initialAlertsData = await fetcher(alertsUrl)
     /* */
     const newsBlurbsParams = {
       hide_metafields: true,
-      props: '_id,content,metadata,status,title',
-      type: '_id,metadata,status,title'
+      props: 'id,metadata,status,title',
+      query: JSON.stringify({
+        type: 'news-blurbs'
+      })
     }
-    const newsBlurbsQs = stringify({...newsBlurbsParams}, true)
+    const newsBlurbsQs = stringify(newsBlurbsParams, true)
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */

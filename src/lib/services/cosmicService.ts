@@ -203,7 +203,7 @@ export interface CosmicMediaMetadata {
 }
 
 export interface CosmicMedia<T = CosmicMediaMetadata> {
-  _id: string
+  id: string
   name: string
   original_name: string
   size: number
@@ -232,14 +232,14 @@ export interface CosmicObjectResponse<T = CosmicMetadata> {
 }
 
 export interface CosmicObject<T = CosmicMetadata> {
-  _id: string
+  id: string
   order: number
   slug: string
   title: string
   content: string
   metafields: CosmicMetafield[]
   bucket: string
-  type_slug: string
+  type: string
   created_at: string
   created_by: string
   created: string

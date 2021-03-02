@@ -5,6 +5,7 @@ import {NowRequest, NowResponse} from '@vercel/node'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
+const COSMIC_VER = 'v2'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: NowRequest, res: NowResponse) => {
@@ -12,18 +13,23 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const {query} = req
     const {folder, cosmicId, ...rest} = query // using request query
-    // 'folder' is a required query parameter (cosmicId is optional)
-    if (!folder) {
+    // 'folder' or 'cosmicId' is a required query parameter
+    if (!folder && !cosmicId) {
       res.status(400).end()
       return
     }
-    const qs = stringify(
-      {read_key: COSMIC_READ_ACCESS_KEY, folder, ...rest},
-      true
-    )
+    const qs = stringify({read_key: COSMIC_READ_ACCESS_KEY, ...rest}, true)
+    const bucketURL = `${COSMIC_API_ENDPOINT}/${COSMIC_VER}/buckets/${COSMIC_BUCKET}`
 
     const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media${qs}`
+      cosmicId
+        ? `${bucketURL}/media/${cosmicId}${qs}`
+        : `${bucketURL}/media-folders/${folder}/media${qs}`,
+      {
+        headers: {
+          'Accept-Encoding': 'gzip'
+        }
+      }
     )
     if (!response.ok) {
       res.status(400).end('Response not ok')
@@ -31,20 +37,8 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     }
 
     const data: CosmicGetMediaResponse = await response.json()
-    const {media = []} = data || {}
 
-    if (!cosmicId) {
-      res.status(200).json(media)
-      return
-    }
-
-    const filteredMedia = media.filter((doc) => doc._id === cosmicId)
-    if (!filteredMedia || !(filteredMedia.length > 0)) {
-      res.status(204).end()
-      return
-    }
-
-    res.status(200).json(filteredMedia)
+    res.status(200).json(data.media)
   } catch (error) {
     console.log(error)
     res.status(500).end()

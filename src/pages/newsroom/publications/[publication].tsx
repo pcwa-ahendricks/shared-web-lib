@@ -97,8 +97,11 @@ export const cosmicFetcher = (
   const params = {
     hide_metafields: true,
     props,
-    type
+    query: JSON.stringify({
+      type
+    })
   }
+
   const qs = stringify({...params}, true)
   const url = `${apiUrl}${qs}`
   return fetch(url).then((r) => r.json())
@@ -122,7 +125,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const cosmicGetMediaProps = {
-  props: '_id,original_name,imgix_url'
+  props: 'id,original_name,imgix_url'
 }
 const params = {
   folder: 'newsletters',
@@ -153,7 +156,7 @@ const PublicationsPage = ({
   })
 
   useEffect(() => {
-    console.log('publicationParam: ', publicationParam)
+    // console.log('publicationParam: ', publicationParam)
     switch (publicationParam.toLowerCase()) {
       case 'newsletters': {
         setTabIndex(0)
@@ -245,7 +248,7 @@ const PublicationsPage = ({
   )
 
   const {data: enewsData} = useSWR<CosmicObjectResponse<EnewsBlastMetadata>>(
-    ['/api/cosmic/objects', 'enews-blasts', '_id,metadata,status,title'],
+    ['/api/cosmic/objects', 'enews-blasts', 'id,metadata,status,title'],
     cosmicFetcher,
     {
       initialData: initialEnewsBlasts
@@ -256,7 +259,7 @@ const PublicationsPage = ({
     () =>
       enewsData && Array.isArray(enewsData.objects)
         ? enewsData?.objects.map((blast) => ({
-            id: blast._id,
+            id: blast.id,
             title: blast.title,
             mailchimpURL: isWebUri(blast.metadata?.mailchimpURL ?? '') ?? '', // isWebUri returns undefined on failure.
             distributionDate: parse(
@@ -684,7 +687,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       cosmicFetcher(
         `${baseUrl}/api/cosmic/objects`,
         'enews-blasts',
-        '_id,metadata,status,title'
+        'id,metadata,status,title'
       )
     ])
 

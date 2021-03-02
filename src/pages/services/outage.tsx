@@ -36,15 +36,17 @@ type Props = {
 }
 
 interface OutageMetadata {
-  hide_on_website: boolean
+  hide_on_website: {key: string; value: boolean}
   last_updated: string
   type: string
 }
 
 const params = {
   hide_metafields: true,
-  props: '_id,content,metadata,slug,status,title',
-  type: 'outages'
+  props: 'id,content,metadata,slug,status,title',
+  query: JSON.stringify({
+    type: 'outages'
+  })
 }
 const qs = stringify({...params}, true)
 const outagesUrl = `/api/cosmic/objects${qs}`
@@ -112,7 +114,7 @@ const OutageInformationPage = ({initialData}: Props) => {
           ? outages.objects
               .filter(
                 (outage) =>
-                  outage?.metadata.hide_on_website === false &&
+                  outage?.metadata.hide_on_website.value === false &&
                   re.test(outage?.metadata.type)
               )
               .map((outage) => outage?.content)

@@ -13,7 +13,7 @@ import BoardMinutesLink from './BoardMinutesLink'
 type Props = {
   minutes: Pick<
     CosmicMediaMeta,
-    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+    'id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
   >[]
   year: string
   expanded: boolean | string
@@ -51,7 +51,7 @@ const BoardMinutesAccordion = ({
               const {title = '', publishedDate = '', date = ''} =
                 derivedFilenameAttr ?? {}
               return (
-                <ChildBox key={m._id}>
+                <ChildBox key={m.id}>
                   <BoardMinutesLink
                     imgixUrl={imgix_url}
                     title={title}

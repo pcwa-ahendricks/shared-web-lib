@@ -24,7 +24,7 @@ type GroupedBoardMinutes = Array<{
   year: number
   values: Pick<
     CosmicMediaMeta,
-    '_id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
+    'id' | 'original_name' | 'imgix_url' | 'derivedFilenameAttr'
   >[]
 }>
 
@@ -33,7 +33,7 @@ type Props = {
 }
 
 const cosmicGetMediaProps = {
-  props: '_id,original_name,imgix_url'
+  props: 'id,original_name,imgix_url'
 }
 const params = {
   folder: 'board-minutes',
