@@ -39,7 +39,8 @@ const images = [
   'https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG',
   // 'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg',
   // 'https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg',
-  'https://imgix.cosmicjs.com/6153c820-5c28-11eb-afa6-e9412ba0a77c-specialnoticecovidmailer.png?crop=top&fit=crop&border=2,cccccc',
+  // 'https://imgix.cosmicjs.com/6153c820-5c28-11eb-afa6-e9412ba0a77c-specialnoticecovidmailer.png?crop=top&fit=crop&border=2,cccccc',
+  'https://imgix.cosmicjs.com/6d3e7210-7c7c-11eb-beb5-ff14f615644b-2020-Year-End-Reportwebsite-graphic.jpg',
   'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg',
   'https://imgix.cosmicjs.com/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png',
   'https://imgix.cosmicjs.com/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg',
@@ -283,7 +284,28 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               Water Spots Video Contest: Be a Leak Detective. The top 3 video
               winners are from PCWA’s service area!"
             /> */}
+
             <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="2020 Year End Report"
+              readMore="More Information..."
+              flexLinkProps={{
+                isNextLink: true,
+                target: '_blank',
+                rel: 'noopener noreferrer'
+              }}
+              linkHref="https://imgix.cosmicjs.com/492aa9a0-6658-11eb-8120-dfe8ec2b682f-Year-End-Report-2020FINAL.pdf"
+              imgixURL={waterTechImgSrc}
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Cover image of 2020 Year End Report publication'
+                }
+              }}
+              body="2020 was certainly a challenging year, but that didn’t get keep PCWA from continuing to deliver high-quality water and protect our customer’s investments. Take a look at our newly released 2020 year-end report."
+            />
+
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Special Notice for Businesses Regarding Re-opening"
@@ -298,7 +320,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               managers of buildings which have been closed for weeks or months due
               to COVID-19 concerns of the best practices to help ensure the health
               and safety of the occupants of your buildings."
-            />
+            /> */}
 
             {/* <CoverStory
               imageRatio={coverStoryImageRatio}
