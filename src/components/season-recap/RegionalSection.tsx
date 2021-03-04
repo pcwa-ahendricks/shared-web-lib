@@ -197,6 +197,7 @@ export default function RegionalSection({countyResponse}: Props) {
     () => multiStnPrecipSmryData.map((d) => d.data[3]),
     [multiStnPrecipSmryData]
   )
+
   const precipPerc = useMemo(
     () =>
       multiStnPrecipSmryPerc.reduce((prev, curr) => {
@@ -1022,13 +1023,16 @@ export default function RegionalSection({countyResponse}: Props) {
 }
 
 function relativePrecip(percent?: number) {
-  if (!percent || !isNumber(percent)) {
+  if (percent === undefined || !isNumber(percent)) {
     return null
   }
   const roundedPerc = round(percent, 0)
   if (roundedPerc > 110) {
     return `${round(roundedPerc / 100, 1)}x`
+  } else if (roundedPerc === 0) {
+    return '< 1%'
   }
+
   return `${roundedPerc}%`
 }
 
