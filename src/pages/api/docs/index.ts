@@ -19,6 +19,15 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
     const {id, sub} = req.query
     if (!sub) {
       switch (true) {
+        /*  This link was requested by Nicole Skarda */
+        case testRe('deputy-staff-counsel-recruitment-flyer', id):
+          res
+            .writeHead(REDIRECT_STATUS_CODE, {
+              Location:
+                'https://cdn.cosmicjs.com/f214f2f0-812e-11eb-87d5-315fa4f6b30d-Deputy-Staff-Counsel---Recruitment-Flyer.pdf'
+            })
+            .end()
+          break
         /*  This link was requested by Melissa Cope & Carrie Parks */
         case testRe('Rating-Agency-Presentation-2021', id):
           res
