@@ -186,6 +186,7 @@ export default function TempRangeLine({tempDataset}: Props) {
     }
   ]
 
+  console.log('ts', tempDataset)
   return (
     <ResponsiveLine
       data={tempDataset}
