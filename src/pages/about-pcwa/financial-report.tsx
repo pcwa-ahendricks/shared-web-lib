@@ -1,4 +1,4 @@
-// cspell:ignore cafr
+// cspell:ignore
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -23,7 +23,7 @@ import Spacing from '@components/boxes/Spacing'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    olderCafrLink: {
+    olderReportLink: {
       padding: 3,
       color: theme.palette.primary.light,
       outline: 'none'
@@ -35,12 +35,12 @@ const EmployeeBenefitsSummaryPage = () => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
 
-  const OlderCAFRLink = ({children, ...props}: LinkProps) => {
+  const OlderReportLink = ({children, ...props}: LinkProps) => {
     return (
       <Link
         rel="noopener noreferrer"
         target="_blank"
-        className={classes.olderCafrLink}
+        className={classes.olderReportLink}
         {...props}
       >
         {children}
@@ -96,8 +96,8 @@ const EmployeeBenefitsSummaryPage = () => {
                   Annual Audited Financial Statements
                 </Type>
                 <Type paragraph>
-                  PCWA's Comprehensive Annual Financial Report (CAFR) provides
-                  the following information: Introductory Section, Independent
+                  PCWA's Comprehensive Annual Financial Report provides the
+                  following information: Introductory Section, Independent
                   Auditors' Report, Management's Discussion and Analysis, Basic
                   Financial Statements (audited), Required Supplementary
                   Information and Statistical Section.
@@ -113,111 +113,102 @@ const EmployeeBenefitsSummaryPage = () => {
                 <RowBox justifyContent="space-around">
                   <ImgixThumbLink
                     // url="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
-                    // filename="2019 PCWA CAFR.pdf"
                     href="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
-                    caption="2019 CAFR"
-                    alt="CAFR Report Thumbnail and link for 2019 PCWA CAFR pdf"
+                    caption="2019 Annual Report"
+                    alt="Annual Report Thumbnail and link for 2019 PCWA Annual Report pdf"
                   />
                   <ImgixThumbLink
                     // url="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
-                    // filename="2018 PCWA CAFR.pdf"
                     href="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
-                    caption="2018 CAFR"
-                    alt="CAFR Report Thumbnail and link for 2018 PCWA CAFR pdf"
+                    caption="2018 Annual Report"
+                    alt="Annual Report Thumbnail and link for 2018 PCWA Annual Report pdf"
                   />
                   <ImgixThumbLink
                     // url="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
-                    // filename="2017 PCWA CAFR.pdf"
                     href="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
-                    caption="2017 CAFR"
-                    alt="CAFR Report Thumbnail and link for 2017 PCWA CAFR pdf"
+                    caption="2017 Annual Report"
+                    alt="Annual Report Thumbnail and link for 2017 PCWA Annual Report pdf"
                   />
-                  {/* <ImgixThumbLink
-                    url="https://imgix.cosmicjs.com/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
-                    filename="2016 PCWA CAFR.pdf"
-                    caption="2016 CAFR"
-                    alt="CAFR Report Thumbnail and link for 2016 PCWA CAFR pdf"
-                  /> */}
                 </RowBox>
                 <Box m={2}>
-                  <Type variant="subtitle2">Older CAFR Documents</Type>
+                  <Type variant="subtitle2">Older Annual Report Documents</Type>
                   <RowBox alignItems="center" flexWrap="wrap">
-                    <OlderCAFRLink
-                      title="2016 CAFR Document Link"
+                    <OlderReportLink
+                      title="2016 Annual Report Document Link"
                       href="https://imgix.cosmicjs.com/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
                     >
                       2016
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     <Type variant="inherit">•</Type>
-                    <OlderCAFRLink
-                      title="2015 CAFR Document Link"
+                    <OlderReportLink
+                      title="2015 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/1ef44bd0-65db-11e8-95f4-1deed440299a-2015-CAFR.pdf"
                     >
                       2015
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     <Type variant="inherit">•</Type>
-                    <OlderCAFRLink
-                      title="2014 CAFR Document Link"
+                    <OlderReportLink
+                      title="2014 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/1764a1b0-d87e-11e8-b627-0bd59229ea68-2014 CAFR.pdf"
                     >
                       2014
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2013 CAFR Document Link"
+                    <OlderReportLink
+                      title="2013 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/14d54440-d87e-11e8-8793-13fe540ddec9-2013 CAFR.pdf"
                     >
                       2013
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2012 CAFR Document Link"
+                    <OlderReportLink
+                      title="2012 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/19694b50-d87e-11e8-b627-0bd59229ea68-2012 CAFR.pdf"
                     >
                       2012
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2011 CAFR Document Link"
+                    <OlderReportLink
+                      title="2011 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/178bffd0-d87e-11e8-808f-f94458761064-2011 CAFR.pdf"
                     >
                       2011
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2010 CAFR Document Link"
+                    <OlderReportLink
+                      title="2010 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/167a41b0-d87e-11e8-8793-13fe540ddec9-2010 CAFR.pdf"
                     >
                       2010
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2009 CAFR Document Link"
+                    <OlderReportLink
+                      title="2009 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/17fbb190-d87e-11e8-b627-0bd59229ea68-2009 CAFR.pdf"
                     >
                       2009
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2008 CAFR Document Link"
+                    <OlderReportLink
+                      title="2008 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/1567e750-d87e-11e8-b627-0bd59229ea68-2008 CAFR.pdf"
                     >
                       2008
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2007 CAFR Document Link"
+                    <OlderReportLink
+                      title="2007 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/11fea4a0-d87e-11e8-b627-0bd59229ea68-2007 CAFR.pdf"
                     >
                       2007
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                     •
-                    <OlderCAFRLink
-                      title="2006 CAFR Document Link"
+                    <OlderReportLink
+                      title="2006 Annual Report Document Link"
                       href="https://cdn.cosmicjs.com/1264b970-d87e-11e8-8793-13fe540ddec9-2006 CAFR.pdf"
                     >
                       2006
-                    </OlderCAFRLink>
+                    </OlderReportLink>
                   </RowBox>
                 </Box>
               </Box>
