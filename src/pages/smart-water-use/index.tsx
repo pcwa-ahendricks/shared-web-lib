@@ -78,8 +78,8 @@ const SmartWaterUsePage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Smart Water Use" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="60%">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="66.66%">
               <Type variant="h3" color="primary">
                 Lay the Groundwork for Water Savings and Healthy Plants
               </Type>
@@ -124,7 +124,7 @@ const SmartWaterUsePage = () => {
               </Type>
             </ChildBox>
             <ChildBox flex="33.3%">
-              <ColumnBox alignItems="center" flexSpacing={4}>
+              <ColumnBox alignItems="center" flexSpacing={2}>
                 <ChildBox width={{xs: '70%', sm: '100%'}}>
                   <LazyImgix
                     src="https://imgix.cosmicjs.com/b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"
