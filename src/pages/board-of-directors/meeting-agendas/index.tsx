@@ -64,6 +64,10 @@ type Props = {
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 const endOfBusinessDayHour = 17
 
+type MappedAgenda = {
+  dateTime: Date
+} & CosmicObjectResponse<AgendaMetadata>['objects'][0]
+
 interface AgendaMetadata {
   agenda_pdf: {
     imgix_url: string
@@ -159,7 +163,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
     saveAs(noUrlICalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
   }, [])
 
-  const agendas = useMemo(
+  const agendas: MappedAgenda[] = useMemo(
     () =>
       agendasData && Array.isArray(agendasData.objects)
         ? agendasData.objects
@@ -182,9 +186,9 @@ const MeetingAgendasPage = ({initialData}: Props) => {
             )
             // Sort by date and time then by sort order.
             .sort(
-              firstBy((a: any, b: any) => compareAsc(a, b)).thenBy(
+              firstBy<MappedAgenda>(
                 (a, b) => a.order - b.order
-              )
+              ).thenBy((a, b) => compareAsc(a.dateTime, b.dateTime))
             )
         : [],
     [agendasData]
