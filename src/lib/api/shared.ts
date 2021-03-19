@@ -1,5 +1,5 @@
 import {ClientOpts} from 'redis'
-import {utcToZonedTime} from 'date-fns-tz'
+import {utcToZonedTime, format} from 'date-fns-tz'
 
 const isDev = process.env.NODE_ENV === 'development'
 const REDIS_CACHE_PASSWORD = process.env.NODE_REDIS_DROPLET_CACHE_PASSWORD || ''
@@ -24,6 +24,12 @@ export function dLog(...params: Parameters<typeof console['log']>) {
 
 export const TZ = 'America/Los_Angeles'
 
-export function localServerDate() {
+export function localDate() {
   return utcToZonedTime(new Date(), TZ)
+}
+
+type FormatParameters = Parameters<typeof format>
+export function localFormat(...args: FormatParameters) {
+  const [date, formatStr, opts] = args
+  return format(date, formatStr, {...opts, timeZone: TZ})
 }

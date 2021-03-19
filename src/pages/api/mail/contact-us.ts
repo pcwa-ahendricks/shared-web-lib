@@ -1,6 +1,5 @@
 // cspell:ignore customerservices pcwamain
 import {string, object} from 'yup'
-import {format} from 'date-fns-tz'
 import {
   MailJetSendRequest,
   MailJetMessage,
@@ -8,7 +7,7 @@ import {
 } from '../../../lib/api/mailjet'
 import {getRecaptcha, validateSchema} from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {localServerDate, TZ} from '@lib/api/shared'
+import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -145,9 +144,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             reason,
             message,
             subject,
-            submitDate: format(localServerDate(), 'MMMM do, yyyy', {
-              timeZone: TZ
-            })
+            submitDate: localFormat(localDate(), 'MMMM do, yyyy')
           }
         }
       ]
