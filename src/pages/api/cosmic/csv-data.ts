@@ -1,4 +1,4 @@
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import csv from 'csvtojson'
 import {stringify} from 'querystringify'
 import fetch from 'node-fetch'
@@ -6,7 +6,7 @@ import fetch from 'node-fetch'
 // import lambdaUrl from '@api-lib/lambdaUrl'
 import lambdaUrl from '../../../lib/api/lambdaUrl'
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const qs = stringify({...req.query}, true)

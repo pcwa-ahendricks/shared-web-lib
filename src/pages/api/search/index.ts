@@ -1,13 +1,13 @@
 import {stringify} from 'querystringify'
 import fetch from 'node-fetch'
 import {CseResponse} from '../../../lib/api/google-cse'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 
 const BASE_URL = 'https://www.googleapis.com/customsearch/v1'
 const GOOGLE_CSE_CX = process.env.NODE_GOOGLE_CSE_CX || ''
 const GOOGLE_CSE_KEY = process.env.NODE_GOOGLE_CSE_KEY || ''
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   const {q, ...rest} = req.query
   const key = GOOGLE_CSE_KEY || ''
   const cx = GOOGLE_CSE_CX || ''

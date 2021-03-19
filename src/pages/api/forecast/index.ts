@@ -2,7 +2,7 @@
 import fetch from 'node-fetch'
 import {RedisError, createClient} from 'redis'
 import {promisify} from 'util'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 import {redisOpts} from '@lib/api/shared'
 
@@ -24,7 +24,7 @@ const ACCEPT_LONGITUDES = [-121, -120]
 // National Weather Forecast Endpoint
 // Example grid request - https://api.weather.gov/points/38.9221,-121.05599
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')

@@ -1,4 +1,4 @@
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.pcwa.net'
 
 function testRe(filename: string, testParam: string | string[]) {
@@ -11,7 +11,7 @@ const REDIRECT_STATUS_CODE = 307
 const NOT_FOUND_ROUTE = `${publicBaseUrl}/404`
 
 // cspell:ignore CWMP
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate')
     res.setHeader('Access-Control-Allow-Origin', 'https://www.pcwa.net')

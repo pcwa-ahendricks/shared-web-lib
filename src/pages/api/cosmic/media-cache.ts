@@ -4,7 +4,7 @@ import {stringify} from 'querystringify'
 // import {CosmicGetMediaResponse} from '@api-lib/cosmic'
 import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 import fetch from 'node-fetch'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import {RedisError, createClient, ClientOpts} from 'redis'
 import jsonStringify from 'fast-json-stable-stringify'
 import {promisify} from 'util'
@@ -32,7 +32,7 @@ client.on('error', (err: RedisError) => {
   console.log('Error ' + err)
 })
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const {query} = req

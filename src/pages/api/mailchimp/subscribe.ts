@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../../lib/api/mailchimp'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import {getStatus} from '../../../lib/api/mailchimp-util'
 
 const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC || ''
@@ -15,7 +15,7 @@ const basicAuth = Buffer.from(
   `${MAILCHIMP_USERNAME}:${MAILCHIMP_API_KEY}`
 ).toString('base64')
 
-export const mainHandler = async (req: NowRequest, res: NowResponse) => {
+export const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader(
       'Cache-Control',

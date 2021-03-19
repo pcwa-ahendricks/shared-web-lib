@@ -2,7 +2,7 @@
 import fetch from 'node-fetch'
 import {RedisError, createClient} from 'redis'
 import {promisify} from 'util'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
@@ -19,7 +19,7 @@ client.on('error', (err: RedisError) => {
   console.log('Error ' + err)
 })
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     const {sid: sidParam, waterYear: waterYearParam} = req.query
     const sid = paramToStr(sidParam).toLowerCase().replace(/-/g, ' ')

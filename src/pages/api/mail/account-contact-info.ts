@@ -7,7 +7,7 @@ import {
   emailRecipientsCsMaint,
   validateSchema
 } from '../../../lib/api/forms'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import {dLog} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -62,7 +62,7 @@ const bodySchema = object()
       })
   })
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader(
       'Cache-Control',

@@ -3,7 +3,7 @@ import Busboy from 'busboy'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import {dLog} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -17,7 +17,7 @@ const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
 const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate')
   res.setHeader('Expires', '-1')
   res.setHeader('Pragma', 'no-cache')

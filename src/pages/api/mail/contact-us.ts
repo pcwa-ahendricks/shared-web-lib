@@ -1,14 +1,14 @@
 // cspell:ignore customerservices pcwamain
 import {string, object} from 'yup'
-import {format} from 'date-fns'
+import {format} from 'date-fns-tz'
 import {
   MailJetSendRequest,
   MailJetMessage,
   postMailJetRequest
 } from '../../../lib/api/mailjet'
 import {getRecaptcha, validateSchema} from '../../../lib/api/forms'
-
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
+import {localServerDate, TZ} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -52,7 +52,7 @@ const bodySchema = object()
       })
   })
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader(
       'Cache-Control',
@@ -145,7 +145,9 @@ const mainHandler = async (req: NowRequest, res: NowResponse) => {
             reason,
             message,
             subject,
-            submitDate: format(new Date(), 'MMMM do, yyyy')
+            submitDate: format(localServerDate(), 'MMMM do, yyyy', {
+              timeZone: TZ
+            })
           }
         }
       ]

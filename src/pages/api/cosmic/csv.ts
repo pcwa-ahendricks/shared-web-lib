@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import {compareDesc} from 'date-fns'
-import {NowRequest, NowResponse} from '@vercel/node'
+import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 // Won't work with Vercel. Path mappings in tsconfig not supported. See https://vercel.com/docs/runtimes#official-runtimes/node-js/using-typescript-with-the-node-js-runtime for more info.
 // import {CosmicGetMediaResponse} from '@api-lib/cosmic'
@@ -10,7 +10,7 @@ import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 
 const MEDIA_FOLDER = 'csv'
 
-const mainHandler = async (req: NowRequest, res: NowResponse) => {
+const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const baseURL = lambdaUrl(req)
