@@ -47,7 +47,7 @@ const bodySchema = object()
         subject: string().required(),
         name: string(),
         email: string().email(),
-        // .min() also makes the field required. Don't use here since the phone number is not a required field.
+        // .min() also makes the field required. Don't use here since the phone number is not a required field. Chaining .notRequired() or .nullable() doesn't seem ti fix issue.
         // phone: string().min(10)
         phone: string()
       })

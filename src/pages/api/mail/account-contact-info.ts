@@ -52,6 +52,7 @@ const bodySchema = object()
         city: string().required(),
         state: string().required(),
         zipCode: string().required(),
+        // .min() also makes the field required. Don't use here since the phone number is not a required field. Chaining .notRequired() or .nullable() doesn't seem ti fix issue.
         phone: string().min(10),
         cellPhone: string().min(10),
         workPhone: string().min(10),
