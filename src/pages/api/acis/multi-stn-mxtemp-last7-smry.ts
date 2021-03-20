@@ -4,9 +4,15 @@ import {RedisError, createClient} from 'redis'
 import {promisify} from 'util'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import jsonify from 'redis-jsonify'
-import {format, parse, subDays, isFuture} from 'date-fns'
+import {parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
-import {dLog, localDate, paramToStr, redisOpts} from '@lib/api/shared'
+import {
+  dLog,
+  localDate,
+  localFormat,
+  paramToStr,
+  redisOpts
+} from '@lib/api/shared'
 import {maxmissing} from '@lib/api/acis'
 
 const client = jsonify(createClient(redisOpts))
@@ -34,7 +40,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     )
     const yesterday = subDays(localDate(), 1)
     const eDateDt = isFuture(endOfWaterYear) ? yesterday : endOfWaterYear
-    const eDate = format(eDateDt, 'yyy-MM-dd')
+    const eDate = localFormat(eDateDt, 'yyy-MM-dd')
     // This query differs from temp in that the start date is the end date of the water year for 1940, not 10-01 (the start).
 
     dLog(`Using end date: ${eDate}`)
