@@ -7,7 +7,7 @@ import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import {ACCEPT_SIDS} from '@lib/api/acis'
-import {dLog, redisOpts} from '@lib/api/shared'
+import {dLog, redisOpts, localDate} from '@lib/api/shared'
 import {paramToStr} from '@lib/queryParamToStr'
 
 const client = jsonify(createClient(redisOpts))
@@ -34,15 +34,19 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const startOfWaterYear = parse(
       `${waterYear - 1}-10-01`,
       'yyyy-MM-dd',
-      new Date()
+      localDate()
     )
     // No future water years
     if (isFuture(startOfWaterYear)) {
       res.status(406).end()
       return
     }
-    const endOfWaterYear = parse(`${waterYear}-09-30`, 'yyyy-MM-dd', new Date())
-    const yesterday = subDays(new Date(), 1)
+    const endOfWaterYear = parse(
+      `${waterYear}-09-30`,
+      'yyyy-MM-dd',
+      localDate()
+    )
+    const yesterday = subDays(localDate(), 1)
     const sDate = format(startOfWaterYear, 'yyyy-MM-dd')
     const eDate = isFuture(endOfWaterYear)
       ? format(yesterday, 'yyyy-MM-dd')
