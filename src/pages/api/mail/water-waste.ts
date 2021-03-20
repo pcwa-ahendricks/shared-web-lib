@@ -1,6 +1,5 @@
 // cspell:ignore customerservices pcwamain
 import {string, object, array} from 'yup'
-import {format} from 'date-fns'
 import {
   MailJetSendRequest,
   MailJetMessage,
@@ -12,6 +11,7 @@ import {
   AttachmentFieldValue
 } from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
+import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -156,7 +156,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             phone,
             location,
             description,
-            submitDate: format(new Date(), 'MMMM do, yyyy'),
+            submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
             photoAttachments
           }
         }
