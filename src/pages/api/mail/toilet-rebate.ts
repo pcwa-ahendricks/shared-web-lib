@@ -1,7 +1,6 @@
 // cspell:ignore cbarnhill watersense
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
 import {string, object, array, StringSchema, number} from 'yup'
-import {format} from 'date-fns'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
@@ -11,6 +10,7 @@ import {
 } from '../../../lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
+import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -231,7 +231,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             manufacturerModel,
             noOfToiletsStr,
             watersenseApproved,
-            submitDate: format(new Date(), 'MMMM do, yyyy'),
+            submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
             emailAttachments,
             receiptImages,
             installImages,

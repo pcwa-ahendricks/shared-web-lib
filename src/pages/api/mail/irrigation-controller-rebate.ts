@@ -1,6 +1,6 @@
 // cspell:ignore addtl cbarnhill
 import {string, object, array, date, StringSchema, ArraySchema} from 'yup'
-import {format, parseISO} from 'date-fns'
+import {parseISO} from 'date-fns'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
@@ -9,6 +9,7 @@ import {
 } from '../../../lib/api/forms'
 const isDev = process.env.NODE_ENV === 'development'
 import {VercelRequest, VercelResponse} from '@vercel/node'
+import {localDate, localFormat} from '@lib/api/shared'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
@@ -201,7 +202,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     try {
       // Must convert string to Date prior to format() using Date() constructor or parseISO()
       const parsedDate = parseISO(purchaseDate)
-      purchaseDateStr = format(parsedDate, 'MM/dd/yyyy')
+      purchaseDateStr = localFormat(parsedDate, 'MM/dd/yyyy')
     } catch (error) {
       res.status(400).send('Invalid Date')
       return
@@ -249,7 +250,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             manufacturer,
             model,
             additional,
-            submitDate: format(new Date(), 'MMMM do, yyyy'),
+            submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
             emailAttachments,
             receiptImages,
             cntrlImages,
