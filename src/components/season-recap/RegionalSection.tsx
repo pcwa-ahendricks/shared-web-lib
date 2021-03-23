@@ -1,3 +1,4 @@
+// cspell:ignore perc
 import React, {useCallback, useMemo, useState, useEffect} from 'react'
 import round from '@lib/round'
 import useSWR from 'swr'
@@ -26,6 +27,7 @@ import {getYear} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/season-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
+import {useDebounce} from 'use-debounce/lib'
 
 type Props = {countyResponse?: CountyMetaResponse}
 
@@ -160,6 +162,11 @@ export default function RegionalSection({countyResponse}: Props) {
     data: multiStnPrecipSmryRes,
     isValidating: multiStnPrecipSmryResValidating
   } = useSWR<MultiStnSmryResponse>(`${multiStnPrcpSmryUrlBase}${multiStnQs}`)
+  const [multiStnPrecipSmryResLoading] = useDebounce(
+    multiStnPrecipSmryResValidating,
+    800
+  )
+
   const multiStnPrecipSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
     const filtered = multiStnPrecipSmryRes?.data.filter((d) =>
@@ -216,6 +223,10 @@ export default function RegionalSection({countyResponse}: Props) {
     data: multiStnSnowSmryRes,
     isValidating: multiStnSnowSmryResValidating
   } = useSWR<MultiStnSmryResponse>(`${multiStnSnowSmryUrlBase}${multiStnQs}`)
+  const [multiStnSnowSmryResLoading] = useDebounce(
+    multiStnSnowSmryResValidating,
+    800
+  )
 
   const multiStnSnowSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
@@ -278,6 +289,11 @@ export default function RegionalSection({countyResponse}: Props) {
     data: multiStnMxTempSmryRes,
     isValidating: multiStnMxTempSmryResValidating
   } = useSWR<MultiStnSmryResponse>(`${multiStnMxTempSmryUrlBase}${multiStnQs}`)
+  const [multiStnMxTempSmryResLoading] = useDebounce(
+    multiStnMxTempSmryResValidating,
+    800
+  )
+
   const multiStnMxTempSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
     const filtered = multiStnMxTempSmryRes?.data.filter((d) =>
@@ -518,7 +534,7 @@ export default function RegionalSection({countyResponse}: Props) {
             </RowBox>
             <RowBox>
               <ColumnBox child alignItems="center" position="relative">
-                {multiStnPrecipSmryResValidating ? <AbsSpinner /> : null}
+                {multiStnPrecipSmryResLoading ? <AbsSpinner /> : null}
                 <Zoom animate={isNumber(precipPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type
@@ -634,7 +650,7 @@ export default function RegionalSection({countyResponse}: Props) {
                 </Zoom>
               </ColumnBox>
               <ColumnBox child alignItems="center" position="relative">
-                {multiStnSnowSmryResValidating ? <AbsSpinner /> : null}
+                {multiStnSnowSmryResLoading ? <AbsSpinner /> : null}
                 <Zoom animate={isNumber(snowPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type variant="body1" className={classes.regionalStat}>
@@ -755,7 +771,7 @@ export default function RegionalSection({countyResponse}: Props) {
             </RowBox>
             <RowBox>
               <ColumnBox child alignItems="center" position="relative">
-                {multiStnMxTempSmryResValidating ? <AbsSpinner /> : null}
+                {multiStnMxTempSmryResLoading ? <AbsSpinner /> : null}
                 <Zoom animate={isNumber(mxTempDepart)}>
                   <ColumnBox child alignItems="center">
                     <Box position="relative">
