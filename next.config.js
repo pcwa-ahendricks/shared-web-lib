@@ -488,7 +488,7 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       loader: 'raw-loader'
     })
 
-    // [FIX] https://github.com/pmndrs/react-spring/issues/1078
+    // [FIX] https://github.com/pmndrs/react-spring/issues/1078. This fix is for Nivo charts production builds. See https://github.com/plouc/nivo/issues/1361 for more info.
     config.module.rules.push({
       test: /react-spring/,
       sideEffects: true
