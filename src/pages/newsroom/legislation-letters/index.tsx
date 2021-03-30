@@ -16,6 +16,7 @@ import {
   createStyles,
   Theme,
   Link,
+  useTheme,
   Divider,
   LinkProps,
   TypographyProps
@@ -112,6 +113,7 @@ export default function LegislationAndLettersPage() {
 
   const [expanded, setExpanded] = useState<string | false>('panel1')
   const classes = useStyles()
+  const theme = useTheme()
 
   const handleChange = (panel: string) => (
     _event: React.ChangeEvent<Record<string, unknown>>,
@@ -189,7 +191,7 @@ export default function LegislationAndLettersPage() {
             environmental protection and hydroelectric energy management.
           </Type>
           <Type paragraph>
-            Here is a snapshot of the issues we are working on for the 2017-2018
+            Here is a snapshot of the issues we are working on for the 2021-2022
             legislative calendar. They are important to you since they can
             affect your water use, water rates and water supply.
           </Type>
@@ -204,7 +206,7 @@ export default function LegislationAndLettersPage() {
           </NextButton>
 
           <Spacing size="large" factor={2} />
-          <Paper>
+          {/* <Paper>
             <Box p={3}>
               <Type variant="h3" gutterBottom color="primary">
                 No current publications
@@ -212,6 +214,54 @@ export default function LegislationAndLettersPage() {
               <Type variant="subtitle1">
                 Check back here with us in the future for more current issues
                 for 2020.
+              </Type>
+            </Box>
+          </Paper> */}
+          <Paper>
+            <Box p={3} bgcolor={theme.palette.common.white}>
+              <LocalityTitle>State Issues</LocalityTitle>
+              <CategoryTitle>Watershed Health</CategoryTitle>
+              <IssueTitle href="https://cdn.cosmicjs.com/1a158e60-919f-11eb-bf2e-a76e70e91ffd-PCWA-Yuba-Water---AB-697-Support-Letter-ANR-031821.pdf">
+                Assembly Bill 697
+              </IssueTitle>
+              <Type variant="body2" paragraph>
+                PCWA supports creation of a program that would allow the state
+                to advance forest restoration projects on U.S. Forest Service
+                lands through an expanded and formalized Good Neighbor
+                Authority. This bill would help accelerate ecologically-based
+                forest management on national forest lands and support
+                collaborative efforts to plan, permit, finance, and complete
+                forest health projects.
+              </Type>
+              {/* <Type>
+                <Link
+                  variant="body2"
+                  href="https://cdn.cosmicjs.com/ee9a3670-8912-11e7-85fa-19e32a3becc0-20170606_SB-623-Monning.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  PCWA Opposition Letter to Assembly Environmental Safety and
+                  Toxic Materials Committee
+                </Link>
+              </Type>
+              <Spacing size="x-small" />
+              <StatusCaption>
+                Passed out of the Senate as a two-year bill. Pending action in
+                Assembly Rules Committee.
+              </StatusCaption> */}
+              <Spacing />
+              <CategoryTitle>
+                Wildfire Prevention, Safe Drinking Water, Drought Preparation,
+                and Flood Protection Bond Act of 2022
+              </CategoryTitle>
+              <IssueTitle href="https://cdn.cosmicjs.com/24f69720-919f-11eb-bf2e-a76e70e91ffd-SB45-Portantino-Support-Letter-2.3.2021.docx-2.pdf">
+                Senate Bill 45
+              </IssueTitle>
+              <Type variant="body2" paragraph>
+                PCWA supports a statewide bond measure that makes local
+                communities and our natural systems more climate resilient by
+                investing in programs that help the state adapt to and withstand
+                the impacts of a changing climate.
               </Type>
             </Box>
           </Paper>
