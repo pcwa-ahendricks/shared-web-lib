@@ -634,11 +634,11 @@ const ProjectsPage = () => {
                     <em>What is happening to my Customer Turn Out (CTO)?</em>
                   </Type>
                   <Type paragraph>
-                    Each CTO is being upgraded. Bickford’s contractor will be
-                    installing a temporary pipeline and permanent pipeline,
-                    which they will reconnect every CTO at each step of
-                    construction, making sure that you will continue to receive
-                    water.
+                    Each CTO within the Project location is being upgraded.
+                    Bickford’s contractor will be installing a temporary
+                    pipeline and permanent pipeline, which they will reconnect
+                    every CTO at each step of construction, making sure that you
+                    will continue to receive water.
                   </Type>
                   <Type gutterBottom>
                     <em>
@@ -695,6 +695,32 @@ const ProjectsPage = () => {
                       mmccarthy@pcwa.net
                     </Link>
                   </Type>
+                  <Spacing size="large" />
+                  <ColumnBox alignItems="center">
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
+                      mediaName="Map Figure of existing and proposed canal layout"
+                    >
+                      <LazyImgix
+                        src="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf?auto=format"
+                        imgixParams={{border: '1,AAAAAA'}}
+                        htmlAttributes={{
+                          alt:
+                            'Map Figure of existing and proposed canal layout',
+                          style: {
+                            width: '100%',
+                            cursor: !isXs ? 'pointer' : 'default'
+                          }
+                        }}
+                      />
+                    </MediaDialogOnClick>
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Bickford Ranch Phase I - Canal Services{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnTwo>
