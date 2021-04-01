@@ -658,7 +658,10 @@ const ProjectsPage = () => {
                   </Type>
                   <Type paragraph>
                     Customers can contact Gene Mancebo, Project Manager at EGM
-                    Solutions and a Bickford representative, at (209) 969-5631
+                    Solutions and a Bickford representative, at{' '}
+                    <Type variant="inherit" noWrap>
+                      (209) 969-5631
+                    </Type>{' '}
                     or{' '}
                     <Link href="mailto:genemancebo@gmail.com">
                       genemancebo@gmail.com
