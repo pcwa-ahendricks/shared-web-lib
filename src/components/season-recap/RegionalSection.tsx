@@ -156,16 +156,21 @@ export default function RegionalSection({countyResponse}: Props) {
   )
   const multiStnQs = stringify({waterYear: regionalWaterYear}, true)
 
-  const now = new Date()
-  const climChangeEndYear = now.getFullYear()
-  const twoMonthsAgo = subMonths(now, 2)
-  const twoMonthsAgoMo = twoMonthsAgo.getMonth() + 1 // getMonth() returns a 0 based index
+  const now = useMemo(() => new Date(), [])
+  const climChangeEndYear = useMemo(() => now.getFullYear(), [now])
+  const twoMonthsAgo = useMemo(() => subMonths(now, 2), [now])
+  const twoMonthsAgoMo = useMemo(() => twoMonthsAgo.getMonth() + 1, [
+    twoMonthsAgo
+  ]) // getMonth() returns a 0 based index
   const twoMonthsAgoFrmt = format(twoMonthsAgo, 'MMMM')
   const twoMonthsAgoYearFrmt = format(twoMonthsAgo, 'yy')
-  const fourMonthsAgoFrmt = format(subMonths(now, 4), 'MMMM')
-  const fourMonthsAgoYrFrmt = format(subMonths(now, 4), 'yy')
+  const fourMonthsAgoFrmt = useMemo(() => format(subMonths(now, 4), 'MMMM'), [
+    now
+  ])
+  const fourMonthsAgoYrFrmt = useMemo(() => format(subMonths(now, 4), 'yy'), [
+    now
+  ])
 
-  console.log(twoMonthsAgo)
   const {data: climChgData} = useSWR<ClimChgResponse>(
     `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-3-${twoMonthsAgoMo}-1895-${climChangeEndYear}.json?base_prd=true&begbaseyear=1901&endbaseyear=2000`
   )
@@ -176,10 +181,12 @@ export default function RegionalSection({countyResponse}: Props) {
     multiStnPrcpSmryUrlBase,
     setMultiStnPrcpSmryUrlBase
   ] = useState<MultiStnPrcpSmryUrlBase>(multiStnPrcpSmryUrls[regionalTimeFrame])
+
   const {
     data: multiStnPrecipSmryRes,
     isValidating: multiStnPrecipSmryResValidating
   } = useSWR<MultiStnSmryResponse>(`${multiStnPrcpSmryUrlBase}${multiStnQs}`)
+
   const [multiStnPrecipSmryResLoading] = useDebounce(
     multiStnPrecipSmryResValidating,
     800
@@ -208,15 +215,24 @@ export default function RegionalSection({countyResponse}: Props) {
     return mapped ?? []
   }, [multiStnPrecipSmryRes, countyResponse])
 
-  const multiStnPrecipSmryStns = multiStnPrecipSmryData
-    .map((d) => d.meta.name)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
-  const multiStnPrecipSmryCounties = multiStnPrecipSmryData
-    .map((d) => d.meta.county)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
-    .reverse()
+  const multiStnPrecipSmryStns = useMemo(
+    () =>
+      multiStnPrecipSmryData
+        .map((d) => d.meta.name)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort(),
+    [multiStnPrecipSmryData]
+  )
+
+  const multiStnPrecipSmryCounties = useMemo(
+    () =>
+      multiStnPrecipSmryData
+        .map((d) => d.meta.county)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort()
+        .reverse(),
+    [multiStnPrecipSmryData]
+  )
 
   const multiStnPrecipSmryPerc = useMemo(
     () => multiStnPrecipSmryData.map((d) => d.data[3]),
@@ -237,10 +253,12 @@ export default function RegionalSection({countyResponse}: Props) {
     multiStnSnowSmryUrlBase,
     setMultiStnSnowSmryUrlBase
   ] = useState<MultiStnSnowSmryUrlBase>(multiStnSnowSmryUrls[regionalTimeFrame])
+
   const {
     data: multiStnSnowSmryRes,
     isValidating: multiStnSnowSmryResValidating
   } = useSWR<MultiStnSmryResponse>(`${multiStnSnowSmryUrlBase}${multiStnQs}`)
+
   const [multiStnSnowSmryResLoading] = useDebounce(
     multiStnSnowSmryResValidating,
     800
@@ -272,15 +290,24 @@ export default function RegionalSection({countyResponse}: Props) {
     return mapped ?? []
   }, [multiStnSnowSmryRes, countyResponse])
 
-  const multiStnSnowSmryStns = multiStnSnowSmryData
-    .map((d) => d.meta.name)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
-  const multiStnSnowSmryCounties = multiStnSnowSmryData
-    .map((d) => d.meta.county)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
-    .reverse()
+  const multiStnSnowSmryStns = useMemo(
+    () =>
+      multiStnSnowSmryData
+        .map((d) => d.meta.name)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort(),
+    [multiStnSnowSmryData]
+  )
+
+  const multiStnSnowSmryCounties = useMemo(
+    () =>
+      multiStnSnowSmryData
+        .map((d) => d.meta.county)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort()
+        .reverse(),
+    [multiStnSnowSmryData]
+  )
 
   const multiStnSnowSmryPerc = useMemo(
     () => multiStnSnowSmryData.map((d) => d.data[3]),
@@ -307,6 +334,7 @@ export default function RegionalSection({countyResponse}: Props) {
     data: multiStnMxTempSmryRes,
     isValidating: multiStnMxTempSmryResValidating
   } = useSWR<MultiStnSmryResponse>(`${multiStnMxTempSmryUrlBase}${multiStnQs}`)
+
   const [multiStnMxTempSmryResLoading] = useDebounce(
     multiStnMxTempSmryResValidating,
     800
@@ -335,15 +363,24 @@ export default function RegionalSection({countyResponse}: Props) {
     return mapped ?? []
   }, [multiStnMxTempSmryRes, countyResponse])
 
-  const multiStnMxTempSmryStns = multiStnMxTempSmryData
-    .map((d) => d.meta.name)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
-  const multiStnMxTempSmryCounties = multiStnMxTempSmryData
-    .map((d) => d.meta.county)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
-    .reverse()
+  const multiStnMxTempSmryStns = useMemo(
+    () =>
+      multiStnMxTempSmryData
+        .map((d) => d.meta.name)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort(),
+    [multiStnMxTempSmryData]
+  )
+
+  const multiStnMxTempSmryCounties = useMemo(
+    () =>
+      multiStnMxTempSmryData
+        .map((d) => d.meta.county)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort()
+        .reverse(),
+    [multiStnMxTempSmryData]
+  )
 
   const multiStnMxTempSmryPerc = useMemo(
     () => multiStnMxTempSmryData.map((d) => d.data[3]),
