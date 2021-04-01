@@ -1,4 +1,4 @@
-// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview
+// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview bickford caperton
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -586,6 +586,112 @@ const ProjectsPage = () => {
                       </Link>
                     </Type>
                   </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Bickford Ranch Phase 1 – Mass Grading
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    This Facilities Agreement (FA) Project is being funded and
+                    completed by Bickford Ranch Developers (Bickford). Bickford
+                    is planning to begin construction on Phase 1 of the Bickford
+                    Ranch Community Facility District early in 2021. Part of
+                    Phase 1 work involves the relocation and permanent pipe
+                    encasement of a portion of the Caperton Canal. Overall,
+                    approximately 2,900 linear feet of new 42-inch Raw Water
+                    Pipeline and six Customer Turn Outs (CTO) will be
+                    constructed and upgraded to encase the portion of the
+                    Caperton Canal. Additionally, a temporary and new permanent
+                    Inlet and Outlet Structure’s will be constructed, helping to
+                    create a more robust canal system at this location.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText primary="Design – Complete" />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText primary="Construction: Caperton Canal Relocation – April 2021 – December 2021" />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText primary="Construction: Mass Grading  – April 2021 – December 2022" />
+                    </TimelineListItem>
+                  </List>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Frequently Asked Questions (FAQ’s)
+                  </Type>
+                  <Type gutterBottom>
+                    <em>What is happening to my Customer Turn Out (CTO)?</em>
+                  </Type>
+                  <Type paragraph>
+                    Each CTO is being upgraded. Bickford’s contractor will be
+                    installing a temporary pipeline and permanent pipeline,
+                    which they will reconnect every CTO at each step of
+                    construction, making sure that you will continue to receive
+                    water.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      Will there be water outages on our CTO’s during this work?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    Yes. Brief outages are be expected during the work.
+                    Customers will be notified of all planned outages ahead of
+                    time.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      Who do we contact if we need to visit out CTO and clean
+                      the service screens?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    Customers can contact Gene Mancebo, Project Manager at EGM
+                    Solutions and a Bickford representative, at (209) 969-5631
+                    or{' '}
+                    <Link href="mailto:genemancebo@gmail.com">
+                      genemancebo@gmail.com
+                    </Link>
+                    .
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      When will construction of the encased Caperton Canal be
+                      complete?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    It is anticipated that construction for encasing the
+                    Caperton Canal will be completed by December 2021.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    If you have any questions regarding the Project, please
+                    contact the following PCWA Representative:
+                  </Type>
+                  <Type paragraph>
+                    Mitchell McCarthy
+                    <br />
+                    Associate Engineer
+                    <br />
+                    Phone: (530) 863-3889
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:mmccarthy@pcwa.net">
+                      mmccarthy@pcwa.net
+                    </Link>
+                  </Type>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnTwo>

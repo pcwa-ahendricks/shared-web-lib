@@ -21,8 +21,6 @@ type Props = {
   wasExpanded?: boolean
 }
 
-const margin = 4 // Used with left and top margin of flexWrap items.
-
 const BoardMinutesAccordion = ({
   year,
   minutes,
@@ -45,7 +43,7 @@ const BoardMinutesAccordion = ({
       </AccordionSummary>
       <AccordionDetails>
         {wasExpanded ? (
-          <RowBox flexWrap="wrap" flexSpacing={margin}>
+          <RowBox flexWrap="wrap" flexSpacing={4}>
             {minutes.map((m) => {
               const {derivedFilenameAttr, imgix_url} = m
               const {title = '', publishedDate = '', date = ''} =
