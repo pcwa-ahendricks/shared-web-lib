@@ -28,6 +28,7 @@ import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/season-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
 import {useDebounce} from 'use-debounce/lib'
+import ClimateChangeLine from './ClimateChangeLine'
 
 type Props = {countyResponse?: CountyMetaResponse}
 
@@ -152,6 +153,10 @@ export default function RegionalSection({countyResponse}: Props) {
     tempDepartImgSrc[regionalTimeFrame]
   )
   const multiStnQs = stringify({waterYear: regionalWaterYear}, true)
+
+  const {data: climChgData} = useSWR<ClimChgResponse>(
+    `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-3-10-1895-2021.json?base_prd=true&begbaseyear=1901&endbaseyear=2000`
+  )
 
   /* Regional Precip */
   const [
@@ -1020,6 +1025,13 @@ export default function RegionalSection({countyResponse}: Props) {
         </ChildBox>
       </RowBox>
       <Spacing size="large" />
+
+      <Box height={300}>
+        <ClimateChangeLine tempDataset={climChgData} />
+      </Box>
+
+      <Spacing size="large" />
+
       <Type variant="caption" color="textSecondary">
         <em>
           Climate Maps are provided by{' '}
@@ -1079,4 +1091,21 @@ interface MultiStnSmryMeta {
   county: string
   state: string
   elev: number
+}
+export interface ClimChgResponse {
+  description: Description
+  data: Data
+}
+interface Data {
+  [id: string]: {
+    value: string
+    anomaly: string
+  }
+}
+
+interface Description {
+  title: string
+  units: string
+  base_period: string
+  missing: string
 }
