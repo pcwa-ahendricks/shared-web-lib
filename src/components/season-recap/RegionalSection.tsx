@@ -11,7 +11,9 @@ import {
   createStyles,
   CircularProgress,
   makeStyles,
-  Theme
+  Theme,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
@@ -23,7 +25,7 @@ import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClic
 import {grey} from '@material-ui/core/colors'
 import Image from 'next/image'
 import {stringify} from 'querystringify'
-import {getYear} from 'date-fns'
+import {format, getYear, subMonths} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/season-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
@@ -154,9 +156,20 @@ export default function RegionalSection({countyResponse}: Props) {
   )
   const multiStnQs = stringify({waterYear: regionalWaterYear}, true)
 
+  const now = new Date()
+  const climChangeEndYear = now.getFullYear()
+  const twoMonthsAgo = subMonths(now, 2)
+  const twoMonthsAgoMo = twoMonthsAgo.getMonth() + 1 // getMonth() returns a 0 based index
+  const twoMonthsAgoFrmt = format(twoMonthsAgo, 'MMMM')
+  const twoMonthsAgoYearFrmt = format(twoMonthsAgo, 'yy')
+  const fourMonthsAgoFrmt = format(subMonths(now, 4), 'MMMM')
+  const fourMonthsAgoYrFrmt = format(subMonths(now, 4), 'yy')
+
+  console.log(twoMonthsAgo)
   const {data: climChgData} = useSWR<ClimChgResponse>(
-    `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-3-10-1895-2021.json?base_prd=true&begbaseyear=1901&endbaseyear=2000`
+    `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-3-${twoMonthsAgoMo}-1895-${climChangeEndYear}.json?base_prd=true&begbaseyear=1901&endbaseyear=2000`
   )
+  const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/3/${twoMonthsAgoMo}/1895-${climChangeEndYear}?base_prd=true&begbaseyear=1901&endbaseyear=2000&trend=true&trend_base=10&begtrendyear=1895&endtrendyear=2021`
 
   /* Regional Precip */
   const [
@@ -479,6 +492,9 @@ export default function RegionalSection({countyResponse}: Props) {
     ),
     []
   )
+
+  const theme = useTheme()
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <>
@@ -1025,27 +1041,51 @@ export default function RegionalSection({countyResponse}: Props) {
         </ChildBox>
       </RowBox>
       <Spacing size="large" />
-
-      <Box height={300}>
-        <ClimateChangeLine tempDataset={climChgData} />
-      </Box>
-
-      <Spacing size="large" />
-
-      <Type variant="caption" color="textSecondary">
-        <em>
-          Climate Maps are provided by{' '}
-          <Link
-            style={{outline: 'none'}}
-            variant="inherit"
-            href="https://hprcc.unl.edu"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            High Plains Regional Climate Center
-          </Link>
-        </em>
+      <Type variant="h4">Average Temperature for Placer County</Type>
+      <Type variant="caption" gutterBottom>
+        {fourMonthsAgoFrmt} &#8217;{fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '}
+        &#8217;
+        {twoMonthsAgoYearFrmt} (3-Month period)
       </Type>
+      <RowBox height={220} width="100%">
+        <ChildBox flex={isMdUp ? '0 1 50%' : '0 1 100%'}>
+          <ClimateChangeLine tempDataset={climChgData} />
+        </ChildBox>
+      </RowBox>
+      <Spacing size="x-large" />
+      <span style={{paddingRight: 4}}>
+        <Type variant="caption" color="textSecondary" gutterBottom>
+          <em>
+            Climate Maps are provided by{' '}
+            <Link
+              style={{outline: 'none'}}
+              variant="inherit"
+              href="https://hprcc.unl.edu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              High Plains Regional Climate Center
+            </Link>
+          </em>
+        </Type>{' '}
+      </span>
+      |{' '}
+      <span style={{paddingLeft: 4}}>
+        <Type variant="caption" color="textSecondary">
+          <em>
+            Average Temperatures are provided by{' '}
+            <Link
+              style={{outline: 'none'}}
+              variant="inherit"
+              href={noaaClimChgUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              National Oceanic and Atmospheric Administration (NOAA)
+            </Link>
+          </em>
+        </Type>
+      </span>
     </>
   )
 }

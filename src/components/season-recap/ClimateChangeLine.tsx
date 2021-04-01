@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import round from '@lib/round'
 
 type Props = {
   tempDataset?: ClimChgResponse
@@ -19,7 +20,7 @@ type Props = {
 
 export default function ClimateChangeLine({tempDataset}: Props) {
   const theme = useTheme()
-  const isMD = useMediaQuery(theme.breakpoints.up('md'))
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
   const lineData = useMemo(
     () =>
@@ -35,11 +36,53 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       }),
     [tempDataset]
   )
+
+  // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
+  const scaleMinMax = useMemo(() => {
+    const highestVal = lineData
+      // .reduce<Datum[]>((prev, curr) => [...prev, ...curr.data], [])
+      .reduce<number | null>((prev, curr) => {
+        const currVal = curr?.y ?? 0
+        if (typeof currVal !== 'number') {
+          return prev || null
+        }
+        if (!prev) {
+          return currVal
+        }
+        return prev > currVal ? prev : currVal
+      }, null)
+    if (!highestVal) {
+      return null
+    }
+    const highBuffer = highestVal * 0.04
+
+    const lowestVal = lineData
+      // .reduce<Datum[]>((prev, curr) => [...prev, ...curr.y], [])
+      .reduce<number | null>((prev, curr) => {
+        const currVal = curr?.y ?? 0
+        if (typeof currVal !== 'number') {
+          return prev || null
+        }
+        if (!prev) {
+          return currVal
+        }
+        return prev < currVal ? prev : currVal
+      }, null)
+    if (!lowestVal) {
+      return null
+    }
+    const lowBuffer = lowestVal * 0.06
+    return {
+      low: round(lowestVal - lowBuffer, 0),
+      high: round(highestVal + highBuffer, 0)
+    }
+  }, [lineData])
+
   // .reduce((p, c) => ({
   //   id: 'Temperature',
   //   data: [...p.data, c]
   // }))
-  const foo: Serie = useMemo(
+  const dataSerie: Serie = useMemo(
     () => ({
       id: 'Avg. Temperature',
       data: lineData.filter(Boolean)
@@ -49,10 +92,10 @@ export default function ClimateChangeLine({tempDataset}: Props) {
 
   return (
     <ResponsiveLine
-      data={[foo]}
+      data={[dataSerie]}
       // colors={{scheme: 'red_yellow_green'}}
       colors={[orange[700]]}
-      margin={{top: 50, right: 50, bottom: 60, left: 50}}
+      margin={{top: 12, right: 50, bottom: 60, left: 50}}
       xScale={{
         type: 'time',
         format: '%Y',
@@ -62,18 +105,18 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       xFormat="time:%Y"
       yScale={{
         type: 'linear',
-        max: 70,
-        min: 'auto',
+        max: scaleMinMax?.high ?? 'auto',
+        min: scaleMinMax?.low ?? 'auto',
         stacked: false,
         reverse: false
       }}
-      yFormat=" >-.0f"
+      yFormat=" >-.1f"
       curve="monotoneX"
       axisTop={null}
       axisRight={null}
       axisBottom={{
         format: '%Y',
-        tickValues: isMD ? 'every 5 year' : 'every 10 year',
+        tickValues: 'every 10 year',
         legend: 'Year',
         tickRotation: 45,
         legendOffset: -14
@@ -95,7 +138,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       pointLabelYOffset={-12}
       crosshairType="x"
       useMesh={true}
-      lineWidth={isMD ? 1.8 : 1.3}
+      lineWidth={isMdUp ? 1.8 : 1.3}
       layers={[
         'grid',
         'markers',
