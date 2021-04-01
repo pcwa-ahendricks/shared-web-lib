@@ -698,7 +698,7 @@ const ProjectsPage = () => {
                   <Spacing size="large" />
                   <ColumnBox alignItems="center">
                     <MediaDialogOnClick
-                      mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
+                      mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf?format=auto"
                       mediaName="Map Figure of existing and proposed canal layout"
                     >
                       <LazyImgix
