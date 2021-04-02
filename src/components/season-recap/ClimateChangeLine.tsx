@@ -1,5 +1,5 @@
 // cspell:ignore accum rnge nrml clim arry
-import {orange} from '@material-ui/core/colors'
+import {lightBlue, orange} from '@material-ui/core/colors'
 import {ResponsiveLine, Serie} from '@nivo/line'
 import React, {useMemo} from 'react'
 import {ClimChgResponse} from '@components/season-recap/RegionalSection'
@@ -13,6 +13,7 @@ import {
 import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
+import createTrend from 'trendline'
 
 type Props = {
   tempDataset?: ClimChgResponse
@@ -37,46 +38,48 @@ export default function ClimateChangeLine({tempDataset}: Props) {
     [tempDataset]
   )
 
+  const yData = lineData.map((d) => d.y)
+  const xData = lineData.map((d) => parseInt(d.x, 10))
+  const maxY = Math.max(...yData)
+  const minY = Math.min(...yData)
+
+  const maxX = Math.max(...xData)
+  const minX = Math.min(...xData)
+
+  const trendSerie: Serie = useMemo(() => {
+    const trend = createTrend(
+      lineData.map(({x, y}) => ({y, x: parseInt(x, 10)})),
+      'x',
+      'y'
+    )
+
+    return {
+      id: 'Trend',
+      data:
+        [
+          {y: trend.calcY(minX), x: minX.toString()},
+          {y: trend.calcY(maxX), x: maxX.toString()}
+        ].filter((d) => d.y !== null && Number.isFinite(d.x)) ?? []
+    }
+  }, [lineData, minX, maxX])
+  console.log(trendSerie)
+
   // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
   const scaleMinMax = useMemo(() => {
-    const highestVal = lineData
-      // .reduce<Datum[]>((prev, curr) => [...prev, ...curr.data], [])
-      .reduce<number | null>((prev, curr) => {
-        const currVal = curr?.y ?? 0
-        if (typeof currVal !== 'number') {
-          return prev || null
-        }
-        if (!prev) {
-          return currVal
-        }
-        return prev > currVal ? prev : currVal
-      }, null)
-    if (!highestVal) {
+    if (!maxY) {
       return null
     }
-    const highBuffer = highestVal * 0.04
+    const highBuffer = maxY * 0.04
 
-    const lowestVal = lineData
-      // .reduce<Datum[]>((prev, curr) => [...prev, ...curr.y], [])
-      .reduce<number | null>((prev, curr) => {
-        const currVal = curr?.y ?? 0
-        if (typeof currVal !== 'number') {
-          return prev || null
-        }
-        if (!prev) {
-          return currVal
-        }
-        return prev < currVal ? prev : currVal
-      }, null)
-    if (!lowestVal) {
+    if (!minY) {
       return null
     }
-    const lowBuffer = lowestVal * 0.06
+    const lowBuffer = minY * 0.06
     return {
-      low: round(lowestVal - lowBuffer, 0),
-      high: round(highestVal + highBuffer, 0)
+      low: round(minY - lowBuffer, 0),
+      high: round(maxY + highBuffer, 0)
     }
-  }, [lineData])
+  }, [maxY, minY])
 
   // .reduce((p, c) => ({
   //   id: 'Temperature',
@@ -92,9 +95,9 @@ export default function ClimateChangeLine({tempDataset}: Props) {
 
   return (
     <ResponsiveLine
-      data={[dataSerie]}
+      data={[trendSerie, dataSerie]}
       // colors={{scheme: 'red_yellow_green'}}
-      colors={[orange[700]]}
+      colors={[lightBlue[200], orange[700]]}
       margin={{top: 12, right: 50, bottom: 60, left: 50}}
       xScale={{
         type: 'time',
@@ -179,10 +182,10 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       ]}
       // enableSlices="x"
       tooltip={({point}) => {
-        const {serieColor: color, data} = point
+        const {serieColor: color, data, id} = point
         const {y, yFormatted, xFormatted} = data
 
-        if (y === undefined) return null
+        if (y === undefined || id.toLowerCase() === 'trend') return null
         return (
           <Box
             bgcolor={theme.palette.common.white}

@@ -152,6 +152,7 @@
     "then-sleep": "^1.0.1",
     "thenby": "^1.3.4",
     "timezone-support": "^2.0.2",
+    "trendline": "^0.3.1",
     "use-debounce": "^5.1.0",
     "valid-url": "^1.0.9",
     "vercel": "^21.2.3",
