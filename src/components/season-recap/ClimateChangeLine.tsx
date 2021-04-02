@@ -105,7 +105,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
           strokeWidth: 2.3
         },
         Baseline: {
-          strokeWidth: 1.7
+          strokeWidth: 2
         },
         default: {
           strokeWidth: isMdUp ? 1.5 : 1.3
