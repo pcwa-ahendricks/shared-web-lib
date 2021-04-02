@@ -169,11 +169,11 @@ export default function RegionalSection({countyResponse}: Props) {
     twoMonthsAgo
   ]) // getMonth() returns a 0 based index
   const twoMonthsAgoFrmt = format(twoMonthsAgo, 'MMMM')
-  const twoMonthsAgoYearFrmt = format(twoMonthsAgo, 'yy')
+  const twoMonthsAgoYearFrmt = format(twoMonthsAgo, 'yyyy')
   const fourMonthsAgoFrmt = useMemo(() => format(subMonths(now, 4), 'MMMM'), [
     now
   ])
-  const fourMonthsAgoYrFrmt = useMemo(() => format(subMonths(now, 4), 'yy'), [
+  const fourMonthsAgoYrFrmt = useMemo(() => format(subMonths(now, 4), 'yyyy'), [
     now
   ])
 
@@ -1086,8 +1086,8 @@ export default function RegionalSection({countyResponse}: Props) {
       <Spacing size="large" />
       <Type variant="h4">Average Temperature for Placer County</Type>
       <Type variant="caption" gutterBottom>
-        {fourMonthsAgoFrmt} &#8217;{fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '}
-        &#8217;
+        {/* {fourMonthsAgoFrmt} &#8217;{fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '} */}
+        {fourMonthsAgoFrmt} {fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '}
         {twoMonthsAgoYearFrmt} (3-Month period)
       </Type>
       <Spacing size="x-small" />

@@ -1,5 +1,5 @@
 // cspell:ignore accum rnge nrml clim arry
-import {lightBlue, orange} from '@material-ui/core/colors'
+import {grey, lightBlue, orange} from '@material-ui/core/colors'
 import {ComputedSerie, CustomLayer, ResponsiveLine, Serie} from '@nivo/line'
 import React, {useMemo} from 'react'
 import {ClimChgResponse} from '@components/season-recap/RegionalSection'
@@ -48,6 +48,20 @@ export default function ClimateChangeLine({tempDataset}: Props) {
   const minX = Math.min(...xData)
   const xScaleMax = isNumber(maxX) ? (maxX + 5).toString() : 'auto'
 
+  const baselineSerie: Serie = useMemo(() => {
+    return {
+      id: 'Baseline',
+      data: lineData
+        .map(({x}) => {
+          return {
+            y: yData.reduce((a, b) => a + b) / yData.length,
+            x
+          }
+        })
+        .filter(({x, y}) => y !== null && isNumber(x))
+    }
+  }, [lineData, yData])
+
   const trendSerie: Serie = useMemo(() => {
     const trend = createTrend(
       lineData.map(({x, y}) => ({y, x: parseInt(x, 10)})),
@@ -90,6 +104,9 @@ export default function ClimateChangeLine({tempDataset}: Props) {
         Trend: {
           strokeWidth: 2.3
         },
+        Baseline: {
+          strokeWidth: 1.7
+        },
         default: {
           strokeWidth: isMdUp ? 1.5 : 1.3
         }
@@ -124,9 +141,9 @@ export default function ClimateChangeLine({tempDataset}: Props) {
 
   return (
     <ResponsiveLine
-      data={[dataSerie, trendSerie]}
+      data={[dataSerie, baselineSerie, trendSerie]}
       // colors={{scheme: 'red_yellow_green'}}
-      colors={[orange[700], lightBlue[300]]}
+      colors={[orange[700], grey[600], lightBlue[300]]}
       margin={{top: 20, right: 30, bottom: 70, left: 60}}
       xScale={{
         type: 'time',
@@ -167,7 +184,9 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       pointSize={4}
       // pointColor={{theme: 'background'}}
       pointColor={(serie: ComputedSerie) =>
-        /trend/i.test(serie.id.toString()) ? 'rgb(255,255,255,0.0' : orange[700]
+        /trend|baseline/i.test(serie.id.toString())
+          ? 'rgb(255,255,255,0.0'
+          : orange[700]
       }
       pointBorderWidth={2}
       // Point label doesn't provide a way to easily check if the label belongs to the Avg. Temps or the Trendline
