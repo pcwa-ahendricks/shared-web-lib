@@ -1,6 +1,6 @@
 // cspell:ignore accum rnge nrml clim arry
 import {lightBlue, orange} from '@material-ui/core/colors'
-import {ResponsiveLine, Serie} from '@nivo/line'
+import {ComputedSerie, CustomLayer, ResponsiveLine, Serie} from '@nivo/line'
 import React, {useMemo} from 'react'
 import {ClimChgResponse} from '@components/season-recap/RegionalSection'
 import {parse, format} from 'date-fns'
@@ -14,6 +14,7 @@ import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
 import createTrend from 'trendline'
+import isNumber from 'is-number'
 
 type Props = {
   tempDataset?: ClimChgResponse
@@ -45,6 +46,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
 
   const maxX = Math.max(...xData)
   const minX = Math.min(...xData)
+  const xScaleMax = isNumber(maxX) ? (maxX + 5).toString() : 'auto'
 
   const trendSerie: Serie = useMemo(() => {
     const trend = createTrend(
@@ -58,20 +60,16 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       data: [
         {y: trend.calcY(minX), x: minX},
         {y: trend.calcY(maxX), x: maxX}
-      ].filter((d) => d.y !== null && Number.isFinite(d.x))
+      ].filter(({x, y}) => y !== null && isNumber(x))
     }
   }, [lineData, minX, maxX])
 
   // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
   const scaleMinMax = useMemo(() => {
-    if (!maxY) {
+    if (!maxY || !minY) {
       return null
     }
     const highBuffer = maxY * 0.04
-
-    if (!minY) {
-      return null
-    }
     const lowBuffer = minY * 0.06
     return {
       low: round(minY - lowBuffer, 0),
@@ -79,10 +77,6 @@ export default function ClimateChangeLine({tempDataset}: Props) {
     }
   }, [maxY, minY])
 
-  // .reduce((p, c) => ({
-  //   id: 'Temperature',
-  //   data: [...p.data, c]
-  // }))
   const dataSerie: Serie = useMemo(
     () => ({
       id: 'Avg. Temperature',
@@ -90,18 +84,56 @@ export default function ClimateChangeLine({tempDataset}: Props) {
     }),
     [lineData]
   )
+  const styleById = useMemo(
+    () =>
+      ({
+        Trend: {
+          strokeWidth: 2.3
+        },
+        default: {
+          strokeWidth: isMdUp ? 1.5 : 1.3
+        }
+      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
+    [isMdUp]
+  )
+
+  const CustomLines: CustomLayer = useMemo(
+    () => ({series, lineGenerator, xScale, yScale}) => {
+      return series.map(({id, data, color}) => {
+        const idStr = id.toString()
+        return (
+          <path
+            key={id}
+            d={lineGenerator(
+              data.map(({data}) => ({
+                ...(data?.x != null &&
+                  data?.x != undefined && {x: xScale(data?.x)}),
+                ...(data?.y != null &&
+                  data?.y != undefined && {y: yScale(data?.y)})
+              }))
+            )}
+            fill="none"
+            stroke={color}
+            style={styleById[idStr] || styleById.default}
+          />
+        )
+      })
+    },
+    [styleById]
+  )
 
   return (
     <ResponsiveLine
-      data={[trendSerie, dataSerie]}
+      data={[dataSerie, trendSerie]}
       // colors={{scheme: 'red_yellow_green'}}
-      colors={[lightBlue[200], orange[700]]}
-      margin={{top: 12, right: 50, bottom: 60, left: 50}}
+      colors={[orange[700], lightBlue[300]]}
+      margin={{top: 20, right: 30, bottom: 70, left: 60}}
       xScale={{
         type: 'time',
         format: '%Y',
         useUTC: false,
-        precision: 'year'
+        precision: 'year',
+        max: xScaleMax
       }}
       xFormat="time:%Y"
       yScale={{
@@ -132,24 +164,38 @@ export default function ClimateChangeLine({tempDataset}: Props) {
         legendPosition: 'middle'
       }}
       enablePoints={true}
-      pointSize={4.5}
+      pointSize={4}
       // pointColor={{theme: 'background'}}
-      pointColor={orange[700]}
+      pointColor={(serie: ComputedSerie) =>
+        /trend/i.test(serie.id.toString()) ? 'rgb(255,255,255,0.0' : orange[700]
+      }
       pointBorderWidth={2}
+      // Point label doesn't provide a way to easily check if the label belongs to the Avg. Temps or the Trendline
+      // enablePointLabel={true}
+      // pointLabel={(f) => {
+      //   if (maxX.toString() !== f.xFormatted) {
+      //     return ''
+      //   }
+      //   console.log(f)
+      //   return maxX.toString() === f.xFormatted ? `foo: ${f.yFormatted}` : ''
+      // }}
       // pointBorderColor={{from: 'serieColor'}}
       pointBorderColor={{from: 'backgroundColor'}}
-      pointLabelYOffset={-12}
+      // pointLabelYOffset={-12}
       crosshairType="x"
       useMesh={true}
-      lineWidth={isMdUp ? 1.8 : 1.3}
+      // See above
+      // lineWidth={isMdUp ? 1.5 : 1.3}
       layers={[
         'grid',
         'markers',
         'axes',
         'areas',
         'crosshair',
-        'lines',
         'points',
+        // See Custom Layer above
+        // 'lines',
+        CustomLines,
         'slices',
         'mesh',
         'legends'

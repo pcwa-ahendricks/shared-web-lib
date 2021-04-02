@@ -1091,7 +1091,7 @@ export default function RegionalSection({countyResponse}: Props) {
         {twoMonthsAgoYearFrmt} (3-Month period)
       </Type>
       <Spacing size="x-small" />
-      <RowBox height={240} width="100%">
+      <RowBox height={250} width="100%">
         <ChildBox
           flex={isMdUp ? '0 1 50%' : '0 1 100%'}
           className={classes.climChgBox}
