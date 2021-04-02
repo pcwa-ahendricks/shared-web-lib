@@ -95,7 +95,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       data={[dataSerie]}
       // colors={{scheme: 'red_yellow_green'}}
       colors={[orange[700]]}
-      margin={{top: 12, right: 50, bottom: 60, left: 50}}
+      margin={{top: 20, right: 30, bottom: 70, left: 60}}
       xScale={{
         type: 'time',
         format: '%Y',
@@ -130,11 +130,13 @@ export default function ClimateChangeLine({tempDataset}: Props) {
         legendOffset: -40,
         legendPosition: 'middle'
       }}
-      enablePoints={false}
-      // pointSize={10}
-      pointColor={{theme: 'background'}}
+      enablePoints={true}
+      pointSize={4.5}
+      // pointColor={{theme: 'background'}}
+      pointColor={orange[700]}
       pointBorderWidth={2}
-      pointBorderColor={{from: 'serieColor'}}
+      // pointBorderColor={{from: 'serieColor'}}
+      pointBorderColor={{from: 'backgroundColor'}}
       pointLabelYOffset={-12}
       crosshairType="x"
       useMesh={true}
@@ -164,7 +166,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
           itemHeight: 20,
           itemOpacity: 0.75,
           symbolSize: 12,
-          symbolShape: 'circle',
+          symbolShape: 'square',
           symbolBorderColor: 'rgba(0, 0, 0, .5)',
           effects: [
             {

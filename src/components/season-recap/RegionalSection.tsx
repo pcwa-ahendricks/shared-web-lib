@@ -27,7 +27,7 @@ import Image from 'next/image'
 import {stringify} from 'querystringify'
 import {format, getYear, subMonths} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
-import {CountyMetaResponse} from '@pages/season-recap'
+import {CountyMetaResponse} from '@pages/water-year-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
 import {useDebounce} from 'use-debounce/lib'
 import ClimateChangeLine from './ClimateChangeLine'
@@ -115,6 +115,12 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         cursor: 'pointer'
       }
+    },
+    climChgBox: {
+      borderWidth: '1px !important',
+      borderColor: `${theme.palette.grey[300]} !important`,
+      borderStyle: 'solid !important',
+      backgroundColor: theme.palette.common.white
     },
     regionalStat: {
       fontSize: 36
@@ -1084,8 +1090,12 @@ export default function RegionalSection({countyResponse}: Props) {
         &#8217;
         {twoMonthsAgoYearFrmt} (3-Month period)
       </Type>
-      <RowBox height={220} width="100%">
-        <ChildBox flex={isMdUp ? '0 1 50%' : '0 1 100%'}>
+      <Spacing size="x-small" />
+      <RowBox height={240} width="100%">
+        <ChildBox
+          flex={isMdUp ? '0 1 50%' : '0 1 100%'}
+          className={classes.climChgBox}
+        >
           <ClimateChangeLine tempDataset={climChgData} />
         </ChildBox>
       </RowBox>

@@ -524,10 +524,10 @@ export default function SeasonRecapPage() {
   )
 
   return (
-    <PageLayout title="Weather & Climate" waterSurface>
+    <PageLayout title="Water Year Recap" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle subtitle="Season Recap" title="Weather & Climate" />
+          <PageTitle title="Water Year Recap" subtitle="Weather & Climate" />
           <Spacing />
           <RegionalSection countyResponse={countyResponse} />
 
