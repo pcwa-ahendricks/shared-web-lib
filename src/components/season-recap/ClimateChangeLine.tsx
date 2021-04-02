@@ -182,7 +182,6 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       tooltip={({point}) => {
         const {serieColor: color, data, serieId} = point
         const {y, yFormatted, xFormatted} = data
-        console.log(serieId)
         if (y === undefined || /trend/i.test(serieId.toString().toLowerCase()))
           return null
         return (
