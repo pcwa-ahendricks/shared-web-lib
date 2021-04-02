@@ -106,7 +106,7 @@ const DistrictBoundariesMap = () => {
   }, [])
 
   // Debounce callback
-  const {callback: onHoverHandler} = useDebouncedCallback(
+  const onHoverHandler = useDebouncedCallback(
     // function
     (evt: any) => {
       const {features = []} = evt ?? {}

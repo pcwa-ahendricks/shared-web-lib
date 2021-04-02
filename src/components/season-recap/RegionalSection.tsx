@@ -29,7 +29,7 @@ import {format, getYear, parse, subMonths} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
-import {useDebounce} from 'use-debounce/lib'
+import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'
 
 type Props = {countyResponse?: CountyMetaResponse}
