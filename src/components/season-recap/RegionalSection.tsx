@@ -25,7 +25,7 @@ import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClic
 import {grey} from '@material-ui/core/colors'
 import Image from 'next/image'
 import {stringify} from 'querystringify'
-import {format, getYear, subMonths} from 'date-fns'
+import {format, getYear, parse, subMonths} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
@@ -136,6 +136,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 export default function RegionalSection({countyResponse}: Props) {
   const classes = useStyles()
+  const theme = useTheme()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const [regionalWaterYear] = useState(getYear(new Date()))
   const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
     DEFAULT_REGIONAL_TIME_FRAME
@@ -181,6 +184,29 @@ export default function RegionalSection({countyResponse}: Props) {
     `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-3-${twoMonthsAgoMo}-1895-${climChangeEndYear}.json?base_prd=true&begbaseyear=1901&endbaseyear=2000`
   )
   const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/3/${twoMonthsAgoMo}/1895-${climChangeEndYear}?base_prd=true&begbaseyear=1901&endbaseyear=2000&trend=true&trend_base=10&begtrendyear=1895&endtrendyear=2021`
+
+  const climChgChartData = useMemo(
+    () =>
+      Object.keys(climChgData?.data ?? []).map((key) => {
+        const arry = climChgData?.data
+        const y = parseFloat(arry?.[key].value ?? '')
+        const yearStr = key.substr(0, 4)
+        const x = format(parse(yearStr, 'yyyy', new Date()), 'yyyy')
+        return {
+          x,
+          y
+        }
+      }),
+    [climChgData]
+  )
+  const climChgBaseline = useMemo(
+    () =>
+      Array.isArray(climChgChartData) && climChgChartData.length > 0
+        ? climChgChartData.map(({y}) => y).reduce((a, b) => a + b) /
+          climChgChartData.length
+        : null,
+    [climChgChartData]
+  )
 
   /* Regional Precip */
   const [
@@ -535,9 +561,6 @@ export default function RegionalSection({countyResponse}: Props) {
     ),
     []
   )
-
-  const theme = useTheme()
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <>
@@ -1088,16 +1111,46 @@ export default function RegionalSection({countyResponse}: Props) {
       <Type variant="caption" gutterBottom>
         {/* {fourMonthsAgoFrmt} &#8217;{fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '} */}
         {fourMonthsAgoFrmt} {fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '}
-        {twoMonthsAgoYearFrmt} (3-Month period)
+        {twoMonthsAgoYearFrmt} (most recent 3-Month period)
       </Type>
       <Spacing size="x-small" />
-      <RowBox height={250} width="100%">
-        <ChildBox
-          flex={isMdUp ? '0 1 50%' : '0 1 100%'}
+      <RowBox width="100%">
+        <RowBox
+          child
+          flex={isMdUp ? '0 1 70%' : '0 1 100%'}
           className={classes.climChgBox}
+          responsive
         >
-          <ClimateChangeLine tempDataset={climChgData} />
-        </ChildBox>
+          <ChildBox flex={isXS ? 'none' : 'auto'} height={{xs: 400, sm: 250}}>
+            <ClimateChangeLine climChgChartData={climChgChartData} />
+          </ChildBox>
+          <ColumnBox child flex padding={2}>
+            {Array.isArray(climChgChartData) && climChgBaseline ? (
+              <>
+                <Type variant="body2" gutterBottom>
+                  Past 5 Years
+                </Type>
+                {climChgChartData
+                  .slice(Math.max(climChgChartData.length - 5, 1))
+                  .sort((a, b) => parseFloat(b.x) - parseFloat(a.x))
+                  .map(({x, y}) => {
+                    const diff = round(y - climChgBaseline, 1)
+                    const increase = diff >= 0
+                    const diffFrmt = increase
+                      ? `+${diff.toFixed(1)}`
+                      : diff.toFixed(1)
+                    return (
+                      <ChildBox key={x}>
+                        <Type variant="body2" noWrap>
+                          {x} - {y}&deg; <em>({diffFrmt}&deg;)</em>
+                        </Type>
+                      </ChildBox>
+                    )
+                  })}
+              </>
+            ) : null}
+          </ColumnBox>
+        </RowBox>
       </RowBox>
       <Spacing size="x-large" />
       <span style={{paddingRight: 4}}>

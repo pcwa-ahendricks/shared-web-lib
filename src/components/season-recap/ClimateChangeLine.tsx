@@ -2,8 +2,6 @@
 import {grey, lightBlue, orange} from '@material-ui/core/colors'
 import {ComputedSerie, CustomLayer, ResponsiveLine, Serie} from '@nivo/line'
 import React, {useMemo} from 'react'
-import {ClimChgResponse} from '@components/season-recap/RegionalSection'
-import {parse, format} from 'date-fns'
 import {
   Box,
   useTheme,
@@ -17,30 +15,17 @@ import createTrend from 'trendline'
 import isNumber from 'is-number'
 
 type Props = {
-  tempDataset?: ClimChgResponse
+  climChgChartData?: {x: string; y: number}[]
 }
 
-export default function ClimateChangeLine({tempDataset}: Props) {
+export default function ClimateChangeLine({
+  climChgChartData: chartData = []
+}: Props) {
   const theme = useTheme()
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
-  const lineData = useMemo(
-    () =>
-      Object.keys(tempDataset?.data ?? []).map((key) => {
-        const arry = tempDataset?.data
-        const y = parseFloat(arry?.[key].value ?? '')
-        const yearStr = key.substr(0, 4)
-        const x = format(parse(yearStr, 'yyyy', new Date()), 'yyyy')
-        return {
-          x,
-          y
-        }
-      }),
-    [tempDataset]
-  )
-
-  const yData = lineData.map((d) => d.y)
-  const xData = lineData.map((d) => parseInt(d.x, 10))
+  const yData = chartData.map(({y}) => y)
+  const xData = chartData.map(({x}) => parseInt(x, 10))
   const maxY = Math.max(...yData)
   const minY = Math.min(...yData)
 
@@ -51,7 +36,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
   const baselineSerie: Serie = useMemo(() => {
     return {
       id: 'Baseline',
-      data: lineData
+      data: chartData
         .map(({x}) => {
           return {
             y: yData.reduce((a, b) => a + b) / yData.length,
@@ -60,11 +45,11 @@ export default function ClimateChangeLine({tempDataset}: Props) {
         })
         .filter(({x, y}) => y !== null && isNumber(x))
     }
-  }, [lineData, yData])
+  }, [chartData, yData])
 
   const trendSerie: Serie = useMemo(() => {
     const trend = createTrend(
-      lineData.map(({x, y}) => ({y, x: parseInt(x, 10)})),
+      chartData.map(({x, y}) => ({y, x: parseInt(x, 10)})),
       'x',
       'y'
     )
@@ -76,7 +61,7 @@ export default function ClimateChangeLine({tempDataset}: Props) {
         {y: trend.calcY(maxX), x: maxX}
       ].filter(({x, y}) => y !== null && isNumber(x))
     }
-  }, [lineData, minX, maxX])
+  }, [chartData, minX, maxX])
 
   // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
   const scaleMinMax = useMemo(() => {
@@ -94,9 +79,9 @@ export default function ClimateChangeLine({tempDataset}: Props) {
   const dataSerie: Serie = useMemo(
     () => ({
       id: 'Avg. Temperature',
-      data: lineData.filter(Boolean)
+      data: chartData.filter(Boolean)
     }),
-    [lineData]
+    [chartData]
   )
   const styleById = useMemo(
     () =>
