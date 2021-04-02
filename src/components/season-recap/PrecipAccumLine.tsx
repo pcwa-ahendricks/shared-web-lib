@@ -110,7 +110,7 @@ export default function PrecipAccumLine({
         'mesh',
         'legends'
       ]}
-      margin={{top: 50, right: 50, bottom: 60, left: 50}}
+      margin={{top: 30, right: 40, bottom: 80, left: 70}}
       xScale={{
         type: 'time',
         format: '%Y-%m-%d',

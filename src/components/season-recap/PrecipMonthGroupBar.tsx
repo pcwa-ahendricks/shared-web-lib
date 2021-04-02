@@ -89,7 +89,7 @@ export default function PrecipMonthGroupBar({
       data={precipMoSmryData}
       keys={precipMoSmryChartKeys}
       indexBy="month"
-      margin={{top: 50, right: 50, bottom: 60, left: 50}}
+      margin={{top: 30, right: 40, bottom: 80, left: 70}}
       padding={0.3}
       valueScale={{type: 'linear'}}
       indexScale={{type: 'band', round: true}}

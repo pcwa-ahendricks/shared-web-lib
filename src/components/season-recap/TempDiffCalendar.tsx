@@ -80,7 +80,7 @@ export default function TempDiffCalendar({
       undefinedColor={theme.palette.grey[600]}
       minValue={-22}
       maxValue={22}
-      margin={{top: 40, right: 40, bottom: 40, left: 40}}
+      margin={{top: 30, right: 30, bottom: 20, left: 40}}
       // yearSpacing={40}
       monthBorderColor="#ffffff"
       dayBorderWidth={2}

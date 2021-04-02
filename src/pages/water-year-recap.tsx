@@ -23,7 +23,9 @@ import {
   FormGroup,
   FormControlLabel,
   Divider,
-  Hidden
+  Hidden,
+  useTheme,
+  BoxProps
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
@@ -78,7 +80,8 @@ type StationInfo =
 
 export const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
 
-export default function SeasonRecapPage() {
+export default function WaterYearRecapPage() {
+  const theme = useTheme()
   const wtrYrMenuItems = useMemo(
     () => lastTenWaterYears().sort((a, b) => b - a),
     []
@@ -523,6 +526,22 @@ export default function SeasonRecapPage() {
     []
   )
 
+  const ChartBox = useCallback(
+    ({children, ...rest}: BoxProps) => {
+      return (
+        <Box
+          bgcolor={theme.palette.common.white}
+          border={1}
+          borderColor={theme.palette.grey[200]}
+          {...rest}
+        >
+          {children}
+        </Box>
+      )
+    },
+    [theme]
+  )
+
   return (
     <PageLayout title="Water Year Recap" waterSurface>
       <MainBox>
@@ -637,14 +656,15 @@ export default function SeasonRecapPage() {
                 </Type>
               </Type>
             </Fade>
-            <Box height={{xs: 400, lg: 450}} position="relative">
+            <Spacing size="x-small" />
+            <ChartBox height={{xs: 400, lg: 450}} position="relative">
               <Animate
                 hideUntilAnimate
                 name="fadeIn"
                 animate={Boolean(precipAccumDiff)}
                 position="absolute"
-                top={64}
-                left={64}
+                top={54}
+                left={84}
                 zIndex={2}
               >
                 <Paper elevation={2} square>
@@ -661,7 +681,7 @@ export default function SeasonRecapPage() {
                 highYear={precipAccumHistHighYear}
                 lowYear={precipAccumHistLowYear}
               />
-            </Box>
+            </ChartBox>
             <Spacing size="x-large">
               <Divider />
             </Spacing>
@@ -716,12 +736,13 @@ export default function SeasonRecapPage() {
                 </FormControl>
               </ChildBox>
             </RowBox>
-            <Box height={450}>
+            <Spacing size="x-small" />
+            <ChartBox height={450}>
               <PrecipMonthGroupBar
                 precipMoSmryData={precipMoSmryData}
                 showHistPrecip={showHistPrecip}
               />
-            </Box>
+            </ChartBox>
             <Spacing size="x-large">
               <Divider />
             </Spacing>
@@ -738,9 +759,10 @@ export default function SeasonRecapPage() {
                 {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
             </Fade>
-            <Box height={{xs: 650, sm: 200, lg: 300}}>
+            <Spacing size="x-small" />
+            <ChartBox height={{xs: 650, sm: 200}}>
               <PrecipCalendar precipData={precipData} waterYear={waterYear} />
-            </Box>
+            </ChartBox>
           </TabPanel>
           {isDev ? (
             <TabPanel value={tabValue} index={1}>
@@ -774,7 +796,8 @@ export default function SeasonRecapPage() {
                 </Type>
               </Type>
             </Fade>
-            <Box height={{xs: 400, lg: 450}} position="relative">
+            <Spacing size="x-small" />
+            <ChartBox height={{xs: 400, lg: 450}} position="relative">
               <Animate
                 animate={Boolean(tempResponse?.error)}
                 name="fadeIn"
@@ -794,7 +817,7 @@ export default function SeasonRecapPage() {
                 </Paper>
               </Animate>
               <TempRangeLine tempDataset={tempDataset} />
-            </Box>
+            </ChartBox>
             <Spacing size="x-large">
               <Divider />
             </Spacing>
@@ -811,8 +834,9 @@ export default function SeasonRecapPage() {
                 {tempResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
             </Fade>
-            <Box
-              height={{xs: 650, sm: 200, lg: 300}}
+            <Spacing size="x-small" />
+            <ChartBox
+              height={{xs: 650, sm: 200}}
               position="relative"
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
@@ -839,7 +863,7 @@ export default function SeasonRecapPage() {
                 tempObservedDiffData={tempObservedDiffData}
                 waterYear={waterYear}
               />
-            </Box>
+            </ChartBox>
           </TabPanel>
           <Spacing size="x-large" factor={2} />
           <RowBox responsive flexSpacing={2} justifyContent="center">
