@@ -55,14 +55,12 @@ export default function ClimateChangeLine({tempDataset}: Props) {
 
     return {
       id: 'Trend',
-      data:
-        [
-          {y: trend.calcY(minX), x: minX.toString()},
-          {y: trend.calcY(maxX), x: maxX.toString()}
-        ].filter((d) => d.y !== null && Number.isFinite(d.x)) ?? []
+      data: [
+        {y: trend.calcY(minX), x: minX},
+        {y: trend.calcY(maxX), x: maxX}
+      ].filter((d) => d.y !== null && Number.isFinite(d.x))
     }
   }, [lineData, minX, maxX])
-  console.log(trendSerie)
 
   // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
   const scaleMinMax = useMemo(() => {
@@ -182,10 +180,11 @@ export default function ClimateChangeLine({tempDataset}: Props) {
       ]}
       // enableSlices="x"
       tooltip={({point}) => {
-        const {serieColor: color, data, id} = point
+        const {serieColor: color, data, serieId} = point
         const {y, yFormatted, xFormatted} = data
-
-        if (y === undefined || id.toLowerCase() === 'trend') return null
+        console.log(serieId)
+        if (y === undefined || /trend/i.test(serieId.toString().toLowerCase()))
+          return null
         return (
           <Box
             bgcolor={theme.palette.common.white}
