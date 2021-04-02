@@ -234,7 +234,10 @@ export default function ClimateChangeLine({
       tooltip={({point}) => {
         const {serieColor: color, data, serieId} = point
         const {y, yFormatted, xFormatted} = data
-        if (y === undefined || /trend/i.test(serieId.toString().toLowerCase()))
+        if (
+          y === undefined ||
+          /trend|baseline/i.test(serieId.toString().toLowerCase())
+        )
           return null
         return (
           <Box
