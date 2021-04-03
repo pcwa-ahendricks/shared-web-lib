@@ -21,8 +21,7 @@
     "plugin:import/errors",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/react",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:jsx-a11y/recommended"
   ],
   "parserOptions": {

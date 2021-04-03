@@ -1,4 +1,4 @@
-// cspell:ignore perc
+// cspell:ignore perc frmt noaa clim
 import React, {useCallback, useMemo, useState, useEffect} from 'react'
 import round from '@lib/round'
 import useSWR from 'swr'
@@ -25,7 +25,16 @@ import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClic
 import {grey} from '@material-ui/core/colors'
 import Image from 'next/image'
 import {stringify} from 'querystringify'
-import {format, getYear, parse, subMonths} from 'date-fns'
+import {
+  differenceInMonths,
+  format,
+  getYear,
+  isFuture,
+  parse,
+  startOfMonth,
+  subMonths,
+  subYears
+} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-recap'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
@@ -168,22 +177,53 @@ export default function RegionalSection({countyResponse}: Props) {
   const now = useMemo(() => new Date(), [])
   const climChangeEndYear = useMemo(() => now.getFullYear(), [now])
   const twoMonthsAgo = useMemo(() => subMonths(now, 2), [now])
+  const startTwoMonthsAgo = useMemo(() => startOfMonth(twoMonthsAgo), [
+    twoMonthsAgo
+  ])
+  const startOfOctober = useMemo(
+    () => startOfMonth(parse('10-01', 'MM-dd', now)),
+    [now]
+  )
+  const startOfPreviousOctober = useMemo(
+    () =>
+      isFuture(startOfOctober) ? subYears(startOfOctober, 1) : startOfOctober,
+    [startOfOctober]
+  )
+  const diff = useMemo(
+    () => differenceInMonths(startTwoMonthsAgo, startOfPreviousOctober),
+    [startTwoMonthsAgo, startOfPreviousOctober]
+  ) // Used w/ date formatting, but not NOAA URL
+
+  const useMonthDiff = diff + 1 // Used w/ NOAA URL, but not date formatting
   const twoMonthsAgoMo = useMemo(() => twoMonthsAgo.getMonth() + 1, [
     twoMonthsAgo
   ]) // getMonth() returns a 0 based index
+
+  const twoMonthsAgoYr = twoMonthsAgo.getFullYear()
   const twoMonthsAgoFrmt = format(twoMonthsAgo, 'MMMM')
   const twoMonthsAgoYearFrmt = format(twoMonthsAgo, 'yyyy')
-  const fourMonthsAgoFrmt = useMemo(() => format(subMonths(now, 4), 'MMMM'), [
-    now
+  // Note - To ensure that the labels match the returned data just console.log the response from the NOAA api, it will show the actual date range in the description.
+  const begFrmt = useMemo(() => format(subMonths(twoMonthsAgo, diff), 'MMMM'), [
+    diff,
+    twoMonthsAgo
   ])
-  const fourMonthsAgoYrFrmt = useMemo(() => format(subMonths(now, 4), 'yyyy'), [
-    now
-  ])
-
-  const {data: climChgData} = useSWR<ClimChgResponse>(
-    `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-3-${twoMonthsAgoMo}-1895-${climChangeEndYear}.json?base_prd=true&begbaseyear=1901&endbaseyear=2000`
+  const begYrFrmt = useMemo(
+    () => format(subMonths(twoMonthsAgo, diff), 'yyyy'),
+    [twoMonthsAgo, diff]
   )
-  const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/3/${twoMonthsAgoMo}/1895-${climChangeEndYear}?base_prd=true&begbaseyear=1901&endbaseyear=2000&trend=true&trend_base=10&begtrendyear=1895&endtrendyear=2021`
+  const begYr = 1895
+  const begBaseYr = 1895
+  const begTrendYr = 1895
+
+  const url = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-${useMonthDiff}-${twoMonthsAgoMo}-${begYr}-${climChangeEndYear}.json?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
+
+  const {data: climChgData} = useSWR<ClimChgResponse>(url, {
+    revalidateOnFocus: false
+  })
+
+  // Including the Trend in the URL doesn't seem to work with NOAA site; The trend params are omitted until NOAA fixes this.
+  // const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/${useMonthDiff}/${twoMonthsAgoMo}/${begYr}-${climChangeEndYear}?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
+  const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/${useMonthDiff}/${twoMonthsAgoMo}/${begYr}-${climChangeEndYear}?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}`
 
   const climChgChartData = useMemo(
     () =>
@@ -1110,8 +1150,8 @@ export default function RegionalSection({countyResponse}: Props) {
       <Type variant="h4">Average Temperature for Placer County</Type>
       <Type variant="caption" gutterBottom>
         {/* {fourMonthsAgoFrmt} &#8217;{fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '} */}
-        {fourMonthsAgoFrmt} {fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '}
-        {twoMonthsAgoYearFrmt} (most recent 3-Month period)
+        {begFrmt} {begYrFrmt} - {twoMonthsAgoFrmt} {twoMonthsAgoYearFrmt} (most
+        recent data for water year)
       </Type>
       <Spacing size="x-small" />
       <RowBox width="100%">
