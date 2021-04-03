@@ -1174,6 +1174,7 @@ export default function RegionalSection({countyResponse}: Props) {
                   .slice(Math.max(climChgChartData.length - 5, 1))
                   .sort((a, b) => parseFloat(b.x) - parseFloat(a.x))
                   .map(({x, y}) => {
+                    // This diff should match "anomaly" value in NOAA api response
                     const diff = round(y - climChgBaseline, 1)
                     const increase = diff >= 0
                     const diffFrmt = increase
