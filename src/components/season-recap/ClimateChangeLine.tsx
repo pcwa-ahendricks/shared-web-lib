@@ -62,6 +62,13 @@ export default function ClimateChangeLine({
   // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
   const scaleMaxY = round(maxY + maxY * 0.04, 0)
   const scaleMinY = round(minY - minY * 0.06, 0)
+  const tickValues = useMemo(
+    () =>
+      [...Array(100).keys()].filter(
+        (n) => n <= scaleMaxY && n >= scaleMinY && n % 2 == 0
+      ),
+    [scaleMinY, scaleMaxY]
+  )
 
   const dataSerie: Serie = useMemo(
     () => ({
@@ -152,9 +159,7 @@ export default function ClimateChangeLine({
         legendOffset: -40,
         legendPosition: 'middle',
         // decrease frequency of labels along Y axis
-        tickValues: [...Array(100).keys()].filter(
-          (n) => n <= scaleMaxY && n >= scaleMinY && n % 2 == 0
-        )
+        tickValues
       }}
       enablePoints={true}
       pointSize={4}
