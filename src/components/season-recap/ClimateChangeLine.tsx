@@ -60,17 +60,8 @@ export default function ClimateChangeLine({
   }, [chartData, minX, maxX])
 
   // Add a 4% margin to the chart on the Y axis for the top and a 6% margin on the bottom
-  const scaleMinMax = useMemo(() => {
-    if (!maxY || !minY) {
-      return null
-    }
-    const highBuffer = maxY * 0.04
-    const lowBuffer = minY * 0.06
-    return {
-      low: round(minY - lowBuffer, 0),
-      high: round(maxY + highBuffer, 0)
-    }
-  }, [maxY, minY])
+  const scaleMaxY = round(maxY + maxY * 0.04, 0)
+  const scaleMinY = round(minY - minY * 0.06, 0)
 
   const dataSerie: Serie = useMemo(
     () => ({
@@ -136,8 +127,8 @@ export default function ClimateChangeLine({
       xFormat="time:%Y"
       yScale={{
         type: 'linear',
-        max: scaleMinMax?.high ?? 'auto',
-        min: scaleMinMax?.low ?? 'auto',
+        max: scaleMaxY ?? 'auto',
+        min: scaleMinY ?? 'auto',
         stacked: false,
         reverse: false
       }}
@@ -159,7 +150,11 @@ export default function ClimateChangeLine({
         tickRotation: 0,
         legend: 'Temperature (°F)',
         legendOffset: -40,
-        legendPosition: 'middle'
+        legendPosition: 'middle',
+        // decrease frequency of labels along Y axis
+        tickValues: [...Array(100).keys()].filter(
+          (n) => n <= scaleMaxY && n >= scaleMinY && n % 2 == 0
+        )
       }}
       enablePoints={true}
       pointSize={4}
