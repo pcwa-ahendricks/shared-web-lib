@@ -15,7 +15,7 @@ import createTrend from 'trendline'
 import isNumber from 'is-number'
 
 type Props = {
-  climChgChartData?: {x: string; y: number}[]
+  climChgChartData?: {x: number; y: number}[]
 }
 
 export default function ClimateChangeLine({
@@ -25,7 +25,7 @@ export default function ClimateChangeLine({
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
   const yData = chartData.map(({y}) => y)
-  const xData = chartData.map(({x}) => parseInt(x, 10))
+  const xData = chartData.map(({x}) => x)
   const maxY = Math.max(...yData)
   const minY = Math.min(...yData)
 
@@ -48,11 +48,7 @@ export default function ClimateChangeLine({
   }, [chartData, yData])
 
   const trendSerie: Serie = useMemo(() => {
-    const trend = createTrend(
-      chartData.map(({x, y}) => ({y, x: parseInt(x, 10)})),
-      'x',
-      'y'
-    )
+    const trend = createTrend(chartData, 'x', 'y')
 
     return {
       id: 'Trend',

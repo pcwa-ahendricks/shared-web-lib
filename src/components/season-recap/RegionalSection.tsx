@@ -231,7 +231,10 @@ export default function RegionalSection({countyResponse}: Props) {
         const arry = climChgData?.data
         const y = parseFloat(arry?.[key].value ?? '')
         const yearStr = key.substr(0, 4)
-        const x = format(parse(yearStr, 'yyyy', new Date()), 'yyyy')
+        const x = parseInt(
+          format(parse(yearStr, 'yyyy', new Date()), 'yyyy'),
+          10
+        )
         return {
           x,
           y
@@ -1172,7 +1175,7 @@ export default function RegionalSection({countyResponse}: Props) {
                 </Type>
                 {climChgChartData
                   .slice(Math.max(climChgChartData.length - 5, 1))
-                  .sort((a, b) => parseFloat(b.x) - parseFloat(a.x))
+                  .sort((a, b) => b.x - a.x)
                   .map(({x, y}) => {
                     // This diff should match "anomaly" value in NOAA api response
                     const diff = round(y - climChgBaseline, 1)
