@@ -181,14 +181,14 @@ const ARBSSidebar = () => {
         {/* <Link href="mailto:anickel@usbr.gov">anickel@usbr.gov</Link> */}
         <Spacing size="x-small" />
         <Type variant="body2" color="textSecondary">
-          Ankur Bhattacharya
+          Mike Dietl
         </Type>
         <Link
-          href="mailto:ankurbhattacharya@usbr.gov"
+          href="mailto:mdietl@usbr.gov"
           variant="body2"
           classes={{root: classes.wrapText}}
         >
-          ankurbhattacharya@usbr.gov
+          mdietl@usbr.gov
         </Link>
       </NavBox>
     </Box>

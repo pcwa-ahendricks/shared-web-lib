@@ -663,23 +663,23 @@ const ARBSPage = () => {
                     </Type>
                   </ChildBox>
                   <ChildBox>
-                    <Type variant="subtitle1">Ankur Bhattacharya</Type>
+                    <Type variant="subtitle1">Mike Dietl</Type>
                     <Type
                       variant="subtitle2"
                       color="textSecondary"
                       gutterBottom
                     >
-                      Title XVI and Basin Study Program Coordinator, <br />
+                      Program Manager <br />
                     </Type>
                     <Type variant="body2" paragraph>
-                      Reclamation <br />
-                      Mid-Pacific Regional Office <br />
-                      2800 Cottage Way <br />
-                      Sacramento, California 95825-1898 <br />
-                      (916) 978-5348 <br />
-                      <Link href="mailto:ankurbhattacharya@usbr.gov">
-                        ankurbhattacharya@usbr.gov
-                      </Link>
+                      Bureau of Reclamation <br />
+                      Interior Region 10 · California-Great Basin <br />
+                      2800 Cottage Way, Room W-2830
+                      <br />
+                      Sacramento, California 95825
+                      <br />
+                      (916) 978-5070 <br />
+                      <Link href="mailto:mdietl@usbr.gov">mdietl@usbr.gov</Link>
                     </Type>
                   </ChildBox>
                 </RowBox>
