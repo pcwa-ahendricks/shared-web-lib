@@ -612,16 +612,18 @@ const ARBSPage = () => {
                   />
                   <TimelineElement
                     date="August 2020"
-                    title="USBR Policy Review"
+                    title="USBR Policy Review (pending)"
                   />
                   <TimelineElement
-                    date="Summer 2020"
+                    date="Summer 2021"
                     title="Publish Final Report *"
                   />
-                  <TimelineElement date="Fall 2020" title="Finalize Report" />
+                  <TimelineElement date="Fall 2021" title="Finalize Report" />
                   <RowBox justifyContent="flex-end">
                     <Type variant="caption" align="right">
-                      * Subject to U.S. Department of the Interior Approval
+                      <em>
+                        * Subject to U.S. Department of the Interior Approval
+                      </em>
                     </Type>
                   </RowBox>
 
