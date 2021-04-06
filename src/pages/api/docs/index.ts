@@ -152,7 +152,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/b9e6f0c0-75e2-11ea-8418-4938ccc0888b-Alta2020.pdf'
+                'https://cdn.cosmicjs.com/2a06f6b0-971c-11eb-b593-972a7dbc1054-Alta2021.pdf'
             })
             .end()
           break
@@ -160,7 +160,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/baea7e10-75e2-11ea-8418-4938ccc0888b-Foothill-Sunset2020.pdf'
+                'https://cdn.cosmicjs.com/358f3bf0-971c-11eb-b593-972a7dbc1054-Foothill-Sunset2021.pdf'
             })
             .end()
           break
@@ -168,7 +168,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/b92b9000-75e2-11ea-8418-4938ccc0888b-MonteVista2020.pdf'
+                'https://cdn.cosmicjs.com/2a034d30-971c-11eb-b593-972a7dbc1054-MonteVista2021.pdf'
             })
             .end()
           break
@@ -176,7 +176,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/b9af8d10-75e2-11ea-8418-4938ccc0888b-Applegate2020.pdf'
+                'https://cdn.cosmicjs.com/2a059720-971c-11eb-b593-972a7dbc1054-Applegate2021.pdf'
             })
             .end()
           break
@@ -184,7 +184,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/b902ab40-75e2-11ea-8418-4938ccc0888b-Auburn-Bowman2020.pdf'
+                'https://cdn.cosmicjs.com/2afe9d20-971c-11eb-b593-972a7dbc1054-Auburn-Bowman2021.pdf'
             })
             .end()
           break
@@ -192,7 +192,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/b9f26270-75e2-11ea-8418-4938ccc0888b-Bianchi2020.pdf'
+                'https://cdn.cosmicjs.com/2a080820-971c-11eb-b593-972a7dbc1054-Bianchi2021.pdf'
             })
             .end()
           break
@@ -200,7 +200,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
-                'https://cdn.cosmicjs.com/b9bbe920-75e2-11ea-8418-4938ccc0888b-Colfax2020.pdf'
+                'https://cdn.cosmicjs.com/2a0940a0-971c-11eb-b593-972a7dbc1054-Colfax2021.pdf'
             })
             .end()
           break
