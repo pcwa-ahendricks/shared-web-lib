@@ -24,6 +24,7 @@ import {isBefore, parseISO, isAfter, format, compareDesc} from 'date-fns'
 
 interface Meeting {
   date: string
+  dateLabel?: string
   title: string
   agendaUrl?: string
   attachments?: {title: string; url: string}[]
@@ -32,14 +33,67 @@ interface Meeting {
 type MeetingProps = {
   title: Meeting['title']
   date: Date
+  dateLabel?: Meeting['dateLabel']
   agendaUrl?: Meeting['agendaUrl']
   attachments?: Meeting['attachments']
 }
 
 const meetings: Meeting[] = [
   {
+    date: '2020-04-27T21:00:00.000Z',
+    title: 'ARB IRWM',
+    attachments: [
+      {
+        title: 'Slideshow Presentation',
+        url:
+          'https://cdn.cosmicjs.com/5abb3350-9714-11eb-b593-972a7dbc1054-ARBSARB-IRWM-20200427-final.pdf'
+      },
+      {
+        title: 'Draft Water Resilience Portfolio',
+        url:
+          'https://cdn.cosmicjs.com/5415d870-9714-11eb-b593-972a7dbc1054-Draft-Water-Resilience-Portfolio-PPTApril-2020.pdf'
+      }
+    ]
+  },
+  {
+    date: '2020-02-11T21:00:00.000Z',
+    title: 'Partners Workshop - Portfolio Evaluation',
+    agendaUrl:
+      'https://cdn.cosmicjs.com/68042970-9716-11eb-b593-972a7dbc1054-20200211Workshopagenda.pdf',
+    attachments: [
+      {
+        title: 'Slideshow Presentation',
+        url:
+          'https://cdn.cosmicjs.com/6efe5b10-9716-11eb-b593-972a7dbc1054-ARBSEvalautions20200211.pdf'
+      },
+      {
+        title: 'Portfolio Evaluation - Draft Technical Memorandum',
+        url:
+          'https://cdn.cosmicjs.com/6eff9390-9716-11eb-b593-972a7dbc1054-ARBSPortfolioEvalulationTM20200208.pdf'
+      }
+    ]
+  },
+  {
+    date: '2021-09-15T21:00:00.000Z',
+    dateLabel:
+      'Summer 2021 - to be scheduled upon approval from the U.S. Department of the Interior',
+    title: 'Final Report Overview'
+  },
+  {
     date: '2019-10-15T21:00:00.000Z',
-    title: 'Assessing Climate Change Challenges - Workshop #2'
+    title: 'Assessing Climate Change Challenges - Workshop #2',
+    attachments: [
+      {
+        title: `Slideshow Presentation`,
+        url:
+          'https://cdn.cosmicjs.com/d7eab710-9700-11eb-b593-972a7dbc1054-ARBSWorkshop2Addressingpotentialclimatechangeeffects.pdf'
+      },
+      {
+        title: `Workshop #2 Workbook`,
+        url:
+          'https://cdn.cosmicjs.com/cade69e0-9700-11eb-b593-972a7dbc1054-Workshop-2Workbook.pdf'
+      }
+    ]
   },
   {
     title: 'ACWA 2019 Presentation',
@@ -201,19 +255,24 @@ const ARBSMeetingsPage = () => {
       title,
       date,
       agendaUrl,
+      dateLabel,
       attachments,
       ...rest
     }: MeetingProps & BoxProps) => {
       return (
         <Box {...rest}>
           <Type variant="h4">{title}</Type>
-          <Type>{format(date, "MMMM do',' yyyy")}</Type>
+          <Type>{dateLabel ? dateLabel : format(date, "MMMM do',' yyyy")}</Type>
           {agendaUrl ? (
             <>
               <Spacing size="x-small" />
               <Link href={agendaUrl} rel="noopener noreferrer" target="_blank">
                 View Agenda
               </Link>
+            </>
+          ) : null}
+          {attachments && attachments.length > 0 ? (
+            <>
               <Spacing size="x-small" />
               <List
                 dense
@@ -259,7 +318,7 @@ const ARBSMeetingsPage = () => {
         </React.Fragment>
       )
     },
-    []
+    [Meeting]
   )
 
   return (
@@ -289,6 +348,7 @@ const ARBSMeetingsPage = () => {
                   key={idx}
                   title={meeting.title}
                   date={meeting.date}
+                  dateLabel={meeting.dateLabel}
                   attachments={meeting.attachments}
                   agendaUrl={meeting.agendaUrl}
                   lastItem={arry.length === idx + 1}
