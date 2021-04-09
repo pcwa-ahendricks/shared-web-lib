@@ -164,7 +164,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             })
             .end()
           break
-        case testRe('monte-vista', id):
+        case testRe('monte[-|_]vista', id):
           res
             .writeHead(REDIRECT_STATUS_CODE, {
               Location:
