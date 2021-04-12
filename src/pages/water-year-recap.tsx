@@ -66,7 +66,7 @@ const stationIds = [
   '043491 2',
   '048758 2',
   '043891 2',
-  '040383 2'
+  '047516 2'
 ] as const
 
 export type StationId = typeof stationIds[number]
