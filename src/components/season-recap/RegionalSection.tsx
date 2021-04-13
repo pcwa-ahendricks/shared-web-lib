@@ -36,7 +36,7 @@ import {
   subYears
 } from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
-import {CountyMetaResponse} from '@pages/water-year-recap'
+import {CountyMetaResponse} from '@pages/water-year-dashboard'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
 import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'

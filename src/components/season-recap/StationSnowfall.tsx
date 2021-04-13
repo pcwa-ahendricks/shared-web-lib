@@ -19,7 +19,7 @@ import {
   parseWaterYear,
   refreshInterval,
   StationId
-} from '@pages/water-year-recap'
+} from '@pages/water-year-dashboard'
 import isNumber from 'is-number'
 import PrecipCalendar from './PrecipCalendar'
 import {ResponsiveLine} from '@nivo/line'

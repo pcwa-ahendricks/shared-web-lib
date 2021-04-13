@@ -90,7 +90,7 @@ const IrrigationCanalPage = () => {
                 customers.
               </Type>
               <Type paragraph>
-                Additionally, PCWA owns, operates and maintains its own 165
+                Additionally, PCWA owns, operates and maintains its own 170
                 miles of canals and, like PG&amp;E, those canals must shut down
                 from time-to-time for maintenance work. A part of this ongoing
                 work is the gunite lining of canals to prevent seepage and water

@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core'
 import colorAlpha from 'color-alpha'
 import {blueGrey} from '@material-ui/core/colors'
-import {StationMeta} from '@pages/water-year-recap'
+import {StationMeta} from '@pages/water-year-dashboard'
 import Animate from '@components/Animate/Animate'
 // import round from '@lib/round'
 

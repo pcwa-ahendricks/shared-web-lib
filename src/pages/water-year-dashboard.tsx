@@ -83,7 +83,7 @@ type StationInfo =
 
 export const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
 
-export default function WaterYearRecapPage() {
+export default function WaterYearDashboardPage() {
   const theme = useTheme()
   const wtrYrMenuItems = useMemo(
     () => lastTenWaterYears().sort((a, b) => b - a),
@@ -546,18 +546,21 @@ export default function WaterYearRecapPage() {
   )
 
   return (
-    <PageLayout title="Water Year Recap" waterSurface>
+    <PageLayout title="Water Year Dashboard" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle title="Water Year Recap" subtitle="Weather & Climate" />
+          <PageTitle
+            title="Water Year Dashboard"
+            subtitle="Weather & Climate"
+          />
           <Type>
             A water year is a 12 month period that extends from October 1st to
             September 30th. The water year is designated by the calendar year in
             which it ends. The current water year is{' '}
             <StrongEmphasis>{waterYear}</StrongEmphasis>. Note the weather and
-            climate data below is presented for informational use only and is
-            not collected or maintained by PCWA. For more information and
-            citation please refer to the following data sources:{' '}
+            climate data recapitulated below is presented for informational use
+            only and is not collected or maintained by PCWA. For more
+            information and citation please refer to the following data sources:{' '}
             <Link
               href="https://www.rcc-acis.org"
               target="_blank"

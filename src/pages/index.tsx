@@ -247,8 +247,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
-              title="Water Year Recap"
-              linkHref="/water-year-recap"
+              title="Water Year Dashboard"
+              linkHref="/water-year-dashboard"
               readMore="Take a look"
               imgixURL={fireWaterImgSrc}
               imgixFancyProps={{

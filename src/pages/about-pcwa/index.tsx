@@ -233,7 +233,7 @@ const GeneralInfoPage = () => {
                   Loomis Basin. In addition, PCWA supplies water from its MFP to
                   the City of Roseville and San Juan Water District, which
                   operate their own treatment facilities. And PCWA continues to
-                  operate 165 miles of canals, serving irrigation water for
+                  operate 170 miles of canals, serving irrigation water for
                   pastures, orchards, rice fields, farms, ranches, golf courses,
                   and landscaping – continuing the heritage of Placer County’s
                   historic water delivery.
