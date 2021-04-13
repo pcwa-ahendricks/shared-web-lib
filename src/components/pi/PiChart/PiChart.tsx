@@ -1,41 +1,20 @@
 // cspell:ignore cldl
-import React, {
-  useState,
-  useContext,
-  useMemo,
-  useCallback,
-  useRef,
-  useEffect
-} from 'react'
+import React, {useContext, useMemo, useState, useEffect} from 'react'
+import {blue} from '@material-ui/core/colors'
+import SquareIcon from 'mdi-material-ui/Square'
 import {
   Box,
   Theme,
   Typography as Type,
-  useMediaQuery,
   LinearProgress,
   useTheme
 } from '@material-ui/core'
-// import {blue} from '@material-ui/core/colors'
-import {format, differenceInMonths, differenceInDays, parseJSON} from 'date-fns'
+import {format, differenceInDays, parseJSON} from 'date-fns'
 import {PiContext, PiMetadata} from '../PiStore'
-import {RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import DlCsvButton from '@components/DlCsvButton/DlCsvButton'
 import disclaimer from '../disclaimer'
-// [todo] Someday types will become available and we can yarn add -D @types/react-vis
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  LineSeries,
-  HorizontalGridLines,
-  XAxis,
-  YAxis,
-  Hint,
-  Highlight,
-  MarkSeries
-} from 'react-vis'
-import type {HighlightArea} from 'react-vis'
-import round from '@lib/round'
 import MuiNextLink from '@components/NextLink/NextLink'
-import PiChartResetZoom from '../PiChartResetZoom/PiChartResetZoom'
 import PiChartDataAttributes from '../PiChartDataAttibutes/PiChartDataAttibutes'
 import useFriendlyNameMeta from '../hooks/useFriendlyNameMeta'
 import useIsRiverGage from '../hooks/useIsRiverGage'
@@ -44,9 +23,9 @@ import useSWR from 'swr'
 import {piApiUrl} from '@pages/recreation/flows/gages/[pid]'
 import {stringify} from 'querystringify'
 import {PiWebElementAttributeStream} from '@lib/services/pi/pi-web-api-types'
-// const isDev = process.env.NODE_ENV === 'development'
-// import {curveCardinal} from 'd3-shape'
-// import PiChartFilterSlider from '../PiChartFilterSlider/PiChartFilterSlider'
+import {ResponsiveLine, Serie} from '@nivo/line'
+
+type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 
 type Props = {
   attribute: string
@@ -57,8 +36,7 @@ type Props = {
   streamSetMeta?: PiMetadata[]
 }
 
-const calcInterval = (startDate: Date, endDate: Date) => {
-  const diffInDays = differenceInDays(endDate, startDate)
+const calcInterval = (diffInDays: number) => {
   switch (true) {
     // Day
     case diffInDays <= 1:
@@ -80,31 +58,38 @@ const calcInterval = (startDate: Date, endDate: Date) => {
   }
 }
 
+const xAxisLabels = (diffInDays: number) => {
+  switch (true) {
+    case diffInDays <= 7:
+      return 'every 1 day'
+    case diffInDays <= 32:
+      return 'every 2 days'
+    case diffInDays <= 92:
+      return 'every 7 days'
+    // case diffInDays <= 183:
+    //   return 'every 1 month'
+    default:
+      return 'every 1 month'
+  }
+}
+
 const PiChart = ({
   webId,
   startTime,
   endTime,
   attribute,
-  // gageId,
   streamSetMeta
 }: Props) => {
   const theme = useTheme<Theme>()
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const {state} = useContext(PiContext)
   const {activeGageItem} = state
-  const [hintValue, setHintValue] = useState<false | {x: number; y: number}>(
-    false
-  )
+
   const friendlyName = useFriendlyNameMeta(streamSetMeta)
   const isRiver = useIsRiverGage()
   const isReservoir = useIsReservoirGage()
-  const xyPlotRef = useRef<any>()
-  const [
-    lastDrawLocation,
-    setLastDrawLocation
-  ] = useState<HighlightArea | null>(null)
 
-  const interval = calcInterval(startTime, endTime)
+  const diffInDays = differenceInDays(endTime, startTime)
+  const interval = calcInterval(diffInDays)
 
   const qs = stringify(
     {startTime: startTime.toJSON(), endTime: endTime.toJSON(), interval},
@@ -115,6 +100,10 @@ const PiChart = ({
   const {data, isValidating} = useSWR<PiWebElementAttributeStream>(
     webId ? url : null
   )
+  const dataItems = useMemo(() => data?.Items ?? [], [data])
+  const units = data?.UnitsAbbreviation
+  const isFlow = units?.toLowerCase() === 'cfs'
+  const isStorage = units?.toLowerCase() === 'acre ft'
 
   // isDev &&
   //   console.log(
@@ -124,25 +113,13 @@ const PiChart = ({
   //     )} - ${format(endTime, 'Pp')} | ${interval}`
   //   )
 
-  // Reset zoom when data changes.
-  useEffect(() => {
-    setLastDrawLocation(null)
-  }, [data])
+  const attributeLabel = !attribute
+    ? ''
+    : attribute.match(/height/i)
+    ? 'Stage'
+    : attribute
 
-  const attributeLabel = useMemo(() => {
-    if (!attribute) {
-      return ''
-    }
-    return attribute.match(/height/i) ? 'Stage' : attribute
-  }, [attribute])
-
-  const seriesTitle = useMemo(
-    () =>
-      data && data.UnitsAbbreviation
-        ? `${attributeLabel} (${data.UnitsAbbreviation.toUpperCase()})`
-        : '',
-    [data, attributeLabel]
-  )
+  const seriesTitle = `${attributeLabel} (${units})`
 
   const chartTitle = useMemo(() => {
     if (!data || !streamSetMeta || !activeGageItem) {
@@ -154,11 +131,10 @@ const PiChart = ({
       ? `Gaging Station ${activeGageItem.id.toUpperCase()}`
       : ''
 
-    const secondPart = data.UnitsAbbreviation
-      ? ` - ${attributeLabel} in ${data.UnitsAbbreviation}`
-      : ''
+    const secondPart = ` - ${attributeLabel} in ${units}`
     return `${firstPart}${secondPart}`
   }, [
+    units,
     activeGageItem,
     friendlyName,
     data,
@@ -168,51 +144,41 @@ const PiChart = ({
     isReservoir
   ])
 
-  // Since we are not using an initial value it's mandatory that we don't reduce empty arrays or else we will get a runtime error.
   const maxValue = useMemo(
     () =>
-      data && Array.isArray(data.Items)
-        ? data.Items.reduce((p, c) => {
+      dataItems.length > 0
+        ? dataItems.reduce((p, c) => {
             const q = p ?? c
             return c.Value > q.Value ? c : q
           })
         : null,
-    [data]
+    [dataItems]
   )
 
   const minValue = useMemo(
     () =>
-      data && Array.isArray(data.Items)
-        ? data.Items.reduce((p, c) => {
+      dataItems.length > 0
+        ? dataItems.reduce((p, c) => {
             const q = p ?? c
             return c.Value < q.Value ? c : q
           })
         : null,
-    [data]
+    [dataItems]
   )
 
-  const buttonCaption = useMemo(
-    () =>
-      `Download ${
-        activeGageItem ? activeGageItem.id : ''
-      } ${attributeLabel} CSV`,
-    [activeGageItem, attributeLabel]
-  )
+  const buttonCaption = `Download ${
+    activeGageItem?.id ?? ''
+  } ${attributeLabel} CSV`
 
-  const csvFileName = useMemo(
-    () => `${activeGageItem ? activeGageItem.id : ''}-${attributeLabel}.csv`,
-    [activeGageItem, attributeLabel]
-  )
+  const csvFileName = `${activeGageItem?.id ?? ''}-${attributeLabel}.csv`
 
   const csvData = useMemo(
     () =>
-      data && Array.isArray(data.Items)
-        ? data.Items.map((item) => ({
-            Timestamp: format(parseJSON(item.Timestamp), 'M/dd/yyyy h:mm aa'),
-            Value: item.Value
-          }))
-        : [],
-    [data]
+      dataItems.map(({Timestamp, Value}) => ({
+        Timestamp: format(parseJSON(Timestamp), 'M/dd/yyyy h:mm aa'),
+        Value
+      })),
+    [dataItems]
   )
 
   const csvHeader = useMemo(
@@ -220,147 +186,18 @@ const PiChart = ({
     []
   )
 
-  const seriesData = useMemo(
-    () =>
-      data && Array.isArray(data.Items)
-        ? data.Items.map((item) => ({
-            x: parseJSON(item.Timestamp).getTime(),
-            y: item.Value
-          }))
-        : [],
-    [data]
-  )
-
-  // It appears that the YAxis labels don't automatically adjust and accommodate width when larger values are present (ie. Reservoir storage/elevation).
-  const leftMargin = useMemo(() => {
-    if (!maxValue || !maxValue.Value) {
-      return 40
-    }
-    const len = maxValue.Value.toString().length
-    switch (true) {
-      case len >= 6:
-        return 70
-      case len === 5:
-        return 60
-      case len === 4:
-        return 50
-      default:
-        return 40
-    }
-  }, [maxValue])
-
-  // const strokeWidth = useMemo(() => {
-  //   if (!lastDrawLocation) {
-  //     return 1.9
-  //   }
-  //   console.log(lastDrawLocation)
-  //   // const diff = lastDrawLocation.right - lastDrawLocation.left
-  //   const diff = 300000001
-
-  //   switch (true) {
-  //     case diff < 100000000:
-  //       return 3.0
-  //     case diff < 200000000:
-  //       return 2.5
-  //     case diff < 300000000:
-  //       return 2.0
-  //     default:
-  //       return 1.9
-  //   }
-  // }, [lastDrawLocation])
-
-  const onBrushEndHandler = useCallback((area: HighlightArea | null) => {
-    // If use just clicked the graph prevent any errors.
-    if (!area) {
-      return
-    }
-    setLastDrawLocation(area)
-  }, [])
-
-  // const onDragHighlightHandler = useCallback((area: any) => {
-  //   console.log('area ondrag', area)
-  //   setLastDrawLocation((cldl) => ({
-  //     bottom: cldl ? cldl.bottom : 0 + (area.top - area.bottom),
-  //     left: cldl ? cldl.left : 0 - (area.right - area.left),
-  //     right: cldl ? cldl.right : 0 - (area.right - area.left),
-  //     top: cldl ? cldl.top : 0 + (area.top - area.bottom)
-  //   }))
-  // }, [])
-
-  const hintValEl = useMemo(
-    () =>
-      hintValue ? (
-        <Hint value={hintValue}>
-          <Box bgcolor={theme.palette.common.white} boxShadow={3} p={1}>
-            <Type
-              variant="body2"
-              color="textPrimary"
-              style={{fontSize: '0.9rem'}}
-            >
-              {format(new Date(hintValue.x), "EE',' M/dd/yy h':'mm aa")}
-            </Type>
-            <Type variant="body2" color="textPrimary">
-              {seriesTitle}:{' '}
-              <strong>{round(hintValue.y, 2).toLocaleString()}</strong>
-            </Type>
-          </Box>
-        </Hint>
-      ) : null,
-    [hintValue, seriesTitle, theme]
-  )
-
-  const markSeriesEl = useMemo(
-    () => (
-      <MarkSeries
-        color={theme.palette.secondary.light}
-        data={hintValue ? [{...hintValue}] : []}
-      />
-    ),
-    [hintValue, theme]
-  )
-
-  const resetZoomClickHandler = useCallback(() => setLastDrawLocation(null), [])
-
-  const onNearestXHandler = useCallback(
-    (value: {x: number; y: number}) => setHintValue(value),
-    []
-  )
-
-  const tickFormat = useCallback(
-    (d: number) => {
-      const diffInDays =
-        !lastDrawLocation || !lastDrawLocation.right || !lastDrawLocation.left
-          ? differenceInDays(endTime, startTime)
-          : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
-      if (diffInDays <= 4) {
-        return format(new Date(d), "M'/'dd, h aa")
+  const seriesData: Serie[] = useMemo(
+    () => [
+      {
+        id: seriesTitle,
+        data: dataItems.map(({Timestamp, Value: y}) => ({
+          x: format(parseJSON(Timestamp), 'yyyy-MM-dd HHmm'),
+          y
+        }))
       }
-      const diffInMonths =
-        !lastDrawLocation || !lastDrawLocation.right || !lastDrawLocation.left
-          ? differenceInMonths(endTime, startTime)
-          : differenceInMonths(lastDrawLocation.right, lastDrawLocation.left)
-      if (diffInMonths > 6) {
-        return format(new Date(d), "MMM ''yy") // Formatting w/ single-quotes is not intuitive. See https://date-fns.org/v2.4.1/docs/format#description for more info.
-      }
-      return format(new Date(d), "d'.' MMM")
-    },
-    [startTime, endTime, lastDrawLocation]
+    ],
+    [dataItems, seriesTitle]
   )
-
-  const tickTotal = useMemo(() => {
-    const diffInDays =
-      !lastDrawLocation || !lastDrawLocation.right || !lastDrawLocation.left
-        ? differenceInDays(endTime, startTime)
-        : differenceInDays(lastDrawLocation.right, lastDrawLocation.left)
-    if (diffInDays <= 4) {
-      return isMdUp ? 8 : 6
-    }
-    return isMdUp ? 12 : 8
-  }, [isMdUp, lastDrawLocation, endTime, startTime])
-
-  const onMouseLeaveHandler = useCallback(() => {
-    setHintValue(false)
-  }, [])
 
   const linearProgressEl = useMemo(
     () =>
@@ -372,8 +209,21 @@ const PiChart = ({
     [isValidating]
   )
 
-  // const configuredCurve = curveCardinal.tension(0.5)
-  const configuredCurve = 'curveMonotoneX'
+  const [chartData, setChartData] = useState<LineDataProp>([])
+  useEffect(() => {
+    setTimeout(() => {
+      setChartData([...seriesData])
+    })
+  }, [seriesData])
+
+  // Add a 10% margin to the chart on the Y axis for the top and a 10% margin on the bottom
+  const maxV = maxValue?.Value
+  const minV = minValue?.Value
+
+  const scaleMaxY = maxV && minV ? maxV + (maxV - minV) * 0.1 : null
+  const scaleMinY = maxV && minV ? minV - (maxV - minV) * 0.1 : null
+
+  const yFormat = isFlow || isStorage ? '>-,.1~f' : '>-,.2~f'
 
   return (
     <Box
@@ -395,64 +245,139 @@ const PiChart = ({
         isLoading={isValidating}
         streamSetMeta={streamSetMeta}
       />
-      <Box position="relative" width="100%">
-        {/* <Box
-          display={!xyPlotRef.current ? 'none' : 'block'}
-          position="absolute"
-          top={0}
-          right={0}
-          zIndex={1}
-          width={sliderWidth ? sliderWidth - 42.4 : 0}
-        >
-          <PiChartFilterSlider />
-        </Box> */}
+      <Box position="relative" width="100%" height={400}>
+        <ResponsiveLine
+          data={chartData}
+          colors={blue[400]}
+          margin={{top: 20, right: 60, bottom: 90, left: 65}}
+          xScale={{
+            type: 'time',
+            format: '%Y-%m-%d %H%M',
+            useUTC: false,
+            precision: 'minute'
+          }}
+          xFormat={(dv) => {
+            if (typeof dv !== 'string' && typeof dv !== 'number') {
+              return format(dv, `M-dd',' h:mm aa`)
+            }
+            return ''
+          }}
+          yScale={{
+            type: 'linear',
+            max: scaleMaxY ?? 'auto',
+            min: scaleMinY ?? 'auto',
+            stacked: false,
+            reverse: false
+          }}
+          yFormat={yFormat}
+          curve="monotoneX"
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            format: (dv) => {
+              if (typeof dv !== 'string' && typeof dv !== 'number') {
+                return format(dv, "d'.' LLL")
+              }
+              return ''
+            },
+            tickValues: xAxisLabels(diffInDays),
+            // legend: 'Date',
+            tickRotation: 0,
+            // legendOffset: 40,
+            legendPosition: 'middle'
+          }}
+          axisLeft={{
+            orient: 'left',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: seriesTitle,
+            legendOffset: -60,
+            legendPosition: 'middle',
+            format: yFormat
+          }}
+          enablePoints={false}
+          // pointSize={10}
+          pointColor={{theme: 'background'}}
+          pointBorderWidth={2}
+          pointBorderColor={{from: 'serieColor'}}
+          pointLabelYOffset={-12}
+          crosshairType="x"
+          useMesh={true}
+          lineWidth={1.8}
+          layers={[
+            'grid',
+            'markers',
+            'axes',
+            'areas',
+            'crosshair',
+            'lines',
+            'points',
+            'slices',
+            'mesh',
+            'legends'
+          ]}
+          legends={[
+            {
+              anchor: 'bottom',
+              direction: 'row',
+              justify: false,
+              translateX: 0,
+              translateY: 70,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 130,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1
+                  }
+                }
+              ]
+            }
+          ]}
+          // enableSlices="x"
+          tooltip={({point}) => {
+            const {serieColor: color, data} = point
+            const {y, yFormatted, xFormatted} = data
 
-        <PiChartResetZoom
-          chartIsZoomed={Boolean(lastDrawLocation)}
-          onResetClick={resetZoomClickHandler}
+            if (y === undefined) return null
+            return (
+              <Box
+                bgcolor={theme.palette.common.white}
+                px={1}
+                py={0.5}
+                boxShadow={4}
+                borderRadius={3}
+              >
+                <RowBox alignItems="center">
+                  <ColumnBox justifyContent="center" pr={0.5}>
+                    <SquareIcon fontSize="small" style={{color}} />
+                  </ColumnBox>
+                  <ChildBox style={{paddingRight: 6}}>
+                    <Type variant="body2">
+                      <Type variant="inherit">{xFormatted}</Type>:
+                    </Type>
+                  </ChildBox>
+                  <ChildBox>
+                    <Type variant="body2">
+                      <strong>
+                        {yFormatted} {units}
+                      </strong>
+                    </Type>
+                  </ChildBox>
+                </RowBox>
+              </Box>
+            )
+          }}
         />
-        <XYPlot
-          ref={xyPlotRef}
-          animation
-          xType="time"
-          height={300}
-          onMouseLeave={onMouseLeaveHandler}
-          xDomain={
-            lastDrawLocation && [lastDrawLocation.left, lastDrawLocation.right]
-          }
-          // yDomain={
-          //   lastDrawLocation && [lastDrawLocation.bottom, lastDrawLocation.top]
-          // }
-          yPadding={10}
-          margin={{right: 20, top: 20, left: leftMargin}}
-        >
-          <HorizontalGridLines />
-          <XAxis tickFormat={tickFormat} tickTotal={tickTotal} />
-          <YAxis
-            title={seriesTitle}
-            style={{fontSize: '1rem'}}
-            // orientation="right"
-            // position="middle"
-          />
-          {hintValEl}
-          <LineSeries
-            color={theme.palette.primary.light}
-            opacity={0.95}
-            // strokeWidth={1.9} // Defaults to 2px.
-            curve={configuredCurve}
-            data={seriesData}
-            onNearestX={onNearestXHandler}
-            style={{fill: 'none', strokeWidth: 1.9}}
-          />
-          {markSeriesEl}
-          <Highlight
-            // drag
-            enableY={false}
-            onBrushEnd={onBrushEndHandler}
-            // onDrag={onDragHighlightHandler}
-            // onDragEnd={onDragHighlightHandler}
-          />
-        </XYPlot>
       </Box>
       <RowBox justifyContent="flex-end" textAlign="right" fontStyle="italic">
         {isValidating ? null : (

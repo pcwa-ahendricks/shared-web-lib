@@ -7,6 +7,7 @@ export const ACCEPT_SIDS = [
   '043134 2',
   '043491 2',
   '048758 2',
+  '047516 2', // Rocklin
   '043891 2' // Hell Hole
 ]
 export const maxmissing = '28'
