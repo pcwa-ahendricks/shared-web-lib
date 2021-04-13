@@ -103,7 +103,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const data = await response.json()
 
     await setAsync(hash, data)
-    await expireAsync(hash, 60 * 60 * 8) // 8 hours
+    await expireAsync(hash, 60 * 60 * 12) // 12 hours
     // await expireAsync(hash, 60 * 1) // 1 min
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')

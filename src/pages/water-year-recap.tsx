@@ -25,7 +25,8 @@ import {
   Divider,
   Hidden,
   useTheme,
-  BoxProps
+  BoxProps,
+  Link
 } from '@material-ui/core'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
@@ -48,6 +49,7 @@ import RegionalSection from '@components/season-recap/RegionalSection'
 import StationSnowfall from '@components/season-recap/StationSnowfall'
 import round from '@lib/round'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
+import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -65,8 +67,8 @@ const stationIds = [
   '043134 2',
   '043491 2',
   '048758 2',
-  '043891 2',
-  '047516 2'
+  '043891 2'
+  // '047516 2'
 ] as const
 
 export type StationId = typeof stationIds[number]
@@ -548,11 +550,48 @@ export default function WaterYearRecapPage() {
       <MainBox>
         <WideContainer>
           <PageTitle title="Water Year Recap" subtitle="Weather & Climate" />
-          <Spacing />
+          <Type>
+            A water year is a 12 month period that extends from October 1st to
+            September 30th. The water year is designated by the calendar year in
+            which it ends. The current water year is{' '}
+            <StrongEmphasis>{waterYear}</StrongEmphasis>. Note the weather and
+            climate data below is presented for informational use only and is
+            not collected or maintained by PCWA. For more information and
+            citation please refer to the following data sources:{' '}
+            <Link
+              href="https://www.rcc-acis.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{outline: 'none'}}
+              underline="hover"
+            >
+              Applied Climate Information System (ACIS)
+            </Link>
+            ,{' '}
+            <Link
+              href="https://www.ncdc.noaa.gov/cag/county/time-series"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{outline: 'none'}}
+              underline="hover"
+            >
+              National Oceanic and Atmospheric Administration (NOAA)
+            </Link>
+            , and{' '}
+            <Link
+              href="https://hprcc.unl.edu"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{outline: 'none'}}
+              underline="hover"
+            >
+              High Plains Regional Climate Center
+            </Link>
+            .
+          </Type>
+          <Spacing size="large" />
           <RegionalSection countyResponse={countyResponse} />
-
           <Spacing size="large" factor={2} />
-
           <Type variant="h2" color="primary">
             Local/Station Conditions
           </Type>
@@ -567,9 +606,16 @@ export default function WaterYearRecapPage() {
                   value={waterYear}
                   onChange={yearSelectHandler}
                 >
-                  {wtrYrMenuItems.map((y, idx) => (
-                    <MenuItem key={idx} value={y}>
+                  {wtrYrMenuItems.map((y) => (
+                    <MenuItem key={y} value={y}>
                       {`${y - 1}-${y}`}
+                      {waterYear === y ? (
+                        <em style={{letterSpacing: 0.5, paddingLeft: 4}}>
+                          (current)
+                        </em>
+                      ) : (
+                        ''
+                      )}
                     </MenuItem>
                   ))}
                 </Select>
@@ -593,18 +639,14 @@ export default function WaterYearRecapPage() {
               </FormControl>
             </ChildBox>
           </RowBox>
-
           <Spacing />
-
           <Box height={300} position="relative">
             <StnMap stationInfo={selectedStationInfo} />
             <Box position="absolute" top={24} right={24}>
               <StationInfo stationInfo={selectedStationInfo} />
             </Box>
           </Box>
-
           <Spacing />
-
           <Paper square>
             <Tabs
               value={tabValue}
