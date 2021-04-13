@@ -259,7 +259,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body={
                 <Type variant="inherit">
-                  <Emx>"How much rain and snow did we get this winter?"</Emx>{' '}
+                  <Emx>
+                    "How much rain and snow did we get this last winter?"
+                  </Emx>{' '}
                   See the latest hydrological conditions in the region including
                   precipitation, snowpack, and climate.
                 </Type>
