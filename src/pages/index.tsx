@@ -1,5 +1,11 @@
 // cspell:ignore COVID perc
-import React, {useState, useMemo, useEffect, useContext} from 'react'
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useContext,
+  useCallback
+} from 'react'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
@@ -36,7 +42,8 @@ type Props = {
 const images = [
   'https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg',
   // 'https://imgix.cosmicjs.com/005050e0-0415-11eb-b508-690c39111331-FW-Home-page-thumbnail.jpg',
-  'https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG',
+  // 'https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG',
+  'https://imgix.cosmicjs.com/c3e93020-9c78-11eb-85ef-2dda0e0d7ad2-wateryearrecapposter.png',
   // 'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg',
   // 'https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg',
   // 'https://imgix.cosmicjs.com/6153c820-5c28-11eb-afa6-e9412ba0a77c-specialnoticecovidmailer.png?crop=top&fit=crop&border=2,cccccc',
@@ -80,7 +87,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     () => (is5to4 ? '-16vmax' : 0),
     [is5to4]
   )
-
+  const Emx = useCallback(
+    ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
+    []
+  )
   const coverTileTopMargin = 5
 
   const tileWidth = isLGUp ? 176 : 160
@@ -218,7 +228,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Fire & Water is a special publication sponsored by PCWA to provide timely information to residents about vital fire and water issues. Read the 2020 edition with contributions from Cal Fire, Placer County, Tahoe National Forest, and more.  "
             /> */}
-            <CoverStory
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Water-Wise Home"
@@ -233,6 +243,27 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 htmlAttributes: {alt: 'Water-Wise Home publication'}
               }}
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
+            /> */}
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="Water Year Recap"
+              linkHref="/water-year-recap"
+              readMore="Take a look"
+              imgixURL={fireWaterImgSrc}
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt:
+                    'A view of French Meadows and Hell Hole Reservoirs from above'
+                }
+              }}
+              body={
+                <Type variant="inherit">
+                  <Emx>"How much rain and snow did we get this winter?"</Emx>{' '}
+                  See the latest hydrological conditions in the region including
+                  precipitation, snowpack, and climate.
+                </Type>
+              }
             />
           </ChildBox>
           <ChildBox flex="50%">

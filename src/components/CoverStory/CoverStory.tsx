@@ -1,5 +1,10 @@
 import React, {useMemo} from 'react'
-import {Box, BoxProps, Typography as Type} from '@material-ui/core'
+import {
+  Box,
+  BoxProps,
+  Typography as Type,
+  TypographyProps
+} from '@material-ui/core'
 import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 // import MuiNextLink from '@components/NextLink/NextLink'
@@ -14,7 +19,7 @@ export type CoverStoryProps = {
   paddingPercent?: number
   imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
-  body?: string
+  body?: TypographyProps['children']
 } & BoxProps
 
 const CoverStory = ({

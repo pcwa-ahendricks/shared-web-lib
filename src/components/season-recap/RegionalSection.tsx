@@ -160,6 +160,10 @@ export default function RegionalSection({countyResponse}: Props) {
     }
   }, [])
 
+  const Emx = useCallback(({children}) => {
+    return <em style={{letterSpacing: 0.4}}>{children}</em>
+  }, [])
+
   const [percNormalPrecipSrc, setPercNormalPrecipSrc] = useState<string>(
     prcNrmlPrcpImgSrc[regionalTimeFrame]
   )
@@ -646,7 +650,7 @@ export default function RegionalSection({countyResponse}: Props) {
             <RowBox p={1}>
               <ChildBox flex="auto">
                 <Type variant="body1" align="center" style={{fontSize: 20}}>
-                  <em>
+                  <Emx>
                     In the{' '}
                     <StrongEmphasis variant="inherit" color="primary">
                       {regionalTimeFrame === 'waterYear'
@@ -658,7 +662,7 @@ export default function RegionalSection({countyResponse}: Props) {
                         : ''}
                     </StrongEmphasis>{' '}
                     the greater region has received...
-                  </em>
+                  </Emx>
                 </Type>
               </ChildBox>
             </RowBox>
@@ -895,7 +899,7 @@ export default function RegionalSection({countyResponse}: Props) {
             <RowBox p={1}>
               <ChildBox flex="auto">
                 <Type variant="body1" align="center" style={{fontSize: 20}}>
-                  <em>and has been...</em>
+                  <Emx>and has been...</Emx>
                 </Type>
               </ChildBox>
             </RowBox>
