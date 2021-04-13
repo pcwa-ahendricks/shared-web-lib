@@ -440,6 +440,8 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     ]
   },
   images: {
+    // loader: 'imgix',
+    // path: 'https://imgix.cosmicjs.com/',
     domains: [
       'cosmicjs.imgix.net',
       'imgix.cosmicjs.com',
