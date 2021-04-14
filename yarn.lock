@@ -7773,6 +7773,11 @@ use-subscription@1.5.1:
   dependencies:
     object-assign "^4.1.1"
 
+use-timeout@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/use-timeout/-/use-timeout-1.1.0.tgz#622843678ff9e2c59a030b86baa36de0a8462f8a"
+  integrity sha512-1veqpjjjHvjQ7qcMrz72HnL+6WgsehNFnFbdKNsSGWa+GcbjXrPrfFiBj/wtzHBBB8h5WO4B3O7i54NT8RIr6w==
+
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"

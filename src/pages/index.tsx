@@ -47,7 +47,8 @@ const images = [
   // 'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg',
   // 'https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg',
   // 'https://imgix.cosmicjs.com/6153c820-5c28-11eb-afa6-e9412ba0a77c-specialnoticecovidmailer.png?crop=top&fit=crop&border=2,cccccc',
-  'https://imgix.cosmicjs.com/6d3e7210-7c7c-11eb-beb5-ff14f615644b-2020-Year-End-Reportwebsite-graphic.jpg',
+  // 'https://imgix.cosmicjs.com/6d3e7210-7c7c-11eb-beb5-ff14f615644b-2020-Year-End-Reportwebsite-graphic.jpg',
+  'https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG',
   'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg',
   'https://imgix.cosmicjs.com/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png',
   'https://imgix.cosmicjs.com/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg',
@@ -245,11 +246,15 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
             /> */}
             <CoverStory
+              aria-label="Link to Water Year Dashboard page"
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Water Year Dashboard"
               linkHref="/water-year-dashboard"
               readMore="Take a look"
+              flexLinkProps={{
+                isNextLink: true
+              }}
               imgixURL={fireWaterImgSrc}
               imgixFancyProps={{
                 htmlAttributes: {
@@ -318,7 +323,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               winners are from PCWA’s service area!"
             /> */}
 
-            <CoverStory
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="2020 Year End Report"
@@ -336,6 +341,28 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 }
               }}
               body="2020 was certainly a challenging year, but that didn’t get keep PCWA from continuing to deliver high-quality water and protect our customer’s investments. Take a look at our newly released 2020 year-end report."
+            /> */}
+
+            <CoverStory
+              aria-label="Link to Monthly Billing FAQs page"
+              imageRatio={coverStoryImageRatio}
+              paddingPercent={coverStoryPadPerc}
+              title="We’re Transitioning to Monthly Billing"
+              readMore="More Information..."
+              flexLinkProps={{
+                isNextLink: true
+              }}
+              linkHref="/services/monthly-billing"
+              imgixURL={waterTechImgSrc}
+              imgixFancyProps={{
+                htmlAttributes: {
+                  alt: 'Monthly Billing Announcement Flyer'
+                },
+                imgixParams: {
+                  crop: 'top'
+                }
+              }}
+              body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in August."
             />
 
             {/* <CoverStory

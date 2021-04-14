@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Box,
   BoxProps,
@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import Animate, {AnimateProps} from '@components/Animate/Animate'
 import HandIcon from 'mdi-material-ui/HandPointingRight'
+import useTimeout from 'use-timeout'
 
 export default function LookHere({
   children,
@@ -16,7 +17,13 @@ export default function LookHere({
 }: BoxProps & Partial<AnimateProps>) {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const show = !isXs && animate
+  const [show, setShow] = useState(false)
+  const [timeUp, setTimeUp] = useState(false)
+
+  useTimeout(() => setTimeUp(true), 3000)
+  useEffect(() => {
+    setShow(Boolean(!isXs && animate && timeUp))
+  }, [isXs, animate, timeUp])
 
   return (
     <Box position="relative" {...rest}>
@@ -25,7 +32,7 @@ export default function LookHere({
         <Animate
           name="backInLeft"
           position="absolute"
-          left={-200}
+          left={-180}
           top={20}
           zIndex={1}
           width={140}
