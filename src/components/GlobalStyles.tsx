@@ -23,6 +23,14 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     '.MuiTypography-gutterBottom': {
       marginBottom: '.5em' // Defaults to .35em which is a bit small.
     },
+    // Kipperman font is a bit dense in italic form
+    '.MuiTypography-root': {
+      '&.MuiTypography-body1,.MuiTypography-body2': {
+        '& em': {
+          letterSpacing: '.1px'
+        }
+      }
+    },
     article: {
       '& .MuiTypography-h1:not(:first-child)': {
         marginTop: theme.spacing(4)

@@ -16,6 +16,7 @@ interface State {
   alerts: Alert[]
   animateDone: {
     home: boolean
+    payBill: boolean
   }
 }
 
@@ -28,7 +29,8 @@ const initialState: State = {
   drawerOpen: false,
   alerts: [],
   animateDone: {
-    home: false
+    home: false,
+    payBill: false
   }
 }
 

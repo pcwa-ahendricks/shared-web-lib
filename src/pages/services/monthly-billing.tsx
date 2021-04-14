@@ -4,20 +4,100 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import {Typography as Type, Box} from '@material-ui/core'
+import {
+  Typography as Type,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon
+} from '@material-ui/core'
 import Image from 'next/image'
+import Spacing from '@components/boxes/Spacing'
+// import ArrowRightIcon from '@material-ui/icons/ArrowForwardIosOutlined'
+import UntreatedIcon from 'mdi-material-ui/Waves'
+import TreatedIcon from 'mdi-material-ui/CupWater'
+import BulletIcon from 'mdi-material-ui/CircleSmall'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import MonthlyBillingFaq from '@components/MonthlyBillingFaq/MonthlyBillingFaq'
 
 export default function MonthlyBillingPage() {
   return (
     <PageLayout title="Monthly Billing" waterSurface>
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Monthly Billing" subtitle="Services" />
-          <RowBox responsive flexSpacing={4}>
-            <Box
-              mx="auto"
-              width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
-            >
+          <PageTitle
+            title="We’re Transitioning to Monthly Billing"
+            // subtitle="Services"
+          />
+          <Spacing />
+          <Type gutterBottom>
+            Placer County Water Agency is transitioning customers from
+            bi-monthly to monthly billing over the next several months.
+          </Type>
+          <Spacing />
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <UntreatedIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText
+                prefix="arst"
+                primary="Canal water customers will transition in mid-May."
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <TreatedIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Treated water customers will begin transitioning in August." />
+            </ListItem>
+          </List>
+          <Spacing />
+          <Type paragraph>
+            Monthly billing is standard for most utilities and businesses, and
+            better aligns with other monthly expenses. In addition, monthly
+            billing provides more timely information about water use and more
+            frequent opportunities to identify and repair household leaks that
+            might otherwise go undetected.
+          </Type>
+          <Spacing size="large" />
+          <Type variant="h3">What You Should Know</Type>
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <BulletIcon />
+              </ListItemIcon>
+              <ListItemText primary="With monthly billing, you will receive 12 instead of six bills." />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <BulletIcon />
+              </ListItemIcon>
+              <ListItemText primary="Bills will be due monthly instead of bi-monthly. Check the top right corner of your bill for the due date." />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <BulletIcon />
+              </ListItemIcon>
+              <ListItemText primary="If you use Automatic Bill Payment, your payments will automatically adjust. However, if you established recurring payments through your personal banking website, you will likely need to adjust the payment frequency." />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <BulletIcon />
+              </ListItemIcon>
+              <ListItemText primary="During the transition period, some bi-monthly bills may reflect more or fewer than 60 days of service, and some monthly bills may reflect more or fewer than 30 days of service." />
+            </ListItem>
+          </List>
+          <Spacing />
+          <Type>
+            Thank you for your patience during the transition to monthly
+            billing. Should you have any questions, please refer to the Monthly
+            Billing below or email our Customer Services team at{' '}
+            <CustomerServicesEmail />
+          </Type>
+          <Spacing size="large" />
+          <RowBox justifyContent="space-around">
+            <ChildBox flex={{xs: 'auto', sm: '0 1 90%'}}>
               <Image
                 width={700}
                 height={452}
@@ -25,11 +105,21 @@ export default function MonthlyBillingPage() {
                 src="https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG"
                 alt="PCWA is transitioning to monthly billing"
               />
-            </Box>
+            </ChildBox>
           </RowBox>
-          <ChildBox flex="60%">
-            <Type paragraph>...</Type>
-          </ChildBox>
+          <Spacing size="large" factor={2} />
+          <Type variant="h3" gutterBottom>
+            Frequently Asked Questions
+          </Type>
+          <Type paragraph>
+            <em>
+              You may have some questions about how monthly billing will impact
+              you. The PCWA Customer Service team has answered some of the
+              questions you may have below.
+            </em>
+          </Type>
+          <Spacing />
+          <MonthlyBillingFaq />
         </NarrowContainer>
       </MainBox>
     </PageLayout>

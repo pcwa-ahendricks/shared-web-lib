@@ -160,6 +160,10 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/services/pay-bill'
           },
           {
+            title: 'Monthly Billing FAQs',
+            nextLink: '/services/monthly-billing'
+          },
+          {
             title: 'Account Maintenance',
             nextLink: '/services/account-maintenance'
           },
