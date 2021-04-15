@@ -3,11 +3,12 @@ import {AlertTitle, AlertProps} from '@material-ui/lab'
 import IeOnly from '@components/boxes/IeOnly'
 import WebIcon from '@material-ui/icons/Web'
 import {UiContext, setAlertHidden, setAlertActive} from '@components/ui/UiStore'
-import CollapsibleAlert, {CollapsibleCosmicAlert} from './CollapsibleAlert'
+import CollapsibleAlert from './CollapsibleAlert'
 import useMatchesIe from '@hooks/useMatchesIe'
 import useSWR from 'swr'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {stringify} from 'querystringify'
+import {CollapsibleCosmicAlert} from './CollapsibleCosmicAlert'
 
 export type AlertsProps = {
   bottomBgGradient?: boolean

@@ -9,11 +9,9 @@ import {
   makeStyles,
   useTheme,
   createStyles,
-  Typography as Type,
-  useMediaQuery,
-  SvgIcon
+  useMediaQuery
 } from '@material-ui/core'
-import {Alert, AlertProps, AlertTitle} from '@material-ui/lab'
+import {Alert, AlertProps} from '@material-ui/lab'
 import {
   UiContext,
   setAlertHidden,
@@ -21,10 +19,6 @@ import {
   addAlert
 } from '@components/ui/UiStore'
 import CloseIcon from '@material-ui/icons/Close'
-import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
-import useSWR from 'swr'
-import {textFetcher} from '@lib/fetcher'
-import FlexLink from '@components/FlexLink/FlexLink'
 
 export type CollapsibleAlertProps = {
   position: number
@@ -35,49 +29,6 @@ export type CollapsibleAlertProps = {
   bottomBgGradient?: boolean
   topBgGradient?: boolean
 } & AlertProps
-
-type CollapsibleCosmicAlertProps = {
-  muiIconName?: string
-  muiIconFamily?: string
-  headingHtmlStr?: string
-  contentHtmlStr?: string
-} & CollapsibleAlertProps
-
-const iconParserOptions: HTMLReactParserOptions = {
-  // [TODO] Fix any type
-  replace: ({children = [], attribs, name}: any) => {
-    if (name === 'svg') {
-      return (
-        <SvgIcon {...attribs}>
-          {/* Recursive parsing un-necessary with <svg/> elements */}
-          {/* {domToReact(children, parserOptions)} */}
-          {domToReact(children)}
-        </SvgIcon>
-      )
-    }
-  }
-}
-
-const bodyParserOptions: HTMLReactParserOptions = {
-  // [TODO] Fix any type
-  replace: ({children = [], attribs, name}: any) => {
-    if (name === 'p') {
-      return (
-        <Type {...attribs} color="inherit" variant="inherit" paragraph={false}>
-          {domToReact(children, bodyParserOptions)}
-        </Type>
-      )
-    } else if (name === 'a') {
-      return (
-        <FlexLink {...attribs} underline="always" variant="inherit" detectNext>
-          {/* Recursive parsing un-necessary with <a/> elements */}
-          {/* {domToReact(children, parserOptions)} */}
-          {domToReact(children)}
-        </FlexLink>
-      )
-    }
-  }
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -243,64 +194,3 @@ export default function CollapsibleAlert({
     </Collapse>
   )
 }
-
-function CollapsibleCosmicAlert({
-  children,
-  muiIconFamily = 'baseline',
-  muiIconName,
-  headingHtmlStr = '',
-  contentHtmlStr = '',
-  ...props
-}: CollapsibleCosmicAlertProps) {
-  const {data: svgIconText = ''} = useSWR<string>(
-    muiIconName
-      ? `https://material-icons.github.io/material-icons/svg/${muiIconName}/${muiIconFamily}.svg`
-      : null,
-    textFetcher
-  )
-
-  const ParsedSvgIcon = useCallback(() => {
-    const parsed = Parser(svgIconText, iconParserOptions)
-    return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
-  }, [svgIconText])
-
-  const ParsedHeading = useCallback(() => {
-    const parsed = Parser(headingHtmlStr, bodyParserOptions)
-    return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
-  }, [headingHtmlStr])
-
-  const ParsedContent = useCallback(() => {
-    const parsed = Parser(contentHtmlStr, bodyParserOptions)
-    return <>{Array.isArray(parsed) ? parsed[0] : parsed}</>
-  }, [contentHtmlStr])
-
-  const SvgIconEx = useCallback(
-    () => (svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />),
-    [svgIconText, ParsedSvgIcon]
-  )
-
-  return (
-    <CollapsibleAlert icon={<SvgIconEx />} {...props}>
-      <AlertTitle>
-        <ParsedHeading />
-      </AlertTitle>
-      <ParsedContent />
-      {children}
-    </CollapsibleAlert>
-  )
-}
-
-function EmptyIcon() {
-  return (
-    <SvgIcon
-      xmlns="http://www.w3.org/2000/svg"
-      focusable={false}
-      viewBox="0 0 24 24"
-      aria-hidden={true}
-      width={24}
-      height={24}
-    />
-  )
-}
-
-export {CollapsibleCosmicAlert}
