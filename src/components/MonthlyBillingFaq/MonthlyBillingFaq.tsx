@@ -13,13 +13,10 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
-  Link
+  ListItemText
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ColumnBox} from 'mui-sleazebox'
-import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-// import MainPhone from '@components/links/MainPhone'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
