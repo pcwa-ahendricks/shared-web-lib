@@ -1,6 +1,6 @@
 // cspell:ignore smoothscroll
-import React from 'react'
-import App from 'next/app'
+import React, {useEffect} from 'react'
+import {AppProps} from 'next/app'
 import Router from 'next/router'
 import {ThemeProvider} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -64,13 +64,12 @@ Router.events.on('routeChangeStart', (url) => {
 Router.events.on('routeChangeComplete', () => stopProgressBar())
 Router.events.on('routeChangeError', () => stopProgressBar())
 
-class MyApp extends App {
-  /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-  componentDidMount() {
+export default function MyApp({Component, pageProps}: AppProps) {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles && jssStyles.parentNode) {
-      jssStyles.parentNode.removeChild(jssStyles)
+    if (jssStyles) {
+      jssStyles.parentElement?.removeChild(jssStyles)
     }
 
     isDev && console.log('Applying smoothscroll polyfill')
@@ -81,65 +80,58 @@ class MyApp extends App {
       // console.log('Initializing Google Analytics')
       initGA()
     }
-  }
+  }, [])
 
-  /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-  render() {
-    const {Component, pageProps} = this.props
-    /* Wrap every page in Jss and Theme providers. ThemeProvider makes the theme available down the React tree thanks to React context. */
-    return (
-      <>
-        <Head>
-          {/* See https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md */}
-          {/* Use minimum-scale=1 to enable GPU rasterization */}
-          {/* Use viewport-fil=cover to enable intended "apple-mobile-web-app-status-bar-style"
+  /* Wrap every page in Jss and Theme providers. ThemeProvider makes the theme available down the React tree thanks to React context. */
+  return (
+    <>
+      <Head>
+        {/* See https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md */}
+        {/* Use minimum-scale=1 to enable GPU rasterization */}
+        {/* Use viewport-fil=cover to enable intended "apple-mobile-web-app-status-bar-style"
               behavior.
           */}
-          <meta
-            name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, shrink-to-fit=no, ' +
-              'minimum-scale=1, width=device-width, height=device-height, ' +
-              'viewport-fit=cover'
-            }
-          />
-        </Head>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <GlobalStyles />
-          <SWRConfig
-            value={{
-              revalidateOnMount: true, // Revalidate even when initial data is set
-              revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy
-              fetcher
-            }}
-          >
-            <PiProvider>
-              <UiProvider>
-                <NewsroomContext>
-                  <MultimediaProvider>
-                    <ForecastProvider>
-                      <SearchProvider>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                          <ParallaxProvider>
-                            {/* Pass pageContext to the _document though the renderPage enhancer
+        <meta
+          name="viewport"
+          content={
+            'user-scalable=0, initial-scale=1, shrink-to-fit=no, ' +
+            'minimum-scale=1, width=device-width, height=device-height, ' +
+            'viewport-fit=cover'
+          }
+        />
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <GlobalStyles />
+        <SWRConfig
+          value={{
+            revalidateOnMount: true, // Revalidate even when initial data is set
+            revalidateOnFocus: !isDev, // Makes debugging with devtools less noisy
+            fetcher
+          }}
+        >
+          <PiProvider>
+            <UiProvider>
+              <NewsroomContext>
+                <MultimediaProvider>
+                  <ForecastProvider>
+                    <SearchProvider>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ParallaxProvider>
+                          {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                            <Component {...pageProps} />
-                          </ParallaxProvider>
-                        </MuiPickersUtilsProvider>
-                      </SearchProvider>
-                    </ForecastProvider>
-                  </MultimediaProvider>
-                </NewsroomContext>
-              </UiProvider>
-            </PiProvider>
-          </SWRConfig>
-        </ThemeProvider>
-      </>
-    )
-  }
-  /* eslint-enable @typescript-eslint/explicit-member-accessibility */
+                          <Component {...pageProps} />
+                        </ParallaxProvider>
+                      </MuiPickersUtilsProvider>
+                    </SearchProvider>
+                  </ForecastProvider>
+                </MultimediaProvider>
+              </NewsroomContext>
+            </UiProvider>
+          </PiProvider>
+        </SWRConfig>
+      </ThemeProvider>
+    </>
+  )
 }
-
-export default MyApp
