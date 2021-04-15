@@ -13,7 +13,8 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Link
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ColumnBox} from 'mui-sleazebox'
@@ -292,8 +293,11 @@ const MonthlyBillingFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              You can refer to the Monthly Billing FAQs on the website at
-              pcwa.net (see Monthly Billing) or email <CustomerServicesEmail />.
+              You can refer to{' '}
+              <Link variant="inherit" href="https://www.pcwa.net">
+                pcwa.net
+              </Link>{' '}
+              (see Monthly Billing) or email <CustomerServicesEmail />.
             </Type>
           </ColumnBox>
         </AccordionDetails>

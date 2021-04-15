@@ -67,7 +67,7 @@ export default function MonthlyBillingPage() {
               <ListItemIcon>
                 <BulletIcon />
               </ListItemIcon>
-              <ListItemText primary="With monthly billing, you will receive 12 instead of six bills." />
+              <ListItemText primary="With monthly billing, you will receive twelve bills per year, instead of 6." />
             </ListItem>
             <ListItem>
               <ListItemIcon>
@@ -92,7 +92,7 @@ export default function MonthlyBillingPage() {
           <Type>
             Thank you for your patience during the transition to monthly
             billing. Should you have any questions, please refer to the Monthly
-            Billing below or email our Customer Services team at{' '}
+            Billing FAQ’s below or email our Customer Services team at{' '}
             <CustomerServicesEmail />
           </Type>
           <Spacing size="large" />
@@ -114,7 +114,7 @@ export default function MonthlyBillingPage() {
           <Type paragraph>
             <em>
               You may have some questions about how monthly billing will impact
-              you. The PCWA Customer Service team has answered some of the
+              you. The PCWA Customer Services team has answered some of the
               questions you may have below.
             </em>
           </Type>
