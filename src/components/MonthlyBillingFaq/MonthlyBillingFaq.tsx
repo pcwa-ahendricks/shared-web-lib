@@ -286,18 +286,13 @@ const MonthlyBillingFaq = () => {
           aria-controls="panel8bh-content"
           id="panel8bh-header"
         >
-          <Type variant="subtitle2">
-            I have questions about my bill. Who can I contact?
-          </Type>
+          <Type variant="subtitle2">Can I pick the date my bill is due?</Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              You can refer to{' '}
-              <Link variant="inherit" href="https://www.pcwa.net">
-                pcwa.net
-              </Link>{' '}
-              (see Monthly Billing) or email <CustomerServicesEmail />.
+              No, you cannot pick the date that your bill is due. Check the top
+              right corner of your bill for the due date.
             </Type>
           </ColumnBox>
         </AccordionDetails>
