@@ -67,13 +67,13 @@ export default function MonthlyBillingPage() {
               <ListItemIcon>
                 <BulletIcon />
               </ListItemIcon>
-              <ListItemText primary="With monthly billing, treated water and year-round canal customers will receive twelve bills per year, instead of 6." />
+              <ListItemText primary="With monthly billing, treated water and year-round canal customers will receive 12 bills per year, instead of six." />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <BulletIcon />
               </ListItemIcon>
-              <ListItemText primary="With monthly billing, summer canal water customers will receive six bills, instead of 3." />
+              <ListItemText primary="With monthly billing, summer canal water customers will receive six bills, instead of three." />
             </ListItem>
             <ListItem>
               <ListItemIcon>
