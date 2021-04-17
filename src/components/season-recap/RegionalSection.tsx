@@ -264,7 +264,9 @@ export default function RegionalSection({countyResponse}: Props) {
   const {
     data: multiStnPrecipSmryRes,
     isValidating: multiStnPrecipSmryResValidating
-  } = useSWR<MultiStnSmryResponse>(`${multiStnPrcpSmryUrlBase}${multiStnQs}`)
+  } = useSWR<MultiStnSmryResponse>(`${multiStnPrcpSmryUrlBase}${multiStnQs}`, {
+    revalidateOnFocus: false
+  })
 
   const [multiStnPrecipSmryResLoading] = useDebounce(
     multiStnPrecipSmryResValidating,
@@ -336,7 +338,9 @@ export default function RegionalSection({countyResponse}: Props) {
   const {
     data: multiStnSnowSmryRes,
     isValidating: multiStnSnowSmryResValidating
-  } = useSWR<MultiStnSmryResponse>(`${multiStnSnowSmryUrlBase}${multiStnQs}`)
+  } = useSWR<MultiStnSmryResponse>(`${multiStnSnowSmryUrlBase}${multiStnQs}`, {
+    revalidateOnFocus: false
+  })
 
   const [multiStnSnowSmryResLoading] = useDebounce(
     multiStnSnowSmryResValidating,
@@ -412,7 +416,10 @@ export default function RegionalSection({countyResponse}: Props) {
   const {
     data: multiStnMxTempSmryRes,
     isValidating: multiStnMxTempSmryResValidating
-  } = useSWR<MultiStnSmryResponse>(`${multiStnMxTempSmryUrlBase}${multiStnQs}`)
+  } = useSWR<MultiStnSmryResponse>(
+    `${multiStnMxTempSmryUrlBase}${multiStnQs}`,
+    {revalidateOnFocus: false}
+  )
 
   const [multiStnMxTempSmryResLoading] = useDebounce(
     multiStnMxTempSmryResValidating,
