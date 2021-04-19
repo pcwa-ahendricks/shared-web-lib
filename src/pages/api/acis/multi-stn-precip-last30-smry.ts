@@ -20,8 +20,10 @@ client.on('error', (err: RedisError) => {
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
-    const {waterYear: waterYearParam} = req.query
+    const {waterYear: waterYearParam, bust: bustParam} = req.query
     const waterYear = parseInt(paramToStr(waterYearParam), 10)
+    const bust = paramToStr(bustParam).toLowerCase() === 'true'
+
     if (!lastTenWaterYears().includes(waterYear)) {
       res.status(406).end()
       return
@@ -76,7 +78,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = `acis-precip-last30-smry-_${eDate}`
     const cache = await getAsync(hash)
-    if (cache && typeof cache === 'object') {
+    if (!bust && cache && typeof cache === 'object') {
       dLog('returning cache copy...')
       res.status(200).json(cache)
       return
