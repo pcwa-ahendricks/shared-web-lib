@@ -73,9 +73,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       county: ['06057', '06061', '06017'],
       date: eDate,
       meta: ['name', 'state', 'll', 'sids', 'elev', 'county', 'valid_daterange']
+      // output: 'json'
     }
 
-    const apiUrl = 'https://data.rcc-acis.org/MultiStnData'
+    const apiUrl = 'http://data.rcc-acis.org/MultiStnData'
 
     const hash = `acis-precip-seas-smry-_${eDate}`
     const cache = await getAsync(hash)
@@ -92,6 +93,12 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     })
 
     if (!response.ok) {
+      try {
+        const text = await response.text()
+        console.error(`${response.statusText} - ${text}`)
+      } catch (_e) {
+        console.error(response.statusText)
+      }
       res.status(400).end()
       return
     }
