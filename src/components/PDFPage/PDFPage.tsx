@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useMemo, useRef} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import {Theme, LinearProgress, useTheme, Box} from '@material-ui/core'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -11,47 +11,45 @@ type Props = {
 
 const PDFPage = ({alt, url, showLoading = true}: Props) => {
   const theme = useTheme<Theme>()
-  const [loaded, setLoaded] = useState<boolean>(false)
   // const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const {lg} = theme.breakpoints.values
 
-  const onLoadHandler = useCallback(() => {
-    setLoaded(true)
-  }, [])
+  const [loaded, setLoaded] = useState<boolean>(true)
 
-  const imgDiv = useRef<HTMLDivElement>(null)
-  const imgDivHeight = imgDiv.current?.clientHeight
+  const onLoadHandler = useCallback(() => {
+    // Timeout fixes SSR issue with onLoad event, preventing infinite spinner on SSR loads
+    setTimeout(() => {
+      setLoaded(true)
+    })
+  }, [])
 
   const progressEl = useMemo(
     () =>
-      showLoading && !loaded && typeof imgDivHeight !== 'number' ? (
+      showLoading && !loaded ? (
         <Box position="absolute" width="100%" top={0} left={0}>
           <LinearProgress color="secondary" />
         </Box>
       ) : null,
-    [showLoading, loaded, imgDivHeight]
+    [showLoading, loaded]
   )
-  console.log(url)
 
   return (
     <Box position="relative">
       {progressEl}
       <Box maxWidth={lg} width="100%" height="100%" margin="auto">
-        <div ref={imgDiv}>
-          <Image
-            loader={imgixUrlLoader}
-            src={url}
-            onLoad={onLoadHandler}
-            alt={alt}
-            objectFit="contain"
-            quality={100}
-            layout="responsive"
-            width="100%"
-            height="100%"
-            priority
-            // {...rest}
-          />
-        </div>
+        <Image
+          loader={imgixUrlLoader}
+          src={url}
+          onLoad={onLoadHandler}
+          alt={alt}
+          objectFit="contain"
+          quality={100}
+          layout="responsive"
+          width="100%"
+          height="100%"
+          priority
+          // {...rest}
+        />
       </Box>
     </Box>
   )
