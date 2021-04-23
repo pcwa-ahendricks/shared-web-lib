@@ -12,8 +12,9 @@ const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
   const parsed = parse(src, true)
   const {query, origin, pathname} = parsed
   const {...params} = query
-  const qs = stringify(params, false)
-  return `${origin}${pathname}?auto=format&w=${width}&q=${quality || 75}&${qs}`
+  const p = stringify(params, false)
+  const qs = p ? `&${p}` : ''
+  return `${origin}${pathname}?auto=format&w=${width}&q=${quality || 75}${qs}`
 }
 
 export default imgixLoader

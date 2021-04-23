@@ -10,12 +10,13 @@ import {
   makeStyles,
   BoxProps
 } from '@material-ui/core'
-import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {ColumnBox} from 'mui-sleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'
 import clsx from 'clsx'
 import Link from 'next/link'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 const MAX_IMAGE_WIDTH = 85
 
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer'
     },
     thumbnailContainer: ({isHover}: UseStylesProps) => ({
+      backgroundColor: theme.palette.common.white,
       boxShadow: '1px 1px 4px #ccc',
       border: !isHover
         ? '1px solid transparent'
@@ -93,17 +95,12 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
         onMouseLeave={() => setIsHover(false)}
       >
         <Box width={imageWidth} className={classes.thumbnailContainer}>
-          <ImgixFancy
-            paddingPercent={129.412}
-            // height={100} // Don't specify height since it will break 'data-optimumx' LazySizes plugin.
+          <Image
+            loader={imgixUrlLoader}
             src={imgixUrl}
-            htmlAttributes={{
-              alt: 'Board Minutes Thumbnail',
-              'data-optimumx': 1, // Don't need retrieve high-dpr/retina images.
-              style: {
-                backgroundColor: theme.palette.common.white
-              }
-            }}
+            alt="Board Minutes Thumbnail"
+            width={90}
+            height={116}
           />
         </Box>
         <ColumnBox textAlign="center" mt={1}>
