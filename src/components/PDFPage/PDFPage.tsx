@@ -11,7 +11,6 @@ type Props = {
 
 const PDFPage = ({alt, url, showLoading = true}: Props) => {
   const theme = useTheme<Theme>()
-  // const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const {lg} = theme.breakpoints.values
 
   const [loaded, setLoaded] = useState<boolean>(true)
