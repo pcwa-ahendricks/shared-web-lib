@@ -1,21 +1,21 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {useMediaQuery, Theme, LinearProgress, useTheme} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
-import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
+import {
+  useMediaQuery,
+  Theme,
+  LinearProgress,
+  useTheme,
+  Box
+} from '@material-ui/core'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   url: string
   alt: string
   showLoading?: boolean
-  imgixHtmlAttributes?: any
 }
 
-const PDFPage = ({
-  alt,
-  url,
-  showLoading = false,
-  imgixHtmlAttributes = {}
-}: Props) => {
+const PDFPage = ({alt, url, showLoading = false}: Props) => {
   const theme = useTheme<Theme>()
   const [loaded, setLoaded] = useState<boolean>(false)
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -38,31 +38,32 @@ const PDFPage = ({
   const progressEl = useMemo(
     () =>
       showLoading && !loaded ? (
-        <ColumnBox position="absolute" width="100%" top={0} left={0}>
+        <Box position="absolute" width="100%" top={0} left={0}>
           <LinearProgress color="secondary" />
-        </ColumnBox>
+        </Box>
       ) : null,
     [showLoading, loaded]
   )
 
   return (
-    <RowBox
-      minHeight={!loaded ? minHeight : 0}
-      position="relative"
-      justifyContent="space-around"
-    >
+    <Box minHeight={!loaded ? minHeight : 0} position="relative">
       {progressEl}
-      <ChildBox maxWidth={lg} flex="auto">
-        <LazyImgix
+      <Box maxWidth={lg} width="100%" height="100%" margin="auto">
+        <Image
+          loader={imgixUrlLoader}
           src={url}
-          htmlAttributes={{
-            onLoad: onLoadHandler,
-            alt,
-            ...imgixHtmlAttributes
-          }}
+          onLoad={onLoadHandler}
+          alt={alt}
+          objectFit="contain"
+          quality={100}
+          layout="responsive"
+          width="100%"
+          height="100%"
+          priority
+          // {...rest}
         />
-      </ChildBox>
-    </RowBox>
+      </Box>
+    </Box>
   )
 }
 

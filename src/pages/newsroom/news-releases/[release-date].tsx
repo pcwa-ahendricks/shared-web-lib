@@ -180,14 +180,12 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
             />
           </ChildBox>
         </RowBox>
-        <Box position="relative">
-          <PDFPage
-            showLoading={true}
-            alt={`News release document image for ${publishDate} - page 1/${pageCount}`}
-            url={media?.imgix_url ?? ''}
-          />
-          <Divider />
-        </Box>
+        <PDFPage
+          showLoading={true}
+          alt={`News release document image for ${publishDate} - page 1/${pageCount}`}
+          url={media?.imgix_url ?? ''}
+        />
+        <Divider />
         {progressEl}
         {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
