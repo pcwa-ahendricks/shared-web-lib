@@ -17,7 +17,7 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [timeout, setTimeout] = useState<boolean>(false)
   // Wait a second to show loading indicator
-  useTimeout(() => setTimeout(true), 1000)
+  useTimeout(() => setTimeout(true), 500)
 
   const onLoadHandler = useCallback(() => {
     setLoaded(true)
