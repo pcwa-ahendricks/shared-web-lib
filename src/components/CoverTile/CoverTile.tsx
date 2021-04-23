@@ -86,8 +86,8 @@ const CoverTile = ({
             loader={imgixUrlLoader}
             src={imgixUrl}
             layout="responsive"
-            objectFit="cover"
             width={width}
+            sizes="(min-width: 1000px) 20vw, (min-width: 640px) 30vw, 50vw"
             height="100%"
             alt={alt}
           />

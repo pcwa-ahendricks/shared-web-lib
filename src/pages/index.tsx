@@ -248,20 +248,15 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverStory
               aria-label="Link to Water Year Dashboard page"
               imageRatio={coverStoryImageRatio}
-              paddingPercent={coverStoryPadPerc}
               title="Water Year Dashboard"
+              width="100%"
               linkHref="/water-year-dashboard"
               readMore="Take a look"
               flexLinkProps={{
                 isNextLink: true
               }}
               imgixURL={fireWaterImgSrc}
-              imgixFancyProps={{
-                htmlAttributes: {
-                  alt:
-                    'A view of French Meadows and Hell Hole Reservoirs from above'
-                }
-              }}
+              alt="A view of French Meadows and Hell Hole Reservoirs from above"
               body={
                 <Type variant="inherit">
                   <Emx>
@@ -346,7 +341,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverStory
               aria-label="Link to Monthly Billing FAQs page"
               imageRatio={coverStoryImageRatio}
-              paddingPercent={coverStoryPadPerc}
               title="We’re Transitioning to Monthly Billing"
               readMore="More Information..."
               flexLinkProps={{
@@ -354,13 +348,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               linkHref="/services/monthly-billing"
               imgixURL={waterTechImgSrc}
-              imgixFancyProps={{
-                htmlAttributes: {
-                  alt: 'Monthly Billing Announcement Flyer'
-                },
-                imgixParams: {
-                  crop: 'top'
-                }
+              alt="Monthly Billing Announcement Flyer"
+              imgixParams={{
+                crop: 'top'
               }}
               body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in August."
             />
