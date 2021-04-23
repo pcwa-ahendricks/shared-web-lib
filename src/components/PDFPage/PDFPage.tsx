@@ -1,8 +1,8 @@
-import React, {useState, useCallback, useMemo} from 'react'
+import React from 'react'
 import {
-  useMediaQuery,
   Theme,
-  LinearProgress,
+  // useMediaQuery,
+  // LinearProgress,
   useTheme,
   Box
 } from '@material-ui/core'
@@ -12,58 +12,59 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 type Props = {
   url: string
   alt: string
-  showLoading?: boolean
+  // showLoading?: boolean
 }
 
-const PDFPage = ({alt, url, showLoading = false}: Props) => {
+const PDFPage = ({alt, url}: Props) => {
   const theme = useTheme<Theme>()
-  const [loaded, setLoaded] = useState<boolean>(false)
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSM = useMediaQuery(theme.breakpoints.only('sm'))
-  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
+  // const [loaded, setLoaded] = useState<boolean>(false)
+  // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  // const isSM = useMediaQuery(theme.breakpoints.only('sm'))
+  // const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   // const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   // Min heights are calculated using the assumption that the height/width ratio is 1.294 (a page 792h / 612w).
   // Values 600, 960, and 1280
-  const {sm, md, lg} = theme.breakpoints.values
-  const ratio = 1.294
-  const minHeight = useMemo(
-    () =>
-      isXS ? sm * ratio : isSM ? md * ratio : isMDUp ? lg * ratio : lg * ratio, // In case we don't have a width using useMediaQuery it is best not to default to 0 since that will break lazy loading.
-    [isXS, isSM, isMDUp, ratio, sm, md, lg]
-  )
-  const onLoadHandler = useCallback(() => {
-    setLoaded(true)
-  }, [])
+  const {lg} = theme.breakpoints.values
+  // const ratio = 1.294
+  // const minHeight = useMemo(
+  //   () =>
+  //     isXS ? sm * ratio : isSM ? md * ratio : isMDUp ? lg * ratio : lg * ratio, // In case we don't have a width using useMediaQuery it is best not to default to 0 since that will break lazy loading.
+  //   [isXS, isSM, isMDUp, ratio, sm, md, lg]
+  // )
 
-  const progressEl = useMemo(
-    () =>
-      showLoading && !loaded ? (
-        <Box position="absolute" width="100%" top={0} left={0}>
-          <LinearProgress color="secondary" />
-        </Box>
-      ) : null,
-    [showLoading, loaded]
-  )
+  // const onLoadHandler = useCallback(() => {
+  //   setLoaded(true)
+  // }, [])
+
+  // const progressEl = useMemo(
+  //   () =>
+  //     showLoading && !loaded ? (
+  //       <Box position="absolute" width="100%" top={0} left={0}>
+  //         <LinearProgress color="secondary" />
+  //       </Box>
+  //     ) : null,
+  //   [showLoading, loaded]
+  // )
 
   return (
-    <Box minHeight={!loaded ? minHeight : 0} position="relative">
-      {progressEl}
-      <Box maxWidth={lg} width="100%" height="100%" margin="auto">
-        <Image
-          loader={imgixUrlLoader}
-          src={url}
-          onLoad={onLoadHandler}
-          alt={alt}
-          objectFit="contain"
-          quality={100}
-          layout="responsive"
-          width="100%"
-          height="100%"
-          priority
-          // {...rest}
-        />
-      </Box>
+    // <Box minHeight={!loaded ? minHeight : 0} position="relative">
+    //   {progressEl}
+    <Box maxWidth={lg} width="100%" height="100%" margin="auto">
+      <Image
+        loader={imgixUrlLoader}
+        src={url}
+        // onLoad={onLoadHandler}
+        alt={alt}
+        objectFit="contain"
+        quality={100}
+        layout="responsive"
+        width="100%"
+        height="100%"
+        priority
+        // {...rest}
+      />
     </Box>
+    // </Box>
   )
 }
 

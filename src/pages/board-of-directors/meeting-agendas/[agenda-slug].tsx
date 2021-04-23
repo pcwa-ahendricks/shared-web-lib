@@ -190,7 +190,7 @@ const DynamicBoardAgendasPage = ({
           </ChildBox>
         </RowBox>
         <PDFPage
-          showLoading={true}
+          // showLoading={true}
           alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
           url={agendaImgixUrl}
         />
@@ -214,7 +214,7 @@ const DynamicBoardAgendasPage = ({
               </RowBox>
             ) : null}
             <PDFPage
-              showLoading={true}
+              // showLoading={true}
               alt={`Board Agendas document image for ${agendaSlug} - page ${number}/${pageCount}`}
               url={url}
             />

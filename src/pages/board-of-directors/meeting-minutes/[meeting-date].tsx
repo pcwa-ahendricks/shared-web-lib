@@ -199,7 +199,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
-          showLoading={true}
+          // showLoading={true}
           alt={`Board Minutes document image for ${meetingDate} - page 1/${pageCount}`}
           url={media?.imgix_url ?? ''}
         />
@@ -223,7 +223,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
               </RowBox>
             ) : null}
             <PDFPage
-              showLoading={true}
+              // showLoading={true}
               alt={`Board Minutes document image for ${meetingDate} - page ${number}/${pageCount}`}
               url={url}
             />

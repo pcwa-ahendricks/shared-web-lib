@@ -177,7 +177,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
-          showLoading={true}
+          // showLoading={true}
           alt={`Publication image for ${publicationSlug} - page 1/${pageCount}`}
           url={media?.imgix_url ?? ''}
         />
@@ -205,7 +205,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
               </RowBox>
             ) : null}
             <PDFPage
-              showLoading={true}
+              // showLoading={true}
               alt={`Publication image for ${publicationSlug} - page ${number}/${pageCount}`}
               url={url}
             />

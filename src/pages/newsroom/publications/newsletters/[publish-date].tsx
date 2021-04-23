@@ -189,7 +189,7 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
-          showLoading={true}
+          // showLoading={true}
           alt={`Newsletter document image for ${publishDate} - page 1/${pageCount}`}
           url={media?.imgix_url ?? ''}
         />
@@ -217,7 +217,7 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
               </RowBox>
             ) : null}
             <PDFPage
-              showLoading={true}
+              // showLoading={true}
               alt={`Newsletter document image for ${publishDate} - page ${number}/${pageCount}`}
               url={url}
             />

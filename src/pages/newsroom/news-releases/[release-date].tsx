@@ -181,7 +181,7 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
-          showLoading={true}
+          // showLoading={true}
           alt={`News release document image for ${publishDate} - page 1/${pageCount}`}
           url={media?.imgix_url ?? ''}
         />
@@ -205,7 +205,7 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
               </RowBox>
             ) : null}
             <PDFPage
-              showLoading={true}
+              // showLoading={true}
               alt={`News release document image for ${publishDate} - page ${number}/${pageCount}`}
               url={url}
             />
