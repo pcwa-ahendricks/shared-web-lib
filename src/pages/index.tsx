@@ -97,7 +97,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const tileWidth = isLGUp ? 176 : 160
 
   const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
-  const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
+  // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
+
   // const [
   //   heroImgSrcLqip
   // fireWaterImgSrcLqip,
