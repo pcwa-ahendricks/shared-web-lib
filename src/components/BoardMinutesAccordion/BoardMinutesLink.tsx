@@ -98,6 +98,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
           <Image
             loader={imgixUrlLoader}
             src={imgixUrl}
+            layout="responsive"
             alt="Board Minutes Thumbnail"
             width={90}
             height={116}

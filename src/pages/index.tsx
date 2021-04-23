@@ -422,70 +422,50 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         > */}
           <ChildBox width={tileWidth}>
             <CoverTile
+              width={tileWidth}
               title="Canal Customer Survey"
               imgixURL={canalSurveyImgSrc}
               // paymentusLogoImgSrc="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
               linkHref="/services/annual-canal-survey"
               flexLinkProps={{isNextLink: true}}
-              imgixFancyProps={{
-                // lqipSrc: canalSurveyImgSrcLqip.b64,
-                htmlAttributes: {
-                  alt: 'Thumbnail and link for Canal Customer Survey'
-                }
-              }}
+              alt="Thumbnail and link for Canal Customer Survey"
             />
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
+              width={tileWidth}
               title="Pay My Bill"
               imgixURL={paymentusLogoImgSrc}
               linkHref="https://ipn.paymentus.com/cp/plco"
               flexLinkProps={{isNextLink: false}}
-              imgixFancyProps={{
-                // lqipSrc: paymentusLogoImgSrcLqip.b64,
-                htmlAttributes: {
-                  alt: 'Thumbnail and link for Pay My Bill Using Paymentus'
-                }
-              }}
+              alt="Thumbnail and link for Pay My Bill Using Paymentus"
             />
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
+              width={tileWidth}
               title="Outage Information"
               imgixURL={outagesImgSrc}
               linkHref="/services/outage"
-              imgixFancyProps={{
-                // lqipSrc: outagesImgSrcLqip.b64,
-                htmlAttributes: {
-                  alt: 'Thumbnail and link for Current PCWA Water Outages Page'
-                }
-              }}
+              alt="Thumbnail and link for Current PCWA Water Outages Page"
             />
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
+              width={tileWidth}
               title="Current Projects"
               imgixURL={projectImgSrc}
               linkHref="/about-pcwa/projects"
-              imgixFancyProps={{
-                // lqipSrc: projectImgSrcLqip.b64,
-                htmlAttributes: {
-                  alt: 'Thumbnail and link for Current Projects'
-                }
-              }}
+              alt="Thumbnail and link for Current Projects"
             />
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
+              width={tileWidth}
               title="Board Meeting Agendas"
               imgixURL={boardMeetingImgSrc}
               linkHref="/board-of-directors/meeting-agendas"
-              imgixFancyProps={{
-                // lqipSrc: boardMeetingImgSrcLqip.b64,
-                htmlAttributes: {
-                  alt: 'Thumbnail and link for Board Meeting Agendas'
-                }
-              }}
+              alt="Thumbnail and link for Board Meeting Agendas"
             />
           </ChildBox>
           {/* <ChildBox width={tileWidth} >

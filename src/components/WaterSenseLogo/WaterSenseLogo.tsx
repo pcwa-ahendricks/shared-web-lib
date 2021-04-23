@@ -1,5 +1,5 @@
 import React from 'react'
-// import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
+import Image from 'next/image'
 import {
   Box,
   Typography as Type,
@@ -7,7 +7,7 @@ import {
   createStyles
 } from '@material-ui/core'
 import {RowBox, ColumnBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -33,22 +33,12 @@ const WaterSenseLogo = () => {
               Look For
             </Type>
           </Box>
-          {/* Don't need a fancy logo. */}
-          {/* <ImgixFancy
-          paddingPercent="100%"
-          src="https://imgix.cosmicjs.com/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
-          alt="WaterSense Logo"
-        /> */}
-          <LazyImgix
-            src="https://imgix.cosmicjs.com/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
-            htmlAttributes={{
-              alt: 'WaterSense Logo'
-            }}
-            // To always use a png file auto must be overridden too since it defaults to "format".
-            // imgixParams={{
-            //   fm: 'png',
-            //   auto: ''
-            // }}
+          <Image
+            loader={imgixLoader}
+            src="80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
+            alt="WaterSense Logo"
+            width="100%"
+            height="100%"
           />
         </ColumnBox>
       </Box>

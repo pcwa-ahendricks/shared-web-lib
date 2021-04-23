@@ -6,9 +6,11 @@ import {
   useTheme,
   TypographyProps
 } from '@material-ui/core'
-import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
+import Image, {ImageProps} from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import {stringify} from 'querystringify'
 
 export type CoverTileProps = {
   title: string
@@ -16,26 +18,26 @@ export type CoverTileProps = {
   imgixURL: string
   readMore?: string
   imageRatio?: string | number | boolean // Expressed as W:H
-  imgixFancyProps?: Partial<ImgixFancyProps>
   flexLinkProps?: Partial<FlexLinkProps>
+  imgixParams?: any
   typeProps?: Partial<TypographyProps>
-} & BoxProps
+  alt?: ImageProps['alt']
+} & Partial<BoxProps>
 
 const CoverTile = ({
+  alt,
+  width,
   title,
-  imgixURL,
+  imgixURL: imgixUrlProp,
   imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57*7=10.99, 11:7
   linkHref,
-  imgixFancyProps,
   flexLinkProps,
   typeProps,
+  imgixParams,
   ...rest
 }: CoverTileProps) => {
   const theme = useTheme()
   const [hover, setHover] = useState<boolean>()
-
-  const {imgixParams: imgixParamsProps, ...imgixFancyPropsRest} =
-    imgixFancyProps ?? {}
 
   const buttonEnterHandler = useCallback(() => {
     setHover(true)
@@ -46,6 +48,19 @@ const CoverTile = ({
   }, [])
 
   const titleColor: TypographyProps['color'] = hover ? 'secondary' : 'primary'
+
+  // In case imgix returns a partially transparent image use bg to background fill w/ white.
+  // Instead of passing an image width and height we can pass the target Aspect Ratio which will work with fit=crop. See https://docs.imgix.com/apis/url/size/ar.
+  const imgixQs = stringify(
+    {
+      ar: imageRatio,
+      fit: 'crop',
+      bg: 'ffffff',
+      ...imgixParams
+    },
+    true
+  )
+  const imgixUrl = `${imgixUrlProp}${imgixQs}`
 
   return (
     <Box
@@ -64,19 +79,16 @@ const CoverTile = ({
           overflow="hidden"
           borderColor={theme.palette.grey['300']}
           border={1}
+          className="foo"
         >
-          <ImgixFancy
-            src={imgixURL}
-            // In case imgix returns a partially transparent image use bg to background fill w/ white.
-            // Instead of passing an image width and height we can pass the target Aspect Ratio which will work with fit=crop. See https://docs.imgix.com/apis/url/size/ar.
-            imgixParams={{
-              ar: imageRatio,
-              fit: 'crop',
-              bg: 'ffffff',
-              ...imgixParamsProps
-            }}
-            paddingPercent={63.64} // Default ratio for a 140h x 220w image.
-            {...imgixFancyPropsRest}
+          <Image
+            loader={imgixUrlLoader}
+            src={imgixUrl}
+            layout="responsive"
+            objectFit="cover"
+            width={width}
+            height="100%"
+            alt={alt}
           />
         </Box>
         <Spacing size="small" />
