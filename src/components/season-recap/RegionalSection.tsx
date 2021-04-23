@@ -30,6 +30,7 @@ import {
   format,
   getYear,
   isFuture,
+  isValid,
   parse,
   startOfMonth,
   subMonths,
@@ -231,19 +232,20 @@ export default function RegionalSection({countyResponse}: Props) {
 
   const climChgChartData = useMemo(
     () =>
-      Object.keys(climChgData?.data ?? []).map((key) => {
-        const arry = climChgData?.data
-        const y = parseFloat(arry?.[key].value ?? '')
-        const yearStr = key.substr(0, 4)
-        const x = parseInt(
-          format(parse(yearStr, 'yyyy', new Date()), 'yyyy'),
-          10
-        )
-        return {
-          x,
-          y
-        }
-      }),
+      Object.keys(climChgData?.data ?? [])
+        .filter((key) => isValid(parse(key.substr(0, 4), 'yyyy', new Date())))
+        .map((key) => {
+          const arry = climChgData?.data
+          const y = parseFloat(arry?.[key].value ?? '')
+          const yearStr = key.substr(0, 4)
+          const parsed = parse(yearStr, 'yyyy', new Date())
+          console.log(parsed)
+          const x = parseInt(format(parsed, 'yyyy'), 10)
+          return {
+            x,
+            y
+          }
+        }),
     [climChgData]
   )
   const climChgBaseline = useMemo(
