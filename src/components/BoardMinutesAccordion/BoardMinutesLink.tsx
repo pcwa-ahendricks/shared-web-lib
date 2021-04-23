@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme: Theme) =>
         : theme.palette.primary.main
     }),
     link: {
-      textDecoration: 'none'
+      textDecoration: 'none',
+      cursor: 'pointer'
     },
     thumbnailContainer: ({isHover}: UseStylesProps) => ({
       boxShadow: '1px 1px 4px #ccc',
