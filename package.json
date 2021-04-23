@@ -57,7 +57,7 @@
     "@types/yup": "^0.29.9",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
-    "@vercel/node": "^1.7.4",
+    "@vercel/node": "^1.10.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "ava": "^3.11.1",
     "cross-env": "^7.0.2",
@@ -132,7 +132,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-hammerjs": "^1.0.1",
     "react-images": "^1.1.7",
-    "react-imgix": "^9.0.3",
+    "react-imgix": "^9.1.0",
     "react-map-gl": "^6.1.8",
     "react-markdown": "^5.0.3",
     "react-mui-mapbox-geocoder": "^1.1.10",
@@ -154,7 +154,7 @@
     "use-debounce": "^6.0.0",
     "use-timeout": "^1.1.0",
     "valid-url": "^1.0.9",
-    "vercel": "^21.2.3",
+    "vercel": "^22.0.1",
     "yup": "^0.31.0"
   }
 }

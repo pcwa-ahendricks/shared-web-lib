@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 export async function sequenceArray<T, U = T>(
   array: T[],
   fn: (args: T) => Promise<U>
@@ -36,4 +38,9 @@ export const openInNewTab = (url: string): void => {
   } catch (error) {
     console.error('Could not open window.')
   }
+}
+
+// figure out what this is doing before use
+export const devLog = (...params: Parameters<typeof console['log']>) => {
+  isDev && console.log(params)
 }

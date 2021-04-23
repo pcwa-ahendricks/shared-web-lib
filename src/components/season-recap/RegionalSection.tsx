@@ -222,9 +222,13 @@ export default function RegionalSection({countyResponse}: Props) {
 
   const url = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-${useMonthDiff}-${twoMonthsAgoMo}-${begYr}-${climChangeEndYear}.json?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
 
-  const {data: climChgData} = useSWR<ClimChgResponse>(url, {
+  const {
+    data: climChgData,
+    isValidating: climChgIsValidating
+  } = useSWR<ClimChgResponse>(url, {
     revalidateOnFocus: false
   })
+  // console.log('[NOAA Avg Response]:', climChgData)
 
   // Including the Trend in the URL doesn't seem to work with NOAA site; The trend params are omitted until NOAA fixes this.
   // const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/${useMonthDiff}/${twoMonthsAgoMo}/${begYr}-${climChangeEndYear}?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
@@ -235,12 +239,12 @@ export default function RegionalSection({countyResponse}: Props) {
       Object.keys(climChgData?.data ?? [])
         .filter((key) => isValid(parse(key.substr(0, 4), 'yyyy', new Date())))
         .map((key) => {
-          const arry = climChgData?.data
-          const y = parseFloat(arry?.[key].value ?? '')
+          const data = climChgData?.data
           const yearStr = key.substr(0, 4)
           const parsed = parse(yearStr, 'yyyy', new Date())
           console.log(parsed)
           const x = parseInt(format(parsed, 'yyyy'), 10)
+          const y = parseFloat(data?.[key].value ?? '')
           return {
             x,
             y
@@ -248,6 +252,8 @@ export default function RegionalSection({countyResponse}: Props) {
         }),
     [climChgData]
   )
+  // console.log('[Climate Change Chart Data]:', climChgChartData)
+
   const climChgBaseline = useMemo(
     () =>
       Array.isArray(climChgChartData) && climChgChartData.length > 0
@@ -1177,7 +1183,31 @@ export default function RegionalSection({countyResponse}: Props) {
           className={classes.climChgBox}
           responsive
         >
-          <ChildBox flex={isXS ? 'none' : 'auto'} height={{xs: 400, sm: 250}}>
+          <ChildBox
+            flex={isXS ? 'none' : 'auto'}
+            height={{xs: 400, sm: 250}}
+            position="relative"
+          >
+            <Animate
+              animate={Boolean(
+                climChgChartData.length === 0 && !climChgIsValidating
+              )}
+              hideUntilAnimate
+              name="fadeIn"
+              position="absolute"
+              top="50%"
+              left="50%"
+              zIndex={2}
+              style={{transform: 'translate(-50%, -50%)'}}
+            >
+              <Paper elevation={3} square>
+                <Box p={1}>
+                  <Type variant="h4" align="center" color="error">
+                    <strong>No Data</strong>
+                  </Type>
+                </Box>
+              </Paper>
+            </Animate>
             <ClimateChangeLine climChgChartData={climChgChartData} />
           </ChildBox>
           <ColumnBox child flex padding={2}>
