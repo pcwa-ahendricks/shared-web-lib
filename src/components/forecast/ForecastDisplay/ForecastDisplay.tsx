@@ -53,12 +53,15 @@ const ForecastDisplay = ({forecast}: Props) => {
 
   const isValidForecast = Boolean(forecast?.data)
 
-  const linkProps = {
-    target: '_blank',
-    rel: 'noopener noreferrer',
-    href: openWeatherUrl,
-    'aria-label': `Weather Forecast for ${title}`
-  }
+  const linkProps = useMemo(
+    () => ({
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      href: openWeatherUrl,
+      'aria-label': `Weather Forecast for ${title}`
+    }),
+    [title, openWeatherUrl]
+  )
 
   const temperatureFrmt =
     temperature || temperature === 0 ? Math.round(temperature).toString() : '?'

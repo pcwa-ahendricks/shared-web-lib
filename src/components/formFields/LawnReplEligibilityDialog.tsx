@@ -290,42 +290,6 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
 
 export default connect(LawnReplEligibilityDialog)
 
-function getSteps() {
-  return [
-    {
-      index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer? ',
-      fieldName: 'treatedCustomer',
-      content: <QuestionOne />
-    },
-    // {
-    //   index: 1,
-    //   label: 'Have you already started the Lawn Replacement project?',
-    //   fieldName: 'alreadyStarted',
-    //   content: <QuestionTwo />
-    // },
-    {
-      index: 1,
-      label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
-      fieldName: 'useArtTurf',
-      content: <QuestionTwo />
-    },
-    {
-      index: 2,
-      label:
-        'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
-      fieldName: 'approxSqFeet',
-      content: <QuestionThree />
-    },
-    {
-      index: 3,
-      label: 'How is the existing lawn currently irrigated?',
-      fieldName: 'irrigMethod',
-      content: <QuestionFour />
-    }
-  ]
-}
-
 function getStepContent(stepNo: number) {
   const found = getSteps().find((step) => step.index === stepNo)
   return found ? found.content : null
@@ -617,4 +581,40 @@ const QuestionFour = () => {
       }}
     </Field>
   )
+}
+
+function getSteps() {
+  return [
+    {
+      index: 0,
+      label: 'Are you a Placer County Water Agency treated water customer? ',
+      fieldName: 'treatedCustomer',
+      content: <QuestionOne />
+    },
+    // {
+    //   index: 1,
+    //   label: 'Have you already started the Lawn Replacement project?',
+    //   fieldName: 'alreadyStarted',
+    //   content: <QuestionTwo />
+    // },
+    {
+      index: 1,
+      label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
+      fieldName: 'useArtTurf',
+      content: <QuestionTwo />
+    },
+    {
+      index: 2,
+      label:
+        'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
+      fieldName: 'approxSqFeet',
+      content: <QuestionThree />
+    },
+    {
+      index: 3,
+      label: 'How is the existing lawn currently irrigated?',
+      fieldName: 'irrigMethod',
+      content: <QuestionFour />
+    }
+  ]
 }

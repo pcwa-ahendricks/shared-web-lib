@@ -2,6 +2,7 @@ import React, {useState, useCallback, useMemo} from 'react'
 import {Theme, LinearProgress, useTheme, Box} from '@material-ui/core'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import useTimeout from 'use-timeout'
 
 type Props = {
   url: string
@@ -14,6 +15,9 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
   const {lg} = theme.breakpoints.values
 
   const [loaded, setLoaded] = useState<boolean>(false)
+  const [timeout, setTimeout] = useState<boolean>(false)
+  // Wait a second to show loading indicator
+  useTimeout(() => setTimeout(true), 1000)
 
   const onLoadHandler = useCallback(() => {
     setLoaded(true)
@@ -21,12 +25,12 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
 
   const progressEl = useMemo(
     () =>
-      showLoading && !loaded ? (
+      showLoading && !loaded && timeout ? (
         <Box position="absolute" width="100%" top={0} left={0}>
           <LinearProgress color="secondary" />
         </Box>
       ) : null,
-    [showLoading, loaded]
+    [showLoading, loaded, timeout]
   )
 
   return (
