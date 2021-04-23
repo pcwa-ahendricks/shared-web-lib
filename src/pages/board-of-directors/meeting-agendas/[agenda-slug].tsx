@@ -190,7 +190,8 @@ const DynamicBoardAgendasPage = ({
           </ChildBox>
         </RowBox>
         <PDFPage
-          // showLoading={true}
+          // Fixes SSR issue with infinite spinner on SSR loads. Assumes that if the additional pages are done loading that the first page is likely done loading.
+          showLoading={loadingAddPages}
           alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
           url={agendaImgixUrl}
         />

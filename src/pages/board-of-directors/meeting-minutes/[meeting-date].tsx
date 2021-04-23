@@ -199,7 +199,8 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
-          // showLoading={true}
+          // Fixes SSR issue with infinite spinner on SSR loads. Assumes that if the additional pages are done loading that the first page is likely done loading.
+          showLoading={loadingAddPages}
           alt={`Board Minutes document image for ${meetingDate} - page 1/${pageCount}`}
           url={media?.imgix_url ?? ''}
         />

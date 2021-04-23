@@ -189,7 +189,8 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
-          // showLoading={true}
+          // Fixes SSR issue with infinite spinner on SSR loads. Assumes that if the additional pages are done loading that the first page is likely done loading.
+          showLoading={loadingAddPages}
           alt={`Newsletter document image for ${publishDate} - page 1/${pageCount}`}
           url={media?.imgix_url ?? ''}
         />

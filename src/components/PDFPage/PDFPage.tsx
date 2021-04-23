@@ -13,13 +13,10 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
   const theme = useTheme<Theme>()
   const {lg} = theme.breakpoints.values
 
-  const [loaded, setLoaded] = useState<boolean>(true)
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   const onLoadHandler = useCallback(() => {
-    // Timeout fixes SSR issue with onLoad event, preventing infinite spinner on SSR loads
-    setTimeout(() => {
-      setLoaded(true)
-    })
+    setLoaded(true)
   }, [])
 
   const progressEl = useMemo(
