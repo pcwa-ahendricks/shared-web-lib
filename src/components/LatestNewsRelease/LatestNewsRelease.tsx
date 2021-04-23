@@ -40,7 +40,7 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const LatestNewsRelease = ({...rest}: Props) => {
+const LatestNewsRelease = ({width, ...rest}: Props) => {
   const classes = useStyles()
 
   const {
@@ -73,8 +73,9 @@ const LatestNewsRelease = ({...rest}: Props) => {
   )
 
   return (
-    <Box position="relative">
+    <Box position="relative" width={width}>
       <CoverTile
+        width={width}
         typeProps={{variant: 'subtitle2'}}
         title={latestNewsRelease?.derivedFilenameAttr?.title ?? ''}
         imgixURL="https://imgix.cosmicjs.com/e242ac30-7594-11e8-ac9f-85d733f58489-news_release.png"
@@ -84,11 +85,7 @@ const LatestNewsRelease = ({...rest}: Props) => {
             latestNewsRelease?.derivedFilenameAttr?.date ?? 'not-found'
           }`
         }}
-        imgixFancyProps={{
-          htmlAttributes: {
-            alt: 'Thumbnail and link for latest PCWA News Release'
-          }
-        }}
+        alt="Thumbnail and link for latest PCWA News Release"
         {...rest}
       />
 

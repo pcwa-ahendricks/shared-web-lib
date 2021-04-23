@@ -478,7 +478,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <Divider />
         </Spacing>
 
-        {/* <LatestNewsRelease /> */}
+        {/* <LatestNewsRelease width={tileWidth}/> */}
 
         <Type variant="h5" color="textSecondary" gutterBottom>
           Recent News

@@ -66,6 +66,7 @@ const CoverTile = ({
     <Box
       onMouseEnter={buttonEnterHandler}
       onMouseLeave={buttonLeaveHandler}
+      width={width}
       {...rest}
     >
       <FlexLink
