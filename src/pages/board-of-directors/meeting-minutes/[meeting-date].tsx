@@ -198,14 +198,12 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
             />
           </ChildBox>
         </RowBox>
-        <Box position="relative">
-          <PDFPage
-            showLoading={true}
-            alt={`Board Minutes document image for ${meetingDate} - page 1/${pageCount}`}
-            url={media?.imgix_url ?? ''}
-          />
-          <Divider />
-        </Box>
+        <PDFPage
+          showLoading={true}
+          alt={`Board Minutes document image for ${meetingDate} - page 1/${pageCount}`}
+          url={media?.imgix_url ?? ''}
+        />
+        <Divider />
         {progressEl}
         {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>

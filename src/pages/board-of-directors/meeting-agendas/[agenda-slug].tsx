@@ -189,14 +189,12 @@ const DynamicBoardAgendasPage = ({
             />
           </ChildBox>
         </RowBox>
-        <Box position="relative">
-          <PDFPage
-            showLoading={true}
-            alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
-            url={agendaImgixUrl}
-          />
-          <Divider />
-        </Box>
+        <PDFPage
+          showLoading={true}
+          alt={`Board Agendas document image for ${agendaSlug} - page 1/${pageCount}`}
+          url={agendaImgixUrl}
+        />
+        <Divider />
         {progressEl}
         {additionalPages.map(({number, url}) => (
           <Box position="relative" key={number}>
