@@ -11,7 +11,7 @@ type Props = {
   marginTop?: any
 } & Partial<ParallaxBannerProps>
 
-const ImgixFancyParallaxBanner = ({
+const ImageParallaxBanner = ({
   amount = 0.1,
   ImageProps,
   marginTop,
@@ -55,4 +55,4 @@ const ImgixFancyParallaxBanner = ({
   )
 }
 
-export default ImgixFancyParallaxBanner
+export default ImageParallaxBanner

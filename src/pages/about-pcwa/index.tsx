@@ -16,12 +16,12 @@ import {ChildBox, RowBox} from 'mui-sleazebox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import {blueGrey} from '@material-ui/core/colors'
-import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import GeneralManagerEmail from '@components/links/GeneralManagerEmail'
 import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
+import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 
 const images = [
   'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
@@ -94,7 +94,7 @@ const GeneralInfoPage = () => {
 
         <RowBox justifyContent="space-around">
           <Box mt={12} maxWidth={1400} flex="1 1 auto">
-            <ImgixFancyParallaxBanner
+            <ImageParallaxBanner
               amount={0.1}
               ImageProps={{
                 width: 800,
