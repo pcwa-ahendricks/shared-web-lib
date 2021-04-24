@@ -11,8 +11,9 @@ const imgixLoader: ImageLoader = ({src, width, quality}) => {
 const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
   const parsed = parse(src, true)
   const {query, origin, pathname} = parsed
-  const {...params} = query
-  const p = stringify(params, false)
+  // Ditch width, quality, and auto props if they were supplied in URL
+  const {w: _width, q: _quality, auto: _auto, ...rest} = query
+  const p = stringify(rest, false)
   const qs = p ? `&${p}` : ''
   return `${origin}${pathname}?auto=format&w=${width}&q=${quality || 75}${qs}`
 }

@@ -20,7 +20,7 @@ import {
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import {RowBox} from 'mui-sleazebox'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
 
@@ -145,7 +145,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
             <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
               <RowBox justifyContent="space-around">
-                {/* <ImgixThumbLink
+                {/* <ImageThumbLink
                 url="https://imgix.cosmicjs.com/ca825860-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyENbc123019.pdf"
                
                   target= '_blank'
@@ -156,7 +156,7 @@ const ShutoffProtectionPage = () => {
                 caption="Water Shutoff Protection Act Policy"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -164,7 +164,7 @@ const ShutoffProtectionPage = () => {
                   caption="Standard PCWA Doortag"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -172,7 +172,7 @@ const ShutoffProtectionPage = () => {
                   caption="Written Notice"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -256,7 +256,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
             <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
               <RowBox justifyContent="space-around">
-                {/* <ImgixThumbLink
+                {/* <ImageThumbLink
                 url="https://imgix.cosmicjs.com/caaf82e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicySPbc123019.pdf"
                
                   target= '_blank'
@@ -267,7 +267,7 @@ const ShutoffProtectionPage = () => {
                 caption="Política de la Ley de Protección de Cierre de Agua"
                 alt="Miniatura y enlace para PDF de la Política de la Ley de Protección contra el Cierre del Agua"
               /> */}
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -275,7 +275,7 @@ const ShutoffProtectionPage = () => {
                   caption="Etiqueta de Puerta PCWA Estándar"
                   alt="Miniatura y enlace para el PDF de muestra de etiqueta de puerta"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -283,7 +283,7 @@ const ShutoffProtectionPage = () => {
                   caption="Aviso De Rescisión"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -355,7 +355,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
             <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
               <RowBox justifyContent="space-around">
-                {/* <ImgixThumbLink
+                {/* <ImageThumbLink
                 url="https://imgix.cosmicjs.com/ca8cdfb0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyKObc123019.pdf"
                
                   target= '_blank'
@@ -366,7 +366,7 @@ const ShutoffProtectionPage = () => {
                 caption="물 차단 보호법 정책"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -374,7 +374,7 @@ const ShutoffProtectionPage = () => {
                   caption="표준 PCWA 도어 태그"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -382,7 +382,7 @@ const ShutoffProtectionPage = () => {
                   caption="납입 기간 만료 안내"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -447,7 +447,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
             <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
               <RowBox justifyContent="space-around">
-                {/* <ImgixThumbLink
+                {/* <ImageThumbLink
                 url="https://imgix.cosmicjs.com/ca8b0af0-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyCHbc123019.pdf"
                
                   target= '_blank'
@@ -458,7 +458,7 @@ const ShutoffProtectionPage = () => {
                 caption="断水保护法政策"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -466,7 +466,7 @@ const ShutoffProtectionPage = () => {
                   caption="标准PCWA门标签"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -474,7 +474,7 @@ const ShutoffProtectionPage = () => {
                   caption="終止通知"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -555,7 +555,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
             <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
               <RowBox justifyContent="space-around">
-                {/* <ImgixThumbLink
+                {/* <ImageThumbLink
                 url="https://imgix.cosmicjs.com/cabe28e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyVIbc123019.pdf"
                
                   target= '_blank'
@@ -566,7 +566,7 @@ const ShutoffProtectionPage = () => {
                 caption="Chính sách Đạo luật Bảo vệ Tắt nước"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -574,7 +574,7 @@ const ShutoffProtectionPage = () => {
                   caption="Thẻ cửa PCWA tiêu chuẩn"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -582,7 +582,7 @@ const ShutoffProtectionPage = () => {
                   caption="Thông Báo Chấm Dứt"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -669,7 +669,7 @@ const ShutoffProtectionPage = () => {
           </Type> */}
             <Box bgcolor={theme.palette.background.paper} pt={3} pb={1} mt={3}>
               <RowBox justifyContent="space-around">
-                {/* <ImgixThumbLink
+                {/* <ImageThumbLink
                 url="https://imgix.cosmicjs.com/cabacd80-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyTAbc123019.pdf"
                
                   target= '_blank'
@@ -680,7 +680,7 @@ const ShutoffProtectionPage = () => {
                 caption="Patakaran sa Proteksyon ng Sarhan ng tubig"
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -688,7 +688,7 @@ const ShutoffProtectionPage = () => {
                   caption="Pamantayan PCWA Tag ng Door"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -696,7 +696,7 @@ const ShutoffProtectionPage = () => {
                   caption="Abiso Sa Paghihinto Ng Serbisyo"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImgixThumbLink
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"

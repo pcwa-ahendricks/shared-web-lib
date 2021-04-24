@@ -2,23 +2,14 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  useTheme,
-  Typography as Type,
-  Box,
-  useMediaQuery,
-  Link
-} from '@material-ui/core'
+import {useTheme, Typography as Type, Box, Link} from '@material-ui/core'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'
 
 const RateAdjustPage = () => {
   const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const imageWidth = isXs ? 70 : isSm ? 80 : 100
 
   return (
     <PageLayout title="Multiyear Rate Adjustment" waterSurface>
@@ -81,30 +72,30 @@ const RateAdjustPage = () => {
                   </Type>
                   <RowBox justifyContent="space-around" mt={3}>
                     <Box flex="33.33">
-                      <ImgixThumbLink
+                      <ImageThumbLink
                         url="https://cosmicjs.imgix.net/128d45c0-980b-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Treated 218 notice - 2018 Final_090817.pdf"
                         filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
                         caption="Treated Water Notice"
                         alt="Thumbnail and link for Prop. 218 Treated Water Notice"
-                        imageWidth={imageWidth}
+                        sizes="(max-width: 600px) 30vw, 15vw"
                       />
                     </Box>
                     <Box flex="33.33">
-                      <ImgixThumbLink
+                      <ImageThumbLink
                         url="https://cosmicjs.imgix.net/5dfb28a0-980c-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Untreated Water 218 notice - 2018 Final_090817.pdf"
                         filename="PCWA Zone 6 Untreated 218 notice - 2018.pdf"
                         caption="Untreated Water Notice"
                         alt="Thumbnail and link for Prop. 218 Untreated Water Notice"
-                        imageWidth={imageWidth}
+                        sizes="(max-width: 600px) 30vw, 15vw"
                       />
                     </Box>
                     <Box flex="33.33">
-                      <ImgixThumbLink
+                      <ImageThumbLink
                         url="https://imgix.cosmicjs.com/d796c8b0-fa7d-11e9-ac85-afda513db67b-PCWA-Cost-of-Service-Study---Final-Report.pdf"
                         filename="PCWA Cost of Service Study.pdf"
                         caption="2017 Cost of Service – Rate Study"
                         alt="Thumbnail and link for Cost of Service Study"
-                        imageWidth={imageWidth}
+                        sizes="(max-width: 600px) 30vw, 15vw"
                       />
                     </Box>
                   </RowBox>

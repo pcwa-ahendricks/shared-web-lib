@@ -49,7 +49,7 @@ import {saveAs} from 'file-saver'
 import {FlexBox, ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
@@ -413,13 +413,13 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                   return (
                     <RowBox key={idx}>
                       <ChildBox>
-                        <ImgixThumbLink
+                        <ImageThumbLink
                           isNextLink
-                          imageWidth={75}
                           url={item.metadata.agenda_pdf.imgix_url}
                           alt={`Thumbnail and link for ${item.title}`}
                           as={linkAs}
                           href="/board-of-directors/meeting-agendas/[agenda-slug]"
+                          sizes="(max-width: 600px) 33vw, 15vw"
                         />
                       </ChildBox>
                       <ChildBox ml={4}>

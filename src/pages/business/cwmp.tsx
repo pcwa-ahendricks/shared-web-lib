@@ -26,7 +26,7 @@ import {
 } from '@material-ui/core'
 import clsx from 'clsx'
 import Spacing from '@components/boxes/Spacing'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import DocIcon from '@material-ui/icons/LibraryBooks'
 
 type UseStylesProps = {
@@ -162,13 +162,13 @@ const CountyWideMasterPlanPage = () => {
               >
                 <RowBox justifyContent="space-around">
                   <ChildBox flex="0 1 30%">
-                    <ImgixThumbLink
-                      imageWidth={160}
+                    <ImageThumbLink
                       url="https://imgix.cosmicjs.com/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
                       href="https://opti.rmcwater.com/pcwa/login.php"
                       rel="noopener noreferrer"
                       target="_blank"
                       alt="CWMP Project Database thumbnail and link"
+                      sizes="(max-width: 600px) 33vw, 15vw"
                     />
                     <Box textAlign="center">
                       <Type color="primary" variant="h6" noWrap>
@@ -189,13 +189,13 @@ const CountyWideMasterPlanPage = () => {
                     </Box>
                   </ChildBox>
                   <ChildBox flex="0 1 30%">
-                    <ImgixThumbLink
-                      imageWidth={160}
+                    <ImageThumbLink
                       url="https://imgix.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
                       href="https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
                       alt="Thumbnail and link for County Wide Master Plan Document"
+                      sizes="(max-width: 600px) 33vw, 15vw"
                     />
                     <Box textAlign="center">
                       <Type color="primary" variant="h6" noWrap>
