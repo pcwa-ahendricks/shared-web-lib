@@ -7,7 +7,7 @@ import React, {
   useCallback
 } from 'react'
 import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
-import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
+import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Hidden,
@@ -69,15 +69,6 @@ const [
   boardMeetingImgSrc
 ] = images
 
-// [HACK] className styles will get over-written by <ParallaxBanner/> unless style prop is used. See <ImgixFancyParallaxBanner /> below.
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     imgixFancyParallaxBanner: {
-//       ...
-//     }
-//   })
-// )
-
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
   const theme = useTheme()
@@ -126,7 +117,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <ImgixFancyParallaxBanner
+      <ImageParallaxBanner
         amount={0.1}
         marginTop={marginTop}
         ImageProps={{
@@ -169,7 +160,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </RowBox>
         </Animate>
-      </ImgixFancyParallaxBanner>
+      </ImageParallaxBanner>
       <Hidden only="xs" implementation="css">
         <TrendingBar />
       </Hidden>
