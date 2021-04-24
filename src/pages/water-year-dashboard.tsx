@@ -931,6 +931,7 @@ export default function WaterYearDashboardPage() {
                     width={912}
                     height={117}
                     layout="responsive"
+                    sizes="(max-width: 600px) 100vw, 45vw"
                     alt="Applied Climate Information System logo"
                   />
                 </a>

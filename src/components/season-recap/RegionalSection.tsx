@@ -1094,6 +1094,7 @@ export default function RegionalSection({countyResponse}: Props) {
                 <Image
                   src={precipSrc}
                   layout="responsive"
+                  sizes="(max-width: 600px) 100vw, 33vw"
                   height={850}
                   width={1100}
                   alt="Actual Precipitation for California"
@@ -1112,6 +1113,7 @@ export default function RegionalSection({countyResponse}: Props) {
             <Image
               src={departNormalPrecipSrc}
               layout="responsive"
+              sizes="(max-width: 600px) 100vw, 33vw"
               height={850}
               width={1100}
               alt="Departure from Normal Precipitation for California"
@@ -1130,6 +1132,7 @@ export default function RegionalSection({countyResponse}: Props) {
                 <Image
                   src={percNormalPrecipSrc}
                   layout="responsive"
+                  sizes="(max-width: 600px) 100vw, 33vw"
                   height={850}
                   width={1100}
                   alt="Percent of Normal Precipitation for California"
@@ -1156,6 +1159,7 @@ export default function RegionalSection({countyResponse}: Props) {
               <Image
                 src={tempDepartSrc}
                 layout="responsive"
+                sizes="(max-width: 600px) 100vw, 33vw"
                 height={850}
                 width={1100}
                 alt="Departure from Normal Temperature for California"

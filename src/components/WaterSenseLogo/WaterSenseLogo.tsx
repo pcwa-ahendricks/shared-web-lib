@@ -34,6 +34,7 @@ const WaterSenseLogo = () => {
             </Type>
           </Box>
           <Image
+            layout="intrinsic"
             loader={imgixLoader}
             src="80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
             alt="WaterSense Logo"

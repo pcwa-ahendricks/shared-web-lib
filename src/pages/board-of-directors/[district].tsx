@@ -144,7 +144,8 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
             <ColumnBox child flex="40%" alignItems="center" textAlign="center">
               <Box mx="auto" mb={1} width="100%">
                 <Image
-                  layout="intrinsic"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 100vw, 40vw"
                   src="https://imgix.cosmicjs.com/bacf1310-4b97-11eb-a634-e3044e07df5c-PCWA-Board-of-Directors-2021.jpg"
                   alt="PCWA Board of Directors - December 2020"
                   width={500}

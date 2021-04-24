@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default function ResponsiveImageTemplatePage() {
+export default function WaterWiseHomePage() {
   const classes = useStyles()
   return (
     <PageLayout title="Water-Wise Home" waterSurface>
@@ -45,6 +45,7 @@ export default function ResponsiveImageTemplatePage() {
               priority
               src="https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG"
               layout="responsive"
+              sizes="(max-width: 1127px) 100vw, 1127px"
               width={1817}
               height={842}
               className={classes.mediaDialogImg}

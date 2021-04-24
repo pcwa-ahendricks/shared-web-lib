@@ -68,6 +68,7 @@ const PayBillPage = () => {
                       width={700}
                       height={452}
                       layout="responsive"
+                      sizes="(max-width: 700px) 100vw, 700px"
                       src="https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG"
                       alt="PCWA is transitioning to monthly billing"
                     />

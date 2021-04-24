@@ -85,11 +85,11 @@ const CoverTile = ({
           <Image
             loader={imgixUrlLoader}
             src={imgixUrl}
-            layout="responsive"
-            width={width}
-            sizes="(min-width: 1000px) 20vw, (min-width: 640px) 30vw, 50vw"
-            height="100%"
             alt={alt}
+            layout="responsive"
+            sizes="(min-width: 1000px) 20vw, (min-width: 640px) 30vw, 50vw"
+            width={width}
+            height="100%"
           />
         </Box>
         <Spacing size="small" />
