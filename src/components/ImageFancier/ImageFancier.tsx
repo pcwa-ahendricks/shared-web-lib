@@ -1,5 +1,4 @@
 import React, {useState, useCallback, useEffect} from 'react'
-import ImgixFancy, {ImgixFancyProps} from '@components/ImgixFancy/ImgixFancy'
 import {
   Box,
   BoxProps,
@@ -10,11 +9,13 @@ import {
 import {FlexBox} from 'mui-sleazebox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
 import Animate from '@components/Animate/Animate'
+import Image, {ImageProps} from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   boxProps?: BoxProps
   isHover?: boolean
-}
+} & Partial<Omit<ImageProps, 'layout'>>
 
 interface UseStylesProps {
   isHover?: boolean
@@ -46,13 +47,14 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const ImgixFancier = ({
-  width,
-  height,
+const ImageFancier = ({
+  width = 0,
+  height = 0,
+  src = '',
   boxProps,
   isHover: isHoverProp,
   ...rest
-}: ImgixFancyProps & Props) => {
+}: Props) => {
   const [isHover, setIsHover] = useState<boolean>() // For animation to work properly this must be initialized as undefined
 
   useEffect(() => {
@@ -117,7 +119,10 @@ const ImgixFancier = ({
           <SearchRoundedIcon fontSize="large" color="inherit" />
         </Animate>
       </FlexBox>
-      <ImgixFancy
+      <Image
+        src={src}
+        loader={imgixUrlLoader}
+        layout="responsive"
         height={height}
         width={width}
         className={classes.img}
@@ -127,4 +132,4 @@ const ImgixFancier = ({
   )
 }
 
-export default ImgixFancier
+export default ImageFancier
