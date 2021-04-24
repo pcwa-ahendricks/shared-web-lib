@@ -1,6 +1,8 @@
 import React from 'react'
 import {Popover, Theme, makeStyles, createStyles} from '@material-ui/core'
-import Imgix from 'react-imgix'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import {stringify} from 'querystringify'
 
 const imageHeight = 25
 const imageWidth = 130
@@ -55,16 +57,16 @@ const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
       disableRestoreFocus
     >
       <div className={classes.popoverContent}>
-        {/* Don't use ImgixFancy here cause we don't want to transition the transparent image background. */}
-        <Imgix
+        <Image
+          loader={imgixUrlLoader}
           height={imageHeight}
           width={imageWidth}
-          src="https://imgix.cosmicjs.com/75f388e0-b5a4-11ea-bb3d-b798bc445817-OpenWeatherMap-logo-banner.png"
-          imgixParams={{fit: 'crop'}} // Required with ver. 9+
-          htmlAttributes={{
-            // Don't need to add a style.width when using 'height' and 'width' with <Imgix />.
-            alt: 'OpenWeather logo'
-          }}
+          src={`https://imgix.cosmicjs.com/75f388e0-b5a4-11ea-bb3d-b798bc445817-OpenWeatherMap-logo-banner.png${stringify(
+            {fit: 'crop'},
+            true
+          )}`}
+          alt="OpenWeather logo"
+          objectFit="cover"
         />
       </div>
     </Popover>
