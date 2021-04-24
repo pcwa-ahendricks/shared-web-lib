@@ -11,7 +11,7 @@ import {Alert} from '@material-ui/lab'
 import Spacing from '@components/boxes/Spacing'
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 const DEADLINE = 'August 14th, 2020'
 
 export default function AnnualCanalSurveyPage() {
@@ -93,13 +93,13 @@ export default function AnnualCanalSurveyPage() {
           <Box bgcolor={theme.palette.background.paper} pt={3} pb={2} px={2}>
             <RowBox justifyContent="space-around">
               <ChildBox flex="0 1 30%">
-                <ImgixThumbLink
-                  imageWidth={160}
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/1ff7edb0-c557-11ea-88e1-9f819bfb6e4c-Canal-Survey-screenshot.png"
                   href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
                   rel="noopener noreferrer"
                   target="_blank"
                   alt="Online Canal Survey thumbnail and link"
+                  sizes="30vw"
                 />
                 <Box textAlign="center">
                   <Type color="primary" variant="h6" noWrap>
@@ -119,13 +119,13 @@ export default function AnnualCanalSurveyPage() {
                 </Box>
               </ChildBox>
               <ChildBox flex="0 1 30%">
-                <ImgixThumbLink
-                  imageWidth={160}
+                <ImageThumbLink
                   url="https://imgix.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
                   href="https://cdn.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
                   rel="noopener noreferrer"
                   target="_blank"
                   alt="Thumbnail and link for Mail-in Survey Document"
+                  sizes="30vw"
                 />
                 <Box textAlign="center">
                   <Type color="primary" variant="h6" noWrap>

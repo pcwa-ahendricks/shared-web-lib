@@ -3,16 +3,16 @@ import {
   Box,
   Theme,
   Typography as Type,
-  useMediaQuery,
-  useTheme,
+  // useMediaQuery,
+  // useTheme,
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import ImgixFancy from '@components/ImgixFancy/ImgixFancy'
 import {ColumnBox} from 'mui-sleazebox'
-import {BoxProps} from '@material-ui/core/Box'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import slugify from 'slugify'
+import Image, {ImageProps} from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   caption?: string
@@ -21,8 +21,8 @@ type Props = {
   margin?: number
   alt: string
   paddingPercent?: number
-  imageWidth?: BoxProps['width']
-} & Partial<FlexLinkProps>
+} & Partial<FlexLinkProps> &
+  Partial<ImageProps>
 
 type UseStylesProps = {
   isHover: boolean
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       outline: 'none' // Don't show outline
     },
     thumbnailContainer: ({isHover}: UseStylesProps) => ({
+      background: theme.palette.common.white,
       boxShadow: '1px 1px 4px #ccc',
       border: !isHover
         ? '1px solid transparent'
@@ -49,26 +50,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ImgixThumbLink = ({
+const ImageThumbLink = ({
   caption = '',
   url,
   filename: filenameProp = '',
   margin = 0,
   alt,
-  imageWidth: imageWidthProp,
-  paddingPercent = 129.412, // Default to 8.5x11 ratio (11/8.5*100).
+  width = 85,
+  height = 110,
   href: hrefProp,
   isNextLink = false,
+  sizes = '10vw',
   ...rest
 }: Props) => {
-  const theme = useTheme<Theme>()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const defaultImageWidth = isXs ? 70 : isSm ? 75 : 85
-  const imageWidth = useMemo(
-    () => (imageWidthProp ? imageWidthProp : defaultImageWidth),
-    [imageWidthProp, defaultImageWidth]
-  )
+  // const theme = useTheme<Theme>()
+  // const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  // const isSm = useMediaQuery(theme.breakpoints.only('sm'))
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
@@ -93,16 +90,20 @@ const ImgixThumbLink = ({
         isNextLink={isNextLink}
         {...rest}
       >
-        <Box width={imageWidth} className={classes.thumbnailContainer}>
-          <ImgixFancy
-            paddingPercent={paddingPercent}
+        <Box
+          width={width}
+          className={classes.thumbnailContainer}
+          alignItems="stretch"
+        >
+          <Image
+            loader={imgixUrlLoader}
             src={url || href}
-            htmlAttributes={{
-              alt: alt,
-              style: {
-                backgroundColor: theme.palette.common.white
-              }
-            }}
+            alt={alt}
+            layout="responsive"
+            sizes={sizes}
+            width={width ?? 0}
+            height={height ?? 0}
+            objectFit="cover"
           />
         </Box>
         <ColumnBox textAlign="center" mt={1}>
@@ -115,4 +116,4 @@ const ImgixThumbLink = ({
   )
 }
 
-export default ImgixThumbLink
+export default ImageThumbLink

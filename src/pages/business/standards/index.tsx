@@ -5,7 +5,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import {Typography as Type, Box, Link, Divider} from '@material-ui/core'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink from '@components/NextLink/NextLink'
 import EngineeringPhone from '@components/links/EngineeringPhone'
@@ -25,14 +25,14 @@ const ImprovementStandardsPage = () => {
                 mx="auto"
                 width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <ImgixThumbLink
-                  imageWidth="100%"
+                <ImageThumbLink
                   filename="PCWA_Improvement_Standards_2017"
                   url="https://imgix.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                   alt="2017 PCWA Improvement Standards"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
+                  sizes="(max-width: 600px) 50vw, 10vw"
                 />
                 <Box textAlign="center">
                   <Type variant="caption">
