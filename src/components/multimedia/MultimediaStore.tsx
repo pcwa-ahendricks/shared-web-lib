@@ -72,9 +72,8 @@ export type PickedPublicationResponse = Pick<
 >
 
 interface MappedProperties {
-  width?: number // For <ImgixFancy/>, not for videos.
-  height?: number // For <ImgixFancy/>, not for videos.
-  paddingPercent?: string // For <ImgixFancy/>, not for videos.
+  width?: number // For <Image/>, not for videos.
+  height?: number // For <Image/>, not for videos.
 }
 interface MappedLightboxProperties extends MappedProperties {
   index: number
