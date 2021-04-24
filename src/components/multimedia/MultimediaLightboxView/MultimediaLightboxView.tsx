@@ -1,11 +1,23 @@
 // cspell:ignore lightbox
 import React, {useCallback, useState, useEffect} from 'react'
-import {Box, CircularProgress, useTheme} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import {Box, CircularProgress, makeStyles, useTheme} from '@material-ui/core'
 import {FlexBox} from 'mui-sleazebox'
+import {stringify} from 'querystringify'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+
+const useStyles = makeStyles({
+  img: {
+    height: 'auto',
+    width: 'auto',
+    maxHeight: '88vh', // Don't cover controls
+    maxWidth: '100%',
+    userSelect: 'none'
+  }
+})
 
 const MultimediaLightboxView = (props: any) => {
-  const {data, getStyles, index, modalProps} = props
+  const {data, getStyles, index, modalProps, currentIndex} = props
   const {alt, imgix_url, metadata} = data
   const {gallery, category} = metadata ?? {}
   // LazyImgix needs a width and height, and the one it calculates is bogus. Use the window dimensions preferably.
@@ -15,6 +27,7 @@ const MultimediaLightboxView = (props: any) => {
   const {onClose = null} = modalProps ? modalProps : {}
 
   const theme = useTheme()
+  const classes = useStyles()
 
   const closeHandler = useCallback(
     (event: any) => {
@@ -31,6 +44,8 @@ const MultimediaLightboxView = (props: any) => {
   const onLoadHandler = useCallback(() => {
     setIsLoading(false)
   }, [])
+
+  const showImage = currentIndex === index
 
   // [HACK] Use with custom close on backdrop click. Prevents closing of dialog when image is clicked effectively requiring a click of the actual backdrop (or close button) to close modal. See notes below about react-images closeOnBackdropClick prop limitations.
   // const imageClickHandler = useCallback((event: MouseEvent) => {
@@ -59,24 +74,21 @@ const MultimediaLightboxView = (props: any) => {
           />
         ) : null}
       </FlexBox>
-      <LazyImgix
-        htmlAttributes={{
-          onLoad: onLoadHandler,
-          alt: alt ?? `${gallery} ${category} photo #${index + 1}`,
-          style: {
-            height: 'auto',
-            width: 'auto',
-            maxHeight: '88vh', // Don't cover controls
-            maxWidth: '100%',
-            userSelect: 'none'
-          }
+      {showImage ? (
+        <Image
+          priority
+          loader={imgixUrlLoader}
+          onLoad={onLoadHandler}
+          alt={alt ?? `${gallery} ${category} photo #${index + 1}`}
           // onClick: imageClickHandler
-        }}
-        imgixParams={{fit: 'fill'}}
-        src={imgix_url}
-        width={width}
-        height={height}
-      />
+          src={`${imgix_url}${stringify({fit: 'fill'}, true)}`}
+          width={width}
+          height={height}
+          layout="intrinsic"
+          objectFit="contain"
+          className={classes.img}
+        />
+      ) : null}
     </Box>
   )
 }
