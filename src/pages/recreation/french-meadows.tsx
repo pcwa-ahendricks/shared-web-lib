@@ -13,7 +13,7 @@ import TimelineIcon from '@material-ui/icons/Timeline'
 import FilterHdrIcon from '@material-ui/icons/FilterHdr'
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
 import PeopleIcon from '@material-ui/icons/People'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 
 const FrenchMeadowsPage = () => {
   const TypeWithAdornment = useCallback(
@@ -152,13 +152,13 @@ const FrenchMeadowsPage = () => {
             <ChildBox>
               <RowBox flexSpacing={3}>
                 <ChildBox flex={{xs: '1 1 auto', sm: '0 0 100px'}}>
-                  <ImgixThumbLink
-                    imageWidth={100}
+                  <ImageThumbLink
                     url="https://imgix.cosmicjs.com/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
                     href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
                     alt="Bunker Hill Topographic Quad Map Thumbnail for PDF link"
+                    sizes="(max-width: 600px) 33vw, 10vw"
                   />
                 </ChildBox>
                 <ChildBox>

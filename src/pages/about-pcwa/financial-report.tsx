@@ -16,10 +16,11 @@ import {
   LinkProps
 } from '@material-ui/core'
 import {ChildBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
-import ImgixThumbLink from '@components/ImgixThumbLink/ImgixThumbLink'
+import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,19 +72,23 @@ const EmployeeBenefitsSummaryPage = () => {
           <PageTitle title="Financial Reports" subtitle="General" />
           <RowBox responsive flexSpacing={4}>
             <ChildBox
-              flex="auto"
+              height="100%"
+              flex="20%"
               m={{xs: 'auto', sm: 0}} // Center image in small layouts.
               ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
+              width={{xs: '50vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
-              <LazyImgix
-                src="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
-                htmlAttributes={{
-                  alt: 'Financial Report Cover Page'
-                }}
+              <Image
+                loader={imgixLoader}
+                src="51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                layout="responsive"
+                sizes="(max-width: 600px) 50vw, 20vw"
+                width={85}
+                height={110}
+                alt="Financial Report Cover Page"
               />
             </ChildBox>
-            <ChildBox flex={{xs: '100%', sm: '60%'}}>
+            <ChildBox flex="80%">
               <Type paragraph>
                 PCWA's financial condition continues to be sound, with a stable
                 revenue base. Our responsible fiscal management and planning, as
@@ -111,19 +116,22 @@ const EmployeeBenefitsSummaryPage = () => {
                 mt={3}
               >
                 <RowBox justifyContent="space-around">
-                  <ImgixThumbLink
+                  <ImageThumbLink
+                    sizes="(max-width: 600px) 25vw, 10vw"
                     // url="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     href="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     caption="2019 Annual Report"
                     alt="Annual Report Thumbnail and link for 2019 PCWA Annual Report pdf"
                   />
-                  <ImgixThumbLink
+                  <ImageThumbLink
+                    sizes="(max-width: 600px) 25vw, 10vw"
                     // url="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     href="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     caption="2018 Annual Report"
                     alt="Annual Report Thumbnail and link for 2018 PCWA Annual Report pdf"
                   />
-                  <ImgixThumbLink
+                  <ImageThumbLink
+                    sizes="(max-width: 600px) 25vw, 10vw"
                     // url="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     href="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     caption="2017 Annual Report"
