@@ -2,6 +2,7 @@ import React from 'react'
 import {ParallaxBanner, ParallaxBannerProps} from 'react-scroll-parallax'
 import {Box} from '@material-ui/core'
 import Image, {ImageProps} from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   ImageProps: ImageProps
@@ -27,7 +28,11 @@ const ImgixFancyParallaxBanner = ({
                 marginTop: marginTop
               }}
             >
-              <Image layout="responsive" {...ImageProps} />
+              <Image
+                loader={imgixUrlLoader}
+                layout="responsive"
+                {...ImageProps}
+              />
             </Box>
           ),
           amount: amount
