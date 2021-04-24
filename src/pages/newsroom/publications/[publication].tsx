@@ -324,6 +324,7 @@ const PublicationsPage = ({
           mx={isXS ? 'auto' : 0}
           cardMediaHeight={pubCardImgHeight}
           cardMediaWidth={pubCardImgWidth}
+          sizes="33vw"
           {...props}
         />
       )

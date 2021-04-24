@@ -19,8 +19,10 @@ import DownloadIcon from '@material-ui/icons/CloudDownload'
 import {format} from 'date-fns'
 import fileExtension from '@lib/fileExtension'
 // import LazyImgix from '@components/LazyImgix/LazyImgix'
-import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
+import ImageFancier from '@components/ImageFancier/ImageFancier'
 import slugify from 'slugify'
+import {stringify} from 'querystringify'
+import {ImageProps} from 'next/image'
 
 export type PublicationCardProps = {
   title: string
@@ -30,6 +32,7 @@ export type PublicationCardProps = {
   cardMediaWidth?: number
   cardMediaHeight?: number
   imgixCropMode?: string
+  sizes?: ImageProps['sizes']
 } & BoxProps
 
 type UseStylesProps = {
@@ -53,6 +56,7 @@ const PublicationCard = ({
   cardMediaWidth = 300,
   cardMediaHeight = 250,
   imgixCropMode = 'top',
+  sizes,
   ...rest
 }: PublicationCardProps) => {
   const classes = useStyles({cardMediaHeight})
@@ -95,17 +99,23 @@ const PublicationCard = ({
             // src={}
             // alt=""
           >
-            <ImgixFancier
-              src={thumbImgixURL}
-              htmlAttributes={{
-                alt: `Thumbnail image and link for ${title} publication`
-              }}
+            <ImageFancier
+              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
+              src={`${thumbImgixURL}${stringify(
+                {
+                  fit: 'crop',
+                  crop: imgixCropMode,
+                  bg: 'ffffff'
+                },
+                true
+              )}`}
+              objectFit="cover"
+              objectPosition="center top"
+              alt={`Thumbnail image and link for ${title} publication`}
               height={cardMediaHeight}
               width={cardMediaWidth}
-              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
-              imgixParams={{fit: 'crop', crop: imgixCropMode, bg: 'ffffff'}}
-              paddingPercent={(cardMediaHeight / cardMediaWidth) * 100}
               isHover={actionAreaIsHover}
+              sizes={sizes}
             />
           </CardMedia>
           <CardContent>

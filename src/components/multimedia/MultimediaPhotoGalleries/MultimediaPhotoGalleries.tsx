@@ -29,7 +29,7 @@ import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
-import ImgixFancier from '@components/ImgixFancier/ImgixFancier'
+import ImageFancier from '@components/ImageFancier/ImageFancier'
 
 type Props = {
   multimedia?: PhotoList
@@ -368,15 +368,15 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                       <ChildBox key={p.index}>
                         <ColumnBox>
                           <ChildBox position="relative">
-                            <ImgixFancier
-                              htmlAttributes={{
-                                alt:
-                                  p.metadata?.description ??
-                                  `${p.metadata?.gallery} ${
-                                    p.metadata?.category
-                                  } photo #${p.index + 1}`
-                                // onClick: imageClickHandler(p.index),
-                              }}
+                            <ImageFancier
+                              sizes="(max-width: 500px) 100vw, (max-width: 760px) 50vw, 33vw"
+                              alt={
+                                p.metadata?.description ??
+                                `${p.metadata?.gallery} ${
+                                  p.metadata?.category
+                                } photo #${p.index + 1}`
+                              }
+                              // onClick: imageClickHandler(p.index),
                               boxProps={{
                                 onClick: imageClickHandler(p.index)
                               }}

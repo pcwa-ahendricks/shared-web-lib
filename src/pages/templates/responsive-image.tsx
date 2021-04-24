@@ -5,7 +5,8 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {FlexBox, RowBox, ChildBox} from 'mui-sleazebox'
 import {Typography as Type, Box} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 export default function ResponsiveImageTemplatePage() {
   return (
@@ -22,11 +23,14 @@ export default function ResponsiveImageTemplatePage() {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
-                  htmlAttributes={{
-                    alt: 'demo image'
-                  }}
+                <Image
+                  loader={imgixLoader}
+                  src="7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
+                  alt="demo image"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={200}
+                  height={259}
                 />
               </Box>
             </FlexBox>
