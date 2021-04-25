@@ -5,18 +5,14 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
-import {
-  Typography as Type,
-  Box,
-  Link,
-  useTheme,
-  useMediaQuery
-} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import {Typography as Type, Box, Link} from '@material-ui/core'
 import MuiNextLink from '@components/NextLink/NextLink'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import Spacing from '@components/boxes/Spacing'
 import slugify from 'slugify'
+import Image from 'next/image'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
+import {stringify} from 'querystringify'
 
 const recreationMapUrl =
   'https://cdn.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
@@ -34,8 +30,6 @@ const exploringTheMfAlt =
   'Exploring the Middle Fork American River Watershed Brochure'
 
 const RecreationPage = () => {
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   return (
     <PageLayout title="Recreation" waterSurface>
       <MainBox>
@@ -67,12 +61,14 @@ const RecreationPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/52091c90-6b3f-11e7-b3a3-fbbc226e29f5-recreation.jpg"
-                  htmlAttributes={{
-                    alt:
-                      'River kayaking on the North Fork of the Middle Fork of the American River'
-                  }}
+                <Image
+                  loader={imgixLoader}
+                  src="52091c90-6b3f-11e7-b3a3-fbbc226e29f5-recreation.jpg"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={700}
+                  height={878}
+                  alt="River kayaking on the North Fork of the Middle Fork of the American River"
                 />
               </Box>
             </ChildBox>
@@ -106,29 +102,32 @@ const RecreationPage = () => {
                 </Type>
               </ChildBox>
               <ChildBox flex={{xs: '1 1 auto', sm: '0 0 200px'}}>
+                <MediaDialogOnClick
+                  width={700}
+                  height={440}
+                  mediaUrl={recreationMapImgixUrl}
+                  mediaName={recreationMapAlt}
+                  mediaPreviewDialogProps={{
+                    showActions: true,
+                    dlUrl: `${recreationMapImgixUrl}?dl=${slugify(
+                      recreationMapAlt
+                    )}.pdf`
+                  }}
+                >
+                  <Image
+                    loader={imgixUrlLoader}
+                    width={700}
+                    height={440}
+                    alt={recreationMapAlt}
+                    src={`${recreationMapImgixUrl}${stringify(
+                      {border: '1,AAAAAA'},
+                      true
+                    )}`}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 100vw, 45vw"
+                  />
+                </MediaDialogOnClick>
                 <ColumnBox alignItems="center" textAlign="center">
-                  <MediaDialogOnClick
-                    width="100%" // Grow image on small devices when resized from big to small.
-                    mediaUrl={`${recreationMapImgixUrl}?fm=jpg`}
-                    mediaName={recreationMapAlt}
-                    mediaPreviewDialogProps={{
-                      showActions: true,
-                      dlUrl: `${recreationMapImgixUrl}?dl=${slugify(
-                        recreationMapAlt
-                      )}.pdf`
-                    }}
-                  >
-                    <LazyImgix
-                      src={recreationMapImgixUrl}
-                      imgixParams={{border: '1,AAAAAA'}}
-                      htmlAttributes={{
-                        alt: recreationMapAlt,
-                        style: {
-                          cursor: !isXs ? 'pointer' : 'default'
-                        }
-                      }}
-                    />
-                  </MediaDialogOnClick>
                   <Box mt={1}>
                     <Type variant="caption">Recreation Map</Type>
                   </Box>
@@ -141,29 +140,31 @@ const RecreationPage = () => {
                 flex={{xs: '1 1 auto', sm: '0 0 150px'}}
                 order={{xs: 1, sm: 0}}
               >
+                <MediaDialogOnClick
+                  width={700}
+                  height={777}
+                  mediaUrl={exploringTheMfCoverImgixUrl}
+                  mediaName={exploringTheMfAlt}
+                  mediaPreviewDialogProps={{
+                    showActions: true,
+                    dlUrl: `${exploringTheMfImgixUrl}?dl=${slugify(
+                      exploringTheMfAlt
+                    )}.pdf`
+                  }}
+                >
+                  <Image
+                    width={700}
+                    height={777}
+                    alt={exploringTheMfAlt}
+                    src={`${exploringTheMfCoverImgixUrl}${stringify(
+                      {border: '1,AAAAAA'},
+                      true
+                    )}`}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 100vw, 45vw"
+                  />
+                </MediaDialogOnClick>
                 <ColumnBox alignItems="center" textAlign="center">
-                  <MediaDialogOnClick
-                    width={{xs: '60%', sm: '100%'}} // Grow image on small devices when resized from big to small.
-                    mediaUrl={`${exploringTheMfCoverImgixUrl}?fm=jpg`}
-                    mediaName={exploringTheMfAlt}
-                    mediaPreviewDialogProps={{
-                      showActions: true,
-                      dlUrl: `${exploringTheMfImgixUrl}?dl=${slugify(
-                        exploringTheMfAlt
-                      )}.pdf`
-                    }}
-                  >
-                    <LazyImgix
-                      src={exploringTheMfCoverImgixUrl}
-                      imgixParams={{border: '1,AAAAAA'}}
-                      htmlAttributes={{
-                        alt: exploringTheMfAlt,
-                        style: {
-                          cursor: !isXs ? 'pointer' : 'default'
-                        }
-                      }}
-                    />
-                  </MediaDialogOnClick>
                   <Box mt={1}>
                     <Type variant="caption">
                       Exploring the Middle Fork American River Watershed

@@ -16,6 +16,7 @@ import MediaPreviewDialog, {
   MediaPreviewDialogProps
 } from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import colorAlpha from 'color-alpha'
+import {ImageProps} from 'next/image'
 
 type Props = {
   mediaName: string
@@ -26,14 +27,21 @@ type Props = {
   popperAnchorStyle?: React.CSSProperties
   mediaPreviewDialogProps?: Partial<MediaPreviewDialogProps>
   mediaDialogOpen?: boolean
-} & Partial<BoxProps>
+  width: ImageProps['width']
+  height: ImageProps['height']
+} & Partial<Omit<BoxProps, 'width' | 'height'>>
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     popper: {
       position: 'absolute',
       zIndex: 5,
       pointerEvents: 'none'
+    },
+    childrenRoot: {
+      [theme.breakpoints.up('sm')]: {
+        cursor: 'pointer'
+      }
     }
   })
 )
@@ -44,6 +52,8 @@ const MediaDialogOnClick = ({
   popperAnchorStyle = {},
   mediaName,
   mediaUrl,
+  width,
+  height,
   timeout = 350,
   mediaPreviewDialogProps,
   mediaDialogOpen: mediaDialogOpenProp = false,
@@ -125,7 +135,7 @@ const MediaDialogOnClick = ({
             )}
           </Popper>
         </Hidden>
-        <Box>{children}</Box>
+        <Box className={classes.childrenRoot}>{children}</Box>
       </Box>
       <MediaPreviewDialog
         open={mediaDialogOpen}
@@ -135,6 +145,8 @@ const MediaDialogOnClick = ({
         scroll="body"
         fullWidth={false}
         maxWidth="xl"
+        width={width}
+        height={height}
         {...mediaPreviewDialogProps}
         // showActions
         // dlUrl={`${ImageUrl}${qsDownloadUrl}`}

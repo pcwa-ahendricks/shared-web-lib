@@ -7,7 +7,6 @@ import {
   Typography as Type,
   TypographyProps,
   Box,
-  useMediaQuery,
   List,
   ListItem,
   ListItemAvatar,
@@ -37,6 +36,8 @@ import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClic
 import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'
 import WideContainer from '@components/containers/WideContainer'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import Image from 'next/image'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,7 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const ARBSPage = () => {
   const classes = useStyles()
   const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
@@ -119,7 +119,7 @@ const ARBSPage = () => {
     )
   }
   const mapImageUrl =
-    'https://cosmicjs.imgix.net/421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg'
+    'https://imgix.cosmicjs.com/421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg'
   const mapImageAlt = 'Map of American River Basin Study Area'
 
   const ListItemAnchor = ({
@@ -383,23 +383,23 @@ const ARBSPage = () => {
               </ul>
 
               <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
+                <MediaDialogOnClick
+                  mediaUrl={mapImageUrl}
+                  mediaName={mapImageAlt}
+                  width={700}
+                  height={525}
+                >
+                  <Image
+                    loader={imgixUrlLoader}
+                    src={mapImageUrl}
+                    alt={mapImageAlt}
+                    width={700}
+                    height={525}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 100vw, 75vw"
+                  />
+                </MediaDialogOnClick>
                 <ColumnBox alignItems="center">
-                  <MediaDialogOnClick
-                    mediaUrl={mapImageUrl}
-                    mediaName={mapImageAlt}
-                  >
-                    <LazyImgix
-                      src={mapImageUrl}
-                      imgixParams={{border: '1,AAAAAA'}}
-                      htmlAttributes={{
-                        alt: mapImageAlt,
-                        style: {
-                          width: '100%',
-                          cursor: !isXs ? 'pointer' : 'default'
-                        }
-                      }}
-                    />
-                  </MediaDialogOnClick>
                   <Box mt={1}>
                     <Type variant="caption">
                       Figure 1-1. American River Basin Study Area Map
