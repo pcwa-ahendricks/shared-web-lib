@@ -134,8 +134,10 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
                       mediaName="Photo of Hell Hole Dam construction"
-                      width={900}
-                      height={675}
+                      mediaPreviewDialogProps={{
+                        width: 900,
+                        height: 675
+                      }}
                     >
                       <Image
                         loader={imgixUrlLoader}
@@ -345,8 +347,10 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
                       mediaName="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
-                      width={700}
-                      height={961}
+                      mediaPreviewDialogProps={{
+                        width: 700,
+                        height: 961
+                      }}
                     >
                       <Image
                         loader={imgixUrlLoader}
@@ -497,8 +501,10 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
                       mediaName="Map Figure of Alta Loop Pipeline Project"
-                      width={700}
-                      height={535}
+                      mediaPreviewDialogProps={{
+                        width: 700,
+                        height: 535
+                      }}
                     >
                       <Image
                         loader={imgixUrlLoader}
@@ -705,8 +711,10 @@ const ProjectsPage = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
                     mediaName="Map Figure of existing and proposed canal layout"
-                    width={700}
-                    height={525}
+                    mediaPreviewDialogProps={{
+                      width: 700,
+                      height: 525
+                    }}
                   >
                     <Image
                       loader={imgixUrlLoader}

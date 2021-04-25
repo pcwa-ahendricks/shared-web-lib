@@ -103,11 +103,11 @@ const RecreationPage = () => {
               </ChildBox>
               <ChildBox flex={{xs: '1 1 auto', sm: '0 0 200px'}}>
                 <MediaDialogOnClick
-                  width={700}
-                  height={440}
                   mediaUrl={recreationMapImgixUrl}
                   mediaName={recreationMapAlt}
                   mediaPreviewDialogProps={{
+                    width: 700,
+                    height: 440,
                     showActions: true,
                     dlUrl: `${recreationMapImgixUrl}?dl=${slugify(
                       recreationMapAlt
@@ -141,11 +141,11 @@ const RecreationPage = () => {
                 order={{xs: 1, sm: 0}}
               >
                 <MediaDialogOnClick
-                  width={700}
-                  height={777}
                   mediaUrl={exploringTheMfCoverImgixUrl}
                   mediaName={exploringTheMfAlt}
                   mediaPreviewDialogProps={{
+                    width: 700,
+                    height: 777,
                     showActions: true,
                     dlUrl: `${exploringTheMfImgixUrl}?dl=${slugify(
                       exploringTheMfAlt
