@@ -19,7 +19,8 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     img: {
-      width: '100%'
+      width: '100%',
+      backgroundColor: theme.palette.common.white
     },
     fab: {
       zIndex: 2,
@@ -94,8 +95,8 @@ const MediaPreviewDialog = ({
           alt={name}
           layout="responsive"
           objectFit="contain"
-          width={width ?? 0}
-          height={height ?? 0}
+          width={width ?? '100%'}
+          height={height ?? '100%'}
         />
       ) : (
         <img

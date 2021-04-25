@@ -105,7 +105,7 @@ const IrrigEffTermsConditions = ({
           name={fileName}
           url={usePreviewUrls}
           scroll="body"
-          fullWidth={false}
+          fullWidth={true}
           maxWidth="xl"
           showActions
           dlUrl={`${termsConditionsUrl}${qsDownloadUrl}`}
