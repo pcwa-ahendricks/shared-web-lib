@@ -80,8 +80,10 @@ const WaterQualityPage = () => {
                 <MediaDialogOnClick
                   mediaUrl={tsaImageUrl}
                   mediaName={tsaImageAlt}
-                  width={700}
-                  height={505}
+                  mediaPreviewDialogProps={{
+                    width: 700,
+                    height: 505
+                  }}
                 >
                   <Image
                     loader={imgixUrlLoader}
