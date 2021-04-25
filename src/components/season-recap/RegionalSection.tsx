@@ -1090,6 +1090,8 @@ export default function RegionalSection({countyResponse}: Props) {
               <MediaDialogOnClick
                 mediaName="Actual Precipitation"
                 mediaUrl={precipSrc}
+                height={850}
+                width={1100}
               >
                 <Image
                   src={precipSrc}
@@ -1109,6 +1111,8 @@ export default function RegionalSection({countyResponse}: Props) {
           <MediaDialogOnClick
             mediaName="Departure from Normal"
             mediaUrl={departNormalPrecipSrc}
+            height={850}
+            width={1100}
           >
             <Image
               src={departNormalPrecipSrc}
@@ -1128,6 +1132,8 @@ export default function RegionalSection({countyResponse}: Props) {
               <MediaDialogOnClick
                 mediaName="Percent of Normal"
                 mediaUrl={percNormalPrecipSrc}
+                height={850}
+                width={1100}
               >
                 <Image
                   src={percNormalPrecipSrc}
@@ -1155,6 +1161,8 @@ export default function RegionalSection({countyResponse}: Props) {
             <MediaDialogOnClick
               mediaName="Temperature Departure"
               mediaUrl={tempDepartSrc}
+              height={850}
+              width={1100}
             >
               <Image
                 src={tempDepartSrc}

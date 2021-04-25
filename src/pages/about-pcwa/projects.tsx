@@ -6,7 +6,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ChildBoxProps, ColumnBox, RowBox} from 'mui-sleazebox'
 import {
-  useTheme,
   makeStyles,
   createStyles,
   Theme,
@@ -17,16 +16,17 @@ import {
   ListItemText,
   ListItemProps,
   Link,
-  useMediaQuery,
   Box,
   TypographyProps
 } from '@material-ui/core'
 import ConstructionProject from '@components/ConstructionProject/ConstructionProject'
 import Spacing from '@components/boxes/Spacing'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import DownloadIcon from '@material-ui/icons/GetApp'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import {stringify} from 'querystringify'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,9 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 const ProjectsPage = () => {
   // const margin = 4 // Used with left and top margin of flexWrap items.
-  const theme = useTheme()
   const classes = useStyles()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   // const itemFlex = `1 0 calc(50% - ${theme.spacing(4)}px)`
 
@@ -133,29 +131,32 @@ const ProjectsPage = () => {
                       conclude in October of 2020.
                     </Type>
                     <Spacing />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
+                      mediaName="Photo of Hell Hole Dam construction"
+                      width={900}
+                      height={675}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg${stringify(
+                          {border: '1,AAAAAA'},
+                          true
+                        )}`}
+                        alt="Photo of Hell Hole Dam construction"
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                        width={900}
+                        height={675}
+                      />
+                    </MediaDialogOnClick>
                     <ColumnBox alignItems="center">
-                      <MediaDialogOnClick
-                        mediaUrl="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
-                        mediaName="Photo of Hell Hole Dam construction"
-                      >
-                        <LazyImgix
-                          src="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
-                          imgixParams={{border: '1,AAAAAA'}}
-                          htmlAttributes={{
-                            alt: 'Photo of Hell Hole Dam construction',
-                            style: {
-                              width: '100%',
-                              cursor: !isXs ? 'pointer' : 'default'
-                            }
-                          }}
-                        />
-                      </MediaDialogOnClick>
-                      <Box mt={1} width="60%" textAlign="center">
+                      <ChildBox mt={1} width="60%" textAlign="center">
                         <Type variant="caption">
                           Hell Hole Dam core raise construction{' '}
                           <em>(click to enlarge)</em>
                         </Type>
-                      </Box>
+                      </ChildBox>
                     </ColumnBox>
                   </article>
                 </ConstructionProject>
@@ -341,25 +342,27 @@ const ProjectsPage = () => {
                       </Link>
                     </Type>
                     <Spacing size="large" />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
+                      mediaName="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
+                      width={700}
+                      height={961}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png${stringify(
+                          {border: '1,AAAAAA'},
+                          true
+                        )}`}
+                        alt="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                        width={700}
+                        height={961}
+                      />
+                    </MediaDialogOnClick>
                     <ColumnBox alignItems="center">
-                      <MediaDialogOnClick
-                        mediaUrl="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
-                        mediaName="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
-                      >
-                        <LazyImgix
-                          src="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
-                          imgixParams={{border: '1,AAAAAA'}}
-                          htmlAttributes={{
-                            alt:
-                              'Map Figure of Foothill Raw Water Pipeline Phase 2 Project',
-                            style: {
-                              width: '100%',
-                              cursor: !isXs ? 'pointer' : 'default'
-                            }
-                          }}
-                        />
-                      </MediaDialogOnClick>
-                      <Box mt={1} width="60%" textAlign="center">
+                      <ChildBox mt={1} width="60%" textAlign="center">
                         <Type variant="caption">
                           Foothill Raw Water Project Components{' '}
                           <em>(click image to enlarge)</em>
@@ -383,7 +386,7 @@ const ProjectsPage = () => {
                             </ColumnBox>
                           </Link>
                         </Type>
-                      </Box>
+                      </ChildBox>
                     </ColumnBox>
                   </article>
                 </ConstructionProject>
@@ -491,23 +494,26 @@ const ProjectsPage = () => {
                       </Link>
                     </Type>
                     <Spacing size="large" />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
+                      mediaName="Map Figure of Alta Loop Pipeline Project"
+                      width={700}
+                      height={535}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png${stringify(
+                          {border: '1,AAAAAA'},
+                          true
+                        )}`}
+                        alt="Map Figure of Alta Loop Pipeline Project"
+                        width={700}
+                        height={535}
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                      />
+                    </MediaDialogOnClick>
                     <ColumnBox alignItems="center">
-                      <MediaDialogOnClick
-                        mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
-                        mediaName="Map Figure of Alta Loop Pipeline Project"
-                      >
-                        <LazyImgix
-                          src="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
-                          imgixParams={{border: '1,AAAAAA'}}
-                          htmlAttributes={{
-                            alt: 'Map Figure of Alta Loop Pipeline Project',
-                            style: {
-                              width: '100%',
-                              cursor: !isXs ? 'pointer' : 'default'
-                            }
-                          }}
-                        />
-                      </MediaDialogOnClick>
                       <Box mt={1} width="60%" textAlign="center">
                         <Type variant="caption">
                           Map Figure of Alta Loop Pipeline Project{' '}
@@ -696,24 +702,26 @@ const ProjectsPage = () => {
                     </Link>
                   </Type>
                   <Spacing size="large" />
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
+                    mediaName="Map Figure of existing and proposed canal layout"
+                    width={700}
+                    height={525}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      src={`https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      alt="Map Figure of existing and proposed canal layout"
+                      width={700}
+                      height={525}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 45vw"
+                    />
+                  </MediaDialogOnClick>
                   <ColumnBox alignItems="center">
-                    <MediaDialogOnClick
-                      mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf?format=auto"
-                      mediaName="Map Figure of existing and proposed canal layout"
-                    >
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf?auto=format"
-                        imgixParams={{border: '1,AAAAAA'}}
-                        htmlAttributes={{
-                          alt:
-                            'Map Figure of existing and proposed canal layout',
-                          style: {
-                            width: '100%',
-                            cursor: !isXs ? 'pointer' : 'default'
-                          }
-                        }}
-                      />
-                    </MediaDialogOnClick>
                     <Box mt={1} width="60%" textAlign="center">
                       <Type variant="caption">
                         Map Figure of Bickford Ranch Phase I - Canal Services{' '}

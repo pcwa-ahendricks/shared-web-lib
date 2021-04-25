@@ -13,17 +13,18 @@ import {
   ListItemText,
   ListSubheader,
   useTheme,
-  Typography as Type,
-  useMediaQuery
+  Typography as Type
 } from '@material-ui/core'
+import Image from 'next/image'
 import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {blueGrey} from '@material-ui/core/colors'
 // import QuoteCloseIcon from '@material-ui/icons/FormatQuote'
 import QuoteOpenIcon from 'mdi-material-ui/FormatQuoteOpen'
 import QuoteCloseIcon from 'mdi-material-ui/FormatQuoteClose'
 import FancyButton from '@components/FancyButton/FancyButton'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import {stringify} from 'querystringify'
 
 const tsaImageUrl =
   'https://imgix.cosmicjs.com/2c559c90-c5c8-11e9-aaff-5105a05bb7d4-treated-services-areas.jpg'
@@ -31,7 +32,6 @@ const tsaImageAlt = 'Map of Treated Water Services Areas'
 
 const WaterQualityPage = () => {
   const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   const ListItemLink = (props: any) => {
     return (
@@ -77,22 +77,26 @@ const WaterQualityPage = () => {
             </Type>
             <RowBox responsive flexSpacing={4}>
               <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
+                <MediaDialogOnClick
+                  mediaUrl={tsaImageUrl}
+                  mediaName={tsaImageAlt}
+                  width={700}
+                  height={505}
+                >
+                  <Image
+                    loader={imgixUrlLoader}
+                    width={700}
+                    height={505}
+                    alt={tsaImageAlt}
+                    src={`${tsaImageUrl}${stringify(
+                      {border: '1,AAAAAA'},
+                      true
+                    )}`}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 100vw, 75vw"
+                  />
+                </MediaDialogOnClick>
                 <ColumnBox alignItems="center">
-                  <MediaDialogOnClick
-                    mediaUrl={tsaImageUrl}
-                    mediaName={tsaImageAlt}
-                  >
-                    <LazyImgix
-                      src={tsaImageUrl}
-                      imgixParams={{border: '1,AAAAAA'}}
-                      htmlAttributes={{
-                        alt: tsaImageAlt,
-                        style: {
-                          cursor: !isXs ? 'pointer' : 'default'
-                        }
-                      }}
-                    />
-                  </MediaDialogOnClick>
                   <Box mt={1}>
                     <Type variant="caption">Treated Water Services Areas</Type>
                   </Box>

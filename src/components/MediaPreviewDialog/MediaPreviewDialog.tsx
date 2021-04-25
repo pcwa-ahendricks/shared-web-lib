@@ -9,12 +9,12 @@ import {
   DialogProps,
   Zoom,
   makeStyles,
-  createStyles
-  // withMobileDialog
+  createStyles,
+  Box
 } from '@material-ui/core'
-import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
-// import {ZoomTransition as Transition} from '@components/Transition/Transition'
+import Image, {ImageProps} from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,10 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     dialogContent: {
       margin: 0,
       padding: 0,
-      marginBottom: '-1.1%', // [HACK] Not sure why there is a blank space at bottom of DialogContent. Possibly related to react-imgix. See <ImageDimmer/> for similar fix.
-      // padding: theme.spacing(2),
-      overflowX: 'hidden',
-      minHeight: 100 // Useful when PDF is loading.
+      overflowX: 'hidden'
     },
     // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
     ieFixFlexColumnDirection: {
@@ -67,13 +64,15 @@ export type MediaPreviewDialogProps = {
   showActions?: boolean
   url: string | string[]
   dlUrl?: string
-  // imgPlaceholder: string
+  width: ImageProps['width']
+  height: ImageProps['height']
 } & Partial<DialogProps>
 
 const MediaPreviewDialog = ({
   onClose,
   name,
-  // imgPlaceholder,
+  width,
+  height,
   url,
   dlUrl,
   showActions = false,
@@ -84,17 +83,19 @@ const MediaPreviewDialog = ({
 
   const getImgEl = useCallback(
     (url: string, key?: string | number) => (
-      // [TODO] It doesn't appear that lazy loading of images is working in this component.
-      <img
+      <Image
         key={key}
-        className={clsx(['lazyload', classes.img])}
-        data-sizes="auto"
-        data-src={url}
-        src={url} // IE fix - src attribute may be required for displaying img.
+        loader={imgixUrlLoader}
+        className={classes.img}
+        src={url}
         alt={name}
+        layout="responsive"
+        objectFit="contain"
+        width={width ?? 0}
+        height={height ?? 0}
       />
     ),
-    [name, classes]
+    [name, classes, width, height]
   )
 
   const imgEl = useMemo(
@@ -105,9 +106,8 @@ const MediaPreviewDialog = ({
     [url, getImgEl]
   )
 
-  const dialogActionsEl = useMemo(
+  const CondDialogActions = useCallback(
     () =>
-      // showActions || isXS || width === 'sm' ? (
       showActions ? (
         <DialogActions>
           {dlUrl ? (
@@ -119,25 +119,8 @@ const MediaPreviewDialog = ({
             Close
           </Button>
         </DialogActions>
-      ) : (
-        <div />
-      ),
+      ) : null,
     [showActions, dlUrl, onClose]
-  )
-
-  const fabEl = useMemo(
-    () => (
-      // width === 'xs' || width === 'sm' ? null : (
-      <Fab
-        size="small"
-        className={classes.fab}
-        onClick={onClose}
-        aria-label="Close Dialog"
-      >
-        <DeleteIcon />
-      </Fab>
-    ),
-    [classes, onClose]
   )
 
   return (
@@ -154,14 +137,20 @@ const MediaPreviewDialog = ({
       {...rest}
     >
       <>
-        {fabEl}
-        <DialogContent
-          className={classes.dialogContent}
-          // classes={{root: classes.dialogContentRoot}}
+        <Fab
+          size="small"
+          className={classes.fab}
+          onClick={onClose}
+          aria-label="Close Dialog"
         >
-          <div>{imgEl}</div>
+          <DeleteIcon />
+        </Fab>
+        <DialogContent classes={{root: classes.dialogContent}}>
+          <Box width={width} maxWidth="100%">
+            <>{imgEl}</>
+          </Box>
         </DialogContent>
-        {dialogActionsEl}
+        <CondDialogActions />
       </>
     </Dialog>
   )

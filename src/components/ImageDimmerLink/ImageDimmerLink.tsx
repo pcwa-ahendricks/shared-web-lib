@@ -7,9 +7,10 @@ import {
   makeStyles,
   BoxProps
 } from '@material-ui/core'
-// import LazyImgix from '@components/LazyImgix/LazyImgix'
-import Imgix from 'react-imgix'
 import Link from 'next/link'
+import {stringify} from 'querystringify'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   imgSrc: string
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: isHovering ? 'rgba(0, 0, 0, .6)' : 'rgba(0,0,0, 0.0)',
       position: 'absolute',
       top: 0,
-      bottom: 7, // [HACK] Compensate react-imgix images. See <MediaPreviewDialog/> for similar fix.
+      bottom: 0,
       left: 0,
       right: 0
     }),
@@ -112,20 +113,24 @@ const ImageDimmerLink = ({
         onMouseLeave={() => setIsHovering(false)}
         onMouseEnter={() => setIsHovering(true)}
         overflow="hidden"
+        minWidth={width}
+        width="100%"
         {...rest}
       >
-        <Imgix
+        <Image
+          loader={imgixUrlLoader}
+          src={`${imgSrc}${stringify(
+            {
+              fit: 'crop',
+              ...imgixParams
+            },
+            true
+          )}`}
+          layout="responsive"
+          sizes="(max-width: 600px) 100vw, 45vw"
           width={width}
           height={height}
-          src={imgSrc}
-          htmlAttributes={{
-            // Don't need to add a style.width when using 'height' and 'width' with <Imgix />.
-            alt
-          }}
-          imgixParams={{
-            fit: 'crop',
-            ...imgixParams
-          }}
+          alt={alt}
         />
         <Box className={classes.dimmer} />
         <Box>
