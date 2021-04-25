@@ -10,8 +10,9 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,13 +53,14 @@ const WaterSensePage = () => {
                 Label
               </Type>
             </ChildBox>
-            <ChildBox>
-              <LazyImgix
-                src="https://imgix.cosmicjs.com/69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
-                htmlAttributes={{
-                  alt: 'Look for WaterSense Logo',
-                  style: {width: '100%', maxWidth: 275}
-                }}
+            <ChildBox maxWidth={275} width="100%">
+              <Image
+                layout="responsive"
+                loader={imgixLoader}
+                src="69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
+                alt="Look for WaterSense Logo"
+                width={200}
+                height={247}
               />
             </ChildBox>
           </RowBox>

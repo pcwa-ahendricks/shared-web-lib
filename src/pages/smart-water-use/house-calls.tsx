@@ -167,11 +167,9 @@ const HouseCallsPage = () => {
                 mx="auto"
                 width={{xs: '70vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
+                <Image
                   src="https://imgix.cosmicjs.com/e62faff0-c430-11e9-b25b-79fa6aa7c400-Mychel-Teater-adjusting-sprinkler.tif"
-                  htmlAttributes={{
-                    alt: 'Meter Efficiency Technician adjusting sprinkler',
-                  }}
+                  alt='Meter Efficiency Technician adjusting sprinkler',
                 />
               </ChildBox> */}
 
