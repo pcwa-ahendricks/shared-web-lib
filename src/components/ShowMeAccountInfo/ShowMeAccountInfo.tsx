@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     textOverlay: {
+      zIndex: 2,
       position: 'absolute',
       // backgroundColor: '#000',
       display: 'flex',
@@ -115,15 +116,6 @@ const ShowMeAccountInfo = () => {
           onExited={popoverExitedHandler}
         >
           <div className={classes.popoverContent}>
-            <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
-              <div className={classes.textOverlay}>
-                <Type className={classes.typography} variant="h5">
-                  Find your account number on the upper right of your printed
-                  bill statement. Entering leading zeros on this form is
-                  optional.
-                </Type>
-              </div>
-            </Transition>
             <Image
               height={200}
               width={500}
@@ -141,6 +133,15 @@ const ShowMeAccountInfo = () => {
               )}`}
               alt="Find My Account Number"
             />
+            <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
+              <div className={classes.textOverlay}>
+                <Type className={classes.typography} variant="h5">
+                  Find your account number on the upper right of your printed
+                  bill statement. Entering leading zeros on this form is
+                  optional.
+                </Type>
+              </div>
+            </Transition>
           </div>
         </Popover>
       </div>
