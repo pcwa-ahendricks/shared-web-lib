@@ -13,13 +13,12 @@ import {
 } from '@material-ui/core'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import delay from 'then-sleep'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import {stringify} from 'querystringify'
 // import clsx from 'clsx'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
-
-const IMAGE_URL =
-  '//cosmic-s3.imgix.net/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -125,20 +124,22 @@ const ShowMeAccountInfo = () => {
                 </Type>
               </div>
             </Transition>
-            <LazyImgix
+            <Image
               height={200}
               width={500}
-              src={IMAGE_URL}
-              htmlAttributes={{
-                alt: 'Find My Account Number'
-              }}
-              imgixParams={{
-                crop: 'focalpoint', // cspell:disable-line
-                'fp-x': 1,
-                'fp-y': 0,
-                'fp-z': isXS ? 1 : 1.5,
-                fit: 'crop'
-              }}
+              objectFit="cover"
+              loader={imgixUrlLoader}
+              src={`https://imgix.cosmicjs.com/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png${stringify(
+                {
+                  crop: 'focalpoint', // cspell:disable-line
+                  'fp-x': 1,
+                  'fp-y': 0,
+                  'fp-z': isXS ? 1 : 1.5,
+                  fit: 'crop'
+                },
+                true
+              )}`}
+              alt="Find My Account Number"
             />
           </div>
         </Popover>
