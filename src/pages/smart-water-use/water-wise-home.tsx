@@ -20,10 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     mediaDialogImg: {
       borderWidth: '1px !important',
       borderColor: `${theme.palette.grey[300]} !important`,
-      borderStyle: 'solid !important',
-      [theme.breakpoints.up('sm')]: {
-        cursor: 'pointer'
-      }
+      borderStyle: 'solid !important'
     }
   })
 )
@@ -39,6 +36,8 @@ export default function WaterWiseHomePage() {
             mediaDialogOpen
             mediaName="Water-Wise Home"
             mediaUrl="https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG"
+            width={1817}
+            height={842}
           >
             <Image
               alt="Water-Wise Home brochure"

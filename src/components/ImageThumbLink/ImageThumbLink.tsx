@@ -81,7 +81,8 @@ const ImageThumbLink = ({
   const href = hrefProp || `${url}?dl=${downloadAs}`
 
   return (
-    <Box mt={margin} ml={margin} width="100%">
+    // minWidth required w/ Image on Standards page
+    <Box mt={margin} ml={margin} minWidth={width} width="100%">
       <FlexLink
         href={href}
         className={classes.link}
