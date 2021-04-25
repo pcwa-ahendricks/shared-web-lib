@@ -25,6 +25,7 @@ const ThumbPreviews = ({
     () =>
       showThumbDialogFile ? (
         <MediaPreviewDialog
+          native
           url={showThumbDialogFile.previewUrl}
           name={showThumbDialogFile.name}
           open={showThumbDialog}
