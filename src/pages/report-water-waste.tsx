@@ -123,19 +123,6 @@ const ReportWaterWastePage = () => {
                 supply system as needed.
               </Type>
             </ChildBox>
-            {/* <ChildBox flex="35%" display="flex">
-              <Box
-                mx="auto"
-                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
-              >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/a5afe2e0-6b51-11e7-b267-0b654f5c65d5-contact-customer-service.jpg"
-                  htmlAttributes={{
-                    alt: 'Customer Service Representative at Workstation'
-                  }}
-                />
-              </Box>
-            </ChildBox> */}
           </RowBox>
 
           <Spacing size="large" factor={2} />
