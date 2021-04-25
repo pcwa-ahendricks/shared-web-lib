@@ -71,11 +71,9 @@ const HouseCallsPage = () => {
           maxHeight={350}
           overflow="hidden"
         >
-          <LazyImgix
+          <Image
             src="https://imgix.cosmicjs.com/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
-            htmlAttributes={{
-              alt: 'PCWA Water Efficiency Team',
-            }}
+            alt='PCWA Water Efficiency Team'
           />
         </Box> */}
         </FlexBox>
