@@ -18,7 +18,6 @@ import {
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import {format} from 'date-fns'
 import fileExtension from '@lib/fileExtension'
-// import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'

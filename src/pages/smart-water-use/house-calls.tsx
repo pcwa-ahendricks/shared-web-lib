@@ -4,22 +4,18 @@ import {
   Box,
   Typography as Type,
   useTheme
-  // createStyles,
-  // makeStyles,
-  // TypographyProps
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-// import {RespRowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {FlexBox, RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import MuiNextLink from '@components/NextLink/NextLink'
-// import Imgix from 'react-imgix'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -58,17 +54,14 @@ const HouseCallsPage = () => {
             overflow="hidden"
             position="relative"
           >
-            <LazyImgix
-              src="https://imgix.cosmicjs.com/8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
-              htmlAttributes={{
-                alt: 'PCWA Water Efficiency Team',
-                style: {
-                  objectPosition: 'center 30%',
-                  objectFit: isMDUp ? 'none' : 'cover', // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
-                  width: '100%',
-                  height: '100%'
-                }
-              }}
+            <Image
+              priority
+              layout="fill"
+              loader={imgixLoader}
+              src="8853bb00-c44f-11e9-8ec5-f7161a5df0bf-WaterWiseBusinessCallTeamfor-webpage.jpg"
+              alt="PCWA Water Efficiency Team"
+              objectPosition="center 30%"
+              objectFit={isMDUp ? 'none' : 'cover'} // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
             />
           </Box>
           {/* <Box

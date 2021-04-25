@@ -15,11 +15,9 @@ import {BoxProps} from '@material-ui/core/Box'
           maxWidth={1400}
           height={{xs: 300, sm: 350, lg: 450}}
         >
-          <LazyImgix
+          <Image
             src="https://imgix.cosmicjs.com/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg"
-            htmlAttributes={{
-              alt: 'PCWA Water Efficiency Team'
-            }}
+            alt='PCWA Water Efficiency Team'
           />
         </CenterImage>
       </FlexBox>
