@@ -64,8 +64,9 @@ export type MediaPreviewDialogProps = {
   showActions?: boolean
   url: string | string[]
   dlUrl?: string
-  width: ImageProps['width']
-  height: ImageProps['height']
+  width?: ImageProps['width']
+  height?: ImageProps['height']
+  native?: boolean
 } & Partial<DialogProps>
 
 const MediaPreviewDialog = ({
@@ -77,25 +78,38 @@ const MediaPreviewDialog = ({
   dlUrl,
   showActions = false,
   open = false,
+  native = false,
   ...rest
 }: MediaPreviewDialogProps) => {
   const classes = useStyles()
 
   const getImgEl = useCallback(
-    (url: string, key?: string | number) => (
-      <Image
-        key={key}
-        loader={imgixUrlLoader}
-        className={classes.img}
-        src={url}
-        alt={name}
-        layout="responsive"
-        objectFit="contain"
-        width={width ?? 0}
-        height={height ?? 0}
-      />
-    ),
-    [name, classes, width, height]
+    (url: string, key?: string | number) =>
+      !native ? (
+        <Image
+          key={key}
+          loader={imgixUrlLoader}
+          className={classes.img}
+          src={url}
+          alt={name}
+          layout="responsive"
+          objectFit="contain"
+          width={width ?? 0}
+          height={height ?? 0}
+        />
+      ) : (
+        <img
+          key={key}
+          className={classes.img}
+          style={{display: 'block'}} // remove bottom margin resulting from "inline-block"
+          object-fit="contain"
+          // data-sizes="auto"
+          // data-src={url}
+          src={url} // IE fix - src attribute may be required for displaying img.
+          alt={name}
+        />
+      ),
+    [name, classes, width, height, native]
   )
 
   const imgEl = useMemo(

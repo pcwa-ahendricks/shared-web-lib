@@ -14,7 +14,6 @@ import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
 import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
-import clsx from 'clsx'
 import useSupportsTouch from '@hooks/useSupportsTouch'
 import {ColumnBox} from 'mui-sleazebox'
 
@@ -158,18 +157,21 @@ const ThumbPreview = ({
               className={classes.thumbInner}
               onMouseEnter={() => setThumbHover(file.name)}
               onClick={clickHandler(file)}
+              role="dialog"
             >
               {/* Using data-src="..." as a fallback shouldn't be necessary with
               IE11 if polyfill is used. See
               https://github.com/aFarkas/lazysizes/blob/gh-pages/README.md#responsive-image-support-picture-andor-srcset
               for more info. */}
               <img
-                data-sizes="auto"
-                src="/static/images/placeholder-camera.png"
-                srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                data-srcset={file.previewUrl}
-                className={clsx(['lazyload', classes.thumbImg])}
+                object-fit="contain"
+                src={file.previewUrl}
                 alt={`Thumbnail for ${file.name} upload`}
+                className={classes.thumbImg}
+                // src="/static/images/placeholder-camera.png"
+                // data-sizes="auto"
+                // srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                // data-srcset={file.previewUrl}
               />
             </div>
           </Tooltip>
