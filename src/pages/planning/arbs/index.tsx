@@ -386,8 +386,10 @@ const ARBSPage = () => {
                 <MediaDialogOnClick
                   mediaUrl={mapImageUrl}
                   mediaName={mapImageAlt}
-                  width={700}
-                  height={525}
+                  mediaPreviewDialogProps={{
+                    width: 700,
+                    height: 525
+                  }}
                 >
                   <Image
                     loader={imgixUrlLoader}

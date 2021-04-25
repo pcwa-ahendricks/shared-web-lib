@@ -16,6 +16,13 @@ import DeleteIcon from '@material-ui/icons/CloseRounded'
 import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
+/*
+Two approaches:
+  - Specify Image width and height
+or
+  - Use fullWidth property. This approach works well with portrait orientation images, though, w/ landscape images it will likely result with top & bottom whitespace 
+*/
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     img: {
