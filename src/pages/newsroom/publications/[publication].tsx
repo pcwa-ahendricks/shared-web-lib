@@ -500,7 +500,7 @@ const PublicationsPage = ({
                         new Date()
                       )}
                       imgixURL="https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf"
-                      imgixCropMode="mid" // There is no "mid" mode crop, but it will pass an bogus value to the component instead of undefined or an empty string resulting in a "top" mode crop. Imgix api doesn't care if it receives a bogus value, it will default to a center image crop. See https://docs.imgix.com/apis/url/size/crop for more info.
+                      objectPosition="center center"
                     />
                   </ChildBox>
                   {/* <ChildBox  width={isXS ? '100%' : 'auto'}>

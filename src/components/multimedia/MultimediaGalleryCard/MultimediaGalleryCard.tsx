@@ -7,10 +7,11 @@ import {
   CardContent,
   Typography as Type
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {ChildBox} from 'mui-sleazebox'
 import {MultimediaPhotoGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {MultimediaVideoGallery} from '../MultimediaVideoGalleries/MultimediaVideoGalleries'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   gallery: MultimediaPhotoGallery | MultimediaVideoGallery
@@ -30,16 +31,13 @@ const MultimediaGalleryCard = ({
     <Card onClick={onCardClick}>
       <CardActionArea>
         <CardMedia component="div">
-          <LazyImgix
+          <Image
+            loader={imgixUrlLoader}
             src={gallery.galleryCover.imgix_url}
             width={imageWidth}
-            htmlAttributes={{
-              alt: `Thumbnail image for ${gallery.label} gallery`,
-              style: {
-                height: imageHeight,
-                objectFit: 'cover'
-              }
-            }}
+            height={imageHeight}
+            objectFit="cover"
+            alt={`Thumbnail image for ${gallery.label} gallery`}
           />
         </CardMedia>
         <CardContent>

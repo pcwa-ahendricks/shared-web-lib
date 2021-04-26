@@ -30,7 +30,7 @@ export type PublicationCardProps = {
   thumbImgixURL?: string
   cardMediaWidth?: number
   cardMediaHeight?: number
-  imgixCropMode?: string
+  objectPosition?: ImageProps['objectPosition']
   sizes?: ImageProps['sizes']
 } & BoxProps
 
@@ -54,7 +54,7 @@ const PublicationCard = ({
   thumbImgixURL: thumbImgixURLProp,
   cardMediaWidth = 300,
   cardMediaHeight = 250,
-  imgixCropMode = 'top',
+  objectPosition = 'center top',
   sizes,
   ...rest
 }: PublicationCardProps) => {
@@ -102,14 +102,12 @@ const PublicationCard = ({
               // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
               src={`${thumbImgixURL}${stringify(
                 {
-                  fit: 'crop',
-                  crop: imgixCropMode,
                   bg: 'ffffff'
                 },
                 true
               )}`}
               objectFit="cover"
-              objectPosition="center top"
+              objectPosition={objectPosition}
               alt={`Thumbnail image and link for ${title} publication`}
               height={cardMediaHeight}
               width={cardMediaWidth}
