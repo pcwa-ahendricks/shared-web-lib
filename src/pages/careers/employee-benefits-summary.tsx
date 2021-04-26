@@ -19,11 +19,12 @@ import {
   ListItemIcon
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
 import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
 import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -65,21 +66,24 @@ const EmployeeBenefitsSummaryPage = () => {
             title="Employee Salary and Benefits Summary"
             subtitle="Careers"
           />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
-            >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/dd57d890-6b35-11e7-860a-a98685e05496-employee-benefits-summary.jpg"
-                htmlAttributes={{
-                  alt: 'Photo of PCWA Employee in shop'
-                }}
-              />
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="40%">
+              <Box
+                mx="auto"
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  src="dd57d890-6b35-11e7-860a-a98685e05496-employee-benefits-summary.jpg"
+                  alt="Photo of PCWA Employee in shop"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={640}
+                  height={877}
+                />
+              </Box>
             </ChildBox>
-            <ChildBox flex={{xs: '100%', sm: '60%'}}>
+            <ChildBox flex="60%">
               <Type paragraph>
                 Placer County Water Agency offers its employees an attractive
                 and flexible benefits package including a progressive paid leave

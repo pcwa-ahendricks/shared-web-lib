@@ -5,11 +5,12 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import {Typography as Type, Box} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MuiNextLink from '@components/NextLink/NextLink'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const HowToIDUsPage = () => {
   return (
@@ -20,18 +21,20 @@ const HowToIDUsPage = () => {
             title="How to Identify a PCWA Service Employee"
             subtitle="General"
           />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="35%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/746a7480-6b32-11e7-860a-a98685e05496-pcwa-truck.jpg"
-                  htmlAttributes={{
-                    alt:
-                      'A photo of a PCWA Employee near an identified PCWA service truck'
-                  }}
+                <Image
+                  src="746a7480-6b32-11e7-860a-a98685e05496-pcwa-truck.jpg"
+                  alt="A photo of a PCWA Employee near an identified PCWA service truck"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 35vw"
+                  width={384}
+                  height={526}
                 />
               </Box>
             </ChildBox>
@@ -57,7 +60,7 @@ const HowToIDUsPage = () => {
             </ChildBox>
           </RowBox>
           <Spacing size="large" />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="65%">
               <Type variant="h2" color="secondary" gutterBottom>
                 Identify us by our apparel!
@@ -85,12 +88,14 @@ const HowToIDUsPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/74739c40-6b32-11e7-860a-a98685e05496-pcwa-employee.jpg"
-                  htmlAttributes={{
-                    alt:
-                      "A photo of a PCWA Employee Approaching a Customer's House"
-                  }}
+                <Image
+                  src="74739c40-6b32-11e7-860a-a98685e05496-pcwa-employee.jpg"
+                  alt="A photo of a PCWA Employee Approaching a Customer's House"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 35vw"
+                  width={384}
+                  height={526}
                 />
               </Box>
             </ChildBox>

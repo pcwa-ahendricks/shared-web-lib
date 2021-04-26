@@ -11,14 +11,14 @@ import {
 import {compareDesc, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
-const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
-import {CircularProgress} from '@material-ui/core'
+import {Box, CircularProgress} from '@material-ui/core'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
 import {GetStaticProps} from 'next'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 type GroupedBoardMinutes = Array<{
   year: number
@@ -31,6 +31,8 @@ type GroupedBoardMinutes = Array<{
 type Props = {
   initialData?: CosmicMediaResponse
 }
+
+const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 const cosmicGetMediaProps = {
   props: 'id,original_name,imgix_url'
@@ -144,11 +146,7 @@ const BoardMinutesPage = ({initialData}: Props) => {
             subtitle="Board of Directors"
           />
           <RowBox responsive flexSpacing={4}>
-            <ChildBox
-              flex={{xs: '100%', sm: '65%'}}
-              position="relative"
-              minHeight={300}
-            >
+            <ChildBox flex="70%" position="relative" minHeight={300}>
               {progressEl}
               {boardMinutes.map((v) => {
                 const year = v.year.toString()
@@ -164,17 +162,21 @@ const BoardMinutesPage = ({initialData}: Props) => {
                 )
               })}
             </ChildBox>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-            >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/dc58efe0-6b19-11e7-9040-ddfa5350c930-board-minutes-aside.jpg"
-                htmlAttributes={{
-                  alt: 'Photo of past PCWA Board Members'
-                }}
-              />
+            <ChildBox flex="30%">
+              <Box
+                mx="auto"
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 30vw"
+                  src="dc58efe0-6b19-11e7-9040-ddfa5350c930-board-minutes-aside.jpg"
+                  alt="Photo of past PCWA Board Members"
+                  width={384}
+                  height={313}
+                />
+              </Box>
             </ChildBox>
           </RowBox>
         </WideContainer>

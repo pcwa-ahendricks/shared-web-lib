@@ -11,14 +11,13 @@ import {
   makeStyles,
   Theme,
   Box,
-  useMediaQuery,
   Typography as Type,
   Link,
   BoxProps,
   LinkProps,
   TypographyProps
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import Image from 'next/image'
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 import AssignmentLateOutlinedIcon from '@material-ui/icons/AssignmentLateOutlined'
 import Spacing from '@components/boxes/Spacing'
@@ -26,6 +25,7 @@ import EngineeringPhone from '@components/links/EngineeringPhone'
 import EngineeringEmail from '@components/links/EngineeringEmail'
 import GisDeptEmail from '@components/links/GisDeptEmail'
 import MuiNextLink from '@components/NextLink/NextLink'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const NewDevelopmentPage = () => {
   const theme = useTheme()
-  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   const classes = useStyles()
 
   const Disc = ({...rest}: BoxProps) => (
@@ -68,6 +67,21 @@ const NewDevelopmentPage = () => {
         <Disc />
         {children}
       </Type>
+    )
+  }
+
+  const LinkItem = ({children, href, ...rest}: LinkProps) => {
+    return (
+      <Link
+        rel="noopener noreferrer"
+        target="_blank"
+        color="primary"
+        href={href}
+        className={classes.linkItem}
+        {...rest}
+      >
+        {children}
+      </Link>
     )
   }
 
@@ -112,21 +126,6 @@ const NewDevelopmentPage = () => {
   //   )
   // }
 
-  const LinkItem = ({children, href, ...rest}: LinkProps) => {
-    return (
-      <Link
-        rel="noopener noreferrer"
-        target="_blank"
-        color="primary"
-        href={href}
-        className={classes.linkItem}
-        {...rest}
-      >
-        {children}
-      </Link>
-    )
-  }
-
   return (
     <PageLayout
       title="New Development Process"
@@ -142,17 +141,14 @@ const NewDevelopmentPage = () => {
             overflow="hidden"
             position="relative"
           >
-            <LazyImgix
-              src="https://cosmicjs.imgix.net/5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
-              htmlAttributes={{
-                alt: 'PCWA Water Efficiency Team',
-                style: {
-                  objectPosition: 'center 30%',
-                  objectFit: isMDUp ? 'none' : 'cover', // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
-                  width: '100%',
-                  height: '100%'
-                }
-              }}
+            <Image
+              priority
+              loader={imgixLoader}
+              layout="fill"
+              src="5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
+              alt="PCWA Water Efficiency Team"
+              objectPosition="center 40%"
+              objectFit={'cover'} // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
             />
           </Box>
         </FlexBox>
