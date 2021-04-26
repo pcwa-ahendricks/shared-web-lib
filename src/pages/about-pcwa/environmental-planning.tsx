@@ -13,11 +13,12 @@ import {
   createStyles,
   Theme
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,11 +68,14 @@ const EnvironmentalPlanningPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/27251d10-6b32-11e7-a2a2-c992b2b93cb7-environmental-and-planning-documents.jpg"
-                  htmlAttributes={{
-                    alt: 'A photo taken of the American River'
-                  }}
+                <Image
+                  width={700}
+                  height={959}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 35vw"
+                  loader={imgixLoader}
+                  src="27251d10-6b32-11e7-a2a2-c992b2b93cb7-environmental-and-planning-documents.jpg"
+                  alt="A photo taken of the American River"
                 />
               </Box>
             </FlexBox>

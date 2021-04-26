@@ -58,9 +58,9 @@ const BusinessAndCovid19Page = () => {
             Reduced Operation”
           </Type>
           <Spacing size="large" factor={2} />
-          {/* <LazyImgix
+          {/* <Image
             src="https://imgix.cosmicjs.com/6e6c3700-962a-11ea-b04e-734185112560-PCWA-Sign-2019.jpg"
-            htmlAttributes={{alt: 'PCWA Business Center'}}
+            alt='PCWA Business Center'
           /> */}
           <Image
             src="https://imgix.cosmicjs.com/43bfede0-5c21-11eb-afa6-e9412ba0a77c-PCWA-Special-Notice-Water-Cycling-Shutdowns-1-page-V1bc011121.pdf?border=3,eaeaea"

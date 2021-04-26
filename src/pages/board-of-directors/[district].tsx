@@ -17,7 +17,6 @@ import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import SectionBox from '@components/boxes/SectionBox'
 import DistrictBoundariesMap from '@components/DistrictBoundariesMap/DistrictBoundariesMap'
@@ -30,6 +29,7 @@ import {paramToStr} from '@lib/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
 import ErrorPage from '@pages/_error'
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -145,11 +145,12 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
               <Box mx="auto" mb={1} width="100%">
                 <Image
                   layout="responsive"
+                  loader={imgixLoader}
                   sizes="(max-width: 600px) 100vw, 40vw"
-                  src="https://imgix.cosmicjs.com/bacf1310-4b97-11eb-a634-e3044e07df5c-PCWA-Board-of-Directors-2021.jpg"
+                  src="bacf1310-4b97-11eb-a634-e3044e07df5c-PCWA-Board-of-Directors-2021.jpg"
                   alt="PCWA Board of Directors - December 2020"
-                  width={500}
-                  height={395}
+                  width={700}
+                  height={552}
                 />
               </Box>
               <Type variant="caption">
@@ -199,7 +200,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 p={4}
                 borderRadius={3}
               >
-                <RowBox responsive flexSpacing={4}>
+                <RowBox responsive flexSpacing={6}>
                   <ChildBox flex="auto">
                     <Box textAlign="center">
                       <Type variant="h3" color="primary" gutterBottom>
@@ -220,17 +221,20 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                     </Type>
                     <Type paragraph>{activeDirector?.bio}</Type>
                   </ChildBox>
-                  <ChildBox flex="1 0 auto">
+                  <ChildBox minWidth={250} maxWidth="100vw">
                     <Box
                       mx="auto"
                       width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
                     >
-                      <LazyImgix
+                      <Image
+                        loader={imgixUrlLoader}
                         src={activeDirector?.imgSrc ?? ''}
-                        width={225}
-                        htmlAttributes={{
-                          alt: `Photo of District ${activeDirector?.district} Director`
-                        }}
+                        layout="intrinsic"
+                        objectFit="cover"
+                        sizes="(max-width: 600px) 50vw, 25vw"
+                        width={256}
+                        height={337}
+                        alt={`Photo of District ${activeDirector?.district} Director`}
                       />
                     </Box>
                   </ChildBox>

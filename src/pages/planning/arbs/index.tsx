@@ -33,10 +33,9 @@ import {lightBlue} from '@material-ui/core/colors'
 import alpha from 'color-alpha'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'
 import WideContainer from '@components/containers/WideContainer'
-import {imgixUrlLoader} from '@lib/imageLoader'
+import imgixLoader from '@lib/imageLoader'
 import Image from 'next/image'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -97,8 +96,11 @@ const useStyles = makeStyles((theme: Theme) =>
     listItemText: {
       paddingLeft: theme.spacing(4)
     },
-    listItemAvatar: {
-      width: 100
+    listItemAvatarPortrait: {
+      '& :first-child': {
+        width: 36,
+        margin: 'auto !important'
+      }
     },
     // See note below regarding global styling and css specificity.
     timelineTitle: {
@@ -118,9 +120,6 @@ const ARBSPage = () => {
       </Type>
     )
   }
-  const mapImageUrl =
-    'https://imgix.cosmicjs.com/421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg'
-  const mapImageAlt = 'Map of American River Basin Study Area'
 
   const ListItemAnchor = ({
     children,
@@ -156,11 +155,15 @@ const ARBSPage = () => {
   }
 
   const LIAvatar = ({
+    portrait = false,
     children,
     ...rest
-  }: {children: React.ReactNode} & ListItemAvatarProps) => {
+  }: {portrait?: boolean; children: React.ReactNode} & ListItemAvatarProps) => {
     return (
-      <ListItemAvatar classes={{root: classes.listItemAvatar}} {...rest}>
+      <ListItemAvatar
+        classes={{root: portrait ? classes.listItemAvatarPortrait : undefined}}
+        {...rest}
+      >
         {children}
       </ListItemAvatar>
     )
@@ -384,17 +387,17 @@ const ARBSPage = () => {
 
               <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
                 <MediaDialogOnClick
-                  mediaUrl={mapImageUrl}
-                  mediaName={mapImageAlt}
+                  mediaUrl="https://imgix.cosmicjs.com/421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg"
+                  mediaName="Map of American River Basin Study Area"
                   mediaPreviewDialogProps={{
                     width: 700,
                     height: 525
                   }}
                 >
                   <Image
-                    loader={imgixUrlLoader}
-                    src={mapImageUrl}
-                    alt={mapImageAlt}
+                    loader={imgixLoader}
+                    src="421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg"
+                    alt="Map of American River Basin Study Area"
                     width={700}
                     height={525}
                     layout="responsive"
@@ -424,13 +427,15 @@ const ARBSPage = () => {
                 </Type>
                 <List>
                   <ListItemAnchor href="https://www.usbr.gov">
-                    <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt:
-                            'U.S. Department of the Interior, Bureau of Reclamation logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/02c6cf90-31a5-11ea-96a7-8146ec741192-bor.png"
+                    <LIAvatar portrait>
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={64}
+                        height={74}
+                        sizes="10vw"
+                        alt="U.S. Department of the Interior, Bureau of Reclamation logo"
+                        src="877b2410-a69e-11eb-b503-77b97fb4d7e8-bor-logo.png"
                       />
                     </LIAvatar>
                     <LIText
@@ -440,66 +445,84 @@ const ARBSPage = () => {
                   </ListItemAnchor>
                   <ListItemAnchor href="https://www.pcwa.net">
                     <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt: 'Placer County Water Agency logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/05c801a0-31a5-11ea-96a7-8146ec741192-pcwa.png"
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={700}
+                        height={179}
+                        sizes="10vw"
+                        alt="Placer County Water Agency logo"
+                        src="05c801a0-31a5-11ea-96a7-8146ec741192-pcwa.png"
                       />
                     </LIAvatar>
                     <LIText primary="Placer County Water Agency (PCWA)" />
                   </ListItemAnchor>
                   <ListItemAnchor href="https://www.roseville.ca.us/">
                     <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt: 'City of Roseville logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/083c35f0-31a5-11ea-96a7-8146ec741192-cor.png"
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={700}
+                        height={330}
+                        sizes="10vw"
+                        alt="City of Roseville logo"
+                        src="083c35f0-31a5-11ea-96a7-8146ec741192-cor.png"
                       />
                     </LIAvatar>
                     <LIText primary="City of Roseville (Roseville)" />
                   </ListItemAnchor>
                   <ListItemAnchor href="https://www.cityofsacramento.org">
                     <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt: 'City of Sacramento logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/0abd89a0-31a5-11ea-96a7-8146ec741192-cos.jpg"
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={128}
+                        height={49}
+                        sizes="10vw"
+                        alt="City of Sacramento logo"
+                        src="0abd89a0-31a5-11ea-96a7-8146ec741192-cos.jpg"
                       />
                     </LIAvatar>
                     <LIText primary="City of Sacramento (Sacramento)" />
                   </ListItemAnchor>
                   <ListItemAnchor href="https://www.edcgov.us/Water">
                     <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt: 'El Dorado County Water Agency logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/0d083cf0-31a5-11ea-96a7-8146ec741192-edcwapadded.png"
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={128}
+                        height={96}
+                        sizes="10vw"
+                        alt="El Dorado County Water Agency logo"
+                        src="0d083cf0-31a5-11ea-96a7-8146ec741192-edcwapadded.png"
                       />
                     </LIAvatar>
                     <LIText primary="El Dorado County Water Agency (EDCWA)" />
                   </ListItemAnchor>
                   <ListItemAnchor href="https://www.folsom.ca.us">
                     <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt: 'City of Folsom logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/0ee5d690-31a5-11ea-96a7-8146ec741192-cof.png"
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={128}
+                        height={82}
+                        sizes="10vw"
+                        alt="City of Folsom logo"
+                        src="0ee5d690-31a5-11ea-96a7-8146ec741192-cof.png"
                       />
                     </LIAvatar>
                     <LIText primary="City of Folsom (Folsom)" />
                   </ListItemAnchor>
                   <ListItemAnchor href="https://rwah2o.org/">
                     <LIAvatar>
-                      <LazyImgix
-                        htmlAttributes={{
-                          alt: 'Regional Water Authority logo'
-                        }}
-                        src="https://imgix.cosmicjs.com/10e5ec50-31a5-11ea-96a7-8146ec741192-rwablue.jpg"
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        width={128}
+                        height={71}
+                        sizes="10vw"
+                        alt="Regional Water Authority logo"
+                        src="10e5ec50-31a5-11ea-96a7-8146ec741192-rwablue.jpg"
                       />
                     </LIAvatar>
                     <LIText primary="Regional Water Authority (RWA)" />
