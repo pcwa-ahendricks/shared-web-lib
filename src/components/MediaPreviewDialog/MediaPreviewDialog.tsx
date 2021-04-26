@@ -10,7 +10,8 @@ import {
   Zoom,
   makeStyles,
   createStyles,
-  Box
+  Box,
+  BoxProps
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import Image, {ImageProps} from 'next/image'
@@ -26,7 +27,6 @@ or
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     img: {
-      width: '100%',
       backgroundColor: theme.palette.common.white
     },
     fab: {
@@ -38,13 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'visible',
       overflowY: 'visible',
       overflowX: 'visible'
-    },
-    loadingPDF: {
-      margin: theme.spacing(4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
     },
     dialogContent: {
       margin: 0,
@@ -75,6 +68,7 @@ export type MediaPreviewDialogProps = {
   width?: ImageProps['width']
   height?: ImageProps['height']
   native?: boolean
+  dialogWidth?: BoxProps['width']
 } & Partial<DialogProps>
 
 const MediaPreviewDialog = ({
@@ -84,6 +78,7 @@ const MediaPreviewDialog = ({
   height,
   url,
   dlUrl,
+  dialogWidth = '90vw',
   showActions = false,
   open = false,
   native = false,
@@ -168,7 +163,7 @@ const MediaPreviewDialog = ({
           <DeleteIcon />
         </Fab>
         <DialogContent classes={{root: classes.dialogContent}}>
-          <Box width={width} maxWidth="100%">
+          <Box width={dialogWidth} maxWidth="100%">
             <>{imgEl}</>
           </Box>
         </DialogContent>
