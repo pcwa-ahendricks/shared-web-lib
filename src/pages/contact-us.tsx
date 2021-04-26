@@ -26,12 +26,13 @@ import FormValidate from '@components/forms/FormValidate/FormValidate'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import PageTitle from '@components/PageTitle/PageTitle'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -112,11 +113,14 @@ const ContactUsPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/a5afe2e0-6b51-11e7-b267-0b654f5c65d5-contact-customer-service.jpg"
-                  htmlAttributes={{
-                    alt: 'Customer Service Representative at Workstation'
-                  }}
+                <Image
+                  loader={imgixLoader}
+                  src="a5afe2e0-6b51-11e7-b267-0b654f5c65d5-contact-customer-service.jpg"
+                  alt="Customer Service Representative at Workstation"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 35vw"
+                  width={700}
+                  height={790}
                 />
               </Box>
             </ChildBox>

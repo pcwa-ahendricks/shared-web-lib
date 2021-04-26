@@ -16,7 +16,6 @@ import delay from 'then-sleep'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
-// import clsx from 'clsx'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
 

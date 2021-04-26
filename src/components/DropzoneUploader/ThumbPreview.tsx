@@ -159,7 +159,7 @@ const ThumbPreview = ({
               onClick={clickHandler(file)}
               role="dialog"
             >
-              {/* Using data-src="..." as a fallback shouldn't be necessary with
+              {/* Old n/a comment - Using data-src="..." as a fallback shouldn't be necessary with
               IE11 if polyfill is used. See
               https://github.com/aFarkas/lazysizes/blob/gh-pages/README.md#responsive-image-support-picture-andor-srcset
               for more info. */}
