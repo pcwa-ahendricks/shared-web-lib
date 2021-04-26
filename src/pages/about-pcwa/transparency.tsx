@@ -14,10 +14,11 @@ import {
   ListItem,
   ListItemText
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton from '@components/FancyButton/FancyButton'
 import NextLink from 'next/link'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const TransparencyPage = () => {
   return (
@@ -52,12 +53,14 @@ const TransparencyPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://imgix.cosmicjs.com/3bcfc830-bd91-11e7-9abf-9bcadf03ca02-PCWA_Board_Transparency_Certificate.jpg"
-                  htmlAttributes={{
-                    alt:
-                      'Photo of PCWA presented with Transparency excellence certificate'
-                  }}
+                <Image
+                  width={384}
+                  height={214}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  loader={imgixLoader}
+                  src="3bcfc830-bd91-11e7-9abf-9bcadf03ca02-PCWA_Board_Transparency_Certificate.jpg"
+                  alt="Photo of PCWA presented with Transparency excellence certificate"
                 />
               </Box>
             </FlexBox>

@@ -19,7 +19,8 @@ import {
   // Theme
 } from '@material-ui/core'
 import {ChildBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import imgixLoader from '@lib/imageLoader'
+import Image from 'next/image'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -69,21 +70,24 @@ const LinksPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Links" subtitle="General" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 0}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
-            >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/fda930b0-6b32-11e7-b4b0-738ba83d40d7-links.jpg"
-                htmlAttributes={{
-                  alt: 'Photo of Duncan Creek'
-                }}
-              />
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="40%">
+              <Box
+                mx="auto"
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  width={700}
+                  height={959}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 35vw"
+                  loader={imgixLoader}
+                  src="fda930b0-6b32-11e7-b4b0-738ba83d40d7-links.jpg"
+                  alt="Photo of Duncan Creek"
+                />
+              </Box>
             </ChildBox>
-            <ChildBox flex={{xs: '100%', sm: '50%'}}>
+            <ChildBox flex="60%">
               <Type paragraph>
                 Partnering with many local, regional, state and national
                 associations, PCWA contributes to the communities it serves in a
