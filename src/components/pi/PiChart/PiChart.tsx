@@ -256,7 +256,7 @@ const PiChart = ({
             useUTC: false,
             precision: 'minute'
           }}
-          xFormat={(dv) => {
+          xFormat={(dv: string | number | Date) => {
             if (typeof dv !== 'string' && typeof dv !== 'number') {
               return format(dv, `M-dd',' h:mm aa`)
             }
