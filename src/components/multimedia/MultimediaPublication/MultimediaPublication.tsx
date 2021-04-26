@@ -8,9 +8,10 @@ import {
   ListItemText,
   useTheme
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import slugify from 'slugify'
 import {ColumnBox} from 'mui-sleazebox'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   publication: PickedPublicationResponse
@@ -55,17 +56,17 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
               mr={2}
               width={thumbWith}
             >
-              <LazyImgix
-                width={thumbWith}
+              <Image
+                layout="responsive"
+                sizes="(min-width: 600px) 35vw, 15vw"
+                // width={thumbWith}
+                loader={imgixUrlLoader}
                 src={thumbUrl}
-                htmlAttributes={{
-                  alt: `Thumbnail image for ${title} publication`,
-                  style: {
-                    objectFit: 'cover',
-                    objectPosition: 'center top',
-                    height: thumbWith * (11 / 8.5) // Default thumbnail to 8.5x11 w/h ratio.
-                  }
-                }}
+                objectFit="cover"
+                objectPosition="center top"
+                alt={`Thumbnail image for ${title} publication`}
+                width={850}
+                height={1100}
               />
             </ColumnBox>
           </ListItemAvatar>
