@@ -111,7 +111,6 @@
     "formik": "2.1.5",
     "html-react-parser": "^1.2.4",
     "is-number": "^7.0.0",
-    "lazysizes": "^5.2.0",
     "mdi-material-ui": "^6.17.0",
     "mime": "^2.4.5",
     "mui-sleazebox": "^0.0.5",
