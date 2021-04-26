@@ -20,14 +20,15 @@ import {
   useTheme,
   Theme
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
 import PublicIcon from '@material-ui/icons/Public'
 import PublicPurchaseIframe from '@components/PublicPurchaseIframe/PublicPurchaseIframe'
 import EngineeringEmail from '@components/links/EngineeringEmail'
 import EngineeringPhone from '@components/links/EngineeringPhone'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import MailOutlinedIcon from '@material-ui/icons/MailOutlined'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -96,20 +97,23 @@ const ConstructionBidsPage = () => {
         <NarrowContainer>
           <PageTitle title="Construction Bids" subtitle="Business with PCWA" />
           <RowBox responsive flexSpacing={6}>
-            <ChildBox flex="40%" display="flex">
+            <ChildBox flex="30%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/03f308a0-6b34-11e7-a2a2-c992b2b93cb7-construction-projects.jpg"
-                  htmlAttributes={{
-                    alt: 'French Meadows Spillway Modification Project 2011'
-                  }}
+                <Image
+                  src="03f308a0-6b34-11e7-a2a2-c992b2b93cb7-construction-projects.jpg"
+                  alt="French Meadows Spillway Modification Project 2011"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 30vw"
+                  width={640}
+                  height={877}
                 />
               </Box>
             </ChildBox>
-            <ChildBox flex="60%">
+            <ChildBox flex="70%">
               <Type paragraph>
                 The following information is provided to keep you informed about
                 PCWA construction projects that are needed to help ensure
