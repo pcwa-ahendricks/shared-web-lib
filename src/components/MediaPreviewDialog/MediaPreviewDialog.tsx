@@ -11,7 +11,9 @@ import {
   makeStyles,
   createStyles,
   Box,
-  BoxProps
+  BoxProps,
+  useTheme,
+  useMediaQuery
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import Image, {ImageProps} from 'next/image'
@@ -78,13 +80,17 @@ const MediaPreviewDialog = ({
   height,
   url,
   dlUrl,
-  dialogWidth = '90vw',
+  dialogWidth,
   showActions = false,
   open = false,
   native = false,
   ...rest
 }: MediaPreviewDialogProps) => {
   const classes = useStyles()
+  const theme = useTheme()
+  const isLg = useMediaQuery(theme.breakpoints.only('lg'))
+  const isXL = useMediaQuery(theme.breakpoints.up('xl'))
+  dialogWidth = dialogWidth ?? isXL ? '80vw' : isLg ? '87vw' : '90vw'
 
   const getImgEl = useCallback(
     (url: string, key?: string | number) =>
