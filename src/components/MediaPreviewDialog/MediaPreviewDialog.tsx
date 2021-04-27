@@ -11,13 +11,12 @@ import {
   makeStyles,
   createStyles,
   Box,
-  BoxProps,
-  useTheme,
-  useMediaQuery
+  BoxProps
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import {useWindowSize} from '@react-hook/window-size'
 
 /*
 Two approaches:
@@ -71,6 +70,7 @@ export type MediaPreviewDialogProps = {
   height?: ImageProps['height']
   native?: boolean
   dialogWidth?: BoxProps['width']
+  factorWidth?: number
 } & Partial<DialogProps>
 
 const MediaPreviewDialog = ({
@@ -81,16 +81,23 @@ const MediaPreviewDialog = ({
   url,
   dlUrl,
   dialogWidth,
+  factorWidth, // Between 0-1
   showActions = false,
   open = false,
   native = false,
   ...rest
 }: MediaPreviewDialogProps) => {
   const classes = useStyles()
-  const theme = useTheme()
-  const isLg = useMediaQuery(theme.breakpoints.only('lg'))
-  const isXL = useMediaQuery(theme.breakpoints.up('xl'))
-  dialogWidth = dialogWidth ?? isXL ? '80vw' : isLg ? '87vw' : '90vw'
+  const [ww, wh] = useWindowSize()
+  const factor = factorWidth ? factorWidth * 100 : 86
+  const isPortraitWindow = ww <= wh
+  const imageAspectRatio =
+    typeof width === 'number' && typeof height === 'number'
+      ? width / height
+      : null
+  const factoredVmin = `${(imageAspectRatio ?? 1) * factor}vmin`
+  const factoredVmax = `${(imageAspectRatio ?? 1) * factor}vmax`
+  dialogWidth = dialogWidth ?? isPortraitWindow ? factoredVmax : factoredVmin
 
   const getImgEl = useCallback(
     (url: string, key?: string | number) =>
