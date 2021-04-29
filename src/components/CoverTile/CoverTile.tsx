@@ -21,6 +21,7 @@ export type CoverTileProps = {
   flexLinkProps?: Partial<FlexLinkProps>
   imgixParams?: any
   typeProps?: Partial<TypographyProps>
+  imageProps?: Partial<Omit<ImageProps, 'layout'>>
   alt?: ImageProps['alt']
 } & Partial<BoxProps>
 
@@ -34,6 +35,7 @@ const CoverTile = ({
   flexLinkProps,
   typeProps,
   imgixParams,
+  imageProps,
   ...rest
 }: CoverTileProps) => {
   const theme = useTheme()
@@ -90,6 +92,7 @@ const CoverTile = ({
             sizes="(min-width: 1000px) 20vw, (min-width: 640px) 30vw, 50vw"
             width={width}
             height="100%"
+            {...imageProps}
           />
         </Box>
         <Spacing size="small" />

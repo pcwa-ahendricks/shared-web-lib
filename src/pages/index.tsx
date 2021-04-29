@@ -6,6 +6,7 @@ import React, {
   useContext,
   useCallback
 } from 'react'
+import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
 import ImgixFancyParallaxBanner from '@components/ImgixFancyParallaxBanner/ImgixFancyParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
@@ -49,7 +50,7 @@ const images = [
   // 'https://imgix.cosmicjs.com/6153c820-5c28-11eb-afa6-e9412ba0a77c-specialnoticecovidmailer.png?crop=top&fit=crop&border=2,cccccc',
   // 'https://imgix.cosmicjs.com/6d3e7210-7c7c-11eb-beb5-ff14f615644b-2020-Year-End-Reportwebsite-graphic.jpg',
   'https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG',
-  'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg',
+  // 'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg',
   'https://imgix.cosmicjs.com/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png',
   'https://imgix.cosmicjs.com/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg',
   'https://imgix.cosmicjs.com/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
@@ -61,7 +62,7 @@ const [
   heroImgSrc,
   fireWaterImgSrc,
   waterTechImgSrc,
-  canalSurveyImgSrc,
+  // canalSurveyImgSrc,
   paymentusLogoImgSrc,
   outagesImgSrc,
   projectImgSrc,
@@ -411,7 +412,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           flexSpacing={4}
           justifyContent="space-around"
         > */}
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Canal Customer Survey"
@@ -421,6 +422,29 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               flexLinkProps={{isNextLink: true}}
               alt="Thumbnail and link for Canal Customer Survey"
             />
+          </ChildBox> */}
+          <ChildBox width={tileWidth}>
+            <RibbonContainer>
+              <RightRibbon
+                backgroundColor="#cc4400"
+                color="#f0f0f0"
+                fontFamily="Arial"
+                zIndex={3}
+              >
+                <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
+                  Final Draft
+                </span>
+              </RightRibbon>
+              <CoverTile
+                width={tileWidth}
+                title="PCWA Water Shortage Contingency Plan"
+                imgixURL="https://imgix.cosmicjs.com/a1760e30-a918-11eb-bd04-573a73e015d6-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-Draft-04.26.21.pdf"
+                linkHref="https://imgix.cosmicjs.com/a1760e30-a918-11eb-bd04-573a73e015d6-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-Draft-04.26.21.pdf"
+                flexLinkProps={{isNextLink: false}}
+                alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
+                imgixParams={{crop: 'top'}}
+              />
+            </RibbonContainer>
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
