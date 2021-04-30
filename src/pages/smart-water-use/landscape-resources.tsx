@@ -5,15 +5,14 @@ import {Typography as Type, Divider, Box} from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {ChildBox, RowBox} from 'mui-sleazebox'
+import Image from 'next/image'
 import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
 import {TypographyProps} from '@material-ui/core/Typography'
 import {DividerProps} from '@material-ui/core/Divider'
-import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 
 // const useStyles = makeStyles(() =>

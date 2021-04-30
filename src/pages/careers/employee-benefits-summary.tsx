@@ -147,7 +147,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     <ListItemText primary="PCWA Management Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://cdn.cosmicjs.com/a307d5a0-8846-11eb-8701-9791f3eca5c1-Power-System-MOU.pdf">
+                  <ListItemLink href="https://cdn.cosmicjs.com/b370b030-aa04-11eb-8557-89b40a84f51c-Power-System-MOU---Splash--Website-Version---Signed.pdf">
                     <ListItemText primary="PCWA Power Systems MOU" />
                   </ListItemLink>
                   {/* <Divider /> */}
