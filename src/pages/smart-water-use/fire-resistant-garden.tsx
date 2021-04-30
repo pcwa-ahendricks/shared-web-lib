@@ -1,5 +1,7 @@
 // cspell:ignore Yamasaki
 import React, {useMemo} from 'react'
+import Image from 'next/image'
+import {stringify} from 'querystringify'
 import {
   Box,
   Typography as Type,
@@ -16,18 +18,24 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {FlexBox, ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import WideContainer from '@components/containers/WideContainer'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import MuiNextLink from '@components/NextLink/NextLink'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>
   createStyles({
     bulletLi: {
       listStyleType: 'circle',
       marginBottom: 2
+    },
+    plantImgStyle: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      objectPosition: 'center'
     }
   })
 )
@@ -36,16 +44,6 @@ const FireResistantGardenPage = () => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-
-  const plantImgStyle = useMemo(
-    () => ({
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      objectPosition: 'center'
-    }),
-    []
-  )
 
   const plantImgSpacing = useMemo(() => (isSMUp ? 2 : 1), [isSMUp])
 
@@ -80,11 +78,14 @@ const FireResistantGardenPage = () => {
 
   const FirstAsideImage = () => {
     return (
-      <LazyImgix
-        src="https://imgix.cosmicjs.com/bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
-        htmlAttributes={{
-          alt: 'Boys Scouts with Auburn Fire'
-        }}
+      <Image
+        loader={imgixLoader}
+        layout="responsive"
+        sizes="(max-width: 600px) 100vw, 45vw"
+        width={3840}
+        height={2556}
+        src="bb5c31a0-ad6e-11e9-915b-f761e052b1b3-Boys-Scouts-with-Auburn-Fire010.jpg"
+        alt="Boys Scouts with Auburn Fire"
       />
     )
   }
@@ -103,17 +104,18 @@ const FireResistantGardenPage = () => {
             overflow="hidden"
             position="relative"
           >
-            <LazyImgix
-              src="https://imgix.cosmicjs.com/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg"
-              htmlAttributes={{
-                alt: 'PCWA Water Efficiency Team',
-                style: {
-                  objectPosition: 'center 40%',
-                  objectFit: 'none',
-                  width: '100%',
-                  height: '100%'
-                }
-              }}
+            <Image
+              loader={imgixUrlLoader}
+              layout="responsive"
+              src={`https://imgix.cosmicjs.com/1d7bc810-ad6e-11e9-8acd-97664e494c6d-Boys-Scouts-with-Auburn-Fire012.jpg${stringify(
+                {fit: 'crop', ar: '9:4'},
+                true
+              )}`}
+              alt="PCWA Water Efficiency Team"
+              // objectPosition="center center"
+              // objectFit="none"
+              width={3840}
+              height={1707}
             />
           </Box>
         </FlexBox>
@@ -141,8 +143,8 @@ const FireResistantGardenPage = () => {
             </Box>
           </Hidden>
 
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="50%">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="55%">
               <Box mt={4}>
                 <Type paragraph>
                   Eagle Scout candidates Cody Hansen and David Hurren of Rocklin
@@ -258,7 +260,7 @@ const FireResistantGardenPage = () => {
                 </ul>
               </Box>
             </ChildBox>
-            <ChildBox flex="50%">
+            <ChildBox flex="45%">
               <ColumnBox flexSpacing={4}>
                 <ChildBox>
                   <ResponsiveYouTubePlayer
@@ -282,11 +284,14 @@ const FireResistantGardenPage = () => {
                   </ChildBox>
                 </Hidden>
                 <ChildBox>
-                  <LazyImgix
-                    src="https://imgix.cosmicjs.com/48ddc470-ad6b-11e9-910a-9dd8fa8729ee-Boys-Scouts-with-Auburn-Fire008.jpg"
-                    htmlAttributes={{
-                      alt: 'Boys Scouts with Auburn Fire'
-                    }}
+                  <Image
+                    loader={imgixLoader}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 100vw, 45vw"
+                    width={1200}
+                    height={800}
+                    src="48ddc470-ad6b-11e9-910a-9dd8fa8729ee-Boys-Scouts-with-Auburn-Fire008.jpg"
+                    alt="Boys Scouts with Auburn Fire"
                   />
                 </ChildBox>
 
@@ -297,39 +302,43 @@ const FireResistantGardenPage = () => {
                     wrapSpacing={2}
                   >
                     <ChildBox flex={plantImgChildFlex}>
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/e7e0c090-ad61-11e9-910a-9dd8fa8729ee-Rosy-Glow-Barberry.jpg"
-                        htmlAttributes={{
-                          alt: 'Rosy Glow Barberry',
-                          style: plantImgStyle
-                        }}
+                      <Image
+                        loader={imgixLoader}
+                        src="e7e0c090-ad61-11e9-910a-9dd8fa8729ee-Rosy-Glow-Barberry.jpg"
+                        alt="Rosy Glow Barberry"
+                        className={classes.plantImgStyle}
+                        width={256}
+                        height={384}
                       />
                     </ChildBox>
                     <ChildBox flex={plantImgChildFlex}>
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/e7850c00-ad61-11e9-910a-9dd8fa8729ee-Gold-Dust-Aucuba.jpg"
-                        htmlAttributes={{
-                          alt: 'Gold Dust Aucuba',
-                          style: plantImgStyle
-                        }}
+                      <Image
+                        loader={imgixLoader}
+                        src="e7850c00-ad61-11e9-910a-9dd8fa8729ee-Gold-Dust-Aucuba.jpg"
+                        alt="Gold Dust Aucuba"
+                        className={classes.plantImgStyle}
+                        width={256}
+                        height={384}
                       />
                     </ChildBox>
                     <ChildBox flex={plantImgChildFlex}>
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/e7749140-ad61-11e9-8aa7-c50c7cc602b8-Dwarf-Butterfly-Bush.jpg"
-                        htmlAttributes={{
-                          alt: 'Dwarf Butterfly Bush',
-                          style: plantImgStyle
-                        }}
+                      <Image
+                        loader={imgixLoader}
+                        src="e7749140-ad61-11e9-8aa7-c50c7cc602b8-Dwarf-Butterfly-Bush.jpg"
+                        alt="Dwarf Butterfly Bush"
+                        className={classes.plantImgStyle}
+                        width={256}
+                        height={384}
                       />
                     </ChildBox>
                     <ChildBox flex={plantImgChildFlex}>
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/e711fee0-ad61-11e9-8aa7-c50c7cc602b8-African-Iris.jpg"
-                        htmlAttributes={{
-                          alt: 'African Iris',
-                          style: plantImgStyle
-                        }}
+                      <Image
+                        loader={imgixLoader}
+                        src="e711fee0-ad61-11e9-8aa7-c50c7cc602b8-African-Iris.jpg"
+                        alt="African Iris"
+                        className={classes.plantImgStyle}
+                        width={256}
+                        height={384}
                       />
                     </ChildBox>
                   </RowBox>
