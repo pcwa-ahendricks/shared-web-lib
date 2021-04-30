@@ -11,27 +11,15 @@ export interface PiWebBaseElementsResponse {
   Links: Links
 }
 
-interface Links {
-  Self: string
-  Analyses: string
-  Attributes: string
-  Elements: string
-  Database: string
-  Categories: string
-  EventFrames: string
-  InterpolatedData: string
-  RecordedData: string
-  PlotData: string
-  SummaryData: string
-  Value: string
-  EndValue: string
-  Security: string
-  SecurityEntries: string
-}
+export type Link = keyof Links
 
 /* ----- */
 
 export interface PiWebElementsResponse {
+  Links: Links
+  Items: Item[]
+}
+export interface PiWebAttributesResponse {
   Links: Links
   Items: Item[]
 }
@@ -46,17 +34,17 @@ interface Item {
   HasChildren: boolean
   CategoryNames: any[]
   ExtendedProperties: any
-  Links: Links2
+  Links: Links
 }
 
-interface Links2 {
+interface Links {
   Self: string
   Analyses: string
   Attributes: string
   Elements: string
   Database: string
-  Parent: string
-  Template: string
+  Parent?: string
+  Template?: string
   Categories: string
   EventFrames: string
   InterpolatedData: string
@@ -85,21 +73,17 @@ interface Item {
   WebId: string
   Name: string
   Path: string
-  Links: Links2
+  Links: Links
   Value: Value
 }
 
-interface Value {
+export interface Value {
   Timestamp: string
   Value: number | string
   UnitsAbbreviation: string
   Good: boolean
   Questionable: boolean
   Substituted: boolean
-}
-
-interface Links2 {
-  Source: string
 }
 
 /* ----- */
@@ -117,4 +101,9 @@ export interface AttribStreamValue {
   Good: boolean
   Questionable: boolean
   Substituted: boolean
+}
+export interface PiWebInterpolatedData {
+  Links: any
+  Items: AttribStreamValue[]
+  UnitsAbbreviation: string
 }

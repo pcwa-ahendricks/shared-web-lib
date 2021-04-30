@@ -13,6 +13,7 @@ export interface GageConfigItem {
   tables: GageConfigTable[]
   disabled?: boolean
   review?: boolean
+  boatRampElev?: number
 }
 interface TableHeader {
   id: string
@@ -375,6 +376,7 @@ const gages: GageConfigItem[] = [
     description: 'French Meadows Reservoir',
     chartValues: ['Elevation', 'Storage'],
     tableValues: ['Storage', 'Elevation'],
+    boatRampElev: 5200,
     tables: [
       {
         metric: 'daily',
@@ -390,6 +392,7 @@ const gages: GageConfigItem[] = [
     id: 'Hell Hole',
     disabled: false,
     baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
+    boatRampElev: 4530,
     description: 'Hell Hole Reservoir',
     chartValues: ['Elevation', 'Storage'],
     tableValues: ['Storage', 'Elevation'],
