@@ -3,7 +3,13 @@ import React, {useMemo, useEffect, useCallback, useContext} from 'react'
 import {useRouter} from 'next/router'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Box, Typography as Type, Hidden} from '@material-ui/core'
+import {
+  Box,
+  Typography as Type,
+  Hidden,
+  Paper,
+  useTheme
+} from '@material-ui/core'
 import PiNavigationList from '@components/pi/PiNavigationList/PiNavigationList'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PiNavigationSelect from '@components/pi/PiNavigationSelect/PiNavigationSelect'
@@ -24,14 +30,20 @@ import useInterval from '@hooks/useInterval'
 import {paramToStr} from '@lib/queryParamToStr'
 import useSWR from 'swr'
 import {
+  PiWebAttributesResponse,
   PiWebBaseElementsResponse,
   PiWebElementsResponse,
-  PiWebElementStreamSetResponse
+  PiWebElementStreamSetResponse,
+  Value
 } from '@lib/services/pi/pi-web-api-types'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
-import {RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from 'mui-sleazebox'
 import withTimeout from '@lib/withTimeout'
+import round from '@lib/round'
+import Animate from '@components/Animate/Animate'
+import Spacing from '@components/boxes/Spacing'
+import usePiTag from '@hooks/usePiTag'
 // import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
 // import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
@@ -46,6 +58,7 @@ type Props = {
   initialBaseData?: PiWebBaseElementsResponse
   initialElementsData?: PiWebElementsResponse
   initialElementsStreamSetData?: PiWebElementStreamSetResponse
+  initialCurrentElevationData?: number | string
 }
 
 const getActiveGage = (pid: string) =>
@@ -66,7 +79,8 @@ const DynamicPiPage = ({
   pidParam = '',
   initialBaseData,
   initialElementsData,
-  initialElementsStreamSetData
+  initialElementsStreamSetData,
+  initialCurrentElevationData
 }: Props) => {
   const pid = pidParam.replace(spacesRe, '-').toLowerCase()
   const router = useRouter()
@@ -186,6 +200,22 @@ const DynamicPiPage = ({
   // console.log('TBL Data', tableData)
   // console.log('ZPD Data', zippedTableData)
 
+  const isReservoir = /reservoirs/gi.test(activeGageItem?.baseElement ?? '')
+  const {data: elevationData} = usePiTag<Value>(
+    activeGageItem?.baseElement,
+    activeGageItem?.id,
+    'Elevation',
+    {
+      link: 'EndValue',
+      refreshInterval: 1000 * 60 * 5,
+      dependencies: [isReservoir],
+      initialData: initialCurrentElevationData
+    } // five minute interval
+  )
+  const {Value: currentElevation} = elevationData ?? {}
+
+  const theme = useTheme()
+
   return (
     <PageLayout
       title="Reservoir & Stream Flows"
@@ -241,6 +271,44 @@ const DynamicPiPage = ({
                 {disclaimer.p2}
               </Type>
             </SectionBox>
+            {isReservoir ? (
+              <Box m={3}>
+                <Paper>
+                  <Box bgcolor={theme.palette.common.white} p={3}>
+                    <Type variant="subtitle2">
+                      Current Reservoir Conditions
+                    </Type>
+                    <Spacing size="x-small" />
+                    <RowBox justifyContent="space-around">
+                      <ChildBox>
+                        <Animate
+                          name="fadeIn"
+                          hideUntilAnimate
+                          animate={typeof currentElevation === 'number'}
+                        >
+                          <Type variant="caption">
+                            Reservoir Elevation:{' '}
+                            {round(
+                              typeof currentElevation === 'number'
+                                ? currentElevation
+                                : 0,
+                              1
+                            ).toLocaleString()}{' '}
+                            ft.
+                          </Type>
+                        </Animate>
+                      </ChildBox>
+                      <ChildBox>
+                        <Type variant="caption">
+                          Boat Ramp Elevation:{' '}
+                          {activeGageItem?.boatRampElev?.toLocaleString()} ft.
+                        </Type>
+                      </ChildBox>
+                    </RowBox>
+                  </Box>
+                </Paper>
+              </Box>
+            ) : null}
             <SectionBox>
               <PiDateRangeControls />
             </SectionBox>
@@ -356,6 +424,20 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           fetcher<PiWebElementStreamSetResponse>(elementsStreamSetDataUrl)
         )
       : null
+    // current elevation
+    const attribLink = activeElementData?.Links.Attributes
+    const attribItems = attribLink
+      ? await withTimeout<PiWebAttributesResponse>(
+          timeout,
+          fetcher<Value>(attribLink)
+        )
+      : null
+    const elev = attribItems?.Items.find(
+      ({Name = ''}) => Name.toLowerCase() === 'elevation'
+    )?.Links
+    const elevation = elev?.EndValue
+      ? await withTimeout<Value>(timeout, fetcher<Value>(elev?.EndValue))
+      : null
     /* */
 
     return {
@@ -363,7 +445,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         pidParam,
         initialBaseData,
         initialElementsData,
-        initialElementsStreamSetData
+        initialElementsStreamSetData,
+        initialCurrentElevationData: elevation?.Value
       }
     }
   } catch (error) {
