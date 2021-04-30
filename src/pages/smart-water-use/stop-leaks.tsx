@@ -12,11 +12,13 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MainPhone from '@components/links/MainPhone'
 import {TypographyProps} from '@material-ui/core/Typography'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
+import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -103,11 +105,14 @@ const StopLeaksPage = () => {
                       </Type>
                     </ChildBox>
                     <ChildBox width={100} flex="0 0 auto">
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
-                        htmlAttributes={{
-                          alt: 'Look for WaterSense Logo'
-                        }}
+                      <Image
+                        loader={imgixLoader}
+                        layout="responsive"
+                        sizes="100px"
+                        width={256}
+                        height={316}
+                        src="69d73080-299f-11e9-b399-19c097547cb4-Look-for-WaterSense.jpg"
+                        alt="Look for WaterSense Logo"
                       />
                     </ChildBox>
                   </RowBox>
@@ -161,11 +166,14 @@ const StopLeaksPage = () => {
             <ChildBox flex="33.3%">
               <ColumnBox alignItems="center" flexSpacing={2}>
                 <ChildBox width={{xs: '70%', sm: '100%'}}>
-                  <LazyImgix
-                    src="https://imgix.cosmicjs.com/2f603cb0-829b-11eb-8b5d-951d83ec2ae4-PCWA-Leaks-Web-Image.png"
-                    htmlAttributes={{
-                      alt: 'Take the 10 minute leak challenge'
-                    }}
+                  <Image
+                    loader={imgixLoader}
+                    src="2f603cb0-829b-11eb-8b5d-951d83ec2ae4-PCWA-Leaks-Web-Image.png"
+                    alt="Take the 10 minute leak challenge"
+                    layout="responsive"
+                    sizes="(max-width: 600px) 70vw, 34vw"
+                    width={100}
+                    height={100}
                   />
                 </ChildBox>
 
@@ -192,12 +200,7 @@ const StopLeaksPage = () => {
                       you can do one thing each day from our list here.
                     </Type>
                     <ChildBox width={75} m="auto">
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
-                        htmlAttributes={{
-                          alt: 'WaterSense logo'
-                        }}
-                      />
+                      <WaterSenseLogo noCaption />
                     </ChildBox>
                   </Box>
                 </ChildBox>

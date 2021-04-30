@@ -18,7 +18,7 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const WaterSenseLogo = () => {
+const WaterSenseLogo = ({noCaption = false}: {noCaption?: boolean}) => {
   const classes = useStyles()
   return (
     <RowBox
@@ -28,11 +28,13 @@ const WaterSenseLogo = () => {
     >
       <Box flex="auto" maxWidth={165}>
         <ColumnBox alignItems="center">
-          <Box flex="none">
-            <Type variant="h6" className={classes.lookFor}>
-              Look For
-            </Type>
-          </Box>
+          {noCaption ? null : (
+            <Box flex="none">
+              <Type variant="h6" className={classes.lookFor} noWrap>
+                Look For
+              </Type>
+            </Box>
+          )}
           <Image
             layout="intrinsic"
             loader={imgixLoader}
