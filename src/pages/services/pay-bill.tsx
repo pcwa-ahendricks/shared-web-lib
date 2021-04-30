@@ -22,13 +22,13 @@ import ComputerIcon from '@material-ui/icons/Computer'
 import PhoneIcon from '@material-ui/icons/Phone'
 import BusinessIcon from '@material-ui/icons/Business'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Image from 'next/image'
 import Spacing from '@components/boxes/Spacing'
 import LookHere from '@components/LookHere/LookHere'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles({
   link: {
@@ -60,11 +60,10 @@ const PayBillPage = () => {
           <RowBox justifyContent="space-around">
             <ChildBox flex={{xs: 'auto', sm: '0 1 80%'}}>
               <LookHere animate={!payBillAnimateDone}>
-                <div>
-                  <NextLink href="/services/monthly-billing">
+                <NextLink href="/services/monthly-billing">
+                  <div aria-label="Link to Monthly Billing FAQs page">
                     <Image
                       className={classes.link}
-                      aria-label="Link to Monthly Billing FAQs page"
                       width={700}
                       height={452}
                       layout="responsive"
@@ -72,15 +71,15 @@ const PayBillPage = () => {
                       src="https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG"
                       alt="PCWA is transitioning to monthly billing"
                     />
-                  </NextLink>
-                </div>
+                  </div>
+                </NextLink>
               </LookHere>
             </ChildBox>
           </RowBox>
           <Spacing size="x-large">
             <Divider />
           </Spacing>
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="60%">
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
@@ -177,13 +176,14 @@ const PayBillPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
-                  htmlAttributes={
-                    {
-                      // alt: 'Customer Service Representative Photo'
-                    }
-                  }
+                <Image
+                  loader={imgixLoader}
+                  src="7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
+                  alt="Customer Service Representative Photo"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 100vw, 60vw"
+                  width={1920}
+                  height={2482}
                 />
               </Box>
             </FlexBox>
