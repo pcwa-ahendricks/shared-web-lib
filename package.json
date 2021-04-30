@@ -114,7 +114,7 @@
     "is-number": "^7.0.0",
     "mdi-material-ui": "^6.17.0",
     "mime": "^2.4.5",
-    "mui-sleazebox": "^0.0.5",
+    "mui-sleazebox": "^0.0.6",
     "next": "^10.2.0",
     "next-compose-plugins": "^2.2.0",
     "next-transpile-modules": "^7.0.0",

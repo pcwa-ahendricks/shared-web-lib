@@ -300,7 +300,7 @@ const DynamicPiPage = ({
                       </ChildBox>
                       <ChildBox>
                         <Type variant="caption">
-                          Boat Ramp Elevation:{' '}
+                          Minimum Boat Ramp Elevation:{' '}
                           {activeGageItem?.boatRampElev?.toLocaleString()} ft.
                         </Type>
                       </ChildBox>

@@ -29,8 +29,8 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
 import MuiNextLink from '@components/NextLink/NextLink'
 import SectionBox from '@components/boxes/SectionBox'
 import FeedbackIcon from '@material-ui/icons/Feedback'
@@ -41,6 +41,8 @@ import DripSystemIcon from '@material-ui/icons/AccountTreeOutlined'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import NextButton from '@components/NextButton/NextButton'
 import WebsiteIcon from '@material-ui/icons/Language'
+import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,12 +128,14 @@ const SmartWaterUsePage = () => {
             <ChildBox flex="33.3%">
               <ColumnBox alignItems="center" flexSpacing={2}>
                 <ChildBox width={{xs: '70%', sm: '100%'}}>
-                  <LazyImgix
-                    src="https://imgix.cosmicjs.com/b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"
-                    htmlAttributes={{
-                      alt:
-                        'Lay the ground work for water saving and healthy plants. Fall is a great time to add water-wise plants and upgrade your irrigation.'
-                    }}
+                  <Image
+                    loader={imgixLoader}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 70vw, 34vw"
+                    src="b723a570-d80a-11e9-9893-0b20c17bb46f-Lay-the-Groundwork.JPG"
+                    alt="Lay the ground work for water saving and healthy plants. Fall is a great time to add water-wise plants and upgrade your irrigation."
+                    width={828}
+                    height={690}
                   />
                 </ChildBox>
 
@@ -157,12 +161,7 @@ const SmartWaterUsePage = () => {
                       .
                     </Type>
                     <ChildBox width={100} m="auto">
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
-                        htmlAttributes={{
-                          alt: 'WaterSense logo'
-                        }}
-                      />
+                      <WaterSenseLogo />
                     </ChildBox>
                   </Box>
                 </ChildBox>
