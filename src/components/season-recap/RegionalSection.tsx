@@ -242,7 +242,6 @@ export default function RegionalSection({countyResponse}: Props) {
           const data = climChgData?.data
           const yearStr = key.substr(0, 4)
           const parsed = parse(yearStr, 'yyyy', new Date())
-          console.log(parsed)
           const x = parseInt(format(parsed, 'yyyy'), 10)
           const y = parseFloat(data?.[key].value ?? '')
           return {

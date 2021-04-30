@@ -27,7 +27,6 @@ import {
   ListItemText,
   ListItemAvatar
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
@@ -40,6 +39,8 @@ import {GetStaticProps} from 'next'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
+import Image from 'next/image'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
@@ -143,17 +144,20 @@ const NewsReleasesPage = ({initialData}: Props) => {
           <PageTitle title="News Releases" subtitle="Newsroom" />
           <RowBox responsive flexSpacing={4}>
             <ChildBox flex="auto">
-              <RowBox responsive flexSpacing={4}>
+              <RowBox responsive flexSpacing={6}>
                 <ChildBox flex="30%" display="flex">
                   <Box
                     mx="auto"
                     width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
                   >
-                    <LazyImgix
-                      src="https://cosmicjs.imgix.net/204bed80-6b1d-11e7-9554-0968c6aee140-news-releases.jpg"
-                      htmlAttributes={{
-                        alt: 'PCWA Canal Photo'
-                      }}
+                    <Image
+                      loader={imgixLoader}
+                      src="204bed80-6b1d-11e7-9554-0968c6aee140-news-releases.jpg"
+                      alt="PCWA Canal Photo"
+                      layout="responsive"
+                      sizes="(max-width: 600px) 60vw, 30vw"
+                      width={750}
+                      height={891}
                     />
                   </Box>
                 </ChildBox>
@@ -229,12 +233,15 @@ const NewsReleasesPage = ({initialData}: Props) => {
                             mr={2}
                             width={50}
                           >
-                            <LazyImgix
-                              width={50}
+                            <Image
+                              loader={imgixUrlLoader}
+                              layout="responsive"
+                              sizes="(max-width: 600px) 20vw, 10vw"
+                              width={850}
+                              height={1100}
+                              objectFit="cover"
                               src={n.imgix_url}
-                              htmlAttributes={{
-                                alt: `Thumbnail image for ${n.derivedFilenameAttr?.date} News Release`
-                              }}
+                              alt={`Thumbnail image for ${n.derivedFilenameAttr?.date} News Release`}
                             />
                           </ColumnBox>
                         </ListItemAvatar>
