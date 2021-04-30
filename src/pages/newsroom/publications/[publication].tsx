@@ -60,14 +60,15 @@ import {
   setNewsletterYear,
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {isWebUri} from 'valid-url'
+import Image from 'next/image'
 import PublicationCard, {
   PublicationCardProps
 } from '@components/newsroom/PublicationCard/PublicationCard'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -464,12 +465,15 @@ const PublicationsPage = ({
                                 mr={2}
                                 width={75}
                               >
-                                <LazyImgix
-                                  width={75}
+                                <Image
+                                  loader={imgixUrlLoader}
+                                  layout="responsive"
+                                  sizes="(max-width: 600px) 20vw, 10vw"
+                                  width={850}
+                                  height={1100}
+                                  objectFit="cover"
                                   src={n.imgix_url}
-                                  htmlAttributes={{
-                                    alt: `Thumbnail image for ${n.derivedFilenameAttr?.date} Newsletter`
-                                  }}
+                                  alt={`Thumbnail image for ${n.derivedFilenameAttr?.date} Newsletter`}
                                 />
                               </ColumnBox>
                             </ListItemAvatar>
@@ -617,13 +621,15 @@ const PublicationsPage = ({
                     </Button>
                   </ChildBox>
                   <ChildBox flex="50%" display="flex">
-                    <Box mx="auto">
-                      <LazyImgix
-                        src="https://imgix.cosmicjs.com/d8c86140-c4cd-11e7-bedc-43d6110cf0dd-e-news.png"
-                        htmlAttributes={{
-                          alt:
-                            "Photo of Page Header to PCWA's E-News periodic email subscription"
-                        }}
+                    <Box mx="auto" width="100%">
+                      <Image
+                        loader={imgixLoader}
+                        src="d8c86140-c4cd-11e7-bedc-43d6110cf0dd-e-news.png"
+                        alt="Photo of Page Header to PCWA's E-News periodic email subscription"
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 40vw"
+                        width={700}
+                        height={475}
                       />
                     </Box>
                   </ChildBox>
