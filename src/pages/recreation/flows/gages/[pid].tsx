@@ -58,7 +58,7 @@ type Props = {
   initialBaseData?: PiWebBaseElementsResponse
   initialElementsData?: PiWebElementsResponse
   initialElementsStreamSetData?: PiWebElementStreamSetResponse
-  initialCurrentElevationData?: number | string
+  initialCurrentElevationData?: number | string | null
 }
 
 const getActiveGage = (pid: string) =>
@@ -446,7 +446,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         initialBaseData,
         initialElementsData,
         initialElementsStreamSetData,
-        initialCurrentElevationData: elevation?.Value
+        initialCurrentElevationData: elevation?.Value ?? null
       }
     }
   } catch (error) {
