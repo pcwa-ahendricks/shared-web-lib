@@ -7,7 +7,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import {Typography as Type, Box, Link, BoxProps} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@material-ui/icons/Timeline'
@@ -15,6 +14,8 @@ import FilterHdrIcon from '@material-ui/icons/FilterHdr'
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
 import PeopleIcon from '@material-ui/icons/People'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 type TypeWithAdornProps = {
   caption: string
@@ -46,17 +47,20 @@ const AmericanRiverPage = () => {
             title="Middle Fork American River Area"
             subtitle="Recreation"
           />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="40%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/16e3f490-6b3b-11e7-b4b0-738ba83d40d7-picnic-table-mfar.jpg"
-                  htmlAttributes={{
-                    alt: 'Picnic Table Along Middle Fork American River'
-                  }}
+                <Image
+                  src="16e3f490-6b3b-11e7-b4b0-738ba83d40d7-picnic-table-mfar.jpg"
+                  alt="Picnic Table Along Middle Fork American River"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={828}
+                  height={1124}
                 />
               </Box>
             </ChildBox>

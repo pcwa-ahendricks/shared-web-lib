@@ -6,7 +6,8 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
+import imgixLoader from '@lib/imageLoader'
+import Image from 'next/image'
 
 const AccountMaintenancePage = () => {
   return (
@@ -14,8 +15,8 @@ const AccountMaintenancePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Account Maintenance" subtitle="Services" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="1 1 60%">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="75%">
               <Type paragraph>
                 To open or close&nbsp;a water service account with PCWA, call
                 PCWA Customer Services at <MainPhone /> weekdays from 8:00 a.m.
@@ -27,18 +28,21 @@ const AccountMaintenancePage = () => {
                 service.
               </Type>
             </ChildBox>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
-            >
-              <LazyImgix
-                src="https://imgix.cosmicjs.com/ca540d40-c38a-11e9-bd35-0d553d15132e-account-maintenance-img1.jpg"
-                htmlAttributes={{
-                  alt: 'Water Efficiency Technician Photo'
-                }}
-              />
+            <ChildBox flex="25%">
+              <Box
+                mx="auto"
+                width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  src="ca540d40-c38a-11e9-bd35-0d553d15132e-account-maintenance-img1.jpg"
+                  alt="Water Efficiency Technician Photo"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 50vw, 25vw"
+                  width={750}
+                  height={1028}
+                />
+              </Box>
             </ChildBox>
           </RowBox>
           <Box mt={6}>

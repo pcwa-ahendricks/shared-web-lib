@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {FlexBox, RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from 'mui-sleazebox'
 import {Typography as Type, Box} from '@material-ui/core'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
@@ -18,7 +18,7 @@ export default function ResponsiveImageTemplatePage() {
             <ChildBox flex="60%">
               <Type paragraph>...</Type>
             </ChildBox>
-            <FlexBox child flex="40%">
+            <ChildBox flex="40%">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -33,7 +33,7 @@ export default function ResponsiveImageTemplatePage() {
                   height={259}
                 />
               </Box>
-            </FlexBox>
+            </ChildBox>
           </RowBox>
         </NarrowContainer>
       </MainBox>

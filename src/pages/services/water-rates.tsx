@@ -20,8 +20,9 @@ import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import FancyButton from '@components/FancyButton/FancyButton'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 function createData(tier: string, cost: number) {
   return {tier, cost}
@@ -137,7 +138,7 @@ const WaterRatesPage = () => {
         <WideContainer>
           <PageTitle title="Water Rates" subtitle="Services" />
           <RowBox responsive flexSpacing={8}>
-            <ChildBox flex={{xs: '100%', sm: '60%'}}>
+            <ChildBox flex="70%">
               <Type variant="h3" gutterBottom>
                 Overview of Treated Water Billing Components
               </Type>
@@ -167,18 +168,21 @@ const WaterRatesPage = () => {
                 plants, pipelines, canals or other water system facilities.
               </Type>
             </ChildBox>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
-            >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/ad139f00-6b41-11e7-b267-0b654f5c65d5-water-rates.jpg"
-                htmlAttributes={{
-                  alt: 'A photo of plants receiving water from a watering can'
-                }}
-              />
+            <ChildBox flex="30%">
+              <Box
+                mx="auto"
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 30vw"
+                  src="ad139f00-6b41-11e7-b267-0b654f5c65d5-water-rates.jpg"
+                  alt="A photo of plants receiving water from a watering can"
+                  width={1080}
+                  height={1438}
+                />
+              </Box>
             </ChildBox>
           </RowBox>
           <Box mt={6}>

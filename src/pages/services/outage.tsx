@@ -23,13 +23,14 @@ import {FlexBox, ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 type Props = {
   initialData?: CosmicObjectResponse<OutageMetadata>
@@ -404,15 +405,21 @@ const OutageInformationPage = ({initialData}: Props) => {
                 </ShowMore>
               </Box>
 
-              <RowBox mt={{xs: 6, sm: 6}} justifyContent="center">
-                <LazyImgix
-                  src="https://imgix.cosmicjs.com/9a973a70-fc31-11e9-bead-495f6403df62-outage-img1.jpg"
-                  htmlAttributes={{
-                    alt: 'Photo of PCWA Flume',
-                    style: {width: '100%', maxWidth: 275}
-                  }}
+              <Box
+                mt={{xs: 6, sm: 6}}
+                mx="auto"
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 25vw"
+                  width={640}
+                  height={877}
+                  src="9a973a70-fc31-11e9-bead-495f6403df62-outage-img1.jpg"
+                  alt="Photo of PCWA Flume"
                 />
-              </RowBox>
+              </Box>
             </ChildBox>
           </RowBox>
         </WideContainer>

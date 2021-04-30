@@ -9,9 +9,10 @@ import EightHundredPhone from '@components/links/EightHundredPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {Alert} from '@material-ui/lab'
 import Spacing from '@components/boxes/Spacing'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RowBox, ChildBox} from 'mui-sleazebox'
+import Image from 'next/image'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
+import imgixLoader from '@lib/imageLoader'
 const DEADLINE = 'August 14th, 2020'
 
 export default function AnnualCanalSurveyPage() {
@@ -167,11 +168,13 @@ export default function AnnualCanalSurveyPage() {
 
           <Spacing size="large" />
 
-          <LazyImgix
-            src="https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg"
-            htmlAttributes={{
-              alt: 'Boardman Canal'
-            }}
+          <Image
+            loader={imgixLoader}
+            layout="responsive"
+            width={3884}
+            height={2560}
+            src="e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg"
+            alt="Boardman Canal"
           />
         </NarrowContainer>
       </MainBox>

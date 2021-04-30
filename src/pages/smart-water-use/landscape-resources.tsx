@@ -1,7 +1,7 @@
 // cspell:ignore Eisley Normac Selec
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Typography as Type, Divider} from '@material-ui/core'
+import {Typography as Type, Divider, Box} from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -13,6 +13,8 @@ import OpenInNewLink, {
 } from '@components/OpenInNewLink/OpenInNewLink'
 import {TypographyProps} from '@material-ui/core/Typography'
 import {DividerProps} from '@material-ui/core/Divider'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -296,17 +298,21 @@ const LandscapeResourcesPage = () => {
                 Recommended Plants for Central Valley Gardens
               </Resource>
             </ChildBox>
-            <ChildBox
-              flex="33.3%"
-              maxWidth={{xs: '70%', sm: '100%'}}
-              alignSelf={{xs: 'center', sm: 'flex-start'}}
-            >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/d0684f40-6b42-11e7-b267-0b654f5c65d5-landscape_ymbpw3.png"
-                htmlAttributes={{
-                  alt: 'Landscaping Photo Collage'
-                }}
-              />
+            <ChildBox flex="33.3%">
+              <Box
+                mx="auto"
+                width={{xs: '70vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  src="d0684f40-6b42-11e7-b267-0b654f5c65d5-landscape_ymbpw3.png"
+                  alt="Landscaping Photo Collage"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 70vw, 34vw"
+                  width={828}
+                  height={1274}
+                />
+              </Box>
             </ChildBox>
           </RowBox>
         </WideContainer>
