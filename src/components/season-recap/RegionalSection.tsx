@@ -1090,8 +1090,8 @@ export default function RegionalSection({countyResponse}: Props) {
                 mediaName="Actual Precipitation"
                 mediaUrl={precipSrc}
                 mediaPreviewDialogProps={{
-                  width: 850,
-                  height: 1100
+                  width: 2200,
+                  height: 1700
                 }}
               >
                 <Image
@@ -1136,8 +1136,8 @@ export default function RegionalSection({countyResponse}: Props) {
                 mediaName="Percent of Normal"
                 mediaUrl={percNormalPrecipSrc}
                 mediaPreviewDialogProps={{
-                  width: 850,
-                  height: 1100
+                  width: 2200,
+                  height: 1700
                 }}
               >
                 <Image
@@ -1167,8 +1167,8 @@ export default function RegionalSection({countyResponse}: Props) {
               mediaName="Temperature Departure"
               mediaUrl={tempDepartSrc}
               mediaPreviewDialogProps={{
-                width: 850,
-                height: 1100
+                width: 2200,
+                height: 1700
               }}
             >
               <Image
