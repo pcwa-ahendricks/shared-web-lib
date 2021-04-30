@@ -23,6 +23,8 @@ import MainPhone from '@components/links/MainPhone'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,7 +111,7 @@ const RebateProgramsPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Rebate Programs" subtitle="Smart Water Use" />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="45%">
               <Type paragraph>
                 PCWA is proud to offer a variety of rebate programs which help
@@ -126,11 +128,14 @@ const RebateProgramsPage = () => {
               </Type>
             </ChildBox>
             <ChildBox flex="55%">
-              <LazyImgix
-                src="https://imgix.cosmicjs.com/2b569170-af32-11e9-90f6-45e304c90a10-untitled.png"
-                htmlAttributes={{
-                  alt: 'Water Efficient Garden'
-                }}
+              <Image
+                loader={imgixLoader}
+                width={1065}
+                height={710}
+                layout="responsive"
+                sizes="(max-width: 600px) 100vw, 55vw"
+                src="2b569170-af32-11e9-90f6-45e304c90a10-untitled.png"
+                alt="Water Efficient Garden"
               />
             </ChildBox>
           </RowBox>
