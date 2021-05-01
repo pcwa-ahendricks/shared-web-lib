@@ -21,7 +21,6 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import NextLink from '@components/NextLink/NextLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
@@ -36,6 +35,8 @@ import ContactUsIcon from '@material-ui/icons/Phone'
 import WarningIcon from '@material-ui/icons/WarningRounded'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 // type Props = {
 //   initialData?: PlayListItems
@@ -77,8 +78,8 @@ const IrrigationCanalPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Irrigation Canal Information" subtitle="Services" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="1 1 60%">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="60%">
               <Type paragraph>
                 PCWA's primary source of water is delivered through canals
                 operated by Pacific Gas &amp; Electric Company's (PG&amp;E).
@@ -112,19 +113,21 @@ const IrrigationCanalPage = () => {
                 page of this website.
               </Type>
             </ChildBox>
-            <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
-              minWidth="200px" // Don't let image get too small either.
-            >
-              <LazyImgix
-                src="https://imgix.cosmicjs.com/1e395470-c3a3-11e9-a5a7-bbdca6cf5b93-irrigation-canal-img1.jpg"
-                htmlAttributes={{
-                  alt: 'PCWA Canal photo'
-                }}
-              />
+            <ChildBox flex="40%">
+              <Box
+                mx="auto"
+                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              >
+                <Image
+                  src="1e395470-c3a3-11e9-a5a7-bbdca6cf5b93-irrigation-canal-img1.jpg"
+                  alt="PCWA Canal photo"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={1080}
+                  height={1480}
+                />
+              </Box>
             </ChildBox>
           </RowBox>
 

@@ -12,11 +12,12 @@ import {
   TypographyProps,
   Theme
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
+import imgixLoader from '@lib/imageLoader'
+import Image from 'next/image'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,11 +85,14 @@ const ClearingWaterMeterPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://imgix.cosmicjs.com/e6eb9890-8330-11ea-a5d4-3b7865d7bc61-Meter-Clear-Graphic.JPG"
-                  htmlAttributes={{
-                    alt: 'Illustration showing how to clear your water meter'
-                  }}
+                <Image
+                  loader={imgixLoader}
+                  src="e6eb9890-8330-11ea-a5d4-3b7865d7bc61-Meter-Clear-Graphic.JPG"
+                  alt="Illustration showing how to clear your water meter"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 45vw"
+                  width={1080}
+                  height={1714}
                 />
               </Box>
             </ChildBox>

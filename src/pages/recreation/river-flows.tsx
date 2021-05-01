@@ -18,11 +18,12 @@ import {
   Button,
   Theme
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
 import NextLink from 'next/link'
 import {useRouter} from 'next/router'
 import defaultPageGage from '@components/pi/defaultPageGage'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const cardImageHeight = 200
 
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.common.white
     },
     media: {
-      height: cardImageHeight
+      height: cardImageHeight,
+      overflow: 'hidden'
     }
   })
 )
@@ -85,11 +87,14 @@ const ResponsiveImageTemplatePage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/c5c38d30-6b37-11e7-860a-a98685e05496-river-flows.jpg"
-                  htmlAttributes={{
-                    alt: 'Woman observing the Middle Fork of the American River'
-                  }}
+                <Image
+                  src="c5c38d30-6b37-11e7-860a-a98685e05496-river-flows.jpg"
+                  alt="Woman observing the Middle Fork of the American River"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={200}
+                  height={259}
                 />
               </Box>
             </ChildBox>
@@ -100,15 +105,16 @@ const ResponsiveImageTemplatePage = () => {
             <Card className={classes.card}>
               <CardActionArea onClick={cardClickHandler}>
                 <CardMedia component="div" className={classes.media}>
-                  <LazyImgix
-                    src="https://cosmicjs.imgix.net/6635fa60-61c3-11e7-9d28-7b65c66a2644-French_Meadows_Inlet_04.jpg"
-                    htmlAttributes={{
-                      alt: `A Photo of the Middle Fork American River near French Meadows Reservoir`,
-                      style: {
-                        height: cardImageHeight,
-                        objectFit: 'cover'
-                      }
-                    }}
+                  <Image
+                    loader={imgixLoader}
+                    src="6635fa60-61c3-11e7-9d28-7b65c66a2644-French_Meadows_Inlet_04.jpg"
+                    alt="A Photo of the Middle Fork American River near French Meadows Reservoir"
+                    // height={cardImageHeight}
+                    objectFit="cover"
+                    layout="responsive"
+                    sizes="(max-width: 600px) 70vw, 45vw"
+                    width={1080}
+                    height={723}
                   />
                 </CardMedia>
                 <CardContent>

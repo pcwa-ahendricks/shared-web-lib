@@ -6,11 +6,12 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import {Typography as Type, Box, BoxProps} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@material-ui/icons/Timeline'
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const HellHolePage = () => {
   const TypeWithAdornment = useCallback(
@@ -41,17 +42,20 @@ const HellHolePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Hell Hole Reservoir" subtitle="Recreation" />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="40%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/d69b79a0-6b3d-11e7-ad41-afc8260b082c-hell-hole.jpg"
-                  htmlAttributes={{
-                    alt: 'Hell Hole Reservoir'
-                  }}
+                <Image
+                  loader={imgixLoader}
+                  src="d69b79a0-6b3d-11e7-ad41-afc8260b082c-hell-hole.jpg"
+                  alt="Hell Hole Reservoir"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={1080}
+                  height={1480}
                 />
               </Box>
             </ChildBox>
