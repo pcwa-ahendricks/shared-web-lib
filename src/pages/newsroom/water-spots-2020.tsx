@@ -8,8 +8,9 @@ import {Typography as Type, Link} from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const WaterSpots2020Page = () => {
   return (
@@ -181,11 +182,14 @@ const WaterSpots2020Page = () => {
           </Type>
 
           <Spacing size="large" />
-          <LazyImgix
-            src="https://imgix.cosmicjs.com/6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
-            htmlAttributes={{
-              alt: 'Water Spots Contest Logo'
-            }}
+          <Image
+            src="6eafed10-9c88-11ea-b70c-0f94f7372f5f-WaterSpotsLogo.jpg"
+            alt="Water Spots Contest Logo"
+            loader={imgixLoader}
+            layout="responsive"
+            sizes="(max-width: 700px) 100vw, 700px"
+            width={3840}
+            height={1554}
           />
 
           <Spacing size="large" />

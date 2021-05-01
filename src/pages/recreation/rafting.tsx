@@ -5,8 +5,9 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import {Typography as Type, Box} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const RaftingPage = () => {
   return (
@@ -14,7 +15,7 @@ const RaftingPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Rafting & Boating" subtitle="Recreation" />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="60%">
               <Type paragraph>
                 The Middle Fork of the American River provides rafters a unique
@@ -27,11 +28,14 @@ const RaftingPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/cedd1830-6b3e-11e7-8970-3b688d290373-rafting-and-boating.jpg"
-                  htmlAttributes={{
-                    alt: 'demo image'
-                  }}
+                <Image
+                  src="cedd1830-6b3e-11e7-8970-3b688d290373-rafting-and-boating.jpg"
+                  alt="Rafting and boating image"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={1080}
+                  height={1480}
                 />
               </Box>
             </ChildBox>

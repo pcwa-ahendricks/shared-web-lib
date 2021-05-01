@@ -17,7 +17,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import BsiOnlineWebsite from '@components/links/BsiOnlineWebsite'
 import BsiOnlinePhone from '@components/links/BsiOnlinePhone'
@@ -25,6 +24,8 @@ import BackflowEmail from '@components/links/BackflowEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,8 +53,8 @@ const CrossControlPreventionPage = () => {
             title="Cross-Connection Control Program"
             subtitle="Services"
           />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="1 1 60%">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="60%">
               <article>
                 <Type variant="h4" gutterBottom>
                   About Cross-Connection Control Prevention
@@ -80,16 +81,18 @@ const CrossControlPreventionPage = () => {
               </article>
             </ChildBox>
             <ChildBox
-              flex="auto"
-              m={{xs: 'auto', sm: 0}} // Center image in small layouts.
-              ml={{xs: 'auto', sm: 4}} // xs: auto will center image in small layouts.
-              maxWidth={{xs: '60vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
+              flex="40%"
+              mx="auto"
+              width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
-              <LazyImgix
-                src="https://cosmicjs.imgix.net/83b0e520-6b30-11e7-b8ae-eb2280fc8c40-backflow-prevention-aside.jpg"
-                htmlAttributes={{
-                  alt: 'Backflow Prevention Maintenance Photo'
-                }}
+              <Image
+                src="83b0e520-6b30-11e7-b8ae-eb2280fc8c40-backflow-prevention-aside.jpg"
+                alt="Backflow Prevention Maintenance Photo"
+                loader={imgixLoader}
+                layout="responsive"
+                sizes="(max-width: 600px) 60vw, 40vw"
+                width={1080}
+                height={1480}
               />
             </ChildBox>
           </RowBox>

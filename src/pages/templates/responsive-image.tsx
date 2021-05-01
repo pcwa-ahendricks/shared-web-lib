@@ -4,7 +4,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import {Typography as Type, Box} from '@material-ui/core'
+import {Typography as Type} from '@material-ui/core'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 
@@ -18,21 +18,20 @@ export default function ResponsiveImageTemplatePage() {
             <ChildBox flex="60%">
               <Type paragraph>...</Type>
             </ChildBox>
-            <ChildBox flex="40%">
-              <Box
-                mx="auto"
-                width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
-              >
-                <Image
-                  loader={imgixLoader}
-                  src="7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
-                  alt="demo image"
-                  layout="responsive"
-                  sizes="(max-width: 600px) 60vw, 40vw"
-                  width={200}
-                  height={259}
-                />
-              </Box>
+            <ChildBox
+              flex="40%"
+              mx="auto"
+              width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+            >
+              <Image
+                src="7dbe2de0-6b2f-11e7-b8ae-eb2280fc8c40-bill-pay-aside.jpg"
+                alt="demo image"
+                loader={imgixLoader}
+                layout="responsive"
+                sizes="(max-width: 600px) 60vw, 40vw"
+                width={200}
+                height={259}
+              />
             </ChildBox>
           </RowBox>
         </NarrowContainer>

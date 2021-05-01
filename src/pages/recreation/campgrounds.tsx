@@ -13,9 +13,10 @@ import {
   makeStyles,
   Theme
 } from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,7 +58,7 @@ const CampgroundsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Campgrounds" subtitle="Recreation" />
-          <RowBox responsive flexSpacing={4}>
+          <RowBox responsive flexSpacing={6}>
             <ChildBox flex="60%">
               <Type paragraph>
                 High on the western slope of the Sierra, near the headwaters of
@@ -81,11 +82,14 @@ const CampgroundsPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/16d575a0-6b3b-11e7-b4b0-738ba83d40d7-campground-picnic-table.jpg"
-                  htmlAttributes={{
-                    alt: 'Lake View Campsite at French Meadows Reservoir'
-                  }}
+                <Image
+                  loader={imgixLoader}
+                  src="16d575a0-6b3b-11e7-b4b0-738ba83d40d7-campground-picnic-table.jpg"
+                  alt="Lake View Campsite at French Meadows Reservoir"
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={1080}
+                  height={1480}
                 />
               </Box>
             </ChildBox>

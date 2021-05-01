@@ -6,7 +6,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@material-ui/core/colors'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import {Typography as Type, Box, Link, BoxProps} from '@material-ui/core'
-import LazyImgix from '@components/LazyImgix/LazyImgix'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@material-ui/icons/Timeline'
@@ -14,6 +13,8 @@ import FilterHdrIcon from '@material-ui/icons/FilterHdr'
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk'
 import PeopleIcon from '@material-ui/icons/People'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const FrenchMeadowsPage = () => {
   const TypeWithAdornment = useCallback(
@@ -44,21 +45,24 @@ const FrenchMeadowsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="French Meadows Reservoir" subtitle="Recreation" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="40%" display="flex">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="30%" display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <LazyImgix
-                  src="https://cosmicjs.imgix.net/d69b79a0-6b3d-11e7-ad41-afc8260b082c-hell-hole.jpg"
-                  htmlAttributes={{
-                    alt: 'French Meadows Reservoir'
-                  }}
+                <Image
+                  src="d69b79a0-6b3d-11e7-ad41-afc8260b082c-hell-hole.jpg"
+                  alt="French Meadows Reservoir"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 30vw"
+                  width={1080}
+                  height={1480}
                 />
               </Box>
             </ChildBox>
-            <ChildBox flex="60%">
+            <ChildBox flex="70%">
               <Type paragraph>
                 French Meadows Reservoir, near the headwaters of the Middle Fork
                 American River, is a large 1,408 acre reservoir.{' '}
