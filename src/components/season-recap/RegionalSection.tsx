@@ -38,7 +38,7 @@ import {
 } from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-dashboard'
-import Animate, {AnimateProps} from '@components/Animate/Animate'
+import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'
 
@@ -615,10 +615,10 @@ export default function RegionalSection({countyResponse}: Props) {
   )
 
   const Zoom = useCallback(
-    ({children, ...rest}: Partial<AnimateProps>) => (
-      <Animate name="zoomIn" hideUntilAnimate speed="faster" {...rest}>
+    ({children, ...rest}: Partial<JackinBoxProps>) => (
+      <JackinBox name="zoomIn" hideUntilAnimate speed="faster" {...rest}>
         {children}
-      </Animate>
+      </JackinBox>
     ),
     []
   )
@@ -1207,7 +1207,7 @@ export default function RegionalSection({countyResponse}: Props) {
             height={{xs: 400, sm: 250}}
             position="relative"
           >
-            <Animate
+            <JackinBox
               animate={Boolean(
                 climChgChartData.length === 0 && !climChgIsValidating
               )}
@@ -1226,7 +1226,7 @@ export default function RegionalSection({countyResponse}: Props) {
                   </Type>
                 </Box>
               </Paper>
-            </Animate>
+            </JackinBox>
             <ClimateChangeLine climChgChartData={climChgChartData} />
           </ChildBox>
           <ColumnBox child flex padding={2}>

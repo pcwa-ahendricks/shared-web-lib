@@ -48,8 +48,8 @@ import StationInfo from '@components/season-recap/StationInfo'
 import RegionalSection from '@components/season-recap/RegionalSection'
 import StationSnowfall from '@components/season-recap/StationSnowfall'
 import round from '@lib/round'
-import Animate, {AnimateProps} from '@components/Animate/Animate'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -521,10 +521,10 @@ export default function WaterYearDashboardPage() {
   )
 
   const Fade = useCallback(
-    ({children, ...rest}: Partial<AnimateProps>) => (
-      <Animate name="fadeIn" hideUntilAnimate {...rest}>
+    ({children, ...rest}: Partial<JackinBoxProps>) => (
+      <JackinBox name="fadeIn" hideUntilAnimate {...rest}>
         {children}
-      </Animate>
+      </JackinBox>
     ),
     []
   )
@@ -704,7 +704,7 @@ export default function WaterYearDashboardPage() {
             </Fade>
             <Spacing size="x-small" />
             <ChartBox height={{xs: 400, lg: 450}} position="relative">
-              <Animate
+              <JackinBox
                 hideUntilAnimate
                 name="fadeIn"
                 animate={Boolean(precipAccumDiff)}
@@ -721,7 +721,7 @@ export default function WaterYearDashboardPage() {
                     </Type>
                   </Box>
                 </Paper>
-              </Animate>
+              </JackinBox>
               <PrecipAccumLine
                 precipDataset={precipDataset}
                 highYear={precipAccumHistHighYear}
@@ -844,7 +844,7 @@ export default function WaterYearDashboardPage() {
             </Fade>
             <Spacing size="x-small" />
             <ChartBox height={{xs: 400, lg: 450}} position="relative">
-              <Animate
+              <JackinBox
                 animate={Boolean(tempResponse?.error)}
                 name="fadeIn"
                 hideUntilAnimate
@@ -861,7 +861,7 @@ export default function WaterYearDashboardPage() {
                     </Type>
                   </Box>
                 </Paper>
-              </Animate>
+              </JackinBox>
               <TempRangeLine tempDataset={tempDataset} />
             </ChartBox>
             <Spacing size="x-large">
@@ -887,7 +887,7 @@ export default function WaterYearDashboardPage() {
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
             >
-              <Animate
+              <JackinBox
                 animate={Boolean(tempResponse?.error)}
                 hideUntilAnimate
                 name="fadeIn"
@@ -904,7 +904,7 @@ export default function WaterYearDashboardPage() {
                     </Type>
                   </Box>
                 </Paper>
-              </Animate>
+              </JackinBox>
               <TempDiffCalendar
                 tempObservedDiffData={tempObservedDiffData}
                 waterYear={waterYear}

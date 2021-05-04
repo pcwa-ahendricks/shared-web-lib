@@ -143,14 +143,16 @@ export default function TempRangeLine({tempDataset}: Props) {
         return (
           <path
             key={id}
-            d={lineGenerator(
-              data.map((d) => ({
-                ...(d.data?.x != null &&
-                  d.data?.x != undefined && {x: xScale(d.data?.x)}),
-                ...(d.data?.y != null &&
-                  d.data?.y != undefined && {y: yScale(d.data?.y)})
-              }))
-            )}
+            d={
+              lineGenerator(
+                data.map((d): any => ({
+                  ...(d.data?.x != null &&
+                    d.data?.x != undefined && {x: xScale(d.data?.x)}),
+                  ...(d.data?.y != null &&
+                    d.data?.y != undefined && {y: yScale(d.data?.y)})
+                }))
+              ) as any
+            }
             fill="none"
             stroke={color}
             style={styleById[idStr] || styleById.default}
@@ -217,7 +219,7 @@ export default function TempRangeLine({tempDataset}: Props) {
         legendOffset: -12
       }}
       axisLeft={{
-        orient: 'left',
+        // orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,

@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
-import Animate from '@components/Animate/Animate'
+import JackinBox from 'mui-jackinbox'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,7 +30,7 @@ const NovusIframe = ({...rest}: BoxProps) => {
 
   return (
     <Box position="relative" width="100%">
-      <Animate
+      <JackinBox
         name="fadeOut"
         animate={!iframeIsLoading}
         position="absolute"
@@ -41,8 +41,8 @@ const NovusIframe = ({...rest}: BoxProps) => {
         className={classes.loadingCaption}
       >
         <Type>Novus Agenda is loading...</Type>
-      </Animate>
-      <Animate
+      </JackinBox>
+      <JackinBox
         name="fadeIn"
         animate={!iframeIsLoading}
         hideUntilAnimate
@@ -65,7 +65,7 @@ const NovusIframe = ({...rest}: BoxProps) => {
             scrolling="auto"
           />
         </IeNever>
-      </Animate>
+      </JackinBox>
       {/* iframe onLoad doesn't work with IE */}
       <IeOnly height="inherit" {...rest}>
         <iframe

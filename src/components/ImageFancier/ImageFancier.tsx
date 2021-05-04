@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import {FlexBox} from 'mui-sleazebox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
-import Animate from '@components/Animate/Animate'
+import JackinBox from 'mui-jackinbox'
 import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
@@ -110,14 +110,14 @@ const ImageFancier = ({
         height="100%"
         zIndex={3}
       >
-        <Animate
+        <JackinBox
           name={isHover ? 'fadeIn' : 'fadeOut'}
           hideUntilAnimate
           animate={isHover !== undefined}
           speed="fast"
         >
           <SearchRoundedIcon fontSize="large" color="inherit" />
-        </Animate>
+        </JackinBox>
       </FlexBox>
       <Image
         src={src}

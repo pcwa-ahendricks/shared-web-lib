@@ -100,14 +100,16 @@ export default function ClimateChangeLine({
         return (
           <path
             key={id}
-            d={lineGenerator(
-              data.map(({data}) => ({
-                ...(data?.x != null &&
-                  data?.x != undefined && {x: xScale(data?.x)}),
-                ...(data?.y != null &&
-                  data?.y != undefined && {y: yScale(data?.y)})
-              }))
-            )}
+            d={
+              lineGenerator(
+                data.map(({data}): any => ({
+                  ...(data?.x != null &&
+                    data?.x != undefined && {x: xScale(data?.x)}),
+                  ...(data?.y != null &&
+                    data?.y != undefined && {y: yScale(data?.y)})
+                }))
+              ) as any
+            }
             fill="none"
             stroke={color}
             style={styleById[idStr] || styleById.default}
@@ -151,7 +153,6 @@ export default function ClimateChangeLine({
         legendOffset: -14
       }}
       axisLeft={{
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,

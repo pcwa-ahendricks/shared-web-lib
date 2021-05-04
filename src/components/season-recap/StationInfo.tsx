@@ -8,7 +8,7 @@ import {
 import colorAlpha from 'color-alpha'
 import {blueGrey} from '@material-ui/core/colors'
 import {StationMeta} from '@pages/water-year-dashboard'
-import Animate from '@components/Animate/Animate'
+import JackinBox from 'mui-jackinbox'
 // import round from '@lib/round'
 
 type Props = {
@@ -34,7 +34,7 @@ export default function StationInfo({stationInfo}: Props) {
   const {name, elev, county, state} = stationInfo ?? {}
 
   return (
-    <Animate
+    <JackinBox
       name="fadeIn"
       animate={Boolean(hasItems)}
       hideUntilAnimate
@@ -60,6 +60,6 @@ export default function StationInfo({stationInfo}: Props) {
           {longLat?.[1] ? round(longLat?.[1], 3) : null}
         </Type> */}
       </Box>
-    </Animate>
+    </JackinBox>
   )
 }

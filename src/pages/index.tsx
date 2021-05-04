@@ -1,11 +1,5 @@
 // cspell:ignore COVID perc
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useContext,
-  useCallback
-} from 'react'
+import React, {useState, useMemo, useContext, useCallback} from 'react'
 import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -32,7 +26,7 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import Animate from '@components/Animate/Animate'
+import JackinBox from 'mui-jackinbox'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 
 type Props = {
@@ -105,10 +99,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const uiContext = useContext(UiContext)
   const {state: uiState, dispatch: uiDispatch} = uiContext
   const {home: homeAnimateDone} = uiState.animateDone
-  useEffect(() => {
-    return () => {
-      uiDispatch(setAnimateDone('home', true))
-    }
+
+  const animateDoneHandler = useCallback(() => {
+    uiDispatch(setAnimateDone('home', true))
   }, [uiDispatch])
 
   return (
@@ -135,12 +128,13 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           maxHeight: '45vh'
         }}
       >
-        <Animate
+        <JackinBox
           // speed="slow"
           name="fadeIn"
           delay={1}
           hideUntilAnimate={!homeAnimateDone}
           animate={heroOverlayIn && !homeAnimateDone}
+          onAnimateEnd={animateDoneHandler}
         >
           <RowBox
             justifyContent="space-around"
@@ -159,7 +153,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </RowBox>
-        </Animate>
+        </JackinBox>
       </ImageParallaxBanner>
       <Hidden only="xs" implementation="css">
         <TrendingBar />

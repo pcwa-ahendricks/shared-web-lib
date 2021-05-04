@@ -8,7 +8,7 @@ import {
   BoxProps,
   useTheme
 } from '@material-ui/core'
-import Animate from '@components/Animate/Animate'
+import JackinBox from 'mui-jackinbox'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,7 +30,7 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
 
   return (
     <Box position="relative" width="100%">
-      <Animate
+      <JackinBox
         name="fadeOut"
         animate={!iframeIsLoading}
         position="absolute"
@@ -41,8 +41,8 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
         className={classes.loadingCaption}
       >
         <Type>Public Purchase is loading...</Type>
-      </Animate>
-      <Animate
+      </JackinBox>
+      <JackinBox
         name="fadeIn"
         animate={!iframeIsLoading}
         hideUntilAnimate
@@ -61,7 +61,7 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
           height="100%"
           scrolling="auto"
         />
-      </Animate>
+      </JackinBox>
     </Box>
   )
 }

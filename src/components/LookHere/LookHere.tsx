@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme
 } from '@material-ui/core'
-import Animate, {AnimateProps} from '@components/Animate/Animate'
+import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import HandIcon from 'mdi-material-ui/HandPointingRight'
 import useTimeout from 'use-timeout'
 
@@ -14,7 +14,7 @@ export default function LookHere({
   children,
   animate,
   ...rest
-}: BoxProps & Partial<AnimateProps>) {
+}: BoxProps & Partial<JackinBoxProps>) {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const [show, setShow] = useState(false)
@@ -28,8 +28,8 @@ export default function LookHere({
   return (
     <Box position="relative" {...rest}>
       {children}
-      <Animate name="fadeOut" delay={5} animate={show} hideUntilAnimate>
-        <Animate
+      <JackinBox name="fadeOut" delay={5} animate={show} hideUntilAnimate>
+        <JackinBox
           name="backInLeft"
           position="absolute"
           left={-180}
@@ -44,8 +44,8 @@ export default function LookHere({
             <em>Click flyer to learn more</em>
           </Type>
           <HandIcon color="primary" fontSize="large" />
-        </Animate>
-      </Animate>
+        </JackinBox>
+      </JackinBox>
     </Box>
   )
 }

@@ -23,7 +23,7 @@ import {
 import isNumber from 'is-number'
 import PrecipCalendar from './PrecipCalendar'
 import {ResponsiveLine} from '@nivo/line'
-import Animate, {AnimateProps} from '@components/Animate/Animate'
+import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 type Props = {
@@ -229,15 +229,15 @@ export default function StationSnowfall({waterYear, sid}: Props) {
   ])
 
   const Fade = useCallback(
-    ({children, ...rest}: Partial<AnimateProps>) => (
-      <Animate
+    ({children, ...rest}: Partial<JackinBoxProps>) => (
+      <JackinBox
         name="fadeIn"
         animate={Boolean(snowfallResponse)}
         hideUntilAnimate
         {...rest}
       >
         {children}
-      </Animate>
+      </JackinBox>
     ),
     [snowfallResponse]
   )

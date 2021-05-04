@@ -41,7 +41,7 @@ import fetcher from '@lib/fetcher'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import withTimeout from '@lib/withTimeout'
 import round from '@lib/round'
-import Animate from '@components/Animate/Animate'
+import JackinBox from 'mui-jackinbox'
 import Spacing from '@components/boxes/Spacing'
 import usePiTag from '@hooks/usePiTag'
 // import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
@@ -281,7 +281,7 @@ const DynamicPiPage = ({
                     <Spacing size="x-small" />
                     <RowBox justifyContent="space-around">
                       <ChildBox>
-                        <Animate
+                        <JackinBox
                           name="fadeIn"
                           hideUntilAnimate
                           animate={typeof currentElevation === 'number'}
@@ -296,7 +296,7 @@ const DynamicPiPage = ({
                             ).toLocaleString()}{' '}
                             ft.
                           </Type>
-                        </Animate>
+                        </JackinBox>
                       </ChildBox>
                       <ChildBox>
                         <Type variant="caption">
