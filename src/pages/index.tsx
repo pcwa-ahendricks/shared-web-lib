@@ -423,8 +423,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               <CoverTile
                 width={tileWidth}
                 title="PCWA Water Shortage Contingency Plan"
-                imgixURL="https://imgix.cosmicjs.com/a1760e30-a918-11eb-bd04-573a73e015d6-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-Draft-04.26.21.pdf"
-                linkHref="https://imgix.cosmicjs.com/a1760e30-a918-11eb-bd04-573a73e015d6-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-Draft-04.26.21.pdf"
+                imgixURL="https://imgix.cosmicjs.com/485d76b0-adb6-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.04.21.pdf"
+                linkHref="https://cdn.cosmicjs.com/485d76b0-adb6-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.04.21.pdf"
                 flexLinkProps={{isNextLink: false}}
                 alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
                 imgixParams={{crop: 'top'}}
