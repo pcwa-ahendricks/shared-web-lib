@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "New PCWA website",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "repository": "https://github.com/placercountywater/neu-web",
   "author": "abe hendricks <ahendricks@pcwa.net>",
@@ -113,7 +113,7 @@
     "is-number": "^7.0.0",
     "mdi-material-ui": "^6.17.0",
     "mime": "^2.4.5",
-    "mui-jackinbox": "^0.0.5",
+    "mui-jackinbox": "^0.0.6",
     "mui-sleazebox": "^0.0.6",
     "next": "^10.2.0",
     "next-compose-plugins": "^2.2.0",

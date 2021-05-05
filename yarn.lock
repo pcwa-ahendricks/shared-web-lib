@@ -5149,10 +5149,10 @@ ms@^2.1.3:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-mui-jackinbox@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/mui-jackinbox/-/mui-jackinbox-0.0.5.tgz#bafc008afc04a9be3fba372c03dde6d5807b809b"
-  integrity sha512-NwsRuNxudrkrqFUhZ5FBPR5jyXik0HrNGv2D9Q3TnXzRMfM/Utm5c7iowO7wAJZp6rKao4Smbe7GLFQYQ+cKqg==
+mui-jackinbox@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/mui-jackinbox/-/mui-jackinbox-0.0.6.tgz#80d348fe0dc64a2d5d9dbd6bf804c3c5975290e0"
+  integrity sha512-XO3FApZguZu7AC2NQY0kVclOV8bCD5DfKHSOkfQ9GAFX/ft0RCffvUnWq1d+GROa0YPxFAd7D5ZUZ5eUd9lxGQ==
   dependencies:
     clsx "^1.1.1"
 
