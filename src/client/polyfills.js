@@ -6,6 +6,10 @@
 
 import '../lib/modernizr'
 
+// https://github.com/vercel/next.js/pull/24569
+const matchAll = require('string.prototype.matchall')
+matchAll.shim()
+
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
 if (!HTMLCanvasElement.prototype.toBlob) {
   Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
