@@ -149,7 +149,7 @@ const GoodsAndServicesPage = () => {
             </Type>
             <OpenInNewLink
               pdf
-              href="https://cdn.cosmicjs.com/f57a9a30-034d-11eb-9528-f5a6da2be217-Purchase-Order-Terms-and-Conditions.pdf"
+              href="https://cdn.cosmicjs.com/2ecd3650-af4f-11eb-bd86-3988be5a9e1c-Purchase-Order-Terms-and-Conditions-Updated-05072021.pdf"
               variant="body1"
             >
               Purchase Order Terms and Conditions
