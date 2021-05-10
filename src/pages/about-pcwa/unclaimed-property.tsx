@@ -69,7 +69,7 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
             <Type paragraph>
               Placer County Water Agency hereby provides notice to owners of
               record of unclaimed money in the Agency's possession that any
-              unclaimed money from the 2021 Calendar Year will escheat to the
+              unclaimed money from the 2017 Calendar Year will escheat to the
               Agency by operation of law if not claimed by{' '}
               <em>
                 {format(deadlineDate, "h':'mm aaaa 'on' cccc MMMM do',' yyyy")}
