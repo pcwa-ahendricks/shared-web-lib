@@ -468,7 +468,7 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       {
         source: `/docs/deputy-staff-counsel-recruitment-flyer${fileExtRe}`,
         destination:
-          'https://cdn.cosmicjs.com/f214f2f0-812e-11eb-87d5-315fa4f6b30d-Deputy-Staff-Counsel---Recruitment-Flyer.pdf'
+          'https://cdn.cosmicjs.com/f214f2f0-812e-11eb-87d5-315fa4f6b30d-Deputy-Staff-Counsel---Recruitmet-Flyer.pdf'
       },
       /*  This link was requested by Melissa Cope & Carrie Parks */
       {
