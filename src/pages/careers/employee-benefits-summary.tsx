@@ -151,7 +151,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     <ListItemText primary="PCWA Power Systems MOU" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://cdn.cosmicjs.com/599a7680-b1ee-11eb-b28c-0daba995d80a-Water-Systems-MOU-3.pdf">
+                  <ListItemLink href="/docs/water-systems-mou">
                     <ListItemText primary="PCWA Water Systems MOU" />
                   </ListItemLink>
                 </List>

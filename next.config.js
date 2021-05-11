@@ -536,7 +536,7 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
           'https://cdn.cosmicjs.com/358f3bf0-971c-11eb-b593-972a7dbc1054-Foothill-Sunset2021.pdf'
       },
       {
-        source: `/docs/ccr/monte[-|_]vista${fileExtRe}`,
+        source: `/docs/ccr/monte(-|_)vista${fileExtRe}`,
         destination:
           'https://cdn.cosmicjs.com/2a034d30-971c-11eb-b593-972a7dbc1054-MonteVista2021.pdf'
       },
