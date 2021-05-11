@@ -119,31 +119,31 @@ const WaterQualityPage = () => {
                       </ListSubheader>
                     }
                   >
-                    <ListItemLink href="/ccr/alta.pdf">
+                    <ListItemLink href="/docs/ccr/alta.pdf">
                       <ListItemText primary="Alta" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/ccr/applegate.pdf">
+                    <ListItemLink href="/docs/ccr/applegate.pdf">
                       <ListItemText primary="Applegate" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/ccr/auburn-bowman.pdf">
+                    <ListItemLink href="/docs/ccr/auburn-bowman.pdf">
                       <ListItemText primary="Auburn - Bowman" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/ccr/bianchi.pdf">
+                    <ListItemLink href="/docs/ccr/bianchi.pdf">
                       <ListItemText primary="Bianchi Estates" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/ccr/colfax.pdf">
+                    <ListItemLink href="/docs/ccr/colfax.pdf">
                       <ListItemText primary="Colfax" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/ccr/foothill-sunset.pdf">
+                    <ListItemLink href="/docs/ccr/foothill-sunset.pdf">
                       <ListItemText primary="Foothill - Sunset" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/ccr/monte-vista.pdf">
+                    <ListItemLink href="/docs/ccr/monte-vista.pdf">
                       <ListItemText primary="Monte Vista" />
                     </ListItemLink>
                   </List>
