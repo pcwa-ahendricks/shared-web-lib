@@ -11,8 +11,6 @@
     {
       "source": "/googlefbd8b86ffaa48e25.html",
       "destination": "/static/googlefbd8b86ffaa48e25.html"
-    },
-    {"source": "/docs/:id", "destination": "/api/docs"},
-    {"source": "/docs/:sub/:id", "destination": "/api/docs"}
+    }
   ]
 }

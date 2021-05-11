@@ -1,3 +1,4 @@
+// cspell:ignore nskarda hprcc
 /* eslint @typescript-eslint/no-var-requires: 0 */
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const {
@@ -14,6 +15,7 @@ const withTM = require('next-transpile-modules')([
 const withPlugins = require('next-compose-plugins')
 const {STATS} = process.env
 const isDev = process.env.NODE_ENV === 'development'
+const fileExtRe = '(.[a-z]{1,4})?'
 
 const miscRedirects = [
   // Classic (Brenda's www.pcwa.net) stop leaks page.
@@ -444,15 +446,115 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     ]
   },
   async rewrites() {
-    return {
-      fallback: [
-        {
-          source: '/water-systems-mou.pdf',
-          destination:
-            'https://cdn.cosmicjs.com/599a7680-b1ee-11eb-b28c-0daba995d80a-Water-Systems-MOU-3.pdf'
-        }
-      ]
-    }
+    return [
+      // Maintained by N. Skarda
+      {
+        source: `/docs/water-systems-mou${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/599a7680-b1ee-11eb-b28c-0daba995d80a-Water-Systems-MOU-3.pdf'
+      },
+      {
+        source: `/docs/hr-frequently-asked-questions${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/9eb06730-ac30-11ea-8daf-c3880e5e9d72-CandidateFrequentlyAskedQuestions.pdf'
+      },
+      /*  This link was requested by Nicole Skarda */
+      {
+        source: `/docs/deputy-staff-counsel-recruitment-flyer${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/f214f2f0-812e-11eb-87d5-315fa4f6b30d-Deputy-Staff-Counsel---Recruitment-Flyer.pdf'
+      },
+      /*  This link was requested by Melissa Cope & Carrie Parks */
+      {
+        source: `/docs/Rating-Agency-Presentation-2021${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/0a6be740-70b4-11eb-8efd-79fa1dda8407-2021-PCWA-Rating-Agency-Presentation-2.16.2021.pptx'
+      },
+      // Vendor Application link is used in Vendor Letter PDF. Chris Bonnenfant has more info on use of this link and how Vendor Letter is distributed.
+      {
+        source: `/docs/vendorapp${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/6a72fa30-acf0-11ea-8dee-d7617d15f3b4-VendorApplication.pdf'
+      },
+      // This doc link was used with COVID-19 eNews Blast for R. Branch, which was distributed via Mailchimp 3/19/2020.
+      {
+        source: `/docs/COVID-19-faqs${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/7bfe5c30-6a1b-11ea-903a-2bfc7dd2c6f9-COVID-19-FAQs.pdf'
+      },
+      /*  These 7 doc links are used with "Grand Jury 2015 Report - Responses to Recommendations v3.docx" and generated pdf for Tony Firenzi which was distributed to Board of Directors and made available to the public 11/11/2020. */
+      {
+        source: `/docs/CWMP-Implementation-Plan${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf'
+      },
+      {
+        source: `/docs/Financial-Assistance-Program-Policy${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/b06c23c0-f767-11e9-9b34-e182dcef54b2-Financial-Assistance-Program-Policy-Final-9.19.19.pdf'
+      },
+      {
+        source: `/docs/2020-Adopted-Budget${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/18facc90-f527-11e9-838f-39811b395d2d-2020-PCWA-Adopted-Budget-Final-for-website.pdf'
+      },
+      {
+        source: `/docs/2019-Comprehensive-Annual-Financial-Report${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf'
+      },
+      {
+        source: `/docs/2018-Comprehensive-Annual-Financial-Report${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf'
+      },
+      {
+        source: `/docs/Resolution-08-16${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/c35d42c0-4c5d-11ea-ab88-7b2f955dad17-Resolution-08-16.pdf'
+      },
+      {
+        source: `/docs/Resolution-19-24${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/c73af220-4c5d-11ea-ab88-7b2f955dad17-Resolution-19-24.pdf'
+      },
+      /*  Maintained by B. Wilkins & B. Heath. These doc links are used and distributed via mail to all treated customers. */
+      {
+        source: `/docs/ccr/alta${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/2a06f6b0-971c-11eb-b593-972a7dbc1054-Alta2021.pdf'
+      },
+      {
+        source: `/docs/ccr/foothill-sunset${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/358f3bf0-971c-11eb-b593-972a7dbc1054-Foothill-Sunset2021.pdf'
+      },
+      {
+        source: `/docs/ccr/monte[-|_]vista${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/2a034d30-971c-11eb-b593-972a7dbc1054-MonteVista2021.pdf'
+      },
+      {
+        source: `/docs/ccr/applegate${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/2a059720-971c-11eb-b593-972a7dbc1054-Applegate2021.pdf'
+      },
+      {
+        source: `/docs/ccr/auburn-bowman${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/2afe9d20-971c-11eb-b593-972a7dbc1054-Auburn-Bowman2021.pdf'
+      },
+      {
+        source: `/docs/ccr/bianchi${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/2a080820-971c-11eb-b593-972a7dbc1054-Bianchi2021.pdf'
+      },
+      {
+        source: `/docs/ccr/colfax${fileExtRe}`,
+        destination:
+          'https://cdn.cosmicjs.com/2a0940a0-971c-11eb-b593-972a7dbc1054-Colfax2021.pdf'
+      }
+    ]
   },
   images: {
     // loader: 'imgix',
