@@ -443,6 +443,17 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       ...miscRedirects
     ]
   },
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: '/water-systems-mou.pdf',
+          destination:
+            'https://cdn.cosmicjs.com/599a7680-b1ee-11eb-b28c-0daba995d80a-Water-Systems-MOU-3.pdf'
+        }
+      ]
+    }
+  },
   images: {
     // loader: 'imgix',
     // path: 'https://imgix.cosmicjs.com/',
