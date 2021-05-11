@@ -447,18 +447,6 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
   },
   async rewrites() {
     return [
-      // Maintained by J. Shepard
-      {
-        source: `/docs/pcwa-water-shortage-contingency-plan${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/f694d8b0-adc3-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.05.21.pdf'
-      },
-      // Maintained by N. Skarda
-      {
-        source: `/docs/water-systems-mou${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/599a7680-b1ee-11eb-b28c-0daba995d80a-Water-Systems-MOU-3.pdf'
-      },
       {
         source: `/docs/hr-frequently-asked-questions${fileExtRe}`,
         destination:
