@@ -119,31 +119,31 @@ const WaterQualityPage = () => {
                       </ListSubheader>
                     }
                   >
-                    <ListItemLink href="/docs/ccr/alta.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/alta.pdf">
                       <ListItemText primary="Alta" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/docs/ccr/applegate.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/applegate.pdf">
                       <ListItemText primary="Applegate" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/docs/ccr/auburn-bowman.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/auburn-bowman.pdf">
                       <ListItemText primary="Auburn - Bowman" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/docs/ccr/bianchi.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/bianchi.pdf">
                       <ListItemText primary="Bianchi Estates" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/docs/ccr/colfax.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/colfax.pdf">
                       <ListItemText primary="Colfax" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/docs/ccr/foothill-sunset.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/foothill-sunset.pdf">
                       <ListItemText primary="Foothill - Sunset" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/docs/ccr/monte-vista.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/monte-vista.pdf">
                       <ListItemText primary="Monte Vista" />
                     </ListItemLink>
                   </List>
