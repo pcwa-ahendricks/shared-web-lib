@@ -85,7 +85,7 @@ const EnvironmentalPlanningPage = () => {
               </Type>
               <OpenInNewLinkBox
                 {...linkProps}
-                href="https://cdn.cosmicjs.com/54c16af0-3f47-11e8-8409-219816b81fd5-MVGB SGMA Alternative 2018 Annual Report.pdf"
+                href="https://docs.pcwa.net/mvgb-sgma-alternative-2018-annual-report.pdf"
               >
                 Annual Report for the Martis Valley Groundwater Basin,
                 Sustainable Groundwater Management Act Alternative Submittal,
@@ -198,7 +198,7 @@ const EnvironmentalPlanningPage = () => {
               </Type>
               <OpenInNewLinkBox
                 {...linkProps}
-                href="https://cdn.cosmicjs.com/8ce512f0-0372-11eb-9528-f5a6da2be217-MFP-FERC-License-06082020.pdf"
+                href="https://docs.pcwa.net/mfp-ferc-license.pdf"
               >
                 MFP FERC License
               </OpenInNewLinkBox>
