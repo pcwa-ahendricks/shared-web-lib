@@ -139,19 +139,19 @@ const EmployeeBenefitsSummaryPage = () => {
                     </ListSubheader>
                   }
                 >
-                  <ListItemLink href="https://docs.pcwa.net/confidential-employees-compensation-plan.pdf">
+                  <ListItemLink href="https://docs.pcwa.net/confidential-employees-compensation-plan">
                     <ListItemText primary="PCWA Confidential Employees Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://docs.pcwa.net/managment-compensation-plan.pdf">
+                  <ListItemLink href="https://docs.pcwa.net/managment-compensation-plan">
                     <ListItemText primary="PCWA Management Compensation Plan" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://docs.pcwa.net/power-systems-mou.pdf">
+                  <ListItemLink href="https://docs.pcwa.net/power-systems-mou">
                     <ListItemText primary="PCWA Power Systems MOU" />
                   </ListItemLink>
                   {/* <Divider /> */}
-                  <ListItemLink href="https://docs.pcwa.net/water-systems-mou.pdf">
+                  <ListItemLink href="https://docs.pcwa.net/water-systems-mou">
                     <ListItemText primary="PCWA Water Systems MOU" />
                   </ListItemLink>
                 </List>

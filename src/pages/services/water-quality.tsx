@@ -119,31 +119,31 @@ const WaterQualityPage = () => {
                       </ListSubheader>
                     }
                   >
-                    <ListItemLink href="https://docs.pcwa.net/ccr/alta.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/alta">
                       <ListItemText primary="Alta" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://docs.pcwa.net/ccr/applegate.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/applegate">
                       <ListItemText primary="Applegate" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://docs.pcwa.net/ccr/auburn-bowman.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/auburn-bowman">
                       <ListItemText primary="Auburn - Bowman" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://docs.pcwa.net/ccr/bianchi.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/bianchi">
                       <ListItemText primary="Bianchi Estates" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://docs.pcwa.net/ccr/colfax.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/colfax">
                       <ListItemText primary="Colfax" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://docs.pcwa.net/ccr/foothill-sunset.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/foothill-sunset">
                       <ListItemText primary="Foothill - Sunset" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="https://docs.pcwa.net/ccr/monte-vista.pdf">
+                    <ListItemLink href="https://docs.pcwa.net/ccr/monte-vista">
                       <ListItemText primary="Monte Vista" />
                     </ListItemLink>
                   </List>
