@@ -266,7 +266,7 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated February 23, 2021)
+                      Upcoming Work (updated May 14, 2021)
                     </Type>
                     <Type paragraph>
                       The Contractor will be performing the following
@@ -275,55 +275,53 @@ const ProjectsPage = () => {
                     <ul>
                       <TypeBullet>
                         <Type variant="body1">
-                          Road closures and traffic delays are anticipated on
-                          Powerhouse Road and Sierra Oaks Court. Watch out for
-                          advance warning road signs.
+                          Traffic delays are not anticipated along the
+                          construction corridor.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Installation of 33-inch raw water pipe and 18-inch
-                          treated water pipe from the Energy Dissipation
-                          Station, through Powerhouse Road, and through Sierra
-                          Oaks Court.
+                          Pipeline installation and testing anticipated
+                          completion is scheduled for mid-May.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
                           Ongoing activities to construct the Energy Dissipation
                           Station at the Foothill Water Treatment Plant,
-                          including installation door frames, housekeeping pads,
-                          and electrical. Continue installation of the roofing.
+                          including installation of the roofing, site grading
+                          restoration, fiber conduits, and electrical.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Minor activities on the Dutch Ravine Energy
-                          Dissipation Structure at PCWA property located on
-                          Hillview Lane. Installation of PG&E electrical
-                          service, site grading, and installing and painting
-                          canopy roof.
+                          Continue the erection of the Hydraulic Control
+                          Standpipe. The contractor is currently Coating the
+                          tank, installing electrical conduits, grading and
+                          paving around structure, and building a retaining
+                          wall.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1" component="div">
-                          Continue the erection of the Hydraulic Control
-                          Standpipe. The contractor is currently installing
-                          walls on the tank and will soon be installing the
-                          floor and the roof.
+                          Continue modifications to the Ophir Road Pump Station
+                          to increase pump pressures to accommodate the project.
+                          Currently the contractor has shipped pump columns out
+                          for coating. Reinstallation of pumps and columns is
+                          planned for June 1.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Continue the installation of 12-inch and 18- inch
-                          treated water pipe at the Foothill Water Treatment
-                          plant.
+                          Continue the installation of the Fiber Optics
+                          innerduct, and remaining boxes.
                         </Type>
                       </TypeBullet>
                       <TypeBullet>
                         <Type variant="body1">
-                          Modifications to the Ophir Road Pump Station to
-                          increase pump pressures to accommodate the project.
+                          Start removing debris from the drainage tunnel under
+                          UPRRs tracks and start reestablishing drainage from
+                          the tunnel to the Dutch Ravine.
                         </Type>
                       </TypeBullet>
                     </ul>
