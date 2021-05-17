@@ -80,7 +80,7 @@ const EmployeeBenefitsSummaryPage = () => {
             >
               <Image
                 loader={imgixLoader}
-                src="51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                src="81a6b9f0-b756-11eb-bcb9-d7d3c90bc15f-PCWA-2020-Annual-Report-for-website.pdf"
                 layout="responsive"
                 sizes="(max-width: 600px) 50vw, 20vw"
                 width={85}
@@ -118,29 +118,41 @@ const EmployeeBenefitsSummaryPage = () => {
                 <RowBox justifyContent="space-around">
                   <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
-                    // url="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
+                    href="https://docs.pcwa.net/comprehensive-annual-financial-report-2020"
+                    imgixUrl="https://imgix.cosmicjs.com/81a6b9f0-b756-11eb-bcb9-d7d3c90bc15f-PCWA-2020-Annual-Report-for-website.pdf"
+                    caption="2020 Annual Report"
+                    alt="Annual Report Thumbnail and link for 2020 PCWA Annual Report pdf"
+                  />
+                  <ImageThumbLink
+                    sizes="(max-width: 600px) 25vw, 10vw"
+                    // imgixUrl="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     href="https://imgix.cosmicjs.com/51cc8ec0-a1be-11ea-acbc-47da0ebc2584-2019-PCWA-CAFR-Final-for-Website.pdf"
                     caption="2019 Annual Report"
                     alt="Annual Report Thumbnail and link for 2019 PCWA Annual Report pdf"
                   />
                   <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
-                    // url="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
+                    // imgixUrl="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     href="https://imgix.cosmicjs.com/52fe04d0-7b50-11e9-ae74-33a275ef3c9b-2018-PCWA-CAFR-Final-for-Web.pdf"
                     caption="2018 Annual Report"
                     alt="Annual Report Thumbnail and link for 2018 PCWA Annual Report pdf"
                   />
-                  <ImageThumbLink
+                  {/* <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
-                    // url="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     href="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
                     caption="2017 Annual Report"
                     alt="Annual Report Thumbnail and link for 2017 PCWA Annual Report pdf"
-                  />
+                  /> */}
                 </RowBox>
                 <Box m={2}>
                   <Type variant="subtitle2">Older Annual Report Documents</Type>
                   <RowBox alignItems="center" flexWrap="wrap">
+                    <OlderReportLink
+                      title="2017 Annual Report Document Link"
+                      href="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
+                    >
+                      2017
+                    </OlderReportLink>
                     <OlderReportLink
                       title="2016 Annual Report Document Link"
                       href="https://imgix.cosmicjs.com/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"

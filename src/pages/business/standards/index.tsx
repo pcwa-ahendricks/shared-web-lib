@@ -27,7 +27,7 @@ const ImprovementStandardsPage = () => {
               >
                 <ImageThumbLink
                   filename="PCWA_Improvement_Standards_2017"
-                  url="https://imgix.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                   alt="2017 PCWA Improvement Standards"
                   target="_blank"
                   rel="noopener noreferrer"

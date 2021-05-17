@@ -186,9 +186,9 @@ const MeetingAgendasPage = ({initialData}: Props) => {
             )
             // Sort by date and time then by sort order.
             .sort(
-              firstBy<MappedAgenda>(
-                (a, b) => a.order - b.order
-              ).thenBy((a, b) => compareAsc(a.dateTime, b.dateTime))
+              firstBy<MappedAgenda>((a, b) => a.order - b.order).thenBy(
+                (a, b) => compareAsc(a.dateTime, b.dateTime)
+              )
             )
         : [],
     [agendasData]
@@ -415,7 +415,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                       <ChildBox>
                         <ImageThumbLink
                           isNextLink
-                          url={item.metadata.agenda_pdf.imgix_url}
+                          imgixUrl={item.metadata.agenda_pdf.imgix_url}
                           alt={`Thumbnail and link for ${item.title}`}
                           as={linkAs}
                           href="/board-of-directors/meeting-agendas/[agenda-slug]"

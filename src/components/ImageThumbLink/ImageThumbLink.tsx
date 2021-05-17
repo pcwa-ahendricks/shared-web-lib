@@ -16,7 +16,7 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
   caption?: string
-  url?: string
+  imgixUrl?: string
   filename?: string
   margin?: number
   alt: string
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ImageThumbLink = ({
   caption = '',
-  url,
+  imgixUrl,
   filename: filenameProp = '',
   margin = 0,
   alt,
@@ -78,7 +78,7 @@ const ImageThumbLink = ({
 
   const downloadAs = useMemo(() => slugify(filenameProp), [filenameProp])
 
-  const href = hrefProp || `${url}?dl=${downloadAs}`
+  const href = hrefProp || `${imgixUrl}?dl=${downloadAs}`
 
   return (
     // minWidth required w/ Image on Standards page
@@ -98,7 +98,7 @@ const ImageThumbLink = ({
         >
           <Image
             loader={imgixUrlLoader}
-            src={url || href}
+            src={imgixUrl || href}
             alt={alt}
             layout="responsive"
             sizes={sizes}

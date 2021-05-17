@@ -157,7 +157,7 @@ const FrenchMeadowsPage = () => {
               <RowBox flexSpacing={3}>
                 <ChildBox flex={{xs: '1 1 auto', sm: '0 0 100px'}}>
                   <ImageThumbLink
-                    url="https://imgix.cosmicjs.com/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
+                    imgixUrl="https://imgix.cosmicjs.com/91b3db70-6b3d-11e7-bdae-41a5b4623d18-Bunker_Hill_20120327.jpg"
                     href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
                     rel="noopener noreferrer"
                     target="_blank"

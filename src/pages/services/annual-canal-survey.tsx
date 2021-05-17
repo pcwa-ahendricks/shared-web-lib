@@ -95,7 +95,7 @@ export default function AnnualCanalSurveyPage() {
             <RowBox justifyContent="space-around">
               <ChildBox flex="0 1 30%">
                 <ImageThumbLink
-                  url="https://imgix.cosmicjs.com/1ff7edb0-c557-11ea-88e1-9f819bfb6e4c-Canal-Survey-screenshot.png"
+                  imgixUrl="https://imgix.cosmicjs.com/1ff7edb0-c557-11ea-88e1-9f819bfb6e4c-Canal-Survey-screenshot.png"
                   href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -121,7 +121,7 @@ export default function AnnualCanalSurveyPage() {
               </ChildBox>
               <ChildBox flex="0 1 30%">
                 <ImageThumbLink
-                  url="https://imgix.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
                   href="https://cdn.cosmicjs.com/f42f4460-c887-11ea-95de-2547d5a3e7d0-ACWS2020bc070120.pdf"
                   rel="noopener noreferrer"
                   target="_blank"

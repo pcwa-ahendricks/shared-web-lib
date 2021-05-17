@@ -163,7 +163,7 @@ const CountyWideMasterPlanPage = () => {
                 <RowBox justifyContent="space-around">
                   <ChildBox flex="0 1 30%">
                     <ImageThumbLink
-                      url="https://imgix.cosmicjs.com/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
+                      imgixUrl="https://imgix.cosmicjs.com/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
                       href="https://opti.rmcwater.com/pcwa/login.php"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -190,7 +190,7 @@ const CountyWideMasterPlanPage = () => {
                   </ChildBox>
                   <ChildBox flex="0 1 30%">
                     <ImageThumbLink
-                      url="https://imgix.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
+                      imgixUrl="https://imgix.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
                       href="https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
