@@ -779,8 +779,11 @@ const ShutoffProtectionPage = () => {
           <Spacing />
           <RowBox justifyContent="space-around">
             <ColumnBox child alignItems="center" flexSpacing={1}>
-              <ChildBox>
+              <ChildBox mb={-1}>
                 <Type variant="h4">2020</Type>
+              </ChildBox>
+              <ChildBox width="100%">
+                <Divider />
               </ChildBox>
               <ChildBox>
                 <Type variant="subtitle1">
@@ -789,8 +792,11 @@ const ShutoffProtectionPage = () => {
               </ChildBox>
             </ColumnBox>
             <ColumnBox child alignItems="center" flexSpacing={1}>
-              <ChildBox>
+              <ChildBox mb={-1}>
                 <Type variant="h4">2021</Type>
+              </ChildBox>
+              <ChildBox width="100%">
+                <Divider />
               </ChildBox>
               <ChildBox>
                 <Type variant="subtitle1">
