@@ -19,7 +19,7 @@ import {
   Theme
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
-import {RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
@@ -773,6 +773,32 @@ const ShutoffProtectionPage = () => {
               {selectedDocuments?.Component}
             </Box>
           </ReactCSSTransitionReplace>
+
+          <Spacing factor={2} />
+          <Type variant="h3">Treated Water Shutoffs</Type>
+          <Spacing />
+          <RowBox justifyContent="space-around">
+            <ColumnBox child alignItems="center" flexSpacing={1}>
+              <ChildBox>
+                <Type variant="h4">2020</Type>
+              </ChildBox>
+              <ChildBox>
+                <Type variant="subtitle1">
+                  <strong>47</strong>
+                </Type>
+              </ChildBox>
+            </ColumnBox>
+            <ColumnBox child alignItems="center" flexSpacing={1}>
+              <ChildBox>
+                <Type variant="h4">2021</Type>
+              </ChildBox>
+              <ChildBox>
+                <Type variant="subtitle1">
+                  <strong>0</strong>
+                </Type>
+              </ChildBox>
+            </ColumnBox>
+          </RowBox>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

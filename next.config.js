@@ -560,12 +560,10 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       'hprcc.unl.edu'
     ]
   },
+  future: {
+    webpack5: true
+  },
   webpack: (config) => {
-    // Fixes npm packages that depend on `fs` module, as seen on https://github.com/zeit/now-examples/blob/master/nextjs/next.config.js
-    config.node = {
-      fs: 'empty'
-    }
-
     // Polyfills - https://github.com/zeit/next.js/tree/master/examples/with-polyfills
     const originalEntry = config.entry
     config.entry = async () => {

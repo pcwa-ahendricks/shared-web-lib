@@ -21,7 +21,10 @@ export type CoverTileProps = {
   flexLinkProps?: Partial<FlexLinkProps>
   imgixParams?: any
   typeProps?: Partial<TypographyProps>
-  imageProps?: Partial<Omit<ImageProps, 'layout'>>
+  // imageProps?: Partial<
+  //   Omit<ImageProps, 'layout' | 'placeholder' | 'dataBlurURL'>
+  // >
+  imageProps?: any
   alt?: ImageProps['alt']
 } & Partial<BoxProps>
 
