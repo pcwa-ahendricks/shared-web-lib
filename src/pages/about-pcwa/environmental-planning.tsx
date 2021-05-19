@@ -100,6 +100,18 @@ const EnvironmentalPlanningPage = () => {
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
+                href="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan"
+              >
+                PCWA Water Shortage Contingency Plan
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://docs.pcwa.net/uwmp-2020-public-draft"
+              >
+                2020 Urban Water Management Plan - Public Draft
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
                 href="https://cdn.cosmicjs.com/8f300fc0-70c5-11e8-a5be-c3d0d175fd82-PCWA 2015 UWMP - Final 7.14.16.pdf"
               >
                 2015 Urban Water Management Plan - Report
@@ -149,7 +161,6 @@ const EnvironmentalPlanningPage = () => {
               >
                 Natural Resources Management Plan
               </OpenInNewLinkBox>
-
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://imgix.cosmicjs.com/a0516f00-6817-11eb-bf71-a9528da73ec2-MVGB-2018-2019-Annual-Report-FINAL01222021.pdf"
@@ -157,12 +168,10 @@ const EnvironmentalPlanningPage = () => {
                 Martis Valley Groundwater Basin Annual Report for Water Years
                 2018, 2019
               </OpenInNewLinkBox>
-
               <Spacing />
               {/* <Type variant="h3" gutterBottom>
                 Environmental Review
               </Type> */}
-
               {/* <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/eb914a90-44bf-11e8-b4ba-c9828ea342a7-Notice of Intent for the PCWA Weather Modification Project.pdf"
@@ -176,7 +185,6 @@ const EnvironmentalPlanningPage = () => {
                 Initial Study & Negative Declaration for the PCWA Weather
                 Modification Project
               </OpenInNewLinkBox> */}
-
               {/* <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/c92cd580-c87c-11ea-b44f-f5c7da208e23-NOI-for-MFIB.pdf"
@@ -191,7 +199,6 @@ const EnvironmentalPlanningPage = () => {
                 Subsequent Impact Report for the Middle Fork Interbay Sediment
                 Management Project
               </OpenInNewLinkBox> */}
-
               <Spacing />
               <Type variant="h3" gutterBottom>
                 FERC Relicensing & Compliance

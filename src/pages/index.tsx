@@ -416,6 +416,29 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 fontFamily="Arial"
                 zIndex={3}
               >
+                <span style={{fontSize: '.6rem', verticalAlign: 'top'}}>
+                  Public Draft
+                </span>
+              </RightRibbon>
+              <CoverTile
+                width={tileWidth}
+                title="PCWA Urban Water Management Plan"
+                imgixURL="https://imgix.cosmicjs.com/3d69d560-b8f0-11eb-9b4d-19bb36ed9e4c-PCWA-2020-UWMPPublic-Draft.pdf"
+                linkHref="https://docs.pcwa.net/uwmp-2020-public-draft"
+                flexLinkProps={{isNextLink: false}}
+                alt="Thumbnail and link for PCWA 2020 Urban Water Management Plan, public draft"
+                imgixParams={{crop: 'top'}}
+              />
+            </RibbonContainer>
+          </ChildBox>
+          <ChildBox width={tileWidth}>
+            <RibbonContainer>
+              <RightRibbon
+                backgroundColor="#cc4400"
+                color="#f0f0f0"
+                fontFamily="Arial"
+                zIndex={3}
+              >
                 <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
                   Final Draft
                 </span>
