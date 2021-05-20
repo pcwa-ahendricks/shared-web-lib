@@ -4,14 +4,12 @@ import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
-  Hidden,
   Typography as Type,
   useMediaQuery,
   Divider,
   useTheme
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
-import TrendingBar from '@components/trending/TrendingBar/TrendingBar'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
@@ -28,6 +26,7 @@ import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import JackinBox from 'mui-jackinbox'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
+import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -155,9 +154,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           </RowBox>
         </JackinBox>
       </ImageParallaxBanner>
-      <Hidden only="xs" implementation="css">
+      {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
-      </Hidden>
+      </Hidden> */}
+      <QuickLinksBar />
       <Spacing size="large" />
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
