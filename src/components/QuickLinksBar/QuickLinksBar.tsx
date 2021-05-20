@@ -26,11 +26,14 @@ export default function QuickLinksBar() {
   const height = isXs ? 40 : 90
   const width = isXs ? 40 : 90
   const classes = useStyles({height, width})
-  const FabImage = useCallback((props: Pick<ImageProps, 'src' | 'alt'>) => {
-    return (
-      <Image loader={imgixLoader} width={width} height={height} {...props} />
-    )
-  }, [])
+  const FabImage = useCallback(
+    (props: Pick<ImageProps, 'src' | 'alt'>) => {
+      return (
+        <Image loader={imgixLoader} width={width} height={height} {...props} />
+      )
+    },
+    [height, width]
+  )
 
   return (
     <Box
