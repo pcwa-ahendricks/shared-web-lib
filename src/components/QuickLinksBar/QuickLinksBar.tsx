@@ -1,25 +1,45 @@
 import React, {useCallback} from 'react'
 import imgixLoader from '@lib/imageLoader'
-import {Box, Fab, makeStyles, Paper, Typography} from '@material-ui/core'
+import {
+  Box,
+  Fab,
+  makeStyles,
+  Paper,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@material-ui/core'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import Image, {ImageProps} from 'next/image'
 import Link from 'next/link'
 
 const useStyles = makeStyles({
-  fabRoot: {
-    height: 90,
-    width: 90
-  }
+  fabRoot: ({width, height}: {width: number; height: number}) => ({
+    height,
+    width
+  })
 })
 
 export default function QuickLinksBar() {
-  const classes = useStyles()
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const height = isXs ? 40 : 90
+  const width = isXs ? 40 : 90
+  const classes = useStyles({height, width})
   const FabImage = useCallback((props: Pick<ImageProps, 'src' | 'alt'>) => {
-    return <Image loader={imgixLoader} width={90} height={90} {...props} />
+    return (
+      <Image loader={imgixLoader} width={width} height={height} {...props} />
+    )
   }, [])
 
   return (
-    <Box maxWidth="90vw" m="auto" marginTop={-7} position="relative" zIndex={2}>
+    <Box
+      maxWidth={{xs: '100vw', sm: '90vw', md: '85vw', lg: '80vw', xl: '65vw'}}
+      m="auto"
+      marginTop={-7}
+      position="relative"
+      zIndex={2}
+    >
       <Paper elevation={4}>
         <RowBox justifyContent="space-around" alignItems="center" height={150}>
           <ColumnBox child alignItems="center">
