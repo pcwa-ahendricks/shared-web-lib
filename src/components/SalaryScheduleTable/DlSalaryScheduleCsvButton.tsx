@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button} from '@material-ui/core'
 import {ButtonProps} from '@material-ui/core/Button'
+import {saveAs} from 'file-saver'
 
 type Props = {
   children?: React.ReactNode
@@ -24,13 +25,14 @@ const DlSalaryScheduleCsvButton = ({
     onClick && onClick(event)
     try {
       !!new Blob()
-      try {
-        const {saveAs} = await import('file-saver')
-        const csvBlob = new Blob([data], {type: 'text/csv;charset=utf-8;'})
-        saveAs(csvBlob, fileName)
-      } catch (e) {
-        onError && onError(new Error('Error dynamically importing libraries.'))
-      }
+      // Dynamic import stopped working
+      // try {
+      // const {saveAs} = await import('file-saver')
+      const csvBlob = new Blob([data], {type: 'text/csv;charset=utf-8;'})
+      saveAs(csvBlob, fileName)
+      // } catch (e) {
+      // onError && onError(new Error('Error dynamically importing libraries.'))
+      // }
     } catch (e) {
       onError &&
         onError(new Error('File saving not supported by this web browser.'))
