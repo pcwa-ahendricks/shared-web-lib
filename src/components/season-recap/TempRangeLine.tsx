@@ -134,32 +134,33 @@ export default function TempRangeLine({tempDataset}: Props) {
     [recordLineWidth]
   )
   const TempLines: CustomLayer = useMemo(
-    () => ({series, lineGenerator, xScale, yScale}) => {
-      return series.map(({id, data, color}) => {
-        const idStr = id.toString()
-        if (id === 'Observed Range') {
-          return
-        }
-        return (
-          <path
-            key={id}
-            d={
-              lineGenerator(
-                data.map((d): any => ({
-                  ...(d.data?.x != null &&
-                    d.data?.x != undefined && {x: xScale(d.data?.x)}),
-                  ...(d.data?.y != null &&
-                    d.data?.y != undefined && {y: yScale(d.data?.y)})
-                }))
-              ) as any
-            }
-            fill="none"
-            stroke={color}
-            style={styleById[idStr] || styleById.default}
-          />
-        )
-      })
-    },
+    () =>
+      ({series, lineGenerator, xScale, yScale}) => {
+        return series.map(({id, data, color}) => {
+          const idStr = id.toString()
+          if (id === 'Observed Range') {
+            return
+          }
+          return (
+            <path
+              key={id}
+              d={
+                lineGenerator(
+                  data.map((d): any => ({
+                    ...(d.data?.x != null &&
+                      d.data?.x != undefined && {x: xScale(d.data?.x)}),
+                    ...(d.data?.y != null &&
+                      d.data?.y != undefined && {y: yScale(d.data?.y)})
+                  }))
+                ) as any
+              }
+              fill="none"
+              stroke={color}
+              style={styleById[idStr] || styleById.default}
+            />
+          )
+        })
+      },
     [styleById]
   )
 

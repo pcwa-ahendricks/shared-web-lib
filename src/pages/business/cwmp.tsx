@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CountyWideMasterPlanPage = () => {
   const theme = useTheme()
-  const activeStep = 6 // 1-8
+  const activeStep = 8 // 1-8
   const [activeIndex, setActiveIndex] = useState<number>(activeStep - 1)
   const classes = useStyles({activeIndex, activeStep: activeStep - 1})
 
@@ -407,7 +407,7 @@ const CountyWideMasterPlanPage = () => {
                     button
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://cdn.cosmicjs.com/b06c23c0-f767-11e9-9b34-e182dcef54b2-Financial-Assistance-Program-Policy-Final-9.19.19.pdf"
+                    href="https://docs.pcwa.net/financial-assistance-program-policy"
                   >
                     <ListItemIcon>
                       <DocIcon />
