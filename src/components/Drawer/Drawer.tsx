@@ -1,4 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react'
+import ArrowDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import {ListItemProps} from '@material-ui/core/ListItem'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import {
@@ -13,7 +15,8 @@ import {
   Divider,
   makeStyles,
   useTheme,
-  createStyles
+  createStyles,
+  ListItemIcon
 } from '@material-ui/core'
 import menuConfig from '@lib/menuConfig'
 import Link from 'next/link'
@@ -28,11 +31,15 @@ import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import {useRouter} from 'next/router'
-import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
+// import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
 import colorAlpha from 'color-alpha'
+import Spacing from '@components/boxes/Spacing'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemIcon: {
+      minWidth: 32
+    },
     bolder: {
       fontWeight: 500
     },
@@ -130,6 +137,13 @@ const SwipeableTemporaryDrawer = () => {
                 onClick={groupSelectHandler(cfg.key)}
                 onKeyDown={groupSelectHandler(cfg.key)}
               >
+                <ListItemIcon classes={{root: classes.listItemIcon}}>
+                  {activeGroup === cfg.key ? (
+                    <ArrowDownIcon color="action" />
+                  ) : (
+                    <ArrowRightIcon color="action" />
+                  )}
+                </ListItemIcon>
                 <ListItemText
                   primary={cfg.menuName}
                   primaryTypographyProps={{
@@ -172,8 +186,91 @@ const SwipeableTemporaryDrawer = () => {
               </Collapse>
             </React.Fragment>
           ))}
+          <Spacing size="small">
+            <Divider />
+          </Spacing>
+          <ListItem
+            href="https://ipn.paymentus.com/cp/plco"
+            target="_blank"
+            button
+            component="a"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItemText
+              primary="Pay Bill"
+              primaryTypographyProps={{
+                color: 'secondary',
+                classes: {colorSecondary: classes.bolder}
+              }}
+            />
+          </ListItem>
+          <Link href="/services/outage">
+            <ListItem
+              button
+              component="a"
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
+            >
+              <ListItemText
+                primary="Outages"
+                primaryTypographyProps={{
+                  color: 'secondary',
+                  classes: {colorSecondary: classes.bolder}
+                }}
+              />
+            </ListItem>
+          </Link>
+          <ListItem
+            href="https://careers.pcwa.net/"
+            target="_blank"
+            button
+            component="a"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItemText
+              primary="Careers"
+              primaryTypographyProps={{
+                color: 'secondary',
+                classes: {colorSecondary: classes.bolder}
+              }}
+            />
+          </ListItem>
         </List>
-        <Divider />
+        <Link href="/board-of-directors/meeting-agendas">
+          <ListItem
+            button
+            component="a"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItemText
+              primary="Board Meetings"
+              primaryTypographyProps={{
+                color: 'secondary',
+                classes: {colorSecondary: classes.bolder}
+              }}
+            />
+          </ListItem>
+        </Link>
+        <Link href="/smart-water-use/rebate-programs">
+          <ListItem
+            button
+            component="a"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItemText
+              primary="Rebates"
+              primaryTypographyProps={{
+                color: 'secondary',
+                classes: {colorSecondary: classes.bolder}
+              }}
+            />
+          </ListItem>
+        </Link>
+        {/* <Divider /> */}
       </>
     ),
     [
@@ -209,9 +306,9 @@ const SwipeableTemporaryDrawer = () => {
           <ChildBox>
             <SideList />
           </ChildBox>
-          <ChildBox>
+          {/* <ChildBox>
             <TrendingBarMobile />
-          </ChildBox>
+          </ChildBox> */}
           <ChildBox flex="auto" />
           <ChildBox my={1}>
             <RowBox justifyContent="center" fontStyle="italic">

@@ -77,7 +77,7 @@ const TrendingBarMobile = () => {
   )
 
   return (
-    <Box pt={2}>
+    <Box pt={1}>
       <List dense>
         <ListSubheader classes={{root: classes.subheader}}>
           Trending Pages
