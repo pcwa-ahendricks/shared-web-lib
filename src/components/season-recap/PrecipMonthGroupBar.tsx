@@ -71,6 +71,7 @@ export default function PrecipMonthGroupBar({
             }
             return (
               <BoxLegendSvg
+                data={legend.data}
                 key={JSON.stringify(legend.data.map(({id}) => id))}
                 {...legend}
                 containerHeight={height}
