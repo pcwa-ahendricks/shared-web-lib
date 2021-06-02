@@ -38,7 +38,7 @@ import Spacing from '@components/boxes/Spacing'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     listItemIcon: {
-      minWidth: 32
+      minWidth: 28
     },
     bolder: {
       fontWeight: 500
