@@ -186,9 +186,11 @@ const SwipeableTemporaryDrawer = () => {
               </Collapse>
             </React.Fragment>
           ))}
-          <Spacing size="small">
-            <Divider />
-          </Spacing>
+        </List>
+        <Spacing size="x-small">
+          <Divider />
+        </Spacing>
+        <List dense>
           <ListItem
             href="https://ipn.paymentus.com/cp/plco"
             target="_blank"
@@ -237,39 +239,39 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItem>
+          <Link href="/board-of-directors/meeting-agendas">
+            <ListItem
+              button
+              component="a"
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
+            >
+              <ListItemText
+                primary="Board Meetings"
+                primaryTypographyProps={{
+                  color: 'secondary',
+                  classes: {colorSecondary: classes.bolder}
+                }}
+              />
+            </ListItem>
+          </Link>
+          <Link href="/smart-water-use/rebate-programs">
+            <ListItem
+              button
+              component="a"
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
+            >
+              <ListItemText
+                primary="Rebates"
+                primaryTypographyProps={{
+                  color: 'secondary',
+                  classes: {colorSecondary: classes.bolder}
+                }}
+              />
+            </ListItem>
+          </Link>
         </List>
-        <Link href="/board-of-directors/meeting-agendas">
-          <ListItem
-            button
-            component="a"
-            onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-          >
-            <ListItemText
-              primary="Board Meetings"
-              primaryTypographyProps={{
-                color: 'secondary',
-                classes: {colorSecondary: classes.bolder}
-              }}
-            />
-          </ListItem>
-        </Link>
-        <Link href="/smart-water-use/rebate-programs">
-          <ListItem
-            button
-            component="a"
-            onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-          >
-            <ListItemText
-              primary="Rebates"
-              primaryTypographyProps={{
-                color: 'secondary',
-                classes: {colorSecondary: classes.bolder}
-              }}
-            />
-          </ListItem>
-        </Link>
         {/* <Divider /> */}
       </>
     ),
