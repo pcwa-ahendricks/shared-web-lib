@@ -70,7 +70,7 @@ export default function QuickLinksBar() {
               <Fab classes={{root: classes.fabRoot}}>
                 <FabImage
                   alt="Outages link icon"
-                  src="06e1dc40-c93f-11eb-ba89-e7f98c8c358b-Outageicon.png"
+                  src="2795ba30-c951-11eb-ba89-e7f98c8c358b-Outage.png"
                 />
               </Fab>
             </Link>
