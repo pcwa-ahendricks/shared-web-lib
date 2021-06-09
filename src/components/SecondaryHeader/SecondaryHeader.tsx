@@ -82,19 +82,16 @@ const SecondaryHeader = () => {
         </Type>
       </NextGlowButton> */}
       <Box component="span" flexGrow={1} />
-      <NextGlowButton aria-label="Link" size="small" href="/services/outage">
+      {/* <NextGlowButton aria-label="Link" size="small" href="/services/outage">
         Outages
-      </NextGlowButton>
-      <ENewsButton size="small" onClick={subscribeEnewsHandler}>
-        E-News
-      </ENewsButton>
-      <NextGlowButton
+      </NextGlowButton> */}
+      {/* <NextGlowButton
         size="small"
         aria-label="Board Meeting Agendas Link"
         href="/board-of-directors/meeting-agendas"
       >
         Board Meetings
-      </NextGlowButton>
+      </NextGlowButton> */}
       <GlowButton
         size="small"
         aria-label="Canal Survey Link"
@@ -104,6 +101,9 @@ const SecondaryHeader = () => {
       >
         Pay My Bill
       </GlowButton>
+      <ENewsButton size="small" onClick={subscribeEnewsHandler}>
+        E-News
+      </ENewsButton>
       <Box
         flex="0 0 auto"
         color={theme.palette.primary.main}

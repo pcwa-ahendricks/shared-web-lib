@@ -454,7 +454,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               />
             </RibbonContainer>
           </ChildBox>
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Pay My Bill"
@@ -463,8 +463,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for Pay My Bill Using Paymentus"
             />
-          </ChildBox>
-          <ChildBox width={tileWidth}>
+          </ChildBox> */}
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Outage Information"
@@ -472,7 +472,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/services/outage"
               alt="Thumbnail and link for Current PCWA Water Outages Page"
             />
-          </ChildBox>
+          </ChildBox> */}
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
@@ -482,7 +482,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Thumbnail and link for Current Projects"
             />
           </ChildBox>
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Board Meeting Agendas"
@@ -490,7 +490,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/board-of-directors/meeting-agendas"
               alt="Thumbnail and link for Board Meeting Agendas"
             />
-          </ChildBox>
+          </ChildBox> */}
           {/* <ChildBox width={tileWidth} >
             <LatestNewsRelease />
           </ChildBox> */}
