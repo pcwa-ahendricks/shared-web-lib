@@ -6,6 +6,7 @@ import {
   makeStyles,
   // Paper,
   Typography,
+  TypographyProps,
   useMediaQuery,
   useTheme
 } from '@material-ui/core'
@@ -22,9 +23,9 @@ const useStyles = makeStyles({
 
 export default function QuickLinksBar() {
   const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const height = isXs ? 40 : 90
-  const width = isXs ? 40 : 90
+  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
+  const height = isSm ? 70 : 90
+  const width = isSm ? 70 : 90
   const classes = useStyles({height, width})
   const FabImage = useCallback(
     (props: Pick<ImageProps, 'src' | 'alt'>) => {
@@ -34,6 +35,10 @@ export default function QuickLinksBar() {
     },
     [height, width]
   )
+
+  const btnCaptionVariant: TypographyProps['variant'] = isSm
+    ? 'subtitle2'
+    : 'h6'
 
   return (
     <Box
@@ -59,7 +64,11 @@ export default function QuickLinksBar() {
             </Fab>
           </ChildBox>
           <ChildBox mt={1}>
-            <Typography variant="h6" color="primary" align="center">
+            <Typography
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+            >
               Pay My Bill
             </Typography>
           </ChildBox>
@@ -76,7 +85,11 @@ export default function QuickLinksBar() {
             </Link>
           </ChildBox>
           <ChildBox mt={1}>
-            <Typography variant="h6" color="primary" align="center">
+            <Typography
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+            >
               Outages
             </Typography>
           </ChildBox>
@@ -93,7 +106,11 @@ export default function QuickLinksBar() {
             </Link>
           </ChildBox>
           <ChildBox mt={1}>
-            <Typography variant="h6" color="primary" align="center">
+            <Typography
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+            >
               Board Meetings
             </Typography>
           </ChildBox>
@@ -113,7 +130,11 @@ export default function QuickLinksBar() {
             </Fab>
           </ChildBox>
           <ChildBox mt={1}>
-            <Typography variant="h6" color="primary" align="center">
+            <Typography
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+            >
               Careers
             </Typography>
           </ChildBox>
@@ -128,7 +149,11 @@ export default function QuickLinksBar() {
             </Fab>
           </ChildBox>
           <ChildBox mt={1}>
-            <Typography variant="h6" color="primary" align="center">
+            <Typography
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+            >
               Start/Stop Service
             </Typography>
           </ChildBox>
@@ -143,7 +168,11 @@ export default function QuickLinksBar() {
             </Fab>
           </ChildBox>
           <ChildBox mt={1}>
-            <Typography variant="h6" color="primary" align="center">
+            <Typography
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+            >
               Chat
             </Typography>
           </ChildBox>
