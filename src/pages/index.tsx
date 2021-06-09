@@ -7,7 +7,8 @@ import {
   Typography as Type,
   useMediaQuery,
   Divider,
-  useTheme
+  useTheme,
+  Hidden
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import {RowBox, ChildBox} from 'mui-sleazebox'
@@ -157,7 +158,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
       </Hidden> */}
-      <QuickLinksBar />
+      <Hidden only="xs" implementation="css">
+        <QuickLinksBar />
+      </Hidden>
       <Spacing size="large" />
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
