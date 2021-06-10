@@ -60,23 +60,27 @@ export default function QuickLinkButton({
 } & Partial<FabProps<'a'>>) {
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const wh = isSm ? 70 : 90
+  const fabSize = isSm ? 70 : 90
 
   const FabImage = useCallback(() => {
     return (
       <Image
         loader={imgixLoader}
-        width={wh}
-        height={wh}
+        width={fabSize}
+        height={fabSize}
         alt={imageAlt}
         src={imageSrc}
       />
     )
-  }, [wh, imageSrc, imageAlt])
+  }, [fabSize, imageSrc, imageAlt])
 
   const btnCaptionVariant: MatLinkProps['variant'] = isSm ? 'subtitle2' : 'h6'
   const [overlineVisible, setOverlineVisible] = useState(false)
-  const classes = useStyles({height: wh, width: wh, highlight: overlineVisible})
+  const classes = useStyles({
+    height: fabSize,
+    width: fabSize,
+    highlight: overlineVisible
+  })
 
   const mouseLeaveHandler = useCallback(() => {
     setOverlineVisible(false)
