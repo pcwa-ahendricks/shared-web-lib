@@ -138,16 +138,17 @@ const useStyles = makeStyles((theme: Theme) => {
       [HACK] Logo is pushing out the rest of the primary nav menu off the page for some reason in IE. This is the fix for IE.
     */
     fixIe: {
-      '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {
-        /* IE10+ specific styles go here */
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        margin: 'auto',
-        paddingLeft: theme.spacing(3)
-      }
+      '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)':
+        {
+          /* IE10+ specific styles go here */
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          margin: 'auto',
+          paddingLeft: theme.spacing(3)
+        }
     },
     // Setting max width/height prevents strange jank'ing when toolbar variant changes.
     headerLogo: ({stuck}: UseStylesProps) => ({
@@ -227,9 +228,10 @@ const PrimaryHeader = () => {
     setPopperOpen(true)
   }, [])
 
-  const id = useMemo(() => (popperOpen ? 'mega-menu-popper' : null), [
-    popperOpen
-  ])
+  const id = useMemo(
+    () => (popperOpen ? 'mega-menu-popper' : null),
+    [popperOpen]
+  )
 
   const toolbarVariant = useMemo(() => (stuck ? 'dense' : 'regular'), [stuck])
 
