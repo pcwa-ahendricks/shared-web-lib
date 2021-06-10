@@ -1,5 +1,11 @@
 import React, {useState, useCallback} from 'react'
-import {Box, Theme, createStyles, makeStyles, BoxProps} from '@material-ui/core'
+import {
+  Box,
+  createStyles,
+  makeStyles,
+  BoxProps,
+  useTheme
+} from '@material-ui/core'
 import clsx from 'clsx'
 
 type Props = {
@@ -9,14 +15,18 @@ type Props = {
   visible?: boolean | null
   useFullHeight?: boolean
   transitionDuration?: string
+  color?: string | number
+  underline?: boolean
 } & BoxProps
 
 type UseStylesProps = {
+  color: string | number
+  underline: boolean
   overlineVisible: boolean
 } & Partial<Props>
 
 // See https://github.com/IanLunn/Hover/blob/5c9f92d2bcd6414f54b4f926fd4bb231e4ce9fd5/css/hover.css#L2264
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'inline-block',
@@ -28,17 +38,18 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden'
     },
     overline: ({
+      underline,
       lineHeight,
       lineMargin,
       transitionDuration,
-      overlineVisible
+      overlineVisible,
+      color
     }: UseStylesProps) => ({
       position: 'absolute',
       zIndex: -1,
       left: overlineVisible ? 0 : '51%',
       right: overlineVisible ? 0 : '51%',
-      top: 0,
-      background: theme.palette.secondary.main,
+      backgroundColor: color,
       '-webkit-transition-property': 'left, right',
       transitionProperty: 'left, right',
       '-webkit-transition-timing-function': 'ease-out',
@@ -46,7 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
       height: lineHeight,
       marginRight: lineMargin,
       marginLeft: lineMargin,
-      transitionDuration
+      transitionDuration,
+      // Conditional CSS Properties
+      ...(!underline && {
+        top: 0
+      }),
+      ...(underline && {
+        bottom: 0
+      })
     }),
     dynamicHeight: ({useFullHeight}: Props) => ({
       height: useFullHeight ? '100%' : 'auto'
@@ -60,14 +78,19 @@ const Overline = ({
   lineMargin = 0,
   transitionDuration = '300ms',
   visible = null,
+  color,
   useFullHeight = false,
+  underline = false,
   ...rest
 }: Props) => {
+  const theme = useTheme()
   const [overlineVisible, setOverlineVisible] = useState(false)
   /**
    * visible prop is essentially a manual override to the hover functionality. If it's not specified (ie. null) then component falls back to overline on hover. If it's specified (ie. true or false) then hover functionality is ignored.
    */
   const classes = useStyles({
+    underline,
+    color: color ?? theme.palette.secondary.main,
     lineHeight,
     lineMargin,
     transitionDuration,
