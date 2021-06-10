@@ -25,6 +25,12 @@ export default function QuickLinksBar() {
           caption="Pay My Bill"
           isNextLink={false}
         />
+        {/* <QuickLinkButton
+          href="#"
+          imageAlt="Start/Stop Service quick link icon"
+          imageSrc="c14e4d00-c946-11eb-ba89-e7f98c8c358b-Start-StopServiceicon.png"
+          caption="Start/Stop Service"
+        /> */}
         <QuickLinkButton
           href="/services/outage"
           imageAlt="Outages link icon"
@@ -32,10 +38,10 @@ export default function QuickLinksBar() {
           caption="Outages"
         />
         <QuickLinkButton
-          href="/board-of-directors/meeting-agendas"
-          imageAlt="PCWA Board Meetings and Agendas link icon"
-          imageSrc="5662a7f0-c943-11eb-ba89-e7f98c8c358b-BoardAgenda.png"
-          caption="Board Meetings"
+          href="/smart-water-use/rebate-programs"
+          imageAlt="Rebates link icon"
+          imageSrc="7e4b1440-ca0c-11eb-ba89-e7f98c8c358b-Rebateicon.png"
+          caption="Rebates"
         />
         <QuickLinkButton
           href="https://careers.pcwa.net/"
@@ -46,17 +52,17 @@ export default function QuickLinksBar() {
           isNextLink={false}
         />
         <QuickLinkButton
-          href="#"
-          imageAlt="Start/Stop Service quick link icon"
-          imageSrc="c14e4d00-c946-11eb-ba89-e7f98c8c358b-Start-StopServiceicon.png"
-          caption="Start/Stop Service"
+          href="/board-of-directors/meeting-agendas"
+          imageAlt="PCWA Board Meetings and Agendas link icon"
+          imageSrc="5662a7f0-c943-11eb-ba89-e7f98c8c358b-BoardAgenda.png"
+          caption="Board Meetings"
         />
-        <QuickLinkButton
+        {/* <QuickLinkButton
           href="#"
           imageAlt="Chat quick link icon"
           imageSrc="4184fba0-c946-11eb-ba89-e7f98c8c358b-Chat.png"
           caption="Chat"
-        />
+        /> */}
       </RowBox>
       {/* </Paper> */}
     </Box>
