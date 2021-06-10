@@ -7,13 +7,35 @@ import {
   Link as MatLink,
   LinkProps as MatLinkProps
 } from '@material-ui/core'
-import {blue} from '@material-ui/core/colors'
+import {blue as hl} from '@material-ui/core/colors'
 import {ChildBox, ColumnBox} from 'mui-sleazebox'
 import imgixLoader from '@lib/imageLoader'
 import React, {useCallback, useState} from 'react'
 import Image, {ImageProps} from 'next/image'
 import Link from 'next/link'
 import Overline from '@components/Overline/Overline'
+import alpha from 'color-alpha'
+
+const useStyles = makeStyles({
+  fabRoot: ({width, height}: {width: number; height: number}) => ({
+    height,
+    width,
+    borderWidth: 0,
+    transition: 'box-shadow 400ms ease',
+    '&:hover': {
+      // borderWidth: 2,
+      // borderStyle: 'solid',
+      // borderColor: blue[300]
+      borderColor: 'transparent' /* remove the border's colour */,
+      // boxShadow: `0 0 0 2px ${blue[300]}`, /* emulate the border */
+      boxShadow: `0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12),
+      0px 0px 4px 1px ${alpha(hl[400], 0.7)},0px 0px 7px 0px ${alpha(
+        hl[400],
+        0.5
+      )},0px 0px 4px 0px ${alpha(hl[400], 0.6)}`
+    }
+  })
+})
 
 export default function QuickLinkButton({
   href,
@@ -32,33 +54,21 @@ export default function QuickLinkButton({
 } & Partial<FabProps<'a'>>) {
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
-  const height = isSm ? 70 : 90
-  const width = isSm ? 70 : 90
+  const wh = isSm ? 70 : 90
 
-  const useStyles = makeStyles({
-    fabRoot: ({width, height}: {width: number; height: number}) => ({
-      height,
-      width,
-      '&:hover': {
-        borderWidth: 2,
-        borderStyle: 'solid',
-        borderColor: blue[300]
-      }
-    })
-  })
   const FabImage = useCallback(() => {
     return (
       <Image
         loader={imgixLoader}
-        width={width}
-        height={height}
+        width={wh}
+        height={wh}
         alt={imageAlt}
         src={imageSrc}
       />
     )
-  }, [height, width, imageSrc, imageAlt])
+  }, [wh, imageSrc, imageAlt])
 
-  const classes = useStyles({height, width})
+  const classes = useStyles({height: wh, width: wh})
   const btnCaptionVariant: MatLinkProps['variant'] = isSm ? 'subtitle2' : 'h6'
   const [overlineVisible, setOverlineVisible] = useState(false)
 
