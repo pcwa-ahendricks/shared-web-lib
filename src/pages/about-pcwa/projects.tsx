@@ -96,6 +96,59 @@ const ProjectsPage = () => {
               <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
+                    Ophir Road and American River Pump Station Standby Generator
+                    Projects
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      About Project
+                    </Type>
+                    <Type paragraph>
+                      The Ophir Road and American River Pump Station Standby
+                      Generator project will install two, 2.5 Megawatt (MW)
+                      diesel generators, one each at two critical Agency pumping
+                      facilities. These two pump stations supply the Agency’s
+                      secondary water supply source, American River water, to
+                      Agency water treatment plants and irrigation customers
+                      when normal water deliveries via PG&E’s south canal are
+                      restricted or unavailable. The project was initiated as of
+                      the result of PG&E’s initiation of Public Safety Power
+                      Shutoffs (PSPS) beginning in 2019. Agency rented mobile
+                      standby generators in 2019 and 2020. Upon completion of
+                      the project this year, the generators will provide
+                      permanent standby power beginning in the fall of 2021.
+                    </Type>
+
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The project work is taking place at the Agency’s Ophir
+                      Road Pump Station on Ophir Road and on the access road to
+                      the American River Pump Station in the American River
+                      canyon.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Construction Timeline
+                    </Type>
+                    <Type paragraph>
+                      The project work is taking place at the Agency’s Ophir
+                      Road Pump Station on Ophir Road and on the access road to
+                      the American River Pump Station in the American River
+                      canyon.
+                    </Type>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
                     Hell Hole Dam Core Raise
                   </Type>
                   <Spacing>
