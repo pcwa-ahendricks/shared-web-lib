@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Link,
   Box,
   Typography as Type,
   createStyles,
@@ -13,6 +14,7 @@ import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -84,7 +86,15 @@ const WaterSensePage = () => {
               Since its introduction in 2006, the number of WaterSense products
               have grown to more than 27,000 products, saving U.S. consumers an
               estimated 2.7 trillion gallons of water and more than $63.8
-              billion in water and energy bills.
+              billion in water and energy bills. Learn more about WaterSense at{' '}
+              <OpenInNewLink
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://www.epa.gov/watersense"
+              >
+                https://www.epa.gov/watersense
+              </OpenInNewLink>
+              .
             </Type>
             <Type paragraph>
               PCWA is proud to be a WaterSense partner and offers rebates on
