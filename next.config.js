@@ -434,9 +434,6 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     }
   },
   // https://github.com/martpie/next-transpile-modules/releases/tag/7.0.0
-  // future: {
-  //   webpack5: true
-  // },
   async redirects() {
     return [
       ...legacyRedirects,
