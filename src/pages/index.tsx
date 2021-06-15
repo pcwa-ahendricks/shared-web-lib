@@ -536,10 +536,7 @@ export const getStaticProps: GetStaticProps = async () => {
       revalidate: 5
     }
   } catch (error) {
-    console.log(
-      'There was an error fetching alerts and/or news blurbs and/or lqips',
-      error
-    )
+    console.log('There was an error fetching alerts and/or news blurbs', error)
     return {props: {}}
   }
 }
