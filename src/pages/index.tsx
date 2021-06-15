@@ -383,8 +383,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 fontFamily="Arial"
                 zIndex={3}
               >
-                <span style={{fontSize: '.6rem', verticalAlign: 'top'}}>
-                  Public Draft
+                <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
+                  Final Draft
                 </span>
               </RightRibbon>
               <CoverTile
