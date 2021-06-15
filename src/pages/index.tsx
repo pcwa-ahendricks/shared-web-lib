@@ -391,7 +391,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         <RowBox
           flexWrap="wrap"
           wrapSpacing={coverTileTopMargin}
-          flexSpacing={4}
+          flexSpacing={6}
           justifyContent="center"
         >
           {/* <RowBox responsive
@@ -476,6 +476,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Thumbnail and link for Current PCWA Water Outages Page"
             />
           </ChildBox> */}
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="WaterSense Products"
+              imgixURL="https://imgix.cosmicjs.com/329b7180-cdfd-11eb-a17a-1d11087b211e-WaterSense.png"
+              linkHref="/smart-water-use/watersense"
+              alt="Thumbnail and link for WaterSense page"
+            />
+          </ChildBox>
+
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
