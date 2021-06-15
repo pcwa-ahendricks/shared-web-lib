@@ -34,34 +34,6 @@ type Props = {
   initialNewsBlurbsData?: RecentNewsBarProps['initialData']
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
-const images = [
-  'https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg',
-  // 'https://imgix.cosmicjs.com/005050e0-0415-11eb-b508-690c39111331-FW-Home-page-thumbnail.jpg',
-  // 'https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG',
-  'https://imgix.cosmicjs.com/c3e93020-9c78-11eb-85ef-2dda0e0d7ad2-wateryearrecapposter.png',
-  // 'https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg',
-  // 'https://imgix.cosmicjs.com/3fec8740-962a-11ea-b04e-734185112560-PCWA-Business-Center-2019.jpg',
-  // 'https://imgix.cosmicjs.com/6153c820-5c28-11eb-afa6-e9412ba0a77c-specialnoticecovidmailer.png?crop=top&fit=crop&border=2,cccccc',
-  // 'https://imgix.cosmicjs.com/6d3e7210-7c7c-11eb-beb5-ff14f615644b-2020-Year-End-Reportwebsite-graphic.jpg',
-  'https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG',
-  // 'https://imgix.cosmicjs.com/e7282a60-c531-11ea-88e1-9f819bfb6e4c-Boardman-Canal001.jpg',
-  // 'https://imgix.cosmicjs.com/241b0320-126f-11e8-9baf-e387af6ca0db-paymentus@2x.png',
-  // 'https://imgix.cosmicjs.com/cc3f0110-bb48-11e7-b00e-c51469856118-outages.jpg',
-  'https://imgix.cosmicjs.com/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg'
-  // 'https://imgix.cosmicjs.com/d0b38350-4c33-11ea-ab88-7b2f955dad17-boardmeetingagenda-319w.png'
-] as const
-
-// DROUGHT_PROOF_IMG_SRC,
-const [
-  heroImgSrc,
-  fireWaterImgSrc,
-  waterTechImgSrc,
-  // canalSurveyImgSrc,
-  // paymentusLogoImgSrc,
-  // outagesImgSrc,
-  projectImgSrc
-  // boardMeetingImgSrc
-] = images
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
@@ -85,17 +57,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
-  // const [
-  //   heroImgSrcLqip
-  // fireWaterImgSrcLqip,
-  // waterTechImgSrcLqip,
-  // canalSurveyImgSrcLqip,
-  // paymentusLogoImgSrcLqip,
-  // outagesImgSrcLqip,
-  // projectImgSrcLqip,
-  // boardMeetingImgSrcLqip
-  // ] = lqips
-
   const uiContext = useContext(UiContext)
   const {state: uiState, dispatch: uiDispatch} = uiContext
   const {home: homeAnimateDone} = uiState.animateDone
@@ -117,7 +78,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           width: 900,
           height: 600,
           priority: true,
-          src: `${heroImgSrc}${stringify({bri: -5, high: -15}, true)}`,
+          src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
+            {bri: -5, high: -15},
+            true
+          )}`,
           alt: 'A photo of French Meadows Reservoir inlet'
           // See comment above regarding onLoad support
           // onLoad: () => setHeroOverlayIn(true),
@@ -245,7 +209,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               flexLinkProps={{
                 isNextLink: true
               }}
-              imgixURL={fireWaterImgSrc}
+              imgixURL="https://imgix.cosmicjs.com/c3e93020-9c78-11eb-85ef-2dda0e0d7ad2-wateryearrecapposter.png"
               alt="A view of French Meadows and Hell Hole Reservoirs from above"
               body={
                 <Type variant="inherit">
@@ -337,7 +301,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 isNextLink: true
               }}
               linkHref="/services/monthly-billing"
-              imgixURL={waterTechImgSrc}
+              imgixURL="https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG"
               alt="Monthly Billing Announcement Flyer"
               imgixParams={{
                 crop: 'top'
@@ -489,8 +453,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
-              title="Current Projects"
-              imgixURL={projectImgSrc}
+              title="Current PCWA Projects"
+              imgixURL="https://imgix.cosmicjs.com/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg"
               linkHref="/about-pcwa/projects"
               alt="Thumbnail and link for Current Projects"
             />
