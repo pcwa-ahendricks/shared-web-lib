@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Link,
   Box,
   Typography as Type,
   createStyles,
