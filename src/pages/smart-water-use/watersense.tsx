@@ -91,9 +91,8 @@ const WaterSensePage = () => {
                 target="_blank"
                 href="https://www.epa.gov/watersense"
               >
-                https://www.epa.gov/watersense
+                https://www.epa.gov/watersense.
               </OpenInNewLink>
-              .
             </Type>
             <Type paragraph>
               PCWA is proud to be a WaterSense partner and offers rebates on
