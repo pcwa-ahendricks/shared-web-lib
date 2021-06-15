@@ -63,9 +63,8 @@ const MediaDialogOnClick = ({
 
   const noTransPaper = colorAlpha(theme.palette.background.paper, 1)
 
-  const [mediaDialogOpen, setMediaDialogOpen] = useState<boolean>(
-    mediaDialogOpenProp
-  )
+  const [mediaDialogOpen, setMediaDialogOpen] =
+    useState<boolean>(mediaDialogOpenProp)
 
   const [anchorEl, setAnchorEl] = useState(null)
 
