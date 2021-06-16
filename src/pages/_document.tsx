@@ -39,8 +39,6 @@ class MyDocument extends Document {
           <link rel="preconnect" href="https://imgix.cosmicjs.com" />
           <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
-          <link rel="stylesheet" href="/static/styles/nprogress.min.css" />
-
           {isDev ? (
             <>
               {/* Development Favicon */}

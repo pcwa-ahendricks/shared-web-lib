@@ -46,8 +46,11 @@ const BoardMinutesAccordion = ({
           <RowBox flexWrap="wrap" flexSpacing={4}>
             {minutes.map((m) => {
               const {derivedFilenameAttr, imgix_url} = m
-              const {title = '', publishedDate = '', date = ''} =
-                derivedFilenameAttr ?? {}
+              const {
+                title = '',
+                publishedDate = '',
+                date = ''
+              } = derivedFilenameAttr ?? {}
               return (
                 <ChildBox key={m.id}>
                   <BoardMinutesLink

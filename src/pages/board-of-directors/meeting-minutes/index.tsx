@@ -107,16 +107,17 @@ const BoardMinutesPage = ({initialData}: Props) => {
   }, [maxYear])
 
   const handleChange = useCallback(
-    (panel: string) => (
-      _event: React.ChangeEvent<Record<string, unknown>>,
-      isExpanded: boolean
-    ) => {
-      setExpanded(isExpanded ? panel : false)
-      setWasExpandedMap((currExpYrs) => ({
-        ...currExpYrs,
-        [panel]: isExpanded ? true : currExpYrs[panel]
-      }))
-    },
+    (panel: string) =>
+      (
+        _event: React.ChangeEvent<Record<string, unknown>>,
+        isExpanded: boolean
+      ) => {
+        setExpanded(isExpanded ? panel : false)
+        setWasExpandedMap((currExpYrs) => ({
+          ...currExpYrs,
+          [panel]: isExpanded ? true : currExpYrs[panel]
+        }))
+      },
     []
   )
 

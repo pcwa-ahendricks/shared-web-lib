@@ -29,13 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SubmitFormButton = ({children, boxProps, disabled, ...rest}: Props) => {
   const classes = useStyles()
-  const {
-    setFieldTouched,
-    values,
-    isSubmitting,
-    dirty,
-    touched
-  } = useFormikContext<any>()
+  const {setFieldTouched, values, isSubmitting, dirty, touched} =
+    useFormikContext<any>()
   // When the user clicks the submit button we want to show all the form error helper messages. Touching all the form values will trigger this.
   const clickHandler = useCallback(() => {
     Object.keys(values).map((key) => {
@@ -44,9 +39,10 @@ const SubmitFormButton = ({children, boxProps, disabled, ...rest}: Props) => {
   }, [setFieldTouched, values])
 
   // Use state to save a boolean version of 'touched'.
-  const formTouched = useMemo(() => Object.keys(touched ?? {}).length > 0, [
-    touched
-  ])
+  const formTouched = useMemo(
+    () => Object.keys(touched ?? {}).length > 0,
+    [touched]
+  )
 
   return (
     <Box position="relative" {...boxProps}>

@@ -45,13 +45,11 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: 'Slideshow Presentation',
-        url:
-          'https://cdn.cosmicjs.com/5abb3350-9714-11eb-b593-972a7dbc1054-ARBSARB-IRWM-20200427-final.pdf'
+        url: 'https://cdn.cosmicjs.com/5abb3350-9714-11eb-b593-972a7dbc1054-ARBSARB-IRWM-20200427-final.pdf'
       },
       {
         title: 'Draft Water Resilience Portfolio',
-        url:
-          'https://cdn.cosmicjs.com/5415d870-9714-11eb-b593-972a7dbc1054-Draft-Water-Resilience-Portfolio-PPTApril-2020.pdf'
+        url: 'https://cdn.cosmicjs.com/5415d870-9714-11eb-b593-972a7dbc1054-Draft-Water-Resilience-Portfolio-PPTApril-2020.pdf'
       }
     ]
   },
@@ -63,13 +61,11 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: 'Slideshow Presentation',
-        url:
-          'https://cdn.cosmicjs.com/6efe5b10-9716-11eb-b593-972a7dbc1054-ARBSEvalautions20200211.pdf'
+        url: 'https://cdn.cosmicjs.com/6efe5b10-9716-11eb-b593-972a7dbc1054-ARBSEvalautions20200211.pdf'
       },
       {
         title: 'Portfolio Evaluation - Draft Technical Memorandum',
-        url:
-          'https://cdn.cosmicjs.com/6eff9390-9716-11eb-b593-972a7dbc1054-ARBSPortfolioEvalulationTM20200208.pdf'
+        url: 'https://cdn.cosmicjs.com/6eff9390-9716-11eb-b593-972a7dbc1054-ARBSPortfolioEvalulationTM20200208.pdf'
       }
     ]
   },
@@ -85,13 +81,11 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: `Slideshow Presentation`,
-        url:
-          'https://cdn.cosmicjs.com/d7eab710-9700-11eb-b593-972a7dbc1054-ARBSWorkshop2Addressingpotentialclimatechangeeffects.pdf'
+        url: 'https://cdn.cosmicjs.com/d7eab710-9700-11eb-b593-972a7dbc1054-ARBSWorkshop2Addressingpotentialclimatechangeeffects.pdf'
       },
       {
         title: `Workshop #2 Workbook`,
-        url:
-          'https://cdn.cosmicjs.com/cade69e0-9700-11eb-b593-972a7dbc1054-Workshop-2Workbook.pdf'
+        url: 'https://cdn.cosmicjs.com/cade69e0-9700-11eb-b593-972a7dbc1054-Workshop-2Workbook.pdf'
       }
     ]
   },
@@ -101,8 +95,7 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: `Slideshow Presentation`,
-        url:
-          'https://cdn.cosmicjs.com/6cd98030-ea1f-11e9-b67f-679b9aa5b8c2-PCWA-ARBS-Downscaling-Presentation-V3.1.pdf'
+        url: 'https://cdn.cosmicjs.com/6cd98030-ea1f-11e9-b67f-679b9aa5b8c2-PCWA-ARBS-Downscaling-Presentation-V3.1.pdf'
       }
     ]
   },
@@ -112,13 +105,11 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: `Slideshow Presentation`,
-        url:
-          'https://imgix.cosmicjs.com/d5193160-ea1d-11e9-ba4d-0371f77c56f3-ARBSWorkshop1v7.pdf'
+        url: 'https://imgix.cosmicjs.com/d5193160-ea1d-11e9-ba4d-0371f77c56f3-ARBSWorkshop1v7.pdf'
       },
       {
         title: `Slideshow Presentation - Video`,
-        url:
-          'https://imgix.cosmicjs.com/de4ed410-ea1d-11e9-b46c-c33ce7177bb8-2019-10-03-10.02-American-River-Basin-Study-Workshop-1---Assessing-Climate-Change-Challenges.mp4'
+        url: 'https://imgix.cosmicjs.com/de4ed410-ea1d-11e9-b46c-c33ce7177bb8-2019-10-03-10.02-American-River-Basin-Study-Workshop-1---Assessing-Climate-Change-Challenges.mp4'
       }
     ]
   },
@@ -130,8 +121,7 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: `Slideshow Presentation`,
-        url:
-          'https://cdn.cosmicjs.com/6d0cec40-ea1f-11e9-b67f-679b9aa5b8c2-ARBSWorkshop1v4.pdf'
+        url: 'https://cdn.cosmicjs.com/6d0cec40-ea1f-11e9-b67f-679b9aa5b8c2-ARBSWorkshop1v4.pdf'
       }
     ]
   },
@@ -141,8 +131,7 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: `Slideshow Presentation`,
-        url:
-          'https://cdn.cosmicjs.com/3d124590-dbd7-11e9-a172-efce876b6938-ESC4-presentation.pdf'
+        url: 'https://cdn.cosmicjs.com/3d124590-dbd7-11e9-a172-efce876b6938-ESC4-presentation.pdf'
       }
     ]
   },
@@ -154,13 +143,11 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: `Slideshow Presentation`,
-        url:
-          'https://cdn.cosmicjs.com/3d250a40-dbd7-11e9-8c6b-71138726c7d5-ESC3-presentation.pdf'
+        url: 'https://cdn.cosmicjs.com/3d250a40-dbd7-11e9-8c6b-71138726c7d5-ESC3-presentation.pdf'
       },
       {
         title: 'Schedule',
-        url:
-          'https://cdn.cosmicjs.com/3cdda100-dbd7-11e9-a172-efce876b6938-ESC3-schedule.pdf'
+        url: 'https://cdn.cosmicjs.com/3cdda100-dbd7-11e9-a172-efce876b6938-ESC3-schedule.pdf'
       }
     ]
   },
@@ -172,8 +159,7 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: 'ARBS Progress Update Presentation Slides',
-        url:
-          'http://cdn.cosmicjs.com/b966e380-e86c-11e8-a225-35cc76046a3e-ARBS_RWRP-Meeting_20181114_v5-final.pdf'
+        url: 'http://cdn.cosmicjs.com/b966e380-e86c-11e8-a225-35cc76046a3e-ARBS_RWRP-Meeting_20181114_v5-final.pdf'
       }
     ]
   },
@@ -189,18 +175,15 @@ const meetings: Meeting[] = [
       },
       {
         title: 'ARBS Plan of Study',
-        url:
-          'https://cdn.cosmicjs.com/b707fb90-3269-11ea-96a7-8146ec741192-ARBSPlanofStudy20170221clean.pdf'
+        url: 'https://cdn.cosmicjs.com/b707fb90-3269-11ea-96a7-8146ec741192-ARBSPlanofStudy20170221clean.pdf'
       },
       {
         title: 'Memorandum Of Agreement',
-        url:
-          'https://cdn.cosmicjs.com/b65685e0-3269-11ea-96a7-8146ec741192-draft-Final--MOA---ARBS-03022017-bjr.pdf'
+        url: 'https://cdn.cosmicjs.com/b65685e0-3269-11ea-96a7-8146ec741192-draft-Final--MOA---ARBS-03022017-bjr.pdf'
       },
       {
         title: `Non-Federal Partner's In-Kind Cost Share`,
-        url:
-          'https://cdn.cosmicjs.com/b64ac610-3269-11ea-bfe8-5b62c3bdf959-In-Kind-Services-Report-Form-2015-16.pdf'
+        url: 'https://cdn.cosmicjs.com/b64ac610-3269-11ea-bfe8-5b62c3bdf959-In-Kind-Services-Report-Form-2015-16.pdf'
       }
     ]
   },
@@ -212,18 +195,15 @@ const meetings: Meeting[] = [
     attachments: [
       {
         title: 'Meeting Notes',
-        url:
-          'https://imgix.cosmicjs.com/42ff1670-3269-11ea-bfe8-5b62c3bdf959-meeting-notes.pdf'
+        url: 'https://imgix.cosmicjs.com/42ff1670-3269-11ea-bfe8-5b62c3bdf959-meeting-notes.pdf'
       },
       {
         title: 'ARBS Plan of Study (Draft)',
-        url:
-          'https://imgix.cosmicjs.com/43487b80-3269-11ea-bfe8-5b62c3bdf959-ARBSPOSDraft20161203clean.pdf'
+        url: 'https://imgix.cosmicjs.com/43487b80-3269-11ea-bfe8-5b62c3bdf959-ARBSPOSDraft20161203clean.pdf'
       },
       {
         title: 'Memorandum Of Agreement (Draft)',
-        url:
-          'https://imgix.cosmicjs.com/42f21e20-3269-11ea-96a7-8146ec741192-MOA-ARBS-Draft-20161206.pdf'
+        url: 'https://imgix.cosmicjs.com/42f21e20-3269-11ea-96a7-8146ec741192-MOA-ARBS-Draft-20161206.pdf'
       }
     ]
   }

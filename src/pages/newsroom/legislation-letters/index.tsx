@@ -115,12 +115,14 @@ export default function LegislationAndLettersPage() {
   const classes = useStyles()
   const theme = useTheme()
 
-  const handleChange = (panel: string) => (
-    _event: React.ChangeEvent<Record<string, unknown>>,
-    isExpanded: boolean
-  ) => {
-    setExpanded(isExpanded ? panel : false)
-  }
+  const handleChange =
+    (panel: string) =>
+    (
+      _event: React.ChangeEvent<Record<string, unknown>>,
+      isExpanded: boolean
+    ) => {
+      setExpanded(isExpanded ? panel : false)
+    }
 
   const IssueTitle = useCallback(
     ({children, ...props}: Partial<LinkProps>) => (

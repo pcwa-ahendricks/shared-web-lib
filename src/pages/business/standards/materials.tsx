@@ -36,8 +36,7 @@ const materials: Material[] = [
     title: 'Appendix D - Pre-Approved Materials list',
     approved: new Date('2020-10-08T17:00:00'),
     // revision: '1',
-    url:
-      'https://cdn.cosmicjs.com/07146070-097d-11eb-8384-23ea516820cc-Appendix-D---Pre-Approved-Materials.pdf'
+    url: 'https://cdn.cosmicjs.com/07146070-097d-11eb-8384-23ea516820cc-Appendix-D---Pre-Approved-Materials.pdf'
   }
 ]
 

@@ -74,10 +74,8 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [
-    installPhotosIsUploading,
-    setInstallPhotosIsUploading
-  ] = useState<boolean>(false)
+  const [installPhotosIsUploading, setInstallPhotosIsUploading] =
+    useState<boolean>(false)
 
   const receiptIsUploadingHandler = useCallback((isUploading) => {
     setReceiptIsUploading(isUploading)

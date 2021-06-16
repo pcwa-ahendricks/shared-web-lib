@@ -41,12 +41,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export const formControlItems = {
-  'Conversion of existing high volume sprinkler systems to low volume drip irrigation systems': false,
-  'Conversion of existing high volume sprinkler nozzles with low precipitation or rotary nozzles': false,
-  'Installation of pressure regulating equipment or irrigation valves that reduce pressure to the irrigation system': false,
-  'Removal of leaking or broken irrigation equipment and replace with new parts': false,
+  'Conversion of existing high volume sprinkler systems to low volume drip irrigation systems':
+    false,
+  'Conversion of existing high volume sprinkler nozzles with low precipitation or rotary nozzles':
+    false,
+  'Installation of pressure regulating equipment or irrigation valves that reduce pressure to the irrigation system':
+    false,
+  'Removal of leaking or broken irrigation equipment and replace with new parts':
+    false,
   'Installation of irrigation system flow sensor': false,
-  'Install EPA WaterSense approved weather based irrigation controller(s)': false
+  'Install EPA WaterSense approved weather based irrigation controller(s)':
+    false
 }
 
 export type IrrigSysUpgradeOpts = typeof formControlItems

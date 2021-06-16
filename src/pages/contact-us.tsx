@@ -64,13 +64,10 @@ const initialFormValues: FormData = {
 const ContactUsPage = () => {
   const theme = useTheme()
 
-  const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
-    false
-  )
-  const [
-    formSubmitDialogErrorOpen,
-    setFormSubmitDialogErrorOpen
-  ] = useState<boolean>(false)
+  const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
+    useState<boolean>(false)
+  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
+    useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
