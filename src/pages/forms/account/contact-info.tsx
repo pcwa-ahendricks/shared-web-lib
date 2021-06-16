@@ -127,13 +127,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ContactInfo = () => {
   const classes = useStyles()
-  const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
-    false
-  )
-  const [
-    formSubmitDialogErrorOpen,
-    setFormSubmitDialogErrorOpen
-  ] = useState<boolean>(false)
+  const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
+    useState<boolean>(false)
+  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
+    useState<boolean>(false)
   // const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
 

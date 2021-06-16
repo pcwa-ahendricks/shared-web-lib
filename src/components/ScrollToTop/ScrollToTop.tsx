@@ -23,9 +23,10 @@ const ScrollToTop = () => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
-  const fabSize: FabProps['size'] = useMemo(() => (isXs ? 'small' : 'medium'), [
-    isXs
-  ])
+  const fabSize: FabProps['size'] = useMemo(
+    () => (isXs ? 'small' : 'medium'),
+    [isXs]
+  )
 
   const iconFontSize: IconProps['fontSize'] = useMemo(
     () => (isXs ? 'default' : 'large'),

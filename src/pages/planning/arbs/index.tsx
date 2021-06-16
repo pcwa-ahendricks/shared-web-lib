@@ -71,14 +71,16 @@ const useStyles = makeStyles((theme: Theme) =>
           paddingTop: theme.spacing(2),
           paddingBottom: theme.spacing(2)
         },
-        '& .vertical-timeline-element-content .vertical-timeline-element-date': {
-          top: 12 // defaults to 6px
-        }
+        '& .vertical-timeline-element-content .vertical-timeline-element-date':
+          {
+            top: 12 // defaults to 6px
+          }
       },
       '&.vertical-timeline--two-columns': {
-        '& .vertical-timeline-element-content .vertical-timeline-element-date': {
-          paddingRight: theme.spacing(1)
-        }
+        '& .vertical-timeline-element-content .vertical-timeline-element-date':
+          {
+            paddingRight: theme.spacing(1)
+          }
       }
       // '&:not(.vertical-timeline--two-columns)': {
       //   '& $verticalTimelineBar': {

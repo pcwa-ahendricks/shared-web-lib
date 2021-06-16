@@ -27,6 +27,9 @@ import {initGA} from '@lib/googleAnalytics'
 Global External Styles
 */
 import 'react-vertical-timeline-component/style.min.css'
+// Use custom nprogress stylesheet
+// import 'nprogress/nprogress.css'
+import '@lib/css/nprogress.css'
 // Use Next <Head/> to load css on any page where these components are used
 // import 'mapbox-gl/dist/mapbox-gl.css'
 

@@ -37,8 +37,7 @@ const specs: Spec[] = [
     title: 'Pipe Material and Steel Pipe',
     section: 'Div. 3 - Sec. 1, Page 51 and Div. 3 - Sec. 6, Page 89',
     revision: 'Revision 2',
-    url:
-      'https://cdn.cosmicjs.com/f46e8230-b01b-11ea-bbb7-b70da071f778-Final-Appr-Spec-Rev-1-2020.pdf',
+    url: 'https://cdn.cosmicjs.com/f46e8230-b01b-11ea-bbb7-b70da071f778-Final-Appr-Spec-Rev-1-2020.pdf',
     approved: parse('06/12/2020', 'MM/dd/yyyy', new Date())
   },
   {
@@ -46,8 +45,7 @@ const specs: Spec[] = [
     title: 'Pipeline Layout and Clearances',
     section: 'Div. 2 - Sec. 1, Page 24',
     revision: 'Revision 1',
-    url:
-      'https://cdn.cosmicjs.com/22aab550-68bd-11e7-9a78-c5ed605d4ef5-Final-Appr-Spec-Rev-1-2017.pdf',
+    url: 'https://cdn.cosmicjs.com/22aab550-68bd-11e7-9a78-c5ed605d4ef5-Final-Appr-Spec-Rev-1-2017.pdf',
     approved: parse('07/13/2017', 'MM/dd/yyyy', new Date())
   }
 ]

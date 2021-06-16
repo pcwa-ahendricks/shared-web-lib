@@ -43,10 +43,8 @@ const useStyles = makeStyles(() =>
 const LatestNewsRelease = ({width, ...rest}: Props) => {
   const classes = useStyles()
 
-  const {
-    data: latestNewsReleaseData,
-    isValidating
-  } = useSWR<PickedMediaResponses>(latestNewsReleaseUrl)
+  const {data: latestNewsReleaseData, isValidating} =
+    useSWR<PickedMediaResponses>(latestNewsReleaseUrl)
 
   const latestNewsRelease = useMemo(
     () =>

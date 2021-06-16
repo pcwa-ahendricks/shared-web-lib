@@ -48,10 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const EnewsSubscribeDialog = () => {
   const [submittedSuccess, setSubmittedSuccess] = useState(false)
   const newsroomContext = useContext(NewsroomContext)
-  const [
-    mailchimpError,
-    setMailchimpError
-  ] = useState<Partial<MailchimpSubscribeResponseBody> | null>(null)
+  const [mailchimpError, setMailchimpError] =
+    useState<Partial<MailchimpSubscribeResponseBody> | null>(null)
   const newsroomDispatch = newsroomContext.dispatch
   const {enewsDialogOpen} = newsroomContext.state
   const classes = useStyles()

@@ -85,9 +85,8 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 const SearchInput = () => {
   // const inputRef = useRef<HTMLInputElement>()
-  const {dispatch: searchDispatch, state: searchState} = useContext(
-    SearchContext
-  )
+  const {dispatch: searchDispatch, state: searchState} =
+    useContext(SearchContext)
   const {dispatch: uiDispatch} = useContext(UiContext)
   const {inputMobFocused} = searchState
   // const searchState = searchContext.state

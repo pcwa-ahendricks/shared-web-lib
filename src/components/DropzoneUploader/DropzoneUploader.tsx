@@ -132,14 +132,10 @@ const DropzoneUploader: React.RefForwardingComponent<
   const [rejectedFiles, setRejectedFiles] = useState<FileRejection[]>([])
   const [uploadDroppedFiles, setUploadDroppedFiles] = useState<DroppedFile[]>()
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFileAttr[]>([])
-  const [
-    confirmRemoveUpload,
-    setConfirmRemoveUpload
-  ] = useState<DroppedFile | null>(null)
-  const [
-    showConfirmClearUploads,
-    setShowConfirmClearUploads
-  ] = useState<boolean>(false)
+  const [confirmRemoveUpload, setConfirmRemoveUpload] =
+    useState<DroppedFile | null>(null)
+  const [showConfirmClearUploads, setShowConfirmClearUploads] =
+    useState<boolean>(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [isUploadingFileNames, setIsUploadingFileNames] = useState<string[]>([])
 
@@ -327,37 +323,42 @@ const DropzoneUploader: React.RefForwardingComponent<
     removeIsUploadingFiles
   ])
 
-  const dropHandler: DropzoneOptions['onDrop'] = useCallback((
-    acceptedFiles: File[]
-    // rejectedFiles: Array<any>
-  ) => {
-    const fileNamePrefix = slugify(generate())
-    // console.log('accepted files: ', acceptedFiles)
-    // console.log('rejected files: ', rejectedFiles)
-    const sd = [...acceptedFiles]
-    const newDroppedBlobFiles: DroppedFile[] = sd.map((file) => {
-      const newBlobFile: Partial<DroppedFile> = new Blob([file], {
-        type: file.type
+  const dropHandler: DropzoneOptions['onDrop'] = useCallback(
+    (
+      acceptedFiles: File[]
+      // rejectedFiles: Array<any>
+    ) => {
+      const fileNamePrefix = slugify(generate())
+      // console.log('accepted files: ', acceptedFiles)
+      // console.log('rejected files: ', rejectedFiles)
+      const sd = [...acceptedFiles]
+      const newDroppedBlobFiles: DroppedFile[] = sd.map((file) => {
+        const newBlobFile: Partial<DroppedFile> = new Blob([file], {
+          type: file.type
+        })
+        // Use slugify to remove any unusual characters from the filename making the Cosmic URL compatible in all cases.
+        const fileName = slugify(file.name)
+        newBlobFile.lastModified = file.lastModified
+        newBlobFile.name = `${fileNamePrefix}${fileName}` ?? ''
+        newBlobFile.originalName = file.name
+        // Add image preview urls.
+        // [TODO] - Confirm this works in IE 11 and remove eslint comment
+        // eslint-disable-next-line compat/compat
+        newBlobFile.previewUrl = URL.createObjectURL(newBlobFile)
+        newBlobFile.ext = extension(newBlobFile.name)
+        return newBlobFile as DroppedFile
       })
-      // Use slugify to remove any unusual characters from the filename making the Cosmic URL compatible in all cases.
-      const fileName = slugify(file.name)
-      newBlobFile.lastModified = file.lastModified
-      newBlobFile.name = `${fileNamePrefix}${fileName}` ?? ''
-      newBlobFile.originalName = file.name
-      // Add image preview urls.
-      newBlobFile.previewUrl = URL.createObjectURL(newBlobFile)
-      newBlobFile.ext = extension(newBlobFile.name)
-      return newBlobFile as DroppedFile
-    })
 
-    setDroppedFiles((prevDroppedBlobFiles) => [
-      ...prevDroppedBlobFiles,
-      ...newDroppedBlobFiles
-    ])
+      setDroppedFiles((prevDroppedBlobFiles) => [
+        ...prevDroppedBlobFiles,
+        ...newDroppedBlobFiles
+      ])
 
-    // Setting upload dropped files to original dropped File objects.
-    setUploadDroppedFiles(newDroppedBlobFiles)
-  }, [])
+      // Setting upload dropped files to original dropped File objects.
+      setUploadDroppedFiles(newDroppedBlobFiles)
+    },
+    []
+  )
 
   const clearUploadsHandler = useCallback(() => {
     setShowConfirmClearUploads(false) // Hide dialog.

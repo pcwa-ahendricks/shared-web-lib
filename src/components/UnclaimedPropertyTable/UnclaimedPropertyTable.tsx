@@ -158,13 +158,12 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
   )
 
   const handleRequestSort = useCallback(
-    (property: HeadRowId) => () =>
-      // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-      {
-        const isDesc = orderBy === property && order === 'desc'
-        setOrder(isDesc ? 'asc' : 'desc')
-        setOrderBy(property)
-      },
+    (property: HeadRowId) => () => // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    {
+      const isDesc = orderBy === property && order === 'desc'
+      setOrder(isDesc ? 'asc' : 'desc')
+      setOrderBy(property)
+    },
     [order, orderBy]
   )
 

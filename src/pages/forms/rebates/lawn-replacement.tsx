@@ -195,20 +195,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const LawnReplacement = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
-  const [formValues, setFormValues] = useState<RebateFormData>(
-    initialFormValues
-  )
+  const [formValues, setFormValues] =
+    useState<RebateFormData>(initialFormValues)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [formSubmitDialogOpen, setFormSubmitDialogOpen] = useState<boolean>(
-    false
-  )
-  const [
-    formSubmitDialogErrorOpen,
-    setFormSubmitDialogErrorOpen
-  ] = useState<boolean>(false)
-  const [eligibilityDialogOpen, setEligibilityDialogOpen] = useState<boolean>(
-    false
-  )
+  const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
+    useState<boolean>(false)
+  const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
+    useState<boolean>(false)
+  const [eligibilityDialogOpen, setEligibilityDialogOpen] =
+    useState<boolean>(false)
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)

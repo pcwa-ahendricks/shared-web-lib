@@ -196,11 +196,10 @@ const PageButton: React.FunctionComponent<
     return offset < 0 ? 0 : offset
   }, [])
 
-  const color = useMemo(() => (isCurrent ? currentPageColor : otherPageColor), [
-    isCurrent,
-    currentPageColor,
-    otherPageColor
-  ])
+  const color = useMemo(
+    () => (isCurrent ? currentPageColor : otherPageColor),
+    [isCurrent, currentPageColor, otherPageColor]
+  )
 
   const disabled = useMemo(
     () => disabledProp || isEllipsis || page <= 0 || total <= 0,
@@ -214,28 +213,28 @@ const PageButton: React.FunctionComponent<
 
   const handleClick = useCallback(
     (
-      page: number,
-      limit: number,
-      onClick: (
-        ev: React.MouseEvent<HTMLElement>,
-        offset: number,
-        page: number
-      ) => void
-    ) => (ev: React.MouseEvent<HTMLElement>): void => {
-      onClick(ev, getOffset(page, limit), page)
-    },
+        page: number,
+        limit: number,
+        onClick: (
+          ev: React.MouseEvent<HTMLElement>,
+          offset: number,
+          page: number
+        ) => void
+      ) =>
+      (ev: React.MouseEvent<HTMLElement>): void => {
+        onClick(ev, getOffset(page, limit), page)
+      },
     [getOffset]
   )
 
-  const onClick:
-    | ((ev: React.MouseEvent<HTMLElement>) => void)
-    | undefined = useMemo(
-    () =>
-      onClickProp && !disabled && (isEnd || isStandard)
-        ? handleClick(page, limit, onClickProp)
-        : undefined,
-    [handleClick, disabled, isEnd, isStandard, onClickProp, page, limit]
-  )
+  const onClick: ((ev: React.MouseEvent<HTMLElement>) => void) | undefined =
+    useMemo(
+      () =>
+        onClickProp && !disabled && (isEnd || isStandard)
+          ? handleClick(page, limit, onClickProp)
+          : undefined,
+      [handleClick, disabled, isEnd, isStandard, onClickProp, page, limit]
+    )
 
   return (
     <Button

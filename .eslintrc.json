@@ -21,8 +21,9 @@
     "plugin:import/errors",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:@next/next/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -61,7 +62,8 @@
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "@next/next/no-img-element": ["warn"]
   },
   "settings": {
     "react": {

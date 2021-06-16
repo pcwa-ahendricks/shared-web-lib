@@ -15,7 +15,8 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 type Props = {
   boxProps?: BoxProps
   isHover?: boolean
-} & Partial<Omit<ImageProps, 'layout' | 'placeholder' | 'blurDataURL'>>
+  src: string
+} & Partial<Omit<ImageProps, 'layout' | 'placeholder' | 'blurDataURL' | 'src'>>
 
 interface UseStylesProps {
   isHover?: boolean

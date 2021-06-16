@@ -182,9 +182,10 @@ export default function RegionalSection({countyResponse}: Props) {
   const now = useMemo(() => new Date(), [])
   const climChangeEndYear = useMemo(() => now.getFullYear(), [now])
   const twoMonthsAgo = useMemo(() => subMonths(now, 2), [now])
-  const startTwoMonthsAgo = useMemo(() => startOfMonth(twoMonthsAgo), [
-    twoMonthsAgo
-  ])
+  const startTwoMonthsAgo = useMemo(
+    () => startOfMonth(twoMonthsAgo),
+    [twoMonthsAgo]
+  )
   const startOfOctober = useMemo(
     () => startOfMonth(parse('10-01', 'MM-dd', now)),
     [now]
@@ -200,18 +201,19 @@ export default function RegionalSection({countyResponse}: Props) {
   ) // Used w/ date formatting, but not NOAA URL
 
   const useMonthDiff = diff + 1 // Used w/ NOAA URL, but not date formatting
-  const twoMonthsAgoMo = useMemo(() => twoMonthsAgo.getMonth() + 1, [
-    twoMonthsAgo
-  ]) // getMonth() returns a 0 based index
+  const twoMonthsAgoMo = useMemo(
+    () => twoMonthsAgo.getMonth() + 1,
+    [twoMonthsAgo]
+  ) // getMonth() returns a 0 based index
 
   const twoMonthsAgoYr = twoMonthsAgo.getFullYear()
   const twoMonthsAgoFrmt = format(twoMonthsAgo, 'MMMM')
   const twoMonthsAgoYearFrmt = format(twoMonthsAgo, 'yyyy')
   // Note - To ensure that the labels match the returned data just console.log the response from the NOAA api, it will show the actual date range in the description.
-  const begFrmt = useMemo(() => format(subMonths(twoMonthsAgo, diff), 'MMMM'), [
-    diff,
-    twoMonthsAgo
-  ])
+  const begFrmt = useMemo(
+    () => format(subMonths(twoMonthsAgo, diff), 'MMMM'),
+    [diff, twoMonthsAgo]
+  )
   const begYrFrmt = useMemo(
     () => format(subMonths(twoMonthsAgo, diff), 'yyyy'),
     [twoMonthsAgo, diff]
@@ -222,12 +224,10 @@ export default function RegionalSection({countyResponse}: Props) {
 
   const url = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-${useMonthDiff}-${twoMonthsAgoMo}-${begYr}-${climChangeEndYear}.json?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
 
-  const {
-    data: climChgData,
-    isValidating: climChgIsValidating
-  } = useSWR<ClimChgResponse>(url, {
-    revalidateOnFocus: false
-  })
+  const {data: climChgData, isValidating: climChgIsValidating} =
+    useSWR<ClimChgResponse>(url, {
+      revalidateOnFocus: false
+    })
   // console.log('[NOAA Avg Response]:', climChgData)
 
   // Including the Trend in the URL doesn't seem to work with NOAA site; The trend params are omitted until NOAA fixes this.
@@ -263,10 +263,8 @@ export default function RegionalSection({countyResponse}: Props) {
   )
 
   /* Regional Precip */
-  const [
-    multiStnPrcpSmryUrlBase,
-    setMultiStnPrcpSmryUrlBase
-  ] = useState<MultiStnPrcpSmryUrlBase>(multiStnPrcpSmryUrls[regionalTimeFrame])
+  const [multiStnPrcpSmryUrlBase, setMultiStnPrcpSmryUrlBase] =
+    useState<MultiStnPrcpSmryUrlBase>(multiStnPrcpSmryUrls[regionalTimeFrame])
 
   const {
     data: multiStnPrecipSmryRes,
@@ -337,10 +335,8 @@ export default function RegionalSection({countyResponse}: Props) {
   )
 
   /* Regional Snow */
-  const [
-    multiStnSnowSmryUrlBase,
-    setMultiStnSnowSmryUrlBase
-  ] = useState<MultiStnSnowSmryUrlBase>(multiStnSnowSmryUrls[regionalTimeFrame])
+  const [multiStnSnowSmryUrlBase, setMultiStnSnowSmryUrlBase] =
+    useState<MultiStnSnowSmryUrlBase>(multiStnSnowSmryUrls[regionalTimeFrame])
 
   const {
     data: multiStnSnowSmryRes,
@@ -414,12 +410,10 @@ export default function RegionalSection({countyResponse}: Props) {
   )
 
   /* Regional Max Temp */
-  const [
-    multiStnMxTempSmryUrlBase,
-    setMultiStnMxTempSmryUrlBase
-  ] = useState<MultiStnMxTempSmryUrlBase>(
-    multiStnMxTempSmryUrls[regionalTimeFrame]
-  )
+  const [multiStnMxTempSmryUrlBase, setMultiStnMxTempSmryUrlBase] =
+    useState<MultiStnMxTempSmryUrlBase>(
+      multiStnMxTempSmryUrls[regionalTimeFrame]
+    )
   const {
     data: multiStnMxTempSmryRes,
     isValidating: multiStnMxTempSmryResValidating

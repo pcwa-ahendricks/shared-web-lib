@@ -21,12 +21,14 @@ const PiTableRow = ({data, timestampFormat}: Props) => {
   )
 
   const {values, timestamp} = data
-  const colBIndex = useMemo(() => values.findIndex((i) => i.columnNo === 2), [
-    values
-  ])
-  const colCIndex = useMemo(() => values.findIndex((i) => i.columnNo === 3), [
-    values
-  ])
+  const colBIndex = useMemo(
+    () => values.findIndex((i) => i.columnNo === 2),
+    [values]
+  )
+  const colCIndex = useMemo(
+    () => values.findIndex((i) => i.columnNo === 3),
+    [values]
+  )
 
   const tableRowEl = useMemo(
     () =>
