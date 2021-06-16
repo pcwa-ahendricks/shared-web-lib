@@ -36,12 +36,13 @@ const MonthlyBillingFaq = () => {
   const [expanded, setExpanded] = useState<string | false>(false)
 
   const handleChange = useCallback(
-    (panel: string) => (
-      _event: React.ChangeEvent<Record<string, unknown>>,
-      isExpanded: boolean
-    ) => {
-      setExpanded(isExpanded ? panel : false)
-    },
+    (panel: string) =>
+      (
+        _event: React.ChangeEvent<Record<string, unknown>>,
+        isExpanded: boolean
+      ) => {
+        setExpanded(isExpanded ? panel : false)
+      },
     []
   )
 

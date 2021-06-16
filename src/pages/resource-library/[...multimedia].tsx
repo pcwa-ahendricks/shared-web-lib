@@ -441,14 +441,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       Array<PickedVideoResponse | PickedPhotoResponse> | undefined
     > = fetcher(`${baseUrl}${multimediaUrl}`)
 
-    const publications$: Promise<
-      Array<PickedPublicationResponse> | undefined
-    > = fetcher(`${baseUrl}${publicationsUrl}`)
+    const publications$: Promise<Array<PickedPublicationResponse> | undefined> =
+      fetcher(`${baseUrl}${publicationsUrl}`)
 
-    const [
-      initialMultimediaData = [],
-      initialPublicationsData = []
-    ] = await Promise.all([multimedia$, publications$])
+    const [initialMultimediaData = [], initialPublicationsData = []] =
+      await Promise.all([multimedia$, publications$])
 
     // Don't produce base64 images with non-imgix links and/or videos; Doing so will crash everything.
 

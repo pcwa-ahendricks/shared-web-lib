@@ -40,15 +40,15 @@ const SearchListItemContent = ({result}: Props) => {
     htmlFormattedUrl
   } = result
 
-  const parsedHtmlTitle = useMemo(() => Parser(htmlTitle) || title, [
-    htmlTitle,
-    title
-  ])
+  const parsedHtmlTitle = useMemo(
+    () => Parser(htmlTitle) || title,
+    [htmlTitle, title]
+  )
 
-  const parsedHtmlSnippet = useMemo(() => Parser(htmlSnippet) || snippet, [
-    snippet,
-    htmlSnippet
-  ])
+  const parsedHtmlSnippet = useMemo(
+    () => Parser(htmlSnippet) || snippet,
+    [snippet, htmlSnippet]
+  )
 
   const parsedFormattedUrl = useMemo(
     () => Parser(htmlFormattedUrl) || formattedUrl,

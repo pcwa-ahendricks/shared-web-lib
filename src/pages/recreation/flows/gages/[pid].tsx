@@ -103,23 +103,22 @@ const DynamicPiPage = ({
   )
   /* */
   /* Request 3 */
-  const elementDataItems = useMemo(() => elementsData?.Items ?? [], [
-    elementsData
-  ])
+  const elementDataItems = useMemo(
+    () => elementsData?.Items ?? [],
+    [elementsData]
+  )
   const activeElementData = useMemo(
     () => elementDataItems.find((item) => item.Name === activeGageItem?.id),
     [elementDataItems, activeGageItem?.id]
   )
   const elementsStreamSetDataUrl = `${piApiUrl}/streamsets/${activeElementData?.WebId}/value`
-  const {
-    data: elementsStreamSetData,
-    isValidating: essdIsValidating
-  } = useSWR<PiWebElementStreamSetResponse>(
-    activeElementData?.WebId ? elementsStreamSetDataUrl : null,
-    {
-      initialData: initialElementsStreamSetData
-    }
-  )
+  const {data: elementsStreamSetData, isValidating: essdIsValidating} =
+    useSWR<PiWebElementStreamSetResponse>(
+      activeElementData?.WebId ? elementsStreamSetDataUrl : null,
+      {
+        initialData: initialElementsStreamSetData
+      }
+    )
   /* */
 
   const essdItems = useMemo(

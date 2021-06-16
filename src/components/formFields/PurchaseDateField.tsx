@@ -32,10 +32,10 @@ const PurchaseDateField = ({
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
 
   // Save date as Date in form (not null).
-  const changeHandler = useCallback((date) => setFieldValue(name, date, true), [
-    name,
-    setFieldValue
-  ])
+  const changeHandler = useCallback(
+    (date) => setFieldValue(name, date, true),
+    [name, setFieldValue]
+  )
 
   // To prevent onError from calling a bunch and halting the execution of the app due to infinite re-renders we are using a ref to store the previous error, then comparing the incoming error to the previous, and only calling setFieldError() when error changes. This may not be necessary with future versions of @material-ui/pickers.
   const prevDatePickerErrorRef = useRef<any>()

@@ -48,9 +48,10 @@ const PageTitle = ({
     [subtitle, classes]
   )
 
-  const dividerEl = useMemo(() => (hideDivider ? null : <Divider />), [
-    hideDivider
-  ])
+  const dividerEl = useMemo(
+    () => (hideDivider ? null : <Divider />),
+    [hideDivider]
+  )
 
   return (
     <Box {...rest}>

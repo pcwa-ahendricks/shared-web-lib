@@ -86,19 +86,16 @@ export const boardMeetings: Array<BoardMeeting> = [
   {date: '9-5-2019 2:00PM'},
   {
     date: '9-11-2019 8:30AM',
-    note:
-      "The September 11th meeting starts at 8:30 a.m. at the Business Center. Board of Directors' workshop meeting to begin at Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California.  Thereafter the Board will drive to the Middle Fork American River Project facilities and have a strategic planning session at the Hell Hole Dormitory, 20900 Soda Springs Road, Foresthill, California. The meeting will adjourn at 5:00 p.m."
+    note: "The September 11th meeting starts at 8:30 a.m. at the Business Center. Board of Directors' workshop meeting to begin at Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California.  Thereafter the Board will drive to the Middle Fork American River Project facilities and have a strategic planning session at the Hell Hole Dormitory, 20900 Soda Springs Road, Foresthill, California. The meeting will adjourn at 5:00 p.m."
   },
   {
     date: '9-12-2019 8:00AM',
-    note:
-      'Board meeting to reconvene Thursday, September 12, 2019, 8:00 a.m. at Hell Hole Dormitory for strategic planning and tour of Middle Fork American River Project facilities, returning to Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California, at approximately noon.'
+    note: 'Board meeting to reconvene Thursday, September 12, 2019, 8:00 a.m. at Hell Hole Dormitory for strategic planning and tour of Middle Fork American River Project facilities, returning to Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California, at approximately noon.'
   },
   // { date: '9-19-2019 2:00PM' },
   {
     date: '9-19-2019 8:15AM',
-    note:
-      'The September 19th meeting starts at 8:15 a.m. at the Business Center. The Board will consider regular business items and then depart and travel to North Tahoe Public Utility District, 8318 North Lake Blvd., Kings Beach, California, to continue their meeting at approximately 11 a.m.'
+    note: 'The September 19th meeting starts at 8:15 a.m. at the Business Center. The Board will consider regular business items and then depart and travel to North Tahoe Public Utility District, 8318 North Lake Blvd., Kings Beach, California, to continue their meeting at approximately 11 a.m.'
   },
   {date: '10-3-2019 2:00PM'},
   {date: '10-17-2019 2:00PM'},
@@ -157,13 +154,11 @@ export const boardMeetings: Array<BoardMeeting> = [
   },
   {
     date: '10-7-2021 2:00PM',
-    note:
-      "The October 7th meeting starts at 8:30 a.m. at the Business Center. Board of Directors' workshop meeting to begin at Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California.  Thereafter the Board will drive to the Middle Fork American River Project facilities and have a strategic planning session at the Hell Hole Dormitory, 20900 Soda Springs Road, Foresthill, California. The meeting will adjourn at 5:00 p.m."
+    note: "The October 7th meeting starts at 8:30 a.m. at the Business Center. Board of Directors' workshop meeting to begin at Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California.  Thereafter the Board will drive to the Middle Fork American River Project facilities and have a strategic planning session at the Hell Hole Dormitory, 20900 Soda Springs Road, Foresthill, California. The meeting will adjourn at 5:00 p.m."
   },
   {
     date: '10-8-2021 2:00PM',
-    note:
-      'Board meeting to reconvene Thursday, October 8, 8:00 a.m. at Hell Hole Dormitory for strategic planning and tour of Middle Fork American River Project facilities, returning to Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California, at approximately noon.'
+    note: 'Board meeting to reconvene Thursday, October 8, 8:00 a.m. at Hell Hole Dormitory for strategic planning and tour of Middle Fork American River Project facilities, returning to Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California, at approximately noon.'
   },
   {date: '10-21-2021 2:00PM'},
   {date: '11-4-2021 2:00PM'},

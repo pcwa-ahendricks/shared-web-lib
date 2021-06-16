@@ -56,7 +56,7 @@ export default function QuickLinkButton({
   isNextLink?: boolean
   caption: string
   imageAlt: ImageProps['alt']
-  imageSrc: ImageProps['src']
+  imageSrc: string
 } & Partial<FabProps<'a'>>) {
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))

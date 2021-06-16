@@ -94,29 +94,30 @@ export default function ClimateChangeLine({
   )
 
   const CustomLines: CustomLayer = useMemo(
-    () => ({series, lineGenerator, xScale, yScale}) => {
-      return series.map(({id, data, color}) => {
-        const idStr = id.toString()
-        return (
-          <path
-            key={id}
-            d={
-              lineGenerator(
-                data.map(({data}): any => ({
-                  ...(data?.x != null &&
-                    data?.x != undefined && {x: xScale(data?.x)}),
-                  ...(data?.y != null &&
-                    data?.y != undefined && {y: yScale(data?.y)})
-                }))
-              ) as any
-            }
-            fill="none"
-            stroke={color}
-            style={styleById[idStr] || styleById.default}
-          />
-        )
-      })
-    },
+    () =>
+      ({series, lineGenerator, xScale, yScale}) => {
+        return series.map(({id, data, color}) => {
+          const idStr = id.toString()
+          return (
+            <path
+              key={id}
+              d={
+                lineGenerator(
+                  data.map(({data}): any => ({
+                    ...(data?.x != null &&
+                      data?.x != undefined && {x: xScale(data?.x)}),
+                    ...(data?.y != null &&
+                      data?.y != undefined && {y: yScale(data?.y)})
+                  }))
+                ) as any
+              }
+              fill="none"
+              stroke={color}
+              style={styleById[idStr] || styleById.default}
+            />
+          )
+        })
+      },
     [styleById]
   )
 

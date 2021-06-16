@@ -33,29 +33,23 @@ const usePiTag = <T = PiWebInterpolatedData>(
   const qs = stringify({path}, true)
   const baseDataUrl = `https://flows.pcwa.net/piwebapi/elements${qs}`
 
-  const {
-    data: pathData,
-    isValidating: pathIsValidating
-  } = useSWR<PiWebBaseElementsResponse>(
-    path && dependencies?.every(Boolean) ? baseDataUrl : null
-  )
+  const {data: pathData, isValidating: pathIsValidating} =
+    useSWR<PiWebBaseElementsResponse>(
+      path && dependencies?.every(Boolean) ? baseDataUrl : null
+    )
 
-  const {
-    data: elementsData,
-    isValidating: elementsIsValidating
-  } = useSWR<PiWebElementsResponse>(
-    pathData?.Links.Elements ? pathData?.Links.Elements : null
-  )
+  const {data: elementsData, isValidating: elementsIsValidating} =
+    useSWR<PiWebElementsResponse>(
+      pathData?.Links.Elements ? pathData?.Links.Elements : null
+    )
   const attributeLink = useMemo(
     () =>
       elementsData?.Items.find((item) => item.Name === elementName)?.Links
         .Attributes,
     [elementsData, elementName]
   )
-  const {
-    data: attributesData,
-    isValidating: attributesIsValidating
-  } = useSWR<PiWebAttributesResponse>(attributeLink ? attributeLink : null)
+  const {data: attributesData, isValidating: attributesIsValidating} =
+    useSWR<PiWebAttributesResponse>(attributeLink ? attributeLink : null)
   const urlLink = useMemo(
     () =>
       attributesData?.Items.find((item) => item.Name === attributeName)?.Links[

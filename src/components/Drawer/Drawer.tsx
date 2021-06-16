@@ -114,7 +114,7 @@ const SwipeableTemporaryDrawer = () => {
     () => (
       <>
         <List component="nav">
-          <Link href="/">
+          <Link href="/" passHref>
             <ListItem
               button
               component="a"
@@ -207,7 +207,7 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItem>
-          <Link href="/services/outage">
+          <Link href="/services/outage" passHref>
             <ListItem
               button
               component="a"
@@ -239,7 +239,7 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItem>
-          <Link href="/board-of-directors/meeting-agendas">
+          <Link href="/board-of-directors/meeting-agendas" passHref>
             <ListItem
               button
               component="a"
@@ -255,7 +255,7 @@ const SwipeableTemporaryDrawer = () => {
               />
             </ListItem>
           </Link>
-          <Link href="/smart-water-use/rebate-programs">
+          <Link href="/smart-water-use/rebate-programs" passHref>
             <ListItem
               button
               component="a"

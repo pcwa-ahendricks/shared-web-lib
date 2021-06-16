@@ -106,7 +106,7 @@ const ImageDimmerLink = ({
   const classes = useStyles({isHovering})
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <Box
         className={classes.container}
         position="relative"

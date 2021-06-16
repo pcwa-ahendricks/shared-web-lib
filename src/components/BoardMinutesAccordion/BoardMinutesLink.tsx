@@ -82,13 +82,16 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   const url = `/board-of-directors/meeting-minutes/[meeting-date]`
   const as = `/board-of-directors/meeting-minutes/${date}`
 
-  const boardMeetingDate = useMemo(() => parseJSON(publishedDate), [
-    publishedDate
-  ])
+  const boardMeetingDate = useMemo(
+    () => parseJSON(publishedDate),
+    [publishedDate]
+  )
 
   return (
-    <Link href={url} as={as}>
+    <Link href={url} as={as} passHref>
       <ColumnBoxEx
+        role="link"
+        tabIndex={0}
         alignItems="center"
         className={classes.link}
         onMouseEnter={() => setIsHover(true)}

@@ -153,6 +153,8 @@ const ThumbPreview = ({
           isUploading={isUploading}
         >
           <Tooltip title={file.originalName ?? ''} enterDelay={500}>
+            {/* [TODO] - figure out what these eslint errors mean */}
+            {/* eslint-disable-next-line */}
             <div
               className={classes.thumbInner}
               onMouseEnter={() => setThumbHover(file.name)}

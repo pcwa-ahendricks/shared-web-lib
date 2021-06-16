@@ -557,9 +557,6 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       'hprcc.unl.edu'
     ]
   },
-  future: {
-    webpack5: true
-  },
   webpack: (config) => {
     // Polyfills - https://github.com/zeit/next.js/tree/master/examples/with-polyfills
     const originalEntry = config.entry
