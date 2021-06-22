@@ -217,7 +217,7 @@ const NewDevelopmentPage = () => {
               description="From Rocklin to Auburn"
             />
             <TightListItem
-              url="https://cdn.cosmicjs.com/607743e0-5405-11ea-9bde-8b935236d22a-2020-WCC-Upper-Z6.pdf"
+              url="https://docs.pcwa.net/wcc-upper-zone-6.pdf"
               title="Upper Zone 6"
               description="Applegate, Colfax, Monte Vista, & Alta"
             />
