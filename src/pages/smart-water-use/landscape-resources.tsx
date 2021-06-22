@@ -264,12 +264,12 @@ const LandscapeResourcesPage = () => {
                 </ResourceLink>
                 Creating and maintaining defensible space
               </Resource>
-              <ResourceDivider />
+              {/* <ResourceDivider />
               <Resource>
                 <ResourceLink href="http://www.ecolandscape.org/new-ca">
                   Eco-Friendly Landscape Design
                 </ResourceLink>
-              </Resource>
+              </Resource> */}
               <ResourceDivider />
               <Resource>
                 <ResourceLink href="http://pcmg.ucanr.org/index.cfm">
