@@ -306,7 +306,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               imgixParams={{
                 crop: 'top'
               }}
-              body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in August."
+              body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in 2022."
             />
 
             {/* <CoverStory
