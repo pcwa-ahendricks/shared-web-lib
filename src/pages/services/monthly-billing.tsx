@@ -49,7 +49,7 @@ export default function MonthlyBillingPage() {
               <ListItemIcon>
                 <TreatedIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText primary="Treated water customers will begin transitioning in August." />
+              <ListItemText primary="Treated water customers will begin transitioning in 2022." />
             </ListItem>
           </List>
           <Spacing />
