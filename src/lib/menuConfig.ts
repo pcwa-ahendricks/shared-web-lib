@@ -216,6 +216,10 @@ const menuConfig: MenuConfig[] = [
           //   nextLink: '/smart-water-use/maidu-fire-station-makeover'
           // },
           {
+            title: 'Fire-Wise, Water-Wise Landscaping',
+            nextLink: '/smart-water-use/fire-wise-landscaping'
+          },
+          {
             title: 'Water Wise House Calls',
             nextLink: '/smart-water-use/house-calls'
           },

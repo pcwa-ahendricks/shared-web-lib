@@ -23,6 +23,7 @@ import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
+import useJumpTo from '@hooks/useJumpTo'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,6 +41,7 @@ const useStyles = makeStyles(() =>
 )
 
 const FireResistantGardenPage = () => {
+  useJumpTo()
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
@@ -170,7 +172,7 @@ const FireResistantGardenPage = () => {
                 </Type>
 
                 <ul>
-                  <TypeBullet>
+                  <TypeBullet id="landscapeDesignPlan">
                     <ExtLink href="https://imgix.cosmicjs.com/7647c4d0-ad73-11e9-8ba7-dba4340cf409-MF-L2.1-050719.pdf">
                       View the landscape design plan
                     </ExtLink>
