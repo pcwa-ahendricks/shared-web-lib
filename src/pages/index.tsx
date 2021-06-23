@@ -1,6 +1,6 @@
 // cspell:ignore COVID perc
 import React, {useState, useMemo, useContext, useCallback} from 'react'
-import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
+// import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
@@ -301,7 +301,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 isNextLink: true
               }}
               linkHref="/services/monthly-billing"
-              imgixURL="https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG"
+              imgixURL="https://imgix.cosmicjs.com/56867e20-d47c-11eb-bfc5-2fdb31ae3481-PCWAMonthlyBillingWebImage-2022.jpg"
               alt="Monthly Billing Announcement Flyer"
               imgixParams={{
                 crop: 'top'
@@ -376,7 +376,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox> */}
           <ChildBox width={tileWidth}>
-            <RibbonContainer>
+            {/* <RibbonContainer>
               <RightRibbon
                 backgroundColor="#cc4400"
                 color="#f0f0f0"
@@ -386,20 +386,20 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
                   Final Draft
                 </span>
-              </RightRibbon>
-              <CoverTile
-                width={tileWidth}
-                title="PCWA Urban Water Management Plan"
-                imgixURL="https://imgix.cosmicjs.com/3d69d560-b8f0-11eb-9b4d-19bb36ed9e4c-PCWA-2020-UWMPPublic-Draft.pdf"
-                linkHref="https://docs.pcwa.net/uwmp-2020-public-draft"
-                flexLinkProps={{isNextLink: false}}
-                alt="Thumbnail and link for PCWA 2020 Urban Water Management Plan, public draft"
-                imgixParams={{crop: 'top'}}
-              />
-            </RibbonContainer>
+              </RightRibbon> */}
+            <CoverTile
+              width={tileWidth}
+              title="PCWA Urban Water Management Plan"
+              imgixURL="https://imgix.cosmicjs.com/3d69d560-b8f0-11eb-9b4d-19bb36ed9e4c-PCWA-2020-UWMPPublic-Draft.pdf"
+              linkHref="https://docs.pcwa.net/uwmp-2020-public-draft"
+              flexLinkProps={{isNextLink: false}}
+              alt="Thumbnail and link for PCWA 2020 Urban Water Management Plan, public draft"
+              imgixParams={{crop: 'top'}}
+            />
+            {/* </RibbonContainer> */}
           </ChildBox>
           <ChildBox width={tileWidth}>
-            <RibbonContainer>
+            {/* <RibbonContainer>
               <RightRibbon
                 backgroundColor="#cc4400"
                 color="#f0f0f0"
@@ -409,17 +409,17 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
                   Final Draft
                 </span>
-              </RightRibbon>
-              <CoverTile
-                width={tileWidth}
-                title="PCWA Water Shortage Contingency Plan"
-                imgixURL="https://imgix.cosmicjs.com/f694d8b0-adc3-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.05.21.pdf"
-                linkHref="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan"
-                flexLinkProps={{isNextLink: false}}
-                alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
-                imgixParams={{crop: 'top'}}
-              />
-            </RibbonContainer>
+              </RightRibbon> */}
+            <CoverTile
+              width={tileWidth}
+              title="PCWA Water Shortage Contingency Plan"
+              imgixURL="https://imgix.cosmicjs.com/f694d8b0-adc3-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.05.21.pdf"
+              linkHref="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan"
+              flexLinkProps={{isNextLink: false}}
+              alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
+              imgixParams={{crop: 'top'}}
+            />
+            {/* </RibbonContainer> */}
           </ChildBox>
           {/* <ChildBox width={tileWidth}>
             <CoverTile
