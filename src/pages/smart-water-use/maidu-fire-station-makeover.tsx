@@ -19,7 +19,6 @@ import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {FlexBox, ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
 import WideContainer from '@components/containers/WideContainer'
-import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -92,7 +91,7 @@ const FireResistantGardenPage = () => {
 
   return (
     <PageLayout
-      title="Fire Resistant Garden"
+      title="Maidu Fire Station Makeover"
       alertsProps={{bottomBgGradient: false}}
       bannerComponent={
         <FlexBox>
@@ -128,13 +127,13 @@ const FireResistantGardenPage = () => {
             Fire and Water-Wise Landscape"
             subtitle="Smart Water Use"
           />
-          <Spacing />
-          <OpenInNewLink
+          {/* <Spacing /> */}
+          {/* <OpenInNewLink
             href="https://cdn.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
             variant="h4"
           >
             As Seen in Fire & Water...
-          </OpenInNewLink>
+          </OpenInNewLink> */}
 
           <Hidden smUp>
             <Box width="100%">
@@ -145,14 +144,14 @@ const FireResistantGardenPage = () => {
 
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="55%">
-              <Box mt={4}>
+              <Box mt={3}>
                 <Type paragraph>
                   Eagle Scout candidates Cody Hansen and David Hurren of Rocklin
-                  are partnering with PCWA and the City of Auburn Fire
-                  Department to makeover the thirsty turf at Auburn’s Maidu Fire
+                  partnered with PCWA and the City of Auburn Fire Department in
+                  2019 to makeover the thirsty turf at Auburn’s Maidu Fire
                   Station into a fire-resistant, water-wise landscape. The
-                  project is part of their application to earn the rank of Eagle
-                  Scout, the highest rank attainable in the Boy Scouts of
+                  project was part of their application to earn the rank of
+                  Eagle Scout, the highest rank attainable in the Boy Scouts of
                   America.
                 </Type>
                 <Type paragraph>
@@ -161,21 +160,16 @@ const FireResistantGardenPage = () => {
                   home. These plants can be damaged or even killed by fire, but
                   their foliage and stems are less likely to significantly
                   contribute to the fuel and fire's intensity as long as they
-                  are properly maintained, pruned and watered.
+                  are properly maintained, pruned and watered.{' '}
                 </Type>
                 <Type paragraph>
                   Fire-resistant plants are great in California, because they
-                  are often native and/or drought tolerant, too. When finished,
-                  the landscape will include more than 100 beautiful flowers,
-                  plants and shrubs that are both fire-resistant and water-wise.
+                  are often native and/or drought tolerant, too. The new
+                  landscape now includes more than 100 beautiful flowers, plants
+                  and shrubs that are both fire-resistant and water-wise.
                 </Type>
 
                 <ul>
-                  <TypeBullet>
-                    <ExtLink href="https://www.signupgenius.com/go/8050944afa928a3fe3-maidu">
-                      Volunteer now with Sign-up Genius
-                    </ExtLink>
-                  </TypeBullet>
                   <TypeBullet>
                     <ExtLink href="https://imgix.cosmicjs.com/7647c4d0-ad73-11e9-8ba7-dba4340cf409-MF-L2.1-050719.pdf">
                       View the landscape design plan
@@ -190,20 +184,19 @@ const FireResistantGardenPage = () => {
                 </ul>
                 <Spacing size="x-large" />
                 <Type paragraph>
-                  The garden also will feature state-of-the art drip irrigation
-                  and a WaterSense-labeled weather-based sprinkler timer. The
-                  drip irrigation, placed below the soil surface in a grid
-                  pattern, will deliver water at the root zone with zero
-                  evaporation. The sprinkler timer will use local weather
-                  conditions to deliver just the right amount of water plants
-                  need to be healthy.
+                  The garden also features state-of-the art drip irrigation and
+                  a WaterSense-labeled weather-based sprinkler timer. The drip
+                  irrigation, placed below the soil surface in a grid pattern,
+                  delivers water at the root zone with zero evaporation. The
+                  sprinkler timer uses local weather conditions to deliver just
+                  the right amount of water plants need to be healthy.
                 </Type>
-                <Type paragraph>
+                {/* <Type paragraph>
                   The existing lawn and plants are scheduled to be removed in
                   August and September, followed by installation of plants, the
                   irrigation system and mulch in October. The entire project is
                   expected to be completed by November.
-                </Type>
+                </Type> */}
 
                 <Spacing size="large" />
                 <Type variant="h5" color="primary" gutterBottom>

@@ -211,10 +211,10 @@ const menuConfig: MenuConfig[] = [
             title: 'Rebate Programs',
             nextLink: '/smart-water-use/rebate-programs'
           },
-          {
-            title: 'Fire-Resistant Garden',
-            nextLink: '/smart-water-use/fire-resistant-garden'
-          },
+          // {
+          //   title: 'Maidu Fire Station Makeover',
+          //   nextLink: '/smart-water-use/maidu-fire-station-makeover'
+          // },
           {
             title: 'Water Wise House Calls',
             nextLink: '/smart-water-use/house-calls'

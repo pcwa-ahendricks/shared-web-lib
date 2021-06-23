@@ -186,7 +186,12 @@ const legacyRedirects = [
   },
   {
     source: '/stewardship/fire-resistant-garden',
-    destination: '/smart-water-use/fire-resistant-garden',
+    destination: '/smart-water-use/maidu-fire-station-makeover',
+    permanent: true
+  },
+  {
+    source: '/smart-water-use/fire-resistant-garden',
+    destination: '/smart-water-use/maidu-fire-station-makeover',
     permanent: true
   },
   {
@@ -312,11 +317,6 @@ const legacyRedirects = [
   {
     source: '/stewardship/house-calls',
     destination: '/smart-water-use/house-calls',
-    permanent: true
-  },
-  {
-    source: '/stewardship/fire-resistant-garden',
-    destination: '/smart-water-use/fire-resistant-garden',
     permanent: true
   },
   {

@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => createStyles({}))
 
 const FireWiseLandscapingPage = () => {
   const classes = useStyles()
+
   return (
     <PageLayout title="Fire-wise Landscaping" waterSurface>
       <MainBox>

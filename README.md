@@ -72,7 +72,7 @@ See `next.config.js` for redirects.
 - `/stewardship/rebate-programs` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/landscape-resources` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/house-calls` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
-- `/stewardship/fire-resistant-garden` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
+- `/stewardship/fire-resistant-garden` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs and page was renamed to "maidu-fire-station-makeover".
 - `/stewardship/tips-for-kids` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/stewardship/stop-leaks` Was used on NG version of website. Stopped using "stewardship" for water efficiency related URLs.
 - `/recreation/campground` Was used on NG version of website. Use plural route instead.
