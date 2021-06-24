@@ -41,7 +41,7 @@ const useStyles = makeStyles(() =>
 )
 
 const FireResistantGardenPage = () => {
-  useJumpTo()
+  useJumpTo(undefined, true)
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
@@ -96,7 +96,7 @@ const FireResistantGardenPage = () => {
       title="Maidu Fire Station Makeover"
       alertsProps={{bottomBgGradient: false}}
       bannerComponent={
-        <FlexBox>
+        <FlexBox id="top">
           <Box
             m="auto"
             width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
@@ -178,7 +178,7 @@ const FireResistantGardenPage = () => {
                     </ExtLink>
                   </TypeBullet>
 
-                  <TypeBullet>
+                  <TypeBullet id="plantList">
                     <ExtLink href="https://cdn.cosmicjs.com/32c386c0-b540-11e9-a915-41acc1bf515a-Maidu-Fire-Station-WaterWiseFireWise-Plant-List.pdf">
                       See the complete plant list
                     </ExtLink>

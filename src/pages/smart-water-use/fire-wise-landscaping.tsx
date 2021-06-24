@@ -3,7 +3,6 @@ import {
   ListItemText,
   Box,
   Typography as Type,
-  createStyles,
   List,
   ListItem,
   makeStyles
@@ -15,7 +14,12 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'
 import Link from 'next/link'
 
-const useStyles = makeStyles(() => createStyles({}))
+const useStyles = makeStyles(() => ({
+  listItem: {
+    paddingTop: 4,
+    paddingBottom: 4
+  }
+}))
 
 const FireWiseLandscapingPage = () => {
   const classes = useStyles()
@@ -60,23 +64,7 @@ const FireWiseLandscapingPage = () => {
             <Type variant="h3" gutterBottom>
               Plant Selection
             </Type>
-            <List>
-              <Link
-                href="/smart-water-use/maidu-fire-station-makeover#landscapeDesignPlan"
-                passHref
-              >
-                <ListItem component="a">
-                  <ListItemText primary="See the landscape design used in the Maidu Fire Station Makeover in Auburn" />
-                </ListItem>
-              </Link>
-              <ListItem>
-                <ListItemText primary="Find more about creating a Fire-Smart Yard from FIRESafe Marin, including several helpful videos [link to: https://www.firesafemarin.org/fire-smart-yard]" />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Learn more about planting zones [link to: https://climate.asla.org/FirescapeDemonstrationGarden.html]" />
-              </ListItem>
-            </List>
-            <Spacing />
+
             <Type paragraph>
               A fire-resistant landscape features plants less likely to catch
               fire placed in ways to resist the spread of fire to a home. There
@@ -97,6 +85,34 @@ const FireWiseLandscapingPage = () => {
               Once planted, properly maintaining trees, shrubs and plants is
               just as important as their selection.
             </Type>
+            <List>
+              <Link
+                href="/smart-water-use/maidu-fire-station-makeover#plantList"
+                passHref
+              >
+                <ListItem component="a" classes={{root: classes.listItem}}>
+                  <ListItemText primary="See the plant list used in the Maidu Fire Station Makeover in Auburn" />
+                </ListItem>
+              </Link>
+              <ListItem
+                classes={{root: classes.listItem}}
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.firesafemarin.org/fire-smart-yard/choosing-plants"
+              >
+                <ListItemText primary="Learn more about Fire-Wise, Water-Wise plants from FIRESafe" />
+              </ListItem>
+              <ListItem
+                classes={{root: classes.listItem}}
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.firesafemarin.org/fire-smart-yard/mulches"
+              >
+                <ListItemText primary="Learn about fire-resistant mulch from FIRESafe Marin" />
+              </ListItem>
+            </List>
             <Spacing />
             <Type variant="h3" gutterBottom>
               Landscape Design and Plant Placement
@@ -127,14 +143,70 @@ const FireWiseLandscapingPage = () => {
               area include patios, masonry or rock planters, dry streambeds and
               boulders.
             </Type>
+            <List>
+              <Link
+                href="/smart-water-use/maidu-fire-station-makeover#landscapeDesignPlan"
+                passHref
+              >
+                <ListItem component="a" classes={{root: classes.listItem}}>
+                  <ListItemText primary="See the landscape design used in the Maidu Fire Station Makeover in Auburn" />
+                </ListItem>
+              </Link>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.firesafemarin.org/fire-smart-yard"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="Find more about creating a Fire-Smart Yard from FIRESafe Marin, including several helpful videos" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="Learn more about planting zones" />
+              </ListItem>
+            </List>
             <Spacing />
             <Type variant="h3" gutterBottom>
               Other Considerations
             </Type>
+            <List>
+              <ListItem classes={{root: classes.listItem}}>
+                <ListItemText primary="A home on a brushy site above a south- or west-facing slope will require more extensive defensible space landscape planning than a home located on a flat lot with little vegetation." />
+              </ListItem>
+              <ListItem classes={{root: classes.listItem}}>
+                <ListItemText primary="Prevailing winds, seasonal weather, local fire history and the characteristics of native vegetation are also important to consider when creating your Fire-Wise, Water-Wise landscape." />
+              </ListItem>
+            </List>
             <Spacing />
             <Type variant="h3" gutterBottom>
               Demonstration Gardens
             </Type>
+            <List>
+              <Link
+                href="/smart-water-use/maidu-fire-station-makeover"
+                as="/smart-water-use/maidu-fire-station-makeover"
+                passHref
+              >
+                <ListItem component="a" classes={{root: classes.listItem}}>
+                  <ListItemText primary="Maidu Fire Station Makeover in Auburn" />
+                </ListItem>
+              </Link>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="Firescape Demonstration Garden at Santa Barbara’s Firehouse #7" />
+              </ListItem>
+            </List>
           </Box>
         </NarrowContainer>
       </MainBox>
