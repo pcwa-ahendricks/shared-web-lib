@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Paper,
   ListItemText,
   Box,
   Typography as Type,
@@ -9,10 +10,12 @@ import {
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
-import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'
 import Link from 'next/link'
+import {ChildBox, RowBox} from 'mui-sleazebox'
+import WideContainer from '@components/containers/WideContainer'
+import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -27,7 +30,7 @@ const FireWiseLandscapingPage = () => {
   return (
     <PageLayout title="Fire-wise Landscaping" waterSurface>
       <MainBox>
-        <NarrowContainer>
+        <WideContainer>
           <PageTitle
             title="Fire-Wise, Water-Wise Landscaping"
             subtitle="Smart Water Use"
@@ -43,23 +46,42 @@ const FireWiseLandscapingPage = () => {
               reducing the vulnerability of homes and property to wildfire.
             </Type>
             <Spacing />
-            <Type variant="h3" gutterBottom>
-              What is Fire-Wise, Water-Wise Landscaping?
-            </Type>
-            <Type paragraph>
-              Fire-Wise, Water-Wise Landscaping (also called “Firescaping”) is
-              the practice of designing and maintaining your yard in a way that
-              reduces its vulnerability to wildfire. The goal is to create a
-              landscape that is both beautiful and provides defensible space to
-              protect your home and property from fire.
-            </Type>
-            <Type paragraph>
-              These landscapes can include many of the same traditional
-              landscape elements that are important to living and enjoying your
-              home, including places to entertain and play, and plants with
-              varying colors, textures, flowers and foliage. The difference lies
-              in the types of plants and their placement.
-            </Type>
+            <RowBox responsive flexSpacing={6}>
+              <ChildBox flex="75%">
+                <Type variant="h3" gutterBottom>
+                  What is Fire-Wise, Water-Wise Landscaping?
+                </Type>
+                <Type paragraph>
+                  Fire-Wise, Water-Wise Landscaping (also called “Firescaping”)
+                  is the practice of designing and maintaining your yard in a
+                  way that reduces its vulnerability to wildfire. The goal is to
+                  create a landscape that is both beautiful and provides
+                  defensible space to protect your home and property from fire.
+                </Type>
+                <Type paragraph>
+                  These landscapes can include many of the same traditional
+                  landscape elements that are important to living and enjoying
+                  your home, including places to entertain and play, and plants
+                  with varying colors, textures, flowers and foliage. The
+                  difference lies in the types of plants and their placement.
+                </Type>
+              </ChildBox>
+              <ChildBox flex="25%">
+                <Paper>
+                  <Box p={2}>
+                    <Type variant="body1">
+                      <em>
+                        <StrongEmphasis>Defensible space</StrongEmphasis> is an
+                        area between your home and other structures where
+                        potential fuel (materials or vegetation) are modified,
+                        reduced or cleared to create a barrier and slow the
+                        spread of wildfire toward a home.
+                      </em>
+                    </Type>
+                  </Box>
+                </Paper>
+              </ChildBox>
+            </RowBox>
             <Spacing />
             <Type variant="h3" gutterBottom>
               Plant Selection
@@ -208,7 +230,7 @@ const FireWiseLandscapingPage = () => {
               </ListItem>
             </List>
           </Box>
-        </NarrowContainer>
+        </WideContainer>
       </MainBox>
     </PageLayout>
   )
