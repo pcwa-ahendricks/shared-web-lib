@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 
 // Header toolbar is 48 pixels collapsed, but ideally a additional 20px margin would be added too
 // See https://github.com/vercel/next.js/issues/11109#issuecomment-751429015
-const useJumpTo = (offset = 20, fallbackTop = false, timeout = 600) => {
+const useJumpTo = (offset = 20, timeout = 600) => {
   const headerOffset = 48
 
   useEffect(() => {
@@ -17,18 +17,8 @@ const useJumpTo = (offset = 20, fallbackTop = false, timeout = 600) => {
           behavior: 'smooth'
         })
       }, timeout)
-    } else {
-      if (fallbackTop) {
-        console.log('scrolltop')
-        setTimeout(() => {
-          window.top.scroll({
-            top: 0,
-            behavior: 'smooth'
-          })
-        }, timeout)
-      }
     }
-  }, [offset, timeout, fallbackTop])
+  }, [offset, timeout])
 }
 
 export default useJumpTo

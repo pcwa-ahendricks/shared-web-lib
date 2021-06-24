@@ -41,7 +41,7 @@ const useStyles = makeStyles(() =>
 )
 
 const FireResistantGardenPage = () => {
-  useJumpTo(undefined, true)
+  useJumpTo(undefined)
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
