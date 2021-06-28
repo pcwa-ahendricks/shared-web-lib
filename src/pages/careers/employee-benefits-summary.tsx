@@ -25,6 +25,7 @@ import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
 import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import {Link} from '@material-ui/core'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -304,6 +305,22 @@ const EmployeeBenefitsSummaryPage = () => {
               </Type>
               <Type paragraph>
                 The Agency <em>does</em> participate in Social Security.
+              </Type>
+              <Type variant="subtitle1" gutterBottom>
+                Family and Medical Leave Act (FMLA) Eligibility
+              </Type>
+              <Type paragraph>
+                Click on the following link to view{' '}
+                <Link
+                  underline="always"
+                  variant="inherit"
+                  href="https://docs.pcwa.net/fmla-poster.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Family and Medical Leave Act
+                </Link>{' '}
+                entitlements.
               </Type>
             </Box>
           </SectionBox>
