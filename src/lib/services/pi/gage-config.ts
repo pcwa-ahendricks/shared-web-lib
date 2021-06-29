@@ -140,7 +140,7 @@ const gages: GageConfigItem[] = [
     id: 'R11',
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Middle Fork American River near Foresthill',
-    chartValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
     tableValues: ['Flow', 'Height'],
     tables: [
       {
