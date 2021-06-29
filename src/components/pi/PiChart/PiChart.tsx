@@ -123,7 +123,6 @@ const PiChart = ({
       ...i,
       Value: i.Value * 1.8 + 32,
       UnitsAbbreviation: '°F'
-      // Value: i.Value * 1.8 + 32
     }))
   }, [data, isTemperature])
 
