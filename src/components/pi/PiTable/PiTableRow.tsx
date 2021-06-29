@@ -29,23 +29,51 @@ const PiTableRow = ({data, timestampFormat}: Props) => {
     () => values.findIndex((i) => i.columnNo === 3),
     [values]
   )
+  const colDIndex = useMemo(
+    () => values.findIndex((i) => i.columnNo === 4),
+    [values]
+  )
+
+  const hasColB = colBIndex >= 0
+  const hasColC = colCIndex >= 0
+  const hasColD = colDIndex >= 0
 
   const tableRowEl = useMemo(
     () =>
-      values.length > 0 && values[colBIndex] && values[colCIndex] ? (
+      values.length > 0 ? (
         <TableRow tabIndex={-1}>
           <TableCell component="th" scope="row">
             {format(timestamp, timestampFormat)}
           </TableCell>
-          <TableCell align="right">
-            {formatNumber(values[colBIndex].value)}
-          </TableCell>
-          <TableCell align="right">
-            {formatNumber(values[colCIndex].value)}
-          </TableCell>
+          {hasColB ? (
+            <TableCell align="right">
+              {formatNumber(values[colBIndex].value)}
+            </TableCell>
+          ) : null}
+          {hasColC ? (
+            <TableCell align="right">
+              {formatNumber(values[colCIndex].value)}
+            </TableCell>
+          ) : null}
+          {hasColD ? (
+            <TableCell align="right">
+              {formatNumber(values[colDIndex].value)}
+            </TableCell>
+          ) : null}
         </TableRow>
       ) : null,
-    [formatNumber, timestampFormat, colBIndex, colCIndex, timestamp, values]
+    [
+      formatNumber,
+      timestampFormat,
+      colBIndex,
+      colCIndex,
+      colDIndex,
+      timestamp,
+      values,
+      hasColB,
+      hasColC,
+      hasColD
+    ]
   )
 
   return <>{tableRowEl}</>
