@@ -244,9 +244,10 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
       // convert celsius to fahrenheit
       items: [...(colCData?.Items ?? [])].map((i) => ({
         ...i,
-        Value: round(i.Value * 1.8 + 32, 2)
+        Value: round(i.Value * 1.8 + 32, 2),
+        UnitsAbbreviation: '°F'
       })),
-      units: colCData?.UnitsAbbreviation || '℉'
+      units: colCData?.UnitsAbbreviation || '°F'
     }
     // Not all tables will have a temperature attribute
     return [a, b, c].filter((i) => i.index >= 0)

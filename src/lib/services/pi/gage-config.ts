@@ -50,7 +50,7 @@ const gageStationHeadersWithTemp: TableHeader[] = [
     id: 'temperature',
     numeric: true,
     disablePadding: false,
-    label: 'Temperature (℉)'
+    label: 'Temperature (°F)'
   }
 ]
 
