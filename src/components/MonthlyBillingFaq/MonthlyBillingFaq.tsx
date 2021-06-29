@@ -89,7 +89,7 @@ const MonthlyBillingFaq = () => {
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
-      <Accordion
+      {/* <Accordion
         expanded={expanded === 'panel2'}
         onChange={handleChange('panel2')}
         classes={{root: classes.expansionPanel}}
@@ -115,7 +115,7 @@ const MonthlyBillingFaq = () => {
             </Type>
           </ColumnBox>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       <Accordion
         expanded={expanded === 'panel3'}
