@@ -100,11 +100,12 @@ const PiChart = ({
   const {data, isValidating} = useSWR<PiWebElementAttributeStream>(
     webId ? url : null
   )
-  // [TODO] - Ask Chandra to add units to temperature attribute
-  const units = data?.UnitsAbbreviation || '℉' // don't use ?? operator here since '' is what we want to catch
+
+  const units =
+    data?.UnitsAbbreviation === '°C' ? '°F' : data?.UnitsAbbreviation ?? ''
   const isFlow = units?.toLowerCase() === 'cfs'
   const isStorage = units?.toLowerCase() === 'acre ft'
-  const isTemperature = units?.toLowerCase() === '℉'
+  const isTemperature = units?.toLowerCase() === '°C'
   const dataItems = useMemo(() => {
     const items = data?.Items ?? []
     if (!isTemperature) {
@@ -113,7 +114,8 @@ const PiChart = ({
     // convert celsius to fahrenheit
     return items.map((i) => ({
       ...i,
-      Value: i.Value * 1.8 + 32
+      Value: i.Value * 1.8 + 32,
+      UnitsAbbreviation: '°F'
     }))
   }, [data, isTemperature])
 
