@@ -107,12 +107,6 @@ const PiChart = ({
   const isStorage = units?.toLowerCase() === 'acre ft'
   const isTemperature = units?.toLowerCase() === '°f'
 
-  // [TODO] - Ask Chandra to add units to temperature attribute
-  // const units = data?.UnitsAbbreviation || '℉' // don't use ?? operator here since '' is what we want to catch
-  // const isFlow = units?.toLowerCase() === 'cfs'
-  // const isStorage = units?.toLowerCase() === 'acre ft'
-  // const isTemperature = units?.toLowerCase() === '℉'
-
   const dataItems = useMemo(() => {
     const items = data?.Items ?? []
     if (!isTemperature) {
