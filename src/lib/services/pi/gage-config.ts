@@ -9,7 +9,7 @@ export interface GageConfigItem {
     | '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
   description: string
   chartValues: string[]
-  tableValues: [string, string] // <PiTable/> is configured for two-columns only.
+  tableValues: [string, string] | [string, string, string]
   tables: GageConfigTable[]
   disabled?: boolean
   review?: boolean
@@ -41,6 +41,16 @@ const gageStationHeaders: TableHeader[] = [
     numeric: true,
     disablePadding: false,
     label: 'Stage (Feet)'
+  }
+]
+
+const gageStationHeadersWithTemp: TableHeader[] = [
+  ...gageStationHeaders,
+  {
+    id: 'temperature',
+    numeric: true,
+    disablePadding: false,
+    label: 'Temperature (℉)'
   }
 ]
 
@@ -141,15 +151,15 @@ const gages: GageConfigItem[] = [
     baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
     description: 'Middle Fork American River near Foresthill',
     chartValues: ['Flow', 'Height', 'Temperature'],
-    tableValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     tables: [
       {
         metric: 'daily',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       },
       {
         metric: 'monthly',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       }
     ]
   },

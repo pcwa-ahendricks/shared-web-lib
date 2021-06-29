@@ -52,6 +52,7 @@ import {
   PiWebElementStreamSetResponse
 } from '@lib/services/pi/pi-web-api-types'
 import {generate} from 'shortid'
+import round from '@lib/round'
 // const isDev = process.env.NODE_ENV === 'development'
 const TABLE_TIME_INTERVAL = '15m'
 
@@ -170,6 +171,7 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
   )
   const colAValues = tableValues[0]
   const colBValues = tableValues[1]
+  const colCValues = tableValues[2]
 
   // useEffect(() => {
   //   isDev &&
@@ -212,31 +214,43 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
   )
   const webIdA = colAValues?.webId
   const webIdB = colBValues?.webId
+  const webIdC = colCValues?.webId
   const colAUrl = `${piApiUrl}/streams/${webIdA}/interpolated${qs}`
   const colBUrl = `${piApiUrl}/streams/${webIdB}/interpolated${qs}`
+  const colCUrl = `${piApiUrl}/streams/${webIdC}/interpolated${qs}`
 
   const {data: colAData, isValidating: colAIsValidating} =
     useSWR<PiWebElementAttributeStream>(webIdA && qs ? colAUrl : null)
   const {data: colBData, isValidating: colBIsValidating} =
     useSWR<PiWebElementAttributeStream>(webIdB && qs ? colBUrl : null)
+  const {data: colCData, isValidating: colCIsValidating} =
+    useSWR<PiWebElementAttributeStream>(webIdC && qs ? colCUrl : null)
 
-  const isValidating = colAIsValidating || colBIsValidating
+  const isValidating = colAIsValidating || colBIsValidating || colCIsValidating
 
   const tableItems = useMemo(() => {
     const a = {
       ...colAValues,
-      items: colAData && colAData.Items ? [...colAData.Items] : [],
-      units:
-        colAData && colAData.UnitsAbbreviation ? colAData.UnitsAbbreviation : ''
+      items: [...(colAData?.Items ?? [])],
+      units: colAData?.UnitsAbbreviation ?? ''
     }
     const b = {
       ...colBValues,
-      items: colBData && colBData.Items ? [...colBData.Items] : [],
-      units:
-        colBData && colBData.UnitsAbbreviation ? colBData.UnitsAbbreviation : ''
+      items: [...(colBData?.Items ?? [])],
+      units: colBData?.UnitsAbbreviation ?? ''
     }
-    return [a, b]
-  }, [colAData, colBData, colAValues, colBValues])
+    const c = {
+      ...colCValues,
+      // convert celsius to fahrenheit
+      items: [...(colCData?.Items ?? [])].map((i) => ({
+        ...i,
+        Value: round(i.Value * 1.8 + 32, 2)
+      })),
+      units: colCData?.UnitsAbbreviation || '℉'
+    }
+    // Not all tables will have a temperature attribute
+    return [a, b, c].filter((i) => i.index >= 0)
+  }, [colAData, colBData, colAValues, colBValues, colCData, colCValues])
 
   const zippedTableData = useMemo(
     () =>
@@ -386,14 +400,18 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
           : ''
         const col2Obj = item.values.find((i) => i.columnNo === 2)
         const col3Obj = item.values.find((i) => i.columnNo === 3)
+        const col4Obj = item.values.find((i) => i.columnNo === 4)
         const col2Attribute = col2Obj && col2Obj.attribute.toLowerCase()
         const col3Attribute = col3Obj && col3Obj.attribute.toLowerCase()
+        const col4Attribute = col4Obj && col4Obj.attribute.toLowerCase()
         const col2Value = col2Obj && col2Obj.value
         const col3Value = col3Obj && col3Obj.value
+        const col4Value = col4Obj && col4Obj.value
         return {
           timestamp,
           [formatAttrib(col2Attribute)]: col2Value || '',
-          [formatAttrib(col3Attribute)]: col3Value || ''
+          [formatAttrib(col3Attribute)]: col3Value || '',
+          [formatAttrib(col4Attribute)]: col4Value || ''
         }
       }),
     [data, formatAttrib]
