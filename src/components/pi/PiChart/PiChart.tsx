@@ -105,7 +105,7 @@ const PiChart = ({
     data?.UnitsAbbreviation === '°C' ? '°F' : data?.UnitsAbbreviation ?? ''
   const isFlow = units?.toLowerCase() === 'cfs'
   const isStorage = units?.toLowerCase() === 'acre ft'
-  const isTemperature = units?.toLowerCase() === '°C'
+  const isTemperature = units?.toLowerCase() === '°F'
   const dataItems = useMemo(() => {
     const items = data?.Items ?? []
     if (!isTemperature) {
