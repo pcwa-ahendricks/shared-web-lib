@@ -19,6 +19,7 @@ import TreatedIcon from 'mdi-material-ui/CupWater'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MonthlyBillingFaq from '@components/MonthlyBillingFaq/MonthlyBillingFaq'
+import imgixLoader from '@lib/imageLoader'
 
 export default function MonthlyBillingPage() {
   return (
@@ -105,11 +106,12 @@ export default function MonthlyBillingPage() {
           <RowBox justifyContent="space-around">
             <ChildBox flex={{xs: 'auto', sm: '0 1 90%'}}>
               <Image
-                width={700}
-                height={452}
+                loader={imgixLoader}
+                width={2100}
+                height={1500}
                 layout="responsive"
                 sizes="(max-width: 700px) 100vw, 700px"
-                src="https://imgix.cosmicjs.com/394c7420-9c84-11eb-85ef-2dda0e0d7ad2-PCWA-Monthly-Bill-Web-.JPG"
+                src="56867e20-d47c-11eb-bfc5-2fdb31ae3481-PCWAMonthlyBillingWebImage-2022.jpg"
                 alt="PCWA is transitioning to monthly billing"
               />
             </ChildBox>
