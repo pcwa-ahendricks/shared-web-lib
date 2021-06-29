@@ -181,19 +181,19 @@ const DynamicPiPage = ({
 
   const sortedChartData = useMemo(() => {
     // [hack] Hot reloading during development messes up the uniqueness of the array of objects. This is addressed with the if block.
-    if (isDev) {
-      const filteredArray: typeof unsortedCharts = []
-      unsortedCharts.filter((item) => {
-        const i = filteredArray.findIndex((x) => x.index === item.index)
-        if (i <= -1) {
-          filteredArray.push({...item})
-        }
-        return null
-      })
-      return filteredArray.sort((a, b) => a.index - b.index)
-    } else {
-      return unsortedCharts.sort((a, b) => a.index - b.index)
-    }
+    // if (isDev) {
+    //   const filteredArray: typeof unsortedCharts = []
+    //   unsortedCharts.filter((item) => {
+    //     const i = filteredArray.findIndex((x) => x.index === item.index)
+    //     if (i <= -1) {
+    //       filteredArray.push({...item})
+    //     }
+    //     return null
+    //   })
+    //   return filteredArray.sort((a, b) => a.index - b.index)
+    // } else {
+    return unsortedCharts.sort((a, b) => a.index - b.index)
+    // }
   }, [unsortedCharts])
 
   // console.log('TBL Data', tableData)
