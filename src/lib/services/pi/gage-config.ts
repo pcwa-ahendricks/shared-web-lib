@@ -138,7 +138,7 @@ const gages: GageConfigItem[] = [
     id: 'R11',
     type: 'gage',
     description: 'Middle Fork American River near Foresthill',
-    chartValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
     tableValues: ['Flow', 'Height'],
     tables: [
       {
