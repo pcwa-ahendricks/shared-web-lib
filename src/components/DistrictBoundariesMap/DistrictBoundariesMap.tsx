@@ -23,7 +23,7 @@ import {directors, Director} from '@lib/directors'
 import {ColumnBox} from 'mui-sleazebox'
 import useMapUnsupported from '@hooks/useMapIsUnsupported'
 import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
-// import usePrevious from '@hooks/usePrevious'
+//import usePrevious from 'react-use'
 import useSupportsTouch from '@hooks/useSupportsTouch'
 import NoPinch from '@components/NoPinch/NoPinch'
 import {useDebouncedCallback} from 'use-debounce'
@@ -79,7 +79,7 @@ const DistrictBoundariesMap = () => {
     null
   )
   const [isTransitioning, setIsTransitioning] = useState(false)
-  // const prevLastResultCoords = usePrevious(lastResultCoords)
+  // const prevLastResultCoords = useLatest(lastResultCoords)
   // const [map, setMap] = useState<mapboxgl.Map>()
 
   const mapRef = useRef<MapRef>(null)
@@ -101,7 +101,7 @@ const DistrictBoundariesMap = () => {
       bos_id: bosId = null
       // bos_title: bosTitle = null
     } = featureProperties
-    // Note - if activeDistrict is used in this callback, usePrevious hook will need to be used and checked in effect below that calls queryDistrict since distillDistrict callback will update and cause that effect to fire.
+    // Note - if activeDistrict is used in this callback, useLatest hook will need to be used and checked in effect below that calls queryDistrict since distillDistrict callback will update and cause that effect to fire.
     setActiveDistrict(bosId)
   }, [])
 

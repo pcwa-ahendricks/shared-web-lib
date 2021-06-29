@@ -7,6 +7,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
   // Divider,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -25,7 +26,6 @@ import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
 import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import {Link} from '@material-ui/core'
 
 const useStyles = makeStyles(() =>
   createStyles({
