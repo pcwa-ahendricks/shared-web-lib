@@ -110,54 +110,59 @@ const FireWiseLandscapingPage = () => {
               Once planted, properly maintaining trees, shrubs and plants is
               just as important as their selection.
             </Type>
-            <List>
-              <ListItem
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                classes={{root: classes.listItem}}
-                href="https://docs.pcwa.net/maidu-fire-station-landscape-plants.pdf"
-              >
-                <ListItemText primary="See the plant list used in the Maidu Fire Station Makeover in Auburn" />
-              </ListItem>
-              <ListItem
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                classes={{root: classes.listItem}}
-                href="https://docs.pcwa.net/cnps-redbud-fire-resistant.pdf"
-              >
-                <ListItemText primary="Selected Fire-Resistant Native Plants for Nevada and Placer County Landscapes" />
-              </ListItem>
-              <ListItem
-                classes={{root: classes.listItem}}
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.firesafemarin.org/fire-smart-yard/choosing-plants"
-              >
-                <ListItemText primary="Learn more about Fire-Wise, Water-Wise plants from FIRESafe Marin" />
-              </ListItem>
-              <ListItem
-                classes={{root: classes.listItem}}
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.firesafemarin.org/fire-smart-yard/mulches"
-              >
-                <ListItemText primary="Learn about fire-resistant mulch from FIRESafe Marin" />
-              </ListItem>
-              <ListItem
-                classes={{root: classes.listItem}}
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://naes.agnt.unr.edu/PMS/Pubs/1510_2011_95.pdf"
-              >
-                <ListItemText primary="The Combustibility of Landscape Mulches by the University of Nevada Cooperative Extension" />
-              </ListItem>
-            </List>
-            <Spacing />
+            <Spacing size="large" />
+            <Paper elevation={0}>
+              <Box p={1}>
+                <List>
+                  <ListItem
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    classes={{root: classes.listItem}}
+                    href="https://docs.pcwa.net/maidu-fire-station-landscape-plants.pdf"
+                  >
+                    <ListItemText primary="See the plant list used in the Maidu Fire Station Makeover in Auburn" />
+                  </ListItem>
+                  <ListItem
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    classes={{root: classes.listItem}}
+                    href="https://docs.pcwa.net/cnps-redbud-fire-resistant.pdf"
+                  >
+                    <ListItemText primary="Selected Fire-Resistant Native Plants for Nevada and Placer County Landscapes" />
+                  </ListItem>
+                  <ListItem
+                    classes={{root: classes.listItem}}
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.firesafemarin.org/fire-smart-yard/choosing-plants"
+                  >
+                    <ListItemText primary="Learn more about Fire-Wise, Water-Wise plants from FIRESafe Marin" />
+                  </ListItem>
+                  <ListItem
+                    classes={{root: classes.listItem}}
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.firesafemarin.org/fire-smart-yard/mulches"
+                  >
+                    <ListItemText primary="Learn about fire-resistant mulch from FIRESafe Marin" />
+                  </ListItem>
+                  <ListItem
+                    classes={{root: classes.listItem}}
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://naes.agnt.unr.edu/PMS/Pubs/1510_2011_95.pdf"
+                  >
+                    <ListItemText primary="The Combustibility of Landscape Mulches by the University of Nevada Cooperative Extension" />
+                  </ListItem>
+                </List>
+              </Box>
+            </Paper>
+            <Spacing factor={2} />
             <Type variant="h3" gutterBottom>
               Landscape Design and Plant Placement
             </Type>
@@ -187,35 +192,41 @@ const FireWiseLandscapingPage = () => {
               area include patios, masonry or rock planters, dry streambeds and
               boulders.
             </Type>
-            <List>
-              <ListItem
-                component="a"
-                classes={{root: classes.listItem}}
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://docs.pcwa.net/maidu-fire-station-landscape-dev-plans.pdf"
-              >
-                <ListItemText primary="See the landscape design used in the Maidu Fire Station Makeover in Auburn" />
-              </ListItem>
-              <ListItem
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.firesafemarin.org/fire-smart-yard"
-                classes={{root: classes.listItem}}
-              >
-                <ListItemText primary="Find more about creating a Fire-Smart Yard from FIRESafe Marin, including several helpful videos" />
-              </ListItem>
-              <ListItem
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
-                classes={{root: classes.listItem}}
-              >
-                <ListItemText primary="Learn more about planting zones" />
-              </ListItem>
-            </List>
+            <Spacing size="large" />
+
+            <Paper elevation={0}>
+              <Box p={1}>
+                <List>
+                  <ListItem
+                    component="a"
+                    classes={{root: classes.listItem}}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.pcwa.net/maidu-fire-station-landscape-dev-plans.pdf"
+                  >
+                    <ListItemText primary="See the landscape design used in the Maidu Fire Station Makeover in Auburn" />
+                  </ListItem>
+                  <ListItem
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.firesafemarin.org/fire-smart-yard"
+                    classes={{root: classes.listItem}}
+                  >
+                    <ListItemText primary="Find more about creating a Fire-Smart Yard from FIRESafe Marin, including several helpful videos" />
+                  </ListItem>
+                  <ListItem
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
+                    classes={{root: classes.listItem}}
+                  >
+                    <ListItemText primary="Learn more about planting zones" />
+                  </ListItem>
+                </List>
+              </Box>
+            </Paper>
             <Spacing factor={2} />
             <RowBox justifyContent="space-around">
               <Box maxWidth={1400} flex="1 1 auto">
@@ -239,6 +250,7 @@ const FireWiseLandscapingPage = () => {
             <Type variant="h3" gutterBottom>
               Other Considerations
             </Type>
+
             <List>
               <ListItem classes={{root: classes.listItem}}>
                 <ListItemText primary="A home on a brushy site above a south- or west-facing slope will require more extensive defensible space landscape planning than a home located on a flat lot with little vegetation." />
@@ -247,30 +259,35 @@ const FireWiseLandscapingPage = () => {
                 <ListItemText primary="Prevailing winds, seasonal weather, local fire history and the characteristics of native vegetation are also important to consider when creating your Fire-Wise, Water-Wise landscape." />
               </ListItem>
             </List>
+
             <Spacing />
             <Type variant="h3" gutterBottom>
               Demonstration Gardens
             </Type>
-            <List>
-              <Link
-                href="/smart-water-use/maidu-fire-station-makeover"
-                as="/smart-water-use/maidu-fire-station-makeover"
-                passHref
-              >
-                <ListItem component="a" classes={{root: classes.listItem}}>
-                  <ListItemText primary="Maidu Fire Station Makeover in Auburn" />
-                </ListItem>
-              </Link>
-              <ListItem
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
-                classes={{root: classes.listItem}}
-              >
-                <ListItemText primary="Firescape Demonstration Garden at Santa Barbara’s Firehouse #7" />
-              </ListItem>
-            </List>
+            <Paper elevation={0}>
+              <Box p={1}>
+                <List>
+                  <Link
+                    href="/smart-water-use/maidu-fire-station-makeover"
+                    as="/smart-water-use/maidu-fire-station-makeover"
+                    passHref
+                  >
+                    <ListItem component="a" classes={{root: classes.listItem}}>
+                      <ListItemText primary="Maidu Fire Station Makeover in Auburn" />
+                    </ListItem>
+                  </Link>
+                  <ListItem
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
+                    classes={{root: classes.listItem}}
+                  >
+                    <ListItemText primary="Firescape Demonstration Garden at Santa Barbara’s Firehouse #7" />
+                  </ListItem>
+                </List>
+              </Box>
+            </Paper>
             <Spacing />
             <Type variant="h3" gutterBottom>
               Additional Resources
