@@ -23,11 +23,6 @@ import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 
-const images = [
-  'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg'
-] as const
-const [bannerImgSrc] = images
-
 // const useStyles = makeStyles(() =>
 //   createStyles({
 //   })
@@ -100,7 +95,7 @@ const GeneralInfoPage = () => {
                 width: 800,
                 height: 533,
                 priority: true,
-                src: bannerImgSrc,
+                src: 'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg',
                 alt: 'Photo of Hell Hole Reservoir'
               }}
               style={{

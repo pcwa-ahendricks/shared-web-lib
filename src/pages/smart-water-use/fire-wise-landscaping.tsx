@@ -1,7 +1,9 @@
+// cspell:ignore firewise
 import React from 'react'
 import {
   Paper,
   ListItemText,
+  Link as MatLink,
   Box,
   Typography as Type,
   List,
@@ -16,6 +18,7 @@ import Link from 'next/link'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import WideContainer from '@components/containers/WideContainer'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -108,14 +111,24 @@ const FireWiseLandscapingPage = () => {
               just as important as their selection.
             </Type>
             <List>
-              <Link
-                href="/smart-water-use/maidu-fire-station-makeover#plantList"
-                passHref
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                classes={{root: classes.listItem}}
+                href="https://docs.pcwa.net/maidu-fire-station-landscape-plants.pdf"
               >
-                <ListItem component="a" classes={{root: classes.listItem}}>
-                  <ListItemText primary="See the plant list used in the Maidu Fire Station Makeover in Auburn" />
-                </ListItem>
-              </Link>
+                <ListItemText primary="See the plant list used in the Maidu Fire Station Makeover in Auburn" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                classes={{root: classes.listItem}}
+                href="https://docs.pcwa.net/cnps-redbud-fire-resistant.pdf"
+              >
+                <ListItemText primary="Selected Fire-Resistant Native Plants for Nevada and Placer County Landscapes" />
+              </ListItem>
               <ListItem
                 classes={{root: classes.listItem}}
                 component="a"
@@ -123,7 +136,7 @@ const FireWiseLandscapingPage = () => {
                 rel="noopener noreferrer"
                 href="https://www.firesafemarin.org/fire-smart-yard/choosing-plants"
               >
-                <ListItemText primary="Learn more about Fire-Wise, Water-Wise plants from FIRESafe" />
+                <ListItemText primary="Learn more about Fire-Wise, Water-Wise plants from FIRESafe Marin" />
               </ListItem>
               <ListItem
                 classes={{root: classes.listItem}}
@@ -133,6 +146,15 @@ const FireWiseLandscapingPage = () => {
                 href="https://www.firesafemarin.org/fire-smart-yard/mulches"
               >
                 <ListItemText primary="Learn about fire-resistant mulch from FIRESafe Marin" />
+              </ListItem>
+              <ListItem
+                classes={{root: classes.listItem}}
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://naes.agnt.unr.edu/PMS/Pubs/1510_2011_95.pdf"
+              >
+                <ListItemText primary="The Combustibility of Landscape Mulches by the University of Nevada Cooperative Extension" />
               </ListItem>
             </List>
             <Spacing />
@@ -166,14 +188,15 @@ const FireWiseLandscapingPage = () => {
               boulders.
             </Type>
             <List>
-              <Link
-                href="/smart-water-use/maidu-fire-station-makeover#landscapeDesignPlan"
-                passHref
+              <ListItem
+                component="a"
+                classes={{root: classes.listItem}}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://docs.pcwa.net/maidu-fire-station-landscape-dev-plans.pdf"
               >
-                <ListItem component="a" classes={{root: classes.listItem}}>
-                  <ListItemText primary="See the landscape design used in the Maidu Fire Station Makeover in Auburn" />
-                </ListItem>
-              </Link>
+                <ListItemText primary="See the landscape design used in the Maidu Fire Station Makeover in Auburn" />
+              </ListItem>
               <ListItem
                 component="a"
                 target="_blank"
@@ -193,7 +216,26 @@ const FireWiseLandscapingPage = () => {
                 <ListItemText primary="Learn more about planting zones" />
               </ListItem>
             </List>
-            <Spacing />
+            <Spacing factor={2} />
+            <RowBox justifyContent="space-around">
+              <Box maxWidth={1400} flex="1 1 auto">
+                <ImageParallaxBanner
+                  amount={0.1}
+                  ImageProps={{
+                    width: 6720,
+                    height: 4480,
+                    priority: true,
+                    src: 'https://imgix.cosmicjs.com/0aa9f030-d937-11eb-a548-fd45a29c394a-3-Fire-station-year-after-makeover002.jpg',
+                    alt: 'Photo of Maidu Fire Station landscaped with fire-wise and water-wise plants'
+                  }}
+                  style={{
+                    height: '45vw',
+                    maxHeight: '55vh'
+                  }}
+                />
+              </Box>
+            </RowBox>
+            <Spacing factor={2} />
             <Type variant="h3" gutterBottom>
               Other Considerations
             </Type>
@@ -228,6 +270,95 @@ const FireWiseLandscapingPage = () => {
               >
                 <ListItemText primary="Firescape Demonstration Garden at Santa Barbara’s Firehouse #7" />
               </ListItem>
+            </List>
+            <Spacing />
+            <Type variant="h3" gutterBottom>
+              Additional Resources
+            </Type>
+            <List>
+              <ListItem>
+                <ListItemText>
+                  <Type variant="subtitle1">Firewise Trailer Program </Type>
+                  <Type variant="subtitle2" gutterBottom>
+                    <em>Free from the Placer Resource Conservation District</em>
+                  </Type>
+                  <Type>
+                    To assist communities in becoming fire safe, the Placer RCD
+                    Firewise Trailer is now available for community and
+                    neighborhood clean-up days. The trailer is full of tools
+                    such as pruners, rakes, weed eaters, loppers weed wrenches
+                    and hand tools. Educational materials regarding defensible
+                    space and wildfire prevention are also available for events.
+                    For information, please contact George Alves at{' '}
+                    <MatLink href="mailto:George@placerrcd.org">
+                      George@placerrcd.org
+                    </MatLink>
+                  </Type>
+                </ListItemText>
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                classes={{root: classes.listItem}}
+                href="http://sonomamg.ucanr.edu/Firewise_Landscaping/"
+              >
+                <ListItemText primary="Firewise Landscaping Information from the UC Master Gardener Program of Sonoma County" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.readyforwildfire.org/prepare-for-wildfire/get-ready/fire-resistant-landscaping/"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="Fire-Resistant Landscaping Information from CalFire" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://ucanr.edu/sites/fire/Prepare/"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="UC Cooperative Extension: Fire in California: Wildfire Preparation" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.placer.ca.gov/5721/Fire-Safe-Alliance"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="Placer County Fire Safe Alliance" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://ucanr.edu/sites/SoCo/files/308873.pdf"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="Produce Safety after Urban Wildfire" />
+              </ListItem>
+              <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="http://pcmg.ucanr.org/Drought_Advice/"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="UC Master Gardeners of Placer County Drought Advice" />
+              </ListItem>
+              {/* <ListItem
+                component="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://docs.pcwa.net/test.png"
+                classes={{root: classes.listItem}}
+              >
+                <ListItemText primary="test" />
+              </ListItem> */}
             </List>
           </Box>
         </WideContainer>
