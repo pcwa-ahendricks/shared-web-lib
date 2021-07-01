@@ -219,7 +219,7 @@ const RebateProgramsPage = () => {
               </Box>
             </Paper>
           </Box>
-          <Spacing size="large" />
+          <Spacing factor={2} />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="45%">
               <Type paragraph>
