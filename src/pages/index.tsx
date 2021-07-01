@@ -204,11 +204,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               // aria-label="Link to Monthly Billing FAQs page"
               imageRatio={coverStoryImageRatio}
               title="Summer of Savings coming soon…and, going fast!"
-              readMore="Send us an email"
-              // flexLinkProps={{
-              //   isNextLink: true
-              // }}
-              linkHref="mailto:rebates@pcwa.net"
+              readMore="See Rebate Programs"
+              flexLinkProps={{
+                isNextLink: true
+              }}
+              linkHref="/smart-water-use/rebate-programs"
               imgixURL="https://imgix.cosmicjs.com/9385f6d0-da93-11eb-a548-fd45a29c394a-HE-sprinkler.tif"
               alt="High Efficiency sprinkler head watering lawn"
               imgixParams={{
