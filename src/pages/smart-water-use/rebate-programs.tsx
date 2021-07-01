@@ -1,6 +1,9 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
+  ListItemText,
+  Paper,
+  ListItem,
   Typography as Type,
   Box,
   useTheme,
@@ -8,7 +11,9 @@ import {
   createStyles,
   makeStyles,
   BoxProps,
-  Theme
+  Theme,
+  List,
+  ListItemProps
 } from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -24,6 +29,9 @@ import NextLink from 'next/link'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import {blue} from '@material-ui/core/colors'
+import RebatesEmail from '@components/links/RebatesEmail'
+import colorAlpha from 'color-alpha'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.95rem',
       paddingRight: theme.spacing(1),
       color: theme.palette.secondary.main
+    },
+    listItem: {paddingBottom: 0},
+    darkSecondary: {
+      color: theme.palette.secondary.dark
     }
   })
 )
@@ -105,11 +117,109 @@ const RebateProgramsPage = () => {
     )
   }
 
+  const Li = useCallback(
+    ({children}: ListItemProps) => {
+      return <ListItem classes={{root: classes.listItem}}>{children}</ListItem>
+    },
+    [classes]
+  )
+
   return (
     <PageLayout title="Rebate Programs" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Rebate Programs" subtitle="Smart Water Use" />
+          <Box>
+            <Paper elevation={5}>
+              <Box p={4} bgcolor={colorAlpha(blue[50], 0.4)}>
+                <Type variant="h3" gutterBottom>
+                  Summer of Savings coming soon…and, going fast!
+                </Type>
+                <Type paragraph>
+                  PCWA wants you to save! Online applications for our enhanced
+                  water efficiency rebate program will be available{' '}
+                  <strong>July 12</strong>. For more information about rebate
+                  terms and conditions, or to be notified when applications are
+                  available, please contact <RebatesEmail />.
+                </Type>
+                <Type>
+                  Here are some of the enhancements you can take advantage of:
+                </Type>
+                <List disablePadding>
+                  <Li>
+                    <ListItemText>
+                      <Type color="primary">
+                        <strong>
+                          Residential lawn replacement rebate:{' '}
+                          <Type
+                            color="secondary"
+                            component="span"
+                            classes={{colorSecondary: classes.darkSecondary}}
+                          >
+                            $2 per sq/ft up to $1000
+                          </Type>
+                        </strong>
+                      </Type>
+                    </ListItemText>
+                  </Li>
+                  <Li>
+                    <ListItemText>
+                      <Type color="primary">
+                        <strong>
+                          Commercial lawn replacement rebate:{' '}
+                          <Type
+                            color="secondary"
+                            component="span"
+                            classes={{colorSecondary: classes.darkSecondary}}
+                          >
+                            $3 per sq/ft up to $8000
+                          </Type>
+                        </strong>
+                      </Type>
+                    </ListItemText>
+                  </Li>
+                  <Li>
+                    <ListItemText>
+                      <Type color="primary">
+                        <strong>
+                          Weather-based irrigation controller:{' '}
+                          <Type
+                            color="secondary"
+                            component="span"
+                            classes={{colorSecondary: classes.darkSecondary}}
+                          >
+                            $250
+                          </Type>
+                        </strong>
+                      </Type>
+                    </ListItemText>
+                  </Li>
+                  <Li>
+                    <ListItemText>
+                      <Type color="primary">
+                        <strong>
+                          Pool cover:{' '}
+                          <Type
+                            color="secondary"
+                            component="span"
+                            classes={{colorSecondary: classes.darkSecondary}}
+                          >
+                            $50
+                          </Type>
+                        </strong>
+                      </Type>
+                    </ListItemText>
+                  </Li>
+                </List>
+                <Spacing />
+                <Type paragraph>
+                  All other irrigation upgrades and indoor appliances remain the
+                  same as before.
+                </Type>
+              </Box>
+            </Paper>
+          </Box>
+          <Spacing size="large" />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="45%">
               <Type paragraph>
