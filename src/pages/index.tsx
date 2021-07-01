@@ -199,6 +199,26 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
             /> */}
+
+            <CoverStory
+              // aria-label="Link to Monthly Billing FAQs page"
+              imageRatio={coverStoryImageRatio}
+              title="Summer of Savings coming soon…and, going fast!"
+              readMore="Send us an email"
+              // flexLinkProps={{
+              //   isNextLink: true
+              // }}
+              linkHref="mailto:rebates@pcwa.net"
+              imgixURL="https://imgix.cosmicjs.com/9385f6d0-da93-11eb-a548-fd45a29c394a-HE-sprinkler.tif"
+              alt="High Efficiency sprinkler head watering lawn"
+              imgixParams={{
+                crop: 'top'
+              }}
+              body="PCWA wants you to save! Online applications for our enhanced water efficiency rebate program will be available July 12. For more information about rebate terms and conditions, or to be notified when applications are available, please contact rebates@pcwa.net."
+            />
+          </ChildBox>
+
+          <ChildBox flex="50%">
             <CoverStory
               aria-label="Link to Water Year Dashboard page"
               imageRatio={coverStoryImageRatio}
@@ -221,8 +241,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 </Type>
               }
             />
-          </ChildBox>
-          <ChildBox flex="50%">
             {/* <CoverStory
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."
@@ -292,7 +310,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="2020 was certainly a challenging year, but that didn’t get keep PCWA from continuing to deliver high-quality water and protect our customer’s investments. Take a look at our newly released 2020 year-end report."
             /> */}
 
-            <CoverStory
+            {/* <CoverStory
               aria-label="Link to Monthly Billing FAQs page"
               imageRatio={coverStoryImageRatio}
               title="We’re Transitioning to Monthly Billing"
@@ -307,7 +325,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 crop: 'top'
               }}
               body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in 2022."
-            />
+            /> */}
 
             {/* <CoverStory
               imageRatio={coverStoryImageRatio}
