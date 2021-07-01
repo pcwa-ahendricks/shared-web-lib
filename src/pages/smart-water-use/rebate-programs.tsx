@@ -213,8 +213,7 @@ const RebateProgramsPage = () => {
                 </List>
                 <Spacing />
                 <Type paragraph>
-                  All other irrigation upgrades and indoor appliances remain the
-                  same as before.
+                  All indoor appliance rebates will remain the same (see below).
                 </Type>
               </Box>
             </Paper>
