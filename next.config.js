@@ -8,7 +8,6 @@ const {
 const withTM = require('next-transpile-modules')([
   'd3-ease',
   'd3-shape',
-  'd3-path', // is a dependency of d3-shape
   'swr'
   // 'TextProgress', // uses css modules
   // 'WeatherIcon', // uses css modules
