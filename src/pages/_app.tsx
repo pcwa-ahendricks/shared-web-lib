@@ -1,27 +1,4 @@
 // cspell:ignore smoothscroll
-// Polyfills
-
-// https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
-if (!HTMLCanvasElement.prototype.toBlob) {
-  Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-    value: function (callback: any, type: any, quality: any) {
-      const dataURL = this.toDataURL(type, quality).split(',')[1]
-      setTimeout(function () {
-        const binStr = atob(dataURL),
-          len = binStr.length,
-          arr = new Uint8Array(len)
-
-        for (let i = 0; i < len; i++) {
-          arr[i] = binStr.charCodeAt(i)
-        }
-
-        callback(new Blob([arr], {type: type || 'image/png'}))
-      })
-    }
-  })
-}
-// end of Polyfills
-
 import React, {useEffect} from 'react'
 import {AppProps} from 'next/app'
 import Router from 'next/router'
@@ -101,6 +78,27 @@ export default function MyApp({Component, pageProps}: AppProps) {
 
     isDev && console.log('Applying smoothscroll polyfill')
     smoothscroll.polyfill()
+
+    // toBlob Polyfill
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
+    if (!HTMLCanvasElement.prototype.toBlob) {
+      Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
+        value: function (callback: any, type: any, quality: any) {
+          const dataURL = this.toDataURL(type, quality).split(',')[1]
+          setTimeout(function () {
+            const binStr = atob(dataURL),
+              len = binStr.length,
+              arr = new Uint8Array(len)
+
+            for (let i = 0; i < len; i++) {
+              arr[i] = binStr.charCodeAt(i)
+            }
+
+            callback(new Blob([arr], {type: type || 'image/png'}))
+          })
+        }
+      })
+    }
 
     // Use Google Analytics in Production only on www.pcwa.net
     if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
