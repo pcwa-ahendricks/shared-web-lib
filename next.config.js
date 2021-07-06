@@ -7,8 +7,6 @@ const {
 // Fix error w/ Vercel and d3, fix error w/ swr and IE11
 const withTM = require('next-transpile-modules')([
   'd3-ease',
-  'd3-shape',
-  'd3-path',
   'swr'
   // 'TextProgress', // uses css modules
   // 'WeatherIcon', // uses css modules
@@ -560,6 +558,22 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     ]
   },
   webpack: (config) => {
+    // Polyfills - https://github.com/zeit/next.js/tree/master/examples/with-polyfills
+    const originalEntry = config.entry
+    config.entry = async () => {
+      const entries = await originalEntry()
+
+      if (
+        entries['main.js'] &&
+        !entries['main.js'].includes('./src/client/polyfills.js')
+      ) {
+        entries['main.js'].unshift('./src/client/polyfills.js')
+      }
+
+      return entries
+    }
+    //.
+
     // Webpack Bundle Size Analyzer - https://github.com/zeit/next.js/tree/master/examples/with-webpack-bundle-size-analyzer
     if (STATS) {
       config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))

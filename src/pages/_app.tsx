@@ -1,28 +1,4 @@
 // cspell:ignore smoothscroll
-// Polyfills
-import '../lib/modernizr'
-
-// https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
-if (!HTMLCanvasElement.prototype.toBlob) {
-  Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-    value: function (callback: any, type: any, quality: any) {
-      const dataURL = this.toDataURL(type, quality).split(',')[1]
-      setTimeout(function () {
-        const binStr = atob(dataURL),
-          len = binStr.length,
-          arr = new Uint8Array(len)
-
-        for (const i = 0; i < len; i++) {
-          arr[i] = binStr.charCodeAt(i)
-        }
-
-        callback(new Blob([arr], {type: type || 'image/png'}))
-      })
-    }
-  })
-}
-// end of Polyfills
-
 import React, {useEffect} from 'react'
 import {AppProps} from 'next/app'
 import Router from 'next/router'
@@ -47,7 +23,6 @@ import '@lib/css/NoCollapseVerticalTimeline.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
 import {initGA} from '@lib/googleAnalytics'
-
 /*
 Global External Styles
 */
