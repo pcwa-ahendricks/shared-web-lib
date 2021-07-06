@@ -1,6 +1,5 @@
 // cspell:ignore smoothscroll
 // Polyfills
-import '../lib/modernizr'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
 if (!HTMLCanvasElement.prototype.toBlob) {
@@ -12,7 +11,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
           len = binStr.length,
           arr = new Uint8Array(len)
 
-        for (const i = 0; i < len; i++) {
+        for (let i = 0; i < len; i++) {
           arr[i] = binStr.charCodeAt(i)
         }
 

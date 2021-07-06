@@ -1,4 +1,4 @@
-// cspell:ignore bbox touchevents
+// cspell:ignore bbox
 import React, {useCallback, useState, useRef, useEffect} from 'react'
 import MapGL, {
   FlyToInterpolator,
