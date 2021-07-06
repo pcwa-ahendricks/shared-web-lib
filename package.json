@@ -25,6 +25,7 @@
     "type-check": "tsc --noEmit -p .",
     "type-check:watch": "npm run type-check -- --watch",
     "lint": "next lint",
+    "build:modernizr": "modernizr -q -c modernizr-config.json -d src/lib/modernizr.js",
     "test": "ava"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@types/debounce": "^1.2.0",
     "@types/file-saver": "^2.0.1",
     "@types/is-number": "^7.0.0",
+    "@types/modernizr": "^3.5.3",
     "@types/node": "^16.0.0",
     "@types/node-fetch": "^2.5.9",
     "@types/nprogress": "^0.2.0",
@@ -68,6 +70,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "gensync": "^1.0.0-beta.2",
     "globby": "^11.0.4",
+    "modernizr": "^3.11.3",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
