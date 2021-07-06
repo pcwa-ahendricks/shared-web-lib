@@ -1,10 +1,8 @@
-// cspell:ignore modernizr respimg microtask blurup
+// cspell:ignore respimg microtask blurup
 
 // // Add your polyfills
 // // This files runs at the very beginning (even before React and Next.js core)
 // console.log('Load your polyfills')
-
-import '../lib/modernizr'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
 if (!HTMLCanvasElement.prototype.toBlob) {

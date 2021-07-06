@@ -25,7 +25,6 @@
     "type-check": "tsc --noEmit -p .",
     "type-check:watch": "npm run type-check -- --watch",
     "lint": "next lint",
-    "build:modernizr": "modernizr -q -c modernizr-config.json -d src/lib/modernizr.js",
     "test": "ava"
   },
   "devDependencies": {
@@ -35,7 +34,6 @@
     "@types/debounce": "^1.2.0",
     "@types/file-saver": "^2.0.1",
     "@types/is-number": "^7.0.0",
-    "@types/modernizr": "^3.5.3",
     "@types/node": "^15.12.2",
     "@types/node-fetch": "^2.5.9",
     "@types/nprogress": "^0.2.0",
@@ -69,7 +67,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "gensync": "^1.0.0-beta.2",
     "globby": "^11.0.4",
-    "modernizr": "^3.11.3",
     "prettier": "^2.3.1",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
@@ -103,7 +100,6 @@
     "deep-object-diff": "^1.1.0",
     "fast-json-stable-stringify": "^2.1.0",
     "file-saver": "^2.0.5",
-    "filenamify": "^4.3.0",
     "form-data": "^4.0.0",
     "formik": "2.1.5",
     "html-react-parser": "^1.2.4",
