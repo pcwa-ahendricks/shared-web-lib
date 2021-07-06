@@ -1,6 +1,14 @@
 // cspell:ignore cbarnhill watersense
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema, number} from 'yup'
+import {
+  string,
+  object,
+  array,
+  StringSchema,
+  number,
+  ArraySchema,
+  SchemaOf
+} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
@@ -90,7 +98,7 @@ const bodySchema = object()
         receipts: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
+            (emailAttachments: string, schema: ArraySchema<SchemaOf<string>>) =>
               emailAttachments === 'true' ? schema : schema.required()
           )
           .of(
@@ -105,7 +113,7 @@ const bodySchema = object()
         installPhotos: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
+            (emailAttachments: string, schema: ArraySchema<SchemaOf<string>>) =>
               emailAttachments === 'true' ? schema : schema.required()
           )
           .of(

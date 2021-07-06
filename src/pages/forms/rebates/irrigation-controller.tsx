@@ -9,7 +9,15 @@ import {
   createStyles
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
-import {string, object, array, ArraySchema, date, StringSchema} from 'yup'
+import {
+  string,
+  object,
+  array,
+  date,
+  StringSchema,
+  ArraySchema,
+  SchemaOf
+} from 'yup'
 import {
   postForm,
   IrrigationControllerRebateFormData as RebateFormData,
@@ -97,7 +105,10 @@ const formSchema = object()
     receipts: array()
       .when(
         'emailAttachments',
-        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
           emailAttachments === 'true'
             ? schema
             : schema.required('Must provide receipt(s) or proof of purchase')
@@ -114,7 +125,10 @@ const formSchema = object()
     cntrlPhotos: array()
       .when(
         'emailAttachments',
-        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
           emailAttachments === 'true'
             ? schema
             : schema.required(
@@ -131,19 +145,17 @@ const formSchema = object()
         })
       ),
     addtlSensorPhotos: array()
-      .when(
-        ['additional', 'emailAttachments'],
-        (
+      .when(['additional', 'emailAttachments'], {
+        is: (
           additional: string[] | undefined,
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<string>
-        ) =>
-          additional && emailAttachments !== 'true'
-            ? schema.required(
-                'Must provide photo(s) of installed sensor/outdoor cover'
-              )
-            : schema
-      )
+          emailAttachments: BooleanAsString
+        ) => additional && emailAttachments !== 'true',
+        then: (schema: ArraySchema<SchemaOf<string>>) =>
+          schema.required(
+            'Must provide photo(s) of installed sensor/outdoor cover'
+          ),
+        otherwise: (schema: ArraySchema<SchemaOf<string>>) => schema
+      })
       .of(
         object({
           status: string()

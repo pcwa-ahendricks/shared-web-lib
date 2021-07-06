@@ -1,6 +1,6 @@
 // cspell:ignore cbarnhill
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema} from 'yup'
+import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
@@ -8,13 +8,11 @@ import {
   emailRecipientsAppliance,
   validateSchema
 } from '../../../lib/api/forms'
-
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
-
 const MAILJET_TEMPLATE_ID = 879852
 
 interface FormDataObj {
@@ -84,7 +82,7 @@ const bodySchema = object()
         receipts: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
+            (emailAttachments: string, schema: ArraySchema<SchemaOf<string>>) =>
               emailAttachments === 'true' ? schema : schema.required()
           )
           .of(
@@ -99,7 +97,7 @@ const bodySchema = object()
         installPhotos: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
+            (emailAttachments: string, schema: ArraySchema<SchemaOf<string>>) =>
               emailAttachments === 'true' ? schema : schema.required()
           )
           .of(

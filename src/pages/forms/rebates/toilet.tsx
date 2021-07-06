@@ -2,7 +2,15 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Typography as Type} from '@material-ui/core'
 import {Formik} from 'formik'
-import {string, object, array, StringSchema, number} from 'yup'
+import {
+  string,
+  object,
+  array,
+  StringSchema,
+  number,
+  ArraySchema,
+  SchemaOf
+} from 'yup'
 import {
   postForm,
   ToiletRebateFormData as RebateFormData,
@@ -97,7 +105,10 @@ const formSchema = object()
     receipts: array()
       .when(
         'emailAttachments',
-        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
           emailAttachments === 'true'
             ? schema
             : schema.required('Must provide receipt(s) or proof of purchase')
@@ -114,7 +125,10 @@ const formSchema = object()
     installPhotos: array()
       .when(
         'emailAttachments',
-        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
           emailAttachments === 'true'
             ? schema
             : schema.required('Must provide photo(s) of installed toilet')

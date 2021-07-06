@@ -9,7 +9,7 @@ import {
   createStyles
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
-import {string, object, array, StringSchema} from 'yup'
+import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
 import {
   postForm,
   WashingMachineRebateFormData as RebateFormData,
@@ -109,7 +109,10 @@ const formSchema = object()
     receipts: array()
       .when(
         'emailAttachments',
-        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
           emailAttachments === 'true'
             ? schema
             : schema.required('Must provide receipt(s) or proof of purchase')
@@ -126,7 +129,10 @@ const formSchema = object()
     installPhotos: array()
       .when(
         'emailAttachments',
-        (emailAttachments: BooleanAsString, schema: StringSchema) =>
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
           emailAttachments === 'true'
             ? schema
             : schema.required(
