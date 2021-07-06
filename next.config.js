@@ -4,12 +4,10 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const {
   WebpackBundleSizeAnalyzerPlugin
 } = require('webpack-bundle-size-analyzer')
-// Fix error with IE11 and filenamify dependency.
 // Fix error w/ Vercel and d3, fix error w/ swr and IE11
 const withTM = require('next-transpile-modules')([
   'd3-ease',
-  'swr',
-  'filename-reserved-regex'
+  'swr'
   // 'TextProgress', // uses css modules
   // 'WeatherIcon', // uses css modules
   // 'StrongEmphasis' // uses css modules
