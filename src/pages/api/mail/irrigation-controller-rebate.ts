@@ -1,5 +1,13 @@
 // cspell:ignore addtl cbarnhill
-import {string, object, array, date, StringSchema, ArraySchema} from 'yup'
+import {
+  string,
+  object,
+  array,
+  date,
+  StringSchema,
+  ArraySchema,
+  SchemaOf
+} from 'yup'
 import {parseISO} from 'date-fns'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
@@ -10,6 +18,7 @@ import {
 const isDev = process.env.NODE_ENV === 'development'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
+import {BooleanAsString} from '@lib/safeCastBoolean'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
@@ -39,7 +48,7 @@ interface FormDataObj {
   termsAgree: string
   signature: string
   captcha: string
-  emailAttachments: string
+  emailAttachments: BooleanAsString
   receipts: AttachmentFieldValue[]
   cntrlPhotos: AttachmentFieldValue[]
   addtlSensorPhotos?: AttachmentFieldValue[]
@@ -78,8 +87,10 @@ const bodySchema = object()
         receipts: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
-              emailAttachments === 'true' ? schema : schema.required()
+            (
+              emailAttachments: BooleanAsString,
+              schema: ArraySchema<SchemaOf<string>>
+            ) => (emailAttachments === 'true' ? schema : schema.required())
           )
           .of(
             object({
@@ -93,8 +104,10 @@ const bodySchema = object()
         cntrlPhotos: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: StringSchema) =>
-              emailAttachments === 'true' ? schema : schema.required()
+            (
+              emailAttachments: BooleanAsString,
+              schema: ArraySchema<SchemaOf<string>>
+            ) => (emailAttachments === 'true' ? schema : schema.required())
           )
           .of(
             object({
@@ -106,17 +119,17 @@ const bodySchema = object()
             })
           ),
         addtlSensorPhotos: array()
-          .when(
-            ['additional', 'emailAttachments'],
-            (
+          .when(['additional', 'emailAttachments'], {
+            is: (
               additional: string[] | undefined,
-              emailAttachments: string,
-              schema: ArraySchema<string>
-            ) =>
-              additional && emailAttachments !== 'true'
-                ? schema.required()
-                : schema
-          )
+              emailAttachments: BooleanAsString
+            ) => additional && emailAttachments !== 'true',
+            then: (schema: ArraySchema<SchemaOf<string>>) =>
+              schema.required(
+                'Must provide photo(s) of installed sensor/outdoor cover'
+              ),
+            otherwise: (schema: ArraySchema<SchemaOf<string>>) => schema
+          })
           .of(
             object({
               status: string()

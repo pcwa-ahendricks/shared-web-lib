@@ -19,6 +19,7 @@ import {
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
+import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -46,7 +47,7 @@ interface FormDataObj {
   termsAgree: string
   signature: string
   captcha: string
-  emailAttachments: string
+  emailAttachments: BooleanAsString
   comments: string
   receipts: AttachmentFieldValue[]
   installPhotos: AttachmentFieldValue[]
@@ -98,8 +99,10 @@ const bodySchema = object()
         receipts: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: ArraySchema<SchemaOf<string>>) =>
-              emailAttachments === 'true' ? schema : schema.required()
+            (
+              emailAttachments: BooleanAsString,
+              schema: ArraySchema<SchemaOf<string>>
+            ) => (emailAttachments === 'true' ? schema : schema.required())
           )
           .of(
             object({
@@ -113,8 +116,10 @@ const bodySchema = object()
         installPhotos: array()
           .when(
             'emailAttachments',
-            (emailAttachments: string, schema: ArraySchema<SchemaOf<string>>) =>
-              emailAttachments === 'true' ? schema : schema.required()
+            (
+              emailAttachments: BooleanAsString,
+              schema: ArraySchema<SchemaOf<string>>
+            ) => (emailAttachments === 'true' ? schema : schema.required())
           )
           .of(
             object({

@@ -1,7 +1,7 @@
 // cspell:ignore cbarnhill waterefficiency pcwamain customerservices maint
 import reCAPTCHA from 'recaptcha2'
 import {MailJetMessage} from './mailjet'
-import {ObjectSchema, Shape} from 'yup'
+import {ObjectSchema} from 'yup'
 const isDev = process.env.NODE_ENV === 'development'
 
 export interface AttachmentFieldValue {
@@ -42,10 +42,7 @@ const getRecaptcha = () =>
     secretKey: RECAPTCHA_SECRET_KEY
   })
 
-async function validateSchema(
-  bodySchema: ObjectSchema<Shape<Record<string, unknown>, any>>,
-  body: any
-) {
+async function validateSchema(bodySchema: ObjectSchema<any>, body: any) {
   const validateOptions = {
     abortEarly: isDev ? false : true
   }
