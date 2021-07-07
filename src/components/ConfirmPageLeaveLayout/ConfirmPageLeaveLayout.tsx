@@ -39,7 +39,12 @@ const ConfirmPageLeaveLayout = ({
 
   // Need to wait for shouldConfirmRouteChange to change before attempting to change route, hence this useEffect hook. This will effectively fire after handleRouteChange() fires FOLLOWED by shouldConfirmRouteChange becoming "false"
   useEffect(() => {
-    if (lastRouteChange && shouldConfirmRouteChange === false) {
+    const {route} = router
+    if (
+      lastRouteChange &&
+      shouldConfirmRouteChange === false &&
+      lastRouteChange !== route
+    ) {
       router.push(lastRouteChange)
     }
   }, [shouldConfirmRouteChange, router, lastRouteChange])
