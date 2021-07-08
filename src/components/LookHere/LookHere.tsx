@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import HandIcon from 'mdi-material-ui/HandPointingRight'
-import useTimeout from 'use-timeout'
+import {useTimeoutFn} from 'react-use'
 
 export default function LookHere({
   children,
@@ -20,7 +20,7 @@ export default function LookHere({
   const [show, setShow] = useState(false)
   const [timeUp, setTimeUp] = useState(false)
 
-  useTimeout(() => setTimeUp(true), 3000)
+  useTimeoutFn(() => setTimeUp(true), 3000)
   useEffect(() => {
     setShow(Boolean(!isXs && animate && timeUp))
   }, [isXs, animate, timeUp])

@@ -2,7 +2,7 @@ import React, {useState, useCallback, useMemo} from 'react'
 import {Theme, LinearProgress, useTheme, Box} from '@material-ui/core'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
-import useTimeout from 'use-timeout'
+import {useTimeoutFn} from 'react-use'
 
 type Props = {
   url: string
@@ -17,7 +17,7 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [timeout, setTimeout] = useState<boolean>(false)
   // Wait a second to show loading indicator
-  useTimeout(() => setTimeout(true), 1000)
+  useTimeoutFn(() => setTimeout(true), 1000)
 
   const onLoadHandler = useCallback(() => {
     setLoaded(true)
