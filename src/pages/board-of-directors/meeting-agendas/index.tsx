@@ -209,7 +209,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
               meeting. Agendas are retained permanently. If an agenda is not
               listed below, you may request a copy by completing a{' '}
               <Link
-                href="https://cdn.cosmicjs.com/0e276210-4b36-11e9-8cec-7bc2ed80e6ac-Public-Records-Request.pdf"
+                href="https://docs.pcwa.net/public-records-request.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
