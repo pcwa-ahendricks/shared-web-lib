@@ -17,7 +17,8 @@ export default function HowDidYouHearAutocomplete() {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="How Did You Hear Abut This Rebate"
+          required
+          label="How Did You Hear About This Rebate"
           margin="normal"
           variant="outlined"
         />
