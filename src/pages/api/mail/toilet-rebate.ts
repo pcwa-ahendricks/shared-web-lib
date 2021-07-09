@@ -219,6 +219,12 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const replyToName = `${firstName} ${lastName}`
 
+    // [TODO] - Need to fix the for loop on Mailjet. It's not displaying any info in that list. This is a workaround, just show the first item.
+    let manufacturerModelOne = ''
+    if (manufacturerModel.length >= 1) {
+      manufacturerModelOne = `${manufacturerModel[0].manufacturer} - ${manufacturerModel[0].model}`
+    }
+
     // const noOfAppliances = manufacturerModel.length.toString()
     const noOfToiletsStr = noOfToilets.toString()
 
@@ -258,6 +264,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             treatedCustomer,
             builtPriorCutoff,
             manufacturerModel,
+            manufacturerModelOne,
             noOfToiletsStr,
             watersenseApproved,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
