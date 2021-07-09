@@ -35,6 +35,7 @@ interface FormDataObj {
   city: string
   otherCity?: string
   phone: string
+  howDidYouHear: string
   propertyType: string
   noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'
@@ -74,6 +75,7 @@ const bodySchema = object()
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
         phone: string().min(10).required(),
+        howDidYouHear: string().required(),
         propertyType: string().required(),
         noOfToilets: number().required().moreThan(0),
         treatedCustomer: string().required().oneOf(
@@ -159,6 +161,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       address,
       otherCity = '',
       phone,
+      howDidYouHear,
       propertyType,
       emailAttachments = '',
       receipts = [],
@@ -238,6 +241,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             address,
             email,
             phone,
+            howDidYouHear,
             propertyType,
             treatedCustomer,
             builtPriorCutoff,

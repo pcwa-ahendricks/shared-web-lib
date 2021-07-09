@@ -53,6 +53,9 @@ const formSchema = object()
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string().required().min(10).label('Phone Number'),
+    howDidYouHear: string()
+      .required()
+      .label('How Did You Hear About this Rebate Program'),
     propertyType: string().required().label('Property Type'),
     noOfToilets: number()
       .required(

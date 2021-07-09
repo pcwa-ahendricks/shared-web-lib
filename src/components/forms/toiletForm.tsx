@@ -34,7 +34,7 @@ import RebatesEmail from '@components/links/RebatesEmail'
 import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
 import {ColumnBox} from 'mui-sleazebox'
-// import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
+import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 
 const MAX_TOILETS = 25
 const MIN_TOILETS = 1
@@ -251,15 +251,15 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
           </Grid>
-          {/* <Grid container spacing={5}>
+          <Grid container spacing={5}>
             <Grid item xs={12}>
               <Field
-                name="hear"
+                name="howDidYouHear"
                 disabled={ineligible}
                 component={HowDidYouHearAutocomplete}
               />
             </Grid>
-          </Grid> */}
+          </Grid>
         </div>
 
         <Divider variant="middle" />
