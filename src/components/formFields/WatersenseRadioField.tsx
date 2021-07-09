@@ -18,8 +18,8 @@ import {FieldProps} from 'formik'
 type Props = {
   // onChange?: (Array<any>) => void,
   fullWidth?: boolean
+  caption: string
   disabled?: boolean
-  toiletCount?: number | string | null
 } & FieldProps<any>
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ToiletWatersenseRadioField = ({
+const WatersenseRadioField = ({
   field,
   form,
   fullWidth = true,
   disabled = false,
-  toiletCount = 1,
+  caption,
   ...other
 }: Props) => {
   const classes = useStyles()
@@ -86,14 +86,11 @@ const ToiletWatersenseRadioField = ({
     }
   ]
 
-  // Adjust label and make plural when multiple toilets are specified in rebate form.
   const formLabelEl = useMemo(
     () => (
       <FormLabel component="span" classes={{root: classes.formLabel}}>
         <Type variant="body1" component="span">
-          {typeof toiletCount === 'number' && toiletCount > 1
-            ? `Are all the toilets/urinals WaterSense approved products? Check here: `
-            : `Is the toilet/urinal a WaterSense approved product? Check here: `}
+          {caption}
         </Type>
         <Link
           href="https://www.epa.gov/watersense/product-search"
@@ -104,7 +101,7 @@ const ToiletWatersenseRadioField = ({
         </Link>
       </FormLabel>
     ),
-    [classes, toiletCount]
+    [classes, caption]
   )
 
   return (
@@ -143,4 +140,4 @@ const ToiletWatersenseRadioField = ({
   )
 }
 
-export default ToiletWatersenseRadioField
+export default WatersenseRadioField

@@ -147,6 +147,7 @@ export interface PoolCoverRequestBody {
   // recipients: {Name: string, Email: string}[],
   formData: PoolCoverRebateFormData
 }
+
 export interface WashingMachineRebateFormData {
   firstName: string
   lastName: string
@@ -212,7 +213,36 @@ export interface ToiletRequestBody {
   // recipients: {Name: string, Email: string}[],
   formData: ToiletRebateFormData
 }
+export interface SmartControllerRebateFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
+  propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
+  make: string
+  model: string
+  replaceExisting: BooleanAsString
+  watersenseApproved: string
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  signature: string
+  captcha: string
+  comments: string
+  receipts: string[]
+  installPhotos: string[]
+}
 
+export interface SmartControllerRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: SmartControllerRebateFormData
+}
 export interface ContactInfoFormData {
   name: string
   spouseName: string
@@ -244,6 +274,7 @@ type RequestBody =
   | PoolCoverRequestBody
   | WashingMachineRequestBody
   | ToiletRequestBody
+  | SmartControllerRequestBody
   | ContactInfoRequestBody
   | WaterWasteRequestBody
 

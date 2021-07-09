@@ -8,8 +8,8 @@ import {
   createStyles,
   makeStyles
 } from '@material-ui/core'
-import {useFormikContext, Field, FieldArray, FieldProps} from 'formik'
-import {ToiletRebateFormData} from '@lib/services/formService'
+import {useFormikContext, Field, FieldProps} from 'formik'
+import {SmartControllerRebateFormData} from '@lib/services/formService'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
@@ -25,7 +25,6 @@ import SignatureField from '@components/formFields/SignatureField'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import WatersenseRadioField from '@components/formFields/WatersenseRadioField'
-import ToiletMfgModelsField from '@components/formFields/ToiletMfgModelsField'
 import FormBox from '@components/boxes/FormBox'
 import FormTextField from '@components/formFields/FormTextField'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
@@ -37,7 +36,6 @@ import {ColumnBox} from 'mui-sleazebox'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
-import {MAX_TOILETS, MIN_TOILETS} from '@pages/forms/rebates/toilet'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
@@ -70,7 +68,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
+const SmartControllerForm = ({
+  ineligible = false,
+  onIneligibleChange
+}: Props) => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
@@ -86,32 +87,6 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
     setInstallPhotosIsUploading(isUploading)
   }, [])
 
-  // Wasn't able to get this to work with React Hooks API. Likely due to use of Formik's use of render props function.
-  // const getRows = (values: RebateFormData) => {
-  //   if (!values || !(values.noOfToilets > 0)) {
-  //     return []
-  //   }
-  //   const tempX: {key: number}[] = [],
-  //     endInt = values.noOfToilets,
-  //     maxInt = MAX_TOILETS
-  //   let i = 1
-  //   while (i <= endInt && i <= maxInt) {
-  //     tempX.push({key: i})
-  //     i++
-  //   }
-  //   return [...tempX]
-  // }
-
-  // const {
-  //   values,
-  //   touched = {},
-  //   dirty,
-  //   isSubmitting,
-  //   errors,
-  //   // isValid,
-  //   setFieldValue
-  // } = formik
-
   const {
     setFieldValue,
     errors,
@@ -120,7 +95,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
     touched,
     values,
     validateForm
-  } = useFormikContext<ToiletRebateFormData>()
+  } = useFormikContext<SmartControllerRebateFormData>()
 
   useEffect(() => {
     // Validate the form values any time they are updated.
@@ -134,8 +109,9 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
   // Check if user is in-eligible for rebate and disable all form controls if so.
   const rebateIneligibility = [
     errors['treatedCustomer'],
-    errors['builtPriorCutoff']
+    errors['replaceExisting']
   ].some(Boolean)
+
   if (rebateIneligibility !== ineligible) {
     onIneligibleChange?.(rebateIneligibility)
   }
@@ -171,22 +147,15 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
 
   const attachmentsAreUploading = receiptIsUploading || installPhotosIsUploading
 
-  // Adjust label and make plural when multiple toilets are specified in rebate form.
-  const ToiletWatersenseRadioField = useCallback(
+  const SmartControllerWatersenseRadioField = useCallback(
     ({...props}: FieldProps<any>) => (
       <WatersenseRadioField
-        caption={
-          typeof values.manufacturerModel.length === 'number' &&
-          values.manufacturerModel.length > 1
-            ? `Are all the toilets/urinals WaterSense approved products? Check here: `
-            : `Is the toilet/urinal a WaterSense approved product? Check here: `
-        }
+        caption="Is the Smart Controller a WaterSense approved product? Check here: "
         {...props}
       />
     ),
-    [values]
+    []
   )
-
   return (
     <>
       {/* width: 'fit-content' // Doesn't seem to fit responsively in XS media layout. */}
@@ -308,34 +277,30 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             Rebate Information
           </Type>
           <Spacing />
+
           <Grid container spacing={5}>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={6}>
               <FormTextField
+                name="make"
+                label="Controller Make"
                 disabled={ineligible}
-                required
-                name="noOfToilets"
-                label="Number of Toilets/Urinals Installed"
-                type="number"
-                inputProps={{
-                  min: MIN_TOILETS,
-                  max: MAX_TOILETS
-                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormTextField
+                name="model"
+                label="Controller Model/Zones"
+                disabled={ineligible}
               />
             </Grid>
           </Grid>
-          <FieldArray
-            name="manufacturerModel"
-            render={(arrayHelpers) => (
-              <ToiletMfgModelsField {...arrayHelpers} disabled={ineligible} />
-            )}
-          />
 
           <Grid container spacing={5} justify="space-between">
             <Grid item xs={12} sm={8}>
               <Field
                 disabled={ineligible}
                 name="watersenseApproved"
-                component={ToiletWatersenseRadioField}
+                component={SmartControllerWatersenseRadioField}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -351,16 +316,6 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 inputLabel="PCWA Treated Customer"
                 inputId="treated-water-select"
                 labelWidth={200}
-                component={YesNoSelectField}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Field
-                disabled
-                name="builtPriorCutoff"
-                inputLabel="Was House Built Prior to 1994"
-                inputId="house-built-prior-select"
-                labelWidth={255}
                 component={YesNoSelectField}
               />
             </Grid>
@@ -413,7 +368,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               disabled={ineligible || emailAttachments}
               name="receipts"
               attachmentTitle="Receipt"
-              uploadRoute="toilet"
+              uploadRoute="smart-controller"
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
             />
@@ -424,8 +379,8 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
-              attachmentTitle="Water-Efficient Toilet installed photo"
-              uploadRoute="toilet"
+              attachmentTitle="Smart Controller installed photo"
+              uploadRoute="smart-controller"
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}
             />
@@ -443,21 +398,14 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
               <ReviewTermsConditions
                 pageCount={2}
-                fileName="Toilet-Terms-and-Conditions.pdf"
+                fileName="Smart-Controller-Terms-and-Conditions.pdf"
                 termsConditionsUrl="https://imgix.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>
                 <em>
-                  I have read, understand, and agree to the{' '}
-                  {/* <Link
-                                    variant="inherit"
-                                    href="https://cdn.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  > */}
-                  Placer County Water Agency High Efficiency Toilet and
-                  Waterless Urinal Retrofit Rebate Terms and Conditions.
+                  I have read, understand, and agree to the Placer County Water
+                  Agency Smart Controller Rebate Terms and Conditions.
                   {/* </Link> */}
                 </em>
               </Type>
@@ -546,4 +494,4 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
   )
 }
 
-export default ToiletForm
+export default SmartControllerForm

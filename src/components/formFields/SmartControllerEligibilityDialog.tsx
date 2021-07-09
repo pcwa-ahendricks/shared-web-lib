@@ -22,7 +22,7 @@ import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps, useFormikContext} from 'formik'
+import {useFormikContext, useField} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
@@ -31,15 +31,14 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
-import {PoolCoverRebateFormData} from '@lib/services/formService'
+import {SmartControllerRebateFormData} from '@lib/services/formService'
 
-type PoolCoverRebateFormDataProp = keyof PoolCoverRebateFormData
+type SmartControllerRebateFormDataProp = keyof SmartControllerRebateFormData
 
 type Props = {
   open: boolean
   onClose: () => void
   fullWidth?: boolean
-  formik?: FormikProps<any>
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,27 +64,31 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
+const SmartControllerEligibilityDialog = ({
+  open = false,
+  onClose,
+  ...rest
+}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
-  const steps = useMemo(() => getSteps(), [])
-  const maxSteps = useMemo(() => getSteps().length, [])
+  const steps = useMemo(() => getSteps({...rest}), [rest])
   const prevTouched = useRef<Record<string, unknown>>()
   const prevLastTouchedIndex = useRef<number>()
+  const maxSteps = useMemo(() => getSteps({...rest}).length, [rest])
 
-  const {touched, errors} = useFormikContext<PoolCoverRebateFormData>()
+  const {touched, errors} = useFormikContext<SmartControllerRebateFormData>()
 
   const eligibleFieldsTouched = useMemo(
-    () => [touched.treatedCustomer].every(Boolean),
+    () => [touched.treatedCustomer, touched.replaceExisting].every(Boolean),
     [touched]
   )
 
   const eligibleFieldsHaveError = useMemo(
     () =>
-      [errors.treatedCustomer]
+      [errors.treatedCustomer, errors.replaceExisting]
         .filter(
           (error) =>
             error && typeof error === 'string' && !/required/i.test(error)
@@ -94,16 +97,19 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
     [errors]
   )
 
-  const touchedChangedHandler = useCallback((prev, curr) => {
-    const diff = addedDiff(prev, curr) || {}
-    const newProp = Object.keys({...diff})[0]
-    const stepIndex = newProp && getStepIndex(newProp)
-    // Don't use Boolean(nextStepIndex) cause 0 is false.
-    const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
-    if (nextStepIndex) {
-      setLastTouchedIndex(nextStepIndex)
-    }
-  }, [])
+  const touchedChangedHandler = useCallback(
+    (prev, curr) => {
+      const diff = addedDiff(prev, curr) || {}
+      const newProp = Object.keys({...diff})[0]
+      const stepIndex = newProp && getStepIndex(newProp, rest)
+      // Don't use Boolean(nextStepIndex) cause 0 is false.
+      const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
+      if (nextStepIndex) {
+        setLastTouchedIndex(nextStepIndex)
+      }
+    },
+    [rest]
+  )
 
   useEffect(() => {
     touchedChangedHandler({...prevTouched.current}, {...touched})
@@ -155,7 +161,7 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const stepHasError = useCallback(
-    (fieldName: PoolCoverRebateFormDataProp) => {
+    (fieldName: SmartControllerRebateFormDataProp) => {
       const error = errors[fieldName]
       return (
         Boolean(error) && typeof error === 'string' && !/required/i.test(error)
@@ -165,7 +171,7 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const stepCompleted = useCallback(
-    (fieldName: PoolCoverRebateFormDataProp) => {
+    (fieldName: SmartControllerRebateFormDataProp) => {
       const fieldTouched = Boolean(touched[fieldName])
       if (fieldTouched) {
         return true
@@ -209,7 +215,9 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
                 >
                   {''}
                 </StepLabel>
-                <StepContent>{getStepContent(index)}</StepContent>
+                <StepContent>
+                  {getStepContent(index, {name, label, ...rest})}
+                </StepContent>
               </Step>
             ))}
           </EligibilityStepper>
@@ -272,15 +280,15 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 }
 
-export default connect(PoolCoverEligibilityDialog)
+export default SmartControllerEligibilityDialog
 
-function getStepContent(stepNo: number) {
-  const found = getSteps().find((step) => step.index === stepNo)
+function getStepContent(stepNo: number, props: any) {
+  const found = getSteps({...props}).find((step) => step.index === stepNo)
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.name === fieldName)
+function getStepIndex(fieldName: string, props: any) {
+  const found = getSteps({...props}).find((step) => step.name === fieldName)
   return found ? found.index : null
 }
 
@@ -292,71 +300,127 @@ const useQuestionStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const QuestionOne = () => {
+const QuestionOneField = (props: any) => {
   const classes = useQuestionStyles()
+  const [field, meta, helpers] = useField(props)
+  const {error, touched} = meta
+  const {value} = field
+  const {setTouched, setValue} = helpers
+
+  const clickHandler = useCallback(
+    (alreadyStarted: string) => () => {
+      setValue(alreadyStarted)
+      setTouched(true)
+    },
+    [setTouched, setValue]
+  )
+
+  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+  const hasApplicableError =
+    Boolean(error) &&
+    typeof error === 'string' &&
+    !/required field/i.test(error)
+
   return (
-    <Field name="treatedCustomer">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name, value} = field
-        const currentError = errors[name]
-
-        const clickHandler = (alreadyStarted: string) => () => {
-          setFieldValue(name, alreadyStarted, true)
-          setFieldTouched(name, true)
+    <>
+      <input {...field} {...props} />
+      <List
+        subheader={
+          <ListSubheader component="div">
+            Choose one of the following
+          </ListSubheader>
         }
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
-            >
-              {yesNoAnswers.map((answer) => (
-                <ListItem
-                  key={answer}
-                  button
-                  divider
-                  selected={answer === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(answer)}
-                >
-                  <ListItemText primary={answer} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                Unfortunately, you do not qualify for the PCWA Pool Cover
-                Rebate. You must be a current Placer County Water Agency treated
-                water customer.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
+      >
+        {yesNoAnswers.map((answer) => (
+          <ListItem
+            key={answer}
+            button
+            divider
+            selected={answer === value}
+            // disabled={fieldTouched}
+            onClick={clickHandler(answer)}
+          >
+            <ListItemText primary={answer} />
+          </ListItem>
+        ))}
+      </List>
+      <WaitToGrow isIn={hasApplicableError && touched}>
+        <DialogContentText
+          variant="body1"
+          color="textPrimary"
+          className={classes.qualifyMsg}
+        >
+          Unfortunately, you do not qualify for the Smart Controller Rebate. You
+          must be a current Placer County Water Agency treated water customer.
+        </DialogContentText>
+      </WaitToGrow>
+    </>
   )
 }
 
-function getSteps(): {
+const QuestionTwoField = (props: any) => {
+  const classes = useQuestionStyles()
+  const [field, meta, helpers] = useField(props)
+  const {error, touched} = meta
+  const {value} = field
+  const {setTouched, setValue} = helpers
+
+  const clickHandler = useCallback(
+    (newValue: string) => () => {
+      setValue(newValue)
+      setTouched(true)
+    },
+    [setTouched, setValue]
+  )
+
+  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+  const hasApplicableError =
+    Boolean(error) &&
+    typeof error === 'string' &&
+    !/required field/i.test(error)
+
+  return (
+    <>
+      <input {...field} {...props} />
+      <List
+        subheader={
+          <ListSubheader component="div">
+            Choose one of the following
+          </ListSubheader>
+        }
+      >
+        {yesNoAnswers.map((answer) => (
+          <ListItem
+            key={answer}
+            button
+            divider
+            selected={answer === value}
+            // disabled={fieldTouched}
+            onClick={clickHandler(answer)}
+          >
+            <ListItemText primary={answer} />
+          </ListItem>
+        ))}
+      </List>
+      <WaitToGrow isIn={hasApplicableError && touched}>
+        <DialogContentText
+          variant="body1"
+          color="textPrimary"
+          className={classes.qualifyMsg}
+        >
+          Unfortunately, you do not qualify for the Smart Controller Rebate.
+          Rebates are not available for the replacement of an existing EPA
+          WaterSense Weather Based Irrigation Controller.
+        </DialogContentText>
+      </WaitToGrow>
+    </>
+  )
+}
+
+function getSteps(props: any): {
   index: number
   label: string
-  name: PoolCoverRebateFormDataProp
+  name: SmartControllerRebateFormDataProp
   content: JSX.Element
 }[] {
   return [
@@ -364,7 +428,14 @@ function getSteps(): {
       index: 0,
       label: 'Are you a Placer County Water Agency treated water customer?',
       name: 'treatedCustomer',
-      content: <QuestionOne />
+      content: <QuestionOneField type="hidden" {...props} />
+    },
+    {
+      index: 1,
+      label:
+        'Are you replacing an existing EPA WaterSense weather Based Irrigation Controller with another Weather Based Irrigation Controller?',
+      name: 'replaceExisting',
+      content: <QuestionTwoField type="hidden" {...props} />
     }
   ]
 }

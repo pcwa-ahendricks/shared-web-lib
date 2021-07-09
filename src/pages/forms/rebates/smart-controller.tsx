@@ -2,19 +2,11 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Typography as Type} from '@material-ui/core'
 import {Formik} from 'formik'
-import {
-  string,
-  object,
-  array,
-  StringSchema,
-  number,
-  ArraySchema,
-  SchemaOf
-} from 'yup'
+import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
 import {
   postForm,
-  ToiletRebateFormData as RebateFormData,
-  ToiletRequestBody as RequestBody
+  SmartControllerRebateFormData as RebateFormData,
+  SmartControllerRequestBody as RequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
@@ -22,14 +14,12 @@ import FormSubmissionDialogError from '@components/FormSubmissionDialogError/For
 import delay from 'then-sleep'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import ToiletEffEligibilityDialog from '@components/formFields/ToiletEffEligibilityDialog'
 import {BooleanAsString} from '@lib/safeCastBoolean'
-import ToiletForm from '@components/forms/toiletForm'
+import SmartControllerForm from '@components/forms/smartControllerForm'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
+import SmartControllerEligibilityDialog from '@components/formFields/SmartControllerEligibilityDialog'
 
-const SERVICE_URI_PATH = 'toilet-rebate'
-export const MAX_TOILETS = 25
-export const MIN_TOILETS = 1
+const SERVICE_URI_PATH = 'smart-controller-rebate'
 
 const formSchema = object()
   .camelCase()
@@ -66,33 +56,20 @@ const formSchema = object()
             : schema
       ),
     propertyType: string().required().label('Property Type'),
-    noOfToilets: number()
-      .required(
-        'Number of toilets/urinals installed must be a number that is greater than 0.'
-      )
-      .moreThan(0)
-      .label('Number of toilets/urinals installed'),
     treatedCustomer: string().required().label('Treated Customer').oneOf(
       ['Yes'], // "Yes", "No"
       'You must be a current Placer County Water Agency treated water customer'
     ),
-    builtPriorCutoff: string()
+    make: string().required().label('Make'),
+    model: string().required().label('Model/Zones'),
+    replaceExisting: string()
       .required()
-      .label('Was your building(s) built prior to 1994?')
+      .label(
+        'Are you replacing an existing EPA WaterSense weather Based Irrigation Controller with another Weather Based Irrigation Controller? '
+      )
       .oneOf(
-        ['Yes'], // "Yes", "No"
-        'Old toilets replaced must be rated at 3.0 (GPF) or more'
-      ),
-    manufacturerModel: array()
-      .required()
-      .label('Manufacturer and Model')
-      .min(MIN_TOILETS)
-      .max(MAX_TOILETS)
-      .of(
-        object({
-          manufacturer: string().required().label('Toilet/Urinal Manufacturer'),
-          model: string().required().label('Toilet/Urinal Model')
-        })
+        ['No'], // "Yes", "No"
+        'Rebates are not available for the replacement of an existing EPA WaterSense Weather Based Irrigation Controller.'
       ),
     watersenseApproved: string().required().label('Watersense Approved'),
     // .oneOf(
@@ -143,7 +120,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('Must provide photo(s) of installed toilet')
+            : schema.required(
+                'Must provide photo(s) of installed smart controller'
+              )
       )
       .of(
         object({
@@ -168,10 +147,10 @@ const initialFormValues: RebateFormData = {
   howDidYouHear: '',
   otherHowDidYouHear: '',
   propertyType: '',
-  noOfToilets: 1,
   treatedCustomer: '',
-  builtPriorCutoff: '',
-  manufacturerModel: [{manufacturer: '', model: ''}],
+  make: '',
+  model: '',
+  replaceExisting: '',
   watersenseApproved: '',
   termsAgree: '',
   emailAttachments: '',
@@ -182,7 +161,7 @@ const initialFormValues: RebateFormData = {
   installPhotos: []
 }
 
-const Toilet = () => {
+export default function SmartController() {
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -214,22 +193,6 @@ const Toilet = () => {
     setIneligible(value)
   }, [])
 
-  // Wasn't able to get this to work with React Hooks API. Likely due to use of Formik's use of render props function.
-  // const getRows = (values: RebateFormData) => {
-  //   if (!values || !(values.noOfToilets > 0)) {
-  //     return []
-  //   }
-  //   const tempX: {key: number}[] = [],
-  //     endInt = values.noOfToilets,
-  //     maxInt = MAX_TOILETS
-  //   let i = 1
-  //   while (i <= endInt && i <= maxInt) {
-  //     tempX.push({key: i})
-  //     i++
-  //   }
-  //   return [...tempX]
-  // }
-
   const mainEl = useMemo(
     () => (
       <>
@@ -240,7 +203,7 @@ const Toilet = () => {
             </Type>
 
             <Type variant="h3" color="primary" gutterBottom>
-              High Efficiency Toilet/Urinal
+              Smart Controller
             </Type>
 
             <Formik
@@ -267,13 +230,13 @@ const Toilet = () => {
                 }
               }}
             >
-              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <ToiletForm/>. */}
+              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <SmartControllerForm/>. */}
               <ProtectRouteChange>
-                <ToiletForm
+                <SmartControllerForm
                   ineligible={ineligible}
                   onIneligibleChange={ineligibleChangeHandler}
                 />
-                <ToiletEffEligibilityDialog
+                <SmartControllerEligibilityDialog
                   open={eligibilityDialogOpen}
                   onClose={() => setEligibilityDialogOpen(false)}
                 />
@@ -288,14 +251,14 @@ const Toilet = () => {
 
   return (
     <>
-      <PageLayout title="Toilet Rebate Form" waterSurface>
+      <PageLayout title="Smart Controller Rebate Form" waterSurface>
         {mainEl}
       </PageLayout>
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="High Efficiency Toilet and Waterless Urinal Retrofit Rebate Application"
+        description="Smart Controller Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError
@@ -306,5 +269,3 @@ const Toilet = () => {
     </>
   )
 }
-
-export default Toilet
