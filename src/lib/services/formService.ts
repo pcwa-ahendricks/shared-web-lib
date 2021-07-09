@@ -41,6 +41,8 @@ export interface IrrigationEfficienciesRebateFormData {
   city: string
   otherCity: string
   phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   termsAgree: BooleanAsString
@@ -67,6 +69,8 @@ export interface LawnReplacementRebateFormData {
   city: string
   otherCity: string
   phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   approxSqFeet: string
@@ -124,6 +128,8 @@ export interface WashingMachineRebateFormData {
   city: string
   otherCity: string
   phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   existingHigh: '' | 'Yes' | 'No'

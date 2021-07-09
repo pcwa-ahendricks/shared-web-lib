@@ -45,6 +45,8 @@ import RebatesEmail from '@components/links/RebatesEmail'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
+import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
+import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -72,6 +74,18 @@ const formSchema = object()
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string().required().min(10).label('Phone Number'),
+    howDidYouHear: string()
+      .required()
+      .label('How Did You Hear About this Rebate Program'),
+    otherHowDidYouHear: string()
+      .label('How Did You Hear About this Rebate Program')
+      .when(
+        'howDidYouHear',
+        (howDidYouHear: string | null, schema: StringSchema) =>
+          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
+            ? schema.required()
+            : schema
+      ),
     propertyType: string().required().label('Property Type'),
     treatedCustomer: string().required().label('Treated Customer').oneOf(
       ['Yes'], // "Yes", "No"
@@ -159,6 +173,8 @@ const initialFormValues: RebateFormData = {
   city: '',
   otherCity: '',
   phone: '',
+  howDidYouHear: '',
+  otherHowDidYouHear: '',
   propertyType: '',
   treatedCustomer: '',
   existingHigh: '',
@@ -335,6 +351,10 @@ const WashingMachine = () => {
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
                 )
+                const otherHowDidYouHearSelected = Boolean(
+                  values.howDidYouHear &&
+                    values.howDidYouHear.toLowerCase() === 'other'
+                )
 
                 const emailAttachments = Boolean(
                   values.emailAttachments === 'true'
@@ -345,6 +365,13 @@ const WashingMachine = () => {
                   // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
                   if (evt.target.value.toLowerCase() !== 'other') {
                     setFieldValue('otherCity', '')
+                  }
+                }
+                // If howDidYouHear field is updated clear out otherHowDidYouHear field.
+                const howDidYouHearChangeHandler = (evt: any) => {
+                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
+                  if (evt.target.value.toLowerCase() !== 'other') {
+                    setFieldValue('otherHowDidYouHear', '')
                   }
                 }
 
@@ -447,6 +474,31 @@ const WashingMachine = () => {
                             />
                           </Grid>
                         </Grid>
+
+                        <Grid container spacing={5}>
+                          <Grid item xs={12}>
+                            <Field
+                              name="howDidYouHear"
+                              disabled={ineligible}
+                              onChange={howDidYouHearChangeHandler}
+                              component={HowDidYouHearSelectField}
+                            />
+                          </Grid>
+                        </Grid>
+
+                        <WaitToGrow isIn={otherHowDidYouHearSelected}>
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                disabled={
+                                  !otherHowDidYouHearSelected || ineligible
+                                }
+                                name="otherHowDidYouHear"
+                                component={OtherHowDidYouHearField}
+                              />
+                            </Grid>
+                          </Grid>
+                        </WaitToGrow>
                       </div>
 
                       <Divider variant="middle" />

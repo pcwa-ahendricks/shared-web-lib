@@ -24,6 +24,8 @@ interface FormDataObj {
   city: string
   otherCity?: string
   phone: string
+  howDidYouHear: string
+  otherHowDidYouHear?: string
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   irrigMethod: string
@@ -61,6 +63,14 @@ const bodySchema = object()
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
         phone: string().min(10).required(),
+        howDidYouHear: string().required(),
+        otherHowDidYouHear: string().when(
+          'howDidYouHear',
+          (howDidYouHear: string | undefined, schema: StringSchema) =>
+            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
+              ? schema.required()
+              : schema
+        ),
         propertyType: string().required(),
         treatedCustomer: string().required().oneOf(
           ['Yes'] // "Yes", "No"
@@ -118,6 +128,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       address,
       otherCity = '',
       phone,
+      otherHowDidYouHear = '',
       propertyType,
       treatedCustomer,
       irrigMethod,
@@ -128,7 +139,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       captcha,
       comments = ''
     } = formData
-    let {city = '', accountNo} = formData
+    let {city = '', howDidYouHear = '', accountNo} = formData
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -152,6 +163,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     // Overwrite "city" with "otherCity" if another city was specified.
     if (city.toLowerCase() === 'other') {
       city = otherCity
+    }
+    // Overwrite "howDidYouHear" with "otherHowDidYouHear" if another city was specified.
+    if (howDidYouHear.toLowerCase() === 'other') {
+      howDidYouHear = otherHowDidYouHear
     }
 
     const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
@@ -190,6 +205,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             address,
             email,
             phone,
+            howDidYouHear,
             propertyType,
             treatedCustomer,
             irrigMethod,

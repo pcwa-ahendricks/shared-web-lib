@@ -51,6 +51,8 @@ import Spacing from '@components/boxes/Spacing'
 import IrrigUpgradeLocationCheckboxes, {
   formControlItems as initialIrrigUpgradeLocationOpts
 } from '@components/formFields/IrrigUpgradeLocationCheckboxes'
+import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
+import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 
 const SERVICE_URI_PATH = 'lawn-replacement-rebate'
 
@@ -76,6 +78,18 @@ const formSchema = object()
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string().required().min(10).label('Phone Number'),
+    howDidYouHear: string()
+      .required()
+      .label('How Did You Hear About this Rebate Program'),
+    otherHowDidYouHear: string()
+      .label('How Did You Hear About this Rebate Program')
+      .when(
+        'howDidYouHear',
+        (howDidYouHear: string | null, schema: StringSchema) =>
+          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
+            ? schema.required()
+            : schema
+      ),
     propertyType: string().required().label('Property Type'),
     treatedCustomer: string().required().label('Treated Customer').oneOf(
       ['Yes'], // "Yes", "No"
@@ -152,6 +166,8 @@ const initialFormValues: RebateFormData = {
   city: '',
   otherCity: '',
   phone: '',
+  howDidYouHear: '',
+  otherHowDidYouHear: '',
   propertyType: '',
   treatedCustomer: '',
   termsAgree: '',
@@ -299,10 +315,21 @@ const LawnReplacement = () => {
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
                 )
+                const otherHowDidYouHearSelected = Boolean(
+                  values.howDidYouHear &&
+                    values.howDidYouHear.toLowerCase() === 'other'
+                )
 
                 // If city field is updated clear out otherCity field.
                 const cityChangeHandler = () => {
                   setFieldValue('otherCity', '')
+                }
+                // If howDidYouHear field is updated clear out otherHowDidYouHear field.
+                const howDidYouHearChangeHandler = (evt: any) => {
+                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
+                  if (evt.target.value.toLowerCase() !== 'other') {
+                    setFieldValue('otherHowDidYouHear', '')
+                  }
                 }
 
                 return (
@@ -398,6 +425,31 @@ const LawnReplacement = () => {
                               />
                             </Grid>
                           </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="howDidYouHear"
+                                disabled={ineligible}
+                                onChange={howDidYouHearChangeHandler}
+                                component={HowDidYouHearSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <WaitToGrow isIn={otherHowDidYouHearSelected}>
+                            <Grid container spacing={5}>
+                              <Grid item xs={12}>
+                                <Field
+                                  disabled={
+                                    !otherHowDidYouHearSelected || ineligible
+                                  }
+                                  name="otherHowDidYouHear"
+                                  component={OtherHowDidYouHearField}
+                                />
+                              </Grid>
+                            </Grid>
+                          </WaitToGrow>
                         </div>
 
                         <Divider variant="middle" />
