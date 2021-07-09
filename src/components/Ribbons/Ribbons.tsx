@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {Box, BoxProps} from '@material-ui/core'
 import styles from './Ribbons.module.css'
 
-export const RibbonContainer = ({children, className}: BoxProps) => {
+export const RibbonContainer = ({children, className, ...rest}: BoxProps) => {
   return (
-    <Box className={`${styles.ribbonContainer} ${className || ''}`}>
+    <Box className={`${styles.ribbonContainer} ${className || ''}`} {...rest}>
       {children}
     </Box>
   )
