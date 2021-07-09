@@ -36,6 +36,7 @@ interface FormDataObj {
   otherCity?: string
   phone: string
   howDidYouHear: string
+  otherHowDidYouHear?: string
   propertyType: string
   noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'
@@ -76,6 +77,13 @@ const bodySchema = object()
         ),
         phone: string().min(10).required(),
         howDidYouHear: string().required(),
+        otherHowDidYouHear: string().when(
+          'howDidYouHear',
+          (howDidYouHear: string | undefined, schema: StringSchema) =>
+            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
+              ? schema.required()
+              : schema
+        ),
         propertyType: string().required(),
         noOfToilets: number().required().moreThan(0),
         treatedCustomer: string().required().oneOf(
@@ -161,7 +169,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       address,
       otherCity = '',
       phone,
-      howDidYouHear,
+      otherHowDidYouHear = '',
       propertyType,
       emailAttachments = '',
       receipts = [],
@@ -176,7 +184,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       watersenseApproved,
       noOfToilets = 1
     } = formData
-    let {city = '', accountNo} = formData
+    let {city = '', howDidYouHear = '', accountNo} = formData
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -200,6 +208,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     // Overwrite "city" with "otherCity" if another city was specified.
     if (city.toLowerCase() === 'other') {
       city = otherCity
+    }
+    // Overwrite "howDidYouHear" with "otherHowDidYouHear" if another city was specified.
+    if (howDidYouHear.toLowerCase() === 'other') {
+      howDidYouHear = otherHowDidYouHear
     }
 
     const receiptImages = receipts.map((attachment) => attachment.url)

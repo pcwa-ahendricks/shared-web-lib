@@ -34,7 +34,9 @@ import RebatesEmail from '@components/links/RebatesEmail'
 import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
 import {ColumnBox} from 'mui-sleazebox'
-import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
+// import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
+import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
+import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 
 const MAX_TOILETS = 25
 const MIN_TOILETS = 1
@@ -148,6 +150,9 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
   const otherCitySelected = Boolean(
     values.city && values.city.toLowerCase() === 'other'
   )
+  const otherHowDidYouHearSelected = Boolean(
+    values.howDidYouHear && values.howDidYouHear.toLowerCase() === 'other'
+  )
 
   const emailAttachments = Boolean(values.emailAttachments === 'true')
 
@@ -156,6 +161,13 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
     // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
     if (evt.target.value.toLowerCase() !== 'other') {
       setFieldValue('otherCity', '')
+    }
+  }
+  // If howDidYouHear field is updated clear out otherHowDidYouHear field.
+  const howDidYouHearChangeHandler = (evt: any) => {
+    // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
+    if (evt.target.value.toLowerCase() !== 'other') {
+      setFieldValue('otherHowDidYouHear', '')
     }
   }
 
@@ -256,10 +268,23 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <Field
                 name="howDidYouHear"
                 disabled={ineligible}
-                component={HowDidYouHearAutocomplete}
+                onChange={howDidYouHearChangeHandler}
+                component={HowDidYouHearSelectField}
               />
             </Grid>
           </Grid>
+
+          <WaitToGrow isIn={otherHowDidYouHearSelected}>
+            <Grid container spacing={5}>
+              <Grid item xs={12}>
+                <Field
+                  disabled={!otherHowDidYouHearSelected || ineligible}
+                  name="otherHowDidYouHear"
+                  component={OtherHowDidYouHearField}
+                />
+              </Grid>
+            </Grid>
+          </WaitToGrow>
         </div>
 
         <Divider variant="middle" />
@@ -496,7 +521,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
           disabled={
             ineligible ||
             isSubmitting ||
-            // !isValid ||
+            /* // !isValid || */
             (!formTouched && !dirty) ||
             attachmentsAreUploading
           }

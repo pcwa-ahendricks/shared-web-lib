@@ -56,6 +56,15 @@ const formSchema = object()
     howDidYouHear: string()
       .required()
       .label('How Did You Hear About this Rebate Program'),
+    otherHowDidYouHear: string()
+      .label('How Did You Hear About this Rebate Program')
+      .when(
+        'howDidYouHear',
+        (howDidYouHear: string | null, schema: StringSchema) =>
+          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
+            ? schema.required()
+            : schema
+      ),
     propertyType: string().required().label('Property Type'),
     noOfToilets: number()
       .required(
@@ -156,6 +165,8 @@ const initialFormValues: RebateFormData = {
   city: '',
   otherCity: '',
   phone: '',
+  howDidYouHear: '',
+  otherHowDidYouHear: '',
   propertyType: '',
   noOfToilets: 1,
   treatedCustomer: '',

@@ -59,7 +59,7 @@ const PropertyTypeSelectField = ({
           <OutlinedInput
             id="property-type-select"
             name={name}
-            labelWidth={110}
+            labelWidth={114}
             error={fieldIsTouchedWithError}
           />
         }

@@ -154,6 +154,8 @@ export interface ToiletRebateFormData {
   city: string
   otherCity: string
   phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
   propertyType: string
   noOfToilets: number
   treatedCustomer: '' | 'Yes' | 'No'

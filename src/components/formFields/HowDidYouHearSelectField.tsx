@@ -23,27 +23,19 @@ type Props = {
 } & FieldProps<any> &
   FormControlProps
 
-const CITY_LIST = [
-  'Alta',
-  'Applegate',
-  'Auburn',
-  'Baxter',
-  'Colfax',
-  'Dutch Flat',
-  'Gold Run',
-  'Granite Bay',
-  'Lincoln',
-  'Loomis',
-  'Meadow Vista',
-  'Newcastle',
-  'Penryn',
-  'Rocklin',
-  'Roseville',
-  'Weimar',
-  'Other'
+const ANSWER_LIST = [
+  'Radio',
+  'TV Commercial',
+  'Facebook/Twitter',
+  'News',
+  'Newspaper',
+  'PCWA Staff',
+  'Website'
 ]
+  .sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase()))
+  .concat('Other')
 
-const CitySelectField = ({
+const HowDidYouHearSelectField = ({
   field,
   form,
   onChange,
@@ -82,7 +74,9 @@ const CitySelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor="city-select">City</InputLabel>
+      <InputLabel htmlFor="how-did-you-hear-select">
+        How Did You Hear About this Rebate Program?
+      </InputLabel>
       <Select
         required={required}
         value={value}
@@ -90,10 +84,9 @@ const CitySelectField = ({
         variant="outlined"
         input={
           <OutlinedInput
-            id="city-select"
+            id="how-did-you-hear-select"
             name={name}
-            autoComplete="billing address-level2"
-            labelWidth={39}
+            labelWidth={359}
             error={fieldIsTouchedWithError}
           />
         }
@@ -104,9 +97,9 @@ const CitySelectField = ({
         {/* <MenuItem value="">
                           <em>None</em>
                         </MenuItem> */}
-        {CITY_LIST.map((city) => (
-          <MenuItem key={city} value={city}>
-            {city}
+        {ANSWER_LIST.map((answer) => (
+          <MenuItem key={answer} value={answer}>
+            {answer}
           </MenuItem>
         ))}
       </Select>
@@ -119,4 +112,4 @@ const CitySelectField = ({
   )
 }
 
-export default CitySelectField
+export default HowDidYouHearSelectField
