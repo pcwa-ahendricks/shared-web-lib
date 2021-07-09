@@ -26,12 +26,12 @@ import FancyButton, {
 import MainPhone from '@components/links/MainPhone'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'
-import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import {blue} from '@material-ui/core/colors'
 import RebatesEmail from '@components/links/RebatesEmail'
 import colorAlpha from 'color-alpha'
+import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -101,13 +101,13 @@ const RebateProgramsPage = () => {
           hoverText="Apply Now"
         >
           <RowBox alignItems="center">
-            <Type
+            {/* <Type
               color="secondary"
               component="span"
               className={classes.annotate}
-            >
-              <StrongEmphasis>*New</StrongEmphasis>
-            </Type>
+            > */}
+            {/* <StrongEmphasis>*New</StrongEmphasis> */}
+            {/* </Type> */}
             <Type component="span" variant="inherit">
               Apply Now
             </Type>
@@ -255,6 +255,43 @@ const RebateProgramsPage = () => {
               </Type>
               <Spacing />
               <ColumnBox flexSpacing={3}>
+                <ChildBox position="relative">
+                  <RibbonContainer minHeight={theme.spacing(3)}>
+                    <LeftLargeRibbon
+                      backgroundColor="#cc4400"
+                      color="#f0f0f0"
+                      fontFamily="Arial"
+                      zIndex={3}
+                    >
+                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
+                        New
+                      </span>
+                    </LeftLargeRibbon>
+                  </RibbonContainer>
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        Pool Cover -
+                      </Type>{' '}
+                      Receive up to a $50 rebate for purchasing and installing a
+                      new solar or safety pool cover. See{' '}
+                      <Type component="em" variant="inherit">
+                        program terms &amp; conditions
+                      </Type>{' '}
+                      for additional information.
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                        label="Pool Cover Rebate Terms and Conditions"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/pool-cover"
+                        label="Apply for Pool Cover Rebate Online"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
+                </ChildBox>
                 <ChildBox>
                   <RebateCard>
                     <Type paragraph>
