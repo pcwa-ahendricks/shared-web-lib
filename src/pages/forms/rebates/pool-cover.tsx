@@ -12,15 +12,14 @@ import {Formik, Field} from 'formik'
 import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
 import {
   postForm,
-  WashingMachineRebateFormData as RebateFormData,
-  WashingMachineRequestBody as RequestBody
+  PoolCoverRebateFormData as RebateFormData,
+  PoolCoverRequestBody as RequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
 import OtherCityField from '@components/formFields/OtherCityField'
-import WashMachineCeeRadioField from '@components/formFields/WashMachineCeeRadioField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
@@ -30,7 +29,6 @@ import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
-import WashEffEligibilityDialog from '@components/formFields/WashEffEligibilityDialog'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
@@ -47,6 +45,7 @@ import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
+import PoolCoverEligibilityDialog from '@components/formFields/PoolCoverEligibilityDialog'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -91,20 +90,9 @@ const formSchema = object()
       ['Yes'], // "Yes", "No"
       'You must be a current Placer County Water Agency treated water customer'
     ),
-    existingHigh: string()
-      .required()
-      .label('Replacing Existing High-Efficiency Washer')
-      .oneOf(
-        ['No'], // "Yes", "No"
-        'Replacement of an existing high efficiency washer is not covered by rebate'
-      ),
-    newConstruction: string().required().label('New Construction').oneOf(
-      ['No'], // "Yes", "No"
-      'New constructions are not eligible for rebate'
-    ),
-    manufacturer: string().required().label('Washing Machine Manufacturer'),
-    model: string().required().label('Washing Machine Model'),
-    ceeQualify: string().required().label('CEE Tier 3 Water Factor'),
+    sizeSqFt: string().required().label('Size of pool (square feet)'),
+    manufacturer: string().required().label('Pool Cover Manufacturer'),
+    model: string().required().label('Pool Cover Model'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -149,9 +137,7 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required(
-                'Must provide photo(s) of installed washing machine'
-              )
+            : schema.required('Must provide photo(s) of installed pool cover')
       )
       .of(
         object({
@@ -177,11 +163,9 @@ const initialFormValues: RebateFormData = {
   otherHowDidYouHear: '',
   propertyType: '',
   treatedCustomer: '',
-  existingHigh: '',
-  newConstruction: '',
+  sizeSqFt: '',
   manufacturer: '',
   model: '',
-  ceeQualify: '',
   termsAgree: '',
   emailAttachments: '',
   signature: '',
@@ -332,11 +316,9 @@ export default function PoolCover() {
                 }
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.
-                const rebateIneligibility = [
-                  errors['treatedCustomer'],
-                  errors['existingHigh'],
-                  errors['newConstruction']
-                ].some(Boolean)
+                const rebateIneligibility = [errors['treatedCustomer']].some(
+                  Boolean
+                )
                 if (rebateIneligibility !== ineligible) {
                   setIneligible(rebateIneligibility)
                 }
@@ -529,16 +511,14 @@ export default function PoolCover() {
                         </Grid>
 
                         <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12}>
-                            <Field
+                          <Grid item xs={12} sm={6}>
+                            <FormTextField
+                              required
                               disabled={ineligible}
-                              name="ceeQualify"
-                              component={WashMachineCeeRadioField}
+                              name="sizeSqFt"
+                              label="Size of Pool (in square feet)"
                             />
                           </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
                           <Grid item xs={12} sm={6}>
                             <Field
                               disabled
@@ -546,29 +526,6 @@ export default function PoolCover() {
                               inputLabel="PCWA Treated Customer"
                               inputId="treated-water-select"
                               labelWidth={200}
-                              component={YesNoSelectField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled
-                              name="existingHigh"
-                              inputLabel="Existing High Efficiency Washer"
-                              inputId="existing-high-efficiency-washer-select"
-                              labelWidth={255}
-                              component={YesNoSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled
-                              name="newConstruction"
-                              inputLabel="For New Construction"
-                              inputId="for-new-construction-select"
-                              labelWidth={178}
                               component={YesNoSelectField}
                             />
                           </Grid>
@@ -627,7 +584,7 @@ export default function PoolCover() {
                             disabled={ineligible || emailAttachments}
                             name="receipts"
                             attachmentTitle="Receipt"
-                            uploadRoute="washing-machine"
+                            uploadRoute="pool-cover"
                             onIsUploadingChange={receiptIsUploadingHandler}
                             component={AttachmentField}
                           />
@@ -637,8 +594,8 @@ export default function PoolCover() {
                           <Field
                             disabled={ineligible || emailAttachments}
                             name="installPhotos"
-                            attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
-                            uploadRoute="washing-machine"
+                            attachmentTitle="Pool Cover installed photo"
+                            uploadRoute="pool-cover"
                             onIsUploadingChange={
                               installPhotosIsUploadingHandler
                             }
@@ -666,7 +623,7 @@ export default function PoolCover() {
                           >
                             <ReviewTermsConditions
                               pageCount={2}
-                              fileName="Washing-Machine-Terms-and-Conditions.pdf"
+                              fileName="Pool-Cover-Terms-and-Conditions.pdf"
                               termsConditionsUrl="https://imgix.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
                             />
                             <Type
@@ -675,19 +632,8 @@ export default function PoolCover() {
                               className={classes.reserveRight}
                             >
                               <em>
-                                I have read, understand, and agree to the{' '}
-                                {/* <Link
-                                    variant="inherit"
-                                    href="https://cdn.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  > */}
-                                {/* PCWA/USBR Energy Star® Residential/Multi
-                                    Family Water-Efficient Clothes Washing
-                                    Machine Rebate Terms and Conditions. */}
-                                High-Efficiency Clothes Washing Machine Rebate
-                                Terms and Conditions.
-                                {/* </Link> */}
+                                I have read, understand, and agree to the Pool
+                                Cover Rebate Terms and Conditions.
                               </em>
                             </Type>
                             <Type
@@ -795,7 +741,7 @@ export default function PoolCover() {
                       </SubmitFormButton>
                     </FormBox>
 
-                    <WashEffEligibilityDialog
+                    <PoolCoverEligibilityDialog
                       open={eligibilityDialogOpen}
                       onClose={() => setEligibilityDialogOpen(false)}
                     />

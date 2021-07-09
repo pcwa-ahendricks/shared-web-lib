@@ -118,7 +118,35 @@ export interface WaterWasteFormData {
 export interface WaterWasteRequestBody {
   formData: WaterWasteFormData
 }
+export interface PoolCoverRebateFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
+  propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
+  sizeSqFt: string
+  manufacturer: string
+  model: string
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  signature: string
+  captcha: string
+  comments: string
+  receipts: string[]
+  installPhotos: string[]
+}
 
+export interface PoolCoverRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: PoolCoverRebateFormData
+}
 export interface WashingMachineRebateFormData {
   firstName: string
   lastName: string
@@ -213,6 +241,7 @@ type RequestBody =
   | IrrigationEfficienciesRequestBody
   | LawnReplacementRequestBody
   | ContactUsRequestBody
+  | PoolCoverRequestBody
   | WashingMachineRequestBody
   | ToiletRequestBody
   | ContactInfoRequestBody
