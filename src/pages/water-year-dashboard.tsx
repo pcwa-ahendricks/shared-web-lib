@@ -50,6 +50,7 @@ import StationSnowfall from '@components/season-recap/StationSnowfall'
 import round from '@lib/round'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
+import {imgixUrlLoader} from '@lib/imageLoader'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -927,6 +928,7 @@ export default function WaterYearDashboardPage() {
                   style={{outline: 'none'}}
                 >
                   <Image
+                    loader={imgixUrlLoader}
                     src="https://imgix.cosmicjs.com/f8524320-582f-11eb-a689-4365686df91b-ACISlogo.png"
                     width={912}
                     height={117}

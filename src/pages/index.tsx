@@ -8,7 +8,8 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden
+  Hidden,
+  Box
 } from '@material-ui/core'
 import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 import {RowBox, ChildBox} from 'mui-sleazebox'
@@ -28,6 +29,9 @@ import {AlertsProps} from '@components/Alerts/Alerts'
 import JackinBox from 'mui-jackinbox'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
+import imgixLoader from '@lib/imageLoader'
+import Image from 'next/image'
+import {useTimeoutFn} from 'react-use'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -64,6 +68,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const animateDoneHandler = useCallback(() => {
     uiDispatch(setAnimateDone('home', true))
   }, [uiDispatch])
+
+  const [removeAnimation, setRemoveAnimation] = useState(false)
+  useTimeoutFn(() => setRemoveAnimation(true), 8000)
 
   return (
     <PageLayout
@@ -199,23 +206,50 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
             /> */}
-
-            <CoverStory
-              // aria-label="Link to Monthly Billing FAQs page"
-              imageRatio={coverStoryImageRatio}
-              title="Summer of Savings coming soon…and, going fast!"
-              readMore="See Rebate Programs"
-              flexLinkProps={{
-                isNextLink: true
-              }}
-              linkHref="/smart-water-use/rebate-programs"
-              imgixURL="https://imgix.cosmicjs.com/9385f6d0-da93-11eb-a548-fd45a29c394a-HE-sprinkler.tif"
-              alt="High Efficiency sprinkler head watering lawn"
-              imgixParams={{
-                crop: 'top'
-              }}
-              body="PCWA wants you to save! Online applications for our enhanced water efficiency rebate program will be available July 12. For more information about rebate terms and conditions, or to be notified when applications are available, please contact rebates@pcwa.net."
-            />
+            <Box position="relative">
+              <CoverStory
+                // aria-label="Link to Monthly Billing FAQs page"
+                imageRatio={coverStoryImageRatio}
+                title="Summer of Savings coming soon…and, going fast!"
+                readMore="See Rebate Programs"
+                flexLinkProps={{
+                  isNextLink: true
+                }}
+                linkHref="/smart-water-use/rebate-programs"
+                imgixURL="https://imgix.cosmicjs.com/9385f6d0-da93-11eb-a548-fd45a29c394a-HE-sprinkler.tif"
+                alt="High Efficiency sprinkler head watering lawn"
+                imgixParams={{
+                  crop: 'top'
+                }}
+                body="PCWA wants you to save! Online applications for our enhanced water efficiency rebate program will be available July 12. For more information about rebate terms and conditions, or to be notified when applications are available, please contact rebates@pcwa.net."
+              />
+              <JackinBox
+                name="bounceOutRight"
+                animate={removeAnimation}
+                zIndex={2}
+                position="absolute"
+                // speed="slow"
+                top={-75}
+                left={-25}
+                width={325}
+                height={325}
+                // onAnimateEnd={}
+                display="none"
+              >
+                <JackinBox name="rollIn" delay={2}>
+                  <JackinBox name="heartBeat" delay={4}>
+                    <Image
+                      src="69045490-e337-11eb-b4d6-4f771ba4265e-whammy.png"
+                      loader={imgixLoader}
+                      alt="whammy"
+                      layout="responsive"
+                      width={800}
+                      height={800}
+                    />
+                  </JackinBox>
+                </JackinBox>
+              </JackinBox>
+            </Box>
           </ChildBox>
 
           <ChildBox flex="50%">
