@@ -11,6 +11,7 @@ import React, {
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
+  makeStyles,
   Typography as Type,
   useMediaQuery,
   Divider,
@@ -45,6 +46,13 @@ type Props = {
   initialNewsBlurbsData?: RecentNewsBarProps['initialData']
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
+
+const useStyles = makeStyles({
+  whammy: ({done}: {done: boolean}) => ({
+    transition: 'opacity 800ms ease',
+    opacity: done ? 0 : 1
+  })
+})
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
@@ -122,6 +130,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     }
   }, [intersected, reset, removeAnimation])
 
+  const showWhammyIn = !animationRemoved && intersected && !homeAnimateDone
+  const showWhammyOut = removeAnimation && intersected && !homeAnimateDone
+
+  const classes = useStyles({done: removeAnimation})
+
   return (
     <PageLayout
       initialAlertsData={initialAlertsData}
@@ -152,7 +165,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           }}
         >
           <JackinBox
-            // speed="slow"
             name="fadeIn"
             delay={1}
             hideUntilAnimate={!homeAnimateDone}
@@ -281,28 +293,26 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 <JackinBox
                   name="rollIn"
                   delay={2}
-                  animate={!homeAnimateDone && intersected}
+                  animate={showWhammyIn}
                   hideUntilAnimate
-                  zIndex={2}
+                  zIndex={!animationRemoved ? 2 : -1}
                   position="absolute"
-                  top={-75}
-                  left={-25}
-                  width={325}
-                  height={325}
+                  top={{xs: -25, sm: -75}}
+                  left={{xs: -5, sm: -25}}
+                  width={{xs: 200, sm: 325}}
+                  height={{xs: 200, sm: 325}}
+                  display={animationRemoved ? 'none' : 'block'}
                 >
                   <JackinBox
                     name="heartBeat"
                     delay={4}
-                    animate={!homeAnimateDone && intersected}
+                    animate={showWhammyIn}
                     hideUntilAnimate
                   >
                     <JackinBox
                       name="bounceOutRight"
-                      animate={
-                        !homeAnimateDone && intersected && removeAnimation
-                      }
+                      animate={showWhammyOut}
                       onAnimateEnd={animationEndHandler}
-                      display={animationRemoved ? 'none' : 'block'}
                     >
                       <Image
                         src="69045490-e337-11eb-b4d6-4f771ba4265e-whammy.png"
@@ -311,6 +321,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                         layout="responsive"
                         width={800}
                         height={800}
+                        className={classes.whammy}
                       />
                     </JackinBox>
                   </JackinBox>
