@@ -38,7 +38,7 @@ import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/image'
-import {useIntersection} from 'react-use'
+import {useIntersection, useTimeoutFn} from 'react-use'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -80,9 +80,25 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const [animationRemoved, setAnimationRemoved] = useState(false)
   const animationEndHandler = useCallback(() => {
     setAnimationRemoved(true)
-  }, [])
+    // Since this animation will end after the hero one set app state here
+    animateDoneHandler()
+  }, [animateDoneHandler])
+  const heroAnimateRef = useRef<HTMLDivElement>(null)
   const animateRef = useRef<HTMLDivElement>(null)
+  const [heroIntersected, setHeroIntersected] = useState(false)
   const [intersected, setIntersected] = useState(false)
+  const heroIntersection = useIntersection(animateRef, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  })
+
+  useEffect(() => {
+    if (heroIntersection?.isIntersecting) {
+      setHeroIntersected(true)
+    }
+  }, [heroIntersection])
+
   const intersection = useIntersection(animateRef, {
     root: null,
     rootMargin: '0px',
@@ -90,13 +106,21 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   })
 
   useEffect(() => {
-    if (intersection?.isIntersecting && intersected === false) {
+    if (intersection?.isIntersecting) {
       setIntersected(true)
-      setTimeout(() => {
-        setRemoveAnimation(true)
-      }, 8000)
     }
-  }, [intersection, intersected])
+  }, [intersection])
+
+  const [_ready, _cancel, reset] = useTimeoutFn(
+    () => intersected && setRemoveAnimation(true),
+    8000
+  )
+
+  useEffect(() => {
+    if (intersected === true && removeAnimation === false) {
+      reset()
+    }
+  }, [intersected, reset, removeAnimation])
 
   return (
     <PageLayout
@@ -104,55 +128,57 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <ImageParallaxBanner
-        amount={0.1}
-        marginTop={marginTop}
-        ImageProps={{
-          width: 900,
-          height: 600,
-          priority: true,
-          src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
-            {bri: -5, high: -15},
-            true
-          )}`,
-          alt: 'A photo of French Meadows Reservoir inlet'
-          // See comment above regarding onLoad support
-          // onLoad: () => setHeroOverlayIn(true),
-          // paddingPercent: 66.6495,
-        }}
-        style={{
-          height: '50vw',
-          maxHeight: '45vh'
-          // minHeight: 400
-        }}
-      >
-        <JackinBox
-          // speed="slow"
-          name="fadeIn"
-          delay={1}
-          hideUntilAnimate={!homeAnimateDone}
-          animate={heroOverlayIn && !homeAnimateDone}
-          onAnimateEnd={animateDoneHandler}
+      <div ref={heroAnimateRef}>
+        <ImageParallaxBanner
+          amount={0.1}
+          marginTop={marginTop}
+          ImageProps={{
+            width: 900,
+            height: 600,
+            priority: true,
+            src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
+              {bri: -5, high: -15},
+              true
+            )}`,
+            alt: 'A photo of French Meadows Reservoir inlet'
+            // See comment above regarding onLoad support
+            // onLoad: () => setHeroOverlayIn(true),
+            // paddingPercent: 66.6495,
+          }}
+          style={{
+            height: '50vw',
+            maxHeight: '45vh'
+            // minHeight: 400
+          }}
         >
-          <RowBox
-            justifyContent="space-around"
-            alignItems="center"
-            position="absolute"
-            top={0}
-            bottom={0}
-            right={0}
-            left={0}
+          <JackinBox
+            // speed="slow"
+            name="fadeIn"
+            delay={1}
+            hideUntilAnimate={!homeAnimateDone}
+            animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
+            // onAnimateEnd={animateDoneHandler}
           >
-            <HeroOverlay
-              height="100%"
-              preserveAspectRatio="xMidYMid meet"
-              style={{
-                flex: '0 0 auto'
-              }}
-            />
-          </RowBox>
-        </JackinBox>
-      </ImageParallaxBanner>
+            <RowBox
+              justifyContent="space-around"
+              alignItems="center"
+              position="absolute"
+              top={0}
+              bottom={0}
+              right={0}
+              left={0}
+            >
+              <HeroOverlay
+                height="100%"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                  flex: '0 0 auto'
+                }}
+              />
+            </RowBox>
+          </JackinBox>
+        </ImageParallaxBanner>
+      </div>
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
       </Hidden> */}
@@ -255,7 +281,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 <JackinBox
                   name="rollIn"
                   delay={1}
-                  animate={intersected}
+                  animate={!homeAnimateDone && intersected}
                   hideUntilAnimate
                   zIndex={2}
                   position="absolute"
@@ -267,12 +293,14 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   <JackinBox
                     name="heartBeat"
                     delay={3}
-                    animate={intersected}
+                    animate={!homeAnimateDone && intersected}
                     hideUntilAnimate
                   >
                     <JackinBox
                       name="bounceOutRight"
-                      animate={intersected && removeAnimation}
+                      animate={
+                        !homeAnimateDone && intersected && removeAnimation
+                      }
                       onAnimateEnd={animationEndHandler}
                       display={animationRemoved ? 'none' : 'block'}
                     >
