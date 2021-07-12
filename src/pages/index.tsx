@@ -87,7 +87,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const animateRef = useRef<HTMLDivElement>(null)
   const [heroIntersected, setHeroIntersected] = useState(false)
   const [intersected, setIntersected] = useState(false)
-  const heroIntersection = useIntersection(animateRef, {
+  const heroIntersection = useIntersection(heroAnimateRef, {
     root: null,
     rootMargin: '0px',
     threshold: 0.5
