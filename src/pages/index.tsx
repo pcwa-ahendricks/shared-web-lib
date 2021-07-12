@@ -280,7 +280,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
                 <JackinBox
                   name="rollIn"
-                  delay={1}
+                  delay={2}
                   animate={!homeAnimateDone && intersected}
                   hideUntilAnimate
                   zIndex={2}
@@ -292,7 +292,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 >
                   <JackinBox
                     name="heartBeat"
-                    delay={3}
+                    delay={4}
                     animate={!homeAnimateDone && intersected}
                     hideUntilAnimate
                   >
