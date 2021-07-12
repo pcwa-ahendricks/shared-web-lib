@@ -113,11 +113,15 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     threshold: 0.5
   })
 
+  // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
+  const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
+  useTimeoutFn(() => setInitIntersectTimeout(true), 1000)
+
   useEffect(() => {
-    if (intersection?.isIntersecting) {
+    if (intersection?.isIntersecting && initIntersectTimeout) {
       setIntersected(true)
     }
-  }, [intersection])
+  }, [intersection, initIntersectTimeout])
 
   const [_ready, _cancel, reset] = useTimeoutFn(
     () => intersected && setRemoveAnimation(true),
@@ -292,7 +296,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
                 <JackinBox
                   name="rollIn"
-                  delay={2}
+                  delay={1}
                   animate={showWhammyIn}
                   hideUntilAnimate
                   zIndex={!animationRemoved ? 2 : -1}
