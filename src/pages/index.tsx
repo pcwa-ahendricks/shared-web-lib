@@ -86,17 +86,15 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const intersection = useIntersection(animateRef, {
     root: null,
     rootMargin: '0px',
-    threshold: 0.7
+    threshold: 0.5
   })
 
   useEffect(() => {
     if (intersection?.isIntersecting && intersected === false) {
       setIntersected(true)
       setTimeout(() => {
-        console.log('will remove animation')
         setRemoveAnimation(true)
       }, 8000)
-      console.log('now we are intersected')
     }
   }, [intersection, intersected])
 
@@ -256,7 +254,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
                 <JackinBox
                   name="rollIn"
-                  delay={2}
+                  delay={1}
                   animate={intersected}
                   hideUntilAnimate
                   zIndex={2}
@@ -268,7 +266,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 >
                   <JackinBox
                     name="heartBeat"
-                    delay={4}
+                    delay={3}
                     animate={intersected}
                     hideUntilAnimate
                   >
