@@ -18,11 +18,11 @@ import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
 import NProgress from 'nprogress'
 import Head from 'next/head'
-import '@lib/css/styles.css'
-import '@lib/css/NoCollapseVerticalTimeline.css'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
 import {initGA} from '@lib/googleAnalytics'
+import '@lib/css/styles.css'
+import '@lib/css/NoCollapseVerticalTimeline.css'
 /*
 Global External Styles
 */
@@ -32,6 +32,8 @@ import 'react-vertical-timeline-component/style.min.css'
 import '@lib/css/nprogress.css'
 // Use Next <Head/> to load css on any page where these components are used
 // import 'mapbox-gl/dist/mapbox-gl.css'
+// Load Animate.css globally
+import 'animate.css'
 
 const isDev = process.env.NODE_ENV === 'development'
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL

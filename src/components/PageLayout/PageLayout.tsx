@@ -70,11 +70,11 @@ const PageLayout = ({
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
           key="animate.css-4.1.1"
-        />
+        /> */}
       </Head>
       <ColumnBox height="100%" id={backToTopAnchorId}>
         <Hidden smUp implementation="css">
