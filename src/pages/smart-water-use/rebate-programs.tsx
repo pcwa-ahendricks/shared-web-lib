@@ -157,7 +157,7 @@ const RebateProgramsPage = () => {
                             component="span"
                             classes={{colorSecondary: classes.darkSecondary}}
                           >
-                            $250
+                            Up to $250
                           </Type>
                         </strong>
                       </Type>
@@ -173,7 +173,7 @@ const RebateProgramsPage = () => {
                             component="span"
                             classes={{colorSecondary: classes.darkSecondary}}
                           >
-                            $50
+                            Up to $50
                           </Type>
                         </strong>
                       </Type>
