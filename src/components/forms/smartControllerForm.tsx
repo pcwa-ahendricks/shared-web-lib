@@ -399,7 +399,7 @@ const SmartControllerForm = ({
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Smart-Controller-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                termsConditionsUrl="https://imgix.cosmicjs.com/ec1fc1a0-e3fc-11eb-be9a-bfe30c7c12b9-SMART-CONTROLLER-REBATE-PROGRAM-REQUIREMENTS.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>

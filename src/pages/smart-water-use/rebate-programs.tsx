@@ -67,7 +67,7 @@ const RebateProgramsPage = () => {
     caption = 'Terms & Conditions'
   }: {
     href: string
-    label: string
+    label?: string
     caption?: string
   }) => {
     return (
@@ -76,7 +76,7 @@ const RebateProgramsPage = () => {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={label}
+        aria-label={label || caption}
         hoverText="View PDF"
       >
         {caption}
@@ -137,13 +137,53 @@ const RebateProgramsPage = () => {
                 </Type>
                 <Type paragraph>
                   PCWA wants you to save! Online applications for our enhanced
-                  water efficiency rebate program will be available{' '}
-                  <strong>July 12</strong>. For more information about rebate
-                  terms and conditions, or to be notified when applications are
-                  available, please contact <RebatesEmail />.
+                  water efficiency rebate program have begun. For more
+                  information about rebate terms and conditions or to be
+                  notified when new applications are available, please contact{' '}
+                  <RebatesEmail />.
                 </Type>
                 <Type>
-                  Here are some of the enhancements you can take advantage of:
+                  Here are some of the enhancements you can take advantage of
+                  today:
+                </Type>
+                <List disablePadding>
+                  <Li>
+                    <ListItemText>
+                      <Type color="primary">
+                        <strong>
+                          Weather-based irrigation controller:{' '}
+                          <Type
+                            color="secondary"
+                            component="span"
+                            classes={{colorSecondary: classes.darkSecondary}}
+                          >
+                            $250
+                          </Type>
+                        </strong>
+                      </Type>
+                    </ListItemText>
+                  </Li>
+                  <Li>
+                    <ListItemText>
+                      <Type color="primary">
+                        <strong>
+                          Pool cover:{' '}
+                          <Type
+                            color="secondary"
+                            component="span"
+                            classes={{colorSecondary: classes.darkSecondary}}
+                          >
+                            $50
+                          </Type>
+                        </strong>
+                      </Type>
+                    </ListItemText>
+                  </Li>
+                </List>
+                <Spacing />
+                <Type>
+                  Stay tuned; the following rebates will be updated shortly
+                  soon:
                 </Type>
                 <List disablePadding>
                   <Li>
@@ -173,38 +213,6 @@ const RebateProgramsPage = () => {
                             classes={{colorSecondary: classes.darkSecondary}}
                           >
                             $3 per sq/ft up to $8000
-                          </Type>
-                        </strong>
-                      </Type>
-                    </ListItemText>
-                  </Li>
-                  <Li>
-                    <ListItemText>
-                      <Type color="primary">
-                        <strong>
-                          Weather-based irrigation controller:{' '}
-                          <Type
-                            color="secondary"
-                            component="span"
-                            classes={{colorSecondary: classes.darkSecondary}}
-                          >
-                            $250
-                          </Type>
-                        </strong>
-                      </Type>
-                    </ListItemText>
-                  </Li>
-                  <Li>
-                    <ListItemText>
-                      <Type color="primary">
-                        <strong>
-                          Pool cover:{' '}
-                          <Type
-                            color="secondary"
-                            component="span"
-                            classes={{colorSecondary: classes.darkSecondary}}
-                          >
-                            $50
                           </Type>
                         </strong>
                       </Type>
@@ -275,16 +283,27 @@ const RebateProgramsPage = () => {
                       </Type>{' '}
                       Receive up to a $250 rebate for replacing an existing
                       irrigation controller with an EPA WaterSense approved
-                      Weather Based Irrigation Controller. See{' '}
+                      Weather Based Irrigation Controller. For a list of
+                      qualifying controllers see:{' '}
+                      <Link
+                        variant="inherit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="always"
+                        href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
+                      >
+                        lookforwatersense.epa.gov
+                      </Link>
+                      . For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        program terms &amp; conditions
-                      </Type>{' '}
-                      for additional information.
+                        program requirements
+                      </Type>
+                      .
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                        label="Smart Controller Rebate Terms and Conditions"
+                        href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
+                        caption="Smart Controller Rebate Requirements"
                       />
                       <ApplyNowButton
                         href="/forms/rebates/smart-controller"
@@ -314,14 +333,14 @@ const RebateProgramsPage = () => {
                       Receive up to a $50 rebate for purchasing and installing a
                       new solar or safety pool cover. See{' '}
                       <Type component="em" variant="inherit">
-                        program terms &amp; conditions
+                        program requirements
                       </Type>{' '}
                       for additional information.
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                        label="Pool Cover Rebate Terms and Conditions"
+                        href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
+                        caption="Pool Cover Rebate Requirements"
                       />
                       <ApplyNowButton
                         href="/forms/rebates/pool-cover"
@@ -400,7 +419,7 @@ const RebateProgramsPage = () => {
                     <ColumnBox>
                       <TermsAndConditionsButton
                         caption="Toilet Rebate Requirements"
-                        href="https://cdn.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                        href="https://docs.pcwa.net/toilet-rebate-requirements.pdf"
                         label="HET Toilet/Urinal Rebate Requirements"
                       />
                       <ApplyNowButton
@@ -433,8 +452,8 @@ const RebateProgramsPage = () => {
                     <ColumnBox>
                       <TermsAndConditionsButton
                         caption="Washer Rebate Requirements"
-                        href="https://imgix.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
-                        label="Washer Rebate Requirements"
+                        href="https://docs.pcwa.net/washing-machine-rebate-requirements.pdf"
+                        label="High-Efficiency Clothes Washing Machine Rebate Requirements"
                       />
                       <ApplyNowButton
                         href="/forms/rebates/washing-machine"
@@ -471,16 +490,27 @@ const RebateProgramsPage = () => {
                       </Type>{' '}
                       Receive up to a $250 rebate for replacing an existing
                       irrigation controller with an EPA WaterSense approved
-                      Weather Based Irrigation Controller. See{' '}
+                      Weather Based Irrigation Controller. For a list of
+                      qualifying controllers see:{' '}
+                      <Link
+                        variant="inherit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="always"
+                        href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
+                      >
+                        lookforwatersense.epa.gov
+                      </Link>
+                      . For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        program terms &amp; conditions
-                      </Type>{' '}
-                      for additional information.
+                        program requirements
+                      </Type>
+                      .
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                        label="Smart Controller Rebate Terms and Conditions"
+                        href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
+                        caption="Smart Controller Rebate Requirements"
                       />
                       <ApplyNowButton
                         href="/forms/rebates/smart-controller"
@@ -510,14 +540,14 @@ const RebateProgramsPage = () => {
                       Receive up to a $50 rebate for purchasing and installing a
                       new solar or safety pool cover. See{' '}
                       <Type component="em" variant="inherit">
-                        program terms &amp; conditions
+                        program requirements
                       </Type>{' '}
                       for additional information.
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                        label="Pool Cover Rebate Terms and Conditions"
+                        href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
+                        caption="Pool Cover Rebate Requirements"
                       />
                       <ApplyNowButton
                         href="/forms/rebates/pool-cover"
@@ -596,7 +626,7 @@ const RebateProgramsPage = () => {
                     <ColumnBox>
                       <TermsAndConditionsButton
                         caption="Toilet Rebate Requirements"
-                        href="https://cdn.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                        href="https://docs.pcwa.net/toilet-rebate-requirements.pdf"
                         label="HET Toilet/Urinal Rebate Requirements"
                       />
                       <ApplyNowButton

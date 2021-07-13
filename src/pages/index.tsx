@@ -136,8 +136,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     }
   }, [intersected, reset, removeAnimation])
 
-  const showWhammyIn = !animationRemoved && intersected && !homeAnimateDone
-  const showWhammyOut = removeAnimation && intersected && !homeAnimateDone
+  const whammyTime = false // change this to true when we are ready to use this animation
+  const showWhammyIn =
+    !animationRemoved && intersected && !homeAnimateDone && whammyTime
+  const showWhammyOut =
+    removeAnimation && intersected && !homeAnimateDone && whammyTime
 
   const classes = useStyles({done: removeAnimation})
 
@@ -293,7 +296,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   imgixParams={{
                     crop: 'top'
                   }}
-                  body="PCWA wants you to save! Online applications for our enhanced water efficiency rebate program will be available July 12. For more information about rebate terms and conditions, or to be notified when applications are available, please contact rebates@pcwa.net."
+                  body="PCWA wants you to save! Online applications for our enhanced water efficiency rebate program have begun. For more information about rebate terms and conditions or to be notified when new applications are available, please contact rebates@pcwa.net."
                 />
 
                 <JackinBox

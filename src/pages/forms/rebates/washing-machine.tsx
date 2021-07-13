@@ -669,7 +669,7 @@ const WashingMachine = () => {
                             <ReviewTermsConditions
                               pageCount={2}
                               fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://imgix.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
+                              termsConditionsUrl="https://imgix.cosmicjs.com/fa376450-e3fc-11eb-be9a-bfe30c7c12b9-WASHING-MACHINE-REBATE-REQUIREMENTS.pdf"
                             />
                             <Type
                               variant="body1"

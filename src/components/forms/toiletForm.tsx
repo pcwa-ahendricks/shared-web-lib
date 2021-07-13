@@ -444,7 +444,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Toilet-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                termsConditionsUrl="https://imgix.cosmicjs.com/f72457f0-e3fc-11eb-be9a-bfe30c7c12b9-TOILET-REBATE-PROGRAM-REQUIREMENTS.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>
@@ -452,7 +452,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
                   I have read, understand, and agree to the{' '}
                   {/* <Link
                                     variant="inherit"
-                                    href="https://cdn.cosmicjs.com/d08fed30-99e3-11e9-b332-27d55c4a47a2-Toilet-program-requirements-06262019.pdf"
+                                    href="https://docs.pcwa.net/toilet-rebate-requirements.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   > */}
