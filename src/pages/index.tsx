@@ -48,6 +48,7 @@ type Props = {
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 
 const useStyles = makeStyles({
+  // [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
   whammy: ({done}: {done: boolean}) => ({
     transition: 'opacity 800ms ease',
     opacity: done ? 0 : 1
@@ -59,6 +60,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const theme = useTheme()
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   const marginTop = useMemo(
     // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
@@ -110,7 +112,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const intersection = useIntersection(animateRef, {
     root: null,
     rootMargin: '0px',
-    threshold: 0.5
+    threshold: isXS ? 0.7 : 0.5
   })
 
   // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
@@ -305,7 +307,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   left={{xs: -5, sm: -25}}
                   width={{xs: 200, sm: 325}}
                   height={{xs: 200, sm: 325}}
-                  display={animationRemoved ? 'none' : 'block'}
                 >
                   <JackinBox
                     name="heartBeat"
@@ -317,6 +318,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                       name="bounceOutRight"
                       animate={showWhammyOut}
                       onAnimateEnd={animationEndHandler}
+                      // Important - this animation will break mega menu if left on-screen
+                      noDisplayAfterAnimate
                     >
                       <Image
                         src="69045490-e337-11eb-b4d6-4f771ba4265e-whammy.png"
