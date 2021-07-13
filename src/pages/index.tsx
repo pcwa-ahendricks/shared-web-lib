@@ -115,7 +115,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
   // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
   const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
-  useTimeoutFn(() => setInitIntersectTimeout(true), 1000)
+  useTimeoutFn(() => setInitIntersectTimeout(true), 1500)
 
   useEffect(() => {
     if (intersection?.isIntersecting && initIntersectTimeout) {
