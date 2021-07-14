@@ -44,8 +44,8 @@ import JackinBox from 'mui-jackinbox'
 import Spacing from '@components/boxes/Spacing'
 import {useInterval} from 'react-use'
 import usePiTag from '@hooks/usePiTag'
-// import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
-// import {AlertTitle} from '@material-ui/lab'
+import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
+import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
@@ -232,6 +232,17 @@ const DynamicPiPage = ({
         PCWA River Flows will be unavailable due to scheduled maintenance on
         Monday, September 21st from 6:00am until 12:00pm.
       </CollapsibleAlert> */}
+      <CollapsibleAlert
+        bottomBgGradient={false}
+        topBgGradient={false}
+        position={101} // Don't conflict with Cosmic alerts. Use 101-199 for page specific alerts.
+        severity="error"
+        // icon={<HomeWorkOutlinedIcon />}
+      >
+        <AlertTitle>PCWA River Flows Page is Offline</AlertTitle>
+        PCWA River Flows page is currently offline. We are currently working on
+        troubleshooting this and hope to have the service back online shortly.
+      </CollapsibleAlert>
       {/* Don't use top margin with this page. */}
       <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}
