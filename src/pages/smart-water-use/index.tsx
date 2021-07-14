@@ -82,7 +82,7 @@ const SmartWaterUsePage = () => {
         <WideContainer>
           <PageTitle title="Smart Water Use" />
           <Spacing />
-          <Type variant="h3" color="primary" gutterBottom>
+          {/* <Type variant="h3" color="primary" gutterBottom>
             What can customers do to help during this dry year?
           </Type>
           <Type paragraph>
@@ -123,7 +123,7 @@ const SmartWaterUsePage = () => {
               </Type>
               <Spacing />
             </ChildBox>
-          </RowBox>
+          </RowBox> */}
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="66.66%">
               <Type variant="h3" color="primary">
