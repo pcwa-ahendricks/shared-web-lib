@@ -18,7 +18,7 @@ import {
   setActiveCycleForecastId,
   setCycleTimeoutId
 } from '../ForecastStore'
-import useInterval from '@hooks/useInterval'
+import useTimeoutId from '@hooks/useTimeoutId'
 
 type Props = {
   cycleInterval?: number
@@ -75,7 +75,7 @@ const ForecastCycle = ({
     forecastDispatch(setActiveCycleForecastId(newId))
   }, [forecastDispatch, forecasts, activeCycleForecastId])
 
-  const timeoutId = useInterval(intervalHandler, cycleInterval)
+  const timeoutId = useTimeoutId(intervalHandler, cycleInterval)
 
   useEffect(() => {
     // Don't set timeout interval if it's already set. Note - Timer will run for lifetime of App. There is no clearInterval function for removing the timer.

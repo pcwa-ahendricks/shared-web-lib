@@ -81,6 +81,49 @@ const SmartWaterUsePage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Smart Water Use" />
+          <Spacing />
+          <Type variant="h3" color="primary" gutterBottom>
+            What can customers do to help during this dry year?
+          </Type>
+          <Type paragraph>
+            On May 10, 2021, Governor Newsom extended his drought emergency
+            declaration to 39 counties in California, including Placer County.
+            While the declaration doesn’t carry with it any required
+            conservation measures, PCWA is taking actions to address water
+            supply and environmental concerns resulting from this critically dry
+            year. PCWA encourages customers to continue using water efficiently
+            and take advantage of our enhanced water efficiency{' '}
+            <MuiNextLink
+              underline="always"
+              href="/smart-water-use/rebate-programs"
+            >
+              rebate
+            </MuiNextLink>{' '}
+            program.{' '}
+          </Type>
+          <Type paragraph>
+            Here are some tips you can follow around your home and business to
+            help our water stewardship efforts.
+          </Type>
+          <Spacing />
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="50.00%">
+              <Type variant="h4" color="primary">
+                Actions <strong>customers</strong> can take outdoors and indoors
+              </Type>
+              <List>
+                <ListItem>
+                  <ListItemText primary="Stress your lawn and save your trees. Reduce each sprinkler cycle by two minutes. By reducing your watering times by two minutes across the board you can achieve an instant savings of 20 percent (for every 10 minutes that your sprinklers are currently scheduled)." />
+                </ListItem>
+              </List>
+            </ChildBox>
+            <ChildBox flex="50.00%">
+              <Type variant="h4" color="primary">
+                Actions <strong>PCWA</strong> is taking
+              </Type>
+              <Spacing />
+            </ChildBox>
+          </RowBox>
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="66.66%">
               <Type variant="h3" color="primary">

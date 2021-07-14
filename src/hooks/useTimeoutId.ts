@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 
-const useInterval = (cb: () => any, interval = 1000) => {
+const useTimeoutId = (cb: () => any, interval = 1000) => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>()
 
   useEffect(() => {
@@ -16,4 +16,4 @@ const useInterval = (cb: () => any, interval = 1000) => {
 
   return timeoutId
 }
-export default useInterval
+export default useTimeoutId
