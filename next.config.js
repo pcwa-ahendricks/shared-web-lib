@@ -563,9 +563,9 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
   // Dangerously allow production builds to successfully complete even if
   // your project has type errors.
   // !! WARN !!
-  typescript: {
-    ignoreBuildErrors: true
-  },
+  // typescript: {
+  //   ignoreBuildErrors: true
+  // },
   webpack: (config) => {
     // Webpack Bundle Size Analyzer - https://github.com/zeit/next.js/tree/master/examples/with-webpack-bundle-size-analyzer
     if (STATS) {
