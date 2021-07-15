@@ -220,26 +220,26 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
-      `${baseUrl}${newsReleasesUrl}`
-    )
-    if (isDev) {
-      const debug =
-        data && Array.isArray(data)
-          ? data
-              .map((nr) => ({
-                ...nr,
-                derivedFilenameAttr: fileNameUtil(
-                  nr.original_name,
-                  DATE_FNS_FORMAT
-                )
-              }))
-              .filter((nr) => !nr.derivedFilenameAttr.date)
-              .map((nr) => nr.original_name)
-          : []
-      debug.forEach((i) => console.log(`Debug News Release: ${i}`))
-    }
+    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // const data: PickedMediaResponses | undefined = await fetcher(
+    //   `${baseUrl}${newsReleasesUrl}`
+    // )
+    // if (isDev) {
+    //   const debug =
+    //     data && Array.isArray(data)
+    //       ? data
+    //           .map((nr) => ({
+    //             ...nr,
+    //             derivedFilenameAttr: fileNameUtil(
+    //               nr.original_name,
+    //               DATE_FNS_FORMAT
+    //             )
+    //           }))
+    //           .filter((nr) => !nr.derivedFilenameAttr.date)
+    //           .map((nr) => nr.original_name)
+    //       : []
+    //   debug.forEach((i) => console.log(`Debug News Release: ${i}`))
+    // }
     // const paths =
     //   data && Array.isArray(data)
     //     ? data

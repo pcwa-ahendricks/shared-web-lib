@@ -382,16 +382,17 @@ const DynamicPiPage = ({
 // }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = gages
-    .filter((g) => !g.disabled) // No disabled gages.
-    .map(({id = ''}) => id.toLowerCase().replace(spacesRe, '-')) // URL paths should be lowercase w/o spaces.
-    .map((id) => ({
-      params: {pid: id}
-    }))
+  // const paths = gages
+  //   .filter((g) => !g.disabled) // No disabled gages.
+  //   .map(({id = ''}) => id.toLowerCase().replace(spacesRe, '-')) // URL paths should be lowercase w/o spaces.
+  //   .map((id) => ({
+  //     params: {pid: id}
+  //   }))
 
   return {
-    paths: [...paths],
-    fallback: false
+    paths: [],
+    // fallback: false
+    fallback: 'blocking'
   }
 }
 
@@ -457,7 +458,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         initialElementsData,
         initialElementsStreamSetData,
         initialCurrentElevationData: elevation?.Value ?? null
-      }
+      },
+      revalidate: 5
     }
   } catch (error) {
     console.log('There was an error fetching PI data.', error)
