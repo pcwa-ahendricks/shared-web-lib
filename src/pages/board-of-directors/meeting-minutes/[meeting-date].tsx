@@ -258,26 +258,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
           : []
       debug.forEach((i) => console.log(`Debug Board Meeting Minutes: ${i}`))
     }
-    const paths =
-      data && Array.isArray(data)
-        ? data
-            .map((bm) => ({
-              ...bm,
-              derivedFilenameAttr: fileNameUtil(
-                bm.original_name,
-                DATE_FNS_FORMAT
-              )
-            }))
-            .filter((bm) => bm.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((bm) => ({
-              params: {
-                'meeting-date': bm.derivedFilenameAttr.date
-              }
-            }))
-        : []
+    // const paths =
+    //   data && Array.isArray(data)
+    //     ? data
+    //         .map((bm) => ({
+    //           ...bm,
+    //           derivedFilenameAttr: fileNameUtil(
+    //             bm.original_name,
+    //             DATE_FNS_FORMAT
+    //           )
+    //         }))
+    //         .filter((bm) => bm.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+    //         .map((bm) => ({
+    //           params: {
+    //             'meeting-date': bm.derivedFilenameAttr.date
+    //           }
+    //         }))
+    //     : []
     return {
-      paths,
-      fallback: true
+      paths: [],
+      fallback: 'blocking'
     }
   } catch (error) {
     console.log(error)
@@ -306,7 +306,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, meetingDate},
-      revalidate: 5
+      revalidate: 10
     }
   } catch (error) {
     console.log(error)
