@@ -232,46 +232,46 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
-      `${baseUrl}${newslettersUrl}`
-    )
-    if (isDev) {
-      const debug =
-        data && Array.isArray(data)
-          ? data
-              .map((nl) => ({
-                ...nl,
-                derivedFilenameAttr: fileNameUtil(
-                  nl.original_name,
-                  DATE_FNS_FORMAT
-                )
-              }))
-              .filter((nl) => !nl.derivedFilenameAttr.date)
-              .map((nl) => nl.original_name)
-          : []
-      debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
-    }
-    const paths =
-      data && Array.isArray(data)
-        ? data
-            .map((nl) => ({
-              ...nl,
-              derivedFilenameAttr: fileNameUtil(
-                nl.original_name,
-                DATE_FNS_FORMAT
-              )
-            }))
-            .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((nl) => ({
-              params: {
-                'publish-date': nl.derivedFilenameAttr.date
-              }
-            }))
-        : []
+    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // const data: PickedMediaResponses | undefined = await fetcher(
+    //   `${baseUrl}${newslettersUrl}`
+    // )
+    // if (isDev) {
+    //   const debug =
+    //     data && Array.isArray(data)
+    //       ? data
+    //           .map((nl) => ({
+    //             ...nl,
+    //             derivedFilenameAttr: fileNameUtil(
+    //               nl.original_name,
+    //               DATE_FNS_FORMAT
+    //             )
+    //           }))
+    //           .filter((nl) => !nl.derivedFilenameAttr.date)
+    //           .map((nl) => nl.original_name)
+    //       : []
+    //   debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
+    // }
+    // const paths =
+    //   data && Array.isArray(data)
+    //     ? data
+    //         .map((nl) => ({
+    //           ...nl,
+    //           derivedFilenameAttr: fileNameUtil(
+    //             nl.original_name,
+    //             DATE_FNS_FORMAT
+    //           )
+    //         }))
+    //         .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+    //         .map((nl) => ({
+    //           params: {
+    //             'publish-date': nl.derivedFilenameAttr.date
+    //           }
+    //         }))
+    //     : []
     return {
-      paths,
-      fallback: true
+      paths: [],
+      fallback: 'blocking'
     }
   } catch (error) {
     console.log(error)
@@ -300,7 +300,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, publishDate},
-      revalidate: 5
+      revalidate: 10
     }
   } catch (error) {
     console.log(error)
