@@ -153,19 +153,19 @@ const SmartWaterUsePage = () => {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Enhancing water efficiency rebate program." />
+                  <ListItemText primary="Enhancing water efficiency rebate programs." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Expanding canal operation hours to monitoring for and minimize losses." />
+                  <ListItemText primary="Mitigating irrigation water losses by expanding operation hours for monitoring canal conditions." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Meeting our Water Forum commitment, to the lower American River, by releasing extra water from our reservoirs for fishery benefits." />
+                  <ListItemText primary="Meeting our Water Forum commitment to the lower American River by releasing extra water from our reservoirs for fishery benefits." />
                 </BulletItem>
               </List>
               <Spacing size="large" />
@@ -205,7 +205,7 @@ const SmartWaterUsePage = () => {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Check soil moisture before turning on sprinklers. Stop by our main office to pick one up today." />
+                  <ListItemText primary="Check soil moisture before turning on sprinklers. Stop by our main office to pick up a free moisture meter today." />
                 </BulletItem>{' '}
                 <BulletItem>
                   <ListItemBullet>
@@ -217,7 +217,7 @@ const SmartWaterUsePage = () => {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Upgrade to WaterSense-labled, weather-based sprinkler timer." />
+                  <ListItemText primary="Upgrade to a WaterSense-labeled, weather-based sprinkler timer." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
@@ -235,13 +235,16 @@ const SmartWaterUsePage = () => {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Mulch 2-3 inches thick. Mulch is like icing on a cake, because it keeps the soil moist the way icing keeps a cake moist." />
+                  <ListItemText primary="Add a layer of mulch on top of soil, 2-3 inches thick. Mulch is like icing on a cake, because it keeps the soil moist the way icing keeps a cake moist." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Cycle and soak to prevent runoff. Some sprinklers systems apply water faster than the ground will absorb, causing water to runoff your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil." />
+                  <ListItemText
+                    primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil.                        
+·         Adjust sprinklers to reduce overspray."
+                  />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>

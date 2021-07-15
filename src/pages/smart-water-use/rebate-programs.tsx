@@ -16,11 +16,11 @@ import FancyButton, {
   FancyButtonProps
 } from '@components/FancyButton/FancyButton'
 import MainPhone from '@components/links/MainPhone'
-import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+import RebatesEmail from '@components/links/RebatesEmail'
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -585,7 +585,7 @@ const RebateProgramsPage = () => {
               <Type paragraph>
                 For eligibility requirements or information on rebate programs
                 please call PCWA Customer Services at <MainPhone /> or email us
-                at <WaterEfficiencyEmail />.
+                at <RebatesEmail />.
               </Type>
             </ChildBox>
           </ColumnBox>
