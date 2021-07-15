@@ -33,7 +33,7 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import slugify from 'slugify'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {

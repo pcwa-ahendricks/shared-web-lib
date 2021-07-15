@@ -34,7 +34,7 @@ import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
