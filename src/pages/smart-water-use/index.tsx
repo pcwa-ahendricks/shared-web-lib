@@ -1,5 +1,8 @@
 // cspell:ignore Eisley Normac watersavingplants
 import React, {useState, useCallback} from 'react'
+import BulletIcon from 'mdi-material-ui/CircleSmall'
+import WaterIcon from 'mdi-material-ui/WaterPercent'
+import EcoIcon from '@material-ui/icons/Eco'
 import {
   Typography as Type,
   Box,
@@ -22,7 +25,9 @@ import {
   createStyles,
   makeStyles,
   useTheme,
-  Theme
+  Theme,
+  ListItemProps,
+  ListItemIconProps
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -46,6 +51,9 @@ import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemBullet: {
+      minWidth: theme.spacing(5)
+    },
     headingIcon: {
       paddingRight: theme.spacing(1)
     },
@@ -74,6 +82,23 @@ const SmartWaterUsePage = () => {
     []
   )
 
+  const BulletItem = useCallback(
+    ({children, ...rest}: Omit<ListItemProps, 'button'>) => {
+      return <ListItem {...rest}>{children}</ListItem>
+    },
+    []
+  )
+  const ListItemBullet = useCallback(
+    ({children, ...rest}: ListItemIconProps) => {
+      return (
+        <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
+          {children}
+        </ListItemIcon>
+      )
+    },
+    [classes]
+  )
+
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
@@ -82,7 +107,7 @@ const SmartWaterUsePage = () => {
         <WideContainer>
           <PageTitle title="Smart Water Use" />
           <Spacing />
-          {/* <Type variant="h3" color="primary" gutterBottom>
+          <Type variant="h3" color="primary" gutterBottom>
             What can customers do to help during this dry year?
           </Type>
           <Type paragraph>
@@ -111,19 +136,123 @@ const SmartWaterUsePage = () => {
               <Type variant="h4" color="primary">
                 Actions <strong>customers</strong> can take outdoors and indoors
               </Type>
-              <List>
-                <ListItem>
+              <List dense disablePadding>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
                   <ListItemText primary="Stress your lawn and save your trees. Reduce each sprinkler cycle by two minutes. By reducing your watering times by two minutes across the board you can achieve an instant savings of 20 percent (for every 10 minutes that your sprinklers are currently scheduled)." />
-                </ListItem>
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Check soil moisture before turning on sprinklers. Stop by our main office to pick one up today." />
+                </BulletItem>{' '}
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Replace older sprinklers with more efficient nozzles." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Upgrade to WaterSense-labled, weather-based sprinkler timer." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Water plants early in the morning to reduce evaporation." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Check for and fix leaks. The most common type of leak inside a home is a toilet leak, which can waste 200 gallons of water per day.  That’s enough to wash seven loads of laundry every day for a month." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Mulch 2-3 inches thick. Mulch is like icing on a cake, because it keeps the soil moist the way icing keeps a cake moist." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Cycle and soak to prevent runoff. Some sprinklers systems apply water faster than the ground will absorb, causing water to runoff your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Adjust sprinklers to reduce overspray." />
+                </BulletItem>
               </List>
             </ChildBox>
             <ChildBox flex="50.00%">
               <Type variant="h4" color="primary">
                 Actions <strong>PCWA</strong> is taking
               </Type>
-              <Spacing />
+              <List dense disablePadding>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Operating PCWA’s western Placer groundwater wells to reduce surface water demands." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Shifting a portion of wholesale demands to groundwater." />
+                </BulletItem>{' '}
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Enhancing water efficiency rebate program." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Expanding canal operation hours to monitoring for and minimize losses." />
+                </BulletItem>
+                <BulletItem>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Meeting our Water Forum commitment, to the lower American River, by releasing extra water from our reservoirs for fishery benefits." />
+                </BulletItem>
+              </List>
+              <Spacing size="large" />
+              <RowBox justifyContent="center" flexSpacing={2}>
+                <ChildBox>
+                  <WaterIcon fontSize="large" color="primary" />
+                </ChildBox>
+                <ChildBox>
+                  <EcoIcon fontSize="large" color="secondary" />
+                </ChildBox>
+              </RowBox>
+              <Spacing size="large" />
+              <Box width="90%" m="auto">
+                <Image
+                  src="aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg"
+                  loader={imgixLoader}
+                  alt="PCWA Water Efficiency Technician adjusting sprinkle nozzle head."
+                  height={4480}
+                  width={6720}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 90vw, 40vw"
+                />
+              </Box>
             </ChildBox>
-          </RowBox> */}
+          </RowBox>
+          <Spacing factor={2} />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="66.66%">
               <Type variant="h3" color="primary">
