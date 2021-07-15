@@ -1,19 +1,11 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
-  ListItemText,
-  Paper,
-  ListItem,
   Typography as Type,
   Box,
   useTheme,
   Link,
-  createStyles,
-  makeStyles,
-  BoxProps,
-  Theme,
-  List,
-  ListItemProps
+  BoxProps
 } from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -28,30 +20,26 @@ import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import {blue} from '@material-ui/core/colors'
-import RebatesEmail from '@components/links/RebatesEmail'
-import colorAlpha from 'color-alpha'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    // verticalAlign: 'super' changes styling in an unfavorable way. Workaround consists of using Flex layout.
-    annotate: {
-      textTransform: 'capitalize',
-      alignSelf: 'flex-start',
-      fontSize: '0.95rem',
-      paddingRight: theme.spacing(1),
-      color: theme.palette.secondary.main
-    },
-    listItem: {paddingBottom: 0},
-    darkSecondary: {
-      color: theme.palette.secondary.dark
-    }
-  })
-)
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     // verticalAlign: 'super' changes styling in an unfavorable way. Workaround consists of using Flex layout.
+//     annotate: {
+//       textTransform: 'capitalize',
+//       alignSelf: 'flex-start',
+//       fontSize: '0.95rem',
+//       paddingRight: theme.spacing(1),
+//       color: theme.palette.secondary.main
+//     },
+//     listItem: {paddingBottom: 0},
+//     darkSecondary: {
+//       color: theme.palette.secondary.dark
+//     }
+//   })
+// )
 
 const RebateProgramsPage = () => {
-  const classes = useStyles()
   const theme = useTheme()
   const RebateCard = ({children, ...rest}: BoxProps) => {
     return (
@@ -116,13 +104,6 @@ const RebateProgramsPage = () => {
       </NextLink>
     )
   }
-
-  const Li = useCallback(
-    ({children}: ListItemProps) => {
-      return <ListItem classes={{root: classes.listItem}}>{children}</ListItem>
-    },
-    [classes]
-  )
 
   return (
     <PageLayout title="Rebate Programs" waterSurface>
