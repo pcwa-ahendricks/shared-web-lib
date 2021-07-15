@@ -34,8 +34,8 @@ import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import {
-  PublicationLibraryMetadata,
-  PublicationList
+  PublicationLibraryMetadata
+  // PublicationList
 } from '@components/multimedia/MultimediaStore'
 
 type Props = {
@@ -220,30 +220,31 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const documents: PublicationList | undefined = await fetcher(
-      `${baseUrl}${publicationUrl}`
-    )
+    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // const documents: PublicationList | undefined = await fetcher(
+    //   `${baseUrl}${publicationUrl}`
+    // )
 
-    const documentPaths =
-      documents && Array.isArray(documents)
-        ? documents
-            .map((doc) => ({
-              ...doc,
-              derivedFilenameAttr: fileNameUtil(doc.original_name)
-            }))
-            .filter((doc) => doc.derivedFilenameAttr.extension === 'pdf')
-            .filter((doc) => !/(cover)/i.test(doc.original_name))
-            .map((doc) => ({
-              params: {
-                publication: slugify(doc.derivedFilenameAttr?.base ?? '')
-              }
-            }))
-        : []
+    // const documentPaths =
+    //   documents && Array.isArray(documents)
+    //     ? documents
+    //         .map((doc) => ({
+    //           ...doc,
+    //           derivedFilenameAttr: fileNameUtil(doc.original_name)
+    //         }))
+    //         .filter((doc) => doc.derivedFilenameAttr.extension === 'pdf')
+    //         .filter((doc) => !/(cover)/i.test(doc.original_name))
+    //         .map((doc) => ({
+    //           params: {
+    //             publication: slugify(doc.derivedFilenameAttr?.base ?? '')
+    //           }
+    //         }))
+    //     : []
 
     return {
-      paths: [...documentPaths],
-      fallback: true
+      // paths: [...documentPaths],
+      paths: [],
+      fallback: 'blocking'
     }
   } catch (error) {
     console.log(error)
@@ -276,7 +277,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, publicationSlug},
-      revalidate: 5
+      revalidate: 10
     }
   } catch (error) {
     console.log(error)

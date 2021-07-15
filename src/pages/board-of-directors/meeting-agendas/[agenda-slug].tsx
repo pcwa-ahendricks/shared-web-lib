@@ -33,7 +33,7 @@ import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -229,36 +229,36 @@ const DynamicBoardAgendasPage = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
-    const data = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
-      `${urlBase}${agendasUrl}`
-    )
+    //   const urlBase = process.env.NEXT_PUBLIC_BASE_URL
+    //   const data = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
+    //     `${urlBase}${agendasUrl}`
+    //   )
 
-    if (isDev) {
-      const debug =
-        data && Array.isArray(data.objects)
-          ? data.objects
-              .filter((a) => !a.title || !a.metadata?.date)
-              .map((a) => slugify(`${a.metadata.date} - ${a.title}`))
-          : []
-      debug.forEach((i) => console.log(`Debug Board Meeting Agenda: ${i}`))
-    }
-    const paths =
-      data && Array.isArray(data.objects)
-        ? data.objects
-            .filter((a) => !a.metadata.hidden)
-            .filter((a) => a.title && a.metadata?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            // Note - Just date (not time) is used with route name.
-            .map((a) => ({
-              params: {
-                'agenda-slug': slugify(`${a.metadata.date} - ${a.title}`)
-              }
-            }))
-        : []
+    //   if (isDev) {
+    //     const debug =
+    //       data && Array.isArray(data.objects)
+    //         ? data.objects
+    //             .filter((a) => !a.title || !a.metadata?.date)
+    //             .map((a) => slugify(`${a.metadata.date} - ${a.title}`))
+    //         : []
+    //     debug.forEach((i) => console.log(`Debug Board Meeting Agenda: ${i}`))
+    //   }
+    //   const paths =
+    //     data && Array.isArray(data.objects)
+    //       ? data.objects
+    //           .filter((a) => !a.metadata.hidden)
+    //           .filter((a) => a.title && a.metadata?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+    //           // Note - Just date (not time) is used with route name.
+    //           .map((a) => ({
+    //             params: {
+    //               'agenda-slug': slugify(`${a.metadata.date} - ${a.title}`)
+    //             }
+    //           }))
+    //       : []
 
     return {
-      paths,
-      fallback: true
+      paths: [],
+      fallback: 'blocking'
     }
   } catch (error) {
     console.log(error)
@@ -292,7 +292,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         : null
 
     if (!agenda) {
-      return {props: {err: {statusCode: 404}}, revalidate: 5}
+      return {props: {err: {statusCode: 404}}, revalidate: 10}
     }
     const agendaImgixUrl = agenda?.metadata.agenda_pdf.imgix_url
     const agendaTitle = agenda?.title
@@ -304,7 +304,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         agendaTitle,
         agendaImgixUrl
       },
-      revalidate: 5
+      revalidate: 10
     }
   } catch (error) {
     console.log(error)
