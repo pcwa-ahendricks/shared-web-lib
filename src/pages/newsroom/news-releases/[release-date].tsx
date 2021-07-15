@@ -240,26 +240,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
           : []
       debug.forEach((i) => console.log(`Debug News Release: ${i}`))
     }
-    const paths =
-      data && Array.isArray(data)
-        ? data
-            .map((nr) => ({
-              ...nr,
-              derivedFilenameAttr: fileNameUtil(
-                nr.original_name,
-                DATE_FNS_FORMAT
-              )
-            }))
-            .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((nr) => ({
-              params: {
-                'release-date': nr.derivedFilenameAttr.date
-              }
-            }))
-        : []
+    // const paths =
+    //   data && Array.isArray(data)
+    //     ? data
+    //         .map((nr) => ({
+    //           ...nr,
+    //           derivedFilenameAttr: fileNameUtil(
+    //             nr.original_name,
+    //             DATE_FNS_FORMAT
+    //           )
+    //         }))
+    //         .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+    //         .map((nr) => ({
+    //           params: {
+    //             'release-date': nr.derivedFilenameAttr.date
+    //           }
+    //         }))
+    //     : []
     return {
-      paths,
-      fallback: true
+      fallback: 'blocking',
+      paths: []
     }
   } catch (error) {
     console.log(error)
@@ -295,7 +295,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         media,
         releaseDate
       },
-      revalidate: 5
+      revalidate: 10
     }
   } catch (error) {
     console.log(error)
