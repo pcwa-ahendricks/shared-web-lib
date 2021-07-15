@@ -106,18 +106,21 @@ const SmartWaterUsePage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Smart Water Use" />
-          <Spacing />
+          <Spacing size="large" />
           <Type variant="h3" color="primary" gutterBottom>
-            What can customers do to help during this dry year?
+            2021 is a critically dry year. What can customers do to save water?
           </Type>
           <Type paragraph>
-            On May 10, 2021, Governor Newsom extended his drought emergency
-            declaration to 39 counties in California, including Placer County.
-            While the declaration doesn’t carry with it any required
-            conservation measures, PCWA is taking actions to address water
-            supply and environmental concerns resulting from this critically dry
-            year. PCWA encourages customers to continue using water efficiently
-            and take advantage of our enhanced water efficiency{' '}
+            On July 8, Governor Newsom called on all Californians to voluntarily
+            reduce water use by 15 percent to respond to the critically dry year
+            we are currently experiencing. PCWA is taking actions to address
+            water supply and environmental concerns and encourages customers to
+            continue using water efficiently.
+          </Type>
+          <Type paragraph>
+            Here are some tips you can follow around your home and business to
+            help our water stewardship efforts. Also, make sure to take
+            advantage of PCWA's enhanced water efficiency{' '}
             <MuiNextLink
               underline="always"
               href="/smart-water-use/rebate-programs"
@@ -125,10 +128,6 @@ const SmartWaterUsePage = () => {
               rebate
             </MuiNextLink>{' '}
             program.{' '}
-          </Type>
-          <Type paragraph>
-            Here are some tips you can follow around your home and business to
-            help our water stewardship efforts.
           </Type>
           <Spacing />
           <RowBox responsive flexSpacing={6}>
@@ -159,7 +158,7 @@ const SmartWaterUsePage = () => {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Mitigating irrigation water losses by expanding operation hours for monitoring canal conditions." />
+                  <ListItemText primary="Expanding canal operation hours to monitor for and minimize water losses." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
@@ -168,15 +167,6 @@ const SmartWaterUsePage = () => {
                   <ListItemText primary="Meeting our Water Forum commitment to the lower American River by releasing extra water from our reservoirs for fishery benefits." />
                 </BulletItem>
               </List>
-              <Spacing size="large" />
-              <RowBox justifyContent="center" flexSpacing={2}>
-                <ChildBox>
-                  <WaterIcon fontSize="large" color="primary" />
-                </ChildBox>
-                <ChildBox>
-                  <EcoIcon fontSize="large" color="secondary" />
-                </ChildBox>
-              </RowBox>
               <Spacing size="large" />
               <Box width="90%" m="auto">
                 <Image
@@ -255,7 +245,16 @@ const SmartWaterUsePage = () => {
               </List>
             </ChildBox>
           </RowBox>
-          <Spacing factor={2} size="large" />
+          <Spacing size="x-large" />
+          <RowBox justifyContent="center" flexSpacing={2}>
+            <ChildBox>
+              <WaterIcon fontSize="large" color="primary" />
+            </ChildBox>
+            <ChildBox>
+              <EcoIcon fontSize="large" color="secondary" />
+            </ChildBox>
+          </RowBox>
+          <Spacing size="x-large" />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="66.66%">
               <Type variant="h3" color="primary">

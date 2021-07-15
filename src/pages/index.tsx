@@ -67,10 +67,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     () => (is5to4 ? '-16vmax' : 0),
     [is5to4]
   )
-  const Emx = useCallback(
-    ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
-    []
-  )
+  // const Emx = useCallback(
+  //   ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
+  //   []
+  // )
   const coverTileTopMargin = 5
 
   const tileWidth = isLGUp ? 176 : 160
@@ -342,6 +342,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
           <ChildBox flex="50%">
             <CoverStory
+              imageRatio={coverStoryImageRatio}
+              title=" Critically Dry Year Actions"
+              readMore="Learn more"
+              linkHref="/smart-water-use"
+              imgixURL="https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg"
+              alt="PCWA Water Efficiency Technician adjusting sprinkle nozzle head."
+              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to continue using water efficiently."
+            />
+
+            {/* <CoverStory
               aria-label="Link to Water Year Dashboard page"
               imageRatio={coverStoryImageRatio}
               title="Water Year Dashboard"
@@ -362,7 +372,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   precipitation, snowpack, and climate.
                 </Type>
               }
-            />
+            /> */}
+
             {/* <CoverStory
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."
