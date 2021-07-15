@@ -129,7 +129,7 @@ const RebateProgramsPage = () => {
       <MainBox>
         <WideContainer>
           <PageTitle title="Rebate Programs" subtitle="Smart Water Use" />
-          <Box>
+          {/* <Box>
             <Paper elevation={5}>
               <Box p={4} bgcolor={colorAlpha(blue[50], 0.4)}>
                 <Type variant="h3" gutterBottom>
@@ -225,7 +225,7 @@ const RebateProgramsPage = () => {
                 </Type>
               </Box>
             </Paper>
-          </Box>
+          </Box> */}
           <Spacing factor={2} />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="45%">
@@ -256,11 +256,11 @@ const RebateProgramsPage = () => {
             </ChildBox>
           </RowBox>
           <Spacing size="large" />
+          <Type variant="h3" color="primary">
+            Current Rebate Programs
+          </Type>
           <RowBox responsive flexSpacing={8}>
             <ChildBox flex="50%">
-              <Type variant="h3" color="primary">
-                Residential Rebate Programs
-              </Type>
               <Spacing />
               <ColumnBox flexSpacing={3}>
                 <ChildBox position="relative">
@@ -279,7 +279,7 @@ const RebateProgramsPage = () => {
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Smart Controller Rebate -
+                        Smart Controller -
                       </Type>{' '}
                       Receive up to a $250 rebate for replacing an existing
                       irrigation controller with an EPA WaterSense approved
@@ -312,128 +312,59 @@ const RebateProgramsPage = () => {
                     </ColumnBox>
                   </RebateCard>
                 </ChildBox>
-                <ChildBox position="relative">
-                  <RibbonContainer minHeight={theme.spacing(3)}>
-                    <LeftLargeRibbon
-                      backgroundColor="#cc4400"
-                      color="#f0f0f0"
-                      fontFamily="Arial"
-                      zIndex={3}
-                    >
-                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
-                        New
-                      </span>
-                    </LeftLargeRibbon>
-                  </RibbonContainer>
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Pool Cover -
-                      </Type>{' '}
-                      Receive up to a $50 rebate for purchasing and installing a
-                      new solar or safety pool cover. See{' '}
-                      <Type component="em" variant="inherit">
-                        program requirements
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
-                        caption="Pool Cover Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/pool-cover"
-                        label="Apply for Pool Cover Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
+                <ChildBox>
+                  <ChildBox position="relative">
+                    <RibbonContainer minHeight={theme.spacing(3)}>
+                      <LeftLargeRibbon
+                        backgroundColor={theme.palette.secondary.dark}
+                        color={theme.palette.grey['50']}
+                        fontFamily="Arial"
+                        zIndex={3}
+                      >
+                        <span
+                          style={{
+                            verticalAlign: 'top',
+                            lineHeight: '1.2em',
+                            fontSize: '0.9em'
+                          }}
+                        >
+                          Enhanced
+                        </span>
+                      </LeftLargeRibbon>
+                    </RibbonContainer>
+                    <RebateCard pt={4}>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          Lawn Replacement -
+                        </Type>{' '}
+                        Receive up to a $1,000 rebate for residential customers
+                        (at a rate of $2 per square foot) and up to a $8,000
+                        rebate for commercial customers (at a rate of $3 per
+                        square foot) for the conversion of a water-thirsty lawn
+                        to water-efficient landscaping. See{' '}
+                        <Type component="em" variant="inherit">
+                          program terms &amp; conditions
+                        </Type>{' '}
+                        for additional information.
+                      </Type>
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          href="https://cdn.cosmicjs.com/cedb8680-943d-11e9-85db-d593262c2934-Lawn-Replacement-Terms-and-Conditions.pdf"
+                          label="Lawn Replacement Rebate Terms and Conditions"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/lawn-replacement"
+                          label="Apply for Lawn Replacement Rebate Online"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </ChildBox>
                 </ChildBox>
                 <ChildBox>
                   <RebateCard>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Irrigation Efficiencies Rebate -
-                      </Type>{' '}
-                      Receive up to a $500 rebate for upgrading existing
-                      in-ground irrigation systems with new high efficiency
-                      equipment and/or installing an EPA Water Sense approved
-                      weather based irrigation controller. See{' '}
-                      <Type component="em" variant="inherit">
-                        program terms &amp; conditions
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                        label="Irrigation Efficiencies Rebate Terms and Conditions"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/irrigation-efficiencies"
-                        label="Apply for Efficiencies Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
-                <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Lawn Replacement Rebate -
-                      </Type>{' '}
-                      Receive up to a $500 rebate for the conversion of
-                      water-thirsty lawns to water-efficient landscaping at a
-                      rate of $1 per square foot. See{' '}
-                      <Type component="em" variant="inherit">
-                        program terms &amp; conditions
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/cedb8680-943d-11e9-85db-d593262c2934-Lawn-Replacement-Terms-and-Conditions.pdf"
-                        label="Lawn Replacement Rebate Terms and Conditions"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/lawn-replacement"
-                        label="Apply for Lawn Replacement Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
-                <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        High-Efficiency Toilet (HET)/Urinal Rebate Program -
-                      </Type>{' '}
-                      Receive up to a $100 rebate per toilet for the replacement
-                      of old 3 Gallons Per Flush (GPF) or Pre-1994 toilets with
-                      new high-efficiency 1.28 GPF toilets. For urinals, receive
-                      up to a $100 rebate per urinal for the replacement of
-                      commercial urinals with EPA WaterSense approved or
-                      waterless urinals. See program requirements for additional
-                      information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        caption="Toilet Rebate Requirements"
-                        href="https://docs.pcwa.net/toilet-rebate-requirements.pdf"
-                        label="HET Toilet/Urinal Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/toilet"
-                        label="Apply for HET Toilet/Urinal Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
-                <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        High-Efficiency Clothes Washing Machine Rebate Program -
+                        High-Efficiency Clothes Washing Machine -
                       </Type>{' '}
                       Receive up to a $150 rebate for the replacement of an old
                       clothes washing machine with a new high-efficiency machine
@@ -465,60 +396,8 @@ const RebateProgramsPage = () => {
               </ColumnBox>
             </ChildBox>
             <ChildBox flex="50%">
-              <Type variant="h3" color="primary">
-                Commercial Rebate Programs*
-              </Type>
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                <ChildBox position="relative">
-                  <RibbonContainer minHeight={theme.spacing(3)}>
-                    <LeftLargeRibbon
-                      backgroundColor="#cc4400"
-                      color="#f0f0f0"
-                      fontFamily="Arial"
-                      zIndex={3}
-                    >
-                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
-                        New
-                      </span>
-                    </LeftLargeRibbon>
-                  </RibbonContainer>
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Smart Controller Rebate -
-                      </Type>{' '}
-                      Receive up to a $250 rebate for replacing an existing
-                      irrigation controller with an EPA WaterSense approved
-                      Weather Based Irrigation Controller. For a list of
-                      qualifying controllers see:{' '}
-                      <Link
-                        variant="inherit"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        underline="always"
-                        href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
-                      >
-                        lookforwatersense.epa.gov
-                      </Link>
-                      . For additional information see{' '}
-                      <Type component="em" variant="inherit">
-                        program requirements
-                      </Type>
-                      .
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
-                        caption="Smart Controller Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/smart-controller"
-                        label="Apply for Smart Controller Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
                 <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
@@ -557,63 +436,58 @@ const RebateProgramsPage = () => {
                   </RebateCard>
                 </ChildBox>
                 <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Irrigation Efficiencies Rebate -
-                      </Type>{' '}
-                      Receive up to a $1,500 rebate for upgrading existing
-                      in-ground irrigation systems with new high efficiency
-                      equipment and/or installing an EPA Water Sense approved
-                      weather based irrigation controller. See{' '}
-                      <Type component="em" variant="inherit">
-                        program terms &amp; conditions
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                        label="Irrigation Efficiencies Rebate Terms and Conditions"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/irrigation-efficiencies"
-                        label="Apply for Efficiencies Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
+                  <ChildBox position="relative">
+                    <RibbonContainer minHeight={theme.spacing(3)}>
+                      <LeftLargeRibbon
+                        backgroundColor={theme.palette.secondary.dark}
+                        color={theme.palette.grey['50']}
+                        fontFamily="Arial"
+                        zIndex={3}
+                      >
+                        <span
+                          style={{
+                            verticalAlign: 'top',
+                            lineHeight: '1.2em',
+                            fontSize: '0.9em'
+                          }}
+                        >
+                          Enhanced
+                        </span>
+                      </LeftLargeRibbon>
+                    </RibbonContainer>
+                    <RebateCard pt={4}>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          Irrigation Efficiencies -
+                        </Type>{' '}
+                        Receive up to a $500 rebate for residential customers
+                        and up to a $2,000 rebate for commercial customers for
+                        upgrading existing in-ground irrigation systems with new
+                        high efficiency equipment. See{' '}
+                        <Type component="em" variant="inherit">
+                          program terms &amp; conditions
+                        </Type>{' '}
+                        for additional information.
+                      </Type>
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                          label="Irrigation Efficiencies Rebate Terms and Conditions"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/irrigation-efficiencies"
+                          label="Apply for Efficiencies Rebate Online"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </ChildBox>
                 </ChildBox>
+
                 <ChildBox>
                   <RebateCard>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Lawn Replacement Rebate -
-                      </Type>{' '}
-                      Receive up to a $2,000 rebate for the conversion of
-                      water-thirsty lawns to water-efficient landscaping at a
-                      rate of $1 per square foot. See{' '}
-                      <Type component="em" variant="inherit">
-                        program terms &amp; conditions
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://cdn.cosmicjs.com/cedb8680-943d-11e9-85db-d593262c2934-Lawn-Replacement-Terms-and-Conditions.pdf"
-                        label="Lawn Replacement Rebate Terms and Conditions"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/lawn-replacement"
-                        label="Apply for Lawn Replacement Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
-                <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        High-Efficiency Toilet (HET)/Urinal Rebate Program -
+                        High-Efficiency Toilet (HET)/Urinal -
                       </Type>{' '}
                       Receive up to a $100 rebate per toilet for the replacement
                       of old 3 Gallons Per Flush (GPF) or Pre-1994 toilets with
@@ -639,7 +513,7 @@ const RebateProgramsPage = () => {
               </ColumnBox>
             </ChildBox>
           </RowBox>
-          <Spacing size="x-large" />
+          <Spacing factor={2} />
           <ColumnBox alignItems="center">
             <Type variant="h4" gutterBottom color="primary">
               Additional Information:
