@@ -106,7 +106,7 @@
     "is-number": "^7.0.0",
     "mdi-material-ui": "^6.17.0",
     "mime": "^2.4.5",
-    "mui-jackinbox": "^0.0.7",
+    "mui-jackinbox": "^0.1.0",
     "mui-sleazebox": "^0.0.6",
     "next": "^11.0.0",
     "next-compose-plugins": "^2.2.0",
