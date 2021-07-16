@@ -1,7 +1,7 @@
 // cspell:ignore smoothscroll pageview
 import React, {useEffect} from 'react'
 import {AppProps} from 'next/app'
-import Router, {useRouter} from 'next/router'
+import {useRouter} from 'next/router'
 import {ThemeProvider} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {ParallaxProvider} from 'react-scroll-parallax'
@@ -47,26 +47,16 @@ const clearProgressBarTimeout = () => {
     progressBarTimeout = null
   }
 }
-
 const startProgressBar = () => {
   clearProgressBarTimeout()
   progressBarTimeout = setTimeout(() => {
     NProgress.start()
   }, 200)
 }
-
 const stopProgressBar = () => {
   clearProgressBarTimeout()
   NProgress.done()
 }
-/* */
-
-Router.events.on('routeChangeStart', (url) => {
-  isDev && console.log(`Loading: ${url}`)
-  startProgressBar()
-})
-Router.events.on('routeChangeComplete', () => stopProgressBar())
-Router.events.on('routeChangeError', () => stopProgressBar())
 
 export default function MyApp({Component, pageProps}: AppProps) {
   useEffect(() => {
@@ -108,12 +98,26 @@ export default function MyApp({Component, pageProps}: AppProps) {
   const router = useRouter()
   /* Google Analytics */
   useEffect(() => {
+    const handleRouteStart = (url: string) => {
+      isDev && console.log(`Loading: ${url}`)
+      startProgressBar()
+    }
     const handleRouteChange = (url: string) => {
+      stopProgressBar()
+      isDev && console.log('gtag page: ', url)
       gtag.pageview(url)
     }
+    const handleRouteError = () => {
+      stopProgressBar()
+    }
+
+    router.events.on('routeChangeStart', handleRouteStart)
     router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('routeChangeError', handleRouteError)
     return () => {
+      router.events.off('routeChangeStart', handleRouteStart)
       router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('routeChangeError', handleRouteError)
     }
   }, [router.events])
 
