@@ -277,7 +277,7 @@ const RebateProgramsPage = () => {
                       </Link>
                       . For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        program requirements
+                        Smart Controller Rebate Requirements
                       </Type>
                       .
                     </Type>
@@ -322,9 +322,9 @@ const RebateProgramsPage = () => {
                         (at a rate of $2 per square foot) and up to a $8,000
                         rebate for commercial customers (at a rate of $3 per
                         square foot) for the conversion of a water-thirsty lawn
-                        to water-efficient landscaping. See{' '}
+                        to water-efficient landscaping. See program{' '}
                         <Type component="em" variant="inherit">
-                          program terms &amp; conditions
+                          Terms &amp; Conditions
                         </Type>{' '}
                         for additional information.
                       </Type>
@@ -359,7 +359,10 @@ const RebateProgramsPage = () => {
                         Consortium for Energy Efficiency - Super Efficient Home
                         Appliances Initiative
                       </Link>
-                      . For additional information see program requirements.
+                      . For additional information see{' '}
+                      <Type component="em" variant="inherit">
+                        Washer Rebate Requirements.
+                      </Type>
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
@@ -400,7 +403,7 @@ const RebateProgramsPage = () => {
                       Receive up to a $50 rebate for purchasing and installing a
                       new solar or safety pool cover. See{' '}
                       <Type component="em" variant="inherit">
-                        program requirements
+                        Pool Cover Rebate Requirements
                       </Type>{' '}
                       for additional information.
                     </Type>
@@ -444,9 +447,9 @@ const RebateProgramsPage = () => {
                         Receive up to a $500 rebate for residential customers
                         and up to a $2,000 rebate for commercial customers for
                         upgrading existing in-ground irrigation systems with new
-                        high efficiency equipment. See{' '}
+                        high efficiency equipment. See program{' '}
                         <Type component="em" variant="inherit">
-                          program terms &amp; conditions
+                          Terms &amp; Conditions
                         </Type>{' '}
                         for additional information.
                       </Type>
@@ -475,8 +478,11 @@ const RebateProgramsPage = () => {
                       new high-efficiency 1.28 GPF toilets. For urinals, receive
                       up to a $100 rebate per urinal for the replacement of
                       commercial urinals with EPA WaterSense approved or
-                      waterless urinals. See program requirements for additional
-                      information.
+                      waterless urinals. See{' '}
+                      <Type component="em" variant="inherit">
+                        Toilet Rebate Requirements
+                      </Type>{' '}
+                      for additional information.
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton

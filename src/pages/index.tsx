@@ -346,8 +346,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title=" Critically Dry Year Actions"
               readMore="Learn more"
               linkHref="/smart-water-use"
-              imgixURL="https://imgix.cosmicjs.com/aa2bd830-d0f0-11ea-95a6-2fa651cba029-PCWAQWEL-Certified-EmployeeWater-Efficiency.jpg"
-              alt="PCWA Water Efficiency Technician adjusting sprinkle nozzle head."
+              imgixURL="https://imgix.cosmicjs.com/8c89d5d0-e5ca-11eb-82a9-c37d7e7e90e3-final-gallery-0061.jpg"
+              alt="Mulch"
               body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to continue using water efficiently."
             />
 
