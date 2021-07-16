@@ -11,8 +11,6 @@ import {ColumnBox, ChildBox} from 'mui-sleazebox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import Alerts, {AlertsProps} from '@components/Alerts/Alerts'
-const isDev = process.env.NODE_ENV === 'development'
-const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
