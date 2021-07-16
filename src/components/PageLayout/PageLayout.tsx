@@ -10,7 +10,6 @@ import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox, ChildBox} from 'mui-sleazebox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
-import {logPageView} from '@lib/googleAnalytics'
 import Alerts, {AlertsProps} from '@components/Alerts/Alerts'
 const isDev = process.env.NODE_ENV === 'development'
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -56,13 +55,6 @@ const PageLayout = ({
     [waterSurface]
   )
   const Banner = useCallback(() => bannerComponent || null, [bannerComponent])
-
-  useEffect(() => {
-    // Use Google Analytics in Production only on www.pcwa.net
-    if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
-      logPageView()
-    }
-  }, [])
 
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (

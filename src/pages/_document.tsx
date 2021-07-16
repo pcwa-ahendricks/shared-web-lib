@@ -10,6 +10,7 @@ import {ServerStyleSheets} from '@material-ui/core'
 import theme from '@lib/material-theme'
 
 const isDev = process.env.NODE_ENV === 'development'
+import {GA_TRACKING_ID} from '@lib/gtag'
 
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 class MyDocument extends Document {
@@ -32,9 +33,9 @@ class MyDocument extends Document {
           {/* IE compat.  */}
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-          {!isDev ? (
+          {/* {!isDev ? (
             <link rel="preconnect" href="https://www.google-analytics.com" />
-          ) : null}
+          ) : null} */}
           <link rel="preconnect" href="https://cosmic-s3.imgix.net" />
           <link rel="preconnect" href="https://imgix.cosmicjs.com" />
           <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
@@ -116,6 +117,24 @@ class MyDocument extends Document {
               `
             }}
           /> */}
+
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `
+            }}
+          />
         </Head>
         <body>
           <Main />

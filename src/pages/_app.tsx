@@ -1,7 +1,7 @@
-// cspell:ignore smoothscroll
+// cspell:ignore smoothscroll pageview
 import React, {useEffect} from 'react'
 import {AppProps} from 'next/app'
-import Router from 'next/router'
+import Router, {useRouter} from 'next/router'
 import {ThemeProvider} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {ParallaxProvider} from 'react-scroll-parallax'
@@ -20,7 +20,7 @@ import NProgress from 'nprogress'
 import Head from 'next/head'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
-import {initGA} from '@lib/googleAnalytics'
+import * as gtag from '@lib/gtag'
 import '@lib/css/styles.css'
 import '@lib/css/NoCollapseVerticalTimeline.css'
 /*
@@ -104,13 +104,19 @@ export default function MyApp({Component, pageProps}: AppProps) {
     //     }
     //   })
     // }
-
-    // Use Google Analytics in Production only on www.pcwa.net
-    if (!isDev && publicBaseUrl === 'https://www.pcwa.net') {
-      // console.log('Initializing Google Analytics')
-      initGA()
-    }
   }, [])
+
+  const router = useRouter()
+  /* Google Analytics */
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
 
   /* Wrap every page in Jss and Theme providers. ThemeProvider makes the theme available down the React tree thanks to React context. */
   return (
