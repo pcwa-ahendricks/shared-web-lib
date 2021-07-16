@@ -102,9 +102,8 @@ export default function MyApp({Component, pageProps}: AppProps) {
       isDev && console.log(`Loading: ${url}`)
       startProgressBar()
     }
-    const handleRouteChange = (url: string) => {
+    const handleRouteComplete = (url: string) => {
       stopProgressBar()
-      isDev && console.log('gtag page: ', url)
       gtag.pageview(url)
     }
     const handleRouteError = () => {
@@ -112,11 +111,11 @@ export default function MyApp({Component, pageProps}: AppProps) {
     }
 
     router.events.on('routeChangeStart', handleRouteStart)
-    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteComplete)
     router.events.on('routeChangeError', handleRouteError)
     return () => {
       router.events.off('routeChangeStart', handleRouteStart)
-      router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('routeChangeComplete', handleRouteComplete)
       router.events.off('routeChangeError', handleRouteError)
     }
   }, [router.events])
