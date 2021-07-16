@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useContext, useEffect} from 'react'
+import React, {useMemo, useCallback, useContext} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'

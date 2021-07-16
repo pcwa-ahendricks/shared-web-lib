@@ -36,7 +36,6 @@ import '@lib/css/nprogress.css'
 import 'animate.css'
 
 const isDev = process.env.NODE_ENV === 'development'
-const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 /* NProgress */
 /* Use Timeout. See https://github.com/rstacruz/nprogress/issues/169#issuecomment-461704797 for more info. */
