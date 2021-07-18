@@ -24,6 +24,7 @@
     "format": "prettier --config .prettierrc --write './src/**/*.{ts,tsx,css}'",
     "type-check": "tsc --noEmit -p .",
     "type-check:watch": "npm run type-check -- --watch",
+    "build:scripts": "ncc build ./scripts/generate-sitemap.ts -o scripts/generate-sitemap",
     "lint": "next lint",
     "test": "ava"
   },
@@ -54,6 +55,7 @@
     "@types/valid-url": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
+    "@vercel/ncc": "^0.29.0",
     "@vercel/node": "^1.11.1",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "ava": "^3.11.1",

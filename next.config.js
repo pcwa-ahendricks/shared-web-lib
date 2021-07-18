@@ -566,7 +566,11 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
   // typescript: {
   //   ignoreBuildErrors: true
   // },
-  webpack: (config) => {
+  webpack: (config, {isServer}) => {
+    // Generate sitemap.xml automatically
+    if (isServer) {
+      require('./scripts/generate-sitemap')
+    }
     // Webpack Bundle Size Analyzer - https://github.com/zeit/next.js/tree/master/examples/with-webpack-bundle-size-analyzer
     if (STATS) {
       config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))

@@ -1,16 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/sitemap.xml",
-      "destination": "/static/sitemap.xml"
-    },
-    {
       "source": "/favicon.ico",
       "destination": "/static/favicon/favicon.ico"
-    },
-    {
-      "source": "/googlefffda6cb833ceb58.html",
-      "destination": "/static/googlefffda6cb833ceb58.html"
     }
   ]
 }

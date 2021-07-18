@@ -5,3 +5,4 @@ src/client/polyfills.js
 .eslintrc.js
 node_modules
 sitemap-build.js
+scripts/generate-sitemap/index.js
