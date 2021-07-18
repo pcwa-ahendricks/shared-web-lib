@@ -393,22 +393,62 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/district-1</loc>
-    <changefreq>daily</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/district-2</loc>
-    <changefreq>daily</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/district-3</loc>
-    <changefreq>daily</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/district-4</loc>
-    <changefreq>daily</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/district-5</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters</loc>
     <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/publications/fire-and-water</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/publications/year-end</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/publications/enews</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/resource-library/documents/Fact-Sheets-MFP-Reservoirs</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/resource-library/documents/Fact-Sheets-By-The-Numbers</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/resource-library/documents/A-Heritage-of-Water_History-of-PCWA-1957-2007</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/resource-library/documents/PCWA-Brochure-FINAL</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/resource-library/documents/American-River-Pump-Station-Brochure</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/resource-library/documents/PCWA-MFP-Rec-Brochure</loc>
+    <changefreq>never</changefreq>
   </url>
 </urlset>

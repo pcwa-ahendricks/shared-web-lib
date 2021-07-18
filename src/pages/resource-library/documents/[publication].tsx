@@ -29,7 +29,6 @@ import UndoIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
-import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
@@ -37,6 +36,7 @@ import {
   PublicationLibraryMetadata
   // PublicationList
 } from '@components/multimedia/MultimediaStore'
+import {publicationUrl} from '@lib/types/publication'
 
 type Props = {
   err?: any
@@ -54,15 +54,6 @@ type PickedMediaResponse = Pick<
   | 'url'
 >
 type PickedMediaResponses = PickedMediaResponse[]
-
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,metadata,url'
-}
-const qs = stringify(
-  {...cosmicGetMediaProps, folder: 'publication-library'},
-  true
-)
-const publicationUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

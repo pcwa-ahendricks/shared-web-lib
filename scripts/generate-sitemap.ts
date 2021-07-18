@@ -1,9 +1,15 @@
 import globby from 'globby'
 import {writeFileSync} from 'fs'
 import gages from '../src/lib/services/pi/gage-config'
+import slugify from 'slugify'
+import fetcher from '../src/lib/fetcher'
+import {publicationUrl} from '../src/lib/types/publication'
+import {fileNameUtil} from '../src/lib/services/cosmicService'
+import {PublicationList} from '../src/components/multimedia/MultimediaStore'
 
 export const spacesRe = /(\s|%20)+/g
 const websiteUrl = 'https://www.pcwa.net'
+const apiBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 function addPage(page: string, changefreq = 'daily') {
   const path = page
@@ -46,6 +52,27 @@ async function generateSitemap() {
     'district-5'
   ].map((p) => `/board-of-directors/${p}`)
 
+  const pubPages = ['newsletters', 'fire-and-water', 'year-end', 'enews'].map(
+    (p) => `/newsroom/publications/${p}`
+  )
+
+  const documents: PublicationList | undefined = await fetcher(
+    `${apiBaseUrl}${publicationUrl}`
+  )
+
+  const documentPages =
+    documents && Array.isArray(documents)
+      ? documents
+          .map((doc) => ({
+            ...doc,
+            derivedFilenameAttr: fileNameUtil(doc.original_name)
+          }))
+          .filter((doc) => doc.derivedFilenameAttr.extension === 'pdf')
+          .filter((doc) => !/(cover)/i.test(doc.original_name))
+          .map((doc) => slugify(doc.derivedFilenameAttr?.base ?? ''))
+          .map((p) => `/resource-library/documents/${p}`)
+      : []
+
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
   .map((p) => addPage(p))
@@ -53,7 +80,9 @@ ${pages
   .sort((a, b) => a.length - b.length) // finally, sort by string length
   .join('\n')}
 ${piPages.map((p) => addPage(p, 'always')).join('\n')}
-${bodPages.map((p) => addPage(p)).join('\n')}
+${bodPages.map((p) => addPage(p, 'monthly')).join('\n')}
+${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
+${documentPages.map((p) => addPage(p, 'never')).join('\n')}
 </urlset>`
 
   writeFileSync('public/sitemap.xml', sitemap)
