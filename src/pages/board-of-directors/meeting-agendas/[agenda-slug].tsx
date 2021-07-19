@@ -27,35 +27,15 @@ import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import BackIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
-import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
+import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
 // const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
-
-interface AgendaMetadata {
-  agenda_pdf: {
-    imgix_url: string
-    url: string
-  }
-  date: string
-  time: string
-  sort_order: number
-  hidden: boolean
-}
-const params = {
-  hide_metafields: true,
-  props: 'id,metadata,status,title',
-  query: JSON.stringify({
-    type: 'agendas'
-  })
-}
-const qs = stringify({...params}, true)
-const agendasUrl = `/api/cosmic/objects${qs}`
 
 type Props = {
   err?: any

@@ -4,8 +4,12 @@ import gages from '../src/lib/services/pi/gage-config'
 import slugify from 'slugify'
 import fetcher from '../src/lib/fetcher'
 import {publicationUrl} from '../src/lib/types/publication'
-import {fileNameUtil} from '../src/lib/services/cosmicService'
+import {
+  fileNameUtil,
+  CosmicObjectResponse
+} from '../src/lib/services/cosmicService'
 import {PublicationList} from '../src/components/multimedia/MultimediaStore'
+import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
 
 export const spacesRe = /(\s|%20)+/g
 const websiteUrl = 'https://www.pcwa.net'
@@ -73,6 +77,20 @@ async function generateSitemap() {
           .map((p) => `/resource-library/documents/${p}`)
       : []
 
+  const agendas = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
+    `${apiBaseUrl}${agendasUrl}`
+  )
+
+  const agendaPages =
+    agendas && Array.isArray(agendas.objects)
+      ? agendas.objects
+          .filter((a) => !a.metadata.hidden)
+          .filter((a) => a.title && a.metadata?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+          // Note - Just date (not time) is used with route name.
+          .map((a) => slugify(`${a.metadata.date} - ${a.title}`))
+          .map((p) => `/board-of-directors/meeting-agendas/${p}`)
+      : []
+
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
   .map((p) => addPage(p))
@@ -83,6 +101,7 @@ ${piPages.map((p) => addPage(p, 'always')).join('\n')}
 ${bodPages.map((p) => addPage(p, 'monthly')).join('\n')}
 ${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
 ${documentPages.map((p) => addPage(p, 'never')).join('\n')}
+${agendaPages.map((p) => addPage(p, 'never')).join('\n')}
 </urlset>`
 
   writeFileSync('public/sitemap.xml', sitemap)

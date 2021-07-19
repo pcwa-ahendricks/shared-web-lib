@@ -13039,6 +13039,7 @@ var dist = __nccwpck_require__(9094);
 ;// CONCATENATED MODULE: ./src/lib/services/cosmicService.ts
 // cspell:ignore Frmt
 
+// generate-sitemap.ts uses this lib and won't tree shake the date-fns libs so import modules this way
 
 
 
@@ -13182,7 +13183,20 @@ const getMediaPages = async (imgixUrl) => {
 };
 
 
+;// CONCATENATED MODULE: ./src/lib/types/agenda.ts
+
+const params = {
+    hide_metafields: true,
+    props: 'id,metadata,status,title',
+    query: JSON.stringify({
+        type: 'agendas'
+    })
+};
+const agenda_qs = (0,querystringify/* stringify */.P)({ ...params }, true);
+const agendasUrl = `/api/cosmic/objects${agenda_qs}`;
+
 ;// CONCATENATED MODULE: ./scripts/generate-sitemap.ts
+
 
 
 
@@ -13240,6 +13254,15 @@ async function generateSitemap() {
             .map((doc) => slugify_default()(doc.derivedFilenameAttr?.base ?? ''))
             .map((p) => `/resource-library/documents/${p}`)
         : [];
+    const agendas = await lib_fetcher(`${apiBaseUrl}${agendasUrl}`);
+    const agendaPages = agendas && Array.isArray(agendas.objects)
+        ? agendas.objects
+            .filter((a) => !a.metadata.hidden)
+            .filter((a) => a.title && a.metadata?.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            // Note - Just date (not time) is used with route name.
+            .map((a) => slugify_default()(`${a.metadata.date} - ${a.title}`))
+            .map((p) => `/board-of-directors/meeting-agendas/${p}`)
+        : [];
     const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
         .map((p) => addPage(p))
@@ -13250,6 +13273,7 @@ ${piPages.map((p) => addPage(p, 'always')).join('\n')}
 ${bodPages.map((p) => addPage(p, 'monthly')).join('\n')}
 ${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
 ${documentPages.map((p) => addPage(p, 'never')).join('\n')}
+${agendaPages.map((p) => addPage(p, 'never')).join('\n')}
 </urlset>`;
     (0,external_fs_.writeFileSync)('public/sitemap.xml', sitemap);
 }
