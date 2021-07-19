@@ -142,6 +142,18 @@ const ProjectsPage = () => {
                       the American River Pump Station in the American River
                       canyon.
                     </Type>
+                    <Type variant="subtitle2">Latest Update</Type>
+                    <Type paragraph>
+                      Due to urgent construction at our American River Pump
+                      Station, located in the American River canyon, nearby
+                      residents may hear construction activities in the early
+                      morning hours of Thursday, July 22nd. This construction
+                      work will keep essential infrastructure operating during
+                      PG&E power shutoffs. Thank you in advance for your
+                      patience and understanding. If you have any further
+                      questions, please call our Customer Services center at
+                      530.823.4850
+                    </Type>
                   </article>
                 </ConstructionProject>
               </ProjectChild>
