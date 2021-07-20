@@ -330,7 +330,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       <ColumnBox>
                         <TermsAndConditionsButton
-                          href="https://cdn.cosmicjs.com/cedb8680-943d-11e9-85db-d593262c2934-Lawn-Replacement-Terms-and-Conditions.pdf"
+                          href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
                           label="Lawn Replacement Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
@@ -455,7 +455,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       <ColumnBox>
                         <TermsAndConditionsButton
-                          href="https://cdn.cosmicjs.com/04619250-943d-11e9-9403-e5c0f69b7f31-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                          href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
