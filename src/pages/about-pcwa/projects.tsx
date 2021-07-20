@@ -121,7 +121,6 @@ const ProjectsPage = () => {
                       the project this year, the generators will provide
                       permanent standby power beginning in the fall of 2021.
                     </Type>
-
                     <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       Project Location
@@ -142,17 +141,28 @@ const ProjectsPage = () => {
                       the American River Pump Station in the American River
                       canyon.
                     </Type>
-                    <Type variant="subtitle2">Latest Update</Type>
+                    <Type variant="subtitle2">Latest Update - 7/20/2021</Type>
+                    <Type paragraph>
+                      Overhead power work for the project has begun and will
+                      take approximately 2-3 weeks to complete. To ensure public
+                      safety, the road down into the canyon above where the
+                      electrical work is occurring and will be close to
+                      recreational traffic and members of the public beginning
+                      7/21.
+                    </Type>
+                    <Type paragraph>
+                      Thank you in advance for your patience and understanding.
+                      If you have any further questions, please call our
+                      Customer Services center at 530.823.4850
+                    </Type>
+                    <Type variant="subtitle2">Update - 7/19/2021</Type>
                     <Type paragraph>
                       Due to urgent construction at our American River Pump
                       Station, located in the American River canyon, nearby
                       residents may hear construction activities in the early
                       morning hours of Thursday, July 22nd. This construction
                       work will keep essential infrastructure operating during
-                      PG&E power shutoffs. Thank you in advance for your
-                      patience and understanding. If you have any further
-                      questions, please call our Customer Services center at
-                      530.823.4850
+                      PG&E power shutoffs.
                     </Type>
                   </article>
                 </ConstructionProject>
