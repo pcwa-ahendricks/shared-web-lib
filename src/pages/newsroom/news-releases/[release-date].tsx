@@ -4,7 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
-  CosmicMediaMeta,
   getMediaPages,
   Page,
   findMediaForPages
@@ -30,24 +29,16 @@ import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import {useRouter} from 'next/router'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
-import {stringify} from 'querystringify'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
+import {
+  DATE_FNS_FORMAT,
+  newsReleasesUrl,
+  PickedMediaResponse,
+  PickedMediaResponses
+} from '@lib/types/newsReleases'
 // const isDev = process.env.NODE_ENV === 'development'
-const DATE_FNS_FORMAT = 'MM-dd-yyyy'
-
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
->
-type PickedMediaResponses = PickedMediaResponse[]
-
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
-}
-const qs = stringify({...cosmicGetMediaProps, folder: 'news-releases'}, true)
-const newsReleasesUrl = `/api/cosmic/media${qs}`
 
 type Props = {
   err?: any

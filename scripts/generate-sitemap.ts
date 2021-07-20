@@ -6,6 +6,11 @@ import fetcher from '../src/lib/fetcher'
 import {publicationUrl} from '../src/lib/types/publication'
 import {fileNameUtil} from '../src/lib/services/cosmicService'
 import {PublicationList} from '../src/components/multimedia/MultimediaStore'
+import {
+  newsReleasesUrl,
+  PickedMediaResponses,
+  DATE_FNS_FORMAT
+} from '@lib/types/newsReleases'
 
 export const spacesRe = /(\s|%20)+/g
 const websiteUrl = 'https://www.pcwa.net'
@@ -73,6 +78,21 @@ async function generateSitemap() {
           .map((p) => `/resource-library/documents/${p}`)
       : []
 
+  const newsReleases: PickedMediaResponses | undefined = await fetcher(
+    `${apiBaseUrl}${newsReleasesUrl}`
+  )
+  const newsReleasesPages =
+    newsReleases && Array.isArray(newsReleases)
+      ? newsReleases
+          .map((nr) => ({
+            ...nr,
+            derivedFilenameAttr: fileNameUtil(nr.original_name, DATE_FNS_FORMAT)
+          }))
+          .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+          .map((nr) => nr.derivedFilenameAttr.date)
+          .map((nr) => `/newsroom/news-releases/${nr}`)
+      : []
+
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
   .map((p) => addPage(p))
@@ -83,6 +103,7 @@ ${piPages.map((p) => addPage(p, 'always')).join('\n')}
 ${bodPages.map((p) => addPage(p, 'monthly')).join('\n')}
 ${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
 ${documentPages.map((p) => addPage(p, 'never')).join('\n')}
+${newsReleasesPages.map((p) => addPage(p, 'never')).join('\n')}
 </urlset>`
 
   writeFileSync('public/sitemap.xml', sitemap)
