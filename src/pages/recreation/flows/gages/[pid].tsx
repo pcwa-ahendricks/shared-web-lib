@@ -232,7 +232,7 @@ const DynamicPiPage = ({
         PCWA River Flows will be unavailable due to scheduled maintenance on
         Monday, September 21st from 6:00am until 12:00pm.
       </CollapsibleAlert> */}
-      <CollapsibleAlert
+      {/* <CollapsibleAlert
         bottomBgGradient={false}
         topBgGradient={false}
         position={101} // Don't conflict with Cosmic alerts. Use 101-199 for page specific alerts.
@@ -242,7 +242,7 @@ const DynamicPiPage = ({
         <AlertTitle>PCWA River Flows Page is Offline</AlertTitle>
         PCWA River Flows page is currently offline. We are currently working on
         troubleshooting this and hope to have the service back online shortly.
-      </CollapsibleAlert>
+      </CollapsibleAlert> */}
       {/* Don't use top margin with this page. */}
       <MainBox mt={0}>
         {/* <PageTitle title="..." subtitle="..." /> */}
