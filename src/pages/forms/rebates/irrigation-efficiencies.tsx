@@ -533,7 +533,7 @@ const IrrigationEfficiencies = () => {
                               <ReviewTermsConditions
                                 pageCount={3}
                                 fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/645f61a0-e99a-11eb-9b29-139cf7d5891a-Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/09232950-ea73-11eb-b9a3-45a1d857b20f-Irrigation-Efficiency-Terms-and-Conditions-072121.pdf"
                               />
                               <Field
                                 name="termsAgree"

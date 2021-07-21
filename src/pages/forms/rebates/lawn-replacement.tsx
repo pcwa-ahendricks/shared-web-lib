@@ -567,7 +567,7 @@ const LawnReplacement = () => {
                               <ReviewTermsConditions
                                 pageCount={3}
                                 fileName="Lawn-Replacement-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/6783ac10-e99a-11eb-9b29-139cf7d5891a-Lawn-Replacement-Rebate-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/0c45ed20-ea73-11eb-b9a3-45a1d857b20f-Lawn-Replacement-Rebate-Terms-and-Conditions-072121.pdf"
                               />
                               <Field
                                 name="termsAgree"
