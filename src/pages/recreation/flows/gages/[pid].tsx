@@ -44,8 +44,8 @@ import JackinBox from 'mui-jackinbox'
 import Spacing from '@components/boxes/Spacing'
 import {useInterval} from 'react-use'
 import usePiTag from '@hooks/usePiTag'
-import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
-import {AlertTitle} from '@material-ui/lab'
+// import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
+// import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
