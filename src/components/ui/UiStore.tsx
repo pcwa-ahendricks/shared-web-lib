@@ -18,6 +18,8 @@ interface State {
     home: boolean
     payBill: boolean
   }
+  centerProgress: boolean
+  pageLoading: boolean
 }
 
 type ProviderProps = {
@@ -31,7 +33,9 @@ const initialState: State = {
   animateDone: {
     home: false,
     payBill: false
-  }
+  },
+  centerProgress: false,
+  pageLoading: false
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
@@ -49,10 +53,24 @@ const Type = {
   SET_ALERT_HIDDEN: 'SET_ALERT_HIDDEN',
   SET_ALERT_ACTIVE: 'SET_ALERT_ACTIVE',
   ADD_ALERT: 'ADD_ALERT',
-  SET_ANIMATE_DONE: 'SET_ANIMATE_DONE'
+  SET_ANIMATE_DONE: 'SET_ANIMATE_DONE',
+  SET_PAGE_LOADING: 'SET_PAGE_LOADING',
+  SET_CENTER_PROGRESS: 'SET_CENTER_PROGRESS'
 } as const
 
 // Actions
+export const setPageLoading = (loading: State['pageLoading']) => {
+  return {
+    type: Type.SET_PAGE_LOADING,
+    loading
+  }
+}
+export const setCenterProgress = (show: State['centerProgress']) => {
+  return {
+    type: Type.SET_CENTER_PROGRESS,
+    show
+  }
+}
 export const setDrawerViz = (open: State['drawerOpen']) => {
   return {
     type: Type.SET_DRAWER_VIZ,
@@ -130,6 +148,16 @@ export const setAnimateDone = (
 // Reducer
 const uiReducer = (state: State, action: any): State => {
   switch (action.type) {
+    case Type.SET_PAGE_LOADING:
+      return {
+        ...state,
+        pageLoading: action.loading
+      }
+    case Type.SET_CENTER_PROGRESS:
+      return {
+        ...state,
+        centerProgress: action.show
+      }
     case Type.SET_DRAWER_VIZ:
       return {
         ...state,

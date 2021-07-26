@@ -11,6 +11,7 @@ import {ColumnBox, ChildBox} from 'mui-sleazebox'
 import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import Alerts, {AlertsProps} from '@components/Alerts/Alerts'
+import CenterProgress from '@components/ui/CenterProgress/CenterProgress'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -36,6 +37,8 @@ const PageLayout = ({
 }: Props) => {
   const uiContext = useContext(UiContext)
   const uiDispatch = uiContext.dispatch
+  const {state: uiState} = uiContext
+  const {centerProgress} = uiState
 
   const errorDialogExitedHandler = useCallback(() => {
     uiDispatch(dismissError())
@@ -66,6 +69,7 @@ const PageLayout = ({
           key="animate.css-4.1.1"
         /> */}
       </Head>
+      <CenterProgress show={centerProgress} />
       <ColumnBox height="100%" id={backToTopAnchorId}>
         <Hidden smUp implementation="css">
           <Drawer />

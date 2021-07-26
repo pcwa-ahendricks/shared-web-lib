@@ -1,4 +1,10 @@
-import React, {useMemo, useState, useEffect, useCallback} from 'react'
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useCallback,
+  useContext
+} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -38,6 +44,7 @@ import {
   PickedMediaResponse,
   PickedMediaResponses
 } from '@lib/types/newsReleases'
+import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -66,6 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
   const theme = useTheme<Theme>()
+  const uiContext = useContext(UiContext)
+  const {state: uiState, dispatch: uiDispatch} = uiContext
+  const {centerProgress} = uiState
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
@@ -114,7 +124,12 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
     console.log('media: ', media)
     console.log('release date: ', releaseDate)
     console.log('err: ', err)
+    uiDispatch(setCenterProgress(true))
     // return <div>Falling back :)</div>
+  } else {
+    if (centerProgress) {
+      uiDispatch(setCenterProgress(false))
+    }
   }
 
   if (err?.statusCode) {
