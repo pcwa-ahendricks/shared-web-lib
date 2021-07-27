@@ -74,7 +74,7 @@ export type MediaPreviewDialogProps = {
 } & Partial<DialogProps>
 
 const MediaPreviewDialog = ({
-  onClose,
+  onClose: onCloseProp,
   name,
   width,
   height,
@@ -145,18 +145,18 @@ const MediaPreviewDialog = ({
               Download Copy
             </Button>
           ) : null}
-          <Button color="primary" onClick={onClose}>
+          <Button color="primary" onClick={onCloseProp}>
             Close
           </Button>
         </DialogActions>
       ) : null,
-    [showActions, dlUrl, onClose]
+    [showActions, dlUrl, onCloseProp]
   )
 
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={onCloseProp}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       PaperProps={{square: true}}
@@ -170,7 +170,7 @@ const MediaPreviewDialog = ({
         <Fab
           size="small"
           className={classes.fab}
-          onClick={onClose}
+          onClick={onCloseProp}
           aria-label="Close Dialog"
         >
           <DeleteIcon />

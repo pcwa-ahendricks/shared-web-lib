@@ -48,10 +48,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 type Props = {
+  onClose?: () => void
   onPageSearch?: (startIndex: number, isPaging?: boolean) => void
-} & Partial<DialogProps>
+} & Partial<Omit<DialogProps, 'onClose'>>
 
-const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
+// Intercept onClose so it's not spread into the <Dialog/> component overwriting the onClose method
+const SearchResultsDialog = ({
+  onPageSearch,
+  onClose: onCloseProp,
+  ...rest
+}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
@@ -110,7 +116,8 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
 
   const closeHandler = useCallback(() => {
     searchDispatch(setDialogOpen(false))
-  }, [searchDispatch])
+    onCloseProp?.()
+  }, [searchDispatch, onCloseProp])
 
   const DialogContentEx = useCallback(
     () => (
@@ -179,7 +186,6 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   return (
     <Dialog
       open={dialogOpen}
-      // disableBackdropClick={false}
       fullScreen={isXS}
       onClose={closeHandler}
       aria-labelledby="search-results-dialog-title"

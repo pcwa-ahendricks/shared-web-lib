@@ -41,7 +41,13 @@ const useStyles = makeStyles((theme: Theme) =>
 type EligibilityDialogProps = {
   children: React.ReactNode
 } & DialogProps
-const EligibilityDialog = ({children, ...rest}: EligibilityDialogProps) => {
+
+// Intercept onClose so it's not spread into the <Dialog/> component overwriting the onClose method
+const EligibilityDialog = ({
+  children,
+  onClose: onCloseProp,
+  ...rest
+}: EligibilityDialogProps) => {
   const theme = useTheme<Theme>()
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
 
@@ -51,9 +57,10 @@ const EligibilityDialog = ({children, ...rest}: EligibilityDialogProps) => {
       fullWidth
       fullScreen={fullScreen}
       TransitionComponent={Slide}
-      onClose={(_event, reason) => {
-        if (reason === 'backdropClick') {
-          return false
+      onClose={(event, reason) => {
+        console.log(reason)
+        if (reason !== 'backdropClick') {
+          onCloseProp?.(event, reason)
         }
       }}
       {...rest}
