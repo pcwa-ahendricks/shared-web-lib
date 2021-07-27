@@ -426,7 +426,7 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
                 <TableCell
                   key={c.id}
                   align={c.numeric ? 'right' : 'left'}
-                  padding={c.disablePadding ? 'none' : 'default'}
+                  padding={c.disablePadding ? 'none' : 'normal'}
                   sortDirection={orderBy === c.id ? order : false}
                   classes={{root: classes.tableHeaderCell}}
                 >
@@ -480,7 +480,7 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
           'aria-label': 'next page'
         }}
         onPageChange={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
       <Box>
         <DlCsvButton data={csvData} header={csvHeader} fileName={csvFileName}>

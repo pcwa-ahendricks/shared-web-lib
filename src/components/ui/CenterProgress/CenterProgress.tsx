@@ -7,7 +7,6 @@ export default function CenterProgress({show = false}: {show?: boolean}) {
       <Box position="relative">
         <Box
           position="fixed"
-          className="foobar"
           zIndex={99}
           top="50%"
           left="50%"

@@ -16,7 +16,6 @@ import smoothscroll from 'smoothscroll-polyfill'
 import SearchProvider from '@components/search/SearchStore'
 import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
-import NProgress from 'nprogress'
 import Head from 'next/head'
 import GlobalStyles from '@components/GlobalStyles'
 import PiProvider from '@components/pi/PiStore'
@@ -27,9 +26,6 @@ import '@lib/css/NoCollapseVerticalTimeline.css'
 Global External Styles
 */
 import 'react-vertical-timeline-component/style.min.css'
-// Use custom nprogress stylesheet
-// import 'nprogress/nprogress.css'
-import '@lib/css/nprogress.css'
 // Use Next <Head/> to load css on any page where these components are used
 // import 'mapbox-gl/dist/mapbox-gl.css'
 // Load Animate.css globally
@@ -37,26 +33,22 @@ import 'animate.css'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-/* NProgress */
-/* Use Timeout. See https://github.com/rstacruz/nprogress/issues/169#issuecomment-461704797 for more info. */
-let progressBarTimeout: NodeJS.Timeout | null
-
-const clearProgressBarTimeout = () => {
-  if (progressBarTimeout) {
-    clearTimeout(progressBarTimeout)
-    progressBarTimeout = null
-  }
-}
-const startProgressBar = () => {
-  clearProgressBarTimeout()
-  progressBarTimeout = setTimeout(() => {
-    NProgress.start()
-  }, 200)
-}
-const stopProgressBar = () => {
-  clearProgressBarTimeout()
-  NProgress.done()
-}
+// const clearProgressBarTimeout = () => {
+// if (progressBarTimeout) {
+//   clearTimeout(progressBarTimeout)
+//   progressBarTimeout = null
+// }
+// }
+// const startProgressBar = () => {
+// clearProgressBarTimeout()
+// progressBarTimeout = setTimeout(() => {
+//   NProgress.start()
+// }, 200)
+// }
+// const stopProgressBar = () => {
+// clearProgressBarTimeout()
+// NProgress.done()
+// }
 
 export default function MyApp({Component, pageProps}: AppProps) {
   useEffect(() => {
@@ -100,23 +92,23 @@ export default function MyApp({Component, pageProps}: AppProps) {
   useEffect(() => {
     const handleRouteStart = (url: string) => {
       isDev && console.log(`Loading: ${url}`)
-      startProgressBar()
+      // startProgressBar()
     }
     const handleRouteComplete = (url: string) => {
-      stopProgressBar()
+      // stopProgressBar()
       gtag.pageview(url)
     }
-    const handleRouteError = () => {
-      stopProgressBar()
-    }
+    // const handleRouteError = () => {
+    // stopProgressBar()
+    // }
 
     router.events.on('routeChangeStart', handleRouteStart)
     router.events.on('routeChangeComplete', handleRouteComplete)
-    router.events.on('routeChangeError', handleRouteError)
+    // router.events.on('routeChangeError', handleRouteError)
     return () => {
       router.events.off('routeChangeStart', handleRouteStart)
       router.events.off('routeChangeComplete', handleRouteComplete)
-      router.events.off('routeChangeError', handleRouteError)
+      // router.events.off('routeChangeError', handleRouteError)
     }
   }, [router.events])
 

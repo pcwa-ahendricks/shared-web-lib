@@ -248,7 +248,7 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
                   <TableCell
                     key={c.id}
                     align={c.numeric ? 'right' : 'left'}
-                    padding={c.disablePadding ? 'none' : 'default'}
+                    padding={c.disablePadding ? 'none' : 'normal'}
                     sortDirection={orderBy === c.id ? order : false}
                     classes={{root: classes.tableHeaderCell}}
                   >
@@ -297,7 +297,7 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
             'aria-label': 'next page'
           }}
           onPageChange={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Box>
     </Box>

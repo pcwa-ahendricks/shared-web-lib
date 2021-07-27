@@ -286,7 +286,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   // aria-label="Link to Monthly Billing FAQs page"
                   // imageRatio={coverStoryImageRatio}
                   imageRatio="9:5" // [TODO] This actually distorts the image which is not what I was intending but looks good nonetheless
-                  title="Summer of Savings coming soon…and, going fast!"
+                  title="PCWA wants you to save!"
                   readMore="See Rebate Programs"
                   flexLinkProps={{
                     isNextLink: true

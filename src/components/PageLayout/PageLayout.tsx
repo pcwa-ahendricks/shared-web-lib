@@ -2,7 +2,15 @@ import React, {useMemo, useCallback, useContext} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {Hidden, useMediaQuery, useTheme, BoxProps} from '@material-ui/core'
+import {
+  Fade,
+  LinearProgress,
+  Hidden,
+  useMediaQuery,
+  useTheme,
+  BoxProps,
+  Box
+} from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
@@ -70,6 +78,14 @@ const PageLayout = ({
         /> */}
       </Head>
       <CenterProgress show={centerProgress} />
+      {/* <Header/> is using a z-index of 1100 .MuiAppBar-root selector, so this modal should appear above header by over-riding styling. See https://github.com/jossmac/react-images/issues/315#issuecomment-527159930. */}
+      <Fade in={false}>
+        <Box position="relative">
+          <Box position="fixed" zIndex={1200} top={0} left={0} width="100vw">
+            <LinearProgress color="secondary" style={{height: 2}} />
+          </Box>
+        </Box>
+      </Fade>
       <ColumnBox height="100%" id={backToTopAnchorId}>
         <Hidden smUp implementation="css">
           <Drawer />
