@@ -1,4 +1,4 @@
-import {createMuiTheme, responsiveFontSizes} from '@material-ui/core'
+import {createTheme, responsiveFontSizes} from '@material-ui/core'
 // import {indigo, green, red} from '@material-ui/core/colors'
 
 const systemFonts = [
@@ -16,7 +16,7 @@ const systemFonts = [
 
 // All the following keys are optional.
 // We try our best to provide a great default value.
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     // Use the system font instead of the default Roboto font.
     // fontFamily: ['Asap', ...systemFonts].join(','),

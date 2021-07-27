@@ -296,7 +296,7 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
           nextIconButtonProps={{
             'aria-label': 'next page'
           }}
-          onChangePage={handleChangePage}
+          onPageChange={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Box>

@@ -479,7 +479,7 @@ const PiTable = ({metric, headers, streamSetItems, streamSetMeta}: Props) => {
         nextIconButtonProps={{
           'aria-label': 'next page'
         }}
-        onChangePage={handleChangePage}
+        onPageChange={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
       <Box>
