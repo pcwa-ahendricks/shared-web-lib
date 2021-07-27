@@ -25,12 +25,16 @@ const FormSubmissionDialogErrorCustAcctInfo = ({
 }: Props) => {
   return (
     <Dialog
-      disableBackdropClick={true}
       open={open}
-      onClose={onClose}
       aria-labelledby="form-submit-dialog-title"
       aria-describedby="form-submit-dialog-description"
       TransitionComponent={Slide}
+      onClose={(_event, reason) => {
+        if (reason !== 'backdropClick') {
+          // onClose?.(event, reason)
+          onClose?.()
+        }
+      }}
     >
       <DialogTitle id="form-submit-dialog-title">
         An Error Has Occurred

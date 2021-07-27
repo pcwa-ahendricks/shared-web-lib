@@ -114,8 +114,10 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
       aria-describedby="error-dialog-description"
       open={open}
       onClose={closeHandler}
-      onExited={exitedHandler}
       classes={{paper: classes.dialogPaper}}
+      TransitionProps={{
+        onExited: exitedHandler
+      }}
       // TransitionComponent={Transition}
     >
       <DialogTitle id="error-dialog-title">

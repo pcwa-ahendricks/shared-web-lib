@@ -13382,10 +13382,6 @@ async function generateSitemap() {
         .map(([gallery, photos]) => photos
         .map((_, idx) => `/resource-library/photos/${gallery}/${idx.toString()}`)
         .concat(`/resource-library/photos/${gallery}`))
-        .map((v) => {
-        console.log(v);
-        return v;
-    })
         .reduce((prev, curVal) => [...prev, ...curVal]);
     // Video Paths
     // Use the same filters used in <MultimediaPhotoGalleries/>.

@@ -111,8 +111,10 @@ const ShowMeAccountInfo = () => {
             vertical: 'bottom',
             horizontal: 'center'
           }}
-          onEntering={popoverEnteringHandler}
-          onExited={popoverExitedHandler}
+          TransitionProps={{
+            onEntering: popoverEnteringHandler,
+            onExited: popoverExitedHandler
+          }}
         >
           <div className={classes.popoverContent}>
             <Image

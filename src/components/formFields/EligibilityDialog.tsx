@@ -47,11 +47,15 @@ const EligibilityDialog = ({children, ...rest}: EligibilityDialogProps) => {
 
   return (
     <Dialog
-      disableBackdropClick={true}
       maxWidth="sm"
       fullWidth
       fullScreen={fullScreen}
       TransitionComponent={Slide}
+      onClose={(_event, reason) => {
+        if (reason === 'backdropClick') {
+          return false
+        }
+      }}
       {...rest}
     >
       {children}

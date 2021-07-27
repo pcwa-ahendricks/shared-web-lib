@@ -1,8 +1,8 @@
 import React from 'react'
 import {
-  GridList,
-  GridListTile,
-  GridListTileBar,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
   IconButton,
   Theme,
   Tooltip,
@@ -13,7 +13,7 @@ import PlayIcon from '@material-ui/icons/PlayCircleOutline'
 import {PlayListItem} from '@lib/types/youtube'
 
 /*
-  See https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/GridListTile/GridListTile.js for info regarding how the child <img/> component is handled.
+  See https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ImageListTile/ImageListTile.js for info regarding how the child <img/> component is handled.
 */
 
 type Props = {
@@ -28,20 +28,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const YoutubePlaylistGridList = ({items = []}: Props) => {
+export default function YoutubePlaylistImageList({items = []}: Props) {
   const classes = useStyles()
 
   return (
     <>
-      <GridList cellHeight={200} cols={2}>
+      <ImageList rowHeight={200} cols={2}>
         {items.map((item) => {
           return (
-            <GridListTile key={item.id} cols={1}>
+            <ImageListItem key={item.id} cols={1}>
               <img
                 src={item.snippet.thumbnails.high.url}
                 alt="Youtube How-To Video Thumbnail"
               />
-              <GridListTileBar
+              <ImageListItemBar
                 title={item.snippet.title}
                 subtitle={<span>{item.snippet.description}</span>}
                 actionIcon={
@@ -58,12 +58,10 @@ const YoutubePlaylistGridList = ({items = []}: Props) => {
                   </Tooltip>
                 }
               />
-            </GridListTile>
+            </ImageListItem>
           )
         })}
-      </GridList>
+      </ImageList>
     </>
   )
 }
-
-export default YoutubePlaylistGridList

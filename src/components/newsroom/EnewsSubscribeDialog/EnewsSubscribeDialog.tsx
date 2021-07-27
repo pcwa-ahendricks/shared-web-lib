@@ -119,9 +119,11 @@ const EnewsSubscribeDialog = () => {
       fullWidth
       open={enewsDialogOpen}
       onClose={handleClose}
-      onEnter={handleEnter}
       aria-labelledby="form-dialog-title"
       keepMounted={false} // Be explicit about this even though it is the default behavior. We want the form to reset each time the modal opens.
+      TransitionProps={{
+        onEnter: handleEnter
+      }}
     >
       <Formik
         // Always run validation. Ie. don't use validateOnBlur prop cause when a valid email is actually entered the form will remain invalid until field is blurred.
