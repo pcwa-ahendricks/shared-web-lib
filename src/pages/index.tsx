@@ -286,7 +286,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   // aria-label="Link to Monthly Billing FAQs page"
                   // imageRatio={coverStoryImageRatio}
                   imageRatio="9:5" // [TODO] This actually distorts the image which is not what I was intending but looks good nonetheless
-                  title="PCWA wants you to save!"
+                  title="PCWA Wants You to Save!"
                   readMore="See Rebate Programs"
                   flexLinkProps={{
                     isNextLink: true
@@ -297,7 +297,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   imgixParams={{
                     crop: 'top'
                   }}
-                  body="PCWA wants you to save! Online applications for our enhanced water efficiency rebate program have begun. For more information about rebate terms and conditions or to be notified when new applications are available, please contact rebates@pcwa.net."
+                  body="Online applications for our enhanced water efficiency rebate program have begun. For more information about rebate terms and conditions or to be notified when new applications are available, please contact rebates@pcwa.net."
                 />
 
                 <JackinBox
