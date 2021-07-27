@@ -284,15 +284,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               <div ref={animateRef}>
                 <CoverStory
                   // aria-label="Link to Monthly Billing FAQs page"
-                  imageRatio={coverStoryImageRatio}
+                  // imageRatio={coverStoryImageRatio}
+                  imageRatio="9:5" // [TODO] This actually distorts the image which is not what I was intending but looks good nonetheless
                   title="Summer of Savings coming soon…and, going fast!"
                   readMore="See Rebate Programs"
                   flexLinkProps={{
                     isNextLink: true
                   }}
                   linkHref="/smart-water-use/rebate-programs"
-                  imgixURL="https://imgix.cosmicjs.com/9385f6d0-da93-11eb-a548-fd45a29c394a-HE-sprinkler.tif"
-                  alt="High Efficiency sprinkler head watering lawn"
+                  imgixURL="https://imgix.cosmicjs.com/706b47d0-ef16-11eb-849a-8548c9a99fc0-Summer-of-Savings-FB-Image-cropped.png"
+                  alt="PCWA Summer of Savings banner"
                   imgixParams={{
                     crop: 'top'
                   }}
