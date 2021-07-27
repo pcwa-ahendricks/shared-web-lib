@@ -9,11 +9,7 @@ import React, {
 } from 'react'
 import {
   MultimediaContext,
-  setSelectedGallery,
-  VideoList,
-  VideoLibraryMetadata,
-  MappedPhoto,
-  PickedVideoResponse
+  setSelectedGallery
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {
@@ -32,6 +28,12 @@ import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/
 import {useRouter} from 'next/router'
 import FilePlayer from 'react-player'
 import Spacing from '@components/boxes/Spacing'
+import {
+  VideoList,
+  VideoLibraryMetadata,
+  PickedVideoResponse,
+  MappedPhoto
+} from '@lib/types/multimedia'
 
 type Props = {
   multimedia?: VideoList

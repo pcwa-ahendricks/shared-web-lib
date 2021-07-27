@@ -17,11 +17,8 @@ import {
   MenuItem,
   Hidden
 } from '@material-ui/core'
-import {
-  MultimediaContext,
-  setLvDownloadMenuOpen,
-  PhotoLibraryMetadata
-} from '../MultimediaStore'
+import {MultimediaContext, setLvDownloadMenuOpen} from '../MultimediaStore'
+import {PhotoLibraryMetadata} from '@lib/types/multimedia'
 import fileExtension from '@lib/fileExtension'
 import slugify from 'slugify'
 

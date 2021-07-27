@@ -8,13 +8,32 @@ import {
   fileNameUtil,
   CosmicObjectResponse
 } from '../src/lib/services/cosmicService'
-import {PublicationList} from '../src/components/multimedia/MultimediaStore'
 import {
   newsReleasesUrl,
-  PickedMediaResponses,
-  DATE_FNS_FORMAT
+  NewsReleaseMediaResponses,
+  newsReleaseDateFrmt
 } from '@lib/types/newsReleases'
 import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
+import {
+  newsletterDateFrmt,
+  NewsletterMediaResponses,
+  newslettersUrl
+} from '@lib/types/newsletters'
+import {
+  boardMinutesUrl,
+  bodMinutesDateFrmt,
+  bodMinutesMediaResponses
+} from '@lib/types/bodMinutes'
+import fileExtension from '@lib/fileExtension'
+import groupBy from '@lib/groupBy'
+import {
+  MappedPhoto,
+  multimediaUrl,
+  PhotoList,
+  PickedVideoResponse,
+  PublicationList,
+  VideoList
+} from '@lib/types/multimedia'
 
 export const spacesRe = /(\s|%20)+/g
 const websiteUrl = 'https://www.pcwa.net'
@@ -96,7 +115,7 @@ async function generateSitemap() {
           .map((p) => `/board-of-directors/meeting-agendas/${p}`)
       : []
 
-  const newsReleases: PickedMediaResponses | undefined = await fetcher(
+  const newsReleases: NewsReleaseMediaResponses | undefined = await fetcher(
     `${apiBaseUrl}${newsReleasesUrl}`
   )
 
@@ -105,12 +124,98 @@ async function generateSitemap() {
       ? newsReleases
           .map((nr) => ({
             ...nr,
-            derivedFilenameAttr: fileNameUtil(nr.original_name, DATE_FNS_FORMAT)
+            derivedFilenameAttr: fileNameUtil(
+              nr.original_name,
+              newsReleaseDateFrmt
+            )
           }))
           .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
           .map((nr) => nr.derivedFilenameAttr.date)
           .map((nr) => `/newsroom/news-releases/${nr}`)
       : []
+
+  const newsletters: NewsletterMediaResponses | undefined = await fetcher(
+    `${apiBaseUrl}${newslettersUrl}`
+  )
+  const newslettersPages =
+    newsletters && Array.isArray(newsletters)
+      ? newsletters
+          .map((nl) => ({
+            ...nl,
+            derivedFilenameAttr: fileNameUtil(
+              nl.original_name,
+              newsletterDateFrmt
+            )
+          }))
+          .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+          .map((nl) => nl.derivedFilenameAttr.date)
+          .map((nl) => `/newsroom/publications/newsletters/${nl}`)
+      : []
+
+  const data: bodMinutesMediaResponses | undefined = await fetcher(
+    `${apiBaseUrl}${boardMinutesUrl}`
+  )
+  const bodMinutesPages =
+    data && Array.isArray(data)
+      ? data
+          .map((bm) => ({
+            ...bm,
+            derivedFilenameAttr: fileNameUtil(
+              bm.original_name,
+              bodMinutesDateFrmt
+            )
+          }))
+          .filter((bm) => bm.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+          .map((bm) => bm.derivedFilenameAttr.date)
+          .map((bm) => `/board-of-directors/meeting-minutes/${bm}`)
+      : []
+
+  const multimedia: PhotoList | VideoList | undefined = await fetcher(
+    `${apiBaseUrl}${multimediaUrl}`
+  )
+
+  const filteredPhotoMultimedia =
+    multimedia && Array.isArray(multimedia)
+      ? (multimedia as PhotoList).filter(
+          (p) =>
+            fileExtension(p.name) !== 'mp4' && // No videos.
+            p.metadata?.['video-poster'] !== 'true' && // No video posters
+            p.metadata?.gallery // No photos w/o gallery metadata.
+        )
+      : []
+
+  const multimediaPhotoPages = [
+    ...groupBy<MappedPhoto, string>(filteredPhotoMultimedia, (a) =>
+      a.metadata?.gallery?.toLowerCase().trim()
+    )
+  ]
+    .map(([gallery, photos]) =>
+      photos
+        .map(
+          (_, idx) => `/resource-library/photos/${gallery}/${idx.toString()}`
+        )
+        .concat(`/resource-library/photos/${gallery}`)
+    )
+    .reduce((prev, curVal) => [...prev, ...curVal])
+
+  // Video Paths
+  // Use the same filters used in <MultimediaPhotoGalleries/>.
+  const filteredVideoMultimedia =
+    multimedia && Array.isArray(multimedia)
+      ? (multimedia as VideoList).filter(
+          (p) =>
+            fileExtension(p.name) === 'mp4' && // Only videos.
+            p.metadata?.['video-poster'] !== 'true' && // No video posters
+            p.metadata?.gallery // No videos w/o gallery metadata
+        )
+      : []
+
+  const multimediaVideoPages = [
+    ...groupBy<PickedVideoResponse, string>(
+      filteredVideoMultimedia,
+      (a) => a.metadata?.gallery
+    )
+  ].map(([gallery]) => `/resource-library/videos/${gallery}`)
 
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
@@ -124,6 +229,10 @@ ${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
 ${documentPages.map((p) => addPage(p, 'never')).join('\n')}
 ${newsReleasesPages.map((p) => addPage(p, 'never')).join('\n')}
 ${agendaPages.map((p) => addPage(p, 'never')).join('\n')}
+${newslettersPages.map((p) => addPage(p, 'never')).join('\n')}
+${bodMinutesPages.map((p) => addPage(p, 'never')).join('\n')}
+${multimediaPhotoPages.map((p) => addPage(p, 'daily')).join('\n')}
+${multimediaVideoPages.map((p) => addPage(p, 'daily')).join('\n')}
 </urlset>`
 
   writeFileSync('public/sitemap.xml', sitemap)

@@ -1,15 +1,11 @@
 // cspell:ignore Lightbox
 import React, {Fragment, useCallback, useMemo} from 'react'
-import {
-  PublicationList,
-  PickedPublicationResponse
-  // MappedMultimedia
-} from '@components/multimedia/MultimediaStore'
 import {Box, List, Divider, Typography} from '@material-ui/core'
 import {fileNameUtil} from '@lib/services/cosmicService'
 import MultimediaPublication from '../MultimediaPublication/MultimediaPublication'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
+import {PublicationList, PickedPublicationResponse} from '@lib/types/multimedia'
 
 type Props = {
   multimedia?: PublicationList

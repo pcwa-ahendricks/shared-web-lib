@@ -4,7 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
-  CosmicMediaMeta,
   getMediaPages,
   Page,
   findMediaForPages
@@ -28,34 +27,24 @@ import ErrorPage from '@pages/_error'
 // import HomeIcon from '@material-ui/icons/Home'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
-import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
+import {
+  boardMinutesUrl,
+  bodMinutesMediaResponse,
+  bodMinutesMediaResponses
+} from '@lib/types/bodMinutes'
 // const isDev = process.env.NODE_ENV === 'development'
-
-const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
   err?: any
-  media?: PickedMediaResponse
+  media?: bodMinutesMediaResponse
   // pages?: Page[]
   meetingDate?: string
 }
-
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
->
-type PickedMediaResponses = PickedMediaResponse[]
-
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
-}
-const qs = stringify({...cosmicGetMediaProps, folder: 'board-minutes'}, true)
-const boardMinutesUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -291,14 +280,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const urlBase = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
+    const data: bodMinutesMediaResponses | undefined = await fetcher(
       `${urlBase}${boardMinutesUrl}`
     )
     const bm =
       data && Array.isArray(data)
         ? data.map((bm) => ({
             ...bm,
-            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+            derivedFilenameAttr: fileNameUtil(bm.original_name, boardMinutesUrl)
           }))
         : []
     const meetingDate = paramToStr(params?.['meeting-date'])

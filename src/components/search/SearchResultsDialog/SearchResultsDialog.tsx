@@ -179,7 +179,7 @@ const SearchResultsDialog = ({onPageSearch, ...rest}: Props) => {
   return (
     <Dialog
       open={dialogOpen}
-      disableBackdropClick={false}
+      // disableBackdropClick={false}
       fullScreen={isXS}
       onClose={closeHandler}
       aria-labelledby="search-results-dialog-title"

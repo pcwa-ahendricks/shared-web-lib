@@ -4,12 +4,7 @@ import {
   MultimediaContext,
   setSelectedGallery,
   setLightboxIndex,
-  setLightboxViewerOpen,
-  PhotoList,
-  MappedLightbox,
-  MappedLightboxList,
-  PhotoLibraryMetadata,
-  MappedPhoto
+  setLightboxViewerOpen
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {
@@ -30,6 +25,13 @@ import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
+import {
+  MappedLightbox,
+  MappedLightboxList,
+  MappedPhoto,
+  PhotoLibraryMetadata,
+  PhotoList
+} from '@lib/types/multimedia'
 
 type Props = {
   multimedia?: PhotoList

@@ -4,7 +4,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {
   fileNameUtil,
-  CosmicMediaMeta,
   getMediaPages,
   Page,
   findMediaForPages
@@ -28,31 +27,23 @@ import ErrorPage from '@pages/_error'
 import MinutesIcon from '@material-ui/icons/UndoOutlined'
 import DocIcon from '@material-ui/icons/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
-import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import slugify from 'slugify'
+import {
+  newsletterDateFrmt,
+  NewsletterMediaResponse,
+  NewsletterMediaResponses,
+  newslettersUrl
+} from '@lib/types/newsletters'
 // const isDev = process.env.NODE_ENV === 'development'
-const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 type Props = {
   err?: any
-  media?: PickedMediaResponse
+  media?: NewsletterMediaResponse
   publishDate?: string
 }
-
-type PickedMediaResponse = Pick<
-  CosmicMediaMeta,
-  'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
->
-type PickedMediaResponses = PickedMediaResponse[]
-
-const cosmicGetMediaProps = {
-  props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
-}
-const qs = stringify({...cosmicGetMediaProps, folder: 'newsletters'}, true)
-const newslettersUrl = `/api/cosmic/media${qs}`
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -285,14 +276,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
+    const data: NewsletterMediaResponses | undefined = await fetcher(
       `${baseUrl}${newslettersUrl}`
     )
     const newsletters =
       data && Array.isArray(data)
         ? data.map((bm) => ({
             ...bm,
-            derivedFilenameAttr: fileNameUtil(bm.original_name, DATE_FNS_FORMAT)
+            derivedFilenameAttr: fileNameUtil(
+              bm.original_name,
+              newsletterDateFrmt
+            )
           }))
         : []
     const publishDate = paramToStr(params?.['publish-date'])

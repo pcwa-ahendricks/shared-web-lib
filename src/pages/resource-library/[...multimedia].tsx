@@ -34,14 +34,7 @@ import {
   MultimediaContext,
   setSelectedGallery,
   setLightboxIndex,
-  setLightboxViewerOpen,
-  PublicationList,
-  VideoList,
-  PhotoList,
-  MappedPhoto,
-  PickedVideoResponse,
-  PickedPhotoResponse,
-  PickedPublicationResponse
+  setLightboxViewerOpen
 } from '@components/multimedia/MultimediaStore'
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
@@ -52,12 +45,21 @@ import {useRouter} from 'next/router'
 import isNumber from 'is-number'
 import MultimediaVideoGalleries from '@components/multimedia/MultimediaVideoGalleries/MultimediaVideoGalleries'
 import fetcher from '@lib/fetcher'
-import {stringify} from 'querystringify'
 import MultimediaPublications from '@components/multimedia/MultimediaPublications/MultimediaPublications'
 import useSWR from 'swr'
-import groupBy from '@lib/groupBy'
-import fileExtension from '@lib/fileExtension'
+// import groupBy from '@lib/groupBy'
+// import fileExtension from '@lib/fileExtension'
 import {ParsedUrlQuery} from 'querystring'
+import {
+  multimediaUrl,
+  PhotoList,
+  PickedPhotoResponse,
+  PickedPublicationResponse,
+  PickedVideoResponse,
+  PublicationList,
+  publicationsUrl,
+  VideoList
+} from '@lib/types/multimedia'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -77,20 +79,6 @@ type Props = {
   lightboxIndexParam?: string
   params?: ParsedUrlQuery // debug
 }
-
-const cosmicGetMediaProps = {
-  props: 'id,original_name,url,imgix_url,metadata,name'
-}
-const multimediaQs = stringify(
-  {...cosmicGetMediaProps, folder: 'multimedia-library'},
-  true
-)
-const publicationsQs = stringify(
-  {...cosmicGetMediaProps, folder: 'publication-library'},
-  true
-)
-const multimediaUrl = `/api/cosmic/media${multimediaQs}`
-const publicationsUrl = `/api/cosmic/media${publicationsQs}`
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -333,7 +321,7 @@ const ResourceLibraryPage = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
     //   `${baseUrl}${multimediaUrl}`
@@ -345,11 +333,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
     //   multimedia$,
     //   documents$
     // ])
+
+    /* Uncomment the following to build photo and video pages during deploy. Also, see note in return .. paths
     const multimedia: PhotoList | VideoList | undefined = await fetcher(
       `${baseUrl}${multimediaUrl}`
     )
 
-    /* Photo Paths */
+    // Photo Paths
     // Use the same filters used in <MultimediaPhotoGalleries/>.
     const filteredPhotoMultimedia =
       multimedia && Array.isArray(multimedia)
@@ -375,9 +365,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
           .concat([{params: {multimedia: ['photos', gallery]}}])
       )
       .reduce((prev, curVal) => [...prev, ...curVal])
-    /* */
 
-    /* Video Paths */
+    // Video Paths
     // Use the same filters used in <MultimediaPhotoGalleries/>.
     const filteredVideoMultimedia =
       multimedia && Array.isArray(multimedia)
@@ -395,18 +384,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
         (a) => a.metadata?.gallery
       )
     ].map(([gallery]) => ({params: {multimedia: ['videos', gallery]}}))
-    /* */
+    */
 
     return {
       paths: [
         {params: {multimedia: ['documents']}},
         {params: {multimedia: ['photos']}},
-        {params: {multimedia: ['videos']}},
+        {params: {multimedia: ['videos']}}
         // Documents Paths are covered in getStaticPaths() in Dynamic Publication Page.
         // ...documentPaths
-        ...photoPaths,
-        ...videoPaths
+        // Uncomment the following to build photo and video pages during deploy. Also, see note above.
+        // ...photoPaths,
+        // ...videoPaths
       ],
+      // leave the following set to "true" to build photo and video pages during deploy
       fallback: true
     }
   } catch (error) {

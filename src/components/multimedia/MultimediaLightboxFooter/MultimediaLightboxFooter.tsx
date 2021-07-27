@@ -8,7 +8,7 @@ import {
   useTheme,
   useMediaQuery
 } from '@material-ui/core'
-import {PhotoLibraryMetadata} from '../MultimediaStore'
+import {PhotoLibraryMetadata} from '@lib/types/multimedia'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 
 type UseStylesProps = {

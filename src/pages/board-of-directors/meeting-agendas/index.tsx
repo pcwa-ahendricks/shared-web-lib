@@ -300,7 +300,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
                               keepMounted
                               open={Boolean(anchorEl)}
                               onClose={handleClose}
-                              disableBackdropClick={false}
+                              // disableBackdropClick={false}
                             >
                               <MenuItem onClick={iCalClickHandler}>
                                 iCalendar

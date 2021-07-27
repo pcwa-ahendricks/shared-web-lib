@@ -1,14 +1,14 @@
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {stringify} from 'querystringify'
 
-export const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+export const newsReleaseDateFrmt = 'MM-dd-yyyy'
 
-export type PickedMediaResponse = Pick<
+export type NewsReleaseMediaResponse = Pick<
   CosmicMediaMeta,
   'original_name' | 'imgix_url' | 'derivedFilenameAttr' | 'size' | 'url'
 >
 
-export type PickedMediaResponses = PickedMediaResponse[]
+export type NewsReleaseMediaResponses = NewsReleaseMediaResponse[]
 
 const cosmicGetMediaProps = {
   props: 'original_name,imgix_url,derivedFilenameAttr,size,url'

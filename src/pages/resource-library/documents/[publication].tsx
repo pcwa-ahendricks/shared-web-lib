@@ -32,11 +32,8 @@ import slugify from 'slugify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
-import {
-  PublicationLibraryMetadata
-  // PublicationList
-} from '@components/multimedia/MultimediaStore'
 import {publicationUrl} from '@lib/types/publication'
+import {PublicationLibraryMetadata} from '@lib/types/multimedia'
 
 type Props = {
   err?: any

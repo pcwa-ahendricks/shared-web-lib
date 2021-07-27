@@ -39,17 +39,17 @@ import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFa
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {
-  DATE_FNS_FORMAT,
+  newsReleaseDateFrmt,
   newsReleasesUrl,
-  PickedMediaResponse,
-  PickedMediaResponses
+  NewsReleaseMediaResponse,
+  NewsReleaseMediaResponses
 } from '@lib/types/newsReleases'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   err?: any
-  media?: PickedMediaResponse
+  media?: NewsReleaseMediaResponse
   releaseDate?: string
 }
 
@@ -279,14 +279,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const data: PickedMediaResponses | undefined = await fetcher(
+    const data: NewsReleaseMediaResponses | undefined = await fetcher(
       `${baseUrl}${newsReleasesUrl}`
     )
     const nrs =
       data && Array.isArray(data)
         ? data.map((nr) => ({
             ...nr,
-            derivedFilenameAttr: fileNameUtil(nr.original_name, DATE_FNS_FORMAT)
+            derivedFilenameAttr: fileNameUtil(
+              nr.original_name,
+              newsReleaseDateFrmt
+            )
           }))
         : []
     const releaseDate = paramToStr(params?.['release-date'])

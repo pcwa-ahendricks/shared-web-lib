@@ -13181,7 +13181,7 @@ const getMediaPages = async (imgixUrl) => {
 
 ;// CONCATENATED MODULE: ./src/lib/types/newsReleases.ts
 
-const DATE_FNS_FORMAT = 'MM-dd-yyyy';
+const newsReleaseDateFrmt = 'MM-dd-yyyy';
 const newsReleases_cosmicGetMediaProps = {
     props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
 };
@@ -13200,7 +13200,74 @@ const params = {
 const agenda_qs = (0,querystringify/* stringify */.P)({ ...params }, true);
 const agendasUrl = `/api/cosmic/objects${agenda_qs}`;
 
+;// CONCATENATED MODULE: ./src/lib/types/newsletters.ts
+
+const newsletterDateFrmt = 'yyyy-MM-dd';
+const newsletters_cosmicGetMediaProps = {
+    props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
+};
+const newsletters_qs = (0,querystringify/* stringify */.P)({ ...newsletters_cosmicGetMediaProps, folder: 'newsletters' }, true);
+const newslettersUrl = `/api/cosmic/media${newsletters_qs}`;
+
+;// CONCATENATED MODULE: ./src/lib/types/bodMinutes.ts
+
+const bodMinutesDateFrmt = 'MM-dd-yyyy';
+const bodMinutes_cosmicGetMediaProps = {
+    props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
+};
+const bodMinutes_qs = (0,querystringify/* stringify */.P)({ ...bodMinutes_cosmicGetMediaProps, folder: 'board-minutes' }, true);
+const boardMinutesUrl = `/api/cosmic/media${bodMinutes_qs}`;
+
+;// CONCATENATED MODULE: ./src/lib/fileExtension.ts
+function fileExtension(filename, lowercase = true) {
+    if (!filename || typeof filename !== 'string') {
+        return '';
+    }
+    const fileName = filename.split('.');
+    const ext = fileName.pop() || '';
+    const extTrimmed = ext.trim();
+    if (lowercase) {
+        return extTrimmed.toLowerCase();
+    }
+    else {
+        return extTrimmed;
+    }
+}
+/* harmony default export */ const lib_fileExtension = (fileExtension);
+
+;// CONCATENATED MODULE: ./src/lib/groupBy.ts
+const groupBy = (list, keyGetter) => {
+    const map = new Map();
+    list.forEach((item) => {
+        const key = keyGetter(item);
+        const collection = map.get(key);
+        if (!collection) {
+            map.set(key, [item]);
+        }
+        else {
+            collection.push(item);
+        }
+    });
+    return map;
+};
+/* harmony default export */ const lib_groupBy = (groupBy);
+
+;// CONCATENATED MODULE: ./src/lib/types/multimedia.ts
+
+const multimedia_cosmicGetMediaProps = {
+    props: 'id,original_name,url,imgix_url,metadata,name'
+};
+const multimediaQs = (0,querystringify/* stringify */.P)({ ...multimedia_cosmicGetMediaProps, folder: 'multimedia-library' }, true);
+const publicationsQs = (0,querystringify/* stringify */.P)({ ...multimedia_cosmicGetMediaProps, folder: 'publication-library' }, true);
+const multimediaUrl = `/api/cosmic/media${multimediaQs}`;
+const publicationsUrl = `/api/cosmic/media${publicationsQs}`;
+
 ;// CONCATENATED MODULE: ./scripts/generate-sitemap.ts
+
+
+
+
+
 
 
 
@@ -13274,12 +13341,63 @@ async function generateSitemap() {
         ? newsReleases
             .map((nr) => ({
             ...nr,
-            derivedFilenameAttr: fileNameUtil(nr.original_name, DATE_FNS_FORMAT)
+            derivedFilenameAttr: fileNameUtil(nr.original_name, newsReleaseDateFrmt)
         }))
             .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
             .map((nr) => nr.derivedFilenameAttr.date)
             .map((nr) => `/newsroom/news-releases/${nr}`)
         : [];
+    const newsletters = await lib_fetcher(`${apiBaseUrl}${newslettersUrl}`);
+    const newslettersPages = newsletters && Array.isArray(newsletters)
+        ? newsletters
+            .map((nl) => ({
+            ...nl,
+            derivedFilenameAttr: fileNameUtil(nl.original_name, newsletterDateFrmt)
+        }))
+            .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((nl) => nl.derivedFilenameAttr.date)
+            .map((nl) => `/newsroom/publications/newsletters/${nl}`)
+        : [];
+    const data = await lib_fetcher(`${apiBaseUrl}${boardMinutesUrl}`);
+    const bodMinutesPages = data && Array.isArray(data)
+        ? data
+            .map((bm) => ({
+            ...bm,
+            derivedFilenameAttr: fileNameUtil(bm.original_name, bodMinutesDateFrmt)
+        }))
+            .filter((bm) => bm.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((bm) => bm.derivedFilenameAttr.date)
+            .map((bm) => `/board-of-directors/meeting-minutes/${bm}`)
+        : [];
+    const multimedia = await lib_fetcher(`${apiBaseUrl}${multimediaUrl}`);
+    const filteredPhotoMultimedia = multimedia && Array.isArray(multimedia)
+        ? multimedia.filter((p) => lib_fileExtension(p.name) !== 'mp4' && // No videos.
+            p.metadata?.['video-poster'] !== 'true' && // No video posters
+            p.metadata?.gallery // No photos w/o gallery metadata.
+        )
+        : [];
+    const multimediaPhotoPages = [
+        ...lib_groupBy(filteredPhotoMultimedia, (a) => a.metadata?.gallery?.toLowerCase().trim())
+    ]
+        .map(([gallery, photos]) => photos
+        .map((_, idx) => `/resource-library/photos/${gallery}/${idx.toString()}`)
+        .concat(`/resource-library/photos/${gallery}`))
+        .map((v) => {
+        console.log(v);
+        return v;
+    })
+        .reduce((prev, curVal) => [...prev, ...curVal]);
+    // Video Paths
+    // Use the same filters used in <MultimediaPhotoGalleries/>.
+    const filteredVideoMultimedia = multimedia && Array.isArray(multimedia)
+        ? multimedia.filter((p) => lib_fileExtension(p.name) === 'mp4' && // Only videos.
+            p.metadata?.['video-poster'] !== 'true' && // No video posters
+            p.metadata?.gallery // No videos w/o gallery metadata
+        )
+        : [];
+    const multimediaVideoPages = [
+        ...lib_groupBy(filteredVideoMultimedia, (a) => a.metadata?.gallery)
+    ].map(([gallery]) => `/resource-library/videos/${gallery}`);
     const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
         .map((p) => addPage(p))
@@ -13292,6 +13410,10 @@ ${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
 ${documentPages.map((p) => addPage(p, 'never')).join('\n')}
 ${newsReleasesPages.map((p) => addPage(p, 'never')).join('\n')}
 ${agendaPages.map((p) => addPage(p, 'never')).join('\n')}
+${newslettersPages.map((p) => addPage(p, 'never')).join('\n')}
+${bodMinutesPages.map((p) => addPage(p, 'never')).join('\n')}
+${multimediaPhotoPages.map((p) => addPage(p, 'daily')).join('\n')}
+${multimediaVideoPages.map((p) => addPage(p, 'daily')).join('\n')}
 </urlset>`;
     (0,external_fs_.writeFileSync)('public/sitemap.xml', sitemap);
 }

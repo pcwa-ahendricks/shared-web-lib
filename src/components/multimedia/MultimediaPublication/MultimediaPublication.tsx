@@ -1,7 +1,6 @@
 // cspell:ignore Lightbox
 import React, {useMemo, Fragment} from 'react'
 import NextLink from 'next/link'
-import {PickedPublicationResponse} from '@components/multimedia/MultimediaStore'
 import {
   ListItem,
   ListItemAvatar,
@@ -12,6 +11,7 @@ import slugify from 'slugify'
 import {ColumnBox} from 'mui-sleazebox'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import {PickedPublicationResponse} from '@lib/types/multimedia'
 
 type Props = {
   publication: PickedPublicationResponse
