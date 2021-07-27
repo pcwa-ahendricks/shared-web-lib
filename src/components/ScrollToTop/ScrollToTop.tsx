@@ -29,7 +29,7 @@ const ScrollToTop = () => {
   )
 
   const iconFontSize: IconProps['fontSize'] = useMemo(
-    () => (isXs ? 'default' : 'large'),
+    () => (isXs ? 'medium' : 'large'),
     [isXs]
   )
 

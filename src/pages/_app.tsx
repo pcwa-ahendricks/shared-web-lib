@@ -33,23 +33,6 @@ import 'animate.css'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-// const clearProgressBarTimeout = () => {
-// if (progressBarTimeout) {
-//   clearTimeout(progressBarTimeout)
-//   progressBarTimeout = null
-// }
-// }
-// const startProgressBar = () => {
-// clearProgressBarTimeout()
-// progressBarTimeout = setTimeout(() => {
-//   NProgress.start()
-// }, 200)
-// }
-// const stopProgressBar = () => {
-// clearProgressBarTimeout()
-// NProgress.done()
-// }
-
 export default function MyApp({Component, pageProps}: AppProps) {
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -90,25 +73,13 @@ export default function MyApp({Component, pageProps}: AppProps) {
   const router = useRouter()
   /* Google Analytics */
   useEffect(() => {
-    const handleRouteStart = (url: string) => {
-      isDev && console.log(`Loading: ${url}`)
-      // startProgressBar()
-    }
     const handleRouteComplete = (url: string) => {
-      // stopProgressBar()
       gtag.pageview(url)
     }
-    // const handleRouteError = () => {
-    // stopProgressBar()
-    // }
 
-    router.events.on('routeChangeStart', handleRouteStart)
     router.events.on('routeChangeComplete', handleRouteComplete)
-    // router.events.on('routeChangeError', handleRouteError)
     return () => {
-      router.events.off('routeChangeStart', handleRouteStart)
       router.events.off('routeChangeComplete', handleRouteComplete)
-      // router.events.off('routeChangeError', handleRouteError)
     }
   }, [router.events])
 

@@ -50,7 +50,7 @@ const useStyles = makeStyles(() =>
 const OpenInNewLink = ({
   children,
   transitionDuration = 250,
-  iconFontSize = 'default',
+  iconFontSize = 'medium',
   pdf = false,
   showIconAlways = false,
   startAdornment = false,

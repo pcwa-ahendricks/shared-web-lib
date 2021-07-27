@@ -1,4 +1,10 @@
-import React, {useMemo, useCallback, useContext} from 'react'
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useContext,
+  useEffect
+} from 'react'
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
@@ -12,7 +18,7 @@ import {
   Box
 } from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
-import {UiContext, dismissError} from '@components/ui/UiStore'
+import {UiContext, dismissError, setPageLoading} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
 import ScrollToTop from '@components/ScrollToTop/ScrollToTop'
 import {ColumnBox, ChildBox} from 'mui-sleazebox'
@@ -20,6 +26,8 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import Alerts, {AlertsProps} from '@components/Alerts/Alerts'
 import CenterProgress from '@components/ui/CenterProgress/CenterProgress'
+import {useRouter} from 'next/router'
+const isDev = process.env.NODE_ENV === 'development'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
 
@@ -46,7 +54,7 @@ const PageLayout = ({
   const uiContext = useContext(UiContext)
   const uiDispatch = uiContext.dispatch
   const {state: uiState} = uiContext
-  const {centerProgress} = uiState
+  const {centerProgress, pageLoading} = uiState
 
   const errorDialogExitedHandler = useCallback(() => {
     uiDispatch(dismissError())
@@ -65,6 +73,37 @@ const PageLayout = ({
   )
   const Banner = useCallback(() => bannerComponent || null, [bannerComponent])
 
+  const router = useRouter()
+  const [t, setT] = useState<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    const handleRouteStart = (url: string) => {
+      const timeout = setTimeout(() => {
+        isDev && console.log(`Loading: ${url}`)
+        uiDispatch(setPageLoading(true))
+      }, 900)
+      setT(timeout)
+    }
+    const handleRouteComplete = () => {
+      t && clearTimeout(t)
+      uiDispatch(setPageLoading(false))
+    }
+    const handleRouteError = () => {
+      t && clearTimeout(t)
+      uiDispatch(setPageLoading(false))
+    }
+
+    router.events.on('routeChangeStart', handleRouteStart)
+    router.events.on('routeChangeComplete', handleRouteComplete)
+    router.events.on('routeChangeError', handleRouteError)
+    return () => {
+      t && clearTimeout(t)
+      router.events.off('routeChangeStart', handleRouteStart)
+      router.events.off('routeChangeComplete', handleRouteComplete)
+      router.events.off('routeChangeError', handleRouteError)
+    }
+  }, [router.events, uiDispatch, t])
+
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
     <>
@@ -79,7 +118,7 @@ const PageLayout = ({
       </Head>
       <CenterProgress show={centerProgress} />
       {/* <Header/> is using a z-index of 1100 .MuiAppBar-root selector, so this modal should appear above header by over-riding styling. See https://github.com/jossmac/react-images/issues/315#issuecomment-527159930. */}
-      <Fade in={false}>
+      <Fade in={pageLoading}>
         <Box position="relative">
           <Box position="fixed" zIndex={1200} top={0} left={0} width="100vw">
             <LinearProgress color="secondary" style={{height: 2}} />
