@@ -8,15 +8,7 @@ import React, {
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {
-  Fade,
-  LinearProgress,
-  Hidden,
-  useMediaQuery,
-  useTheme,
-  BoxProps,
-  Box
-} from '@material-ui/core'
+import {Hidden, useMediaQuery, useTheme, BoxProps} from '@material-ui/core'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError, setPageLoading} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
@@ -26,7 +18,9 @@ import WaterSurfaceImg from '@components/WaterSurfaceImg/WaterSurfaceImg'
 import EnewsSubscribeDialog from '@components/newsroom/EnewsSubscribeDialog/EnewsSubscribeDialog'
 import Alerts, {AlertsProps} from '@components/Alerts/Alerts'
 import CenterProgress from '@components/ui/CenterProgress/CenterProgress'
+import {useTimeoutFn} from 'react-use'
 import {useRouter} from 'next/router'
+import PageProgress from '@components/ui/PageProgress/PageProgress'
 const isDev = process.env.NODE_ENV === 'development'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
@@ -74,35 +68,42 @@ const PageLayout = ({
   const Banner = useCallback(() => bannerComponent || null, [bannerComponent])
 
   const router = useRouter()
-  const [t, setT] = useState<NodeJS.Timeout | null>(null)
+  const [routeChangeUrl, setRouteChangeUrl] = useState<string | null>(null)
+
+  const [_isReady, cancel, reset] = useTimeoutFn(() => {
+    // Don't initially execute timeout function, instead, wait for url to be set
+    if (routeChangeUrl) {
+      uiDispatch(setPageLoading(true))
+    }
+  }, 600)
 
   useEffect(() => {
     const handleRouteStart = (url: string) => {
-      const timeout = setTimeout(() => {
-        isDev && console.log(`Loading: ${url}`)
-        uiDispatch(setPageLoading(true))
-      }, 900)
-      setT(timeout)
+      isDev && console.log(`Loading: ${url}`)
+      setRouteChangeUrl(url)
+      reset()
     }
     const handleRouteComplete = () => {
-      t && clearTimeout(t)
+      cancel() // Prevent the turning on of the indicator after it's been turned off
       uiDispatch(setPageLoading(false))
+      setRouteChangeUrl(null)
     }
     const handleRouteError = () => {
-      t && clearTimeout(t)
+      cancel() // Prevent the turning on of the indicator after it's been turned off
       uiDispatch(setPageLoading(false))
+      setRouteChangeUrl(null)
     }
 
     router.events.on('routeChangeStart', handleRouteStart)
     router.events.on('routeChangeComplete', handleRouteComplete)
     router.events.on('routeChangeError', handleRouteError)
     return () => {
-      t && clearTimeout(t)
+      cancel()
       router.events.off('routeChangeStart', handleRouteStart)
       router.events.off('routeChangeComplete', handleRouteComplete)
       router.events.off('routeChangeError', handleRouteError)
     }
-  }, [router.events, uiDispatch, t])
+  }, [router.events, uiDispatch, reset, cancel])
 
   // See <ScrollToTop/> on how #back-to-top-anchor is used.
   return (
@@ -118,13 +119,8 @@ const PageLayout = ({
       </Head>
       <CenterProgress show={centerProgress} />
       {/* <Header/> is using a z-index of 1100 .MuiAppBar-root selector, so this modal should appear above header by over-riding styling. See https://github.com/jossmac/react-images/issues/315#issuecomment-527159930. */}
-      <Fade in={pageLoading}>
-        <Box position="relative">
-          <Box position="fixed" zIndex={1200} top={0} left={0} width="100vw">
-            <LinearProgress color="secondary" style={{height: 2}} />
-          </Box>
-        </Box>
-      </Fade>
+      <PageProgress show={pageLoading} />
+
       <ColumnBox height="100%" id={backToTopAnchorId}>
         <Hidden smUp implementation="css">
           <Drawer />
