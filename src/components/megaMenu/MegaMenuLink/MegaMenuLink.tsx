@@ -47,7 +47,7 @@ const MegaMenuLink = ({
   ...rest
 }: Props) => {
   const classes = useStyles()
-  const typeRef = useRef<HTMLDivElement>(null)
+  const typeRef = useRef(null)
   // Prevent null === null validity, resulting with a flash of Overline during initial page load.
   const isActive = Boolean(
     parentActiveEl === typeRef.current && parentActiveEl !== null
@@ -69,26 +69,25 @@ const MegaMenuLink = ({
     >
       <ColumnBox justifyContent="center" height="100%">
         <Box flex="1 0 auto" />
-        <div ref={typeRef}>
-          <Type
-            className={clsx(classes.typography, typographyClass, {
-              linkActive: isActive
-            })}
-            // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.
-            style={{paddingLeft: linkMargin, paddingRight: linkMargin}}
-            aria-describedby={describedbyId}
-            onClick={onLinkClick}
-            onBlur={onLinkLeave}
-            onMouseLeave={onLinkLeave}
-            onFocus={handleLinkEnter}
-            onMouseEnter={handleLinkEnter}
-            variant="button"
-          >
-            <Type color="inherit" variant="inherit" {...rest}>
-              {children}
-            </Type>
+        <Type
+          ref={typeRef}
+          className={clsx(classes.typography, typographyClass, {
+            linkActive: isActive
+          })}
+          // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.
+          style={{paddingLeft: linkMargin, paddingRight: linkMargin}}
+          aria-describedby={describedbyId}
+          onClick={onLinkClick}
+          onBlur={onLinkLeave}
+          onMouseLeave={onLinkLeave}
+          onFocus={handleLinkEnter}
+          onMouseEnter={handleLinkEnter}
+          variant="button"
+        >
+          <Type color="inherit" variant="inherit" {...rest}>
+            {children}
           </Type>
-        </div>
+        </Type>
         <Box
           flex="1 0 auto"
           onMouseEnter={onBottomBunEnter}
