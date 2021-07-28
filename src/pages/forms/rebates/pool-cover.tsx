@@ -46,6 +46,7 @@ import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButto
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 import PoolCoverEligibilityDialog from '@components/formFields/PoolCoverEligibilityDialog'
+import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -359,393 +360,395 @@ export default function PoolCover() {
                   receiptIsUploading || installPhotosIsUploading
 
                 return (
-                  <FormValidate>
-                    <FormBox className={classes.form}>
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Contact Information
-                        </Type>
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              required
-                              disabled={ineligible}
-                              name="firstName"
-                              label="First Name"
-                              autoComplete="billing given-name"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              required
-                              disabled={ineligible}
-                              name="lastName"
-                              label="Last Name"
-                              autoComplete="billing family-name"
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={7}>
-                            <AccountNoField
-                              disabled={ineligible}
-                              name="accountNo"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={5}>
-                            <Field
-                              disabled={ineligible}
-                              name="propertyType"
-                              component={PropertyTypeSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={8}>
-                            <Field
-                              disabled={ineligible}
-                              name="address"
-                              component={StreetAddressField}
-                            />
-                          </Grid>
-
-                          <Grid item xs={12} sm={4}>
-                            <Field
-                              disabled={ineligible}
-                              name="city"
-                              onChange={cityChangeHandler}
-                              component={CitySelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <WaitToGrow isIn={otherCitySelected}>
+                  <ProtectRouteChange>
+                    <FormValidate>
+                      <FormBox className={classes.form}>
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Contact Information
+                          </Type>
                           <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                disabled={!otherCitySelected || ineligible}
-                                name="otherCity"
-                                component={OtherCityField}
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                required
+                                disabled={ineligible}
+                                name="firstName"
+                                label="First Name"
+                                autoComplete="billing given-name"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                required
+                                disabled={ineligible}
+                                name="lastName"
+                                label="Last Name"
+                                autoComplete="billing family-name"
                               />
                             </Grid>
                           </Grid>
-                        </WaitToGrow>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="phone"
-                              disabled={ineligible}
-                              component={PhoneNoField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="email"
-                              disabled={ineligible}
-                              component={EmailField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="howDidYouHear"
-                              disabled={ineligible}
-                              onChange={howDidYouHearChangeHandler}
-                              component={HowDidYouHearSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <WaitToGrow isIn={otherHowDidYouHearSelected}>
                           <Grid container spacing={5}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={7}>
+                              <AccountNoField
+                                disabled={ineligible}
+                                name="accountNo"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={5}>
                               <Field
-                                disabled={
-                                  !otherHowDidYouHearSelected || ineligible
-                                }
-                                name="otherHowDidYouHear"
-                                component={OtherHowDidYouHearField}
+                                disabled={ineligible}
+                                name="propertyType"
+                                component={PropertyTypeSelectField}
                               />
                             </Grid>
                           </Grid>
-                        </WaitToGrow>
-                      </div>
 
-                      <Divider variant="middle" />
+                          <Grid container spacing={5} justify="space-between">
+                            <Grid item xs={12} sm={8}>
+                              <Field
+                                disabled={ineligible}
+                                name="address"
+                                component={StreetAddressField}
+                              />
+                            </Grid>
 
-                      <div className={classes.formGroup}>
-                        <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Rebate Information
-                        </Type>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              disabled={ineligible}
-                              name="manufacturer"
-                              label="Pool Cover Manufacturer"
-                            />
+                            <Grid item xs={12} sm={4}>
+                              <Field
+                                disabled={ineligible}
+                                name="city"
+                                onChange={cityChangeHandler}
+                                component={CitySelectField}
+                              />
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              disabled={ineligible}
-                              name="model"
-                              label="Pool Cover Model"
-                            />
+
+                          <WaitToGrow isIn={otherCitySelected}>
+                            <Grid container spacing={5}>
+                              <Grid item xs={12}>
+                                <Field
+                                  disabled={!otherCitySelected || ineligible}
+                                  name="otherCity"
+                                  component={OtherCityField}
+                                />
+                              </Grid>
+                            </Grid>
+                          </WaitToGrow>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="phone"
+                                disabled={ineligible}
+                                component={PhoneNoField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="email"
+                                disabled={ineligible}
+                                component={EmailField}
+                              />
+                            </Grid>
                           </Grid>
-                        </Grid>
 
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              required
-                              disabled={ineligible}
-                              name="sizeSqFt"
-                              label="Size of Pool (in square feet)"
-                            />
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="howDidYouHear"
+                                disabled={ineligible}
+                                onChange={howDidYouHearChangeHandler}
+                                component={HowDidYouHearSelectField}
+                              />
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled
-                              name="treatedCustomer"
-                              inputLabel="PCWA Treated Customer"
-                              inputId="treated-water-select"
-                              labelWidth={200}
-                              component={YesNoSelectField}
-                            />
-                          </Grid>
-                        </Grid>
 
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <FormTextField
-                              name="comments"
-                              multiline
-                              rows={3} // That's about 200 characters
-                              label="Optionally, you can provide us any comments"
-                              disabled={ineligible}
-                            />
-                          </Grid>
-                        </Grid>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Provide Attachments
-                        </Type>
-                        <Type variant="caption" color="textSecondary">
-                          Note - Only Image file formats can be uploaded (eg.
-                          .jpg, .png). PDF files <em>cannot</em> be uploaded
-                          here. If you are unable to attach the correct file
-                          type, or if any other issues with the attachments
-                          arise, you may select the box below and submit the
-                          files in an email.
-                        </Type>
-                        <Field
-                          name="emailAttachments"
-                          component={EmailAttachmentsSwitch}
-                          fullWidth={false}
-                          label={
-                            <span>
-                              Optionally, check here to email receipts and
-                              photos instead. Send email with attachments to{' '}
-                              <RebatesEmail /> with your name and account number
-                              in the subject line. Failure to do so may result
-                              in a delay or rejected application.
-                            </span>
-                          }
-                          disabled={ineligible}
-                        />
-
-                        <div className={classes.dropzoneContainer}>
-                          <Field
-                            disabled={ineligible || emailAttachments}
-                            name="receipts"
-                            attachmentTitle="Receipt"
-                            uploadRoute="pool-cover"
-                            onIsUploadingChange={receiptIsUploadingHandler}
-                            component={AttachmentField}
-                          />
+                          <WaitToGrow isIn={otherHowDidYouHearSelected}>
+                            <Grid container spacing={5}>
+                              <Grid item xs={12}>
+                                <Field
+                                  disabled={
+                                    !otherHowDidYouHearSelected || ineligible
+                                  }
+                                  name="otherHowDidYouHear"
+                                  component={OtherHowDidYouHearField}
+                                />
+                              </Grid>
+                            </Grid>
+                          </WaitToGrow>
                         </div>
 
-                        <div className={classes.dropzoneContainer}>
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            variant="h4"
+                            color="textSecondary"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Rebate Information
+                          </Type>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                disabled={ineligible}
+                                name="manufacturer"
+                                label="Pool Cover Manufacturer"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                disabled={ineligible}
+                                name="model"
+                                label="Pool Cover Model"
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5} justify="space-between">
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                required
+                                disabled={ineligible}
+                                name="sizeSqFt"
+                                label="Size of Pool (in square feet)"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="treatedCustomer"
+                                inputLabel="PCWA Treated Customer"
+                                inputId="treated-water-select"
+                                labelWidth={200}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <FormTextField
+                                name="comments"
+                                multiline
+                                rows={3} // That's about 200 characters
+                                label="Optionally, you can provide us any comments"
+                                disabled={ineligible}
+                              />
+                            </Grid>
+                          </Grid>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            variant="h4"
+                            color="textSecondary"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Provide Attachments
+                          </Type>
+                          <Type variant="caption" color="textSecondary">
+                            Note - Only Image file formats can be uploaded (eg.
+                            .jpg, .png). PDF files <em>cannot</em> be uploaded
+                            here. If you are unable to attach the correct file
+                            type, or if any other issues with the attachments
+                            arise, you may select the box below and submit the
+                            files in an email.
+                          </Type>
                           <Field
-                            disabled={ineligible || emailAttachments}
-                            name="installPhotos"
-                            attachmentTitle="Pool Cover installed photo"
-                            uploadRoute="pool-cover"
-                            onIsUploadingChange={
-                              installPhotosIsUploadingHandler
+                            name="emailAttachments"
+                            component={EmailAttachmentsSwitch}
+                            fullWidth={false}
+                            label={
+                              <span>
+                                Optionally, check here to email receipts and
+                                photos instead. Send email with attachments to{' '}
+                                <RebatesEmail /> with your name and account
+                                number in the subject line. Failure to do so may
+                                result in a delay or rejected application.
+                              </span>
                             }
-                            component={AttachmentField}
+                            disabled={ineligible}
                           />
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="receipts"
+                              attachmentTitle="Receipt"
+                              uploadRoute="pool-cover"
+                              onIsUploadingChange={receiptIsUploadingHandler}
+                              component={AttachmentField}
+                            />
+                          </div>
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="installPhotos"
+                              attachmentTitle="Pool Cover installed photo"
+                              uploadRoute="pool-cover"
+                              onIsUploadingChange={
+                                installPhotosIsUploadingHandler
+                              }
+                              component={AttachmentField}
+                            />
+                          </div>
                         </div>
-                      </div>
 
-                      <Divider variant="middle" />
+                        <Divider variant="middle" />
 
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Acknowledge Terms & Conditions
-                        </Type>
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
                           >
-                            <ReviewTermsConditions
-                              pageCount={2}
-                              fileName="Pool-Cover-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://imgix.cosmicjs.com/f48eb8f0-e3fc-11eb-be9a-bfe30c7c12b9-POOL-COVER-REBATE-REQUIREMENTS.pdf"
-                            />
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
+                            Acknowledge Terms & Conditions
+                          </Type>
+                          <Grid container direction="column" spacing={1}>
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
                             >
-                              <em>
-                                I have read, understand, and agree to the Pool
-                                Cover Rebate Terms and Conditions.
-                              </em>
-                            </Type>
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
+                              <ReviewTermsConditions
+                                pageCount={2}
+                                fileName="Pool-Cover-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/f48eb8f0-e3fc-11eb-be9a-bfe30c7c12b9-POOL-COVER-REBATE-REQUIREMENTS.pdf"
+                              />
+                              <Type
+                                variant="body1"
+                                paragraph
+                                className={classes.reserveRight}
+                              >
+                                <em>
+                                  I have read, understand, and agree to the Pool
+                                  Cover Rebate Terms and Conditions.
+                                </em>
+                              </Type>
+                              <Type
+                                variant="body1"
+                                paragraph
+                                className={classes.reserveRight}
+                              >
+                                <em>
+                                  I understand that PCWA reserves the right to
+                                  have an Agency representative verify the
+                                  installation of the product(s) at the service
+                                  address on the application.
+                                </em>
+                              </Type>
+                              <Field
+                                disabled={ineligible}
+                                name="termsAgree"
+                                component={AgreeTermsCheckbox}
+                                fullWidth={false}
+                              />
+                            </Grid>
+                          </Grid>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Release of Liability & Signature
+                          </Type>
+
+                          <Grid container direction="column" spacing={1}>
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
                             >
-                              <em>
-                                I understand that PCWA reserves the right to
-                                have an Agency representative verify the
-                                installation of the product(s) at the service
-                                address on the application.
-                              </em>
-                            </Type>
-                            <Field
-                              disabled={ineligible}
-                              name="termsAgree"
-                              component={AgreeTermsCheckbox}
-                              fullWidth={false}
-                            />
+                              <Type variant="body1" paragraph color="primary">
+                                Placer County Water Agency (PCWA) reserves the
+                                right to deny an application of any participant
+                                who does not meet all requirements as outlined.
+                                PCWA reserves the right to change the terms of
+                                this program at their discretion. PCWA cannot
+                                guarantee that the installation of the
+                                product(s) will result in lower water utility
+                                costs. The number of rebates is dependent upon
+                                the availability of program funds. Applications
+                                will be processed when all required information
+                                is provided by the applicant on a first-come,
+                                first-served basis.
+                              </Type>
+                            </Grid>
+
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Type variant="caption">
+                                You must sign this form by typing your name
+                              </Type>
+                              <Field
+                                disabled={ineligible}
+                                name="signature"
+                                component={SignatureField}
+                              />
+                            </Grid>
+
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Field
+                                disabled={ineligible}
+                                name="captcha"
+                                component={RecaptchaField}
+                              />
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </div>
+                        </div>
 
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
+                        <Spacing />
+                        <SubmitFormButton
+                          boxProps={{
+                            flex: '0 0 auto'
+                          }}
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                          disabled={
+                            ineligible ||
+                            isSubmitting ||
+                            // !isValid ||
+                            (!formTouched && !dirty) ||
+                            attachmentsAreUploading
+                          }
                         >
-                          Release of Liability & Signature
-                        </Type>
+                          Submit Application
+                        </SubmitFormButton>
+                      </FormBox>
 
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="body1" paragraph color="primary">
-                              Placer County Water Agency (PCWA) reserves the
-                              right to deny an application of any participant
-                              who does not meet all requirements as outlined.
-                              PCWA reserves the right to change the terms of
-                              this program at their discretion. PCWA cannot
-                              guarantee that the installation of the product(s)
-                              will result in lower water utility costs. The
-                              number of rebates is dependent upon the
-                              availability of program funds. Applications will
-                              be processed when all required information is
-                              provided by the applicant on a first-come,
-                              first-served basis.
-                            </Type>
-                          </Grid>
-
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="caption">
-                              You must sign this form by typing your name
-                            </Type>
-                            <Field
-                              disabled={ineligible}
-                              name="signature"
-                              component={SignatureField}
-                            />
-                          </Grid>
-
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Field
-                              disabled={ineligible}
-                              name="captcha"
-                              component={RecaptchaField}
-                            />
-                          </Grid>
-                        </Grid>
-                      </div>
-
-                      <Spacing />
-                      <SubmitFormButton
-                        boxProps={{
-                          flex: '0 0 auto'
-                        }}
-                        fullWidth
-                        variant="outlined"
-                        color="primary"
-                        disabled={
-                          ineligible ||
-                          isSubmitting ||
-                          // !isValid ||
-                          (!formTouched && !dirty) ||
-                          attachmentsAreUploading
-                        }
-                      >
-                        Submit Application
-                      </SubmitFormButton>
-                    </FormBox>
-
-                    <PoolCoverEligibilityDialog
-                      open={eligibilityDialogOpen}
-                      onClose={() => setEligibilityDialogOpen(false)}
-                    />
-                  </FormValidate>
+                      <PoolCoverEligibilityDialog
+                        open={eligibilityDialogOpen}
+                        onClose={() => setEligibilityDialogOpen(false)}
+                      />
+                    </FormValidate>
+                  </ProtectRouteChange>
                 )
               }}
             </Formik>

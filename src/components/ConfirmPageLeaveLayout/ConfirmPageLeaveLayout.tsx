@@ -1,6 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect, useCallback, useContext} from 'react'
 import ConfirmPageLeaveDialog from '@components/ConfirmPageLeaveDialog/ConfirmPageLeaveDialog'
 import {useRouter} from 'next/router'
+import {setPageLoading, UiContext} from '@components/ui/UiStore'
+import {pageLoadingTimeout} from '@components/PageLayout/PageLayout'
 
 type Props = {
   shouldConfirmRouteChange?: boolean
@@ -19,6 +21,8 @@ const ConfirmPageLeaveLayout = ({
   const [confirmPgLeaveDialogOpen, setConfirmPgLeaveDialogOpen] =
     useState<boolean>(false)
   const [lastRouteChange, setLastRouteChange] = useState<string>('')
+  const uiContext = useContext(UiContext)
+  const {dispatch: uiDispatch} = uiContext
 
   const handleRouteChange = useCallback(
     (route: string) => {
@@ -26,10 +30,14 @@ const ConfirmPageLeaveLayout = ({
       setLastRouteChange(route)
       if (shouldConfirmRouteChange) {
         setConfirmPgLeaveDialogOpen(true)
+        // Need to timeout func since pageLoading will be overwritten via <PageLayout/>
+        setTimeout(() => {
+          uiDispatch(setPageLoading(false))
+        }, pageLoadingTimeout + 10)
         throw "Can't change route while form is active"
       }
     },
-    [shouldConfirmRouteChange]
+    [shouldConfirmRouteChange, uiDispatch]
   )
 
   const confirmPgLeaveDialogLeaveHandler = useCallback(() => {

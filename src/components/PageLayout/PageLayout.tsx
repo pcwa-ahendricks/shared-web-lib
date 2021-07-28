@@ -24,6 +24,7 @@ import PageProgress from '@components/ui/PageProgress/PageProgress'
 const isDev = process.env.NODE_ENV === 'development'
 
 export const backToTopAnchorId = 'back-to-top-anchor'
+export const pageLoadingTimeout = 600
 
 type Props = {
   description?: string
@@ -75,7 +76,7 @@ const PageLayout = ({
     if (routeChangeUrl) {
       uiDispatch(setPageLoading(true))
     }
-  }, 600)
+  }, pageLoadingTimeout)
 
   useEffect(() => {
     const handleRouteStart = (url: string) => {

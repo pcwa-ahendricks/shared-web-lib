@@ -47,6 +47,7 @@ import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
+import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -379,429 +380,431 @@ const WashingMachine = () => {
                   receiptIsUploading || installPhotosIsUploading
 
                 return (
-                  <FormValidate>
-                    <FormBox className={classes.form}>
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Contact Information
-                        </Type>
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              required
-                              disabled={ineligible}
-                              name="firstName"
-                              label="First Name"
-                              autoComplete="billing given-name"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              required
-                              disabled={ineligible}
-                              name="lastName"
-                              label="Last Name"
-                              autoComplete="billing family-name"
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={7}>
-                            <AccountNoField
-                              disabled={ineligible}
-                              name="accountNo"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={5}>
-                            <Field
-                              disabled={ineligible}
-                              name="propertyType"
-                              component={PropertyTypeSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={8}>
-                            <Field
-                              disabled={ineligible}
-                              name="address"
-                              component={StreetAddressField}
-                            />
-                          </Grid>
-
-                          <Grid item xs={12} sm={4}>
-                            <Field
-                              disabled={ineligible}
-                              name="city"
-                              onChange={cityChangeHandler}
-                              component={CitySelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <WaitToGrow isIn={otherCitySelected}>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                disabled={!otherCitySelected || ineligible}
-                                name="otherCity"
-                                component={OtherCityField}
-                              />
-                            </Grid>
-                          </Grid>
-                        </WaitToGrow>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="phone"
-                              disabled={ineligible}
-                              component={PhoneNoField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              name="email"
-                              disabled={ineligible}
-                              component={EmailField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <Field
-                              name="howDidYouHear"
-                              disabled={ineligible}
-                              onChange={howDidYouHearChangeHandler}
-                              component={HowDidYouHearSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <WaitToGrow isIn={otherHowDidYouHearSelected}>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                disabled={
-                                  !otherHowDidYouHearSelected || ineligible
-                                }
-                                name="otherHowDidYouHear"
-                                component={OtherHowDidYouHearField}
-                              />
-                            </Grid>
-                          </Grid>
-                        </WaitToGrow>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Rebate Information
-                        </Type>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              disabled={ineligible}
-                              name="manufacturer"
-                              label="Washing Machine Manufacturer"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <FormTextField
-                              disabled={ineligible}
-                              name="model"
-                              label="Washing Machine Model"
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12}>
-                            <Field
-                              disabled={ineligible}
-                              name="ceeQualify"
-                              component={WashMachineCeeRadioField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled
-                              name="treatedCustomer"
-                              inputLabel="PCWA Treated Customer"
-                              inputId="treated-water-select"
-                              labelWidth={200}
-                              component={YesNoSelectField}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled
-                              name="existingHigh"
-                              inputLabel="Existing High Efficiency Washer"
-                              inputId="existing-high-efficiency-washer-select"
-                              labelWidth={255}
-                              component={YesNoSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5} justify="space-between">
-                          <Grid item xs={12} sm={6}>
-                            <Field
-                              disabled
-                              name="newConstruction"
-                              inputLabel="For New Construction"
-                              inputId="for-new-construction-select"
-                              labelWidth={178}
-                              component={YesNoSelectField}
-                            />
-                          </Grid>
-                        </Grid>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12}>
-                            <FormTextField
-                              name="comments"
-                              multiline
-                              rows={3} // That's about 200 characters
-                              label="Optionally, you can provide us any comments"
-                              disabled={ineligible}
-                            />
-                          </Grid>
-                        </Grid>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          variant="h4"
-                          color="textSecondary"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Provide Attachments
-                        </Type>
-                        <Type variant="caption" color="textSecondary">
-                          Note - Only Image file formats can be uploaded (eg.
-                          .jpg, .png). PDF files <em>cannot</em> be uploaded
-                          here. If you are unable to attach the correct file
-                          type, or if any other issues with the attachments
-                          arise, you may select the box below and submit the
-                          files in an email.
-                        </Type>
-                        <Field
-                          name="emailAttachments"
-                          component={EmailAttachmentsSwitch}
-                          fullWidth={false}
-                          label={
-                            <span>
-                              Optionally, check here to email receipts and
-                              photos instead. Send email with attachments to{' '}
-                              <RebatesEmail /> with your name and account number
-                              in the subject line. Failure to do so may result
-                              in a delay or rejected application.
-                            </span>
-                          }
-                          disabled={ineligible}
-                        />
-
-                        <div className={classes.dropzoneContainer}>
-                          <Field
-                            disabled={ineligible || emailAttachments}
-                            name="receipts"
-                            attachmentTitle="Receipt"
-                            uploadRoute="washing-machine"
-                            onIsUploadingChange={receiptIsUploadingHandler}
-                            component={AttachmentField}
-                          />
-                        </div>
-
-                        <div className={classes.dropzoneContainer}>
-                          <Field
-                            disabled={ineligible || emailAttachments}
-                            name="installPhotos"
-                            attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
-                            uploadRoute="washing-machine"
-                            onIsUploadingChange={
-                              installPhotosIsUploadingHandler
-                            }
-                            component={AttachmentField}
-                          />
-                        </div>
-                      </div>
-
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
-                        >
-                          Acknowledge Terms & Conditions
-                        </Type>
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
+                  <ProtectRouteChange>
+                    <FormValidate>
+                      <FormBox className={classes.form}>
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
                           >
-                            <ReviewTermsConditions
-                              pageCount={2}
-                              fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                              termsConditionsUrl="https://imgix.cosmicjs.com/fa376450-e3fc-11eb-be9a-bfe30c7c12b9-WASHING-MACHINE-REBATE-REQUIREMENTS.pdf"
+                            Contact Information
+                          </Type>
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                required
+                                disabled={ineligible}
+                                name="firstName"
+                                label="First Name"
+                                autoComplete="billing given-name"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                required
+                                disabled={ineligible}
+                                name="lastName"
+                                label="Last Name"
+                                autoComplete="billing family-name"
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={7}>
+                              <AccountNoField
+                                disabled={ineligible}
+                                name="accountNo"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={5}>
+                              <Field
+                                disabled={ineligible}
+                                name="propertyType"
+                                component={PropertyTypeSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5} justify="space-between">
+                            <Grid item xs={12} sm={8}>
+                              <Field
+                                disabled={ineligible}
+                                name="address"
+                                component={StreetAddressField}
+                              />
+                            </Grid>
+
+                            <Grid item xs={12} sm={4}>
+                              <Field
+                                disabled={ineligible}
+                                name="city"
+                                onChange={cityChangeHandler}
+                                component={CitySelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <WaitToGrow isIn={otherCitySelected}>
+                            <Grid container spacing={5}>
+                              <Grid item xs={12}>
+                                <Field
+                                  disabled={!otherCitySelected || ineligible}
+                                  name="otherCity"
+                                  component={OtherCityField}
+                                />
+                              </Grid>
+                            </Grid>
+                          </WaitToGrow>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="phone"
+                                disabled={ineligible}
+                                component={PhoneNoField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="email"
+                                disabled={ineligible}
+                                component={EmailField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                name="howDidYouHear"
+                                disabled={ineligible}
+                                onChange={howDidYouHearChangeHandler}
+                                component={HowDidYouHearSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <WaitToGrow isIn={otherHowDidYouHearSelected}>
+                            <Grid container spacing={5}>
+                              <Grid item xs={12}>
+                                <Field
+                                  disabled={
+                                    !otherHowDidYouHearSelected || ineligible
+                                  }
+                                  name="otherHowDidYouHear"
+                                  component={OtherHowDidYouHearField}
+                                />
+                              </Grid>
+                            </Grid>
+                          </WaitToGrow>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            variant="h4"
+                            color="textSecondary"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Rebate Information
+                          </Type>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                disabled={ineligible}
+                                name="manufacturer"
+                                label="Washing Machine Manufacturer"
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormTextField
+                                disabled={ineligible}
+                                name="model"
+                                label="Washing Machine Model"
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5} justify="space-between">
+                            <Grid item xs={12}>
+                              <Field
+                                disabled={ineligible}
+                                name="ceeQualify"
+                                component={WashMachineCeeRadioField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5} justify="space-between">
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="treatedCustomer"
+                                inputLabel="PCWA Treated Customer"
+                                inputId="treated-water-select"
+                                labelWidth={200}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="existingHigh"
+                                inputLabel="Existing High Efficiency Washer"
+                                inputId="existing-high-efficiency-washer-select"
+                                labelWidth={255}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5} justify="space-between">
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="newConstruction"
+                                inputLabel="For New Construction"
+                                inputId="for-new-construction-select"
+                                labelWidth={178}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <FormTextField
+                                name="comments"
+                                multiline
+                                rows={3} // That's about 200 characters
+                                label="Optionally, you can provide us any comments"
+                                disabled={ineligible}
+                              />
+                            </Grid>
+                          </Grid>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            variant="h4"
+                            color="textSecondary"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Provide Attachments
+                          </Type>
+                          <Type variant="caption" color="textSecondary">
+                            Note - Only Image file formats can be uploaded (eg.
+                            .jpg, .png). PDF files <em>cannot</em> be uploaded
+                            here. If you are unable to attach the correct file
+                            type, or if any other issues with the attachments
+                            arise, you may select the box below and submit the
+                            files in an email.
+                          </Type>
+                          <Field
+                            name="emailAttachments"
+                            component={EmailAttachmentsSwitch}
+                            fullWidth={false}
+                            label={
+                              <span>
+                                Optionally, check here to email receipts and
+                                photos instead. Send email with attachments to{' '}
+                                <RebatesEmail /> with your name and account
+                                number in the subject line. Failure to do so may
+                                result in a delay or rejected application.
+                              </span>
+                            }
+                            disabled={ineligible}
+                          />
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="receipts"
+                              attachmentTitle="Receipt"
+                              uploadRoute="washing-machine"
+                              onIsUploadingChange={receiptIsUploadingHandler}
+                              component={AttachmentField}
                             />
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
+                          </div>
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="installPhotos"
+                              attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
+                              uploadRoute="washing-machine"
+                              onIsUploadingChange={
+                                installPhotosIsUploadingHandler
+                              }
+                              component={AttachmentField}
+                            />
+                          </div>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Acknowledge Terms & Conditions
+                          </Type>
+                          <Grid container direction="column" spacing={1}>
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
                             >
-                              <em>
-                                I have read, understand, and agree to the{' '}
-                                {/* <Link
+                              <ReviewTermsConditions
+                                pageCount={2}
+                                fileName="Washing-Machine-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/fa376450-e3fc-11eb-be9a-bfe30c7c12b9-WASHING-MACHINE-REBATE-REQUIREMENTS.pdf"
+                              />
+                              <Type
+                                variant="body1"
+                                paragraph
+                                className={classes.reserveRight}
+                              >
+                                <em>
+                                  I have read, understand, and agree to the{' '}
+                                  {/* <Link
                                     variant="inherit"
                                     href="https://cdn.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   > */}
-                                {/* PCWA/USBR Energy Star® Residential/Multi
+                                  {/* PCWA/USBR Energy Star® Residential/Multi
                                     Family Water-Efficient Clothes Washing
                                     Machine Rebate Terms and Conditions. */}
-                                High-Efficiency Clothes Washing Machine Rebate
-                                Terms and Conditions.
-                                {/* </Link> */}
-                              </em>
-                            </Type>
-                            <Type
-                              variant="body1"
-                              paragraph
-                              className={classes.reserveRight}
+                                  High-Efficiency Clothes Washing Machine Rebate
+                                  Terms and Conditions.
+                                  {/* </Link> */}
+                                </em>
+                              </Type>
+                              <Type
+                                variant="body1"
+                                paragraph
+                                className={classes.reserveRight}
+                              >
+                                <em>
+                                  I understand that PCWA reserves the right to
+                                  have an Agency representative verify the
+                                  installation of the product(s) at the service
+                                  address on the application.
+                                </em>
+                              </Type>
+                              <Field
+                                disabled={ineligible}
+                                name="termsAgree"
+                                component={AgreeTermsCheckbox}
+                                fullWidth={false}
+                              />
+                            </Grid>
+                          </Grid>
+                        </div>
+
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
+                            color="textSecondary"
+                            variant="h4"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Release of Liability & Signature
+                          </Type>
+
+                          <Grid container direction="column" spacing={1}>
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
                             >
-                              <em>
-                                I understand that PCWA reserves the right to
-                                have an Agency representative verify the
-                                installation of the product(s) at the service
-                                address on the application.
-                              </em>
-                            </Type>
-                            <Field
-                              disabled={ineligible}
-                              name="termsAgree"
-                              component={AgreeTermsCheckbox}
-                              fullWidth={false}
-                            />
+                              <Type variant="body1" paragraph color="primary">
+                                Placer County Water Agency (PCWA) reserves the
+                                right to deny an application of any participant
+                                who does not meet all requirements as outlined.
+                                PCWA reserves the right to change the terms of
+                                this program at their discretion. PCWA cannot
+                                guarantee that the installation of the
+                                product(s) will result in lower water utility
+                                costs. The number of rebates is dependent upon
+                                the availability of program funds. Applications
+                                will be processed when all required information
+                                is provided by the applicant on a first-come,
+                                first-served basis.
+                              </Type>
+                            </Grid>
+
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Type variant="caption">
+                                You must sign this form by typing your name
+                              </Type>
+                              <Field
+                                disabled={ineligible}
+                                name="signature"
+                                component={SignatureField}
+                              />
+                            </Grid>
+
+                            <Grid
+                              item
+                              xs={12}
+                              className={classes.ieFixFlexColumnDirection}
+                            >
+                              <Field
+                                disabled={ineligible}
+                                name="captcha"
+                                component={RecaptchaField}
+                              />
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </div>
+                        </div>
 
-                      <Divider variant="middle" />
-
-                      <div className={classes.formGroup}>
-                        <Type
-                          color="textSecondary"
-                          variant="h4"
-                          gutterBottom
-                          className={classes.formGroupTitle}
+                        <Spacing />
+                        <SubmitFormButton
+                          boxProps={{
+                            flex: '0 0 auto'
+                          }}
+                          fullWidth
+                          variant="outlined"
+                          color="primary"
+                          disabled={
+                            ineligible ||
+                            isSubmitting ||
+                            // !isValid ||
+                            (!formTouched && !dirty) ||
+                            attachmentsAreUploading
+                          }
                         >
-                          Release of Liability & Signature
-                        </Type>
+                          Submit Application
+                        </SubmitFormButton>
+                      </FormBox>
 
-                        <Grid container direction="column" spacing={1}>
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="body1" paragraph color="primary">
-                              Placer County Water Agency (PCWA) reserves the
-                              right to deny an application of any participant
-                              who does not meet all requirements as outlined.
-                              PCWA reserves the right to change the terms of
-                              this program at their discretion. PCWA cannot
-                              guarantee that the installation of the product(s)
-                              will result in lower water utility costs. The
-                              number of rebates is dependent upon the
-                              availability of program funds. Applications will
-                              be processed when all required information is
-                              provided by the applicant on a first-come,
-                              first-served basis.
-                            </Type>
-                          </Grid>
-
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Type variant="caption">
-                              You must sign this form by typing your name
-                            </Type>
-                            <Field
-                              disabled={ineligible}
-                              name="signature"
-                              component={SignatureField}
-                            />
-                          </Grid>
-
-                          <Grid
-                            item
-                            xs={12}
-                            className={classes.ieFixFlexColumnDirection}
-                          >
-                            <Field
-                              disabled={ineligible}
-                              name="captcha"
-                              component={RecaptchaField}
-                            />
-                          </Grid>
-                        </Grid>
-                      </div>
-
-                      <Spacing />
-                      <SubmitFormButton
-                        boxProps={{
-                          flex: '0 0 auto'
-                        }}
-                        fullWidth
-                        variant="outlined"
-                        color="primary"
-                        disabled={
-                          ineligible ||
-                          isSubmitting ||
-                          // !isValid ||
-                          (!formTouched && !dirty) ||
-                          attachmentsAreUploading
-                        }
-                      >
-                        Submit Application
-                      </SubmitFormButton>
-                    </FormBox>
-
-                    <WashEffEligibilityDialog
-                      open={eligibilityDialogOpen}
-                      onClose={() => setEligibilityDialogOpen(false)}
-                    />
-                  </FormValidate>
+                      <WashEffEligibilityDialog
+                        open={eligibilityDialogOpen}
+                        onClose={() => setEligibilityDialogOpen(false)}
+                      />
+                    </FormValidate>
+                  </ProtectRouteChange>
                 )
               }}
             </Formik>
