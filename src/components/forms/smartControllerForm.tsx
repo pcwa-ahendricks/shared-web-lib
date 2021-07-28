@@ -199,7 +199,7 @@ const SmartControllerForm = ({
             </Grid>
           </Grid>
 
-          <Grid container spacing={5} justify="space-between">
+          <Grid container spacing={5} justifyContent="space-between">
             <Grid item xs={12} sm={8}>
               <Field
                 disabled={ineligible}
@@ -295,7 +295,7 @@ const SmartControllerForm = ({
             </Grid>
           </Grid>
 
-          <Grid container spacing={5} justify="space-between">
+          <Grid container spacing={5} justifyContent="space-between">
             <Grid item xs={12} sm={8}>
               <Field
                 disabled={ineligible}
@@ -308,7 +308,7 @@ const SmartControllerForm = ({
             </Grid>
           </Grid>
 
-          <Grid container spacing={5} justify="space-between">
+          <Grid container spacing={5} justifyContent="space-between">
             <Grid item xs={12} sm={6}>
               <Field
                 disabled

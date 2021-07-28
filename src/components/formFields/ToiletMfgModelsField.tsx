@@ -22,7 +22,7 @@ const ToiletMfgModelsField = ({disabled = false, ...arrayHelpers}: Props) => {
               <Grid
                 container
                 spacing={5}
-                justify="center"
+                justifyContent="center"
                 alignContent="center"
               >
                 <Grid item xs={12} sm={5}>

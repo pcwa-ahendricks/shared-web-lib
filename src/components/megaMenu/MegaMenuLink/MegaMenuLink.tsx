@@ -3,7 +3,6 @@ import {
   Box,
   Theme,
   Typography as Type,
-  RootRef,
   makeStyles,
   createStyles
 } from '@material-ui/core'
@@ -48,7 +47,7 @@ const MegaMenuLink = ({
   ...rest
 }: Props) => {
   const classes = useStyles()
-  const typeRef = useRef()
+  const typeRef = useRef<HTMLDivElement>(null)
   // Prevent null === null validity, resulting with a flash of Overline during initial page load.
   const isActive = Boolean(
     parentActiveEl === typeRef.current && parentActiveEl !== null
@@ -70,7 +69,7 @@ const MegaMenuLink = ({
     >
       <ColumnBox justifyContent="center" height="100%">
         <Box flex="1 0 auto" />
-        <RootRef rootRef={typeRef}>
+        <div ref={typeRef}>
           <Type
             className={clsx(classes.typography, typographyClass, {
               linkActive: isActive
@@ -89,7 +88,7 @@ const MegaMenuLink = ({
               {children}
             </Type>
           </Type>
-        </RootRef>
+        </div>
         <Box
           flex="1 0 auto"
           onMouseEnter={onBottomBunEnter}

@@ -109,8 +109,10 @@ const IrrigEffTermsConditions = ({
           maxWidth="xl"
           showActions
           dlUrl={`${termsConditionsUrl}${qsDownloadUrl}`}
-          onEntered={() => setScrollSnackOpen(true)}
-          onExiting={() => setScrollSnackOpen(false)}
+          TransitionProps={{
+            onEntered: () => setScrollSnackOpen(true),
+            onExiting: () => setScrollSnackOpen(false)
+          }}
         />
       </div>
       <Snackbar
