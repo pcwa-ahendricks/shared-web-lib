@@ -1,7 +1,7 @@
 // cspell:ignore COVID perc
 import React, {
   useState,
-  useMemo,
+  // useMemo,
   useContext,
   useCallback,
   useRef,
@@ -56,17 +56,18 @@ const useStyles = makeStyles({
 })
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
-  const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
+  // const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
   const theme = useTheme()
-  const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
+  // const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
-  const marginTop = useMemo(
-    // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
-    () => (is5to4 ? '-16vmax' : 0),
-    [is5to4]
-  )
+  // const marginTop = useMemo(
+  //   // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
+  //   () => (is5to4 ? '-16vmax' : 0),
+  //   [is5to4]
+  // )
+
   // const Emx = useCallback(
   //   ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
   //   []
@@ -93,21 +94,21 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     // Since this animation will end after the hero one set app state here
     animateDoneHandler()
   }, [animateDoneHandler])
-  const heroAnimateRef = useRef<HTMLDivElement>(null)
+  // const heroAnimateRef = useRef<HTMLDivElement>(null)
   const animateRef = useRef<HTMLDivElement>(null)
-  const [heroIntersected, setHeroIntersected] = useState(false)
+  // const [heroIntersected, setHeroIntersected] = useState(false)
   const [intersected, setIntersected] = useState(false)
-  const heroIntersection = useIntersection(heroAnimateRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5
-  })
+  // const heroIntersection = useIntersection(heroAnimateRef, {
+  //   root: null,
+  //   rootMargin: '0px',
+  //   threshold: 0.5
+  // })
 
-  useEffect(() => {
-    if (heroIntersection?.isIntersecting) {
-      setHeroIntersected(true)
-    }
-  }, [heroIntersection])
+  // useEffect(() => {
+  //   if (heroIntersection?.isIntersecting) {
+  //     setHeroIntersected(true)
+  //   }
+  // }, [heroIntersection])
 
   const intersection = useIntersection(animateRef, {
     root: null,
