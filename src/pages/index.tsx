@@ -8,7 +8,6 @@ import React, {
   useEffect
 } from 'react'
 // import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
-import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   makeStyles,
@@ -19,7 +18,8 @@ import {
   Hidden,
   Box
 } from '@material-ui/core'
-import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
+// import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
+// import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
