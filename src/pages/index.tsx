@@ -150,7 +150,22 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <div ref={heroAnimateRef}>
+      <a
+        rel="noopener noreferrer"
+        target="_blank"
+        href="https://us02web.zoom.us/webinar/register/WN_cYCuS7dyTUGMTKwKbQfS6A"
+        aria-label="Visit The Registration Site on Zoom for Webinar (opens in a new window)"
+      >
+        <Image
+          src="9b44b450-f0b5-11eb-af45-05261f01ab3b-Home-page-image.JPG"
+          alt="Fire-wise, water-wise landscaping webinar flier"
+          layout="responsive"
+          loader={imgixLoader}
+          width={2396}
+          height={1075}
+        />
+      </a>
+      {/* <div ref={heroAnimateRef}>
         <ImageParallaxBanner
           amount={0.1}
           marginTop={marginTop}
@@ -199,7 +214,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             </RowBox>
           </JackinBox>
         </ImageParallaxBanner>
-      </div>
+      </div> */}
+
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
       </Hidden> */}
