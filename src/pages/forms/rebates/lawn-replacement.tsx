@@ -478,8 +478,8 @@ const LawnReplacement = () => {
                             </Grid>
                             <Grid item xs={12}>
                               <Type
-                                variant="h5"
-                                color="textPrimary"
+                                variant="subtitle1"
+                                color="textSecondary"
                                 gutterBottom
                               >
                                 Location of the irrigation equipment you plan to
@@ -490,6 +490,19 @@ const LawnReplacement = () => {
                                 name="upgradeLocations"
                                 disabled={ineligible}
                                 component={IrrigUpgradeLocationCheckboxes}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <FormTextField
+                                required
+                                name="comments"
+                                multiline
+                                rows={3} // That's about 200 characters
+                                label="Briefly describe your project plans"
+                                disabled={ineligible}
                               />
                             </Grid>
                           </Grid>
@@ -528,19 +541,6 @@ const LawnReplacement = () => {
                                 disabled
                                 name="irrigMethod"
                                 component={IrrigationMethodSelect}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <FormTextField
-                                required
-                                name="comments"
-                                multiline
-                                rows={3} // That's about 200 characters
-                                label="Briefly describe your project plans"
-                                disabled={ineligible}
                               />
                             </Grid>
                           </Grid>

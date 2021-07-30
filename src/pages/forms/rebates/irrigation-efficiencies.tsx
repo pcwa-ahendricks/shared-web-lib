@@ -443,29 +443,10 @@ const IrrigationEfficiencies = () => {
                           </Type>
 
                           <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="treatedCustomer"
-                                inputLabel="PCWA Treated Customer"
-                                inputId="treated-water-select"
-                                labelWidth={200}
-                                component={YesNoSelectField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="irrigMethod"
-                                component={IrrigationMethodSelect}
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Type
                                 variant="h5"
-                                color="textPrimary"
+                                color="textSecondary"
                                 gutterBottom
                               >
                                 Location of the irrigation equipment you plan to
@@ -479,11 +460,12 @@ const IrrigationEfficiencies = () => {
                               />
                             </Grid>
                           </Grid>
+                          <Spacing size="x-small" />
                           <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <Type
                                 variant="h5"
-                                color="textPrimary"
+                                color="textSecondary"
                                 gutterBottom
                               >
                                 Please specify how you would like to upgrade
@@ -507,6 +489,27 @@ const IrrigationEfficiencies = () => {
                                 rows={3} // That's about 200 characters
                                 label="Briefly describe your project plans"
                                 disabled={ineligible}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Spacing />
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="treatedCustomer"
+                                inputLabel="PCWA Treated Customer"
+                                inputId="treated-water-select"
+                                labelWidth={200}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="irrigMethod"
+                                component={IrrigationMethodSelect}
                               />
                             </Grid>
                           </Grid>
