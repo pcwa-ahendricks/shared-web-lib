@@ -49,7 +49,7 @@ export interface IrrigationEfficienciesRebateFormData {
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
-  comments: string
+  describe: string
   irrigMethod: string
   upgradeLocations: IrrigUpgradeLocationOpts
   upgradeOpts: IrrigSysUpgradeOpts
@@ -78,7 +78,7 @@ export interface LawnReplacementRebateFormData {
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
-  comments: string
+  describe: string
   irrigMethod: string
   useArtTurf: BooleanAsString
   alreadyStarted: BooleanAsString

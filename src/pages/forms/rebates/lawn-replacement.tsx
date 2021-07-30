@@ -113,8 +113,8 @@ const formSchema = object()
     captcha: string()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
-    comments: string()
-      .max(200, 'Description must be less than 200 characters.')
+    describe: string()
+      .max(300, 'Description must be less than 300 characters.')
       .label('Description'),
     useArtTurf: string()
       .required()
@@ -174,7 +174,7 @@ const initialFormValues: RebateFormData = {
   inspectAgree: '',
   signature: '',
   captcha: '',
-  comments: '',
+  describe: '',
   irrigMethod: '',
   approxSqFeet: '',
   useArtTurf: '',
@@ -498,7 +498,7 @@ const LawnReplacement = () => {
                             <Grid item xs={12}>
                               <FormTextField
                                 required
-                                name="comments"
+                                name="describe"
                                 multiline
                                 rows={3} // That's about 200 characters
                                 label="Briefly describe your project plans"
