@@ -113,8 +113,8 @@ const formSchema = object()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
     comments: string()
-      .max(200, 'Comments must be less than 200 characters.')
-      .label('Comments'),
+      .max(200, 'Description must be less than 200 characters.')
+      .label('Description'),
     irrigMethod: string().required().label('Irrigation Method').notOneOf(
       ['Hand water'], // Case sensitive
       'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
@@ -501,10 +501,11 @@ const IrrigationEfficiencies = () => {
                           <Grid container spacing={5}>
                             <Grid item xs={12}>
                               <FormTextField
+                                required
                                 name="comments"
                                 multiline
                                 rows={3} // That's about 200 characters
-                                label="Optionally, you can provide us any comments"
+                                label="Briefly describe your project plans"
                                 disabled={ineligible}
                               />
                             </Grid>

@@ -79,7 +79,7 @@ const bodySchema = object()
         inspectAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
-        comments: string().max(200),
+        comments: string().required().max(200),
         irrigMethod: string().required().notOneOf(['Hand water']), // Case sensitive
         upgradeLocations: object()
           .required()
