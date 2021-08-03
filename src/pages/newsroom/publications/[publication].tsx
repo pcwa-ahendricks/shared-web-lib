@@ -391,10 +391,16 @@ const PublicationsPage = ({
                 {...a11yProps(2)}
               />
               <LinkTab
+                label="Strategic Plans"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/strategic-plans"
+                {...a11yProps(3)}
+              />
+              <LinkTab
                 label="E-News"
                 href="/newsroom/publications/[publication]"
                 as="/newsroom/publications/enews"
-                {...a11yProps(3)}
+                {...a11yProps(4)}
               />
             </Tabs>
           </AppBar>
@@ -599,7 +605,29 @@ const PublicationsPage = ({
                   </ChildBox>
                 </RowBox>
               </TabPanel>
+
               <TabPanel value={tabIndex} index={3}>
+                {/* isXS used w/ props below (and <PubCard/>) allow for horizontal centering of wrapping flex items on mobile devices. */}
+                <RowBox
+                  flexWrap="wrap"
+                  flexSpacing={isXS ? 0 : pubCardMargin}
+                  wrapSpacing={pubCardMargin}
+                >
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
+                      title="2021 Strategic Plan"
+                      publishedDate={parse(
+                        '8/03/2021',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://imgix.cosmicjs.com/7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf"
+                    />
+                  </ChildBox>
+                </RowBox>
+              </TabPanel>
+
+              <TabPanel value={tabIndex} index={4}>
                 <RowBox responsive flexSpacing={4}>
                   <ChildBox flex="50%">
                     <Type paragraph>
@@ -677,6 +705,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       {params: {publication: 'newsletters'}},
       {params: {publication: 'fire-and-water'}},
       {params: {publication: 'year-end'}},
+      {params: {publication: 'strategic-plans'}},
       {params: {publication: 'enews'}}
     ],
     fallback: false

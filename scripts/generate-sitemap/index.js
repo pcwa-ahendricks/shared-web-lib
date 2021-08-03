@@ -13314,7 +13314,13 @@ async function generateSitemap() {
         'district-4',
         'district-5'
     ].map((p) => `/board-of-directors/${p}`);
-    const pubPages = ['newsletters', 'fire-and-water', 'year-end', 'enews'].map((p) => `/newsroom/publications/${p}`);
+    const pubPages = [
+        'newsletters',
+        'fire-and-water',
+        'year-end',
+        'strategic-plans',
+        'enews'
+    ].map((p) => `/newsroom/publications/${p}`);
     const documents = await lib_fetcher(`${apiBaseUrl}${publicationUrl}`);
     const documentPages = documents && Array.isArray(documents)
         ? documents
