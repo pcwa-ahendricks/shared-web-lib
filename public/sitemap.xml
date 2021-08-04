@@ -424,6 +424,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/publications/strategic-plans</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/publications/enews</loc>
     <changefreq>daily</changefreq>
   </url>

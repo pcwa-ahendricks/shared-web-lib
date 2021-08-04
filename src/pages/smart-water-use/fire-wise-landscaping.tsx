@@ -19,6 +19,8 @@ import {ChildBox, RowBox} from 'mui-sleazebox'
 import WideContainer from '@components/containers/WideContainer'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
+import Image from 'next/image'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -39,6 +41,22 @@ const FireWiseLandscapingPage = () => {
             subtitle="Smart Water Use"
           />
           <Box>
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://us02web.zoom.us/webinar/register/WN_cYCuS7dyTUGMTKwKbQfS6A"
+              aria-label="Visit The Registration Site on Zoom for Webinar (opens in a new window)"
+            >
+              <Image
+                src="9b44b450-f0b5-11eb-af45-05261f01ab3b-Home-page-image.JPG"
+                alt="Fire-wise, water-wise landscaping webinar flier"
+                layout="responsive"
+                loader={imgixLoader}
+                width={2396}
+                height={1075}
+              />
+            </a>
+            <Spacing factor={2} />
             {/* <Type variant="h3">Fire-Wise, Water-Wise Landscaping</Type> */}
             <Type paragraph>
               Much of PCWA’s service area is located in the wildland-urban
