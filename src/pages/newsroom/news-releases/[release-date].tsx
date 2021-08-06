@@ -119,18 +119,20 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
   }, [media?.derivedFilenameAttr?.publishedDate])
 
   // initially until getStaticProps() finishes running
-  if (router.isFallback) {
-    console.log('router.isFallback: ', router.isFallback)
-    console.log('media: ', media)
-    console.log('release date: ', releaseDate)
-    console.log('err: ', err)
-    uiDispatch(setCenterProgress(true))
-    // return <div>Falling back :)</div>
-  } else {
-    if (centerProgress) {
-      uiDispatch(setCenterProgress(false))
+  useEffect(() => {
+    if (router.isFallback) {
+      console.log('router.isFallback: ', router.isFallback)
+      console.log('media: ', media)
+      console.log('release date: ', releaseDate)
+      console.log('err: ', err)
+      // uiDispatch(setCenterProgress(true))
+      // return <div>Falling back :)</div>
+    } else {
+      if (centerProgress) {
+        // uiDispatch(setCenterProgress(false))
+      }
     }
-  }
+  }, [router, centerProgress, err, releaseDate, media, uiDispatch])
 
   if (err?.statusCode) {
     console.log('what happened?', err)

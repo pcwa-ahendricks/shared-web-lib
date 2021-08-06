@@ -5,7 +5,7 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 import {useTimeoutFn} from 'react-use'
 
 type Props = {
-  url: string
+  url?: string
   alt: string
   showLoading?: boolean
 }
@@ -37,19 +37,21 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
     <Box position="relative">
       {progressEl}
       <Box maxWidth={lg} width="100%" height="100%" margin="auto">
-        <Image
-          loader={imgixUrlLoader}
-          src={url}
-          onLoad={onLoadHandler}
-          alt={alt}
-          objectFit="contain"
-          quality={100}
-          layout="responsive"
-          width="100%"
-          height="100%"
-          priority
-          // {...rest}
-        />
+        {url ? (
+          <Image
+            loader={imgixUrlLoader}
+            src={url}
+            onLoad={onLoadHandler}
+            alt={alt}
+            objectFit="contain"
+            quality={100}
+            layout="responsive"
+            width="100%"
+            height="100%"
+            priority
+            // {...rest}
+          />
+        ) : null}
       </Box>
     </Box>
   )
