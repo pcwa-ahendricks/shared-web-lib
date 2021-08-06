@@ -44,7 +44,10 @@ import {
   NewsReleaseMediaResponse,
   NewsReleaseMediaResponses
 } from '@lib/types/newsReleases'
-import {setCenterProgress, UiContext} from '@components/ui/UiStore'
+import {
+  // setCenterProgress,
+  UiContext
+} from '@components/ui/UiStore'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
