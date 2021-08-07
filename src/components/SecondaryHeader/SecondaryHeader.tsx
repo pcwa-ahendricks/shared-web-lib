@@ -94,7 +94,7 @@ const SecondaryHeader = () => {
       </NextGlowButton> */}
       <GlowButton
         size="small"
-        aria-label="Canal Survey Link"
+        aria-label="Paymentus web payment link"
         href="https://ipn.paymentus.com/cp/plco"
         target="_blank"
         rel="noopener noreferrer"
