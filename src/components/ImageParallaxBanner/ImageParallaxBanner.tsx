@@ -5,7 +5,7 @@ import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
-  ImageProps: ImageProps
+  ImageProps: Partial<ImageProps>
   children?: React.ReactNode
   amount?: number
   marginTop?: any
@@ -18,6 +18,10 @@ const ImageParallaxBanner = ({
   children,
   ...rest
 }: Props) => {
+  const {alt = '', src} = ImageProps
+  if (!src) {
+    return null
+  }
   return (
     <ParallaxBanner
       layers={[
@@ -29,6 +33,8 @@ const ImageParallaxBanner = ({
               }}
             >
               <Image
+                src={src}
+                alt={alt}
                 loader={imgixUrlLoader}
                 layout="responsive"
                 {...ImageProps}

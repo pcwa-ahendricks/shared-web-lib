@@ -115,12 +115,10 @@ const Pagination: React.FunctionComponent<
   const className = clsx(root, classNameProp)
 
   const innerButtonCount = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     () => (reduced ? 1 : innerButtonCountProp!),
     [innerButtonCountProp, reduced]
   )
   const outerButtonCount = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     () => (reduced ? 1 : outerButtonCountProp!),
     [outerButtonCountProp, reduced]
   )

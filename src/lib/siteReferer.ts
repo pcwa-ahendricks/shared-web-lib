@@ -13,8 +13,10 @@ import {IncomingMessage} from 'http'
 const re =
   /\/\/((www\.)?pcwa\.net|localhost:\d{4,5}(\/|$)|neu-web\..*\.?now\.sh|dev-web\.pcwa\.net)/i
 
-export default function (req: IncomingMessage) {
+const siteReferer = function (req: IncomingMessage) {
   const {headers} = req
   const referer = headers['referer']
   return re.test(referer ?? '')
 }
+
+export default siteReferer

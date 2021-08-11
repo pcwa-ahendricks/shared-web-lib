@@ -52,6 +52,7 @@ const ImageFancier = ({
   width = 0,
   height = 0,
   src = '',
+  alt,
   boxProps,
   isHover: isHoverProp,
   ...rest
@@ -121,6 +122,7 @@ const ImageFancier = ({
         </JackinBox>
       </FlexBox>
       <Image
+        alt={alt}
         src={src}
         loader={imgixUrlLoader}
         layout="responsive"

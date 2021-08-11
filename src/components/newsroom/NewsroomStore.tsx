@@ -50,7 +50,6 @@ const initialState: State = {
 export const NewsroomContext = createContext<{
   state: State
   dispatch: React.Dispatch<any>
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types

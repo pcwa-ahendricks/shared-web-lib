@@ -12,7 +12,6 @@ import theme from '@lib/material-theme'
 const isDev = process.env.NODE_ENV === 'development'
 import {GA_TRACKING_ID} from '@lib/gtag'
 
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 class MyDocument extends Document {
   // static async getInitialProps(ctx) {
   //   const initialProps = await Document.getInitialProps(ctx)
@@ -190,6 +189,5 @@ MyDocument.getInitialProps = async (ctx) => {
     ]
   }
 }
-/* eslint-enable @typescript-eslint/explicit-member-accessibility */
 
 export default MyDocument

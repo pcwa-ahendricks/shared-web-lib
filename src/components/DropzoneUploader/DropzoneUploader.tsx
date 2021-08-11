@@ -314,7 +314,6 @@ const DropzoneUploader: React.RefForwardingComponent<
     }
 
     asyncFn()
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return () => {}
   }, [
     uploadDroppedFiles,
@@ -343,7 +342,6 @@ const DropzoneUploader: React.RefForwardingComponent<
         newBlobFile.originalName = file.name
         // Add image preview urls.
         // [TODO] - Confirm this works in IE 11 and remove eslint comment
-        // eslint-disable-next-line compat/compat
         newBlobFile.previewUrl = URL.createObjectURL(newBlobFile)
         newBlobFile.ext = extension(newBlobFile.name)
         return newBlobFile as DroppedFile

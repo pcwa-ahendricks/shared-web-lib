@@ -6,8 +6,9 @@
 // }
 
 // Dona & Kiperman
-export default {
+const webFontConfig = {
   custom: {
     families: ['Dona', 'Kiperman']
   }
 }
+export default webFontConfig

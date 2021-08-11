@@ -42,7 +42,6 @@ const initialState: State = {
 export const PiContext = createContext<{
   state: State
   dispatch: Dispatch<any>
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
