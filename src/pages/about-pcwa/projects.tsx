@@ -169,7 +169,7 @@ const ProjectsPage = () => {
               </ProjectChild>
 
               <ProjectChild>
-                <ConstructionProject>
+                {/* <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Hell Hole Dam Core Raise
                   </Type>
@@ -236,7 +236,7 @@ const ProjectsPage = () => {
                       </ChildBox>
                     </ColumnBox>
                   </article>
-                </ConstructionProject>
+                </ConstructionProject> */}
               </ProjectChild>
 
               <ProjectChild>
@@ -513,13 +513,13 @@ const ProjectsPage = () => {
                         />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Design – 2019-2020" />
+                        <ListItemText primary="Design – 2019-2021" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Advertise/Award – Late 2020" />
+                        <ListItemText primary="Advertise/Award – 2022" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Construction – 2021" />
+                        <ListItemText primary="Construction – 2022" />
                       </TimelineListItem>
                     </List>
                     <Spacing />
@@ -639,7 +639,7 @@ const ProjectsPage = () => {
                     <Type paragraph>
                       Consultants are currently gathering information on-site to
                       be used to design improvements to the dams. Completion of
-                      design of improvements to the dams is anticipated in 2020.
+                      design of improvements to the dams is anticipated in 2022.
                       Any future construction work will proceed upon completion
                       of design and regulatory approvals.
                     </Type>
