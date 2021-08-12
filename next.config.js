@@ -1,9 +1,5 @@
 // cspell:ignore nskarda hprcc
 /* eslint @typescript-eslint/no-var-requires: 0 */
-const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
-const {
-  WebpackBundleSizeAnalyzerPlugin
-} = require('webpack-bundle-size-analyzer')
 // Fix error w/ Vercel and d3, fix error w/ swr and IE11
 const withTM = require('next-transpile-modules')([
   'd3-ease',
@@ -421,19 +417,7 @@ const condRedirects = isDev
       // }
     ]
 
-module.exports = withPlugins([withBundleAnalyzer, withTM], {
-  analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  bundleAnalyzerConfig: {
-    server: {
-      analyzerMode: 'static',
-      reportFilename: '../bundles/server.html'
-    },
-    browser: {
-      analyzerMode: 'static',
-      reportFilename: '../bundles/client.html'
-    }
-  },
+module.exports = withPlugins([withTM], {
   // https://github.com/martpie/next-transpile-modules/releases/tag/7.0.0
   async redirects() {
     return [
@@ -571,24 +555,6 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
     if (isServer) {
       require('./scripts/generate-sitemap')
     }
-    // Webpack Bundle Size Analyzer - https://github.com/zeit/next.js/tree/master/examples/with-webpack-bundle-size-analyzer
-    if (STATS) {
-      config.plugins.push(new WebpackBundleSizeAnalyzerPlugin('stats.txt'))
-    }
-
-    /**
-     * Fix Mapbox GL JS in production. See https://github.com/mapbox/mapbox-gl-js/issues/4348 for more info.
-     */
-    // config.module = {
-    //   ...config.module,
-    //   noParse: /(mapbox-gl)\.js$/
-    // }
-
-    // Use raw loader for markdown files.
-    config.module.rules.push({
-      test: /\.md$/,
-      loader: 'raw-loader'
-    })
 
     return config
   }
