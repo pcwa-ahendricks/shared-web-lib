@@ -1,4 +1,4 @@
-import globby from 'globby'
+import {globby} from 'globby'
 import {writeFileSync} from 'fs'
 import gages from '../src/lib/services/pi/gage-config'
 import slugify from 'slugify'

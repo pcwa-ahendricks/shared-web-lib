@@ -31,6 +31,7 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import {Element} from 'domhandler/lib/node'
 
 type Props = {
   initialData?: CosmicObjectResponse<OutageMetadata>
@@ -55,9 +56,8 @@ const outagesUrl = `/api/cosmic/objects${qs}`
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 
 const options: HTMLReactParserOptions = {
-  // [TODO] Fix any type
-  replace: (domNode: any) => {
-    if (domNode.attribs) {
+  replace: (domNode) => {
+    if (domNode instanceof Element) {
       const {attribs, name, children} = domNode
       // if (!attribs) return
 

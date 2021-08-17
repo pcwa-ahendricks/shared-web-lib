@@ -8,6 +8,7 @@ import {textFetcher} from '@lib/fetcher'
 import FlexLink from '@components/FlexLink/FlexLink'
 import BodyParagraph from './BodyParagraph'
 import CollapsibleAlert, {CollapsibleAlertProps} from './CollapsibleAlert'
+import {Element} from 'domhandler/lib/node'
 
 type CollapsibleCosmicAlertProps = {
   muiIconName?: string
@@ -32,22 +33,29 @@ const iconParserOptions: HTMLReactParserOptions = {
 }
 
 const bodyParserOptions: HTMLReactParserOptions = {
-  // [TODO] Fix any type
-  replace: ({children = [], attribs, name}: any) => {
-    if (name === 'p') {
-      return (
-        <BodyParagraph attribs={attribs}>
-          {domToReact(children, bodyParserOptions)}
-        </BodyParagraph>
-      )
-    } else if (name === 'a') {
-      return (
-        <FlexLink {...attribs} underline="always" variant="inherit" detectNext>
-          {/* Recursive parsing un-necessary with <a/> elements */}
-          {/* {domToReact(children, parserOptions)} */}
-          {domToReact(children)}
-        </FlexLink>
-      )
+  replace: (domNode) => {
+    if (domNode instanceof Element) {
+      const {attribs, name, children} = domNode
+      if (name === 'p') {
+        return (
+          <BodyParagraph attribs={attribs}>
+            {domToReact(children, bodyParserOptions)}
+          </BodyParagraph>
+        )
+      } else if (name === 'a') {
+        return (
+          <FlexLink
+            {...attribs}
+            underline="always"
+            variant="inherit"
+            detectNext
+          >
+            {/* Recursive parsing un-necessary with <a/> elements */}
+            {/* {domToReact(children, parserOptions)} */}
+            {domToReact(children)}
+          </FlexLink>
+        )
+      }
     }
   }
 }
