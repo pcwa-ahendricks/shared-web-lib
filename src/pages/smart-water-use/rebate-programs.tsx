@@ -513,6 +513,8 @@ const RebateProgramsPage = () => {
               >
                 <ChildBox>
                   <Link
+                    align="center"
+                    display="block"
                     href="https://cdn.cosmicjs.com/a7ee6680-8c3e-11e8-8d40-9164cfb4ff76-Lawn Replacement Rebate Plant Coverage Worksheet.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -521,24 +523,17 @@ const RebateProgramsPage = () => {
                     Lawn Replacement Plant Coverage Worksheet
                   </Link>
                 </ChildBox>
+
                 <ChildBox>
                   <Link
-                    href="https://cdn.cosmicjs.com/a7fbacf0-8c3e-11e8-bfba-83728ad33885-Water Smart Plant List.pdf"
+                    align="center"
+                    display="block"
+                    href="https://cdn.cosmicjs.com/e7043b00-ff9b-11eb-a3f4-b70be1f3fd88-Lawn--Irrigation-Rebate-FAQs-2021.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
-                    title="Water Smart Plant List"
+                    title="Lawn Replacement & Irrigation Efficiencies Rebate FAQ’s"
                   >
-                    Water Smart Plant List
-                  </Link>
-                </ChildBox>
-                <ChildBox>
-                  <Link
-                    href="https://cdn.cosmicjs.com/5cf787c0-943e-11e9-bbd1-5b8dd0d31f72-Lawn-Irrig-Rebate-FAQs.pdf"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    title="Lawn Replacement Rebate FAQ’s"
-                  >
-                    Lawn Replacement Rebate FAQ’s
+                    Lawn Replacement & Irrigation Efficiencies Rebate FAQ’s
                   </Link>
                 </ChildBox>
               </ColumnBox>
@@ -549,6 +544,8 @@ const RebateProgramsPage = () => {
               >
                 <ChildBox>
                   <Link
+                    align="center"
+                    display="block"
                     href="https://cdn.cosmicjs.com/cd9c1e20-943c-11e9-85db-d593262c2934-Irrigation-Efficiency-Equipment-List.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -559,7 +556,9 @@ const RebateProgramsPage = () => {
                 </ChildBox>
                 <ChildBox>
                   <Link
-                    href="https://cdn.cosmicjs.com/a7ea6ee0-8c3e-11e8-8826-a1f111844017-Landscape and Irrigation Resources.pdf"
+                    align="center"
+                    display="block"
+                    href="https://cdn.cosmicjs.com/e3ec4ca0-ff9b-11eb-a3f4-b70be1f3fd88-Landscape-and-Irrigation-Resources-2021.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Landscape and Irrigation Resources"
@@ -569,12 +568,14 @@ const RebateProgramsPage = () => {
                 </ChildBox>
                 <ChildBox>
                   <Link
-                    href="https://cdn.cosmicjs.com/5cf787c0-943e-11e9-bbd1-5b8dd0d31f72-Lawn-Irrig-Rebate-FAQs.pdf"
+                    align="center"
+                    display="block"
+                    href="https://cdn.cosmicjs.com/a7fbacf0-8c3e-11e8-bfba-83728ad33885-Water Smart Plant List.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
-                    title="Irrigation Efficiencies Rebate FAQ’s"
+                    title="Water Smart Plant List"
                   >
-                    Irrigation Efficiencies Rebate FAQ’s
+                    Water Smart Plant List
                   </Link>
                 </ChildBox>
               </ColumnBox>
