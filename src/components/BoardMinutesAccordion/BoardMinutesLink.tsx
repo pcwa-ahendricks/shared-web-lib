@@ -64,12 +64,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ColumnBoxEx = forwardRef(({children, ...props}: BoxProps, ref) => (
-  <ColumnBox {...props} {...ref}>
-    {children}
-  </ColumnBox>
-))
-ColumnBoxEx.displayName = 'ColumnBoxEx'
+const ColumnBoxEx = forwardRef(function forwardColumnBoxEx(
+  {children, ...props}: BoxProps,
+  ref
+) {
+  return (
+    <ColumnBox {...props} {...ref}>
+      {children}
+    </ColumnBox>
+  )
+})
 
 const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   const theme = useTheme<Theme>()

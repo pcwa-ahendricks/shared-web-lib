@@ -9,14 +9,16 @@ type NextGlowButtonProps = {
 } & GlowButtonProps
 
 // Using React.forwardRef made Typescript warnings and console error warnings go away. Not clear if this is implemented correctly.
-const ForwardGlowButton = forwardRef(
-  ({children, color, size, ...rest}: GlowButtonProps, ref: Ref<any>) => (
+const ForwardGlowButton = forwardRef(function forwardGlowButton(
+  {children, color, size, ...rest}: GlowButtonProps,
+  ref: Ref<any>
+) {
+  return (
     <GlowButton {...rest} {...ref} color={color} size={size}>
       {children}
     </GlowButton>
   )
-)
-ForwardGlowButton.displayName = 'ForwardGlowButton'
+})
 
 const NextGlowButton = ({
   href,

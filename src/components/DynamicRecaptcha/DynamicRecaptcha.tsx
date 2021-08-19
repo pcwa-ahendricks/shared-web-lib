@@ -3,11 +3,8 @@
 import React, {forwardRef} from 'react'
 import dynamic from 'next/dynamic'
 const DynamicRecaptcha = dynamic(import('./ForwardedRecaptcha'), {ssr: false})
-const Recaptcha = forwardRef((props, ref) => (
-  <DynamicRecaptcha {...props} forwardedRef={ref} />
-))
-// Give this component a more helpful display name in DevTools.
-// e.g. "ForwardRef(DisplayName(MyComponent))"
-Recaptcha.displayName = 'Recaptcha'
+const Recaptcha = forwardRef(function forwardRecaptcha(props, ref) {
+  return <DynamicRecaptcha {...props} forwardedRef={ref} />
+})
 
 export default Recaptcha

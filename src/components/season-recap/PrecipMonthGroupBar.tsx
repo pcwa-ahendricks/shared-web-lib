@@ -2,7 +2,7 @@
 import SquareIcon from 'mdi-material-ui/Square'
 import alpha from 'color-alpha'
 import {orange, teal, brown, blue} from '@material-ui/core/colors'
-import {ResponsiveBar} from '@nivo/bar'
+import {BarDatum, ResponsiveBar} from '@nivo/bar'
 import {BoxLegendSvg} from '@nivo/legends'
 import React, {useCallback, useMemo} from 'react'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
@@ -10,7 +10,7 @@ import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
 
 type Props = {
-  precipMoSmryData: Record<string, unknown>[]
+  precipMoSmryData: BarDatum[]
   showHistPrecip: boolean
 }
 
@@ -50,40 +50,29 @@ export default function PrecipMonthGroupBar({
   )
   // Need a custom legend for bar chart. See
   // See https://codesandbox.io/s/nivo-bar-example-nf86t?file=/index.js
-  const BarLegend = useCallback(
-    ({
-      height,
-      legends,
-      width
-    }: {
-      height: React.ComponentProps<typeof BoxLegendSvg>['containerHeight']
-      width: React.ComponentProps<typeof BoxLegendSvg>['containerWidth']
-      legends: React.ComponentProps<typeof ResponsiveBar>['legends']
-    }) => {
-      if (!legends || legends.length <= 0) {
-        return <></>
-      }
-      return (
-        <>
-          {legends.map((legend) => {
-            if (!legend || !legend.data) {
-              return <></>
-            }
-            return (
-              <BoxLegendSvg
-                data={legend.data}
-                key={JSON.stringify(legend.data.map(({id}) => id))}
-                {...legend}
-                containerHeight={height}
-                containerWidth={width}
-              />
-            )
-          })}
-        </>
-      )
-    },
-    []
-  )
+  const BarLegend = useCallback(({height, legends, width}: any) => {
+    if (!legends || legends.length <= 0) {
+      return <></>
+    }
+    return (
+      <>
+        {legends.map((legend: any) => {
+          if (!legend || !legend.data) {
+            return <></>
+          }
+          return (
+            <BoxLegendSvg
+              data={legend.data}
+              key={JSON.stringify(legend.data.map(({id}: any) => id))}
+              {...legend}
+              containerHeight={height}
+              containerWidth={width}
+            />
+          )
+        })}
+      </>
+    )
+  }, [])
 
   return (
     <ResponsiveBar

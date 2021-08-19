@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
@@ -72,13 +72,13 @@ const RebateProgramsPage = () => {
     )
   }
 
-  // Using React.forwardRef made Typescript warnings and console error warnings go away.
-  const ForwardFancyButton = React.forwardRef(
-    (props: FancyButtonProps, ref: React.Ref<any>) => (
-      <FancyButton {...props} {...ref} />
-    )
-  )
-  ForwardFancyButton.displayName = 'FancyButton'
+  // Using forwardRef made Typescript warnings and console error warnings go away.
+  const ForwardFancyButton = forwardRef(function forwardFancyButton(
+    props: FancyButtonProps,
+    ref: React.Ref<any>
+  ) {
+    return <FancyButton {...props} {...ref} />
+  })
 
   const ApplyNowButton = ({href, label}: {href: string; label: string}) => {
     return (

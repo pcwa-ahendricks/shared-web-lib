@@ -49,9 +49,9 @@ export default function TempRangeLine({tempDataset}: Props) {
       }))
 
       const areaGenerator = area<typeof seriesData[0]>()
-        .x(({data}) => xScale(data.x ? data.x : ''))
-        .y0(({data}) => yScale(data.y0 ? data.y0 : ''))
-        .y1(({data}) => yScale(data.y1 ? data.y1 : ''))
+        .x(({data}) => (xScale as any)(data.x ? data.x : ''))
+        .y0(({data}) => (yScale as any)(data.y0 ? data.y0 : ''))
+        .y1(({data}) => (yScale as any)(data.y1 ? data.y1 : ''))
         .curve(curveMonotoneX)
       const d = areaGenerator(seriesData)
       if (!d) {
@@ -148,9 +148,11 @@ export default function TempRangeLine({tempDataset}: Props) {
                 lineGenerator(
                   data.map((d): any => ({
                     ...(d.data?.x != null &&
-                      d.data?.x != undefined && {x: xScale(d.data?.x)}),
+                      d.data?.x != undefined && {
+                        x: (xScale as any)(d.data?.x)
+                      }),
                     ...(d.data?.y != null &&
-                      d.data?.y != undefined && {y: yScale(d.data?.y)})
+                      d.data?.y != undefined && {y: (yScale as any)(d.data?.y)})
                   }))
                 ) as any
               }

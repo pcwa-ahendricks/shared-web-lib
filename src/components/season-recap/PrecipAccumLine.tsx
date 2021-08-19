@@ -80,9 +80,11 @@ export default function PrecipAccumLine({
                   // [TODO] Remove type cast to any
                   data.map((d): any => ({
                     ...(d.data?.x != null &&
-                      d.data?.x != undefined && {x: xScale(d.data?.x)}),
+                      d.data?.x != undefined && {
+                        x: (xScale as any)(d.data?.x)
+                      }),
                     ...(d.data?.y != null &&
-                      d.data?.y != undefined && {y: yScale(d.data?.y)})
+                      d.data?.y != undefined && {y: (yScale as any)(d.data?.y)})
                   }))
                   // [TODO] Remove type cast to any
                 ) as any

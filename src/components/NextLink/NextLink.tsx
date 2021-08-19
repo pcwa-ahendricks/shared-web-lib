@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import clsx from 'clsx'
 import {useRouter} from 'next/router'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
@@ -51,12 +51,12 @@ const NextComposed = ({
 }
 
 // Using React.forwardRef made Typescript warnings and console error warnings go away. Not clear if this is implemented correctly.
-const ForwardNextComposed = React.forwardRef(
-  (props: NextComposedProps, ref: React.Ref<any>) => (
-    <NextComposed {...props} {...ref} />
-  )
-)
-ForwardNextComposed.displayName = 'NextComposed'
+const ForwardNextComposed = forwardRef(function forwardNextComposed(
+  props: NextComposedProps,
+  ref: React.Ref<any>
+) {
+  return <NextComposed {...props} {...ref} />
+})
 
 export type MuiNextLinkProps = {
   activeClassName?: string

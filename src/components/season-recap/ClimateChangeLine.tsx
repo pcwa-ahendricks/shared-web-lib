@@ -105,9 +105,9 @@ export default function ClimateChangeLine({
                 lineGenerator(
                   data.map(({data}): any => ({
                     ...(data?.x != null &&
-                      data?.x != undefined && {x: xScale(data?.x)}),
+                      data?.x != undefined && {x: (xScale as any)(data?.x)}),
                     ...(data?.y != null &&
-                      data?.y != undefined && {y: yScale(data?.y)})
+                      data?.y != undefined && {y: (yScale as any)(data?.y)})
                   }))
                 ) as any
               }
