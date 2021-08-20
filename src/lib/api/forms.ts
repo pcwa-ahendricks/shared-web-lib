@@ -16,7 +16,8 @@ const emailRecipientsIrrigation: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
       {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'Water Efficiency', Email: 'waterefficiency@pcwa.net'},
+      // {Name: 'Water Efficiency', Email: 'waterefficiency@pcwa.net'},
+      {Name: 'Rebates', Email: 'rebates@pcwa.net'},
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
@@ -24,7 +25,7 @@ const emailRecipientsAppliance: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
       {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'Water Efficiency', Email: 'rebates@pcwa.net'},
+      {Name: 'Rebates', Email: 'rebates@pcwa.net'},
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
