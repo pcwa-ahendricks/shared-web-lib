@@ -148,12 +148,12 @@ export const boardMeetings: Array<BoardMeeting> = [
   {date: '8-19-2021 2:00PM'},
   {date: '9-2-2021 2:00PM'},
   {
-    date: '9-16-2021 2:00PM'
+    date: '9-16-2021 8:15AM'
     // note:
     //   'The September 16th meeting starts at 8:15 a.m. at the Business Center. The Board will consider regular business items and then depart and travel to North Tahoe Public Utility District, 8318 North Lake Blvd., Kings Beach, California, to continue their meeting at approximately 11 a.m.'
   },
   {
-    date: '10-7-2021 2:00PM',
+    date: '10-7-2021 8:30AM',
     note: "The October 7th meeting starts at 8:30 a.m. at the Business Center. Board of Directors' workshop meeting to begin at Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California.  Thereafter the Board will drive to the Middle Fork American River Project facilities and have a strategic planning session at the Hell Hole Dormitory, 20900 Soda Springs Road, Foresthill, California. The meeting will adjourn at 5:00 p.m."
   },
   {
