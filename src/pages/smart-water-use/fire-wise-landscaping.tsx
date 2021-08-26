@@ -208,7 +208,7 @@ const FireWiseLandscapingPage = () => {
                   variant="h3"
                 >
                   Watch a brief video: Water-Wise Plants with Greg Gayton, Green
-                  Acres Nursery & Supply, interviewed by PCWA’s Linda Higgins{' '}
+                  Acres Nursery & Supply, interviewed by PCWA’s Linda Higgins.
                 </MatLink>
               </ChildBox>
             </RowBox>
