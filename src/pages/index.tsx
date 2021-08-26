@@ -40,6 +40,7 @@ import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/image'
 import {useIntersection, useTimeoutFn} from 'react-use'
+import Link from 'next/link'
 
 type Props = {
   initialAlertsData?: AlertsProps['initialData']
@@ -52,7 +53,10 @@ const useStyles = makeStyles({
   whammy: ({done}: {done: boolean}) => ({
     transition: 'opacity 800ms ease',
     opacity: done ? 0 : 1
-  })
+  }),
+  imageLink: {
+    cursor: 'pointer'
+  }
 })
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
@@ -151,21 +155,19 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <a
-        rel="noopener noreferrer"
-        target="_blank"
-        href="https://cdn.cosmicjs.com/2954df70-0693-11ec-82e2-c9b3a7ec6b59-210825Webinar480.mp4"
-        aria-label="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
-      >
-        <Image
-          src="c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
-          alt="Fire-wise, water-wise landscaping webinar flier"
-          layout="responsive"
-          loader={imgixLoader}
-          width={2396}
-          height={1075}
-        />
-      </a>
+      <Link passHref href="/smart-water-use/fire-wise-landscaping">
+        <div>
+          <Image
+            src="c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
+            alt="Fire-wise, water-wise landscaping webinar flier"
+            layout="responsive"
+            loader={imgixLoader}
+            width={2396}
+            height={1075}
+            className={classes.imageLink}
+          />
+        </div>
+      </Link>
       {/* <div ref={heroAnimateRef}>
         <ImageParallaxBanner
           amount={0.1}
