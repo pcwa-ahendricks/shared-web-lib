@@ -1,5 +1,6 @@
-// cspell:ignore firewise
-import React from 'react'
+// cspell:ignore firewise ondemand
+import React, {useCallback} from 'react'
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo'
 import {
   Paper,
   ListItemText,
@@ -8,7 +9,9 @@ import {
   Typography as Type,
   List,
   ListItem,
-  makeStyles
+  makeStyles,
+  IconButton,
+  IconButtonProps
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -32,6 +35,17 @@ const useStyles = makeStyles(() => ({
 const FireWiseLandscapingPage = () => {
   const classes = useStyles()
 
+  const OndemandVideoBtn = useCallback(
+    ({href, ...rest}: Partial<IconButtonProps<'a'>>) => {
+      return (
+        <IconButton href={href ?? ''} {...rest}>
+          <OndemandVideoIcon color="action" />
+        </IconButton>
+      )
+    },
+    []
+  )
+
   return (
     <PageLayout title="Fire-wise Landscaping" waterSurface>
       <MainBox>
@@ -44,11 +58,11 @@ const FireWiseLandscapingPage = () => {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://us02web.zoom.us/webinar/register/WN_cYCuS7dyTUGMTKwKbQfS6A"
-              aria-label="Visit The Registration Site on Zoom for Webinar (opens in a new window)"
+              href="https://cdn.cosmicjs.com/2954df70-0693-11ec-82e2-c9b3a7ec6b59-210825Webinar480.mp4"
+              aria-label="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
             >
               <Image
-                src="9b44b450-f0b5-11eb-af45-05261f01ab3b-Home-page-image.JPG"
+                src="c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
                 alt="Fire-wise, water-wise landscaping webinar flier"
                 layout="responsive"
                 loader={imgixLoader}
@@ -56,6 +70,28 @@ const FireWiseLandscapingPage = () => {
                 height={1075}
               />
             </a>
+            <Spacing size="large" />
+            <RowBox alignItems="center" flexSpacing={3}>
+              <ChildBox>
+                <OndemandVideoBtn />
+              </ChildBox>
+              <ChildBox>
+                <MatLink
+                  href="https://cdn.cosmicjs.com/2954df70-0693-11ec-82e2-c9b3a7ec6b59-210825Webinar480.mp4"
+                  rel="noopener noreferrer"
+                  variant="h3"
+                  target="blank"
+                  aria-label="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
+                >
+                  Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise
+                  Landscaping, hosted on{' '}
+                  <Type variant="inherit" noWrap component="span">
+                    August 25, 2021
+                  </Type>
+                  . You can find it here.
+                </MatLink>
+              </ChildBox>
+            </RowBox>
             <Spacing factor={2} />
             {/* <Type variant="h3">Fire-Wise, Water-Wise Landscaping</Type> */}
             <Type paragraph>
@@ -128,6 +164,50 @@ const FireWiseLandscapingPage = () => {
               Once planted, properly maintaining trees, shrubs and plants is
               just as important as their selection.
             </Type>
+
+            <Spacing size="large" />
+            <RowBox alignItems="center" flexSpacing={3}>
+              <ChildBox>
+                <OndemandVideoBtn
+                  href="https://cdn.cosmicjs.com/e27c49f0-05d2-11ec-b6f4-332534522a48-FirehouseKevin.mp4"
+                  rel="noopener noreferrer"
+                  target="blank"
+                />
+              </ChildBox>
+              <ChildBox>
+                <MatLink
+                  href="https://cdn.cosmicjs.com/e27c49f0-05d2-11ec-b6f4-332534522a48-FirehouseKevin.mp4"
+                  rel="noopener noreferrer"
+                  variant="h3"
+                  target="blank"
+                >
+                  Watch a brief video: Introduction to Fire-Wise, Water-Wise
+                  Landscaping with Kevin Marini, Placer County Master Gardener,
+                  interviewed by Battalion Chief Rob Zaucha of the Auburn Fire
+                  Department.
+                </MatLink>
+              </ChildBox>
+            </RowBox>
+            <Spacing size="large" />
+
+            <RowBox alignItems="center" flexSpacing={3}>
+              <ChildBox>
+                <OndemandVideoBtn
+                  href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
+                  rel="noopener noreferrer"
+                  target="blank"
+                />
+              </ChildBox>
+              <ChildBox>
+                <MatLink
+                  href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
+                  variant="h3"
+                >
+                  Watch a brief video: Water-Wise Plants with Greg Gayton, Green
+                  Acres Nursery & Supply, interviewed by PCWA’s Linda Higgins{' '}
+                </MatLink>
+              </ChildBox>
+            </RowBox>
             <Spacing size="large" />
             <Paper elevation={0}>
               <Box p={1}>
@@ -210,6 +290,28 @@ const FireWiseLandscapingPage = () => {
               area include patios, masonry or rock planters, dry streambeds and
               boulders.
             </Type>
+            <Spacing size="large" />
+            <RowBox alignItems="center" flexSpacing={3}>
+              <ChildBox>
+                <OndemandVideoBtn
+                  href="https://cdn.cosmicjs.com/e340d270-05d2-11ec-b6f4-332534522a48-FirehouseJeff.mp4"
+                  rel="noopener noreferrer"
+                  target="blank"
+                />
+              </ChildBox>
+              <ChildBox>
+                <MatLink
+                  href="https://cdn.cosmicjs.com/e340d270-05d2-11ec-b6f4-332534522a48-FirehouseJeff.mp4"
+                  rel="noopener noreferrer"
+                  variant="h3"
+                  target="blank"
+                >
+                  Watch a brief video: Landscape and Irrigation Design with Jeff
+                  Ambrosia, Yamaski Landscape Architecture, interviewed by
+                  Battalion Chief Rob Zaucha of the Auburn Fire Department.
+                </MatLink>
+              </ChildBox>
+            </RowBox>
             <Spacing size="large" />
 
             <Paper elevation={0}>
