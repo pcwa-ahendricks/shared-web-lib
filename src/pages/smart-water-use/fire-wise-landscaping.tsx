@@ -73,7 +73,11 @@ const FireWiseLandscapingPage = () => {
             <Spacing size="large" />
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
-                <OndemandVideoBtn />
+                <OndemandVideoBtn
+                  href="https://cdn.cosmicjs.com/2954df70-0693-11ec-82e2-c9b3a7ec6b59-210825Webinar480.mp4"
+                  rel="noopener noreferrer"
+                  target="blank"
+                />
               </ChildBox>
               <ChildBox>
                 <MatLink
