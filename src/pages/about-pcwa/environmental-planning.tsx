@@ -87,8 +87,9 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://docs.pcwa.net/noi-colfax-wtp.pdf"
               >
-                Notice of Intent to Adopt a Mitigated Negative Declaration for
-                the Colfax Water Treatment Plant Project
+                <em>REVISED TIME</em> Notice of Intent to Adopt a Mitigated
+                Negative Declaration for the Colfax Water Treatment Plant
+                Project
               </OpenInNewLinkBox>
               <Spacing />
               <Type variant="h3" gutterBottom>
