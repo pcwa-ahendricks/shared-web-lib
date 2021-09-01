@@ -218,7 +218,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverStory
               imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"
-              readMore="Learn more"
+              readMore="Watch now"
               linkHref="/smart-water-use/fire-wise-landscaping"
               imgixURL="https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
               alt="Fire-wise, water-wise landscaping webinar flier"
