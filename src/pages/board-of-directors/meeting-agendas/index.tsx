@@ -58,7 +58,7 @@ import slugify from 'slugify'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
-  initialData?: CosmicObjectResponse<AgendaMetadata>
+  fallbackData?: CosmicObjectResponse<AgendaMetadata>
 }
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
@@ -126,7 +126,7 @@ const googleEventHref =
 const outlookEventHref =
   outlook && typeof outlook === 'function' && event ? outlook(event) : ''
 
-const MeetingAgendasPage = ({initialData}: Props) => {
+const MeetingAgendasPage = ({fallbackData}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
@@ -146,7 +146,7 @@ const MeetingAgendasPage = ({initialData}: Props) => {
 
   const {data: agendasData} = useSWR<CosmicObjectResponse<AgendaMetadata>>(
     agendasUrl,
-    {initialData, refreshInterval}
+    {fallbackData, refreshInterval}
   )
 
   const handleClose = useCallback(() => {

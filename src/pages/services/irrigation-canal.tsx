@@ -39,7 +39,7 @@ import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 
 // type Props = {
-//   initialData?: PlayListItems
+//   fallbackData?: PlayListItems
 // }
 
 const useStyles = makeStyles(() =>
@@ -359,9 +359,9 @@ const IrrigationCanalPage = () => {
 */
 // export const getServerSideProps: GetServerSideProps = async () => {
 //   try {
-//     const initialData = await fetcher(fetcherUrl) // API request to Google. Not using Now so base URL is not needed.
-//     console.log(initialData)
-//     return {props: {initialData}}
+//     const fallbackData = await fetcher(fetcherUrl) // API request to Google. Not using Now so base URL is not needed.
+//     console.log(fallbackData)
+//     return {props: {fallbackData}}
 //   } catch (error) {
 //     console.log('There was an error fetching outages.', error)
 //     return {props: {}}

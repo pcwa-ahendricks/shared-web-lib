@@ -33,7 +33,7 @@ type Props = {
   waterSurface?: boolean
   bannerComponent?: React.ReactElement
   alertsProps?: AlertsProps
-  initialAlertsData?: AlertsProps['initialData']
+  initialAlertsData?: AlertsProps['fallbackData']
 } & BoxProps
 
 const PageLayout = ({
@@ -128,7 +128,7 @@ const PageLayout = ({
         </Hidden>
         <HeaderContainer />
         <ChildBox flex="0 0 auto">
-          <Alerts initialData={initialAlertsData} {...alertsProps} />
+          <Alerts fallbackData={initialAlertsData} {...alertsProps} />
         </ChildBox>
         <WaterSurface />
         <Banner />

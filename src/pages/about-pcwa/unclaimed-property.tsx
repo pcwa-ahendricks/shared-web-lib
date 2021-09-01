@@ -28,7 +28,7 @@ import {UnclaimedPropertyResponse} from '@lib/services/cosmicService'
 import {format, isBefore} from 'date-fns'
 
 type Props = {
-  initialData?: UnclaimedPropertyResponse[]
+  fallbackData?: UnclaimedPropertyResponse[]
 }
 
 const useStyles = makeStyles(() =>
@@ -39,7 +39,7 @@ const useStyles = makeStyles(() =>
   })
 )
 
-const UnclaimedPropertyPage = ({initialData}: Props) => {
+const UnclaimedPropertyPage = ({fallbackData}: Props) => {
   const classes = useStyles()
   const deadlineDate = useMemo(() => new Date('2021-07-09T17:00:00'), [])
 
@@ -211,7 +211,7 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
             </Type>
           </Box>
 
-          <UnclaimedPropertyTable initialData={initialData} />
+          <UnclaimedPropertyTable fallbackData={fallbackData} />
         </NarrowContainer>
       </MainBox>
     </PageLayout>
@@ -221,9 +221,9 @@ const UnclaimedPropertyPage = ({initialData}: Props) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const initialData = await fetcher(`${baseUrl}${csvDataUrl}`)
+    const fallbackData = await fetcher(`${baseUrl}${csvDataUrl}`)
     return {
-      props: {initialData},
+      props: {fallbackData},
       revalidate: 5
     }
   } catch (error) {

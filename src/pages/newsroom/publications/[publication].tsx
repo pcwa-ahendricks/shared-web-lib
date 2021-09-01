@@ -153,7 +153,7 @@ const PublicationsPage = ({
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   const {data: newslettersData} = useSWR<CosmicMediaResponse>(newslettersUrl, {
-    initialData: initialNewsletters
+    fallbackData: initialNewsletters
   })
 
   useEffect(() => {
@@ -252,7 +252,7 @@ const PublicationsPage = ({
     ['/api/cosmic/objects', 'enews-blasts', 'id,metadata,status,title'],
     cosmicFetcher,
     {
-      initialData: initialEnewsBlasts
+      fallbackData: initialEnewsBlasts
     }
   )
 

@@ -12,7 +12,7 @@ import {NewsBlurbMetadata} from '@components/recent-news/RecentNews'
 
 export type RecentNewsBarProps = {
   noOfBlurbs?: number
-  initialData?: CosmicObjectResponse<NewsBlurbMetadata>
+  fallbackData?: CosmicObjectResponse<NewsBlurbMetadata>
 } & BoxProps
 
 const params = {
@@ -26,13 +26,13 @@ const qs = stringify({...params}, true)
 const recentNewsBlurbsUrl = `/api/cosmic/objects${qs}`
 
 const RecentNewsBar = ({
-  initialData,
+  fallbackData,
   noOfBlurbs = 4,
   ...rest
 }: RecentNewsBarProps) => {
   const {data: recentNewsBlurbs} = useSWR<
     CosmicObjectResponse<NewsBlurbMetadata>
-  >(recentNewsBlurbsUrl, {initialData})
+  >(recentNewsBlurbsUrl, {fallbackData})
 
   const recentNews = useMemo(
     () =>

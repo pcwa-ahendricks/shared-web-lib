@@ -1,13 +1,6 @@
 // cspell:ignore COVID perc
-import React, {
-  useState,
-  // useMemo,
-  useContext,
-  useCallback,
-  useRef,
-  useEffect
-} from 'react'
-// import {RibbonContainer, RightRibbon} from '@components/Ribbons/Ribbons'
+import React, {useContext} from 'react'
+// import {, RightRibbon} from '@components/Ribbons/Ribbons'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   makeStyles,
@@ -15,8 +8,7 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden,
-  Box
+  Hidden
 } from '@material-ui/core'
 // import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
 // import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
@@ -25,8 +17,6 @@ import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
-// import LatestNewsRelease from '@components/LatestNewsRelease/LatestNewsRelease'
-// import WarningRoundedIcon from '@material-ui/icons/WarningRounded'
 import RecentNewsBar, {
   RecentNewsBarProps
 } from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
@@ -34,26 +24,25 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import JackinBox from 'mui-jackinbox'
-import {setAnimateDone, UiContext} from '@components/ui/UiStore'
+import {UiContext} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/image'
-import {useIntersection, useTimeoutFn} from 'react-use'
+// import {useIntersection, useTimeoutFn} from 'react-use'
 import Link from 'next/link'
 
 type Props = {
-  initialAlertsData?: AlertsProps['initialData']
-  initialNewsBlurbsData?: RecentNewsBarProps['initialData']
+  initialAlertsData?: AlertsProps['fallbackData']
+  initialNewsBlurbsData?: RecentNewsBarProps['fallbackData']
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 
 const useStyles = makeStyles({
   // [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
-  whammy: ({done}: {done: boolean}) => ({
-    transition: 'opacity 800ms ease',
-    opacity: done ? 0 : 1
-  }),
+  // whammy: ({done}: {done: boolean}) => ({
+  //   transition: 'opacity 800ms ease',
+  //   opacity: done ? 0 : 1
+  // }),
   imageLink: {
     cursor: 'pointer'
   }
@@ -64,7 +53,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const theme = useTheme()
   // const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   // const marginTop = useMemo(
   //   // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
@@ -84,24 +73,26 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
   const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: uiDispatch} = uiContext
-  const {home: homeAnimateDone} = uiState.animateDone
+  const {state: _uiState, dispatch: _uiDispatch} = uiContext
+  // const {home: homeAnimateDone} = uiState.animateDone
 
-  const animateDoneHandler = useCallback(() => {
-    uiDispatch(setAnimateDone('home', true))
-  }, [uiDispatch])
+  // const animateDoneHandler = useCallback(() => {
+  //   uiDispatch(setAnimateDone('home', true))
+  // }, [uiDispatch])
 
-  const [removeAnimation, setRemoveAnimation] = useState(false)
-  const [animationRemoved, setAnimationRemoved] = useState(false)
+  // const [removeAnimation, setRemoveAnimation] = useState(false)
+  // const [animationRemoved, setAnimationRemoved] = useState(false)
+  /*
   const animationEndHandler = useCallback(() => {
     setAnimationRemoved(true)
     // Since this animation will end after the hero one set app state here
     animateDoneHandler()
   }, [animateDoneHandler])
+  */
   // const heroAnimateRef = useRef<HTMLDivElement>(null)
-  const animateRef = useRef<HTMLDivElement>(null)
+  // const animateRef = useRef<HTMLDivElement>(null)
   // const [heroIntersected, setHeroIntersected] = useState(false)
-  const [intersected, setIntersected] = useState(false)
+  // const [intersected, setIntersected] = useState(false)
   // const heroIntersection = useIntersection(heroAnimateRef, {
   //   root: null,
   //   rootMargin: '0px',
@@ -114,40 +105,35 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   //   }
   // }, [heroIntersection])
 
-  const intersection = useIntersection(animateRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: isXS ? 0.7 : 0.5
-  })
-
   // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
-  const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
-  useTimeoutFn(() => setInitIntersectTimeout(true), 1500)
+  // const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
+  // useTimeoutFn(() => setInitIntersectTimeout(true), 1500)
 
-  useEffect(() => {
-    if (intersection?.isIntersecting && initIntersectTimeout) {
-      setIntersected(true)
-    }
-  }, [intersection, initIntersectTimeout])
+  // useEffect(() => {
+  //   if (intersection?.isIntersecting && initIntersectTimeout) {
+  //     setIntersected(true)
+  //   }
+  // }, [intersection, initIntersectTimeout])
 
-  const [_ready, _cancel, reset] = useTimeoutFn(
-    () => intersected && setRemoveAnimation(true),
-    8000
-  )
+  // const [_ready, _cancel, reset] = useTimeoutFn(
+  //   () => intersected && setRemoveAnimation(true),
+  //   8000
+  // )
 
-  useEffect(() => {
-    if (intersected === true && removeAnimation === false) {
-      reset()
-    }
-  }, [intersected, reset, removeAnimation])
+  // useEffect(() => {
+  //   if (intersected === true && removeAnimation === false) {
+  //     reset()
+  //   }
+  // }, [intersected, reset, removeAnimation])
 
-  const whammyTime = false // change this to true when we are ready to use this animation
-  const showWhammyIn =
-    !animationRemoved && intersected && !homeAnimateDone && whammyTime
-  const showWhammyOut =
-    removeAnimation && intersected && !homeAnimateDone && whammyTime
+  // const whammyTime = false // change this to true when we are ready to use this animation
+  // const showWhammyIn =
+  //   !animationRemoved && intersected && !homeAnimateDone && whammyTime
+  // const showWhammyOut =
+  //   removeAnimation && intersected && !homeAnimateDone && whammyTime
 
-  const classes = useStyles({done: removeAnimation})
+  // const classes = useStyles({done: removeAnimation})
+  const classes = useStyles()
 
   return (
     <PageLayout
@@ -155,11 +141,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <Link passHref href="/smart-water-use/fire-wise-landscaping">
+      <Link passHref href="/smart-water-use">
         <div>
           <Image
-            src="c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
-            alt="Fire-wise, water-wise landscaping webinar flier"
+            src="3f897b20-0b70-11ec-93a7-070c59f98950-MulchMayhemWebsiteBanner2.jpg"
+            alt="Mulch Mayhem Flier"
             layout="responsive"
             loader={imgixLoader}
             width={2396}
@@ -229,6 +215,16 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
           <ChildBox flex="50%">
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              title="Fire-wise, Water-wise Landscaping Webinar"
+              readMore="Learn more"
+              linkHref="/smart-water-use/fire-wise-landscaping"
+              imgixURL="https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
+              alt="Fire-wise, water-wise landscaping webinar flier"
+              body="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping, hosted on August 25, 2021."
+            />
+
             {/* <CoverStory
               title="Water-wise House and Business Calls"
               readMore="More Information..."
@@ -245,7 +241,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 about rebates available from PCWA? Set up your complimentary
                 Water Wise House Call or Business Call today!"
             /> */}
-
             {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
@@ -299,6 +294,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
             /> */}
+
+            {/*
             <Box position="relative">
               <div ref={animateRef}>
                 <CoverStory
@@ -357,7 +354,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   </JackinBox>
                 </JackinBox>
               </div>
-            </Box>
+            </Box>{' '}
+            */}
           </ChildBox>
 
           <ChildBox flex="50%">
@@ -655,7 +653,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           Recent News
         </Type>
         <Spacing size="small" />
-        <RecentNewsBar initialData={initialNewsBlurbsData} />
+        <RecentNewsBar fallbackData={initialNewsBlurbsData} />
       </WideContainer>
     </PageLayout>
   )

@@ -107,28 +107,44 @@ const SmartWaterUsePage = () => {
         <WideContainer>
           <PageTitle title="Smart Water Use" />
           <Spacing size="large" />
-          <Type variant="h3" color="primary" gutterBottom>
-            2021 is a critically dry year. What can customers do to save water?
-          </Type>
-          <Type paragraph>
-            On July 8, Governor Newsom called on all Californians to voluntarily
-            reduce water use by 15 percent to respond to the critically dry year
-            we are currently experiencing. PCWA is taking actions to address
-            water supply and environmental concerns and encourages customers to
-            continue using water efficiently.
-          </Type>
-          <Type paragraph>
-            Here are some tips you can follow around your home and business to
-            help our water stewardship efforts. Also, make sure to take
-            advantage of PCWA's enhanced water efficiency{' '}
-            <MuiNextLink
-              underline="always"
-              href="/smart-water-use/rebate-programs"
-            >
-              rebate
-            </MuiNextLink>{' '}
-            program.{' '}
-          </Type>
+          <RowBox flexSpacing={8}>
+            <ChildBox flex="0 1 60%">
+              <Type variant="h3" color="primary" gutterBottom>
+                2021 is a critically dry year. What can customers do to save
+                water?
+              </Type>
+              <Type paragraph>
+                On July 8, Governor Newsom called on all Californians to
+                voluntarily reduce water use by 15 percent to respond to the
+                critically dry year we are currently experiencing. PCWA is
+                taking actions to address water supply and environmental
+                concerns and encourages customers to continue using water
+                efficiently.
+              </Type>
+              <Type paragraph>
+                Here are some tips you can follow around your home and business
+                to help our water stewardship efforts. Also, make sure to take
+                advantage of PCWA's enhanced water efficiency{' '}
+                <MuiNextLink
+                  underline="always"
+                  href="/smart-water-use/rebate-programs"
+                >
+                  rebate
+                </MuiNextLink>{' '}
+                program.{' '}
+              </Type>
+            </ChildBox>
+            <ChildBox flex="1 1 40%">
+              <Image
+                alt="Mulch Mayhem Event Details"
+                layout="responsive"
+                width={1008}
+                height={840}
+                loader={imgixLoader}
+                src="6502b1b0-0b74-11ec-93a7-070c59f98950-MulchMayhem21edit.png"
+              />
+            </ChildBox>
+          </RowBox>
           <Spacing />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="50.00%">

@@ -13,18 +13,18 @@ import fetcher, {textFetcher} from '@lib/fetcher'
 import {GetStaticProps} from 'next'
 
 type Props = {
-  initialData?: SalaryScheduleResponse[]
+  fallbackData?: SalaryScheduleResponse[]
 }
 
 const qs = stringify({filename: 'employee-salary-schedule.csv'}, true)
 const csvUrl = `/api/cosmic/csv${qs}`
 const csvDataUrl = `/api/cosmic/csv-data${qs}`
 
-const SalarySchedulePage = ({initialData}: Props) => {
+const SalarySchedulePage = ({fallbackData}: Props) => {
   const {data: salaryCsv} = useSWR<string>(csvUrl, textFetcher) // Use text() with fetch method.
   const {data: salaryCsvData, isValidating} = useSWR<SalaryScheduleResponse[]>(
     csvDataUrl,
-    {initialData}
+    {fallbackData}
   )
 
   return (
@@ -60,11 +60,11 @@ const SalarySchedulePage = ({initialData}: Props) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const initialData = await fetcher<SalaryScheduleResponse[]>(
+    const fallbackData = await fetcher<SalaryScheduleResponse[]>(
       `${baseUrl}${csvDataUrl}`
     )
     return {
-      props: {initialData},
+      props: {fallbackData},
       revalidate: 5
     }
   } catch (error) {

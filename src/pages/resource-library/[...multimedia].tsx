@@ -158,11 +158,11 @@ const ResourceLibraryPage = ({
   }, [galleryParam, multimediaDispatch])
 
   const {data: multimedia} = useSWR<PhotoList | VideoList>(multimediaUrl, {
-    initialData: initialMultimediaData
+    fallbackData: initialMultimediaData
   })
 
   const {data: publications} = useSWR<PublicationList>(publicationsUrl, {
-    initialData: initialPublicationsData
+    fallbackData: initialPublicationsData
   })
 
   // const videoPosters = useMemo(

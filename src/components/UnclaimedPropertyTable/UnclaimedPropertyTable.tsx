@@ -37,7 +37,7 @@ export interface UnclaimedProperty
 }
 
 type Props = {
-  initialData?: UnclaimedPropertyResponse[]
+  fallbackData?: UnclaimedPropertyResponse[]
 }
 
 type HeadRowId = keyof UnclaimedProperty
@@ -71,7 +71,7 @@ const useStyles = makeStyles(() =>
 const qs = stringify({filename: 'unclaimed-property.csv'}, true)
 export const csvDataUrl = `/api/cosmic/csv-data${qs}`
 
-const UnclaimedPropertyTable = ({initialData}: Props) => {
+const UnclaimedPropertyTable = ({fallbackData}: Props) => {
   const theme = useTheme<Theme>()
   const classes = useStyles()
   const [sortFilterData, setSortFilterData] = useState<UnclaimedProperty[]>([])
@@ -80,7 +80,7 @@ const UnclaimedPropertyTable = ({initialData}: Props) => {
 
   const {data: unclaimedPropertyData} = useSWR<UnclaimedPropertyResponse[]>(
     csvDataUrl,
-    {initialData}
+    {fallbackData}
   )
 
   const unclaimedProperty: UnclaimedProperty[] = useMemo(() => {

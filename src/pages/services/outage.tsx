@@ -34,7 +34,7 @@ import imgixLoader from '@lib/imageLoader'
 import {Element} from 'domhandler/lib/node'
 
 type Props = {
-  initialData?: CosmicObjectResponse<OutageMetadata>
+  fallbackData?: CosmicObjectResponse<OutageMetadata>
 }
 
 interface OutageMetadata {
@@ -95,14 +95,14 @@ const options: HTMLReactParserOptions = {
   }
 }
 
-const OutageInformationPage = ({initialData}: Props) => {
+const OutageInformationPage = ({fallbackData}: Props) => {
   const theme = useTheme<Theme>()
   // const paletteType = theme.palette.type === 'light' ? lighten : darken
 
   const {data: outages} = useSWR<CosmicObjectResponse<OutageMetadata>>(
     outagesUrl,
     {
-      initialData,
+      fallbackData,
       refreshInterval
     }
   )
@@ -431,8 +431,8 @@ const OutageInformationPage = ({initialData}: Props) => {
 // export const getServerSideProps: GetServerSideProps = async ({req}) => {
 //   try {
 //     const urlBase = lambdaUrl(req)
-//     const initialData = await fetcher(`${urlBase}${outagesUrl}`)
-//     return {props: {initialData}}
+//     const fallbackData = await fetcher(`${urlBase}${outagesUrl}`)
+//     return {props: {fallbackData}}
 //   } catch (error) {
 //     console.log('There was an error fetching outages.', error)
 //     return {props: {}}
@@ -443,9 +443,9 @@ const OutageInformationPage = ({initialData}: Props) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const initialData = await fetcher(`${baseUrl}${outagesUrl}`)
+    const fallbackData = await fetcher(`${baseUrl}${outagesUrl}`)
     return {
-      props: {initialData},
+      props: {fallbackData},
       revalidate: 5
     }
   } catch (error) {

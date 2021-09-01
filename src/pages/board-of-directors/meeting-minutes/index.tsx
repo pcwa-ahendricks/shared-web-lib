@@ -29,7 +29,7 @@ type GroupedBoardMinutes = Array<{
 }>
 
 type Props = {
-  initialData?: CosmicMediaResponse
+  fallbackData?: CosmicMediaResponse
 }
 
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
@@ -44,7 +44,7 @@ const params = {
 const qs = stringify({...params}, true)
 const boardMinutesUrl = `/api/cosmic/media${qs}`
 
-const BoardMinutesPage = ({initialData}: Props) => {
+const BoardMinutesPage = ({fallbackData}: Props) => {
   // const thisYear = useMemo(() => getYear(new Date()).toString(), [])
 
   const [expanded, setExpanded] = useState<boolean | string>(false)
@@ -54,7 +54,7 @@ const BoardMinutesPage = ({initialData}: Props) => {
 
   const {data: boardMinutesData, isValidating} = useSWR<CosmicMediaResponse>(
     boardMinutesUrl,
-    {initialData}
+    {fallbackData}
   )
 
   const boardMinutes: GroupedBoardMinutes = useMemo(
@@ -190,9 +190,9 @@ const BoardMinutesPage = ({initialData}: Props) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const initialData = await fetcher(`${baseUrl}${boardMinutesUrl}`)
+    const fallbackData = await fetcher(`${baseUrl}${boardMinutesUrl}`)
     return {
-      props: {initialData},
+      props: {fallbackData},
       revalidate: 5
     }
   } catch (error) {

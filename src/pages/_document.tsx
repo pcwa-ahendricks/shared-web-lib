@@ -6,7 +6,6 @@
 import React from 'react'
 import Document, {Html, Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheets} from '@material-ui/core'
-// import webFontConfig from '@lib/webFontConfig'
 import theme from '@lib/material-theme'
 
 const isDev = process.env.NODE_ENV === 'development'

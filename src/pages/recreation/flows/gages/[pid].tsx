@@ -92,14 +92,14 @@ const DynamicPiPage = ({
   const baseDataUrl = `${piApiUrl}/elements${qs}`
   const {data: baseData} = useSWR<PiWebBaseElementsResponse>(
     activeGageItem?.baseElement ? baseDataUrl : null,
-    {initialData: initialBaseData}
+    {fallbackData: initialBaseData}
   )
   /* */
   /* Request 2 */
   const elementsDataUrl = `${piApiUrl}/elements/${baseData?.WebId}/elements`
   const {data: elementsData} = useSWR<PiWebElementsResponse>(
     baseData?.WebId ? elementsDataUrl : null,
-    {initialData: initialElementsData}
+    {fallbackData: initialElementsData}
   )
   /* */
   /* Request 3 */
@@ -116,7 +116,7 @@ const DynamicPiPage = ({
     useSWR<PiWebElementStreamSetResponse>(
       activeElementData?.WebId ? elementsStreamSetDataUrl : null,
       {
-        initialData: initialElementsStreamSetData
+        fallbackData: initialElementsStreamSetData
       }
     )
   /* */
@@ -208,7 +208,7 @@ const DynamicPiPage = ({
       link: 'EndValue',
       refreshInterval: 1000 * 60 * 5,
       dependencies: [isReservoir],
-      initialData: initialCurrentElevationData
+      fallbackData: initialCurrentElevationData
     } // five minute interval
   )
   const {Value: currentElevation} = elevationData ?? {}

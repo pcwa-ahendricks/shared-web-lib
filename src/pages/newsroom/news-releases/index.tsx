@@ -44,7 +44,7 @@ import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
-  initialData?: CosmicMediaResponse
+  fallbackData?: CosmicMediaResponse
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,7 +66,7 @@ const params = {
 const qs = stringify({...params}, true)
 const newsReleasesUrl = `/api/cosmic/media${qs}`
 
-const NewsReleasesPage = ({initialData}: Props) => {
+const NewsReleasesPage = ({fallbackData}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const newsroomContext = useContext(NewsroomContext)
@@ -75,7 +75,7 @@ const NewsReleasesPage = ({initialData}: Props) => {
 
   const {data: newsReleasesData} = useSWR<CosmicMediaResponse>(
     newsReleasesUrl,
-    {initialData}
+    {fallbackData}
   )
 
   const newsReleases: GroupedNewsReleases = useMemo(
@@ -273,8 +273,8 @@ const NewsReleasesPage = ({initialData}: Props) => {
 // export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
 //   try {
 //     const baseUrl = lambdaUrl(req)
-//     const initialData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
-//     return {props: {initialData}}
+//     const fallbackData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
+//     return {props: {fallbackData}}
 //   } catch (error) {
 //     console.log(error)
 //     res.statusCode = 400
@@ -286,9 +286,9 @@ const NewsReleasesPage = ({initialData}: Props) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const initialData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
+    const fallbackData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
     return {
-      props: {initialData},
+      props: {fallbackData},
       revalidate: 5
     }
   } catch (error) {

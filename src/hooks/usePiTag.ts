@@ -20,7 +20,7 @@ const usePiTag = <T = PiWebInterpolatedData>(
     link: Link
     refreshInterval: number
     dependencies: any[]
-    initialData: any
+    fallbackData: any
   }>
 ) => {
   const {
@@ -28,7 +28,7 @@ const usePiTag = <T = PiWebInterpolatedData>(
     dependencies = [],
     link = 'InterpolatedData',
     params = {},
-    initialData
+    fallbackData
   } = opts ?? {}
   const qs = stringify({path}, true)
   const baseDataUrl = `https://flows.pcwa.net/piwebapi/elements${qs}`
@@ -63,7 +63,7 @@ const usePiTag = <T = PiWebInterpolatedData>(
     urlLink ? `${urlLink}${paramsQs}` : null,
     {
       refreshInterval,
-      initialData
+      fallbackData
     }
   )
 

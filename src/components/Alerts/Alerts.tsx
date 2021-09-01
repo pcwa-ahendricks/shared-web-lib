@@ -13,7 +13,7 @@ import {CollapsibleCosmicAlert} from './CollapsibleCosmicAlert'
 export type AlertsProps = {
   bottomBgGradient?: boolean
   topBgGradient?: boolean
-  initialData?: CosmicObjectResponse<AlertMetadata>
+  fallbackData?: CosmicObjectResponse<AlertMetadata>
 }
 
 interface AlertMetadata {
@@ -42,7 +42,7 @@ const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 export default function Alerts({
   bottomBgGradient,
   topBgGradient,
-  initialData
+  fallbackData
 }: AlertsProps) {
   const uiContext = useContext(UiContext)
   const matchesIe = useMatchesIe()
@@ -84,7 +84,7 @@ export default function Alerts({
     alertsUrl,
     {
       refreshInterval,
-      initialData
+      fallbackData
     }
   )
   const alerts = useMemo(
