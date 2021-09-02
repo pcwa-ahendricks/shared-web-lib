@@ -24,6 +24,10 @@ interface AlertMetadata {
   position: number
   severity: {key: string; value: AlertProps['severity']}
   hidden: boolean
+  website: {
+    key: 'pcwaNet' | 'middleforkfunCom'
+    value: 'pcwa.net' | 'middleforkfun.com'
+  }
 }
 
 const params = {
@@ -91,7 +95,8 @@ export default function Alerts({
     () =>
       alertsData && Array.isArray(alertsData?.objects)
         ? alertsData.objects
-            .filter((a) => !a.metadata.hidden)
+            .filter((a) => !a.metadata.hidden) // no hidden alerts
+            .filter((a) => a.metadata.website.value === 'pcwa.net') // no hidden alerts
             .map(({metadata, content, id}) => ({
               ...metadata,
               content,
