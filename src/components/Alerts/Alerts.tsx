@@ -96,7 +96,7 @@ export default function Alerts({
       alertsData && Array.isArray(alertsData?.objects)
         ? alertsData.objects
             .filter((a) => !a.metadata.hidden) // no hidden alerts
-            .filter((a) => a.metadata.website.value === 'pcwa.net') // no hidden alerts
+            .filter((a) => a.metadata.website.value === 'pcwa.net') // only pcwa.net alerts
             .map(({metadata, content, id}) => ({
               ...metadata,
               content,
