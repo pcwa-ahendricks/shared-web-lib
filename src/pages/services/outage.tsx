@@ -60,7 +60,7 @@ const options: HTMLReactParserOptions = {
     // if (!attribs) return
 
     // Strip ALL Style properties from HTML.
-    if (attribs.style) {
+    if (attribs?.style) {
       attribs.style = ''
     }
 
