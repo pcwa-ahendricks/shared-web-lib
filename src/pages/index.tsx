@@ -141,7 +141,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <Link passHref href="/smart-water-use">
+      <Link passHref href="/smart-water-use/mulch-mayhem">
         <div>
           <Image
             src="3f897b20-0b70-11ec-93a7-070c59f98950-MulchMayhemWebsiteBanner2.jpg"
