@@ -19,14 +19,6 @@ import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 
 const useStyles = makeStyles((theme) => ({
-  // [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
-  // whammy: ({done}: {done: boolean}) => ({
-  //   transition: 'opacity 800ms ease',
-  //   opacity: done ? 0 : 1
-  // }),
-  imageLink: {
-    cursor: 'pointer'
-  },
   listItemBullet: {
     minWidth: theme.spacing(5)
   }
@@ -57,7 +49,6 @@ export default function MulchMayhemPage() {
             loader={imgixLoader}
             width={2396}
             height={1075}
-            className={classes.imageLink}
           />
           <Spacing factor={2} size="large" />
           <RowBox flexSpacing={10}>
@@ -122,7 +113,6 @@ export default function MulchMayhemPage() {
                   loader={imgixLoader}
                   height={3840}
                   width={5760}
-                  className={classes.imageLink}
                 />
               </ChildBox>
               <Spacing />
@@ -134,7 +124,6 @@ export default function MulchMayhemPage() {
                   loader={imgixLoader}
                   height={3840}
                   width={5760}
-                  className={classes.imageLink}
                 />
               </ChildBox>
               <Spacing />
@@ -146,7 +135,6 @@ export default function MulchMayhemPage() {
                   loader={imgixLoader}
                   height={3840}
                   width={5760}
-                  className={classes.imageLink}
                 />
               </ChildBox>
             </ColumnBox>
