@@ -8,7 +8,7 @@ import {textFetcher} from '@lib/fetcher'
 import FlexLink from '@components/FlexLink/FlexLink'
 import BodyParagraph from './BodyParagraph'
 import CollapsibleAlert, {CollapsibleAlertProps} from './CollapsibleAlert'
-import {Element} from 'domhandler/lib/node'
+import Heading from './Heading'
 
 type CollapsibleCosmicAlertProps = {
   muiIconName?: string
@@ -32,33 +32,53 @@ const iconParserOptions: HTMLReactParserOptions = {
   }
 }
 
-const bodyParserOptions: HTMLReactParserOptions = {
-  replace: (domNode) => {
-    if (domNode instanceof Element) {
-      const {attribs, name, children} = domNode
-      if (name === 'p') {
-        return (
-          <BodyParagraph attribs={attribs}>
-            {domToReact(children, bodyParserOptions)}
-          </BodyParagraph>
-        )
-      } else if (name === 'a') {
-        return (
-          <FlexLink
-            {...attribs}
-            underline="always"
-            variant="inherit"
-            detectNext
-          >
-            {/* Recursive parsing un-necessary with <a/> elements */}
-            {/* {domToReact(children, parserOptions)} */}
-            {domToReact(children)}
-          </FlexLink>
-        )
-      }
+const headingParserOptions: HTMLReactParserOptions = {
+  replace: (domNode: any) => {
+    const {attribs, name, children} = domNode
+    if (name === 'p') {
+      return (
+        <Heading attribs={attribs}>
+          {domToReact(children, headingParserOptions)}
+        </Heading>
+      )
+    } else if (name === 'a') {
+      return (
+        <FlexLink
+          {...attribs}
+          underline="always"
+          detectNext
+          color="inherit"
+          variant="inherit"
+        >
+          {/* Recursive parsing un-necessary with <a/> elements */}
+          {/* {domToReact(children, parserOptions)} */}
+          {domToReact(children)}
+        </FlexLink>
+      )
     }
   }
 }
+const bodyParserOptions: HTMLReactParserOptions = {
+  replace: (domNode: any) => {
+    const {attribs, name, children} = domNode
+    if (name === 'p') {
+      return (
+        <BodyParagraph attribs={attribs}>
+          {domToReact(children, bodyParserOptions)}
+        </BodyParagraph>
+      )
+    } else if (name === 'a') {
+      return (
+        <FlexLink {...attribs} underline="always" variant="inherit" detectNext>
+          {/* Recursive parsing un-necessary with <a/> elements */}
+          {/* {domToReact(children, parserOptions)} */}
+          {domToReact(children)}
+        </FlexLink>
+      )
+    }
+  }
+}
+
 const useStyles = makeStyles(() =>
   createStyles({
     alertTitle: {
@@ -88,7 +108,7 @@ function CollapsibleCosmicAlert({
   }, [svgIconText])
 
   const ParsedHeading = useCallback(() => {
-    const parsed = Parser(headingHtmlStr, bodyParserOptions)
+    const parsed = Parser(headingHtmlStr, headingParserOptions)
     return <>{Array.isArray(parsed) ? parsed.map((e) => e) : parsed}</>
   }, [headingHtmlStr])
 
