@@ -1,5 +1,4 @@
 import {stringify} from 'querystringify'
-import fetch from 'node-fetch'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 
 const COSMIC_BUCKET = 'pcwa'

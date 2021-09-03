@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import {compareDesc} from 'date-fns'
 import {utcToZonedTime} from 'date-fns-tz'
 import {VercelRequest, VercelResponse} from '@vercel/node'

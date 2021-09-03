@@ -1,7 +1,6 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import csv from 'csvtojson'
 import {stringify} from 'querystringify'
-import fetch from 'node-fetch'
 // Won't work with Vercel. Path mappings in tsconfig not supported. See https://vercel.com/docs/runtimes#official-runtimes/node-js/using-typescript-with-the-node-js-runtime for more info.
 // import lambdaUrl from '@api-lib/lambdaUrl'
 import lambdaUrl from '../../../lib/api/lambdaUrl'

@@ -1,7 +1,6 @@
 import prettyBytes from 'pretty-bytes'
 import Busboy from 'busboy'
 import FormData from 'form-data'
-import fetch from 'node-fetch'
 import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {dLog} from '@lib/api/shared'
@@ -82,7 +81,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
         `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media`,
         {
           method: 'POST',
-          body: formData
+          body: formData as any // [TODO] remove any type
         }
       )
       if (!response.ok) {

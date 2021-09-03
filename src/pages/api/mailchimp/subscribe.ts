@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import {MailchimpSubscribeResponse} from '../../../lib/api/mailchimp'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {getStatus} from '../../../lib/api/mailchimp-util'

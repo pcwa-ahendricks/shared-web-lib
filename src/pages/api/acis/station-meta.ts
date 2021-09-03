@@ -1,5 +1,4 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid climdiv
-import fetch from 'node-fetch'
 import {RedisError, createClient} from 'redis'
 import {promisify} from 'util'
 import {VercelRequest, VercelResponse} from '@vercel/node'

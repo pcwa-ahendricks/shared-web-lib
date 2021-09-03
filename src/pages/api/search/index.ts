@@ -1,5 +1,4 @@
 import {stringify} from 'querystringify'
-import fetch from 'node-fetch'
 import {CseResponse} from '../../../lib/api/google-cse'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 
