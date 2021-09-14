@@ -73,7 +73,7 @@ const theme = createTheme({
       lineHeight: 1.5 // default: 1.75
     },
     subtitle2: {
-      fontSize: '0.975rem', // Default: 0.875rem
+      fontSize: '1rem', // Default: 0.875rem
       // fontWeight: 400 // Default: 500
       lineHeight: 1.4 // default: 1.57
     }
