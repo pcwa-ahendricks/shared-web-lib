@@ -266,6 +266,26 @@ export interface ContactInfoRequestBody {
   formData: ContactInfoFormData
 }
 
+export interface Sb998SelfCertFormData {
+  treatedCustomer: '' | 'Yes' | 'No'
+  householdAssist: '' | 'Yes' | 'No'
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  termsAgree: BooleanAsString
+  signature: string
+  captcha: string
+}
+
+export interface Sb998SelfCertRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: Sb998SelfCertFormData
+}
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
@@ -277,6 +297,7 @@ type RequestBody =
   | SmartControllerRequestBody
   | ContactInfoRequestBody
   | WaterWasteRequestBody
+  | Sb998SelfCertRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`

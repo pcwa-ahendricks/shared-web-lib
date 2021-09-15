@@ -28,7 +28,7 @@ import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps, useFormikContext} from 'formik'
+import {connect, FormikProps, useFormikContext, useField} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
@@ -37,13 +37,13 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
-import {PoolCoverRebateFormData} from '@lib/services/formService'
+import {Sb998SelfCertFormData} from '@lib/services/formService'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
 import {blueGrey} from '@material-ui/core/colors'
 import CollectionsPhone from '@components/links/CollectionsPhone'
 
-type PoolCoverRebateFormDataProp = keyof PoolCoverRebateFormData
+type Sb998SelfCertFormDataProp = keyof Sb998SelfCertFormData
 
 type Props = {
   open: boolean
@@ -86,7 +86,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   const prevTouched = useRef<Record<string, unknown>>()
   const prevLastTouchedIndex = useRef<number>()
 
-  const {touched, errors} = useFormikContext<PoolCoverRebateFormData>()
+  const {touched, errors} = useFormikContext<Sb998SelfCertFormData>()
 
   const eligibleFieldsTouched = useMemo(
     () => [touched.treatedCustomer].every(Boolean),
@@ -121,24 +121,23 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
     prevTouched.current = {...touched}
   }, [touched, touchedChangedHandler, prevTouched])
 
-  const rebateEligibility: boolean =
-    !eligibleFieldsHaveError && eligibleFieldsTouched
+  const eligibility: boolean = !eligibleFieldsHaveError && eligibleFieldsTouched
 
-  const rebateEligibilityIncomplete: boolean =
+  const eligibilityIncomplete: boolean =
     !eligibleFieldsHaveError && !eligibleFieldsTouched
 
-  const rebateEligibilityComplete: boolean =
+  const eligibilityComplete: boolean =
     eligibleFieldsHaveError || eligibleFieldsTouched
 
   const setActiveStepIf = useCallback(
     (stepNo: number) => {
       // Don't allow changing of questions/steps if there are any relevant errors, or, if step index doesn't exist (maxSteps starts at 1, stpNo at 0).
-      if (stepNo > maxSteps - 1 || rebateEligibilityComplete) {
+      if (stepNo > maxSteps - 1 || eligibilityComplete) {
         return
       }
       setActiveStep(stepNo)
     },
-    [rebateEligibilityComplete, maxSteps]
+    [eligibilityComplete, maxSteps]
   )
 
   useEffect(() => {
@@ -165,7 +164,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const stepHasError = useCallback(
-    (fieldName: PoolCoverRebateFormDataProp) => {
+    (fieldName: Sb998SelfCertFormDataProp) => {
       const error = errors[fieldName]
       return (
         Boolean(error) && typeof error === 'string' && !/required/i.test(error)
@@ -175,7 +174,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const stepCompleted = useCallback(
-    (fieldName: PoolCoverRebateFormDataProp) => {
+    (fieldName: Sb998SelfCertFormDataProp) => {
       const fieldTouched = Boolean(touched[fieldName])
       if (fieldTouched) {
         return true
@@ -225,21 +224,20 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
               </Step>
             ))}
           </EligibilityStepper>
-          <WaitToGrow isIn={rebateEligibility}>
+          <WaitToGrow isIn={eligibility}>
             <DialogContentText
               variant="body1"
               color="textPrimary"
               className={classes.qualifyMsg}
             >
-              Excellent, you may continue to apply for the rebate. Please close
-              this message to continue to the rebate application.
+              Please close this dialog to continue.
             </DialogContentText>
           </WaitToGrow>
         </div>
       </DialogContent>
       <DialogActions>
         <WaitToGrow
-          isIn={rebateEligibilityIncomplete}
+          isIn={eligibilityIncomplete}
           style={{width: '100%'}} // style property will be passed to <Grow /> thanks to spread operator.
         >
           <EligibilityMobileStepper
@@ -270,11 +268,11 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
             }
           />
         </WaitToGrow>
-        <WaitToGrow isIn={rebateEligibilityComplete}>
+        <WaitToGrow isIn={eligibilityComplete}>
           <Button
             onClick={onClose}
             color="primary"
-            // disabled={rebateEligibilityIncomplete}
+            // disabled={eligibilityIncomplete}
           >
             Close
           </Button>
@@ -398,73 +396,72 @@ const Intro = () => {
   )
 }
 
-const QuestionOne = () => {
+const QuestionOne = ({fieldName}: {fieldName: string}) => {
   const classes = useQuestionStyles()
+
+  const {setFieldValue, errors, setFieldTouched, touched} =
+    useFormikContext<any>()
+  const [field, _meta] = useField(fieldName)
+
+  const {name, value} = field
+  const currentError = errors[name]
+
+  const clickHandler = (alreadyStarted: string) => () => {
+    setFieldValue(name, alreadyStarted, true)
+    setFieldTouched(name, true)
+  }
+
+  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+  const hasApplicableError =
+    Boolean(currentError) &&
+    typeof currentError === 'string' &&
+    !/required field/i.test(currentError)
+
+  const fieldTouched = Boolean(touched[name])
+
   return (
-    <Field name="treatedCustomer">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, errors, setFieldTouched, touched} = form
-        const {name, value} = field
-        const currentError = errors[name]
-
-        const clickHandler = (alreadyStarted: string) => () => {
-          setFieldValue(name, alreadyStarted, true)
-          setFieldTouched(name, true)
+    <div>
+      <List
+        subheader={
+          <ListSubheader component="div">
+            Choose one of the following
+          </ListSubheader>
         }
-
-        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-        const hasApplicableError =
-          Boolean(currentError) &&
-          typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
-            >
-              {yesNoAnswers.map((answer) => (
-                <ListItem
-                  key={answer}
-                  button
-                  divider
-                  selected={answer === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(answer)}
-                >
-                  <ListItemText primary={answer} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                You must be a current Placer County Water Agency treated water
-                customer. SB998 relates to water adequate for human consumption,
-                cooking, and sanitary purposes. To inquire about payment options
-                to avoid discontinuation of irrigation water services, please
-                contact Customer Services at <CollectionsPhone />.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
+      >
+        {yesNoAnswers.map((answer) => (
+          <ListItem
+            key={answer}
+            button
+            divider
+            selected={answer === value}
+            // disabled={fieldTouched}
+            onClick={clickHandler(answer)}
+          >
+            <ListItemText primary={answer} />
+          </ListItem>
+        ))}
+      </List>
+      <WaitToGrow isIn={hasApplicableError && fieldTouched}>
+        <DialogContentText
+          variant="body1"
+          color="textPrimary"
+          className={classes.qualifyMsg}
+        >
+          You must be a current Placer County Water Agency treated water
+          customer. SB998 relates to water adequate for human consumption,
+          cooking, and sanitary purposes. To inquire about payment options to
+          avoid discontinuation of irrigation water services, please contact
+          Customer Services at <CollectionsPhone />.
+        </DialogContentText>
+      </WaitToGrow>
+    </div>
   )
 }
 
 function getSteps(): {
   index: number
   label: string
-  name: PoolCoverRebateFormDataProp
+  name: Sb998SelfCertFormDataProp
   content: JSX.Element
 }[] {
   return [
@@ -472,7 +469,7 @@ function getSteps(): {
       index: 0,
       label: 'Are you a Placer Country Water Agency Treated Water customer?',
       name: 'treatedCustomer',
-      content: <QuestionOne />
+      content: <QuestionOne fieldName="treatedCustomer" />
     }
   ]
 }
