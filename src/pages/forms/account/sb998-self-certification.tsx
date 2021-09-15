@@ -91,7 +91,18 @@ const formSchema = object()
       ['Yes'], // "Yes", "No"
       'You must be a current Placer County Water Agency treated water customer'
     ),
-    sizeSqFt: string().required().label('Size of pool (square feet)'),
+    householdAssist: string().required().label('Household Assistance Program'),
+    householdIncome: string().label('Household Annual Income').oneOf(
+      ['Yes'], // "Yes", "No"
+      'Specific income conditions must be met to qualify for Water Shutoff Protection under SB998'
+    ),
+    primaryCareCert: string()
+      .required()
+      .label('Certification of a Primary Care Provider'),
+    paymentPlan: string().label('Payment Plan').oneOf(
+      ['Yes'], // "Yes", "No"
+      'Senate Bill  998 requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment.'
+    ),
     manufacturer: string().required().label('Pool Cover Manufacturer'),
     model: string().required().label('Pool Cover Model'),
     termsAgree: string()

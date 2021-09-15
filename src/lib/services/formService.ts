@@ -269,6 +269,9 @@ export interface ContactInfoRequestBody {
 export interface Sb998SelfCertFormData {
   treatedCustomer: '' | 'Yes' | 'No'
   householdAssist: '' | 'Yes' | 'No'
+  householdIncome: '' | 'Yes' | 'No'
+  primaryCareCert: '' | 'Yes' | 'No'
+  paymentPlan: '' | 'Yes' | 'No'
   firstName: string
   lastName: string
   email: string
