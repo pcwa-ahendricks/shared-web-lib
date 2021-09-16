@@ -12,7 +12,7 @@ import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
-const MAILJET_TEMPLATE_ID = 3035066
+const MAILJET_TEMPLATE_ID = 3179372
 
 interface FormDataObj {
   treatedCustomer: '' | 'Yes' | 'No'
