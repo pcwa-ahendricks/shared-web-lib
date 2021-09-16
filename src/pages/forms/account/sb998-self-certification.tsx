@@ -78,17 +78,33 @@ const formSchema = object()
       'You must be a current Placer County Water Agency treated water customer'
     ),
     householdAssist: string().required().label('Household Assistance Program'),
-    householdIncome: string().label('Household Annual Income').oneOf(
-      ['Yes'], // "Yes", "No"
-      'Specific income conditions must be met to qualify for Water Shutoff Protection under SB998'
-    ),
+    householdIncome: string()
+      .label('Household Annual Income')
+      .when(
+        'householdAssist',
+        (householdAssist: string | null, schema: StringSchema) =>
+          householdAssist && householdAssist.toLowerCase() === 'no'
+            ? schema.oneOf(
+                ['Yes'],
+                'Specific income conditions must be met to qualify for Water Shutoff Protection under SB998'
+              )
+            : schema
+      ),
     primaryCareCert: string()
       .required()
       .label('Certification of a Primary Care Provider'),
-    paymentPlan: string().label('Payment Plan').oneOf(
-      ['Yes'], // "Yes", "No"
-      'Senate Bill  998 requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment.'
-    ),
+    paymentPlan: string()
+      .label('Payment Plan')
+      .when(
+        'primaryCareCert',
+        (primaryCareCert: string | null, schema: StringSchema) =>
+          primaryCareCert && primaryCareCert.toLowerCase() === 'yes'
+            ? schema.oneOf(
+                ['Yes'],
+                'Senate Bill 998 requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment'
+              )
+            : schema
+      ),
     signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
