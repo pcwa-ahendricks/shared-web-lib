@@ -279,8 +279,6 @@ export interface Sb998SelfCertFormData {
   address: string
   svcAddress: string
   ownerTenant: string
-  city: string
-  otherCity: string
   phone: string
   // termsAgree: BooleanAsString
   signature: string

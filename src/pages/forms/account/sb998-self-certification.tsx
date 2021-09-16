@@ -19,8 +19,6 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
-import CitySelectField from '@components/formFields/CitySelectField'
-import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import FormTextField from '@components/formFields/FormTextField'
@@ -30,7 +28,6 @@ import YesNoSelectField, {
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
-import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import delay from 'then-sleep'
 import MainBox from '@components/boxes/MainBox'
@@ -66,12 +63,6 @@ const formSchema = object()
     address: string().required().label('Billing Address'),
     svcAddress: string().required().label('Service Address'),
     ownerTenant: string().required().label('Owner or Tenant'),
-    city: string().required().label('City'),
-    otherCity: string()
-      .label('City')
-      .when('city', (city: string | null, schema: StringSchema) =>
-        city && city.toLowerCase() === 'other' ? schema.required() : schema
-      ),
     phone: string().required().min(10).label('Phone Number'),
     treatedCustomer: string().required().label('Treated Customer').oneOf(
       ['Yes'], // "Yes", "No"
@@ -119,8 +110,6 @@ const initialFormValues: Sb998SelfCertFormData = {
   ownerTenant: '',
   address: '',
   svcAddress: '',
-  city: '',
-  otherCity: '',
   phone: '',
   treatedCustomer: '',
   primaryCareCert: '',
@@ -276,9 +265,9 @@ export default function Sb998SelfCertification() {
                   touched = {},
                   dirty,
                   isSubmitting,
-                  errors,
+                  errors
                   // isValid,
-                  setFieldValue
+                  // setFieldValue
                 } = formik
 
                 if (dirty !== formIsDirty) {
@@ -300,17 +289,6 @@ export default function Sb998SelfCertification() {
                 const formTouched = Object.keys(touched).length > 0
                 if (formTouched !== formIsTouched) {
                   setFormIsTouched(formTouched)
-                }
-                const otherCitySelected = Boolean(
-                  values.city && values.city.toLowerCase() === 'other'
-                )
-
-                // If city field is updated clear out otherCity field.
-                const cityChangeHandler = (evt: any) => {
-                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                  if (evt.target.value.toLowerCase() !== 'other') {
-                    setFieldValue('otherCity', '')
-                  }
                 }
 
                 return (
@@ -366,7 +344,7 @@ export default function Sb998SelfCertification() {
                           </Grid>
 
                           <Grid container spacing={5}>
-                            <Grid item xs={12} sm={8}>
+                            <Grid item xs={12} sm={12}>
                               <FormTextField
                                 required
                                 disabled={ineligible}
@@ -389,28 +367,7 @@ export default function Sb998SelfCertification() {
                                 label="Billing Address"
                               />
                             </Grid>
-
-                            <Grid item xs={12} sm={4}>
-                              <Field
-                                disabled={ineligible}
-                                name="city"
-                                onChange={cityChangeHandler}
-                                component={CitySelectField}
-                              />
-                            </Grid>
                           </Grid>
-
-                          <WaitToGrow isIn={otherCitySelected}>
-                            <Grid container spacing={5}>
-                              <Grid item xs={12}>
-                                <Field
-                                  disabled={!otherCitySelected || ineligible}
-                                  name="otherCity"
-                                  component={OtherCityField}
-                                />
-                              </Grid>
-                            </Grid>
-                          </WaitToGrow>
 
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>

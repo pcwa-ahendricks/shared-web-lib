@@ -26,8 +26,6 @@ interface FormDataObj {
   address: string
   svcAddress: string
   ownerTenant: string
-  city: string
-  otherCity: string
   phone: string
   signature: string
   captcha: string
@@ -50,12 +48,6 @@ const bodySchema = object()
         address: string().required(),
         svcAddress: string().required(),
         ownerTenant: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | null, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
         phone: string().required().min(10),
         treatedCustomer: string().required().oneOf(
           ['Yes'] // "Yes", "No"
@@ -106,7 +98,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       lastName,
       address,
       svcAddress,
-      otherCity = '',
       phone,
       treatedCustomer,
       paymentPlan,
@@ -118,7 +109,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       signature,
       captcha
     } = formData
-    let {city = '', accountNo} = formData
+    let {accountNo} = formData
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -139,11 +130,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
         }
         return
       }
-    }
-
-    // Overwrite "city" with "otherCity" if another city was specified.
-    if (city.toLowerCase() === 'other') {
-      city = otherCity
     }
 
     const replyToName = `${firstName} ${lastName}`
@@ -176,7 +162,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             firstName,
             lastName,
             accountNo,
-            city,
             address,
             svcAddress,
             email,
