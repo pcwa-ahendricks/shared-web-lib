@@ -286,8 +286,7 @@ export interface Sb998SelfCertFormData {
   signature: string
   captcha: string
   // not used w/ formik (or yup) form, only used w/ Mailjet
-  reducedCnctChrgCondition: BooleanAsString
-  paymentPlanCondition: BooleanAsString
+  applicationTitle: string
 }
 
 export interface Sb998SelfCertRequestBody {
