@@ -19,13 +19,16 @@ type Props = {
   inputId?: OutlinedInputProps['id']
   labelWidth?: number
   SelectDisplayProps?: SelectProps['SelectDisplayProps']
+  required?: boolean
 } & FieldProps<any>
+export type {Props as YesNoSelectFieldProps}
 
 export const ANSWERS = ['Yes', 'No']
 
 const YesNoSelectField = ({
   field,
   form,
+  required = true,
   inputLabel,
   fullWidth = true,
   disabled = false,
@@ -59,7 +62,7 @@ const YesNoSelectField = ({
 
   return (
     <FormControl
-      required
+      required={required}
       variant="outlined"
       margin="normal"
       disabled={disabled || isSubmitting}

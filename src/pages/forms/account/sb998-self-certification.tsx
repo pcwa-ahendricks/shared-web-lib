@@ -1,4 +1,4 @@
-// cspell:ignore addtl mnfg USBR
+// cspell:ignore addtl assis
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {
   Divider,
@@ -6,14 +6,15 @@ import {
   Theme,
   Typography as Type,
   makeStyles,
-  createStyles
+  createStyles,
+  Button
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
-import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
+import {string, object, StringSchema} from 'yup'
 import {
   postForm,
-  PoolCoverRebateFormData as RebateFormData,
-  PoolCoverRequestBody as RequestBody
+  Sb998SelfCertFormData,
+  Sb998SelfCertRequestBody
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
@@ -22,12 +23,11 @@ import CitySelectField from '@components/formFields/CitySelectField'
 import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
-import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
 import FormTextField from '@components/formFields/FormTextField'
-import YesNoSelectField from '@components/formFields/YesNoSelectField'
-import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
+import YesNoSelectField, {
+  YesNoSelectFieldProps
+} from '@components/formFields/YesNoSelectField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
-import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
@@ -37,20 +37,17 @@ import delay from 'then-sleep'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
-import {BooleanAsString} from '@lib/safeCastBoolean'
-import RebatesEmail from '@components/links/RebatesEmail'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
-import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
-import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import Sb998SelfCertEligibilityDialog from '@components/formFields/Sb998SelfCertEligibilityDialog'
+import OwnerTenantRadioField from '@components/formFields/OwnerTenantRadioField'
+import {ChildBox, RowBox} from 'mui-sleazebox'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
-const SERVICE_URI_PATH = 'pool-cover-rebate'
+const SERVICE_URI_PATH = 'sb998-application'
 
 const formSchema = object()
   .camelCase()
@@ -67,6 +64,8 @@ const formSchema = object()
       .required('An Account Number is required (leading zeros are optional)')
       .label('Account Number'),
     address: string().required().label('Billing Address'),
+    svcAddress: string().required().label('Service Address'),
+    ownerTenant: string().required().label('Owner or Tenant'),
     city: string().required().label('City'),
     otherCity: string()
       .label('City')
@@ -74,19 +73,6 @@ const formSchema = object()
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string().required().min(10).label('Phone Number'),
-    howDidYouHear: string()
-      .required()
-      .label('How Did You Hear About this Rebate Program'),
-    otherHowDidYouHear: string()
-      .label('How Did You Hear About this Rebate Program')
-      .when(
-        'howDidYouHear',
-        (howDidYouHear: string | null, schema: StringSchema) =>
-          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-            ? schema.required()
-            : schema
-      ),
-    propertyType: string().required().label('Property Type'),
     treatedCustomer: string().required().label('Treated Customer').oneOf(
       ['Yes'], // "Yes", "No"
       'You must be a current Placer County Water Agency treated water customer'
@@ -103,8 +89,6 @@ const formSchema = object()
       ['Yes'], // "Yes", "No"
       'Senate Bill  998 requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment.'
     ),
-    manufacturer: string().required().label('Pool Cover Manufacturer'),
-    model: string().required().label('Pool Cover Model'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -112,79 +96,30 @@ const formSchema = object()
         'Must agree to Terms and Conditions by checking this box'
       )
       .label('Agree to Terms'),
-    emailAttachments: string().label('Email Attachments'),
     signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
-      .label('This checkbox'),
-    comments: string()
-      .max(200, 'Comments must be less than 200 characters.')
-      .label('Comments'),
-    receipts: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema.required('Must provide receipt(s) or proof of purchase')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    installPhotos: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema.required('Must provide photo(s) of installed pool cover')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      )
+      .label('This checkbox')
   })
 
-const initialFormValues: RebateFormData = {
+const initialFormValues: Sb998SelfCertFormData = {
   firstName: '',
   lastName: '',
   email: '',
   accountNo: '',
+  ownerTenant: '',
   address: '',
+  svcAddress: '',
   city: '',
   otherCity: '',
   phone: '',
-  howDidYouHear: '',
-  otherHowDidYouHear: '',
-  propertyType: '',
   treatedCustomer: '',
-  sizeSqFt: '',
-  manufacturer: '',
-  model: '',
-  termsAgree: '',
-  emailAttachments: '',
+  primaryCareCert: '',
+  householdAssist: '',
+  householdIncome: '',
+  paymentPlan: '',
   signature: '',
-  captcha: '',
-  comments: '',
-  receipts: [],
-  installPhotos: []
+  captcha: ''
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -201,13 +136,6 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 'auto',
       // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
       width: '100%'
-    },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
     },
     formGroup: {
       flex: '0 0 auto', // IE fix
@@ -228,15 +156,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-export default function PoolCover() {
+export default function Sb998SelfCertification() {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
-    useState<RebateFormData>(initialFormValues)
+    useState<Sb998SelfCertFormData>(initialFormValues)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [installPhotosIsUploading, setInstallPhotosIsUploading] =
-    useState<boolean>(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -246,14 +171,6 @@ export default function PoolCover() {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
-
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
-    setReceiptIsUploading(isUploading)
-  }, [])
-
-  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setInstallPhotosIsUploading(isUploading)
-  }, [])
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -272,6 +189,26 @@ export default function PoolCover() {
     fn()
   }, [])
 
+  const OptYesNoSelectField = useCallback(
+    ({...props}: YesNoSelectFieldProps) => {
+      return <YesNoSelectField required={false} {...props} />
+    },
+    []
+  )
+
+  const noPrimaryCertCondition = useMemo(
+    () => formValues.primaryCareCert === 'No',
+    [formValues]
+  )
+  const paymentPlanCondition = useMemo(
+    () => formValues.paymentPlan === 'Yes',
+    [formValues]
+  )
+  const householdAssisCondition = useMemo(
+    () => formValues.householdAssist === 'Yes',
+    [formValues]
+  )
+
   const mainEl = useMemo(
     () => (
       <>
@@ -288,11 +225,11 @@ export default function PoolCover() {
             <Formik
               initialValues={initialFormValues}
               validationSchema={formSchema}
-              onSubmit={async (values: RebateFormData, actions) => {
+              onSubmit={async (values: Sb998SelfCertFormData, actions) => {
                 try {
                   // console.log(values, actions)
                   setProvidedEmail(values.email)
-                  const body: RequestBody = {
+                  const body: Sb998SelfCertRequestBody = {
                     formData: {...values}
                   }
                   await postForm(SERVICE_URI_PATH, body)
@@ -343,14 +280,6 @@ export default function PoolCover() {
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
                 )
-                const otherHowDidYouHearSelected = Boolean(
-                  values.howDidYouHear &&
-                    values.howDidYouHear.toLowerCase() === 'other'
-                )
-
-                const emailAttachments = Boolean(
-                  values.emailAttachments === 'true'
-                )
 
                 // If city field is updated clear out otherCity field.
                 const cityChangeHandler = (evt: any) => {
@@ -359,16 +288,6 @@ export default function PoolCover() {
                     setFieldValue('otherCity', '')
                   }
                 }
-                // If howDidYouHear field is updated clear out otherHowDidYouHear field.
-                const howDidYouHearChangeHandler = (evt: any) => {
-                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                  if (evt.target.value.toLowerCase() !== 'other') {
-                    setFieldValue('otherHowDidYouHear', '')
-                  }
-                }
-
-                const attachmentsAreUploading =
-                  receiptIsUploading || installPhotosIsUploading
 
                 return (
                   <ProtectRouteChange>
@@ -381,7 +300,7 @@ export default function PoolCover() {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Contact Information
+                            Customer Account Information
                           </Type>
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
@@ -413,9 +332,22 @@ export default function PoolCover() {
                             </Grid>
                             <Grid item xs={12} sm={5}>
                               <Field
+                                required
+                                component={OwnerTenantRadioField}
                                 disabled={ineligible}
-                                name="propertyType"
-                                component={PropertyTypeSelectField}
+                                name="ownerTenant"
+                                label="Owner Tenant"
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={8}>
+                              <FormTextField
+                                required
+                                disabled={ineligible}
+                                name="svcAddress"
+                                label="Service Address"
                               />
                             </Grid>
                           </Grid>
@@ -425,11 +357,12 @@ export default function PoolCover() {
                             spacing={5}
                             justifyContent="space-between"
                           >
-                            <Grid item xs={12} sm={8}>
+                            <Grid item xs={12} sm={12}>
                               <Field
                                 disabled={ineligible}
                                 name="address"
                                 component={StreetAddressField}
+                                label="Billing Address"
                               />
                             </Grid>
 
@@ -471,31 +404,6 @@ export default function PoolCover() {
                               />
                             </Grid>
                           </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                name="howDidYouHear"
-                                disabled={ineligible}
-                                onChange={howDidYouHearChangeHandler}
-                                component={HowDidYouHearSelectField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <WaitToGrow isIn={otherHowDidYouHearSelected}>
-                            <Grid container spacing={5}>
-                              <Grid item xs={12}>
-                                <Field
-                                  disabled={
-                                    !otherHowDidYouHearSelected || ineligible
-                                  }
-                                  name="otherHowDidYouHear"
-                                  component={OtherHowDidYouHearField}
-                                />
-                              </Grid>
-                            </Grid>
-                          </WaitToGrow>
                         </div>
 
                         <Divider variant="middle" />
@@ -507,39 +415,14 @@ export default function PoolCover() {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Rebate Information
+                            Qualification Information
                           </Type>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                disabled={ineligible}
-                                name="manufacturer"
-                                label="Pool Cover Manufacturer"
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                disabled={ineligible}
-                                name="model"
-                                label="Pool Cover Model"
-                              />
-                            </Grid>
-                          </Grid>
 
                           <Grid
                             container
                             spacing={5}
                             justifyContent="space-between"
                           >
-                            <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                required
-                                disabled={ineligible}
-                                name="sizeSqFt"
-                                label="Size of Pool (in square feet)"
-                              />
-                            </Grid>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
@@ -550,79 +433,57 @@ export default function PoolCover() {
                                 component={YesNoSelectField}
                               />
                             </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <FormTextField
-                                name="comments"
-                                multiline
-                                rows={3} // That's about 200 characters
-                                label="Optionally, you can provide us any comments"
-                                disabled={ineligible}
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="householdAssist"
+                                inputLabel="Household Assistance"
+                                inputId="household-assistance-select"
+                                labelWidth={180}
+                                component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
-                        </div>
 
-                        <Divider variant="middle" />
+                          <Grid container spacing={5}>
+                            {householdAssisCondition ? null : (
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  disabled
+                                  name="householdIncome"
+                                  inputLabel="Household Income Requirement"
+                                  inputId="household-income-requirement-select"
+                                  labelWidth={255}
+                                  component={OptYesNoSelectField}
+                                />
+                              </Grid>
+                            )}
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="primaryCareCert"
+                                inputLabel="Primary Care Certification"
+                                inputId="primary-care-certification-select"
+                                labelWidth={215}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                          </Grid>
 
-                        <div className={classes.formGroup}>
-                          <Type
-                            variant="h4"
-                            color="textSecondary"
-                            gutterBottom
-                            className={classes.formGroupTitle}
-                          >
-                            Provide Attachments
-                          </Type>
-                          <Type variant="caption" color="textSecondary">
-                            Note - Only Image file formats can be uploaded (eg.
-                            .jpg, .png). PDF files <em>cannot</em> be uploaded
-                            here. If you are unable to attach the correct file
-                            type, or if any other issues with the attachments
-                            arise, you may select the box below and submit the
-                            files in an email.
-                          </Type>
-                          <Field
-                            name="emailAttachments"
-                            component={EmailAttachmentsSwitch}
-                            fullWidth={false}
-                            label={
-                              <span>
-                                Optionally, check here to email receipts and
-                                photos instead. Send email with attachments to{' '}
-                                <RebatesEmail /> with your name and account
-                                number in the subject line. Failure to do so may
-                                result in a delay or rejected application.
-                              </span>
-                            }
-                            disabled={ineligible}
-                          />
-
-                          <div className={classes.dropzoneContainer}>
-                            <Field
-                              disabled={ineligible || emailAttachments}
-                              name="receipts"
-                              attachmentTitle="Receipt"
-                              uploadRoute="pool-cover"
-                              onIsUploadingChange={receiptIsUploadingHandler}
-                              component={AttachmentField}
-                            />
-                          </div>
-
-                          <div className={classes.dropzoneContainer}>
-                            <Field
-                              disabled={ineligible || emailAttachments}
-                              name="installPhotos"
-                              attachmentTitle="Pool Cover installed photo"
-                              uploadRoute="pool-cover"
-                              onIsUploadingChange={
-                                installPhotosIsUploadingHandler
-                              }
-                              component={AttachmentField}
-                            />
-                          </div>
+                          <Grid container spacing={5}>
+                            {noPrimaryCertCondition ? null : (
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  disabled
+                                  name="paymentPlan"
+                                  inputLabel="Payment Plan Agreement"
+                                  inputId="payment-plan-agreement-select"
+                                  labelWidth={205}
+                                  component={OptYesNoSelectField}
+                                />
+                              </Grid>
+                            )}
+                          </Grid>
                         </div>
 
                         <Divider variant="middle" />
@@ -634,7 +495,8 @@ export default function PoolCover() {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Acknowledge Terms & Conditions
+                            Policy on Discontinuation of Residential Water
+                            Service for Nonpayment
                           </Type>
                           <Grid container direction="column" spacing={1}>
                             <Grid
@@ -642,22 +504,38 @@ export default function PoolCover() {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
-                              <ReviewTermsConditions
-                                pageCount={2}
-                                fileName="Pool-Cover-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/f48eb8f0-e3fc-11eb-be9a-bfe30c7c12b9-POOL-COVER-REBATE-REQUIREMENTS.pdf"
-                              />
-                              <Type
+                              {/* <Type
                                 variant="body1"
                                 paragraph
                                 className={classes.reserveRight}
                               >
                                 <em>
-                                  I have read, understand, and agree to the Pool
-                                  Cover Rebate Terms and Conditions.
+                                  Review Policy on Discontinuation of
+                                  Residential Water Service for Nonpayment
                                 </em>
-                              </Type>
-                              <Type
+                              </Type> */}
+                              <RowBox justifyContent="space-around">
+                                <ChildBox>
+                                  <ReviewTermsConditions
+                                    caption="Review Policy"
+                                    pageCount={1}
+                                    fileName="Policy_on_Discontinuation_of_Residential_Water_Service_for_Nonpayment.pdf"
+                                    termsConditionsUrl="https://imgix.cosmicjs.com/3455f5c0-171a-11ec-80c4-d562efc15827-PolicyonDiscontinuationofResidentialWaterServiceforNonpayment.pdf"
+                                  />
+                                </ChildBox>
+                                <ChildBox>
+                                  <Button
+                                    color="secondary"
+                                    variant="outlined"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    href="https://cdn.cosmicjs.com/191c0250-1719-11ec-80c4-d562efc15827-WSPA-Form.pdf"
+                                  >
+                                    Water Shutoff Protection Act Form
+                                  </Button>
+                                </ChildBox>
+                              </RowBox>
+                              {/* <Type
                                 variant="body1"
                                 paragraph
                                 className={classes.reserveRight}
@@ -674,7 +552,7 @@ export default function PoolCover() {
                                 name="termsAgree"
                                 component={AgreeTermsCheckbox}
                                 fullWidth={false}
-                              />
+                              /> */}
                             </Grid>
                           </Grid>
                         </div>
@@ -688,7 +566,7 @@ export default function PoolCover() {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Release of Liability & Signature
+                            Declare Understanding & Agreement
                           </Type>
 
                           <Grid container direction="column" spacing={1}>
@@ -697,20 +575,77 @@ export default function PoolCover() {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
-                              <Type variant="body1" paragraph color="primary">
-                                Placer County Water Agency (PCWA) reserves the
-                                right to deny an application of any participant
-                                who does not meet all requirements as outlined.
-                                PCWA reserves the right to change the terms of
-                                this program at their discretion. PCWA cannot
-                                guarantee that the installation of the
-                                product(s) will result in lower water utility
-                                costs. The number of rebates is dependent upon
-                                the availability of program funds. Applications
-                                will be processed when all required information
-                                is provided by the applicant on a first-come,
-                                first-served basis.
-                              </Type>
+                              {noPrimaryCertCondition ? (
+                                <>
+                                  <Type
+                                    variant="body1"
+                                    paragraph
+                                    color="primary"
+                                  >
+                                    Per Senate Bill 998 (SB998) if a residential
+                                    customer demonstrates, to the Agency, that
+                                    the customer’s household income is below
+                                    200% of the federal poverty line, the Agency
+                                    shall charge no more than $50 for
+                                    reconnection of service during business
+                                    hours or no more than $150 for after-hours
+                                    reconnection. Health & Safety code 116910.
+                                  </Type>
+                                  <Type
+                                    variant="body1"
+                                    paragraph
+                                    color="primary"
+                                  >
+                                    As a condition and requirement for receiving
+                                    a reduced reconnection fee from PCWA, I
+                                    hereby declare that my household income is
+                                    below 200 percent of the federal poverty
+                                    line. This form is valid for 12 months from
+                                    date of signature. I understand that by
+                                    signing this form I agree that the
+                                    information listed is true and correct. I
+                                    declare that I meet the above requirements
+                                    of the Water Shutoff Protection Act.
+                                  </Type>
+                                </>
+                              ) : null}
+
+                              {paymentPlanCondition ? (
+                                <>
+                                  <Type
+                                    variant="body1"
+                                    paragraph
+                                    color="primary"
+                                  >
+                                    Pursuant to Section 116900 of the Health and
+                                    Safety Code, Placer County Water Agency
+                                    (PCWA) will not terminate residential
+                                    service for nonpayment as long as all 3
+                                    specific conditions are met.
+                                  </Type>
+                                  <Type
+                                    variant="body1"
+                                    paragraph
+                                    color="primary"
+                                  >
+                                    Completion of this form does not guarantee a
+                                    payment arrangement. I understand by meeting
+                                    the above conditions, my service may still
+                                    be terminated if I fail to comply with a
+                                    payment arrangement. The Agency shall charge
+                                    no more than $50 for reconnection of service
+                                    during business hours or no more than $150
+                                    for after-hours reconnection. Documentation
+                                    may need to be provided upon request by
+                                    PCWA. This form is valid for 12 months from
+                                    date of signature. I understand that by
+                                    signing this form I agree that the
+                                    information listed is true and correct. I
+                                    declare that I meet the above requirements
+                                    of the Water Shutoff Protection Act.
+                                  </Type>
+                                </>
+                              ) : null}
                             </Grid>
 
                             <Grid
@@ -754,8 +689,7 @@ export default function PoolCover() {
                             ineligible ||
                             isSubmitting ||
                             // !isValid ||
-                            (!formTouched && !dirty) ||
-                            attachmentsAreUploading
+                            (!formTouched && !dirty)
                           }
                         >
                           Submit Application
@@ -780,12 +714,12 @@ export default function PoolCover() {
       formIsDirty,
       formValues,
       formIsTouched,
-      receiptIsUploading,
-      receiptIsUploadingHandler,
-      installPhotosIsUploading,
-      installPhotosIsUploadingHandler,
       eligibilityDialogOpen,
-      ineligible
+      ineligible,
+      OptYesNoSelectField,
+      noPrimaryCertCondition,
+      paymentPlanCondition,
+      householdAssisCondition
     ]
   )
 
