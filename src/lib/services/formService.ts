@@ -285,6 +285,9 @@ export interface Sb998SelfCertFormData {
   // termsAgree: BooleanAsString
   signature: string
   captcha: string
+  // not used w/ formik (or yup) form, only used w/ Mailjet
+  noPrimaryCertCondition: BooleanAsString
+  paymentPlanCondition: BooleanAsString
 }
 
 export interface Sb998SelfCertRequestBody {
