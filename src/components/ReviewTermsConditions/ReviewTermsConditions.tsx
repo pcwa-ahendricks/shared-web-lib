@@ -17,6 +17,7 @@ type Props = {
   fileName: string
   pageCount: number
   termsConditionsUrl: string
+  caption?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,10 +37,11 @@ const baseOpts = {
   w: 1400
 }
 
-const IrrigEffTermsConditions = ({
+const ReviewTermsConditions = ({
   pageCount,
   termsConditionsUrl,
-  fileName
+  fileName,
+  caption = 'Review Terms & Conditions'
 }: Props) => {
   const classes = useStyles()
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -95,7 +97,7 @@ const IrrigEffTermsConditions = ({
         // href={termsConditionsUrl}
         onClick={buttonClickHandler}
       >
-        Review Terms & Conditions
+        {caption}
         {/* <OpenInNewIcon className={classes.rightIcon} /> */}
       </Button>
       <div onScroll={scrollHandler}>
@@ -138,4 +140,4 @@ const IrrigEffTermsConditions = ({
   )
 }
 
-export default IrrigEffTermsConditions
+export default ReviewTermsConditions

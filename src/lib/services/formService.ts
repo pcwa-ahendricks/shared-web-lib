@@ -277,10 +277,12 @@ export interface Sb998SelfCertFormData {
   email: string
   accountNo: string
   address: string
+  svcAddress: string
+  ownerTenant: string
   city: string
   otherCity: string
   phone: string
-  termsAgree: BooleanAsString
+  // termsAgree: BooleanAsString
   signature: string
   captcha: string
 }
