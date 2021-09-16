@@ -63,12 +63,20 @@ const bodySchema = object()
           ['Yes'] // "Yes", "No"
         ),
         householdAssist: string().required(),
-        householdIncome: string().oneOf(
-          ['Yes'] // "Yes", "No"
+        householdIncome: string().when(
+          'householdAssist',
+          (householdAssist: string | null, schema: StringSchema) =>
+            householdAssist && householdAssist.toLowerCase() === 'no'
+              ? schema.oneOf(['Yes'])
+              : schema
         ),
         primaryCareCert: string().required(),
-        paymentPlan: string().oneOf(
-          ['Yes'] // "Yes", "No"
+        paymentPlan: string().when(
+          'primaryCareCert',
+          (primaryCareCert: string | null, schema: StringSchema) =>
+            primaryCareCert && primaryCareCert.toLowerCase() === 'yes'
+              ? schema.oneOf(['Yes'])
+              : schema
         ),
         signature: string().required(),
         captcha: string().required()
