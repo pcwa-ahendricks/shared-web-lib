@@ -8,7 +8,6 @@ import {
 } from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
-import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -32,8 +31,7 @@ interface FormDataObj {
   phone: string
   signature: string
   captcha: string
-  reducedCnctChrgCondition: BooleanAsString
-  paymentPlanCondition: BooleanAsString
+  applicationTitle: string
 }
 
 const bodySchema = object()
@@ -115,18 +113,12 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       primaryCareCert,
       householdAssist,
       householdIncome,
-      reducedCnctChrgCondition,
-      paymentPlanCondition,
+      applicationTitle,
+      ownerTenant,
       signature,
       captcha
     } = formData
     let {city = '', accountNo} = formData
-    let applicationTitle = ''
-    if (paymentPlanCondition === 'true') {
-      applicationTitle = 'Payment Arrangement'
-    } else if (reducedCnctChrgCondition === 'true') {
-      applicationTitle = 'Reduced Reconnection Fee'
-    }
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -194,6 +186,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             primaryCareCert,
             householdAssist,
             householdIncome,
+            ownerTenant,
             applicationTitle,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
             signature

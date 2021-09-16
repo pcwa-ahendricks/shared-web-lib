@@ -127,8 +127,7 @@ const initialFormValues: Sb998SelfCertFormData = {
   householdAssist: '',
   householdIncome: '',
   paymentPlan: '',
-  reducedCnctChrgCondition: '',
-  paymentPlanCondition: '',
+  applicationTitle: '',
   signature: '',
   captcha: ''
 }
@@ -209,16 +208,27 @@ export default function Sb998SelfCertification() {
 
   const reducedCnctChrgCondition = useMemo(
     () => formValues.primaryCareCert === 'No',
-    [formValues]
+    [formValues.primaryCareCert]
   )
   const paymentPlanCondition = useMemo(
     () => formValues.paymentPlan === 'Yes',
-    [formValues]
+    [formValues.paymentPlan]
   )
   const householdAssisCondition = useMemo(
     () => formValues.householdAssist === 'Yes',
-    [formValues]
+    [formValues.householdAssist]
   )
+
+  const [applicationTitle, setApplicationTitle] = useState<
+    'Payment Arrangement' | 'Reduced Reconnection Fee' | ''
+  >('')
+  useEffect(() => {
+    if (paymentPlanCondition) {
+      setApplicationTitle('Payment Arrangement')
+    } else if (reducedCnctChrgCondition) {
+      setApplicationTitle('Reduced Reconnection Fee')
+    }
+  }, [paymentPlanCondition, reducedCnctChrgCondition])
 
   const mainEl = useMemo(
     () => (
@@ -243,10 +253,7 @@ export default function Sb998SelfCertification() {
                   const body: Sb998SelfCertRequestBody = {
                     formData: {
                       ...values,
-                      reducedCnctChrgCondition:
-                        reducedCnctChrgCondition === true ? 'true' : 'false',
-                      paymentPlanCondition:
-                        paymentPlanCondition === true ? 'true' : 'false'
+                      applicationTitle
                     }
                   }
                   await postForm(SERVICE_URI_PATH, body)
@@ -583,7 +590,8 @@ export default function Sb998SelfCertification() {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Declare Understanding & Agreement
+                            Declare Understanding & Agreement for{' '}
+                            {applicationTitle}
                           </Type>
 
                           <Grid container direction="column" spacing={1}>
@@ -736,7 +744,8 @@ export default function Sb998SelfCertification() {
       OptYesNoSelectField,
       reducedCnctChrgCondition,
       paymentPlanCondition,
-      householdAssisCondition
+      householdAssisCondition,
+      applicationTitle
     ]
   )
 
