@@ -30,7 +30,7 @@ const FormSubmissionDialog = ({
     () =>
       providedEmail ? (
         <span>
-          at <strong>{providedEmail}</strong>
+          <strong>{providedEmail}</strong>
         </span>
       ) : null,
     [providedEmail]
