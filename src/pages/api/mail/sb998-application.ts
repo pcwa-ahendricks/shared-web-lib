@@ -32,7 +32,7 @@ interface FormDataObj {
   phone: string
   signature: string
   captcha: string
-  noPrimaryCertCondition: BooleanAsString
+  reducedCnctChrgCondition: BooleanAsString
   paymentPlanCondition: BooleanAsString
 }
 
@@ -107,12 +107,18 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       primaryCareCert,
       householdAssist,
       householdIncome,
-      noPrimaryCertCondition,
+      reducedCnctChrgCondition,
       paymentPlanCondition,
       signature,
       captcha
     } = formData
     let {city = '', accountNo} = formData
+    let applicationTitle = ''
+    if (paymentPlanCondition === 'true') {
+      applicationTitle = 'Payment Arrangement'
+    } else if (reducedCnctChrgCondition === 'true') {
+      applicationTitle = 'Reduced Reconnection Fee'
+    }
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -180,8 +186,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             primaryCareCert,
             householdAssist,
             householdIncome,
-            noPrimaryCertCondition,
-            paymentPlanCondition,
+            applicationTitle,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
             signature
           }

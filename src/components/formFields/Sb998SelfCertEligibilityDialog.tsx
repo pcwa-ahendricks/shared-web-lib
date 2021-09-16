@@ -47,7 +47,7 @@ import {
 import {Sb998SelfCertFormData} from '@lib/services/formService'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
-import {blueGrey, red, yellow} from '@material-ui/core/colors'
+import {blueGrey, yellow} from '@material-ui/core/colors'
 import CollectionsPhone from '@components/links/CollectionsPhone'
 import colorAlpha from 'color-alpha'
 
@@ -94,7 +94,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
 
   const {touched, errors, values} = useFormikContext<Sb998SelfCertFormData>()
 
-  const noPrimaryCertCondition = useMemo(
+  const reducedCnctChrgCondition = useMemo(
     () => values.primaryCareCert === 'No',
     [values]
   )
@@ -112,12 +112,12 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
       getSteps()
         .filter((step) => {
           return (
-            !(step.name === 'paymentPlan' && noPrimaryCertCondition) &&
+            !(step.name === 'paymentPlan' && reducedCnctChrgCondition) &&
             !(step.name === 'householdIncome' && householdAssisCondition)
           )
         })
         .map((step, index) => ({...step, index})),
-    [noPrimaryCertCondition, householdAssisCondition]
+    [reducedCnctChrgCondition, householdAssisCondition]
   )
 
   const getStepContent = useCallback(
@@ -145,9 +145,9 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
         touched.householdAssist,
         touched.householdIncome || householdAssisCondition,
         touched.primaryCareCert,
-        touched.paymentPlan || noPrimaryCertCondition
+        touched.paymentPlan || reducedCnctChrgCondition
       ].every(Boolean),
-    [touched, noPrimaryCertCondition, householdAssisCondition]
+    [touched, reducedCnctChrgCondition, householdAssisCondition]
   )
 
   const eligibleFieldsHaveError = useMemo(
@@ -299,7 +299,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
               className={classes.qualifyMsg}
             >
               <Box bgcolor={blueGrey[50]} paddingY={2} paddingX={4}>
-                {noPrimaryCertCondition ? (
+                {reducedCnctChrgCondition ? (
                   <>
                     <Type paragraph>
                       Per Senate Bill 998 (SB998) if a residential customer
