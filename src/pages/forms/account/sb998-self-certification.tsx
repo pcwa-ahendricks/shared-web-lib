@@ -111,7 +111,7 @@ const initialFormValues: Sb998SelfCertFormData = {
   householdAssist: '',
   householdIncome: '',
   paymentPlan: '',
-  noPrimaryCertCondition: '',
+  reducedCnctChrgCondition: '',
   paymentPlanCondition: '',
   signature: '',
   captcha: ''
@@ -191,7 +191,7 @@ export default function Sb998SelfCertification() {
     []
   )
 
-  const noPrimaryCertCondition = useMemo(
+  const reducedCnctChrgCondition = useMemo(
     () => formValues.primaryCareCert === 'No',
     [formValues]
   )
@@ -227,8 +227,8 @@ export default function Sb998SelfCertification() {
                   const body: Sb998SelfCertRequestBody = {
                     formData: {
                       ...values,
-                      noPrimaryCertCondition:
-                        noPrimaryCertCondition === true ? 'true' : 'false',
+                      reducedCnctChrgCondition:
+                        reducedCnctChrgCondition === true ? 'true' : 'false',
                       paymentPlanCondition:
                         paymentPlanCondition === true ? 'true' : 'false'
                     }
@@ -472,7 +472,7 @@ export default function Sb998SelfCertification() {
                           </Grid>
 
                           <Grid container spacing={5}>
-                            {noPrimaryCertCondition ? null : (
+                            {reducedCnctChrgCondition ? null : (
                               <Grid item xs={12} sm={6}>
                                 <Field
                                   disabled
@@ -576,7 +576,7 @@ export default function Sb998SelfCertification() {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
-                              {noPrimaryCertCondition ? (
+                              {reducedCnctChrgCondition ? (
                                 <>
                                   <Type
                                     variant="body1"
@@ -718,7 +718,7 @@ export default function Sb998SelfCertification() {
       eligibilityDialogOpen,
       ineligible,
       OptYesNoSelectField,
-      noPrimaryCertCondition,
+      reducedCnctChrgCondition,
       paymentPlanCondition,
       householdAssisCondition
     ]
