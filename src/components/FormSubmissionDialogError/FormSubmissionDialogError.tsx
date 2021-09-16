@@ -8,8 +8,7 @@ import {
   DialogTitle,
   Slide
 } from '@material-ui/core'
-import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
-// import {SlideTransition as Transition} from '@components/Transition/Transition'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 
 type Props = {
   open: boolean
@@ -42,8 +41,8 @@ const FormSubmissionDialogError = ({
         <DialogContentText paragraph variant="body1">
           An error occurred while submitting this form. Please check your
           network connection and re-submit application. If you continue to
-          receive this error please contact our Water Efficiency Department at{' '}
-          <WaterEfficiencyEmail /> and refer to the error message below.
+          receive this error please contact our Customer Services Department at{' '}
+          <CustomerServicesEmail /> and refer to the error message below.
         </DialogContentText>
         <DialogContentText paragraph variant="body2" color="textSecondary">
           {errorMessage}

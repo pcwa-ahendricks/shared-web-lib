@@ -44,6 +44,7 @@ import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRout
 import Sb998SelfCertEligibilityDialog from '@components/formFields/Sb998SelfCertEligibilityDialog'
 import OwnerTenantRadioField from '@components/formFields/OwnerTenantRadioField'
 import {ChildBox, RowBox} from 'mui-sleazebox'
+import Sb998FormSubDialog from '@components/FormSubmissionDialog/Sb998FormSubDialog'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -745,12 +746,12 @@ export default function Sb998SelfCertification() {
       <PageLayout title="SB998 Self Certification Form" waterSurface>
         {mainEl}
       </PageLayout>
-      <FormSubmissionDialog
+      <Sb998FormSubDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
         description="PCWA SB998 Self Certification Form"
-        dialogTitle="Your Form Has Been Submitted"
+        dialogTitle="Your Application Has Been Submitted"
       />
       <FormSubmissionDialogError
         open={formSubmitDialogErrorOpen}
