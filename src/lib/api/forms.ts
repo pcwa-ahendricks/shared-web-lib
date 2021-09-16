@@ -37,6 +37,14 @@ const emailRecipientsCsMaint: MailJetMessage['To'] = isDev
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
+const emailRecipientsCollections: MailJetMessage['To'] = isDev
+  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
+  : [
+      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
+      // {Name: 'Collections', Email: 'collections@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
+    ]
+
 const getRecaptcha = () =>
   new reCAPTCHA({
     siteKey: RECAPTCHA_SITE_KEY,
@@ -65,5 +73,6 @@ export {
   emailRecipientsIrrigation,
   emailRecipientsAppliance,
   emailRecipientsCsMaint,
+  emailRecipientsCollections,
   validateSchema
 }

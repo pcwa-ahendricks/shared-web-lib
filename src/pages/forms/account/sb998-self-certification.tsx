@@ -89,13 +89,6 @@ const formSchema = object()
       ['Yes'], // "Yes", "No"
       'Senate Bill  998 requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment.'
     ),
-    termsAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to Terms and Conditions by checking this box'
-      )
-      .label('Agree to Terms'),
     signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
@@ -118,6 +111,8 @@ const initialFormValues: Sb998SelfCertFormData = {
   householdAssist: '',
   householdIncome: '',
   paymentPlan: '',
+  noPrimaryCertCondition: '',
+  paymentPlanCondition: '',
   signature: '',
   captcha: ''
 }
@@ -230,7 +225,13 @@ export default function Sb998SelfCertification() {
                   // console.log(values, actions)
                   setProvidedEmail(values.email)
                   const body: Sb998SelfCertRequestBody = {
-                    formData: {...values}
+                    formData: {
+                      ...values,
+                      noPrimaryCertCondition:
+                        noPrimaryCertCondition === true ? 'true' : 'false',
+                      paymentPlanCondition:
+                        paymentPlanCondition === true ? 'true' : 'false'
+                    }
                   }
                   await postForm(SERVICE_URI_PATH, body)
                   actions.setSubmitting(false)

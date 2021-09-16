@@ -1,47 +1,39 @@
-// cspell:ignore watersense
-// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
+// cspell:ignore
+import {string, object, StringSchema} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
-  AttachmentFieldValue,
-  emailRecipientsAppliance,
-  validateSchema
+  validateSchema,
+  emailRecipientsCollections
 } from '../../../lib/api/forms'
-
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
-
-const MAILJET_TEMPLATE_ID = 3035227
+const MAILJET_TEMPLATE_ID = 3035066
 
 interface FormDataObj {
+  treatedCustomer: '' | 'Yes' | 'No'
+  householdAssist: '' | 'Yes' | 'No'
+  householdIncome: '' | 'Yes' | 'No'
+  primaryCareCert: '' | 'Yes' | 'No'
+  paymentPlan: '' | 'Yes' | 'No'
   firstName: string
   lastName: string
   email: string
   accountNo: string
   address: string
+  svcAddress: string
+  ownerTenant: string
   city: string
-  otherCity?: string
+  otherCity: string
   phone: string
-  howDidYouHear: string
-  otherHowDidYouHear?: string
-  propertyType: string
-  treatedCustomer: '' | 'Yes' | 'No'
-  make: string
-  model: string
-  replaceExisting: BooleanAsString
-  watersenseApproved: string
-  termsAgree: string
   signature: string
   captcha: string
-  emailAttachments: BooleanAsString
-  comments: string
-  receipts: AttachmentFieldValue[]
-  installPhotos: AttachmentFieldValue[]
+  noPrimaryCertCondition: BooleanAsString
+  paymentPlanCondition: BooleanAsString
 }
 
 const bodySchema = object()
@@ -58,70 +50,28 @@ const bodySchema = object()
           .matches(/^\d+-\d+$/)
           .required(),
         address: string().required(),
+        svcAddress: string().required(),
+        ownerTenant: string().required(),
         city: string().required(),
         otherCity: string().when(
           'city',
-          (city: string | undefined, schema: StringSchema) =>
+          (city: string | null, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
-        phone: string().min(10).required(),
-        howDidYouHear: string().required(),
-        otherHowDidYouHear: string().when(
-          'howDidYouHear',
-          (howDidYouHear: string | undefined, schema: StringSchema) =>
-            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-              ? schema.required()
-              : schema
-        ),
-        propertyType: string().required(),
+        phone: string().required().min(10),
         treatedCustomer: string().required().oneOf(
           ['Yes'] // "Yes", "No"
         ),
-        make: string().required(),
-        model: string().required(),
-        replaceExisting: string().required().oneOf(
-          ['No'] // "Yes", "No"
+        householdAssist: string().required(),
+        householdIncome: string().oneOf(
+          ['Yes'] // "Yes", "No"
         ),
-        watersenseApproved: string().required(),
-        termsAgree: string().required().oneOf(['true']),
+        primaryCareCert: string().required(),
+        paymentPlan: string().oneOf(
+          ['Yes'] // "Yes", "No"
+        ),
         signature: string().required(),
-        captcha: string().required(),
-        comments: string().max(200),
-        emailAttachments: string(),
-        receipts: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        installPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          )
+        captcha: string().required()
       })
   })
 
@@ -149,24 +99,20 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       firstName,
       lastName,
       address,
+      svcAddress,
       otherCity = '',
       phone,
-      otherHowDidYouHear = '',
-      propertyType,
-      emailAttachments = '',
-      receipts = [],
-      installPhotos = [],
-      termsAgree,
-      signature,
-      captcha,
-      comments = '',
       treatedCustomer,
-      watersenseApproved,
-      make,
-      model,
-      replaceExisting
+      paymentPlan,
+      primaryCareCert,
+      householdAssist,
+      householdIncome,
+      noPrimaryCertCondition,
+      paymentPlanCondition,
+      signature,
+      captcha
     } = formData
-    let {city = '', howDidYouHear = '', accountNo} = formData
+    let {city = '', accountNo} = formData
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -193,17 +139,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     if (city.toLowerCase() === 'other') {
       city = otherCity
     }
-    // Overwrite "howDidYouHear" with "otherHowDidYouHear" if another city was specified.
-    if (howDidYouHear.toLowerCase() === 'other') {
-      howDidYouHear = otherHowDidYouHear
-    }
-
-    const receiptImages = receipts.map((attachment) => attachment.url)
-    const installImages = installPhotos.map((attachment) => attachment.url)
 
     const replyToName = `${firstName} ${lastName}`
-
-    const commentsLength = comments.length
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -215,7 +152,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsAppliance],
+          To: [
+            {Email: email, Name: replyToName},
+            ...emailRecipientsCollections
+          ],
           ReplyTo: {
             Email: email,
             Name: replyToName
@@ -223,7 +163,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },
-          Subject: 'PCWA - Water Efficiency Rebate Submitted',
+          Subject: 'PCWA - SB998 Self Certification Form Submitted',
           TemplateID: MAILJET_TEMPLATE_ID,
           TemplateLanguage: true,
           Variables: {
@@ -232,23 +172,18 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             accountNo,
             city,
             address,
+            svcAddress,
             email,
             phone,
-            howDidYouHear,
-            propertyType,
             treatedCustomer,
-            make,
-            model,
-            replaceExisting,
-            watersenseApproved,
+            paymentPlan,
+            primaryCareCert,
+            householdAssist,
+            householdIncome,
+            noPrimaryCertCondition,
+            paymentPlanCondition,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
-            emailAttachments,
-            receiptImages,
-            installImages,
-            termsAgree,
-            signature,
-            comments,
-            commentsLength
+            signature
           }
         }
       ]
