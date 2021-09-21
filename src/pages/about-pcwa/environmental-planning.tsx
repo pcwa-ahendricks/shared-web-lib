@@ -80,7 +80,7 @@ const EnvironmentalPlanningPage = () => {
               </Box>
             </FlexBox>
             <ChildBox flex="65%">
-              <Type variant="h3" gutterBottom>
+              {/* <Type variant="h3" gutterBottom>
                 Environmental Planning & Compliance
               </Type>
               <OpenInNewLinkBox
@@ -94,15 +94,15 @@ const EnvironmentalPlanningPage = () => {
               <Spacing />
               <Type variant="h3" gutterBottom>
                 Public Review Documents
-              </Type>
-              <OpenInNewLinkBox
+              </Type> */}
+              {/* <OpenInNewLinkBox
                 {...linkProps}
                 href="https://docs.pcwa.net/colfax-wtp-initial-study.pdf"
               >
                 Colfax Water Treatment Plant Project Initial Study / Mitigated
                 Negative Declaration
-              </OpenInNewLinkBox>
-              <Spacing />
+              </OpenInNewLinkBox> */}
+              {/* <Spacing /> */}
               <Type variant="h3" gutterBottom>
                 Planning and Studies
               </Type>
