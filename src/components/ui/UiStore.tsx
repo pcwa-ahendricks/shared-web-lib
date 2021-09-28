@@ -15,8 +15,7 @@ interface State {
   error?: ErrorDialogError | null
   alerts: Alert[]
   animateDone: {
-    home: boolean
-    payBill: boolean
+    [key: string]: boolean
   }
   centerProgress: boolean
   pageLoading: boolean
@@ -30,10 +29,7 @@ type ProviderProps = {
 const initialState: State = {
   drawerOpen: false,
   alerts: [],
-  animateDone: {
-    home: false,
-    payBill: false
-  },
+  animateDone: {},
   centerProgress: false,
   pageLoading: false
 }
