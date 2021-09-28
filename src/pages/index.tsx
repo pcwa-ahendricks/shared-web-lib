@@ -1,17 +1,16 @@
 // cspell:ignore COVID perc
-import React, {useContext} from 'react'
+import React, {useEffect, useContext, useRef, useMemo, useState} from 'react'
 // import {, RightRibbon} from '@components/Ribbons/Ribbons'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
-  makeStyles,
   Typography as Type,
   useMediaQuery,
   Divider,
   useTheme,
   Hidden
 } from '@material-ui/core'
-// import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
-// import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
+import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
+import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
@@ -26,10 +25,9 @@ import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import {UiContext} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
-import imgixLoader from '@lib/imageLoader'
-import Image from 'next/image'
+import JackinBox from 'mui-jackinbox'
 // import {useIntersection, useTimeoutFn} from 'react-use'
-import Link from 'next/link'
+import {useIntersection} from 'react-use'
 
 type Props = {
   initialAlertsData?: AlertsProps['fallbackData']
@@ -37,29 +35,29 @@ type Props = {
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 
-const useStyles = makeStyles({
-  // [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
-  // whammy: ({done}: {done: boolean}) => ({
-  //   transition: 'opacity 800ms ease',
-  //   opacity: done ? 0 : 1
-  // }),
-  imageLink: {
-    cursor: 'pointer'
-  }
-})
+// const useStyles = makeStyles({
+// [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
+// whammy: ({done}: {done: boolean}) => ({
+//   transition: 'opacity 800ms ease',
+//   opacity: done ? 0 : 1
+// }),
+//   imageLink: {
+//     cursor: 'pointer'
+//   }
+// })
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
-  // const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
+  const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
   const theme = useTheme()
-  // const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
+  const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
-  // const marginTop = useMemo(
-  //   // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
-  //   () => (is5to4 ? '-16vmax' : 0),
-  //   [is5to4]
-  // )
+  const marginTop = useMemo(
+    // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
+    () => (is5to4 ? '-16vmax' : 0),
+    [is5to4]
+  )
 
   // const Emx = useCallback(
   //   ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
@@ -73,8 +71,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
   const uiContext = useContext(UiContext)
-  const {state: _uiState, dispatch: _uiDispatch} = uiContext
-  // const {home: homeAnimateDone} = uiState.animateDone
+  const {state: uiState, dispatch: _uiDispatch} = uiContext
+  const {home: homeAnimateDone} = uiState.animateDone
 
   // const animateDoneHandler = useCallback(() => {
   //   uiDispatch(setAnimateDone('home', true))
@@ -89,21 +87,21 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     animateDoneHandler()
   }, [animateDoneHandler])
   */
-  // const heroAnimateRef = useRef<HTMLDivElement>(null)
+  const heroAnimateRef = useRef<HTMLDivElement>(null)
   // const animateRef = useRef<HTMLDivElement>(null)
-  // const [heroIntersected, setHeroIntersected] = useState(false)
+  const [heroIntersected, setHeroIntersected] = useState(false)
   // const [intersected, setIntersected] = useState(false)
-  // const heroIntersection = useIntersection(heroAnimateRef, {
-  //   root: null,
-  //   rootMargin: '0px',
-  //   threshold: 0.5
-  // })
+  const heroIntersection = useIntersection(heroAnimateRef, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  })
 
-  // useEffect(() => {
-  //   if (heroIntersection?.isIntersecting) {
-  //     setHeroIntersected(true)
-  //   }
-  // }, [heroIntersection])
+  useEffect(() => {
+    if (heroIntersection?.isIntersecting) {
+      setHeroIntersected(true)
+    }
+  }, [heroIntersection])
 
   // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
   // const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
@@ -133,7 +131,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   //   removeAnimation && intersected && !homeAnimateDone && whammyTime
 
   // const classes = useStyles({done: removeAnimation})
-  const classes = useStyles()
+  // const classes = useStyles()
 
   return (
     <PageLayout
@@ -141,7 +139,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       mt={0}
       alertsProps={{bottomBgGradient: false}}
     >
-      <Link passHref href="/smart-water-use/mulch-mayhem">
+      {/* <Link passHref href="/smart-water-use/mulch-mayhem">
         <div>
           <Image
             src="3f897b20-0b70-11ec-93a7-070c59f98950-MulchMayhemWebsiteBanner2.jpg"
@@ -153,8 +151,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             className={classes.imageLink}
           />
         </div>
-      </Link>
-      {/* <div ref={heroAnimateRef}>
+      </Link> */}
+      <div ref={heroAnimateRef}>
         <ImageParallaxBanner
           amount={0.1}
           marginTop={marginTop}
@@ -162,11 +160,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             width: 900,
             height: 600,
             priority: true,
-            src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
-              {bri: -5, high: -15},
-              true
-            )}`,
-            alt: 'A photo of French Meadows Reservoir inlet'
+            src: 'https://imgix.cosmicjs.com/cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
+            // src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
+            // {bri: -5, high: -15},
+            // true
+            // )}`,
+            alt: 'A photo of French Meadows Reservoir'
             // See comment above regarding onLoad support
             // onLoad: () => setHeroOverlayIn(true),
             // paddingPercent: 66.6495,
@@ -203,7 +202,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             </RowBox>
           </JackinBox>
         </ImageParallaxBanner>
-      </div> */}
+      </div>
 
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
@@ -361,11 +360,11 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               imageRatio={coverStoryImageRatio}
-              title=" Critically Dry Year Actions"
+              title="Dry Year Recommendations"
               readMore="Learn more"
               linkHref="/smart-water-use"
-              imgixURL="https://imgix.cosmicjs.com/8c89d5d0-e5ca-11eb-82a9-c37d7e7e90e3-final-gallery-0061.jpg"
-              alt="Mulch"
+              imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              alt="Water less banner"
               body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to continue using water efficiently."
             />
 
