@@ -108,7 +108,7 @@ const SmartWaterUsePage = () => {
           <PageTitle title="Smart Water Use" />
           <Spacing size="large" />
           <RowBox flexSpacing={8}>
-            <ChildBox flex="0 1 60%">
+            <ChildBox flex="auto">
               <Type variant="h3" color="primary" gutterBottom>
                 2021 is a critically dry year. What can customers do to save
                 water?
@@ -134,7 +134,7 @@ const SmartWaterUsePage = () => {
                 program.{' '}
               </Type>
             </ChildBox>
-            <ChildBox flex="1 1 40%">
+            {/* <ChildBox flex="1 1 40%">
               <Image
                 alt="Mulch Mayhem Event Details"
                 layout="responsive"
@@ -143,7 +143,7 @@ const SmartWaterUsePage = () => {
                 loader={imgixLoader}
                 src="6502b1b0-0b74-11ec-93a7-070c59f98950-MulchMayhem21edit.png"
               />
-            </ChildBox>
+            </ChildBox> */}
           </RowBox>
           <Spacing />
           <RowBox responsive flexSpacing={6}>
@@ -248,7 +248,7 @@ const SmartWaterUsePage = () => {
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
                   <ListItemText
-                    primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil.                        
+                    primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil.
 ·         Adjust sprinklers to reduce overspray."
                   />
                 </BulletItem>
