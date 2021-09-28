@@ -1,12 +1,6 @@
 // cspell:ignore COVID perc
-import React, {
-  useEffect,
-  useContext,
-  useRef,
-  useMemo,
-  useState,
-  useCallback
-} from 'react'
+import React from 'react'
+import HeroImage from '@components/hero/HeroImage'
 // import {, RightRibbon} from '@components/Ribbons/Ribbons'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
@@ -16,8 +10,6 @@ import {
   useTheme,
   Hidden
 } from '@material-ui/core'
-import HeroOverlay from '@components/HeroOverlay/HeroOverlay'
-import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
@@ -30,11 +22,9 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import {UiContext, setAnimateDone} from '@components/ui/UiStore'
+// import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
-import JackinBox from 'mui-jackinbox'
 // import {useIntersection, useTimeoutFn} from 'react-use'
-import {useIntersection} from 'react-use'
 
 type Props = {
   initialAlertsData?: AlertsProps['fallbackData']
@@ -54,17 +44,9 @@ type Props = {
 // })
 
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
-  const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
   const theme = useTheme()
-  const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-
-  const marginTop = useMemo(
-    // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
-    () => (is5to4 ? '-16vmax' : 0),
-    [is5to4]
-  )
 
   // const Emx = useCallback(
   //   ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
@@ -77,13 +59,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
-  const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: uiDispatch} = uiContext
-  const {home: homeAnimateDone} = uiState.animateDone
-
-  const animateDoneHandler = useCallback(() => {
-    uiDispatch(setAnimateDone('home', true))
-  }, [uiDispatch])
+  // const uiContext = useContext(UiContext)
+  // const {state: uiState, dispatch: uiDispatch} = uiContext
 
   // const [removeAnimation, setRemoveAnimation] = useState(false)
   // const [animationRemoved, setAnimationRemoved] = useState(false)
@@ -94,23 +71,9 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   // animateDoneHandler()
   // }, [animateDoneHandler])
 
-  const heroAnimateRef = useRef<HTMLDivElement>(null)
   // const animateRef = useRef<HTMLDivElement>(null)
-  const [heroIntersected, setHeroIntersected] = useState(false)
   // whammy
   // const [intersected, setIntersected] = useState(false)
-  const heroIntersection = useIntersection(heroAnimateRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5
-  })
-
-  useEffect(() => {
-    if (heroIntersection?.isIntersecting) {
-      setHeroIntersected(true)
-    }
-  }, [heroIntersection])
-
   // whammy intersection
   // const intersection = useIntersection(animateRef, {
   //   root: null,
@@ -148,7 +111,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   //   removeAnimation && intersected && !homeAnimateDone && whammyTime
 
   // const classes = useStyles({done: removeAnimation})
-  // const classes = useStyles()
 
   return (
     <PageLayout
@@ -169,57 +131,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           />
         </div>
       </Link> */}
-      <div ref={heroAnimateRef}>
-        <ImageParallaxBanner
-          amount={0.1}
-          marginTop={marginTop}
-          ImageProps={{
-            width: 900,
-            height: 600,
-            priority: true,
-            src: 'https://imgix.cosmicjs.com/cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
-            // src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
-            // {bri: -5, high: -15},
-            // true
-            // )}`,
-            alt: 'A photo of French Meadows Reservoir'
-            // See comment above regarding onLoad support
-            // onLoad: () => setHeroOverlayIn(true),
-            // paddingPercent: 66.6495,
-          }}
-          style={{
-            height: '50vw',
-            maxHeight: '45vh'
-            // minHeight: 400
-          }}
-        >
-          <JackinBox
-            name="fadeIn"
-            delay={1}
-            hideUntilAnimate={!homeAnimateDone}
-            animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
-            onAnimateEnd={animateDoneHandler}
-          >
-            <RowBox
-              justifyContent="space-around"
-              alignItems="center"
-              position="absolute"
-              top={0}
-              bottom={0}
-              right={0}
-              left={0}
-            >
-              <HeroOverlay
-                height="100%"
-                preserveAspectRatio="xMidYMid meet"
-                style={{
-                  flex: '0 0 auto'
-                }}
-              />
-            </RowBox>
-          </JackinBox>
-        </ImageParallaxBanner>
-      </div>
+      <HeroImage />
 
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
