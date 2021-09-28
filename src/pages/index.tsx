@@ -22,9 +22,8 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-// import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
-// import {useIntersection, useTimeoutFn} from 'react-use'
+// import Whammy from '@components/Whammy/Whammy'
 
 type Props = {
   initialAlertsData?: AlertsProps['fallbackData']
@@ -32,21 +31,9 @@ type Props = {
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 
-// const useStyles = makeStyles({
-// [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
-// whammy: ({done}: {done: boolean}) => ({
-//   transition: 'opacity 800ms ease',
-//   opacity: done ? 0 : 1
-// }),
-//   imageLink: {
-//     cursor: 'pointer'
-//   }
-// })
-
 const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const theme = useTheme()
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
-  // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   // const Emx = useCallback(
   //   ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
@@ -59,59 +46,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
-  // const uiContext = useContext(UiContext)
-  // const {state: uiState, dispatch: uiDispatch} = uiContext
-
-  // const [removeAnimation, setRemoveAnimation] = useState(false)
-  // const [animationRemoved, setAnimationRemoved] = useState(false)
-
-  // const animationEndHandler = useCallback(() => {
-  // setAnimationRemoved(true)
-  // Since this animation will end after the hero one set app state here
-  // animateDoneHandler()
-  // }, [animateDoneHandler])
-
-  // const animateRef = useRef<HTMLDivElement>(null)
-  // whammy
-  // const [intersected, setIntersected] = useState(false)
-  // whammy intersection
-  // const intersection = useIntersection(animateRef, {
-  //   root: null,
-  //   rootMargin: '0px',
-  //   threshold: isXS ? 0.7 : 0.5
-  // })
-
-  // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
-  // const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
-  // useTimeoutFn(() => setInitIntersectTimeout(true), 1500)
-
-  // useEffect(() => {
-  //   if (intersection?.isIntersecting && initIntersectTimeout) {
-  //     setIntersected(true)
-  //   }
-  // }, [intersection, initIntersectTimeout])
-
-  // whammy
-  // const [_ready, _cancel, reset] = useTimeoutFn(
-  //   () => intersected && setRemoveAnimation(true),
-  //   8000
-  // )
-
-  // whammy
-  // useEffect(() => {
-  //   if (intersected === true && removeAnimation === false) {
-  //     reset()
-  //   }
-  // }, [intersected, reset, removeAnimation])
-
-  // const whammyTime = false // change this to true when we are ready to use this animation
-  // const showWhammyIn =
-  //   !animationRemoved && intersected && !homeAnimateDone && whammyTime
-  // const showWhammyOut =
-  //   removeAnimation && intersected && !homeAnimateDone && whammyTime
-
-  // const classes = useStyles({done: removeAnimation})
-
   return (
     <PageLayout
       initialAlertsData={initialAlertsData}
@@ -119,7 +53,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       alertsProps={{bottomBgGradient: false}}
     >
       {/* <Link passHref href="/smart-water-use/mulch-mayhem">
-        <div>
+        <Box sx={{cursor: 'pointer'}}>
           <Image
             src="3f897b20-0b70-11ec-93a7-070c59f98950-MulchMayhemWebsiteBanner2.jpg"
             alt="Mulch Mayhem Flier"
@@ -127,9 +61,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             loader={imgixLoader}
             width={2396}
             height={1075}
-            className={classes.imageLink}
           />
-        </div>
+        </Box>
       </Link> */}
       <HeroImage />
 
@@ -223,67 +156,26 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
             /> */}
 
-            {/*
-            <Box position="relative">
-              <div ref={animateRef}>
-                <CoverStory
-                  // aria-label="Link to Monthly Billing FAQs page"
-                  // imageRatio={coverStoryImageRatio}
-                  imageRatio="9:5" // [TODO] This actually distorts the image which is not what I was intending but looks good nonetheless
-                  title="PCWA Wants You to Save!"
-                  readMore="See Rebate Programs"
-                  flexLinkProps={{
-                    isNextLink: true
-                  }}
-                  linkHref="/smart-water-use/rebate-programs"
-                  imgixURL="https://imgix.cosmicjs.com/706b47d0-ef16-11eb-849a-8548c9a99fc0-Summer-of-Savings-FB-Image-cropped.png"
-                  alt="PCWA Summer of Savings banner"
-                  imgixParams={{
-                    crop: 'top'
-                  }}
-                  body="Online applications for our enhanced water efficiency rebate program have begun. For more information about rebate terms and conditions or to be notified when new applications are available, please contact rebates@pcwa.net."
-                />
-
-                <JackinBox
-                  name="rollIn"
-                  delay={1}
-                  animate={showWhammyIn}
-                  hideUntilAnimate
-                  zIndex={!animationRemoved ? 2 : -1}
-                  position="absolute"
-                  top={{xs: -25, sm: -75}}
-                  left={{xs: -5, sm: -25}}
-                  width={{xs: 200, sm: 325}}
-                  height={{xs: 200, sm: 325}}
-                >
-                  <JackinBox
-                    name="heartBeat"
-                    delay={4}
-                    animate={showWhammyIn}
-                    hideUntilAnimate
-                  >
-                    <JackinBox
-                      name="bounceOutRight"
-                      animate={showWhammyOut}
-                      onAnimateEnd={animationEndHandler}
-                      // Important - this animation will break mega menu if left on-screen
-                      noDisplayAfterAnimate
-                    >
-                      <Image
-                        src="69045490-e337-11eb-b4d6-4f771ba4265e-whammy.png"
-                        loader={imgixLoader}
-                        alt="whammy"
-                        layout="responsive"
-                        width={800}
-                        height={800}
-                        className={classes.whammy}
-                      />
-                    </JackinBox>
-                  </JackinBox>
-                </JackinBox>
-              </div>
-            </Box>{' '}
-            */}
+            {/* <Whammy>
+              <CoverStory
+                // aria-label="Link to Monthly Billing FAQs page"
+                // imageRatio={coverStoryImageRatio}
+                imageRatio="9:5" // [TODO] This actually distorts the image which is not what I was intending but looks good nonetheless
+                title="PCWA Wants You to Save!"
+                readMore="See Rebate Programs"
+                flexLinkProps={{
+                  isNextLink: true
+                }}
+                linkHref="/smart-water-use/rebate-programs"
+                imgixURL="https://imgix.cosmicjs.com/706b47d0-ef16-11eb-849a-8548c9a99fc0-Summer-of-Savings-FB-Image-cropped.png"
+                alt="PCWA Summer of Savings banner"
+                imgixParams={{
+                  crop: 'top'
+                }}
+                body="Online applications for our enhanced water efficiency rebate program have begun. For more information about rebate terms and conditions or to be notified when new applications are available, please contact rebates@pcwa.net."
+              />
+            </Whammy>
+              */}
           </ChildBox>
 
           <ChildBox flex="50%">
