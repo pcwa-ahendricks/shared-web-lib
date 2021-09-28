@@ -204,6 +204,10 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/smart-water-use'
           },
           {
+            title: 'Drought',
+            nextLink: '/drought'
+          },
+          {
             title: 'Landscaping Resources',
             nextLink: '/smart-water-use/landscape-resources'
           },
