@@ -1,5 +1,12 @@
 // cspell:ignore COVID perc
-import React, {useEffect, useContext, useRef, useMemo, useState} from 'react'
+import React, {
+  useEffect,
+  useContext,
+  useRef,
+  useMemo,
+  useState,
+  useCallback
+} from 'react'
 // import {, RightRibbon} from '@components/Ribbons/Ribbons'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
@@ -23,7 +30,7 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
-import {UiContext} from '@components/ui/UiStore'
+import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import JackinBox from 'mui-jackinbox'
 // import {useIntersection, useTimeoutFn} from 'react-use'
@@ -71,25 +78,26 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
   const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: _uiDispatch} = uiContext
+  const {state: uiState, dispatch: uiDispatch} = uiContext
   const {home: homeAnimateDone} = uiState.animateDone
 
-  // const animateDoneHandler = useCallback(() => {
-  //   uiDispatch(setAnimateDone('home', true))
-  // }, [uiDispatch])
+  const animateDoneHandler = useCallback(() => {
+    uiDispatch(setAnimateDone('home', true))
+  }, [uiDispatch])
 
   // const [removeAnimation, setRemoveAnimation] = useState(false)
   // const [animationRemoved, setAnimationRemoved] = useState(false)
-  /*
-  const animationEndHandler = useCallback(() => {
-    setAnimationRemoved(true)
-    // Since this animation will end after the hero one set app state here
-    animateDoneHandler()
-  }, [animateDoneHandler])
-  */
+
+  // const animationEndHandler = useCallback(() => {
+  // setAnimationRemoved(true)
+  // Since this animation will end after the hero one set app state here
+  // animateDoneHandler()
+  // }, [animateDoneHandler])
+
   const heroAnimateRef = useRef<HTMLDivElement>(null)
   // const animateRef = useRef<HTMLDivElement>(null)
   const [heroIntersected, setHeroIntersected] = useState(false)
+  // whammy
   // const [intersected, setIntersected] = useState(false)
   const heroIntersection = useIntersection(heroAnimateRef, {
     root: null,
@@ -103,6 +111,13 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
     }
   }, [heroIntersection])
 
+  // whammy intersection
+  // const intersection = useIntersection(animateRef, {
+  //   root: null,
+  //   rootMargin: '0px',
+  //   threshold: isXS ? 0.7 : 0.5
+  // })
+
   // On mobile the hero isn't very tall, and the alerts that may be tall are asynchronous so intersect will happen immediately which is undesirable. Wait a second before calculating intersect.
   // const [initIntersectTimeout, setInitIntersectTimeout] = useState(false)
   // useTimeoutFn(() => setInitIntersectTimeout(true), 1500)
@@ -113,11 +128,13 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   //   }
   // }, [intersection, initIntersectTimeout])
 
+  // whammy
   // const [_ready, _cancel, reset] = useTimeoutFn(
   //   () => intersected && setRemoveAnimation(true),
   //   8000
   // )
 
+  // whammy
   // useEffect(() => {
   //   if (intersected === true && removeAnimation === false) {
   //     reset()
@@ -181,7 +198,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             delay={1}
             hideUntilAnimate={!homeAnimateDone}
             animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
-            // onAnimateEnd={animateDoneHandler}
+            onAnimateEnd={animateDoneHandler}
           >
             <RowBox
               justifyContent="space-around"
