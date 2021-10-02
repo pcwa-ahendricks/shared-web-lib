@@ -642,7 +642,7 @@ const ARBSPage = () => {
                     title="USBR Policy Review (pending)"
                   />
                   <TimelineElement
-                    date="Summer 2021"
+                    date="Winter 2021"
                     title="Publish Final Report *"
                   />
                   <TimelineElement date="Fall 2021" title="Finalize Report" />
