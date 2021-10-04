@@ -645,7 +645,7 @@ const ARBSPage = () => {
                     date="Winter 2021"
                     title="Publish Final Report *"
                   />
-                  <TimelineElement date="Fall 2021" title="Finalize Report" />
+                  <TimelineElement date="Spring 2022" title="Finalize Report" />
                   <RowBox justifyContent="flex-end">
                     <Type variant="caption" align="right">
                       <em>
