@@ -78,12 +78,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               imageRatio={coverStoryImageRatio}
-              title="Announcing the Water Spots Winners for 2021"
+              title="Announcing the Water Spots Videos Contest"
               readMore="Find out more"
               linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
               flexLinkProps={{isNextLink: false}}
               imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
-              alt="Announcing the Water Spots Winners for 2021 banner"
+              alt="Announcing the Water Spots Videos Contest banner"
               body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
             />
             {/* <CoverStory
