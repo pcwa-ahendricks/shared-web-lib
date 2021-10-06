@@ -53,8 +53,8 @@ export default function HeroImage() {
         amount={0.1}
         marginTop={marginTop}
         ImageProps={{
-          width: 900,
-          height: 600,
+          width: 5366,
+          height: 2425,
           priority: true,
           src: 'https://imgix.cosmicjs.com/cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
           // src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
