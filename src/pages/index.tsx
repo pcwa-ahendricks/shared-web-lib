@@ -78,7 +78,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               imageRatio={coverStoryImageRatio}
-              title="Announcing the Water Spots Videos Contest"
+              title="Announcing the Water Spots Video Contest"
               readMore="Find out more"
               linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
               flexLinkProps={{isNextLink: false}}
