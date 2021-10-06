@@ -78,13 +78,23 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               imageRatio={coverStoryImageRatio}
+              title="Announcing the Water Spots Winners for 2021"
+              readMore="Find out more"
+              linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
+              flexLinkProps={{isNextLink: false}}
+              imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
+              alt="Announcing the Water Spots Winners for 2021 banner"
+              body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
+            />
+            {/* <CoverStory
+              imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"
               readMore="Watch now"
               linkHref="/smart-water-use/fire-wise-landscaping"
               imgixURL="https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
               alt="Fire-wise, water-wise landscaping webinar flier"
               body="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping, hosted on August 25, 2021."
-            />
+            /> */}
 
             {/* <CoverStory
               title="Water-wise House and Business Calls"
@@ -365,6 +375,17 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox> */}
           <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              imageRatio={coverStoryImageRatio}
+              title="Fire-wise, Water-wise Landscaping Webinar"
+              linkHref="/smart-water-use/fire-wise-landscaping"
+              imgixURL="https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
+              alt="Fire-wise, water-wise landscaping webinar flier"
+            />
+          </ChildBox>
+
+          <ChildBox width={tileWidth}>
             {/* <RibbonContainer>
               <RightRibbon
                 backgroundColor="#cc4400"
@@ -387,6 +408,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
             {/* </RibbonContainer> */}
           </ChildBox>
+
           <ChildBox width={tileWidth}>
             {/* <RibbonContainer>
               <RightRibbon
@@ -399,6 +421,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   Final Draft
                 </span>
               </RightRibbon> */}
+
             <CoverTile
               width={tileWidth}
               title="PCWA Water Shortage Contingency Plan"
