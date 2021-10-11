@@ -160,6 +160,7 @@ export const boardMeetings: Array<BoardMeeting> = [
   //   date: '10-8-2021 2:00PM',
   //   note: 'Board meeting to reconvene Thursday, October 8, 8:00 a.m. at Hell Hole Dormitory for strategic planning and tour of Middle Fork American River Project facilities, returning to Placer County Water Agency Business Center, 144 Ferguson Road, Auburn, California, at approximately noon.'
   // },
+  {date: '10-14-2021 8:30AM', note: 'Special Meeting  - Board Workshop'},
   {date: '10-21-2021 2:00PM'},
   {date: '11-4-2021 2:00PM'},
   {date: '11-18-2021 2:00PM'},
