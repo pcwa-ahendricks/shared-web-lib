@@ -270,10 +270,10 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     href="https://cdn.cosmicjs.com/63073550-310f-11ec-96cf-654f0d745df3-20211019120317588.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Link to 2020 Annual PG&E Fall Canal Outage Schedule"
+                    title="Link to 2021 Annual PG&E Fall Canal Outage Schedule"
                     underline="always"
                   >
-                    <ClickOrTap /> here for the 2020 Schedule
+                    <ClickOrTap /> here for the 2021 Schedule
                   </MuiLink>
                   .
                 </Type>
