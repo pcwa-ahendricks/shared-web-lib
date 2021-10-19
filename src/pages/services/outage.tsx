@@ -258,7 +258,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     }}
                   />
                   <Type gutterBottom variant="subtitle2" color="textPrimary">
-                    2020 Annual PG&E Fall Canal Outage Schedule
+                    2021 Annual PG&E Fall Canal Outage Schedule
                   </Type>
                 </RowBox>
                 <Type paragraph variant="body2" color="inherit">
@@ -267,7 +267,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   start and end dates and to find out more information about
                   these outages{' '}
                   <MuiLink
-                    href="https://cdn.cosmicjs.com/0d155d70-0e3d-11eb-9f4c-e15314e49fa9-2020-Annual-PGE-Fall-Canal-Outage.pdf"
+                    href="https://cdn.cosmicjs.com/63073550-310f-11ec-96cf-654f0d745df3-20211019120317588.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Link to 2020 Annual PG&E Fall Canal Outage Schedule"
