@@ -5,11 +5,7 @@ const useIsRiverGage = () => {
   const {state} = useContext(PiContext)
   const {activeGageItem} = state
   const isRiver = useMemo(
-    () =>
-      activeGageItem &&
-      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
-        ? true
-        : false,
+    () => (activeGageItem && activeGageItem.type === 'gage' ? true : false),
     [activeGageItem]
   )
 
