@@ -29,13 +29,9 @@ import gages from '@lib/services/pi/gage-config'
 import {paramToStr} from '@lib/queryParamToStr'
 import useSWR from 'swr'
 import {
-  PiWebAttributesResponse,
-  PiWebBaseElementsResponse,
-  PiWebElementsResponse,
   PiWebElementStreamSetResponse,
   Value
 } from '@lib/services/pi/pi-web-api-types'
-import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import withTimeout from '@lib/withTimeout'
@@ -43,21 +39,19 @@ import round from '@lib/round'
 import JackinBox from 'mui-jackinbox'
 import Spacing from '@components/boxes/Spacing'
 import {useInterval} from 'react-use'
-import usePiTag from '@hooks/usePiTag'
 // import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
 // import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
-export const piApiUrl = 'https://flows.pcwa.net/piwebapi'
-// const url = `${baseUrl}/elements${qs}`
+export const piApiUrl = isDev
+  ? 'http://localhost:3001'
+  : 'https://flow.pcwa.net'
 
 type Props = {
-  pidParam?: string
-  initialBaseData?: PiWebBaseElementsResponse
-  initialElementsData?: PiWebElementsResponse
+  pid?: string
   initialElementsStreamSetData?: PiWebElementStreamSetResponse
-  initialCurrentElevationData?: number | string | null
+  initialCurrentElevationData?: Value
 }
 
 const getActiveGage = (pid: string) =>
@@ -75,9 +69,7 @@ export interface ZippedTableDataItem {
 }
 
 const DynamicPiPage = ({
-  pidParam = '',
-  initialBaseData,
-  initialElementsData,
+  pid: pidParam = '',
   initialElementsStreamSetData,
   initialCurrentElevationData
 }: Props) => {
@@ -85,40 +77,15 @@ const DynamicPiPage = ({
   const router = useRouter()
   const {state, dispatch} = useContext(PiContext)
   const {chartStartDate, chartEndDate, activeGageItem} = state
+  const isReservoir = activeGageItem?.type === 'reservoir'
 
-  /* Request 1 */
-  const qs = stringify({path: activeGageItem?.baseElement}, true)
-  const baseDataUrl = `${piApiUrl}/elements${qs}`
-  const {data: baseData} = useSWR<PiWebBaseElementsResponse>(
-    activeGageItem?.baseElement ? baseDataUrl : null,
-    {fallbackData: initialBaseData}
-  )
-  /* */
-  /* Request 2 */
-  const elementsDataUrl = `${piApiUrl}/elements/${baseData?.WebId}/elements`
-  const {data: elementsData} = useSWR<PiWebElementsResponse>(
-    baseData?.WebId ? elementsDataUrl : null,
-    {fallbackData: initialElementsData}
-  )
-  /* */
-  /* Request 3 */
-  const elementDataItems = useMemo(
-    () => elementsData?.Items ?? [],
-    [elementsData]
-  )
-  const activeElementData = useMemo(
-    () => elementDataItems.find((item) => item.Name === activeGageItem?.id),
-    [elementDataItems, activeGageItem?.id]
-  )
-  const elementsStreamSetDataUrl = `${piApiUrl}/streamsets/${activeElementData?.WebId}/value`
+  const url = `${piApiUrl}/${isReservoir ? 'reservoirs' : 'gages'}/${
+    activeGageItem?.id
+  }`
   const {data: elementsStreamSetData, isValidating: essdIsValidating} =
-    useSWR<PiWebElementStreamSetResponse>(
-      activeElementData?.WebId ? elementsStreamSetDataUrl : null,
-      {
-        fallbackData: initialElementsStreamSetData
-      }
-    )
-  /* */
+    useSWR<PiWebElementStreamSetResponse>(activeGageItem?.id ? url : null, {
+      fallbackData: initialElementsStreamSetData
+    })
 
   const essdItems = useMemo(
     () =>
@@ -127,6 +94,7 @@ const DynamicPiPage = ({
         : [],
     [elementsStreamSetData]
   )
+
   const names = essdItems.map((item) => item.Name)
   const values = essdItems.map((item) => item.Value)
   // Zip up metadata. If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
@@ -198,18 +166,16 @@ const DynamicPiPage = ({
   // console.log('TBL Data', tableData)
   // console.log('ZPD Data', zippedTableData)
 
-  const isReservoir = /reservoirs/gi.test(activeGageItem?.baseElement ?? '')
-  const {data: elevationData} = usePiTag<Value>(
-    activeGageItem?.baseElement,
-    activeGageItem?.id,
-    'Elevation',
+  const {data: elevationData} = useSWR<Value>(
+    isReservoir
+      ? `${piApiUrl}/reservoir-attr/${activeGageItem?.id}/elevation`
+      : null,
     {
-      link: 'EndValue',
       refreshInterval: 1000 * 60 * 5,
-      dependencies: [isReservoir],
       fallbackData: initialCurrentElevationData
     } // five minute interval
   )
+
   const {Value: currentElevation} = elevationData ?? {}
 
   const theme = useTheme()
@@ -399,64 +365,44 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     isDev && console.log(JSON.stringify(params))
     // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
-    const pidParam = paramToStr(params?.pid)
+    const pid = paramToStr(params?.pid)
 
     /* Get Initial Data */
-    // 1
-    const pid = pidParam.replace(spacesRe, '-').toLowerCase()
     const activeGageItem = getActiveGage(pid)
-    const qs = stringify({path: activeGageItem?.baseElement}, true)
+    const isReservoir = activeGageItem?.type === 'reservoir'
     const timeout = 8000
-    const baseDataUrl = `${piApiUrl}/elements${qs}`
-    const initialBaseData = activeGageItem?.baseElement
-      ? await withTimeout<PiWebBaseElementsResponse>(
-          timeout,
-          fetcher<PiWebBaseElementsResponse>(baseDataUrl)
-        )
-      : null
-    // 2
-    const elementsDataUrl = `${piApiUrl}/elements/${initialBaseData?.WebId}/elements`
-    const initialElementsData = initialBaseData?.WebId
-      ? await withTimeout<PiWebElementsResponse>(
-          timeout,
-          fetcher<PiWebElementsResponse>(elementsDataUrl)
-        )
-      : null
-    // 3
-    const elementDataItems = initialElementsData?.Items ?? []
-    const activeElementData = elementDataItems.find(
-      (item) => item.Name === activeGageItem?.id
-    )
-    const elementsStreamSetDataUrl = `${piApiUrl}/streamsets/${activeElementData?.WebId}/value`
-    const initialElementsStreamSetData = activeElementData?.WebId
+    const elementsStreamSetDataUrl = `${piApiUrl}/${
+      isReservoir ? 'reservoirs' : 'gages'
+    }/${activeGageItem?.id}`
+    const fetchOptions = {
+      headers: {
+        Referer: isDev ? 'http://localhost:3000' : 'https://www.pcwa.net'
+      }
+    }
+
+    const initialElementsStreamSetData = activeGageItem?.id
       ? await withTimeout<PiWebElementStreamSetResponse>(
           timeout,
-          fetcher<PiWebElementStreamSetResponse>(elementsStreamSetDataUrl)
+          fetcher(elementsStreamSetDataUrl, fetchOptions)
         )
       : null
+    /* */
+
     // current elevation
-    const attribLink = activeElementData?.Links.Attributes
-    const attribItems = attribLink
-      ? await withTimeout<PiWebAttributesResponse>(
+    const elevationUrl = `${piApiUrl}/reservoir-attr/${activeGageItem?.id}/elevation`
+    const initialCurrentElevationData = isReservoir
+      ? await withTimeout<Value>(
           timeout,
-          fetcher<Value>(attribLink)
+          fetcher<Value>(elevationUrl, fetchOptions)
         )
-      : null
-    const elev = attribItems?.Items.find(
-      ({Name = ''}) => Name.toLowerCase() === 'elevation'
-    )?.Links
-    const elevation = elev?.EndValue
-      ? await withTimeout<Value>(timeout, fetcher<Value>(elev?.EndValue))
       : null
     /* */
 
     return {
       props: {
-        pidParam,
-        initialBaseData,
-        initialElementsData,
+        pid,
         initialElementsStreamSetData,
-        initialCurrentElevationData: elevation?.Value ?? null
+        initialCurrentElevationData
       },
       revalidate: 5
     }
