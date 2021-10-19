@@ -50,7 +50,6 @@ const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
 export const piApiUrl = 'https://flows.pcwa.net/piwebapi'
-// const qs = stringify({path: baseElementType}, true)
 // const url = `${baseUrl}/elements${qs}`
 
 type Props = {
