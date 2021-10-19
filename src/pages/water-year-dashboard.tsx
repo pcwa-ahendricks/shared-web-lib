@@ -75,11 +75,9 @@ const stationIds = [
 export type StationId = typeof stationIds[number]
 
 type StationInfo =
-  | Partial<
-      {
-        [key in StationId]: StationMeta
-      }
-    >
+  | Partial<{
+      [key in StationId]: StationMeta
+    }>
   | undefined
 
 export const refreshInterval = 1000 * 60 * 60 * 6 // 6 hr interval.
@@ -96,7 +94,7 @@ export default function WaterYearDashboardPage() {
   )
 
   const {data: countyResponse} = useSWR<CountyMetaResponse>('/api/acis/county')
-  const [waterYear, setWaterYear] = useState(getYear(new Date()))
+  const [waterYear, setWaterYear] = useState(getWaterYear(new Date()))
   const [sid, setSid] = useState<StationId>('040897 2')
 
   const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
@@ -1071,8 +1069,13 @@ export function parseWaterYear(dateStr?: string) {
     return null
   }
   const highYearDate = parse(dateStr, 'yyyy-MM-dd', new Date())
-  const month = getMonth(highYearDate) + 1
-  const year = getYear(highYearDate)
+  const waterYear = getWaterYear(highYearDate)
+  return waterYear
+}
+
+function getWaterYear(d: Date) {
+  const month = getMonth(d) + 1
+  const year = getYear(d)
   if ([10, 11, 12].indexOf(month) >= 0) {
     return year + 1
   }
