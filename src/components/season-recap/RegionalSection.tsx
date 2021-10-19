@@ -28,7 +28,6 @@ import {stringify} from 'querystringify'
 import {
   differenceInMonths,
   format,
-  getYear,
   isFuture,
   isValid,
   parse,
@@ -42,7 +41,7 @@ import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'
 
-type Props = {countyResponse?: CountyMetaResponse}
+type Props = {countyResponse?: CountyMetaResponse; regionalWaterYear: number}
 
 type RegionalTimeFrame = 'waterYear' | 'last30Days' | 'last7Days'
 
@@ -144,12 +143,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-export default function RegionalSection({countyResponse}: Props) {
+export default function RegionalSection({
+  countyResponse,
+  regionalWaterYear
+}: Props) {
   const classes = useStyles()
   const theme = useTheme()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
-  const [regionalWaterYear] = useState(getYear(new Date()))
   const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
     DEFAULT_REGIONAL_TIME_FRAME
   )
@@ -186,6 +187,7 @@ export default function RegionalSection({countyResponse}: Props) {
     () => startOfMonth(twoMonthsAgo),
     [twoMonthsAgo]
   )
+
   const startOfOctober = useMemo(
     () => startOfMonth(parse('10-01', 'MM-dd', now)),
     [now]
@@ -195,12 +197,15 @@ export default function RegionalSection({countyResponse}: Props) {
       isFuture(startOfOctober) ? subYears(startOfOctober, 1) : startOfOctober,
     [startOfOctober]
   )
+
   const diff = useMemo(
-    () => differenceInMonths(startTwoMonthsAgo, startOfPreviousOctober),
+    () =>
+      Math.abs(differenceInMonths(startTwoMonthsAgo, startOfPreviousOctober)),
     [startTwoMonthsAgo, startOfPreviousOctober]
   ) // Used w/ date formatting, but not NOAA URL
 
   const useMonthDiff = diff + 1 // Used w/ NOAA URL, but not date formatting
+
   const twoMonthsAgoMo = useMemo(
     () => twoMonthsAgo.getMonth() + 1,
     [twoMonthsAgo]
@@ -223,6 +228,7 @@ export default function RegionalSection({countyResponse}: Props) {
   const begTrendYr = 1895
 
   const url = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061-tavg-${useMonthDiff}-${twoMonthsAgoMo}-${begYr}-${climChangeEndYear}.json?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
+  // console.log(url)
 
   const {data: climChgData, isValidating: climChgIsValidating} =
     useSWR<ClimChgResponse>(url, {
@@ -1186,7 +1192,7 @@ export default function RegionalSection({countyResponse}: Props) {
       <Type variant="caption" gutterBottom>
         {/* {fourMonthsAgoFrmt} &#8217;{fourMonthsAgoYrFrmt} - {twoMonthsAgoFrmt}{' '} */}
         {begFrmt} {begYrFrmt} - {twoMonthsAgoFrmt} {twoMonthsAgoYearFrmt} (most
-        recent data for water year)
+        recent data for a 3 month period)
       </Type>
       <Spacing size="x-small" />
       <RowBox width="100%">

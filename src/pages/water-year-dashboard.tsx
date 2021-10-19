@@ -592,7 +592,10 @@ export default function WaterYearDashboardPage() {
             .
           </Type>
           <Spacing size="large" />
-          <RegionalSection countyResponse={countyResponse} />
+          <RegionalSection
+            regionalWaterYear={waterYear}
+            countyResponse={countyResponse}
+          />
           <Spacing size="large" factor={2} />
           <Type variant="h2" color="primary">
             Local/Station Conditions
