@@ -29,9 +29,6 @@ import gages from '@lib/services/pi/gage-config'
 import {paramToStr} from '@lib/queryParamToStr'
 import useSWR from 'swr'
 import {
-  PiWebAttributesResponse,
-  PiWebBaseElementsResponse,
-  PiWebElementsResponse,
   PiWebElementStreamSetResponse,
   Value
 } from '@lib/services/pi/pi-web-api-types'
@@ -42,7 +39,6 @@ import round from '@lib/round'
 import JackinBox from 'mui-jackinbox'
 import Spacing from '@components/boxes/Spacing'
 import {useInterval} from 'react-use'
-import usePiTag from '@hooks/usePiTag'
 import CollapsibleAlert from '@components/Alerts/CollapsibleAlert'
 import {AlertTitle} from '@material-ui/lab'
 const isDev = process.env.NODE_ENV === 'development'
@@ -53,11 +49,9 @@ export const piApiUrl = isDev
   : 'https://flow.pcwa.net'
 
 type Props = {
-  pidParam?: string
-  initialBaseData?: PiWebBaseElementsResponse
-  initialElementsData?: PiWebElementsResponse
+  pid?: string
   initialElementsStreamSetData?: PiWebElementStreamSetResponse
-  initialCurrentElevationData?: number | string | null
+  initialCurrentElevationData?: Value
 }
 
 const getActiveGage = (pid: string) =>
@@ -75,7 +69,7 @@ export interface ZippedTableDataItem {
 }
 
 const DynamicPiPage = ({
-  pidParam = '',
+  pid: pidParam = '',
   initialElementsStreamSetData,
   initialCurrentElevationData
 }: Props) => {
@@ -83,8 +77,11 @@ const DynamicPiPage = ({
   const router = useRouter()
   const {state, dispatch} = useContext(PiContext)
   const {chartStartDate, chartEndDate, activeGageItem} = state
+  const isReservoir = activeGageItem?.type === 'reservoir'
 
-  const url = `${piApiUrl}/gages/${activeGageItem?.id}`
+  const url = `${piApiUrl}/${isReservoir ? 'reservoirs' : 'gages'}/${
+    activeGageItem?.id
+  }`
   const {data: elementsStreamSetData, isValidating: essdIsValidating} =
     useSWR<PiWebElementStreamSetResponse>(activeGageItem?.id ? url : null, {
       fallbackData: initialElementsStreamSetData
@@ -97,6 +94,7 @@ const DynamicPiPage = ({
         : [],
     [elementsStreamSetData]
   )
+
   const names = essdItems.map((item) => item.Name)
   const values = essdItems.map((item) => item.Value)
   // Zip up metadata. If we need to filter "Questionable" data this is where we would start, at least for the streamSetMeta.
@@ -168,18 +166,16 @@ const DynamicPiPage = ({
   // console.log('TBL Data', tableData)
   // console.log('ZPD Data', zippedTableData)
 
-  const isReservoir = /reservoirs/gi.test(activeGageItem?.baseElement ?? '')
-  const {data: elevationData} = usePiTag<Value>(
-    activeGageItem?.baseElement,
-    activeGageItem?.id,
-    'Elevation',
+  const {data: elevationData} = useSWR<Value>(
+    isReservoir
+      ? `${piApiUrl}/reservoir-attr/${activeGageItem?.id}/elevation`
+      : null,
     {
-      link: 'EndValue',
       refreshInterval: 1000 * 60 * 5,
-      dependencies: [isReservoir],
       fallbackData: initialCurrentElevationData
     } // five minute interval
   )
+
   const {Value: currentElevation} = elevationData ?? {}
 
   const theme = useTheme()
@@ -373,36 +369,32 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     /* Get Initial Data */
     const activeGageItem = getActiveGage(pid)
+    const isReservoir = activeGageItem?.type === 'reservoir'
     const timeout = 8000
-    const elementsStreamSetDataUrl = `${piApiUrl}/gages/${activeGageItem?.id}`
+    const elementsStreamSetDataUrl = `${piApiUrl}/${
+      isReservoir ? 'reservoirs' : 'gages'
+    }/${activeGageItem?.id}`
+    const fetchOptions = {
+      headers: {
+        Referer: isDev ? 'http://localhost:3000' : 'https://www.pcwa.net'
+      }
+    }
 
     const initialElementsStreamSetData = activeGageItem?.id
       ? await withTimeout<PiWebElementStreamSetResponse>(
           timeout,
-          fetcher<PiWebElementStreamSetResponse>(elementsStreamSetDataUrl, {
-            headers: {
-              Referer: isDev
-                ? 'http://localhost:3000'
-                : 'https://www.middleforkfun.com'
-            }
-          })
+          fetcher(elementsStreamSetDataUrl, fetchOptions)
         )
       : null
     /* */
 
     // current elevation
-    const attribLink = activeElementData?.Links.Attributes
-    const attribItems = attribLink
-      ? await withTimeout<PiWebAttributesResponse>(
+    const elevationUrl = `${piApiUrl}/reservoir-attr/${activeGageItem?.id}/elevation`
+    const initialCurrentElevationData = isReservoir
+      ? await withTimeout<Value>(
           timeout,
-          fetcher<Value>(attribLink)
+          fetcher<Value>(elevationUrl, fetchOptions)
         )
-      : null
-    const elev = attribItems?.Items.find(
-      ({Name = ''}) => Name.toLowerCase() === 'elevation'
-    )?.Links
-    const elevation = elev?.EndValue
-      ? await withTimeout<Value>(timeout, fetcher<Value>(elev?.EndValue))
       : null
     /* */
 
@@ -410,7 +402,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       props: {
         pid,
         initialElementsStreamSetData,
-        initialCurrentElevationData: elevation?.Value ?? null
+        initialCurrentElevationData
       },
       revalidate: 5
     }

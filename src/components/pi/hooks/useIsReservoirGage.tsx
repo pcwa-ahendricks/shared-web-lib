@@ -6,10 +6,7 @@ const useIsReservoirGage = () => {
   const {activeGageItem} = state
   const isRiver = useMemo(
     () =>
-      activeGageItem &&
-      activeGageItem.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs'
-        ? true
-        : false,
+      activeGageItem && activeGageItem.type === 'reservoir' ? true : false,
     [activeGageItem]
   )
 

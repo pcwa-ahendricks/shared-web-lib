@@ -41,16 +41,9 @@ const PiNavigationList = ({pid}: Props) => {
   const [showMoreRiverGages, setShowMoreRiverGages] = useState(false)
   const [showMoreReservoirGages, setShowMoreReservoirGages] = useState(false)
 
-  const riverGages = useMemo(
-    () =>
-      gages.filter(
-        (g) => g.baseElement === '\\\\BUSINESSPI2\\OPS\\Gauging Stations'
-      ),
-    []
-  )
+  const riverGages = useMemo(() => gages.filter((g) => g.type === 'gage'), [])
   const reservoirGages = useMemo(
-    () =>
-      gages.filter((g) => g.baseElement === '\\\\BUSINESSPI2\\OPS\\Reservoirs'),
+    () => gages.filter((g) => g.type === 'reservoir'),
     []
   )
 
