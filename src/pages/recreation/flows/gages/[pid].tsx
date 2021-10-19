@@ -367,7 +367,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     // Allow parameter to use dashes for spaces (eg. "french-meadows"). The "id" property in gage-config.ts will use the original PI Id, with spaces. Since we are addressing the space issue here we will also convert parameters to lowercase.
     const pid = paramToStr(params?.pid)
 
-    /* Get Initial Data */
     const activeGageItem = getActiveGage(pid)
     const isReservoir = activeGageItem?.type === 'reservoir'
     const timeout = 8000
@@ -386,7 +385,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
           fetcher(elementsStreamSetDataUrl, fetchOptions)
         )
       : null
-    /* */
 
     // current elevation
     const elevationUrl = `${piApiUrl}/reservoir-attr/${activeGageItem?.id}/elevation`
