@@ -341,13 +341,17 @@ const ProjectsPage = () => {
                       2020 and complete October 2021.
                     </Type>
                     <Type variant="subtitle1">
-                      Upcoming Work (updated May 14, 2021)
+                      Construction Phase Completed (updated October 4, 2021)
                     </Type>
                     <Type paragraph>
+                      The Contractor will be following up on various punch list
+                      items as the project nears completion.
+                    </Type>
+                    {/* <Type paragraph>
                       The Contractor will be performing the following
                       construction activities in the next few weeks:
-                    </Type>
-                    <ul>
+                    </Type> */}
+                    {/* <ul>
                       <TypeBullet>
                         <Type variant="body1">
                           Traffic delays are not anticipated along the
@@ -399,7 +403,7 @@ const ProjectsPage = () => {
                           the tunnel to the Dutch Ravine.
                         </Type>
                       </TypeBullet>
-                    </ul>
+                    </ul> */}
                     <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:

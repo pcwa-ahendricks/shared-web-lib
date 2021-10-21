@@ -153,7 +153,6 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
   } else if (!media && router.isFallback) {
-    // we should show
     console.log('No media. Page is in fallback mode.')
   } else if (!media && !router.isFallback) {
     console.log(
