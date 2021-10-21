@@ -1,4 +1,10 @@
-import React, {useMemo, useState, useCallback, useEffect} from 'react'
+import React, {
+  useContext,
+  useMemo,
+  useState,
+  useCallback,
+  useEffect
+} from 'react'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -38,6 +44,7 @@ import {
   newslettersUrl
 } from '@lib/types/newsletters'
 import {useRouter} from 'next/router'
+import {setPageLoading, UiContext} from '@components/ui/UiStore'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -76,7 +83,8 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
   const classes = useStyles()
   const router = useRouter()
-  console.log('isFallback', router.isFallback)
+  const uiContext = useContext(UiContext)
+  const {dispatch: uiDispatch} = uiContext
 
   const newsletterDateFormatted = useMemo(() => {
     const pubMonth = media?.derivedFilenameAttr?.publishedDate
@@ -121,24 +129,36 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
     mediaPageHandler()
   }, [mediaPageHandler])
 
-  const isProcessingReq = !media && router.isFallback
   const progressEl = useMemo(
     () =>
-      loadingAddPages || isProcessingReq ? (
+      loadingAddPages ? (
         <ColumnBox width="100%">
           <LinearProgress color="secondary" />
         </ColumnBox>
       ) : null,
-    [loadingAddPages, isProcessingReq]
+    [loadingAddPages]
   )
-  console.log('media', media)
-  console.log('err', err)
+  // console.log('media', media)
+  // console.log('err', err)
+  // console.log('isFallback', router.isFallback)
+
+  useEffect(() => {
+    if (router.isFallback) {
+      uiDispatch(setPageLoading(true))
+    } else {
+      uiDispatch(setPageLoading(false))
+    }
+  }, [router.isFallback, uiDispatch])
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (isProcessingReq) {
-    console.log('No media. Page is loading')
+  } else if (!media && router.isFallback) {
+    // we should show
+    console.log('No media. Page is in fallback mode.')
   } else if (!media && !router.isFallback) {
+    console.log(
+      'No media. Page is not in fallback mode. Returning Page Not Found.'
+    )
     return <ErrorPage statusCode={404} />
   }
 
