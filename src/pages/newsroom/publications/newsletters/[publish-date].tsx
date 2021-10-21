@@ -37,6 +37,7 @@ import {
   NewsletterMediaResponses,
   newslettersUrl
 } from '@lib/types/newsletters'
+import {useRouter} from 'next/router'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -74,6 +75,8 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
   const classes = useStyles()
+  const router = useRouter()
+  console.log('isFallback', router.isFallback)
 
   const newsletterDateFormatted = useMemo(() => {
     const pubMonth = media?.derivedFilenameAttr?.publishedDate
@@ -118,22 +121,25 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
     mediaPageHandler()
   }, [mediaPageHandler])
 
+  const isProcessingReq = !media && router.isFallback
   const progressEl = useMemo(
     () =>
-      loadingAddPages ? (
+      loadingAddPages || isProcessingReq ? (
         <ColumnBox width="100%">
           <LinearProgress color="secondary" />
         </ColumnBox>
       ) : null,
-    [loadingAddPages]
+    [loadingAddPages, isProcessingReq]
   )
+  console.log('media', media)
+  console.log('err', err)
 
   if (err?.statusCode) {
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!media) {
-    console.error('No media', media)
-    // [TODO] This has been causing an issue where certain resources/routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
-    // return <ErrorPage statusCode={404} />
+  } else if (isProcessingReq) {
+    console.log('No media. Page is loading')
+  } else if (!media && !router.isFallback) {
+    return <ErrorPage statusCode={404} />
   }
 
   const downloadAs = slugify(media?.original_name ?? '')
