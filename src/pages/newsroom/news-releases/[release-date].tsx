@@ -44,16 +44,12 @@ import {
   NewsReleaseMediaResponse,
   NewsReleaseMediaResponses
 } from '@lib/types/newsReleases'
-import {
-  // setCenterProgress,
-  UiContext
-} from '@components/ui/UiStore'
+import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   err?: any
   media?: NewsReleaseMediaResponse
-  releaseDate?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,11 +70,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
+const DynamicNewsReleasePage = ({media, err}: Props) => {
   const theme = useTheme<Theme>()
   const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: uiDispatch} = uiContext
-  const {centerProgress} = uiState
+  const {dispatch: uiDispatch} = uiContext
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
@@ -121,29 +116,27 @@ const DynamicNewsReleasePage = ({media, err, releaseDate}: Props) => {
       : ''
   }, [media?.derivedFilenameAttr?.publishedDate])
 
-  // initially until getStaticProps() finishes running
+  // console.log('media', media)
+  // console.log('err', err)
+  // console.log('isFallback', router.isFallback)
+
   useEffect(() => {
     if (router.isFallback) {
-      console.log('router.isFallback: ', router.isFallback)
-      console.log('media: ', media)
-      console.log('release date: ', releaseDate)
-      console.log('err: ', err)
-      // uiDispatch(setCenterProgress(true))
-      // return <div>Falling back :)</div>
+      uiDispatch(setCenterProgress(true))
     } else {
-      if (centerProgress) {
-        // uiDispatch(setCenterProgress(false))
-      }
+      uiDispatch(setCenterProgress(false))
     }
-  }, [router, centerProgress, err, releaseDate, media, uiDispatch])
+  }, [router.isFallback, uiDispatch])
 
   if (err?.statusCode) {
-    console.log('what happened?', err)
     return <ErrorPage statusCode={err.statusCode} />
-  } else if (!media) {
-    console.error('No media', media)
-    // [TODO] This has been causing an issue where certain resources/routes 404 when linked to in production. Often times those URLs load fine during refresh; Not sure why. Doesn't seem to be an issue in development. Likely related to getStaticProps/getStaticPaths and SSG. Commenting out this return statement seems to be a workaround. If the resources don't exist the page will 404 anyways since 'fallback' is not being used with getStaticPaths so this workaround isn't terrible.
-    // return <ErrorPage statusCode={404} />
+  } else if (!media && router.isFallback) {
+    console.log('No media. Page is in fallback mode.')
+  } else if (!media && !router.isFallback) {
+    console.log(
+      'No media. Page is not in fallback mode. Returning Page Not Found.'
+    )
+    return <ErrorPage statusCode={404} />
   }
 
   const publishDate = media?.derivedFilenameAttr?.date
@@ -300,16 +293,15 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const releaseDate = paramToStr(params?.['release-date'])
     const media = await findMediaForPages(nrs, releaseDate)
 
-    if (!media || !releaseDate) {
-      throw 'No media or no release date'
-    }
+    // if (!media || !releaseDate) {
+    //   throw 'No media or no release date'
+    // }
 
     return {
       props: {
-        media,
-        releaseDate
+        media
       },
-      revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)

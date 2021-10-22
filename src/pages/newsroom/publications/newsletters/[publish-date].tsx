@@ -44,13 +44,12 @@ import {
   newslettersUrl
 } from '@lib/types/newsletters'
 import {useRouter} from 'next/router'
-import {setPageLoading, UiContext} from '@components/ui/UiStore'
+import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   err?: any
   media?: NewsletterMediaResponse
-  publishDate?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -77,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
+const DynamicNewslettersPage = ({media, err}: Props) => {
   const theme = useTheme<Theme>()
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
   const isXS = useMediaQuery(theme.breakpoints.down('xs'))
@@ -144,9 +143,9 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
 
   useEffect(() => {
     if (router.isFallback) {
-      uiDispatch(setPageLoading(true))
+      uiDispatch(setCenterProgress(true))
     } else {
-      uiDispatch(setPageLoading(false))
+      uiDispatch(setCenterProgress(false))
     }
   }, [router.isFallback, uiDispatch])
 
@@ -161,6 +160,7 @@ const DynamicNewslettersPage = ({media, err, publishDate}: Props) => {
     return <ErrorPage statusCode={404} />
   }
 
+  const publishDate = media?.derivedFilenameAttr?.date
   const downloadAs = slugify(media?.original_name ?? '')
   const pageCount = additionalPages.length + 1
 
@@ -318,8 +318,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const media = await findMediaForPages(newsletters, publishDate)
 
     return {
-      props: {media, publishDate},
-      revalidate: 10
+      props: {media},
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)
