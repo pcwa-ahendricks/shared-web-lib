@@ -10,7 +10,7 @@ import HeroOverlay from '@components/hero/HeroOverlay'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {useIntersection} from 'react-use'
 import JackinBox from 'mui-jackinbox'
-import {useMediaQuery} from '@material-ui/core'
+import {useMediaQuery, useTheme} from '@material-ui/core'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {RowBox} from 'mui-sleazebox'
 
@@ -21,10 +21,13 @@ export default function HeroImage() {
   const {state: uiState, dispatch: uiDispatch} = uiContext
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
   const is5to4 = useMediaQuery('@media (min-aspect-ratio: 5/4)')
+  const theme = useTheme()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  const isSM = useMediaQuery(theme.breakpoints.only('sm'))
   const marginTop = useMemo(
     // () => (isMDUp && is1to1 ? '-175px' : is2to1 ? '-25vh' : 0),
-    () => (is5to4 ? '-16vmax' : 0),
-    [is5to4]
+    () => (isXS ? 10 : isSM ? 20 : is5to4 ? '-10vmax' : 0),
+    [is5to4, isXS, isSM]
   )
   const heroAnimateRef = useRef<HTMLDivElement>(null)
   const [heroIntersected, setHeroIntersected] = useState(false)
