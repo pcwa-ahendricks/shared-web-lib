@@ -114,6 +114,7 @@ const menuConfig: MenuConfig[] = [
       {
         groupName: 'Recreation',
         items: [
+          {title: 'MiddleForkFun.com', href: 'https://www.middleforkfun.com'},
           {title: 'Recreation', nextLink: '/recreation'},
           {
             title: 'Campgrounds',
