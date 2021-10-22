@@ -45,7 +45,7 @@ import {
 } from '@lib/types/newsletters'
 import {useRouter} from 'next/router'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
-// const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   err?: any
@@ -248,45 +248,45 @@ const DynamicNewslettersPage = ({media, err}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    // const data: PickedMediaResponses | undefined = await fetcher(
-    //   `${baseUrl}${newslettersUrl}`
-    // )
-    // if (isDev) {
-    //   const debug =
-    //     data && Array.isArray(data)
-    //       ? data
-    //           .map((nl) => ({
-    //             ...nl,
-    //             derivedFilenameAttr: fileNameUtil(
-    //               nl.original_name,
-    //               DATE_FNS_FORMAT
-    //             )
-    //           }))
-    //           .filter((nl) => !nl.derivedFilenameAttr.date)
-    //           .map((nl) => nl.original_name)
-    //       : []
-    //   debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
-    // }
-    // const paths =
-    //   data && Array.isArray(data)
-    //     ? data
-    //         .map((nl) => ({
-    //           ...nl,
-    //           derivedFilenameAttr: fileNameUtil(
-    //             nl.original_name,
-    //             DATE_FNS_FORMAT
-    //           )
-    //         }))
-    //         .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-    //         .map((nl) => ({
-    //           params: {
-    //             'publish-date': nl.derivedFilenameAttr.date
-    //           }
-    //         }))
-    //     : []
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const data: NewsletterMediaResponses | undefined = await fetcher(
+      `${baseUrl}${newslettersUrl}`
+    )
+    if (isDev) {
+      const debug =
+        data && Array.isArray(data)
+          ? data
+              .map((nl) => ({
+                ...nl,
+                derivedFilenameAttr: fileNameUtil(
+                  nl.original_name,
+                  newsletterDateFrmt
+                )
+              }))
+              .filter((nl) => !nl.derivedFilenameAttr.date)
+              .map((nl) => nl.original_name)
+          : []
+      debug.forEach((i) => console.log(`Debug Newsletter: ${i}`))
+    }
+    const paths =
+      data && Array.isArray(data)
+        ? data
+            .map((nl) => ({
+              ...nl,
+              derivedFilenameAttr: fileNameUtil(
+                nl.original_name,
+                newsletterDateFrmt
+              )
+            }))
+            .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
+            .map((nl) => ({
+              params: {
+                'publish-date': nl.derivedFilenameAttr.date
+              }
+            }))
+        : []
     return {
-      paths: [],
+      paths: [...paths],
       fallback: true
     }
   } catch (error) {
