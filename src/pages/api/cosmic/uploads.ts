@@ -1,5 +1,5 @@
 import prettyBytes from 'pretty-bytes'
-import Busboy from 'busboy'
+import Busboy, {BusboyHeaders} from 'busboy'
 import FormData from 'form-data'
 import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
 import {VercelRequest, VercelResponse} from '@vercel/node'
@@ -21,8 +21,13 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader('Expires', '-1')
   res.setHeader('Pragma', 'no-cache')
   const {headers, socket} = req
+  // Fix type error
+  const customHeaders: BusboyHeaders = {
+    ...headers,
+    'content-type': headers['content-type'] || ''
+  }
   const {uploadRoute} = req.query
-  const busboy = new Busboy({headers})
+  const busboy = new Busboy({headers: customHeaders})
   let buffer: Buffer
   const data: Uint8Array[] = [] // Also used as a file size counter for logging.
   let fileName: string
