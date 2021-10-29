@@ -1,20 +1,14 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
-import {RedisError, createClient} from 'redis'
-import {promisify} from 'util'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
-import {redisOpts} from '@lib/api/shared'
+import upstash from '@upstash/redis'
+
+const redis = upstash(
+  process.env.NODE_UPSTASH_REST_API_DOMAIN,
+  process.env.NODE_UPSTASH_REST_API_TOKEN
+)
 
 const OPENWEATHERMAP_API_KEY = process.env.NODE_OPENWEATHERMAP_API_KEY || ''
-
-const client = createClient(redisOpts)
-const hgetallAsync = promisify(client.hgetall).bind(client)
-const hmsetAsync = promisify(client.hmset).bind(client)
-const expireAsync = promisify(client.expire).bind(client)
-
-client.on('error', (err: RedisError) => {
-  console.log('Error ' + err)
-})
 
 // Only accept requests for the following station ids.
 const ACCEPT_LATITUDES = [38, 39]
@@ -61,7 +55,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
     const hash = `openweathermap-${latLngStr}`
-    const cache = await hgetallAsync(hash)
+    const {data: cache} = await redis.hgetall(hash)
+
     if (cache) {
       // Convert Redis strings to numbers
       const longitude = parseFloat(cache.longitude)
@@ -105,10 +100,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const {temp: temperature} = main
     const {sunrise, sunset} = sys
 
-    await hmsetAsync([
-      hash,
+    await redis.hmset(hash, [
       'temperature',
-      temperature,
+      temperature.toString(),
       'main',
       weatherMain,
       'description',
@@ -116,21 +110,21 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       'icon',
       icon,
       'longitude',
-      lon,
+      lon.toString(),
       'latitude',
-      lat,
+      lat.toString(),
       'sunrise',
-      sunrise,
+      sunrise.toString(),
       'sunset',
-      sunset,
+      sunset.toString(),
       'dateTime',
-      dt,
+      dt.toString(),
       'name',
       name,
       'id',
-      id,
+      id.toString(),
       'weatherId',
-      weatherId
+      weatherId.toString()
     ])
 
     /*
@@ -142,7 +136,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       60 * 7.2 = 432 seconds
     */
     // await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
-    await expireAsync(hash, 60 * 5) // 5 minutes
+    await redis.expire(hash, 60 * 5) // 5 minutes
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     // client.quit()
