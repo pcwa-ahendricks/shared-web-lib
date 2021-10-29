@@ -56,6 +56,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = `openweathermap-${latLngStr}`
     const {data: cache} = await redis.hgetall(hash)
+    // console.log('cache: ', cache)
+    // console.log('error: ', error)
     const [
       cTemp,
       cMain,
@@ -73,6 +75,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     if (Array.isArray(cache) && cache.length > 0) {
       // Convert Redis strings to numbers
+      const temperature = parseFloat(cTemp)
       const longitude = parseFloat(cLong)
       const latitude = parseFloat(cLat)
       const sunrise = parseFloat(cSunrise)
@@ -82,18 +85,18 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       const weatherId = parseFloat(cWeatherId)
       // client.quit()
       res.status(200).json({
-        temperature: cTemp,
+        temperature,
+        id,
+        weatherId,
+        longitude,
+        latitude,
         sunrise,
         sunset,
         dateTime,
         name: cName,
         main: cMain,
         description: cDesc,
-        icon: cIcon,
-        id,
-        weatherId,
-        longitude,
-        latitude
+        icon: cIcon
       })
       return
     }
