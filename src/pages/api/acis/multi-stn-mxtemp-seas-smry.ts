@@ -1,21 +1,15 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid maxmissing mcnt mxtemp
-import {RedisError, createClient} from 'redis'
-import {promisify} from 'util'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
-import {dLog, localDate, paramToStr, redisOpts} from '@lib/api/shared'
+import {dLog, localDate, paramToStr} from '@lib/api/shared'
 import {maxmissing} from '@lib/api/acis'
+import upstash from '@upstash/redis'
 
-const client = jsonify(createClient(redisOpts))
-const getAsync = promisify(client.get).bind(client)
-const setAsync = promisify(client.set).bind(client)
-const expireAsync = promisify(client.expire).bind(client)
-
-client.on('error', (err: RedisError) => {
-  console.log('Error ' + err)
-})
+const redis = upstash(
+  process.env.NODE_UPSTASH_REST_API_DOMAIN,
+  process.env.NODE_UPSTASH_REST_API_TOKEN
+)
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
@@ -80,8 +74,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = 'http://data.rcc-acis.org/MultiStnData'
 
     const hash = `acis-mxtemp-seas-smry-_${eDate}`
-    const cache = await getAsync(hash)
-    if (!bust && cache && typeof cache === 'object') {
+
+    const {data: cacheStr} = await redis.get(hash)
+    if (!bust && cacheStr) {
+      const cache = JSON.parse(cacheStr)
       dLog('returning cache copy...')
       res.status(200).json(cache)
       return
@@ -106,9 +102,11 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const data = await response.json()
 
-    await setAsync(hash, data)
-    await expireAsync(hash, 60 * 60 * 12) // 12 hours
-    // await expireAsync(hash, 60 * 1) // 1 min
+    const dataStr = JSON.stringify(data)
+
+    await redis.set(hash, dataStr)
+    await redis.expire(hash, 60 * 60 * 12) // 12 hours
+    // await redis.expire(hash, 60 * 1) // 1 min
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     dLog('returning fresh copy...')

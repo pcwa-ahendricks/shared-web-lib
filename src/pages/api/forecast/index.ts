@@ -3,7 +3,6 @@ import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 import upstash from '@upstash/redis'
 // const isDev = process.env.NODE_ENV === 'development'
-
 const redis = upstash(
   process.env.NODE_UPSTASH_REST_API_DOMAIN,
   process.env.NODE_UPSTASH_REST_API_TOKEN
@@ -60,7 +59,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     // console.log('cacheStr: ', cacheStr)
     // console.log('error: ', error)
 
-    if (cacheStr?.length > 0) {
+    if (cacheStr) {
       const cache = JSON.parse(cacheStr)
       const {
         temperature,
@@ -137,7 +136,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       1,440 / 200 = 7.2 minutes apart
       60 * 7.2 = 432 seconds
     */
-    // await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
+    // await redis.expire(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
     // await redis.expire(hash, 60 * 1) // 5 minutes
     await redis.expire(hash, 60 * 5) // 5 minutes
 

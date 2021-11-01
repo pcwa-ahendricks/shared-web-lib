@@ -1,25 +1,23 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
-import {RedisError, createClient} from 'redis'
-import {promisify} from 'util'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import jsonify from 'redis-jsonify'
 import {format, parse, subDays, isFuture} from 'date-fns'
 import {ACCEPT_SIDS} from '@lib/api/acis'
-import {dLog, paramToStr, redisOpts, localDate} from '@lib/api/shared'
+import {dLog, paramToStr, localDate} from '@lib/api/shared'
+import upstash from '@upstash/redis'
 
-const client = jsonify(createClient(redisOpts))
-const getAsync = promisify(client.get).bind(client)
-const setAsync = promisify(client.set).bind(client)
-const expireAsync = promisify(client.expire).bind(client)
-
-client.on('error', (err: RedisError) => {
-  console.log('Error ' + err)
-})
-
+const redis = upstash(
+  process.env.NODE_UPSTASH_REST_API_DOMAIN,
+  process.env.NODE_UPSTASH_REST_API_TOKEN
+)
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
-    const {sid: sidParam, waterYear: waterYearParam} = req.query
+    const {
+      sid: sidParam,
+      waterYear: waterYearParam,
+      bust: bustParam
+    } = req.query
     const sid = paramToStr(sidParam).toLowerCase().replace(/-/g, ' ')
+    const bust = paramToStr(bustParam).toLowerCase() === 'true'
     const waterYear = parseInt(paramToStr(waterYearParam), 10)
     if (!ACCEPT_SIDS.includes(sid)) {
       res.status(406).end()
@@ -68,8 +66,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = 'https://data.rcc-acis.org/StnData'
 
     const hash = `acis-precip-hist-yr-${sDate}_${eDate}-${sid}`
-    const cache = await getAsync(hash)
-    if (cache && typeof cache === 'object') {
+
+    const {data: cacheStr} = await redis.get(hash)
+    if (!bust && cacheStr) {
+      const cache = JSON.parse(cacheStr)
       dLog('returning cache copy...')
       res.status(200).json(cache)
       return
@@ -87,9 +87,11 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const data = await response.json()
-    await setAsync(hash, data)
-    await expireAsync(hash, 60 * 60 * 12) // 12 hours
-    // await expireAsync(hash, 60 * 1) // 1 min
+    const dataStr = JSON.stringify(data)
+
+    await redis.set(hash, dataStr)
+    await redis.expire(hash, 60 * 60 * 12) // 12 hours
+    // await redis.expire(hash, 60 * 1) // 1 min
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     dLog('returning fresh copy...')
