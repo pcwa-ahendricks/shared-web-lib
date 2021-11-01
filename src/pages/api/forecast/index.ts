@@ -1,7 +1,8 @@
-// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
+// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid upstash
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 import upstash from '@upstash/redis'
+const isDev = process.env.NODE_ENV === 'development'
 
 const redis = upstash(
   process.env.NODE_UPSTASH_REST_API_DOMAIN,
@@ -74,6 +75,11 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     ] = cache
 
     if (Array.isArray(cache) && cache.length > 0) {
+      isDev &&
+        console.log(
+          'using cache: ',
+          JSON.stringify({cTemp, cLong, cLat, cSunrise, cSunset})
+        )
       // Convert Redis strings to numbers
       const temperature = parseFloat(cTemp)
       const longitude = parseFloat(cLong)
@@ -100,6 +106,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       })
       return
     }
+    isDev && console.log('returning fresh weather')
 
     const response = await fetch(apiUrl)
     if (!response.ok) {
@@ -115,33 +122,22 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const {main: weatherMain, description, icon, id: weatherId} = weatherNow
     const {temp: temperature} = main
     const {sunrise, sunset} = sys
-
-    await redis.hmset(hash, [
-      'temperature',
-      temperature.toString(),
-      'main',
-      weatherMain,
-      'description',
-      description,
-      'icon',
-      icon,
-      'longitude',
-      lon.toString(),
-      'latitude',
-      lat.toString(),
-      'sunrise',
-      sunrise.toString(),
-      'sunset',
-      sunset.toString(),
-      'dateTime',
-      dt.toString(),
-      'name',
-      name,
-      'id',
-      id.toString(),
-      'weatherId',
-      weatherId.toString()
-    ])
+    const r = [
+      temperature.toString(), // temperature
+      weatherMain, // main
+      description, // description
+      icon, // icon
+      lon.toString(), // longitude
+      lat.toString(), // latitude
+      sunrise.toString(), // sunrise
+      sunset.toString(), // sunset
+      dt.toString(), // date time
+      name, // name
+      id.toString(), // id
+      weatherId.toString() // weather id
+    ]
+    isDev && console.log(r)
+    await redis.hmset(hash, r)
 
     /*
       There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.
@@ -152,6 +148,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       60 * 7.2 = 432 seconds
     */
     // await expireAsync(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
+    // await redis.expire(hash, 60 * 1) // 5 minutes
     await redis.expire(hash, 60 * 5) // 5 minutes
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
