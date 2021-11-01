@@ -2,7 +2,7 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 import upstash from '@upstash/redis'
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 
 const redis = upstash(
   process.env.NODE_UPSTASH_REST_API_DOMAIN,
