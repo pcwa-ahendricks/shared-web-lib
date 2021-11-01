@@ -19,7 +19,7 @@ export type ForecastDataset = {
   title: string
   data?: {
     temperature: number
-    main: string
+    weatherMain: string
     description: string
     icon: string
     longitude: number

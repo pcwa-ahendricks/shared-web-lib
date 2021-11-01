@@ -56,57 +56,47 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
     const hash = `openweathermap-${latLngStr}`
-    const {data: cache} = await redis.hgetall(hash)
-    // console.log('cache: ', cache)
+    const {data: cacheStr} = await redis.get(hash)
+    // console.log('cacheStr: ', cacheStr)
     // console.log('error: ', error)
-    const [
-      cTemp,
-      cMain,
-      cDesc,
-      cIcon,
-      cLong,
-      cLat,
-      cSunrise,
-      cSunset,
-      cDateTime,
-      cName,
-      cId,
-      cWeatherId
-    ] = cache
 
-    if (Array.isArray(cache) && cache.length > 0) {
-      isDev &&
-        console.log(
-          'using cache: ',
-          JSON.stringify({cTemp, cLong, cLat, cSunrise, cSunset})
-        )
-      // Convert Redis strings to numbers
-      const temperature = parseFloat(cTemp)
-      const longitude = parseFloat(cLong)
-      const latitude = parseFloat(cLat)
-      const sunrise = parseFloat(cSunrise)
-      const sunset = parseFloat(cSunset)
-      const dateTime = parseFloat(cDateTime)
-      const id = parseFloat(cId)
-      const weatherId = parseFloat(cWeatherId)
-      // client.quit()
-      res.status(200).json({
+    if (cacheStr?.length > 0) {
+      const cache = JSON.parse(cacheStr)
+      const {
         temperature,
-        id,
-        weatherId,
         longitude,
         latitude,
         sunrise,
         sunset,
         dateTime,
-        name: cName,
-        main: cMain,
-        description: cDesc,
-        icon: cIcon
+        id,
+        weatherId,
+        name,
+        weatherMain,
+        description,
+        icon
+      } = cache
+      // isDev && console.log('Using cache object: ', cache)
+
+      // Convert Redis strings to numbers
+      // client.quit()
+      res.status(200).json({
+        temperature, // number
+        weatherMain, // string
+        description, // string
+        icon, // string
+        longitude, // number
+        latitude, // number
+        sunrise, // number
+        sunset, // number
+        dateTime, // number
+        name, // string
+        id, // number
+        weatherId // number
       })
       return
     }
-    isDev && console.log('returning fresh weather')
+    // isDev && console.log('returning fresh weather')
 
     const response = await fetch(apiUrl)
     if (!response.ok) {
@@ -116,28 +106,28 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
     const data: OpenWeatherMapResponse = await response.json()
 
-    const {coord, weather, main, dt, sys, name, id} = data
-    const {lat, lon} = coord
+    const {coord, weather, main, dt: dateTime, sys, name, id} = data
+    const {lat: latitude, lon: longitude} = coord
     const [weatherNow] = weather
     const {main: weatherMain, description, icon, id: weatherId} = weatherNow
     const {temp: temperature} = main
     const {sunrise, sunset} = sys
-    const r = [
-      temperature.toString() || 'nodata', // temperature
-      weatherMain || 'nodata', // main
-      description || 'nodata', // description
-      icon || 'nodata', // icon
-      lon.toString() || 'nodata', // longitude
-      lat.toString() || 'nodata', // latitude
-      sunrise.toString() || 'nodata', // sunrise
-      sunset.toString() || 'nodata', // sunset
-      dt.toString() || 'nodata', // date time
-      name || 'nodata', // name
-      id.toString() || 'nodata', // id
-      weatherId.toString() || 'nodata' // weather id
-    ]
-    isDev && console.log(r)
-    await redis.hmset(hash, r)
+    const forecast = {
+      temperature, // temperature
+      weatherMain, // main
+      description, // description
+      icon, // icon
+      longitude, // longitude
+      latitude, // latitude
+      sunrise, // sunrise
+      sunset, // sunset
+      dateTime, // date time
+      name, // name
+      id, // id
+      weatherId // weather id
+    }
+    const forecastStr = JSON.stringify(forecast)
+    await redis.set(hash, forecastStr)
 
     /*
       There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.
@@ -155,14 +145,14 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     // client.quit()
     res.status(200).json({
       temperature, // number
-      main: weatherMain, // string
+      weatherMain, // string
       description, // string
       icon, // string
-      longitude: lon, // number
-      latitude: lat, // number
+      longitude, // number
+      latitude, // number
       sunrise, // number
       sunset, // number
-      dateTime: dt, // number
+      dateTime, // number
       name, // string
       id, // number
       weatherId // number
