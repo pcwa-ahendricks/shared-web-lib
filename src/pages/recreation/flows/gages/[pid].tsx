@@ -44,9 +44,7 @@ import {useInterval} from 'react-use'
 const isDev = process.env.NODE_ENV === 'development'
 export const spacesRe = /(\s|%20)+/g
 
-export const piApiUrl = isDev
-  ? 'http://localhost:3001'
-  : 'https://flow.pcwa.net'
+export const piApiUrl = 'https://flow.pcwa.net'
 
 type Props = {
   pid?: string
@@ -375,7 +373,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     }/${activeGageItem?.id}`
     const fetchOptions = {
       headers: {
-        Referer: isDev ? 'http://localhost:3000' : 'https://www.pcwa.net'
+        Referer: isDev
+          ? 'https://neu-web-git-develop-pcwa.vercel.app'
+          : 'https://www.pcwa.net'
       }
     }
 

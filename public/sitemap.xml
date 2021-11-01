@@ -464,6 +464,14 @@
     <changefreq>never</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/10-5-2021</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/10-27-2021</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/09-23-2021</loc>
     <changefreq>never</changefreq>
   </url>
@@ -2801,6 +2809,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/01-03-2003</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2021-11-02-PCWA-City-of-Roseville-Water-Committee-Agenda</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
