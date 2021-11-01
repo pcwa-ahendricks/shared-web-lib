@@ -123,18 +123,18 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const {temp: temperature} = main
     const {sunrise, sunset} = sys
     const r = [
-      temperature.toString() || '', // temperature
-      weatherMain || '', // main
-      description || '', // description
-      icon || '', // icon
-      lon.toString() || '', // longitude
-      lat.toString() || '', // latitude
-      sunrise.toString() || '', // sunrise
-      sunset.toString() || '', // sunset
-      dt.toString() || '', // date time
-      name || '', // name
-      id.toString() || '', // id
-      weatherId.toString() || '' // weather id
+      temperature.toString() || 'nodata', // temperature
+      weatherMain || 'nodata', // main
+      description || 'nodata', // description
+      icon || 'nodata', // icon
+      lon.toString() || 'nodata', // longitude
+      lat.toString() || 'nodata', // latitude
+      sunrise.toString() || 'nodata', // sunrise
+      sunset.toString() || 'nodata', // sunset
+      dt.toString() || 'nodata', // date time
+      name || 'nodata', // name
+      id.toString() || 'nodata', // id
+      weatherId.toString() || 'nodata' // weather id
     ]
     isDev && console.log(r)
     await redis.hmset(hash, r)
