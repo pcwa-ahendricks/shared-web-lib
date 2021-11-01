@@ -1,12 +1,13 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid upstash
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
-import upstash from '@upstash/redis'
-// const isDev = process.env.NODE_ENV === 'development'
-const redis = upstash(
-  process.env.NODE_UPSTASH_REST_API_DOMAIN,
-  process.env.NODE_UPSTASH_REST_API_TOKEN
-)
+const isDev = process.env.NODE_ENV === 'development'
+
+const upstashRestUrl = process.env.NODE_UPSTASH_REST_API_DOMAIN
+// Use Upstash Edge for get request
+const upstashEdgeUrl = process.env.NODE_UPSTASH_EDGE_API_DOMAIN
+const upstashApiToken = process.env.NODE_UPSTASH_REST_API_TOKEN
+const fiveMin = 60 * 5 // five minutes
 
 const OPENWEATHERMAP_API_KEY = process.env.NODE_OPENWEATHERMAP_API_KEY || ''
 
@@ -23,7 +24,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET')
     const {lat: latParam, lng: lngParam} = req.query
     if (!latParam || !lngParam) {
-      // client.quit()
       res.status(204).end()
       return
     }
@@ -38,7 +38,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       !ACCEPT_LATITUDES.includes(latParamInt) ||
       !ACCEPT_LONGITUDES.includes(lngParamInt)
     ) {
-      // client.quit()
       res.status(406).end()
       return
     }
@@ -55,12 +54,36 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
     const hash = `openweathermap-${latLngStr}`
-    const {data: cacheStr} = await redis.get(hash)
-    // console.log('cacheStr: ', cacheStr)
+    // const {data: cacheStr} = await redis.get(hash)
+    const upstashRes = await fetch(`${upstashEdgeUrl}/get/${hash}`, {
+      headers: {
+        Authorization: `Bearer ${upstashApiToken}`,
+        'Cache-Control': `max-age=${fiveMin.toString()}`
+      }
+    })
+    if (!upstashRes.ok) {
+      res.status(500).end()
+      return
+    }
+    if (isDev) {
+      // console.log('headers: ', upstashRes?.headers)
+      const xCacheHeader = upstashRes.headers.get('x-cache') || ''
+      const ageHeader = upstashRes.headers.get('age') || ''
+      const hitEdgeCache = xCacheHeader.toLowerCase().indexOf('hit') >= 0
+      hitEdgeCache &&
+        console.log(
+          `/api/forecast - retrieving forecast from edge for hash: "${hash}" [age, ${ageHeader}/${fiveMin.toString()}]`
+        )
+    }
+
+    const upstashData = await upstashRes.json()
+    const {result} = upstashData
+    // console.log('hash: ', hash)
+    // console.log('result: ', result)
     // console.log('error: ', error)
 
-    if (cacheStr) {
-      const cache = JSON.parse(cacheStr)
+    if (result) {
+      const cache = JSON.parse(result)
       const {
         temperature,
         longitude,
@@ -77,8 +100,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       } = cache
       // isDev && console.log('Using cache object: ', cache)
 
-      // Convert Redis strings to numbers
-      // client.quit()
       res.status(200).json({
         temperature, // number
         weatherMain, // string
@@ -99,7 +120,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const response = await fetch(apiUrl)
     if (!response.ok) {
-      // client.quit()
       res.status(400).end()
       return
     }
@@ -126,7 +146,22 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       weatherId // weather id
     }
     const forecastStr = JSON.stringify(forecast)
-    await redis.set(hash, forecastStr)
+    // Pass Redis options via url params. See https://redis.io/commands/set and https://docs.upstash.com/features/restapi#json-or-binary-value.
+    const params = stringify({EX: fiveMin}, true)
+    const upstashSetRes = await fetch(
+      `${upstashRestUrl}/set/${hash}${params}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${upstashApiToken}`
+        },
+        body: forecastStr
+      }
+    )
+    if (!upstashSetRes.ok) {
+      res.status(500).end()
+      return
+    }
 
     /*
       There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.
@@ -136,12 +171,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       1,440 / 200 = 7.2 minutes apart
       60 * 7.2 = 432 seconds
     */
-    // await redis.expire(hash, 60 * 7 + 12) // 7 minutes, 12 seconds
-    // await redis.expire(hash, 60 * 1) // 5 minutes
-    await redis.expire(hash, 60 * 5) // 5 minutes
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
-    // client.quit()
     res.status(200).json({
       temperature, // number
       weatherMain, // string
@@ -158,7 +189,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     })
   } catch (error) {
     console.log(error)
-    // client.quit()
     res.status(500).end()
   }
 }
