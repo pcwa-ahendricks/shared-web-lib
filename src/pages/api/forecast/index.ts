@@ -66,6 +66,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       res.status(500).end()
       return
     }
+
+    const upstashEdgeData = await upstashRes.json()
+    const {result: edgeResult} = upstashEdgeData
     if (isDev) {
       // console.log('headers: ', upstashRes?.headers)
       const xCacheHeader = upstashRes.headers.get('x-cache') || ''
@@ -73,13 +76,20 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       const hitEdgeCache = xCacheHeader.toLowerCase().indexOf('hit') >= 0
       // default expire is 30 seconds with edge caching
       hitEdgeCache &&
+        edgeResult &&
         console.log(
-          `/api/forecast - hit Upstash edge api for hash: "${hash}" [age, ${ageHeader}/${30}]`
+          `/api/forecast - hit good Upstash edge api for hash: "${hash}" [age, ${ageHeader}/${30}]`
         )
+      hitEdgeCache &&
+        !edgeResult &&
+        console.log(
+          `/api/forecast - hit empty Upstash edge api for hash: "${hash}" [age, ${ageHeader}/${30}]. Will fallback to UpStash rest api.`
+        )
+      !hitEdgeCache &&
+        edgeResult &&
+        console.log(`/api/forecast - miss Upstash edge api for hash: "${hash}"`)
     }
 
-    const upstashEdgeData = await upstashRes.json()
-    const {result: edgeResult} = upstashEdgeData
     // console.log('hash: ', hash)
     // console.log('result: ', result)
     // console.log('error: ', error)
@@ -98,11 +108,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       restResult = upstashRestData?.result
     }
 
-    isDev &&
-      edgeResult &&
-      console.log(
-        `/api/forecast - retrieved forecast from UpStash edge api (hit or miss)`
-      )
     isDev &&
       !edgeResult &&
       restResult &&
