@@ -1,11 +1,11 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid upstash
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
+import {get} from '@lib/api/upstash'
+
 const isDev = process.env.NODE_ENV === 'development'
 
 const upstashRestUrl = process.env.NODE_UPSTASH_REST_API_DOMAIN
-// Use Upstash Edge for get request
-const upstashEdgeUrl = process.env.NODE_UPSTASH_EDGE_API_DOMAIN
 const upstashApiToken = process.env.NODE_UPSTASH_REST_API_TOKEN
 // Since there is no clever way to expire the edge cache, the interval between a stale forecast and the current will likely be higher than this number.
 const threeMinInSec = 60 * 3 // three minutes
@@ -54,69 +54,16 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     )
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
-    const hash = `openweathermap-${latLngStr}`
-    // const {data: cacheStr} = await redis.get(hash)
-    const upstashRes = await fetch(`${upstashEdgeUrl}/get/${hash}`, {
-      headers: {
-        Authorization: `Bearer ${upstashApiToken}`
-        // 'Cache-Control': `max-age=${threeMinInSec.toString()}`
-      }
-    })
-    if (!upstashRes.ok) {
-      res.status(500).end()
-      return
-    }
-
-    const upstashEdgeData = await upstashRes.json()
-    const {result: edgeResult} = upstashEdgeData
-    if (isDev) {
-      // console.log('headers: ', upstashRes?.headers)
-      const xCacheHeader = upstashRes.headers.get('x-cache') || ''
-      const ageHeader = upstashRes.headers.get('age') || ''
-      const hitEdgeCache = xCacheHeader.toLowerCase().indexOf('hit') >= 0
-      // default expire is 30 seconds with edge caching
-      hitEdgeCache &&
-        edgeResult &&
-        console.log(
-          `/api/forecast - hit good Upstash edge api for hash: "${hash}" [age, ${ageHeader}/${30}]`
-        )
-      hitEdgeCache &&
-        !edgeResult &&
-        console.log(
-          `/api/forecast - hit empty Upstash edge api for hash: "${hash}" [age, ${ageHeader}/${30}]. Will fallback to UpStash rest api.`
-        )
-      !hitEdgeCache &&
-        edgeResult &&
-        console.log(`/api/forecast - miss Upstash edge api for hash: "${hash}"`)
-    }
+    const hash = `openweathermap-${latLngStr}${isDev ? '-dev' : ''}`
+    const upstashData = await get(hash, {edge: true, fbOnEmptyEdge: true})
+    const result = typeof upstashData === 'object' ? upstashData.result : ''
 
     // console.log('hash: ', hash)
-    // console.log('result: ', result)
+    // console.log('result: ', JSON.stringify(result, null, 2))
     // console.log('error: ', error)
-    let restResult = ''
-    if (!edgeResult) {
-      const upstashRestRes = await fetch(`${upstashRestUrl}/get/${hash}`, {
-        headers: {
-          Authorization: `Bearer ${upstashApiToken}`
-        }
-      })
-      if (!upstashRestRes.ok) {
-        res.status(500).end()
-        return
-      }
-      const upstashRestData = await upstashRestRes.json()
-      restResult = upstashRestData?.result
-    }
 
-    isDev &&
-      !edgeResult &&
-      restResult &&
-      console.log(
-        `/api/forecast - retrieved forecast from UpStash rest api cause edge result was empty`
-      )
-
-    if (edgeResult || restResult) {
-      const cache = JSON.parse(edgeResult || restResult)
+    if (result && typeof result === 'string') {
+      const cache = JSON.parse(result)
       const {
         temperature,
         longitude,
