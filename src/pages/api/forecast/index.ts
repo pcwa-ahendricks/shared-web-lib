@@ -58,8 +58,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     // const {data: cacheStr} = await redis.get(hash)
     const upstashRes = await fetch(`${upstashEdgeUrl}/get/${hash}`, {
       headers: {
-        Authorization: `Bearer ${upstashApiToken}`,
-        'Cache-Control': `max-age=${threeMinInSec.toString()}`
+        Authorization: `Bearer ${upstashApiToken}`
+        // 'Cache-Control': `max-age=${threeMinInSec.toString()}`
       }
     })
     if (!upstashRes.ok) {
@@ -71,20 +71,45 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       const xCacheHeader = upstashRes.headers.get('x-cache') || ''
       const ageHeader = upstashRes.headers.get('age') || ''
       const hitEdgeCache = xCacheHeader.toLowerCase().indexOf('hit') >= 0
+      // default expire is 30 seconds with edge caching
       hitEdgeCache &&
         console.log(
-          `/api/forecast - retrieving forecast from edge for hash: "${hash}" [age, ${ageHeader}/${threeMinInSec.toString()}]`
+          `/api/forecast - retrieving forecast from edge for hash: "${hash}" [age, ${ageHeader}/${30}]`
         )
     }
 
-    const upstashData = await upstashRes.json()
-    const {result} = upstashData
+    const upstashEdgeData = await upstashRes.json()
+    const {result: edgeResult} = upstashEdgeData
     // console.log('hash: ', hash)
     // console.log('result: ', result)
     // console.log('error: ', error)
+    let restResult = ''
+    if (!edgeResult) {
+      const upstashRestRes = await fetch(`${upstashRestUrl}/get/${hash}`, {
+        headers: {
+          Authorization: `Bearer ${upstashApiToken}`
+        }
+      })
+      if (!upstashRestRes.ok) {
+        res.status(500).end()
+        return
+      }
+      const upstashRestData = await upstashRestRes.json()
+      restResult = upstashRestData?.result
+    }
 
-    if (result) {
-      const cache = JSON.parse(result)
+    isDev &&
+      edgeResult &&
+      console.log(`/api/forecast - retrieved forecast from UpStash edge`)
+    isDev &&
+      !edgeResult &&
+      restResult &&
+      console.log(
+        `/api/forecast - retrieved forecast from UpStash rest api cause edge result was empty`
+      )
+
+    if (edgeResult || restResult) {
+      const cache = JSON.parse(edgeResult || restResult)
       const {
         temperature,
         longitude,
@@ -117,7 +142,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       })
       return
     }
-    // isDev && console.log('returning fresh weather')
 
     const response = await fetch(apiUrl)
     if (!response.ok) {
@@ -125,6 +149,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       return
     }
     const data: OpenWeatherMapResponse = await response.json()
+    isDev && console.log(`/api/forecast - retrieved forecast from OpenWeather`)
 
     const {coord, weather, main, dt: dateTime, sys, name, id} = data
     const {lat: latitude, lon: longitude} = coord
