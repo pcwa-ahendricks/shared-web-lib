@@ -94,7 +94,8 @@ export default function WaterYearDashboardPage() {
   )
 
   const {data: countyResponse} = useSWR<CountyMetaResponse>('/api/acis/county')
-  const [waterYear, setWaterYear] = useState(getWaterYear(new Date()))
+  const currentWaterYear = useMemo(() => getWaterYear(new Date()), [])
+  const [waterYear, setWaterYear] = useState(currentWaterYear)
   const [sid, setSid] = useState<StationId>('040897 2')
 
   const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
@@ -614,7 +615,7 @@ export default function WaterYearDashboardPage() {
                   {wtrYrMenuItems.map((y) => (
                     <MenuItem key={y} value={y}>
                       {`${y - 1}-${y}`}
-                      {waterYear === y ? (
+                      {currentWaterYear === y ? (
                         <em style={{letterSpacing: 0.5, paddingLeft: 4}}>
                           (current)
                         </em>
