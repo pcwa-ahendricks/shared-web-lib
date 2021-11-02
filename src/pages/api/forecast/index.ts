@@ -7,7 +7,8 @@ const upstashRestUrl = process.env.NODE_UPSTASH_REST_API_DOMAIN
 // Use Upstash Edge for get request
 const upstashEdgeUrl = process.env.NODE_UPSTASH_EDGE_API_DOMAIN
 const upstashApiToken = process.env.NODE_UPSTASH_REST_API_TOKEN
-const fiveMin = 60 * 5 // five minutes
+// Since there is no clever way to expire the edge cache, the interval between a stale forecast and the current will likely be higher than this number.
+const threeMinInSec = 60 * 3 // three minutes
 
 const OPENWEATHERMAP_API_KEY = process.env.NODE_OPENWEATHERMAP_API_KEY || ''
 
@@ -58,7 +59,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const upstashRes = await fetch(`${upstashEdgeUrl}/get/${hash}`, {
       headers: {
         Authorization: `Bearer ${upstashApiToken}`,
-        'Cache-Control': `max-age=${fiveMin.toString()}`
+        'Cache-Control': `max-age=${threeMinInSec.toString()}`
       }
     })
     if (!upstashRes.ok) {
@@ -72,7 +73,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       const hitEdgeCache = xCacheHeader.toLowerCase().indexOf('hit') >= 0
       hitEdgeCache &&
         console.log(
-          `/api/forecast - retrieving forecast from edge for hash: "${hash}" [age, ${ageHeader}/${fiveMin.toString()}]`
+          `/api/forecast - retrieving forecast from edge for hash: "${hash}" [age, ${ageHeader}/${threeMinInSec.toString()}]`
         )
     }
 
@@ -147,7 +148,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
     const forecastStr = JSON.stringify(forecast)
     // Pass Redis options via url params. See https://redis.io/commands/set and https://docs.upstash.com/features/restapi#json-or-binary-value.
-    const params = stringify({EX: fiveMin}, true)
+    const params = stringify({EX: threeMinInSec}, true)
     const upstashSetRes = await fetch(
       `${upstashRestUrl}/set/${hash}${params}`,
       {
