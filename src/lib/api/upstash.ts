@@ -21,7 +21,7 @@ async function upstash({
       })
     : await res.text()
 
-  if (isDev) {
+  if (isDev && (!init.method || init.method.toLowerCase() === 'get')) {
     // console.log('headers: ', res?.headers)
     // console.log('data', data)
     const wasEdgeReq =
@@ -84,7 +84,7 @@ export async function get(
     throw new Error(
       useEdge
         ? 'Missing required Upstash credentials of the Edge API'
-        : 'Missing required Upstash credentials of the REST API'
+        : 'Missing required Upstash credentials of the Rest API'
     )
   }
   const argParams = Array.isArray(args) ? args.join('/') : args
@@ -122,5 +122,32 @@ export async function get(
       })
     }
     return edgeRes
+  })
+}
+
+export async function set(
+  args: number | string | Array<string | number>,
+  value: any,
+  options?: {
+    pipeline?: boolean
+    params?: object
+  }
+) {
+  const baseUrl = process.env.NODE_UPSTASH_REST_API_DOMAIN
+  const token = process.env.NODE_UPSTASH_REST_API_TOKEN
+
+  if (!baseUrl || !token) {
+    throw new Error('Missing required Upstash credentials of the Rest API')
+  }
+  const argParams = Array.isArray(args) ? args.join('/') : args
+  const pipelineParam = options?.pipeline ? '/pipeline' : ''
+  const qs = stringify(options?.params || {}, true)
+  const url = `${baseUrl}/set/${argParams}${pipelineParam}${qs}`
+  const body = typeof value === 'object' ? JSON.stringify(value) : value
+  return upstash({
+    token,
+    url,
+    method: 'POST',
+    body
   })
 }

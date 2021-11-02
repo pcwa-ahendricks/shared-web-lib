@@ -1,12 +1,10 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid upstash
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
-import {get} from '@lib/api/upstash'
+import {get, set} from '@lib/api/upstash'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const upstashRestUrl = process.env.NODE_UPSTASH_REST_API_DOMAIN
-const upstashApiToken = process.env.NODE_UPSTASH_REST_API_TOKEN
 // Since there is no clever way to expire the edge cache, the interval between a stale forecast and the current will likely be higher than this number.
 const threeMinInSec = 60 * 3 // three minutes
 
@@ -125,23 +123,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       id, // id
       weatherId // weather id
     }
-    const forecastStr = JSON.stringify(forecast)
     // Pass Redis options via url params. See https://redis.io/commands/set and https://docs.upstash.com/features/restapi#json-or-binary-value.
-    const params = stringify({EX: threeMinInSec}, true)
-    const upstashSetRes = await fetch(
-      `${upstashRestUrl}/set/${hash}${params}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${upstashApiToken}`
-        },
-        body: forecastStr
-      }
-    )
-    if (!upstashSetRes.ok) {
-      res.status(500).end()
-      return
-    }
+    const params = {EX: threeMinInSec}
+    await set(hash, forecast, {params})
 
     /*
       There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.
