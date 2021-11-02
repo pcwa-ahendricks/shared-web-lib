@@ -5,13 +5,8 @@ import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import jsonStringify from 'fast-json-stable-stringify'
-import upstash from '@upstash/redis'
+import {get, set} from '@lib/api/upstash'
 import pTimeout from 'p-timeout'
-
-const redis = upstash(
-  process.env.NODE_UPSTASH_REST_API_DOMAIN,
-  process.env.NODE_UPSTASH_REST_API_TOKEN
-)
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
@@ -35,9 +30,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = jsonStringify(query) || 'empty-query'
     try {
-      const {data: existingDataStr} = await pTimeout(redis.get(hash), TIMEOUT)
-      if (existingDataStr) {
-        const data = JSON.parse(existingDataStr)
+      const cacheData = await pTimeout(get(hash), TIMEOUT)
+      const result = typeof cacheData === 'object' ? cacheData.result : ''
+      if (result && typeof result === 'string') {
+        const data = JSON.parse(result)
         res.status(200).json(data)
         return
       }
@@ -58,9 +54,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     if (!cosmicId) {
       try {
-        const setDataStr = JSON.stringify(media)
-        await pTimeout(redis.set(hash, setDataStr), TIMEOUT)
-        await pTimeout(redis.expire(hash, 60 * 5), TIMEOUT) // 5 minutes
+        const params = {EX: 60 * 5} // 5 minutes
+        await pTimeout(set(hash, media, {params}), TIMEOUT)
       } catch (error) {
         console.log(error)
       }
@@ -76,9 +71,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     try {
-      const setDataStr = JSON.stringify(filteredMedia)
-      await pTimeout(redis.set(hash, setDataStr), TIMEOUT)
-      await pTimeout(redis.expire(hash, 60 * 5), TIMEOUT) // 5 minutes
+      const params = {EX: 60 * 5} // 5 minutes
+      await pTimeout(set(hash, filteredMedia, {params}), TIMEOUT)
     } catch (error) {
       console.log(error)
     }

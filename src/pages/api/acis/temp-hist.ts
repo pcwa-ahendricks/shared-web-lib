@@ -4,12 +4,7 @@ import {format, isFuture, parse, subDays} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import {ACCEPT_SIDS} from '@lib/api/acis'
 import {dLog, paramToStr, localDate} from '@lib/api/shared'
-import upstash from '@upstash/redis'
-
-const redis = upstash(
-  process.env.NODE_UPSTASH_REST_API_DOMAIN,
-  process.env.NODE_UPSTASH_REST_API_TOKEN
-)
+import {get, set} from '@lib/api/upstash'
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
@@ -77,9 +72,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = `acis-temperature-hist-${sid}-${eDate}`
 
-    const {data: cacheStr} = await redis.get(hash)
-    if (!bust && cacheStr) {
-      const cache = JSON.parse(cacheStr)
+    const cacheData = await get(hash)
+    const result = typeof cacheData === 'object' ? cacheData.result : ''
+    if (!bust && result && typeof result === 'string') {
+      const cache = JSON.parse(result)
       dLog('returning cache copy...')
       res.status(200).json(cache)
       return
@@ -97,10 +93,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const data = await response.json()
-    const dataStr = JSON.stringify(data)
 
-    await redis.set(hash, dataStr)
-    await redis.expire(hash, 60 * 60 * 12) // 12 hours
+    const params = {EX: 60 * 60 * 12} // 12 hours
+    await set(hash, data, {params})
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     dLog('returning fresh copy...')

@@ -74,7 +74,6 @@
     "@nivo/line": "^0.74.0",
     "@nivo/tooltip": "^0.74.0",
     "@react-hook/window-size": "^3.0.7",
-    "@upstash/redis": "^0.1.11",
     "animate.css": "^4.1.1",
     "busboy": "^0.3.1",
     "clsx": "^1.1.1",
