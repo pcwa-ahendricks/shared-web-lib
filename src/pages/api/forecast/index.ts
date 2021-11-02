@@ -74,7 +74,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       // default expire is 30 seconds with edge caching
       hitEdgeCache &&
         console.log(
-          `/api/forecast - retrieving forecast from edge for hash: "${hash}" [age, ${ageHeader}/${30}]`
+          `/api/forecast - hit Upstash edge api for hash: "${hash}" [age, ${ageHeader}/${30}]`
         )
     }
 
@@ -100,7 +100,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     isDev &&
       edgeResult &&
-      console.log(`/api/forecast - retrieved forecast from UpStash edge`)
+      console.log(
+        `/api/forecast - retrieved forecast from UpStash edge api (hit or miss)`
+      )
     isDev &&
       !edgeResult &&
       restResult &&
