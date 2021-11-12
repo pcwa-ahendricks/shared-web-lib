@@ -8,7 +8,8 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden
+  Hidden,
+  rgbToHex
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
@@ -86,6 +87,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Announcing the Water Spots Video Contest banner"
               body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
             />
+
             {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"
@@ -189,7 +191,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           </ChildBox>
 
           <ChildBox flex="50%">
-            <CoverStory
+            {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               title="Dry Year Recommendations"
               readMore="Learn more"
@@ -197,6 +199,21 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
               alt="Water less banner"
               body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to continue using water efficiently."
+            /> */}
+
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              title="We’re Transitioning to Monthly Billing"
+              readMore="Learn more"
+              linkHref="/services/monthly-billing"
+              imgixURL="https://imgix.cosmicjs.com/9fdb87a0-4411-11ec-9580-ebf669758fed-Monthly-Billing-Postcard-Graphic-homepage.png"
+              alt="Monthly Billing Postcard graphic"
+              body="Placer County Water Agency is transitioning treated water customers
+            from bi-monthly to monthly billing in early 2022."
+              imgixParams={{
+                fit: 'fill',
+                bg: rgbToHex(theme.palette.background.default).substr(0, 7) // truncate '01' suffix
+              }}
             />
 
             {/* <CoverStory

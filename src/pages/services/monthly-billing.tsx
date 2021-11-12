@@ -14,8 +14,8 @@ import {
 import Image from 'next/image'
 import Spacing from '@components/boxes/Spacing'
 // import ArrowRightIcon from '@material-ui/icons/ArrowForwardIosOutlined'
-import UntreatedIcon from 'mdi-material-ui/Waves'
-import TreatedIcon from 'mdi-material-ui/CupWater'
+// import UntreatedIcon from 'mdi-material-ui/Waves'
+// import TreatedIcon from 'mdi-material-ui/CupWater'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import MonthlyBillingFaq from '@components/MonthlyBillingFaq/MonthlyBillingFaq'
@@ -30,12 +30,26 @@ export default function MonthlyBillingPage() {
             title="We’re Transitioning to Monthly Billing"
             // subtitle="Services"
           />
-          <Spacing />
+          <Spacing size="large" />
+          <RowBox justifyContent="space-around">
+            <ChildBox flex={{xs: 'auto', sm: '0 1 100%'}}>
+              <Image
+                loader={imgixLoader}
+                width={1920}
+                height={1346}
+                layout="responsive"
+                sizes="(max-width: 700px) 100vw, 700px"
+                src="f43815f0-440e-11ec-9580-ebf669758fed-Monthly-Billing-Postcard-Graphic.png"
+                alt="PCWA is transitioning to monthly billing"
+              />
+            </ChildBox>
+          </RowBox>
+          <Spacing size="large" />
           <Type gutterBottom>
-            Placer County Water Agency is transitioning customers from
-            bi-monthly to monthly billing over the next several months.
+            Placer County Water Agency is transitioning treated water customers
+            from bi-monthly to monthly billing in early 2022.
           </Type>
-          <Spacing />
+          {/* <Spacing />
           <List>
             <ListItem>
               <ListItemIcon>
@@ -52,14 +66,13 @@ export default function MonthlyBillingPage() {
               </ListItemIcon>
               <ListItemText primary="Treated water customers will begin transitioning in 2022." />
             </ListItem>
-          </List>
+          </List> */}
           <Spacing />
           <Type paragraph>
-            Monthly billing is standard for most utilities and businesses, and
-            better aligns with other monthly expenses. In addition, monthly
-            billing provides more timely information about water use and more
-            frequent opportunities to identify and repair household leaks that
-            might otherwise go undetected.
+            Monthly billing is standard for most utilities and businesses. In
+            addition, monthly billing provides more timely information about
+            water use and more frequent opportunities to identify and repair
+            household leaks that might otherwise go undetected.
           </Type>
           <Spacing size="large" />
           <Type variant="h3">What You Should Know</Type>
@@ -94,6 +107,12 @@ export default function MonthlyBillingPage() {
               </ListItemIcon>
               <ListItemText primary="During the transition period, some bi-monthly bills may reflect more or fewer than 60 days of service, and some monthly bills may reflect more or fewer than 30 days of service." />
             </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <BulletIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sign up for paperless billing. See e-bill page to sign up today." />
+            </ListItem>
           </List>
           <Spacing />
           <Type>
@@ -102,20 +121,7 @@ export default function MonthlyBillingPage() {
             Billing FAQ’s below or email our Customer Services team at{' '}
             <CustomerServicesEmail />
           </Type>
-          <Spacing size="large" />
-          <RowBox justifyContent="space-around">
-            <ChildBox flex={{xs: 'auto', sm: '0 1 90%'}}>
-              <Image
-                loader={imgixLoader}
-                width={2100}
-                height={1500}
-                layout="responsive"
-                sizes="(max-width: 700px) 100vw, 700px"
-                src="56867e20-d47c-11eb-bfc5-2fdb31ae3481-PCWAMonthlyBillingWebImage-2022.jpg"
-                alt="PCWA is transitioning to monthly billing"
-              />
-            </ChildBox>
-          </RowBox>
+
           <Spacing size="large" factor={2} />
           <Type variant="h3" gutterBottom>
             Frequently Asked Questions
