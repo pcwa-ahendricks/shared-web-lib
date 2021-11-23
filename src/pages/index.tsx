@@ -23,6 +23,7 @@ import fetcher from '@lib/fetcher'
 import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
+import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobileBar'
 // import Whammy from '@components/Whammy/Whammy'
 
 type Props = {
@@ -71,8 +72,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       </Hidden> */}
       <Hidden only="xs" implementation="css">
         <QuickLinksBar />
+        <Spacing />
       </Hidden>
-      <Spacing size="large" />
+      <Hidden smUp implementation="css">
+        <QuickLinksMobileBar />
+        <Spacing size="small" />
+      </Hidden>
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
           <ChildBox flex="50%">
