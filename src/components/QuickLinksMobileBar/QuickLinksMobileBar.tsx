@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, makeStyles} from '@material-ui/core'
+import {Box, makeStyles, Typography} from '@material-ui/core'
 import {ColumnBox, RowBox} from 'mui-sleazebox'
 import FlexButton from '@components/FlexButton/FlexButton'
 
@@ -13,7 +13,6 @@ export default function QuickLinksMobileBar() {
   const classes = useStyles()
   return (
     <Box mx={4}>
-      {/* <Paper elevation={4}> */}
       <RowBox flexSpacing={4}>
         <ColumnBox
           child
@@ -31,7 +30,9 @@ export default function QuickLinksMobileBar() {
             isNextLink
             className={classes.button}
           >
-            Board Meetings
+            <Typography noWrap variant="inherit">
+              Board Meetings
+            </Typography>
           </FlexButton>
           <FlexButton
             href="https://careers.pcwa.net/"
@@ -82,7 +83,9 @@ export default function QuickLinksMobileBar() {
             isNextLink={false}
             className={classes.button}
           >
-            Pay My Bill
+            <Typography noWrap variant="inherit">
+              Pay My Bill
+            </Typography>
           </FlexButton>
           <FlexButton
             href="/smart-water-use/rebate-programs"
@@ -105,7 +108,6 @@ export default function QuickLinksMobileBar() {
         /> */}
         </ColumnBox>
       </RowBox>
-      {/* </Paper> */}
     </Box>
   )
 }
