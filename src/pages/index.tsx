@@ -82,7 +82,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title="We’re Transitioning to Monthly Billing"
               readMore="Learn more"
               linkHref="/services/monthly-billing"
-              imgixURL="https://imgix.cosmicjs.com/9fdb87a0-4411-11ec-9580-ebf669758fed-Monthly-Billing-Postcard-Graphic-homepage.png"
+              imgixURL="https://imgix.cosmicjs.com/7f5241d0-53c6-11ec-9aff-3d50541531a0-Monthly-Billing-Homepage.png"
               alt="Monthly Billing Postcard graphic"
               body="Placer County Water Agency is transitioning treated water customers
             from bi-monthly to monthly billing in early 2022."

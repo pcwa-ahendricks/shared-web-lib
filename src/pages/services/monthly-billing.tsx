@@ -36,10 +36,10 @@ export default function MonthlyBillingPage() {
               <Image
                 loader={imgixLoader}
                 width={1920}
-                height={1346}
+                height={1095}
                 layout="responsive"
                 sizes="(max-width: 700px) 100vw, 700px"
-                src="f43815f0-440e-11ec-9580-ebf669758fed-Monthly-Billing-Postcard-Graphic.png"
+                src="7f504600-53c6-11ec-9aff-3d50541531a0-Monthly-Billing-Postcard.png"
                 alt="PCWA is transitioning to monthly billing"
               />
             </ChildBox>
@@ -107,12 +107,12 @@ export default function MonthlyBillingPage() {
               </ListItemIcon>
               <ListItemText primary="During the transition period, some bi-monthly bills may reflect more or fewer than 60 days of service, and some monthly bills may reflect more or fewer than 30 days of service." />
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <ListItemIcon>
                 <BulletIcon />
               </ListItemIcon>
               <ListItemText primary="Sign up for paperless billing. See e-bill page to sign up today." />
-            </ListItem>
+            </ListItem> */}
           </List>
           <Spacing />
           <Type>
