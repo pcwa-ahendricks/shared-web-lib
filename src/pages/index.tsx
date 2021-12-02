@@ -8,7 +8,8 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden
+  Hidden,
+  rgbToHex
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
@@ -83,15 +84,21 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               imageRatio={coverStoryImageRatio}
-              title="Announcing the Water Spots Video Contest"
-              readMore="Find out more"
-              linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
-              flexLinkProps={{isNextLink: false}}
-              imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
-              alt="Announcing the Water Spots Video Contest banner"
-              body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
+              title="We’re Transitioning to Monthly Billing"
+              readMore="Learn more"
+              linkHref="/services/monthly-billing"
+              imgixURL="https://imgix.cosmicjs.com/7f5241d0-53c6-11ec-9aff-3d50541531a0-Monthly-Billing-Homepage.png"
+              alt="Monthly Billing Postcard graphic"
+              body="Placer County Water Agency is transitioning treated water customers
+            from bi-monthly to monthly billing in early 2022."
+              imgixParams={{
+                fit: 'fill',
+                bg: rgbToHex(theme.palette.background.default).substr(0, 7) // truncate '01' suffix
+              }}
             />
-            {/* <CoverStory
+          </ChildBox>
+
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"
               readMore="Watch now"
@@ -101,7 +108,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping, hosted on August 25, 2021."
             /> */}
 
-            {/* <CoverStory
+          {/* <CoverStory
               title="Water-wise House and Business Calls"
               readMore="More Information..."
               linkHref="/smart-water-use/house-calls"
@@ -117,7 +124,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 about rebates available from PCWA? Set up your complimentary
                 Water Wise House Call or Business Call today!"
             /> */}
-            {/* <CoverStory
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Drought-Proofing PCWA’s Water Supply"
@@ -136,7 +143,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Placer County is home to some of the highest-quality water in the world. Though our water supply here is more reliable than many other California communities, droughts are predicted to become more severe and demands will intensify. PCWA has invested in our water system to increase our ability to pump, treat, store and move water when and where needed. Watch this video to learn more."
             /> */}
-            {/* <CoverStory
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Fire & Water, 2020 Edition"
@@ -154,7 +161,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Fire & Water is a special publication sponsored by PCWA to provide timely information to residents about vital fire and water issues. Read the 2020 edition with contributions from Cal Fire, Placer County, Tahoe National Forest, and more.  "
             /> */}
-            {/* <CoverStory
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Water-Wise Home"
@@ -171,7 +178,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="Each drop of water drawn from our local lakes, rivers and streams is precious. Here are some ways to both upgrade your lifestyle with high-efficiency products and fixtures while making efficiency a way of life."
             /> */}
 
-            {/* <Whammy>
+          {/* <Whammy>
               <CoverStory
                 // aria-label="Link to Monthly Billing FAQs page"
                 // imageRatio={coverStoryImageRatio}
@@ -191,7 +198,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               />
             </Whammy>
               */}
-          </ChildBox>
 
           <ChildBox flex="50%">
             <CoverStory
@@ -203,8 +209,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Water less banner"
               body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to continue using water efficiently."
             />
+          </ChildBox>
 
-            {/* <CoverStory
+          {/* <ChildBox flex="50%">
+            <CoverStory
               aria-label="Link to Water Year Dashboard page"
               imageRatio={coverStoryImageRatio}
               title="Water Year Dashboard"
@@ -225,9 +233,25 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   precipitation, snowpack, and climate.
                 </Type>
               }
-            /> */}
+            />
+          </ChildBox> */}
+        </RowBox>
 
-            {/* <CoverStory
+        <RowBox responsive flexSpacing={4} mt={4} justifyContent="space-around">
+          <ChildBox flex="0 1 50%">
+            <CoverStory
+              imageRatio={coverStoryImageRatio}
+              title="Announcing the Water Spots Video Contest"
+              readMore="Find out more"
+              linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
+              flexLinkProps={{isNextLink: false}}
+              imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
+              alt="Announcing the Water Spots Video Contest banner"
+              body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
+            />
+          </ChildBox>
+
+          {/* <CoverStory
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."
               linkHref="/newsroom/success-in-the-sierra"
@@ -243,7 +267,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               management on public land."
             /> */}
 
-            {/* <CoverStory
+          {/* <CoverStory
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
               linkHref="/newsroom/news-releases/[release-date]"
@@ -259,8 +283,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               Valley Project (CVP) water to PCWA, runs in perpetuity."
             /> */}
 
-            {/* 2020 Water Spots */}
-            {/* <CoverStory
+          {/* 2020 Water Spots */}
+          {/* <CoverStory
               title="2020 Water Spots Video Contest Winners Announced"
               readMore="Read more…!"
               linkHref="/newsroom/water-spots-2020"
@@ -276,7 +300,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               winners are from PCWA’s service area!"
             /> */}
 
-            {/* <CoverStory
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="2020 Year End Report"
@@ -296,7 +320,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="2020 was certainly a challenging year, but that didn’t get keep PCWA from continuing to deliver high-quality water and protect our customer’s investments. Take a look at our newly released 2020 year-end report."
             /> */}
 
-            {/* <CoverStory
+          {/* <CoverStory
               aria-label="Link to Monthly Billing FAQs page"
               imageRatio={coverStoryImageRatio}
               title="We’re Transitioning to Monthly Billing"
@@ -313,7 +337,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in 2022."
             /> */}
 
-            {/* <CoverStory
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Special Notice for Businesses Regarding Re-opening"
@@ -330,7 +354,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               and safety of the occupants of your buildings."
             /> */}
 
-            {/* <CoverStory
+          {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Is it time to spruce up your sprinkler system?"
@@ -348,7 +372,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="PCWA has rebates available to help with the cost of high-efficiency rotator sprinklers, drip irrigation, and weather-based sprinkler timers. Apply today online."
             /> */}
-          </ChildBox>
         </RowBox>
 
         <Spacing size="large">
