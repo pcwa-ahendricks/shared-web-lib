@@ -781,10 +781,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.0.0.tgz#067a6c49dc7a5c2412a505628e26902ae967bf6f"
   integrity sha512-TmCW5HoZ2o2/z2EYi109jLqIaPIi9y/lc2LmDCWzuCi35bcaQ+OtUh6nwBiFK7SOu25FAU5+YKdqFZUwtqGSdg==
 
-"@types/node@^16.11.9":
-  version "16.11.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.9.tgz#879be3ad7af29f4c1a5c433421bf99fab7047185"
-  integrity sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==
+"@types/node@^16.11.11":
+  version "16.11.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
+  integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -883,10 +883,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@17.0.36":
-  version "17.0.36"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.36.tgz#0d81e0e2419e6a8e9ba6af5e3a0608e70835d7d1"
-  integrity sha512-CUFUp01OdfbpN/76v4koqgcpcRGT3sYOq3U3N6q0ZVGcyeP40NUdVU+EWe3hs34RNaTefiYyBzOpxBBidCc5zw==
+"@types/react@17.0.37":
+  version "17.0.37"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.37.tgz#6884d0aa402605935c397ae689deed115caad959"
+  integrity sha512-2FS1oTqBGcH/s0E+CjrCCR9+JMpsu9b69RTFO+40ua43ZqP5MmQ4iUde/dMjWR909KxZwmOQIFq6AV6NjEG5xg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2247,10 +2247,10 @@ date-fns-tz@^1.1.6:
   resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.1.6.tgz#93cbf354e2aeb2cd312ffa32e462c1943cf20a8e"
   integrity sha512-nyy+URfFI3KUY7udEJozcoftju+KduaqkVfwyTIE0traBiVye09QnyWKLZK7drRr5h9B7sPJITmQnS3U6YOdQg==
 
-date-fns@^2.26.0:
-  version "2.26.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.26.0.tgz#fa45305543c392c4f914e50775fd2a4461e60fbd"
-  integrity sha512-VQI812dRi3cusdY/fhoBKvc6l2W8BPWU1FNVnFH9Nttjx4AFBRzfSVb/Eyc7jBT6e9sg1XtAGsYpBQ6c/jygbg==
+date-fns@^2.27.0:
+  version "2.27.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.27.0.tgz#e1ff3c3ddbbab8a2eaadbb6106be2929a5a2d92b"
+  integrity sha512-sj+J0Mo2p2X1e306MHq282WS4/A8Pz/95GIFcsPNMPMZVI3EUrAdSv90al1k+p74WGLCruMXk23bfEDZa71X9Q==
 
 date-time@^3.1.0:
   version "3.1.0"
@@ -2369,11 +2369,6 @@ depd@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
-
-dequal@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
-  integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
 
 des.js@^1.0.0:
   version "1.0.1"
@@ -4460,11 +4455,6 @@ mime-types@^2.1.12, mime-types@~2.1.19:
   dependencies:
     mime-db "1.48.0"
 
-mime@^2.4.5:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-2.5.2.tgz#6e3dc6cc2b9510643830e5f19d5cb753da5eeabe"
-  integrity sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==
-
 mimic-fn@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
@@ -5140,10 +5130,10 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
-  integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
+prettier@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.0.tgz#a6370e2d4594e093270419d9cc47f7670488f893"
+  integrity sha512-FM/zAKgWTxj40rH03VxzIPdXmj39SwSjwG0heUcNFwI+EMZJnY93yAiKXM3dObIKAM5TA88werc8T/EwhB45eg==
 
 pretty-bytes@^5.3.0:
   version "5.6.0"
@@ -6444,12 +6434,10 @@ supports-color@^8.0.0:
   dependencies:
     has-flag "^4.0.0"
 
-swr@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-1.0.1.tgz#15f62846b87ee000e52fa07812bb65eb62d79483"
-  integrity sha512-EPQAxSjoD4IaM49rpRHK0q+/NzcwoT8c0/Ylu/u3/6mFj/CWnQVjNJ0MV2Iuw/U+EJSd2TX5czdAwKPYZIG0YA==
-  dependencies:
-    dequal "2.0.2"
+swr@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.1.0.tgz#7710cdbc5ff664c13e41fba6a1fa4734f82aba35"
+  integrity sha512-MFL3mkl752Uap81nLA1tEu7vQmikPamSziW+6dBidYKAo4oLOlUx/x5GZy4ZCkCwfZe2uedylkz1UMGnatUX4g==
 
 symbol-observable@1.2.0, symbol-observable@^1.0.4:
   version "1.2.0"
