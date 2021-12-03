@@ -269,7 +269,7 @@ const MonthlyBillingFaq = () => {
             <Type variant="body2" paragraph>
               PCWA is posting information on our website and social media, and
               reaching out to customers via newsletter, e-mail, bill messages,
-              and postcards to our canal water customers.
+              and postcards.
             </Type>
           </ColumnBox>
         </AccordionDetails>
