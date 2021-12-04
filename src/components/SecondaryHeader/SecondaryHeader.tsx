@@ -19,7 +19,7 @@ import SearchInput from '@components/search/SearchInput/SearchInput'
 import GlowButton from '@components/GlowButton/GlowButton'
 // import NextGlowButton from '@components/NextGlowButton/NextGlowButton'
 // import dynamic from 'next/dynamic'
-import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
+// import ForecastContainer from '@components/ForecastContainer/ForecastContainer'
 import {
   setEnewsDialogOpen,
   NewsroomContext
