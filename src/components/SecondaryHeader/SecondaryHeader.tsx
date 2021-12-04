@@ -71,7 +71,7 @@ const SecondaryHeader = () => {
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
       {/* Don't use CSS implementation of <Hidden/> cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
-      <ForecastContainer width={155} overflow="hidden" />
+      {/* ForecastContainer width={155} overflow="hidden" /> */}
       {/* <NextGlowButton
         size="small"
         aria-label="Link"
