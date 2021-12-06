@@ -113,7 +113,7 @@ export default function DroughtPage() {
                     <Image
                       role="link"
                       tabIndex={0}
-                      src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                      src="e8094190-52e2-11ec-9aff-3d50541531a0-your-yard-needs-less-water.jpg"
                       alt="Drought is back, water your trees, stress your lawn"
                       loader={imgixLoader}
                       layout="responsive"
