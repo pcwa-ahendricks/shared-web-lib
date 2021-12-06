@@ -122,15 +122,15 @@ export default function TreesPage() {
             </ChildBox>
             <ChildBox order={{xs: 1, sm: 2}} flex="45%" mx="auto" width="100%">
               <Image
-                src="e8094190-52e2-11ec-9aff-3d50541531a0-your-yard-needs-less-water.jpg"
+                src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
                 alt="Drought is back, water your trees, stress your lawn"
                 loader={imgixLoader}
                 layout="responsive"
                 sizes="(max-width: 600px) 60vw, 40vw"
-                /* width={960}
-                height={960} */
-                width={300}
-                height={250}
+                width={960}
+                height={960}
+                /* width={300}
+                height={250} */
               />
             </ChildBox>
           </RowBox>

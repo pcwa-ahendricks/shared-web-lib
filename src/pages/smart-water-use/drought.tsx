@@ -99,7 +99,22 @@ export default function DroughtPage() {
             </ChildBox>
             <ChildBox flex="1 1 40%">
               <Box maxWidth="70vw" margin="auto">
-                {/*            <Image
+                <Box style={{cursor: 'pointer'}}>
+                  <Link href="/smart-water-use/trees" passHref>
+                    <Image
+                      role="link"
+                      tabIndex={0}
+                      src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                      alt="Drought is back, water your trees, stress your lawn"
+                      loader={imgixLoader}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 60vw, 40vw"
+                      width={960}
+                      height={960}
+                      /* width={300}
+                      height={250} */
+                    />
+                    {/*            <Image
                   alt="Was to save water"
                   layout="responsive"
                   width={1920}
@@ -108,21 +123,6 @@ export default function DroughtPage() {
                   // src="6502b1b0-0b74-11ec-93a7-070c59f98950-MulchMayhem21edit.png"
                   src="9817ec90-2d49-11ec-bacc-a907dd10dd58-WayToSaveTV.jpg"
                 /> */}
-                <Box style={{cursor: 'pointer'}}>
-                  <Link href="/smart-water-use/trees" passHref>
-                    <Image
-                      role="link"
-                      tabIndex={0}
-                      src="e8094190-52e2-11ec-9aff-3d50541531a0-your-yard-needs-less-water.jpg"
-                      alt="Drought is back, water your trees, stress your lawn"
-                      loader={imgixLoader}
-                      layout="responsive"
-                      sizes="(max-width: 600px) 60vw, 40vw"
-                      /*          width={960}
-                      height={960} */
-                      width={300}
-                      height={250}
-                    />
                   </Link>
 
                   <Box maxWidth="80%" textAlign="center" m="auto">
