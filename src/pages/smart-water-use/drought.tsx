@@ -25,6 +25,7 @@ import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
 import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader from '@lib/imageLoader'
+import Link from 'next/link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,19 +70,19 @@ export default function DroughtPage() {
         <WideContainer>
           <PageTitle title="Drought is Here" />
           <Spacing size="large" />
-          <RowBox responsive="sm" flexSpacing={6}>
-            <ChildBox flex="60%">
+          <RowBox responsive="sm" flexSpacing={8}>
+            <ChildBox flex="65%">
               <Type variant="h3" color="primary" gutterBottom>
                 2021 is a critically dry year. What can customers do to save
                 water?
               </Type>
               <Type paragraph>
-                On July 8, Governor Newsom called on all Californians to
-                voluntarily reduce water use by 15 percent to respond to the
-                critically dry year we are currently experiencing. PCWA is
-                taking actions to address water supply and environmental
-                concerns and encourages customers to continue using water
-                efficiently.
+                On October 19, 2021, Governor Newsom called on all Californians
+                to redouble efforts to voluntarily reduce water use by 15
+                percent to respond to the critically dry year we are currently
+                experiencing. PCWA is taking actions to address water supply and
+                environmental concerns and encourages customers to continue
+                using water efficiently.
               </Type>
               <Type paragraph>
                 Here are some tips you can follow around your home and business
@@ -98,19 +99,38 @@ export default function DroughtPage() {
             </ChildBox>
             <ChildBox flex="1 1 40%">
               <Box maxWidth="70vw" margin="auto">
-                <Image
-                  alt="Mulch Mayhem Event Details"
+                {/*            <Image
+                  alt="Was to save water"
                   layout="responsive"
                   width={1920}
                   height={1080}
                   loader={imgixLoader}
                   // src="6502b1b0-0b74-11ec-93a7-070c59f98950-MulchMayhem21edit.png"
                   src="9817ec90-2d49-11ec-bacc-a907dd10dd58-WayToSaveTV.jpg"
-                />
+                /> */}
+                <Box style={{cursor: 'pointer'}}>
+                  <Link href="/smart-water-use/trees" passHref>
+                    <Image
+                      role="link"
+                      tabIndex={0}
+                      src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                      alt="Drought is back, water your trees, stress your lawn"
+                      loader={imgixLoader}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 60vw, 40vw"
+                      width={960}
+                      height={960}
+                    />
+                  </Link>
+                </Box>
+                <MuiNextLink href="/smart-water-use/trees" variant="caption">
+                  Click image to learn how to help your trees survive the
+                  drought
+                </MuiNextLink>
               </Box>
             </ChildBox>
           </RowBox>
-          <Spacing />
+          <Spacing size="x-large" />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="50.00%">
               <Type variant="h4" color="primary">
@@ -170,7 +190,20 @@ export default function DroughtPage() {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Stress your lawn and save your trees. Reduce each sprinkler cycle by two minutes. By reducing your watering times by two minutes across the board you can achieve an instant savings of 20 percent (for every 10 minutes that your sprinklers are currently scheduled)." />
+                  <ListItemText>
+                    <Type variant="inherit">
+                      Stress your lawn and save your trees. Now’s the time to
+                      turn off sprinklers and let Mother Nature do the watering.
+                      Cooler, shorter, wetter days mean your yard shouldn’t need
+                      extra water. But remember to take special care of your
+                      trees, especially if the weather stays dry for a while.
+                      Follow{' '}
+                      <Link href="/smart-water-use/trees">
+                        this link to learn tree watering tips
+                      </Link>
+                      .
+                    </Type>
+                  </ListItemText>
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>

@@ -202,12 +202,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               imageRatio={coverStoryImageRatio}
-              title="Dry Year Recommendations"
+              title="Drought Recommendations"
               readMore="Learn more"
               linkHref="/smart-water-use/drought"
               imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
               alt="Water less banner"
-              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to continue using water efficiently."
+              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
             />
           </ChildBox>
 
