@@ -127,8 +127,10 @@ export default function TreesPage() {
                 loader={imgixLoader}
                 layout="responsive"
                 sizes="(max-width: 600px) 60vw, 40vw"
-                width={960}
-                height={960}
+                /* width={960}
+                height={960} */
+                width={300}
+                height={250}
               />
             </ChildBox>
           </RowBox>

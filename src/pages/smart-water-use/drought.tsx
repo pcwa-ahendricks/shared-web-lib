@@ -118,15 +118,23 @@ export default function DroughtPage() {
                       loader={imgixLoader}
                       layout="responsive"
                       sizes="(max-width: 600px) 60vw, 40vw"
-                      width={960}
-                      height={960}
+                      /*          width={960}
+                      height={960} */
+                      width={300}
+                      height={250}
                     />
                   </Link>
+
+                  <Box maxWidth="80%" textAlign="center" m="auto">
+                    <MuiNextLink
+                      href="/smart-water-use/trees"
+                      variant="caption"
+                    >
+                      Click image to learn how to help your trees survive the
+                      drought
+                    </MuiNextLink>
+                  </Box>
                 </Box>
-                <MuiNextLink href="/smart-water-use/trees" variant="caption">
-                  Click image to learn how to help your trees survive the
-                  drought
-                </MuiNextLink>
               </Box>
             </ChildBox>
           </RowBox>
