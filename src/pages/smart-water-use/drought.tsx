@@ -140,7 +140,7 @@ export default function DroughtPage() {
           </RowBox>
           <Spacing size="x-large" />
           <RowBox responsive flexSpacing={6}>
-            <ChildBox flex="50.00%">
+            <ChildBox flex="45%">
               <Type variant="h4" color="primary">
                 Actions <strong>PCWA</strong> is taking
               </Type>
@@ -176,9 +176,9 @@ export default function DroughtPage() {
                   <ListItemText primary="Meeting our Water Forum commitment to the lower American River by releasing extra water from our reservoirs for fishery benefits." />
                 </BulletItem>
               </List>
-              <Spacing size="large" />
-              <Box width="90%" m="auto">
-                <Image
+              <Spacing factor={2} size="large" />
+              <Box width="80%" m="auto">
+                {/*               <Image
                   src="acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
                   loader={imgixLoader}
                   alt="Drought is here, water less banner"
@@ -186,10 +186,21 @@ export default function DroughtPage() {
                   width={1200}
                   layout="responsive"
                   sizes="(max-width: 600px) 90vw, 40vw"
+                /> */}
+                <Image
+                  role="link"
+                  tabIndex={0}
+                  src="e8094190-52e2-11ec-9aff-3d50541531a0-your-yard-needs-less-water.jpg"
+                  alt="Drought is back, water your trees, stress your lawn"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={300}
+                  height={250}
                 />
               </Box>
             </ChildBox>
-            <ChildBox flex="50.00%">
+            <ChildBox flex="55%">
               <Type variant="h4" color="primary">
                 Actions <strong>customers</strong> can take outdoors and indoors
               </Type>
