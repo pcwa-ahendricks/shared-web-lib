@@ -242,8 +242,14 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
+                    aria-label="View 2022 Budget"
+                    href="https://cdn.cosmicjs.com/0ea19a30-57bd-11ec-9d4f-13f82078444b-Proposed-2022-Budget-Document-for-Agenda.pdf"
+                  >
+                    2022 Budget
+                  </BudgetDoc>
+                  <BudgetDoc
                     aria-label="View 2021 Budget"
-                    href="https://imgix.cosmicjs.com/0df66860-3b10-11eb-9818-c3d1278ec8ae-2021-Adopted-Budget---website.pdf"
+                    href="https://cdn.cosmicjs.com/0df66860-3b10-11eb-9818-c3d1278ec8ae-2021-Adopted-Budget---website.pdf"
                   >
                     2021 Budget
                   </BudgetDoc>
