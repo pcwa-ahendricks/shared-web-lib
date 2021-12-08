@@ -284,7 +284,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     2016 Budget
                   </BudgetDoc> */}
                 </RowBox>
-                <Spacing size="large" />
+                {/* <Spacing size="large" />
 
                 <Type paragraph gutterBottom>
                   Presentations provided during regular PCWA Board of Director's
@@ -298,7 +298,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   >
                     2021 Budget Presentation
                   </BudgetDoc>
-                </RowBox>
+                </RowBox> */}
               </Box>
 
               <Box mt={6}>
