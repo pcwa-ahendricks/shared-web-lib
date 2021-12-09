@@ -1,3 +1,4 @@
+// cspell:ignore ondemand Infographic
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
