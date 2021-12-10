@@ -1,4 +1,4 @@
-// cspell:ignore Eisley Normac watersavingplants
+// cspell:ignore Eisley Normac watersavingplants Newsom
 import React, {useCallback} from 'react'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 // import WaterIcon from 'mdi-material-ui/WaterPercent'

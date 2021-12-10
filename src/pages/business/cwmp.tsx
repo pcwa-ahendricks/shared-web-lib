@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CountyWideMasterPlanPage = () => {
   const theme = useTheme()
-  const activeStep = 8 // 1-8
+  const activeStep = 4 // 1-8
   const [activeIndex, setActiveIndex] = useState<number>(activeStep - 1)
   const classes = useStyles({activeIndex, activeStep: activeStep - 1})
 
@@ -90,8 +90,8 @@ const CountyWideMasterPlanPage = () => {
       'Project Entry to the Project Database',
       'Initial Allocation of Funds',
       'Set Strategic Objectives for Funding',
-      'FAP Funding Request Application Submission',
-      'Deadline for FAP Application Submittal',
+      'FAP Funding Request Submittal Period',
+      'Deadline for FAP Funding Requests',
       'Evaluation of Project Criteria',
       'Award of Project Grants and Loans',
       'Funding Agreements'
@@ -348,7 +348,7 @@ const CountyWideMasterPlanPage = () => {
             <ChildBox flex="40%">
               <Box>
                 <Type variant="subtitle2" color="textSecondary">
-                  <strong>Funding Timeline for 2021</strong>
+                  <strong>Funding Timeline for 2022</strong>
                 </Type>
                 <Spacing size="small" />
                 <Box>
