@@ -25,6 +25,7 @@ import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobileBar'
+import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
 // import Whammy from '@components/Whammy/Whammy'
 
 type Props = {
@@ -45,7 +46,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
   const tileWidth = isLGUp ? 176 : 160
 
-  const coverStoryImageRatio = '31:14' // 555w / 250h = 2.22, or 31:14
+  const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
   return (
@@ -83,7 +84,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         <RowBox responsive flexSpacing={4}>
           <ChildBox flex="50%">
             <CoverStory
-              imageRatio={coverStoryImageRatio}
+              aspectRatio={coverStoryImageRatio}
               title="We’re Transitioning to Monthly Billing"
               readMore="Learn more"
               linkHref="/services/monthly-billing"
@@ -201,7 +202,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
           <ChildBox flex="50%">
             <CoverStory
-              imageRatio={coverStoryImageRatio}
+              aspectRatio={coverStoryImageRatio}
               title="Drought Recommendations"
               readMore="Learn more"
               linkHref="/smart-water-use/drought"
@@ -240,7 +241,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         <RowBox responsive flexSpacing={4} mt={4} justifyContent="space-around">
           <ChildBox flex="0 1 50%">
             <CoverStory
-              imageRatio={coverStoryImageRatio}
+              aspectRatio={coverStoryImageRatio}
               title="Announcing the Water Spots Video Contest"
               readMore="Find out more"
               linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
@@ -251,6 +252,14 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox>
 
+          <ChildBox flex="50%">
+            <CoverStoryVideo
+              aspectRatio={coverStoryImageRatio}
+              title="Hear Andy Fecko on KAHI radio"
+              linkHref="https://youtu.be/8fKyygfxw6U"
+              body="PCWA's General Manager Andy Fecko recently sat down with Barry Stigers with KAHI radio for a FOCUS piece on PCWA's history, important initiatives, and the future."
+            />
+          </ChildBox>
           {/* <CoverStory
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."

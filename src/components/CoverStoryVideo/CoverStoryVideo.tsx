@@ -2,35 +2,30 @@ import React, {useMemo} from 'react'
 import {
   Box,
   BoxProps,
+  Link,
+  LinkProps,
   Typography as Type,
   TypographyProps
 } from '@material-ui/core'
-import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 // import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
-import Image, {ImageProps} from 'next/image'
-import {stringify} from 'querystringify'
-import {imgixUrlLoader} from '@lib/imageLoader'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 export type CoverStoryProps = {
   title: string
   linkHref: string
-  imgixURL: string
   readMore?: string
-  aspectRatio?: string
-  flexLinkProps?: Partial<FlexLinkProps>
+  aspectRatio?: string // Expressed as W:H
+  linkProps?: Partial<LinkProps>
   body?: TypographyProps['children']
-  alt?: ImageProps['alt']
   imgixParams?: any
 } & BoxProps
 
-const CoverStory = ({
+export default function CoverStoryVideo({
   title,
   children,
-  readMore = 'Read more...',
-  imgixURL: imgixUrlProp,
+  readMore = 'Watch now',
   imgixParams,
-  alt,
   aspectRatio = '19/6', // 555w / 175h = 3.17. Roughly 3:1 or more accurately as 19:6
   // imageRatio = '37:12', // 555w / 180h = 3.0833. More accurately as 37:12
   // imageRatio = '3:1', // 555w / 185h = 3. 3:1
@@ -42,10 +37,10 @@ const CoverStory = ({
   // paddingPercent="34.23%", // Default ratio for a 190h x 555w image.
   // paddingPercent = '40.54%', // Default ratio for a 225h x 555w image.
   linkHref,
-  flexLinkProps,
+  linkProps,
   body,
   ...rest
-}: CoverStoryProps) => {
+}: CoverStoryProps) {
   const BodyEl = useMemo(
     () =>
       body ? (
@@ -56,60 +51,48 @@ const CoverStory = ({
     [body]
   )
 
-  // In case imgix returns a partially transparent image use bg to background fill w/ white.
-  // Instead of passing an image width and height we can pass the target Aspect Ratio which will work with fit=crop. See https://docs.imgix.com/apis/url/size/ar.
-  const imgixQs = stringify(
-    {
-      ar: aspectRatio,
-      fit: 'crop',
-      bg: 'ffffff',
-      ...imgixParams
-    },
-    true
-  )
-  const imgixUrl = `${imgixUrlProp}${imgixQs}`
-
   return (
     <Box {...rest}>
-      <FlexLink href={linkHref} aria-label={title} {...flexLinkProps}>
-        <Box style={{aspectRatio}} overflow="hidden" position="relative">
-          <Image
-            loader={imgixUrlLoader}
-            src={imgixUrl}
-            layout="fill"
-            sizes="(min-width: 600px) 50vw, 100vw"
-            objectFit="fill"
-            alt={alt}
-          />
-        </Box>
-      </FlexLink>
+      <Box style={{aspectRatio}} overflow="hidden" position="relative">
+        <ResponsiveYouTubePlayer
+          controls
+          url={linkHref}
+          config={{
+            youtube: {
+              playerVars: {showinfo: 1}
+            }
+          }}
+        />
+      </Box>
       <Spacing />
       <Box textAlign="center">
-        <FlexLink
+        <Link
           variant="h3"
           underline="none"
           href={linkHref}
           // gutterBottom
           color="primary"
           aria-label={title}
-          {...flexLinkProps}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...linkProps}
         >
           {title}
-        </FlexLink>
+        </Link>
         <Spacing size="small" />
         {BodyEl}
         {children}
-        <FlexLink
+        <Link
           variant="subtitle2"
           href={linkHref}
           aria-label={title}
-          {...flexLinkProps}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...linkProps}
         >
           {readMore}
-        </FlexLink>
+        </Link>
       </Box>
     </Box>
   )
 }
-
-export default CoverStory
