@@ -1,4 +1,4 @@
-// cspell:ignore novus
+// cspell:ignore novus mfpfa
 import React, {useCallback, useState} from 'react'
 import {
   Typography as Type,
@@ -19,14 +19,21 @@ const useStyles = makeStyles(() =>
     }
   })
 )
+type Props = {
+  mfpfa?: boolean
+} & BoxProps
 
-const NovusIframe = ({...rest}: BoxProps) => {
+const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
   const classes = useStyles()
   const [iframeIsLoading, setIframeIsLoading] = useState(true)
 
   const novusIframeLoadedHandler = useCallback(() => {
     setIframeIsLoading(false)
   }, [])
+
+  const url = mfpfa
+    ? 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=10'
+    : 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=1&meetingtype=2&meetingtype=3&meetingtype=4&meetingtype=5&meetingtype=6&meetingtype=7&meetingtype=8&meetingtype=9'
 
   return (
     <Box position="relative" width="100%">
@@ -58,7 +65,7 @@ const NovusIframe = ({...rest}: BoxProps) => {
           <iframe
             title="Novus Agenda"
             onLoad={novusIframeLoadedHandler}
-            src="https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx"
+            src={url}
             frameBorder="0"
             width="100%"
             height="100%"
@@ -71,7 +78,7 @@ const NovusIframe = ({...rest}: BoxProps) => {
         <iframe
           title="Novus Agenda"
           onLoad={novusIframeLoadedHandler}
-          src="https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx"
+          src={url}
           frameBorder="0"
           width="100%"
           height="100%"
