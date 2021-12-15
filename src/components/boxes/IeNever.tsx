@@ -1,24 +1,8 @@
 import React from 'react'
-import {Box, makeStyles, createStyles, BoxProps} from '@material-ui/core'
-import clsx from 'clsx'
+import {Box, BoxProps} from '@material-ui/core'
 import useMatchesIe from '@hooks/useMatchesIe'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    noDisplay: {
-      display: 'none !important'
-    }
-  })
-)
-export default function IeNever({className, children, ...props}: BoxProps) {
-  const classes = useStyles()
+export default function IeNever({children, ...props}: BoxProps) {
   const matches = useMatchesIe()
-  return (
-    <Box
-      className={clsx([className, {[classes.noDisplay]: matches}])}
-      {...props}
-    >
-      {children}
-    </Box>
-  )
+  return matches ? null : <Box {...props}>{children}</Box>
 }

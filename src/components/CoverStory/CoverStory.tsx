@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {
   Box,
   BoxProps,
@@ -11,6 +11,8 @@ import Spacing from '@components/boxes/Spacing'
 import Image, {ImageProps} from 'next/image'
 import {stringify} from 'querystringify'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import IeNever from '@components/boxes/IeNever'
+import IeOnly from '@components/boxes/IeOnly'
 
 export type CoverStoryProps = {
   title: string
@@ -69,19 +71,51 @@ const CoverStory = ({
   )
   const imgixUrl = `${imgixUrlProp}${imgixQs}`
 
+  // 16:9 Ratio (9 / 16 * 100 = 56.25)
+  const imageAspectRatio =
+    aspectRatio
+      .split('/')
+      .reverse()
+      .map((v) => parseFloat(v))
+      .reduce((p, c) => p / c) * 100
+
+  const CoverStoryImage = useCallback(
+    () => (
+      <Image
+        loader={imgixUrlLoader}
+        src={imgixUrl}
+        layout="fill"
+        sizes="(min-width: 600px) 50vw, 100vw"
+        objectFit="fill"
+        alt={alt}
+      />
+    ),
+    [imgixUrl, alt]
+  )
+
   return (
     <Box {...rest}>
       <FlexLink href={linkHref} aria-label={title} {...flexLinkProps}>
-        <Box style={{aspectRatio}} overflow="hidden" position="relative">
-          <Image
-            loader={imgixUrlLoader}
-            src={imgixUrl}
-            layout="fill"
-            sizes="(min-width: 600px) 50vw, 100vw"
-            objectFit="fill"
-            alt={alt}
-          />
-        </Box>
+        <IeNever>
+          <Box style={{aspectRatio}} overflow="hidden" position="relative">
+            <CoverStoryImage />
+          </Box>
+        </IeNever>
+        <IeOnly>
+          <Box
+            style={{
+              float: 'none',
+              clear: 'both',
+              width: '100%',
+              height: 0,
+              position: 'relative',
+              paddingBottom: `${imageAspectRatio}% !important`,
+              overflow: 'hidden'
+            }}
+          >
+            <CoverStoryImage />
+          </Box>
+        </IeOnly>
       </FlexLink>
       <Spacing />
       <Box textAlign="center">
