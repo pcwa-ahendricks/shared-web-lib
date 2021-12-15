@@ -51,10 +51,19 @@ export default function CoverStoryVideo({
     [body]
   )
 
+  // 16:9 Ratio (9 / 16 * 100 = 56.25)
+  const playerAspectRatio =
+    aspectRatio
+      .split('/')
+      .reverse()
+      .map((v) => parseFloat(v))
+      .reduce((p, c) => p / c) * 100
+
   return (
     <Box {...rest}>
       <Box style={{aspectRatio}} overflow="hidden" position="relative">
         <ResponsiveYouTubePlayer
+          aspectRatio={playerAspectRatio}
           controls
           url={linkHref}
           config={{
