@@ -4,5 +4,6 @@ import useMatchesIe from '@hooks/useMatchesIe'
 
 export default function IeOnly({children, ...props}: BoxProps) {
   const matchesIe = useMatchesIe()
+  console.log('ieOnly: ', matchesIe)
   return matchesIe ? <Box {...props}>{children}</Box> : null
 }
