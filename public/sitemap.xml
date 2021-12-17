@@ -324,6 +324,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/board-of-directors/mfpfa-meeting-agendas</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/maidu-fire-station-makeover</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -3697,6 +3701,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/11-04-2021</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/10-21-2021</loc>
     <changefreq>never</changefreq>
   </url>
   <url>

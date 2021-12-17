@@ -411,6 +411,22 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Thumbnail and link for Canal Customer Survey"
             />
           </ChildBox> */}
+
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              imageRatio={coverStoryImageRatio}
+              title="French Meadows Forest Restoration Project"
+              linkHref="https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b"
+              imgixURL="https://imgix.cosmicjs.com/8cabbeb0-5f79-11ec-a8a3-53f360c99be6-Screen-Shot-2021-12-17-at-12.40.06-PM.png"
+              alt="French Meadows Forest Restoration Project, an interactive story map"
+              flexLinkProps={{
+                isNextLink: false,
+                target: '_blank',
+                rel: 'noopener noreferrer'
+              }}
+            />
+          </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
