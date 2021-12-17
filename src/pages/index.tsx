@@ -430,6 +430,18 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
+              title="PCWA 2022 Annual Budget"
+              imgixURL="https://imgix.cosmicjs.com/0ea19a30-57bd-11ec-9d4f-13f82078444b-Proposed-2022-Budget-Document-for-Agenda.pdf"
+              linkHref="https://docs.pcwa.net/pcwa-2022-annual-budget.pdf"
+              flexLinkProps={{isNextLink: false}}
+              alt="Thumbnail and link for PCWA 2022 Annual Budget"
+              imgixParams={{crop: 'top'}}
+            />
+          </ChildBox>
+
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
               imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"
               linkHref="/smart-water-use/fire-wise-landscaping"
@@ -454,7 +466,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               width={tileWidth}
               title="PCWA Urban Water Management Plan"
               imgixURL="https://imgix.cosmicjs.com/3d69d560-b8f0-11eb-9b4d-19bb36ed9e4c-PCWA-2020-UWMPPublic-Draft.pdf"
-              linkHref="https://docs.pcwa.net/uwmp-2020-public-draft"
+              linkHref="https://docs.pcwa.net/uwmp-2020-public-draft.pdf"
               flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA 2020 Urban Water Management Plan, public draft"
               imgixParams={{crop: 'top'}}
@@ -479,7 +491,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               width={tileWidth}
               title="PCWA Water Shortage Contingency Plan"
               imgixURL="https://imgix.cosmicjs.com/f694d8b0-adc3-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.05.21.pdf"
-              linkHref="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan"
+              linkHref="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan.pdf"
               flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
               imgixParams={{crop: 'top'}}
