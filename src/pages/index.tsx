@@ -5,6 +5,7 @@ import HeroImage from '@components/hero/HeroImage'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
+  Link,
   useMediaQuery,
   Divider,
   useTheme,
@@ -239,7 +240,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         </RowBox>
 
         <RowBox responsive flexSpacing={4} mt={4} justifyContent="space-around">
-          <ChildBox flex="0 1 50%">
+          {/* <ChildBox flex="0 1 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Announcing the Water Spots Video Contest"
@@ -250,8 +251,35 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Announcing the Water Spots Video Contest banner"
               body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
             />
-          </ChildBox>
+          </ChildBox> */}
 
+          <ChildBox flex="0 1 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="French Meadows Forest Restoration Project"
+              readMore="Open Story"
+              linkHref="https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b"
+              flexLinkProps={{isNextLink: false, target: '_blank'}}
+              imgixURL="https://imgix.cosmicjs.com/cfca4260-5f89-11ec-a8a3-53f360c99be6-Screen-Shot-2021-12-17-at-2.36.17-PM.png"
+              alt="French Meadows Forest Restoration Project, an interactive story map"
+              body={
+                <Type variant="inherit">
+                  You've heard about PCWA's watershed project; now you can
+                  explore the project from the comfort of home!{' '}
+                  <Link
+                    href="https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b"
+                    target="_blank"
+                  >
+                    The French Meadows Forest Restoration Project Story Map
+                  </Link>{' '}
+                  is an interactive experience, detailing PCWA's efforts to
+                  restore forest health and reduce the risk of high-severity
+                  wildfire in the headwaters of the Middle Fork American River.
+                  Take a tour today!
+                </Type>
+              }
+            />
+          </ChildBox>
           <ChildBox flex="50%">
             <CoverStoryVideo
               aspectRatio={coverStoryImageRatio}
@@ -275,7 +303,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               public interests coming together to fund and implement active forest
               management on public land."
             /> */}
-
           {/* <CoverStory
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
@@ -291,7 +318,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               contract, which annually allocates up to 35,000 acre-feet of Central
               Valley Project (CVP) water to PCWA, runs in perpetuity."
             /> */}
-
           {/* 2020 Water Spots */}
           {/* <CoverStory
               title="2020 Water Spots Video Contest Winners Announced"
@@ -308,7 +334,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               Water Spots Video Contest: Be a Leak Detective. The top 3 video
               winners are from PCWA’s service area!"
             /> */}
-
           {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
@@ -328,7 +353,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="2020 was certainly a challenging year, but that didn’t get keep PCWA from continuing to deliver high-quality water and protect our customer’s investments. Take a look at our newly released 2020 year-end report."
             /> */}
-
           {/* <CoverStory
               aria-label="Link to Monthly Billing FAQs page"
               imageRatio={coverStoryImageRatio}
@@ -345,7 +369,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in 2022."
             /> */}
-
           {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
@@ -362,7 +385,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               to COVID-19 concerns of the best practices to help ensure the health
               and safety of the occupants of your buildings."
             /> */}
-
           {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
@@ -412,7 +434,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox> */}
 
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               imageRatio={coverStoryImageRatio}
@@ -426,7 +448,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 rel: 'noopener noreferrer'
               }}
             />
-          </ChildBox>
+          </ChildBox> */}
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
