@@ -243,7 +243,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
                     aria-label="View 2022 Budget"
-                    href="https://cdn.cosmicjs.com/0ea19a30-57bd-11ec-9d4f-13f82078444b-Proposed-2022-Budget-Document-for-Agenda.pdf"
+                    href="https://docs.pcwa.net/pcwa-2022-annual-budget.pdf"
                   >
                     2022 Budget
                   </BudgetDoc>

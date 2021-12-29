@@ -453,7 +453,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverTile
               width={tileWidth}
               title="PCWA 2022 Annual Budget"
-              imgixURL="https://imgix.cosmicjs.com/0ea19a30-57bd-11ec-9d4f-13f82078444b-Proposed-2022-Budget-Document-for-Agenda.pdf"
+              imgixURL="https://imgix.cosmicjs.com/a86375b0-6340-11ec-a8a3-53f360c99be6-PCWA-2022-Adopted-Budget-for-Website.pdf"
               linkHref="https://docs.pcwa.net/pcwa-2022-annual-budget.pdf"
               flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA 2022 Annual Budget"
