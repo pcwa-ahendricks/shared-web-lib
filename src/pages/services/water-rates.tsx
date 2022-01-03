@@ -471,9 +471,9 @@ const WaterRatesPage = () => {
                   target="_blank"
                   color="secondary"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/a7c478e0-5057-11eb-a850-c512f60eb904-2021-rules-and-regsbc010521.pdf"
+                  href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
                 >
-                  2021 Rules and Regs
+                  2022 Rules and Regulations
                 </FancyButton>
               </Box>
             </Box>
