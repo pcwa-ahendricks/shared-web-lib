@@ -40,9 +40,9 @@ const EmployeeBenefitsSummaryPage = () => {
   const classes = useStyles()
 
   const healthInsuranceAmounts = {
-    employeeOnly: 1170.08,
-    employeePlusOne: 1634.0,
-    employeePlusFamily: 2124.0
+    employeeOnly: 1116.01,
+    employeePlusOne: 1667.0,
+    employeePlusFamily: 2167.0
   }
 
   const ListItemLink = (props: any) => {
@@ -200,9 +200,8 @@ const EmployeeBenefitsSummaryPage = () => {
                 offering eight HMOs (Anthem Select and Anthem Traditional, Blue
                 Shield Access + and Blue Shield Trio, HealthNet Smart Care,
                 Kaiser Permanente, UnitedHealthcare, and Western Health
-                Advantage) and three PPOs (PERS Choice, PERS Select and
-                PERSCare). The Agency's current monthly contribution towards the
-                premium is:
+                Advantage) and two PPOs (PERS Platinum and PERS Gold). The
+                Agency's current monthly contribution towards the premium is:
               </Type>
               <RowBox
                 responsive
@@ -275,8 +274,8 @@ const EmployeeBenefitsSummaryPage = () => {
                 Deferred Compensation
               </Type>
               <Type paragraph>
-                Two deferred compensation programs are offered (CalPERS and Mass
-                Mutual) allowing employees to save and invest through pre-tax
+                Two deferred compensation programs are offered (CalPERS and
+                Empower) allowing employees to save and invest through pre-tax
                 payroll deductions.
               </Type>
               <Type variant="subtitle1" gutterBottom>
