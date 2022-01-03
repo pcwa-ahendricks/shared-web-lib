@@ -449,6 +449,19 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox> */}
+
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="Water Year Dashboard"
+              imgixURL="https://imgix.cosmicjs.com/8b39b770-6cc7-11ec-af0e-17f5b6d183fb-image003.jpg"
+              linkHref="/water-year-dashboard"
+              flexLinkProps={{isNextLink: true}}
+              alt="Link to PCWA's Water Year Dashboard page"
+              imgixParams={{crop: 'bottom'}}
+            />
+          </ChildBox>
+
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
@@ -472,8 +485,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox>
 
-          <ChildBox width={tileWidth}>
-            {/* <RibbonContainer>
+          {/* <ChildBox width={tileWidth}> */}
+          {/* <RibbonContainer>
               <RightRibbon
                 backgroundColor="#cc4400"
                 color="#f0f0f0"
@@ -484,7 +497,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   Final Draft
                 </span>
               </RightRibbon> */}
-            <CoverTile
+          {/* <CoverTile
               width={tileWidth}
               title="PCWA Urban Water Management Plan"
               imgixURL="https://imgix.cosmicjs.com/3d69d560-b8f0-11eb-9b4d-19bb36ed9e4c-PCWA-2020-UWMPPublic-Draft.pdf"
@@ -492,12 +505,12 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA 2020 Urban Water Management Plan"
               imgixParams={{crop: 'top'}}
-            />
-            {/* </RibbonContainer> */}
-          </ChildBox>
+            /> */}
+          {/* </RibbonContainer> */}
+          {/* </ChildBox> */}
 
-          <ChildBox width={tileWidth}>
-            {/* <RibbonContainer>
+          {/* <ChildBox width={tileWidth}> */}
+          {/* <RibbonContainer>
               <RightRibbon
                 backgroundColor="#cc4400"
                 color="#f0f0f0"
@@ -509,7 +522,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 </span>
               </RightRibbon> */}
 
-            <CoverTile
+          {/* <CoverTile
               width={tileWidth}
               title="PCWA Water Shortage Contingency Plan"
               imgixURL="https://imgix.cosmicjs.com/f694d8b0-adc3-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.05.21.pdf"
@@ -517,9 +530,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
               imgixParams={{crop: 'top'}}
-            />
-            {/* </RibbonContainer> */}
-          </ChildBox>
+            /> */}
+
+          {/* </RibbonContainer> */}
+          {/* </ChildBox> */}
           {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
