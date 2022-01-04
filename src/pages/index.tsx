@@ -454,7 +454,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverTile
               width={tileWidth}
               title="Water Year Dashboard"
-              imgixURL="https://imgix.cosmicjs.com/8b39b770-6cc7-11ec-af0e-17f5b6d183fb-image003.jpg"
+              imgixURL="https://imgix.cosmicjs.com/038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg"
               linkHref="/water-year-dashboard"
               flexLinkProps={{isNextLink: true}}
               alt="Link to PCWA's Water Year Dashboard page"

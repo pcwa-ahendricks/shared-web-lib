@@ -108,6 +108,14 @@ const menuConfig: MenuConfig[] = [
             title: 'Resource Library',
             nextLink: '/resource-library/[...multimedia]',
             as: '/resource-library/documents'
+          },
+          {
+            title: 'Water Year Dashboard',
+            nextLink: '/water-year-dashboard'
+          },
+          {
+            title: 'French Meadows Forest Restoration Project',
+            href: 'https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b'
           }
         ]
       },

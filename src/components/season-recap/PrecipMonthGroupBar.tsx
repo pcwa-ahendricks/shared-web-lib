@@ -208,10 +208,10 @@ export default function PrecipMonthGroupBar({
         return (
           <Box
             bgcolor={theme.palette.common.white}
-            // px={1}
-            // py={0.5}
-            // boxShadow={4}
-            // borderRadius={3}
+            px={1}
+            py={0.5}
+            boxShadow={4}
+            borderRadius={3}
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>
