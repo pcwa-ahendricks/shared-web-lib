@@ -147,7 +147,7 @@ const ShutoffProtectionPage = () => {
               <RowBox justifyContent="space-around">
                 {/* <ImageThumbLink
                 imgixUrl="https://imgix.cosmicjs.com/ca825860-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyENbc123019.pdf"
-               
+
                   target= '_blank'
                   rel= 'noopener noreferrer'
                   href=
@@ -157,29 +157,29 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/6057f9b0-6ced-11ec-af0e-17f5b6d183fb-Door-Tag-2022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/ca8390e0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-Eglishbc010220.pdf"
+                  href="https://docs.pcwa.net/door-tag.pdf"
                   caption="Standard PCWA Doortag"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/5b6ea6b0-6ced-11ec-af0e-17f5b6d183fb-Shut-Off-Notice-2022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/2e79b690-5e4e-11ea-aae7-630f03f2aad6-CUTOFF-notice-English.pdf"
+                  href="https://docs.pcwa.net/shut-off-notice.pdf"
                   caption="Written Notice"
-                  alt="Thumbnail and link for service Written Notice PDF"
+                  alt="Thumbnail and link for service Written Shut-off Notice PDF"
                 />
-                <ImageThumbLink
+                {/* <ImageThumbLink
                   imgixUrl="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   caption="Certification Form"
                   alt="Thumbnail and link for Certification Form PDF"
-                />
+                /> */}
               </RowBox>
             </Box>
           </Box>
@@ -258,7 +258,7 @@ const ShutoffProtectionPage = () => {
               <RowBox justifyContent="space-around">
                 {/* <ImageThumbLink
                 imgixUrl="https://imgix.cosmicjs.com/caaf82e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicySPbc123019.pdf"
-               
+
                   target= '_blank'
                   rel= 'noopener noreferrer'
                   href=
@@ -283,14 +283,14 @@ const ShutoffProtectionPage = () => {
                   caption="Aviso De Rescisión"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImageThumbLink
+                {/* <ImageThumbLink
                   imgixUrl="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   caption="Certification Form"
                   alt="Thumbnail and link for Certification Form PDF"
-                />
+                /> */}
               </RowBox>
             </Box>
           </Box>
@@ -357,7 +357,7 @@ const ShutoffProtectionPage = () => {
               <RowBox justifyContent="space-around">
                 {/* <ImageThumbLink
                 imgixUrl="https://imgix.cosmicjs.com/ca8cdfb0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyKObc123019.pdf"
-               
+
                   target= '_blank'
                   rel= 'noopener noreferrer'
                   href=
@@ -382,14 +382,14 @@ const ShutoffProtectionPage = () => {
                   caption="납입 기간 만료 안내"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImageThumbLink
+                {/* <ImageThumbLink
                   imgixUrl="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   caption="Certification Form"
                   alt="Thumbnail and link for Certification Form PDF"
-                />
+                /> */}
               </RowBox>
             </Box>
           </Box>
@@ -449,7 +449,7 @@ const ShutoffProtectionPage = () => {
               <RowBox justifyContent="space-around">
                 {/* <ImageThumbLink
                 imgixUrl="https://imgix.cosmicjs.com/ca8b0af0-2e76-11ea-a6d4-f90f4871ce6f-WaterShutoffProtectionActPolicyCHbc123019.pdf"
-               
+
                   target= '_blank'
                   rel= 'noopener noreferrer'
                   href=
@@ -474,14 +474,14 @@ const ShutoffProtectionPage = () => {
                   caption="終止通知"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImageThumbLink
+                {/* <ImageThumbLink
                   imgixUrl="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   caption="Certification Form"
                   alt="Thumbnail and link for Certification Form PDF"
-                />
+                /> */}
               </RowBox>
             </Box>
           </Box>
@@ -557,7 +557,7 @@ const ShutoffProtectionPage = () => {
               <RowBox justifyContent="space-around">
                 {/* <ImageThumbLink
                 imgixUrl="https://imgix.cosmicjs.com/cabe28e0-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyVIbc123019.pdf"
-               
+
                   target= '_blank'
                   rel= 'noopener noreferrer'
                   href=
@@ -582,14 +582,14 @@ const ShutoffProtectionPage = () => {
                   caption="Thông Báo Chấm Dứt"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImageThumbLink
+                {/* <ImageThumbLink
                   imgixUrl="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   caption="Certification Form"
                   alt="Thumbnail and link for Certification Form PDF"
-                />
+                /> */}
               </RowBox>
             </Box>
           </Box>
@@ -671,7 +671,7 @@ const ShutoffProtectionPage = () => {
               <RowBox justifyContent="space-around">
                 {/* <ImageThumbLink
                 imgixUrl="https://imgix.cosmicjs.com/cabacd80-2e76-11ea-bfe8-5b62c3bdf959-WaterShutoffProtectionActPolicyTAbc123019.pdf"
-               
+
                   target= '_blank'
                   rel= 'noopener noreferrer'
                   href=
@@ -696,14 +696,14 @@ const ShutoffProtectionPage = () => {
                   caption="Abiso Sa Paghihinto Ng Serbisyo"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
-                <ImageThumbLink
+                {/* <ImageThumbLink
                   imgixUrl="https://imgix.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2f2279b0-5e4e-11ea-aae7-630f03f2aad6-WSPA-Certification030420.pdf"
                   caption="Certification Form"
                   alt="Thumbnail and link for Certification Form PDF"
-                />
+                /> */}
               </RowBox>
             </Box>
           </Box>

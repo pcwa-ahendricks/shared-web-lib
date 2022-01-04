@@ -253,7 +253,7 @@ export default function Sb998SelfCertification() {
                   setFormSubmitDialogOpen(true)
                 } catch (error) {
                   console.warn('An error occurred submitting form.', error)
-                  setErrorMessage(error.message)
+                  setErrorMessage(error?.message)
                   setFormSubmitDialogErrorOpen(true)
                   actions.setSubmitting(false)
                 }
@@ -566,7 +566,7 @@ export default function Sb998SelfCertification() {
                                   >
                                     Per Senate Bill 998 (SB998) if a residential
                                     customer demonstrates, to the Agency, that
-                                    the customer’s household income is below
+                                    the customer's household income is below
                                     200% of the federal poverty line, the Agency
                                     shall charge no more than $50 for
                                     reconnection of service during business
