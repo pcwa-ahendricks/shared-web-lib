@@ -29,50 +29,50 @@ function createData(tier: string, cost: number) {
 }
 
 const fixedRows = [
-  createData('5/8-inch', 19.24),
-  createData('3/4-inch', 26.98),
-  createData('1-inch', 42.5),
-  createData('1-1/2-inch', 81.24),
-  createData('2-inch', 127.75),
-  createData('3-inch', 275.02),
-  createData('4-inch', 468.79),
-  createData('6-inch', 1050.11),
-  createData('8-inch', 1243.88)
+  createData('5/8-inch', 20.14),
+  createData('3/4-inch', 28.25),
+  createData('1-inch', 44.5),
+  createData('1-1/2-inch', 85.06),
+  createData('2-inch', 133.75),
+  createData('3-inch', 287.95),
+  createData('4-inch', 490.82),
+  createData('6-inch', 1099.47),
+  createData('8-inch', 1302.34)
 ]
 
 const fixedChargeMDU = [
-  createData('Per Dwelling Unit Charge', 15.5),
-  createData('Per Meter Component Charge', 3.73)
+  createData('Per Dwelling Unit Charge', 16.23),
+  createData('Per Meter Component Charge', 3.91)
 ]
 
 const renewAndReplacementRows = [
-  createData('5/8-inch', 19.04),
-  createData('3/4-inch', 28.57),
-  createData('1-inch', 47.61),
-  createData('1-1/2-inch', 95.22),
-  createData('2-inch', 152.36),
-  createData('3-inch', 333.29),
-  createData('4-inch', 571.33),
-  createData('6-inch', 1285.5),
-  createData('8-inch', 1523.56)
+  createData('5/8-inch', 19.93),
+  createData('3/4-inch', 29.91),
+  createData('1-inch', 49.85),
+  createData('1-1/2-inch', 99.7),
+  createData('2-inch', 159.52),
+  createData('3-inch', 348.95),
+  createData('4-inch', 598.18),
+  createData('6-inch', 1345.92),
+  createData('8-inch', 1595.17)
 ]
 
 const commodityResidentialRows = [
-  createData('First 900 CF (per 100 CF)', 1.57),
-  createData('Next 1,900 CF (per 100 CF)', 1.78),
-  createData('Next 2,800 CF (per 100 CF)', 1.91)
+  createData('First 900 CF (per 100 CF)', 1.64),
+  createData('Next 1,900 CF (per 100 CF)', 1.86),
+  createData('Next 2,800 CF (per 100 CF)', 2.0)
 ]
 
 const commodityNonResidentialRows = [
-  createData('Commercial (per 100 CF)', 1.68),
-  createData('Landscape (per 100 CF)', 1.78),
-  createData('Industrial / Resale (per 100 CF)', 0.41)
+  createData('Commercial (per 100 CF)', 1.76),
+  createData('Landscape (per 100 CF)', 1.86),
+  createData('Industrial / Resale (per 100 CF)', 0.43)
 ]
 
 const commodityDeprivedRows = [
-  createData('First 900 CF (per 100 CF)', 1.57),
-  createData('Next 1,900 CF (per 100 CF)', 1.78),
-  createData('Next 2,800 CF (per 100 CF)', 0.2)
+  createData('First 900 CF (per 100 CF)', 1.64),
+  createData('Next 1,900 CF (per 100 CF)', 1.86),
+  createData('Next 2,800 CF (per 100 CF)', 0.21)
 ]
 
 const useStyles = makeStyles((theme: Theme) =>
