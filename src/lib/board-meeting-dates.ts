@@ -185,7 +185,7 @@ export const boardMeetings: Array<BoardMeeting> = [
   {date: '8-18-2022 2:00PM'},
   {date: '9-1-2022 2:00PM'},
   {
-    date: '9-15-2022 8:15AM'
+    date: '9-15-2022 2:00PM'
     // note:
     //   'The September 16th meeting starts at 8:15 a.m. at the Business Center. The Board will consider regular business items and then depart and travel to North Tahoe Public Utility District, 8318 North Lake Blvd., Kings Beach, California, to continue their meeting at approximately 11 a.m.'
   },
