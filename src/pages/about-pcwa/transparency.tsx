@@ -214,11 +214,11 @@ const TransparencyPage = () => {
             <ListItem
               button
               component="a"
-              href="https://cdn.cosmicjs.com/a7c478e0-5057-11eb-a850-c512f60eb904-2021-rules-and-regsbc010521.pdf"
+              href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ListItemText primary="2021 Rules and Regulations" />
+              <ListItemText primary="2022 Rules and Regulations" />
             </ListItem>
 
             <ListItem
