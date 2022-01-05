@@ -218,7 +218,7 @@ const TransparencyPage = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ListItemText primary="2022 Rules and Regulations" />
+              <ListItemText primary="Rules and Regulations" />
             </ListItem>
 
             <ListItem
