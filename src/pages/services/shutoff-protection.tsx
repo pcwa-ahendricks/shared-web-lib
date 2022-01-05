@@ -3,7 +3,10 @@ import React, {useMemo, useCallback, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import {blueGrey} from '@material-ui/core/colors'
 import PageTitle from '@components/PageTitle/PageTitle'
+import Link from 'next/link'
+import BulletIcon from 'mdi-material-ui/CircleSmall'
 import {
   Typography as Type,
   Box,
@@ -11,18 +14,25 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Link as MuiLink,
   MenuItem,
   Divider,
   useTheme,
   createStyles,
   makeStyles,
-  Theme
+  Theme,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
+import CollectionsEmail from '@components/links/CollectionsEmail'
+import CollectionsPhone from '@components/links/CollectionsPhone'
 
 type Languages =
   | 'english'
@@ -96,9 +106,83 @@ const ShutoffProtectionPage = () => {
                 California law provides options for customers to avoid
                 discontinuation of residential water service for nonpayment of
                 their water bill. Those options include deferred payments or
-                alternative payment schedules, and appealing a water bill.
+                alternative payment schedules and appealing a water bill.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                How Can I Get A Deferred or Alternate Payment Schedule?
+              </Type>
+              <Type paragraph>
+                A customer who is unable to pay for water service within the
+                normal payment period may request an alternative payment plan to
+                avoid disruption of service. Requests are reviewed on a
+                case-by-case basis, taking into consideration payment history
+                and the outstanding balance, based on the policy set forth by
+                Article 10 Sec. 41003 of PCWA's Rules and Regulations.
+              </Type>
+              <Type>
+                To inquire about an alternate payment schedule, please call
+                Customer Services at <CollectionsPhone /> or e-mail{' '}
+                <CollectionsEmail />.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                Specific Programs for Low-Income Customers & SB998 Self
+                Certification
               </Type>
               <Type variant="h4" gutterBottom>
+                Alternative Payment Arrangements
+              </Type>
+              <Type paragraph>
+                Pursuant to Section 116900 of the Health and Safety Code, Placer
+                County Water Agency (PCWA) will not terminate residential
+                service for nonpayment when specific conditions are met.
+              </Type>
+
+              <Type paragraph>
+                <strong>All three requirements</strong> must be met to avoid
+                disruption of water service:
+              </Type>
+              <List dense disablePadding>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="A primary care provider certifies that discontinuation will be life-threatening or poses a serious threat to the health and safety of a resident on the premises where service is provided; and" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="A customer demonstrates he or she is financially unable to pay; and" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="A customer is willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment." />
+                </ListItem>
+              </List>
+              <Type variant="h4" gutterBottom>
+                Reduced Reconnection Fees
+              </Type>
+              <Type paragraph>
+                For residential customers who demonstrate to the Agency a
+                household income below 200 percent of the federal poverty line,
+                the Agency will limit reconnection fees during normal working
+                hours to $50 and after working hours to $150.00.
+              </Type>
+
+              <Type paragraph>
+                To inquire about eligibility requirements please contact
+                Customer Services at 530-823-4814 or you may apply by completing
+                the{' '}
+                <Link passHref href="/forms/account/sb998-self-certification">
+                  <MuiLink variant="inherit">
+                    SB998 Self Certification Form
+                  </MuiLink>
+                </Link>{' '}
+                online.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
                 How Can I Appeal My Water Bill?
               </Type>
               <Type paragraph>
@@ -121,24 +205,22 @@ const ShutoffProtectionPage = () => {
                 Manager, a final review and decision will be made by the Agency
                 Board of Directors.
               </Type>
-              <Type variant="h4" gutterBottom>
-                How Can I Get A Deferred or Alternate Payment Schedule?
+              <Type variant="h3" gutterBottom color="primary">
+                Tenant Rights
               </Type>
               <Type paragraph>
-                A customer who is unable to pay for water service within the
-                normal payment period may request an alternative payment plan to
-                avoid disruption of service. PCWA will consider all
-                circumstances surrounding the request and make a determination
-                as to whether the deferred or alternate payment arrangement is
-                warranted. The payment plan can either defer the amount due to a
-                later date or provide for a payment schedule for the outstanding
-                balance. A plan will require the account to be brought up to
-                date in 60 days, but may not exceed 12 months from the original
-                due date. To inquire about an alternate payment schedule, please
-                call Customer Services at <MainPhone />.
+                Under SB998, actual users of the service have the right to
+                become customers of the Agency. Tenants must be willing to
+                assume financial responsibility for subsequent charges as well
+                as agree to the conditions for service including deposit. The
+                tenant/occupant may be asked to provide verification of tenancy
+                to verify the delinquent account holder was the landlord,
+                property manager or other agent of the property.
               </Type>
             </article>
-            <Spacing size="large" />
+            <Spacing factor={2}>
+              <Divider />
+            </Spacing>
             <Type variant="h3">Documents</Type>
             {/* <Type variant="subtitle1" color="textSecondary">
             <em>English</em>
@@ -722,17 +804,23 @@ const ShutoffProtectionPage = () => {
     <PageLayout title="Customer Shutoff Protection" waterSurface>
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Water Shutoff Protection Act" subtitle="Services" />
+          <PageTitle
+            title="Disconnection of Residential Water Service for Nonpayment Policy"
+            subtitle="Services"
+          />
           {/* <Type variant="h2" gutterBottom color="secondary">
             The Page is Currently Under Development
           </Type> */}
           <Spacing />
-          <Type paragraph>
-            PCWA will comply with California Senate Bill No. 998 and use this
-            page to provide information and documentation regarding our Water
-            Shutoff Policy and discontinuation of water services for
-            non-payment.
-          </Type>
+
+          <Box bgcolor={blueGrey[50]} paddingY={2} paddingX={4}>
+            <Type paragraph>
+              In Response to Senate Bull 998, passed into law September 28,
+              2018, Placer County Water Agency has modified its current Rules &
+              Regulations to comply with this new law.
+            </Type>
+          </Box>
+
           {/* <Type paragraph>
             Check back here for further updates and information on our Water
             Shutoff Policy. This policy will be finalized and effective by Feb.
