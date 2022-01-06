@@ -212,7 +212,7 @@ const NewDevelopmentPage = () => {
           </Type>
           <ul>
             <TightListItem
-              url="https://cdn.cosmicjs.com/60801d80-5405-11ea-9bde-8b935236d22a-2020-WCC-Lower-Z6.pdf"
+              url="https://cdn.cosmicjs.com/80286b30-6f1d-11ec-8245-d9998a66fe08-2022-WCC-Lower-Zone-6.pdf"
               title="Lower Zone 6"
               description="From Rocklin to Auburn"
             />
@@ -233,12 +233,12 @@ const NewDevelopmentPage = () => {
           </Type>
           <ul>
             <TightListItem
-              url="https://cdn.cosmicjs.com/60848a50-5405-11ea-9bde-8b935236d22a-2020-WCC-CAW.pdf"
+              url="https://imgix.cosmicjs.com/8c480e70-6f1d-11ec-8245-d9998a66fe08-2022-WCC-CAW.pdf"
               title="Zone 6 California American Water Company"
               description="South of Roseville"
             />
             <TightListItem
-              url="https://cdn.cosmicjs.com/60891e30-5405-11ea-9bde-8b935236d22a-2020-WCC-Lincoln.pdf"
+              url="https://cdn.cosmicjs.com/891767f0-6f1d-11ec-8245-d9998a66fe08-2022-WCC-Lincoln.pdf"
               title="Zone 6 Lincoln"
               description="City of Lincoln"
             />
@@ -379,7 +379,7 @@ const NewDevelopmentPage = () => {
           </Type>
           <Type paragraph>
             Fill out the{' '}
-            <LinkItem href="https://cdn.cosmicjs.com/0029f460-0702-11ea-95fe-01afbd7f5f3b-PCWA-Fire-Flow-Request-Form-rev.2014.pdf">
+            <LinkItem href="https://cdn.cosmicjs.com/8f27d5d0-6f1d-11ec-8245-d9998a66fe08-Fire-Flow-Request-Form-rev.2022.pdf">
               Fire Flow Data Request
               <DescriptionOutlinedIcon className={classes.linkItemIcon} />
             </LinkItem>{' '}
