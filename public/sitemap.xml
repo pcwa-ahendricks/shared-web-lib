@@ -472,6 +472,14 @@
     <changefreq>never</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/07-16-2021</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/01-07-2022</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/12-29-2021</loc>
     <changefreq>never</changefreq>
   </url>
@@ -497,10 +505,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/07-22-2021</loc>
-    <changefreq>never</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/newsroom/news-releases/7-16-2021</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -2825,6 +2829,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/01-03-2003</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2022-01-11-Finance-Committee-Agenda</loc>
     <changefreq>never</changefreq>
   </url>
   <url>

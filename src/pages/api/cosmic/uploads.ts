@@ -1,5 +1,5 @@
 import prettyBytes from 'pretty-bytes'
-import Busboy, {BusboyHeaders} from 'busboy'
+import busboy from 'busboy'
 import FormData from 'form-data'
 import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
 import {VercelRequest, VercelResponse} from '@vercel/node'
@@ -22,42 +22,43 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader('Pragma', 'no-cache')
   const {headers, socket} = req
   // Fix type error
-  const customHeaders: BusboyHeaders = {
+  const customHeaders = {
     ...headers,
     'content-type': headers['content-type'] || ''
   }
   const {uploadRoute} = req.query
-  const busboy = new Busboy({headers: customHeaders})
+  const bb = busboy({headers: customHeaders})
   let buffer: Buffer
   const data: Uint8Array[] = [] // Also used as a file size counter for logging.
   let fileName: string
   let fieldName: string
   const ip = headers['x-forwarded-for'] || socket.remoteAddress
 
-  busboy.on('file', (fieldname, filestream, filename, _encoding, mimetype) => {
+  bb.on('file', (name, stream, info) => {
+    const {mimeType, filename} = info
     // don't attach to the files object, if there is no file
-    if (!filename) return filestream.resume()
+    if (!name) return stream.resume()
     // only allow image types to by processed
-    if (!ACCEPTING_MIME_TYPES_RE.test(mimetype)) {
-      dLog('Tried to upload file with mime type: ', mimetype)
+    if (!ACCEPTING_MIME_TYPES_RE.test(mimeType)) {
+      dLog('Tried to upload file with mime type: ', mimeType)
       // Don't throw createError() inside busboy event callbacks.
       return abortWithCode('BAD_MIME_TYPE')
     }
-    filestream.on('data', (chunk: Buffer) => {
+    stream.on('data', (chunk: Buffer) => {
       data.push(chunk)
       // Log file progress when in development
-      dLog(`File [${fieldname}] got ${prettyBytes(data.length)}`) // log progress
+      dLog(`File '${filename}' got ${prettyBytes(data.length)}`) // log progress
     })
 
-    filestream.on('end', () => {
-      console.log(`File [${fieldname}] Finished`) // log finish
+    stream.on('end', () => {
+      console.log(`File [${filename}] Finished`) // log finish
       buffer = Buffer.concat(data)
       fileName = filename
-      fieldName = fieldname
+      fieldName = name
     })
   })
 
-  busboy.on('finish', async () => {
+  bb.on('finish', async () => {
     if (!buffer || !buffer.byteLength || !fileName) {
       return abortWithCode('NO_FILENAME')
     }
@@ -100,7 +101,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
   })
 
-  busboy.on('error', (err: BusboyError) => {
+  bb.on('error', (err: BusboyError) => {
     done(err)
   })
 
@@ -110,9 +111,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   }
 
   function done(err: BusboyError) {
-    req.unpipe(busboy)
+    req.unpipe(bb)
     drainStream(req)
-    busboy.removeAllListeners()
+    bb.removeAllListeners()
     res.status(500).send(err.message)
   }
 
@@ -124,7 +125,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     stream.on('readable', stream.read.bind(stream))
   }
 
-  req.pipe(busboy)
+  req.pipe(bb)
 }
 
 export default mainHandler

@@ -332,17 +332,18 @@ const DropzoneUploader: React.RefForwardingComponent<
       // console.log('rejected files: ', rejectedFiles)
       const sd = [...acceptedFiles]
       const newDroppedBlobFiles: DroppedFile[] = sd.map((file) => {
+        // Use slugify to remove any unusual characters from the filename making the Cosmic URL compatible in all cases.
+        const fileName = slugify(file.name)
         const newBlobFile: Partial<DroppedFile> = new Blob([file], {
           type: file.type
         })
-        // Use slugify to remove any unusual characters from the filename making the Cosmic URL compatible in all cases.
-        const fileName = slugify(file.name)
         newBlobFile.lastModified = file.lastModified
+        // no need to separate with an underscore since an underscore might be generated via generate()
         newBlobFile.name = `${fileNamePrefix}${fileName}` ?? ''
         newBlobFile.originalName = file.name
         // Add image preview urls.
         // [TODO] - Confirm this works in IE 11 and remove eslint comment
-        newBlobFile.previewUrl = URL.createObjectURL(newBlobFile)
+        newBlobFile.previewUrl = URL.createObjectURL(newBlobFile as any)
         newBlobFile.ext = extension(newBlobFile.name)
         return newBlobFile as DroppedFile
       })
