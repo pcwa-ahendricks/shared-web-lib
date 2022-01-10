@@ -710,10 +710,10 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@types/busboy@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@types/busboy/-/busboy-0.3.1.tgz#296c56843ce5436fb919b6038c385a59ceecc0d8"
-  integrity sha512-8BPLNy4x+7lbTOGkAyUIZrrPEZ7WzbO7YlVGMf9EZi9J9mqILEkYbt/kgVWQ7fizOISo1hM/7cAsWVTa7EhQDg==
+"@types/busboy@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@types/busboy/-/busboy-1.3.0.tgz#c298cb392d0172f1171333d5cb71d60f63b13a38"
+  integrity sha512-Qx7ehfGO/k2yiTVpRIVIu16oVgbJpG65WLjEhbNSoTPdQEoRCorFUKHsSznyHmIkdvzOg2W3JWeewCmfSwcgeA==
   dependencies:
     "@types/node" "*"
 
@@ -796,10 +796,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
   integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
 
-"@types/node@^17.0.7":
-  version "17.0.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.7.tgz#4a53d8332bb65a45470a2f9e2611f1ced637a5cb"
-  integrity sha512-1QUk+WAUD4t8iR+Oj+UgI8oJa6yyxaB8a8pHaC8uqM6RrS1qbL7bf3Pwl5rHv0psm2CuDErgho6v5N+G+5fwtQ==
+"@types/node@^17.0.8":
+  version "17.0.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.8.tgz#50d680c8a8a78fe30abe6906453b21ad8ab0ad7b"
+  integrity sha512-YofkM6fGv4gDJq78g4j0mMuGMkZVxZDgtU0JRdx6FgiJDG+0fY0GKVolOV8WqVmEhLCXkQRjwDdKyPxJp/uucg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -3528,10 +3528,10 @@ html-react-parser@^0.10.3:
     react-property "1.0.1"
     style-to-object "0.3.0"
 
-html-react-parser@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-1.4.4.tgz#610f6c0b146fc88354118334dd0ea0a71292a083"
-  integrity sha512-7G44bVuoH2chiCDxOfyWMiFl5q9GWtMokbaL48dIC6KjWGEzjKh6oA36ziz8emaQFOhCJcXpFrvTHpuWdHpORg==
+html-react-parser@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-1.4.5.tgz#030ad310c4020658d568dd9a6d237fb90284b499"
+  integrity sha512-dxo0z1G9b3mS1VGmcVw4cUGwVsEwkJZZ7r29pOSdE69JukJyFTCL1I6TXSEp2p1LAHvuO6ZBiEVp2M5lXqKLAg==
   dependencies:
     domhandler "4.3.0"
     html-dom-parser "1.0.4"
@@ -5593,10 +5593,10 @@ react-remove-scroll@^2.4.1:
     use-callback-ref "^1.2.3"
     use-sidecar "^1.0.1"
 
-react-scroll-parallax@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.4.0.tgz#064362107e18a1f610ba5c8e11c1c1aea0da4129"
-  integrity sha512-lFbf2SIEyxyIko/edR8Fx2mnn4T0t2WzLBa4E5ApoGwDsSWS1crL+LjRYtin+f3EV+rmBDzWqqr7vB5GsRpg9Q==
+react-scroll-parallax@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.4.3.tgz#db0ae1da5700a4588237b7e8048e25c6aa5b6f18"
+  integrity sha512-Q9GfpA4j0djy993Hg14t/Rzr8mxtn0xtlctCqxVGJ0dQkfuQqKW950NozQJvYaW8yVITEsuUohNSVlchmCq5wg==
   dependencies:
     prop-types "^15.5.10"
 
