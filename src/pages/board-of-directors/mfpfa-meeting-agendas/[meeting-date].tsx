@@ -35,7 +35,8 @@ import slugify from 'slugify'
 import {
   boardAgendaUrl,
   bodAgendaMediaResponse,
-  bodAgendaMediaResponses
+  bodAgendaMediaResponses,
+  bodAgendaDateFrmt
 } from '@lib/types/bodAgenda'
 // const isDev = process.env.NODE_ENV === 'development'
 
@@ -249,7 +250,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       data && Array.isArray(data)
         ? data.map((bm) => ({
             ...bm,
-            derivedFilenameAttr: fileNameUtil(bm.original_name, boardAgendaUrl)
+            derivedFilenameAttr: fileNameUtil(
+              bm.original_name,
+              bodAgendaDateFrmt
+            )
           }))
         : []
     const meetingDate = paramToStr(params?.['meeting-date'])
