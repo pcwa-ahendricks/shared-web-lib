@@ -54,7 +54,7 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
         animate={!iframeIsLoading}
         hideUntilAnimate
         speed="fast"
-        height={{xs: 1400, md: 1250, lg: 1050}}
+        height={{xs: 900, md: 850, lg: 750}}
       >
         <IeNever
           // border={1}
