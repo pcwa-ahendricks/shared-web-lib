@@ -83,8 +83,8 @@ const BoardAgendaLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   const [isHover, setIsHover] = useState<boolean>(false)
   const classes = useStyles({isHover})
 
-  const url = `/board-of-directors/meeting-minutes/[meeting-date]`
-  const as = `/board-of-directors/meeting-minutes/${date}`
+  const url = `/board-of-directors/mfpfa-meeting-agendas/[meeting-date]`
+  const as = `/board-of-directors/mfpfa-meeting-agendas/${date}`
 
   const boardMeetingDate = useMemo(
     () => parseJSON(publishedDate),
@@ -105,7 +105,7 @@ const BoardAgendaLink = ({date, publishedDate, imgixUrl, title}: Props) => {
           <Image
             loader={imgixUrlLoader}
             src={imgixUrl}
-            alt="Board Minutes Thumbnail"
+            alt="Board Agenda thumbnail"
             layout="responsive"
             sizes="(min-width: 1100px) 10vw, (min-width: 595px) 15vw, (min-width: 480px) 25vw, 30vw"
             width={90}
