@@ -163,7 +163,7 @@ export default function MfpfaMeetingAgendaPage({fallbackData}: Props) {
                   in PDF format. Previous years' agendas can be found online in
                   our{' '}
                   <NextLink
-                    href="/board-of-directors/mfpfa-meeting-agendas-dev#archive"
+                    href="/board-of-directors/mfpfa-meeting-agendas#archive"
                     passHref
                   >
                     {/* <Link

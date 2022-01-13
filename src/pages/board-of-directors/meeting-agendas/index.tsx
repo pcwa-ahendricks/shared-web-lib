@@ -217,7 +217,15 @@ const MeetingAgendasPage = ({fallbackData}: Props) => {
               </Link>
               . Please email your request to <ClerkToBoardEmail /> or mail to
               Placer County Water Agency, Attention: Clerk to the Board, PO Box
-              6570, Auburn CA 95604.
+              6570, Auburn CA 95604. Note, Middle Fork Project Finance Authority
+              Board Meeting agendas can be found on our website on the{' '}
+              <MuiNextLink
+                href="/board-of-directors/mfpfa-meeting-agendas"
+                passHref
+              >
+                MFPFA Board Meeting Agendas page
+              </MuiNextLink>
+              .
             </Type>
           </Box>
           <Spacing size="large" />
@@ -241,7 +249,7 @@ const MeetingAgendasPage = ({fallbackData}: Props) => {
                 Schedule of Upcoming Board Meetings
               </Type>
               <Type gutterBottom>
-                All Board meetings will be held at the Agency’s Business Center
+                All Board meetings will be held at the Agency's Business Center
                 at{' '}
                 <MuiNextLink href="/about-pcwa/directions">
                   144 Ferguson Road, Auburn, California
