@@ -225,12 +225,12 @@ export default function Sb998SelfCertification() {
         <NarrowContainer>
           <MainBox>
             <Type variant="h1" color="primary" gutterBottom>
-              SB998 Self Certification Form
+              Water Shutoff Protection Self Certification Form
             </Type>
 
-            <Type variant="h3" color="primary" gutterBottom>
+            {/* <Type variant="h3" color="primary" gutterBottom>
               Water Shutoff Protection Act
-            </Type>
+            </Type> */}
 
             <Formik
               initialValues={initialFormValues}
@@ -708,14 +708,17 @@ export default function Sb998SelfCertification() {
 
   return (
     <>
-      <PageLayout title="SB998 Self Certification Form" waterSurface>
+      <PageLayout
+        title="Water Shutoff Protection Self Certification Form"
+        waterSurface
+      >
         {mainEl}
       </PageLayout>
       <Sb998FormSubDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="PCWA SB998 Self Certification Form"
+        description="PCWA Water Shutoff Protection Self Certification Form"
         dialogTitle="Your Application Has Been Submitted"
       />
       <FormSubmissionDialogError

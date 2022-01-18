@@ -155,7 +155,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },
-          Subject: 'PCWA - SB998 Self Certification Form Submitted',
+          Subject:
+            'PCWA - Water Shutoff Protection Self Certification Form Submitted',
           TemplateID: MAILJET_TEMPLATE_ID,
           TemplateLanguage: true,
           Variables: {

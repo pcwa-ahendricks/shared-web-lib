@@ -50,6 +50,7 @@ import Spacing from '@components/boxes/Spacing'
 import {blueGrey, yellow} from '@material-ui/core/colors'
 import CollectionsPhone from '@components/links/CollectionsPhone'
 import colorAlpha from 'color-alpha'
+import MuiNextLink from '@components/NextLink/NextLink'
 
 type Sb998SelfCertFormDataProp = keyof Sb998SelfCertFormData
 
@@ -256,7 +257,9 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
       aria-labelledby="form-dialog-title"
       maxWidth="md"
     >
-      <DialogTitle id="form-dialog-title">SB998 Self Certification</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        Water Shutoff Protection Act Self Certification
+      </DialogTitle>
       <DialogContent>
         <div>
           <WaitToGrow isIn={activeStep === 0}>
@@ -442,15 +445,18 @@ const Intro = () => {
 
   return (
     <Box>
-      <Type variant="subtitle1" gutterBottom>
+      {/* <Type variant="subtitle1" gutterBottom>
         Water Shutoff Protection Act
-      </Type>
+      </Type> */}
       <Type>
         Pursuant to Section 116900 of the Health and Safety Code, Placer County
         Water Agency (PCWA) will not terminate residential service for
         nonpayment when specific conditions are met. The written policy is
-        available at <Link href="#">(insert link to policy in PDF?)</Link> or by
-        calling the Customer Services department at <MainPhone />.
+        available online on our{' '}
+        <MuiNextLink href="/services/shutoff-protection">
+          Water Shutoff Protection
+        </MuiNextLink>{' '}
+        page or by calling the Customer Services department at <MainPhone />.
       </Type>
       <Spacing />
       <Type align="center" variant="subtitle2">
