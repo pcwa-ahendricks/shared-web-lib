@@ -3,8 +3,7 @@ import SquareIcon from 'mdi-material-ui/Square'
 import alpha from 'color-alpha'
 import {orange, teal, brown, blue} from '@material-ui/core/colors'
 import {BarDatum, ResponsiveBar} from '@nivo/bar'
-import {BoxLegendSvg} from '@nivo/legends'
-import React, {useCallback, useMemo} from 'react'
+import React, {useMemo} from 'react'
 import {Box, useTheme, Typography as Type} from '@material-ui/core'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
@@ -48,31 +47,6 @@ export default function PrecipMonthGroupBar({
     ],
     [showHistPrecip]
   )
-  // Need a custom legend for bar chart. See
-  // See https://codesandbox.io/s/nivo-bar-example-nf86t?file=/index.js
-  const BarLegend = useCallback(({height, legends, width}: any) => {
-    if (!legends || legends.length <= 0) {
-      return <></>
-    }
-    return (
-      <>
-        {legends.map((legend: any) => {
-          if (!legend || !legend.data) {
-            return <></>
-          }
-          return (
-            <BoxLegendSvg
-              data={legend.data}
-              key={JSON.stringify(legend.data.map(({id}: any) => id))}
-              {...legend}
-              containerHeight={height}
-              containerWidth={width}
-            />
-          )
-        })}
-      </>
-    )
-  }, [])
 
   return (
     <ResponsiveBar
@@ -155,7 +129,7 @@ export default function PrecipMonthGroupBar({
       // labelTextColor={{from: 'color', modifiers: [['darker', 1.6]]}}
       // label={(d: any) => `${d.data.label}`}
       // layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations']}
-      layers={['grid', 'axes', 'bars', 'markers', BarLegend]}
+      layers={['grid', 'axes', 'bars', 'markers', 'legends']}
       legends={[
         {
           data: precipMoSmryChartKeys.map((id, index) => ({
