@@ -304,22 +304,22 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
                 {reducedCnctChrgCondition ? (
                   <>
                     <Type paragraph>
-                      Per Senate Bill 998 (SB998) if a residential customer
-                      demonstrates, to the Agency, that the customer’s household
-                      income is below 200% of the federal poverty line, the
-                      Agency shall charge no more than $50 for reconnection of
-                      service during business hours or no more than $150 for
-                      after-hours reconnection. Health & Safety code 116910.
+                      Per WSPA if a residential customer demonstrates, to the
+                      Agency, that the customer's household income is below 200%
+                      of the federal poverty line, the Agency shall charge no
+                      more than $52.00 for reconnection of service during
+                      business hours or no more than $157.00 for after-hours
+                      reconnection. Health & Safety code 116910.
                     </Type>
                     <Type paragraph>
                       As a condition and requirement for receiving a reduced
                       reconnection fee from PCWA, I hereby declare that my
                       household income is below 200 percent of the federal
-                      poverty line. This form is valid for 12 months from date
-                      of signature. I understand that by signing this form I
-                      agree that the information listed is true and correct. I
-                      declare that I meet the above requirements of the Water
-                      Shutoff Protection Act.
+                      poverty line. This form is valid for 12 months from the
+                      date of signature. I understand that by signing this form
+                      I agree that the information listed is true and correct. I
+                      declare that I meet the above requirements of the
+                      WSPA/Water Shutoff Protection Act.
                     </Type>
                     <Type>Please close this dialog to continue.</Type>
                   </>
@@ -328,23 +328,22 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
                   <>
                     <Type paragraph>
                       Pursuant to Section 116900 of the Health and Safety Code,
-                      Placer County Water Agency (PCWA) will not terminate
-                      residential service for nonpayment as long as all 3
-                      specific conditions are met.
+                      PCWA will not terminate residential service for nonpayment
+                      as long as all 3 specific conditions are met.
                     </Type>
                     <Type paragraph>
                       Completion of this form does not guarantee a payment
                       arrangement. I understand by meeting the above conditions,
                       my service may still be terminated if I fail to comply
                       with a payment arrangement. The Agency shall charge no
-                      more than $50 for reconnection of service during business
-                      hours or no more than $150 for after-hours reconnection.
-                      Documentation may need to be provided upon request by
-                      PCWA. This form is valid for 12 months from date of
-                      signature. I understand that by signing this form I agree
-                      that the information listed is true and correct. I declare
-                      that I meet the above requirements of the Water Shutoff
-                      Protection Act
+                      more than $52.00 for reconnection of service during
+                      business hours or no more than $157.00 for after-hours
+                      reconnection. Documentation may need to be provided upon
+                      request by PCWA. This form is valid for 12 months from
+                      date of signature. I understand that by signing this form
+                      I agree that the information listed is true and correct. I
+                      declare that I meet the above requirements of the Water
+                      Shutoff Protection Act.
                     </Type>
                     <Type>Please close this dialog to continue.</Type>
                   </>
@@ -449,8 +448,8 @@ const Intro = () => {
       </Type> */}
       <Type>
         Pursuant to Section 116900 of the Health and Safety Code, Placer County
-        Water Agency (PCWA) will not terminate residential service for
-        nonpayment when specific conditions are met. The written policy is
+        Water Agency (PCWA, the Agency) will not terminate residential service
+        for nonpayment when specific conditions are met. The written policy is
         available online on our{' '}
         <MuiNextLink href="/services/shutoff-protection">
           Water Shutoff Protection
@@ -459,8 +458,8 @@ const Intro = () => {
       </Type>
       <Spacing />
       <Type align="center" variant="subtitle2">
-        Senate Bill 998 prohibits discontinuation of water service if{' '}
-        <em>all</em> the following conditions are met:
+        The Water Shutoff Protection Act (WSPA) prohibits discontinuation of
+        water service if <em>all</em> the following conditions are met:
       </Type>
       <List disablePadding>
         <ListItem classes={{root: classes.tightListItem}}>
@@ -469,9 +468,7 @@ const Intro = () => {
           </ListItemBullet>
           <ListItemText
             classes={{root: classes.tightListItemText}}
-            primary="A primary care provider certifies that discontinuation will be
-        life-threatening or poses a serious threat to the health and safety of a
-        resident on the premises where service is provided; and"
+            primary="A primary care provider certifies that discontinuation will be life-threatening or poses a serious threat to the health and safety of a resident on the premises where service is provided; and"
           />
         </ListItem>
         <ListItem classes={{root: classes.tightListItem}}>
@@ -489,8 +486,7 @@ const Intro = () => {
           </ListItemBullet>
           <ListItemText
             classes={{root: classes.tightListItemText}}
-            primary="A customer is willing to enter an amortization agreement, alternative
-        payment schedule, or plan for a deferred or reduced payment."
+            primary="A customer is willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment."
           />
         </ListItem>
       </List>
@@ -561,10 +557,9 @@ const QuestionOne = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
           className={classes.qualifyMsg}
         >
           <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
-            You must be a current Placer County Water Agency treated water
-            customer. SB998 relates to water adequate for human consumption,
-            cooking, and sanitary purposes. To inquire about payment options to
-            avoid discontinuation of irrigation water services, please contact
+            You must be a current PCWA treated water customer, WSPA does not
+            apply to untreated water. To inquire about payment options to avoid
+            discontinuation of irrigation water services, please contact
             Customer Services at <CollectionsPhone />.
           </Box>
         </DialogContentText>
@@ -700,10 +695,10 @@ const QuestionThree = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
           className={classes.qualifyMsg}
         >
           <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
-            Specific income conditions must be met to qualify for Water Shutoff
-            Protection under SB998. However, a customer who is unable to pay for
-            water service within the normal payment period may request an
-            alternative payment plan to avoid disruption of service. Please
+            Specific income conditions must be met to avoid service interruption
+            under the Water Shutoff Protection Act. A customer who is unable to
+            pay for water service within the normal payment period may request
+            an alternative payment plan to avoid disruption of service. Please
             contact Customer Services at <CollectionsPhone /> to discuss
             Alternate Payment Options.
           </Box>
@@ -823,9 +818,9 @@ const QuestionFive = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
           className={classes.qualifyMsg}
         >
           <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
-            Senate Bill 998 requires a customer be willing to enter an
-            amortization agreement, alternative payment schedule, or plan for a
-            deferred or reduced payment.
+            WSPA requires a customer be willing to enter an amortization
+            agreement, alternative payment schedule, or plan for a deferred or
+            reduced payment.
           </Box>
         </DialogContentText>
       </WaitToGrow>
@@ -856,21 +851,21 @@ function getSteps(): {
     {
       index: 2,
       label:
-        'Is the household’s annual income less than 200 percent the federal poverty level?',
+        "Is the household's annual income less than 200 percent the federal poverty level?",
       name: 'householdIncome',
       content: <QuestionThree fieldName="householdIncome" />
     },
     {
       index: 3,
       label:
-        'I can submit certification of a primary care provider, that discontinuation of residential service will be life threatening to or pose a serious threat to the health and safety of a resident of the premises where service is provided.',
+        'I can submit certification of a primary care provider, that discontinuation of residential service will be life-threatening to or pose a serious threat to the health and safety of a resident of the premises where service is provided.',
       name: 'primaryCareCert',
       content: <QuestionFour fieldName="primaryCareCert" />
     },
     {
       index: 4,
       label:
-        'I am willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment. Requests are reviewed on a case‐by‐case basis, taking in consideration payment history and the outstanding balance, based on the policy set forth in PCWA’s Rules and Regulations.',
+        "I am willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment. Requests are reviewed on a case-by-case basis, taking in consideration payment history and the outstanding balance, based on the policy set forth in PCWA's Rules and Regulations.",
       name: 'paymentPlan',
       content: <QuestionFive fieldName="paymentPlan" />
     }
