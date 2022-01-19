@@ -30,11 +30,6 @@ import 'react-vertical-timeline-component/style.min.css'
 // import 'mapbox-gl/dist/mapbox-gl.css'
 // Load Animate.css globally
 import 'animate.css'
-/*
-Polyfills
-*/
-// required by nivo during ssr
-import 'resize-observer-polyfill'
 
 const isDev = process.env.NODE_ENV === 'development'
 
