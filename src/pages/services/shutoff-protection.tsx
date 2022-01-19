@@ -442,7 +442,7 @@ const ShutoffProtectionPage = () => {
               <Type variant="h3" gutterBottom color="primary">
                 물 차단 정책
               </Type>
-              <Type variant="h4" gutterBottom>
+              <Type variant="subtitle1" gutterBottom>
                 수도 요금 미납자에 대한 주거용 수도 공급 중단 정책
               </Type>
               <Type paragraph>
@@ -451,13 +451,81 @@ const ShutoffProtectionPage = () => {
                 요청하거나 납부 일정을 변경, 수도 요금 재검토를 요청하는 경우를
                 포함합니다.
               </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                납부 기한 연장 또는 납부 일정 변경은 어떻게 요청할 수 있습니까?
+              </Type>
+              <Type paragraph>
+                수도 요금을 일반 납부 기한 안에 납부할 수 없는 경우, 수도 공급
+                중단을 피하려면 납부 일정 변경을 요청할 수 있습니다. PCWA는
+                요청한 건에 대한 모든 상황을 고려하여 기간 연장 또는 납부 일정
+                변경이 타당한지 결정할 것입니다. 납부 일정을 원래 기한 보다
+                늦추거나미납요금에대한납부일정을정할수도있습니다.
+                기한연장일정은최대 60일 이내로 정할 수 있으며 원래 기한으로부터
+                12개월을 초과할 수 없습니다. 납부 일정 변경을 요청하려면 고객
+                지원 부서로 문의하시기 바랍니다 <CollectionsPhone />.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                저소득 고객의 자가 인증을 위한 특정 프로그램
+              </Type>
+              {/* <Type variant="h4" gutterBottom>
+                Alternative Payment Arrangements
+              </Type> */}
+              <Type paragraph>
+                의료 및 안전 규정 제 116900 항에 따라, 플레이서 카운티
+                수도국(Placer County Water Agency, PCWA)은 특정 조건에 부합하는
+                경우 미납으로 인한 거주자 서비스를 종료하지 않을 것입니다.
+              </Type>
+
+              <Type paragraph>
+                <strong>세 가지 요건이 전부</strong> 충족되어야만 수도 서비스
+                장애를 피할 수 있으며, 그 요건은 다음과 같습니다:
+              </Type>
+              <List dense disablePadding>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="서비스의 중단이 서비스 제공 부지 거주자의 생명을 위협하거나 건강과 안전에 심각한 위협을 초래한다는 것을 1 차 의료기관이 확인하는 경우," />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="고객이 스스로 재정적 지불능력이 없음을 입증하는 경우," />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="고객이 할부 상환 계약을 체결할 의지가 있거나, 대체 납부 일정이나 연불 혹은 감액 지불 계획에 착수할 의지가 있는 경우." />
+                </ListItem>
+              </List>
               <Type variant="h4" gutterBottom>
+                재연결 요금의 감액
+              </Type>
+              <Type paragraph>
+                거주자이면서 가계 소득이 연방 자산 경계선의 200 퍼센트 미만임을
+                수도국에 입증하는 고객에 대해, 수도국은 재연결 요금을 감액해줄
+                것입니다.
+              </Type>
+
+              <Type paragraph>
+                자격 요건에 관한 문의사항은 로 전화하여 고객 서비스에{' '}
+                <CollectionsPhone />, 또는{' '}
+                <Link passHref href="/forms/account/sb998-self-certification">
+                  <MuiLink variant="inherit">
+                    링크를 클릭하여 자가 인증 양식을 작성하십시오
+                  </MuiLink>
+                </Link>
+                .
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
                 수도 요금 재검토는 어떻게 요청할 수 있습니까?
               </Type>
               <Type paragraph>
-                수도 요금 고지서 날짜로부터 60일 이내에 요금에 대한 이의를
+                수도 요금 고지서 날짜로부터 60 일 이내에 요금에 대한 이의를
                 제기하거나 정정 요청을 할 수 있습니다. 기관의 응답 후 업무일
-                기준으로 10일 이내에는 이의가 제기된 고지서에 대해 벌금 또는
+                기준으로 10 일 이내에는 이의가 제기된 고지서에 대해 벌금 또는
                 추가 금액이 청구되지 않습니다.
               </Type>
               <Type paragraph>
@@ -471,19 +539,6 @@ const ShutoffProtectionPage = () => {
                 수 있습니다. 총책임자는 기관 측 과실로 인한 모든 청구 오류를
                 수정할 수 있습니다. 총책임자도 해결하지 못한 경우에는 기관
                 이사회에서 최종 검토 및 결정을 내릴 것입니다.
-              </Type>
-              <Type variant="h4" gutterBottom>
-                납부 기한 연장 또는 납부 일정 변경은 어떻게 요청할 수 있습니까?
-              </Type>
-              <Type paragraph>
-                수도 요금을 일반 납부 기한 안에 납부할 수 없는 경우, 수도 공급
-                중단을 피하려면 납부 일정 변경을 요청할 수 있습니다. PCWA는
-                요청한 건에 대한 모든 상황을 고려하여 기간 연장 또는 납부 일정
-                변경이 타당한지 결정할 것입니다. 납부 일정을 원래 기한 보다
-                늦추거나 미납 요금에 대한 납부 일정을 정할 수도 있습니다. 기한
-                연장 일정은 최대 60일 이내로 정할 수 있으며 원래 기한으로부터
-                12개월을 초과할 수 없습니다. 납부 일정 변경을 요청하려면 고객
-                지원 부서로 문의하시기 바랍니다 <MainPhone />.
               </Type>
             </article>
             <Spacing size="large" />
@@ -505,19 +560,19 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6c462d0-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-KObc010422.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/ca84c960-2e76-11ea-a6d4-f90f4871ce6f-Doortag-KObc010220.pdf"
+                  href="https://cdn.cosmicjs.com/e6c462d0-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-KObc010422.pdf"
                   caption="표준 PCWA 도어 태그"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6caa460-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-KObc011022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/35832be0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Koreanbc012920.pdf"
-                  caption="납입 기간 만료 안내"
+                  href="https://cdn.cosmicjs.com/e6caa460-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-KObc011022.pdf"
+                  caption="서면 통지"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
                 {/* <ImageThumbLink
@@ -683,7 +738,7 @@ const ShutoffProtectionPage = () => {
               <Type variant="h3" gutterBottom color="primary">
                 Chính sách tắt nước
               </Type>
-              <Type variant="h4" gutterBottom>
+              <Type variant="subtitle1" gutterBottom>
                 Chính sách ngừng cung cấp dịch vụ nước sinh hoạt do không thanh
                 toán
               </Type>
@@ -694,7 +749,81 @@ const ShutoffProtectionPage = () => {
                 thanh toán trả chậm hoặc lịch thanh toán thay thế và khiếu nại
                 về hóa đơn tiền nước.
               </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                Luật pháp California cung cấp cho khách hàng các lựa chọn để
+                tránh bị ngừng cung cấp dịch vụ nước sinh hoạt do không thanh
+                toán hóa đơn tiền nước. Những lựa chọn đó bao gồm các khoản
+                thanh toán trả chậm hoặc lịch thanh toán thay thế và khiếu nại
+                về hóa đơn tiền nước.
+              </Type>
+              <Type paragraph>
+                Khách hàng không thể thanh toán dịch vụ nước trong thời hạn
+                thanh toán thông thường có thể yêu cầu một kế hoạch thanh toán
+                thay thế để tránh bị ngừng cung cấp dịch vụ. PCWA sẽ xem xét tất
+                cả các trường hợp liên quan đến yêu cầu này và đưa ra quyết định
+                về việc có đảm bảo bố trí thanh toán trả chậm hoặc thay thế hay
+                không. Kế hoạch thanh toán có thể là trả chậm số tiền đến hạn
+                thanh toán vào ngày muộn hơn hoặc cung cấp lịch thanh toán cho
+                số tiền nợ. Kế hoạch thanh toán có thể trả chậm một khoản tiền
+                lên đến 60 ngày, nhưng không được quá 12 tháng kể từ ngày đến
+                hạn ban đầu. Để yêu cầu lịch thanh toán thay thế, vui lòng gọi
+                điện cho Phòng dịch vụ khách hàng theo số <CollectionsPhone />.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                Các Chương Trình Cụ Thể cho Tự Chứng Nhận Khách Hàng Có Thu Nhập
+                Thấp
+              </Type>
+
+              <Type paragraph>
+                Theo Mục 116900 của Luật Sức Khỏe và An Toàn, Cơ Quan Cấp Nước
+                Quận Placer (PCWA) sẽ không chấm dứt dịch vụ sinh hoạt vì không
+                thanh toán khi quý vị đáp ứng các điều kiện cụ thể.
+              </Type>
+
+              <Type paragraph>
+                <strong>Tất cả các yêu cầu này</strong> phải được đáp ứng để
+                tránh bị gián đoạn dịch vụ cấp nước:
+              </Type>
+              <List dense disablePadding>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Nhà cung cấp dịch vụ chăm sóc chính chứng nhận rằng việc ngừng cung cấp dịch vụ sẽ đe dọa đến tính mạng hoặc gây ra mối đe dọa nghiêm trọng đến sức khỏe và sự an toàn của cư dân tại khu nhà được cung cấp dịch vụ; và" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Khách hàng chứng minh được rằng họ không có khả năng tài chính để thanh toán; và" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Khách hàng sẵn sàng ký một thỏa thuận khấu hao, lịch thanh toán thay thế hoặc lập kế hoạch trả chậm hoặc giảm giá." />
+                </ListItem>
+              </List>
               <Type variant="h4" gutterBottom>
+                Giảm Phí Cấp Lại
+              </Type>
+              <Type paragraph>
+                Đối với những khách hàng sử dụng dịch vụ sinh hoạt chứng minh
+                được với Cơ quan rằng thu nhập hộ gia đình dưới 200% mức chuẩn
+                nghèo liên bang, Cơ quan sẽ giảm phí cấp lại.
+              </Type>
+
+              <Type paragraph>
+                Để hỏi về các yêu cầu đủ điều kiện, vui lòng liên hệ Dịch Vụ
+                Khách Hàng theo số <CollectionsPhone />{' '}
+                <Link passHref href="/forms/account/sb998-self-certification">
+                  <MuiLink variant="inherit">
+                    hoặc nhấp vào liên kết để hoàn thành Mẫu Tự Chứng Nhận
+                  </MuiLink>
+                </Link>
+                .
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
                 Tôi có thể khiếu nại về hóa đơn tiền nước của mình bằng cách
                 nào?
               </Type>
@@ -718,23 +847,6 @@ const ShutoffProtectionPage = () => {
                 Giám đốc không thể đưa ra biện pháp giải quyết, đánh giá và
                 quyết định cuối cùng sẽ do Hội đồng Quản trị Cơ quan đưa ra.
               </Type>
-              <Type variant="h4" gutterBottom>
-                Tôi có thể nhận lịch thanh toán trả chậm hoặc thay thế bằng cách
-                nào?
-              </Type>
-              <Type paragraph>
-                Khách hàng không thể thanh toán dịch vụ nước trong thời hạn
-                thanh toán thông thường có thể yêu cầu một kế hoạch thanh toán
-                thay thế để tránh bị ngừng cung cấp dịch vụ. PCWA sẽ xem xét tất
-                cả các trường hợp liên quan đến yêu cầu này và đưa ra quyết định
-                về việc có đảm bảo bố trí thanh toán trả chậm hoặc thay thế hay
-                không. Kế hoạch thanh toán có thể là trả chậm số tiền đến hạn
-                thanh toán vào ngày muộn hơn hoặc cung cấp lịch thanh toán cho
-                số tiền nợ. Kế hoạch thanh toán có thể trả chậm một khoản tiền
-                lên đến 60 ngày, nhưng không được quá 12 tháng kể từ ngày đến
-                hạn ban đầu. Để yêu cầu lịch thanh toán thay thế, vui lòng gọi
-                điện cho Phòng dịch vụ khách hàng theo số <MainPhone />.
-              </Type>
             </article>
             <Spacing size="large" />
             <Type variant="h3">Các tài liệu</Type>
@@ -755,19 +867,19 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6a939b0-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-VNbc010422.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/cab9bc10-2e76-11ea-a6d4-f90f4871ce6f-Doortag-VIbc123019.pdf"
+                  href="https://cdn.cosmicjs.com/e6a939b0-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-VNbc010422.pdf"
                   caption="Thẻ cửa PCWA tiêu chuẩn"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6cdffc0-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-VNbc011022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/35e17880-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Vietnamesebc012920.pdf"
-                  caption="Thông Báo Chấm Dứt"
+                  href="https://cdn.cosmicjs.com/e6cdffc0-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-VNbc011022.pdf"
+                  caption="Thông Báo Viết"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
                 {/* <ImageThumbLink
@@ -791,7 +903,7 @@ const ShutoffProtectionPage = () => {
               <Type variant="h3" gutterBottom color="primary">
                 Patayin ang Patakaran sa tubig
               </Type>
-              <Type variant="h4" gutterBottom>
+              <Type variant="subtitle1" gutterBottom>
                 Patakaran sa Paghihinto ng Residensyal na Serbisyong Patubig
                 dahil sa Hindi Pagbabayad
               </Type>
@@ -803,7 +915,86 @@ const ShutoffProtectionPage = () => {
                 alternatibong iskedyul ng pagbabayad, at pag-aapela sa isang
                 water bill.
               </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                Paano Ako Makakakuha ng Ipinagpalibang Pagbabayad o
+                Alternatibong Iskedyul sa Pagbabayad?
+              </Type>
+              <Type paragraph>
+                Ang isang customer na hindi makapagbayad para sa serbisyong
+                patubig sa loob ng karaniwang panahon ng pagbabayad ay maaaring
+                humiling ng alternatibong plano sa pagbabayad upang iwasan ang
+                pagkaantala ng serbisyo. Isasaalang-alang ng PCWA ang lahat ng
+                kalagayang pumapalibot sa kahilingan at pagpapasyahan nito kung
+                kinakailangan ang ipinagpaliban o alternatibong kaayusan ng
+                pagbabayad. Maaaring ipagpaliban ng plano sa pagbabayad ang
+                halagang dapat bayaran sa mas malayong petsa o magbigay ng
+                iskedyul ng pagbabayad para sa natitirang balanse. I-aatas ng
+                plano na bayaran ang balanse ng account sa loob ng 60 araw,
+                ngunit hindi maaaring lumampas ng 12 buwan mula sa orihinal na
+                petsa na dapat itong bayaran. Upang magtanong tungkol sa
+                alternatibong iskedyul ng pagbabayad, pakitawagan ang Mga
+                Serbisyong Pang-customer sa <CollectionsPhone />.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                Espisipikong Mga Programa para sa Sariling Sertipikasyon ng
+                Mababang-Kita na Kostumer
+              </Type>
+              {/* <Type variant="h4" gutterBottom>
+                Alternative Payment Arrangements
+              </Type> */}
+              <Type paragraph>
+                Alinsunod sa Seksyon 116900 ng Kodigo sa Kalusugan at
+                Kaligtasan, hindi bigyan ng katapusan ng Placer County Water
+                Agency (PCWA) ang serbisyo sa pambahayan dahil sa hindi pagbayad
+                kapag ang tiyak na mga kalagayan ay matugunan.
+              </Type>
+
+              <Type paragraph>
+                <strong>Lahat ng tatlong mga kinakailangan</strong> ay dapat
+                matugunan upang maiiwasan ang pagkaputol ng serbisyo sa tubig:
+              </Type>
+              <List dense disablePadding>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Patunayan ng pangunahing tagapagbigay ng pangangalaga na ang hindi pagpapatuloy ay maging banta sa buhay o magdudulot ng malubhang banta sa kalusugan at kaligtasan ng isang residente sa mga lugar na kung saan ang serbisyo ay ibinigay; at" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Ang isang kostumer ay magpapakita na siya ay walang kakayahang magbayad ng pinansyal; at" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Ang kostumer ay pumapayag na papasok sa kasunduang amortisasyon, alternatibong iskedyul ng bayaran, o isang plano ng ipinagpaliban o binawasang pagbabayad." />
+                </ListItem>
+              </List>
               <Type variant="h4" gutterBottom>
+                Binawasan na Mga Bayarin ng Muling Pagkonekta
+              </Type>
+              <Type paragraph>
+                Para sa pambahayang mga kostumer na nagpapakita sa Ahensya ng
+                kinita ng sambahayan na mababa sa 200 porsiyento sa linya ng
+                kahirapang federal, babawasan ng Ahensya ang mga bayarin ng
+                muling pagkokonekta.
+              </Type>
+
+              <Type paragraph>
+                Upang magtanong tungkol sa mga kinakailangan sa pagiging
+                karapat-dapat, mangyaring tawagan ang Mga Serbisyo sa Kostumer
+                sa <CollectionsPhone /> o i-click ang link{' '}
+                <Link passHref href="/forms/account/sb998-self-certification">
+                  <MuiLink variant="inherit">
+                    upang kumpletuhin ang Form ng Sariling Sertipikasyon
+                  </MuiLink>
+                </Link>
+                .
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
                 Paano Ko I-aapela Ang Aking Water Bill?
               </Type>
               <Type paragraph>
@@ -829,26 +1020,6 @@ const ShutoffProtectionPage = () => {
                 Pangkalahatang Manager, gagawa ng pinal na pagsusuri at desisyon
                 ang Lupon ng Mga Direktor ng Ahensiya.
               </Type>
-              <Type variant="h4" gutterBottom>
-                Paano Ako Makakakuha ng Ipinagpalibang Pagbabayad o
-                Alternatibong Iskedyul sa Pagbabayad?
-              </Type>
-              <Type paragraph>
-                Ang isang customer na hindi makapagbayad para sa serbisyong
-                patubig sa loob ng karaniwang panahon ng pagbabayad ay maaaring
-                humiling ng alternatibong plano sa pagbabayad upang iwasan ang
-                pagkaantala ng serbisyo. Isasaalang-alang ng PCWA ang lahat ng
-                kalagayang pumapalibot sa kahilingan at pagpapasyahan nito kung
-                kinakailangan ang ipinagpaliban o alternatibong kaayusan ng
-                pagbabayad. Maaaring ipagpaliban ng plano sa pagbabayad ang
-                halagang dapat bayaran sa mas malayong petsa o magbigay ng
-                iskedyul ng pagbabayad para sa natitirang balanse. I-aatas ng
-                plano na bayaran ang balanse ng account sa loob ng 60 araw,
-                ngunit hindi maaaring lumampas ng 12 buwan mula sa orihinal na
-                petsa na dapat itong bayaran. Upang magtanong tungkol sa
-                alternatibong iskedyul ng pagbabayad, pakitawagan ang Mga
-                Serbisyong Pang-customer sa <MainPhone />.
-              </Type>
             </article>
             <Spacing size="large" />
             <Type variant="h3">Mga dokumento</Type>
@@ -869,19 +1040,19 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6a987d0-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-TAbc010422.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/cabc0600-2e76-11ea-a6d4-f90f4871ce6f-Doortag-TAbc123019.pdf"
+                  href="https://cdn.cosmicjs.com/e6a987d0-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-TAbc010422.pdf"
                   caption="Pamantayan PCWA Tag ng Door"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6cd6380-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-TAbc011022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/35dd32c0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Tagalogbc012920.pdf"
-                  caption="Abiso Sa Paghihinto Ng Serbisyo"
+                  href="https://cdn.cosmicjs.com/e6cd6380-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-TAbc011022.pdf"
+                  caption="Nakasulat Na Paunawa"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
                 {/* <ImageThumbLink
