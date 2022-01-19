@@ -538,44 +538,94 @@ const ShutoffProtectionPage = () => {
         Component: (
           <Box key={3}>
             <article>
-              <Type variant="h3" gutterBottom color="primary">
+              <Type variant="h2" gutterBottom color="primary">
                 停水政策
               </Type>
-              <Type variant="h4" gutterBottom>
+              <Type variant="subtitle1" gutterBottom>
                 逾時未付款之住宅供水服務中斷政策
               </Type>
               <Type paragraph>
                 加州法律規定選項讓客戶得以避免因未繳水費帳單而住宅供水服務遭到中斷。那些選項包
-                括付款遞延或替代的付款日程，及水費帳單上訴動作。
+                括付款遞延或替代的付款日程，及水費帳單上訴動作.
               </Type>
-              <Type variant="h4" gutterBottom>
-                我如何針對自己的水費帳單進行上訴？
-              </Type>
-              <Type paragraph>
-                客戶們可在帳單日期後 60
-                日內對帳單提出爭議，或要求帳單調整。受理單位回應後10個
-                工作日才會對爭議帳單累加罰鍰或收費。
+              <Type variant="h3" gutterBottom color="primary">
+                我如何取得遞延或替代的付款日程?
               </Type>
               <Type paragraph>
-                若要讓您的帳單交付客戶服務人員審查，請連絡我們的客戶服務部門{' '}
-                <MainPhone />。
-              </Type>
-              <Type paragraph>
-                如果對客戶服務人員的解決方案感到不滿意，客戶接著可將自己的帳單交由主管或經理審
-                查。如果客戶仍對結果不滿意，客戶可要求總經理審查。總經理可對受理單位造成的任何
-                帳單錯誤進行改正動作。如果總經理無法擬出解決方案，會由受理單位的董事會進行最終
-                審查並作出決定。
-              </Type>
-              <Type variant="h4" gutterBottom>
-                我如何取得遞延或替代的付款日程？
-              </Type>
-              <Type paragraph>
-                無法在正常付款期限內支付水費的客戶可要求替代式付款計畫，以避免服務遭到中斷。
+                無法在正常付款期限內支付水費的客戶可要求替代式付款計畫，以避免服務遭到中斷.
                 PCWA
                 將考量要求相關所有情況，並判定遞延或替代的付款安排是否獲得保證。付款計畫
                 會因為日期延後而將金額隨之遞延，或針對待付餘額提供付款日程。計畫會要求帳戶帶入
                 60日期限，但不得超過原始到期日起的12個月。若要詢問替代的付款日程，請逕洽客戶服
-                務部門 <MainPhone />。
+                務部門 <CollectionsPhone />.
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                低收入客戶自行核證的特定計劃
+              </Type>
+              <Type paragraph>
+                根據《健康與安全法》第 116900 條，符合特定條件時，普萊瑟縣水務署
+                (PCWA) 不會因 欠費而終止住宿服務.
+              </Type>
+
+              <Type paragraph>
+                <strong>全部三個要求</strong>{' '}
+                均須得以滿足，方能避免供水服務遭中斷:
+              </Type>
+              <List dense disablePadding>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="基層醫療服務提供商核證，中斷服務會危及生命，或對居住在提供有關服務的場所 內居民的健康與安全構成嚴重威脅;及" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="客戶證明自己無經濟能力來繳費;及" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="客戶願意訂立分期繳費協議、替代性繳費安排或遞延或減少繳費計劃." />
+                </ListItem>
+              </List>
+              <Type variant="h4" gutterBottom>
+                寬減恢復供水費
+              </Type>
+              <Type paragraph>
+                如住宅客戶向本署證明，其住戶收入低於聯邦貧窮線的
+                200%，本署會寬減恢復供水費.
+              </Type>
+
+              <Type paragraph>
+                如欲查詢資格要求，請聯絡客戶服務部，電話為 <CollectionsPhone />{' '}
+                <Link passHref href="/forms/account/sb998-self-certification">
+                  <MuiLink variant="inherit">
+                    或按一下連結，以填寫 自行核證表
+                  </MuiLink>
+                </Link>
+                .
+              </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                我如何針對自己的水費帳單進行上訴?
+              </Type>
+              <Type paragraph>
+                客戶們可在帳單日期後 60
+                日內對帳單提出爭議，或要求帳單調整。受理單位回應後10個
+                工作日才會對爭議帳單累加罰鍰或收費.
+              </Type>
+              <Type paragraph>
+                若要讓您的帳單交付客戶服務人員審查，請連絡我們的客戶服務部門{' '}
+                <MainPhone />.
+              </Type>
+              <Type paragraph>
+                如果對客戶服務人員的解決方案感到不滿意，客戶接著可將自己的帳單交由主管或經理審
+                查. 如果客戶仍對結果不滿意，客戶可要求總經理審查.
+                總經理可對受理單位造成的任何
+                帳單錯誤進行改正動作。如果總經理無法擬出解決方案，會由受理單位的董事會進行最終
+                審查並作出決定.
               </Type>
             </article>
             <Spacing size="large" />
@@ -597,18 +647,18 @@ const ShutoffProtectionPage = () => {
                 alt="Thumbnail and link for Water Shutoff Protection Act Policy PDF"
               /> */}
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e69bcc30-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-CHbc010422.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/ca8565a0-2e76-11ea-bfe8-5b62c3bdf959-Doortag-CHbc123019.pdf"
-                  caption="标准PCWA门标签"
+                  href="https://cdn.cosmicjs.com/e69bcc30-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-CHbc010422.pdf"
+                  caption="标准PCWA门牌"
                   alt="Thumbnail and link for Door Tag Sample PDF"
                 />
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6a47ec0-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-CHbc011022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/358798b0-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Chinesebc012920.pdf"
+                  href="https://cdn.cosmicjs.com/e6a47ec0-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-CHbc011022.pdf"
                   caption="終止通知"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
