@@ -77,7 +77,7 @@ const formSchema = object()
           householdAssist && householdAssist.toLowerCase() === 'no'
             ? schema.oneOf(
                 ['Yes'],
-                'Specific income conditions must be met to qualify for Water Shutoff Protection under SB998'
+                'Specific income conditions must be met to avoid service interruption under the Water Shutoff Protection Act'
               )
             : schema
       ),
@@ -92,7 +92,7 @@ const formSchema = object()
           primaryCareCert && primaryCareCert.toLowerCase() === 'yes'
             ? schema.oneOf(
                 ['Yes'],
-                'Senate Bill 998 requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment'
+                'WSPA requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment'
               )
             : schema
       ),
@@ -564,14 +564,14 @@ export default function Sb998SelfCertification() {
                                     paragraph
                                     color="primary"
                                   >
-                                    Per Senate Bill 998 (SB998) if a residential
-                                    customer demonstrates, to the Agency, that
-                                    the customer's household income is below
-                                    200% of the federal poverty line, the Agency
-                                    shall charge no more than $50 for
-                                    reconnection of service during business
-                                    hours or no more than $150 for after-hours
-                                    reconnection. Health & Safety code 116910.
+                                    Per WSPA if a residential customer
+                                    demonstrates, to the Agency, that the
+                                    customer's household income is below 200% of
+                                    the federal poverty line, the Agency shall
+                                    charge no more than $52.00 for reconnection
+                                    of service during business hours or no more
+                                    than $157.00 for after-hours reconnection.
+                                    Health & Safety code 116910.
                                   </Type>
                                   <Type
                                     variant="body1"
@@ -583,11 +583,11 @@ export default function Sb998SelfCertification() {
                                     hereby declare that my household income is
                                     below 200 percent of the federal poverty
                                     line. This form is valid for 12 months from
-                                    date of signature. I understand that by
+                                    the date of signature. I understand that by
                                     signing this form I agree that the
                                     information listed is true and correct. I
                                     declare that I meet the above requirements
-                                    of the Water Shutoff Protection Act.
+                                    of the WSPA/Water Shutoff Protection Act.
                                   </Type>
                                 </>
                               ) : null}
@@ -600,10 +600,10 @@ export default function Sb998SelfCertification() {
                                     color="primary"
                                   >
                                     Pursuant to Section 116900 of the Health and
-                                    Safety Code, Placer County Water Agency
-                                    (PCWA) will not terminate residential
-                                    service for nonpayment as long as all 3
-                                    specific conditions are met.
+                                    Safety Code, Placer County Water Agency will
+                                    not terminate residential service for
+                                    nonpayment as long as all 3 specific
+                                    conditions are met.
                                   </Type>
                                   <Type
                                     variant="body1"
@@ -615,13 +615,13 @@ export default function Sb998SelfCertification() {
                                     the above conditions, my service may still
                                     be terminated if I fail to comply with a
                                     payment arrangement. The Agency shall charge
-                                    no more than $50 for reconnection of service
-                                    during business hours or no more than $150
-                                    for after-hours reconnection. Documentation
-                                    may need to be provided upon request by
-                                    PCWA. This form is valid for 12 months from
-                                    date of signature. I understand that by
-                                    signing this form I agree that the
+                                    no more than $52.00 for reconnection of
+                                    service during business hours or no more
+                                    than $157.00 for after-hours reconnection.
+                                    Documentation may need to be provided upon
+                                    request by PCWA. This form is valid for 12
+                                    months from date of signature. I understand
+                                    that by signing this form I agree that the
                                     information listed is true and correct. I
                                     declare that I meet the above requirements
                                     of the Water Shutoff Protection Act.
