@@ -31,6 +31,7 @@ import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
 import CollectionsPhone from '@components/links/CollectionsPhone'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 
 type Languages =
   | 'english'
@@ -96,7 +97,7 @@ const ShutoffProtectionPage = () => {
               <Type variant="h2" gutterBottom color="primary">
                 Water Shutoff Policy
               </Type>
-              <Type variant="h4" gutterBottom>
+              <Type variant="subtitle1" gutterBottom>
                 Policy on Discontinuation of Residential Water Service for
                 Nonpayment
               </Type>
@@ -269,10 +270,10 @@ const ShutoffProtectionPage = () => {
         Component: (
           <Box key={1}>
             <article>
-              <Type variant="h3" gutterBottom color="primary">
+              <Type variant="h2" gutterBottom color="primary">
                 Política de Cierre de Agua
               </Type>
-              <Type variant="h4" gutterBottom>
+              <Type variant="subtitle1" gutterBottom>
                 Política de interrupción del servicio residencial de agua por
                 falta de pago
               </Type>
@@ -283,7 +284,85 @@ const ShutoffProtectionPage = () => {
                 programas de pagos diferidos o pago alternativo, y apelar una
                 factura de agua.
               </Type>
+              <Type variant="h3" gutterBottom color="primary">
+                ¿Cómo puedo obtener un programa de pago diferido o alternativo?
+              </Type>
+              <Type paragraph>
+                Un cliente que no pueda pagar el servicio de agua dentro del
+                período de pago normal puede solicitar un plan de pago
+                alternativo para evitar la interrupción del servicio. La Agencia
+                de agua del Condado de Placer (PCWA) considerará todas las
+                circunstancias que rodean la solicitud y tomará una
+                determinación sobre si se justifica el acuerdo de pago diferido
+                o alternativo. El plan de pago puede aplazar el monto adeudado a
+                una fecha posterior o establecer un calendario de pagos para el
+                saldo pendiente. Un plan requerirá que la cuenta se actualice en
+                60 días, pero no puede exceder los 12 meses a partir de la fecha
+                de vencimiento original. Para averiguar sobre un calendario de
+                pago alternativo, por favor llame a Servicio al Cliente{' '}
+                <MainPhone />.
+              </Type>
+
+              <Type variant="h3" gutterBottom color="primary">
+                Programas específicos para la autocertificación de cliente con
+                ingresos bajos
+              </Type>
+              {/* <Type variant="h4" gutterBottom>
+                Alternative Payment Arrangements
+              </Type> */}
+              <Type paragraph>
+                De conformidad con la sección 116900 del Código de salud y
+                seguridad, la Agencia de agua del condado Placer (PCWA) no
+                cortará el servicio residencial por falta de pago cuando se
+                cumplan determinadas condiciones específicas.
+              </Type>
+
+              <Type paragraph>
+                Se deben cumplir <strong>los tres requisitos</strong> para
+                evitar la interrupción del servicio de agua:
+              </Type>
+              <List dense disablePadding>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="un proveedor de atención primaria certifica que la interrupción representará una amenaza de vida o una amenaza grave a la salud y seguridad de un residente del sitio donde se brinda el servicio; y" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="el cliente demuestra que es financieramente no apto para pagar; y" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <BulletIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="el cliente tiene interés en participar en un acuerdo de amortización, programa de pago alternativo o plan para un pago diferido o reducido." />
+                </ListItem>
+              </List>
               <Type variant="h4" gutterBottom>
+                Tarifas de reconexión reducidas
+              </Type>
+              <Type paragraph>
+                En el caso de los clientes residenciales que demuestren a la
+                Agencia que los ingresos percibidos en el hogar están por debajo
+                del 200 por ciento de la línea federal de pobreza, la Agencia
+                reducirá las tarifas de reconexión.
+              </Type>
+              <Type paragraph>
+                Si tiene consultas sobre los requisitos de elegibilidad, entre
+                en contacto con Atención al cliente en el teléfono{' '}
+                <CollectionsPhone /> o haga clic en{' '}
+                <Link passHref href="/forms/account/sb998-self-certification">
+                  <MuiLink variant="inherit">
+                    el enlace para completar un Formulario de Autocertificación
+                  </MuiLink>
+                </Link>
+                .
+              </Type>
+
+              <Type variant="h3" gutterBottom color="primary">
                 ¿Cómo puedo apelar mi factura de agua?
               </Type>
               <Type paragraph>
@@ -308,24 +387,6 @@ const ShutoffProtectionPage = () => {
                 administración de la Agencia realizará una revisión y tomará una
                 decisión definitiva.
               </Type>
-              <Type variant="h4" gutterBottom>
-                ¿Cómo puedo obtener un programa de pago diferido o alternativo?
-              </Type>
-              <Type paragraph>
-                Un cliente que no pueda pagar el servicio de agua dentro del
-                período de pago normal puede solicitar un plan de pago
-                alternativo para evitar la interrupción del servicio. La Agencia
-                de agua del Condado de Placer (PCWA) considerará todas las
-                circunstancias que rodean la solicitud y tomará una
-                determinación sobre si se justifica el acuerdo de pago diferido
-                o alternativo. El plan de pago puede aplazar el monto adeudado a
-                una fecha posterior o establecer un calendario de pagos para el
-                saldo pendiente. Un plan requerirá que la cuenta se actualice en
-                60 días, pero no puede exceder los 12 meses a partir de la fecha
-                de vencimiento original. Para averiguar sobre un calendario de
-                pago alternativo, por favor llame a Servicio al Cliente{' '}
-                <MainPhone />.
-              </Type>
             </article>
             <Spacing size="large" />
             <Type variant="h3">Documentos</Type>
@@ -346,19 +407,19 @@ const ShutoffProtectionPage = () => {
                 alt="Miniatura y enlace para PDF de la Política de la Ley de Protección contra el Cierre del Agua"
               /> */}
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6a40990-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-ESbc010422.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/caaaef00-2e76-11ea-bfe8-5b62c3bdf959-Doortag-SPbc123019.pdf"
+                  href="https://cdn.cosmicjs.com/e6a40990-78b0-11ec-bc8e-0b22aad4e2bd-Doortag-ESbc010422.pdf"
                   caption="Etiqueta de Puerta PCWA Estándar"
                   alt="Miniatura y enlace para el PDF de muestra de etiqueta de puerta"
                 />
                 <ImageThumbLink
-                  imgixUrl="https://imgix.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf"
+                  imgixUrl="https://imgix.cosmicjs.com/e6cc5210-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-ESbc011022.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/356df630-42ee-11ea-824d-05a10cd00f3a-CUTOFF-notice-Spanishbc012920.pdf"
-                  caption="Aviso De Rescisión"
+                  href="https://cdn.cosmicjs.com/e6cc5210-78b0-11ec-bc8e-0b22aad4e2bd-CUTOFF-notice-ESbc011022.pdf"
+                  caption="Noticia Escrita"
                   alt="Thumbnail and link for service Written Notice PDF"
                 />
                 {/* <ImageThumbLink
