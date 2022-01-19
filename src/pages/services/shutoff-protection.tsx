@@ -31,7 +31,6 @@ import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
 import CollectionsPhone from '@components/links/CollectionsPhone'
-import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 
 type Languages =
   | 'english'
