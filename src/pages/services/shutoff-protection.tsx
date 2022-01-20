@@ -1102,9 +1102,9 @@ const ShutoffProtectionPage = () => {
             Shutoff Policy. This policy will be finalized and effective by Feb.
             1, 2020.
           </Type> */}
-          <Spacing size="x-large">
+          {/* <Spacing size="x-large">
             <Divider />
-          </Spacing>
+          </Spacing> */}
 
           <FormControl className={classes.formControl}>
             <InputLabel id="language-select-label">
