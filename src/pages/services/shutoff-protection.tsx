@@ -1090,13 +1090,13 @@ const ShutoffProtectionPage = () => {
           </Type> */}
           <Spacing />
 
-          <Box bgcolor={blueGrey[50]} paddingY={2} paddingX={4}>
+          {/* <Box bgcolor={blueGrey[50]} paddingY={2} paddingX={4}>
             <Type paragraph>
               In Response to Senate Bill 998, passed into law September 28,
               2018, Placer County Water Agency has modified its current Rules &
               Regulations to comply with this new law.
             </Type>
-          </Box>
+          </Box> */}
 
           {/* <Type paragraph>
             Check back here for further updates and information on our Water
