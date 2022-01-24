@@ -41,8 +41,8 @@ const emailRecipientsCollections: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
       {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      // {Name: 'Collections', Email: 'collections@pcwa.net'},
-      {Name: 'Rebecca', Email: 'rbutterfield@pcwa.net'}, // just for debugging. delete when in production
+      {Name: 'Collections', Email: 'collections@pcwa.net'},
+      // {Name: 'Rebecca', Email: 'rbutterfield@pcwa.net'}, // just for debugging. delete when in production
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
