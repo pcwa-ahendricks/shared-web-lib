@@ -573,6 +573,17 @@ const PublicationsPage = ({
                 >
                   <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="2021 Year End Report"
+                      publishedDate={parse(
+                        '1/28/2022',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://imgix.cosmicjs.com/4ab2d130-7fd4-11ec-bfce-f334865cc167-2021YearEndReport.pdf"
+                    />
+                  </ChildBox>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="2020 Year End Report"
                       publishedDate={parse(
                         '2/03/2021',
@@ -604,7 +615,7 @@ const PublicationsPage = ({
                       imgixURL="https://imgix.cosmicjs.com/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf"
                     />
                   </ChildBox>
-                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                  {/* <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="2017 Year End Report"
                       publishedDate={parse(
@@ -614,7 +625,7 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://imgix.cosmicjs.com/8c7f3aa0-dc67-11e7-990e-7f57b6eb4a14-PCWA_2017_Year_End_Report.pdf"
                     />
-                  </ChildBox>
+                  </ChildBox> */}
                 </RowBox>
               </TabPanel>
 
