@@ -19,7 +19,7 @@ import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import SectionBox from '@components/boxes/SectionBox'
-import DistrictBoundariesMap from '@components/DistrictBoundariesMap/DistrictBoundariesMap'
+// import DistrictBoundariesMap from '@components/DistrictBoundariesMap/DistrictBoundariesMap'
 import BoardMemberCard from '@components/BoardMemberCard/BoardMemberCard'
 import {directors, Director} from '@lib/directors'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
@@ -30,6 +30,9 @@ import MuiNextLink from '@components/NextLink/NextLink'
 import ErrorPage from '@pages/_error'
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
+import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
+import {stringify} from 'querystringify'
+import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -250,41 +253,76 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
               PCWA Board of Directors' Boundaries
             </Type>
             <Type paragraph>
-              The PCWA Board of Directors' district boundaries were approved by
-              the Placer County Board of Supervisors on October 11, 2011 via
-              Ordinance Number 5655-B. These boundaries are coterminous with the
-              Placer County Board of Supervisors' district boundaries. Pursuant
-              to the Placer County Water Agency Act, the Agency consists of all
-              of the territory within the exterior boundaries of the County of
-              Placer.
+              The PCWA Board of Directors' district boundaries are coterminous
+              with the Placer County Board of Supervisors' district boundaries.
+              Pursuant to the Placer County Water Agency Act, the Agency
+              consists of all of the territory within the exterior boundaries of
+              the County of Placer.
             </Type>
-            <Type paragraph>
+
+            {/* <Type paragraph>
               <strong>Find Your Director </strong>on the map below. You may also
               search for an address.
-            </Type>
+            </Type> */}
             <Spacing />
-            <DistrictBoundariesMap />
+            {/* <DistrictBoundariesMap /> */}
+            <Box>
+              {/* <MediaDialogOnClick
+                mediaUrl="https://imgix.cosmicjs.com/0f13db20-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.png"
+                mediaName="PCWA Board of Directors' District Boundaries Map"
+                mediaPreviewDialogProps={{
+                  width: 700,
+                  height: 505
+                }}
+              > */}
+              <Image
+                loader={imgixUrlLoader}
+                width={3300}
+                height={2550}
+                alt="PCWA Board of Directors' District Boundaries Map"
+                src={`https://imgix.cosmicjs.com/0f13db20-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.png${stringify(
+                  {border: '1,AAAAAA'},
+                  true
+                )}`}
+                layout="responsive"
+                sizes="100vw"
+              />
+              {/* </MediaDialogOnClick> */}
+              <ColumnBox alignItems="center">
+                <Box mt={1}>
+                  <Type variant="caption">
+                    PCWA Board of Directors' District Boundaries
+                  </Type>
+                </Box>
+              </ColumnBox>
+            </Box>
           </SectionBox>
 
           <Spacing size="x-large" />
           <Type variant="h4" gutterBottom>
             District Boundary Maps (printable)
           </Type>
-          <ul>
-            <LinkItem>
+          {/* <ul> */}
+          <OpenInNewLink
+            pdf
+            href="https://cdn.cosmicjs.com/5d7773d0-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.pdf"
+          >
+            PCWA Board of Directors' District Boundary Map
+          </OpenInNewLink>
+          {/* <LinkItem>
               <Link
-                href="https://cdn.cosmicjs.com/42610260-1dc8-11ea-a594-a170ead8b2cb-SupDist.pdf"
+                href="https://cdn.cosmicjs.com/5d7773d0-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Board of Directors' District Boundary Map
               </Link>
-            </LinkItem>
-          </ul>
-          <Type variant="subtitle2" gutterBottom>
+            </LinkItem> */}
+          {/* </ul> */}
+          {/* <Type variant="subtitle2" gutterBottom>
             Individual District Maps (shaded area represents district):
-          </Type>
-          <ul>
+          </Type> */}
+          {/* <ul>
             <LinkItem>
               <Link
                 target="_blank"
@@ -330,7 +368,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                 District 5 - Board Member Joshua Alpine
               </Link>
             </LinkItem>
-          </ul>
+          </ul> */}
         </WideContainer>
       </MainBox>
     </PageLayout>
