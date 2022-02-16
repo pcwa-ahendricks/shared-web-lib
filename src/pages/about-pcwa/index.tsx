@@ -90,7 +90,6 @@ const GeneralInfoPage = () => {
         <RowBox justifyContent="space-around">
           <Box mt={12} maxWidth={1400} flex="1 1 auto">
             <ImageParallaxBanner
-              amount={0.1}
               ImageProps={{
                 width: 800,
                 height: 533,

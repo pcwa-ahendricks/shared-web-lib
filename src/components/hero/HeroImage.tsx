@@ -53,7 +53,7 @@ export default function HeroImage() {
   return (
     <div ref={heroAnimateRef}>
       <ImageParallaxBanner
-        amount={0.1}
+        speed={3}
         marginTop={marginTop}
         ImageProps={{
           width: 5366,

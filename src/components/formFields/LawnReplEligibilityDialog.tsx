@@ -482,7 +482,7 @@ const QuestionTwo = () => {
                 Unfortunately you do not qualify for the lawn replacement
                 rebate. To qualify, you must have at least 300 square feet of
                 lawn being replaced by water efficient landscape as defined in
-                the program’s terms and conditions.
+                the program's terms and conditions.
               </DialogContentText>
             </WaitToGrow>
           </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ParallaxBanner, ParallaxBannerProps} from 'react-scroll-parallax'
+import {ParallaxBanner} from 'react-scroll-parallax'
 import {Box} from '@material-ui/core'
 import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -7,14 +7,14 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 type Props = {
   ImageProps: Partial<ImageProps>
   children?: React.ReactNode
-  amount?: number
   marginTop?: any
-} & Partial<ParallaxBannerProps>
+  speed?: number
+} & Partial<React.ComponentProps<typeof ParallaxBanner>>
 
 const ImageParallaxBanner = ({
-  amount = 0.1,
   ImageProps,
   marginTop,
+  speed = 5,
   children,
   ...rest
 }: Props) => {
@@ -26,10 +26,11 @@ const ImageParallaxBanner = ({
     <ParallaxBanner
       layers={[
         {
+          speed,
           children: (
             <Box
               style={{
-                marginTop: marginTop
+                marginTop
               }}
             >
               <Image
@@ -40,8 +41,8 @@ const ImageParallaxBanner = ({
                 {...ImageProps}
               />
             </Box>
-          ),
-          amount: amount
+          )
+          // amount
         }
       ]}
       /**

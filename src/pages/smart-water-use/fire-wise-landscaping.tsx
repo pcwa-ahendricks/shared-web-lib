@@ -355,7 +355,6 @@ const FireWiseLandscapingPage = () => {
             <RowBox justifyContent="space-around">
               <Box maxWidth={1400} flex="1 1 auto">
                 <ImageParallaxBanner
-                  amount={0.1}
                   ImageProps={{
                     width: 6720,
                     height: 4480,
