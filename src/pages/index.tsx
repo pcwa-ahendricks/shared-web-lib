@@ -86,16 +86,15 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="We’re Transitioning to Monthly Billing"
+              title="Year End Report for 2021"
               readMore="Learn more"
-              linkHref="/services/monthly-billing"
-              imgixURL="https://imgix.cosmicjs.com/7f5241d0-53c6-11ec-9aff-3d50541531a0-Monthly-Billing-Homepage.png"
-              alt="Monthly Billing Postcard graphic"
-              body="Placer County Water Agency is transitioning treated water customers
-            from bi-monthly to monthly billing in early 2022."
+              linkHref="/newsroom/publications/year-end"
+              imgixURL="https://imgix.cosmicjs.com/50642910-8f80-11ec-bd12-cf727cdcf55d-2021-Year-End-Report-Cover-for-Website.jpg"
+              alt="2021 Year End Report graphic"
+              body="Take a look at our Year End Report for 2021 to learn more about how PCWA serves the community and protects our customers' investments."
               imgixParams={{
                 fit: 'fill',
-                bg: rgbToHex(theme.palette.background.default).substr(0, 7) // truncate '01' suffix
+                bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
             />
           </ChildBox>
