@@ -305,7 +305,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
           {/* <ul> */}
           <OpenInNewLink
             pdf
-            href="https://cdn.cosmicjs.com/5d7773d0-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.pdf"
+            href="https://docs.pcwa.net/pcwa-bod-district-boundary-map"
           >
             PCWA Board of Directors' District Boundary Map
           </OpenInNewLink>
