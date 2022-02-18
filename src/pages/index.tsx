@@ -26,7 +26,7 @@ import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobileBar'
-import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
+// import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
 // import Whammy from '@components/Whammy/Whammy'
 
 type Props = {
