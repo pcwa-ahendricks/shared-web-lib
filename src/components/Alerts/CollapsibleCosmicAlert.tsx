@@ -1,5 +1,5 @@
 // cspell:ignore focusable
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {makeStyles, createStyles, SvgIcon} from '@material-ui/core'
 import {AlertTitle} from '@material-ui/lab'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
@@ -9,10 +9,12 @@ import FlexLink from '@components/FlexLink/FlexLink'
 import BodyParagraph from './BodyParagraph'
 import CollapsibleAlert, {CollapsibleAlertProps} from './CollapsibleAlert'
 import Heading from './Heading'
+import {useRouter} from 'next/router'
 
 type CollapsibleCosmicAlertProps = {
   muiIconName?: string
   muiIconFamily?: string
+  showOnRoute?: string
   headingHtmlStr?: string
   contentHtmlStr?: string
 } & CollapsibleAlertProps
@@ -91,6 +93,7 @@ function CollapsibleCosmicAlert({
   children,
   muiIconFamily = 'baseline',
   muiIconName,
+  showOnRoute = '/',
   headingHtmlStr = '',
   contentHtmlStr = '',
   ...props
@@ -122,6 +125,20 @@ function CollapsibleCosmicAlert({
     [svgIconText, ParsedSvgIcon]
   )
   const classes = useStyles()
+  const router = useRouter()
+  const {asPath} = router
+  const [showAlert, setShowAlert] = useState(false)
+
+  // new RegExp doesn't work with useMemo, hence useEffect
+  useEffect(() => {
+    const regex = new RegExp(showOnRoute ?? '', 'gi')
+    const m = regex.test(asPath)
+    setShowAlert(m)
+  }, [showOnRoute, asPath])
+
+  if (!showAlert) {
+    return <></>
+  }
 
   return (
     <CollapsibleAlert icon={<SvgIconEx />} {...props}>

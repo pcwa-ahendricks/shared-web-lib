@@ -24,6 +24,7 @@ interface AlertMetadata {
   position: number
   severity: {key: string; value: AlertProps['severity']}
   hidden: boolean
+  show_on_route: string
   website: {
     key: 'pcwaNet' | 'middleforkfunCom'
     value: 'pcwa.net' | 'middleforkfun.com'
@@ -121,6 +122,7 @@ export default function Alerts({
           headingHtmlStr={alert.heading}
           contentHtmlStr={alert.content}
           collapsible={alert.collapsible}
+          showOnRoute={alert.show_on_route}
         />
       ))}
 
