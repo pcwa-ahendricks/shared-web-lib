@@ -203,58 +203,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Drought Recommendations"
-              readMore="Learn more"
-              linkHref="/smart-water-use/drought"
-              imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
-              alt="Water less banner"
-              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-            />
-          </ChildBox>
-
-          {/* <ChildBox flex="50%">
-            <CoverStory
-              aria-label="Link to Water Year Dashboard page"
-              imageRatio={coverStoryImageRatio}
-              title="Water Year Dashboard"
-              width="100%"
-              linkHref="/water-year-dashboard"
-              readMore="Take a look"
-              flexLinkProps={{
-                isNextLink: true
-              }}
-              imgixURL="https://imgix.cosmicjs.com/c3e93020-9c78-11eb-85ef-2dda0e0d7ad2-wateryearrecapposter.png"
-              alt="A view of French Meadows and Hell Hole Reservoirs from above"
-              body={
-                <Type variant="inherit">
-                  <Emx>
-                    "How much rain and snow did we get this last winter?"
-                  </Emx>{' '}
-                  See the latest hydrological conditions in the region including
-                  precipitation, snowpack, and climate.
-                </Type>
-              }
-            />
-          </ChildBox> */}
-        </RowBox>
-
-        <RowBox responsive flexSpacing={4} mt={4} justifyContent="space-around">
-          {/* <ChildBox flex="0 1 50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Announcing the Water Spots Video Contest"
-              readMore="Find out more"
-              linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
-              flexLinkProps={{isNextLink: false}}
-              imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
-              alt="Announcing the Water Spots Video Contest banner"
-              body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
-            />
-          </ChildBox> */}
-
-          <ChildBox flex="0 1 50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
               title="French Meadows Forest Restoration Project"
               readMore="Open Story"
               linkHref="https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b"
@@ -279,15 +227,72 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }
             />
           </ChildBox>
-          <ChildBox flex="50%">
+        </RowBox>
+
+        {/* <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Drought Recommendations"
+              readMore="Learn more"
+              linkHref="/smart-water-use/drought"
+              imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              alt="Water less banner"
+              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+            /> */}
+
+        {/* <ChildBox flex="50%">
+            <CoverStory
+              aria-label="Link to Water Year Dashboard page"
+              imageRatio={coverStoryImageRatio}
+              title="Water Year Dashboard"
+              width="100%"
+              linkHref="/water-year-dashboard"
+              readMore="Take a look"
+              flexLinkProps={{
+                isNextLink: true
+              }}
+              imgixURL="https://imgix.cosmicjs.com/c3e93020-9c78-11eb-85ef-2dda0e0d7ad2-wateryearrecapposter.png"
+              alt="A view of French Meadows and Hell Hole Reservoirs from above"
+              body={
+                <Type variant="inherit">
+                  <Emx>
+                    "How much rain and snow did we get this last winter?"
+                  </Emx>{' '}
+                  See the latest hydrological conditions in the region including
+                  precipitation, snowpack, and climate.
+                </Type>
+              }
+            />
+          </ChildBox> */}
+
+        {/* <ChildBox flex="0 1 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Announcing the Water Spots Video Contest"
+              readMore="Find out more"
+              linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
+              flexLinkProps={{isNextLink: false}}
+              imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
+              alt="Announcing the Water Spots Video Contest banner"
+              body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
+            />
+          </ChildBox> */}
+
+        {/* <RowBox responsive flexSpacing={4} mt={4} justifyContent="space-around">
+          <ChildBox flex="0 1 50%">
+
+          </ChildBox>
+        </RowBox> */}
+
+        {/* <ChildBox flex="50%">
             <CoverStoryVideo
               aspectRatio={coverStoryImageRatio}
               title="Hear Andy Fecko on KAHI radio"
               linkHref="https://youtu.be/8fKyygfxw6U"
               body="PCWA's General Manager Andy Fecko recently sat down with Barry Stigers with KAHI radio for a FOCUS piece on PCWA's history, important initiatives, and the future."
             />
-          </ChildBox>
-          {/* <CoverStory
+          </ChildBox> */}
+
+        {/* <CoverStory
               title="French Meadows Partnership Completes its First Season of Work"
               readMore="See Story..."
               linkHref="/newsroom/success-in-the-sierra"
@@ -302,7 +307,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               public interests coming together to fund and implement active forest
               management on public land."
             /> */}
-          {/* <CoverStory
+        {/* <CoverStory
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
               linkHref="/newsroom/news-releases/[release-date]"
@@ -317,8 +322,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               contract, which annually allocates up to 35,000 acre-feet of Central
               Valley Project (CVP) water to PCWA, runs in perpetuity."
             /> */}
-          {/* 2020 Water Spots */}
-          {/* <CoverStory
+        {/* 2020 Water Spots */}
+        {/* <CoverStory
               title="2020 Water Spots Video Contest Winners Announced"
               readMore="Read more…!"
               linkHref="/newsroom/water-spots-2020"
@@ -333,7 +338,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               Water Spots Video Contest: Be a Leak Detective. The top 3 video
               winners are from PCWA’s service area!"
             /> */}
-          {/* <CoverStory
+        {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="2020 Year End Report"
@@ -352,7 +357,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="2020 was certainly a challenging year, but that didn’t get keep PCWA from continuing to deliver high-quality water and protect our customer’s investments. Take a look at our newly released 2020 year-end report."
             /> */}
-          {/* <CoverStory
+        {/* <CoverStory
               aria-label="Link to Monthly Billing FAQs page"
               imageRatio={coverStoryImageRatio}
               title="We’re Transitioning to Monthly Billing"
@@ -368,7 +373,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="Placer County Water Agency is transitioning customers from bi-monthly to monthly billing over the next several months. Canal water customers will transition in mid-May. Treated water customers will begin transitioning in 2022."
             /> */}
-          {/* <CoverStory
+        {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Special Notice for Businesses Regarding Re-opening"
@@ -384,7 +389,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               to COVID-19 concerns of the best practices to help ensure the health
               and safety of the occupants of your buildings."
             /> */}
-          {/* <CoverStory
+        {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Is it time to spruce up your sprinkler system?"
@@ -402,7 +407,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
               body="PCWA has rebates available to help with the cost of high-efficiency rotator sprinklers, drip irrigation, and weather-based sprinkler timers. Apply today online."
             /> */}
-        </RowBox>
 
         <Spacing size="large">
           <Divider />
