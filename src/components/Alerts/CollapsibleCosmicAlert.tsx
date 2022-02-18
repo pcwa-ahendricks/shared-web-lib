@@ -131,7 +131,7 @@ function CollapsibleCosmicAlert({
 
   // new RegExp doesn't work with useMemo, hence useEffect
   useEffect(() => {
-    const regex = new RegExp(showOnRoute ?? '', 'gi')
+    const regex = new RegExp(showOnRoute || '/', 'gi')
     const m = regex.test(asPath)
     setShowAlert(m)
   }, [showOnRoute, asPath])
