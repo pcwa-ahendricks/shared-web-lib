@@ -220,10 +220,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/legislation-letters</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/services/account-maintenance</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -269,10 +265,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/water-wise-home</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/newsroom/legislation-letters/faq</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -3745,6 +3737,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/01-06-2022</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
