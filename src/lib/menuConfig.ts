@@ -104,10 +104,10 @@ const menuConfig: MenuConfig[] = [
             title: 'Middle Fork Project Finance Authority - JPA',
             href: 'https://www.placer.ca.gov/5413/Middle-Fork-Project-Finance-Authority'
           },
-          {
-            title: 'Middle Fork American River Project Relicensing',
-            href: 'http://relicensing.pcwa.net'
-          },
+          // {
+          //   title: 'Middle Fork American River Project Relicensing',
+          //   href: 'http://relicensing.pcwa.net'
+          // },
           {
             title: 'Resource Library',
             nextLink: '/resource-library/[...multimedia]',
