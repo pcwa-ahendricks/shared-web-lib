@@ -200,7 +200,7 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/services/water-rates'
           },
           {
-            title: '2018 Multiyear Rate Adjustment',
+            title: '2023 Multiyear Rate Adjustment',
             nextLink: '/services/rate-adjust'
           },
           {
