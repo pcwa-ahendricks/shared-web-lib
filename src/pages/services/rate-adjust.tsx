@@ -29,7 +29,7 @@ const RateAdjustPage = () => {
                 At the March 3 meeting of the Placer County Water Agency (PCWA)
                 Board of Directors, the Board approved a resolution adopting new
                 rates, fees, and charges for water service throughout the
-                Agency's Western Water system.. The new rates, which take effect
+                Agency's Western Water system. The new rates, which take effect
                 January 1, 2023, were calculated using a cost-of-service
                 approach and are the result of a two-year rate study, conducted
                 by an independent rate consultant, which considered Agency
