@@ -49,7 +49,7 @@ const RateAdjustPage = () => {
                   Notice of Public Hearing Documents
                 </Type>
                 <RowBox justifyContent="space-around" mt={3}>
-                  <Box flex="33.33">
+                  {/* <Box flex="33.33%">
                     <ImageThumbLink
                       imgixUrl="https://cosmicjs.imgix.net/128d45c0-980b-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Treated 218 notice - 2018 Final_090817.pdf"
                       filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
@@ -58,7 +58,7 @@ const RateAdjustPage = () => {
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
                   </Box>
-                  <Box flex="33.33">
+                  <Box flex="33.33%">
                     <ImageThumbLink
                       imgixUrl="https://cosmicjs.imgix.net/5dfb28a0-980c-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Untreated Water 218 notice - 2018 Final_090817.pdf"
                       filename="PCWA Zone 6 Untreated 218 notice - 2018.pdf"
@@ -66,17 +66,30 @@ const RateAdjustPage = () => {
                       alt="Thumbnail and link for Prop. 218 Untreated Water Notice"
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
-                  </Box>
-                  <Box flex="33.33">
+                  </Box> */}
+                  <ChildBox flex="0 1 33.33%">
                     <ImageThumbLink
-                      imgixUrl="https://imgix.cosmicjs.com/d796c8b0-fa7d-11e9-ac85-afda513db67b-PCWA-Cost-of-Service-Study---Final-Report.pdf"
+                      imgixUrl="https://imgix.cosmicjs.com/94ca8dd0-9a4b-11ec-852b-ab884ffd8c85-PCWA-25-year-RR-powerpointRev2.pdf"
+                      filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
+                      caption="Renewal and Replacement Analysis"
+                      alt="Thumbnail and link for Renewal and Replacement Analysis"
+                      sizes="(max-width: 600px) 30vw, 15vw"
+                      height={75}
+                      width={133}
+                    />
+                  </ChildBox>
+                  <ChildBox flex="0 1 33.33%">
+                    <ImageThumbLink
+                      imgixUrl="https://imgix.cosmicjs.com/54fa3070-9a4b-11ec-852b-ab884ffd8c85-WaterCostofServiceandRateStudyPowerPoint.pdf"
                       filename="PCWA Cost of Service Study.pdf"
-                      caption="2017 Cost of Service - Rate Study"
-                      alt="Thumbnail and link for Cost of Service Study"
+                      caption="2022 Cost of Service & Rate Study"
+                      alt="Thumbnail and link for Cost of Service and Rate Study"
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
-                  </Box>
+                  </ChildBox>
                 </RowBox>
+                {/* <RowBox justifyContent="space-around" mt={3}>
+                </RowBox> */}
 
                 <Box mt={6}>
                   <Type variant="subtitle1" gutterBottom>
