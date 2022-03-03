@@ -179,7 +179,7 @@ export default function ClimateChangeLine({
       //     return ''
       //   }
       //   console.log(f)
-      //   return maxX.toString() === f.xFormatted ? `foo: ${f.yFormatted}` : ''
+      //   return maxX.toString() === f.xFormatted ? `label: ${f.yFormatted}` : ''
       // }}
       // pointBorderColor={{from: 'serieColor'}}
       pointBorderColor={{from: 'backgroundColor'}}

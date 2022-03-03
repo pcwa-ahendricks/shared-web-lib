@@ -84,14 +84,6 @@ const PiNavigationList = ({pid}: Props) => {
 
   const clickHandler = useCallback(
     (type: 'river' | 'reservoir') => () => {
-      // const foo: any = gageListRef.current
-      // // console.log('ct', foo.clientTop)
-      // console.log('ch', foo.clientHeight)
-      // console.log('st', foo.scrollTop)
-      // console.log('sh', foo.scrollHeight)
-      // // console.log('ot', foo.offsetTop)
-      // // console.log('oh', foo.offsetHeight)
-
       const scrollOptions: ScrollToOptions = {
         left: 0,
         top: 100, // will be overwritten depending on height of the list.
