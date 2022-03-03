@@ -16,9 +16,13 @@ import {
   TableBody
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {ChildBox, ColumnBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
+import {stringify} from 'querystringify'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,6 +59,14 @@ const RateAdjustFAQ = () => {
 
   const theme = useTheme<Theme>()
 
+  // const [show, setShow] = useState<String | null>()
+
+  // const handleShowChange = (
+  //   _event: React.MouseEvent<HTMLElement>,
+  //   newShow: String | null
+  // ) => {
+  //   setShow(newShow)
+  // }
   return (
     <Box>
       <Box
@@ -183,7 +195,7 @@ const RateAdjustFAQ = () => {
           </Type>
         </AccordionSummary>
         <AccordionDetails>
-          <ColumnBox>
+          <ColumnBox flexSpacing={2}>
             <ChildBox>
               <Type variant="subtitle2" gutterBottom color="primary">
                 Water Treatment
@@ -200,7 +212,123 @@ const RateAdjustFAQ = () => {
                 <em>Foothill Water Treatment Plant Grit Screen Replacement</em>
               </Type>
             </ChildBox>
-            <ChildBox mt={3}>
+            {/* <ChildBox>
+              <ToggleButtonGroup
+                color="primary"
+                value={show}
+                exclusive
+                onChange={handleShowChange}
+                aria-label="Photo Button Toggle"
+                size="small"
+              >
+                <ToggleButton
+                  value="foothill"
+                  aria-label="Foothill WTP Grit Screen Replacement"
+                >
+                  <ImageIcon style={{paddingRight: 6}} />
+                  Foothill WTP Grit Screen Replacement
+                </ToggleButton>
+                <ToggleButton
+                  value="colfax"
+                  aria-label="Colfax WTP Replacement"
+                >
+                  <ImageIcon style={{paddingRight: 6}} />
+                  Colfax WTP Replacement
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </ChildBox>
+            <ChildBox
+              sx={{
+                ...(show !== 'foothill' && {display: 'none'})
+              }}
+            >
+              <Image
+                src="0b299d30-9976-11ec-8bb7-91577e4f4933-Slide2.jpeg"
+                alt="Foothill WTP Grit Screen Replacement"
+                loader={imgixLoader}
+                layout="responsive"
+                height={810}
+                width={1440}
+              />
+            </ChildBox>
+
+            <ChildBox
+              sx={{
+                ...(show !== 'colfax' && {display: 'none'})
+              }}
+            >
+              <Image
+                src="0b2b4ae0-9976-11ec-8bb7-91577e4f4933-Slide1.jpeg"
+                alt="Colfax WTP Replacement"
+                loader={imgixLoader}
+                layout="responsive"
+                height={810}
+                width={1440}
+              />
+            </ChildBox> */}
+            <ChildBox pt={1}>
+              <RowBox responsive flexSpacing={4}>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b2b4ae0-9976-11ec-8bb7-91577e4f4933-Slide1.jpeg"
+                    mediaName="Colfax WTP"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Colfax WTP"
+                      src={`https://imgix.cosmicjs.com/cbf71be0-9a85-11ec-b3ab-81ba91f54050-Slide1.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1}>
+                      <Type variant="caption">Colfax WTP Replacement</Type>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b299d30-9976-11ec-8bb7-91577e4f4933-Slide2.jpeg"
+                    mediaName="Foothill Water Treatment Plant Grit Screen Replacement"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Foothill Water Treatment Plant Grit Screen Replacement"
+                      src={`https://imgix.cosmicjs.com/ec51e280-9a85-11ec-b3ab-81ba91f54050-Slide2.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1}>
+                      <Type variant="caption">
+                        Foothill WTP Grit Screen Replacement
+                      </Type>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+              </RowBox>
+            </ChildBox>
+            <ChildBox pt={2}>
               <Type variant="subtitle2" gutterBottom color="primary">
                 Water Transmission & Distribution
               </Type>
@@ -221,7 +349,68 @@ const RateAdjustFAQ = () => {
                 <em>Kilmer Siphon Replacement, Colfax</em>
               </Type>
             </ChildBox>
-            <ChildBox mt={3}>
+            <ChildBox pt={1}>
+              <RowBox responsive flexSpacing={4}>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b3e5db0-9976-11ec-8bb7-91577e4f4933-Slide3.jpeg"
+                    mediaName="High Street Water Main Replacement, Auburn"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="High Street Water Main Replacement, Auburn"
+                      src={`https://imgix.cosmicjs.com/c83ae1c0-9a86-11ec-bb50-8d698cd1c3f3-Slide3.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1}>
+                      <Type variant="caption">High Street, Auburn</Type>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b3b7780-9976-11ec-8bb7-91577e4f4933-Slide4.jpeg"
+                    mediaName="Midas Avenue Water Main Replacement, Rocklin"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Midas Avenue Water Main Replacement, Rocklin"
+                      src={`https://imgix.cosmicjs.com/efcaa3a0-9a87-11ec-bb50-8d698cd1c3f3-Slide4.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1}>
+                      <Type variant="caption">Midas Avenue, Rocklin</Type>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+              </RowBox>
+            </ChildBox>
+
+            <ChildBox pt={2}>
               <Type variant="subtitle2" gutterBottom color="primary">
                 Water Tank Upgrades & Replacement
               </Type>
@@ -242,7 +431,7 @@ const RateAdjustFAQ = () => {
                 <em>Bella Tuscany Tank</em>
               </Type>
             </ChildBox>
-            <ChildBox mt={3}>
+            <ChildBox pt={2}>
               <Type variant="subtitle2" gutterBottom color="primary">
                 Pump Station Upgrades & Replacement
               </Type>

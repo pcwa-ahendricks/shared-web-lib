@@ -85,7 +85,6 @@ const CoverTile = ({
           overflow="hidden"
           borderColor={theme.palette.grey['300']}
           border={1}
-          className="foo"
         >
           <Image
             loader={imgixUrlLoader}

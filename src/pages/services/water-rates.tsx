@@ -212,16 +212,16 @@ const WaterRatesPage = () => {
                 Rates
               </Type>
               {/* <Type variant="caption" gutterBottom>
-                  <em>last updated : {'foo'}</em>
+                  <em>last updated : {'time'}</em>
                 </Type> */}
               {/* </RowBox> */}
               <Type paragraph>
                 Applicable rates for metered treated water service includes a
                 monthly Fixed Charge which is based upon the size of the
-                customer’s meter, a monthly Renewal and Replacement Charge which
-                is based upon the size of the customer’s meter up to 8-inch or
+                customer's meter, a monthly Renewal and Replacement Charge which
+                is based upon the size of the customer's meter up to 8-inch or
                 the number of Units of Capacity delivered on peak day for resale
-                customer’s with meters 8-inches and larger, and a Commodity
+                customer's with meters 8-inches and larger, and a Commodity
                 Charge based upon the volume of water delivered. A Unit of
                 Capacity, formerly known as an equivalent dwelling unit, shall
                 be a 5/8-inch meter with a peak day demand of 1,150 gallons.
