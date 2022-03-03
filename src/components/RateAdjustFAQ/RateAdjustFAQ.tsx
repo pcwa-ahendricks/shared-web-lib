@@ -407,6 +407,64 @@ const RateAdjustFAQ = () => {
                     </Box>
                   </ColumnBox>
                 </ChildBox>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b400b60-9976-11ec-8bb7-91577e4f4933-Slide6.jpeg"
+                    mediaName="Interstate 80 Water Crossing Improvement Program"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Interstate 80 Water Crossing Improvement Program"
+                      src={`https://imgix.cosmicjs.com/a572f2d0-9b22-11ec-8e3f-657e6f5f8486-Slide6.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1}>
+                      <Type variant="caption">I-80 Crossing Program</Type>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b40f5c0-9976-11ec-8bb7-91577e4f4933-Slide5.jpeg"
+                    mediaName="Kilmer Siphon Replacement, Colfax"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Kilmer Siphon Replacement, Colfax"
+                      src={`https://imgix.cosmicjs.com/f47f4740-9b25-11ec-8e3f-657e6f5f8486-Slide5.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1}>
+                      <Type variant="caption">
+                        Kilmer Siphon Replacement, Colfax
+                      </Type>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
               </RowBox>
             </ChildBox>
 
@@ -431,6 +489,46 @@ const RateAdjustFAQ = () => {
                 <em>Bella Tuscany Tank</em>
               </Type>
             </ChildBox>
+            <ChildBox pt={1}>
+              <RowBox responsive flexSpacing={4}>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b425550-9976-11ec-8bb7-91577e4f4933-Slide7.jpeg"
+                    mediaName="Tank Renewal and Replacement"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Tank Renewal and Replacement"
+                      src={`https://imgix.cosmicjs.com/116b2d40-9b23-11ec-8e3f-657e6f5f8486-Slide7.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1} position="relative" width="100%" height={25}>
+                      <Box
+                        style={{
+                          position: 'absolute'
+                        }}
+                      >
+                        <Type variant="caption" noWrap>
+                          Tank Renewal and Replacement
+                        </Type>
+                      </Box>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+              </RowBox>
+            </ChildBox>
             <ChildBox pt={2}>
               <Type variant="subtitle2" gutterBottom color="primary">
                 Pump Station Upgrades & Replacement
@@ -446,6 +544,46 @@ const RateAdjustFAQ = () => {
               <Type variant="body2" style={{fontSize: '1.1rem'}}>
                 <em>Ophir Pump Station including Auburn Tunnel Pumps 2 & 3</em>
               </Type>
+            </ChildBox>
+            <ChildBox pt={1}>
+              <RowBox responsive flexSpacing={4}>
+                <ChildBox flex={{xs: 'auto', sm: '0 1 20%'}}>
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/0b381c20-9976-11ec-8bb7-91577e4f4933-Slide8.jpeg"
+                    mediaName="Pump Station Renewal and Replacement"
+                    mediaPreviewDialogProps={{
+                      width: 1440,
+                      height: 810
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={810}
+                      alt="Pump Station Renewal and Replacement"
+                      src={`https://imgix.cosmicjs.com/251bb1f0-9b25-11ec-8e3f-657e6f5f8486-Slide8.jpg${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1} position="relative" width="100%" height={25}>
+                      <Box
+                        style={{
+                          position: 'absolute'
+                        }}
+                      >
+                        <Type variant="caption" noWrap>
+                          Pump Station Renewal and Replacement
+                        </Type>
+                      </Box>
+                    </Box>
+                  </ColumnBox>
+                </ChildBox>
+              </RowBox>
             </ChildBox>
             <Spacing size="x-small" />
           </ColumnBox>
