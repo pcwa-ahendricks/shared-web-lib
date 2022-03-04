@@ -150,7 +150,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
                   loader={imgixLoader}
                   sizes="(max-width: 600px) 100vw, 40vw"
                   src="c8797640-9bd7-11ec-b610-bda0cce64fbb-Board-of-Directors-2022.jpg"
-                  alt="PCWA Board of Directors - December 2022"
+                  alt="PCWA Board of Directors - 2022"
                   width={5222}
                   height={4131}
                 />
