@@ -26,22 +26,20 @@ const RateAdjustPage = () => {
                 Background
               </Type>
               <Type paragraph>
-                At the March 3, 2022 meeting of the Placer County Water Agency
-                (PCWA) Board of Directors, the Board approved a resolution to
-                proceed with a Prop. 218 notice to adopt new rates, fees, and
-                charges for water service throughout the Agency's Western Water
-                system. The proposed rates, would take effect January 1, 2023,
-                and were calculated using a cost-of-service approach and are the
-                result of a two-year rate study, conducted by an independent
-                rate consultant, which considered Agency revenue requirements
-                and associated costs.
+                At the March 3, 2022, meeting of the Placer County Water Agency
+                (PCWA) Board of Directors, the Board approved proceeding with a
+                Proposition 218 notice to adopt new rates, fees, and charges for
+                water service throughout the Agency's Western Water system. The
+                proposed rates were calculated using a cost-of-service approach
+                and are the result of a two-year rate study conducted by an
+                independent rate consultant, which considered Agency revenue
+                requirements and associated costs.
               </Type>
-
               <Type paragraph>
-                In order to adopt the new rates and charges, PCWA must comply
-                with Proposition 218. The Board initiated the Proposition 218
-                process on March 3 and will complete the process with a public
-                hearing on May 9.
+                As required by state law, PCWA must comply with Proposition 218
+                in order to adopt the new rates and charges. The Proposition 218
+                process, which provides opportunities for public participation,
+                concludes with a public hearing on May 9.
               </Type>
             </ChildBox>
             <ChildBox flex="45%" flexShrink={0}>
