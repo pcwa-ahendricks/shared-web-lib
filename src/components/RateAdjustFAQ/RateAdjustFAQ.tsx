@@ -123,12 +123,14 @@ const RateAdjustFAQ = () => {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Type variant="subtitle2">When will the new rates take effect?</Type>
+          <Type variant="subtitle2">
+            If approved, when would the new rates take effect?
+          </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              The new rates will take effect January 1, 2023.
+              The new rates would take effect January 1, 2023.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -143,7 +145,9 @@ const RateAdjustFAQ = () => {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Type variant="subtitle2">How much will my bill increase?</Type>
+          <Type variant="subtitle2">
+            If approved, how much will my bill increase?
+          </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
