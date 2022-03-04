@@ -71,7 +71,7 @@ const RateAdjustPage = () => {
                   <ChildBox flex="0 1 33.33%">
                     <ImageThumbLink
                       imgixUrl="https://imgix.cosmicjs.com/94ca8dd0-9a4b-11ec-852b-ab884ffd8c85-PCWA-25-year-RR-powerpointRev2.pdf"
-                      filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
+                      filename="PCWA-Renewal_and_Replacement_Analysis.pdf"
                       caption="Renewal and Replacement Analysis"
                       alt="Thumbnail and link for Renewal and Replacement Analysis"
                       sizes="(max-width: 600px) 30vw, 15vw"
@@ -85,6 +85,15 @@ const RateAdjustPage = () => {
                       filename="PCWA Cost of Service Study.pdf"
                       caption="2022 Cost of Service & Rate Study"
                       alt="Thumbnail and link for Cost of Service and Rate Study"
+                      sizes="(max-width: 600px) 30vw, 15vw"
+                    />
+                  </ChildBox>
+                  <ChildBox flex="0 1 33.33%">
+                    <ImageThumbLink
+                      imgixUrl="https://imgix.cosmicjs.com/ff08b4b0-9bd6-11ec-b610-bda0cce64fbb-218-Notice-PCWA---2023.pdf"
+                      filename="PCWA-Prop_218_Notice.pdf"
+                      caption="Prop. 218 Notice"
+                      alt="Thumbnail and link for Prop. 218 Notice"
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
                   </ChildBox>

@@ -83,6 +83,10 @@ const MediaDialogOnClick = ({
   }
 
   const open = Boolean(anchorEl)
+  const {
+    children: mediaPreviewDialogPropsChildren,
+    ...mediaPreviewDialogPropsRest
+  } = mediaPreviewDialogProps || {}
 
   return (
     <Box {...rest}>
@@ -139,10 +143,12 @@ const MediaDialogOnClick = ({
         scroll="body"
         fullWidth={false}
         maxWidth="xl"
-        {...mediaPreviewDialogProps}
+        {...mediaPreviewDialogPropsRest}
         // showActions
         // dlUrl={`${ImageUrl}${qsDownloadUrl}`}
-      />
+      >
+        {mediaPreviewDialogPropsChildren}
+      </MediaPreviewDialog>
     </Box>
   )
 }
