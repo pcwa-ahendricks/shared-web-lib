@@ -22,7 +22,7 @@ import {useWindowSize} from '@react-hook/window-size'
 Two approaches:
   - Specify Image width and height
 or
-  - Use fullWidth property. This approach works well with portrait orientation images, though, w/ landscape images it will likely result with top & bottom whitespace 
+  - Use fullWidth property. This approach works well with portrait orientation images, though, w/ landscape images it will likely result with top & bottom whitespace
 */
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -85,6 +85,7 @@ const MediaPreviewDialog = ({
   showActions = false,
   open = false,
   native = false,
+  children,
   ...rest
 }: MediaPreviewDialogProps) => {
   const classes = useStyles()
@@ -178,6 +179,7 @@ const MediaPreviewDialog = ({
         <DialogContent classes={{root: classes.dialogContent}}>
           <Box width={dialogWidth} maxWidth="100%">
             <>{imgEl}</>
+            {children ? <Box>{children}</Box> : null}
           </Box>
         </DialogContent>
         <CondDialogActions />

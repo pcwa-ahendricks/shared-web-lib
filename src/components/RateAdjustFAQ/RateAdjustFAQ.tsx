@@ -278,7 +278,19 @@ const RateAdjustFAQ = () => {
                     mediaName="Colfax WTP"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            The existing WTP was first constructed in the 1930's
+                            with the sedimentation basin and filters added in
+                            the 1950's. The treatment plant has reached the end
+                            of its operational life. The construction on the new
+                            Colfax WTP will occur 2023-2025 at an estimated cost
+                            of cost $16.4M.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -306,7 +318,21 @@ const RateAdjustFAQ = () => {
                     mediaName="Foothill Water Treatment Plant Grit Screen Replacement"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            Grit screens at Foothill WTP installed in 2001 and
+                            have reached the end of their operational life.
+                            Replacement of screens will occur 2022-2023 at an
+                            estimated cost of cost $1.3M. Picture on left is an
+                            existing screen. Picture on right is from the
+                            transfer basin at the Ophir Road Pump Station but
+                            illustrates the type of unit that will replace the
+                            existing units at Foothill.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -361,7 +387,19 @@ const RateAdjustFAQ = () => {
                     mediaName="High Street Water Main Replacement, Auburn"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            Pipe install date 1919. Provides domestic and fire
+                            water to neighborhood and businesses in downtown
+                            Auburn. Construction slated for 2026/2027 and is
+                            expected to cost $1.3M. Photograph is of similar
+                            project recently completed on Commercial Street in
+                            old town Auburn.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -389,7 +427,27 @@ const RateAdjustFAQ = () => {
                     mediaName="Midas Avenue Water Main Replacement, Rocklin"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            Part of a larger Rocklin pipeline replacement
+                            program for pipe installed in 1963. While the pipe
+                            cylinder is in good condition, service taps and
+                            valves have reached the end of useful operational
+                            life. First phase is Midas Ave from UPRR crossing to
+                            Argonaut is planned for construction 2022/2023 is
+                            expected to cost $2.3M. Second phase is Midas Ave
+                            from Argonaut to Clover Valley is planned for
+                            construction 2024/2025 and is expected to cost
+                            $2.8M. Phase 3 has not been fully developed but will
+                            start at Clover Valley and is currently budgeted for
+                            $2.0M and is scheduled for 2026/2027. Photograph on
+                            left showing a blown service tap. Photo on right is
+                            from similar project on South Whitney Blvd.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -417,7 +475,24 @@ const RateAdjustFAQ = () => {
                     mediaName="Interstate 80 Water Crossing Improvement Program"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            PCWA has 22 treated water and 30 raw water crossings
+                            of I-80. All were installed in the early 1960’s as
+                            I-80 was constructed and are at the end of their
+                            operational life. One crossing, Lower Banvard, has
+                            been replaced at a cost of $1.5M. Condition
+                            assessment of remaining crossings underway with
+                            additional projects expected in the future. Program
+                            is currently budgeted for $2.5M over the next 5
+                            years. Map showing all 52 crossings on left, Photo
+                            at left and bottom right is from Lower Banvard
+                            pipeline replacement.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -445,7 +520,21 @@ const RateAdjustFAQ = () => {
                     mediaName="Kilmer Siphon Replacement, Colfax"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            Age of Kilmer siphon is unknown but is of similar
+                            vintage to Long Ravine and Hayford Siphons, dating
+                            from the late 1800's or early 1900's. These siphons
+                            are critical elements of PCWA's Boardman Canal.
+                            Construction slated for 2024 and is currently
+                            budgeted for $700K. Photo on left is from Long
+                            Ravine, completed in 2018. Photo on far right is
+                            Hayford, currently in construction.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -501,7 +590,19 @@ const RateAdjustFAQ = () => {
                     mediaName="Tank Renewal and Replacement"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            PCWA has two redwood tanks - Alta and Monte Vista
+                            that it will replace in the next 5 years with welded
+                            steel tanks. Construction of Monte Vista is planned
+                            for 2022/2023 and is expected to cost $1.8M. Alta
+                            tank is planned for 2024/2025 and is budgeted for
+                            $1.5M. Picture on left is the tank at Alta.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
@@ -557,7 +658,16 @@ const RateAdjustFAQ = () => {
                     mediaName="Pump Station Renewal and Replacement"
                     mediaPreviewDialogProps={{
                       width: 1440,
-                      height: 810
+                      height: 810,
+                      children: (
+                        <Box p={2}>
+                          <Type variant="caption">
+                            Northstar, $1.3M 2024/2025 and ORPS/ATP2/ATP3,
+                            approximately $300K every two years starting in 2022
+                            to rebuild 19 pumps.
+                          </Type>
+                        </Box>
+                      )
                     }}
                   >
                     <Image
