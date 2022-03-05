@@ -88,7 +88,7 @@ const RateAdjustPage = () => {
                   </ChildBox>
                   <ChildBox flex="0 1 33.33%">
                     <ImageThumbLink
-                      imgixUrl="https://imgix.cosmicjs.com/ca982800-9c0d-11ec-b20b-ad2fdaf5e1bc-218-Notice-PCWA.pdf"
+                      imgixUrl="https://imgix.cosmicjs.com/ffd29c20-9c1d-11ec-b651-874da62417a1-PCWA---Prop-218-Notice.pdf"
                       filename="PCWA-Prop_218_Notice.pdf"
                       caption="Prop. 218 Notice"
                       alt="Thumbnail and link for Prop. 218 Notice"
