@@ -145,6 +145,23 @@ const gages: GageConfigItem[] = [
     ]
   },
   {
+    id: 'R10',
+    type: 'gage',
+    description: 'North Fork Middle Fork American River above Circle Bridge',
+    chartValues: ['Flow', 'Height'],
+    tableValues: ['Flow', 'Height'],
+    tables: [
+      {
+        metric: 'daily',
+        headers: gageStationHeadersWithTemp
+      },
+      {
+        metric: 'monthly',
+        headers: gageStationHeadersWithTemp
+      }
+    ]
+  },
+  {
     id: 'R11',
     type: 'gage',
     description: 'Middle Fork American River near Foresthill',
@@ -165,8 +182,8 @@ const gages: GageConfigItem[] = [
     id: 'R29',
     type: 'gage',
     description: "Rubicon River above Ellicott's Crossing",
-    chartValues: ['Flow', 'Height'],
-    tableValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     disabled: false,
     tables: [
       {
@@ -183,8 +200,8 @@ const gages: GageConfigItem[] = [
     id: 'R30',
     type: 'gage',
     description: 'Rubicon River above Ralston Power House',
-    chartValues: ['Flow', 'Height'],
-    tableValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     tables: [
       {
         metric: 'daily',
@@ -202,8 +219,8 @@ const gages: GageConfigItem[] = [
     description:
       'North Fork American River above the American River Pump Station',
     // chartValues: ['Height', 'Pre-Offset Flow'],
-    chartValues: ['Flow', 'Height'],
-    tableValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     tables: [
       {
         metric: 'daily',
@@ -272,10 +289,11 @@ const gages: GageConfigItem[] = [
   {
     id: 'R20',
     type: 'gage',
-    description: 'Middle Fork American above Little Circle Bridge',
+    description:
+      'Middle Fork American River above Oxbow at Little Circle Bridge',
     review: false,
-    chartValues: ['Flow', 'Height'],
-    tableValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     tables: [
       {
         metric: 'daily',
