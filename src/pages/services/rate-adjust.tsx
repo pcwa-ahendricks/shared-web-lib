@@ -70,8 +70,8 @@ const RateAdjustPage = () => {
                     <ImageThumbLink
                       imgixUrl="https://imgix.cosmicjs.com/94ca8dd0-9a4b-11ec-852b-ab884ffd8c85-PCWA-25-year-RR-powerpointRev2.pdf"
                       filename="PCWA-Renewal_and_Replacement_Analysis.pdf"
-                      caption="Renewal and Replacement Analysis"
-                      alt="Thumbnail and link for Renewal and Replacement Analysis"
+                      caption="Renewal and Replacement Analysis Presentation"
+                      alt="Thumbnail and link for Renewal and Replacement Analysis Presentation"
                       sizes="(max-width: 600px) 30vw, 15vw"
                       height={75}
                       width={133}
@@ -81,8 +81,8 @@ const RateAdjustPage = () => {
                     <ImageThumbLink
                       imgixUrl="https://imgix.cosmicjs.com/54fa3070-9a4b-11ec-852b-ab884ffd8c85-WaterCostofServiceandRateStudyPowerPoint.pdf"
                       filename="PCWA Cost of Service Study.pdf"
-                      caption="2022 Cost of Service & Rate Study"
-                      alt="Thumbnail and link for Cost of Service and Rate Study"
+                      caption="2022 Cost of Service & Rate Study Presentation"
+                      alt="Thumbnail and link for Cost of Service and Rate Study Presentation"
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
                   </ChildBox>
