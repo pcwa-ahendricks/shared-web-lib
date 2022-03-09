@@ -283,9 +283,9 @@ const EnvironmentalPlanningPage = () => {
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
-                href="https://cdn.cosmicjs.com/a9ad3cf0-0372-11eb-9528-f5a6da2be217-DraftRECNov2012.pdf"
+                href="https://cdn.cosmicjs.com/339a46e0-9fd2-11ec-a634-2f1716dd45af-20201204-5077Revised-Rec-Plan.pdf"
               >
-                Recreation Plan <strong>[Draft]</strong>
+                Recreation Plan
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
@@ -295,14 +295,13 @@ const EnvironmentalPlanningPage = () => {
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
-                href="https://cdn.cosmicjs.com/8e6a7a70-0372-11eb-9528-f5a6da2be217-DraftSREGPNov2012.pdf"
+                href="https://cdn.cosmicjs.com/32bf0210-9fd2-11ec-a634-2f1716dd45af-RevisedSREGPNov-2020.pdf"
               >
-                Streamflow and Reservoir Elevation Gaging Plan{' '}
-                <strong>[Draft]</strong>
+                Streamflow and Reservoir Elevation Gaging Plan
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
-                href="https://cdn.cosmicjs.com/d5cc6770-0372-11eb-9528-f5a6da2be217-DraftTSMPNov2012.pdf"
+                href="https://cdn.cosmicjs.com/33bfa930-9fd2-11ec-a634-2f1716dd45af-20201204-5079Revised-TSMP.pdf"
               >
                 Transportation System Management Plan <strong>[Draft]</strong>
               </OpenInNewLinkBox>
@@ -335,6 +334,77 @@ const EnvironmentalPlanningPage = () => {
                 href="https://cdn.cosmicjs.com/895ed260-0372-11eb-9528-f5a6da2be217-WTMPNov2012.pdf"
               >
                 Water Temperature Monitoring Plan
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/34a37980-9fd2-11ec-a634-2f1716dd45af-RLEPNov-2020.pdf"
+              >
+                Reservoir Level Evaluation Plan
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/326f0d50-9fd2-11ec-a634-2f1716dd45af-Fish-Population-MPNov-2012.pdf"
+              >
+                Fish Population Monitoring Plan
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/326a2b50-9fd2-11ec-a634-2f1716dd45af-BMMPJune-2021.pdf"
+              >
+                Bear Management Monitoring Plan
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/32c89f00-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPSHIP.pdf"
+              >
+                Spawning Habitat Improvement Plan <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/333d80e0-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPPenstockPlan.pdf"
+              >
+                Penstock and Other Drainage Structure Emergency and Maintenance
+                Release Points Plan <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/331c8b60-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPLWDPlan.pdf"
+              >
+                Large Woody Debris Management Plan <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/32b0d140-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPHHOFeasilibityPlan.pdf"
+              >
+                Hell Hole Dam Outlet Feasibility Study Plan{' '}
+                <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/330002b0-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPFMStagingAreaLRP.pdf"
+              >
+                French Meadows Dam Staging Area Landscape Rehabilitation Plan
+                <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/32833190-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPESP.pdf"
+              >
+                Entrainment Study Plan <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/3341edb0-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPESCMP.pdf"
+              >
+                Erosion and Sediment Control and Management Plan{' '}
+                <strong>[Draft]</strong>
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/3358f820-9fd2-11ec-a634-2f1716dd45af-PUBLICP-2079PCWAMFPAISMP.pdf"
+              >
+                Aquatic Invasive Species Management Plan{' '}
+                <strong>[Draft]</strong>
               </OpenInNewLinkBox>
             </ChildBox>
           </RowBox>
