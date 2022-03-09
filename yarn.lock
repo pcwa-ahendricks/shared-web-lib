@@ -746,17 +746,17 @@
     "@types/react" "*"
     "@types/react-addons-css-transition-group" "*"
 
-"@types/react-dom@^17.0.11":
-  version "17.0.11"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.11.tgz#e1eadc3c5e86bdb5f7684e00274ae228e7bcc466"
-  integrity sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==
+"@types/react-dom@^17.0.13":
+  version "17.0.13"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.13.tgz#a3323b974ee4280070982b3112351bb1952a7809"
+  integrity sha512-wEP+B8hzvy6ORDv1QBhcQia4j6ea4SFIBttHYpXKPFZRviBvknq0FRh3VrIxeXUmsPkwuXVZrVGG7KUVONmXCQ==
   dependencies:
     "@types/react" "*"
 
-"@types/react-google-recaptcha@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-2.1.4.tgz#29ad60ef07dd0209cf69c9b65e3408d1c603a1fc"
-  integrity sha512-ZtL13ZpdIADXhZNaGppD5ueSMon19eemuhwGjnmPtK4+OH98v2jkFWuiSVQRvAl8KN5oZdxnTk6sJX6oXBlRvw==
+"@types/react-google-recaptcha@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-2.1.5.tgz#af157dc2e4bde3355f9b815a64f90e85cfa9df8b"
+  integrity sha512-iWTjmVttlNgp0teyh7eBXqNOQzVq2RWNiFROWjraOptRnb1OcHJehQnji0sjqIRAk9K0z8stjyhU+OLpPb0N6w==
   dependencies:
     "@types/react" "*"
 
@@ -4161,10 +4161,10 @@ papaparse@5.3.1:
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.3.1.tgz#770b7a9124d821d4b2132132b7bd7dce7194b5b1"
   integrity sha512-Dbt2yjLJrCwH2sRqKFFJaN5XgIASO9YOFeFP8rIBRG2Ain8mqk5r1M6DkfvqEVozVcz3r3HaUGw253hA1nLIcA==
 
-parallax-controller@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/parallax-controller/-/parallax-controller-1.3.3.tgz#101ef5e4530d69e9f915b39e3b81ad4696a68006"
-  integrity sha512-GDHvMl3UbKna0bOwwB8Q+dBkpIo2DlJFj3WJElDHZFFEI47aoqQND3paHrqFez1Z64AVQSWeHax+4e6ljE9Sew==
+parallax-controller@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/parallax-controller/-/parallax-controller-1.3.4.tgz#967928980a349790ffbfe13b7aaeeed9d0cf1208"
+  integrity sha512-rcrRQ+u/houINYaa5EGpuw5kIhoFIAg/eQRN8Ia10sZN8Uo+568X/hdGpdbumReJf2TBd/fka9UFZbGkGTHhLg==
   dependencies:
     bezier-easing "^2.1.0"
 
@@ -4643,12 +4643,12 @@ react-remove-scroll@^2.4.1:
     use-callback-ref "^1.2.3"
     use-sidecar "^1.0.1"
 
-react-scroll-parallax@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-3.0.3.tgz#1bb5aec113070043ee613a2bb8e649873c98c4da"
-  integrity sha512-GDmCk6PmHBZg9+Kb3P5hntr+MmVZrAv1EEyrbF1wXzS8TqOYDsoUuJYS9xtm/hi8JP0DywzE9oXfVNmDykHA/w==
+react-scroll-parallax@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-3.0.4.tgz#fa47ebc1b45912cfb17bcfafa8cb4d12ffd62ad2"
+  integrity sha512-afVibxTLBl/CnDCXVSTmQ2JneB2oI1THZw4goePQb+6gvAI+n4AKup7XEdbg90i19g9fbMUcfsN0uMAWiTG+Rg==
   dependencies:
-    parallax-controller "^1.3.3"
+    parallax-controller "^1.3.4"
 
 react-spring@^8.0.27:
   version "8.0.27"

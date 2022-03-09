@@ -169,7 +169,7 @@ const RateAdjustFAQ = () => {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Type variant="subtitle2">When did PCWA last adjust rates?</Type>
+          <Type variant="subtitle2">When did PCWA last adopt new rates?</Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
@@ -815,6 +815,70 @@ const RateAdjustFAQ = () => {
                 </TableBody>
               </Table>
             </Box>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel9'}
+        onChange={handleChange('panel9')}
+        classes={{root: classes.expansionPanel}}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel9bh-content"
+          id="panel9bh-header"
+        >
+          <Type variant="subtitle2">
+            What was the methodology used in the rate study to propose rate
+            adjustments?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              This rate study was conducted using industry-standard principles
+              outlined by the American Water Works Association's Principles of
+              Water Rates, Fees, and Charges: Manual of Water Supply Practices
+              M1 (seventh edition). The overall rate study process is outlined
+              below:
+            </Type>
+            <Type variant="body2" gutterBottom>
+              1.{' '}
+              <Type component="strong" variant="inherit" color="primary">
+                Financial Plan
+              </Type>
+              : Develop cash flow projections for PCWA's Water Division to
+              determine the amount of revenue required from water rates each
+              year through 2027.
+            </Type>
+            <Type variant="body2" gutterBottom>
+              2.{' '}
+              <Type component="strong" variant="inherit" color="primary">
+                Cost of Service Analysis
+              </Type>
+              : Allocate costs first to each service class and then to customers
+              within each service class based on cost causation attributable to
+              various customer groups within the water system.
+            </Type>
+            <Type variant="body2" gutterBottom>
+              3.{' '}
+              <Type component="strong" variant="inherit" color="primary">
+                Rate Design
+              </Type>
+              : Develop a five-year schedule of rates for 2023-2027, based on
+              the results of the financial plan and cost of service analyses.
+            </Type>
+            <Type variant="body2" gutterBottom>
+              4.{' '}
+              <Type component="strong" variant="inherit" color="primary">
+                Record Preparation and Rate Adoption
+              </Type>
+              : Develop a study report to document the results of the Study
+              (i.e., this report). Proposed rates may be adopted by PCW''s Board
+              of Directors only after holding a public hearing in accordance
+              with Proposition 218 requirements.
+            </Type>
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
