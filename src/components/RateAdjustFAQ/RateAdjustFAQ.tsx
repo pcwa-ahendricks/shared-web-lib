@@ -874,10 +874,10 @@ const RateAdjustFAQ = () => {
               <Type component="strong" variant="inherit" color="primary">
                 Record Preparation and Rate Adoption
               </Type>
-              : Develop a study report to document the results of the Study
-              (i.e., this report). Proposed rates may be adopted by PCW''s Board
-              of Directors only after holding a public hearing in accordance
-              with Proposition 218 requirements.
+              : Develop a study report to document the results of the Study.
+              Proposed rates may be adopted by PCWA's Board of Directors only
+              after holding a public hearing in accordance with Proposition 218
+              requirements.
             </Type>
           </ColumnBox>
         </AccordionDetails>
