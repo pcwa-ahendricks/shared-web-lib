@@ -830,8 +830,7 @@ const RateAdjustFAQ = () => {
           id="panel9bh-header"
         >
           <Type variant="subtitle2">
-            What was the methodology used in the rate study to propose rate
-            adjustments?
+            What was the methodology used to set rates?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
@@ -846,38 +845,42 @@ const RateAdjustFAQ = () => {
             <Type variant="body2" gutterBottom>
               1.{' '}
               <Type component="strong" variant="inherit" color="primary">
-                Financial Plan
+                Develop a Financial Plan
               </Type>
-              : Develop cash flow projections for PCWA's Water Division to
-              determine the amount of revenue required from water rates each
-              year through 2027.
+              : This plan determines the amount of money PCWA’s Water Division
+              needs to collect to continue delivering high levels of service
+              each year through 2027.
             </Type>
             <Type variant="body2" gutterBottom>
               2.{' '}
               <Type component="strong" variant="inherit" color="primary">
-                Cost of Service Analysis
+                Perform Cost of Service Analysis
               </Type>
-              : Allocate costs first to each service class and then to customers
-              within each service class based on cost causation attributable to
-              various customer groups within the water system.
+              : Depending on their usage patterns and other factors, PCWA
+              customers place different demands on the system. These demands
+              incur different costs, and this analysis ensures every customer
+              group is charged fairly for their service and pays their fair
+              share of costs.
             </Type>
             <Type variant="body2" gutterBottom>
               3.{' '}
               <Type component="strong" variant="inherit" color="primary">
-                Rate Design
+                Perform Rate Design
               </Type>
-              : Develop a five-year schedule of rates for 2023-2027, based on
-              the results of the financial plan and cost of service analyses.
+              : Based on the results of the financial plan and cost of service
+              analyses, rate design balances many factors and policy objectives,
+              and results in a proposed five-year schedule of rates for
+              2023-2027.
             </Type>
             <Type variant="body2" gutterBottom>
               4.{' '}
               <Type component="strong" variant="inherit" color="primary">
                 Record Preparation and Rate Adoption
               </Type>
-              : Develop a study report to document the results of the Study.
-              Proposed rates may be adopted by PCWA's Board of Directors only
-              after holding a public hearing in accordance with Proposition 218
-              requirements.
+              : The results of the rate study create a valuable administrative
+              record. Proposed rates may be adopted by PCWA's Board of Directors
+              only after notifying all property owners and holding a public
+              hearing in accordance with Proposition 218 requirements.
             </Type>
           </ColumnBox>
         </AccordionDetails>
