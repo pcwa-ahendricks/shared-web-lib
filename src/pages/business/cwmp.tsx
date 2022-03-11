@@ -190,8 +190,8 @@ const CountyWideMasterPlanPage = () => {
                   </ChildBox>
                   <ChildBox flex="0 1 30%">
                     <ImageThumbLink
-                      imgixUrl="https://imgix.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
-                      href="https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
+                      imgixUrl="https://imgix.cosmicjs.com/2aa65450-a0d3-11ec-a634-2f1716dd45af-CWMP-Overview-and-Guidelines-Feb-25-2022.pdf"
+                      href="https://cdn.cosmicjs.com/2aa65450-a0d3-11ec-a634-2f1716dd45af-CWMP-Overview-and-Guidelines-Feb-25-2022.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
                       alt="Thumbnail and link for County Wide Master Plan Document"
