@@ -148,8 +148,8 @@ const gages: GageConfigItem[] = [
     id: 'R10',
     type: 'gage',
     description: 'North Fork Middle Fork American River above Circle Bridge',
-    chartValues: ['Flow', 'Height'],
-    tableValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     tables: [
       {
         metric: 'daily',
