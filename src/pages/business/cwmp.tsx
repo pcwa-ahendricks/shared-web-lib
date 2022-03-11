@@ -202,15 +202,15 @@ const CountyWideMasterPlanPage = () => {
                         <Link
                           variant="inherit"
                           color="inherit"
-                          href="https://cdn.cosmicjs.com/b6eda2f0-f767-11e9-9b34-e182dcef54b2-CWMP-Implementation-Plan-10252019.pdf"
+                          href="https://cdn.cosmicjs.com/2aa65450-a0d3-11ec-a634-2f1716dd45af-CWMP-Overview-and-Guidelines-Feb-25-2022.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Implementation Plan
+                          County-Wide Master Plan
                         </Link>
                       </Type>
                       <Type variant="caption">
-                        Review the County-Wide Master Plan Implementation Plan
+                        Review the County-Wide Master Plan
                       </Type>
                     </Box>
                   </ChildBox>
