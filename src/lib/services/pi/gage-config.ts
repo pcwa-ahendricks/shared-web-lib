@@ -188,11 +188,11 @@ const gages: GageConfigItem[] = [
     tables: [
       {
         metric: 'daily',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       },
       {
         metric: 'monthly',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       }
     ]
   },
@@ -205,11 +205,11 @@ const gages: GageConfigItem[] = [
     tables: [
       {
         metric: 'daily',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       },
       {
         metric: 'monthly',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       }
     ]
   },
@@ -224,11 +224,11 @@ const gages: GageConfigItem[] = [
     tables: [
       {
         metric: 'daily',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       },
       {
         metric: 'monthly',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       }
     ]
   },
@@ -297,11 +297,11 @@ const gages: GageConfigItem[] = [
     tables: [
       {
         metric: 'daily',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       },
       {
         metric: 'monthly',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       }
     ]
   },
