@@ -140,9 +140,9 @@ const IrrigationCanalPage = () => {
                 variant="contained"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://cdn.cosmicjs.com/cacf1240-9c7f-11eb-85ef-2dda0e0d7ad2-2021-cutrine-schedule.pdf"
+                href="https://cdn.cosmicjs.com/ca672950-a3d6-11ec-a536-8726e3bb3867-2022-PCWA-AQUATIC-WEED-CONTROL-SCHEDULE.pdf"
               >
-                2021 Algae Control Schedule
+                2022 Algae Control Schedule
               </FancyButton>
             </Box>
             <CloseableInfoBox
