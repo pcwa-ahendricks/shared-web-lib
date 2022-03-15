@@ -91,7 +91,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/services/rate-adjust"
               imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
               alt="Sacramento Street Pipe Abandonment and Transfer Project in Auburn"
-              body="The PCWA Board of Directors has approved proceeding with a Proposition 218 notice to adopt new rates, fees, and charges for water service throughout the Agency's Western Water system. PCWA has set up page complete with FAQs and information about the process."
+              body="The PCWA Board of Directors has approved proceeding with a Proposition 218 notice to adopt new rates, fees, and charges for water service throughout the Agency's Western Water system. PCWA has set up a page complete with FAQs and information about the process."
               imgixParams={{
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
