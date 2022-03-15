@@ -62,7 +62,7 @@ const CoverStory = ({
   // Instead of passing an image width and height we can pass the target Aspect Ratio which will work with fit=crop. See https://docs.imgix.com/apis/url/size/ar.
   const imgixQs = stringify(
     {
-      ar: aspectRatio,
+      ar: aspectRatio.replace('/', ':'), // imgix api param and css attribute use different formats for aspect ratio
       fit: 'crop',
       bg: 'ffffff',
       ...imgixParams

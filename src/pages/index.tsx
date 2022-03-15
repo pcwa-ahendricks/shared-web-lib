@@ -82,8 +82,23 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         <Spacing size="small" />
       </Hidden>
       <WideContainer>
-        <RowBox responsive flexSpacing={4}>
-          <ChildBox flex="50%">
+        <RowBox responsive="sm" flexSpacing={4}>
+          <ChildBox flex="33.33%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Proposed Multiyear Rate Adjustment"
+              readMore="Learn more"
+              linkHref="/services/rate-adjust"
+              imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
+              alt="Sacramento Street Pipe Abandonment and Transfer Project in Auburn"
+              body="The PCWA Board of Directors has approved proceeding with a Proposition 218 notice to adopt new rates, fees, and charges for water service throughout the Agency's Western Water system. PCWA has set up page complete with FAQs and information about the process."
+              imgixParams={{
+                bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+              }}
+            />
+          </ChildBox>
+
+          <ChildBox flex="33.33%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Year End Report for 2021"
@@ -93,7 +108,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="2021 Year End Report graphic"
               body="Take a look at our Year End Report for 2021 to learn more about how PCWA serves the community and protects our customers' investments."
               imgixParams={{
-                fit: 'fill',
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
             />
@@ -200,7 +214,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             </Whammy>
               */}
 
-          <ChildBox flex="50%">
+          <ChildBox flex="33.33%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="French Meadows Forest Restoration Project"
