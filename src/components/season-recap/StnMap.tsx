@@ -78,31 +78,20 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
   }, [stationInfo])
 
   const [viewport, setViewport] = useState({
-    latitude,
-    longitude,
+    ...(latitude && {latitude}),
+    ...(longitude && {longitude}),
     zoom: 10
   })
 
-  const viewportChangeHandler = useCallback((vp) => {
-    setViewport(vp)
-  }, [])
-
-  const errorHandler = useCallback((e) => {
-    // Catch errors so page doesn't break when map breaks
-    console.log('An error occurred', e)
-  }, [])
-
   useEffect(() => {
-    if (!longitude || !latitude || !mapWest || !mapEast) {
-      return
+    if (longitude && latitude && mapWest && mapEast) {
+      mapRef.current?.flyTo({
+        zoom: 10,
+        center: [longitude - 0.0 * (mapWest - mapEast), latitude],
+        // longitude: longitude - 0.05 * (mapWest - mapEast),
+        duration: 1500
+      })
     }
-
-    mapRef.current?.flyTo({
-      zoom: 10,
-      center: [longitude - 0.0 * (mapWest - mapEast), latitude],
-      // longitude: longitude - 0.05 * (mapWest - mapEast),
-      duration: 1500
-    })
   }, [longitude, latitude, mapWest, mapEast])
 
   const Progress = useCallback(
@@ -161,7 +150,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     <>
       <Head>
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
           rel="stylesheet"
           key="mapbox-gl.css"
         />
@@ -169,15 +158,15 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
       <Box position="relative" height="100%">
         <Progress />
         <Map
-          ref={mapRef}
           {...viewport}
+          ref={mapRef}
           mapStyle="mapbox://styles/pcwa-mapbox/ckiyzqma45qx619qizeilljwg"
-          onMove={viewportChangeHandler}
+          onMove={(evt) => setViewport(evt.viewState)}
           mapboxAccessToken={API_KEY}
           // scrollZoom={isSmDown ? false : true}
           scrollZoom={false}
           dragPan={isSmDown ? false : true}
-          onError={errorHandler}
+          onError={(e) => console.log('An error occurred', e)}
           maxZoom={14}
         >
           <MapMarker />
