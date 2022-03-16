@@ -226,13 +226,7 @@ const DistrictBoundariesMap = () => {
           // onMouseMove={onHoverHandler}
           // onLoad={onLoadHandler}
         >
-          <Box
-            position="absolute"
-            left={theme.spacing(1)}
-            bottom={theme.spacing(12)}
-          >
-            <NavigationControl />
-          </Box>
+          <NavigationControl position="bottom-left" />
           <Grow in={showDistrictOverlay}>
             <ColumnBox
               position="absolute"

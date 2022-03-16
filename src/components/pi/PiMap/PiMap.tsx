@@ -32,19 +32,6 @@ type Props = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    // fullscreen: {
-    //   position: 'absolute',
-    //   top: 0,
-    //   left: 0,
-    //   padding: 10
-    // },
-    nav: {
-      position: 'absolute',
-      // top: 36,
-      top: 0,
-      left: 0,
-      padding: 10
-    },
     metadataDataList: {
       position: 'absolute',
       right: 0,
@@ -173,9 +160,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
           {/* <div className={classes.fullscreen}>
           <FullscreenControl />
         </div> */}
-          <div className={classes.nav}>
-            <NavigationControl />
-          </div>
+          <NavigationControl position="top-left" />
           <div className={classes.metadataDataList}>
             <PiMetadataDl isLoading={isLoading} streamSetMeta={streamSetMeta} />
           </div>
