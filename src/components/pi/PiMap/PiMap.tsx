@@ -1,21 +1,19 @@
-import React, {useState, useCallback, useEffect, useMemo} from 'react'
-import MapGL, {
+import React, {useState, useEffect, useRef, useCallback} from 'react'
+import Map, {
+  MapRef,
   Marker,
-  NavigationControl,
+  NavigationControl
   // Fullscreen mode messes up window width when exiting fullscreen. It's not really needed so it's commented out for now.
   // FullscreenControl,
-  FlyToInterpolator,
-  ViewportProps
 } from 'react-map-gl'
-import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
   Box,
   useMediaQuery,
   Theme,
-  LinearProgress,
   createStyles,
   makeStyles,
-  useTheme
+  useTheme,
+  LinearProgress
 } from '@material-ui/core'
 import isNumber from 'is-number'
 import PiMapMarker from './PiMapMarker'
@@ -64,6 +62,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
   const [ready, setReady] = useState(false)
   const [markerLatLng, setMarkerLatLng] = useState<{lat: number; lng: number}>()
+  const mapRef = useRef<MapRef>(null)
 
   useEffect(() => {
     setTimeout(() => setReady(true))
@@ -72,56 +71,37 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   useEffect(() => {
     const lngMeta = streamSetMeta.find((m) => m.name === 'Longitude')
     const latMeta = streamSetMeta.find((m) => m.name === 'Latitude')
-    if (
-      lngMeta &&
-      latMeta &&
-      isNumber(lngMeta.value) &&
-      isNumber(latMeta.value)
-    ) {
-      const lng =
-        typeof lngMeta.value === 'string'
-          ? parseFloat(lngMeta.value)
-          : lngMeta.value
-      const lat =
-        typeof latMeta.value === 'string'
-          ? parseFloat(latMeta.value)
-          : latMeta.value
+    const lng =
+      typeof lngMeta?.value === 'string'
+        ? parseFloat(lngMeta?.value)
+        : lngMeta?.value
+    const lat =
+      typeof latMeta?.value === 'string'
+        ? parseFloat(latMeta?.value)
+        : latMeta?.value
+    if (isNumber(lng) && isNumber(lat) && lat && lng) {
       setMarkerLatLng({lng, lat})
     }
   }, [streamSetMeta])
 
-  const [viewport, setViewport] = useState<ViewportProps>({
+  const [viewport, setViewport] = useState({
     latitude: 39.1330566,
     longitude: -120.48278,
     zoom: 12
   })
 
-  const viewportChangeHandler = useCallback((vp) => {
-    setViewport(vp ?? {})
-  }, [])
-
-  const errorHandler = useCallback((e) => {
-    // Catch errors so page doesn't break when map breaks
-    console.log('An error occurred', e)
-  }, [])
-
   useEffect(() => {
     // console.log(markerLatLng)
-    if (!markerLatLng) {
-      return
+    if (markerLatLng?.lat && markerLatLng?.lng && ready) {
+      mapRef.current?.flyTo({
+        zoom: 12,
+        center: [markerLatLng.lng, markerLatLng.lat],
+        duration: 1500
+      })
     }
-    setViewport((currentViewport) => ({
-      ...currentViewport,
-      zoom: 12,
-      longitude: markerLatLng.lng,
-      latitude: markerLatLng.lat,
-      transitionDuration: ready ? 1500 : undefined,
-      transitionInterpolator: ready ? new FlyToInterpolator() : undefined,
-      transitionEasing: ready ? easeCubic : undefined
-    }))
   }, [markerLatLng, ready])
 
-  const linearProgressEl = useMemo(
+  const Progress = useCallback(
     () =>
       isLoading ? (
         <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
@@ -131,9 +111,9 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
     [isLoading]
   )
 
-  const mapMarkerEl = useMemo(
+  const MapMarker = useCallback(
     () =>
-      markerLatLng && markerLatLng.lng && markerLatLng.lat ? (
+      markerLatLng?.lng && markerLatLng?.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <PiMapMarker size={30} />
         </Marker>
@@ -141,13 +121,12 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
     [markerLatLng]
   )
 
-  const debugMapMarkerPositionEl = useMemo(
+  const DebugMapMarkerPosition = useCallback(
     () =>
       debugMapMarkerPosition &&
       isDev &&
-      markerLatLng &&
-      markerLatLng.lng &&
-      markerLatLng.lat ? (
+      markerLatLng?.lng &&
+      markerLatLng?.lat ? (
         <Marker longitude={markerLatLng.lng} latitude={markerLatLng.lat}>
           <CrossHairIcon
             style={{
@@ -166,27 +145,28 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
     <>
       <Head>
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
           rel="stylesheet"
           key="mapbox-gl.css"
         />
       </Head>
       <Box position="relative" height="100%">
-        {linearProgressEl}
-        <MapGL
+        <Progress />
+        <Map
           {...viewport}
-          width="100%"
-          height="100%"
+          ref={mapRef}
+          // width="100%"
+          // height="100%"
           mapStyle="mapbox://styles/pcwa-mapbox/ckiyzqma45qx619qizeilljwg"
-          onViewportChange={viewportChangeHandler}
-          mapboxApiAccessToken={API_KEY}
+          onMove={(evt) => setViewport(evt.viewState)}
+          mapboxAccessToken={API_KEY}
           // scrollZoom={isSmDown ? false : true}
           scrollZoom={false}
           dragPan={isSmDown ? false : true}
-          onError={errorHandler}
+          onError={(e) => console.log('An error occurred', e)}
         >
-          {mapMarkerEl}
-          {debugMapMarkerPositionEl}
+          <MapMarker />
+          <DebugMapMarkerPosition />
 
           {/* {this._renderPopup()} */}
 
@@ -201,7 +181,7 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
           </div>
 
           {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
-        </MapGL>
+        </Map>
       </Box>
     </>
   )

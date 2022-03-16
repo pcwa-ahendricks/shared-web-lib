@@ -1,13 +1,10 @@
 // cspell:ignore bbox touchevents
 import React, {useCallback, useState, useRef, useEffect} from 'react'
 import MapGL, {
-  FlyToInterpolator,
   MapRef,
-  NavigationControl,
-  ViewportProps
+  NavigationControl
   // MapLoadEvent
 } from 'react-map-gl'
-import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
   Box,
   Grow,
@@ -62,7 +59,7 @@ const DistrictBoundariesMap = () => {
   const theme = useTheme()
   const classes = useStyles()
 
-  const [viewState, setViewState] = useState<ViewportProps>({
+  const [viewState, setViewState] = useState({
     latitude: 38.90128,
     longitude: -121.10076,
     zoom: 8
@@ -78,7 +75,7 @@ const DistrictBoundariesMap = () => {
   const [lastResultCoords, setLastResultCoords] = useState<number[] | null>(
     null
   )
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isTransitioning, _setIsTransitioning] = useState(false)
   // const prevLastResultCoords = useLatest(lastResultCoords)
   // const [map, setMap] = useState<mapboxgl.Map>()
 
@@ -136,39 +133,31 @@ const DistrictBoundariesMap = () => {
     queryDistrict()
   }, [lastResultCoords, queryDistrict])
 
-  const onResultHandler = useCallback(
-    (evt: GeocoderResult) => {
-      const {geometry} = evt
-      const {coordinates} = geometry
-      setLastResultCoords(coordinates ?? null)
-      const newViewState = {
-        ...viewState,
-        longitude: coordinates[0],
-        latitude: coordinates[1],
-        zoom: 16,
-        transitionDuration: 2000,
-        transitionInterpolator: new FlyToInterpolator(),
-        transitionEasing: easeCubic
-      }
-      setViewState({...newViewState})
-    },
-    [setViewState, viewState]
-  )
+  const onResultHandler = useCallback((evt: GeocoderResult) => {
+    const {geometry} = evt
+    const {coordinates} = geometry
+    setLastResultCoords(coordinates ?? null)
+    mapRef.current?.flyTo({
+      center: [coordinates[0], coordinates[1]],
+      zoom: 16,
+      duration: 2000
+    })
+  }, [])
 
   const onClickHandler = useCallback(() => {
     setShowDistrictOverlay(true)
   }, [])
 
   // queryRenderedFeatures doesn't return features at high zoom levels. As a workaround we run the query again after the transition completes.
-  const onTransitionEndHandler = useCallback(() => {
-    setIsTransitioning(false)
-    queryDistrict()
-  }, [queryDistrict])
+  // const onTransitionEndHandler = useCallback(() => {
+  //   setIsTransitioning(false)
+  //   queryDistrict()
+  // }, [queryDistrict])
 
-  const onTransitionStartHandler = useCallback(() => {
-    setIsTransitioning(true)
-    queryDistrict()
-  }, [queryDistrict])
+  // const onTransitionStartHandler = useCallback(() => {
+  //   setIsTransitioning(true)
+  //   queryDistrict()
+  // }, [queryDistrict])
 
   useEffect(() => {
     const activeDirector = directors.find(
@@ -210,7 +199,7 @@ const DistrictBoundariesMap = () => {
         /> */}
         {/* yarn why mapbox-gl */}
         <link
-          href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
           rel="stylesheet"
           key="mapbox-gl.css"
         />
@@ -223,17 +212,15 @@ const DistrictBoundariesMap = () => {
         <MapGL
           ref={mapRef}
           minZoom={8}
-          width="100%"
-          height={500}
           mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
-          mapboxApiAccessToken={API_KEY}
-          onViewStateChange={onViewStateChange}
-          onHover={onHoverHandler}
+          mapboxAccessToken={API_KEY}
+          onMove={onViewStateChange}
+          onMouseEnter={onHoverHandler}
           onClick={onClickHandler}
           onError={errorHandler}
-          onTransitionEnd={onTransitionEndHandler}
-          onTransitionStart={onTransitionStartHandler}
-          onTransitionInterrupt={onTransitionEndHandler}
+          // onTransitionEnd={onTransitionEndHandler}
+          // onTransitionStart={onTransitionStartHandler}
+          // onTransitionInterrupt={onTransitionEndHandler}
           scrollZoom={isXsDown ? false : true}
           {...viewState}
           // onMouseMove={onHoverHandler}
@@ -244,7 +231,7 @@ const DistrictBoundariesMap = () => {
             left={theme.spacing(1)}
             bottom={theme.spacing(12)}
           >
-            <NavigationControl onViewStateChange={onViewStateChange} />
+            <NavigationControl />
           </Box>
           <Grow in={showDistrictOverlay}>
             <ColumnBox

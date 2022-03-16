@@ -1,14 +1,11 @@
-import React, {useState, useCallback, useEffect, useMemo, useRef} from 'react'
-import MapGL, {
+import React, {useState, useEffect, useRef, useCallback, useMemo} from 'react'
+import Map, {
+  MapRef,
   Marker,
-  NavigationControl,
+  NavigationControl
   // Fullscreen mode messes up window width when exiting fullscreen. It's not really needed so it's commented out for now.
   // FullscreenControl,
-  ViewportProps,
-  FlyToInterpolator,
-  MapRef
 } from 'react-map-gl'
-import {easeCubic} from 'd3-ease' // 3rd-party easing functions
 import {
   Box,
   useMediaQuery,
@@ -80,7 +77,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     }
   }, [stationInfo])
 
-  const [viewport, setViewport] = useState<Partial<ViewportProps>>({
+  const [viewport, setViewport] = useState({
     latitude,
     longitude,
     zoom: 10
@@ -100,19 +97,15 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
       return
     }
 
-    setViewport((currentViewport) => ({
-      ...currentViewport,
+    mapRef.current?.flyTo({
       zoom: 10,
-      latitude,
+      center: [longitude - 0.0 * (mapWest - mapEast), latitude],
       // longitude: longitude - 0.05 * (mapWest - mapEast),
-      longitude: longitude - 0.0 * (mapWest - mapEast),
-      transitionDuration: 1500,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionEasing: easeCubic
-    }))
+      duration: 1500
+    })
   }, [longitude, latitude, mapWest, mapEast])
 
-  const linearProgressEl = useMemo(
+  const Progress = useCallback(
     () =>
       isLoading ? (
         <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
@@ -174,15 +167,13 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
         />
       </Head>
       <Box position="relative" height="100%">
-        {linearProgressEl}
-        <MapGL
+        <Progress />
+        <Map
           ref={mapRef}
           {...viewport}
-          width="100%"
-          height="100%"
           mapStyle="mapbox://styles/pcwa-mapbox/ckiyzqma45qx619qizeilljwg"
-          onViewportChange={viewportChangeHandler}
-          mapboxApiAccessToken={API_KEY}
+          onMove={viewportChangeHandler}
+          mapboxAccessToken={API_KEY}
           // scrollZoom={isSmDown ? false : true}
           scrollZoom={false}
           dragPan={isSmDown ? false : true}
@@ -204,7 +195,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
           </div>
 
           {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
-        </MapGL>
+        </Map>
       </Box>
     </>
   )

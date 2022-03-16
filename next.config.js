@@ -2,7 +2,6 @@
 /* eslint @typescript-eslint/no-var-requires: 0 */
 // Fix error w/ Vercel and d3, fix error w/ swr and IE11
 const withTM = require('next-transpile-modules')([
-  'd3-ease',
   'd3-shape',
   'swr'
   // 'TextProgress', // uses css modules
