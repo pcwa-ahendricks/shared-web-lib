@@ -171,8 +171,12 @@ const PublicationsPage = ({
         setTabIndex(2)
         break
       }
-      case 'enews': {
+      case 'strategic-plans': {
         setTabIndex(3)
+        break
+      }
+      case 'enews': {
+        setTabIndex(4)
         break
       }
       default: {
