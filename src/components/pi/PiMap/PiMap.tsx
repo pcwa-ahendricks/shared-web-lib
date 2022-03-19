@@ -20,7 +20,6 @@ import PiMapMarker from './PiMapMarker'
 import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
 import {PiMetadata} from '../PiStore'
-import Head from 'next/head'
 const API_KEY = process.env.NEXT_PUBLIC_PI_MAP_MAPBOX_API_KEY ?? ''
 const isDev = process.env.NODE_ENV === 'development'
 const debugMapMarkerPosition = false // Set back to false when not in use.
@@ -129,46 +128,37 @@ const PiMap = ({isLoading = false, streamSetMeta = []}: Props) => {
   )
 
   return (
-    <>
-      <Head>
-        <link
-          href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
-          rel="stylesheet"
-          key="mapbox-gl.css"
-        />
-      </Head>
-      <Box position="relative" height="100%">
-        <Progress />
-        <Map
-          {...viewport}
-          ref={mapRef}
-          // width="100%"
-          // height="100%"
-          mapStyle="mapbox://styles/pcwa-mapbox/ckiyzqma45qx619qizeilljwg"
-          onMove={(evt) => setViewport(evt.viewState)}
-          mapboxAccessToken={API_KEY}
-          // scrollZoom={isSmDown ? false : true}
-          scrollZoom={false}
-          dragPan={isSmDown ? false : true}
-          onError={(e) => console.log('An error occurred', e)}
-        >
-          <MapMarker />
-          <DebugMapMarkerPosition />
+    <Box position="relative" height="100%">
+      <Progress />
+      <Map
+        {...viewport}
+        ref={mapRef}
+        // width="100%"
+        // height="100%"
+        mapStyle="mapbox://styles/pcwa-mapbox/ckiyzqma45qx619qizeilljwg"
+        onMove={(evt) => setViewport(evt.viewState)}
+        mapboxAccessToken={API_KEY}
+        // scrollZoom={isSmDown ? false : true}
+        scrollZoom={false}
+        dragPan={isSmDown ? false : true}
+        onError={(e) => console.log('An error occurred', e)}
+      >
+        <MapMarker />
+        <DebugMapMarkerPosition />
 
-          {/* {this._renderPopup()} */}
+        {/* {this._renderPopup()} */}
 
-          {/* <div className={classes.fullscreen}>
+        {/* <div className={classes.fullscreen}>
           <FullscreenControl />
         </div> */}
-          <NavigationControl position="top-left" />
-          <div className={classes.metadataDataList}>
-            <PiMetadataDl isLoading={isLoading} streamSetMeta={streamSetMeta} />
-          </div>
+        <NavigationControl position="top-left" />
+        <div className={classes.metadataDataList}>
+          <PiMetadataDl isLoading={isLoading} streamSetMeta={streamSetMeta} />
+        </div>
 
-          {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
-        </Map>
-      </Box>
-    </>
+        {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
+      </Map>
+    </Box>
   )
 }
 

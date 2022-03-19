@@ -24,7 +24,6 @@ import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
 import useSupportsTouch from '@hooks/useSupportsTouch'
 import NoPinch from '@components/NoPinch/NoPinch'
 import {useDebouncedCallback} from 'use-debounce'
-import Head from 'next/head'
 import MatGeocoder from 'react-mui-mapbox-geocoder'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -189,73 +188,58 @@ const DistrictBoundariesMap = () => {
     : 'Hover your mouse over the map to find out more about a particular location. Click this message to begin.'
 
   return (
-    <>
-      <Head>
-        {/* yarn why @mapbox/mapbox-gl-geocoder */}
-        {/* (Versioning) Less confusing when simply imported in _app.tsx. Stylesheet is relatively small. */}
-        {/* <link
-          href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
-          rel="stylesheet"
-        /> */}
-        {/* yarn why mapbox-gl */}
-        <link
-          href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
-          rel="stylesheet"
-          key="mapbox-gl.css"
-        />
-      </Head>
-      <ContentDimmer
-        title="Find Out Which PCWA District You Are In"
-        subtitle={dimmerSubtitle}
-        position="relative"
+    <ContentDimmer
+      title="Find Out Which PCWA District You Are In"
+      subtitle={dimmerSubtitle}
+      position="relative"
+    >
+      <MapGL
+        ref={mapRef}
+        minZoom={8}
+        mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
+        mapboxAccessToken={API_KEY}
+        onMove={onViewStateChange}
+        onMouseEnter={onHoverHandler}
+        onClick={onClickHandler}
+        onError={errorHandler}
+        // onTransitionEnd={onTransitionEndHandler}
+        // onTransitionStart={onTransitionStartHandler}
+        // onTransitionInterrupt={onTransitionEndHandler}
+        scrollZoom={isXsDown ? false : true}
+        {...viewState}
+        // onMouseMove={onHoverHandler}
+        // onLoad={onLoadHandler}
       >
-        <MapGL
-          ref={mapRef}
-          minZoom={8}
-          mapStyle="mapbox://styles/pcwa-mapbox/civ427132001m2impoqqvbfrq"
-          mapboxAccessToken={API_KEY}
-          onMove={onViewStateChange}
-          onMouseEnter={onHoverHandler}
-          onClick={onClickHandler}
-          onError={errorHandler}
-          // onTransitionEnd={onTransitionEndHandler}
-          // onTransitionStart={onTransitionStartHandler}
-          // onTransitionInterrupt={onTransitionEndHandler}
-          scrollZoom={isXsDown ? false : true}
-          {...viewState}
-          // onMouseMove={onHoverHandler}
-          // onLoad={onLoadHandler}
-        >
-          <NavigationControl position="bottom-left" />
-          <Grow in={showDistrictOverlay}>
-            <ColumnBox
-              position="absolute"
-              top={isXsDown ? 'auto' : theme.spacing(1)}
-              bottom={isXsDown ? theme.spacing(5) : 'auto'}
-              right={theme.spacing(1)}
-              bgcolor={theme.palette.common.white}
-              p={1}
-              borderRadius={3}
-              boxShadow={4}
-              borderColor={theme.palette.grey['400']}
-              alignItems="center"
-              minWidth={200}
-            >
-              {isTransitioning ? (
-                <CircularProgress color="secondary" />
-              ) : (
-                <Type variant="subtitle1">
-                  {activeDirector && activeDirector.districtCaption
-                    ? activeDirector.districtCaption
-                    : 'Outside PCWA District Limits'}
-                </Type>
-              )}
-              {!isTransitioning && activeDirector && activeDirector.name ? (
-                <Type variant="subtitle2">{activeDirector.name}</Type>
-              ) : null}
-            </ColumnBox>
-          </Grow>
-          {/* <Geocoder
+        <NavigationControl position="bottom-left" />
+        <Grow in={showDistrictOverlay}>
+          <ColumnBox
+            position="absolute"
+            top={isXsDown ? 'auto' : theme.spacing(1)}
+            bottom={isXsDown ? theme.spacing(5) : 'auto'}
+            right={theme.spacing(1)}
+            bgcolor={theme.palette.common.white}
+            p={1}
+            borderRadius={3}
+            boxShadow={4}
+            borderColor={theme.palette.grey['400']}
+            alignItems="center"
+            minWidth={200}
+          >
+            {isTransitioning ? (
+              <CircularProgress color="secondary" />
+            ) : (
+              <Type variant="subtitle1">
+                {activeDirector && activeDirector.districtCaption
+                  ? activeDirector.districtCaption
+                  : 'Outside PCWA District Limits'}
+              </Type>
+            )}
+            {!isTransitioning && activeDirector && activeDirector.name ? (
+              <Type variant="subtitle2">{activeDirector.name}</Type>
+            ) : null}
+          </ColumnBox>
+        </Grow>
+        {/* <Geocoder
             mapRef={map}
             onResult={onResultHandler}
             onViewportChange={geocoderViewportChangeHandler}
@@ -266,29 +250,24 @@ const DistrictBoundariesMap = () => {
             bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
             zoom={15}
           /> */}
-          <Box
-            position="absolute"
-            left={theme.spacing(1)}
-            top={theme.spacing(1)}
-          >
-            <NoPinch>
-              <MatGeocoder
-                disableUnderline
-                inputPlaceholder="Search for Address"
-                accessToken={API_KEY}
-                onSelect={onResultHandler}
-                country="us"
-                proximity={{longitude: -121.0681, latitude: 38.9197}}
-                bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
-                inputPaperProps={{
-                  className: classes.geocoderPaper
-                }}
-              />
-            </NoPinch>
-          </Box>
-        </MapGL>
-      </ContentDimmer>
-    </>
+        <Box position="absolute" left={theme.spacing(1)} top={theme.spacing(1)}>
+          <NoPinch>
+            <MatGeocoder
+              disableUnderline
+              inputPlaceholder="Search for Address"
+              accessToken={API_KEY}
+              onSelect={onResultHandler}
+              country="us"
+              proximity={{longitude: -121.0681, latitude: 38.9197}}
+              bbox={[-123.8501, 38.08, -117.5604, 39.8735]}
+              inputPaperProps={{
+                className: classes.geocoderPaper
+              }}
+            />
+          </NoPinch>
+        </Box>
+      </MapGL>
+    </ContentDimmer>
   )
 }
 
