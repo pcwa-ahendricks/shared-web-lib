@@ -15,6 +15,8 @@ import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'
 import {yellow, brown, grey} from '@material-ui/core/colors'
 import Spacing from '@components/boxes/Spacing'
+import MainPhone from '@components/links/MainPhone'
+import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 
 const RateAdjustPage = () => {
   const theme = useTheme()
@@ -65,22 +67,23 @@ const RateAdjustPage = () => {
                   Rates and Charges
                 </Type>
                 <Type paragraph variant="body2">
-                  Notice of Public Hearing to Consider Changes to PCWA Water
-                  Rates and Charges For questions please contact Customer
-                  Services at (530) 823-4850 or customerservices@pcwa.net You
-                  were recently mailed a Notice of Public Hearing that provided
-                  a hearing day of Thursday, May 9, 2022. That Notice contained
-                  a typographical error. May 9 is a Monday.
+                  You were recently mailed a Notice of Public Hearing that
+                  provided a hearing day of Thursday, May 9, 2022. That Notice
+                  contained a typographical error. May 9 is a Monday.
+                  <Type
+                    variant="body2"
+                    component="div"
+                    style={{color: grey[800]}}
+                  >
+                    <strong>
+                      The correct day of the public hearing is Monday, May 9,
+                      2022 at 2:00 p.m.
+                    </strong>
+                  </Type>
                 </Type>
-                <Type
-                  variant="body2"
-                  component="div"
-                  style={{color: grey[800]}}
-                >
-                  <strong>
-                    The correct day of the public hearing is Monday, May 9, 2022
-                    at 2:00 p.m.
-                  </strong>
+                <Type paragraph variant="body2">
+                  For questions please contact Customer Services at{' '}
+                  <MainPhone /> or <CustomerServicesEmail />.
                 </Type>
               </Box>
             </ChildBox>
