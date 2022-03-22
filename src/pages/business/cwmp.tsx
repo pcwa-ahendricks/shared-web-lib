@@ -160,7 +160,10 @@ const CountyWideMasterPlanPage = () => {
                 pb={2}
                 px={2}
               >
-                <RowBox justifyContent="space-around">
+                <RowBox
+                  justifyContent="space-around"
+                  flexDirection="row-reverse"
+                >
                   <ChildBox flex="0 1 30%">
                     <ImageThumbLink
                       imgixUrl="https://imgix.cosmicjs.com/136b6f30-0b18-11ea-944c-cfd32d7bf8a6-MasterPlanDatabaseLink.jpg"
@@ -242,47 +245,47 @@ const CountyWideMasterPlanPage = () => {
                   County-Wide Master Plan
                 </Type>
                 <Type paragraph>
-                  In 2010, the Board directed Agency staff to commence the
-                  development of a County-Wide Master Plan (Master Plan) to
-                  identify, evaluate, track and fund water and power stewardship
-                  needs consistent with the “PCWA Policy for the Use of Middle
-                  Fork Project Net Revenues”. Rather than developing the Master
-                  Plan in the traditional written report form, a database of
-                  county-wide needs has been developed in electronic form
-                  (Project Database), which will be dynamic with changing needs,
-                  completion of projects, and identification of new projects.
-                  The “Implementation Plan” was also prepared, which:
+                  In 2010, the Placer County Water Agency (PCWA) Board directed
+                  staff to commence the development of a County-Wide Master Plan
+                  (CWMP) to identify, evaluate, track and fund water and power
+                  stewardship needs throughout Placer County. In 2019 PCWA began
+                  accepting online project funding requests for PCWA's Financial
+                  Assistance Program (FAP) from the CWMP Project Database.
+                </Type>
+                <Type paragraph>
+                  The CWMP is a dynamic project database that contains potential
+                  projects and information from PCWA and eligible entities, that
+                  identify county-wide water and power resource needs. The CWMP
+                  was developed to facilitate the prioritization and funding
+                  needs of eligible projects and programs based on the project's
+                  primary benefit.
+                </Type>
+                <Type paragraph>
+                  The foundation of the CWMP is rooted in the following Guiding
+                  Principles that were created based on the Agency Act to
+                  reflect the purpose of PCWA's formation:
                 </Type>
                 <List disablePadding>
                   <CompactListItem>
-                    <ListItemText
-                      primary="A. Provides process for making eligible projects part of the
-                  Master Plan"
-                    />
+                    <ListItemText primary="1.	Provide access to safe and reliable drinking water" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText
-                      primary="B. Provides an organized structure of element categories for
-                      county-wide needs"
-                    />
+                    <ListItemText primary="2.	Water and power resource stewardship" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="C. Establishes project criteria" />
+                    <ListItemText primary="3.	Maintain and improve water supply and power reliability" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText
-                      primary="D. Provides process for project evaluation and
-                      prioritization"
-                    />
+                    <ListItemText primary="4.	Maintain and improve infrastructure reliability" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="E. Provides process for funding and award" />
+                    <ListItemText primary="5.	Support the well-being of Placer County and its residents through water, energy, and stewardship programs." />
                   </CompactListItem>
                 </List>
-                <Type variant="h3" gutterBottom>
+                {/* <Type variant="h3" gutterBottom>
                   Project, Program, or Facilities Eligible
-                </Type>
-                <Type paragraph>
+                </Type> */}
+                {/* <Type paragraph>
                   The types of projects, programs, or facilities (herein termed
                   “FAP Project”) which are eligible for funding are those
                   related to the production, treatment, storage, transmission,
@@ -290,58 +293,77 @@ const CountyWideMasterPlanPage = () => {
                   within the County of Placer, and the planning and design of
                   facilities for such purposes, and include the following
                   elements:
+                </Type> */}
+                <Spacing size="small" />
+                <Type paragraph>
+                  The benefits and characteristics of a project are identified
+                  and categorized according to the following Elements:
                 </Type>
                 <List disablePadding>
                   <CompactListItem>
-                    <ListItemText primary="Element 1 - Unserved Areas" />
+                    <ListItemText primary="1.	Unserved Areas" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="Element 2 - Water Infrastructure Reliability" />
+                    <ListItemText primary="2.	Water Infrastructure Reliability" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="Element 3 - Water Supply Reliability" />
+                    <ListItemText primary="3.	Water Supply Reliability" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="Element 4 - Renewable Energy Development" />
+                    <ListItemText primary="4.	Renewable Energy Development" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="Element 5 - Watershed Stewardship" />
+                    <ListItemText primary="5.	Watershed Stewardship" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="Element 6 - Agriculture" />
+                    <ListItemText primary="6.	Agriculture" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText
-                      primary="Element 7 - Conservation and Water Use
-                  Efficiency"
-                    />
+                    <ListItemText primary="7.	Conservation and Water Use Efficiency" />
                   </CompactListItem>
                   <CompactListItem>
-                    <ListItemText primary="Element 8 - Public Education and Outreach" />
+                    <ListItemText primary="8.	Public Education and Outreach" />
                   </CompactListItem>
                 </List>
+                <Spacing size="small" />
+                <Type paragraph>
+                  Categorizing the projects by primary element produces an
+                  understanding of the magnitude of resource needs and assists
+                  PCWA's Board in setting strategic objectives to prioritize
+                  these needs to best match funding opportunities that exist.
+                </Type>
                 <Type variant="h3" gutterBottom>
-                  Funding Schedule
+                  Eligible Entities
                 </Type>
                 <Type paragraph>
-                  The Middle Fork Project Finance Authority (Authority)
-                  distributes funds to PCWA after April of each year. Once
-                  distributed and recorded in the PCWA’s Agency Wide fund, funds
-                  will be allocated and appropriated thereafter in the
-                  traditional budgeting process.
+                  The entity's eligibility is set in the definition of
+                  “District” as presented in PCWA's Policy. It is the entity's
+                  responsibility to determine its eligibility, request
+                  registration from PCWA and keep the information contained in
+                  the Project Database current.
+                </Type>
+                <Type variant="h3" gutterBottom>
+                  Financial Assistance Program
                 </Type>
                 <Type paragraph>
-                  The Board’s approval of the annual budget, typically at the
+                  The CWMP is used to support PCWA's FAP for funding purposes.
+                  The PCWA Board adopted the FAP Policy which defines eligible
+                  entities, provides for the allocation of funding, details the
+                  CWMP Elements, establishes the Board setting of strategic
+                  objectives and sets funding request submission requirements,
+                  timeline, evaluation, recommendation and award.
+                </Type>
+                <Type paragraph>
+                  The Board's approval of the annual budget, typically at the
                   2nd Board meeting of November, will be the start of the FAP
-                  application submittal period, which will run through February
-                  20 of the following year. FAP applications (funding requests)
-                  may be submitted by eligible entities for their projects in
-                  the form of either loans or grants during this time. FAP
-                  applications for funding requests need to be received by
-                  February 20 to be considered for funding assistance. For best
-                  results, eligible entities should submit applications for
-                  their project(s) that best meet the strategic objectives as
-                  identified by the Board.
+                  funding request submittal period, which will run through
+                  February 20 of the following year. FAP funding requests may be
+                  submitted by eligible entities for their projects in the form
+                  of either loans or grants during this time. FAP funding
+                  requests need to be received by February 20 to be considered
+                  for funding assistance. For best results, eligible entities
+                  should submit project(s) that best meet the strategic
+                  objectives as identified by PCWA's Board.
                 </Type>
               </article>
             </ChildBox>
