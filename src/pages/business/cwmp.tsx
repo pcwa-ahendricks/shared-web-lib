@@ -142,18 +142,18 @@ const CountyWideMasterPlanPage = () => {
           />
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="60%">
-              <Type paragraph>
+              {/* <Type paragraph>
                 On November 19, 1992, the Placer County Water Agency Board of
                 Directors approved a Financial Assistance Program for Districts
                 (FAP) to provide financial assistance, in the form of loans or
                 grants, to districts for the conservation and development of
                 eligible water supplies and facilities.
               </Type>
-              <Spacing />
-              <Type variant="subtitle2" color="textSecondary">
+              <Spacing /> */}
+              {/* <Type variant="subtitle2" color="textSecondary">
                 <strong>Links</strong>
               </Type>
-              <Spacing size="small" />
+              <Spacing size="small" /> */}
               <Box
                 bgcolor={theme.palette.background.paper}
                 pt={3}
@@ -231,7 +231,7 @@ const CountyWideMasterPlanPage = () => {
               </Box>
               <Spacing size="large" />
               <article>
-                <Type variant="h3" gutterBottom>
+                {/* <Type variant="h3" gutterBottom>
                   Organizations Eligible
                 </Type>
                 <Type paragraph>
@@ -243,7 +243,7 @@ const CountyWideMasterPlanPage = () => {
                 </Type>
                 <Type variant="h3" gutterBottom>
                   County-Wide Master Plan
-                </Type>
+                </Type> */}
                 <Type paragraph>
                   In 2010, the Placer County Water Agency (PCWA) Board directed
                   staff to commence the development of a County-Wide Master Plan
