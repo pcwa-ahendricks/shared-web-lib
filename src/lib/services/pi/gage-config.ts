@@ -130,17 +130,17 @@ const gages: GageConfigItem[] = [
     id: 'R5L',
     type: 'gage',
     description: 'Middle Fork American River below Interbay Dam',
-    chartValues: ['Flow', 'Height'],
-    tableValues: ['Flow', 'Height'],
+    chartValues: ['Flow', 'Height', 'Temperature'],
+    tableValues: ['Flow', 'Height', 'Temperature'],
     disabled: false,
     tables: [
       {
         metric: 'daily',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       },
       {
         metric: 'monthly',
-        headers: gageStationHeaders
+        headers: gageStationHeadersWithTemp
       }
     ]
   },

@@ -101,22 +101,36 @@ const PiChart = ({
     webId ? url : null
   )
 
-  const units =
-    data?.UnitsAbbreviation === '°C' ? '°F' : data?.UnitsAbbreviation ?? ''
+  let units = data?.UnitsAbbreviation ?? ''
+  if (!units) {
+    units =
+      data?.Items.find((i) => i.UnitsAbbreviation)?.UnitsAbbreviation || ''
+  }
+  // we convert the temp below
+  if (units === '°C') {
+    units = '°F'
+  }
   const isFlow = units?.toLowerCase() === 'cfs'
   const isStorage = units?.toLowerCase() === 'acre ft'
   const isTemperature = units?.toLowerCase() === '°f'
+
   const dataItems = useMemo(() => {
     const items = data?.Items ?? []
     if (!isTemperature) {
-      return items
+      return items.filter(
+        (i) => i.Timestamp && i.Value && typeof i.Value === 'number'
+      )
     }
     // convert celsius to fahrenheit
-    return items.map((i) => ({
-      ...i,
-      Value: i.Value * 1.8 + 32,
-      UnitsAbbreviation: '°F'
-    }))
+    const mapped = items
+      .map((i) => ({
+        ...i,
+        Value: i.UnitsAbbreviation === '°C' ? i.Value * 1.8 + 32 : i.Value,
+        UnitsAbbreviation:
+          i.UnitsAbbreviation === '°C' ? '°F' : i.UnitsAbbreviation
+      }))
+      .filter((i) => i.Timestamp && i.Value && typeof i.Value === 'number')
+    return mapped
   }, [data, isTemperature])
 
   // isDev &&
