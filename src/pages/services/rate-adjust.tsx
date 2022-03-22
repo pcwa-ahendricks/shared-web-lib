@@ -2,11 +2,19 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {useTheme, Typography as Type, Box, Link} from '@material-ui/core'
+import {
+  useTheme,
+  Typography as Type,
+  Box,
+  Link,
+  Divider
+} from '@material-ui/core'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'
+import {yellow, brown, grey} from '@material-ui/core/colors'
+import Spacing from '@components/boxes/Spacing'
 
 const RateAdjustPage = () => {
   const theme = useTheme()
@@ -41,6 +49,40 @@ const RateAdjustPage = () => {
                 process, which provides opportunities for public participation,
                 concludes with a public hearing on May 9.
               </Type>
+              <Box bgcolor={yellow[50]} paddingY={2} paddingX={4}>
+                <Type variant="h5" style={{color: brown[800]}} gutterBottom>
+                  Correction to the March 3, 2022 Notice of Public Hearing to
+                  Consider Changes to PCWA Water Rates and Charges
+                </Type>
+                <Divider />
+                <Spacing size="small" />
+                <Type
+                  variant="subtitle2"
+                  style={{color: grey[800]}}
+                  gutterBottom
+                >
+                  Notice of Public Hearing to Consider Changes to PCWA Water
+                  Rates and Charges
+                </Type>
+                <Type paragraph variant="body2">
+                  Notice of Public Hearing to Consider Changes to PCWA Water
+                  Rates and Charges For questions please contact Customer
+                  Services at (530) 823-4850 or customerservices@pcwa.net You
+                  were recently mailed a Notice of Public Hearing that provided
+                  a hearing day of Thursday, May 9, 2022. That Notice contained
+                  a typographical error. May 9 is a Monday.
+                </Type>
+                <Type
+                  variant="body2"
+                  component="div"
+                  style={{color: grey[800]}}
+                >
+                  <strong>
+                    The correct day of the public hearing is Monday, May 9, 2022
+                    at 2:00 p.m.
+                  </strong>
+                </Type>
+              </Box>
             </ChildBox>
             <ChildBox flex="45%" flexShrink={0}>
               <Box bgcolor={theme.palette.background.paper} p={3} boxShadow={1}>
@@ -48,6 +90,16 @@ const RateAdjustPage = () => {
                   Notice of Public Hearing Documents
                 </Type>
                 <RowBox justifyContent="space-around" mt={3} flexSpacing={2}>
+                  <ChildBox flex="0 1 25%">
+                    <ImageThumbLink
+                      href="https://imgix.cosmicjs.com/0d802c40-aa1d-11ec-bd4d-d755cb3d1844-Prop-218-Notice-Correction-Postcard-FINAL.pdf"
+                      caption="Notice Correction Postcard"
+                      alt="Thumbnail and link for Prop. 218 Notice Notice Correction Postcard"
+                      sizes="(max-width: 600px) 30vw, 15vw"
+                      height={72 * 1.1}
+                      width={108 * 1.1}
+                    />
+                  </ChildBox>
                   <ChildBox flex="0 1 33%">
                     <ImageThumbLink
                       href="https://imgix.cosmicjs.com/54fa3070-9a4b-11ec-852b-ab884ffd8c85-WaterCostofServiceandRateStudyPowerPoint.pdf"
@@ -66,6 +118,8 @@ const RateAdjustPage = () => {
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
                   </ChildBox>
+                </RowBox>
+                <RowBox justifyContent="space-around" mt={3}>
                   <ChildBox flex="0 1 33%">
                     <ImageThumbLink
                       href="https://imgix.cosmicjs.com/ffd29c20-9c1d-11ec-b651-874da62417a1-PCWA---Prop-218-Notice.pdf"
@@ -75,8 +129,6 @@ const RateAdjustPage = () => {
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
                   </ChildBox>
-                </RowBox>
-                <RowBox justifyContent="space-around" mt={3}>
                   {/* <Box flex="33.33%">
                     <ImageThumbLink
                       imgixUrl="https://cosmicjs.imgix.net/128d45c0-980b-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Treated 218 notice - 2018 Final_090817.pdf"
@@ -95,15 +147,15 @@ const RateAdjustPage = () => {
                       sizes="(max-width: 600px) 30vw, 15vw"
                     />
                   </Box> */}
-                  <ChildBox flex="0 1 33%">
+                  <ChildBox flex="0 1 25%">
                     <ImageThumbLink
                       href="https://imgix.cosmicjs.com/94ca8dd0-9a4b-11ec-852b-ab884ffd8c85-PCWA-25-year-RR-powerpointRev2.pdf"
                       // filename="PCWA-Renewal_and_Replacement_Analysis.pdf"
                       caption="Renewal and Replacement Analysis Presentation"
                       alt="Thumbnail and link for Renewal and Replacement Analysis Presentation"
                       sizes="(max-width: 600px) 30vw, 15vw"
-                      height={75}
-                      width={133}
+                      height={75 * 0.9}
+                      width={133 * 0.9}
                     />
                   </ChildBox>
                   <ChildBox flex="0 1 33%">
