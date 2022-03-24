@@ -9,7 +9,8 @@ import {
   Link,
   Box,
   Divider,
-  Badge
+  Badge,
+  Button
 } from '@material-ui/core'
 import Image from 'next/image'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -259,11 +260,22 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
               the County of Placer.
             </Type>
 
-            {/* <Type paragraph>
-              <strong>Find Your Director </strong>on the map below. You may also
-              search for an address.
-            </Type> */}
+            <Type paragraph>
+              <strong>Find Your PCWA Director District </strong>using our
+              interactive map viewer to search for your address. Click the
+              following link to open the map viewer in a new tab.
+            </Type>
             <Spacing />
+            <Button
+              href="https://experience.arcgis.com/experience/35747f7eb6804a35bc56ab668a7471fa/"
+              rel="noopener"
+              variant="contained"
+              color="secondary"
+              target="_blank"
+            >
+              Find Your District with our interactive map
+            </Button>
+            <Spacing size="large" />
             {/* <DistrictBoundariesMap /> */}
             <Box>
               {/* <MediaDialogOnClick
