@@ -22,12 +22,14 @@ import {
   ListItem,
   ListItemProps,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Button
 } from '@material-ui/core'
 import clsx from 'clsx'
 import Spacing from '@components/boxes/Spacing'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import DocIcon from '@material-ui/icons/LibraryBooks'
+import CwmpContactUsDialog from '@components/CwmpContactUsDialog/CwmpContactUsDialog'
 
 type UseStylesProps = {
   activeIndex: number
@@ -72,6 +74,10 @@ const CountyWideMasterPlanPage = () => {
   const activeStep = 6 // 1-8
   const [activeIndex, setActiveIndex] = useState<number>(activeStep - 1)
   const classes = useStyles({activeIndex, activeStep: activeStep - 1})
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const closeDialogHandler = useCallback(() => {
+    setDialogOpen(false)
+  }, [])
 
   const handleStep = useCallback(
     (step: number) => () => {
@@ -442,10 +448,24 @@ const CountyWideMasterPlanPage = () => {
                   </ListItem>
                 </List>
               </Box>
+              <Spacing />
+              <Button
+                fullWidth
+                variant="contained"
+                // color="secondary"
+                aria-label="Open Contact Us Dialog"
+                onClick={() => setDialogOpen(true)}
+              >
+                Contact Us
+              </Button>
             </ChildBox>
           </RowBox>
         </WideContainer>
       </MainBox>
+      <CwmpContactUsDialog
+        open={dialogOpen}
+        onCloseDialog={closeDialogHandler}
+      />
     </PageLayout>
   )
 }
