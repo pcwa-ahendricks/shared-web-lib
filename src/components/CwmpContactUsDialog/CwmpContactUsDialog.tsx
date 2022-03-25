@@ -8,7 +8,8 @@ import {
   DialogActions,
   makeStyles,
   createStyles,
-  Theme
+  Theme,
+  Box
 } from '@material-ui/core'
 import {Formik, Form, FormikHelpers} from 'formik'
 import {object, string} from 'yup'
@@ -16,23 +17,35 @@ import FormTextField from '@components/formFields/FormTextField'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import {
-  subscribeToEnews,
-  MailchimpSubscribePostBody,
-  MailchimpSubscribeResponseBody
-} from '@lib/services/mailchimpService'
+  CwmpContactUsFormData,
+  CwmpContactUsRequestBody,
+  postForm
+} from '@lib/services/formService'
+
+const SERVICE_URI_PATH = 'cwmp-contact-us'
 
 type Props = {
   open?: boolean
   onCloseDialog?: () => void
 }
 
-interface FormData {
-  email: string
+const initialFormValues: CwmpContactUsFormData = {
+  name: '',
+  email: '',
+  message: ''
 }
 
-const schema = object().shape({
-  email: string().email('Invalid email address').required('Required')
-})
+const schema = object()
+  .camelCase()
+  .strict(true)
+  .shape({
+    name: string().required('Please provide us your name').label('Name'),
+    email: string()
+      .email('Invalid email address')
+      .required('Your email address is required')
+      .label('Email'),
+    message: string().required('Please provide us a message').label('Message')
+  })
 
 const generalErrorStr =
   'An unknown error occurred. Please try again later and reach out to our Customer Services Department to report this issue if it persists.'
@@ -48,61 +61,44 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
   const [submittedSuccess, setSubmittedSuccess] = useState(false)
-  const [mailchimpError, setMailchimpError] =
-    useState<Partial<MailchimpSubscribeResponseBody> | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const classes = useStyles()
 
   const handleEnter = useCallback(() => {
     setSubmittedSuccess(false)
-    setMailchimpError(null)
+    setError(null)
   }, [])
 
   const submitFormHandler = useCallback(
-    async ({email}: FormData, actions: FormikHelpers<FormData>) => {
+    async (
+      values: CwmpContactUsFormData,
+      actions: FormikHelpers<CwmpContactUsFormData>
+    ) => {
       try {
-        const body: MailchimpSubscribePostBody = {
-          email_address: email,
-          status: 'subscribed'
+        // console.log(values, actions)
+        const body: CwmpContactUsRequestBody = {
+          formData: {...values}
         }
-        const res = await subscribeToEnews(body)
-        if (!res.ok) {
-          try {
-            const data: MailchimpSubscribeResponseBody = await res.json()
-            setMailchimpError({...data, email_address: email})
-          } catch (err) {
-            const text = await res.text()
-            const errorTitle = text || res.statusText
-            setMailchimpError({title: errorTitle, email_address: email})
-            const error = new Error(errorTitle)
-            console.warn(error)
-          }
-        } else {
-          setSubmittedSuccess(true)
-          setMailchimpError(null)
-          actions.resetForm() // Likely not necessary with this form since it will reset once the modal re-opens, but why not.
-        }
+        await postForm(SERVICE_URI_PATH, body)
+        actions.setSubmitting(false)
+        // Reset Form
+        actions.resetForm() // Strictly Formik
+        // setFormSubmitDialogOpen(true)
       } catch (error) {
-        setMailchimpError({title: generalErrorStr}) // Need to set at least one property so that error becomes truthy below.
-        console.warn(error)
+        console.warn('An error occurred submitting form.', error)
+        // setFormSubmitDialogErrorOpen(true)
+        actions.setSubmitting(false)
       }
     },
     []
   )
 
-  const ErrorDialogContentText = useCallback(() => {
-    const errorMessage = mailchimpError?.title
-      ? mailchimpError?.title
-      : generalErrorStr
-    return <DialogContentText>{errorMessage}</DialogContentText>
-  }, [mailchimpError?.title])
-
-  const hasMailchimpError = useMemo(
-    () =>
-      mailchimpError && Object.keys(mailchimpError).length > 0 ? true : false,
-    [mailchimpError]
+  const hasError = useMemo(
+    () => (error && Object.keys(error).length > 0 ? true : false),
+    [error]
   )
 
-  const submittedWithoutError = submittedSuccess && !hasMailchimpError
+  const submittedWithoutError = submittedSuccess && !hasError
 
   return (
     <Dialog
@@ -122,9 +118,7 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
       }}
     >
       <Formik
-        // Always run validation. Ie. don't use validateOnBlur prop cause when a valid email is actually entered the form will remain invalid until field is blurred.
-        // Instead, we control the displaying of the error message below in the field to ensure the field was touched before showing errors, which will start propagating as soon as the first character is entered in the input.
-        initialValues={{email: ''}}
+        initialValues={initialFormValues}
         validationSchema={schema}
         onSubmit={submitFormHandler}
       >
@@ -135,37 +129,63 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
             // translate prop fixes typescript error.
             <Form translate="yes">
               <DialogTitle id="form-dialog-title">
-                {!hasMailchimpError
-                  ? 'Contact Us'
-                  : 'Whoops! There was an Error'}
+                {!hasError ? 'Contact Us' : 'Whoops! There was an Error'}
               </DialogTitle>
               <DialogContent>
                 {/* <DialogContentText>Subscribe to PCWA E-News</DialogContentText> */}
-                <WaitToGrow isIn={hasMailchimpError}>
-                  <ErrorDialogContentText />
+                <WaitToGrow isIn={hasError}>
+                  <DialogContentText>{generalErrorStr}</DialogContentText>
                 </WaitToGrow>
                 <WaitToGrow isIn={submittedWithoutError}>
                   <DialogContentText>
-                    Great. You've successfully subscribed to PCWA's E-News!
-                    Thank you for joining.
+                    You're message was sent! Thank you for reaching out to us.
+                    We will be in contact with you regarding any questions you
+                    may have included in your message.
                   </DialogContentText>
                 </WaitToGrow>
-                <WaitToGrow isIn={!submittedWithoutError}>
+                {/* <WaitToGrow isIn={!submittedWithoutError}> */}
+                <Box>
                   <FormTextField
+                    id="name"
+                    name="name"
+                    // autoFocus
+                    margin="dense"
+                    label="Name"
+                    type="text"
+                    autoComplete="name"
+                    fullWidth
+                    variant="outlined"
+                    className={classes.textField}
+                  />
+                  <FormTextField
+                    id="email"
                     name="email"
                     // autoFocus
                     margin="dense"
-                    id="name"
                     label="Email Address"
                     type="email"
                     fullWidth
                     variant="outlined"
                     className={classes.textField}
                   />
-                </WaitToGrow>
+                  <FormTextField
+                    id="message"
+                    name="message"
+                    // autoFocus
+                    margin="dense"
+                    label="Message"
+                    type="text"
+                    fullWidth
+                    variant="outlined"
+                    className={classes.textField}
+                    multiline
+                    minRows={3}
+                  />
+                </Box>
+                {/* </WaitToGrow> */}
               </DialogContent>
               <DialogActions>
-                {submittedSuccess || hasMailchimpError ? (
+                {submittedSuccess || hasError ? (
                   <Button onClick={onCloseDialog} color="primary">
                     Close
                   </Button>
@@ -177,11 +197,12 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                   <SubmitFormButton
                     color="secondary"
                     variant="contained"
+                    aria-label="Send us a message via email"
                     disabled={
                       isSubmitting || !isValid || (!formTouched && !dirty)
                     }
                   >
-                    Subscribe
+                    Send Message
                   </SubmitFormButton>
                 ) : null}
               </DialogActions>
