@@ -159,7 +159,7 @@ const EnewsSubscribeDialog = () => {
                     name="email"
                     // autoFocus
                     margin="dense"
-                    id="name"
+                    id="email"
                     label="Email Address"
                     type="email"
                     fullWidth

@@ -291,6 +291,16 @@ export interface Sb998SelfCertRequestBody {
   // recipients: {Name: string, Email: string}[],
   formData: Sb998SelfCertFormData
 }
+
+export interface CwmpContactUsFormData {
+  name: string
+  email: string
+  message: string
+}
+export interface CwmpContactUsRequestBody {
+  formData: CwmpContactUsFormData
+}
+
 type RequestBody =
   | IrrigationControllerRequestBody
   | IrrigationEfficienciesRequestBody
@@ -303,6 +313,7 @@ type RequestBody =
   | ContactInfoRequestBody
   | WaterWasteRequestBody
   | Sb998SelfCertRequestBody
+  | CwmpContactUsRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`
