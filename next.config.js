@@ -374,11 +374,12 @@ const legacyRedirects = [
     destination: '/newsroom/legislation-letters',
     permanent: true
   },
-  {
-    source: '/newsroom/legislationletters/faq',
-    destination: '/newsroom/legislation-letters/faq',
-    permanent: true
-  },
+  // legislation page has been removed
+  // {
+  //   source: '/newsroom/legislationletters/faq',
+  //   destination: '/newsroom/legislation-letters/faq',
+  //   permanent: true
+  // },
   {
     source: '/career/employee-benefits-summary',
     destination: '/careers/employee-benefits-summary',
