@@ -23,7 +23,6 @@ import BulletIcon from 'mdi-material-ui/CircleSmall'
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
-    // paddingTop: 4
     paddingBottom: 0
   },
   listItemBullet: {

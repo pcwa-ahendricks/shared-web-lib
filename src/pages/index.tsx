@@ -118,7 +118,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Join us for PCWA Presents Free Webinar"
+              title="Join us for a PCWA Presents Free Webinar"
               readMore="Learn more and register here"
               linkHref="/newsroom/state-of-our-water-webinar"
               imgixURL="https://imgix.cosmicjs.com/968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
