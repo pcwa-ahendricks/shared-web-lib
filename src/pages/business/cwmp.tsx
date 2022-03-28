@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CountyWideMasterPlanPage = () => {
   const theme = useTheme()
-  const activeStep = 6 // 1-8
+  const activeStep = 5 // 1-7
   const [activeIndex, setActiveIndex] = useState<number>(activeStep - 1)
   const classes = useStyles({activeIndex, activeStep: activeStep - 1})
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -93,12 +93,11 @@ const CountyWideMasterPlanPage = () => {
 
   const getSteps = useCallback(() => {
     return [
-      'Project Entry to the Project Database',
-      'Initial Allocation of Funds',
-      'Set Strategic Objectives for Funding',
+      'Project Entry into the CWMP',
+      'Initial Allocation of Funds and Strategic Objectives',
       'FAP Funding Request Submittal Period',
       'Deadline for FAP Funding Requests',
-      'Evaluation of Project Criteria',
+      'Evaluation of Project Submissions',
       'Award of Project Grants and Loans',
       'Funding Agreements'
     ]
@@ -109,21 +108,19 @@ const CountyWideMasterPlanPage = () => {
   const getStepContent = useCallback((step: number) => {
     switch (step) {
       case 0:
-        return 'Eligible entities can load their element-based projects as described in the Implementation Plan into the Project Database anytime.'
+        return 'Eligible entities can load their element-based projects into the CWMP Project Database anytime.'
       case 1:
-        return 'The Board may allocate Agency-wide funds, including distributions from the Middle Fork Project Net Revenues, as part of its annual budget process.'
+        return 'As part of the annual budget process, the Board may allocate funds to CWMP projects and set the annual Strategic Objectives.'
       case 2:
-        return 'Strategic objectives for FAP will be identified by PCWA Board of Directors (Board) during the annual budget process.'
+        return 'Upon Annual Budget adoption, the commencement of the FAP funding request submittal period begins.'
       case 3:
-        return 'Upon Annual Budget adoption, the commencement of the FAP application submittal period begins.'
+        return 'The deadline for the FAP funding request submittal period is February 20.'
       case 4:
-        return 'The deadline for the FAP application submittal period is February 20. Applications will not be accepted after this date.'
+        return "All FAP submissions received by the deadline will be reviewed by PCWA's evaluation team for recommendation to the PCWA Board."
       case 5:
-        return 'All FAP applications received by the deadline will be reviewed by PCWA staff for recommendation to PCWA Board by the second regularly scheduled Board meeting in May.'
+        return "The PCWA Board shall consider the evaluation team's recommendations at a public meeting. The Board shall make its decision on award of granting or loaning of funds from the FAP, including any terms and conditions for such financial assistance, and specify whether funds shall be given in the form of a loan or a grant or a combination of a loan and a grant to any eligible entity."
       case 6:
-        return 'The PCWA Board shall consider the staff’s recommendations at the second regular Board meeting in June. At that time, the Board shall make its decision on the award of funds from the FAP, including any terms and conditions for such assistance, and specify whether funds shall be given in the form of a loan or a grant or a combination of a loan and a grant to any eligible entity.'
-      case 7:
-        return 'Following the Board’s award, funding agreements will be prepared and sent to award recipients for execution.'
+        return "Following the Board's award, funding agreements will be prepared and sent to award recipients for execution."
       default:
         return ''
     }
