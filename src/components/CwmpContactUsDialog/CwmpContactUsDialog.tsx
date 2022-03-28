@@ -81,6 +81,8 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
         }
         await postForm(SERVICE_URI_PATH, body)
         actions.setSubmitting(false)
+        // Set success status
+        setSubmittedSuccess(true)
         // Reset Form
         actions.resetForm() // Strictly Formik
         // setFormSubmitDialogOpen(true)
@@ -143,46 +145,46 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                     may have included in your message.
                   </DialogContentText>
                 </WaitToGrow>
-                {/* <WaitToGrow isIn={!submittedWithoutError}> */}
-                <Box>
-                  <FormTextField
-                    id="name"
-                    name="name"
-                    // autoFocus
-                    margin="dense"
-                    label="Name"
-                    type="text"
-                    autoComplete="name"
-                    fullWidth
-                    variant="outlined"
-                    className={classes.textField}
-                  />
-                  <FormTextField
-                    id="email"
-                    name="email"
-                    // autoFocus
-                    margin="dense"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    variant="outlined"
-                    className={classes.textField}
-                  />
-                  <FormTextField
-                    id="message"
-                    name="message"
-                    // autoFocus
-                    margin="dense"
-                    label="Message"
-                    type="text"
-                    fullWidth
-                    variant="outlined"
-                    className={classes.textField}
-                    multiline
-                    minRows={3}
-                  />
-                </Box>
-                {/* </WaitToGrow> */}
+                <WaitToGrow isIn={!submittedWithoutError}>
+                  <Box>
+                    <FormTextField
+                      id="name"
+                      name="name"
+                      // autoFocus
+                      margin="dense"
+                      label="Name"
+                      type="text"
+                      autoComplete="name"
+                      fullWidth
+                      variant="outlined"
+                      className={classes.textField}
+                    />
+                    <FormTextField
+                      id="email"
+                      name="email"
+                      // autoFocus
+                      margin="dense"
+                      label="Email Address"
+                      type="email"
+                      fullWidth
+                      variant="outlined"
+                      className={classes.textField}
+                    />
+                    <FormTextField
+                      id="message"
+                      name="message"
+                      // autoFocus
+                      margin="dense"
+                      label="Message"
+                      type="text"
+                      fullWidth
+                      variant="outlined"
+                      className={classes.textField}
+                      multiline
+                      minRows={3}
+                    />
+                  </Box>
+                </WaitToGrow>
               </DialogContent>
               <DialogActions>
                 {submittedSuccess || hasError ? (
