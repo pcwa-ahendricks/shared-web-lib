@@ -82,8 +82,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
         <Spacing size="small" />
       </Hidden>
       <WideContainer>
-        <RowBox responsive="sm" flexSpacing={4}>
-          <ChildBox flex="33.33%">
+        <RowBox responsive flexSpacing={4}>
+          <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Proposed Multiyear Rate Adjustment"
@@ -98,7 +98,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox>
 
-          <ChildBox flex="33.33%">
+          <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Year End Report for 2021"
@@ -110,6 +110,20 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               imgixParams={{
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
+            />
+          </ChildBox>
+        </RowBox>
+        <Spacing />
+        <RowBox responsive flexSpacing={4}>
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Join us for PCWA Presents Free Webinar"
+              readMore="Learn more and register here"
+              linkHref="/newsroom/state-of-our-water-webinar"
+              imgixURL="https://imgix.cosmicjs.com/968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
+              alt="State of our Water Webinar flier"
+              body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
             />
           </ChildBox>
 
@@ -214,7 +228,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             </Whammy>
               */}
 
-          <ChildBox flex="33.33%">
+          <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="French Meadows Forest Restoration Project"
