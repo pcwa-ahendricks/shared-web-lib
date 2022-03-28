@@ -43,12 +43,12 @@ export default function MulchMayhemPage() {
         <WideContainer>
           <PageTitle title="Mulch Mayhem" />
           <Image
-            src="3f897b20-0b70-11ec-93a7-070c59f98950-MulchMayhemWebsiteBanner2.jpg"
+            src="d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
             alt="Mulch Mayhem Flier"
             layout="responsive"
             loader={imgixLoader}
-            width={2396}
-            height={1075}
+            width={1200}
+            height={628}
           />
           <Spacing factor={2} size="large" />
           <RowBox flexSpacing={10}>

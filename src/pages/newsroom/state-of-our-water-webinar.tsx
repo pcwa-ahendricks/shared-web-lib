@@ -118,7 +118,7 @@ const StateOfOurWaterWebinarPage = () => {
               rel="noopener noreferrer"
               aria-label="Register for Webinar button link, opens in new tab"
             >
-              Learn more and register here
+              Register here
             </Button>
           </Box>
         </WideContainer>
