@@ -54,7 +54,7 @@ export default function MulchMayhemPage() {
             height={628}
           />
           <Spacing factor={2} size="large" />
-          <RowBox flexSpacing={10}>
+          <RowBox flexSpacing={10} responsive>
             <ChildBox flex="60%">
               <Type variant="h2" color="primary" gutterBottom>
                 <em>
