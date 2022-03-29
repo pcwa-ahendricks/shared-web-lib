@@ -104,7 +104,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/smart-water-use/mulch-mayhem"
               imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
               alt="Mulch Mayhem Event flier"
-              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free Mulch available on a first come, first serve basis for Drive Thru Customers of Hosting Agencies."
+              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for drive thru customers of hosting agencies."
             />
           </ChildBox>
         </RowBox>
