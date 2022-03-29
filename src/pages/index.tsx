@@ -136,7 +136,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/smart-water-use/mulch-mayhem"
               imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
               alt="Mulch Mayhem Event flier"
-              body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
+              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free Mulch available on a first come, first serve basis for Drive Thru Customers of Hosting Agencies."
             />
           </ChildBox>
 
