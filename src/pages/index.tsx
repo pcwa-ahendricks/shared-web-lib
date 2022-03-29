@@ -10,6 +10,7 @@ import {
   Divider,
   useTheme,
   Hidden,
+  Link,
   rgbToHex
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
@@ -128,6 +129,27 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="Hazard Tree Removal"
+              readMore="Open Interactive Map"
+              linkHref="https://experience.arcgis.com/experience/775dd76aaffe44b6aa9eaaf9bed2648b/"
+              flexLinkProps={{isNextLink: false, target: '_blank'}}
+              imgixURL="https://imgix.cosmicjs.com/68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg"
+              alt="Hazard Tree Removal Portal, an interactive ArcGIS Online map"
+              body={
+                <Type variant="inherit">
+                  PCWA staff will be commencing the removal of hazard trees
+                  along the Boardman Canal in the coming weeks due to the storms
+                  that impacted our area in December 2021. These hazardous trees
+                  and their locations can be reviewed online using our
+                  interactive map.
+                </Type>
+              }
+            />
+          </ChildBox>
+
+          {/* <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Year End Report for 2021"
               readMore="Learn more"
               linkHref="/newsroom/publications/year-end"
@@ -138,7 +160,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
             />
-          </ChildBox>
+          </ChildBox> */}
+
           {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"

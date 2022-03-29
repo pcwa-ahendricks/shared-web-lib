@@ -923,7 +923,7 @@ const RateAdjustFAQ = () => {
               an individual component, the true cost of service would not be
               accurately reflected in the rates.
             </Type>
-            <Type paragraph>
+            <Type variant="body2" paragraph>
               2. No, the first year of the proposed rate increases is when
               distributional impacts resulting from the updated costs of service
               analysis will be experienced by customers. Beyond 2023, all
