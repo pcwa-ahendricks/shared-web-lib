@@ -885,6 +885,55 @@ const RateAdjustFAQ = () => {
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
+      <Accordion
+        expanded={expanded === 'panel10'}
+        onChange={handleChange('panel10')}
+        classes={{root: classes.expansionPanel}}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel10bh-content"
+          id="panel10bh-header"
+        >
+          <Type variant="subtitle2">
+            Why do different components of the rates increase while others
+            decrease? Will that happen every year?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              1. The Agency's rate consultants analyzed data for a year with the
+              least variability in terms of overall water demands and costs,
+              known as the test year. Using data that is representative of a
+              normal year allows the Agency to propose multi-year rates that
+              align more accurately with our cost of service. This process
+              includes the evaluation of costs to provide service for the
+              Agency's four service classes: treated retail, treated resale,
+              untreated retail, and untreated resale, based on the classes’
+              demands on, and use of, the system. The evaluation of cost
+              components within each class then determines the allocations to
+              the associated charges, or rate components, that align with the
+              cost of service provided. This reconciliation of costs recovered
+              by each rate component in the test year allows the Agency to
+              equitably distribute the costs of service and to accurately set
+              our rate structures accordingly. For example, you may see an
+              adjustment to a fixed component that, by percentage, is higher
+              than the overall rate adjustment. Yet, without the adjustment to
+              an individual component, the true cost of service would not be
+              accurately reflected in the rates.
+            </Type>
+            <Type paragraph>
+              2. No, the first year of the proposed rate increases is when
+              distributional impacts resulting from the updated costs of service
+              analysis will be experienced by customers. Beyond 2023, all
+              customers will experience uniform annual bill adjustments no
+              greater than the proposed rate adjustment percentages presented in
+              the Proposition 218 notification.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   )
 }
