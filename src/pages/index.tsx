@@ -5,12 +5,10 @@ import HeroImage from '@components/hero/HeroImage'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
-  // Link,
   useMediaQuery,
   Divider,
   useTheme,
   Hidden,
-  Link,
   rgbToHex
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
