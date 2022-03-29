@@ -21,6 +21,9 @@ import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 const useStyles = makeStyles((theme) => ({
   listItemBullet: {
     minWidth: theme.spacing(5)
+  },
+  listItem: {
+    paddingBottom: 0
   }
 }))
 
@@ -55,42 +58,46 @@ export default function MulchMayhemPage() {
             <ChildBox flex="60%">
               <Type variant="h2" color="primary" gutterBottom>
                 <em>
-                  Free Mulch available for Drive Thru Customers of hosting
-                  agencies
+                  Free Mulch available for Drive Thru Customers of Hosting
+                  Agencies
                 </em>
               </Type>
               <Spacing />
-              <Type>
+              <Type paragraph>
                 Join us for Mulch Mayhem{' '}
-                <strong>
-                  Saturday, September 25th from 8:00 am - 12:00 pm
-                </strong>{' '}
-                at Sierra College Overflow Lot, located at the corner of Rocklin
-                Road and El Don Drive.
+                <strong>Saturday, May 14th from 8:00 am - 12:00 pm</strong> at a
+                NEW LOCATION: Del Oro High School Football Stadium Parking Lot
+                off of Boyington Road in Loomis (Google search “Del Oro Football
+                Stadium”)—also see map
+              </Type>
+              <Type variant="body1">
+                A Drive Thru Only Event for Trucks and Trailers. (Bring your own
+                tarp to cover)
               </Type>
               <List>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText
-                    primary="A Drive Thru Only Event for Trucks and Trailers. (Bring your own tarp
-                to cover)"
-                  />
-                </ListItem>
-                <ListItem>
+                  <ListItemText primary="A Drive Thru Only Event for Trucks and Trailers. (Bring your own tarp to cover)" />
+                </ListItem> */}
+                <ListItem classes={{root: classes.listItem}}>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
                   <ListItemText primary="Provided on a First-come, first-served basis until supplies are gone." />
                 </ListItem>
-                <ListItem>
+                <ListItem classes={{root: classes.listItem}}>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
                   <ListItemText primary="For personal use only; not for resale or commercial use." />
                 </ListItem>
               </List>
+              <Type variant="body1" paragraph>
+                Hosted by PCWA in partnership with San Juan Water District and
+                the City of Lincoln.
+              </Type>
               <Spacing />
               <Type variant="subtitle1" gutterBottom>
                 Mulch Conserves Water!
@@ -103,6 +110,45 @@ export default function MulchMayhemPage() {
                 to four inches or organic mulch (e.g. leaves, wood chips) around
                 trees and plants for the greatest benefit.
               </Type>
+              <Spacing />
+              <Type variant="subtitle1" gutterBottom>
+                Directions
+              </Type>
+              <Type paragraph>
+                Del Oro Stadium Parking: Boyington Rd, Loomis, CA 95650 (Google
+                Del Oro Football Stadium)
+              </Type>
+              <Type variant="subtitle2">From Sacramento:</Type>
+              <Type paragraph>
+                Take I-80 East
+                <br />
+                Take exit 112 for Penryn Rd
+                <br />
+                Turn left onto Penryn Rd
+                <br />
+                Turn left onto Boyington Rd
+                <br />
+                Turn right into Del Oro Stadium Parking
+              </Type>
+              <Type variant="subtitle2">From Auburn:</Type>
+              <Type paragraph>
+                Take I-80 West
+                <br />
+                Take exit 112 for Penryn Rd
+                <br />
+                Continue straight onto Boyington Rd
+                <br />
+                Turn right into Del Oro Stadium Parking
+              </Type>
+              <Spacing />
+              <Image
+                src="f2d8cf20-aeed-11ec-abde-779eab3b09ef-Visio-Mulch-Mayhem-Del-Oro.png"
+                alt="Mulch Mayhem Map Directions"
+                layout="responsive"
+                loader={imgixLoader}
+                width={1583}
+                height={1599}
+              />
             </ChildBox>
             <ColumnBox child flex="40%">
               <ChildBox>

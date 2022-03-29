@@ -5,7 +5,7 @@ import HeroImage from '@components/hero/HeroImage'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
-  Link,
+  // Link,
   useMediaQuery,
   Divider,
   useTheme,
@@ -47,7 +47,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
   const tileWidth = isLGUp ? 176 : 160
 
-  const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
+  const coverStoryImageRatio = '2/1'
+  // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
   return (
@@ -123,6 +124,18 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/newsroom/state-of-our-water-webinar"
               imgixURL="https://imgix.cosmicjs.com/968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
               alt="State of our Water Webinar flier"
+              body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
+            />
+          </ChildBox>
+
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Mulch Mayhem Coming Soon"
+              readMore="Find out more"
+              linkHref="/smart-water-use/mulch-mayhem"
+              imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
+              alt="Mulch Mayhem Event flier"
               body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
             />
           </ChildBox>
@@ -227,7 +240,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               />
             </Whammy>
               */}
-
+          {/*
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -254,7 +267,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                 </Type>
               }
             />
-          </ChildBox>
+          </ChildBox> */}
         </RowBox>
 
         {/* <CoverStory
