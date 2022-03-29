@@ -87,6 +87,32 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="Join us for a PCWA Presents Free Webinar"
+              readMore="Learn more and register here"
+              linkHref="/newsroom/state-of-our-water-webinar"
+              imgixURL="https://imgix.cosmicjs.com/968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
+              alt="State of our Water Webinar flier"
+              body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
+            />
+          </ChildBox>
+
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Mulch Mayhem Coming Soon"
+              readMore="Find out more"
+              linkHref="/smart-water-use/mulch-mayhem"
+              imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
+              alt="Mulch Mayhem Event flier"
+              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free Mulch available on a first come, first serve basis for Drive Thru Customers of Hosting Agencies."
+            />
+          </ChildBox>
+        </RowBox>
+        <Spacing />
+        <RowBox responsive flexSpacing={4}>
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Proposed Multiyear Rate Adjustment"
               readMore="Learn more"
               linkHref="/services/rate-adjust"
@@ -113,33 +139,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-        </RowBox>
-        <Spacing />
-        <RowBox responsive flexSpacing={4}>
-          <ChildBox flex="50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Join us for a PCWA Presents Free Webinar"
-              readMore="Learn more and register here"
-              linkHref="/newsroom/state-of-our-water-webinar"
-              imgixURL="https://imgix.cosmicjs.com/968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
-              alt="State of our Water Webinar flier"
-              body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
-            />
-          </ChildBox>
-
-          <ChildBox flex="50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Mulch Mayhem Coming Soon"
-              readMore="Find out more"
-              linkHref="/smart-water-use/mulch-mayhem"
-              imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
-              alt="Mulch Mayhem Event flier"
-              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free Mulch available on a first come, first serve basis for Drive Thru Customers of Hosting Agencies."
-            />
-          </ChildBox>
-
           {/* <CoverStory
               imageRatio={coverStoryImageRatio}
               title="Fire-wise, Water-wise Landscaping Webinar"
