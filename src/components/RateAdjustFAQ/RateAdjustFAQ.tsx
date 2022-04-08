@@ -721,7 +721,10 @@ const RateAdjustFAQ = () => {
               demonstrate difficulty paying their water bill. The State of
               California is also considering the creation of a statewide
               assistance program. For more information on payment plans, please
-              contact Customer Services at <MainPhone />.
+              contact Customer Services at <MainPhone />.  Customers may also qualify 
+              for assistance through Project Go, Inc. To determine eligibility please 
+              contact <a href="https://projectgoinc.org">projectgoinc.org</a> 
+              or (916) 782-3443. 
             </Type>
           </ColumnBox>
         </AccordionDetails>
