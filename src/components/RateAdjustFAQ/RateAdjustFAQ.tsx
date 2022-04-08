@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody
+  TableBody, Link
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
@@ -726,7 +726,14 @@ const RateAdjustFAQ = () => {
             </Type>
             <Type paragraph variant="body2">
               Customers may also qualify for assistance through Project Go, Inc.
-              To determine eligibility please contact <a href="https://projectgoinc.org">projectgoinc.org</a>
+              To determine eligibility please contact{' '}
+              <Link
+                  href="https://projectgoinc.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+              >
+                projectgoinc.org
+              </Link>
               or <ProjectGoPhone />.
             </Type>
           </ColumnBox>
