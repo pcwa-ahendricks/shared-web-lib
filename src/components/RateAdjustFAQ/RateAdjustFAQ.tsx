@@ -733,7 +733,7 @@ const RateAdjustFAQ = () => {
                   rel="noopener noreferrer"
               >
                 projectgoinc.org
-              </Link>
+              </Link>&nbsp;
               or <ProjectGoPhone />.
             </Type>
           </ColumnBox>
