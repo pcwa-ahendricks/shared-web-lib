@@ -18,6 +18,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
+import ProjectGoPhone from '@components/links/ProjectGoPhone'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -721,10 +722,12 @@ const RateAdjustFAQ = () => {
               demonstrate difficulty paying their water bill. The State of
               California is also considering the creation of a statewide
               assistance program. For more information on payment plans, please
-              contact Customer Services at <MainPhone />.  Customers may also qualify 
-              for assistance through Project Go, Inc. To determine eligibility please 
-              contact <a href="https://projectgoinc.org">projectgoinc.org</a> 
-              or (916) 782-3443. 
+              contact Customer Services at <MainPhone />.
+            </Type>
+            <Type paragraph variant="body2">
+              Customers may also qualify for assistance through Project Go, Inc.
+              To determine eligibility please contact <a href="https://projectgoinc.org">projectgoinc.org</a>
+              or <ProjectGoPhone />.
             </Type>
           </ColumnBox>
         </AccordionDetails>
