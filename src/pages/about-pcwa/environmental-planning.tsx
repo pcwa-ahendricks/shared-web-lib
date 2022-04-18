@@ -285,7 +285,7 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/339a46e0-9fd2-11ec-a634-2f1716dd45af-20201204-5077Revised-Rec-Plan.pdf"
               >
-                Recreation Plan
+                Recreation Plan <strong>[Draft]</strong>
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
