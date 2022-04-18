@@ -52,25 +52,43 @@ const StateOfOurWaterWebinarPage = () => {
             subtitle="Newsroom"
           /> */}
           <Box>
-            <Image
-              src="968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
-              alt="Fire-wise, water-wise landscaping webinar flier"
-              layout="responsive"
-              loader={imgixLoader}
-              width={2254}
-              height={1270}
-            />
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyoutu.be%2Fp4gmgAPqAK0&data=04%7C01%7Cahendricks%40pcwa.net%7Cc32ded8c645741d1273808da215f0a8b%7C03501b2a357a4ba39faf397fbb6f3801%7C0%7C0%7C637858989341745312%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=CsMAEfy9PtxcqbPfLb11WiBlL4o7x%2FamX%2Bedc61QSJ4%3D&reserved=0"
+              aria-label="Link to State of our Water Webinar recording on YouTube.com"
+            >
+              <Image
+                src="49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                alt="State of our Water Webinar flier"
+                layout="responsive"
+                loader={imgixLoader}
+                width={2254}
+                height={1270}
+              />
+            </a>
             <Spacing size="x-large" />
-            <Type gutterBottom variant="h2">
+            {/* <Type gutterBottom variant="h2">
               <em>Join us for PCWA Presents…</em>
+            </Type> */}
+            <Type gutterBottom variant="h2">
+              <em>Watch the recording: PCWA Presents…</em>
             </Type>
             <Type variant="h1">Lunch & Learn: State of our Water Supplies</Type>
-            <Type variant="h3">
+            {/* <Type variant="h3">
               <em>Wednesday, April 13, 2022, 12-12:45 p.m.</em>
+            </Type> */}
+            <Type variant="h3">
+              <em>Recorded April 13, 2022</em>
             </Type>
             <Spacing />
-            <Type variant="h4" paragraph>
+            {/* <Type variant="h4" paragraph>
               A free webinar and live audience Q&A exploring the state of PCWA's
+              water supplies for 2022 amid an emerging third year of severe
+              drought in California.
+            </Type> */}
+            <Type variant="h4" paragraph>
+              This live webinar and audience Q&A explores the state of PCWA's
               water supplies for 2022 amid an emerging third year of severe
               drought in California.
             </Type>
@@ -83,8 +101,11 @@ const StateOfOurWaterWebinarPage = () => {
             <Paper>
               <Box pb={2}>
                 <List>
-                  <ListSubheader style={{fontSize: '1rem'}}>
+                  {/* <ListSubheader style={{fontSize: '1rem'}}>
                     Discussion topics will explore:
+                  </ListSubheader> */}
+                  <ListSubheader style={{fontSize: '1rem'}}>
+                    Discussion topics explore:
                   </ListSubheader>
                   <ListItem classes={{root: classes.listItem}}>
                     <ListItemBullet />
@@ -110,7 +131,7 @@ const StateOfOurWaterWebinarPage = () => {
               </Box>
             </Paper>
             <Spacing size="large" />
-            <Button
+            {/* <Button
               variant="contained"
               color="secondary"
               href="https://us02web.zoom.us/webinar/register/WN_ertmYFRfQoWnSvwAgYTPhQ"
@@ -119,6 +140,16 @@ const StateOfOurWaterWebinarPage = () => {
               aria-label="Register for Webinar button link, opens in new tab"
             >
               Register here
+            </Button> */}
+            <Button
+              variant="contained"
+              color="secondary"
+              href="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyoutu.be%2Fp4gmgAPqAK0&data=04%7C01%7Cahendricks%40pcwa.net%7Cc32ded8c645741d1273808da215f0a8b%7C03501b2a357a4ba39faf397fbb6f3801%7C0%7C0%7C637858989341745312%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=CsMAEfy9PtxcqbPfLb11WiBlL4o7x%2FamX%2Bedc61QSJ4%3D&reserved=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Register for Webinar button link, opens in new tab"
+            >
+              Watch the Recording
             </Button>
           </Box>
         </WideContainer>

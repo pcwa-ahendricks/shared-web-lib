@@ -86,10 +86,10 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Join us for a PCWA Presents Free Webinar"
-              readMore="Learn more and register here"
+              title="Watch this PCWA Presents Free Webinar"
+              readMore="Watch the recording here"
               linkHref="/newsroom/state-of-our-water-webinar"
-              imgixURL="https://imgix.cosmicjs.com/968e55a0-aeca-11ec-abde-779eab3b09ef-PCWAWaterSuppliesWebinarGraphic3.jpg"
+              imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of our Water Webinar flier"
               body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
             />
