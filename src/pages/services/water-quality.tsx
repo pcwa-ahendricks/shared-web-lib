@@ -152,7 +152,12 @@ const WaterQualityPage = () => {
             </RowBox>
           </Box>
 
-          <Box mt={6} p={{xs: 2, sm: 4, md: 6}} bgcolor={blueGrey[50]}>
+          <Box
+            id="pfw-maps"
+            mt={6}
+            p={{xs: 2, sm: 4, md: 6}}
+            bgcolor={blueGrey[50]}
+          >
             <RowBox alignItems="center">
               <Box color={theme.palette.grey[400]}>
                 <QuoteOpenIcon fontSize="large" />
