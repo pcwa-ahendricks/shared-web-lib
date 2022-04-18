@@ -60,7 +60,7 @@ const TrendingBarMobile = () => {
       ...props
     }: NextLinkProps & ListItemProps<'a', {button?: true}>) => {
       return (
-        <NextLink href={href} as={as}>
+        <NextLink href={href} as={as} passHref>
           <ListItem
             button
             component="a"

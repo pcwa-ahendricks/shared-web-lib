@@ -133,6 +133,7 @@ const ResponsiveImageTemplatePage = () => {
               </CardActionArea>
               <CardActions>
                 <NextLink
+                  passHref
                   href="/recreation/flows/gages/[pid]"
                   as={`/recreation/flows/gages/${defaultPageGage}`}
                 >

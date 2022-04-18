@@ -24,7 +24,7 @@ const FlexButton = ({
     () =>
       isNextLink ? (
         <>
-          <NextLink href={href} as={as}>
+          <NextLink href={href} as={as} passHref>
             <Button component="a" {...rest}>
               {children}
             </Button>

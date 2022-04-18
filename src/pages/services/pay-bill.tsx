@@ -60,7 +60,7 @@ const PayBillPage = () => {
           <RowBox justifyContent="space-around">
             <ChildBox flex={{xs: 'auto', sm: '0 1 80%'}}>
               <LookHere animate={!payBillAnimateDone}>
-                <NextLink href="/services/monthly-billing">
+                <NextLink href="/services/monthly-billing" passHref>
                   <div aria-label="Link to Monthly Billing FAQs page">
                     <Image
                       className={classes.link}
