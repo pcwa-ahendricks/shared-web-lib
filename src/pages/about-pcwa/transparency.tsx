@@ -190,7 +190,7 @@ const TransparencyPage = () => {
               <ListItem button>
                 <ListItemText
                   primary="Financial Reports"
-                  secondary="Adopted Budget, Comprehensive Annual Financial Reports"
+                  secondary="Adopted Budget, Annual Comprehensive Financial Reports"
                 />
               </ListItem>
             </NextLink>

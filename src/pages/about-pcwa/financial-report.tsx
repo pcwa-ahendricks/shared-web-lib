@@ -101,7 +101,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   Annual Audited Financial Statements
                 </Type>
                 <Type paragraph>
-                  PCWA's Comprehensive Annual Financial Report provides the
+                  PCWA's Annual Comprehensive Financial Report provides the
                   following information: Introductory Section, Independent
                   Auditors' Report, Management's Discussion and Analysis, Basic
                   Financial Statements (audited), Required Supplementary
