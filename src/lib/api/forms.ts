@@ -29,6 +29,14 @@ const emailRecipientsAppliance: MailJetMessage['To'] = isDev
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
+const emailRecipientsEffRebates: MailJetMessage['To'] = isDev
+  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
+  : [
+      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
+      {Name: 'Rebates', Email: 'rebates@pcwa.net'},
+      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
+    ]
+
 const emailRecipientsCsMaint: MailJetMessage['To'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
@@ -75,5 +83,6 @@ export {
   emailRecipientsAppliance,
   emailRecipientsCsMaint,
   emailRecipientsCollections,
+  emailRecipientsEffRebates,
   validateSchema
 }

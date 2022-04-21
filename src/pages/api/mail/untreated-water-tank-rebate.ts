@@ -2,8 +2,8 @@ import {string, object, StringSchema} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
-  emailRecipientsAppliance,
-  validateSchema
+  validateSchema,
+  emailRecipientsEffRebates
 } from '../../../lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
@@ -153,7 +153,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsAppliance],
+          To: [{Email: email, Name: replyToName}, ...emailRecipientsEffRebates],
           ReplyTo: {
             Email: email,
             Name: replyToName
