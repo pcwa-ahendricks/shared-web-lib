@@ -253,6 +253,10 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/smart-water-use/watersense'
           },
           {
+            title: 'Tree Care',
+            nextLink: '/smart-water-use/trees'
+          },
+          {
             title: 'Clearing Your Water Meter',
             nextLink: '/smart-water-use/clearing-water-meter'
           }

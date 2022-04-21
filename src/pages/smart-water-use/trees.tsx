@@ -4,13 +4,14 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import {
   Box,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Paper,
   Typography as Type
 } from '@material-ui/core'
 import Image from 'next/image'
@@ -20,6 +21,8 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideoOutlined'
 import DescriptionIcon from '@material-ui/icons/DescriptionOutlined'
 // import PhotoIcon from '@material-ui/icons/PhotoOutlined'
 import LanguageIcon from '@material-ui/icons/LanguageOutlined'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
+import Spacing from '@components/boxes/Spacing'
 
 export default function TreesPage() {
   const ListItemLink = (props: any) => {
@@ -34,7 +37,7 @@ export default function TreesPage() {
     )
   }
   return (
-    <PageLayout title="Page Template" waterSurface>
+    <PageLayout title="Tree Care" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Trees Need Extra Care, Especially During Drought" />
@@ -122,17 +125,56 @@ export default function TreesPage() {
               </Box>
             </ChildBox>
             <ChildBox order={{xs: 1, sm: 2}} flex="45%" mx="auto" width="100%">
-              <Image
-                src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
-                alt="Drought is back, water your trees, stress your lawn"
-                loader={imgixLoader}
-                layout="responsive"
-                sizes="(max-width: 600px) 60vw, 40vw"
-                width={960}
-                height={960}
-                /* width={300}
+              <ColumnBox flexSpacing={6}>
+                <ChildBox>
+                  <Image
+                    src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                    alt="Drought is back, water your trees, stress your lawn"
+                    loader={imgixLoader}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 60vw, 40vw"
+                    width={960}
+                    height={960}
+                    /* width={300}
                 height={250} */
-              />
+                  />
+                </ChildBox>
+                <ChildBox>
+                  <Paper elevation={1}>
+                    <Box p={2}>
+                      <ResponsiveYouTubePlayer
+                        controls
+                        url="https://www.youtube.com/watch?v=Bs7FEr14zZU"
+                        config={{
+                          youtube: {
+                            playerVars: {showinfo: 1}
+                          }
+                        }}
+                      />
+                      <Spacing size="small" />
+                      <Type paragraph variant="caption">
+                        PCWA is proud to partner with the Colfax High School
+                        “Bucket Band” to produce a public service video on
+                        efficiently watering young trees.
+                      </Type>
+                      <Type paragraph variant="caption">
+                        The 12-member bucket band, which was drawn from students
+                        in the high school's music program, created an original
+                        composition for the video.
+                      </Type>
+                      <Type paragraph variant="caption">
+                        <em>
+                          A special thanks to Colfax High School's Principal
+                          Paul Lundberg, Music Teacher Todd Wilkinson and
+                          student musicians for participating, and Green Acres
+                          Nursery & Supply for donating the 5-gallon buckets
+                          used in the public service video!
+                        </em>
+                      </Type>
+                    </Box>
+                  </Paper>
+                </ChildBox>
+              </ColumnBox>
             </ChildBox>
           </RowBox>
         </WideContainer>

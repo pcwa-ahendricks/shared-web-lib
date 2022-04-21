@@ -244,7 +244,7 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                <ChildBox position="relative">
+                {/* <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -260,7 +260,7 @@ const RebateProgramsPage = () => {
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Smart Controller -
+                        Tank -
                       </Type>{' '}
                       Receive up to a $250 rebate for replacing an existing
                       irrigation controller with an EPA WaterSense approved
@@ -292,10 +292,47 @@ const RebateProgramsPage = () => {
                       />
                     </ColumnBox>
                   </RebateCard>
+                </ChildBox> */}
+                <ChildBox position="relative">
+                  {/* <RibbonContainer minHeight={theme.spacing(3)}>
+                    <LeftLargeRibbon
+                      backgroundColor="#cc4400"
+                      color="#f0f0f0"
+                      fontFamily="Arial"
+                      zIndex={3}
+                    >
+                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
+                        New
+                      </span>
+                    </LeftLargeRibbon>
+                  </RibbonContainer> */}
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        Pool Cover -
+                      </Type>{' '}
+                      Receive up to a $50 rebate for purchasing and installing a
+                      new solar or safety pool cover. See{' '}
+                      <Type component="em" variant="inherit">
+                        Pool Cover Rebate Requirements
+                      </Type>{' '}
+                      for additional information.
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
+                        caption="Pool Cover Rebate Requirements"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/pool-cover"
+                        label="Apply for Pool Cover Rebate Online"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
                 </ChildBox>
                 <ChildBox>
                   <ChildBox position="relative">
-                    <RibbonContainer minHeight={theme.spacing(3)}>
+                    {/* <RibbonContainer minHeight={theme.spacing(3)}>
                       <LeftLargeRibbon
                         backgroundColor={theme.palette.secondary.dark}
                         color={theme.palette.grey['50']}
@@ -312,7 +349,7 @@ const RebateProgramsPage = () => {
                           Enhanced
                         </span>
                       </LeftLargeRibbon>
-                    </RibbonContainer>
+                    </RibbonContainer> */}
                     <RebateCard pt={4}>
                       <Type paragraph>
                         <Type variant="h6" component="span">
@@ -383,7 +420,7 @@ const RebateProgramsPage = () => {
               <Spacing />
               <ColumnBox flexSpacing={3}>
                 <ChildBox position="relative">
-                  <RibbonContainer minHeight={theme.spacing(3)}>
+                  {/* <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
                       color="#f0f0f0"
@@ -394,34 +431,47 @@ const RebateProgramsPage = () => {
                         New
                       </span>
                     </LeftLargeRibbon>
-                  </RibbonContainer>
+                  </RibbonContainer> */}
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Pool Cover -
+                        Smart Controller -
                       </Type>{' '}
-                      Receive up to a $50 rebate for purchasing and installing a
-                      new solar or safety pool cover. See{' '}
+                      Receive up to a $250 rebate for replacing an existing
+                      irrigation controller with an EPA WaterSense approved
+                      Weather Based Irrigation Controller. For a list of
+                      qualifying controllers see:{' '}
+                      <Link
+                        variant="inherit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="always"
+                        href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
+                      >
+                        lookforwatersense.epa.gov
+                      </Link>
+                      . For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        Pool Cover Rebate Requirements
-                      </Type>{' '}
-                      for additional information.
+                        Smart Controller Rebate Requirements
+                      </Type>
+                      .
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
-                        caption="Pool Cover Rebate Requirements"
+                        href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
+                        caption="Smart Controller Rebate Requirements"
                       />
                       <ApplyNowButton
-                        href="/forms/rebates/pool-cover"
-                        label="Apply for Pool Cover Rebate Online"
+                        href="/forms/rebates/smart-controller"
+                        label="Apply for Smart Controller Rebate Online"
                       />
                     </ColumnBox>
                   </RebateCard>
                 </ChildBox>
+
                 <ChildBox>
                   <ChildBox position="relative">
-                    <RibbonContainer minHeight={theme.spacing(3)}>
+                    {/* <RibbonContainer minHeight={theme.spacing(3)}>
                       <LeftLargeRibbon
                         backgroundColor={theme.palette.secondary.dark}
                         color={theme.palette.grey['50']}
@@ -438,7 +488,7 @@ const RebateProgramsPage = () => {
                           Enhanced
                         </span>
                       </LeftLargeRibbon>
-                    </RibbonContainer>
+                    </RibbonContainer> */}
                     <RebateCard pt={4}>
                       <Type paragraph>
                         <Type variant="h6" component="span">
