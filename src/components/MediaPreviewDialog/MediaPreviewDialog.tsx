@@ -142,7 +142,7 @@ const MediaPreviewDialog = ({
       showActions ? (
         <DialogActions>
           {dlUrl ? (
-            <Button color="default" href={dlUrl}>
+            <Button color="default" href={dlUrl} target="_blank" rel="noopener">
               Download Copy
             </Button>
           ) : null}

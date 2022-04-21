@@ -243,6 +243,30 @@ export interface SmartControllerRequestBody {
   // recipients: {Name: string, Email: string}[],
   formData: SmartControllerRebateFormData
 }
+export interface UntreatedWaterTankRebateFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
+  propertyType: string
+  untreatedCustomer: '' | 'Yes' | 'No'
+  termsAgree: BooleanAsString
+  signature: string
+  captcha: string
+  comments: string
+}
+
+export interface UntreatedWaterTankRequestBody {
+  // recipients: {Name: string, Email: string}[],
+  formData: UntreatedWaterTankRebateFormData
+}
+
 export interface ContactInfoFormData {
   name: string
   spouseName: string
@@ -310,6 +334,7 @@ type RequestBody =
   | WashingMachineRequestBody
   | ToiletRequestBody
   | SmartControllerRequestBody
+  | UntreatedWaterTankRequestBody
   | ContactInfoRequestBody
   | WaterWasteRequestBody
   | Sb998SelfCertRequestBody

@@ -19,7 +19,7 @@ import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-// import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
 
 // const useStyles = makeStyles((theme: Theme) =>
@@ -244,7 +244,7 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                {/* <ChildBox position="relative">
+                <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -260,39 +260,28 @@ const RebateProgramsPage = () => {
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Tank -
+                        Untreated Water Tank -
                       </Type>{' '}
-                      Receive up to a $250 rebate for replacing an existing
-                      irrigation controller with an EPA WaterSense approved
-                      Weather Based Irrigation Controller. For a list of
-                      qualifying controllers see:{' '}
-                      <Link
-                        variant="inherit"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        underline="always"
-                        href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
-                      >
-                        lookforwatersense.epa.gov
-                      </Link>
-                      . For additional information see{' '}
+                      Receive up to a $500 rebate for untreated water customers
+                      for purchasing and installing an untreated water storage
+                      tank. For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        Smart Controller Rebate Requirements
+                        Untreated Water Tank Rebate Requirements
                       </Type>
                       .
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
-                        caption="Smart Controller Rebate Requirements"
+                        href="https://docs.pcwa.net/untreated-water-tank-rebate-requirements.pdf"
+                        caption="Untreated Water Tank Rebate Requirements"
                       />
                       <ApplyNowButton
-                        href="/forms/rebates/smart-controller"
-                        label="Apply for Smart Controller Rebate Online"
+                        href="/forms/rebates/untreated-water-tank"
+                        label="Apply for Untreated Water Tank Rebate Online"
                       />
                     </ColumnBox>
                   </RebateCard>
-                </ChildBox> */}
+                </ChildBox>
                 <ChildBox position="relative">
                   {/* <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
