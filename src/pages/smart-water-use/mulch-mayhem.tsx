@@ -93,6 +93,12 @@ export default function MulchMayhemPage() {
                   </ListItemBullet>
                   <ListItemText primary="For personal use only; not for resale or commercial use." />
                 </ListItem>
+                <ListItem classes={{root: classes.listItem}}>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="One cubic yard per customer." />
+                </ListItem>
               </List>
               <Type variant="body1" paragraph>
                 Hosted by PCWA in partnership with San Juan Water District and
