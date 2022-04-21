@@ -13,7 +13,8 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody, Link
+  TableBody,
+  Link
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
@@ -728,13 +729,13 @@ const RateAdjustFAQ = () => {
               Customers may also qualify for assistance through Project Go, Inc.
               To determine eligibility please contact{' '}
               <Link
-                  href="https://projectgoinc.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                href="https://projectgoinc.org"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 projectgoinc.org
-              </Link>&nbsp;
-              or <ProjectGoPhone />.
+              </Link>
+              &nbsp; or <ProjectGoPhone />.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -764,10 +765,10 @@ const RateAdjustFAQ = () => {
               increases. These include items like iron and plastic pipe, lumber,
               concrete, asphalt, electricity and diesel fuel. PCWA's rate
               adjustment factors in persistent price inflation of approximately
-              five percent (5%) over the coming five years. Below is a breakdown
-              of materials commonly used in water infrastructure projects
-              showing the increase in costs from the last rate adjustment in
-              2017.
+              three to five percent (3 - 5%) over the coming five years. Below
+              is a breakdown of materials commonly used in water infrastructure
+              projects showing the increase in costs from the last rate
+              adjustment in 2017.
             </Type>
             <Box>
               <Table
