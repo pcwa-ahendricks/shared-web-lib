@@ -19,7 +19,7 @@ import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+// import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
 
 // const useStyles = makeStyles((theme: Theme) =>
