@@ -1,4 +1,4 @@
-import {string, object, StringSchema, A} from 'yup'
+import {string, object, StringSchema} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
