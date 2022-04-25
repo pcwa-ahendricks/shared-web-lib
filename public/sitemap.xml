@@ -288,6 +288,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/forms/rebates/untreated-water-tank</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/forms/rebates/irrigation-controller</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -3757,6 +3761,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/03-03-2022</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
