@@ -95,7 +95,7 @@ const miscRedirects = [
     destination: '/board-of-directors/meeting-minutes',
     permanent: true
   },
-  // Rebates redirect due to Social Media posting.
+  // Rebates redirect due to Social Media posting AND J. Robertson's request
   {
     source: '/rebates',
     destination: 'smart-water-use/rebate-programs',
