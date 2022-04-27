@@ -9,7 +9,7 @@ import {
   Link,
   Divider
 } from '@material-ui/core'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'
@@ -17,6 +17,7 @@ import {yellow, brown, grey} from '@material-ui/core/colors'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
+import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 const RateAdjustPage = () => {
   const theme = useTheme()
@@ -188,6 +189,24 @@ const RateAdjustPage = () => {
                   </Link>
                 </Box>
               </Box>
+              <Spacing size="large" />
+              <ColumnBox>
+                <Box mx="auto" width="100%">
+                  <ResponsiveYouTubePlayer
+                    aria-labelledby="videoCaption"
+                    controls
+                    url="https://www.youtube.com/watch?v=O4G0te9xrRI"
+                    config={{
+                      youtube: {
+                        playerVars: {showinfo: 1}
+                      }
+                    }}
+                  />
+                </Box>
+                <Type variant="caption" id="videoCaption" align="center">
+                  KAHI Interviews PCWA General Manager Andy Fecko on Rates
+                </Type>
+              </ColumnBox>
             </ChildBox>
           </RowBox>
 
