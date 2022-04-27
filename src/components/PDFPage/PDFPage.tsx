@@ -41,7 +41,7 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
           <Image
             loader={imgixUrlLoader}
             src={url}
-            onLoad={onLoadHandler}
+            onLoadingComplete={onLoadHandler}
             alt={alt}
             objectFit="contain"
             quality={100}

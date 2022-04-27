@@ -78,7 +78,7 @@ const MultimediaLightboxView = (props: any) => {
         <Image
           priority
           loader={imgixUrlLoader}
-          onLoad={onLoadHandler}
+          onLoadingComplete={onLoadHandler}
           alt={alt ?? `${gallery} ${category} photo #${index + 1}`}
           // onClick: imageClickHandler
           src={`${imgix_url}${stringify({fit: 'fill'}, true)}`}
