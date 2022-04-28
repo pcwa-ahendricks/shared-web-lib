@@ -113,7 +113,7 @@ export default function MulchMayhemPage() {
                 the way icing keeps a cake moist. Mulch slows evaporation
                 allowing water to sink into the soil, moderates soil temperature
                 and breaks down into nutrients for plants. Be sure to add three
-                to four inches or organic mulch (e.g. leaves, wood chips) around
+                to four inches of organic mulch (e.g. leaves, wood chips) around
                 trees and plants for the greatest benefit.
               </Type>
               <Spacing />
