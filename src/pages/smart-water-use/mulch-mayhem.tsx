@@ -57,10 +57,7 @@ export default function MulchMayhemPage() {
           <RowBox flexSpacing={10} responsive>
             <ChildBox flex="60%">
               <Type variant="h2" color="primary" gutterBottom>
-                <em>
-                  Free Mulch available for Drive Thru Customers of Hosting
-                  Agencies
-                </em>
+                <em>Free Mulch Available for Customers of Hosting Agencies.</em>
               </Type>
               <Spacing />
               <Type paragraph>
@@ -72,7 +69,7 @@ export default function MulchMayhemPage() {
               </Type>
               <Type variant="body1">
                 A Drive Thru Only Event for Trucks and Trailers. (Bring your own
-                tarp to cover)
+                tarp to cover).
               </Type>
               <List>
                 {/* <ListItem>
@@ -81,6 +78,22 @@ export default function MulchMayhemPage() {
                   </ListItemBullet>
                   <ListItemText primary="A Drive Thru Only Event for Trucks and Trailers. (Bring your own tarp to cover)" />
                 </ListItem> */}
+                <ListItem classes={{root: classes.listItem}}>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="For trucks and trailers: bring your own tarp to cover your load." />
+                </ListItem>
+
+                <ListItem classes={{root: classes.listItem}}>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText
+                    primary="For cars: bring your own tools for picking up and loading by
+                hand (event staff is unable to assist)."
+                  />
+                </ListItem>
                 <ListItem classes={{root: classes.listItem}}>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
