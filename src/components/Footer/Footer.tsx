@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
-import {RowBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -162,10 +162,8 @@ const Footer = () => {
               <GlowLightGreen>
                 <NextLink href="/report-water-waste" passHref>
                   <ButtonBase>
-                    <ColumnBox>
-                      <Box>
-                        <WaterIcon />
-                      </Box>
+                    <ColumnBox alignItems="center">
+                      <WaterIcon />
                       <Type variant="body1">Report Water Waste</Type>
                     </ColumnBox>
                   </ButtonBase>
@@ -176,10 +174,8 @@ const Footer = () => {
               <GlowLightGreen>
                 <NextLink href="/contact-us" passHref>
                   <ButtonBase>
-                    <ColumnBox>
-                      <Box>
-                        <ChatIcon />
-                      </Box>
+                    <ColumnBox alignItems="center">
+                      <ChatIcon />
                       <Type>Contact Us</Type>
                     </ColumnBox>
                   </ButtonBase>
