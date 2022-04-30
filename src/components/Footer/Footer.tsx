@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
-import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox} from 'mui-sleazebox'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
