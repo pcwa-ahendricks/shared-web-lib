@@ -358,7 +358,7 @@ const SmartWaterUsePage = () => {
                 id="panel1bh-header"
               >
                 <Type variant="subtitle2">
-                  Don’t wash your driveway and sidewalk with water; use a broom
+                  Don't wash your driveway and sidewalk with water; use a broom
                   instead
                 </Type>
               </AccordionSummary>

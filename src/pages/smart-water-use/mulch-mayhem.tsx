@@ -65,12 +65,12 @@ export default function MulchMayhemPage() {
                 <strong>Saturday, May 14th from 8:00 am - 12:00 pm</strong> at a
                 NEW LOCATION: Del Oro High School Football Stadium Parking Lot
                 off of Boyington Road in Loomis (Google search “Del Oro Football
-                Stadium”)—also see map
+                Stadium”)—also see map.
               </Type>
-              <Type variant="body1">
+              {/* <Type variant="body1">
                 A Drive Thru Only Event for Trucks and Trailers. (Bring your own
                 tarp to cover).
-              </Type>
+              </Type> */}
               <List>
                 {/* <ListItem>
                   <ListItemBullet>
@@ -98,7 +98,7 @@ export default function MulchMayhemPage() {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Provided on a First-come, first-served basis until supplies are gone." />
+                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone." />
                 </ListItem>
                 <ListItem classes={{root: classes.listItem}}>
                   <ListItemBullet>
