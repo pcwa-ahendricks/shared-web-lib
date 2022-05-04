@@ -33,6 +33,7 @@ import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButto
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -329,12 +330,27 @@ const ContactUsPage = () => {
             borderColor={theme.palette.grey['300']}
           >
             <Box p={3}>
-              <Type variant="h3" gutterBottom color="textSecondary">
+              <Type variant="h4" gutterBottom color="textSecondary">
                 Trouble Contacting Us By Phone?
               </Type>
               <Type variant="body1" paragraph color="textSecondary">
                 In the event you are unable to get through our main phone number
                 feel free to email us at <CustomerServicesEmail />.
+              </Type>
+              <Spacing size="large" />
+              <Type variant="h4" gutterBottom color="textSecondary">
+                Connecting With Us On Social Media?
+              </Type>
+              <Type variant="body1" paragraph color="textSecondary">
+                Please read our Social Media Comment Policy{' '}
+                <OpenInNewLink
+                  href="https://docs.pcwa.net/social-media-comment-policy"
+                  showIconAlways
+                  pdf
+                >
+                  here
+                </OpenInNewLink>
+                .
               </Type>
             </Box>
           </Box>
