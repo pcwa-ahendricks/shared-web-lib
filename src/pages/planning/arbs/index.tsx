@@ -647,7 +647,11 @@ const ARBSPage = () => {
                   />
                   <TimelineElement date="Spring 2022" title="Finalize Report" />
                   <RowBox justifyContent="flex-end">
-                    <Type variant="caption" align="right">
+                    <Type
+                      variant="caption"
+                      align="right"
+                      style={{zIndex: 1, maxWidth: '50%'}}
+                    >
                       <em>
                         * Subject to U.S. Department of the Interior Approval
                       </em>
