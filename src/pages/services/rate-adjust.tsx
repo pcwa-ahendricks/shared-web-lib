@@ -26,31 +26,35 @@ const RateAdjustPage = () => {
     <PageLayout title="Multiyear Rate Adjustment" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle title="Multiyear Rate Adjustment" subtitle="Services" />
-          <Type variant="h2" color="primary">
+          <PageTitle
+            title="2023 Multiyear Rate Adjustment"
+            subtitle="Services"
+          />
+          {/* <Type variant="h2" color="primary">
             2023 Rate Adjustment
-          </Type>
+          </Type> */}
           <Spacing />
           <RowBox responsive="sm" flexSpacing={6}>
             <ChildBox flex="55%">
-              <Type variant="h4" gutterBottom>
+              {/* <Type variant="h4" gutterBottom>
                 Background
+              </Type> */}
+              <Type paragraph>
+                At the May 9, 2022, Board of Directors meeting of the Placer
+                County Water Agency (PCWA), the Board adopted new rates, fees,
+                and charges for water service throughout the Agency's Western
+                Water system. The rates, which take effect on January 1, 2023,
+                were calculated using a cost-of-service approach and are the
+                result of a two-year rate study conducted by an independent rate
+                consultant, which considered Agency revenue requirements and
+                associated costs for the next five years.
               </Type>
               <Type paragraph>
-                At the March 3, 2022, meeting of the Placer County Water Agency
-                (PCWA) Board of Directors, the Board approved proceeding with a
-                Proposition 218 notice to adopt new rates, fees, and charges for
-                water service throughout the Agency's Western Water system. The
-                rates were calculated using a cost-of-service approach and are
-                the result of a two-year rate study conducted by an independent
-                rate consultant, which considered Agency revenue requirements
-                and associated costs.
-              </Type>
-              <Type paragraph>
-                As required by state law, PCWA must comply with Proposition 218
-                in order to adopt the new rates and charges. The Proposition 218
-                process, which provides opportunities for public participation,
-                concludes with a public hearing on May 9.
+                As required by state law, PCWA complied with Proposition 218 in
+                order to adopt the new rates and charges. The notice to proceed
+                with the Proposition 218 process was approved by the Board on
+                March 3, 2022, and the process concluded with a public hearing
+                on May 9, 2022.
               </Type>
               {/* <Box bgcolor={yellow[50]} paddingY={2} paddingX={4}>
                 <Type variant="h5" style={{color: brown[800]}} gutterBottom>
@@ -237,15 +241,22 @@ const RateAdjustPage = () => {
             </RowBox>
           </Box>
           <Box mt={8}>
-            <Type variant="h2" color="primary">
-              Previous Years Rate Adjustments
+            <Type variant="h3" color="primary">
+              2017 Rate Adjustment Archive
             </Type>
             <Spacing />
-            <Box bgcolor={theme.palette.background.paper} p={3} boxShadow={1}>
+            <Box
+              bgcolor={theme.palette.background.paper}
+              p={3}
+              boxShadow={1}
+              width={700}
+            >
               <Type variant="h4">Archived Rate Adjustment Documents</Type>
-              <RowBox justifyContent="space-around" mt={3} flexSpacing={2}>
-                <ChildBox flex="33.33">
+              <RowBox mt={3} flexSpacing={2} justifyContent="space-between">
+                <ChildBox>
                   <ImageThumbLink
+                    width={63.75}
+                    height={82.5}
                     href="https://cosmicjs.imgix.net/128d45c0-980b-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Treated 218 notice - 2018 Final_090817.pdf"
                     // filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
                     caption="Treated Water Notice"
@@ -253,8 +264,10 @@ const RateAdjustPage = () => {
                     sizes="(max-width: 600px) 30vw, 15vw"
                   />
                 </ChildBox>
-                <ChildBox flex="33.33">
+                <ChildBox>
                   <ImageThumbLink
+                    width={63.75}
+                    height={82.5}
                     href="https://cosmicjs.imgix.net/5dfb28a0-980c-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Untreated Water 218 notice - 2018 Final_090817.pdf"
                     // filename="PCWA Zone 6 Untreated 218 notice - 2018.pdf"
                     caption="Untreated Water Notice"
@@ -262,8 +275,10 @@ const RateAdjustPage = () => {
                     sizes="(max-width: 600px) 30vw, 15vw"
                   />
                 </ChildBox>
-                <ChildBox flex="33.33">
+                <ChildBox>
                   <ImageThumbLink
+                    width={63.75}
+                    height={82.5}
                     href="https://imgix.cosmicjs.com/d796c8b0-fa7d-11e9-ac85-afda513db67b-PCWA-Cost-of-Service-Study---Final-Report.pdf"
                     // filename="PCWA Cost of Service Study.pdf"
                     caption="2017 Cost of Service - Rate Study"
