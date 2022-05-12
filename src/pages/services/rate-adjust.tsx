@@ -6,17 +6,17 @@ import {
   useTheme,
   Typography as Type,
   Box,
-  Link,
-  Divider
+  Link
+  // Divider
 } from '@material-ui/core'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'
-import {yellow, brown, grey} from '@material-ui/core/colors'
+// import {yellow, brown, grey} from '@material-ui/core/colors'
+// import MainPhone from '@components/links/MainPhone'
+// import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import Spacing from '@components/boxes/Spacing'
-import MainPhone from '@components/links/MainPhone'
-import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 
 const RateAdjustPage = () => {
@@ -26,14 +26,14 @@ const RateAdjustPage = () => {
     <PageLayout title="Multiyear Rate Adjustment" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle
-            title="Proposed 2023 Multiyear Rate Adjustment"
-            subtitle="Services"
-          />
-
+          <PageTitle title="Multiyear Rate Adjustment" subtitle="Services" />
+          <Type variant="h2" color="primary">
+            2023 Rate Adjustment
+          </Type>
+          <Spacing />
           <RowBox responsive="sm" flexSpacing={6}>
             <ChildBox flex="55%">
-              <Type variant="h3" gutterBottom>
+              <Type variant="h4" gutterBottom>
                 Background
               </Type>
               <Type paragraph>
@@ -41,10 +41,10 @@ const RateAdjustPage = () => {
                 (PCWA) Board of Directors, the Board approved proceeding with a
                 Proposition 218 notice to adopt new rates, fees, and charges for
                 water service throughout the Agency's Western Water system. The
-                proposed rates were calculated using a cost-of-service approach
-                and are the result of a two-year rate study conducted by an
-                independent rate consultant, which considered Agency revenue
-                requirements and associated costs.
+                rates were calculated using a cost-of-service approach and are
+                the result of a two-year rate study conducted by an independent
+                rate consultant, which considered Agency revenue requirements
+                and associated costs.
               </Type>
               <Type paragraph>
                 As required by state law, PCWA must comply with Proposition 218
@@ -52,7 +52,7 @@ const RateAdjustPage = () => {
                 process, which provides opportunities for public participation,
                 concludes with a public hearing on May 9.
               </Type>
-              <Box bgcolor={yellow[50]} paddingY={2} paddingX={4}>
+              {/* <Box bgcolor={yellow[50]} paddingY={2} paddingX={4}>
                 <Type variant="h5" style={{color: brown[800]}} gutterBottom>
                   Correction to the March 3, 2022 Notice of Public Hearing to
                   Consider Changes to PCWA Water Rates and Charges
@@ -86,7 +86,26 @@ const RateAdjustPage = () => {
                   For questions please contact Customer Services at{' '}
                   <MainPhone /> or <CustomerServicesEmail />.
                 </Type>
-              </Box>
+              </Box> */}
+
+              <Spacing size="large" />
+              <ColumnBox>
+                <ChildBox mx="auto" width="100%" pb={1}>
+                  <ResponsiveYouTubePlayer
+                    aria-labelledby="videoCaption"
+                    controls
+                    url="https://www.youtube.com/watch?v=O4G0te9xrRI"
+                    config={{
+                      youtube: {
+                        playerVars: {showinfo: 1}
+                      }
+                    }}
+                  />
+                </ChildBox>
+                <Type variant="caption" id="videoCaption" align="center">
+                  KAHI Interviews PCWA General Manager Andy Fecko on Rates
+                </Type>
+              </ColumnBox>
             </ChildBox>
             <ChildBox flex="45%" flexShrink={0}>
               <Box bgcolor={theme.palette.background.paper} p={3} boxShadow={1}>
@@ -189,7 +208,7 @@ const RateAdjustPage = () => {
                   </Link>
                 </Box>
               </Box>
-              <Spacing size="large" />
+              {/* <Spacing size="large" />
               <ColumnBox>
                 <Box mx="auto" width="100%">
                   <ResponsiveYouTubePlayer
@@ -206,7 +225,7 @@ const RateAdjustPage = () => {
                 <Type variant="caption" id="videoCaption" align="center">
                   KAHI Interviews PCWA General Manager Andy Fecko on Rates
                 </Type>
-              </ColumnBox>
+              </ColumnBox> */}
             </ChildBox>
           </RowBox>
 
@@ -216,6 +235,44 @@ const RateAdjustPage = () => {
                 <RateAdjustFAQ />
               </ChildBox>
             </RowBox>
+          </Box>
+          <Box mt={8}>
+            <Type variant="h2" color="primary">
+              Previous Years Rate Adjustments
+            </Type>
+            <Spacing />
+            <Box bgcolor={theme.palette.background.paper} p={3} boxShadow={1}>
+              <Type variant="h4">Archived Rate Adjustment Documents</Type>
+              <RowBox justifyContent="space-around" mt={3} flexSpacing={2}>
+                <ChildBox flex="33.33">
+                  <ImageThumbLink
+                    imgixUrl="https://cosmicjs.imgix.net/128d45c0-980b-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Treated 218 notice - 2018 Final_090817.pdf"
+                    filename="PCWA Zone 6 Treated 218 notice - 2018.pdf"
+                    caption="Treated Water Notice"
+                    alt="Thumbnail and link for Prop. 218 Treated Water Notice"
+                    sizes="(max-width: 600px) 30vw, 15vw"
+                  />
+                </ChildBox>
+                <ChildBox flex="33.33">
+                  <ImageThumbLink
+                    imgixUrl="https://cosmicjs.imgix.net/5dfb28a0-980c-11e7-899f-f5a4f2fb3548-2018 - Zone 6 Untreated Water 218 notice - 2018 Final_090817.pdf"
+                    filename="PCWA Zone 6 Untreated 218 notice - 2018.pdf"
+                    caption="Untreated Water Notice"
+                    alt="Thumbnail and link for Prop. 218 Untreated Water Notice"
+                    sizes="(max-width: 600px) 30vw, 15vw"
+                  />
+                </ChildBox>
+                <ChildBox flex="33.33">
+                  <ImageThumbLink
+                    imgixUrl="https://imgix.cosmicjs.com/d796c8b0-fa7d-11e9-ac85-afda513db67b-PCWA-Cost-of-Service-Study---Final-Report.pdf"
+                    filename="PCWA Cost of Service Study.pdf"
+                    caption="2017 Cost of Service – Rate Study"
+                    alt="Thumbnail and link for Cost of Service Study"
+                    sizes="(max-width: 600px) 30vw, 15vw"
+                  />
+                </ChildBox>
+              </RowBox>
+            </Box>
           </Box>
         </WideContainer>
       </MainBox>

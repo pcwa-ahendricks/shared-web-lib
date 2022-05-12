@@ -112,7 +112,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Proposed Multiyear Rate Adjustment"
+              title="Multiyear Rate Adjustment"
               readMore="Learn more"
               linkHref="/services/rate-adjust"
               imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
