@@ -41,7 +41,7 @@ const useStyles = makeStyles(() =>
 
 const UnclaimedPropertyPage = ({fallbackData}: Props) => {
   const classes = useStyles()
-  const deadlineDate = useMemo(() => new Date('2021-07-09T17:00:00'), [])
+  const deadlineDate = useMemo(() => new Date('2022-07-08T17:00:00'), [])
 
   const deadlinePassedEl = useMemo(
     () =>
