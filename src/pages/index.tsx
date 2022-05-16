@@ -95,7 +95,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox>
 
-          <ChildBox flex="50%">
+          {/* <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Mulch Mayhem Coming Soon"
@@ -105,7 +105,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Mulch Mayhem Event flier"
               body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
             />
-          </ChildBox>
+          </ChildBox> */}
         </RowBox>
         <Spacing />
         <RowBox responsive flexSpacing={4}>
