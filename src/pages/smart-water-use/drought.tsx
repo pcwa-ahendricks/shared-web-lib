@@ -76,10 +76,10 @@ export default function DroughtPage() {
           <Spacing size="large" />
           <RowBox responsive="sm" flexSpacing={8}>
             <ChildBox flex="65%">
-              <Type variant="h3" color="primary" gutterBottom>
+              {/* <Type variant="h3" color="primary" gutterBottom>
                 2021 is a critically dry year. What can customers do to save
                 water?
-              </Type>
+              </Type> */}
               {/* <Type paragraph>
                 On October 19, 2021, Governor Newsom called on all Californians
                 to redouble efforts to voluntarily reduce water use by 15
