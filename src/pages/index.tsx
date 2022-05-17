@@ -106,6 +106,18 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
             />
           </ChildBox> */}
+
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Drought Recommendations"
+              readMore="Learn more"
+              linkHref="/smart-water-use/drought"
+              imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              alt="Water less banner"
+              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+            />
+          </ChildBox>
         </RowBox>
         <Spacing />
         <RowBox responsive flexSpacing={4}>
@@ -289,16 +301,6 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox> */}
         </RowBox>
-
-        {/* <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Drought Recommendations"
-              readMore="Learn more"
-              linkHref="/smart-water-use/drought"
-              imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
-              alt="Water less banner"
-              body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-            /> */}
 
         {/* <ChildBox flex="50%">
             <CoverStory

@@ -49,7 +49,11 @@ export default function DroughtPage() {
 
   const BulletItem = useCallback(
     ({children, ...rest}: Omit<ListItemProps, 'button'>) => {
-      return <ListItem {...rest}>{children}</ListItem>
+      return (
+        <ListItem style={{alignItems: 'flex-start'}} {...rest}>
+          {children}
+        </ListItem>
+      )
     },
     []
   )
@@ -76,15 +80,22 @@ export default function DroughtPage() {
                 2021 is a critically dry year. What can customers do to save
                 water?
               </Type>
-              <Type paragraph>
+              {/* <Type paragraph>
                 On October 19, 2021, Governor Newsom called on all Californians
                 to redouble efforts to voluntarily reduce water use by 15
                 percent to respond to the critically dry year we are currently
                 experiencing. PCWA is taking actions to address water supply and
                 environmental concerns and encourages customers to continue
                 using water efficiently.
-              </Type>
+              </Type> */}
               <Type paragraph>
+                California is experiencing a severe drought. With a hot summer
+                coming, Gov. Newsom has called on all Californians to increase
+                their water conservation efforts and reduce water use by 20
+                percent. We are part of a larger integrated statewide system
+                that is under stress.{' '}
+              </Type>
+              {/* <Type paragraph>
                 Here are some tips you can follow around your home and business
                 to help our water stewardship efforts. Also, make sure to take
                 advantage of PCWA's enhanced water efficiency{' '}
@@ -95,6 +106,26 @@ export default function DroughtPage() {
                   rebate
                 </MuiNextLink>{' '}
                 program.{' '}
+              </Type> */}
+              <Type paragraph>
+                We're asking everyone to pitch in and do their part to stop
+                waste and use less water. Here are some tips you can follow
+                around your home and business to help our water stewardship
+                efforts. Also, make sure to take advantage of PCWA's enhanced{' '}
+                <MuiNextLink
+                  underline="always"
+                  href="/smart-water-use/rebate-programs"
+                >
+                  water efficiency rebate programs
+                </MuiNextLink>
+                .
+              </Type>
+              <Type paragraph>
+                You can find additional tips on the{' '}
+                <MuiNextLink href="/smart-water-use">
+                  Smart Water Use
+                </MuiNextLink>{' '}
+                page .
               </Type>
             </ChildBox>
             <ChildBox flex="1 1 40%">
@@ -149,7 +180,7 @@ export default function DroughtPage() {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Operating PCWA’s western Placer groundwater wells to reduce surface water demands." />
+                  <ListItemText primary="Operating PCWA's western Placer groundwater wells to reduce surface water demands." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
@@ -187,17 +218,17 @@ export default function DroughtPage() {
                   layout="responsive"
                   sizes="(max-width: 600px) 90vw, 40vw"
                 /> */}
-                <Image
+                {/* <Image
                   role="link"
                   tabIndex={0}
                   src="e8094190-52e2-11ec-9aff-3d50541531a0-your-yard-needs-less-water.jpg"
-                  alt="Drought is back, water your trees, stress your lawn"
+                  alt="Your yard needs less water in the winter graphic"
                   loader={imgixLoader}
                   layout="responsive"
                   sizes="(max-width: 600px) 60vw, 40vw"
                   width={300}
                   height={250}
-                />
+                /> */}
               </Box>
             </ChildBox>
             <ChildBox flex="55%">
@@ -210,13 +241,21 @@ export default function DroughtPage() {
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
                   <ListItemText>
-                    <Type variant="inherit">
-                      Stress your lawn and save your trees. Now’s the time to
+                    {/* <Type variant="inherit">
+                      Stress your lawn and save your trees. Now's the time to
                       turn off sprinklers and let Mother Nature do the watering.
-                      Cooler, shorter, wetter days mean your yard shouldn’t need
+                      Cooler, shorter, wetter days mean your yard shouldn't need
                       extra water. But remember to take special care of your
                       trees, especially if the weather stays dry for a while.
                       Follow{' '}
+                      <Link href="/smart-water-use/trees">
+                        this link to learn tree watering tips
+                      </Link>
+                      .
+                    </Type> */}
+                    <Type variant="inherit">
+                      Stress your lawn and save your trees. But remember to take
+                      special care of your trees. Follow{' '}
                       <Link href="/smart-water-use/trees">
                         this link to learn tree watering tips
                       </Link>
@@ -264,10 +303,7 @@ export default function DroughtPage() {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText
-                    primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil.
-·         Adjust sprinklers to reduce overspray."
-                  />
+                  <ListItemText primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil." />
                 </BulletItem>
                 <BulletItem>
                   <ListItemBullet>
