@@ -22,7 +22,8 @@ import {
   createStyles,
   makeStyles,
   useTheme,
-  Theme
+  Theme,
+  Divider
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -96,8 +97,8 @@ const SmartWaterUsePage = () => {
             </ChildBox>
           </RowBox>
           <Spacing size="x-large" /> */}
-          <RowBox responsive flexSpacing={6}>
-            <ChildBox flex="66.66%">
+          {/* <RowBox responsive flexSpacing={6}>
+             <ChildBox flex="66.66%">
               <Type variant="h3" color="primary">
                 Lay the Groundwork for Water Savings and Healthy Plants
               </Type>
@@ -183,9 +184,11 @@ const SmartWaterUsePage = () => {
                 </ChildBox>
               </ColumnBox>
             </ChildBox>
-          </RowBox>
-          <Spacing />
-          <SectionBox>
+          </RowBox> */}
+
+          {/* <Spacing /> */}
+
+          {/* <SectionBox>
             <Type paragraph>
               <strong>Rebates are available! </strong> PCWA offers rebates on
               efficient irrigation equipment and timers. Learn more{' '}
@@ -195,7 +198,7 @@ const SmartWaterUsePage = () => {
               .
             </Type>
             <Spacing factor={2} size="large" />
-            <RowBox flexSpacing={10}>
+             <RowBox flexSpacing={10}>
               <ChildBox flex="50%">
                 <Type paragraph>
                   A special "thank you" to our partners who are helping us
@@ -236,14 +239,14 @@ const SmartWaterUsePage = () => {
                 />
               </ChildBox>
             </RowBox>
-          </SectionBox>
+          </SectionBox> */}
           <Spacing size="large" factor={2} />
           <SectionBox>
             <Type variant="h3" gutterBottom color="primary">
               Water Efficiency
             </Type>
-            <RowBox responsive flexSpacing={1} justifyContent="space-between">
-              <ChildBox flex="0 1 60%">
+            <RowBox responsive flexSpacing={6} justifyContent="space-between">
+              <ChildBox flex="0 1 50%">
                 <Type paragraph>
                   We in Placer County are fortunate to be surrounded by
                   beautiful waterways and natural resources that make our
@@ -252,14 +255,14 @@ const SmartWaterUsePage = () => {
                   to not waste water.
                 </Type>
               </ChildBox>
-              <ChildBox flex="0 1 30%">
+              <ChildBox flex="0 1 50%">
                 <Box
                   bgcolor={theme.palette.grey['100']}
                   p={2}
                   boxShadow={2}
                   color={theme.palette.grey['700']}
                 >
-                  <RowBox>
+                  <RowBox justifyContent="center">
                     <ColumnBox justifyContent="center">
                       <FeedbackIcon
                         className={classes.headingIcon}
@@ -275,6 +278,27 @@ const SmartWaterUsePage = () => {
                     Most household water use occurs outdoors, and that’s where
                     you can make the biggest difference in overall water use.
                   </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+
+                  <Type variant="subtitle2" color="textPrimary" align="center">
+                    Look for the label
+                  </Type>
+                  <Spacing size="x-small" />
+                  <Type variant="body2" paragraph color="inherit">
+                    Look for the WaterSense label when searching for new
+                    irrigation equipment. WaterSense products are independently
+                    certified to use less water and work as well or better than
+                    regular models. Read more about WaterSense{' '}
+                    <MuiNextLink href="/smart-water-use/watersense">
+                      on our website by clicking here
+                    </MuiNextLink>
+                    .
+                  </Type>
+                  <ChildBox width={100} m="auto">
+                    <WaterSenseLogo />
+                  </ChildBox>
                 </Box>
               </ChildBox>
             </RowBox>
@@ -284,9 +308,9 @@ const SmartWaterUsePage = () => {
                 Rethink Your Yard
               </Type>
               <Type paragraph>
-                For many people, the drought gave them an opportunity to rethink
+                For many people, the drought provides an opportunity to rethink
                 the way they view and use their landscape and to consider
-                whether it’s time for a change.
+                whether it's time for a change.
               </Type>
               <Type paragraph>
                 For example, if the only time you walk on your lawn is to mow
