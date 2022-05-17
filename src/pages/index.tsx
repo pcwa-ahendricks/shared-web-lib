@@ -113,7 +113,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title="Drought Recommendations"
               readMore="Learn more"
               linkHref="/smart-water-use/drought"
-              imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
               alt="Water less banner"
               body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
             />
