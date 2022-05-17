@@ -31,7 +31,6 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
 import MuiNextLink from '@components/NextLink/NextLink'
 import SectionBox from '@components/boxes/SectionBox'
 import FeedbackIcon from '@material-ui/icons/Feedback'
@@ -43,7 +42,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import NextButton from '@components/NextButton/NextButton'
 import WebsiteIcon from '@material-ui/icons/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
-import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
