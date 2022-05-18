@@ -24,6 +24,8 @@ function formatTimes(
 
 export const eventify = (event: CalendarEvent): NormalizedCalendarEvent => {
   const {start, end, duration, ...rest} = event
+  // console.log('event', event)
+  // console.log('duration', duration)
   const startUtc = dayjs(start).utc()
   const endUtc = end
     ? dayjs(end).utc()
@@ -31,11 +33,12 @@ export const eventify = (event: CalendarEvent): NormalizedCalendarEvent => {
         if (event.allDay) {
           return startUtc.add(1, 'day')
         }
-        if (duration && duration.length == 2) {
-          const value = Number(duration[0])
-          const unit = duration[1]
-          return startUtc.add(value, unit)
-        }
+        // todo - type checking broke with 1.11.2 upgrade
+        // if (duration && duration.length == 2) {
+        //   const value = Number(duration[0])
+        //   const unit = duration[1]
+        //   return startUtc.add(value, unit)
+        // }
         return dayjs().utc()
       })()
   if (!rest.url && typeof document == 'object') {
