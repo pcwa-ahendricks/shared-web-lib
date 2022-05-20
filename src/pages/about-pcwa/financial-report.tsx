@@ -96,7 +96,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 to ensure reliable water system operations, while consistently
                 meeting our principal and interest payments on bond debt.
               </Type>
-              <Box mt={6}>
+              <Box mt={8}>
                 <Type variant="h3" gutterBottom>
                   Annual Audited Financial Statements
                 </Type>
@@ -153,6 +153,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     >
                       2017
                     </OlderReportLink>
+                    •
                     <OlderReportLink
                       title="2016 Annual Report Document Link"
                       href="https://imgix.cosmicjs.com/19b95660-65db-11e8-835f-5b0b42ed5905-2016-CAFR.pdf"
@@ -232,7 +233,7 @@ const EmployeeBenefitsSummaryPage = () => {
                   </RowBox>
                 </Box>
               </Box>
-              <Box mt={6}>
+              <Box mt={8}>
                 <Type variant="h3" gutterBottom>
                   Annual Budget
                 </Type>
@@ -300,8 +301,114 @@ const EmployeeBenefitsSummaryPage = () => {
                   </BudgetDoc>
                 </RowBox> */}
               </Box>
+              <Box mt={8}>
+                <Type variant="h3" gutterBottom>
+                  Water Connection Charge Annual Reports
+                </Type>
+                <Type paragraph>
+                  An archive of annual fee reports required by Government Code
+                  Section 66013.
+                </Type>
+                <RowBox flexWrap="wrap" flexSpacing={3}>
+                  <BudgetDoc
+                    aria-label="View 2020 Report"
+                    href="https://cdn.cosmicjs.com/53e6c720-d871-11ec-bb19-d9085ce408df-Final-Report---2020.pdf"
+                  >
+                    2020 Report
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2019 Report"
+                    href="https://cdn.cosmicjs.com/53e78a70-d871-11ec-bb19-d9085ce408df-Final-Report---2019.pdf"
+                  >
+                    2019 Report
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2018 Report"
+                    href="https://cdn.cosmicjs.com/53e54080-d871-11ec-bb19-d9085ce408df-Final-Report---2018.pdf"
+                  >
+                    2018 Report
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2017 Report"
+                    href="https://cdn.cosmicjs.com/53d3b450-d871-11ec-bb19-d9085ce408df-Final-Report---2017.pdf"
+                  >
+                    2017 Report
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2016 Report"
+                    href="https://cdn.cosmicjs.com/49779300-d871-11ec-bb19-d9085ce408df-Final-Report---2016.pdf"
+                  >
+                    2016 Report
+                  </BudgetDoc>
+                </RowBox>
+                {/* <Spacing size="large" />
 
-              <Box mt={6}>
+                <Type paragraph gutterBottom>
+                  Presentations provided during regular PCWA Board of Director's
+                  Meeting
+                </Type>
+                <RowBox flexWrap="wrap" flexSpacing={3}>
+                  <BudgetDoc
+                    color="primary"
+                    aria-label="View 2021 Budget Presentation"
+                    href="https://imgix.cosmicjs.com/d6fd5530-2b65-11eb-8245-31a0d5eed227-2021-Budget-Presentation-for-website.pdf"
+                  >
+                    2021 Budget Presentation
+                  </BudgetDoc>
+                </RowBox> */}
+              </Box>
+              <Box mt={8}>
+                <Type variant="h3" gutterBottom>
+                  Water Connection Charge Studies
+                </Type>
+                <Type paragraph>
+                  An archive of cost of services studies conducted after January
+                  1, 2018.
+                </Type>
+                <RowBox flexWrap="wrap" flexSpacing={3}>
+                  <BudgetDoc
+                    aria-label="View 2022 Study"
+                    href="https://cdn.cosmicjs.com/03fea730-a4b1-11ec-a536-8726e3bb3867-Raftelis-PCWA-Rate-Study-Report-FINAL-2022-03-15.pdf"
+                  >
+                    2022 Study
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2021 Study"
+                    href="https://cdn.cosmicjs.com/45b310f0-d871-11ec-bb19-d9085ce408df-PCWA-Upper-Zone-6-Water-Capacity-Fee---Final-Report.pdf"
+                  >
+                    2021 Study
+                  </BudgetDoc>
+
+                  {/* <BudgetDoc
+                    aria-label="View 2017 Budget"
+                    href="https://cdn.cosmicjs.com/19753230-d87e-11e8-808f-f94458761064-2017 Budget.pdf"
+                  >
+                    2017 Budget
+                  </BudgetDoc> */}
+                  {/* <BudgetDoc
+                    aria-label="View 2016 Budget"
+                    href="https://cdn.cosmicjs.com/1692f9d0-d87e-11e8-b627-0bd59229ea68-2016 Budget.pdf"
+                  >
+                    2016 Budget
+                  </BudgetDoc> */}
+                </RowBox>
+                {/* <Spacing size="large" />
+
+                <Type paragraph gutterBottom>
+                  Presentations provided during regular PCWA Board of Director's
+                  Meeting
+                </Type>
+                <RowBox flexWrap="wrap" flexSpacing={3}>
+                  <BudgetDoc
+                    color="primary"
+                    aria-label="View 2021 Budget Presentation"
+                    href="https://imgix.cosmicjs.com/d6fd5530-2b65-11eb-8245-31a0d5eed227-2021-Budget-Presentation-for-website.pdf"
+                  >
+                    2021 Budget Presentation
+                  </BudgetDoc>
+                </RowBox> */}
+              </Box>
+              <Box mt={8}>
                 <Type variant="h3" gutterBottom>
                   Official Statements
                 </Type>
