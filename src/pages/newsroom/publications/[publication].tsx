@@ -25,6 +25,7 @@ import {
   addMonths
 } from 'date-fns'
 import NextLink, {LinkProps} from 'next/link'
+import MovieIcon from '@material-ui/icons/YouTube'
 import groupBy from '@lib/groupBy'
 import {
   AppBar,
@@ -46,13 +47,17 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  useTheme
+  useTheme,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  CardActions
 } from '@material-ui/core'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
 import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
-import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import Spacing from '@components/boxes/Spacing'
 import {
   NewsroomContext,
@@ -69,6 +74,8 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
+import ImageFancier from '@components/ImageFancier/ImageFancier'
+import Link from 'next/link'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -177,6 +184,10 @@ const PublicationsPage = ({
       }
       case 'enews': {
         setTabIndex(4)
+        break
+      }
+      case 'webinars': {
+        setTabIndex(5)
         break
       }
       default: {
@@ -405,6 +416,12 @@ const PublicationsPage = ({
                 href="/newsroom/publications/[publication]"
                 as="/newsroom/publications/enews"
                 {...a11yProps(4)}
+              />
+              <LinkTab
+                label="Webinars"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/webinars"
+                {...a11yProps(5)}
               />
             </Tabs>
           </AppBar>
@@ -669,8 +686,8 @@ const PublicationsPage = ({
                 <RowBox responsive flexSpacing={4}>
                   <ChildBox flex="50%">
                     <Type paragraph>
-                      As your water provider, we’re committed to keeping you
-                      informed about news that relates to you. PCWA’s E-News
+                      As your water provider, we're committed to keeping you
+                      informed about news that relates to you. PCWA's E-News
                       will send you important email updates about your water
                       supply, water quality, legislative updates, construction
                       alerts and more. Please add us to your email address book.
@@ -726,9 +743,90 @@ const PublicationsPage = ({
                   })}
                 </List>
               </TabPanel>
-            </ChildBox>
-            <ChildBox>
-              <NewsroomSidebar />
+              <TabPanel value={tabIndex} index={5}>
+                <ChildBox width={isXS ? '100%' : 'auto'}>
+                  <Box width={500} className="debug">
+                    <Card
+                      title="State of PCWA's Water Supplies"
+                      // publishedDate={parse(
+                      //   '04/13/2022',
+                      //   'MM/dd/yyyy',
+                      //   new Date()
+                      // )}
+                      // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                      // objectPosition="top center"
+                    >
+                      <Link
+                        href="/newsroom/state-of-our-water-webinar"
+                        passHref
+                      >
+                        <CardActionArea>
+                          {/* <CardMedia
+                          component="Img"
+                          alt="Contemplative Reptile"
+                          height="140"
+                          image="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                          title="Contemplative Reptile"
+                        > */}
+                          <CardMedia
+                            style={{overflow: 'hidden', width: '100%'}}
+                          >
+                            <ImageFancier
+                              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
+                              src={`https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg${stringify(
+                                {
+                                  bg: 'ffffff'
+                                },
+                                true
+                              )}`}
+                              objectFit="cover"
+                              objectPosition="top center"
+                              alt={`Thumbnail image and link for State of Our Water Supplies webinar`}
+                              height={275}
+                              width={500}
+                              // isHover={actionAreaIsHover}
+                              // sizes={sizes}
+                            />
+                          </CardMedia>
+
+                          <CardContent>
+                            <Type
+                              gutterBottom
+                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                            >
+                              State of Our Water Supplies Webinar
+                            </Type>
+                            <Type
+                              variant="body2"
+                              color="textSecondary"
+                              paragraph
+                            >
+                              Recorded{' '}
+                              {format(
+                                parse('4/13/2022', 'MM/dd/yyyy', new Date()),
+                                'M/dd/yyyy'
+                              )}
+                            </Type>
+                          </CardContent>
+                        </CardActionArea>
+                      </Link>
+                      <CardActions>
+                        <Button
+                          size="small"
+                          startIcon={<MovieIcon color="action" />}
+                          href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Type variant="inherit" color="textSecondary">
+                            Watch Recording
+                          </Type>
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Box>
+                </ChildBox>
+              </TabPanel>
             </ChildBox>
           </RowBox>
         </WideContainer>
@@ -744,7 +842,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
       {params: {publication: 'fire-and-water'}},
       {params: {publication: 'year-end'}},
       {params: {publication: 'strategic-plans'}},
-      {params: {publication: 'enews'}}
+      {params: {publication: 'enews'}},
+      {params: {publication: 'webinars'}}
     ],
     fallback: false
   }

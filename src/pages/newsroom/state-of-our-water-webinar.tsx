@@ -144,10 +144,10 @@ const StateOfOurWaterWebinarPage = () => {
             <Button
               variant="contained"
               color="secondary"
-              href="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyoutu.be%2Fp4gmgAPqAK0&data=04%7C01%7Cahendricks%40pcwa.net%7Cc32ded8c645741d1273808da215f0a8b%7C03501b2a357a4ba39faf397fbb6f3801%7C0%7C0%7C637858989341745312%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=CsMAEfy9PtxcqbPfLb11WiBlL4o7x%2FamX%2Bedc61QSJ4%3D&reserved=0"
+              href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Register for Webinar button link, opens in new tab"
+              aria-label="Watch recording of Webinar button link, opens in new tab"
             >
               Watch the Recording
             </Button>
