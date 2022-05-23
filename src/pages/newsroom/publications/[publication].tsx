@@ -49,8 +49,6 @@ import {
   Theme,
   useTheme,
   Card,
-  CardActionArea,
-  CardMedia,
   CardContent,
   CardActions
 } from '@material-ui/core'
@@ -74,8 +72,8 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
-import ImageFancier from '@components/ImageFancier/ImageFancier'
 import Link from 'next/link'
+import FancierCardActionArea from '@components/FancierCardActionArea/FancierCardActionArea'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -744,88 +742,155 @@ const PublicationsPage = ({
                 </List>
               </TabPanel>
               <TabPanel value={tabIndex} index={5}>
-                <ChildBox width={isXS ? '100%' : 'auto'}>
-                  <Box width={500} className="debug">
-                    <Card
-                      title="State of PCWA's Water Supplies"
-                      // publishedDate={parse(
-                      //   '04/13/2022',
-                      //   'MM/dd/yyyy',
-                      //   new Date()
-                      // )}
-                      // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
-                      // objectPosition="top center"
-                    >
-                      <Link
-                        href="/newsroom/state-of-our-water-webinar"
-                        passHref
+                <Spacing size="x-large" />
+                <RowBox
+                  flexSpacing={4}
+                  justifyContent="space-around"
+                  width="100%"
+                  responsive="sm"
+                >
+                  <ChildBox flex={isXS ? '100%' : '50%'}>
+                    <Box width={440} margin="auto">
+                      <Card
+                        title="State of PCWA's Water Supplies"
+                        // publishedDate={parse(
+                        //   '04/13/2022',
+                        //   'MM/dd/yyyy',
+                        //   new Date()
+                        // )}
+                        // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                        // objectPosition="top center"
                       >
-                        <CardActionArea>
-                          {/* <CardMedia
+                        <Link
+                          href="/newsroom/state-of-our-water-webinar"
+                          passHref
+                        >
+                          <FancierCardActionArea
+                            CardMediaProps={{
+                              style: {overflow: 'hidden', width: '100%'}
+                            }}
+                            ImageFancierProps={{
+                              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
+                              src: `https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg${stringify(
+                                {
+                                  bg: 'ffffff'
+                                },
+                                true
+                              )}`,
+                              objectFit: 'cover',
+                              objectPosition: 'top center',
+                              alt: `Thumbnail image and link for State of Our Water Supplies webinar`,
+                              height: 220,
+                              width: 440
+                              // isHover={actionAreaIsHover}
+                              // sizes={sizes}
+                            }}
+                          >
+                            {/* <CardMedia
                           component="Img"
                           alt="Contemplative Reptile"
                           height="140"
                           image="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
                           title="Contemplative Reptile"
                         > */}
-                          <CardMedia
-                            style={{overflow: 'hidden', width: '100%'}}
+
+                            <CardContent>
+                              <Type
+                                gutterBottom
+                                variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                              >
+                                State of Our Water Supplies Webinar
+                              </Type>
+                              <Type
+                                variant="body2"
+                                color="textSecondary"
+                                paragraph
+                              >
+                                Recorded{' '}
+                                {format(
+                                  parse('4/13/2022', 'MM/dd/yyyy', new Date()),
+                                  'M/dd/yyyy'
+                                )}
+                              </Type>
+                            </CardContent>
+                          </FancierCardActionArea>
+                        </Link>
+                        <CardActions>
+                          <Button
+                            size="small"
+                            startIcon={<MovieIcon color="action" />}
+                            href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            <ImageFancier
-                              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
-                              src={`https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg${stringify(
-                                {
-                                  bg: 'ffffff'
-                                },
-                                true
-                              )}`}
-                              objectFit="cover"
-                              objectPosition="top center"
-                              alt={`Thumbnail image and link for State of Our Water Supplies webinar`}
-                              height={275}
-                              width={500}
+                            <Type variant="inherit" color="textSecondary">
+                              Watch Recording
+                            </Type>
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Box>
+                  </ChildBox>
+                  <ChildBox flex={isXS ? '100%' : '50%'}>
+                    <Box width={440} margin="auto">
+                      <Card title="Fire-Wise, Water-Wise Landscaping">
+                        <Link
+                          href="/newsroom/state-of-our-water-webinar"
+                          passHref
+                        >
+                          <FancierCardActionArea
+                            CardMediaProps={{
+                              style: {overflow: 'hidden', width: '100%'}
+                            }}
+                            ImageFancierProps={{
+                              src: `https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg`,
+                              objectFit: 'cover',
+                              objectPosition: 'top center',
+                              alt: `Thumbnail image and link for Fire-wise, Water-wise Landscaping webinar`,
+                              height: 220,
+                              width: 440
                               // isHover={actionAreaIsHover}
                               // sizes={sizes}
-                            />
-                          </CardMedia>
-
-                          <CardContent>
-                            <Type
-                              gutterBottom
-                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
-                            >
-                              State of Our Water Supplies Webinar
+                            }}
+                          >
+                            <CardContent>
+                              <Type
+                                gutterBottom
+                                variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                              >
+                                Fire-Wise, Water-Wise Landscaping
+                              </Type>
+                              <Type
+                                variant="body2"
+                                color="textSecondary"
+                                paragraph
+                              >
+                                Recorded{' '}
+                                {format(
+                                  parse('8/25/2021', 'MM/dd/yyyy', new Date()),
+                                  'M/dd/yyyy'
+                                )}
+                              </Type>
+                            </CardContent>
+                          </FancierCardActionArea>
+                        </Link>
+                        <CardActions>
+                          <Button
+                            size="small"
+                            startIcon={<MovieIcon color="action" />}
+                            href="https://youtu.be/dSXMOGczI1o"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Type variant="inherit" color="textSecondary">
+                              Watch Recording
                             </Type>
-                            <Type
-                              variant="body2"
-                              color="textSecondary"
-                              paragraph
-                            >
-                              Recorded{' '}
-                              {format(
-                                parse('4/13/2022', 'MM/dd/yyyy', new Date()),
-                                'M/dd/yyyy'
-                              )}
-                            </Type>
-                          </CardContent>
-                        </CardActionArea>
-                      </Link>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          startIcon={<MovieIcon color="action" />}
-                          href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Type variant="inherit" color="textSecondary">
-                            Watch Recording
-                          </Type>
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Box>
-                </ChildBox>
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Box>
+                  </ChildBox>
+                </RowBox>
               </TabPanel>
             </ChildBox>
           </RowBox>

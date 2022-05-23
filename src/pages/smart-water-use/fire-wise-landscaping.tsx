@@ -58,8 +58,8 @@ const FireWiseLandscapingPage = () => {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://cdn.cosmicjs.com/389df5e0-0696-11ec-82e2-c9b3a7ec6b59-210825Webinar720.mp4"
-              aria-label="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
+              href="https://youtu.be/dSXMOGczI1o"
+              aria-label="Watch a video of PCWA's webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
             >
               <Image
                 src="c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
@@ -74,20 +74,20 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/389df5e0-0696-11ec-82e2-c9b3a7ec6b59-210825Webinar720.mp4"
+                  href="https://youtu.be/dSXMOGczI1o"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
                 <MatLink
-                  href="https://cdn.cosmicjs.com/389df5e0-0696-11ec-82e2-c9b3a7ec6b59-210825Webinar720.mp4"
+                  href="https://youtu.be/dSXMOGczI1o"
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
-                  aria-label="Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
+                  aria-label="Watch a video of PCWA's webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
                 >
-                  Watch a video of PCWA’s webinar on Fire-Wise, Water-Wise
+                  Watch a video of PCWA's webinar on Fire-Wise, Water-Wise
                   Landscaping, hosted on{' '}
                   <Type variant="inherit" noWrap component="span">
                     August 25, 2021

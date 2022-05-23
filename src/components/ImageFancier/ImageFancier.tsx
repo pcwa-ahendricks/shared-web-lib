@@ -136,3 +136,4 @@ const ImageFancier = ({
 }
 
 export default ImageFancier
+export type {Props as ImageFancierProps}
