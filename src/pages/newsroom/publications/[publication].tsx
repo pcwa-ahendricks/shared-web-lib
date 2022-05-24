@@ -25,7 +25,6 @@ import {
   addMonths
 } from 'date-fns'
 import NextLink, {LinkProps} from 'next/link'
-import MovieIcon from '@material-ui/icons/YouTube'
 import groupBy from '@lib/groupBy'
 import {
   AppBar,
@@ -47,10 +46,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  useTheme,
-  Card,
-  CardContent,
-  CardActions
+  useTheme
 } from '@material-ui/core'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
@@ -72,8 +68,6 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import fetcher from '@lib/fetcher'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
-import Link from 'next/link'
-import FancierCardActionArea from '@components/FancierCardActionArea/FancierCardActionArea'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -182,10 +176,6 @@ const PublicationsPage = ({
       }
       case 'enews': {
         setTabIndex(4)
-        break
-      }
-      case 'webinars': {
-        setTabIndex(5)
         break
       }
       default: {
@@ -414,12 +404,6 @@ const PublicationsPage = ({
                 href="/newsroom/publications/[publication]"
                 as="/newsroom/publications/enews"
                 {...a11yProps(4)}
-              />
-              <LinkTab
-                label="Webinars"
-                href="/newsroom/publications/[publication]"
-                as="/newsroom/publications/webinars"
-                {...a11yProps(5)}
               />
             </Tabs>
           </AppBar>
@@ -741,157 +725,6 @@ const PublicationsPage = ({
                   })}
                 </List>
               </TabPanel>
-              <TabPanel value={tabIndex} index={5}>
-                <Spacing size="x-large" />
-                <RowBox
-                  flexSpacing={4}
-                  justifyContent="space-around"
-                  width="100%"
-                  responsive="sm"
-                >
-                  <ChildBox flex={isXS ? '100%' : '50%'}>
-                    <Box width={440} margin="auto">
-                      <Card
-                        title="State of PCWA's Water Supplies"
-                        // publishedDate={parse(
-                        //   '04/13/2022',
-                        //   'MM/dd/yyyy',
-                        //   new Date()
-                        // )}
-                        // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
-                        // objectPosition="top center"
-                      >
-                        <Link
-                          href="/newsroom/state-of-our-water-webinar"
-                          passHref
-                        >
-                          <FancierCardActionArea
-                            CardMediaProps={{
-                              style: {overflow: 'hidden', width: '100%'}
-                            }}
-                            ImageFancierProps={{
-                              // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
-                              src: `https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg${stringify(
-                                {
-                                  bg: 'ffffff'
-                                },
-                                true
-                              )}`,
-                              objectFit: 'cover',
-                              objectPosition: 'top center',
-                              alt: `Thumbnail image and link for State of Our Water Supplies webinar`,
-                              height: 220,
-                              width: 440
-                              // isHover={actionAreaIsHover}
-                              // sizes={sizes}
-                            }}
-                          >
-                            {/* <CardMedia
-                          component="Img"
-                          alt="Contemplative Reptile"
-                          height="140"
-                          image="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
-                          title="Contemplative Reptile"
-                        > */}
-
-                            <CardContent>
-                              <Type
-                                gutterBottom
-                                variant={isMDUp ? 'subtitle1' : 'subtitle2'}
-                              >
-                                State of Our Water Supplies Webinar
-                              </Type>
-                              <Type
-                                variant="body2"
-                                color="textSecondary"
-                                paragraph
-                              >
-                                Recorded{' '}
-                                {format(
-                                  parse('4/13/2022', 'MM/dd/yyyy', new Date()),
-                                  'M/dd/yyyy'
-                                )}
-                              </Type>
-                            </CardContent>
-                          </FancierCardActionArea>
-                        </Link>
-                        <CardActions>
-                          <Button
-                            size="small"
-                            startIcon={<MovieIcon color="action" />}
-                            href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Type variant="inherit" color="textSecondary">
-                              Watch Recording
-                            </Type>
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Box>
-                  </ChildBox>
-                  <ChildBox flex={isXS ? '100%' : '50%'}>
-                    <Box width={440} margin="auto">
-                      <Card title="Fire-Wise, Water-Wise Landscaping">
-                        <Link
-                          href="/newsroom/state-of-our-water-webinar"
-                          passHref
-                        >
-                          <FancierCardActionArea
-                            CardMediaProps={{
-                              style: {overflow: 'hidden', width: '100%'}
-                            }}
-                            ImageFancierProps={{
-                              src: `https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg`,
-                              objectFit: 'cover',
-                              objectPosition: 'top center',
-                              alt: `Thumbnail image and link for Fire-wise, Water-wise Landscaping webinar`,
-                              height: 220,
-                              width: 440
-                              // isHover={actionAreaIsHover}
-                              // sizes={sizes}
-                            }}
-                          >
-                            <CardContent>
-                              <Type
-                                gutterBottom
-                                variant={isMDUp ? 'subtitle1' : 'subtitle2'}
-                              >
-                                Fire-Wise, Water-Wise Landscaping
-                              </Type>
-                              <Type
-                                variant="body2"
-                                color="textSecondary"
-                                paragraph
-                              >
-                                Recorded{' '}
-                                {format(
-                                  parse('8/25/2021', 'MM/dd/yyyy', new Date()),
-                                  'M/dd/yyyy'
-                                )}
-                              </Type>
-                            </CardContent>
-                          </FancierCardActionArea>
-                        </Link>
-                        <CardActions>
-                          <Button
-                            size="small"
-                            startIcon={<MovieIcon color="action" />}
-                            href="https://youtu.be/dSXMOGczI1o"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Type variant="inherit" color="textSecondary">
-                              Watch Recording
-                            </Type>
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Box>
-                  </ChildBox>
-                </RowBox>
-              </TabPanel>
             </ChildBox>
           </RowBox>
         </WideContainer>
@@ -907,8 +740,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       {params: {publication: 'fire-and-water'}},
       {params: {publication: 'year-end'}},
       {params: {publication: 'strategic-plans'}},
-      {params: {publication: 'enews'}},
-      {params: {publication: 'webinars'}}
+      {params: {publication: 'enews'}}
     ],
     fallback: false
   }
