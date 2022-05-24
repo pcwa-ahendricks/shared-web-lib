@@ -497,38 +497,31 @@ module.exports = withPlugins([withTM], {
       /*  Maintained by B. Wilkins & B. Heath. These doc links are used and distributed via mail to all treated customers. */
       {
         source: `/docs/ccr/alta${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/2a06f6b0-971c-11eb-b593-972a7dbc1054-Alta2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/alta.pdf'
       },
       {
         source: `/docs/ccr/foothill-sunset${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/358f3bf0-971c-11eb-b593-972a7dbc1054-Foothill-Sunset2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/foothill-sunset.pdf'
       },
       {
         source: `/docs/ccr/monte(-|_)vista${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/2a034d30-971c-11eb-b593-972a7dbc1054-MonteVista2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/monte-vista.pdf'
       },
       {
         source: `/docs/ccr/applegate${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/2a059720-971c-11eb-b593-972a7dbc1054-Applegate2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/applegate.pdf'
       },
       {
         source: `/docs/ccr/auburn-bowman${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/2afe9d20-971c-11eb-b593-972a7dbc1054-Auburn-Bowman2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/auburn-bowman.pdf'
       },
       {
         source: `/docs/ccr/bianchi${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/2a080820-971c-11eb-b593-972a7dbc1054-Bianchi2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/bianchi.pdf'
       },
       {
         source: `/docs/ccr/colfax${fileExtRe}`,
-        destination:
-          'https://cdn.cosmicjs.com/2a0940a0-971c-11eb-b593-972a7dbc1054-Colfax2021.pdf'
+        destination: 'https://docs.pcwa.net/ccr/colfax.pdf'
       }
     ]
   },
