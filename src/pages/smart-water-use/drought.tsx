@@ -92,8 +92,8 @@ export default function DroughtPage() {
                 California is experiencing a severe drought. With a hot summer
                 coming, Gov. Newsom has called on all Californians to increase
                 their water conservation efforts and reduce water use by 20
-                percent. We are part of a larger integrated statewide system
-                that is under stress.{' '}
+                percent. Conservation is important, because we don't know if
+                2023 will be dry and if water supplies will be limited.
               </Type>
               {/* <Type paragraph>
                 Here are some tips you can follow around your home and business
@@ -126,6 +126,18 @@ export default function DroughtPage() {
                   Smart Water Use
                 </MuiNextLink>{' '}
                 page .
+              </Type>
+              <Type paragraph>
+                Per the Governor's Executive Order on March 28, 2022, PCWA has
+                moved to Stage 2 of its Water Shortage Contingency Plan. Visit
+                our{' '}
+                <MuiNextLink
+                  underline="always"
+                  href="/smart-water-use/water-shortage-contingency-plan"
+                >
+                  Water Shortage Contingency Plan
+                </MuiNextLink>{' '}
+                page to learn more about the actions included in stages 1 and 2.
               </Type>
             </ChildBox>
             <ChildBox flex="1 1 40%">
@@ -254,8 +266,10 @@ export default function DroughtPage() {
                       .
                     </Type> */}
                     <Type variant="inherit">
-                      Stress your lawn and save your trees. But remember to take
-                      special care of your trees. Follow{' '}
+                      Stress your lawn and save your trees. Reduce each
+                      sprinkler cycle by two minutes to achieve an instant water
+                      savings of 20 percent. But remember to take special care
+                      of your trees. Follow{' '}
                       <Link href="/smart-water-use/trees">
                         this link to learn tree watering tips
                       </Link>

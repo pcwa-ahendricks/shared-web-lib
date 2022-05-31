@@ -252,6 +252,17 @@ const SmartWaterUsePage = () => {
                   a responsibility to do our part to use water efficiently and
                   to not waste water.
                 </Type>
+                <Type paragraph>
+                  Rebates are available! PCWA offers rebates on efficient
+                  irrigation equipment and timers. Learn more{' '}
+                  <MuiNextLink
+                    aria-label="link to PCWA's Rebate Program Page"
+                    href="/smart-water-use/rebate-programs"
+                  >
+                    here by clicking this link
+                  </MuiNextLink>
+                  .
+                </Type>
               </ChildBox>
               <ChildBox flex="0 1 50%">
                 <Box
