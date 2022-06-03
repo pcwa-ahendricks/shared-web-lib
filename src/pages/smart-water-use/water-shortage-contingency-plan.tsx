@@ -2,7 +2,7 @@ import React from 'react'
 import {Typography as Type, Link, Box} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
-import WideContainer from '@components/containers/WideContainer'
+import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'
 
@@ -22,7 +22,7 @@ const WaterShortageContingencyPlan = () => {
   return (
     <PageLayout title="Water Shortage Contingency Plan">
       <MainBox>
-        <WideContainer>
+        <NarrowContainer>
           <PageTitle
             title="Water Shortage Contingency Plan"
             subtitle="Smart Water Use"
@@ -157,7 +157,7 @@ const WaterShortageContingencyPlan = () => {
               prohibited.
             </Type>
           </Box>
-        </WideContainer>
+        </NarrowContainer>
       </MainBox>
     </PageLayout>
   )
