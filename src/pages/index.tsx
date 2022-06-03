@@ -46,7 +46,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
   const tileWidth = isLGUp ? 176 : 160
 
-  const coverStoryImageRatio = '2/1'
+  // const coverStoryImageRatio = '2/1'
+  const coverStoryImageRatio = '9/4.8' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
@@ -83,7 +84,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
       </Hidden>
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
-          <ChildBox flex="50%">
+          {/* <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Watch this PCWA Presents Free Webinar"
@@ -92,6 +93,17 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of our Water Webinar flier"
               body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
+            />
+          </ChildBox> */}
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Rebates Available"
+              readMore="Start saving today"
+              linkHref="/smart-water-use/rebate-programs"
+              imgixURL="https://imgix.cosmicjs.com/9a8e0140-e396-11ec-860e-596765832fd7-Summer-of-Savings-FB-Image-cropped.png"
+              alt="Summer of Savings graphic"
+              body="PCWA wants you to save this summer with rebates for both residential and business customers to upgrade sprinkler systems, replace thirsty lawn, install high-efficiency toilets and more!"
             />
           </ChildBox>
 
@@ -542,7 +554,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox>
 
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               imageRatio={coverStoryImageRatio}
@@ -550,6 +562,17 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/smart-water-use/fire-wise-landscaping"
               imgixURL="https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg"
               alt="Fire-wise, water-wise landscaping webinar flier"
+            />
+          </ChildBox> */}
+
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              imageRatio={coverStoryImageRatio}
+              title="State of our Water Webinar"
+              linkHref="/newsroom/state-of-our-water-webinar"
+              imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+              alt="State of Our Water webinar flier"
             />
           </ChildBox>
 
