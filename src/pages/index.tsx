@@ -569,7 +569,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             <CoverTile
               width={tileWidth}
               imageRatio={coverStoryImageRatio}
-              title="State of our Water Webinar"
+              title="State of Our Water Webinar"
               linkHref="/newsroom/state-of-our-water-webinar"
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of Our Water webinar flier"
