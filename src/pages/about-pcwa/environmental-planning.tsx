@@ -201,8 +201,7 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://docs.pcwa.net/pcwa-2022-temporary-transfer-petition-package"
               >
-                PCWA 2022 Temporary Transfer Petition Package{' '}
-                <strong>[5-24-2022]</strong>
+                PCWA 2022 Temporary Transfer Petition Package, 5-24-2022
               </OpenInNewLinkBox>
               <Spacing />
               {/* <Type variant="h3" gutterBottom>
