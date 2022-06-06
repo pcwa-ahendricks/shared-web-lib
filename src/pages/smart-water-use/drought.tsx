@@ -223,7 +223,20 @@ export default function DroughtPage() {
                 </BulletItem>
               </List>
               <Spacing factor={2} size="large" />
-              <Box width="80%" m="auto">
+              <Box width="95%" m="auto">
+                <Image
+                  // src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                  // alt="Drought is back, water your trees, stress your lawn"
+                  src="93013b20-e5dc-11ec-9447-f98173199613-Young-tree-in-landscape.jpg"
+                  alt="Young tree in new water-wise yard"
+                  loader={imgixLoader}
+                  layout="responsive"
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={1250}
+                  height={903}
+                  /* width={300}
+                height={250} */
+                />
                 {/*               <Image
                   src="acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
                   loader={imgixLoader}
