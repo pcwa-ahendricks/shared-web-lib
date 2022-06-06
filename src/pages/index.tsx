@@ -47,7 +47,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
   const tileWidth = isLGUp ? 176 : 160
 
   // const coverStoryImageRatio = '2/1'
-  const coverStoryImageRatio = '9/4.8' // summer of savings image
+  const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
@@ -101,7 +101,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               title="Rebates Available"
               readMore="Start saving today"
               linkHref="/smart-water-use/rebate-programs"
-              imgixURL="https://imgix.cosmicjs.com/9a8e0140-e396-11ec-860e-596765832fd7-Summer-of-Savings-FB-Image-cropped.png"
+              imgixURL="https://imgix.cosmicjs.com/b633afa0-e5d8-11ec-9447-f98173199613-Summer-of-Savings-FB-Image-cropped2.png"
               alt="Summer of Savings graphic"
               body="PCWA wants you to save this summer with rebates for both residential and business customers to upgrade sprinkler systems, replace thirsty lawn, install high-efficiency toilets and more!"
             />
@@ -126,7 +126,8 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               readMore="Learn more"
               linkHref="/smart-water-use/drought"
               // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
-              imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
+              // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
+              imgixURL="https://imgix.cosmicjs.com/58581660-e5d7-11ec-9447-f98173199613-Limit-Landscape-Watering-graphic.jpg"
               alt="Water less banner"
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
               body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."

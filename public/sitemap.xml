@@ -332,6 +332,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/smart-water-use/water-shortage-contingency-plan</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/recreation/flows/gages/r2</loc>
     <changefreq>always</changefreq>
   </url>
@@ -3785,6 +3789,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-21-2022</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-07-2022</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
