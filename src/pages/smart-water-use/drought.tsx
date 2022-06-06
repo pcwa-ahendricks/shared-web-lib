@@ -145,15 +145,18 @@ export default function DroughtPage() {
                 <Box style={{cursor: 'pointer'}}>
                   <Link href="/smart-water-use/trees" passHref>
                     <Image
+                      aria-label="image link to Tree Care page"
                       role="link"
                       tabIndex={0}
-                      src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
-                      alt="Drought is back, water your trees, stress your lawn"
+                      // src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                      // alt="Drought is back, water your trees, stress your lawn"
+                      src="9051d290-e5dc-11ec-9447-f98173199613-Young-tree-canopy.jpg"
+                      alt="Young Tree Canopy photo"
                       loader={imgixLoader}
                       layout="responsive"
                       sizes="(max-width: 600px) 60vw, 40vw"
-                      width={960}
-                      height={960}
+                      width={971}
+                      height={1295}
                       /* width={300}
                       height={250} */
                     />
@@ -168,13 +171,13 @@ export default function DroughtPage() {
                 /> */}
                   </Link>
 
-                  <Box maxWidth="80%" textAlign="center" m="auto">
+                  <Box maxWidth="80%" textAlign="center" m="auto" mt={1}>
                     <MuiNextLink
                       href="/smart-water-use/trees"
                       variant="caption"
                     >
-                      Click image to learn how to help your trees survive the
-                      drought
+                      Visit our Tree Care page to learn how to help your trees
+                      survive the drought
                     </MuiNextLink>
                   </Box>
                 </Box>

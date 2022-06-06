@@ -128,13 +128,15 @@ export default function TreesPage() {
               <ColumnBox flexSpacing={6}>
                 <ChildBox>
                   <Image
-                    src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
-                    alt="Drought is back, water your trees, stress your lawn"
+                    // src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
+                    // alt="Drought is back, water your trees, stress your lawn"
+                    src="93013b20-e5dc-11ec-9447-f98173199613-Young-tree-in-landscape.jpg"
+                    alt="Young tree in new water-wise yard"
                     loader={imgixLoader}
                     layout="responsive"
                     sizes="(max-width: 600px) 60vw, 40vw"
-                    width={960}
-                    height={960}
+                    width={1250}
+                    height={903}
                     /* width={300}
                 height={250} */
                   />
