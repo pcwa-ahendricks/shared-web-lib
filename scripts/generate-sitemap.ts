@@ -102,7 +102,7 @@ async function generateSitemap() {
           .filter((doc) => doc.derivedFilenameAttr.extension === 'pdf')
           .filter((doc) => !/(cover)/i.test(doc.original_name))
           .map((doc) => slugify(doc.derivedFilenameAttr?.base ?? ''))
-          .map((p) => `/resource-library/documents/${p}`)
+          .map((p) => `/education-center/documents/${p}`)
       : []
 
   const agendas = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
@@ -196,9 +196,9 @@ async function generateSitemap() {
     .map(([gallery, photos]) =>
       photos
         .map(
-          (_, idx) => `/resource-library/photos/${gallery}/${idx.toString()}`
+          (_, idx) => `/education-center/photos/${gallery}/${idx.toString()}`
         )
-        .concat(`/resource-library/photos/${gallery}`)
+        .concat(`/education-center/photos/${gallery}`)
     )
     .reduce((prev, curVal) => [...prev, ...curVal])
 
@@ -219,7 +219,7 @@ async function generateSitemap() {
       filteredVideoMultimedia,
       (a) => a.metadata?.gallery
     )
-  ].map(([gallery]) => `/resource-library/videos/${gallery}`)
+  ].map(([gallery]) => `/education-center/videos/${gallery}`)
 
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages

@@ -43,8 +43,8 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
     <Fragment>
       <NextLink
         passHref
-        href="/resource-library/documents/[publication]"
-        as={`/resource-library/documents/${publicationSlug}`}
+        href="/education-center/documents/[publication]"
+        as={`/education-center/documents/${publicationSlug}`}
         scroll
       >
         <ListItem button component="a">

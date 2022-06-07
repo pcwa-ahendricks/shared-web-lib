@@ -217,10 +217,10 @@ const ResourceLibraryPage = ({
   const backToGalleriesHandler = useCallback(() => {
     multimediaDispatch(setSelectedGallery(null))
     const hrefAs = /videos/gi.test(router.asPath)
-      ? '/resource-library/videos'
-      : '/resource-library/photos'
-    // await router.push('/resource-library/[...multimedia]', hrefAs)
-    router.push('/resource-library/[...multimedia]', hrefAs)
+      ? '/education-center/videos'
+      : '/education-center/photos'
+    // await router.push('/education-center/[...multimedia]', hrefAs)
+    router.push('/education-center/[...multimedia]', hrefAs)
   }, [multimediaDispatch, router])
 
   const tabChangeHandler = useCallback((_, newValue) => {
@@ -233,14 +233,16 @@ const ResourceLibraryPage = ({
   }
 
   return (
-    <PageLayout title="Resource Library" waterSurface>
+    <PageLayout title="Education Center" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle
-            title="Resources & Multimedia Library"
-            subtitle="General"
+            // title="Resources & Multimedia Library"
+            title="Education Center"
+            subtitle="Resources & Multimedia Library"
             hideDivider
           />
+          <Spacing size="x-large" />
           <div ref={containerRef}>
             {selectedGallery ? (
               <Box height={48}>
@@ -276,22 +278,22 @@ const ResourceLibraryPage = ({
                 >
                   <LinkTab
                     label="Documents"
-                    href="/resource-library/[...multimedia]"
-                    as="/resource-library/documents"
+                    href="/education-center/[...multimedia]"
+                    as="/education-center/documents"
                     icon={<DescriptionIcon color="action" />}
                     {...a11yProps(0)}
                   />
                   <LinkTab
                     label="Photos"
-                    href="/resource-library/[...multimedia]"
-                    as="/resource-library/photos"
+                    href="/education-center/[...multimedia]"
+                    as="/education-center/photos"
                     icon={<PhotoIcon color="action" />}
                     {...a11yProps(0)}
                   />
                   <LinkTab
                     label="Videos"
-                    href="/resource-library/[...multimedia]"
-                    as="/resource-library/videos"
+                    href="/education-center/[...multimedia]"
+                    as="/education-center/videos"
                     icon={<MovieIcon color="action" />}
                     {...a11yProps(1)}
                   />
@@ -418,8 +420,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     let {multimedia = []} = params || {}
     // let {multimedia = []} = query || {}
     multimedia = [...multimedia]
-    // [TODO] Not sure why 'resource-library' is ending up in the values array for the 'multimedia' query param for this dynamic catch-all page at times. The workaround is to simply remove the value if it exists in the array.
-    multimedia = multimedia.filter((i) => i !== 'resource-library')
+    // [TODO] Not sure why 'education-center' is ending up in the values array for the 'multimedia' query param for this dynamic catch-all page at times. The workaround is to simply remove the value if it exists in the array.
+    multimedia = multimedia.filter((i) => i !== 'education-center')
 
     // Set values to null by default to prevent getStaticProps from attempting to serialize undefined causing an error.
     const multimediaParam = multimedia?.[0] ?? null

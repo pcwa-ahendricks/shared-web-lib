@@ -191,8 +191,8 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
         block: 'center'
       })
       const routeSegment = newGallery ? `/${newGallery}` : ''
-      const newAsPath = `/resource-library/videos${routeSegment}`
-      router.push('/resource-library/[...multimedia]', newAsPath)
+      const newAsPath = `/education-center/videos${routeSegment}`
+      router.push('/education-center/[...multimedia]', newAsPath)
     },
     [multimediaDispatch, router]
   )

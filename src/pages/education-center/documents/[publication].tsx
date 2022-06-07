@@ -140,8 +140,8 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                href="/resource-library/[...multimedia]"
-                as="/resource-library/documents"
+                href="/education-center/[...multimedia]"
+                as="/education-center/documents"
                 className={classes.bcLink}
               >
                 <UndoIcon className={classes.bcIcon} />

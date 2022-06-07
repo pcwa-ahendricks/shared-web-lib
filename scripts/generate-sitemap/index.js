@@ -8,7 +8,7 @@
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createFileSystemAdapter = exports.FILE_SYSTEM_ADAPTER = void 0;
-const fs = __nccwpck_require__(5747);
+const fs = __nccwpck_require__(7147);
 exports.FILE_SYSTEM_ADAPTER = {
     lstat: fs.lstat,
     stat: fs.stat,
@@ -288,7 +288,7 @@ exports.readdir = readdir;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const fsStat = __nccwpck_require__(109);
 const fs = __nccwpck_require__(3803);
 class Settings {
@@ -309,7 +309,7 @@ class Settings {
         return option !== null && option !== void 0 ? option : value;
     }
 }
-exports.default = Settings;
+exports["default"] = Settings;
 
 
 /***/ }),
@@ -361,7 +361,7 @@ exports.fs = fs;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createFileSystemAdapter = exports.FILE_SYSTEM_ADAPTER = void 0;
-const fs = __nccwpck_require__(5747);
+const fs = __nccwpck_require__(7147);
 exports.FILE_SYSTEM_ADAPTER = {
     lstat: fs.lstat,
     stat: fs.stat,
@@ -507,7 +507,7 @@ class Settings {
         return option !== null && option !== void 0 ? option : value;
     }
 }
-exports.default = Settings;
+exports["default"] = Settings;
 
 
 /***/ }),
@@ -566,22 +566,22 @@ class AsyncProvider {
         this._root = _root;
         this._settings = _settings;
         this._reader = new async_1.default(this._root, this._settings);
-        this._storage = new Set();
+        this._storage = [];
     }
     read(callback) {
         this._reader.onError((error) => {
             callFailureCallback(callback, error);
         });
         this._reader.onEntry((entry) => {
-            this._storage.add(entry);
+            this._storage.push(entry);
         });
         this._reader.onEnd(() => {
-            callSuccessCallback(callback, [...this._storage]);
+            callSuccessCallback(callback, this._storage);
         });
         this._reader.read();
     }
 }
-exports.default = AsyncProvider;
+exports["default"] = AsyncProvider;
 function callFailureCallback(callback, error) {
     callback(error);
 }
@@ -598,7 +598,7 @@ function callSuccessCallback(callback, entries) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const stream_1 = __nccwpck_require__(2413);
+const stream_1 = __nccwpck_require__(2781);
 const async_1 = __nccwpck_require__(5732);
 class StreamProvider {
     constructor(_root, _settings) {
@@ -629,7 +629,7 @@ class StreamProvider {
         return this._stream;
     }
 }
-exports.default = StreamProvider;
+exports["default"] = StreamProvider;
 
 
 /***/ }),
@@ -651,7 +651,7 @@ class SyncProvider {
         return this._reader.read();
     }
 }
-exports.default = SyncProvider;
+exports["default"] = SyncProvider;
 
 
 /***/ }),
@@ -662,7 +662,7 @@ exports.default = SyncProvider;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const events_1 = __nccwpck_require__(8614);
+const events_1 = __nccwpck_require__(2361);
 const fsScandir = __nccwpck_require__(5667);
 const fastq = __nccwpck_require__(7340);
 const common = __nccwpck_require__(7988);
@@ -749,14 +749,14 @@ class AsyncReader extends reader_1.default {
             this._emitEntry(entry);
         }
         if (entry.dirent.isDirectory() && common.isAppliedFilter(this._settings.deepFilter, entry)) {
-            this._pushToQueue(fullpath, entry.path);
+            this._pushToQueue(fullpath, base === undefined ? undefined : entry.path);
         }
     }
     _emitEntry(entry) {
         this._emitter.emit('entry', entry);
     }
 }
-exports.default = AsyncReader;
+exports["default"] = AsyncReader;
 
 
 /***/ }),
@@ -814,7 +814,7 @@ class Reader {
         this._root = common.replacePathSegmentSeparator(_root, _settings.pathSegmentSeparator);
     }
 }
-exports.default = Reader;
+exports["default"] = Reader;
 
 
 /***/ }),
@@ -832,13 +832,13 @@ class SyncReader extends reader_1.default {
     constructor() {
         super(...arguments);
         this._scandir = fsScandir.scandirSync;
-        this._storage = new Set();
+        this._storage = [];
         this._queue = new Set();
     }
     read() {
         this._pushToQueue(this._root, this._settings.basePath);
         this._handleQueue();
-        return [...this._storage];
+        return this._storage;
     }
     _pushToQueue(directory, base) {
         this._queue.add({ directory, base });
@@ -874,14 +874,14 @@ class SyncReader extends reader_1.default {
             this._pushToStorage(entry);
         }
         if (entry.dirent.isDirectory() && common.isAppliedFilter(this._settings.deepFilter, entry)) {
-            this._pushToQueue(fullpath, entry.path);
+            this._pushToQueue(fullpath, base === undefined ? undefined : entry.path);
         }
     }
     _pushToStorage(entry) {
-        this._storage.add(entry);
+        this._storage.push(entry);
     }
 }
-exports.default = SyncReader;
+exports["default"] = SyncReader;
 
 
 /***/ }),
@@ -892,7 +892,7 @@ exports.default = SyncReader;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const fsScandir = __nccwpck_require__(5667);
 class Settings {
     constructor(_options = {}) {
@@ -915,7 +915,7 @@ class Settings {
         return option !== null && option !== void 0 ? option : value;
     }
 }
-exports.default = Settings;
+exports["default"] = Settings;
 
 
 /***/ }),
@@ -1872,7 +1872,7 @@ exports.flatten = (...args) => {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = assign;
+exports["default"] = assign;
 
 function assign(target, dirtyObject) {
   if (target == null) {
@@ -1903,7 +1903,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 
 function dateLongFormatter(pattern, formatLong) {
   switch (pattern) {
@@ -1956,7 +1956,7 @@ function timeLongFormatter(pattern, formatLong) {
 }
 
 function dateTimeLongFormatter(pattern, formatLong) {
-  var matchResult = pattern.match(/(P+)(p+)?/);
+  var matchResult = pattern.match(/(P+)(p+)?/) || [];
   var datePattern = matchResult[1];
   var timePattern = matchResult[2];
 
@@ -2001,7 +2001,7 @@ var longFormatters = {
   P: dateTimeLongFormatter
 };
 var _default = longFormatters;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -2015,7 +2015,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getTimezoneOffsetInMilliseconds;
+exports["default"] = getTimezoneOffsetInMilliseconds;
 
 /**
  * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
@@ -2047,7 +2047,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getUTCISOWeek;
+exports["default"] = getUTCISOWeek;
 
 var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
@@ -2085,30 +2085,30 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getUTCISOWeekYear;
+exports["default"] = getUTCISOWeekYear;
 
 var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
-var _index2 = _interopRequireDefault(__nccwpck_require__(3061));
+var _index2 = _interopRequireDefault(__nccwpck_require__(2063));
 
-var _index3 = _interopRequireDefault(__nccwpck_require__(2063));
+var _index3 = _interopRequireDefault(__nccwpck_require__(3061));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 function getUTCISOWeekYear(dirtyDate) {
-  (0, _index3.default)(1, arguments);
+  (0, _index2.default)(1, arguments);
   var date = (0, _index.default)(dirtyDate);
   var year = date.getUTCFullYear();
   var fourthOfJanuaryOfNextYear = new Date(0);
   fourthOfJanuaryOfNextYear.setUTCFullYear(year + 1, 0, 4);
   fourthOfJanuaryOfNextYear.setUTCHours(0, 0, 0, 0);
-  var startOfNextYear = (0, _index2.default)(fourthOfJanuaryOfNextYear);
+  var startOfNextYear = (0, _index3.default)(fourthOfJanuaryOfNextYear);
   var fourthOfJanuaryOfThisYear = new Date(0);
   fourthOfJanuaryOfThisYear.setUTCFullYear(year, 0, 4);
   fourthOfJanuaryOfThisYear.setUTCHours(0, 0, 0, 0);
-  var startOfThisYear = (0, _index2.default)(fourthOfJanuaryOfThisYear);
+  var startOfThisYear = (0, _index3.default)(fourthOfJanuaryOfThisYear);
 
   if (date.getTime() >= startOfNextYear.getTime()) {
     return year + 1;
@@ -2132,7 +2132,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getUTCWeek;
+exports["default"] = getUTCWeek;
 
 var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
@@ -2170,29 +2170,29 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getUTCWeekYear;
+exports["default"] = getUTCWeekYear;
 
-var _index = _interopRequireDefault(__nccwpck_require__(1985));
+var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
-var _index2 = _interopRequireDefault(__nccwpck_require__(6369));
+var _index2 = _interopRequireDefault(__nccwpck_require__(2063));
 
 var _index3 = _interopRequireDefault(__nccwpck_require__(2258));
 
-var _index4 = _interopRequireDefault(__nccwpck_require__(2063));
+var _index4 = _interopRequireDefault(__nccwpck_require__(1985));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 function getUTCWeekYear(dirtyDate, dirtyOptions) {
-  (0, _index4.default)(1, arguments);
-  var date = (0, _index2.default)(dirtyDate, dirtyOptions);
+  (0, _index2.default)(1, arguments);
+  var date = (0, _index.default)(dirtyDate);
   var year = date.getUTCFullYear();
   var options = dirtyOptions || {};
   var locale = options.locale;
   var localeFirstWeekContainsDate = locale && locale.options && locale.options.firstWeekContainsDate;
-  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : (0, _index.default)(localeFirstWeekContainsDate);
-  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : (0, _index.default)(options.firstWeekContainsDate); // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
+  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : (0, _index4.default)(localeFirstWeekContainsDate);
+  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : (0, _index4.default)(options.firstWeekContainsDate); // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
 
   if (!(firstWeekContainsDate >= 1 && firstWeekContainsDate <= 7)) {
     throw new RangeError('firstWeekContainsDate must be between 1 and 7 inclusively');
@@ -2266,7 +2266,7 @@ function throwProtectedError(token, format, input) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = requiredArgs;
+exports["default"] = requiredArgs;
 
 function requiredArgs(required, args) {
   if (args.length < required) {
@@ -2287,32 +2287,32 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = setUTCDay;
+exports["default"] = setUTCDay;
 
-var _index = _interopRequireDefault(__nccwpck_require__(1985));
+var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
-var _index2 = _interopRequireDefault(__nccwpck_require__(6369));
+var _index2 = _interopRequireDefault(__nccwpck_require__(2063));
 
-var _index3 = _interopRequireDefault(__nccwpck_require__(2063));
+var _index3 = _interopRequireDefault(__nccwpck_require__(1985));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 function setUTCDay(dirtyDate, dirtyDay, dirtyOptions) {
-  (0, _index3.default)(2, arguments);
+  (0, _index2.default)(2, arguments);
   var options = dirtyOptions || {};
   var locale = options.locale;
   var localeWeekStartsOn = locale && locale.options && locale.options.weekStartsOn;
-  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : (0, _index.default)(localeWeekStartsOn);
-  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : (0, _index.default)(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : (0, _index3.default)(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : (0, _index3.default)(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
 
   if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
     throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
   }
 
-  var date = (0, _index2.default)(dirtyDate);
-  var day = (0, _index.default)(dirtyDay);
+  var date = (0, _index.default)(dirtyDate);
+  var day = (0, _index3.default)(dirtyDay);
   var currentDay = date.getUTCDay();
   var remainder = day % 7;
   var dayIndex = (remainder + 7) % 7;
@@ -2334,28 +2334,28 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = setUTCISODay;
+exports["default"] = setUTCISODay;
 
-var _index = _interopRequireDefault(__nccwpck_require__(1985));
+var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
-var _index2 = _interopRequireDefault(__nccwpck_require__(6369));
+var _index2 = _interopRequireDefault(__nccwpck_require__(2063));
 
-var _index3 = _interopRequireDefault(__nccwpck_require__(2063));
+var _index3 = _interopRequireDefault(__nccwpck_require__(1985));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 function setUTCISODay(dirtyDate, dirtyDay) {
-  (0, _index3.default)(2, arguments);
-  var day = (0, _index.default)(dirtyDay);
+  (0, _index2.default)(2, arguments);
+  var day = (0, _index3.default)(dirtyDay);
 
   if (day % 7 === 0) {
     day = day - 7;
   }
 
   var weekStartsOn = 1;
-  var date = (0, _index2.default)(dirtyDate);
+  var date = (0, _index.default)(dirtyDate);
   var currentDay = date.getUTCDay();
   var remainder = day % 7;
   var dayIndex = (remainder + 7) % 7;
@@ -2377,7 +2377,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = setUTCISOWeek;
+exports["default"] = setUTCISOWeek;
 
 var _index = _interopRequireDefault(__nccwpck_require__(1985));
 
@@ -2413,7 +2413,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = setUTCWeek;
+exports["default"] = setUTCWeek;
 
 var _index = _interopRequireDefault(__nccwpck_require__(1985));
 
@@ -2449,7 +2449,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = startOfUTCISOWeek;
+exports["default"] = startOfUTCISOWeek;
 
 var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
@@ -2483,7 +2483,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = startOfUTCISOWeekYear;
+exports["default"] = startOfUTCISOWeekYear;
 
 var _index = _interopRequireDefault(__nccwpck_require__(7170));
 
@@ -2518,31 +2518,31 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = startOfUTCWeek;
+exports["default"] = startOfUTCWeek;
 
-var _index = _interopRequireDefault(__nccwpck_require__(1985));
+var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
-var _index2 = _interopRequireDefault(__nccwpck_require__(6369));
+var _index2 = _interopRequireDefault(__nccwpck_require__(2063));
 
-var _index3 = _interopRequireDefault(__nccwpck_require__(2063));
+var _index3 = _interopRequireDefault(__nccwpck_require__(1985));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 function startOfUTCWeek(dirtyDate, dirtyOptions) {
-  (0, _index3.default)(1, arguments);
+  (0, _index2.default)(1, arguments);
   var options = dirtyOptions || {};
   var locale = options.locale;
   var localeWeekStartsOn = locale && locale.options && locale.options.weekStartsOn;
-  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : (0, _index.default)(localeWeekStartsOn);
-  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : (0, _index.default)(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : (0, _index3.default)(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : (0, _index3.default)(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
 
   if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
     throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
   }
 
-  var date = (0, _index2.default)(dirtyDate);
+  var date = (0, _index.default)(dirtyDate);
   var day = date.getUTCDay();
   var diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
   date.setUTCDate(date.getUTCDate() - diff);
@@ -2563,28 +2563,28 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = startOfUTCWeekYear;
+exports["default"] = startOfUTCWeekYear;
 
-var _index = _interopRequireDefault(__nccwpck_require__(1985));
+var _index = _interopRequireDefault(__nccwpck_require__(8050));
 
-var _index2 = _interopRequireDefault(__nccwpck_require__(8050));
+var _index2 = _interopRequireDefault(__nccwpck_require__(2063));
 
 var _index3 = _interopRequireDefault(__nccwpck_require__(2258));
 
-var _index4 = _interopRequireDefault(__nccwpck_require__(2063));
+var _index4 = _interopRequireDefault(__nccwpck_require__(1985));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 function startOfUTCWeekYear(dirtyDate, dirtyOptions) {
-  (0, _index4.default)(1, arguments);
+  (0, _index2.default)(1, arguments);
   var options = dirtyOptions || {};
   var locale = options.locale;
   var localeFirstWeekContainsDate = locale && locale.options && locale.options.firstWeekContainsDate;
-  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : (0, _index.default)(localeFirstWeekContainsDate);
-  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : (0, _index.default)(options.firstWeekContainsDate);
-  var year = (0, _index2.default)(dirtyDate, dirtyOptions);
+  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : (0, _index4.default)(localeFirstWeekContainsDate);
+  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : (0, _index4.default)(options.firstWeekContainsDate);
+  var year = (0, _index.default)(dirtyDate, dirtyOptions);
   var firstWeek = new Date(0);
   firstWeek.setUTCFullYear(year, 0, firstWeekContainsDate);
   firstWeek.setUTCHours(0, 0, 0, 0);
@@ -2605,7 +2605,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = toInteger;
+exports["default"] = toInteger;
 
 function toInteger(dirtyNumber) {
   if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
@@ -2634,7 +2634,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = addMilliseconds;
+exports["default"] = addMilliseconds;
 
 var _index = _interopRequireDefault(__nccwpck_require__(1985));
 
@@ -2686,7 +2686,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getYear;
+exports["default"] = getYear;
 
 var _index = _interopRequireDefault(__nccwpck_require__(6369));
 
@@ -2717,9 +2717,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function getYear(dirtyDate) {
   (0, _index2.default)(1, arguments);
-  var date = (0, _index.default)(dirtyDate);
-  var year = date.getFullYear();
-  return year;
+  return (0, _index.default)(dirtyDate).getFullYear();
 }
 
 module.exports = exports.default;
@@ -2735,7 +2733,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isDate;
+exports["default"] = isDate;
 
 var _index = _interopRequireDefault(__nccwpck_require__(2063));
 
@@ -2795,7 +2793,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isValid;
+exports["default"] = isValid;
 
 var _index = _interopRequireDefault(__nccwpck_require__(6801));
 
@@ -2886,7 +2884,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = buildFormatLongFn;
+exports["default"] = buildFormatLongFn;
 
 function buildFormatLongFn(args) {
   return function () {
@@ -2911,7 +2909,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = buildLocalizeFn;
+exports["default"] = buildLocalizeFn;
 
 function buildLocalizeFn(args) {
   return function (dirtyIndex, dirtyOptions) {
@@ -2931,7 +2929,7 @@ function buildLocalizeFn(args) {
       valuesArray = args.values[_width] || args.values[_defaultWidth];
     }
 
-    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex; // @ts-ignore: For some reason TypeScript just don't want to match it, no matter how hard we try. I challange you to try to remove it!
+    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex; // @ts-ignore: For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
 
     return valuesArray[index];
   };
@@ -2950,7 +2948,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = buildMatchFn;
+exports["default"] = buildMatchFn;
 
 function buildMatchFn(args) {
   return function (string) {
@@ -3014,7 +3012,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = buildMatchPatternFn;
+exports["default"] = buildMatchPatternFn;
 
 function buildMatchPatternFn(args) {
   return function (string) {
@@ -3047,7 +3045,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 var formatDistanceLocale = {
   lessThanXSeconds: {
     one: 'less than a second',
@@ -3136,7 +3134,7 @@ var formatDistance = function (token, count, options) {
 };
 
 var _default = formatDistance;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -3150,7 +3148,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _index = _interopRequireDefault(__nccwpck_require__(1244));
 
@@ -3189,7 +3187,7 @@ var formatLong = {
   })
 };
 var _default = formatLong;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -3203,7 +3201,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 var formatRelativeLocale = {
   lastWeek: "'last' eeee 'at' p",
   yesterday: "'yesterday at' p",
@@ -3218,7 +3216,7 @@ var formatRelative = function (token, _date, _baseDate, _options) {
 };
 
 var _default = formatRelative;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -3232,7 +3230,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _index = _interopRequireDefault(__nccwpck_require__(3647));
 
@@ -3383,7 +3381,7 @@ var localize = {
   })
 };
 var _default = localize;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -3397,7 +3395,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _index = _interopRequireDefault(__nccwpck_require__(7587));
 
@@ -3501,7 +3499,7 @@ var match = {
   })
 };
 var _default = match;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -3515,7 +3513,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _index = _interopRequireDefault(__nccwpck_require__(4846));
 
@@ -3553,7 +3551,7 @@ var locale = {
   }
 };
 var _default = locale;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -3567,7 +3565,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _index = _interopRequireDefault(__nccwpck_require__(8050));
 
@@ -4716,7 +4714,7 @@ var parsers = {
       date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
       return date;
     },
-    incompatibleTokens: ['b', 'B', 'H', 'K', 'k', 't', 'T']
+    incompatibleTokens: ['b', 'B', 'H', 'k', 't', 'T']
   },
   // AM, PM, midnight
   b: {
@@ -4758,7 +4756,7 @@ var parsers = {
       date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
       return date;
     },
-    incompatibleTokens: ['a', 'B', 'H', 'K', 'k', 't', 'T']
+    incompatibleTokens: ['a', 'B', 'H', 'k', 't', 'T']
   },
   // in the morning, in the afternoon, in the evening, at night
   B: {
@@ -4894,7 +4892,7 @@ var parsers = {
 
       return date;
     },
-    incompatibleTokens: ['a', 'b', 'h', 'H', 'k', 't', 'T']
+    incompatibleTokens: ['h', 'H', 'k', 't', 'T']
   },
   // Hour [1-24]
   k: {
@@ -5081,7 +5079,7 @@ var parsers = {
   }
 };
 var _default = parsers;
-exports.default = _default;
+exports["default"] = _default;
 module.exports = exports.default;
 
 /***/ }),
@@ -5095,7 +5093,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = parse;
+exports["default"] = parse;
 
 var _index = _interopRequireDefault(__nccwpck_require__(1773));
 
@@ -5289,7 +5287,7 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * |                                 |     | tt      | ...                               | 2     |
  * | Fraction of second              |  30 | S       | 0, 1, ..., 9                      |       |
  * |                                 |     | SS      | 00, 01, ..., 99                   |       |
- * |                                 |     | SSS     | 000, 0001, ..., 999               |       |
+ * |                                 |     | SSS     | 000, 001, ..., 999                |       |
  * |                                 |     | SSSS    | ...                               | 2     |
  * | Milliseconds timestamp          |  20 | T       | 512969520900                      |       |
  * |                                 |     | TT      | ...                               | 2     |
@@ -5674,7 +5672,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = subMilliseconds;
+exports["default"] = subMilliseconds;
 
 var _index = _interopRequireDefault(__nccwpck_require__(1985));
 
@@ -5725,7 +5723,7 @@ module.exports = exports.default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = toDate;
+exports["default"] = toDate;
 
 var _index = _interopRequireDefault(__nccwpck_require__(2063));
 
@@ -5791,7 +5789,7 @@ module.exports = exports.default;
 
 "use strict";
 
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const pathType = __nccwpck_require__(3433);
 
 const getExtensions = extensions => extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0];
@@ -5974,7 +5972,7 @@ function convertPatternsToTasks(positive, negative, dynamic) {
     const patternsInsideCurrentDirectory = utils.pattern.getPatternsInsideCurrentDirectory(positive);
     const outsideCurrentDirectoryGroup = groupPatternsByBaseDirectory(patternsOutsideCurrentDirectory);
     const insideCurrentDirectoryGroup = groupPatternsByBaseDirectory(patternsInsideCurrentDirectory);
-    tasks.push(...convertPatternGroupsToTasks(outsideCurrentDirectoryGroup, [], dynamic));
+    tasks.push(...convertPatternGroupsToTasks(outsideCurrentDirectoryGroup, negative, dynamic));
     /*
      * For the sake of reducing future accesses to the file system, we merge all tasks within the current directory
      * into a global task, if at least one pattern refers to the root (`.`). In this case, the global task covers the rest.
@@ -6063,7 +6061,7 @@ class ProviderAsync extends provider_1.default {
         return this._reader.static(task.patterns, options);
     }
 }
-exports.default = ProviderAsync;
+exports["default"] = ProviderAsync;
 
 
 /***/ }),
@@ -6133,7 +6131,7 @@ class DeepFilter {
         return !utils.pattern.matchAny(entryPath, patternsRe);
     }
 }
-exports.default = DeepFilter;
+exports["default"] = DeepFilter;
 
 
 /***/ }),
@@ -6197,7 +6195,7 @@ class EntryFilter {
         return utils.pattern.matchAny(filepath, patternsRe);
     }
 }
-exports.default = EntryFilter;
+exports["default"] = EntryFilter;
 
 
 /***/ }),
@@ -6220,7 +6218,7 @@ class ErrorFilter {
         return utils.errno.isEnoentCodeError(error) || this._settings.suppressErrors;
     }
 }
-exports.default = ErrorFilter;
+exports["default"] = ErrorFilter;
 
 
 /***/ }),
@@ -6278,7 +6276,7 @@ class Matcher {
         return utils.array.splitWhen(segments, (segment) => segment.dynamic && utils.pattern.hasGlobStar(segment.pattern));
     }
 }
-exports.default = Matcher;
+exports["default"] = Matcher;
 
 
 /***/ }),
@@ -6324,7 +6322,7 @@ class PartialMatcher extends matcher_1.default {
         return false;
     }
 }
-exports.default = PartialMatcher;
+exports["default"] = PartialMatcher;
 
 
 /***/ }),
@@ -6335,7 +6333,7 @@ exports.default = PartialMatcher;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const deep_1 = __nccwpck_require__(6983);
 const entry_1 = __nccwpck_require__(1343);
 const error_1 = __nccwpck_require__(6654);
@@ -6380,7 +6378,7 @@ class Provider {
         };
     }
 }
-exports.default = Provider;
+exports["default"] = Provider;
 
 
 /***/ }),
@@ -6391,7 +6389,7 @@ exports.default = Provider;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const stream_1 = __nccwpck_require__(2413);
+const stream_1 = __nccwpck_require__(2781);
 const stream_2 = __nccwpck_require__(2083);
 const provider_1 = __nccwpck_require__(257);
 class ProviderStream extends provider_1.default {
@@ -6419,7 +6417,7 @@ class ProviderStream extends provider_1.default {
         return this._reader.static(task.patterns, options);
     }
 }
-exports.default = ProviderStream;
+exports["default"] = ProviderStream;
 
 
 /***/ }),
@@ -6450,7 +6448,7 @@ class ProviderSync extends provider_1.default {
         return this._reader.static(task.patterns, options);
     }
 }
-exports.default = ProviderSync;
+exports["default"] = ProviderSync;
 
 
 /***/ }),
@@ -6484,7 +6482,7 @@ class EntryTransformer {
         return Object.assign(Object.assign({}, entry), { path: filepath });
     }
 }
-exports.default = EntryTransformer;
+exports["default"] = EntryTransformer;
 
 
 /***/ }),
@@ -6495,7 +6493,7 @@ exports.default = EntryTransformer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const fsStat = __nccwpck_require__(109);
 const utils = __nccwpck_require__(5444);
 class Reader {
@@ -6525,7 +6523,7 @@ class Reader {
         return !utils.errno.isEnoentCodeError(error) && !this._settings.suppressErrors;
     }
 }
-exports.default = Reader;
+exports["default"] = Reader;
 
 
 /***/ }),
@@ -6536,7 +6534,7 @@ exports.default = Reader;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const stream_1 = __nccwpck_require__(2413);
+const stream_1 = __nccwpck_require__(2781);
 const fsStat = __nccwpck_require__(109);
 const fsWalk = __nccwpck_require__(6026);
 const reader_1 = __nccwpck_require__(5582);
@@ -6588,7 +6586,7 @@ class ReaderStream extends reader_1.default {
         });
     }
 }
-exports.default = ReaderStream;
+exports["default"] = ReaderStream;
 
 
 /***/ }),
@@ -6639,7 +6637,7 @@ class ReaderSync extends reader_1.default {
         return this._statSync(filepath, this._fsStatSettings);
     }
 }
-exports.default = ReaderSync;
+exports["default"] = ReaderSync;
 
 
 /***/ }),
@@ -6651,8 +6649,8 @@ exports.default = ReaderSync;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DEFAULT_FILE_SYSTEM_ADAPTER = void 0;
-const fs = __nccwpck_require__(5747);
-const os = __nccwpck_require__(2087);
+const fs = __nccwpck_require__(7147);
+const os = __nccwpck_require__(2037);
 /**
  * The `os.cpus` method can return zero. We expect the number of cores to be greater than zero.
  * https://github.com/nodejs/node/blob/7faeddf23a98c53896f8b574a6e66589e8fb1eb8/lib/os.js#L106-L107
@@ -6704,7 +6702,7 @@ class Settings {
         return Object.assign(Object.assign({}, exports.DEFAULT_FILE_SYSTEM_ADAPTER), methods);
     }
 }
-exports.default = Settings;
+exports["default"] = Settings;
 
 
 /***/ }),
@@ -6813,7 +6811,7 @@ exports.string = string;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.removeLeadingDotSegment = exports.escape = exports.makeAbsolute = exports.unixify = void 0;
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const LEADING_DOT_SEGMENT_CHARACTERS_COUNT = 2; // ./ or .\\
 const UNESCAPED_GLOB_SYMBOLS_RE = /(\\?)([()*?[\]{|}]|^!|[!+@](?=\())/g;
 /**
@@ -6854,7 +6852,7 @@ exports.removeLeadingDotSegment = removeLeadingDotSegment;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.matchAny = exports.convertPatternsToRe = exports.makeRe = exports.getPatternParts = exports.expandBraceExpansion = exports.expandPatternsWithBraceExpansion = exports.isAffectDepthOfReadingPattern = exports.endsWithSlashGlobStar = exports.hasGlobStar = exports.getBaseDirectory = exports.isPatternRelatedToParentDirectory = exports.getPatternsOutsideCurrentDirectory = exports.getPatternsInsideCurrentDirectory = exports.getPositivePatterns = exports.getNegativePatterns = exports.isPositivePattern = exports.isNegativePattern = exports.convertToNegativePattern = exports.convertToPositivePattern = exports.isDynamicPattern = exports.isStaticPattern = void 0;
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const globParent = __nccwpck_require__(4655);
 const micromatch = __nccwpck_require__(6228);
 const GLOBSTAR = '**';
@@ -7285,11 +7283,12 @@ function queueAsPromised (context, worker, concurrency) {
 
   queue.push = push
   queue.unshift = unshift
+  queue.drained = drained
 
   return queue
 
   function push (value) {
-    return new Promise(function (resolve, reject) {
+    var p = new Promise(function (resolve, reject) {
       pushCb(value, function (err, result) {
         if (err) {
           reject(err)
@@ -7298,10 +7297,17 @@ function queueAsPromised (context, worker, concurrency) {
         resolve(result)
       })
     })
+
+    // Let's fork the promise chain to
+    // make the error bubble up to the user but
+    // not lead to a unhandledRejection
+    p.catch(noop)
+
+    return p
   }
 
   function unshift (value) {
-    return new Promise(function (resolve, reject) {
+    var p = new Promise(function (resolve, reject) {
       unshiftCb(value, function (err, result) {
         if (err) {
           reject(err)
@@ -7310,6 +7316,26 @@ function queueAsPromised (context, worker, concurrency) {
         resolve(result)
       })
     })
+
+    // Let's fork the promise chain to
+    // make the error bubble up to the user but
+    // not lead to a unhandledRejection
+    p.catch(noop)
+
+    return p
+  }
+
+  function drained () {
+    var previousDrain = queue.drain
+
+    var p = new Promise(function (resolve) {
+      queue.drain = function () {
+        previousDrain()
+        resolve()
+      }
+    })
+
+    return p
   }
 }
 
@@ -7332,7 +7358,7 @@ module.exports.promise = queueAsPromised
 
 
 
-const util = __nccwpck_require__(1669);
+const util = __nccwpck_require__(3837);
 const toRegexRange = __nccwpck_require__(1861);
 
 const isObject = val => val !== null && typeof val === 'object' && !Array.isArray(val);
@@ -7583,8 +7609,8 @@ module.exports = fill;
 
 
 var isGlob = __nccwpck_require__(4466);
-var pathPosixDirname = __nccwpck_require__(5622).posix.dirname;
-var isWin32 = __nccwpck_require__(2087).platform() === 'win32';
+var pathPosixDirname = (__nccwpck_require__(1017).posix.dirname);
+var isWin32 = (__nccwpck_require__(2037).platform)() === 'win32';
 
 var slash = '/';
 var backslash = /\\/g;
@@ -7631,9 +7657,9 @@ module.exports = function globParent(str, opts) {
 
 "use strict";
 
-const {promisify} = __nccwpck_require__(1669);
-const fs = __nccwpck_require__(5747);
-const path = __nccwpck_require__(5622);
+const {promisify} = __nccwpck_require__(3837);
+const fs = __nccwpck_require__(7147);
+const path = __nccwpck_require__(1017);
 const fastGlob = __nccwpck_require__(3664);
 const gitIgnore = __nccwpck_require__(2069);
 const slash = __nccwpck_require__(4111);
@@ -7759,7 +7785,7 @@ module.exports.sync = options => {
 
 "use strict";
 
-const fs = __nccwpck_require__(5747);
+const fs = __nccwpck_require__(7147);
 const arrayUnion = __nccwpck_require__(9600);
 const merge2 = __nccwpck_require__(2578);
 const fastGlob = __nccwpck_require__(3664);
@@ -8236,22 +8262,18 @@ const REPLACERS = [
 const regexCache = Object.create(null)
 
 // @param {pattern}
-const makeRegex = (pattern, negative, ignorecase) => {
-  const r = regexCache[pattern]
-  if (r) {
-    return r
+const makeRegex = (pattern, ignorecase) => {
+  let source = regexCache[pattern]
+
+  if (!source) {
+    source = REPLACERS.reduce(
+      (prev, current) => prev.replace(current[0], current[1].bind(pattern)),
+      pattern
+    )
+    regexCache[pattern] = source
   }
 
-  // const replacers = negative
-  //   ? NEGATIVE_REPLACERS
-  //   : POSITIVE_REPLACERS
-
-  const source = REPLACERS.reduce(
-    (prev, current) => prev.replace(current[0], current[1].bind(pattern)),
-    pattern
-  )
-
-  return regexCache[pattern] = ignorecase
+  return ignorecase
     ? new RegExp(source, 'i')
     : new RegExp(source)
 }
@@ -8300,7 +8322,7 @@ const createRule = (pattern, ignorecase) => {
   // >   begin with a hash.
   .replace(REGEX_REPLACE_LEADING_EXCAPED_HASH, '#')
 
-  const regex = makeRegex(pattern, negative, ignorecase)
+  const regex = makeRegex(pattern, ignorecase)
 
   return new IgnoreRule(
     origin,
@@ -8348,9 +8370,10 @@ class Ignore {
   constructor ({
     ignorecase = true
   } = {}) {
+    define(this, KEY_IGNORE, true)
+
     this._rules = []
     this._ignorecase = ignorecase
-    define(this, KEY_IGNORE, true)
     this._initCache()
   }
 
@@ -8552,7 +8575,7 @@ if (
 
 "use strict";
 
-const {Transform} = __nccwpck_require__(2413);
+const {Transform} = __nccwpck_require__(2781);
 
 class ObjectTransform extends Transform {
 	constructor() {
@@ -8640,8 +8663,128 @@ module.exports = function isExtglob(str) {
 
 var isExtglob = __nccwpck_require__(6435);
 var chars = { '{': '}', '(': ')', '[': ']'};
-var strictRegex = /\\(.)|(^!|\*|[\].+)]\?|\[[^\\\]]+\]|\{[^\\}]+\}|\(\?[:!=][^\\)]+\)|\([^|]+\|[^\\)]+\))/;
-var relaxedRegex = /\\(.)|(^!|[*?{}()[\]]|\(\?)/;
+var strictCheck = function(str) {
+  if (str[0] === '!') {
+    return true;
+  }
+  var index = 0;
+  var pipeIndex = -2;
+  var closeSquareIndex = -2;
+  var closeCurlyIndex = -2;
+  var closeParenIndex = -2;
+  var backSlashIndex = -2;
+  while (index < str.length) {
+    if (str[index] === '*') {
+      return true;
+    }
+
+    if (str[index + 1] === '?' && /[\].+)]/.test(str[index])) {
+      return true;
+    }
+
+    if (closeSquareIndex !== -1 && str[index] === '[' && str[index + 1] !== ']') {
+      if (closeSquareIndex < index) {
+        closeSquareIndex = str.indexOf(']', index);
+      }
+      if (closeSquareIndex > index) {
+        if (backSlashIndex === -1 || backSlashIndex > closeSquareIndex) {
+          return true;
+        }
+        backSlashIndex = str.indexOf('\\', index);
+        if (backSlashIndex === -1 || backSlashIndex > closeSquareIndex) {
+          return true;
+        }
+      }
+    }
+
+    if (closeCurlyIndex !== -1 && str[index] === '{' && str[index + 1] !== '}') {
+      closeCurlyIndex = str.indexOf('}', index);
+      if (closeCurlyIndex > index) {
+        backSlashIndex = str.indexOf('\\', index);
+        if (backSlashIndex === -1 || backSlashIndex > closeCurlyIndex) {
+          return true;
+        }
+      }
+    }
+
+    if (closeParenIndex !== -1 && str[index] === '(' && str[index + 1] === '?' && /[:!=]/.test(str[index + 2]) && str[index + 3] !== ')') {
+      closeParenIndex = str.indexOf(')', index);
+      if (closeParenIndex > index) {
+        backSlashIndex = str.indexOf('\\', index);
+        if (backSlashIndex === -1 || backSlashIndex > closeParenIndex) {
+          return true;
+        }
+      }
+    }
+
+    if (pipeIndex !== -1 && str[index] === '(' && str[index + 1] !== '|') {
+      if (pipeIndex < index) {
+        pipeIndex = str.indexOf('|', index);
+      }
+      if (pipeIndex !== -1 && str[pipeIndex + 1] !== ')') {
+        closeParenIndex = str.indexOf(')', pipeIndex);
+        if (closeParenIndex > pipeIndex) {
+          backSlashIndex = str.indexOf('\\', pipeIndex);
+          if (backSlashIndex === -1 || backSlashIndex > closeParenIndex) {
+            return true;
+          }
+        }
+      }
+    }
+
+    if (str[index] === '\\') {
+      var open = str[index + 1];
+      index += 2;
+      var close = chars[open];
+
+      if (close) {
+        var n = str.indexOf(close, index);
+        if (n !== -1) {
+          index = n + 1;
+        }
+      }
+
+      if (str[index] === '!') {
+        return true;
+      }
+    } else {
+      index++;
+    }
+  }
+  return false;
+};
+
+var relaxedCheck = function(str) {
+  if (str[0] === '!') {
+    return true;
+  }
+  var index = 0;
+  while (index < str.length) {
+    if (/[*?{}()[\]]/.test(str[index])) {
+      return true;
+    }
+
+    if (str[index] === '\\') {
+      var open = str[index + 1];
+      index += 2;
+      var close = chars[open];
+
+      if (close) {
+        var n = str.indexOf(close, index);
+        if (n !== -1) {
+          index = n + 1;
+        }
+      }
+
+      if (str[index] === '!') {
+        return true;
+      }
+    } else {
+      index++;
+    }
+  }
+  return false;
+};
 
 module.exports = function isGlob(str, options) {
   if (typeof str !== 'string' || str === '') {
@@ -8652,32 +8795,14 @@ module.exports = function isGlob(str, options) {
     return true;
   }
 
-  var regex = strictRegex;
-  var match;
+  var check = strictCheck;
 
-  // optionally relax regex
+  // optionally relax check
   if (options && options.strict === false) {
-    regex = relaxedRegex;
+    check = relaxedCheck;
   }
 
-  while ((match = regex.exec(str))) {
-    if (match[2]) return true;
-    var idx = match.index + match[0].length;
-
-    // if an open bracket/brace/paren is escaped,
-    // set the index to the next closing character
-    var open = match[1];
-    var close = open ? chars[open] : null;
-    if (open && close) {
-      var n = str.indexOf(close, idx);
-      if (n !== -1) {
-        idx = n + 1;
-      }
-    }
-
-    str = str.slice(idx);
-  }
-  return false;
+  return check(str);
 };
 
 
@@ -8721,7 +8846,7 @@ module.exports = function(num) {
  * Copyright (c) 2014-2020 Teambition
  * Licensed under the MIT license.
  */
-const Stream = __nccwpck_require__(2413)
+const Stream = __nccwpck_require__(2781)
 const PassThrough = Stream.PassThrough
 const slice = Array.prototype.slice
 
@@ -8867,7 +8992,7 @@ function pauseStreams (streams, options) {
 "use strict";
 
 
-const util = __nccwpck_require__(1669);
+const util = __nccwpck_require__(3837);
 const braces = __nccwpck_require__(610);
 const picomatch = __nccwpck_require__(8569);
 const utils = __nccwpck_require__(479);
@@ -9341,8 +9466,8 @@ module.exports = micromatch;
 
 "use strict";
 
-const {promisify} = __nccwpck_require__(1669);
-const fs = __nccwpck_require__(5747);
+const {promisify} = __nccwpck_require__(3837);
+const fs = __nccwpck_require__(7147);
 
 async function isType(fsStatType, statsMethodName, filePath) {
 	if (typeof filePath !== 'string') {
@@ -9404,7 +9529,7 @@ module.exports = __nccwpck_require__(3322);
 "use strict";
 
 
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const WIN_SLASH = '\\\\/';
 const WIN_NO_SLASH = `[^${WIN_SLASH}]`;
 
@@ -10683,7 +10808,7 @@ module.exports = parse;
 "use strict";
 
 
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const scan = __nccwpck_require__(2429);
 const parse = __nccwpck_require__(2139);
 const utils = __nccwpck_require__(479);
@@ -11432,7 +11557,7 @@ module.exports = scan;
 "use strict";
 
 
-const path = __nccwpck_require__(5622);
+const path = __nccwpck_require__(1017);
 const win32 = process.platform === 'win32';
 const {
   REGEX_BACKSLASH,
@@ -11766,13 +11891,13 @@ module.exports = path => {
 ;(function (name, root, factory) {
   if (true) {
     module.exports = factory()
-    module.exports.default = factory()
+    module.exports["default"] = factory()
   }
   /* istanbul ignore next */
   else {}
 }('slugify', this, function () {
-  var charMap = JSON.parse('{"$":"dollar","%":"percent","&":"and","<":"less",">":"greater","|":"or","¢":"cent","£":"pound","¤":"currency","¥":"yen","©":"(c)","ª":"a","®":"(r)","º":"o","À":"A","Á":"A","Â":"A","Ã":"A","Ä":"A","Å":"A","Æ":"AE","Ç":"C","È":"E","É":"E","Ê":"E","Ë":"E","Ì":"I","Í":"I","Î":"I","Ï":"I","Ð":"D","Ñ":"N","Ò":"O","Ó":"O","Ô":"O","Õ":"O","Ö":"O","Ø":"O","Ù":"U","Ú":"U","Û":"U","Ü":"U","Ý":"Y","Þ":"TH","ß":"ss","à":"a","á":"a","â":"a","ã":"a","ä":"a","å":"a","æ":"ae","ç":"c","è":"e","é":"e","ê":"e","ë":"e","ì":"i","í":"i","î":"i","ï":"i","ð":"d","ñ":"n","ò":"o","ó":"o","ô":"o","õ":"o","ö":"o","ø":"o","ù":"u","ú":"u","û":"u","ü":"u","ý":"y","þ":"th","ÿ":"y","Ā":"A","ā":"a","Ă":"A","ă":"a","Ą":"A","ą":"a","Ć":"C","ć":"c","Č":"C","č":"c","Ď":"D","ď":"d","Đ":"DJ","đ":"dj","Ē":"E","ē":"e","Ė":"E","ė":"e","Ę":"e","ę":"e","Ě":"E","ě":"e","Ğ":"G","ğ":"g","Ģ":"G","ģ":"g","Ĩ":"I","ĩ":"i","Ī":"i","ī":"i","Į":"I","į":"i","İ":"I","ı":"i","Ķ":"k","ķ":"k","Ļ":"L","ļ":"l","Ľ":"L","ľ":"l","Ł":"L","ł":"l","Ń":"N","ń":"n","Ņ":"N","ņ":"n","Ň":"N","ň":"n","Ō":"O","ō":"o","Ő":"O","ő":"o","Œ":"OE","œ":"oe","Ŕ":"R","ŕ":"r","Ř":"R","ř":"r","Ś":"S","ś":"s","Ş":"S","ş":"s","Š":"S","š":"s","Ţ":"T","ţ":"t","Ť":"T","ť":"t","Ũ":"U","ũ":"u","Ū":"u","ū":"u","Ů":"U","ů":"u","Ű":"U","ű":"u","Ų":"U","ų":"u","Ŵ":"W","ŵ":"w","Ŷ":"Y","ŷ":"y","Ÿ":"Y","Ź":"Z","ź":"z","Ż":"Z","ż":"z","Ž":"Z","ž":"z","Ə":"E","ƒ":"f","Ơ":"O","ơ":"o","Ư":"U","ư":"u","ǈ":"LJ","ǉ":"lj","ǋ":"NJ","ǌ":"nj","Ș":"S","ș":"s","Ț":"T","ț":"t","ə":"e","˚":"o","Ά":"A","Έ":"E","Ή":"H","Ί":"I","Ό":"O","Ύ":"Y","Ώ":"W","ΐ":"i","Α":"A","Β":"B","Γ":"G","Δ":"D","Ε":"E","Ζ":"Z","Η":"H","Θ":"8","Ι":"I","Κ":"K","Λ":"L","Μ":"M","Ν":"N","Ξ":"3","Ο":"O","Π":"P","Ρ":"R","Σ":"S","Τ":"T","Υ":"Y","Φ":"F","Χ":"X","Ψ":"PS","Ω":"W","Ϊ":"I","Ϋ":"Y","ά":"a","έ":"e","ή":"h","ί":"i","ΰ":"y","α":"a","β":"b","γ":"g","δ":"d","ε":"e","ζ":"z","η":"h","θ":"8","ι":"i","κ":"k","λ":"l","μ":"m","ν":"n","ξ":"3","ο":"o","π":"p","ρ":"r","ς":"s","σ":"s","τ":"t","υ":"y","φ":"f","χ":"x","ψ":"ps","ω":"w","ϊ":"i","ϋ":"y","ό":"o","ύ":"y","ώ":"w","Ё":"Yo","Ђ":"DJ","Є":"Ye","І":"I","Ї":"Yi","Ј":"J","Љ":"LJ","Њ":"NJ","Ћ":"C","Џ":"DZ","А":"A","Б":"B","В":"V","Г":"G","Д":"D","Е":"E","Ж":"Zh","З":"Z","И":"I","Й":"J","К":"K","Л":"L","М":"M","Н":"N","О":"O","П":"P","Р":"R","С":"S","Т":"T","У":"U","Ф":"F","Х":"H","Ц":"C","Ч":"Ch","Ш":"Sh","Щ":"Sh","Ъ":"U","Ы":"Y","Ь":"","Э":"E","Ю":"Yu","Я":"Ya","а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ж":"zh","з":"z","и":"i","й":"j","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"c","ч":"ch","ш":"sh","щ":"sh","ъ":"u","ы":"y","ь":"","э":"e","ю":"yu","я":"ya","ё":"yo","ђ":"dj","є":"ye","і":"i","ї":"yi","ј":"j","љ":"lj","њ":"nj","ћ":"c","ѝ":"u","џ":"dz","Ґ":"G","ґ":"g","Ғ":"GH","ғ":"gh","Қ":"KH","қ":"kh","Ң":"NG","ң":"ng","Ү":"UE","ү":"ue","Ұ":"U","ұ":"u","Һ":"H","һ":"h","Ә":"AE","ә":"ae","Ө":"OE","ө":"oe","Ա":"A","Բ":"B","Գ":"G","Դ":"D","Ե":"E","Զ":"Z","Է":"E\'","Ը":"Y\'","Թ":"T\'","Ժ":"JH","Ի":"I","Լ":"L","Խ":"X","Ծ":"C\'","Կ":"K","Հ":"H","Ձ":"D\'","Ղ":"GH","Ճ":"TW","Մ":"M","Յ":"Y","Ն":"N","Շ":"SH","Չ":"CH","Պ":"P","Ջ":"J","Ռ":"R\'","Ս":"S","Վ":"V","Տ":"T","Ր":"R","Ց":"C","Փ":"P\'","Ք":"Q\'","Օ":"O\'\'","Ֆ":"F","և":"EV","ء":"a","آ":"aa","أ":"a","ؤ":"u","إ":"i","ئ":"e","ا":"a","ب":"b","ة":"h","ت":"t","ث":"th","ج":"j","ح":"h","خ":"kh","د":"d","ذ":"th","ر":"r","ز":"z","س":"s","ش":"sh","ص":"s","ض":"dh","ط":"t","ظ":"z","ع":"a","غ":"gh","ف":"f","ق":"q","ك":"k","ل":"l","م":"m","ن":"n","ه":"h","و":"w","ى":"a","ي":"y","ً":"an","ٌ":"on","ٍ":"en","َ":"a","ُ":"u","ِ":"e","ْ":"","٠":"0","١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9","پ":"p","چ":"ch","ژ":"zh","ک":"k","گ":"g","ی":"y","۰":"0","۱":"1","۲":"2","۳":"3","۴":"4","۵":"5","۶":"6","۷":"7","۸":"8","۹":"9","฿":"baht","ა":"a","ბ":"b","გ":"g","დ":"d","ე":"e","ვ":"v","ზ":"z","თ":"t","ი":"i","კ":"k","ლ":"l","მ":"m","ნ":"n","ო":"o","პ":"p","ჟ":"zh","რ":"r","ს":"s","ტ":"t","უ":"u","ფ":"f","ქ":"k","ღ":"gh","ყ":"q","შ":"sh","ჩ":"ch","ც":"ts","ძ":"dz","წ":"ts","ჭ":"ch","ხ":"kh","ჯ":"j","ჰ":"h","Ẁ":"W","ẁ":"w","Ẃ":"W","ẃ":"w","Ẅ":"W","ẅ":"w","ẞ":"SS","Ạ":"A","ạ":"a","Ả":"A","ả":"a","Ấ":"A","ấ":"a","Ầ":"A","ầ":"a","Ẩ":"A","ẩ":"a","Ẫ":"A","ẫ":"a","Ậ":"A","ậ":"a","Ắ":"A","ắ":"a","Ằ":"A","ằ":"a","Ẳ":"A","ẳ":"a","Ẵ":"A","ẵ":"a","Ặ":"A","ặ":"a","Ẹ":"E","ẹ":"e","Ẻ":"E","ẻ":"e","Ẽ":"E","ẽ":"e","Ế":"E","ế":"e","Ề":"E","ề":"e","Ể":"E","ể":"e","Ễ":"E","ễ":"e","Ệ":"E","ệ":"e","Ỉ":"I","ỉ":"i","Ị":"I","ị":"i","Ọ":"O","ọ":"o","Ỏ":"O","ỏ":"o","Ố":"O","ố":"o","Ồ":"O","ồ":"o","Ổ":"O","ổ":"o","Ỗ":"O","ỗ":"o","Ộ":"O","ộ":"o","Ớ":"O","ớ":"o","Ờ":"O","ờ":"o","Ở":"O","ở":"o","Ỡ":"O","ỡ":"o","Ợ":"O","ợ":"o","Ụ":"U","ụ":"u","Ủ":"U","ủ":"u","Ứ":"U","ứ":"u","Ừ":"U","ừ":"u","Ử":"U","ử":"u","Ữ":"U","ữ":"u","Ự":"U","ự":"u","Ỳ":"Y","ỳ":"y","Ỵ":"Y","ỵ":"y","Ỷ":"Y","ỷ":"y","Ỹ":"Y","ỹ":"y","–":"-","‘":"\'","’":"\'","“":"\\\"","”":"\\\"","„":"\\\"","†":"+","•":"*","…":"...","₠":"ecu","₢":"cruzeiro","₣":"french franc","₤":"lira","₥":"mill","₦":"naira","₧":"peseta","₨":"rupee","₩":"won","₪":"new shequel","₫":"dong","€":"euro","₭":"kip","₮":"tugrik","₯":"drachma","₰":"penny","₱":"peso","₲":"guarani","₳":"austral","₴":"hryvnia","₵":"cedi","₸":"kazakhstani tenge","₹":"indian rupee","₺":"turkish lira","₽":"russian ruble","₿":"bitcoin","℠":"sm","™":"tm","∂":"d","∆":"delta","∑":"sum","∞":"infinity","♥":"love","元":"yuan","円":"yen","﷼":"rial","ﻵ":"laa","ﻷ":"laa","ﻹ":"lai","ﻻ":"la"}')
-  var locales = JSON.parse('{"de":{"Ä":"AE","ä":"ae","Ö":"OE","ö":"oe","Ü":"UE","ü":"ue","%":"prozent","&":"und","|":"oder","∑":"summe","∞":"unendlich","♥":"liebe"},"es":{"%":"por ciento","&":"y","<":"menor que",">":"mayor que","|":"o","¢":"centavos","£":"libras","¤":"moneda","₣":"francos","∑":"suma","∞":"infinito","♥":"amor"},"fr":{"%":"pourcent","&":"et","<":"plus petit",">":"plus grand","|":"ou","¢":"centime","£":"livre","¤":"devise","₣":"franc","∑":"somme","∞":"infini","♥":"amour"},"pt":{"%":"porcento","&":"e","<":"menor",">":"maior","|":"ou","¢":"centavo","∑":"soma","£":"libra","∞":"infinito","♥":"amor"},"uk":{"И":"Y","и":"y","Й":"Y","й":"y","Ц":"Ts","ц":"ts","Х":"Kh","х":"kh","Щ":"Shch","щ":"shch","Г":"H","г":"h"},"vi":{"Đ":"D","đ":"d"},"da":{"Ø":"OE","ø":"oe","Å":"AA","å":"aa","%":"procent","&":"og","|":"eller","$":"dollar","<":"mindre end",">":"større end"}}')
+  var charMap = JSON.parse('{"$":"dollar","%":"percent","&":"and","<":"less",">":"greater","|":"or","¢":"cent","£":"pound","¤":"currency","¥":"yen","©":"(c)","ª":"a","®":"(r)","º":"o","À":"A","Á":"A","Â":"A","Ã":"A","Ä":"A","Å":"A","Æ":"AE","Ç":"C","È":"E","É":"E","Ê":"E","Ë":"E","Ì":"I","Í":"I","Î":"I","Ï":"I","Ð":"D","Ñ":"N","Ò":"O","Ó":"O","Ô":"O","Õ":"O","Ö":"O","Ø":"O","Ù":"U","Ú":"U","Û":"U","Ü":"U","Ý":"Y","Þ":"TH","ß":"ss","à":"a","á":"a","â":"a","ã":"a","ä":"a","å":"a","æ":"ae","ç":"c","è":"e","é":"e","ê":"e","ë":"e","ì":"i","í":"i","î":"i","ï":"i","ð":"d","ñ":"n","ò":"o","ó":"o","ô":"o","õ":"o","ö":"o","ø":"o","ù":"u","ú":"u","û":"u","ü":"u","ý":"y","þ":"th","ÿ":"y","Ā":"A","ā":"a","Ă":"A","ă":"a","Ą":"A","ą":"a","Ć":"C","ć":"c","Č":"C","č":"c","Ď":"D","ď":"d","Đ":"DJ","đ":"dj","Ē":"E","ē":"e","Ė":"E","ė":"e","Ę":"e","ę":"e","Ě":"E","ě":"e","Ğ":"G","ğ":"g","Ģ":"G","ģ":"g","Ĩ":"I","ĩ":"i","Ī":"i","ī":"i","Į":"I","į":"i","İ":"I","ı":"i","Ķ":"k","ķ":"k","Ļ":"L","ļ":"l","Ľ":"L","ľ":"l","Ł":"L","ł":"l","Ń":"N","ń":"n","Ņ":"N","ņ":"n","Ň":"N","ň":"n","Ō":"O","ō":"o","Ő":"O","ő":"o","Œ":"OE","œ":"oe","Ŕ":"R","ŕ":"r","Ř":"R","ř":"r","Ś":"S","ś":"s","Ş":"S","ş":"s","Š":"S","š":"s","Ţ":"T","ţ":"t","Ť":"T","ť":"t","Ũ":"U","ũ":"u","Ū":"u","ū":"u","Ů":"U","ů":"u","Ű":"U","ű":"u","Ų":"U","ų":"u","Ŵ":"W","ŵ":"w","Ŷ":"Y","ŷ":"y","Ÿ":"Y","Ź":"Z","ź":"z","Ż":"Z","ż":"z","Ž":"Z","ž":"z","Ə":"E","ƒ":"f","Ơ":"O","ơ":"o","Ư":"U","ư":"u","ǈ":"LJ","ǉ":"lj","ǋ":"NJ","ǌ":"nj","Ș":"S","ș":"s","Ț":"T","ț":"t","ə":"e","˚":"o","Ά":"A","Έ":"E","Ή":"H","Ί":"I","Ό":"O","Ύ":"Y","Ώ":"W","ΐ":"i","Α":"A","Β":"B","Γ":"G","Δ":"D","Ε":"E","Ζ":"Z","Η":"H","Θ":"8","Ι":"I","Κ":"K","Λ":"L","Μ":"M","Ν":"N","Ξ":"3","Ο":"O","Π":"P","Ρ":"R","Σ":"S","Τ":"T","Υ":"Y","Φ":"F","Χ":"X","Ψ":"PS","Ω":"W","Ϊ":"I","Ϋ":"Y","ά":"a","έ":"e","ή":"h","ί":"i","ΰ":"y","α":"a","β":"b","γ":"g","δ":"d","ε":"e","ζ":"z","η":"h","θ":"8","ι":"i","κ":"k","λ":"l","μ":"m","ν":"n","ξ":"3","ο":"o","π":"p","ρ":"r","ς":"s","σ":"s","τ":"t","υ":"y","φ":"f","χ":"x","ψ":"ps","ω":"w","ϊ":"i","ϋ":"y","ό":"o","ύ":"y","ώ":"w","Ё":"Yo","Ђ":"DJ","Є":"Ye","І":"I","Ї":"Yi","Ј":"J","Љ":"LJ","Њ":"NJ","Ћ":"C","Џ":"DZ","А":"A","Б":"B","В":"V","Г":"G","Д":"D","Е":"E","Ж":"Zh","З":"Z","И":"I","Й":"J","К":"K","Л":"L","М":"M","Н":"N","О":"O","П":"P","Р":"R","С":"S","Т":"T","У":"U","Ф":"F","Х":"H","Ц":"C","Ч":"Ch","Ш":"Sh","Щ":"Sh","Ъ":"U","Ы":"Y","Ь":"","Э":"E","Ю":"Yu","Я":"Ya","а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ж":"zh","з":"z","и":"i","й":"j","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"c","ч":"ch","ш":"sh","щ":"sh","ъ":"u","ы":"y","ь":"","э":"e","ю":"yu","я":"ya","ё":"yo","ђ":"dj","є":"ye","і":"i","ї":"yi","ј":"j","љ":"lj","њ":"nj","ћ":"c","ѝ":"u","џ":"dz","Ґ":"G","ґ":"g","Ғ":"GH","ғ":"gh","Қ":"KH","қ":"kh","Ң":"NG","ң":"ng","Ү":"UE","ү":"ue","Ұ":"U","ұ":"u","Һ":"H","һ":"h","Ә":"AE","ә":"ae","Ө":"OE","ө":"oe","Ա":"A","Բ":"B","Գ":"G","Դ":"D","Ե":"E","Զ":"Z","Է":"E\'","Ը":"Y\'","Թ":"T\'","Ժ":"JH","Ի":"I","Լ":"L","Խ":"X","Ծ":"C\'","Կ":"K","Հ":"H","Ձ":"D\'","Ղ":"GH","Ճ":"TW","Մ":"M","Յ":"Y","Ն":"N","Շ":"SH","Չ":"CH","Պ":"P","Ջ":"J","Ռ":"R\'","Ս":"S","Վ":"V","Տ":"T","Ր":"R","Ց":"C","Փ":"P\'","Ք":"Q\'","Օ":"O\'\'","Ֆ":"F","և":"EV","ء":"a","آ":"aa","أ":"a","ؤ":"u","إ":"i","ئ":"e","ا":"a","ب":"b","ة":"h","ت":"t","ث":"th","ج":"j","ح":"h","خ":"kh","د":"d","ذ":"th","ر":"r","ز":"z","س":"s","ش":"sh","ص":"s","ض":"dh","ط":"t","ظ":"z","ع":"a","غ":"gh","ف":"f","ق":"q","ك":"k","ل":"l","م":"m","ن":"n","ه":"h","و":"w","ى":"a","ي":"y","ً":"an","ٌ":"on","ٍ":"en","َ":"a","ُ":"u","ِ":"e","ْ":"","٠":"0","١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9","پ":"p","چ":"ch","ژ":"zh","ک":"k","گ":"g","ی":"y","۰":"0","۱":"1","۲":"2","۳":"3","۴":"4","۵":"5","۶":"6","۷":"7","۸":"8","۹":"9","฿":"baht","ა":"a","ბ":"b","გ":"g","დ":"d","ე":"e","ვ":"v","ზ":"z","თ":"t","ი":"i","კ":"k","ლ":"l","მ":"m","ნ":"n","ო":"o","პ":"p","ჟ":"zh","რ":"r","ს":"s","ტ":"t","უ":"u","ფ":"f","ქ":"k","ღ":"gh","ყ":"q","შ":"sh","ჩ":"ch","ც":"ts","ძ":"dz","წ":"ts","ჭ":"ch","ხ":"kh","ჯ":"j","ჰ":"h","Ṣ":"S","ṣ":"s","Ẁ":"W","ẁ":"w","Ẃ":"W","ẃ":"w","Ẅ":"W","ẅ":"w","ẞ":"SS","Ạ":"A","ạ":"a","Ả":"A","ả":"a","Ấ":"A","ấ":"a","Ầ":"A","ầ":"a","Ẩ":"A","ẩ":"a","Ẫ":"A","ẫ":"a","Ậ":"A","ậ":"a","Ắ":"A","ắ":"a","Ằ":"A","ằ":"a","Ẳ":"A","ẳ":"a","Ẵ":"A","ẵ":"a","Ặ":"A","ặ":"a","Ẹ":"E","ẹ":"e","Ẻ":"E","ẻ":"e","Ẽ":"E","ẽ":"e","Ế":"E","ế":"e","Ề":"E","ề":"e","Ể":"E","ể":"e","Ễ":"E","ễ":"e","Ệ":"E","ệ":"e","Ỉ":"I","ỉ":"i","Ị":"I","ị":"i","Ọ":"O","ọ":"o","Ỏ":"O","ỏ":"o","Ố":"O","ố":"o","Ồ":"O","ồ":"o","Ổ":"O","ổ":"o","Ỗ":"O","ỗ":"o","Ộ":"O","ộ":"o","Ớ":"O","ớ":"o","Ờ":"O","ờ":"o","Ở":"O","ở":"o","Ỡ":"O","ỡ":"o","Ợ":"O","ợ":"o","Ụ":"U","ụ":"u","Ủ":"U","ủ":"u","Ứ":"U","ứ":"u","Ừ":"U","ừ":"u","Ử":"U","ử":"u","Ữ":"U","ữ":"u","Ự":"U","ự":"u","Ỳ":"Y","ỳ":"y","Ỵ":"Y","ỵ":"y","Ỷ":"Y","ỷ":"y","Ỹ":"Y","ỹ":"y","–":"-","‘":"\'","’":"\'","“":"\\\"","”":"\\\"","„":"\\\"","†":"+","•":"*","…":"...","₠":"ecu","₢":"cruzeiro","₣":"french franc","₤":"lira","₥":"mill","₦":"naira","₧":"peseta","₨":"rupee","₩":"won","₪":"new shequel","₫":"dong","€":"euro","₭":"kip","₮":"tugrik","₯":"drachma","₰":"penny","₱":"peso","₲":"guarani","₳":"austral","₴":"hryvnia","₵":"cedi","₸":"kazakhstani tenge","₹":"indian rupee","₺":"turkish lira","₽":"russian ruble","₿":"bitcoin","℠":"sm","™":"tm","∂":"d","∆":"delta","∑":"sum","∞":"infinity","♥":"love","元":"yuan","円":"yen","﷼":"rial","ﻵ":"laa","ﻷ":"laa","ﻹ":"lai","ﻻ":"la"}')
+  var locales = JSON.parse('{"bg":{"Й":"Y","Ц":"Ts","Щ":"Sht","Ъ":"A","Ь":"Y","й":"y","ц":"ts","щ":"sht","ъ":"a","ь":"y"},"de":{"Ä":"AE","ä":"ae","Ö":"OE","ö":"oe","Ü":"UE","ü":"ue","ß":"ss","%":"prozent","&":"und","|":"oder","∑":"summe","∞":"unendlich","♥":"liebe"},"es":{"%":"por ciento","&":"y","<":"menor que",">":"mayor que","|":"o","¢":"centavos","£":"libras","¤":"moneda","₣":"francos","∑":"suma","∞":"infinito","♥":"amor"},"fr":{"%":"pourcent","&":"et","<":"plus petit",">":"plus grand","|":"ou","¢":"centime","£":"livre","¤":"devise","₣":"franc","∑":"somme","∞":"infini","♥":"amour"},"pt":{"%":"porcento","&":"e","<":"menor",">":"maior","|":"ou","¢":"centavo","∑":"soma","£":"libra","∞":"infinito","♥":"amor"},"uk":{"И":"Y","и":"y","Й":"Y","й":"y","Ц":"Ts","ц":"ts","Х":"Kh","х":"kh","Щ":"Shch","щ":"shch","Г":"H","г":"h"},"vi":{"Đ":"D","đ":"d"},"da":{"Ø":"OE","ø":"oe","Å":"AA","å":"aa","%":"procent","&":"og","|":"eller","$":"dollar","<":"mindre end",">":"større end"},"nb":{"&":"og","Å":"AA","Æ":"AE","Ø":"OE","å":"aa","æ":"ae","ø":"oe"},"it":{"&":"e"},"nl":{"&":"en"},"sv":{"&":"och","Å":"AA","Ä":"AE","Ö":"OE","å":"aa","ä":"ae","ö":"oe"}}')
 
   function replace (string, options) {
     if (typeof string !== 'string') {
@@ -11792,7 +11917,11 @@ module.exports = path => {
     var slug = string.normalize().split('')
       // replace characters based on charMap
       .reduce(function (result, ch) {
-        return result + (locale[ch] || charMap[ch] ||  (ch === replacement ? ' ' : ch))
+        var appendChar = locale[ch] || charMap[ch] || ch;
+        if (appendChar === replacement) {
+          appendChar = ' ';
+        }
+        return result + appendChar
           // remove not allowed characters
           .replace(options.remove || /[^\w\s$*_+~.()'"!\-:@]+/g, '')
       }, '');
@@ -12530,7 +12659,7 @@ module.exports = toRegexRange;
 
 /***/ }),
 
-/***/ 8614:
+/***/ 2361:
 /***/ ((module) => {
 
 "use strict";
@@ -12538,7 +12667,7 @@ module.exports = require("events");
 
 /***/ }),
 
-/***/ 5747:
+/***/ 7147:
 /***/ ((module) => {
 
 "use strict";
@@ -12546,7 +12675,7 @@ module.exports = require("fs");
 
 /***/ }),
 
-/***/ 2087:
+/***/ 2037:
 /***/ ((module) => {
 
 "use strict";
@@ -12554,7 +12683,7 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ 5622:
+/***/ 1017:
 /***/ ((module) => {
 
 "use strict";
@@ -12562,7 +12691,7 @@ module.exports = require("path");
 
 /***/ }),
 
-/***/ 2413:
+/***/ 2781:
 /***/ ((module) => {
 
 "use strict";
@@ -12570,7 +12699,7 @@ module.exports = require("stream");
 
 /***/ }),
 
-/***/ 1669:
+/***/ 3837:
 /***/ ((module) => {
 
 "use strict";
@@ -12672,7 +12801,7 @@ __nccwpck_require__.d(__webpack_exports__, {
 var globby = __nccwpck_require__(3398);
 var globby_default = /*#__PURE__*/__nccwpck_require__.n(globby);
 // EXTERNAL MODULE: external "fs"
-var external_fs_ = __nccwpck_require__(5747);
+var external_fs_ = __nccwpck_require__(7147);
 ;// CONCATENATED MODULE: ./src/lib/services/pi/gage-config.ts
 // Header sequence/ordering should match tableValues property (disregard the timestamp since that will always be included).
 const gageStationHeaders = [
@@ -12693,6 +12822,15 @@ const gageStationHeaders = [
         numeric: true,
         disablePadding: false,
         label: 'Stage (Feet)'
+    }
+];
+const gageStationHeadersWithTemp = [
+    ...gageStationHeaders,
+    {
+        id: 'temperature',
+        numeric: true,
+        disablePadding: false,
+        label: 'Temperature (°F)'
     }
 ];
 const reservoirHeaders = [
@@ -12718,7 +12856,7 @@ const reservoirHeaders = [
 const gages = [
     {
         id: 'R2',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Duncan Creek Below Diversion Dam, near French Meadows',
         chartValues: ['Flow', 'Height'],
         tableValues: ['Flow', 'Height'],
@@ -12735,7 +12873,7 @@ const gages = [
     },
     {
         id: 'R3',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Middle Fork American River below French Meadows',
         chartValues: ['Flow', 'Height'],
         tableValues: ['Flow', 'Height'],
@@ -12752,7 +12890,7 @@ const gages = [
     },
     {
         id: 'R4',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Middle Fork American River above Middle Fork Powerhouse near Foresthill',
         chartValues: ['Flow', 'Height'],
         tableValues: ['Flow', 'Height'],
@@ -12769,95 +12907,112 @@ const gages = [
     },
     {
         id: 'R5L',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Middle Fork American River below Interbay Dam',
-        chartValues: ['Flow', 'Height'],
-        tableValues: ['Flow', 'Height'],
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
         disabled: false,
         tables: [
             {
                 metric: 'daily',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             },
             {
                 metric: 'monthly',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
+            }
+        ]
+    },
+    {
+        id: 'R10',
+        type: 'gage',
+        description: 'North Fork Middle Fork American River above Circle Bridge',
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
+        tables: [
+            {
+                metric: 'daily',
+                headers: gageStationHeadersWithTemp
+            },
+            {
+                metric: 'monthly',
+                headers: gageStationHeadersWithTemp
             }
         ]
     },
     {
         id: 'R11',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Middle Fork American River near Foresthill',
-        chartValues: ['Flow', 'Height'],
-        tableValues: ['Flow', 'Height'],
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
         tables: [
             {
                 metric: 'daily',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             },
             {
                 metric: 'monthly',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             }
         ]
     },
     {
         id: 'R29',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: "Rubicon River above Ellicott's Crossing",
-        chartValues: ['Flow', 'Height'],
-        tableValues: ['Flow', 'Height'],
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
         disabled: false,
         tables: [
             {
                 metric: 'daily',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             },
             {
                 metric: 'monthly',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             }
         ]
     },
     {
         id: 'R30',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Rubicon River above Ralston Power House',
-        chartValues: ['Flow', 'Height'],
-        tableValues: ['Flow', 'Height'],
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
         tables: [
             {
                 metric: 'daily',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             },
             {
                 metric: 'monthly',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             }
         ]
     },
     {
         id: 'R31',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'North Fork American River above the American River Pump Station',
         // chartValues: ['Height', 'Pre-Offset Flow'],
-        chartValues: ['Flow', 'Height'],
-        tableValues: ['Flow', 'Height'],
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
         tables: [
             {
                 metric: 'daily',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             },
             {
                 metric: 'monthly',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             }
         ]
     },
     {
         id: 'R6',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Rubicon River below Hell Hole Dam',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -12875,7 +13030,7 @@ const gages = [
     },
     {
         id: 'R7',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'South Fork Long Canyon Creek Diversion Tunnel',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -12893,7 +13048,7 @@ const gages = [
     },
     {
         id: 'R8',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'North Fork Long Canyon Creek Diversion Tunnel',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -12911,25 +13066,25 @@ const gages = [
     },
     {
         id: 'R20',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
-        description: 'Middle Fork American above Little Circle Bridge',
+        type: 'gage',
+        description: 'Middle Fork American River above Oxbow at Little Circle Bridge',
         review: false,
-        chartValues: ['Flow', 'Height'],
-        tableValues: ['Flow', 'Height'],
+        chartValues: ['Flow', 'Height', 'Temperature'],
+        tableValues: ['Flow', 'Height', 'Temperature'],
         tables: [
             {
                 metric: 'daily',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             },
             {
                 metric: 'monthly',
-                headers: gageStationHeaders
+                headers: gageStationHeadersWithTemp
             }
         ]
     },
     {
         id: 'R22',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Rubicon River above Hell Hole Reservoir',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -12947,7 +13102,7 @@ const gages = [
     },
     {
         id: 'R23',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Five Lakes Creek above Hell Hole',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -12965,7 +13120,7 @@ const gages = [
     },
     {
         id: 'R24',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'Middle Fork American River above French Meadows',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -12983,7 +13138,7 @@ const gages = [
     },
     {
         id: 'R27',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'South Fork Long Canyon Creek below Diversion',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -13001,7 +13156,7 @@ const gages = [
     },
     {
         id: 'R28',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Gauging Stations',
+        type: 'gage',
         description: 'North Fork Long Canyon Creek below Diversion',
         review: false,
         chartValues: ['Flow', 'Height'],
@@ -13019,7 +13174,7 @@ const gages = [
     },
     {
         id: 'French Meadows',
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
+        type: 'reservoir',
         description: 'French Meadows Reservoir',
         chartValues: ['Elevation', 'Storage'],
         tableValues: ['Storage', 'Elevation'],
@@ -13038,7 +13193,7 @@ const gages = [
     {
         id: 'Hell Hole',
         disabled: false,
-        baseElement: '\\\\BUSINESSPI2\\OPS\\Reservoirs',
+        type: 'reservoir',
         boatRampElev: 4530,
         description: 'Hell Hole Reservoir',
         chartValues: ['Elevation', 'Storage'],
@@ -13399,7 +13554,7 @@ async function generateSitemap() {
             .filter((doc) => doc.derivedFilenameAttr.extension === 'pdf')
             .filter((doc) => !/(cover)/i.test(doc.original_name))
             .map((doc) => slugify_default()(doc.derivedFilenameAttr?.base ?? ''))
-            .map((p) => `/resource-library/documents/${p}`)
+            .map((p) => `/education-center/documents/${p}`)
         : [];
     const agendas = await lib_fetcher(`${apiBaseUrl}${agendasUrl}`);
     const agendaPages = agendas && Array.isArray(agendas.objects)
@@ -13454,8 +13609,8 @@ async function generateSitemap() {
         ...lib_groupBy(filteredPhotoMultimedia, (a) => a.metadata?.gallery?.toLowerCase().trim())
     ]
         .map(([gallery, photos]) => photos
-        .map((_, idx) => `/resource-library/photos/${gallery}/${idx.toString()}`)
-        .concat(`/resource-library/photos/${gallery}`))
+        .map((_, idx) => `/education-center/photos/${gallery}/${idx.toString()}`)
+        .concat(`/education-center/photos/${gallery}`))
         .reduce((prev, curVal) => [...prev, ...curVal]);
     // Video Paths
     // Use the same filters used in <MultimediaPhotoGalleries/>.
@@ -13467,7 +13622,7 @@ async function generateSitemap() {
         : [];
     const multimediaVideoPages = [
         ...lib_groupBy(filteredVideoMultimedia, (a) => a.metadata?.gallery)
-    ].map(([gallery]) => `/resource-library/videos/${gallery}`);
+    ].map(([gallery]) => `/education-center/videos/${gallery}`);
     const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
         .map((p) => addPage(p))

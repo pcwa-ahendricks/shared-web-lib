@@ -109,9 +109,9 @@ const menuConfig: MenuConfig[] = [
           //   href: 'http://relicensing.pcwa.net'
           // },
           {
-            title: 'Resource Library',
-            nextLink: '/resource-library/[...multimedia]',
-            as: '/resource-library/documents'
+            title: 'Education Center',
+            nextLink: '/education-center/[...multimedia]',
+            as: '/education-center/documents'
           },
           {
             title: 'Water Year Dashboard',

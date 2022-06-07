@@ -352,6 +352,10 @@
     <changefreq>always</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/recreation/flows/gages/r10</loc>
+    <changefreq>always</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/recreation/flows/gages/r11</loc>
     <changefreq>always</changefreq>
   </url>
@@ -452,27 +456,27 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/documents/Fact-Sheets-MFP-Reservoirs</loc>
+    <loc>https://www.pcwa.net/education-center/documents/Fact-Sheets-MFP-Reservoirs</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/documents/Fact-Sheets-By-The-Numbers</loc>
+    <loc>https://www.pcwa.net/education-center/documents/Fact-Sheets-By-The-Numbers</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/documents/A-Heritage-of-Water_History-of-PCWA-1957-2007</loc>
+    <loc>https://www.pcwa.net/education-center/documents/A-Heritage-of-Water_History-of-PCWA-1957-2007</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/documents/PCWA-Brochure-FINAL</loc>
+    <loc>https://www.pcwa.net/education-center/documents/PCWA-Brochure-FINAL</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/documents/American-River-Pump-Station-Brochure</loc>
+    <loc>https://www.pcwa.net/education-center/documents/American-River-Pump-Station-Brochure</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/documents/PCWA-MFP-Rec-Brochure</loc>
+    <loc>https://www.pcwa.net/education-center/documents/PCWA-MFP-Rec-Brochure</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -6020,631 +6024,631 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/board-of-directors</loc>
+    <loc>https://www.pcwa.net/education-center/photos/board-of-directors</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/construction/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/construction/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/construction/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/construction/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/construction/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/construction/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/construction/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/construction/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/construction</loc>
+    <loc>https://www.pcwa.net/education-center/photos/construction</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/6</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/6</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/7</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/7</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/8</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/8</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/9</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/9</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/10</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/10</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/11</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/11</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/12</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/12</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/13</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/13</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/14</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/14</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/15</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/15</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/16</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/16</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/17</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/17</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/18</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/18</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/19</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/19</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/20</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/20</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/21</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/21</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/22</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/22</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/23</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/23</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/24</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/24</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/25</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/25</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/26</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/26</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/27</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/27</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/28</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/28</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities/29</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities/29</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/facilities</loc>
+    <loc>https://www.pcwa.net/education-center/photos/facilities</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/6</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/6</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/7</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/7</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/8</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/8</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/9</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/9</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/10</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/10</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/11</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/11</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/12</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/12</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/13</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/13</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/14</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/14</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/15</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/15</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/16</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/16</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/17</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/17</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/18</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/18</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/19</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/19</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/20</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/20</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/21</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/21</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/22</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/22</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/23</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/23</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/24</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/24</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/25</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/25</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/26</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/26</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/27</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/27</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/28</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/28</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/29</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/29</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/30</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/30</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/31</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/31</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/32</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/32</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/33</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/33</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/34</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/34</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/35</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/35</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/36</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/36</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/37</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/37</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project/38</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project/38</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/middle-fork-project</loc>
+    <loc>https://www.pcwa.net/education-center/photos/middle-fork-project</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/6</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/6</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/7</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/7</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/8</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/8</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/9</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/9</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/10</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/10</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/11</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/11</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/12</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/12</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/13</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/13</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/14</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/14</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/15</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/15</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/16</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/16</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/17</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/17</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/18</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/18</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/19</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/19</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/20</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/20</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/21</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/21</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/22</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/22</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/23</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/23</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather/24</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather/24</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/science-and-extreme-weather</loc>
+    <loc>https://www.pcwa.net/education-center/photos/science-and-extreme-weather</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/6</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/6</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/7</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/7</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/8</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/8</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/9</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/9</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/10</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/10</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/11</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/11</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/12</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/12</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship/13</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship/13</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/stewardship</loc>
+    <loc>https://www.pcwa.net/education-center/photos/stewardship</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/6</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/6</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/7</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/7</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/8</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/8</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events/9</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events/9</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/events</loc>
+    <loc>https://www.pcwa.net/education-center/photos/events</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/awards-and-dedications/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/awards-and-dedications/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/awards-and-dedications/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/awards-and-dedications/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/awards-and-dedications</loc>
+    <loc>https://www.pcwa.net/education-center/photos/awards-and-dedications</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/water-efficiency</loc>
+    <loc>https://www.pcwa.net/education-center/photos/water-efficiency</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/0</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/0</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/1</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/1</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/2</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/2</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/3</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/3</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/4</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/4</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/5</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/5</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical/6</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical/6</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/photos/historical</loc>
+    <loc>https://www.pcwa.net/education-center/photos/historical</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/videos/water---n---action</loc>
+    <loc>https://www.pcwa.net/education-center/videos/water---n---action</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/videos/informational</loc>
+    <loc>https://www.pcwa.net/education-center/videos/informational</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/videos/historical</loc>
+    <loc>https://www.pcwa.net/education-center/videos/historical</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/resource-library/videos/construction</loc>
+    <loc>https://www.pcwa.net/education-center/videos/construction</loc>
     <changefreq>daily</changefreq>
   </url>
 </urlset>

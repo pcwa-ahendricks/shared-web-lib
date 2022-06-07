@@ -106,8 +106,8 @@ const miscRedirects = [
 // Sensible redirects for index pages
 const indexPageRedirects = [
   {
-    source: '/resource-library',
-    destination: '/resource-library/documents',
+    source: '/education-center',
+    destination: '/education-center/documents',
     permanent: false
   },
   {
@@ -124,6 +124,11 @@ const indexPageRedirects = [
 
 // In time these can be removed. They are legacy urls used with previous versions (ng) of the website.
 const legacyRedirects = [
+  {
+    source: '/resource-library',
+    destination: '/education-center',
+    permanent: true
+  },
   {
     source: '/rate-adjust-2018',
     destination: '/services/rate-adjust',
@@ -211,27 +216,27 @@ const legacyRedirects = [
   },
   {
     source: '/newsroom/multimedia-library/p',
-    destination: '/resource-library/photos',
+    destination: '/education-center/photos',
     permanent: true
   },
   {
     source: '/newsroom/multimedia-library/v',
-    destination: '/resource-library/videos',
+    destination: '/education-center/videos',
     permanent: true
   },
   {
-    source: '/resource-library/p',
-    destination: '/resource-library/photos',
+    source: '/education-center/p',
+    destination: '/education-center/photos',
     permanent: true
   },
   {
-    source: '/resource-library/v',
-    destination: '/resource-library/videos',
+    source: '/education-center/v',
+    destination: '/education-center/videos',
     permanent: true
   },
   {
-    source: '/resource-library/d',
-    destination: '/resource-library/documents',
+    source: '/education-center/d',
+    destination: '/education-center/documents',
     permanent: true
   },
   {
@@ -336,27 +341,27 @@ const legacyRedirects = [
   },
   {
     source: '/newsroom/multimedia-library/p',
-    destination: '/resource-library/photos',
+    destination: '/education-center/photos',
     permanent: true
   },
   {
     source: '/newsroom/multimedia-library/v',
-    destination: '/resource-library/videos',
+    destination: '/education-center/videos',
     permanent: true
   },
   {
-    source: '/resource-library/p',
-    destination: '/resource-library/photos',
+    source: '/education-center/p',
+    destination: '/education-center/photos',
     permanent: true
   },
   {
-    source: '/resource-library/v',
-    destination: '/resource-library/videos',
+    source: '/education-center/v',
+    destination: '/education-center/videos',
     permanent: true
   },
   {
-    source: '/resource-library/d',
-    destination: '/resource-library/documents',
+    source: '/education-center/d',
+    destination: '/education-center/documents',
     permanent: true
   },
   {
