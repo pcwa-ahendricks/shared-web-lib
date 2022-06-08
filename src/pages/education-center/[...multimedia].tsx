@@ -1,11 +1,5 @@
 // cspell:ignore Lightbox
-import React, {
-  useCallback,
-  useRef,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 
 import {format, parse} from 'date-fns'
 import PageLayout from '@components/PageLayout/PageLayout'
