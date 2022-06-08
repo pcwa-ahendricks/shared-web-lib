@@ -88,7 +88,14 @@ const GlobalStyles = withStyles((theme: Theme) => ({
     // Fix issue where Dialog can't be scrolled (such as the <MediaDialogOnClick/> dialog on the projects page when the user clicks the project image).
     '.MuiDialog-container': {
       maxHeight: '100vh'
-    }
+    },
+    '.reset-a, .reset-a:hover, .reset-a:visited, .reset-a:focus, .reset-a:active':
+      {
+        textDecoration: 'none',
+        color: 'inherit',
+        outline: 0,
+        cursor: 'auto'
+      }
     // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
     // '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
     //   color: theme.palette.secondary.dark

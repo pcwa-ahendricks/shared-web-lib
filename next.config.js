@@ -124,9 +124,10 @@ const indexPageRedirects = [
 
 // In time these can be removed. They are legacy urls used with previous versions (ng) of the website.
 const legacyRedirects = [
+  // matched nested paths in new 'education center'
   {
-    source: '/resource-library',
-    destination: '/education-center',
+    source: '/resource-library/:path*',
+    destination: '/education-center/:path*',
     permanent: true
   },
   {

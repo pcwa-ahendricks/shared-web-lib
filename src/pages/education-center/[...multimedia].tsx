@@ -115,7 +115,6 @@ const ResourceLibraryPage = ({
   const multimediaDispatch = multimediaContext.dispatch
   const [tabIndex, setTabIndex] = useState(0)
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const theme = useTheme()
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
@@ -257,37 +256,37 @@ const ResourceLibraryPage = ({
           <PageTitle
             // title="Resources & Multimedia Library"
             title="Education Center"
-            subtitle="Resources & Multimedia Library"
+            // subtitle="Resources & Multimedia Library"
             hideDivider
           />
           <Spacing size="x-large" />
-          <div ref={containerRef}>
-            {selectedGallery ? (
-              <Box height={48}>
-                <Breadcrumbs
-                  aria-label="breadcrumb"
-                  separator={<NavigateNextIcon fontSize="small" />}
-                >
-                  <MatLink
-                    color="inherit"
-                    onClick={backToGalleriesHandler}
-                    style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
-                  >
-                    Galleries
-                  </MatLink>
-                  <Type color="textPrimary">
-                    {toTitleCase(selectedGallery.replace(/-/g, ' '), /and|of/g)}
-                  </Type>
-                </Breadcrumbs>
-              </Box>
-            ) : (
-              <AppBar
-                position="static"
-                color="default"
-                classes={{root: classes.appBar}}
-                elevation={0}
-                // square={false}
+          {selectedGallery ? (
+            <Box height={48}>
+              <Breadcrumbs
+                aria-label="breadcrumb"
+                separator={<NavigateNextIcon fontSize="small" />}
               >
+                <MatLink
+                  color="inherit"
+                  onClick={backToGalleriesHandler}
+                  style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
+                >
+                  Galleries
+                </MatLink>
+                <Type color="textPrimary">
+                  {toTitleCase(selectedGallery.replace(/-/g, ' '), /and|of/g)}
+                </Type>
+              </Breadcrumbs>
+            </Box>
+          ) : (
+            <AppBar
+              position="static"
+              color="default"
+              classes={{root: classes.appBar}}
+              elevation={0}
+              // square={false}
+            >
+              {tabIndex !== -1 ? (
                 <Tabs
                   variant="fullWidth"
                   value={tabIndex}
@@ -317,53 +316,52 @@ const ResourceLibraryPage = ({
                   />
                   <LinkTab
                     label="Webinars"
-                    href="/resource-library/[...multimedia]"
-                    as="/resource-library/webinars"
+                    href="/education-center/[...multimedia]"
+                    as="/education-center/webinars"
                     icon={<YouTubeIcon color="action" />}
                     {...a11yProps(3)}
                   />
                 </Tabs>
-              </AppBar>
-            )}
+              ) : null}
+            </AppBar>
+          )}
 
+          <Spacing size="x-large" />
+
+          <TabPanel value={tabIndex} index={0}>
+            <MultimediaPublications multimedia={publications} />
+          </TabPanel>
+
+          <TabPanel value={tabIndex} index={1}>
+            <MultimediaPhotoGalleries multimedia={multimedia} />
+          </TabPanel>
+
+          <TabPanel value={tabIndex} index={2}>
+            <MultimediaVideoGalleries multimedia={multimedia} />
+          </TabPanel>
+
+          <TabPanel value={tabIndex} index={3}>
             <Spacing size="x-large" />
-
-            <TabPanel value={tabIndex} index={0}>
-              <MultimediaPublications multimedia={publications} />
-            </TabPanel>
-
-            <TabPanel value={tabIndex} index={1}>
-              <MultimediaPhotoGalleries multimedia={multimedia} />
-            </TabPanel>
-
-            <TabPanel value={tabIndex} index={2}>
-              <MultimediaVideoGalleries multimedia={multimedia} />
-            </TabPanel>
-
-            <TabPanel value={tabIndex} index={3}>
-              <Spacing size="x-large" />
-              <RowBox
-                flexSpacing={4}
-                justifyContent="space-around"
-                width="100%"
-                responsive="sm"
-              >
-                <ChildBox flex={isXS ? '100%' : '50%'}>
-                  <Box width={440} margin="auto">
-                    <Card
-                      title="State of PCWA's Water Supplies"
-                      // publishedDate={parse(
-                      //   '04/13/2022',
-                      //   'MM/dd/yyyy',
-                      //   new Date()
-                      // )}
-                      // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
-                      // objectPosition="top center"
-                    >
-                      <Link
-                        href="/newsroom/state-of-our-water-webinar"
-                        passHref
-                      >
+            <RowBox
+              flexSpacing={4}
+              justifyContent="space-around"
+              width="100%"
+              responsive="sm"
+            >
+              <ChildBox flex={isXS ? '100%' : '50%'}>
+                <Box width={440} margin="auto">
+                  <Card
+                    title="State of PCWA's Water Supplies"
+                    // publishedDate={parse(
+                    //   '04/13/2022',
+                    //   'MM/dd/yyyy',
+                    //   new Date()
+                    // )}
+                    // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                    // objectPosition="top center"
+                  >
+                    <Link href="/newsroom/state-of-our-water-webinar" passHref>
+                      <a className="reset-a">
                         <FancierCardActionArea
                           CardMediaProps={{
                             style: {overflow: 'hidden', width: '100%'}
@@ -407,30 +405,32 @@ const ResourceLibraryPage = ({
                             </Type>
                           </CardContent>
                         </FancierCardActionArea>
-                      </Link>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          startIcon={<YouTubeIcon color="action" />}
-                          href="https://www.youtube.com/watch?v=p4gmgAPqAK0"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Type variant="inherit" color="textSecondary">
-                            Watch Recording
-                          </Type>
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Box>
-                </ChildBox>
-                <ChildBox flex={isXS ? '100%' : '50%'}>
-                  <Box width={440} margin="auto">
-                    <Card title="Fire-Wise, Water-Wise Landscaping">
-                      <Link
-                        href="/smart-water-use/fire-wise-landscaping"
-                        passHref
+                      </a>
+                    </Link>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        startIcon={<YouTubeIcon color="action" />}
+                        href="https://www.youtube.com/watch?v=p4gmgAPqAK0"
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
+                        <Type variant="inherit" color="textSecondary">
+                          Watch Recording
+                        </Type>
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Box>
+              </ChildBox>
+              <ChildBox flex={isXS ? '100%' : '50%'}>
+                <Box width={440} margin="auto">
+                  <Card title="Fire-Wise, Water-Wise Landscaping">
+                    <Link
+                      href="/smart-water-use/fire-wise-landscaping"
+                      passHref
+                    >
+                      <a className="reset-a">
                         <FancierCardActionArea
                           CardMediaProps={{
                             style: {overflow: 'hidden', width: '100%'}
@@ -466,26 +466,26 @@ const ResourceLibraryPage = ({
                             </Type>
                           </CardContent>
                         </FancierCardActionArea>
-                      </Link>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          startIcon={<MovieIcon color="action" />}
-                          href="https://www.youtube.com/watch?v=dSXMOGczI1o"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Type variant="inherit" color="textSecondary">
-                            Watch Recording
-                          </Type>
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Box>
-                </ChildBox>
-              </RowBox>
-            </TabPanel>
-          </div>
+                      </a>
+                    </Link>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        startIcon={<MovieIcon color="action" />}
+                        href="https://www.youtube.com/watch?v=dSXMOGczI1o"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Type variant="inherit" color="textSecondary">
+                          Watch Recording
+                        </Type>
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Box>
+              </ChildBox>
+            </RowBox>
+          </TabPanel>
         </WideContainer>
       </MainBox>
     </PageLayout>
