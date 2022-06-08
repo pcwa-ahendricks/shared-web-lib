@@ -6,23 +6,32 @@ import React, {
   useEffect,
   useState
 } from 'react'
+
+import {format, parse} from 'date-fns'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import MovieIcon from '@material-ui/icons/Movie'
 import PhotoIcon from '@material-ui/icons/Photo'
+import YouTubeIcon from '@material-ui/icons/YouTube'
 import {
   AppBar,
   Box,
   Tabs,
   Tab,
+  Card,
   Link as MatLink,
   Typography as Type,
   createStyles,
   makeStyles,
   TabProps,
-  Breadcrumbs
+  Breadcrumbs,
+  CardActions,
+  Button,
+  CardContent,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import DescriptionIcon from '@material-ui/icons/Description'
@@ -60,6 +69,8 @@ import {
   publicationsUrl,
   VideoList
 } from '@lib/types/multimedia'
+import {ChildBox, RowBox} from 'mui-sleazebox'
+import FancierCardActionArea from '@components/FancierCardActionArea/FancierCardActionArea'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -106,6 +117,9 @@ const ResourceLibraryPage = ({
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const containerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const theme = useTheme()
+  const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   // console.log('Debug params: ', params)
 
   useEffect(() => {
@@ -121,6 +135,10 @@ const ResourceLibraryPage = ({
       }
       case 'videos': {
         setTabIndex(2)
+        break
+      }
+      case 'webinars': {
+        setTabIndex(3)
         break
       }
       default: {
@@ -288,14 +306,21 @@ const ResourceLibraryPage = ({
                     href="/education-center/[...multimedia]"
                     as="/education-center/photos"
                     icon={<PhotoIcon color="action" />}
-                    {...a11yProps(0)}
+                    {...a11yProps(1)}
                   />
                   <LinkTab
                     label="Videos"
                     href="/education-center/[...multimedia]"
                     as="/education-center/videos"
                     icon={<MovieIcon color="action" />}
-                    {...a11yProps(1)}
+                    {...a11yProps(2)}
+                  />
+                  <LinkTab
+                    label="Webinars"
+                    href="/resource-library/[...multimedia]"
+                    as="/resource-library/webinars"
+                    icon={<YouTubeIcon color="action" />}
+                    {...a11yProps(3)}
                   />
                 </Tabs>
               </AppBar>
@@ -313,6 +338,152 @@ const ResourceLibraryPage = ({
 
             <TabPanel value={tabIndex} index={2}>
               <MultimediaVideoGalleries multimedia={multimedia} />
+            </TabPanel>
+
+            <TabPanel value={tabIndex} index={3}>
+              <Spacing size="x-large" />
+              <RowBox
+                flexSpacing={4}
+                justifyContent="space-around"
+                width="100%"
+                responsive="sm"
+              >
+                <ChildBox flex={isXS ? '100%' : '50%'}>
+                  <Box width={440} margin="auto">
+                    <Card
+                      title="State of PCWA's Water Supplies"
+                      // publishedDate={parse(
+                      //   '04/13/2022',
+                      //   'MM/dd/yyyy',
+                      //   new Date()
+                      // )}
+                      // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                      // objectPosition="top center"
+                    >
+                      <Link
+                        href="/newsroom/state-of-our-water-webinar"
+                        passHref
+                      >
+                        <FancierCardActionArea
+                          CardMediaProps={{
+                            style: {overflow: 'hidden', width: '100%'}
+                          }}
+                          ImageFancierProps={{
+                            src: 'https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg',
+                            objectFit: 'cover',
+                            objectPosition: 'top center',
+                            alt: `Thumbnail image and link for State of Our Water Supplies webinar`,
+                            height: 220,
+                            width: 440
+                            // isHover={actionAreaIsHover}
+                            // sizes={sizes}
+                          }}
+                        >
+                          {/* <CardMedia
+                          component="Img"
+                          alt="Contemplative Reptile"
+                          height="140"
+                          image="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                          title="Contemplative Reptile"
+                        > */}
+
+                          <CardContent>
+                            <Type
+                              gutterBottom
+                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                            >
+                              State of Our Water Supplies Webinar
+                            </Type>
+                            <Type
+                              variant="body2"
+                              color="textSecondary"
+                              paragraph
+                            >
+                              Recorded{' '}
+                              {format(
+                                parse('4/13/2022', 'MM/dd/yyyy', new Date()),
+                                'M/dd/yyyy'
+                              )}
+                            </Type>
+                          </CardContent>
+                        </FancierCardActionArea>
+                      </Link>
+                      <CardActions>
+                        <Button
+                          size="small"
+                          startIcon={<YouTubeIcon color="action" />}
+                          href="https://www.youtube.com/watch?v=p4gmgAPqAK0"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Type variant="inherit" color="textSecondary">
+                            Watch Recording
+                          </Type>
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Box>
+                </ChildBox>
+                <ChildBox flex={isXS ? '100%' : '50%'}>
+                  <Box width={440} margin="auto">
+                    <Card title="Fire-Wise, Water-Wise Landscaping">
+                      <Link
+                        href="/smart-water-use/fire-wise-landscaping"
+                        passHref
+                      >
+                        <FancierCardActionArea
+                          CardMediaProps={{
+                            style: {overflow: 'hidden', width: '100%'}
+                          }}
+                          ImageFancierProps={{
+                            src: `https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg`,
+                            objectFit: 'cover',
+                            objectPosition: 'top center',
+                            alt: `Thumbnail image and link for Fire-wise, Water-wise Landscaping webinar`,
+                            height: 220,
+                            width: 440
+                            // isHover={actionAreaIsHover}
+                            // sizes={sizes}
+                          }}
+                        >
+                          <CardContent>
+                            <Type
+                              gutterBottom
+                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                            >
+                              Fire-Wise, Water-Wise Landscaping
+                            </Type>
+                            <Type
+                              variant="body2"
+                              color="textSecondary"
+                              paragraph
+                            >
+                              Recorded{' '}
+                              {format(
+                                parse('8/25/2021', 'MM/dd/yyyy', new Date()),
+                                'M/dd/yyyy'
+                              )}
+                            </Type>
+                          </CardContent>
+                        </FancierCardActionArea>
+                      </Link>
+                      <CardActions>
+                        <Button
+                          size="small"
+                          startIcon={<MovieIcon color="action" />}
+                          href="https://www.youtube.com/watch?v=dSXMOGczI1o"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Type variant="inherit" color="textSecondary">
+                            Watch Recording
+                          </Type>
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Box>
+                </ChildBox>
+              </RowBox>
             </TabPanel>
           </div>
         </WideContainer>
@@ -392,7 +563,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
       paths: [
         {params: {multimedia: ['documents']}},
         {params: {multimedia: ['photos']}},
-        {params: {multimedia: ['videos']}}
+        {params: {multimedia: ['videos']}},
+        {params: {multimedia: ['webinars']}}
         // Documents Paths are covered in getStaticPaths() in Dynamic Publication Page.
         // ...documentPaths
         // Uncomment the following to build photo and video pages during deploy. Also, see note above.

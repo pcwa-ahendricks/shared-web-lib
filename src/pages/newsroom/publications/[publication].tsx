@@ -52,7 +52,6 @@ import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
 import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
-import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import Spacing from '@components/boxes/Spacing'
 import {
   NewsroomContext,
@@ -669,8 +668,8 @@ const PublicationsPage = ({
                 <RowBox responsive flexSpacing={4}>
                   <ChildBox flex="50%">
                     <Type paragraph>
-                      As your water provider, we’re committed to keeping you
-                      informed about news that relates to you. PCWA’s E-News
+                      As your water provider, we're committed to keeping you
+                      informed about news that relates to you. PCWA's E-News
                       will send you important email updates about your water
                       supply, water quality, legislative updates, construction
                       alerts and more. Please add us to your email address book.
@@ -726,9 +725,6 @@ const PublicationsPage = ({
                   })}
                 </List>
               </TabPanel>
-            </ChildBox>
-            <ChildBox>
-              <NewsroomSidebar />
             </ChildBox>
           </RowBox>
         </WideContainer>
