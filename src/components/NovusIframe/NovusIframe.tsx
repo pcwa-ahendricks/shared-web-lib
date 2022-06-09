@@ -32,7 +32,7 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
   }, [])
 
   const url = mfpfa
-    ? 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=10'
+    ? 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=10&meetingtype=12&meetingtype=13'
     : 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=1&meetingtype=2&meetingtype=3&meetingtype=4&meetingtype=5&meetingtype=6&meetingtype=7&meetingtype=8&meetingtype=9'
 
   return (
@@ -54,7 +54,7 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
         animate={!iframeIsLoading}
         hideUntilAnimate
         speed="fast"
-        height={{xs: 900, md: 850, lg: 750}}
+        height={{xs: 900, sm: 925, md: 875, lg: 750}}
       >
         <IeNever
           // border={1}
