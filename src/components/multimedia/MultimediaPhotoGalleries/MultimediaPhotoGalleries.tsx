@@ -365,12 +365,21 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
 
                 <RowBox key={0} flexWrap="wrap" flexSpacing={margin}>
                   {c.photos.map((p) => {
+                    const width = Math.round(p.width ?? 0)
+                    const height = Math.round(p.height ?? 0)
                     return (
                       <ChildBox key={p.index}>
                         <ColumnBox>
-                          <ChildBox position="relative">
+                          <ChildBox
+                            flex
+                            position="relative"
+                            width={width}
+                            height={height}
+                          >
                             <ImageFancier
-                              sizes="(max-width: 500px) 100vw, (max-width: 760px) 50vw, 33vw"
+                              // [todo] - responsive layout is not working, it's pulling in full size images.
+                              // sizes="(max-width: 500px) 100vw, (max-width: 760px) 45vw, 33vw"
+                              layout="intrinsic"
                               alt={
                                 p.metadata?.description ??
                                 `${p.metadata?.gallery} ${
@@ -382,8 +391,8 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                                 onClick: imageClickHandler(p.index)
                               }}
                               src={p.imgix_url}
-                              width={p.width ?? 0}
-                              height={p.height ?? 0}
+                              width={width}
+                              height={height}
                             />
                             {/* {p.metadata?.caption ? (
                             <ChildBox position="absolute" bottom="0" left="0">

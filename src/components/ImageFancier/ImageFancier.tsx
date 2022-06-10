@@ -16,7 +16,7 @@ type Props = {
   boxProps?: BoxProps
   isHover?: boolean
   src: string
-} & Partial<Omit<ImageProps, 'layout' | 'placeholder' | 'blurDataURL' | 'src'>>
+} & Partial<Omit<ImageProps, 'placeholder' | 'blurDataURL' | 'src'>>
 
 interface UseStylesProps {
   isHover?: boolean

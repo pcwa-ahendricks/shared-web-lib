@@ -31,6 +31,21 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
     setIframeIsLoading(false)
   }, [])
 
+  /*
+  the website is set up to display Novus Agenda types as follows:
+
+  PCWA Board of Directors Meetings uses Novus Agenda types:
+  1, 2, 3, 4, 5, 6, 7, 8, 9
+
+  MFPFA Board Meetings uses Novus Agenda types:
+  10, 12, 13
+
+  Those ID numbers are things that I need to update/add/remove on the website(s) if changes are ever needed going forward so just let me know if you sense that any of the agenda types might have changed, or if you add or delete any, and so forth. I suspect that this wouldn’t happen often, but if a Novus Agenda is not displaying or displaying incorrectly on the website this would be the first thing we check.
+
+
+  Additionally, on the Novus Agenda site, under Configuration -> Agenda Types, there are checkboxes for what we want publicly visible. Those need to be checked/un-checked accordingly, and I will leave it to the GM Office to update those just so that there is no confusion as to who changed what so to speak in the Novus Settings.
+  */
+
   const url = mfpfa
     ? 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=10&meetingtype=12&meetingtype=13'
     : 'https://pcwa.novusagenda.com/agendapublic/meetingsresponsive.aspx?meetingtype=1&meetingtype=2&meetingtype=3&meetingtype=4&meetingtype=5&meetingtype=6&meetingtype=7&meetingtype=8&meetingtype=9'
