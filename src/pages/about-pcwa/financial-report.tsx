@@ -21,6 +21,7 @@ import FancyButton from '@components/FancyButton/FancyButton'
 // import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import Spacing from '@components/boxes/Spacing'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,12 +110,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <Type>The final reports are available for download below.</Type>
               </Box>
-              <Box
-                bgcolor={theme.palette.background.paper}
-                pt={3}
-                pb={1}
-                mt={3}
-              >
+              <Box mt={3}>
                 <RowBox justifyContent="space-around">
                   <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
@@ -144,8 +140,11 @@ const EmployeeBenefitsSummaryPage = () => {
                     alt="Annual Report Thumbnail and link for 2017 PCWA Annual Report pdf"
                   /> */}
                 </RowBox>
-                <Box m={2}>
-                  <Type variant="subtitle2">Older Annual Report Documents</Type>
+                <Spacing size="small" />
+                <Box p={2} bgcolor={theme.palette.background.paper}>
+                  <Type variant="subtitle2">
+                    Older Annual Audited Financial Statements
+                  </Type>
                   <RowBox alignItems="center" flexWrap="wrap">
                     <OlderReportLink
                       title="2017 Annual Report Document Link"
@@ -311,36 +310,61 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
-                    aria-label="View 2020 Report"
-                    href="https://cdn.cosmicjs.com/53e6c720-d871-11ec-bb19-d9085ce408df-Final-Report---2020.pdf"
+                    aria-label="View 2021 Lower Zone 6 Report"
+                    href="https://cdn.cosmicjs.com/8bb2f700-e906-11ec-9177-7506dda64181-Final-Report---2021-Lower-Zone-6.pdf"
                   >
-                    2020 Report
+                    2021 Lower Zone 6 Report
                   </BudgetDoc>
                   <BudgetDoc
-                    aria-label="View 2019 Report"
-                    href="https://cdn.cosmicjs.com/53e78a70-d871-11ec-bb19-d9085ce408df-Final-Report---2019.pdf"
+                    aria-label="View 2021 Upper Zone 6 Report"
+                    href="https://cdn.cosmicjs.com/8f1a16d0-e906-11ec-9177-7506dda64181-Final-Report---2021-Upper-Zone-6.pdf"
                   >
-                    2019 Report
-                  </BudgetDoc>
-                  <BudgetDoc
-                    aria-label="View 2018 Report"
-                    href="https://cdn.cosmicjs.com/53e54080-d871-11ec-bb19-d9085ce408df-Final-Report---2018.pdf"
-                  >
-                    2018 Report
-                  </BudgetDoc>
-                  <BudgetDoc
-                    aria-label="View 2017 Report"
-                    href="https://cdn.cosmicjs.com/53d3b450-d871-11ec-bb19-d9085ce408df-Final-Report---2017.pdf"
-                  >
-                    2017 Report
-                  </BudgetDoc>
-                  <BudgetDoc
-                    aria-label="View 2016 Report"
-                    href="https://cdn.cosmicjs.com/49779300-d871-11ec-bb19-d9085ce408df-Final-Report---2016.pdf"
-                  >
-                    2016 Report
+                    2021 Upper Zone 6 Report
                   </BudgetDoc>
                 </RowBox>
+                <Spacing />
+                <Box p={2} bgcolor={theme.palette.background.paper}>
+                  <Type variant="subtitle2">
+                    Older Water Connection Charge Annual Reports
+                  </Type>
+                  <RowBox alignItems="center" flexWrap="wrap">
+                    <OlderReportLink
+                      title="2020 Water Connection Charge Report Link"
+                      href="https://cdn.cosmicjs.com/c4bdc750-e906-11ec-9177-7506dda64181-Final-Report---2020.pdf"
+                    >
+                      2020
+                    </OlderReportLink>
+                    •
+                    <OlderReportLink
+                      title="2019 Water Connection Charge Report Link"
+                      href="https://cdn.cosmicjs.com/53e78a70-d871-11ec-bb19-d9085ce408df-Final-Report---2019.pdf"
+                    >
+                      2019
+                    </OlderReportLink>
+                    •
+                    <OlderReportLink
+                      title="2020 Water Connection Charge Report Link"
+                      href="https://cdn.cosmicjs.com/53e54080-d871-11ec-bb19-d9085ce408df-Final-Report---2018.pdf"
+                    >
+                      2018
+                    </OlderReportLink>
+                    •
+                    <OlderReportLink
+                      title="2019 Water Connection Charge Report Link"
+                      href="https://cdn.cosmicjs.com/53d3b450-d871-11ec-bb19-d9085ce408df-Final-Report---2017.pdf"
+                    >
+                      2017
+                    </OlderReportLink>
+                    •
+                    <OlderReportLink
+                      title="2016 Water Connection Charge Report Link"
+                      href="https://cdn.cosmicjs.com/49779300-d871-11ec-bb19-d9085ce408df-Final-Report---2016.pdf"
+                    >
+                      2016
+                    </OlderReportLink>
+                  </RowBox>
+                </Box>
+
                 {/* <Spacing size="large" />
 
                 <Type paragraph gutterBottom>
