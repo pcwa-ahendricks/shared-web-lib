@@ -367,16 +367,10 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
-                    aria-label="View 2022 Study"
-                    href="https://cdn.cosmicjs.com/03fea730-a4b1-11ec-a536-8726e3bb3867-Raftelis-PCWA-Rate-Study-Report-FINAL-2022-03-15.pdf"
-                  >
-                    2022 Study
-                  </BudgetDoc>
-                  <BudgetDoc
-                    aria-label="View 2021 Study"
+                    aria-label="View 2021 Upper Zone 6 Study"
                     href="https://cdn.cosmicjs.com/45b310f0-d871-11ec-bb19-d9085ce408df-PCWA-Upper-Zone-6-Water-Capacity-Fee---Final-Report.pdf"
                   >
-                    2021 Study
+                    2021 Upper Zone 6 Study
                   </BudgetDoc>
 
                   {/* <BudgetDoc
