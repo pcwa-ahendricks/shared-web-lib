@@ -76,7 +76,7 @@ export default function DroughtPage() {
     <PageLayout title="Drought" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle title="How To Conserve 20% During The Drought" />
+          <PageTitle title="How To Conserve 20% During Drought" />
           <Spacing size="large" />
           <RowBox responsive="sm" flexSpacing={8}>
             <ChildBox flex="65%">
