@@ -132,9 +132,9 @@ export default function DroughtPage() {
                 page .
               </Type>
               <Type paragraph>
-                Per the Governor's Executive Order on March 28, 2022, PCWA has
-                moved to Stage 2 of its Water Shortage Contingency Plan. Visit
-                our{' '}
+                Per the State Water Resources Control Board's emergency
+                regulations adopted on May 24, 2022, PCWA has moved to Stage 2
+                of its Water Shortage Contingency Plan. Visit our{' '}
                 <MuiNextLink
                   underline="always"
                   href="/smart-water-use/water-shortage-contingency-plan"
