@@ -47,9 +47,9 @@ const WaterShortageContingencyPlan = () => {
             .
           </Type>
           <Type paragraph>
-            Per the Governor's Executive Order on March 28, 2022, PCWA has moved
-            to Stage 2 of its Water Shortage Contingency Plan. Below are the
-            actions included in stages 1 and 2.
+            Per the State Water Resources Control Board's emergency regulations
+            adopted on May 24, 2022, PCWA has moved to Stage 2 of its Water
+            Shortage Contingency Plan.
           </Type>
           <Type paragraph>
             Stage 1 “Heighten Water Use Efficiency” - 10% Conservation -The
