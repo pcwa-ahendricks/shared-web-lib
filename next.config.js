@@ -124,6 +124,28 @@ const indexPageRedirects = [
 
 // In time these can be removed. They are legacy urls used with previous versions (ng) of the website.
 const legacyRedirects = [
+  {
+    source: '/recreation/flows/gages/french-meadows',
+    destination:
+      'https://www.middleforkfun.com/reservoir-storage/french-meadows',
+    permanent: true
+  },
+  {
+    source: '/recreation/flows/gages/hell-hole',
+    destination: 'https://www.middleforkfun.com/reservoir-storage/hell-hole',
+    permanent: true
+  },
+  {
+    source: '/recreation/flows(/gages)?(/)?',
+    destination: 'https://www.middleforkfun.com/rivers-and-reservoirs',
+    permanent: true
+  },
+  // matched paths and redirect to middleforkfun.com
+  {
+    source: '/recreation/flows/gages/:path*',
+    destination: 'https://www.middleforkfun.com/flows/:path*',
+    permanent: true
+  },
   // matched nested paths in new 'education center'
   {
     source: '/resource-library/:path*',

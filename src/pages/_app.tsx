@@ -18,7 +18,6 @@ import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
 import Head from 'next/head'
 import GlobalStyles from '@components/GlobalStyles'
-import PiProvider from '@components/pi/PiStore'
 import * as gtag from '@lib/gtag'
 import '@lib/css/styles.css'
 import '@lib/css/NoCollapseVerticalTimeline.css'
@@ -112,25 +111,23 @@ export default function MyApp({Component, pageProps}: AppProps) {
             fetcher
           }}
         >
-          <PiProvider>
-            <UiProvider>
-              <NewsroomContext>
-                <MultimediaProvider>
-                  <ForecastProvider>
-                    <SearchProvider>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <ParallaxProvider>
-                          {/* Pass pageContext to the _document though the renderPage enhancer
+          <UiProvider>
+            <NewsroomContext>
+              <MultimediaProvider>
+                <ForecastProvider>
+                  <SearchProvider>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <ParallaxProvider>
+                        {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                          <Component {...pageProps} />
-                        </ParallaxProvider>
-                      </MuiPickersUtilsProvider>
-                    </SearchProvider>
-                  </ForecastProvider>
-                </MultimediaProvider>
-              </NewsroomContext>
-            </UiProvider>
-          </PiProvider>
+                        <Component {...pageProps} />
+                      </ParallaxProvider>
+                    </MuiPickersUtilsProvider>
+                  </SearchProvider>
+                </ForecastProvider>
+              </MultimediaProvider>
+            </NewsroomContext>
+          </UiProvider>
         </SWRConfig>
       </ThemeProvider>
     </>

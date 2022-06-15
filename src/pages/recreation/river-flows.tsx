@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -15,20 +15,22 @@ import {
   createStyles,
   makeStyles,
   CardActions,
-  Button,
-  Theme
+  Theme,
+  Button
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
-import NextLink from 'next/link'
-import {useRouter} from 'next/router'
-import defaultPageGage from '@components/pi/defaultPageGage'
+// import defaultPageGage from '@components/pi/defaultPageGage'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 const cardImageHeight = 200
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    buttonLabel: {
+      display: 'inline-flex'
+    },
     card: {
       margin: 'auto',
       maxWidth: 345,
@@ -43,14 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ResponsiveImageTemplatePage = () => {
   const classes = useStyles()
-  const router = useRouter()
 
-  const cardClickHandler = useCallback(() => {
-    router.push(
-      '/recreation/flows/gages/[pid]',
-      `/recreation/flows/gages/${defaultPageGage}`
-    )
-  }, [router])
+  // const cardClickHandler = useCallback(() => {
+  //   router.push(
+  //     '/recreation/flows/gages/[pid]',
+  //     `/recreation/flows/gages/${defaultPageGage}`
+  //   )
+  // }, [router])
 
   return (
     <PageLayout title="American River Flows" waterSurface>
@@ -103,7 +104,12 @@ const ResponsiveImageTemplatePage = () => {
           <Spacing size="x-large" />
           <FlexBox>
             <Card className={classes.card}>
-              <CardActionArea onClick={cardClickHandler}>
+              {/* <CardActionArea onClick={cardClickHandler}> */}
+              <CardActionArea
+                href="https://www.middleforkfun.com/rivers-and-reservoirs"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <CardMedia component="div" className={classes.media}>
                   <Image
                     loader={imgixLoader}
@@ -122,17 +128,38 @@ const ResponsiveImageTemplatePage = () => {
                     Recorded River & Reservoir Conditions
                   </Type>
                   <Type variant="body2" color="textSecondary" component="p">
-                    Take a look at recorded river flow and reservoir conditions
-                    along the Middle Fork of the American River. Recorded data
-                    is refreshed every hour. Keep in mind that all of the
-                    recorded data collected via instrumentation does not reflect
-                    actual river and reservoir conditions. All data is subject
-                    to correction, change, and revision by PCWA.
+                    Find recorded river flow and reservoir conditions along the
+                    Middle Fork of the American River at{' '}
+                    <Link
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href="https://www.middleforkfun.com/rivers-and-reservoirs"
+                    >
+                      MiddleForkFun.com
+                    </Link>
+                    . Recorded data is refreshed every hour. Keep in mind that
+                    all of the recorded data collected via instrumentation does
+                    not reflect actual river and reservoir conditions. All data
+                    is subject to correction, change, and revision by PCWA.
                   </Type>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <NextLink
+                <Button
+                  // fullWidth
+                  aria-label="Visit MiddleForkFun.com"
+                  href="https://www.middleforkfun.com/rivers-and-reservoirs"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  endIcon={<OpenInNewIcon />}
+                  classes={{label: classes.buttonLabel}}
+                  variant="text"
+                >
+                  <Type variant="inherit" style={{textTransform: 'none'}}>
+                    Visit MiddleForkFun.com
+                  </Type>
+                </Button>
+                {/* <NextLink
                   passHref
                   href="/recreation/flows/gages/[pid]"
                   as={`/recreation/flows/gages/${defaultPageGage}`}
@@ -140,7 +167,7 @@ const ResponsiveImageTemplatePage = () => {
                   <Button size="small" color="primary">
                     See Recorded Flows
                   </Button>
-                </NextLink>
+                </NextLink> */}
               </CardActions>
             </Card>
           </FlexBox>
