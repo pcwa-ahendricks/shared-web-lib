@@ -15,7 +15,9 @@ import {
   Theme,
   ListItemProps,
   ListItemIconProps,
-  Paper
+  Paper,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -71,6 +73,9 @@ export default function DroughtPage() {
     },
     [classes]
   )
+
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
     <PageLayout title="Drought" waterSurface>
@@ -308,7 +313,7 @@ export default function DroughtPage() {
         </Box>
         <WideContainer>
           <RowBox responsive flexSpacing={3}>
-            <ChildBox flex="45%">
+            <ChildBox flex="45%" order={isXs ? 2 : 1}>
               <Box width="95%" m="auto">
                 <Image
                   // src="d5a80e50-52e2-11ec-9aff-3d50541531a0-drought-is-back.jpg"
@@ -345,7 +350,7 @@ export default function DroughtPage() {
                 /> */}
               </Box>
             </ChildBox>
-            <ChildBox flex="55%">
+            <ChildBox flex="55%" order={isXs ? 1 : 2}>
               <Type variant="h3" color="primary">
                 Actions <strong>PCWA</strong> is taking
               </Type>
