@@ -118,9 +118,9 @@ export default function DroughtPage() {
               </Type> */}
               <Type paragraph>
                 We're asking everyone to pitch in and do their part to stop
-                waste and use less water. Here are some tips you can follow
-                around your home and business to help our water stewardship
-                efforts. Also, make sure to take advantage of PCWA's enhanced{' '}
+                waste and use less water. Here are some tips you can follow at
+                your home and business to help our water stewardship efforts.
+                Also, make sure to take advantage of PCWA's enhanced{' '}
                 <MuiNextLink
                   underline="always"
                   href="/smart-water-use/rebate-programs"
