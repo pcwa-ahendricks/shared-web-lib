@@ -54,7 +54,7 @@
     "eslint-config-prettier": "^8.5.0",
     "gensync": "^1.0.0-beta.2",
     "globby": "<12.0.0",
-    "prettier": "^2.7.0",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
     "typescript": "<4.4.0"
