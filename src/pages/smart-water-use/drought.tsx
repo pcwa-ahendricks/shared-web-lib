@@ -98,11 +98,20 @@ export default function DroughtPage() {
                 using water efficiently.
               </Type> */}
               <Type paragraph>
-                California is experiencing a severe drought. With a hot summer
-                coming, Gov. Newsom has called on all Californians to increase
-                their water conservation efforts and reduce water use by 20
-                percent. Conservation is important, because we don't know if
-                2023 will be dry and if water supplies will be limited.
+                Due to severe drought, Governor Newsom has called on all
+                Californians to increase their water conservation efforts and
+                reduce water use by 20 percent. In line with the Governor, the
+                State Water Resources Control Board adopted an emergency
+                regulation on May 24, 2022. As a result, PCWA moved to Stage 2
+                of its{' '}
+                <MuiNextLink
+                  underline="always"
+                  href="/smart-water-use/water-shortage-contingency-plan"
+                  noWrap
+                >
+                  Water Shortage Contingency Plan
+                </MuiNextLink>
+                .
               </Type>
               {/* <Type paragraph>
                 Here are some tips you can follow around your home and business
@@ -117,36 +126,22 @@ export default function DroughtPage() {
                 program.{' '}
               </Type> */}
               <Type paragraph>
-                We're asking everyone to pitch in and do their part to stop
-                waste and use less water. Here are some tips you can follow at
-                your home and business to help our water stewardship efforts.
-                Also, make sure to take advantage of PCWA's enhanced{' '}
+                PCWA asks customers to pitch in and do their part to stop water
+                waste and use less water. Below are some tips to follow at your
+                home and business to help our water stewardship efforts. You can
+                also take advantage of PCWA's enhanced{' '}
                 <MuiNextLink
+                  noWrap
                   underline="always"
                   href="/smart-water-use/rebate-programs"
                 >
                   water efficiency rebate programs
-                </MuiNextLink>
-                .
-              </Type>
-              <Type paragraph>
-                You can find additional tips on the{' '}
+                </MuiNextLink>{' '}
+                or search for additional tips on the{' '}
                 <MuiNextLink href="/smart-water-use">
                   Smart Water Use
                 </MuiNextLink>{' '}
-                page .
-              </Type>
-              <Type paragraph>
-                Per the State Water Resources Control Board's emergency
-                regulations adopted on May 24, 2022, PCWA has moved to Stage 2
-                of its Water Shortage Contingency Plan. Visit our{' '}
-                <MuiNextLink
-                  underline="always"
-                  href="/smart-water-use/water-shortage-contingency-plan"
-                >
-                  Water Shortage Contingency Plan
-                </MuiNextLink>{' '}
-                page to learn more about the actions included in stages 1 and 2.
+                page.
               </Type>
             </ChildBox>
           </RowBox>
