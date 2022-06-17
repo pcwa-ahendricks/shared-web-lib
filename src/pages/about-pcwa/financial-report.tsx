@@ -81,7 +81,7 @@ const EmployeeBenefitsSummaryPage = () => {
             >
               <Image
                 loader={imgixLoader}
-                src="81a6b9f0-b756-11eb-bcb9-d7d3c90bc15f-PCWA-2020-Annual-Report-for-website.pdf"
+                src="10be14f0-ecd3-11ec-aad0-63c3465ecebb-2021-ACFR-for-website-final.pdf"
                 layout="responsive"
                 sizes="(max-width: 600px) 50vw, 20vw"
                 width={85}
@@ -114,14 +114,14 @@ const EmployeeBenefitsSummaryPage = () => {
                 <RowBox justifyContent="space-around">
                   <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
-                    href="https://imgix.cosmicjs.com/10be14f0-ecd3-11ec-aad0-63c3465ecebb-2021-ACFR-for-website-final.pdf"
+                    href="https://docs.pcwa.net/annual-comprehensive-financial-report-2021"
                     imgixUrl="https://imgix.cosmicjs.com/10be14f0-ecd3-11ec-aad0-63c3465ecebb-2021-ACFR-for-website-final.pdf"
                     caption="2021 Annual Report"
                     alt="Annual Report Thumbnail and link for 2021 PCWA Annual Report pdf"
                   />
                   <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
-                    href="https://docs.pcwa.net/comprehensive-annual-financial-report-2020"
+                    href="https://docs.pcwa.net/annual-comprehensive-financial-report-2020"
                     imgixUrl="https://imgix.cosmicjs.com/81a6b9f0-b756-11eb-bcb9-d7d3c90bc15f-PCWA-2020-Annual-Report-for-website.pdf"
                     caption="2020 Annual Report"
                     alt="Annual Report Thumbnail and link for 2020 PCWA Annual Report pdf"
