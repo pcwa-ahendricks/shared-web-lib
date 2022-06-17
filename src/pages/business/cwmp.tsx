@@ -36,6 +36,8 @@ type UseStylesProps = {
   activeStep: number
 }
 
+const ACTIVE_STEP = 1 // 1-7
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     isActiveStep: {
@@ -71,9 +73,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CountyWideMasterPlanPage = () => {
   const theme = useTheme()
-  const activeStep = 5 // 1-7
-  const [activeIndex, setActiveIndex] = useState<number>(activeStep - 1)
-  const classes = useStyles({activeIndex, activeStep: activeStep - 1})
+  const [activeIndex, setActiveIndex] = useState<number>(ACTIVE_STEP - 1)
+  const classes = useStyles({activeIndex, activeStep: ACTIVE_STEP - 1})
   const [dialogOpen, setDialogOpen] = useState(false)
   const closeDialogHandler = useCallback(() => {
     setDialogOpen(false)
@@ -87,7 +88,7 @@ const CountyWideMasterPlanPage = () => {
   )
 
   const isStepComplete = useCallback(
-    (index: number) => index < activeStep - 1,
+    (index: number) => index < ACTIVE_STEP - 1,
     []
   )
 
@@ -373,7 +374,7 @@ const CountyWideMasterPlanPage = () => {
             <ChildBox flex="40%">
               <Box>
                 <Type variant="subtitle2" color="textSecondary">
-                  <strong>Funding Timeline for 2022</strong>
+                  <strong>Funding Timeline for 2023</strong>
                 </Type>
                 <Spacing size="small" />
                 <Box>
