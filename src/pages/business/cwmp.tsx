@@ -397,7 +397,7 @@ const CountyWideMasterPlanPage = () => {
                                 classes.stepLabel,
                                 {
                                   [classes.isActiveStep]:
-                                    index === activeStep - 1
+                                    index === ACTIVE_STEP - 1
                                 }
                               ])
                             }}
