@@ -11,7 +11,7 @@ import {
   AttachmentFieldValue
 } from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {localDate, localFormat} from '@lib/api/shared'
+import {localDate, localDateFrom, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -30,7 +30,10 @@ interface FormDataObj {
   name: string
   email: string
   phone: string
-  location: string
+  incidentDateTime: string
+  incidentAddress: string
+  incidentCity: string
+  incidentReason: string
   description: string
   captcha: string
   photos: AttachmentFieldValue[]
@@ -43,15 +46,16 @@ const bodySchema = object()
       .camelCase()
       .required()
       .shape({
-        captcha: string().required(
-          'Checking this box is required for security purposes'
-        ),
+        captcha: string().required(),
         name: string(),
-        email: string().email(),
+        email: string().email().required(),
         // .min() also makes the field required. Don't use here since the phone number is not a required field. Chaining .notRequired() or .nullable() doesn't seem ti fix issue.
         // phone: string().min(10)
         phone: string(),
-        location: string().required(),
+        incidentAddress: string().required(),
+        incidentCity: string().required(),
+        incidentDateTime: string().required(),
+        incidentReason: string().required(),
         description: string().required(),
         photos: array().of(
           object({
@@ -89,14 +93,18 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const {formData} = bodyParsed
     const {
-      email,
       name,
+      email,
       phone,
-      location,
+      incidentAddress,
+      incidentCity,
+      incidentDateTime,
+      incidentReason,
       description,
       captcha,
       photos = []
     } = formData
+
     const photoAttachments = photos.map((p) => p.url)
 
     // Only validate recaptcha key in production.
@@ -127,6 +135,12 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       ...senderRecipients
     ]
 
+    const submitDate = localFormat(localDate(), 'MMMM do, yyyy')
+    const incidentDateTimeFrmt = localFormat(
+      localDateFrom(incidentDateTime),
+      'PPPPpppp'
+    )
+
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
     // Barracuda via a rule Bryan H. added.
@@ -154,9 +168,12 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             email,
             name,
             phone,
-            location,
+            incidentDateTime: incidentDateTimeFrmt,
+            incidentAddress,
+            incidentCity,
+            incidentReason,
             description,
-            submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
+            submitDate,
             photoAttachments
           }
         }

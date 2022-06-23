@@ -109,7 +109,10 @@ export interface WaterWasteFormData {
   name: string
   email: string
   phone: string
-  location: string
+  incidentDateTime: Date | null
+  incidentAddress: string
+  incidentCity: string
+  incidentReason: string
   description: string
   captcha: string
   photos: string[]

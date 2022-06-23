@@ -18,6 +18,9 @@ export const TZ = 'America/Los_Angeles'
 export function localDate() {
   return utcToZonedTime(new Date(), TZ)
 }
+export function localDateFrom(props: Date | string | number) {
+  return utcToZonedTime(new Date(props), TZ)
+}
 
 type FormatParameters = Parameters<typeof format>
 export function localFormat(...args: FormatParameters) {
