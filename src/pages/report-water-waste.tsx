@@ -269,9 +269,11 @@ const ReportWaterWastePage = () => {
                           />
                         </ChildBox>
 
-                        <ChildBox>
-                          <WaterWasteGeolocator />
-                        </ChildBox>
+                        <Hidden mdUp>
+                          <ChildBox>
+                            <WaterWasteGeolocator />
+                          </ChildBox>
+                        </Hidden>
                       </RowBox>
                     </Hidden>
                     <Hidden smUp>
