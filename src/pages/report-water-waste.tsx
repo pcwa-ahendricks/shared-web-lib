@@ -4,7 +4,8 @@ import {
   Typography as Type,
   Box,
   InputAdornment,
-  IconButton
+  IconButton,
+  Hidden
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
 import {string, object, array, date} from 'yup'
@@ -31,11 +32,11 @@ import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import AttachmentField from '@components/formFields/AttachmentField'
-// import MatGeoLocator from '@components/MatGeolocator/MatGeolocator'
 import FormTextField from '@components/formFields/FormTextField'
 import FormDateTimeField from '@components/formFields/FormDateTimeField'
 import CalendarIcon from '@material-ui/icons/Event'
 import WtrWasteSelectField from '@components/formFields/WtrWasteSelectField'
+import WaterWasteGeolocator from '@components/WaterWasteGeolocator/WaterWasteGeolocator'
 
 const SERVICE_URI_PATH = 'water-waste'
 
@@ -113,8 +114,6 @@ const ReportWaterWastePage = () => {
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
   }, [])
-
-  // const onGeoClickHandler = useCallback((e) => console.log(e), [])
 
   const mainEl = useMemo(
     () => (
@@ -249,31 +248,59 @@ const ReportWaterWastePage = () => {
                         }}
                       />
                     </ChildBox>
-                    <RowBox child flexSpacing={3}>
-                      <ChildBox flex="60%">
-                        <FormTextField
-                          name="incidentAddress"
-                          label="Street Address"
-                          placeholder="Street address of water waste incident"
-                          required
-                          margin="none"
-                        />
-                      </ChildBox>
-                      <ChildBox flex="40%">
-                        <FormTextField
-                          name="incidentCity"
-                          label="City"
-                          placeholder="City where incident occurred"
-                          required
-                          margin="none"
-                        />
-                      </ChildBox>
+                    <Hidden only="xs">
+                      <RowBox child flexSpacing={3} alignItems="center">
+                        <ChildBox flex="60%">
+                          <FormTextField
+                            name="incidentAddress"
+                            label="Street Address"
+                            placeholder="Street address of water waste incident"
+                            required
+                            margin="none"
+                          />
+                        </ChildBox>
+                        <ChildBox flex="40%">
+                          <FormTextField
+                            name="incidentCity"
+                            label="City"
+                            placeholder="City where incident occurred"
+                            required
+                            margin="none"
+                          />
+                        </ChildBox>
 
-                      {/* <MatGeoLocator
-                          onClick={onGeoClickHandler}
-                          variant="outlined"
-                        /> */}
-                    </RowBox>
+                        <ChildBox>
+                          <WaterWasteGeolocator />
+                        </ChildBox>
+                      </RowBox>
+                    </Hidden>
+                    <Hidden smUp>
+                      <ColumnBox child flexSpacing={3}>
+                        <RowBox child flex="60%" flexSpacing={3}>
+                          <ChildBox flex>
+                            <FormTextField
+                              name="incidentAddress"
+                              label="Street Address"
+                              placeholder="Street address of water waste incident"
+                              required
+                              margin="none"
+                            />
+                          </ChildBox>
+                          <ChildBox>
+                            <WaterWasteGeolocator />
+                          </ChildBox>
+                        </RowBox>
+                        <ChildBox flex="40%">
+                          <FormTextField
+                            name="incidentCity"
+                            label="City"
+                            placeholder="City where incident occurred"
+                            required
+                            margin="none"
+                          />
+                        </ChildBox>
+                      </ColumnBox>
+                    </Hidden>
                     <ChildBox>
                       <Field
                         name="incidentReason"
