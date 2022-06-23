@@ -2,13 +2,12 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {
   Typography as Type,
-  createStyles,
-  makeStyles,
-  Theme,
-  Box
+  Box,
+  InputAdornment,
+  IconButton
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
-import {string, object, array} from 'yup'
+import {string, object, array, date} from 'yup'
 import {
   postForm,
   WaterWasteFormData as FormData,
@@ -18,7 +17,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import EmailField from '@components/formFields/EmailField'
 import NameField from '@components/formFields/NameField'
 import ContactUsMessageField from '@components/formFields/ContactUsMessageField'
-import MultilineTextField from '@components/formFields/MultilineTextField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import ContactUsSubmitDialog from '@components/ContactUsSubmitDialog/ContactUsSubmitDialog'
@@ -33,6 +31,11 @@ import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import AttachmentField from '@components/formFields/AttachmentField'
+// import MatGeoLocator from '@components/MatGeolocator/MatGeolocator'
+import FormTextField from '@components/formFields/FormTextField'
+import FormDateTimeField from '@components/formFields/FormDateTimeField'
+import CalendarIcon from '@material-ui/icons/Event'
+import WtrWasteSelectField from '@components/formFields/WtrWasteSelectField'
 
 const SERVICE_URI_PATH = 'water-waste'
 
@@ -44,13 +47,27 @@ const formSchema = object()
       .required('Checking this box is required for security purposes')
       .label('This checkbox'),
     name: string().label('Name'),
-    email: string().email().label('Email'),
+    email: string().email().required().label('Please provide an email address'),
     phone: string().min(10).label('Phone Number'),
-    location: string()
-      .required('Please describe the location of where you observed the issue')
-      .label('Location'),
+    incidentDateTime: date()
+      .nullable() // prevent error msg from displaying
+      .required('Please specify a date and time for this incident')
+      .label('Incident Date/Time'),
+    incidentAddress: string()
+      .required(
+        'Approximate street address the location of where you observed this incident is a required field'
+      )
+      .label('Incident Address'),
+    incidentCity: string()
+      .required('City where you observed this incident in a required field')
+      .label('Incident City'),
+    incidentReason: string()
+      .required(
+        'Please choose a reason from this dropdown list that best describes the type of water waste observed'
+      )
+      .label('Type of Water Waste'),
     description: string()
-      .required('Please enter a description of the observed issue')
+      .required('Please enter a description of the observed incident')
       .label('Description'),
     photos: array().of(
       object({
@@ -67,23 +84,17 @@ const initialFormValues: FormData = {
   name: '',
   email: '',
   phone: '',
-  location: '',
+  incidentDateTime: null,
+  incidentAddress: '',
+  incidentCity: '',
+  incidentReason: '',
   description: '',
   captcha: '',
   photos: []
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    }
-  })
-)
-
 const ReportWaterWastePage = () => {
   // const theme = useTheme()
-  const classes = useStyles()
 
   const [photosAreUploading, setPhotosAreUploading] = useState<boolean>(false)
   const photosAreUploadingHandler = useCallback((isUploading) => {
@@ -102,6 +113,8 @@ const ReportWaterWastePage = () => {
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
   }, [])
+
+  // const onGeoClickHandler = useCallback((e) => console.log(e), [])
 
   const mainEl = useMemo(
     () => (
@@ -172,6 +185,10 @@ const ReportWaterWastePage = () => {
                   </Type>
                   <Spacing size="x-small" />
                   {/* flex prop is an IE11 fix. */}
+                  <Type variant="h4" color="textSecondary">
+                    Contact Information
+                  </Type>
+                  <Spacing size="small" />
                   <ColumnBox flexSpacing={5} flex="0 0 auto">
                     <ChildBox>
                       <Field
@@ -180,11 +197,6 @@ const ReportWaterWastePage = () => {
                         required={false}
                       />
                     </ChildBox>
-                    {/* <Grid container>
-                        </Grid>
-
-                        <Grid container>
-                        </Grid> */}
 
                     <ChildBox>
                       <RowBox responsive flexSpacing={5}>
@@ -192,7 +204,7 @@ const ReportWaterWastePage = () => {
                           <Field
                             name="email"
                             component={EmailField}
-                            required={false}
+                            required
                             margin="none"
                           />
                         </ChildBox>
@@ -200,51 +212,105 @@ const ReportWaterWastePage = () => {
                           <Field
                             name="phone"
                             component={PhoneNoField}
+                            label="Phone Number (optional)"
                             required={false}
                             margin="none"
                           />
                         </ChildBox>
                       </RowBox>
                     </ChildBox>
-
+                  </ColumnBox>
+                  <Spacing size="small" />
+                  <Type variant="h4" color="textSecondary">
+                    Incident Details
+                  </Type>
+                  <Spacing size="small" />
+                  <ColumnBox flexSpacing={5}>
                     <ChildBox>
-                      <Field
-                        name="location"
-                        component={MultilineTextField}
-                        label="Location"
-                        placeholder="Approximate location and cross street of water waste incident"
+                      <FormDateTimeField
+                        name="incidentDateTime"
+                        label="Date/Time"
+                        placeholder="Date and time of incident"
+                        required
+                        disableFuture
+                        margin="none"
+                        showTodayButton
+                        inputVariant="outlined"
+                        // format="dd/MM/yyyy"
+                        // show icon
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton>
+                                <CalendarIcon />
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
                       />
                     </ChildBox>
+                    <RowBox child flexSpacing={3}>
+                      <ChildBox flex="60%">
+                        <FormTextField
+                          name="incidentAddress"
+                          label="Street Address"
+                          placeholder="Street address of water waste incident"
+                          required
+                          margin="none"
+                        />
+                      </ChildBox>
+                      <ChildBox flex="40%">
+                        <FormTextField
+                          name="incidentCity"
+                          label="City"
+                          placeholder="City where incident occurred"
+                          required
+                          margin="none"
+                        />
+                      </ChildBox>
 
+                      {/* <MatGeoLocator
+                          onClick={onGeoClickHandler}
+                          variant="outlined"
+                        /> */}
+                    </RowBox>
+                    <ChildBox>
+                      <Field
+                        name="incidentReason"
+                        margin="none"
+                        component={WtrWasteSelectField}
+                        required
+                        fullWidth
+                      />
+                    </ChildBox>
                     <ChildBox>
                       <Field
                         name="description"
-                        placeholder="Describe the problem and location of the problem as best as you can"
+                        placeholder="Describe the water waste incident in detail"
                         label="Description"
                         component={ContactUsMessageField}
+                        margin="none"
                       />
                     </ChildBox>
                   </ColumnBox>
-                  <Spacing />
+                  <Spacing size="small" />
+                  <Type variant="h4" color="textSecondary">
+                    Provide Photo Attachment(s)
+                  </Type>
                   {/* flex="0 0 auto" is an IE11 fix. */}
                   <Box flex="0 0 auto">
-                    <Type
-                      variant="h4"
-                      color="textSecondary"
-                      gutterBottom
-                      className={classes.formGroupTitle}
-                    >
-                      Provide Photo Attachment(s)
-                    </Type>
                     <Type variant="caption" color="textSecondary">
-                      Note - Only Image file formats can be uploaded (eg. .jpg,
-                      .png). PDF files <em>cannot</em> be uploaded.
+                      <em>
+                        Note - Only Image file formats can be uploaded (eg.
+                        .jpg, .png). PDF files <em>cannot</em> be uploaded.
+                      </em>
                     </Type>
 
                     <ColumnBox
                       justifyContent="flex-start"
                       alignItems="flex-start"
-                      my={3}
+                      mb={3}
+                      mt={1}
                     >
                       <Field
                         // disabled={ineligible}
@@ -323,7 +389,7 @@ const ReportWaterWastePage = () => {
         </NarrowContainer>
       </MainBox>
     ),
-    [photosAreUploading, photosAreUploadingHandler, classes]
+    [photosAreUploading, photosAreUploadingHandler]
   )
 
   return (
