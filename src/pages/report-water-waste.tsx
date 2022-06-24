@@ -133,7 +133,7 @@ const ReportWaterWastePage = () => {
             </ChildBox>
           </RowBox>
 
-          <Spacing size="large" factor={2} />
+          <Spacing size="large" />
           {/* <Type variant="h3" color="primary" gutterBottom>
                 React out to us via email
               </Type> */}
