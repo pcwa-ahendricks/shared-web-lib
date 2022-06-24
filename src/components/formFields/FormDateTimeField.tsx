@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useField, useFormikContext} from 'formik'
 import {DateTimePicker, DateTimePickerProps} from '@material-ui/pickers'
+import {useMediaQuery, useTheme} from '@material-ui/core'
 
 type Props = Omit<DateTimePickerProps, 'onChange' | 'value'>
 
@@ -17,9 +18,24 @@ const FormDateTimeField = ({disabled, ...other}: Props) => {
   const [open, setOpen] = useState(false)
   const fieldHasError = Boolean(error)
   const fieldIsTouchedWithError = fieldHasError && touched && !open // don't immediately show error message
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useMediaQuery(theme.breakpoints.down('xs'))
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => setIsReady(true), 2000) // prevent route change protection dialog from popping up
+  }, [])
+
+  useEffect(() => {
+    if (!value && isMobile && isReady) {
+      setFieldValue(name, new Date(), false)
+    }
+  }, [isMobile, value, setFieldValue, name, isReady])
 
   return (
     <DateTimePicker
+      fullWidth={isXs}
       // type={type}
       // variant={variant}
       disabled={disabled || isSubmitting}

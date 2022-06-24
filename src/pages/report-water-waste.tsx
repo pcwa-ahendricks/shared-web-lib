@@ -125,11 +125,10 @@ const ReportWaterWastePage = () => {
               <Type paragraph>
                 Water conservation is always important. Everyone can do their
                 part. Use the form below to help us identify outdoor water
-                waste. At PCWA, We appreciate your help in identifying water
-                losses. And with your help we will continue to work to educate
+                waste. At PCWA, we appreciate your help in identifying water
+                losses. With your help we will continue to work to educate
                 residents and businesses about how to use water wisely and
-                efficiently and make the necessary repairs to our own water
-                supply system as needed.
+                efficiently.
               </Type>
             </ChildBox>
           </RowBox>
@@ -178,9 +177,15 @@ const ReportWaterWastePage = () => {
                   <Type paragraph>
                     Reach out to us via email today by filling out the following
                     form online. Fields marked with an asterisk are required, in
-                    addition to the Google Captcha checkbox. If you would like
-                    to be CC'd on this email and/or contacted by PCWA please
-                    include your email address in the provided field.
+                    addition to the Google Captcha checkbox. Your email is
+                    required in the event we need more information on the
+                    reported water waste. Please include photos, cross-streets,
+                    and landmarks with water waste reports whenever possible.
+                    Please allow us time to investigate the water waste prior to
+                    submitting multiple water waste reports for the same
+                    location. Please be as detailed as possible. If the specific
+                    location of the water waste is not included, we may not be
+                    able to address your reported water waste.
                   </Type>
                   <Spacing size="x-small" />
                   {/* flex prop is an IE11 fix. */}
@@ -193,6 +198,7 @@ const ReportWaterWastePage = () => {
                       <Field
                         name="name"
                         component={NameField}
+                        label="Name"
                         required={false}
                       />
                     </ChildBox>
@@ -211,7 +217,7 @@ const ReportWaterWastePage = () => {
                           <Field
                             name="phone"
                             component={PhoneNoField}
-                            label="Phone Number (optional)"
+                            label="Phone Number"
                             required={false}
                             margin="none"
                           />
@@ -248,6 +254,7 @@ const ReportWaterWastePage = () => {
                         }}
                       />
                     </ChildBox>
+                    {/* SM mobile & non-mobile address inputs   */}
                     <Hidden only="xs">
                       <RowBox child flexSpacing={3} alignItems="center">
                         <ChildBox flex="60%">
@@ -268,7 +275,7 @@ const ReportWaterWastePage = () => {
                             margin="none"
                           />
                         </ChildBox>
-
+                        {/* just show on sm devices (tablets) */}
                         <Hidden mdUp>
                           <ChildBox>
                             <WaterWasteGeolocator />
@@ -276,8 +283,13 @@ const ReportWaterWastePage = () => {
                         </Hidden>
                       </RowBox>
                     </Hidden>
+                    {/* XS mobile address inputs   */}
                     <Hidden smUp>
-                      <ColumnBox child flexSpacing={3}>
+                      {/* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */}
+                      <ColumnBox
+                        child
+                        // flexSpacing={5}
+                      >
                         <RowBox child flex="60%" flexSpacing={3}>
                           <ChildBox flex>
                             <FormTextField
@@ -292,7 +304,8 @@ const ReportWaterWastePage = () => {
                             <WaterWasteGeolocator />
                           </ChildBox>
                         </RowBox>
-                        <ChildBox flex="40%">
+                        {/* see comment/todo above regard flexSpacing */}
+                        <ChildBox flex="40%" mt={5}>
                           <FormTextField
                             name="incidentCity"
                             label="City"
@@ -315,7 +328,7 @@ const ReportWaterWastePage = () => {
                     <ChildBox>
                       <Field
                         name="description"
-                        placeholder="Describe the water waste incident in detail"
+                        placeholder="Describe the water waste incident in detail (Examples, cross-streets, landmark, nearest address, backyard, front yard, near fence, on driveway, left of walkway, etc.)."
                         label="Description"
                         component={ContactUsMessageField}
                         margin="none"
