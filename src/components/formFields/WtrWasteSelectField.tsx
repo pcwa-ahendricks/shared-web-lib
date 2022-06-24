@@ -24,7 +24,7 @@ type Props = {
   FormControlProps
 
 const REASONS = [
-  'Watering on wrong days or time of day',
+  'Broken Sprinkler or Drip',
   'Water running onto adjacent properties, sidewalks, and/or streets',
   'Other; please provide us a detailed description'
 ]
