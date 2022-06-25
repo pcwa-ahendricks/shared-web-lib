@@ -16,14 +16,14 @@ import {
   ListItemText,
   ListItemProps,
   Link,
-  Box,
-  TypographyProps
+  Box
+  // TypographyProps
 } from '@material-ui/core'
 import ConstructionProject from '@components/ConstructionProject/ConstructionProject'
 import Spacing from '@components/boxes/Spacing'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import DownloadIcon from '@material-ui/icons/GetApp'
-import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
+// import DownloadIcon from '@material-ui/icons/GetApp'
+// import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
@@ -54,13 +54,13 @@ const ProjectsPage = () => {
     return <ChildBox mt={6}>{children}</ChildBox>
   }
 
-  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
-    return (
-      <Type component="li" className={classes.bulletLi} {...rest}>
-        {children}
-      </Type>
-    )
-  }
+  // const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
+  //   return (
+  //     <Type component="li" className={classes.bulletLi} {...rest}>
+  //       {children}
+  //     </Type>
+  //   )
+  // }
 
   const TimelineListItem = ({children}: ListItemProps) => {
     return (
@@ -93,7 +93,7 @@ const ProjectsPage = () => {
           <PageTitle title="Construction Projects" subtitle="General" />
           <RowBox responsive="sm" flexSpacing={4}>
             <ColumnOne>
-              <ProjectChild>
+              {/* <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Ophir Road and American River Pump Station Standby Generator
@@ -166,10 +166,9 @@ const ProjectsPage = () => {
                     </Type>
                   </article>
                 </ConstructionProject>
-              </ProjectChild>
-
-              <ProjectChild>
-                {/* <ConstructionProject>
+              </ProjectChild> */}
+              {/* <ProjectChild>
+                <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Hell Hole Dam Core Raise
                   </Type>
@@ -236,10 +235,9 @@ const ProjectsPage = () => {
                       </ChildBox>
                     </ColumnBox>
                   </article>
-                </ConstructionProject> */}
-              </ProjectChild>
-
-              <ProjectChild>
+                </ConstructionProject>
+              </ProjectChild> */}
+              {/* <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Foothill Raw Water Pipeline Phase 2 Project
@@ -347,63 +345,7 @@ const ProjectsPage = () => {
                       The Contractor will be following up on various punch list
                       items as the project nears completion.
                     </Type>
-                    {/* <Type paragraph>
-                      The Contractor will be performing the following
-                      construction activities in the next few weeks:
-                    </Type> */}
-                    {/* <ul>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Traffic delays are not anticipated along the
-                          construction corridor.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Pipeline installation and testing anticipated
-                          completion is scheduled for mid-May.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Ongoing activities to construct the Energy Dissipation
-                          Station at the Foothill Water Treatment Plant,
-                          including installation of the roofing, site grading
-                          restoration, fiber conduits, and electrical.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Continue the erection of the Hydraulic Control
-                          Standpipe. The contractor is currently Coating the
-                          tank, installing electrical conduits, grading and
-                          paving around structure, and building a retaining
-                          wall.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1" component="div">
-                          Continue modifications to the Ophir Road Pump Station
-                          to increase pump pressures to accommodate the project.
-                          Currently the contractor has shipped pump columns out
-                          for coating. Reinstallation of pumps and columns is
-                          planned for June 1.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Continue the installation of the Fiber Optics
-                          innerduct, and remaining boxes.
-                        </Type>
-                      </TypeBullet>
-                      <TypeBullet>
-                        <Type variant="body1">
-                          Start removing debris from the drainage tunnel under
-                          UPRRs tracks and start reestablishing drainage from
-                          the tunnel to the Dutch Ravine.
-                        </Type>
-                      </TypeBullet>
-                    </ul> */}
+
                     <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
@@ -471,13 +413,152 @@ const ProjectsPage = () => {
                     </ColumnBox>
                   </article>
                 </ConstructionProject>
+              </ProjectChild> */}
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Bickford Ranch Phase 1 - Mass Grading
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    This Facilities Agreement (FA) Project is being funded and
+                    completed by Bickford Ranch Developers (Bickford). Bickford
+                    is planning to begin construction on Phase 1 of the Bickford
+                    Ranch Community Facility District early in 2021. Part of
+                    Phase 1 work involves the relocation and permanent pipe
+                    encasement of a portion of the Caperton Canal. Overall,
+                    approximately 2,900 linear feet of new 42-inch Raw Water
+                    Pipeline and six Customer Turn Outs (CTO) will be
+                    constructed and upgraded to encase the portion of the
+                    Caperton Canal. Additionally, a temporary and new permanent
+                    Inlet and Outlet Structure’s will be constructed, helping to
+                    create a more robust canal system at this location.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText primary="Design – Complete" />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText primary="Construction: Caperton Canal Relocation – April 2021 – December 2021" />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText primary="Construction: Mass Grading  – April 2021 – December 2022" />
+                    </TimelineListItem>
+                  </List>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Frequently Asked Questions (FAQ’s)
+                  </Type>
+                  <Type gutterBottom>
+                    <em>What is happening to my Customer Turn Out (CTO)?</em>
+                  </Type>
+                  <Type paragraph>
+                    Each CTO within the Project location is being upgraded.
+                    Bickford’s contractor will be installing a temporary
+                    pipeline and permanent pipeline, which they will reconnect
+                    every CTO at each step of construction, making sure that you
+                    will continue to receive water.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      Will there be water outages on our CTO’s during this work?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    Yes. Brief outages are be expected during the work.
+                    Customers will be notified of all planned outages ahead of
+                    time.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      Who do we contact if we need to visit out CTO and clean
+                      the service screens?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    Customers can contact Gene Mancebo, Project Manager at EGM
+                    Solutions and a Bickford representative, at{' '}
+                    <Type variant="inherit" noWrap>
+                      (209) 969-5631
+                    </Type>{' '}
+                    or{' '}
+                    <Link href="mailto:genemancebo@gmail.com">
+                      genemancebo@gmail.com
+                    </Link>
+                    .
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      When will construction of the encased Caperton Canal be
+                      complete?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    It is anticipated that construction for encasing the
+                    Caperton Canal will be completed by December 2021.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    If you have any questions regarding the Project, please
+                    contact the following PCWA Representative:
+                  </Type>
+                  <Type paragraph>
+                    Mitchell McCarthy
+                    <br />
+                    Associate Engineer
+                    <br />
+                    Phone: (530) 863-3889
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:mmccarthy@pcwa.net">
+                      mmccarthy@pcwa.net
+                    </Link>
+                  </Type>
+                  <Spacing size="large" />
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
+                    mediaName="Map Figure of existing and proposed canal layout"
+                    mediaPreviewDialogProps={{
+                      width: 700,
+                      height: 525
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      src={`https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      alt="Map Figure of existing and proposed canal layout"
+                      width={700}
+                      height={525}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 45vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Bickford Ranch Phase I - Canal Services{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox>
+                </ConstructionProject>
               </ProjectChild>
             </ColumnOne>
             <ColumnTwo>
               <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
-                    Alta Loop Pipeline – Cable And Powerhouse Rd
+                    Alta Loop Pipeline - Cable And Powerhouse Rd
                   </Type>
                   <Spacing>
                     <Divider />
@@ -675,145 +756,6 @@ const ProjectsPage = () => {
                       </Link>
                     </Type>
                   </article>
-                </ConstructionProject>
-              </ProjectChild>
-              <ProjectChild>
-                <ConstructionProject>
-                  <Type variant="h3" gutterBottom color="primary">
-                    Bickford Ranch Phase 1 – Mass Grading
-                  </Type>
-                  <Spacing>
-                    <Divider />
-                  </Spacing>
-                  <Type variant="subtitle1" gutterBottom>
-                    Project Description
-                  </Type>
-                  <Type paragraph>
-                    This Facilities Agreement (FA) Project is being funded and
-                    completed by Bickford Ranch Developers (Bickford). Bickford
-                    is planning to begin construction on Phase 1 of the Bickford
-                    Ranch Community Facility District early in 2021. Part of
-                    Phase 1 work involves the relocation and permanent pipe
-                    encasement of a portion of the Caperton Canal. Overall,
-                    approximately 2,900 linear feet of new 42-inch Raw Water
-                    Pipeline and six Customer Turn Outs (CTO) will be
-                    constructed and upgraded to encase the portion of the
-                    Caperton Canal. Additionally, a temporary and new permanent
-                    Inlet and Outlet Structure’s will be constructed, helping to
-                    create a more robust canal system at this location.
-                  </Type>
-                  <Spacing />
-                  <Type variant="subtitle1">Project Schedule</Type>
-                  <List disablePadding>
-                    <TimelineListItem>
-                      <ListItemText primary="Design – Complete" />
-                    </TimelineListItem>
-                    <TimelineListItem>
-                      <ListItemText primary="Construction: Caperton Canal Relocation – April 2021 – December 2021" />
-                    </TimelineListItem>
-                    <TimelineListItem>
-                      <ListItemText primary="Construction: Mass Grading  – April 2021 – December 2022" />
-                    </TimelineListItem>
-                  </List>
-                  <Spacing />
-                  <Type variant="subtitle1" gutterBottom>
-                    Frequently Asked Questions (FAQ’s)
-                  </Type>
-                  <Type gutterBottom>
-                    <em>What is happening to my Customer Turn Out (CTO)?</em>
-                  </Type>
-                  <Type paragraph>
-                    Each CTO within the Project location is being upgraded.
-                    Bickford’s contractor will be installing a temporary
-                    pipeline and permanent pipeline, which they will reconnect
-                    every CTO at each step of construction, making sure that you
-                    will continue to receive water.
-                  </Type>
-                  <Type gutterBottom>
-                    <em>
-                      Will there be water outages on our CTO’s during this work?
-                    </em>
-                  </Type>
-                  <Type paragraph>
-                    Yes. Brief outages are be expected during the work.
-                    Customers will be notified of all planned outages ahead of
-                    time.
-                  </Type>
-                  <Type gutterBottom>
-                    <em>
-                      Who do we contact if we need to visit out CTO and clean
-                      the service screens?
-                    </em>
-                  </Type>
-                  <Type paragraph>
-                    Customers can contact Gene Mancebo, Project Manager at EGM
-                    Solutions and a Bickford representative, at{' '}
-                    <Type variant="inherit" noWrap>
-                      (209) 969-5631
-                    </Type>{' '}
-                    or{' '}
-                    <Link href="mailto:genemancebo@gmail.com">
-                      genemancebo@gmail.com
-                    </Link>
-                    .
-                  </Type>
-                  <Type gutterBottom>
-                    <em>
-                      When will construction of the encased Caperton Canal be
-                      complete?
-                    </em>
-                  </Type>
-                  <Type paragraph>
-                    It is anticipated that construction for encasing the
-                    Caperton Canal will be completed by December 2021.
-                  </Type>
-                  <Spacing />
-                  <Type variant="subtitle1" gutterBottom>
-                    If you have any questions regarding the Project, please
-                    contact the following PCWA Representative:
-                  </Type>
-                  <Type paragraph>
-                    Mitchell McCarthy
-                    <br />
-                    Associate Engineer
-                    <br />
-                    Phone: (530) 863-3889
-                    <br />
-                    E-mail:{' '}
-                    <Link href="mailto:mmccarthy@pcwa.net">
-                      mmccarthy@pcwa.net
-                    </Link>
-                  </Type>
-                  <Spacing size="large" />
-                  <MediaDialogOnClick
-                    mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
-                    mediaName="Map Figure of existing and proposed canal layout"
-                    mediaPreviewDialogProps={{
-                      width: 700,
-                      height: 525
-                    }}
-                  >
-                    <Image
-                      loader={imgixUrlLoader}
-                      src={`https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf${stringify(
-                        {border: '1,AAAAAA'},
-                        true
-                      )}`}
-                      alt="Map Figure of existing and proposed canal layout"
-                      width={700}
-                      height={525}
-                      layout="responsive"
-                      sizes="(max-width: 600px) 100vw, 45vw"
-                    />
-                  </MediaDialogOnClick>
-                  <ColumnBox alignItems="center">
-                    <Box mt={1} width="60%" textAlign="center">
-                      <Type variant="caption">
-                        Map Figure of Bickford Ranch Phase I - Canal Services{' '}
-                        <em>(click to enlarge)</em>
-                      </Type>
-                    </Box>
-                  </ColumnBox>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnTwo>
