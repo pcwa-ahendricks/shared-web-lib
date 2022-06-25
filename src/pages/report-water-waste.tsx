@@ -7,6 +7,7 @@ import {
   IconButton,
   Hidden
 } from '@material-ui/core'
+import EditLocIcon from '@material-ui/icons/Spellcheck'
 import {Formik, Field} from 'formik'
 import {string, object, array, date} from 'yup'
 import {
@@ -37,6 +38,7 @@ import FormDateTimeField from '@components/formFields/FormDateTimeField'
 import CalendarIcon from '@material-ui/icons/Event'
 import WtrWasteSelectField from '@components/formFields/WtrWasteSelectField'
 import WaterWasteGeolocator from '@components/WaterWasteGeolocator/WaterWasteGeolocator'
+import {Alert} from '@material-ui/lab'
 
 const SERVICE_URI_PATH = 'water-waste'
 
@@ -114,6 +116,12 @@ const ReportWaterWastePage = () => {
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
   }, [])
+
+  const [showAddressConfirmAlert, setShowAddressConfirmAlert] = useState(false)
+  const useMyLocationSuccessHandler = useCallback(
+    () => setShowAddressConfirmAlert(true),
+    []
+  )
 
   const mainEl = useMemo(
     () => (
@@ -256,6 +264,14 @@ const ReportWaterWastePage = () => {
                     </ChildBox>
                     {/* SM mobile & non-mobile address inputs   */}
                     <Hidden only="xs">
+                      {showAddressConfirmAlert ? (
+                        <ChildBox mb={-3}>
+                          <Alert severity="info" icon={<EditLocIcon />}>
+                            Please verify that the address below is correct
+                            before submitting
+                          </Alert>
+                        </ChildBox>
+                      ) : null}
                       <RowBox child flexSpacing={3} alignItems="center">
                         <ChildBox flex="60%">
                           <FormTextField
@@ -278,7 +294,9 @@ const ReportWaterWastePage = () => {
                         {/* just show on sm devices (tablets) */}
                         <Hidden mdUp>
                           <ChildBox>
-                            <WaterWasteGeolocator />
+                            <WaterWasteGeolocator
+                              onSuccess={useMyLocationSuccessHandler}
+                            />
                           </ChildBox>
                         </Hidden>
                       </RowBox>
@@ -290,6 +308,14 @@ const ReportWaterWastePage = () => {
                         child
                         // flexSpacing={5}
                       >
+                        {showAddressConfirmAlert ? (
+                          <ChildBox mb={2}>
+                            <Alert severity="info" icon={<EditLocIcon />}>
+                              Please verify that the address below is correct
+                              before submitting
+                            </Alert>
+                          </ChildBox>
+                        ) : null}
                         <RowBox child flex="60%" flexSpacing={3}>
                           <ChildBox flex>
                             <FormTextField
@@ -301,7 +327,9 @@ const ReportWaterWastePage = () => {
                             />
                           </ChildBox>
                           <ChildBox>
-                            <WaterWasteGeolocator />
+                            <WaterWasteGeolocator
+                              onSuccess={useMyLocationSuccessHandler}
+                            />
                           </ChildBox>
                         </RowBox>
                         {/* see comment/todo above regard flexSpacing */}
@@ -431,7 +459,12 @@ const ReportWaterWastePage = () => {
         </NarrowContainer>
       </MainBox>
     ),
-    [photosAreUploading, photosAreUploadingHandler]
+    [
+      photosAreUploading,
+      photosAreUploadingHandler,
+      useMyLocationSuccessHandler,
+      showAddressConfirmAlert
+    ]
   )
 
   return (

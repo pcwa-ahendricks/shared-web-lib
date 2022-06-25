@@ -22,6 +22,7 @@ type Props = {
   onClick?: (coords: GeolocationCoordinates) => void
   timeout?: number
   onGeolocateError?: (error: GeolocationPositionError) => void
+  onSuccess?: () => void
   circularProgressProps?: Partial<CircularProgressProps>
 } & Partial<FabProps>
 
@@ -59,6 +60,7 @@ const WaterWasteGeolocator = ({
   size,
   onClick,
   onGeolocateError,
+  onSuccess,
   circularProgressProps,
   ...rest
 }: Props) => {
@@ -90,13 +92,14 @@ const WaterWasteGeolocator = ({
         setFieldValue('incidentCity', city)
         setLocating(false)
         setSuccess(true)
+        onSuccess && onSuccess()
       } catch (e) {
         console.log(e)
         setLocating(false)
         setSuccess(false)
       }
     },
-    [setFieldValue]
+    [setFieldValue, onSuccess]
   )
 
   /**
