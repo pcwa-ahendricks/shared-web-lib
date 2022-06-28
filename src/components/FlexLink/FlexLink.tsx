@@ -37,7 +37,7 @@ const FlexLink = ({
   className: classNameProp,
   target,
   rel,
-  variant = 'body1',
+  variant = 'body1', // [TODO] - not sure why i need to force this default setting, but without it variant body2 is getting default'ed on Env/Planning page
   ...rest
 }: FlexLinkProps) => {
   const [href, setHref] = useState(hrefProp)
