@@ -37,6 +37,7 @@ const FlexLink = ({
   className: classNameProp,
   target,
   rel,
+  variant = 'body1',
   ...rest
 }: FlexLinkProps) => {
   const [href, setHref] = useState(hrefProp)
@@ -88,31 +89,39 @@ const FlexLink = ({
           href={muiNextLinkHref}
           as={as}
           scroll={scroll}
-          className={clsx([classes.link, classNameProp])}
           rel={rel}
           target={target}
+          variant={variant}
           {...rest}
+          className={clsx([classes.link, classNameProp])}
         >
           {children}
         </MuiNextLink>
       ) : hasHref ? (
         <Link
           href={href}
-          className={clsx([classes.link, classNameProp])}
           rel={rel ?? 'noopener noreferrer'}
           target={target ?? '_blank'}
+          variant={variant}
           {...rest}
+          className={clsx([classes.link, classNameProp])}
         >
           {children}
         </Link>
       ) : (
-        <Type color="primary" {...rest} className={classNameProp}>
+        <Type
+          color="primary"
+          variant={variant}
+          {...rest}
+          className={classNameProp}
+        >
           {children}
         </Type>
       ),
     [
       children,
       href,
+      variant,
       isNextLink,
       as,
       muiNextLinkHref,

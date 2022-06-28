@@ -11,7 +11,8 @@ import {
   useTheme,
   makeStyles,
   createStyles,
-  Theme
+  Theme,
+  Link
 } from '@material-ui/core'
 import OpenInNewLink, {
   OpenInNewLinkProps
@@ -19,6 +20,11 @@ import OpenInNewLink, {
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import {TreeView} from '@material-ui/lab'
+import ExpandMoreIcon from '@material-ui/icons/AddBoxOutlined'
+import ExpandLessIcon from '@material-ui/icons/IndeterminateCheckBoxOutlined'
+import DescriptionIcon from '@material-ui/icons/DescriptionOutlined'
+import TreeItem from '@material-ui/lab/TreeItem'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -203,7 +209,48 @@ const EnvironmentalPlanningPage = () => {
               >
                 PCWA 2022 Temporary Transfer Petition Package, 5-24-2022
               </OpenInNewLinkBox>
-              <Spacing />
+              <TreeView
+                // className={classes.root}
+                defaultCollapseIcon={<ExpandLessIcon color="primary" />}
+                defaultExpandIcon={<ExpandMoreIcon color="primary" />}
+                defaultEndIcon={<DescriptionIcon color="secondary" />}
+                color="primary"
+                defaultExpanded={['1', '3']}
+              >
+                <TreeItem nodeId="1" label="2022 Water Connection Charge Study">
+                  <TreeItem
+                    nodeId="2"
+                    label={
+                      <Link
+                        variant="body1"
+                        color="primary"
+                        href="https://docs.pcwa.net/wcc-cost-study-2017.pdf"
+                        target="blank"
+                        rel="noopener noreferrer"
+                      >
+                        2017 WCC Cost Study
+                      </Link>
+                    }
+                  />
+                  <TreeItem nodeId="3" label="2022 Documents">
+                    <TreeItem
+                      nodeId="4"
+                      label={
+                        <Link
+                          variant="body1"
+                          color="primary"
+                          href="https://docs.pcwa.net/wcc-presentation-2022_06_28.pdf"
+                          target="blank"
+                          rel="noopener noreferrer"
+                        >
+                          2022 WCC Study Presentation Slides
+                        </Link>
+                      }
+                    />
+                  </TreeItem>
+                </TreeItem>
+              </TreeView>
+              <Spacing size="x-large" />
               {/* <Type variant="h3" gutterBottom>
                 Environmental Review
               </Type> */}
