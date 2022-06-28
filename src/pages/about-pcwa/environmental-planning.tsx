@@ -303,7 +303,6 @@ const EnvironmentalPlanningPage = () => {
               >
                 MFP FERC License Revision
               </OpenInNewLinkBox>
-              <Spacing size="x-small" />
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/73e00b70-0372-11eb-9528-f5a6da2be217-BEMPFeb2011.pdf"
