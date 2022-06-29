@@ -29,6 +29,8 @@ interface FormDataObj {
   subject: string
   reason: string
   phone: string
+  serviceAddress: string
+  serviceCity: string
   captcha: string
 }
 
@@ -49,7 +51,9 @@ const bodySchema = object()
         email: string().email(),
         // .min() also makes the field required. Don't use here since the phone number is not a required field. Chaining .notRequired() or .nullable() doesn't seem ti fix issue.
         // phone: string().min(10)
-        phone: string()
+        phone: string(),
+        serviceAddress: string(),
+        serviceCity: string()
       })
   })
 
@@ -80,6 +84,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       email,
       name,
       phone,
+      serviceAddress,
+      serviceCity,
       reason,
       message,
       subject = '',
@@ -143,6 +149,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             email,
             name,
             phone,
+            serviceAddress,
+            serviceCity,
             reason,
             message,
             subject,
