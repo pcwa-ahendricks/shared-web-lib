@@ -1,6 +1,12 @@
 // cspell:ignore cc'd
 import React, {useState, useCallback, useMemo} from 'react'
-import {Divider, Typography as Type, Box, useTheme} from '@material-ui/core'
+import {
+  Divider,
+  Typography as Type,
+  Box,
+  useTheme,
+  Hidden
+} from '@material-ui/core'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -34,6 +40,8 @@ import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRout
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import {Alert} from '@material-ui/lab'
+import FormTextField from '@components/formFields/FormTextField'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -264,6 +272,89 @@ const ContactUsPage = () => {
                         </ChildBox>
                       </RowBox>
                     </ChildBox>
+
+                    {/* SM mobile & non-mobile address inputs   */}
+                    <Hidden only="xs">
+                      {showAddressConfirmAlert ? (
+                        <ChildBox mb={-3}>
+                          <Alert severity="info" icon={<EditLocIcon />}>
+                            Please verify that the address below is correct
+                            before submitting
+                          </Alert>
+                        </ChildBox>
+                      ) : null}
+                      <RowBox child flexSpacing={3} alignItems="center">
+                        <ChildBox flex="60%">
+                          <FormTextField
+                            name="incidentAddress"
+                            label="Street Address"
+                            placeholder="Street address of water waste incident"
+                            required
+                            margin="none"
+                          />
+                        </ChildBox>
+                        <ChildBox flex="40%">
+                          <FormTextField
+                            name="incidentCity"
+                            label="City"
+                            placeholder="City where incident occurred"
+                            required
+                            margin="none"
+                          />
+                        </ChildBox>
+                        {/* just show on sm devices (tablets) */}
+                        <Hidden mdUp>
+                          <ChildBox>
+                            <WaterWasteGeolocator
+                              onSuccess={useMyLocationSuccessHandler}
+                            />
+                          </ChildBox>
+                        </Hidden>
+                      </RowBox>
+                    </Hidden>
+                    {/* XS mobile address inputs   */}
+                    <Hidden smUp>
+                      {/* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */}
+                      <ColumnBox
+                        child
+                        // flexSpacing={5}
+                      >
+                        {showAddressConfirmAlert ? (
+                          <ChildBox mb={2}>
+                            <Alert severity="info" icon={<EditLocIcon />}>
+                              Please verify that the address below is correct
+                              before submitting
+                            </Alert>
+                          </ChildBox>
+                        ) : null}
+                        <RowBox child flex="60%" flexSpacing={3}>
+                          <ChildBox flex>
+                            <FormTextField
+                              name="incidentAddress"
+                              label="Street Address"
+                              placeholder="Street address of water waste incident"
+                              required
+                              margin="none"
+                            />
+                          </ChildBox>
+                          <ChildBox>
+                            <WaterWasteGeolocator
+                              onSuccess={useMyLocationSuccessHandler}
+                            />
+                          </ChildBox>
+                        </RowBox>
+                        {/* see comment/todo above regard flexSpacing */}
+                        <ChildBox flex="40%" mt={5}>
+                          <FormTextField
+                            name="incidentCity"
+                            label="City"
+                            placeholder="City where incident occurred"
+                            required
+                            margin="none"
+                          />
+                        </ChildBox>
+                      </ColumnBox>
+                    </Hidden>
 
                     <ChildBox>
                       <Field
