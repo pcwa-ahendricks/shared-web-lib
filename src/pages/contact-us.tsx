@@ -5,7 +5,8 @@ import {
   Typography as Type,
   Box,
   useTheme,
-  Hidden
+  Hidden,
+  useMediaQuery
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
@@ -42,6 +43,8 @@ import imgixLoader from '@lib/imageLoader'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import {Alert} from '@material-ui/lab'
 import FormTextField from '@components/formFields/FormTextField'
+import EditLocIcon from '@material-ui/icons/Spellcheck'
+import ContactUsGeolocator from '@components/ContactUsGeolocator/ContactUsGeolocator'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -57,6 +60,8 @@ const formSchema = object()
     name: string().label('Name'),
     email: string().email().label('Email'),
     phone: string().min(10).label('Phone Number'),
+    serviceAddress: string().label('Service Street Address'),
+    serviceCity: string().label('City'),
     subject: string().required().label('Subject')
   })
 
@@ -65,6 +70,8 @@ const initialFormValues: FormData = {
   name: '',
   email: '',
   phone: '',
+  serviceAddress: '',
+  serviceCity: '',
   subject: '',
   message: '',
   captcha: ''
@@ -82,9 +89,17 @@ const ContactUsPage = () => {
     setFormSubmitDialogOpen(false)
   }, [])
 
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
   }, [])
+
+  const [showAddressConfirmAlert, setShowAddressConfirmAlert] = useState(false)
+  const useMyLocationSuccessHandler = useCallback(
+    () => setShowAddressConfirmAlert(true),
+    []
+  )
 
   const mainEl = useMemo(
     () => (
@@ -236,42 +251,38 @@ const ContactUsPage = () => {
                         name="reason"
                         component={ReasonForContactSelectField}
                         required={true}
+                        margin="none"
                       />
                     </ChildBox>
 
                     <ChildBox>
                       <Field
                         name="name"
+                        label="Name"
                         component={NameField}
                         required={false}
+                        margin="none"
                       />
                     </ChildBox>
-                    {/* <Grid container>
-                        </Grid>
 
-                        <Grid container>
-                        </Grid> */}
-
-                    <ChildBox>
-                      <RowBox responsive flexSpacing={5}>
-                        <ChildBox flex="60%">
-                          <Field
-                            name="email"
-                            component={EmailField}
-                            required={false}
-                            margin="none"
-                          />
-                        </ChildBox>
-                        <ChildBox flex="40%">
-                          <Field
-                            name="phone"
-                            component={PhoneNoField}
-                            required={false}
-                            margin="none"
-                          />
-                        </ChildBox>
-                      </RowBox>
-                    </ChildBox>
+                    <RowBox child responsive>
+                      <ChildBox flex="60%">
+                        <Field
+                          name="email"
+                          component={EmailField}
+                          required={false}
+                          margin="none"
+                        />
+                      </ChildBox>
+                      <ChildBox flex="40%" mt={5}>
+                        <Field
+                          name="phone"
+                          component={PhoneNoField}
+                          required={false}
+                          margin="none"
+                        />
+                      </ChildBox>
+                    </RowBox>
 
                     {/* SM mobile & non-mobile address inputs   */}
                     <Hidden only="xs">
@@ -286,27 +297,29 @@ const ContactUsPage = () => {
                       <RowBox child flexSpacing={3} alignItems="center">
                         <ChildBox flex="60%">
                           <FormTextField
-                            name="incidentAddress"
-                            label="Street Address"
-                            placeholder="Street address of water waste incident"
-                            required
+                            name="serviceAddress"
+                            label="Service Street Address"
+                            // placeholder="Street address for service"
+                            required={false}
                             margin="none"
                           />
                         </ChildBox>
                         <ChildBox flex="40%">
                           <FormTextField
-                            name="incidentCity"
+                            name="serviceCity"
                             label="City"
-                            placeholder="City where incident occurred"
-                            required
+                            // placeholder="City"
+                            required={false}
                             margin="none"
                           />
                         </ChildBox>
                         {/* just show on sm devices (tablets) */}
                         <Hidden mdUp>
                           <ChildBox>
-                            <WaterWasteGeolocator
+                            <ContactUsGeolocator
                               onSuccess={useMyLocationSuccessHandler}
+                              addressFieldName="serviceAddress"
+                              cityFieldName="serviceCity"
                             />
                           </ChildBox>
                         </Hidden>
@@ -330,26 +343,28 @@ const ContactUsPage = () => {
                         <RowBox child flex="60%" flexSpacing={3}>
                           <ChildBox flex>
                             <FormTextField
-                              name="incidentAddress"
-                              label="Street Address"
-                              placeholder="Street address of water waste incident"
-                              required
+                              name="serviceAddress"
+                              label="Service Street Address"
+                              // placeholder="Street address for service"
+                              required={false}
                               margin="none"
                             />
                           </ChildBox>
                           <ChildBox>
-                            <WaterWasteGeolocator
+                            <ContactUsGeolocator
                               onSuccess={useMyLocationSuccessHandler}
+                              addressFieldName="serviceAddress"
+                              cityFieldName="serviceCity"
                             />
                           </ChildBox>
                         </RowBox>
                         {/* see comment/todo above regard flexSpacing */}
                         <ChildBox flex="40%" mt={5}>
                           <FormTextField
-                            name="incidentCity"
+                            name="serviceCity"
                             label="City"
-                            placeholder="City where incident occurred"
-                            required
+                            // placeholder="City"
+                            required={false}
                             margin="none"
                           />
                         </ChildBox>
@@ -448,7 +463,7 @@ const ContactUsPage = () => {
         </NarrowContainer>
       </MainBox>
     ),
-    [theme]
+    [theme, showAddressConfirmAlert, useMyLocationSuccessHandler]
   )
 
   return (

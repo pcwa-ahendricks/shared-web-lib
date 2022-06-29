@@ -96,6 +96,8 @@ export interface ContactUsFormData {
   email: string
   subject: string
   reason: string
+  serviceAddress: string
+  serviceCity: string
   phone: string
   captcha: string
 }

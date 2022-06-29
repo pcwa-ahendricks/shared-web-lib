@@ -24,6 +24,8 @@ type Props = {
   onGeolocateError?: (error: GeolocationPositionError) => void
   onSuccess?: () => void
   circularProgressProps?: Partial<CircularProgressProps>
+  addressFieldName: string
+  cityFieldName: string
 } & Partial<FabProps>
 
 // Using modified example from https://v4.mui.com/components/progress/#interactive-integration
@@ -62,6 +64,8 @@ const ContactUsGeolocator = ({
   onGeolocateError,
   onSuccess,
   circularProgressProps,
+  addressFieldName,
+  cityFieldName,
   ...rest
 }: Props) => {
   const classes = useStyles()
@@ -88,8 +92,8 @@ const ContactUsGeolocator = ({
           (c) => c.types.indexOf('route') >= 0
         )?.long_name
         const streetAddress = `${streetNo} ${route}`
-        setFieldValue('incidentAddress', streetAddress)
-        setFieldValue('incidentCity', city)
+        setFieldValue(addressFieldName, streetAddress)
+        setFieldValue(cityFieldName, city)
         setLocating(false)
         setSuccess(true)
         onSuccess && onSuccess()
