@@ -5,8 +5,7 @@ import {
   Typography as Type,
   Box,
   useTheme,
-  Hidden,
-  useMediaQuery
+  Hidden
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
@@ -88,8 +87,6 @@ const ContactUsPage = () => {
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
   }, [])
-
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
@@ -245,13 +242,13 @@ const ContactUsPage = () => {
                   </Type>
                   <Spacing size="x-small" />
                   {/* flex prop is an IE11 fix. */}
-                  <ColumnBox flexSpacing={5} flex="0 0 auto">
+                  <ColumnBox flex="0 0 auto">
                     <ChildBox>
                       <Field
                         name="reason"
                         component={ReasonForContactSelectField}
                         required={true}
-                        margin="none"
+                        margin="normal"
                       />
                     </ChildBox>
 
@@ -261,36 +258,38 @@ const ContactUsPage = () => {
                         label="Name"
                         component={NameField}
                         required={false}
-                        margin="none"
+                        margin="normal"
                       />
                     </ChildBox>
 
-                    <RowBox child responsive>
-                      <ChildBox flex="60%">
-                        <Field
-                          name="email"
-                          component={EmailField}
-                          required={false}
-                          margin="none"
-                        />
-                      </ChildBox>
-                      <ChildBox flex="40%" mt={5}>
-                        <Field
-                          name="phone"
-                          component={PhoneNoField}
-                          required={false}
-                          margin="none"
-                        />
-                      </ChildBox>
-                    </RowBox>
+                    <ChildBox>
+                      <RowBox responsive flexSpacing={3}>
+                        <ChildBox flex>
+                          <Field
+                            name="email"
+                            component={EmailField}
+                            required={false}
+                            margin="normal"
+                          />
+                        </ChildBox>
+                        <ChildBox>
+                          <Field
+                            name="phone"
+                            component={PhoneNoField}
+                            required={false}
+                            margin="normal"
+                          />
+                        </ChildBox>
+                      </RowBox>
+                    </ChildBox>
 
-                    {/* SM mobile & non-mobile address inputs   */}
+                    {/* SM mobile & non-mobile address inputs */}
                     <Hidden only="xs">
                       {showAddressConfirmAlert ? (
-                        <ChildBox mb={-3}>
+                        <ChildBox my={1}>
                           <Alert severity="info" icon={<EditLocIcon />}>
-                            Please verify that the address below is correct
-                            before submitting
+                            Please verify that the service address below is
+                            correct before submitting
                           </Alert>
                         </ChildBox>
                       ) : null}
@@ -301,7 +300,7 @@ const ContactUsPage = () => {
                             label="Service Street Address"
                             // placeholder="Street address for service"
                             required={false}
-                            margin="none"
+                            margin="normal"
                           />
                         </ChildBox>
                         <ChildBox flex="40%">
@@ -310,7 +309,7 @@ const ContactUsPage = () => {
                             label="City"
                             // placeholder="City"
                             required={false}
-                            margin="none"
+                            margin="normal"
                           />
                         </ChildBox>
                         {/* just show on sm devices (tablets) */}
@@ -333,39 +332,45 @@ const ContactUsPage = () => {
                         // flexSpacing={5}
                       >
                         {showAddressConfirmAlert ? (
-                          <ChildBox mb={2}>
+                          <ChildBox my={1}>
                             <Alert severity="info" icon={<EditLocIcon />}>
-                              Please verify that the address below is correct
-                              before submitting
+                              Please verify that the service address below is
+                              correct before submitting
                             </Alert>
                           </ChildBox>
                         ) : null}
-                        <RowBox child flex="60%" flexSpacing={3}>
-                          <ChildBox flex>
-                            <FormTextField
-                              name="serviceAddress"
-                              label="Service Street Address"
-                              // placeholder="Street address for service"
-                              required={false}
-                              margin="none"
-                            />
-                          </ChildBox>
-                          <ChildBox>
-                            <ContactUsGeolocator
-                              onSuccess={useMyLocationSuccessHandler}
-                              addressFieldName="serviceAddress"
-                              cityFieldName="serviceCity"
-                            />
-                          </ChildBox>
-                        </RowBox>
+                        <ChildBox>
+                          <RowBox
+                            flex="60%"
+                            flexSpacing={3}
+                            alignItems="center"
+                          >
+                            <ChildBox flex>
+                              <FormTextField
+                                name="serviceAddress"
+                                label="Service Street Address"
+                                // placeholder="Street address for service"
+                                required={false}
+                                margin="normal"
+                              />
+                            </ChildBox>
+                            <ChildBox>
+                              <ContactUsGeolocator
+                                onSuccess={useMyLocationSuccessHandler}
+                                addressFieldName="serviceAddress"
+                                cityFieldName="serviceCity"
+                              />
+                            </ChildBox>
+                          </RowBox>
+                        </ChildBox>
                         {/* see comment/todo above regard flexSpacing */}
-                        <ChildBox flex="40%" mt={5}>
+                        <ChildBox flex="40%">
                           <FormTextField
                             name="serviceCity"
                             label="City"
                             // placeholder="City"
                             required={false}
-                            margin="none"
+                            margin="normal"
                           />
                         </ChildBox>
                       </ColumnBox>
@@ -376,11 +381,16 @@ const ContactUsPage = () => {
                         name="subject"
                         component={MultilineTextField}
                         label="Subject"
+                        margin="normal"
                       />
                     </ChildBox>
 
                     <ChildBox>
-                      <Field name="message" component={ContactUsMessageField} />
+                      <Field
+                        name="message"
+                        component={ContactUsMessageField}
+                        margin="normal"
+                      />
                     </ChildBox>
 
                     <ChildBox>
