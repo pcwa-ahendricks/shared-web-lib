@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const WaterWasteGeolocator = ({
+const ContactUsGeolocator = ({
   timeout = DEFAULT_TIMEOUT,
   size,
   onClick,
@@ -166,4 +166,4 @@ const WaterWasteGeolocator = ({
   )
 }
 
-export default WaterWasteGeolocator
+export default ContactUsGeolocator
