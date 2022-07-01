@@ -664,6 +664,18 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               alt="Thumbnail and link for Current Projects"
             />
           </ChildBox>
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="PCWA Fire Hydrant Map"
+              imgixURL="https://imgix.cosmicjs.com/d1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png"
+              linkHref="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fexperience.arcgis.com%2Fexperience%2F562030e3a7974bb88b86f19a32d255a9%2F&data=05%7C01%7Cahendricks%40pcwa.net%7C9ae44d05a0e64322ceef08da5865b4f7%7C03501b2a357a4ba39faf397fbb6f3801%7C0%7C0%7C637919491096473420%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=4iDSxuMSIDUAh6slXEzV2iRwjeHihSjZKxqtGmw2D4E%3D&reserved=0"
+              flexLinkProps={{
+                isNextLink: false
+              }}
+              alt="Thumbnail and link for PCWA Fire Hydrant Map"
+            />
+          </ChildBox>
           {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
