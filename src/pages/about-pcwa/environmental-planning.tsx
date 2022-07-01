@@ -242,7 +242,7 @@ const EnvironmentalPlanningPage = () => {
                           <Link
                             variant="body1"
                             color="primary"
-                            href="https://docs.pcwa.net/wcc-presentation-2022_06_28-slides.pdf"
+                            href="https://docs.pcwa.net/wcc-presentation-slides-2022_06_28.pdf"
                             target="blank"
                             rel="noopener noreferrer"
                           >
@@ -257,7 +257,7 @@ const EnvironmentalPlanningPage = () => {
                           <Link
                             variant="body1"
                             color="primary"
-                            href="https://docs.pcwa.net/wcc-presentation-2022_06_28-video.pdf"
+                            href="https://docs.pcwa.net/wcc-presentation-video-2022_06_28.pdf"
                             target="blank"
                             rel="noopener noreferrer"
                           >
