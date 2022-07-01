@@ -24,6 +24,7 @@ import {TreeView} from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/AddBoxOutlined'
 import ExpandLessIcon from '@material-ui/icons/IndeterminateCheckBoxOutlined'
 import DescriptionIcon from '@material-ui/icons/DescriptionOutlined'
+import VideoIcon from '@material-ui/icons/OndemandVideoOutlined'
 import TreeItem from '@material-ui/lab/TreeItem'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -215,7 +216,7 @@ const EnvironmentalPlanningPage = () => {
                 defaultExpandIcon={<ExpandMoreIcon color="primary" />}
                 defaultEndIcon={<DescriptionIcon color="secondary" />}
                 color="primary"
-                defaultExpanded={['1', '3']}
+                defaultExpanded={['1', '3', '4']}
               >
                 <TreeItem nodeId="1" label="2022 Water Connection Charge Study">
                   <TreeItem
@@ -232,21 +233,39 @@ const EnvironmentalPlanningPage = () => {
                       </Link>
                     }
                   />
+
                   <TreeItem nodeId="3" label="2022 Documents">
-                    <TreeItem
-                      nodeId="4"
-                      label={
-                        <Link
-                          variant="body1"
-                          color="primary"
-                          href="https://docs.pcwa.net/wcc-presentation-2022_06_28.pdf"
-                          target="blank"
-                          rel="noopener noreferrer"
-                        >
-                          2022 WCC Study Presentation Slides
-                        </Link>
-                      }
-                    />
+                    <TreeItem nodeId="4" label="2022 WCC Study Presentation">
+                      <TreeItem
+                        nodeId="5"
+                        label={
+                          <Link
+                            variant="body1"
+                            color="primary"
+                            href="https://docs.pcwa.net/wcc-presentation-2022_06_28.pdf"
+                            target="blank"
+                            rel="noopener noreferrer"
+                          >
+                            Presentation Slides
+                          </Link>
+                        }
+                      />
+                      <TreeItem
+                        nodeId="6"
+                        icon={<VideoIcon color="secondary" />}
+                        label={
+                          <Link
+                            variant="body1"
+                            color="primary"
+                            href="https://cdn.cosmicjs.com/ffbe6680-f954-11ec-b2b1-473235369c53-Meeting-20220628233107-Meeting-Recording.mp4"
+                            target="blank"
+                            rel="noopener noreferrer"
+                          >
+                            Presentation Video
+                          </Link>
+                        }
+                      />
+                    </TreeItem>
                   </TreeItem>
                 </TreeItem>
               </TreeView>
