@@ -436,32 +436,32 @@ const ProjectsPage = () => {
                     Pipeline and six Customer Turn Outs (CTO) will be
                     constructed and upgraded to encase the portion of the
                     Caperton Canal. Additionally, a temporary and new permanent
-                    Inlet and Outlet Structure’s will be constructed, helping to
+                    Inlet and Outlet Structure's will be constructed, helping to
                     create a more robust canal system at this location.
                   </Type>
                   <Spacing />
                   <Type variant="subtitle1">Project Schedule</Type>
                   <List disablePadding>
                     <TimelineListItem>
-                      <ListItemText primary="Design – Complete" />
+                      <ListItemText primary="Design - Complete" />
                     </TimelineListItem>
                     <TimelineListItem>
-                      <ListItemText primary="Construction: Caperton Canal Relocation – April 2021 – December 2021" />
+                      <ListItemText primary="Construction: Caperton Canal Relocation - April 2021 - December 2021" />
                     </TimelineListItem>
                     <TimelineListItem>
-                      <ListItemText primary="Construction: Mass Grading  – April 2021 – December 2022" />
+                      <ListItemText primary="Construction: Mass Grading - April 2021 - December 2022" />
                     </TimelineListItem>
                   </List>
                   <Spacing />
                   <Type variant="subtitle1" gutterBottom>
-                    Frequently Asked Questions (FAQ’s)
+                    Frequently Asked Questions (FAQ's)
                   </Type>
                   <Type gutterBottom>
                     <em>What is happening to my Customer Turn Out (CTO)?</em>
                   </Type>
                   <Type paragraph>
                     Each CTO within the Project location is being upgraded.
-                    Bickford’s contractor will be installing a temporary
+                    Bickford's contractor will be installing a temporary
                     pipeline and permanent pipeline, which they will reconnect
                     every CTO at each step of construction, making sure that you
                     will continue to receive water.
@@ -551,6 +551,61 @@ const ProjectsPage = () => {
                       </Type>
                     </Box>
                   </ColumnBox>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Monte Vista WTP Redundant Filter Project
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      About Project
+                    </Type>
+                    <Type paragraph>
+                      The Monte Vista Water Treatment Plant Redundant Filter
+                      Project addresses the state requirement for redundant
+                      water treatment filters at all plants. PCWA is installing
+                      a second filter to function when the primary filter is
+                      offline for cleaning, maintenance, repairs, etc. This
+                      includes upgrades to the plant's programmable logic
+                      controller, emergency generator, and existing mechanical
+                      systems.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      At the Monte Vista Water Treatment Plant off of Ridge Road
+                      in Dutch Flat, CA.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Construction Timeline
+                    </Type>
+                    <Type paragraph>
+                      The project is scheduled to be completed in late summer
+                      2022.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      For questions regarding this project, contact:
+                    </Type>
+                    <Type paragraph>
+                      Project Manager / Engineer
+                      <br />
+                      Jordan Jakobsen
+                      <br />
+                      Phone: (530) 823-4950
+                      <br />
+                      E-mail:{' '}
+                      <Link href="mailto:jjakobsen@pcwa.net">
+                        jjakobsen@pcwa.net
+                      </Link>
+                    </Type>
+                  </article>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnOne>
