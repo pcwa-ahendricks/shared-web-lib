@@ -189,9 +189,9 @@ const ReportWaterWastePage = () => {
                     required in the event we need more information on the
                     reported water waste. Please include photos, cross-streets,
                     and landmarks with water waste reports whenever possible.
-                    Please allow us time to investigate the water waste prior to
-                    submitting multiple water waste reports for the same
-                    location. Please be as detailed as possible. If the specific
+                    Please allow staff time to investigate the water waste prior
+                    to submitting multiple water waste reports for the same
+                    location and be as detailed as possible. If the specific
                     location of the water waste is not included, we may not be
                     able to address your reported water waste.
                   </Type>
