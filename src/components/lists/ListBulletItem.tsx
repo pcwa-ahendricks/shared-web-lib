@@ -5,13 +5,12 @@ import {
   ListItemIcon,
   ListItemProps,
   ListItemIconProps,
-  SvgIconTypeMap
+  SvgIconProps
 } from '@material-ui/core'
-import {OverridableComponent} from '@material-ui/core/OverridableComponent'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 
 type ListBulletItemIconProps = {
-  IconProps?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>
+  IconProps?: SvgIconProps
 } & ListItemIconProps
 
 const useStyles = makeStyles((theme) =>
