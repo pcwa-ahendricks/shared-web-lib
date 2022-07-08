@@ -138,7 +138,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const submitDate = localFormat(localDate(), 'MMMM do, yyyy')
     const incidentDateTimeFrmt = localFormat(
       localDateFrom(incidentDateTime),
-      'PPPPpppp'
+      // 'PPPPpppp' // ex.) Thursday, July 7th, 2022 at 6:58:19 PM GMT+00:00
+      "EEEE',' LLLL do',' yyy 'at' h:mm aaa" // ex.) Thursday, July 7th, 2022 at 12:00 pm
     )
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.

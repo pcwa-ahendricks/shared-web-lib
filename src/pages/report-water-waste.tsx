@@ -249,7 +249,7 @@ const ReportWaterWastePage = () => {
                         margin="none"
                         showTodayButton
                         inputVariant="outlined"
-                        // format="dd/MM/yyyy"
+                        format="M/dd/yyyy',' h:mm aaa"
                         // show icon
                         InputProps={{
                           endAdornment: (
