@@ -5,11 +5,14 @@ import {
   ListItemIcon,
   ListItemProps,
   ListItemIconProps,
-  IconProps
+  SvgIconTypeMap
 } from '@material-ui/core'
+import {OverridableComponent} from '@material-ui/core/OverridableComponent'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 
-type ListBulletItemIconProps = {IconProps?: IconProps} & ListItemIconProps
+type ListBulletItemIconProps = {
+  IconProps?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>
+} & ListItemIconProps
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -18,9 +21,6 @@ const useStyles = makeStyles((theme) =>
     },
     listItemBullet: {
       minWidth: theme.spacing(5)
-    },
-    noBottomMargin: {
-      marginBottom: 0
     }
   })
 )
@@ -33,7 +33,7 @@ const ListBulletItemIcon = ({
   const classes = useStyles()
   return (
     <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
-      <BulletIcon fontSize="large" />
+      <BulletIcon fontSize="large" {...IconProps} />
     </ListItemIcon>
   )
 }
