@@ -1,20 +1,14 @@
 // cspell:ignore Eisley Normac watersavingplants Newsom
-import React, {useCallback} from 'react'
-import BulletIcon from 'mdi-material-ui/CircleSmall'
+import React from 'react'
 // import WaterIcon from 'mdi-material-ui/WaterPercent'
 // import EcoIcon from '@material-ui/icons/Eco'
 import {
   Typography as Type,
   Box,
   List,
-  ListItem,
-  ListItemIcon,
   ListItemText,
   createStyles,
   makeStyles,
-  Theme,
-  ListItemProps,
-  ListItemIconProps,
   Paper,
   useMediaQuery,
   useTheme
@@ -29,8 +23,9 @@ import Image from 'next/image'
 import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader from '@lib/imageLoader'
 import Link from 'next/link'
+import ListBulletItem from '@components/lists/ListBulletItem'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     listItemBullet: {
       minWidth: theme.spacing(5)
@@ -52,27 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function DroughtPage() {
   const classes = useStyles()
-
-  const BulletItem = useCallback(
-    ({children, ...rest}: Omit<ListItemProps, 'button'>) => {
-      return (
-        <ListItem style={{alignItems: 'flex-start'}} {...rest}>
-          {children}
-        </ListItem>
-      )
-    },
-    []
-  )
-  const ListItemBullet = useCallback(
-    ({children, ...rest}: ListItemIconProps) => {
-      return (
-        <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
-          {children}
-        </ListItemIcon>
-      )
-    },
-    [classes]
-  )
 
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
@@ -138,11 +112,18 @@ export default function DroughtPage() {
                   water efficiency rebate programs
                 </MuiNextLink>{' '}
                 or search for additional tips on the{' '}
-                <MuiNextLink href="/smart-water-use">
+                <MuiNextLink underline="always" href="/smart-water-use">
                   Smart Water Use
                 </MuiNextLink>{' '}
                 page.
               </Type>
+              <MuiNextLink
+                // underline="always"
+                href="/smart-water-use/cii-conservation-regulations"
+              >
+                Learn About Emergency Conservation Regulations for Commercial,
+                Industrial and Institutional Properties
+              </MuiNextLink>
             </ChildBox>
           </RowBox>
         </WideContainer>
@@ -156,10 +137,7 @@ export default function DroughtPage() {
                     indoors
                   </Type>
                   <List dense disablePadding>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    <ListBulletItem>
                       <ListItemText classes={{root: classes.noBottomMargin}}>
                         {/* <Type variant="inherit">
                       Stress your lawn and save your trees. Now's the time to
@@ -184,79 +162,55 @@ export default function DroughtPage() {
                           .
                         </Type>
                       </ListItemText>
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Check soil moisture before turning on sprinklers. Stop by our main office to pick up a free moisture meter today."
                       />
-                    </BulletItem>{' '}
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>{' '}
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Replace older sprinklers with more efficient nozzles."
                       />
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Upgrade to a WaterSense-labeled, weather-based sprinkler timer."
                       />
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Water plants early in the morning to reduce evaporation."
                       />
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Check for and fix leaks. The most common type of leak inside a home is a toilet leak, which can waste 200 gallons of water per day.  That’s enough to wash seven loads of laundry every day for a month."
                       />
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Add a layer of mulch on top of soil, 2-3 inches thick. Mulch is like icing on a cake, because it keeps the soil moist the way icing keeps a cake moist."
                       />
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil."
                       />
-                    </BulletItem>
-                    <BulletItem>
-                      <ListItemBullet>
-                        <BulletIcon fontSize="large" />
-                      </ListItemBullet>
+                    </ListBulletItem>
+                    <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
                         primary="Adjust sprinklers to reduce overspray."
                       />
-                    </BulletItem>
+                    </ListBulletItem>
                   </List>
                 </ChildBox>
                 <ChildBox flex="nogrow">
@@ -350,51 +304,36 @@ export default function DroughtPage() {
                 Actions <strong>PCWA</strong> is taking
               </Type>
               <List dense disablePadding>
-                <BulletItem>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
+                <ListBulletItem>
                   <ListItemText
                     classes={{root: classes.noBottomMargin}}
                     primary="Operating PCWA's western Placer groundwater wells to reduce surface water demands."
                   />
-                </BulletItem>
-                <BulletItem>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
+                </ListBulletItem>
+                <ListBulletItem>
                   <ListItemText
                     classes={{root: classes.noBottomMargin}}
                     primary="Shifting a portion of wholesale demands to groundwater."
                   />
-                </BulletItem>{' '}
-                <BulletItem>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
+                </ListBulletItem>
+                <ListBulletItem>
                   <ListItemText
                     classes={{root: classes.noBottomMargin}}
                     primary="Enhancing water efficiency rebate programs."
                   />
-                </BulletItem>
-                <BulletItem>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
+                </ListBulletItem>
+                <ListBulletItem>
                   <ListItemText
                     classes={{root: classes.noBottomMargin}}
                     primary="Expanding canal operation hours to monitor for and minimize water losses."
                   />
-                </BulletItem>
-                <BulletItem>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
+                </ListBulletItem>
+                <ListBulletItem>
                   <ListItemText
                     classes={{root: classes.noBottomMargin}}
                     primary="Meeting our Water Forum commitment to the lower American River by releasing extra water from our reservoirs for fishery benefits."
                   />
-                </BulletItem>
+                </ListBulletItem>
               </List>
             </ChildBox>
           </RowBox>
