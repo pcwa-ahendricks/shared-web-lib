@@ -150,7 +150,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               }}
             />
           </ChildBox>
-
+          {/*
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -167,6 +167,25 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
                   that impacted our area in December 2021. These hazardous trees
                   and their locations can be reviewed online using our
                   interactive map.
+                </Type>
+              }
+            />
+          </ChildBox> */}
+
+          <ChildBox flex="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Upcoming Webinar"
+              readMore="Register Today"
+              linkHref="/newsroom/mountain-to-tap-webinar"
+              flexLinkProps={{isNextLink: true}}
+              imgixURL="https://imgix.cosmicjs.com/45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg"
+              alt="From the Mountain Tops to your Tap Webinar graphic"
+              body={
+                <Type variant="inherit">
+                  Join the water quality experts from PCWA for a conversation
+                  about the quality of your drinking water during our next Lunch
+                  & Learn webinar on Wednesday, August 10th at noon.
                 </Type>
               }
             />
@@ -566,7 +585,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
             />
           </ChildBox> */}
 
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               imageRatio={coverStoryImageRatio}
@@ -574,6 +593,22 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               linkHref="/newsroom/state-of-our-water-webinar"
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of Our Water webinar flier"
+            />
+          </ChildBox> */}
+
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              imageRatio={coverStoryImageRatio}
+              title="Hazard Tree Removal Map"
+              linkHref="https://experience.arcgis.com/experience/775dd76aaffe44b6aa9eaaf9bed2648b"
+              imgixURL="https://imgix.cosmicjs.com/68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg"
+              alt="Hazard Tree Removal Portal, an interactive ArcGIS Online map"
+              flexLinkProps={{
+                isNextLink: false,
+                rel: 'noopener noreferrer',
+                target: '_blank'
+              }}
             />
           </ChildBox>
 
@@ -669,7 +704,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
               width={tileWidth}
               title="PCWA Fire Hydrant Map"
               imgixURL="https://imgix.cosmicjs.com/d1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png"
-              linkHref="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fexperience.arcgis.com%2Fexperience%2F562030e3a7974bb88b86f19a32d255a9%2F&data=05%7C01%7Cahendricks%40pcwa.net%7C9ae44d05a0e64322ceef08da5865b4f7%7C03501b2a357a4ba39faf397fbb6f3801%7C0%7C0%7C637919491096473420%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=4iDSxuMSIDUAh6slXEzV2iRwjeHihSjZKxqtGmw2D4E%3D&reserved=0"
+              linkHref="https://experience.arcgis.com/experience/562030e3a7974bb88b86f19a32d255a9"
               flexLinkProps={{
                 isNextLink: false
               }}

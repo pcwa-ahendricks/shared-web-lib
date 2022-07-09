@@ -1,17 +1,12 @@
 // cspell:ignore firewise ondemand
 import React, {useCallback} from 'react'
 import {
-  ListItemText,
   Box,
   Typography as Type,
-  List,
-  ListItem,
   makeStyles,
-  ListSubheader,
   Button,
   ListItemIcon,
-  ListItemIconProps,
-  Paper
+  ListItemIconProps
 } from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -30,37 +25,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const StateOfOurWaterWebinarPage = () => {
+const MountainToTapWebinarPage = () => {
   const classes = useStyles()
 
-  const ListItemBullet = useCallback(
-    ({children, ...rest}: ListItemIconProps) => {
-      return (
-        <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
-          <BulletIcon fontSize="large" />
-        </ListItemIcon>
-      )
-    },
-    [classes]
-  )
   return (
-    <PageLayout title="State of Our Water Supplies Webinar" waterSurface>
+    <PageLayout title="From the Mountain Tops to Your Tap Webinar" waterSurface>
       <MainBox>
         <WideContainer>
-          {/* <PageTitle
-            title="State of Our Water Supplies Webinar"
-            subtitle="Newsroom"
-          /> */}
           <Box>
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
-              aria-label="Link to State of our Water Webinar recording on YouTube.com"
+              href="https://us02web.zoom.us/webinar/register/WN_ueX1wXRBTZipKjyQ69nJCQ"
+              aria-label="Link to From the Mountain Tops to Your Tap Webinar registration"
             >
               <Image
-                src="49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
-                alt="State of our Water Webinar flier"
+                src="45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg"
+                alt="From the Mountain Tops to Your Tap Webinar flier"
                 layout="responsive"
                 loader={imgixLoader}
                 width={2254}
@@ -68,41 +49,42 @@ const StateOfOurWaterWebinarPage = () => {
               />
             </a>
             <Spacing size="x-large" />
-            {/* <Type gutterBottom variant="h3">
-              <em>Join us for PCWA Presents…</em>
-            </Type> */}
             <Type gutterBottom variant="h3">
-              <em>Watch the recording: PCWA Presents…</em>
+              <em>Join us for PCWA Presents…</em>
             </Type>
-            <Type variant="h1">Lunch & Learn: State of our Water Supplies</Type>
-            <Spacing size="x-small" />
-            {/* <Type variant="h3">
-              <em>Wednesday, April 13, 2022, 12-12:45 p.m.</em>
+            {/* <Type gutterBottom variant="h2">
+              <em>Watch the recording: PCWA Presents…</em>
             </Type> */}
-            <Type variant="h4">Recorded April 13, 2022</Type>
+            <Type variant="h1">
+              Lunch & Learn: From the Mountain Tops to Your Tap
+            </Type>
+            <Spacing size="x-small" />
+            <Type variant="h4">
+              Wednesday, August 10th, 2022, 12-12:45 p.m.
+            </Type>
+            {/* <Type variant="h3">
+              <em>Recorded April 13, 2022</em>
+            </Type> */}
             <Spacing />
             {/* <Type variant="h4" paragraph>
               A free webinar and live audience Q&A exploring the state of PCWA's
               water supplies for 2022 amid an emerging third year of severe
               drought in California.
             </Type> */}
-            <Type variant="h4" paragraph>
-              This live webinar and audience Q&A explores the state of PCWA's
-              water supplies for 2022 amid an emerging third year of severe
-              drought in California.
+            <Type variant="body1" paragraph>
+              Join the water quality experts from PCWA for a conversation about
+              the quality of your drinking water during our next Lunch & Learn
+              webinar on Wednesday, August 10th at noon.
             </Type>
             <Type variant="body1" paragraph>
-              Moderated by Barry Stigers, News Director and Morning News Host
-              for KAHI 104.5 FM and 950 AM Radio, and featuring PCWA Energy
-              Marketing Manager and staff meteorologist Shane Motley and PCWA
-              Deputy Director of Customer Services Linda Higgins.
+              We'll explore where your water comes from, how it's treated and
+              its path to your tap. The live conversation will include time for
+              audience questions.
             </Type>
-            <Paper>
+
+            {/* <Paper>
               <Box pb={2}>
                 <List>
-                  {/* <ListSubheader style={{fontSize: '1rem'}}>
-                    Discussion topics will explore:
-                  </ListSubheader> */}
                   <ListSubheader style={{fontSize: '1rem'}}>
                     Discussion topics explore:
                   </ListSubheader>
@@ -128,19 +110,19 @@ const StateOfOurWaterWebinarPage = () => {
                   </ListItem>
                 </List>
               </Box>
-            </Paper>
+            </Paper> */}
             <Spacing size="large" />
-            {/* <Button
+            <Button
               variant="contained"
               color="secondary"
-              href="https://us02web.zoom.us/webinar/register/WN_ertmYFRfQoWnSvwAgYTPhQ"
+              href="https://us02web.zoom.us/webinar/register/WN_ueX1wXRBTZipKjyQ69nJCQ"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Register for Webinar button link, opens in new tab"
             >
               Register here
-            </Button> */}
-            <Button
+            </Button>
+            {/* <Button
               variant="contained"
               color="secondary"
               href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
@@ -149,7 +131,7 @@ const StateOfOurWaterWebinarPage = () => {
               aria-label="Watch recording of Webinar button link, opens in new tab"
             >
               Watch the Recording
-            </Button>
+            </Button> */}
           </Box>
         </WideContainer>
       </MainBox>
@@ -157,4 +139,4 @@ const StateOfOurWaterWebinarPage = () => {
   )
 }
 
-export default StateOfOurWaterWebinarPage
+export default MountainToTapWebinarPage
