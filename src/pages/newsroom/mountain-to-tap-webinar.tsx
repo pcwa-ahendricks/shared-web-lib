@@ -1,33 +1,14 @@
 // cspell:ignore firewise ondemand
-import React, {useCallback} from 'react'
-import {
-  Box,
-  Typography as Type,
-  makeStyles,
-  Button,
-  ListItemIcon,
-  ListItemIconProps
-} from '@material-ui/core'
+import React from 'react'
+import {Box, Typography as Type, Button} from '@material-ui/core'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import BulletIcon from 'mdi-material-ui/CircleSmall'
-
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    paddingBottom: 0
-  },
-  listItemBullet: {
-    minWidth: theme.spacing(5)
-  }
-}))
 
 const MountainToTapWebinarPage = () => {
-  const classes = useStyles()
-
   return (
     <PageLayout title="From the Mountain Tops to Your Tap Webinar" waterSurface>
       <MainBox>
