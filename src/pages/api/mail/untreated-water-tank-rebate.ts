@@ -3,7 +3,8 @@ import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
   validateSchema,
-  emailRecipientsEffRebates
+  emailRecipientsEffRebates,
+  emailRecipientsSysAdmin
 } from '../../../lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
@@ -140,6 +141,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const replyToName = `${firstName} ${lastName}`
+    // since email is required, use that info for 'cc' and 'reply to'
+    const ccAndReplyToRecipient = {Email: email, Name: replyToName}
 
     const commentsLength = comments.length
 
@@ -153,11 +156,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsEffRebates],
-          ReplyTo: {
-            Email: email,
-            Name: replyToName
-          },
+          To: [...emailRecipientsEffRebates],
+          Cc: [ccAndReplyToRecipient],
+          Bcc: emailRecipientsSysAdmin,
+          ReplyTo: ccAndReplyToRecipient,
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },

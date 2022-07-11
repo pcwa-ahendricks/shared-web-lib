@@ -268,6 +268,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/mountain-to-tap-webinar</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/about-pcwa/environmental-planning</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -2032,11 +2036,11 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/news-releases/05-20-2004</loc>
+    <loc>https://www.pcwa.net/newsroom/news-releases/05-12-2015</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/news-releases/05-12-2015</loc>
+    <loc>https://www.pcwa.net/newsroom/news-releases/05-20-2004</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -3604,11 +3608,11 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2007-04-05</loc>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2006-10-11</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2006-10-11</loc>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2007-04-05</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -5580,11 +5584,11 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-03-2008</loc>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-03-2003</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-03-2003</loc>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-03-2008</loc>
     <changefreq>never</changefreq>
   </url>
   <url>

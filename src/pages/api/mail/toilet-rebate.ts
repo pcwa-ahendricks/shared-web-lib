@@ -14,7 +14,8 @@ import {
   getRecaptcha,
   AttachmentFieldValue,
   emailRecipientsAppliance,
-  validateSchema
+  validateSchema,
+  emailRecipientsSysAdmin
 } from '../../../lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
@@ -218,6 +219,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const installImages = installPhotos.map((attachment) => attachment.url)
 
     const replyToName = `${firstName} ${lastName}`
+    // since email is required, use that info for 'cc' and 'reply to'
+    const ccAndReplyToRecipient = {Email: email, Name: replyToName}
 
     // [TODO] - Need to fix the for loop on Mailjet. It's not displaying any info in that list. This is a workaround, just show the first item.
     let manufacturerModelOne = ''
@@ -240,11 +243,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsAppliance],
-          ReplyTo: {
-            Email: email,
-            Name: replyToName
-          },
+          To: [...emailRecipientsAppliance],
+          Cc: [ccAndReplyToRecipient],
+          Bcc: emailRecipientsSysAdmin,
+          ReplyTo: ccAndReplyToRecipient,
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },

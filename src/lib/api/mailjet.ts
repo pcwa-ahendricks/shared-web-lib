@@ -22,6 +22,8 @@ export interface MailJetMessage {
   TemplateID?: number
   Variables?: Record<string, unknown>
   To: {Email: string; Name: string}[]
+  Cc?: {Email: string; Name: string}[]
+  Bcc?: {Email: string; Name: string}[]
   InlinedAttachments?: MailJetAttachment[]
   Attachments?: MailJetAttachment[]
   Headers?: {[headerKey: string]: string}

@@ -4,7 +4,8 @@ import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
   validateSchema,
-  emailRecipientsCollections
+  emailRecipientsCollections,
+  emailRecipientsSysAdmin
 } from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
@@ -133,6 +134,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const replyToName = `${firstName} ${lastName}`
+    // since email is required, use that info for 'cc' and 'reply to'
+    const ccAndReplyToRecipient = {Email: email, Name: replyToName}
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -144,14 +147,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [
-            {Email: email, Name: replyToName},
-            ...emailRecipientsCollections
-          ],
-          ReplyTo: {
-            Email: email,
-            Name: replyToName
-          },
+          To: [...emailRecipientsCollections],
+          Cc: [ccAndReplyToRecipient],
+          Bcc: emailRecipientsSysAdmin,
+          ReplyTo: ccAndReplyToRecipient,
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },

@@ -5,7 +5,12 @@ import {
   MailJetMessage,
   postMailJetRequest
 } from '../../../lib/api/mailjet'
-import {getRecaptcha, validateSchema} from '../../../lib/api/forms'
+import {
+  emailRecipientsContactUs,
+  emailRecipientsSysAdmin,
+  getRecaptcha,
+  validateSchema
+} from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
@@ -13,14 +18,6 @@ const isDev = process.env.NODE_ENV === 'development'
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const MAILJET_TEMPLATE_ID = 848345
-
-// Additional email addresses are added to array below.
-const SA_RECIPIENTS: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
 
 interface FormDataObj {
   name: string
@@ -105,22 +102,26 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       }
     }
 
-    const mainRecipients: MailJetMessage['To'] = isDev
-      ? []
-      : subject.toLowerCase() === 'clerk to the board'
-      ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
-      : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
-
-    // If user specified an email address include it.
-    const senderRecipients: MailJetMessage['To'] = email
+    // If user specified an email address 'cc' them.
+    const ccRecipients: MailJetMessage['Cc'] = email
       ? [{Email: email, Name: name ? name : email}]
-      : []
+      : undefined
 
-    const toRecipients: MailJetMessage['To'] = [
-      ...SA_RECIPIENTS,
-      ...mainRecipients,
-      ...senderRecipients
-    ]
+    // If user specified an email address use it with 'reply to'.
+    const replyToRecipient: MailJetMessage['ReplyTo'] = email
+      ? {Email: email, Name: name ? name : email}
+      : undefined
+
+    const toRecipients = emailRecipientsContactUs(subject)
+
+    const svcAddressStr =
+      serviceAddress && serviceCity
+        ? `${serviceAddress}, ${serviceCity}`
+        : !serviceAddress && serviceCity
+        ? serviceCity
+        : !serviceCity && serviceAddress
+        ? serviceAddress
+        : ''
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -133,12 +134,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Name: 'PCWA Forms'
           },
           To: [...toRecipients],
-          ReplyTo: email
-            ? {
-                Email: email,
-                Name: name ? name : email
-              }
-            : undefined,
+          ...(ccRecipients && {Cc: ccRecipients}),
+          Bcc: emailRecipientsSysAdmin,
+          ...(replyToRecipient && {ReplyTo: replyToRecipient}),
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },
@@ -149,9 +147,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             email,
             name,
             phone,
-            serviceAddress,
-            serviceCity,
             reason,
+            svcAddressStr,
             message,
             subject,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy')

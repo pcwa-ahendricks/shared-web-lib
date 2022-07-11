@@ -1,14 +1,12 @@
 // cspell:ignore customerservices pcwamain
 import {string, object, array} from 'yup'
-import {
-  MailJetSendRequest,
-  MailJetMessage,
-  postMailJetRequest
-} from '../../../lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
 import {
   getRecaptcha,
   validateSchema,
-  AttachmentFieldValue
+  AttachmentFieldValue,
+  emailRecipientsSysAdmin,
+  emailRecipientsWtrWaste
 } from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localDateFrom, localFormat} from '@lib/api/shared'
@@ -17,14 +15,6 @@ const isDev = process.env.NODE_ENV === 'development'
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const MAILJET_TEMPLATE_ID = 1487509
-
-// Additional email addresses are added to array below.
-const SA_RECIPIENTS: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
 
 interface FormDataObj {
   name: string
@@ -120,20 +110,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       }
     }
 
-    const mainRecipients: MailJetMessage['To'] = isDev
-      ? []
-      : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
-
-    // If user specified an email address include it.
-    const senderRecipients: MailJetMessage['To'] = email
-      ? [{Email: email, Name: name ? name : email}]
-      : []
-
-    const toRecipients: MailJetMessage['To'] = [
-      ...SA_RECIPIENTS,
-      ...mainRecipients,
-      ...senderRecipients
-    ]
+    // since email is required, use that info for 'cc' and 'reply to'
+    const ccAndReplyToRecipient = {Email: email, Name: name ? name : email}
 
     const submitDate = localFormat(localDate(), 'MMMM do, yyyy')
     const incidentDateTimeFrmt = localFormat(
@@ -152,13 +130,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [...toRecipients],
-          ReplyTo: email
-            ? {
-                Email: email,
-                Name: name ? name : email
-              }
-            : undefined,
+          To: [...emailRecipientsWtrWaste],
+          Cc: [ccAndReplyToRecipient],
+          Bcc: emailRecipientsSysAdmin,
+          ReplyTo: ccAndReplyToRecipient,
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },

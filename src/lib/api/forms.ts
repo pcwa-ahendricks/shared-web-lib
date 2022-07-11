@@ -9,48 +9,60 @@ export interface AttachmentFieldValue {
   url: string
 }
 
+const DEV_EMAIL = 'testweb1@pcwa.net'
+
 const RECAPTCHA_SITE_KEY = process.env.NODE_RECAPTCHA_SITE_KEY || ''
 const RECAPTCHA_SECRET_KEY = process.env.NODE_RECAPTCHA_SECRET_KEY || ''
 
-const emailRecipientsIrrigation: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      // {Name: 'Water Efficiency', Email: 'waterefficiency@pcwa.net'},
-      {Name: 'Rebates', Email: 'rebates@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
+const emailRecipientsIrrigation: MailJetMessage['To'] = [
+  isDev
+    ? {Name: 'PCWA Web Test User', Email: DEV_EMAIL}
+    : // {Name: 'Water Efficiency', Email: 'waterefficiency@pcwa.net'},
+      {Name: 'Rebates', Email: 'rebates@pcwa.net'}
+]
 
-const emailRecipientsAppliance: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'Rebates', Email: 'rebates@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
+const emailRecipientsAppliance: MailJetMessage['To'] = [
+  isDev
+    ? {Name: 'PCWA Web Test User', Email: DEV_EMAIL}
+    : {Name: 'Rebates', Email: 'rebates@pcwa.net'}
+]
 
-const emailRecipientsEffRebates: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'Rebates', Email: 'rebates@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
+const emailRecipientsEffRebates: MailJetMessage['To'] = [
+  isDev
+    ? {Name: 'PCWA Web Test User', Email: DEV_EMAIL}
+    : {Name: 'Rebates', Email: 'rebates@pcwa.net'}
+]
 
-const emailRecipientsCsMaint: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'Customer Services', Email: 'customerservices@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
+const emailRecipientsCsMaint: MailJetMessage['To'] = [
+  isDev
+    ? {Name: 'PCWA Web Test User', Email: DEV_EMAIL}
+    : {Name: 'Customer Services', Email: 'customerservices@pcwa.net'}
+]
 
-const emailRecipientsCollections: MailJetMessage['To'] = isDev
+const emailRecipientsCollections: MailJetMessage['To'] = [
+  isDev
+    ? {Name: 'PCWA Web Test User', Email: DEV_EMAIL}
+    : {Name: 'Collections', Email: 'collections@pcwa.net'}
+  // {Name: 'Rebecca', Email: 'rbutterfield@pcwa.net'}, // just for debugging. delete when in production
+]
+
+const emailRecipientsWtrWaste: MailJetMessage['To'] = [
+  isDev
+    ? {Name: 'PCWA Web Test User', Email: DEV_EMAIL}
+    : {Email: 'customerservices@pcwa.net', Name: 'Customer Services'}
+]
+
+const emailRecipientsContactUs = (subject: string) =>
+  isDev
+    ? [{Name: 'PCWA Web Test User', Email: DEV_EMAIL}]
+    : subject.toLowerCase() === 'clerk to the board'
+    ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
+    : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
+
+const emailRecipientsSysAdmin: MailJetMessage['Bcc'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
   : [
       {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'Collections', Email: 'collections@pcwa.net'},
-      // {Name: 'Rebecca', Email: 'rbutterfield@pcwa.net'}, // just for debugging. delete when in production
       {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
     ]
 
@@ -84,5 +96,8 @@ export {
   emailRecipientsCsMaint,
   emailRecipientsCollections,
   emailRecipientsEffRebates,
+  emailRecipientsSysAdmin,
+  emailRecipientsWtrWaste,
+  emailRecipientsContactUs,
   validateSchema
 }

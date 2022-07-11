@@ -5,7 +5,8 @@ import isNumber from 'is-number'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
-  validateSchema
+  validateSchema,
+  emailRecipientsSysAdmin
 } from '../../../lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
@@ -182,6 +183,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const replyToName = `${firstName} ${lastName}`
+    // since email is required, use that info for 'cc' and 'reply to'
+    const ccAndReplyToRecipient = {Email: email, Name: replyToName}
 
     const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
 
@@ -195,11 +198,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [{Email: email, Name: replyToName}, ...emailRecipientsIrrigation],
-          ReplyTo: {
-            Email: email,
-            Name: replyToName
-          },
+          To: [...emailRecipientsIrrigation],
+          Cc: [ccAndReplyToRecipient],
+          Bcc: emailRecipientsSysAdmin,
+          ReplyTo: ccAndReplyToRecipient,
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },

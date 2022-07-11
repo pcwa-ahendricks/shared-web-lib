@@ -5,7 +5,7 @@ import {
   MailJetMessage,
   postMailJetRequest
 } from '../../../lib/api/mailjet'
-import {validateSchema} from '../../../lib/api/forms'
+import {emailRecipientsSysAdmin, validateSchema} from '../../../lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
@@ -13,14 +13,6 @@ const isDev = process.env.NODE_ENV === 'development'
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
 const MAILJET_TEMPLATE_ID = 3804237
-
-// Additional email addresses are added to array below.
-const SA_RECIPIENTS: MailJetMessage['To'] = isDev
-  ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]
-  : [
-      {Name: 'PCWA Webmaster', Email: 'webmaster@pcwa.net'},
-      {Name: 'PCWA Webmaster', Email: 'pcwamain@gmail.com'}
-    ]
 
 interface FormDataObj {
   name: string
@@ -82,16 +74,17 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       ? []
       : [{Email: 'cwmp@pcwa.net', Name: 'CWMP'}]
 
-    // If user specified an email address include it.
-    const senderRecipients: MailJetMessage['To'] = email
-      ? [{Email: email, Name: name}]
-      : []
+    // If user specified an email address 'cc' them.
+    const ccRecipients: MailJetMessage['Cc'] = email
+      ? [{Email: email, Name: name ? name : email}]
+      : undefined
 
-    const toRecipients: MailJetMessage['To'] = [
-      ...SA_RECIPIENTS,
-      ...mainRecipients,
-      ...senderRecipients
-    ]
+    // If user specified an email address use it with 'reply to'.
+    const replyToRecipient: MailJetMessage['ReplyTo'] = email
+      ? {Email: email, Name: name ? name : email}
+      : undefined
+
+    const toRecipients: MailJetMessage['To'] = [...mainRecipients]
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -104,12 +97,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Name: 'PCWA Forms'
           },
           To: [...toRecipients],
-          ReplyTo: email
-            ? {
-                Email: email,
-                Name: name ? name : email
-              }
-            : undefined,
+          ...(ccRecipients && {Cc: ccRecipients}),
+          Bcc: emailRecipientsSysAdmin,
+          ...(replyToRecipient && {ReplyTo: replyToRecipient}),
           Headers: {
             'PCWA-No-Spam': 'webmaster@pcwa.net'
           },
