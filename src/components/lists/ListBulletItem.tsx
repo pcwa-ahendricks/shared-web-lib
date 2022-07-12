@@ -13,6 +13,10 @@ type ListBulletItemIconProps = {
   IconProps?: SvgIconProps
 } & ListItemIconProps
 
+type ListBulletItemProps = {
+  ListBulletItemIconProps?: ListBulletItemIconProps
+} & Omit<ListItemProps, 'button'>
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     listItem: {
@@ -41,10 +45,7 @@ const ListBulletItem = ({
   children,
   ListBulletItemIconProps,
   ...rest
-}: {ListBulletItemIconProps?: ListBulletItemIconProps} & Omit<
-  ListItemProps,
-  'button'
->) => {
+}: ListBulletItemProps) => {
   const classes = useStyles()
   return (
     <ListItem classes={{root: classes.listItem}} {...rest}>
@@ -56,3 +57,4 @@ const ListBulletItem = ({
 
 export default ListBulletItem
 export {ListBulletItemIcon, ListBulletItem}
+export type {ListBulletItemProps, ListBulletItemIconProps}

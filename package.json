@@ -74,6 +74,7 @@
     "@nivo/tooltip": "<0.79.0",
     "@react-hook/window-size": "^3.0.7",
     "animate.css": "^4.1.1",
+    "blurhash": "^1.1.5",
     "busboy": "^1.6.0",
     "clsx": "^1.1.1",
     "color-alpha": "^1.1.3",

@@ -1,5 +1,6 @@
 // cspell:ignore Eisley Normac watersavingplants Newsom
 import React from 'react'
+import GovtIcon from '@material-ui/icons/AccountBalance'
 // import WaterIcon from 'mdi-material-ui/WaterPercent'
 // import EcoIcon from '@material-ui/icons/Eco'
 import {
@@ -17,7 +18,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
 import MuiNextLink from '@components/NextLink/NextLink'
@@ -117,13 +118,29 @@ export default function DroughtPage() {
                 </MuiNextLink>{' '}
                 page.
               </Type>
-              <MuiNextLink
-                // underline="always"
-                href="/smart-water-use/cii-conservation-regulations"
-              >
-                Learn About Emergency Conservation Regulations for Commercial,
-                Industrial and Institutional Properties
-              </MuiNextLink>
+              <Box py={1}>
+                <Paper>
+                  <RowBox p={2} flexSpacing={2} alignItems="center">
+                    <ChildBox>
+                      <GovtIcon color="primary" />
+                    </ChildBox>
+                    <ColumnBox child>
+                      <Type variant="subtitle1">
+                        State Water Resources Control Board Regulations
+                      </Type>
+                      <MuiNextLink
+                        // underline="always"
+                        variant="body1"
+                        href="/smart-water-use/cii-conservation-regulations"
+                      >
+                        Click here to learn About Emergency Conservation
+                        Regulations for Commercial, Industrial and Institutional
+                        Properties
+                      </MuiNextLink>
+                    </ColumnBox>
+                  </RowBox>
+                </Paper>
+              </Box>
             </ChildBox>
           </RowBox>
         </WideContainer>
