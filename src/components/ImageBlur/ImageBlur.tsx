@@ -17,11 +17,6 @@ const DEFAULT_HEIGHT = 50
 
 type Placeholders = Placeholder[]
 
-// const toBase64 = (str: string) =>
-//   typeof window === 'undefined'
-//     ? Buffer.from(str).toString('base64')
-//     : window.btoa(str)
-
 const getImgixBlurHash = async (
   filename: string,
   width = DEFAULT_WIDTH * 2,
@@ -38,9 +33,7 @@ const getImgixBlurHash = async (
       true
     )
     const url = `${urlPrefix}${filename}${queryParamsStr}`
-    console.log('url', url)
     const blurhash = await textFetcher(url)
-    console.log(blurhash)
     return {filename, url, blurhash}
   } catch (e) {
     return {filename, url: '', blurhash: ''}
@@ -65,44 +58,24 @@ const ImageBlur = ({
   width,
   height,
   src,
+  onLoadingComplete,
   ...rest
 }: Props) => {
-  // const getPlaceHolderB64 = useCallback(
-  //   (filename: string) => {
-  //     const idx = placeholders.findIndex((p) => p.filename === filename)
-  //     return decode(placeholders[idx].blurhash, blurWidth, blurHeight)
-  //   },
-  //   [placeholders, blurHeight, blurWidth]
-  // )
-
   const hash = useMemo(() => {
     const idx = placeholders.findIndex((p) => p.filename === src)
     return placeholders[idx].blurhash
   }, [placeholders, src])
 
-  // const blurDataURL = useMemo(() => {
-  //   const pixels = getPlaceHolderB64(src)
-  //   if (typeof window !== 'undefined') {
-  //     const canvas = document.createElement('canvas')
-  //     const ctx = canvas.getContext('2d')
-  //     const imageData = ctx?.createImageData(width, height)
-  //     imageData?.data.set(pixels)
-  //     if (imageData) {
-  //       ctx?.putImageData(imageData, 0, 0)
-  //       return canvas.toDataURL()
-  //     }
-  //   } else {
-  //     return null
-  //   }
-  // }, [getPlaceHolderB64, src, width, height])
-
   const [loaded, setLoaded] = useState(false)
 
-  const loadedHandler = useCallback(() => {
-    setTimeout(() => setLoaded(true))
-  }, [])
+  const loadedHandler = useCallback(
+    (props) => {
+      setLoaded(true)
+      onLoadingComplete?.(props)
+    },
+    [onLoadingComplete]
+  )
 
-  // if (blurDataURL) {
   return (
     <div style={{position: 'relative'}}>
       <Image
@@ -122,7 +95,7 @@ const ImageBlur = ({
           top: 0,
           width: '100%',
           opacity: loaded ? 0 : 1,
-          transition: 'all 400ms'
+          transition: 'all 400ms ease'
         }}
       >
         <BlurhashCanvas
@@ -135,9 +108,6 @@ const ImageBlur = ({
       </div>
     </div>
   )
-  // } else {
-  //   return <></>
-  // }
 }
 
 export default ImageBlur
