@@ -20,7 +20,7 @@ import ListBulletItem, {
 import MuiNextLink from '@components/NextLink/NextLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import ImageBlur, {
-  getImgixBlurHash,
+  getImgixBlurHashes,
   Placeholders
 } from '@components/ImageBlur/ImageBlur'
 
@@ -188,8 +188,7 @@ export default function CiiConservationRegulationsPage({
 
 export const getStaticProps = async () => {
   try {
-    const blurhashes = imgixImages.map((i) => getImgixBlurHash(i))
-    const placeholders = await Promise.all(blurhashes)
+    const placeholders = await getImgixBlurHashes(imgixImages)
     return {
       props: {placeholders}
     }

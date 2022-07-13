@@ -19,8 +19,8 @@ type Placeholders = Placeholder[]
 
 const getImgixBlurHash = async (
   filename: string,
-  width = DEFAULT_WIDTH * 2,
-  height = DEFAULT_HEIGHT * 2
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT
 ) => {
   try {
     const urlPrefix = 'https://imgix.cosmicjs.com/'
@@ -40,8 +40,17 @@ const getImgixBlurHash = async (
   }
 }
 
+const getImgixBlurHashes = async (
+  filenames: string[],
+  width?: number,
+  height?: number
+) => {
+  const blurhashes = filenames.map((i) => getImgixBlurHash(i, width, height))
+  const placeholders = await Promise.all(blurhashes)
+  return placeholders
+}
+
 type Props = {
-  alt: string
   placeholders: Placeholders
   src: string
   width: number
@@ -51,7 +60,6 @@ type Props = {
 } & Omit<ImageProps, 'src' | 'number' | 'height'>
 
 const ImageBlur = ({
-  alt,
   placeholders,
   blurHeight = DEFAULT_HEIGHT,
   blurWidth = DEFAULT_WIDTH,
@@ -63,7 +71,11 @@ const ImageBlur = ({
 }: Props) => {
   const hash = useMemo(() => {
     const idx = placeholders.findIndex((p) => p.filename === src)
-    return placeholders[idx].blurhash
+    if (placeholders?.[idx]?.blurhash) {
+      return placeholders[idx].blurhash
+    } else {
+      return null
+    }
   }, [placeholders, src])
 
   const [loaded, setLoaded] = useState(false)
@@ -78,6 +90,7 @@ const ImageBlur = ({
 
   return (
     <div style={{position: 'relative'}}>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         loader={imgixLoader}
         src={src}
@@ -85,31 +98,32 @@ const ImageBlur = ({
         // blurDataURL={blurDataURL}
         width={width}
         height={height}
-        alt={alt}
         onLoadingComplete={loadedHandler}
         {...rest}
       />
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          width: '100%',
-          opacity: loaded ? 0 : 1,
-          transition: 'all 400ms ease'
-        }}
-      >
+      {hash ? (
         <BlurhashCanvas
           hash={hash}
           width={width}
           height={height}
-          style={{width: 'inherit'}}
           punch={1}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            opacity: loaded ? 0 : 1,
+            transition: 'all 400ms ease',
+            overflow: 'hidden',
+            userSelect: 'none',
+            pointerEvents: 'none'
+          }}
         />
-      </div>
+      ) : null}
     </div>
   )
 }
 
 export default ImageBlur
-export {getImgixBlurHash}
+export {getImgixBlurHash, getImgixBlurHashes}
 export type {Placeholder, Placeholders}
