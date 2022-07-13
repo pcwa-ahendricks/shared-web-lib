@@ -18,10 +18,16 @@ import ListBulletItem, {
   ListBulletItemProps
 } from '@components/lists/ListBulletItem'
 import MuiNextLink from '@components/NextLink/NextLink'
-import Image from 'next/image'
-import imgixLoader from '@lib/imageLoader'
-import {decode} from 'blurhash'
-import {textFetcher} from '@lib/fetcher'
+import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import ImageBlur, {
+  getImgixBlurHash,
+  Placeholders
+} from '@components/ImageBlur/ImageBlur'
+
+const imgixImages = [
+  'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
+  'f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg'
+]
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -38,7 +44,11 @@ const useStyles = makeStyles((theme) =>
   })
 )
 
-export default function CiiConservationRegulationsPage({placeholders}: any) {
+export default function CiiConservationRegulationsPage({
+  placeholders
+}: {
+  placeholders: Placeholders
+}) {
   const classes = useStyles()
 
   const Li = useCallback(
@@ -131,6 +141,15 @@ export default function CiiConservationRegulationsPage({placeholders}: any) {
             </MuiNextLink>
             .
           </Type>
+          <Spacing />
+          <Type variant="subtitle1">Learn More</Type>
+          <OpenInNewLink
+            pdf
+            href="https://cdn.cosmicjs.com/00b905f0-0223-11ed-b7be-d956591ad437-CII-letterFINAL61722.pdf"
+          >
+            Letter to PCWA CII customers regarding the Emergency Conservation
+            Regulations
+          </OpenInNewLink>
           <Spacing size="large" />
           <Type variant="h3" color="primary">
             Functional vs. Non-Functional Turf—What's the Difference
@@ -143,25 +162,23 @@ export default function CiiConservationRegulationsPage({placeholders}: any) {
             purposes or for civic or community events."
           </Type>
           <Box maxWidth="80%" m="auto" pt={2}>
-            <Image
+            <ImageBlur
               src="f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg"
-              loader={imgixLoader}
               layout="responsive"
-              placeholder="blur"
-              blurDataURL={`${decode(placeholders, 50, 50)}`}
               width={533}
               height={800}
               alt="Non-Functional Turf Example photo, 1 of 2 photos"
+              placeholders={placeholders}
             />
           </Box>
           <Spacing factor={2} />
-          <Image
+          <ImageBlur
             src="f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg"
-            loader={imgixLoader}
             layout="responsive"
             height={534}
             width={800}
             alt="Non-Functional Turf Example photo, 1 of 2 photos"
+            placeholders={placeholders}
           />
         </NarrowContainer>
       </MainBox>
@@ -171,9 +188,8 @@ export default function CiiConservationRegulationsPage({placeholders}: any) {
 
 export const getStaticProps = async () => {
   try {
-    const placeholders = await textFetcher(
-      'https://imgix.cosmicjs.com/f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg?fm=blurhash&w=50&h=50'
-    )
+    const blurhashes = imgixImages.map((i) => getImgixBlurHash(i))
+    const placeholders = await Promise.all(blurhashes)
     return {
       props: {placeholders}
     }
