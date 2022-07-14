@@ -22,6 +22,7 @@ import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import useNewPlaceholders from '@components/imageBlur/useNewPlaceholders'
+import imgixLoader from '@lib/imageLoader'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) =>
 export default function CiiConservationRegulationsPage({
   placeholders
 }: {
-  placeholders: Placeholders
+  placeholders?: Placeholders
 }) {
   const classes = useStyles()
   useNewPlaceholders(placeholders)
@@ -164,6 +165,7 @@ export default function CiiConservationRegulationsPage({
           <Box maxWidth="80%" m="auto" pt={2}>
             <ImageBlur
               src="f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg"
+              loader={imgixLoader}
               layout="responsive"
               width={533}
               height={800}
@@ -173,6 +175,7 @@ export default function CiiConservationRegulationsPage({
           <Spacing factor={2} />
           <ImageBlur
             src="f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg"
+            loader={imgixLoader}
             layout="responsive"
             height={534}
             width={800}

@@ -3,7 +3,6 @@ import {textFetcher} from '@lib/fetcher'
 import Image, {ImageProps} from 'next/image'
 // import {decode} from 'blurhash'
 import {stringify} from 'querystringify'
-import imgixLoader from '@lib/imageLoader'
 import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
 
@@ -87,7 +86,6 @@ const ImageBlur = ({
     <div style={{position: 'relative'}}>
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
-        loader={imgixLoader}
         src={src}
         // placeholder="blur"
         // blurDataURL={blurDataURL}
@@ -121,3 +119,4 @@ const ImageBlur = ({
 
 export default ImageBlur
 export {getImgixBlurHash, getImgixBlurHashes}
+export type {Props as ImageBlurProps}

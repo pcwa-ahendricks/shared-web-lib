@@ -25,16 +25,29 @@ import {stringify} from 'querystringify'
 import {AlertsProps} from '@components/Alerts/Alerts'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobileBar'
+import {Placeholders} from '@components/imageBlur/ImageBlurStore'
+import useNewPlaceholders from '@components/imageBlur/useNewPlaceholders'
+import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 // import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
 // import Whammy from '@components/Whammy/Whammy'
+
+const imgixImages = [
+  'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg'
+]
 
 type Props = {
   initialAlertsData?: AlertsProps['fallbackData']
   initialNewsBlurbsData?: RecentNewsBarProps['fallbackData']
+  placeholders: Placeholders
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 
-const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
+const Index = ({
+  initialAlertsData,
+  initialNewsBlurbsData,
+  placeholders
+}: Props) => {
+  useNewPlaceholders(placeholders)
   const theme = useTheme()
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
 
@@ -759,6 +772,7 @@ const Index = ({initialAlertsData, initialNewsBlurbsData}: Props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
+    const placeholders = await getImgixBlurHashes(imgixImages)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const alertsParams = {
       hide_metafields: true,
@@ -784,7 +798,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
     return {
-      props: {initialAlertsData, initialNewsBlurbsData},
+      props: {initialAlertsData, initialNewsBlurbsData, placeholders},
       revalidate: 5
     }
   } catch (error) {
