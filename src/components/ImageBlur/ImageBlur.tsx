@@ -6,16 +6,8 @@ import {stringify} from 'querystringify'
 import imgixLoader from '@lib/imageLoader'
 import {BlurhashCanvas} from 'react-blurhash'
 
-interface Placeholder {
-  url: string
-  filename: string
-  blurhash: string
-}
-
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
-
-type Placeholders = Placeholder[]
 
 const getImgixBlurHash = async (
   filename: string,
@@ -51,7 +43,6 @@ const getImgixBlurHashes = async (
 }
 
 type Props = {
-  placeholders: Placeholders
   src: string
   width: number
   height: number
@@ -60,7 +51,6 @@ type Props = {
 } & Omit<ImageProps, 'src' | 'number' | 'height'>
 
 const ImageBlur = ({
-  placeholders,
   blurHeight = DEFAULT_HEIGHT,
   blurWidth = DEFAULT_WIDTH,
   width,
@@ -126,4 +116,3 @@ const ImageBlur = ({
 
 export default ImageBlur
 export {getImgixBlurHash, getImgixBlurHashes}
-export type {Placeholder, Placeholders}

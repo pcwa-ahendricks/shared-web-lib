@@ -22,7 +22,7 @@ import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import ImageBlur, {
   getImgixBlurHashes,
   Placeholders
-} from '@components/ImageBlur/ImageBlur'
+} from '@components/imageBlur/ImageBlur'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
@@ -168,7 +168,6 @@ export default function CiiConservationRegulationsPage({
               width={533}
               height={800}
               alt="Non-Functional Turf Example photo, 1 of 2 photos"
-              placeholders={placeholders}
             />
           </Box>
           <Spacing factor={2} />
@@ -178,7 +177,6 @@ export default function CiiConservationRegulationsPage({
             height={534}
             width={800}
             alt="Non-Functional Turf Example photo, 1 of 2 photos"
-            placeholders={placeholders}
           />
         </NarrowContainer>
       </MainBox>
