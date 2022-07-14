@@ -106,7 +106,7 @@ const ImageBlur = ({
             top: 0,
             width: '100%',
             opacity: loaded ? 0 : 1,
-            transition: 'all 400ms ease',
+            transition: 'opacity 500ms',
             overflow: 'hidden',
             userSelect: 'none',
             pointerEvents: 'none'

@@ -1,7 +1,7 @@
 import {useEffect, useContext} from 'react'
 import {addPlaceholders, ImageBlurContext, Placeholders} from './ImageBlurStore'
 
-const useNewPlaceholders = (placeholders: Placeholders = []) => {
+const usePlaceholders = (placeholders: Placeholders = []) => {
   const imageBlurContext = useContext(ImageBlurContext)
   const {dispatch} = imageBlurContext
   useEffect(() => {
@@ -9,4 +9,4 @@ const useNewPlaceholders = (placeholders: Placeholders = []) => {
   }, [dispatch, placeholders])
 }
 
-export default useNewPlaceholders
+export default usePlaceholders

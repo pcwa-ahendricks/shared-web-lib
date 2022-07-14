@@ -13,6 +13,9 @@ import slugify from 'slugify'
 import Image from 'next/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
+import usePlaceholders from '@components/imageBlur/usePlaceholders'
+import {Placeholders} from '@components/imageBlur/ImageBlurStore'
+import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 
 const recreationMapUrl =
   'https://cdn.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
@@ -29,7 +32,11 @@ const exploringTheMfCoverImgixUrl =
 const exploringTheMfAlt =
   'Exploring the Middle Fork American River Watershed Brochure'
 
-const RecreationPage = () => {
+const imgixImages = ['52091c90-6b3f-11e7-b3a3-fbbc226e29f5-recreation.jpg']
+
+const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
+  usePlaceholders(placeholders)
+
   return (
     <PageLayout title="Recreation" waterSurface>
       <MainBox>
@@ -61,7 +68,7 @@ const RecreationPage = () => {
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               >
-                <Image
+                <ImageBlur
                   loader={imgixLoader}
                   src="52091c90-6b3f-11e7-b3a3-fbbc226e29f5-recreation.jpg"
                   layout="responsive"
@@ -194,6 +201,18 @@ const RecreationPage = () => {
       </MainBox>
     </PageLayout>
   )
+}
+
+export const getStaticProps = async () => {
+  try {
+    const placeholders = await getImgixBlurHashes(imgixImages)
+    return {
+      props: {placeholders}
+    }
+  } catch (error) {
+    console.log(error)
+    return {props: {}}
+  }
 }
 
 export default RecreationPage

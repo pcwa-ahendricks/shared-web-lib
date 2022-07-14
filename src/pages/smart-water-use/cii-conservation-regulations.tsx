@@ -21,7 +21,7 @@ import MuiNextLink from '@components/NextLink/NextLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
-import useNewPlaceholders from '@components/imageBlur/useNewPlaceholders'
+import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import imgixLoader from '@lib/imageLoader'
 
 const imgixImages = [
@@ -50,7 +50,7 @@ export default function CiiConservationRegulationsPage({
   placeholders?: Placeholders
 }) {
   const classes = useStyles()
-  useNewPlaceholders(placeholders)
+  usePlaceholders(placeholders)
 
   const Li = useCallback(
     ({children, ...rest}: ListBulletItemProps) => (

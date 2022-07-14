@@ -26,7 +26,7 @@ import {AlertsProps} from '@components/Alerts/Alerts'
 import QuickLinksBar from '@components/QuickLinksBar/QuickLinksBar'
 import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobileBar'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
-import useNewPlaceholders from '@components/imageBlur/useNewPlaceholders'
+import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 // import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
 // import Whammy from '@components/Whammy/Whammy'
@@ -47,7 +47,7 @@ const Index = ({
   initialNewsBlurbsData,
   placeholders
 }: Props) => {
-  useNewPlaceholders(placeholders)
+  usePlaceholders(placeholders)
   const theme = useTheme()
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
 
