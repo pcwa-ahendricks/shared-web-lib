@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react'
+import React, {createContext, useReducer, Dispatch} from 'react'
 
 export interface Placeholder {
   url: string
@@ -21,9 +21,9 @@ const initialState: State = {
 }
 
 // Typescript is crazy and wants a default value passed, hence initialState and empty dispatch function.
-export const UiContext = createContext<{
+export const ImageBlurContext = createContext<{
   state: State
-  dispatch: React.Dispatch<any>
+  dispatch: Dispatch<any>
 }>({state: initialState, dispatch: () => {}})
 
 // Action Types
@@ -33,20 +33,10 @@ const Type = {
 
 // Actions
 
-export const addPlaceholders = ({
-  position,
-  active = true,
-  hidden = false,
-  ieOnly = false
-}: {
-  position: number
-  active?: boolean
-  hidden?: boolean
-  ieOnly?: boolean
-}) => {
+export const addPlaceholders = (placeholders: Placeholders = []) => {
   return {
     type: Type.ADD_PLACEHOLDERS,
-    payload: {position, active, hidden, ieOnly}
+    payload: placeholders
   }
 }
 
@@ -57,18 +47,12 @@ const uiReducer = (state: State, action: any): State => {
       const {placeholders} = state
       const {payload} = action || {}
       // Don't add placeholder if same placeholder already was added.
-      const exists = placeholders.findIndex(
-        (p) => p.filename === action.payload.filename
-      )
-      if (exists >= 0) {
-        return {
-          ...state
-        }
-      } else {
-        return {
-          ...state,
-          placeholders: [...placeholders, {...payload}]
-        }
+      const newPlaceholders = payload.filter((p: Placeholder) => {
+        return placeholders.findIndex((e) => e.filename === p.filename) < 0
+      })
+      return {
+        ...state,
+        placeholders: [...placeholders, ...newPlaceholders]
       }
     }
     default:
@@ -80,7 +64,11 @@ const uiReducer = (state: State, action: any): State => {
 const ImageBlurProvider = ({children}: ProviderProps) => {
   const [state, dispatch] = useReducer(uiReducer, initialState)
   const value = {state, dispatch}
-  return <UiContext.Provider value={value}>{children}</UiContext.Provider>
+  return (
+    <ImageBlurContext.Provider value={value}>
+      {children}
+    </ImageBlurContext.Provider>
+  )
 }
 
 export default ImageBlurProvider

@@ -19,10 +19,9 @@ import ListBulletItem, {
 } from '@components/lists/ListBulletItem'
 import MuiNextLink from '@components/NextLink/NextLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
-import ImageBlur, {
-  getImgixBlurHashes,
-  Placeholders
-} from '@components/imageBlur/ImageBlur'
+import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import {Placeholders} from '@components/imageBlur/ImageBlurStore'
+import useNewPlaceholders from '@components/imageBlur/useNewPlaceholders'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
@@ -50,6 +49,7 @@ export default function CiiConservationRegulationsPage({
   placeholders: Placeholders
 }) {
   const classes = useStyles()
+  useNewPlaceholders(placeholders)
 
   const Li = useCallback(
     ({children, ...rest}: ListBulletItemProps) => (

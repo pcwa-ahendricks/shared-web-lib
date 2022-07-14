@@ -1,10 +1,11 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useMemo, useState, useContext} from 'react'
 import {textFetcher} from '@lib/fetcher'
 import Image, {ImageProps} from 'next/image'
 // import {decode} from 'blurhash'
 import {stringify} from 'querystringify'
 import imgixLoader from '@lib/imageLoader'
 import {BlurhashCanvas} from 'react-blurhash'
+import {ImageBlurContext} from './ImageBlurStore'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
@@ -59,6 +60,10 @@ const ImageBlur = ({
   onLoadingComplete,
   ...rest
 }: Props) => {
+  const imageBlurContext = useContext(ImageBlurContext)
+  const {state} = imageBlurContext
+  const {placeholders} = state
+
   const hash = useMemo(() => {
     const idx = placeholders.findIndex((p) => p.filename === src)
     if (placeholders?.[idx]?.blurhash) {
