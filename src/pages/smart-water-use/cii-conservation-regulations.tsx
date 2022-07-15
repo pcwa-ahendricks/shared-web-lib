@@ -248,8 +248,8 @@ export default function CiiConservationRegulationsPage({
                 src="f44a4c90-0207-11ed-b7be-d956591ad437-Soccer-field-grass.jpg"
                 loader={imgixLoader}
                 layout="responsive"
-                height={523}
                 width={800}
+                height={531}
                 alt="Functional Turf Example photo, 2 of 2 photos"
               />
             </ChildBox>
