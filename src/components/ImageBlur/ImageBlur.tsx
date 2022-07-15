@@ -1,4 +1,10 @@
-import React, {useCallback, useMemo, useState, useContext} from 'react'
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+  useContext,
+  useEffect
+} from 'react'
 import {textFetcher} from '@lib/fetcher'
 import Image, {ImageProps} from 'next/image'
 // import {decode} from 'blurhash'
@@ -73,11 +79,23 @@ const ImageBlur = ({
     }
   }, [placeholders, src])
 
-  const [loaded, setLoaded] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [shouldTransition, setShouldTransition] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (imageLoaded) {
+        setShouldTransition(false)
+      } else {
+        // only show transition and placeholder if image didn't load before timeout
+        setShouldTransition(true)
+      }
+    }, 750)
+  }, [imageLoaded])
 
   const loadedHandler = useCallback(
     (props) => {
-      setLoaded(true)
+      setImageLoaded(true)
       onLoadingComplete?.(props)
     },
     [onLoadingComplete]
@@ -108,8 +126,9 @@ const ImageBlur = ({
             width: '100%',
             height: '100%',
             overflow: 'hidden',
-            opacity: loaded ? 0 : 1,
-            transition: 'opacity 500ms',
+            visibility: shouldTransition ? 'visible' : 'hidden',
+            opacity: imageLoaded ? 0 : 1,
+            transition: shouldTransition ? 'opacity 500ms' : 'none',
             userSelect: 'none',
             pointerEvents: 'none'
           }}
