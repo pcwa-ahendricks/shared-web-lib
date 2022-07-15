@@ -170,6 +170,7 @@ export default function CiiConservationRegulationsPage({
               width={533}
               height={800}
               alt="Non-Functional Turf Example photo, 1 of 2 photos"
+              defaultGrey
             />
           </Box>
           <Spacing factor={2} />
@@ -180,6 +181,7 @@ export default function CiiConservationRegulationsPage({
             height={534}
             width={800}
             alt="Non-Functional Turf Example photo, 1 of 2 photos"
+            defaultGrey
           />
         </NarrowContainer>
       </MainBox>

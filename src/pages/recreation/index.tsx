@@ -77,6 +77,7 @@ const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
                   height={878}
                   alt="River kayaking on the North Fork of the Middle Fork of the American River"
                   priority
+                  defaultGrey
                 />
               </Box>
             </ChildBox>

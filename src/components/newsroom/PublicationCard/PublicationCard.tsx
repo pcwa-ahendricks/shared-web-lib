@@ -113,6 +113,7 @@ const PublicationCard = ({
               width={cardMediaWidth}
               isHover={actionAreaIsHover}
               sizes={sizes}
+              defaultGrey
             />
           </CardMedia>
           <CardContent>

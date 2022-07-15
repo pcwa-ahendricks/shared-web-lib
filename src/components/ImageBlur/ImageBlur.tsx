@@ -14,6 +14,8 @@ import {ImageBlurContext} from './ImageBlurStore'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
+const FALLBACK_GREY_HASH =
+  ':1PQ87-;00%M00xu00xu_3j[RjfQWBfQayj[00ay00WBayWBt7WB?bfQRjfQWBfQayfQ00ayIUayofayofay?bfQRjj[WBfQayfQ4nfQRjayofayoffQ?bj[RjfQWBfQayfQ'
 
 const getImgixBlurHash = async (
   filename: string,
@@ -54,6 +56,7 @@ type Props = {
   height: number
   blurWidth?: number
   blurHeight?: number
+  defaultGrey?: boolean
 } & Omit<ImageProps, 'src' | 'number' | 'height'>
 
 const ImageBlur = ({
@@ -63,6 +66,7 @@ const ImageBlur = ({
   height,
   src,
   onLoadingComplete,
+  defaultGrey = false,
   ...rest
 }: Props) => {
   const imageBlurContext = useContext(ImageBlurContext)
@@ -113,9 +117,9 @@ const ImageBlur = ({
         onLoadingComplete={loadedHandler}
         {...rest}
       />
-      {hash ? (
+      {hash || defaultGrey ? (
         <BlurhashCanvas
-          hash={hash}
+          hash={hash || FALLBACK_GREY_HASH}
           width={blurWidth}
           height={blurHeight}
           punch={1}

@@ -9,14 +9,14 @@ import {
 import {FlexBox} from 'mui-sleazebox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
 import JackinBox from 'mui-jackinbox'
-import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 
 type Props = {
   boxProps?: BoxProps
   isHover?: boolean
   src: string
-} & Partial<Omit<ImageProps, 'placeholder' | 'blurDataURL' | 'src'>>
+} & Partial<Omit<ImageBlurProps, 'placeholder' | 'blurDataURL' | 'src'>>
 
 interface UseStylesProps {
   isHover?: boolean
@@ -121,7 +121,7 @@ const ImageFancier = ({
           <SearchRoundedIcon fontSize="large" color="inherit" />
         </JackinBox>
       </FlexBox>
-      <Image
+      <ImageBlur
         alt={alt}
         src={src}
         loader={imgixUrlLoader}
