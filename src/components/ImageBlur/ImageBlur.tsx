@@ -64,7 +64,8 @@ const ImageBlur = ({
   const {placeholders} = state
 
   const hash = useMemo(() => {
-    const idx = placeholders.findIndex((p) => p.filename === src)
+    // when using full url with src, src and placeholder filename will be different
+    const idx = placeholders.findIndex((p) => src.indexOf(p.filename) >= 0)
     if (placeholders?.[idx]?.blurhash) {
       return placeholders[idx].blurhash
     } else {
@@ -97,17 +98,18 @@ const ImageBlur = ({
       {hash ? (
         <BlurhashCanvas
           hash={hash}
-          width={width}
-          height={height}
+          width={blurWidth}
+          height={blurHeight}
           punch={1}
           aria-hidden="true"
           style={{
             position: 'absolute',
             top: 0,
             width: '100%',
+            height: '100%',
+            overflow: 'hidden',
             opacity: loaded ? 0 : 1,
             transition: 'opacity 500ms',
-            overflow: 'hidden',
             userSelect: 'none',
             pointerEvents: 'none'
           }}
