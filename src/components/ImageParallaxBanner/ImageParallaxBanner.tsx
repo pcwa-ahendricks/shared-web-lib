@@ -1,7 +1,6 @@
 import React from 'react'
 import {ParallaxBanner} from 'react-scroll-parallax'
 import {Box} from '@material-ui/core'
-import {imgixUrlLoader} from '@lib/imageLoader'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 
 type Props = {
@@ -32,11 +31,7 @@ const ImageParallaxBanner = ({
                 marginTop
               }}
             >
-              <ImageBlur
-                loader={imgixUrlLoader}
-                layout="responsive"
-                {...ImageProps}
-              />
+              <ImageBlur {...ImageProps} />
             </Box>
           )
           // amount
