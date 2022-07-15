@@ -1,7 +1,9 @@
 import React from 'react'
 import {ParallaxBanner} from 'react-scroll-parallax'
 import {Box} from '@material-ui/core'
-import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
+import ImageBlur, {
+  ImageBlurProps
+} from '@components/imagePlaceholderBlur/ImageBlur'
 
 type Props = {
   ImageProps: ImageBlurProps

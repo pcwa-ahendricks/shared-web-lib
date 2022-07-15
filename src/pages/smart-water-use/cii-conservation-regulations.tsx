@@ -21,9 +21,11 @@ import ListBulletItem, {
 } from '@components/lists/ListBulletItem'
 import MuiNextLink from '@components/NextLink/NextLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
-import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
-import {Placeholders} from '@components/imageBlur/ImageBlurStore'
-import usePlaceholders from '@components/imageBlur/usePlaceholders'
+import ImageBlur, {
+  getImgixBlurHashes
+} from '@components/imagePlaceholderBlur/ImageBlur'
+import {Placeholders} from '@components/imagePlaceholderBlur/ImageBlurStore'
+import usePlaceholders from '@components/imagePlaceholderBlur/usePlaceholders'
 import imgixLoader from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, RowBox} from 'mui-sleazebox'

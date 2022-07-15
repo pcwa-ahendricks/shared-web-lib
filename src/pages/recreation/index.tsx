@@ -13,9 +13,11 @@ import slugify from 'slugify'
 import Image from 'next/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
-import usePlaceholders from '@components/imageBlur/usePlaceholders'
-import {Placeholders} from '@components/imageBlur/ImageBlurStore'
-import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import usePlaceholders from '@components/imagePlaceholderBlur/usePlaceholders'
+import {Placeholders} from '@components/imagePlaceholderBlur/ImageBlurStore'
+import ImageBlur, {
+  getImgixBlurHashes
+} from '@components/imagePlaceholderBlur/ImageBlur'
 
 const recreationMapUrl =
   'https://cdn.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'

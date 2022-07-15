@@ -10,7 +10,9 @@ import {FlexBox} from 'mui-sleazebox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
 import JackinBox from 'mui-jackinbox'
 import {imgixUrlLoader} from '@lib/imageLoader'
-import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
+import ImageBlur, {
+  ImageBlurProps
+} from '@components/imagePlaceholderBlur/ImageBlur'
 
 type Props = {
   boxProps?: BoxProps
