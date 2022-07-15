@@ -12,7 +12,9 @@ import {
   ListItemText,
   ListItemTextProps,
   Link,
-  Box
+  Divider,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import ListBulletItem, {
   ListBulletItemProps
@@ -23,10 +25,14 @@ import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import imgixLoader from '@lib/imageLoader'
+import WideContainer from '@components/containers/WideContainer'
+import {ChildBox, RowBox} from 'mui-sleazebox'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
-  'f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg'
+  'f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg',
+  'f44df610-0207-11ed-b7be-d956591ad437-Playground-with-grass.jpg',
+  'f44a4c90-0207-11ed-b7be-d956591ad437-Soccer-field-grass.jpg'
 ]
 
 const useStyles = makeStyles((theme) =>
@@ -69,6 +75,8 @@ export default function CiiConservationRegulationsPage({
     ),
     [classes]
   )
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
     <PageLayout title="Commercial Conservation Regulations" waterSurface>
@@ -162,28 +170,91 @@ export default function CiiConservationRegulationsPage({
             solely ornamental and not regularly used for human recreational
             purposes or for civic or community events."
           </Type>
-          <Box maxWidth="80%" m="auto" pt={2}>
-            <ImageBlur
-              src="f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg"
-              loader={imgixLoader}
-              layout="responsive"
-              width={533}
-              height={800}
-              alt="Non-Functional Turf Example photo, 1 of 2 photos"
-              defaultGrey
-            />
-          </Box>
-          <Spacing factor={2} />
-          <ImageBlur
-            src="f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg"
-            loader={imgixLoader}
-            layout="responsive"
-            height={534}
-            width={800}
-            alt="Non-Functional Turf Example photo, 1 of 2 photos"
-            defaultGrey
-          />
         </NarrowContainer>
+        <Spacing />
+        <WideContainer>
+          <RowBox responsive flexSpacing={6} pt={2}>
+            <ChildBox
+              flex="35%"
+              maxWidth={isXs ? '75vw' : '100vw'}
+              width="100%"
+              alignSelf="center"
+            >
+              <ImageBlur
+                src="f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg"
+                loader={imgixLoader}
+                layout="responsive"
+                width={533}
+                height={800}
+                alt="Non-Functional Turf Example photo, 1 of 2 photos"
+              />
+            </ChildBox>
+            <ChildBox flex="65%">
+              <ImageBlur
+                src="f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg"
+                loader={imgixLoader}
+                layout="responsive"
+                height={534}
+                width={800}
+                alt="Non-Functional Turf Example photo, 2 of 2 photos"
+              />
+            </ChildBox>
+          </RowBox>
+        </WideContainer>
+        <NarrowContainer>
+          <Spacing factor={2}>
+            <Divider />
+          </Spacing>
+          <Type variant="subtitle1">Functional Turf</Type>
+          <Type>
+            There are several exemptions to non-functional turf definition,
+            including:
+          </Type>
+          <List disablePadding>
+            <Li>
+              <LiBody primary="Turf used for human recreation, civic purposes, sports or play." />
+            </Li>
+            <Li>
+              <LiBody primary="Turf irrigated with canal water (water that is not permitted for use as drinking water)." />
+            </Li>
+            <Li>
+              <LiBody primary="Turf on the same valve as at least one tree or perennial non-turf plantings." />
+            </Li>
+            <Li>
+              <LiBody primary="Residential turf unless it is a common area of a Homeowners Association." />
+            </Li>
+          </List>
+        </NarrowContainer>
+        <Spacing />
+        <WideContainer>
+          <RowBox responsive flexSpacing={6} pt={2}>
+            <ChildBox
+              flex="50%"
+              maxWidth={isXs ? '80vw' : '100vw'}
+              width="100%"
+              alignSelf="center"
+            >
+              <ImageBlur
+                src="f44df610-0207-11ed-b7be-d956591ad437-Playground-with-grass.jpg"
+                loader={imgixLoader}
+                layout="responsive"
+                width={800}
+                height={531}
+                alt="Functional Turf Example photo, 1 of 2 photos"
+              />
+            </ChildBox>
+            <ChildBox flex="50%">
+              <ImageBlur
+                src="f44a4c90-0207-11ed-b7be-d956591ad437-Soccer-field-grass.jpg"
+                loader={imgixLoader}
+                layout="responsive"
+                height={523}
+                width={800}
+                alt="Functional Turf Example photo, 2 of 2 photos"
+              />
+            </ChildBox>
+          </RowBox>
+        </WideContainer>
       </MainBox>
     </PageLayout>
   )

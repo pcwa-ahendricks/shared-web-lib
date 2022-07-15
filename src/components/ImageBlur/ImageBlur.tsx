@@ -125,15 +125,15 @@ const ImageBlur = ({
           punch={1}
           aria-hidden="true"
           style={{
-            position: 'absolute',
+            opacity: imageLoaded ? 0 : 1,
+            visibility: shouldTransition ? 'visible' : 'hidden',
+            transition: shouldTransition ? 'opacity 500ms' : 'none',
             top: 0,
             width: '100%',
             height: '100%',
             overflow: 'hidden',
-            visibility: shouldTransition ? 'visible' : 'hidden',
-            opacity: imageLoaded ? 0 : 1,
-            transition: shouldTransition ? 'opacity 500ms' : 'none',
             userSelect: 'none',
+            position: 'absolute',
             pointerEvents: 'none'
           }}
         />
