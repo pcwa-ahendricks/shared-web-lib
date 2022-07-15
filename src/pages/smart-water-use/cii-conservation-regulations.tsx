@@ -175,7 +175,7 @@ export default function CiiConservationRegulationsPage({
         <WideContainer>
           <RowBox responsive flexSpacing={6} pt={2}>
             <ChildBox
-              flex="35%"
+              flex="50%"
               maxWidth={isXs ? '75vw' : '100vw'}
               width="100%"
               alignSelf="center"
@@ -189,7 +189,7 @@ export default function CiiConservationRegulationsPage({
                 alt="Non-Functional Turf Example photo, 1 of 2 photos"
               />
             </ChildBox>
-            <ChildBox flex="65%">
+            <ChildBox flex="50%">
               <ImageBlur
                 src="f08db9c0-0207-11ed-b7be-d956591ad437-Business-decorative-grass.jpg"
                 loader={imgixLoader}
