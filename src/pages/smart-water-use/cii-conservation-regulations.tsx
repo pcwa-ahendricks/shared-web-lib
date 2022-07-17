@@ -24,7 +24,7 @@ import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
-import imgixLoader from '@lib/imageLoader'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 
@@ -245,8 +245,8 @@ export default function CiiConservationRegulationsPage({
             </ChildBox>
             <ChildBox flex="50%">
               <ImageBlur
-                src="f44a4c90-0207-11ed-b7be-d956591ad437-Soccer-field-grass.jpg"
-                loader={imgixLoader}
+                src="https://imgix.cosmicjs.com/f44a4c90-0207-11ed-b7be-d956591ad437-Soccer-field-grass.jpg?fit=crop&ar=800:531"
+                loader={imgixUrlLoader}
                 layout="responsive"
                 width={800}
                 height={531}
