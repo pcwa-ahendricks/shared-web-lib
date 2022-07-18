@@ -23,7 +23,7 @@ import WideContainer from '@components/containers/WideContainer'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import Image from 'next/image'
-import imgixLoader from '@lib/imageLoader'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -358,6 +358,8 @@ const FireWiseLandscapingPage = () => {
                   ImageProps={{
                     width: 6720,
                     height: 4480,
+                    loader: imgixUrlLoader,
+                    layout: 'responsive',
                     priority: true,
                     src: 'https://imgix.cosmicjs.com/0aa9f030-d937-11eb-a548-fd45a29c394a-3-Fire-station-year-after-makeover002.jpg',
                     alt: 'Photo of Maidu Fire Station landscaped with fire-wise and water-wise plants'

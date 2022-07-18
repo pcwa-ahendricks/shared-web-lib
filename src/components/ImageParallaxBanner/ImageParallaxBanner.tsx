@@ -1,11 +1,10 @@
 import React from 'react'
 import {ParallaxBanner} from 'react-scroll-parallax'
 import {Box} from '@material-ui/core'
-import Image, {ImageProps} from 'next/image'
-import {imgixUrlLoader} from '@lib/imageLoader'
+import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 
 type Props = {
-  ImageProps: Partial<ImageProps>
+  ImageProps: ImageBlurProps
   children?: React.ReactNode
   marginTop?: any
   speed?: number
@@ -18,8 +17,7 @@ const ImageParallaxBanner = ({
   children,
   ...rest
 }: Props) => {
-  const {alt = '', src} = ImageProps
-  if (!src) {
+  if (!ImageProps.src) {
     return null
   }
   return (
@@ -33,13 +31,7 @@ const ImageParallaxBanner = ({
                 marginTop
               }}
             >
-              <Image
-                src={src}
-                alt={alt}
-                loader={imgixUrlLoader}
-                layout="responsive"
-                {...ImageProps}
-              />
+              <ImageBlur {...ImageProps} />
             </Box>
           )
           // amount

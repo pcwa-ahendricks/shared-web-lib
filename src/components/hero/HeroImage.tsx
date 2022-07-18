@@ -12,6 +12,7 @@ import {useIntersection} from 'react-use'
 import JackinBox from 'mui-jackinbox'
 import {useMediaQuery, useTheme} from '@material-ui/core'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
+import {imgixUrlLoader} from '@lib/imageLoader'
 import {RowBox} from 'mui-sleazebox'
 
 const animateKey = 'homeHeroOverly'
@@ -59,6 +60,8 @@ export default function HeroImage() {
           width: 5366,
           height: 2425,
           priority: true,
+          loader: imgixUrlLoader,
+          layout: 'responsive',
           src: 'https://imgix.cosmicjs.com/cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
           // src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
           // {bri: -5, high: -15},

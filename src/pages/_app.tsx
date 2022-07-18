@@ -11,7 +11,8 @@ import theme from '@lib/material-theme'
 import UiProvider from '@components/ui/UiStore'
 import MultimediaProvider from '@components/multimedia/MultimediaStore'
 import ForecastProvider from '@components/forecast/ForecastStore'
-import NewsroomContext from '@components/newsroom/NewsroomStore'
+import ImageBlurProvider from '@components/imageBlur/ImageBlurStore'
+import NewsroomProvider from '@components/newsroom/NewsroomStore'
 import smoothscroll from 'smoothscroll-polyfill'
 import SearchProvider from '@components/search/SearchStore'
 import {SWRConfig} from 'swr'
@@ -112,21 +113,23 @@ export default function MyApp({Component, pageProps}: AppProps) {
           }}
         >
           <UiProvider>
-            <NewsroomContext>
-              <MultimediaProvider>
-                <ForecastProvider>
-                  <SearchProvider>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <ParallaxProvider>
-                        {/* Pass pageContext to the _document though the renderPage enhancer
+            <ImageBlurProvider>
+              <NewsroomProvider>
+                <MultimediaProvider>
+                  <ForecastProvider>
+                    <SearchProvider>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ParallaxProvider>
+                          {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
-                        <Component {...pageProps} />
-                      </ParallaxProvider>
-                    </MuiPickersUtilsProvider>
-                  </SearchProvider>
-                </ForecastProvider>
-              </MultimediaProvider>
-            </NewsroomContext>
+                          <Component {...pageProps} />
+                        </ParallaxProvider>
+                      </MuiPickersUtilsProvider>
+                    </SearchProvider>
+                  </ForecastProvider>
+                </MultimediaProvider>
+              </NewsroomProvider>
+            </ImageBlurProvider>
           </UiProvider>
         </SWRConfig>
       </ThemeProvider>
