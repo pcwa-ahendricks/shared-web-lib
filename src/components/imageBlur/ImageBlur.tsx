@@ -129,6 +129,7 @@ const ImageBlur = ({
             visibility: shouldTransition ? 'visible' : 'hidden',
             transition: shouldTransition ? 'opacity 500ms' : 'none',
             top: 0,
+            left: 0,
             width: '100%',
             height: '100%',
             overflow: 'hidden',
