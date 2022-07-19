@@ -20,7 +20,6 @@ import ListBulletItem, {
   ListBulletItemProps
 } from '@components/lists/ListBulletItem'
 import MuiNextLink from '@components/NextLink/NextLink'
-import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
@@ -151,14 +150,14 @@ export default function CiiConservationRegulationsPage({
             .
           </Type>
           <Spacing />
-          <Type variant="subtitle1">Learn More</Type>
+          {/* <Type variant="subtitle1">Learn More</Type>
           <OpenInNewLink
             pdf
             href="https://cdn.cosmicjs.com/00b905f0-0223-11ed-b7be-d956591ad437-CII-letterFINAL61722.pdf"
           >
             Letter to PCWA CII customers regarding the Emergency Conservation
             Regulations
-          </OpenInNewLink>
+          </OpenInNewLink> */}
           <Spacing size="large" />
           <Type variant="h3" color="primary">
             Functional vs. Non-Functional Turf—What's the Difference
