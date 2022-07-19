@@ -393,6 +393,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                               src={p.imgix_url}
                               width={width}
                               height={height}
+                              defaultGrey
                             />
                             {/* {p.metadata?.caption ? (
                             <ChildBox position="absolute" bottom="0" left="0">

@@ -65,6 +65,9 @@ import {
 } from '@lib/types/multimedia'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import FancierCardActionArea from '@components/FancierCardActionArea/FancierCardActionArea'
+import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import usePlaceholders from '@components/imageBlur/usePlaceholders'
+import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -83,7 +86,13 @@ type Props = {
   galleryParam?: string
   lightboxIndexParam?: string
   params?: ParsedUrlQuery // debug
+  placeholders?: Placeholders
 }
+
+const imgixImages = [
+  '49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg',
+  'c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg'
+]
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -101,7 +110,8 @@ const ResourceLibraryPage = ({
   // lightboxIndex,
   multimediaParam = '',
   galleryParam,
-  lightboxIndexParam
+  lightboxIndexParam,
+  placeholders
 }: Props) => {
   const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
@@ -113,6 +123,9 @@ const ResourceLibraryPage = ({
   const theme = useTheme()
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+
+  usePlaceholders(placeholders)
+
   // console.log('Debug params: ', params)
 
   useEffect(() => {
@@ -606,10 +619,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const [initialMultimediaData = [], initialPublicationsData = []] =
       await Promise.all([multimedia$, publications$])
 
-    // Don't produce base64 images with non-imgix links and/or videos; Doing so will crash everything.
-
+    // Placeholder images
+    const placeholders = await getImgixBlurHashes(imgixImages)
     return {
       props: {
+        placeholders,
         initialMultimediaData,
         initialPublicationsData,
         galleryParam,
