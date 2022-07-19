@@ -158,12 +158,16 @@ export default function CiiConservationRegulationsPage({
             Letter to PCWA CII customers regarding the Emergency Conservation
             Regulations
           </OpenInNewLink> */}
-          <Spacing size="large" />
+          <Spacing size="x-large">
+            <Divider />
+          </Spacing>
           <Type variant="h3" color="primary">
             Functional vs. Non-Functional Turf—What's the Difference
           </Type>
           <Spacing />
-          <Type variant="subtitle1">Non-Functional Turf</Type>
+          <Type variant="subtitle1" gutterBottom>
+            Non-Functional Turf
+          </Type>
           <Type paragraph>
             Non-functional turf is defined in the regulation as "Turf that is
             solely ornamental and not regularly used for human recreational
@@ -201,10 +205,10 @@ export default function CiiConservationRegulationsPage({
           </RowBox>
         </WideContainer>
         <NarrowContainer>
-          <Spacing factor={2}>
-            <Divider />
-          </Spacing>
-          <Type variant="subtitle1">Functional Turf</Type>
+          <Spacing size="large" factor={2} />
+          <Type variant="subtitle1" gutterBottom>
+            Functional Turf
+          </Type>
           <Type>
             There are several exemptions to non-functional turf definition,
             including:
