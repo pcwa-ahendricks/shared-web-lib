@@ -20,14 +20,19 @@ type Props = {
 
 interface UseStylesProps {
   isHover?: boolean
+  imgIsLoaded?: boolean
 }
 
 const useStyles = makeStyles(() =>
   createStyles({
-    clickableImg: ({isHover}: UseStylesProps) => ({
+    clickableImg: ({isHover, imgIsLoaded}: UseStylesProps) => ({
+      overflow: 'hidden', // prevent placeholder from displaying in the box shadow regions
       cursor: 'pointer',
       // boxShadow 2 -> 5
-      boxShadow: isHover
+      // only show box shadow after image is loaded
+      boxShadow: !imgIsLoaded
+        ? 'none'
+        : isHover
         ? 'rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 5px 8px 0px, rgba(0, 0, 0, 0.12) 0px 1px 14px 0px'
         : 'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
       transition: 'box-shadow 200ms ease-in'
@@ -63,7 +68,6 @@ const ImageFancier = ({
     setIsHover(isHoverProp)
   }, [isHoverProp])
 
-  const classes = useStyles({isHover: isHover})
   const theme = useTheme()
 
   const mouseEnterHandler = useCallback(() => {
@@ -80,6 +84,13 @@ const ImageFancier = ({
     }
   }, [isHoverProp])
 
+  const [imgIsLoaded, setImageIsLoaded] = useState(false)
+
+  const loadingCompleteHandler = useCallback(() => {
+    setImageIsLoaded(true)
+  }, [])
+
+  const classes = useStyles({isHover, imgIsLoaded})
   return (
     <Box
       width={width}
@@ -129,6 +140,7 @@ const ImageFancier = ({
         height={height}
         width={width}
         className={classes.img}
+        onLoadingComplete={loadingCompleteHandler}
         {...rest}
       />
     </Box>
