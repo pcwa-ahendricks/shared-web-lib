@@ -11,6 +11,7 @@ import Image, {ImageProps} from 'next/image'
 import {stringify} from 'querystringify'
 import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
+import {makeStyles} from '@material-ui/core'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
@@ -49,24 +50,33 @@ const getImgixBlurHashes = async (
   const placeholders = await Promise.all(blurhashes)
   return placeholders
 }
+type UseStylesProps = {
+  isFillLayout?: boolean
+}
+
+const useStyles = makeStyles(() => ({
+  container: ({isFillLayout}: UseStylesProps) => ({
+    position: 'relative',
+    ...(isFillLayout && {
+      height: '100%' // required by <CoverStory/>
+    })
+  })
+}))
 
 type Props = {
   src: string
-  width: number
-  height: number
   blurWidth?: number
   blurHeight?: number
   defaultGrey?: boolean
-} & Omit<ImageProps, 'src' | 'number' | 'height'>
+} & Omit<ImageProps, 'src'>
 
 const ImageBlur = ({
   blurHeight = DEFAULT_HEIGHT,
   blurWidth = DEFAULT_WIDTH,
-  width,
-  height,
   src,
   onLoadingComplete,
   defaultGrey = false,
+  layout,
   ...rest
 }: Props) => {
   const imageBlurContext = useContext(ImageBlurContext)
@@ -105,15 +115,17 @@ const ImageBlur = ({
     [onLoadingComplete]
   )
 
+  const isFillLayout = useMemo(() => layout === 'fill', [layout])
+  const classes = useStyles({isFillLayout})
+
   return (
-    <div style={{position: 'relative'}}>
+    <div className={classes.container}>
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         src={src}
         // placeholder="blur"
         // blurDataURL={blurDataURL}
-        width={width}
-        height={height}
+        layout={layout}
         onLoadingComplete={loadedHandler}
         {...rest}
       />

@@ -8,11 +8,11 @@ import {
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 // import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
-import Image, {ImageProps} from 'next/image'
 import {stringify} from 'querystringify'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import IeNever from '@components/boxes/IeNever'
 import IeOnly from '@components/boxes/IeOnly'
+import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 
 export type CoverStoryProps = {
   title: string
@@ -22,7 +22,7 @@ export type CoverStoryProps = {
   aspectRatio?: string
   flexLinkProps?: Partial<FlexLinkProps>
   body?: TypographyProps['children']
-  alt?: ImageProps['alt']
+  alt?: ImageBlurProps['alt']
   imgixParams?: any
 } & BoxProps
 
@@ -81,12 +81,12 @@ const CoverStory = ({
 
   const CoverStoryImage = useCallback(
     () => (
-      <Image
+      <ImageBlur
         loader={imgixUrlLoader}
         src={imgixUrl}
         layout="fill"
-        sizes="(min-width: 600px) 50vw, 100vw"
         objectFit="fill"
+        sizes="(min-width: 600px) 50vw, 100vw"
         alt={alt}
       />
     ),

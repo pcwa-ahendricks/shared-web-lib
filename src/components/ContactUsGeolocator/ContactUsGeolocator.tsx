@@ -103,7 +103,7 @@ const ContactUsGeolocator = ({
         setSuccess(false)
       }
     },
-    [setFieldValue, onSuccess]
+    [setFieldValue, onSuccess, addressFieldName, cityFieldName]
   )
 
   /**

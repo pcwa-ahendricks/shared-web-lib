@@ -32,7 +32,17 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 // import Whammy from '@components/Whammy/Whammy'
 
 const imgixImages = [
-  'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg'
+  'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
+  'b633afa0-e5d8-11ec-9447-f98173199613-Summer-of-Savings-FB-Image-cropped2.png',
+  '58581660-e5d7-11ec-9447-f98173199613-Limit-Landscape-Watering-graphic.jpg',
+  'ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg',
+  '45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg',
+  '038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg',
+  'a86375b0-6340-11ec-a8a3-53f360c99be6-PCWA-2022-Adopted-Budget-for-Website.pdf',
+  '68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg',
+  '329b7180-cdfd-11eb-a17a-1d11087b211e-WaterSense.png',
+  'cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
+  'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png'
 ]
 
 type Props = {

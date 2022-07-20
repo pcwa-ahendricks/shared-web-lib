@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
-import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
+import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 
 export type CoverTileProps = {
   title: string
@@ -25,7 +25,7 @@ export type CoverTileProps = {
   //   Omit<ImageProps, 'layout' | 'placeholder' | 'dataBlurURL'>
   // >
   imageProps?: any
-  alt?: ImageProps['alt']
+  alt?: ImageBlurProps['alt']
 } & Partial<BoxProps>
 
 const CoverTile = ({
@@ -86,7 +86,7 @@ const CoverTile = ({
           borderColor={theme.palette.grey['300']}
           border={1}
         >
-          <Image
+          <ImageBlur
             loader={imgixUrlLoader}
             src={imgixUrl}
             alt={alt}
