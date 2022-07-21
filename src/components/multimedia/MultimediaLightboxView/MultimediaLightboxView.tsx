@@ -5,6 +5,7 @@ import {FlexBox} from 'mui-sleazebox'
 import {stringify} from 'querystringify'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import {useWindowSize} from 'react-use'
 
 const useStyles = makeStyles({
   img: {
@@ -21,8 +22,7 @@ const MultimediaLightboxView = (props: any) => {
   const {alt, imgix_url, metadata} = data
   const {gallery, category} = metadata ?? {}
   // LazyImgix needs a width and height, and the one it calculates is bogus. Use the window dimensions preferably.
-  const width = window?.innerWidth
-  const height = window?.innerHeight
+  const {width, height} = useWindowSize()
   const [isLoading, setIsLoading] = useState(false)
   const {onClose = null} = modalProps ? modalProps : {}
 
