@@ -70,7 +70,7 @@ const EnvironmentalPlanningPage = () => {
             subtitle="General"
           />
           <RowBox responsive flexSpacing={6}>
-            <FlexBox child flex="35%">
+            <ChildBox flex="35%">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -85,8 +85,32 @@ const EnvironmentalPlanningPage = () => {
                   alt="A photo taken of the American River"
                 />
               </Box>
-            </FlexBox>
+            </ChildBox>
             <ChildBox flex="65%">
+              As a public agency within the State of California, PCWA is
+              required to comply with the California Environmental Quality Act
+              (CEQA) when approving projects that may have a direct or indirect
+              effect on the environment. In addition to PCWA's obligations under
+              CEQA, some PCWA projects are also subject to federal agency
+              approval. Such projects require the federal agency to conduct a
+              National Environmental Policy Act (NEPA) review. A list of current
+              projects subject to CEQA and/or NEPA public review is provided
+              below.
+            </ChildBox>
+          </RowBox>
+          <Spacing size="x-large" />
+          <RowBox>
+            <ChildBox>
+              <Type variant="h3" gutterBottom>
+                Public Review
+              </Type>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://cdn.cosmicjs.com/e1f00cd0-0c3c-11ed-b7be-d956591ad437-FMSS-Scoping-Doc071922-1-page.pdf"
+              >
+                French Meadows South Shore Water Supply Project scoping document
+              </OpenInNewLinkBox>
+              <Spacing />
               {/* <Type variant="h3" gutterBottom>
                 Environmental Planning & Compliance
               </Type>
