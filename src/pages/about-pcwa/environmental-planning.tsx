@@ -353,7 +353,7 @@ const EnvironmentalPlanningPage = () => {
                             rel="noopener noreferrer"
                           >
                             West Placer Planning and Water Connection Charge
-                            Projects Map Figure
+                            Projects - Map Figure
                           </Link>
                         }
                       />
