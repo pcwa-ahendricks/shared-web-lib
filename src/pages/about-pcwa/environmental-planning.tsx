@@ -24,6 +24,7 @@ import {TreeView} from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/AddBoxOutlined'
 import ExpandLessIcon from '@material-ui/icons/IndeterminateCheckBoxOutlined'
 import DescriptionIcon from '@material-ui/icons/DescriptionOutlined'
+import ImageIcon from '@material-ui/icons/ImageOutlined'
 import VideoIcon from '@material-ui/icons/OndemandVideoOutlined'
 import TreeItem from '@material-ui/lab/TreeItem'
 
@@ -240,7 +241,7 @@ const EnvironmentalPlanningPage = () => {
                 defaultExpandIcon={<ExpandMoreIcon color="primary" />}
                 defaultEndIcon={<DescriptionIcon color="secondary" />}
                 color="primary"
-                defaultExpanded={['1', '3', '4']}
+                defaultExpanded={['1', '3', '4', '7']}
               >
                 <TreeItem nodeId="1" label="2022 Water Connection Charge Study">
                   <TreeItem
@@ -259,7 +260,10 @@ const EnvironmentalPlanningPage = () => {
                   />
 
                   <TreeItem nodeId="3" label="2022 Documents">
-                    <TreeItem nodeId="4" label="2022 WCC Study Presentation">
+                    <TreeItem
+                      nodeId="4"
+                      label="2022 WCC Study Meeting #1 - 6/28/22"
+                    >
                       <TreeItem
                         nodeId="5"
                         label={
@@ -286,6 +290,70 @@ const EnvironmentalPlanningPage = () => {
                             rel="noopener noreferrer"
                           >
                             Presentation Video
+                          </Link>
+                        }
+                      />
+                    </TreeItem>
+                    <TreeItem
+                      nodeId="7"
+                      label="2022 WCC Study Meeting #2 - 7/26/22"
+                    >
+                      <TreeItem
+                        nodeId="8"
+                        icon={<VideoIcon color="secondary" />}
+                        label={
+                          <Link
+                            variant="body1"
+                            color="primary"
+                            href="https://cdn.cosmicjs.com/06a6d530-0e9b-11ed-b476-13ceb56f12f2-2022WCCWorkshopAgenda2022.07.26.pdf"
+                            target="blank"
+                            rel="noopener noreferrer"
+                          >
+                            Presentation Agenda
+                          </Link>
+                        }
+                      />
+                      <TreeItem
+                        nodeId="9"
+                        label={
+                          <Link
+                            variant="body1"
+                            color="primary"
+                            href="https://cdn.cosmicjs.com/06b68ca0-0e9b-11ed-b476-13ceb56f12f2-2022-WCC-Presentation-2022.07.pdf"
+                            target="blank"
+                            rel="noopener noreferrer"
+                          >
+                            Presentation Slides
+                          </Link>
+                        }
+                      />
+                      <TreeItem
+                        nodeId="10"
+                        label={
+                          <Link
+                            variant="body1"
+                            color="primary"
+                            href="https://cdn.cosmicjs.com/06f0d680-0e9b-11ed-b476-13ceb56f12f2-WCC2022Project-ListDRAFT.pdf"
+                            target="blank"
+                            rel="noopener noreferrer"
+                          >
+                            Summary of Water Connection Charge Projects
+                          </Link>
+                        }
+                      />
+                      <TreeItem
+                        nodeId="11"
+                        icon={<ImageIcon color="secondary" />}
+                        label={
+                          <Link
+                            variant="body1"
+                            color="primary"
+                            href="https://cdn.cosmicjs.com/07150050-0e9b-11ed-b476-13ceb56f12f2-WestPlacerFutureProjects20220725.pdf"
+                            target="blank"
+                            rel="noopener noreferrer"
+                          >
+                            West Placer Planning and Water Connection Charge
+                            Projects Map Figure
                           </Link>
                         }
                       />
@@ -324,7 +392,8 @@ const EnvironmentalPlanningPage = () => {
                 Subsequent Impact Report for the Middle Fork Interbay Sediment
                 Management Project
               </OpenInNewLinkBox> */}
-              <Spacing />
+
+              {/* <Spacing />
               <Type variant="h3" gutterBottom>
                 FERC Relicensing & Compliance
               </Type>
@@ -500,7 +569,7 @@ const EnvironmentalPlanningPage = () => {
               >
                 Aquatic Invasive Species Management Plan{' '}
                 <strong>[Draft]</strong>
-              </OpenInNewLinkBox>
+              </OpenInNewLinkBox> */}
             </ChildBox>
           </RowBox>
         </NarrowContainer>
