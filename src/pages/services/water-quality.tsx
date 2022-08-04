@@ -259,14 +259,14 @@ const WaterQualityPage = () => {
             <RowBox mt={2} justifyContent="flex-start">
               <Box>
                 <FancyButton
-                  aria-label="Open PDF of 2019 Public Health and Goals Report"
+                  aria-label="Open PDF of 2022 Public Health and Goals Report"
                   hoverText="View PDF"
                   variant="text"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/43ab2160-87e5-11e9-b702-11cbd0e20193-2019PHGTransmittal.pdf"
+                  href="https://cdn.cosmicjs.com/2ec2a4d0-140a-11ed-b476-13ceb56f12f2-2022-PHG-Report.pdf"
                 >
-                  2019 Public Health and Goals Report
+                  2022 Public Health and Goals Report
                 </FancyButton>
               </Box>
               <Box ml={2}>
