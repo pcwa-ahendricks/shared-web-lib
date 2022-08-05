@@ -3,7 +3,10 @@
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "allowJs": true,
     "noEmit": true,
@@ -18,18 +21,31 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@lib/*": ["src/lib/*"],
-      "@components/*": ["src/components/*"],
-      "@store/*": ["src/store/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"]
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ]
       // "../../src/lib/api/*": ["src/lib/api/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "incremental": true
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",

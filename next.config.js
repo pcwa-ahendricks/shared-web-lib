@@ -1,3 +1,7 @@
+/**
+ * @type {import('next').NextConfig}
+ */
+
 // cspell:ignore nskarda hprcc
 /* eslint @typescript-eslint/no-var-requires: 0 */
 // Fix error w/ Vercel and d3, fix error w/ swr and IE11
@@ -8,8 +12,7 @@ const withTM = require('next-transpile-modules')([
   // 'WeatherIcon', // uses css modules
   // 'StrongEmphasis' // uses css modules
 ]) // Pass the modules you would like to see transpiled
-const withPlugins = require('next-compose-plugins')
-const {STATS} = process.env
+// const {STATS} = process.env
 const isDev = process.env.NODE_ENV === 'development'
 const fileExtRe = '(.[a-z]{1,4})?'
 
@@ -445,7 +448,7 @@ const condRedirects = isDev
       // }
     ]
 
-module.exports = withPlugins([withTM], {
+module.exports = withTM({
   // https://github.com/martpie/next-transpile-modules/releases/tag/7.0.0
   async redirects() {
     return [
