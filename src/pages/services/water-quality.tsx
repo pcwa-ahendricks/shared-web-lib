@@ -243,7 +243,7 @@ const WaterQualityPage = () => {
                 extended periods of time for any reason, we’d like to remind you
                 that it is a good idea to thoroughly flush all of your faucets
                 upon return. Try to flush enough water to where you are sure
-                you’re getting fresh water from the main.
+                you're getting fresh water from the main.
               </Type>
             </article>
           </Box>
@@ -259,14 +259,14 @@ const WaterQualityPage = () => {
             <RowBox mt={2} justifyContent="flex-start">
               <Box>
                 <FancyButton
-                  aria-label="Open PDF of 2022 Public Health and Goals Report"
+                  aria-label="Open PDF of 2022 Public Health Goals Report"
                   hoverText="View PDF"
                   variant="text"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://cdn.cosmicjs.com/2ec2a4d0-140a-11ed-b476-13ceb56f12f2-2022-PHG-Report.pdf"
                 >
-                  2022 Public Health and Goals Report
+                  2022 Public Health Goals Report
                 </FancyButton>
               </Box>
               <Box ml={2}>
