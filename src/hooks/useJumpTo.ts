@@ -7,8 +7,9 @@ const useJumpTo = (offset = 20, timeout = 600) => {
 
   useEffect(() => {
     const path = window.location.hash
+    let t: NodeJS.Timeout
     if (path && path.includes('#')) {
-      setTimeout(() => {
+      t = setTimeout(() => {
         const id = path.replace('#', '')
         const el = window.document.getElementById(id)
         const r = el?.getBoundingClientRect()
@@ -17,6 +18,11 @@ const useJumpTo = (offset = 20, timeout = 600) => {
           behavior: 'smooth'
         })
       }, timeout)
+    }
+    return () => {
+      if (t) {
+        clearTimeout(t)
+      }
     }
   }, [offset, timeout])
 }
