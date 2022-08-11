@@ -97,12 +97,15 @@ const ImageBlur = ({
   const [shouldTransition, setShouldTransition] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
+    const t = setTimeout(() => {
       if (imageLoaded) {
         setShouldTransition(false)
       } else {
         // only show transition and placeholder if image didn't load before timeout
         setShouldTransition(true)
+      }
+      return () => {
+        clearTimeout(t)
       }
     }, 750)
   }, [imageLoaded])

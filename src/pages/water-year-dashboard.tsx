@@ -463,7 +463,7 @@ export default function WaterYearDashboardPage() {
 
   const [precipDataset, setPrecipDataset] = useState<LineDataProp>([])
   useEffect(() => {
-    setTimeout(() => {
+    const t = setTimeout(() => {
       setPrecipDataset([
         precipAccumHistLowData,
         precipAccumHistHighData,
@@ -471,6 +471,9 @@ export default function WaterYearDashboardPage() {
         precipAccumData
       ])
     })
+    return () => {
+      clearTimeout(t)
+    }
   }, [
     precipAccumData,
     precipNormalAccumData,
@@ -480,7 +483,7 @@ export default function WaterYearDashboardPage() {
 
   const [tempDataset, setTempDataset] = useState<LineDataProp>([])
   useEffect(() => {
-    setTimeout(() => {
+    const t = setTimeout(() => {
       setTempDataset([
         tempObservedData,
         tempHistLowData,
@@ -489,6 +492,9 @@ export default function WaterYearDashboardPage() {
         tempNormalHighData
       ])
     })
+    return () => {
+      clearTimeout(t)
+    }
   }, [
     tempObservedData,
     tempHistLowData,

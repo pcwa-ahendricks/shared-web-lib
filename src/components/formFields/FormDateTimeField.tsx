@@ -24,7 +24,10 @@ const FormDateTimeField = ({disabled, ...other}: Props) => {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => setIsReady(true), 2000) // prevent route change protection dialog from popping up
+    const t = setTimeout(() => setIsReady(true), 2000) // prevent route change protection dialog from popping up
+    return () => {
+      clearInterval(t)
+    }
   }, [])
 
   useEffect(() => {

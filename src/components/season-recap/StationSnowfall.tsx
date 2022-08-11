@@ -212,8 +212,9 @@ export default function StationSnowfall({waterYear, sid}: Props) {
       : null
   }, [snowfallAccumData, snowfallNormalAccumData])
   const [snowfallDataset, setSnowfallDataset] = useState<LineDataProp>([])
+
   useEffect(() => {
-    setTimeout(() => {
+    const t = setTimeout(() => {
       setSnowfallDataset([
         snowfallAccumHistLowData,
         snowfallAccumHistHighData,
@@ -221,6 +222,9 @@ export default function StationSnowfall({waterYear, sid}: Props) {
         snowfallAccumData
       ])
     })
+    return () => {
+      clearInterval(t)
+    }
   }, [
     snowfallAccumData,
     snowfallNormalAccumData,
