@@ -112,7 +112,7 @@ const Index = ({
               aspectRatio={coverStoryImageRatio}
               title="Watch this PCWA Presents Free Webinar"
               readMore="Watch the recording here"
-              linkHref="/newsroom/state-of-our-water-webinar"
+              linkHref="/education-center/webinars/state-of-our-water"
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of our Water Webinar flier"
               body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
@@ -199,16 +199,17 @@ const Index = ({
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Upcoming Webinar"
-              readMore="Register Today"
-              linkHref="/newsroom/mountain-to-tap-webinar"
+              readMore="Watch Today"
+              linkHref="/education-center/webinars/mountain-tops-to-tap"
               flexLinkProps={{isNextLink: true}}
               imgixURL="https://imgix.cosmicjs.com/45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg"
               alt="From the Mountain Tops to your Tap Webinar graphic"
               body={
                 <Type variant="inherit">
-                  Join the water quality experts from PCWA for a conversation
-                  about the quality of your drinking water during our next Lunch
-                  & Learn webinar on Wednesday, August 10th at noon.
+                  Watch this recently recorded video featuring water quality
+                  experts from PCWA, as they discuss the quality of your
+                  drinking water, where your water comes from, how it's treated
+                  and its path to your tap.
                 </Type>
               }
             />
@@ -613,7 +614,7 @@ const Index = ({
               width={tileWidth}
               imageRatio={coverStoryImageRatio}
               title="State of Our Water Supplies Webinar"
-              linkHref="/newsroom/state-of-our-water-webinar"
+              linkHref="/education-center/webinars/state-of-our-water"
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of Our Water webinar flier"
             />

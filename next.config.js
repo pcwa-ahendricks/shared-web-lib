@@ -121,8 +121,19 @@ const indexPageRedirects = [
   }
 ]
 
-// In time these can be removed. They are legacy urls used with previous versions (ng) of the website.
+// In time these can be removed. They include misc. redirects to moved pages and legacy urls used with previous versions (ng) of the website.
 const legacyRedirects = [
+  // I (abe h.) changed where these 2 webinars are located to better reflect page structure/hierarchy
+  {
+    source: '/newsroom/state-of-our-water-webinar',
+    destination: '/education-center/webinars/state-of-our-water',
+    permanent: true
+  },
+  {
+    source: '/newsroom/mountain-to-tap-webinar',
+    destination: '/education-center/webinars/mountain-tops-to-tap',
+    permanent: true
+  },
   {
     source: '/recreation/flows/gages/french-meadows',
     destination:

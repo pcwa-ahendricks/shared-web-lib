@@ -49,8 +49,8 @@
     "@vercel/node": "^2.5.4",
     "ava": "^4.3.0",
     "cross-env": "^7.0.2",
-    "eslint": "8.20.0",
-    "eslint-config-next": "^12.2.0",
+    "eslint": "8.21.0",
+    "eslint-config-next": "^12.2.5",
     "eslint-config-prettier": "^8.5.0",
     "gensync": "^1.0.0-beta.2",
     "globby": "<12.0.0",
@@ -94,7 +94,7 @@
     "mdi-material-ui": "^6.17.0",
     "mui-jackinbox": "^0.1.0",
     "mui-sleazebox": "^0.0.6",
-    "next": "^12.2.3",
+    "next": "^12.2.5",
     "next-transpile-modules": "^9.0.0",
     "p-timeout": "^5.1.0",
     "papaparse": "5.3.2",
@@ -126,9 +126,9 @@
     "timezone-support": "^2.0.2",
     "trendline": "^0.3.1",
     "url-parse": "^1.5.10",
-    "use-debounce": "^8.0.2",
+    "use-debounce": "^8.0.3",
     "valid-url": "^1.0.9",
-    "vercel": "^27.3.5",
+    "vercel": "^27.4.0",
     "yup": "^0.32.11"
   }
 }

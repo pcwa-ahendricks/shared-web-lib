@@ -350,14 +350,68 @@ const ResourceLibraryPage = ({
 
           <TabPanel value={tabIndex} index={3}>
             <Spacing size="x-large" />
-            <RowBox
-              flexSpacing={4}
-              justifyContent="space-around"
-              width="100%"
-              responsive="sm"
-            >
-              <ChildBox flex={isXS ? '100%' : '50%'}>
-                <Box width={440} margin="auto">
+            <RowBox flexSpacing={4} width="100%" responsive="sm">
+              <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
+                <Box width={440} marginRight="auto">
+                  <Card title="From the Mountain Tops to Your Tap">
+                    <Link
+                      href="/education-center/webinars/mountain-tops-to-tap"
+                      passHref
+                    >
+                      <a className="reset-a">
+                        <FancierCardActionArea
+                          CardMediaProps={{
+                            style: {overflow: 'hidden', width: '100%'}
+                          }}
+                          ImageFancierProps={{
+                            src: 'https://imgix.cosmicjs.com/45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg',
+                            objectFit: 'cover',
+                            objectPosition: 'top center',
+                            alt: `Thumbnail image and link for 'From the Mountain Tops to Your Tap' webinar`,
+                            height: 220,
+                            width: 440
+                          }}
+                        >
+                          <CardContent>
+                            <Type
+                              gutterBottom
+                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                            >
+                              From the Mountain Tops to Your Tap
+                            </Type>
+                            <Type
+                              variant="body2"
+                              color="textSecondary"
+                              paragraph
+                            >
+                              Recorded{' '}
+                              {format(
+                                parse('8/10/2022', 'MM/dd/yyyy', new Date()),
+                                'M/dd/yyyy'
+                              )}
+                            </Type>
+                          </CardContent>
+                        </FancierCardActionArea>
+                      </a>
+                    </Link>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        startIcon={<YouTubeIcon color="action" />}
+                        href="https://www.youtube.com/watch?v=M43ubkUswSY"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Type variant="inherit" color="textSecondary">
+                          Watch Recording
+                        </Type>
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Box>
+              </ChildBox>
+              <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
+                <Box width={440} marginRight="auto">
                   <Card
                     title="State of PCWA's Water Supplies"
                     // publishedDate={parse(
@@ -368,7 +422,10 @@ const ResourceLibraryPage = ({
                     // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
                     // objectPosition="top center"
                   >
-                    <Link href="/newsroom/state-of-our-water-webinar" passHref>
+                    <Link
+                      href="/education-center/webinars/state-of-our-water"
+                      passHref
+                    >
                       <a className="reset-a">
                         <FancierCardActionArea
                           CardMediaProps={{
@@ -431,8 +488,11 @@ const ResourceLibraryPage = ({
                   </Card>
                 </Box>
               </ChildBox>
-              <ChildBox flex={isXS ? '100%' : '50%'}>
-                <Box width={440} margin="auto">
+            </RowBox>
+            <Spacing />
+            <RowBox flexSpacing={4} width="100%" responsive="sm">
+              <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
+                <Box width={440} marginRight="auto">
                   <Card title="Fire-Wise, Water-Wise Landscaping">
                     <Link
                       href="/smart-water-use/fire-wise-landscaping"
