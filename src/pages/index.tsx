@@ -198,7 +198,7 @@ const Index = ({
           <ChildBox flex="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Upcoming Webinar"
+              title="Water Quality Webinar"
               readMore="Watch Today"
               linkHref="/education-center/webinars/mountain-tops-to-tap"
               flexLinkProps={{isNextLink: true}}
