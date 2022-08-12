@@ -364,7 +364,7 @@ const ResourceLibraryPage = ({
                             style: {overflow: 'hidden', width: '100%'}
                           }}
                           ImageFancierProps={{
-                            src: 'https://imgix.cosmicjs.com/45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg',
+                            src: 'https://imgix.cosmicjs.com/b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg',
                             objectFit: 'cover',
                             objectPosition: 'top center',
                             alt: `Thumbnail image and link for 'From the Mountain Tops to Your Tap' webinar`,

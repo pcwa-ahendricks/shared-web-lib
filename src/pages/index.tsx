@@ -36,7 +36,7 @@ const imgixImages = [
   'b633afa0-e5d8-11ec-9447-f98173199613-Summer-of-Savings-FB-Image-cropped2.png',
   '58581660-e5d7-11ec-9447-f98173199613-Limit-Landscape-Watering-graphic.jpg',
   'ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg',
-  '45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg',
+  'b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg',
   '038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg',
   'a86375b0-6340-11ec-a8a3-53f360c99be6-PCWA-2022-Adopted-Budget-for-Website.pdf',
   '68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg',
@@ -202,7 +202,7 @@ const Index = ({
               readMore="Watch Today"
               linkHref="/education-center/webinars/mountain-tops-to-tap"
               flexLinkProps={{isNextLink: true}}
-              imgixURL="https://imgix.cosmicjs.com/45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg"
+              imgixURL="https://imgix.cosmicjs.com/b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg"
               alt="From the Mountain Tops to your Tap Webinar graphic"
               body={
                 <Type variant="inherit">

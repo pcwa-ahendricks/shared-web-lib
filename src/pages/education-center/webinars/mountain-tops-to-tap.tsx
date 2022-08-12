@@ -21,7 +21,7 @@ const MountainToTapWebinarPage = () => {
               aria-label="Link to From the Mountain Tops to Your Tap Webinar recording on YouTube.com"
             >
               <Image
-                src="45e7df30-ff16-11ec-8d8a-d15cc33d0ea9-PCWAMtnTapWebinarGraphic3.jpg"
+                src="b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg"
                 alt="From the Mountain Tops to Your Tap Webinar flier"
                 layout="responsive"
                 loader={imgixLoader}
