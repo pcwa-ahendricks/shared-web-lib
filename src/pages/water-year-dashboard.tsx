@@ -578,7 +578,7 @@ export default function WaterYearDashboardPage() {
             </Link>
             ,{' '}
             <Link
-              href="https://www.ncdc.noaa.gov/cag/county/time-series"
+              href="https://www.ncei.noaa.gov/cag/county/time-series"
               target="_blank"
               rel="noopener noreferrer"
               style={{outline: 'none'}}
