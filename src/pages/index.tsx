@@ -809,8 +809,8 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
     return {
-      props: {initialAlertsData, initialNewsBlurbsData, placeholders},
-      revalidate: 5
+      props: {initialAlertsData, initialNewsBlurbsData, placeholders}
+      // revalidate: 5
     }
   } catch (error) {
     console.log('There was an error fetching alerts and/or news blurbs', error)
