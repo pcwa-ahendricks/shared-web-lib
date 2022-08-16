@@ -12,6 +12,7 @@ import {stringify} from 'querystringify'
 import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
 import {makeStyles} from '@material-ui/core'
+import pTimeout from 'p-timeout'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
@@ -23,18 +24,18 @@ const getImgixBlurHash = async (
   width = DEFAULT_WIDTH,
   height = DEFAULT_HEIGHT
 ) => {
+  const urlPrefix = 'https://imgix.cosmicjs.com/'
+  const queryParamsStr = stringify(
+    {
+      w: width,
+      h: height,
+      fm: 'blurhash'
+    },
+    true
+  )
+  const url = `${urlPrefix}${filename}${queryParamsStr}`
   try {
-    const urlPrefix = 'https://imgix.cosmicjs.com/'
-    const queryParamsStr = stringify(
-      {
-        w: width,
-        h: height,
-        fm: 'blurhash'
-      },
-      true
-    )
-    const url = `${urlPrefix}${filename}${queryParamsStr}`
-    const blurhash = await textFetcher(url)
+    const blurhash = await pTimeout(textFetcher(url), 3500)
     return {filename, url, blurhash}
   } catch (e) {
     return {filename, url: '', blurhash: ''}
