@@ -13,6 +13,7 @@ import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
 import {makeStyles} from '@material-ui/core'
 import pTimeout from 'p-timeout'
+import {sequenceArray} from '@lib/util'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
@@ -38,6 +39,7 @@ const getImgixBlurHash = async (
     const blurhash = await pTimeout(textFetcher(url), 3500)
     return {filename, url, blurhash}
   } catch (e) {
+    console.log(e)
     return {filename, url: '', blurhash: ''}
   }
 }
@@ -47,13 +49,12 @@ const getImgixBlurHashes = async (
   width?: number,
   height?: number
 ) => {
-  const blurhashes = filenames.map((i) => getImgixBlurHash(i, width, height))
-  const placeholders = await Promise.allSettled(blurhashes)
-  const blurHashes = placeholders
-    .filter((p) => p.status === 'fulfilled')
-    .map((p: any) => p.value)
+  const blurHashes = await sequenceArray(filenames, (i) =>
+    getImgixBlurHash(i, width, height)
+  )
   return blurHashes
 }
+
 type UseStylesProps = {
   isFillLayout?: boolean
 }
