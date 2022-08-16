@@ -47,8 +47,11 @@ const getImgixBlurHashes = async (
   height?: number
 ) => {
   const blurhashes = filenames.map((i) => getImgixBlurHash(i, width, height))
-  const placeholders = await Promise.all(blurhashes)
-  return placeholders
+  const placeholders = await Promise.allSettled(blurhashes)
+  const blurHashes = placeholders
+    .filter((p) => p.status === 'fulfilled')
+    .map((p: any) => p.value)
+  return blurHashes
 }
 type UseStylesProps = {
   isFillLayout?: boolean
