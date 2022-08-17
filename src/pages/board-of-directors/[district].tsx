@@ -28,7 +28,6 @@ import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
-import ErrorPage from '@pages/_error'
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
@@ -37,7 +36,6 @@ const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   district?: number
-  err?: {statusCode: number}
 }
 
 function getMaxDistrict() {
@@ -61,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
+const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const margin = theme.spacing(1) // Used with left and top margin of flexWrap items.
@@ -87,10 +85,6 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp, err}: Props) => {
         {children}
       </li>
     )
-  }
-
-  if (err) {
-    return <ErrorPage statusCode={err.statusCode} />
   }
 
   return (
@@ -400,7 +394,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   if (arrayForTest.indexOf(districtNoProp) >= 0) {
     return {props: {district: districtNoProp}}
   } else if (districtNoStrProp.length > 0) {
-    return {props: {err: {statusCode: 404}}}
+    return {
+      notFound: true
+    }
   } else {
     return {props: {district: null}}
   }

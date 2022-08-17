@@ -435,32 +435,32 @@ const legacyRedirects = [
   }
 ]
 
-const condRedirects = isDev
-  ? []
-  : [
-      {
-        source: '/typography',
-        destination: '/404',
-        permanent: true
-      },
-      {
-        source: '/templates(.*)',
-        destination: '/404',
-        permanent: true
-      }
-      // {
-      //   source: '/season-recap(.*)',
-      //   destination: '/404',
-      //   permanent: true
-      // }
-    ]
+// const condRedirects = isDev
+//   ? []
+//   : [
+//       {
+//         source: '/typography',
+//         destination: '/404',
+//         permanent: true
+//       },
+//       {
+//         source: '/templates(.*)',
+//         destination: '/404',
+//         permanent: true
+//       }
+// {
+//   source: '/season-recap(.*)',
+//   destination: '/404',
+//   permanent: true
+// }
+// ]
 
 module.exports = withTM({
   // https://github.com/martpie/next-transpile-modules/releases/tag/7.0.0
   async redirects() {
     return [
       ...legacyRedirects,
-      ...condRedirects,
+      // ...condRedirects,
       ...indexPageRedirects,
       ...miscRedirects
     ]
