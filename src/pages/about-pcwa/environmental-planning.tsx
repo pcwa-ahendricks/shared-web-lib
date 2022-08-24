@@ -169,7 +169,13 @@ const EnvironmentalPlanningPage = () => {
                 {...linkProps}
                 href="https://docs.pcwa.net/uwmp-2020-errata-sheet"
               >
-                2020 Urban Water Management Plan Errata Sheet
+                2020 Urban Water Management Plan Errata Sheet - 1
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://docs.pcwa.net/uwmp-2020-errata-sheet-2"
+              >
+                2020 Urban Water Management Plan Errata Sheet - 2
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
