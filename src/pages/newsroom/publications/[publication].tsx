@@ -524,6 +524,18 @@ const PublicationsPage = ({
                 >
                   <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="Fire & Water - 2022"
+                      publishedDate={parse(
+                        '09/01/2022',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://imgix.cosmicjs.com/fad36150-2e03-11ed-bac3-370838fb3053-Fire--Water-2022.pdf"
+                      objectPosition="top center"
+                    />
+                  </ChildBox>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="Fire & Water - 2021"
                       publishedDate={parse(
                         '08/12/2021',
