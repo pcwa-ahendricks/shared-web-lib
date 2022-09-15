@@ -70,7 +70,8 @@ export default function BasicTemplatePage() {
         .sort((a, b) => compareAsc(a.date, b.date))
         .map((i) => ({
           ...i,
-          date: format(i.date, "MMM'.' do',' yyyy 'at' h':'mm aaa")
+          date: format(i.date, "MMM'.' do',' yyyy 'at' h':'mm aaa"),
+          dow: format(i.date, 'EEE')
         })) ?? [],
     [meetingDatesData, parseFn]
   )
@@ -107,6 +108,11 @@ export default function BasicTemplatePage() {
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
+                  <TableCell>
+                    <Typography noWrap variant="inherit">
+                      Day of Week
+                    </Typography>
+                  </TableCell>
                   <TableCell>Notes</TableCell>
                 </TableRow>
               </TableHead>
@@ -118,6 +124,7 @@ export default function BasicTemplatePage() {
                         {row.date}
                       </Typography>
                     </TableCell>
+                    <TableCell>{row.dow}</TableCell>
                     <TableCell>{row.notes}</TableCell>
                   </TableRow>
                 ))}
