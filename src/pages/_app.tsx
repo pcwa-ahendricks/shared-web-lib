@@ -21,13 +21,17 @@ import Head from 'next/head'
 import GlobalStyles from '@components/GlobalStyles'
 import * as gtag from '@lib/gtag'
 import '@lib/css/styles.css'
-import '@lib/css/NoCollapseVerticalTimeline.css'
+// import '@lib/css/NoCollapseVerticalTimeline.css'
+
 /*
 Global External Styles
 */
-import 'react-vertical-timeline-component/style.min.css'
-// Use Next <Head/> to load css on any page where these components are used
+// React Vertical Timeline
+// import 'react-vertical-timeline-component/style.min.css'
+
+// Loading Mapbox-gl css via _document.tsx
 // import 'mapbox-gl/dist/mapbox-gl.css'
+
 // Load Animate.css globally
 import 'animate.css'
 

@@ -21,28 +21,45 @@ import {
   Theme
 } from '@material-ui/core'
 import Spacing from '@components/boxes/Spacing'
-import DoneIcon from '@material-ui/icons/Done'
-import MenuBookIcon from '@material-ui/icons/MenuBook'
-import EventIcon from '@material-ui/icons/Event'
-import NoCollapseVerticalTimeline from '@components/NoCollapseVerticalTimeline/NoCollapseVerticalTimeline'
-import {
-  VerticalTimelineElement,
-  VerticalTimelineElementProps
-} from 'react-vertical-timeline-component'
-import {lightBlue} from '@material-ui/core/colors'
-import alpha from 'color-alpha'
+// import DoneIcon from '@material-ui/icons/Done'
+// import MenuBookIcon from '@material-ui/icons/MenuBook'
+// import EventIcon from '@material-ui/icons/Event'
+// import NoCollapseVerticalTimeline from '@components/NoCollapseVerticalTimeline/NoCollapseVerticalTimeline'
+// import {
+//   VerticalTimelineElement,
+//   VerticalTimelineElementProps
+// } from 'react-vertical-timeline-component'
+// import {lightBlue} from '@material-ui/core/colors'
+// import alpha from 'color-alpha'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'
 import WideContainer from '@components/containers/WideContainer'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/image'
+import ListBulletItem from '@components/lists/ListBulletItem'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    compactItem: {paddingBottom: 0, paddingTop: 0, marginBottom: -4},
+    noBottomMargin: {
+      marginBottom: 0
+    },
     bulletLi: {
       listStyleType: 'disc',
       marginBottom: 2
+    },
+    listItemText: {
+      paddingLeft: theme.spacing(4)
+    },
+    listItemAvatarPortrait: {
+      '& :first-child': {
+        width: 36,
+        margin: 'auto !important'
+      }
+    },
+    link: {
+      fontFamily: 'dona'
     },
     verticalTimelineBar: {
       position: 'absolute',
@@ -94,15 +111,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // '& .vertical-timeline-element:last-child': {
       //   marginBottom: 0
       // }
-    },
-    listItemText: {
-      paddingLeft: theme.spacing(4)
-    },
-    listItemAvatarPortrait: {
-      '& :first-child': {
-        width: 36,
-        margin: 'auto !important'
-      }
     },
     // See note below regarding global styling and css specificity.
     timelineTitle: {
@@ -171,6 +179,7 @@ const ARBSPage = () => {
     )
   }
 
+  /*
   const TimelineElement = ({
     children,
     date,
@@ -217,6 +226,7 @@ const ARBSPage = () => {
       </VerticalTimelineElement>
     )
   }
+  */
 
   return (
     <PageLayout title="American River Basin Study" waterSurface>
@@ -229,6 +239,163 @@ const ARBSPage = () => {
               <ARBSSidebar />
             </ChildBox>
             <ChildBox>
+              <Type id="report" variant="h3" gutterBottom color="primary">
+                Final Report
+              </Type>
+              <Type paragraph>
+                The American River Basin Study (ARBS) was released in August
+                2022. To view the U.S. Bureau of Reclamation (USBR) press
+                release, see{' '}
+                <Link
+                  href="https://www.usbr.gov/newsroom/news-release/4312"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  American River Basin Study finds that increasing temperatures
+                  and changing precipitation will impact basin through rest of
+                  21st century
+                </Link>
+                . For more information about the study, visit the{' '}
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.usbr.gov/watersmart/bsp/arbs/#:~:text=Municipal%20users%20in%20the%20basin%20use%20516%2C000%20acre-feet,change%20adaptation%20strategies%20for%20the%20American%20River%20Basin."
+                >
+                  USBR's ARBS webpage
+                </Link>
+                .
+              </Type>
+              <Spacing />
+              <Link
+                variant="body1"
+                color="primary"
+                TypographyClasses={{colorPrimary: classes.link}}
+                href="https://docs.pcwa.net/american-river-basin-study-2022_08.pdf"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                American River Basin Study Report
+              </Link>
+              <Spacing size="x-small" />
+              <List dense disablePadding>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20A_Communic_Outreach.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix A - Communication and Outreach Activities
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20B_Devel_Future_Climate_Hydro_Scenarios.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix B - Development of Future Climate and Hydrology
+                      Scenarios
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20C_CalSim3_UAR_Module_Doc.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix C - CalSim 3 Upper American River Module
+                      Documentation
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20D_Develop_Urban_Agri_Demands.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix D - Development of Urban and Agricultural Demands
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20E_Adapt_Meas_Prelim_Screen_Results.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix E - Adaptation Measure Preliminary Screening
+                      Results
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20F_Draft_Adapt_Portfolios.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix F - Draft Description of Adaptaion Portfolios
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20G_Adaptation_Portfolios_%20Eval_Results.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix G - Adaptation Portfolios Evaluation Results
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+                <ListBulletItem classes={{root: classes.compactItem}}>
+                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                    <Link
+                      variant="body2"
+                      color="primary"
+                      TypographyClasses={{colorPrimary: classes.link}}
+                      href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20H_%20LowerAR_Water_Temp_Model_Doc_Results.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Appendix H - Lower American River Water Temperature
+                      Modeling Documentation and Results
+                    </Link>
+                  </ListItemText>
+                </ListBulletItem>
+              </List>
+              <Spacing size="large" />
               <Type id="background" variant="h3" gutterBottom color="primary">
                 Background
               </Type>
@@ -277,7 +444,6 @@ const ARBSPage = () => {
                 fishery species protection, the State’s Sustainable Groundwater
                 Management Act, and the science of climate change.
               </Type>
-
               <Spacing size="large" />
               <Type id="objectives" variant="h3" gutterBottom color="primary">
                 Basin Study Objectives
@@ -305,7 +471,7 @@ const ARBSPage = () => {
                 </TypeBullet>
                 <TypeBullet>
                   Integrate regional water supply reliability with operational
-                  flexibility for Reclamation’s Folsom Dam and Reservoir to help
+                  flexibility for Reclamation's Folsom Dam and Reservoir to help
                   meet all authorized purposes of the CVP.
                 </TypeBullet>
                 <TypeBullet>
@@ -354,29 +520,28 @@ const ARBSPage = () => {
                 committed to pursuing integrated water management solutions that
                 benefit all parties.
               </Type>
-
               <Spacing size="large" />
               <Type id="study-area" variant="h3" gutterBottom color="primary">
                 Description of Study Area
               </Type>
               <Type paragraph>
                 The American River is one of four major tributaries to the
-                Sacramento River. Figure 1-1 shows the Study Area – the American
-                River Basin – that is bounded by the Bear River to the north,
+                Sacramento River. Figure 1-1 shows the Study Area - the American
+                River Basin - that is bounded by the Bear River to the north,
                 the Cosumnes River to the south, the Sierra Nevada mountain
                 range to the east, and the Feather and Sacramento Rivers to the
                 west. The Study Area encompasses two parts:
               </Type>
               <ul>
                 <TypeBullet>
-                  <strong>American River Watershed</strong> – This watershed
+                  <strong>American River Watershed</strong> - This watershed
                   covers 2,140 square miles from Sacramento to the peaks of the
                   northern Sierra Nevada mountains west of Lake Tahoe. Areas
                   outside of the watershed that are served by Study Partners
                   with American River water are also included in the Study Area.
                 </TypeBullet>
                 <TypeBullet>
-                  <strong>North and South Groundwater Subbasins</strong> – These
+                  <strong>North and South Groundwater Subbasins</strong> - These
                   two groundwater basins in the west side of the Study area are
                   separated by the American River, and their eastern boundary
                   represents the approximate edge of the alluvial basin, where
@@ -386,7 +551,6 @@ const ARBSPage = () => {
                   use groundwater for their water supply needs.
                 </TypeBullet>
               </ul>
-
               <ChildBox flex={{xs: 'auto', sm: '0 1 70%'}}>
                 <MediaDialogOnClick
                   mediaUrl="https://imgix.cosmicjs.com/421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg"
@@ -414,13 +578,10 @@ const ARBSPage = () => {
                   </Box>
                 </ColumnBox>
               </ChildBox>
-
               <Spacing size="large" />
-
               <Type id="partners" variant="h3" gutterBottom color="primary">
                 Cost-Share Partners
               </Type>
-
               <Box bgcolor={theme.palette.common.white} boxShadow={1} p={4}>
                 <Type paragraph>
                   The ARBS is a joint effort between Reclamation and six
@@ -531,7 +692,6 @@ const ARBSPage = () => {
                   </ListItemAnchor>
                 </List>
               </Box>
-
               <Spacing size="large" />
               <Type
                 id="participation"
@@ -579,8 +739,9 @@ const ARBSPage = () => {
                 other methods (as appropriate). If interested, please contact
                 the Project Manager for the next Public Meeting.
               </Type>
+              {/*
               <Spacing size="large" />
-              {/* [TODO] Using any <h(*)/> in <article/> will be styled via GlobalStyles. Prevent this by not including timeline in <article/>. It's possible css specificity can rectify this issue.  */}
+              {// [TODO] Using any <h(*)/> in <article/> will be styled via GlobalStyles. Prevent this by not including timeline in <article/>. It's possible css specificity can rectify this issue.}
               <Type id="timeline" variant="h3" gutterBottom color="primary">
                 Study Timeline
               </Type>
@@ -602,10 +763,7 @@ const ARBSPage = () => {
                   >
                     {/* <h4 className="vertical-timeline-element-subtitle">
                   Subtitle
-                </h4> */}
-                    {/* <p>
-                  ...
-                </p> */}
+                </h4>
                   </TimelineElement>
                   <TimelineElement
                     completed
@@ -667,7 +825,7 @@ const ARBSPage = () => {
                   />
                 </NoCollapseVerticalTimeline>
               </Box>
-
+              */}
               <Spacing size="large" />
               <Type variant="h3" gutterBottom color="primary">
                 Contact Information - Co-Study Managers

@@ -28,9 +28,6 @@ import ListBulletItem from '@components/lists/ListBulletItem'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    listItemBullet: {
-      minWidth: theme.spacing(5)
-    },
     headingIcon: {
       paddingRight: theme.spacing(1)
     },

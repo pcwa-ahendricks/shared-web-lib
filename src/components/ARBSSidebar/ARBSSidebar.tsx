@@ -97,6 +97,10 @@ const ARBSSidebar = () => {
           Table of Contents
         </Type>
         <Spacing size="x-small" />
+        <PageLink href="#report">
+          Report
+          <br />
+        </PageLink>
         <PageLink href="#background">
           Background
           <br />
@@ -117,10 +121,10 @@ const ARBSSidebar = () => {
           Participation
           <br />
         </PageLink>
-        <PageLink href="#timeline">
+        {/* <PageLink href="#timeline">
           Timeline
           <br />
-        </PageLink>
+        </PageLink> */}
         <Spacing>
           <Divider />
         </Spacing>
@@ -140,6 +144,11 @@ const ARBSSidebar = () => {
         </Type>
         {/* <Spacing size="x-small" /> */}
         <ul className={classes.noIndexList}>
+          <Li>
+            <SafeLink href="https://docs.pcwa.net/american-river-basin-study-2022_08.pdf">
+              American River Basin Study
+            </SafeLink>
+          </Li>
           <Li>
             <SafeLink href="https://cdn.cosmicjs.com/a0e68070-3273-11ea-bfe8-5b62c3bdf959-ARBSPlanofStudy20170113-1.pdf">
               Plan Of Study
