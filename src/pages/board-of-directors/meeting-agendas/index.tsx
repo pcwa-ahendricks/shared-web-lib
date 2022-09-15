@@ -32,10 +32,10 @@ import NovusIframe from '@components/NovusIframe/NovusIframe'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink from '@components/NextLink/NextLink'
 import {firstBy} from 'thenby'
-import {
-  futureBoardMeetingDates,
-  nextBoardMeeting
-} from '@lib/board-meeting-dates'
+// import {
+//   futureBoardMeetingDates,
+//   nextBoardMeeting
+// } from '@lib/board-meeting-dates'
 import {
   compareAsc,
   format,
@@ -43,6 +43,7 @@ import {
   addHours,
   parse,
   startOfDay,
+  isFuture,
   isBefore
 } from 'date-fns'
 import {saveAs} from 'file-saver'
@@ -95,15 +96,15 @@ interface AgendaMetadata {
   sort_order: number
   hidden: boolean
 }
-const params = {
+const agendasParams = {
   hide_metafields: true,
   props: 'id,metadata,status,title',
   query: JSON.stringify({
     type: 'agendas'
   })
 }
-const qs = stringify({...params}, true)
-const agendasUrl = `/api/cosmic/objects${qs}`
+const agendasQs = stringify({...agendasParams}, true)
+const agendasUrl = `/api/cosmic/objects${agendasQs}`
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -129,25 +130,87 @@ const MeetingAgendasPage = ({
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
-  const followingFourBoardMeetings = useMemo(
-    () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
+
+  const {data: agendasData} = useSWR<CosmicObjectResponse<AgendaMetadata>>(
+    agendasUrl,
+    {fallbackData: agendaFallbackData, refreshInterval}
+  )
+
+  const {data: meetingDatesData} = useSWR<
+    CosmicObjectResponse<MeetingDatesMetadata>
+  >(meetingDatesUrl, {fallbackData: meetingDatesFallbackData, refreshInterval})
+
+  const parseFn = useCallback(
+    (dateStr: string) => parse(dateStr, 'yyyy-MM-dd HHmm', new Date()),
     []
   )
-  console.log(nextBoardMeeting)
+
+  const boardMeetings = useMemo(
+    () =>
+      meetingDatesData?.objects.map((i) => ({
+        date: `${i.metadata.date} ${i.metadata.time}`,
+        notes: i.metadata.notes
+      })) ?? [],
+    [meetingDatesData]
+  )
+
+  const boardMeetingDates = useMemo(
+    () => boardMeetings.map((bm) => parseFn(bm.date)),
+    [parseFn, boardMeetings]
+  )
+
+  const futureBoardMeetingDates = useMemo(
+    () => boardMeetingDates.filter((bm) => isFuture(bm)),
+    [boardMeetingDates]
+  )
+
+  const futureBoardMeetings = useMemo(
+    () => boardMeetings.filter((bm) => isFuture(parseFn(bm.date))),
+    [boardMeetings, parseFn]
+  )
+
+  const nextBoardMeeting = useMemo(
+    () =>
+      futureBoardMeetings.reduce<
+        | {
+            notes?: string
+            date: Date
+          }
+        | undefined
+      >((p, v) => {
+        const vDate = parseFn(v.date)
+        if (!vDate && !p) {
+          return
+        }
+        if (!p?.date) {
+          return {...v, date: vDate}
+        }
+        return isBefore(p.date, vDate)
+          ? {...p, date: p.date}
+          : {...v, date: vDate}
+      }, undefined),
+    [futureBoardMeetings, parseFn]
+  )
+
+  const followingFourBoardMeetings = useMemo(
+    () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
+    [futureBoardMeetingDates]
+  )
+
   // Set event as an object
   const event = useMemo(
     () =>
       nextBoardMeeting?.date
         ? {
             title: 'PCWA Board Meeting',
-            description: nextBoardMeeting?.note || '',
+            description: nextBoardMeeting?.notes || '',
             start: nextBoardMeeting?.date,
             end: addHours(nextBoardMeeting.date, 2),
             // duration: [2, 'hour'],
             allDay: false
           }
         : null,
-    []
+    [nextBoardMeeting]
   )
 
   const iCalEvent = ics && typeof ics === 'function' && event ? ics(event) : ''
@@ -168,17 +231,6 @@ const MeetingAgendasPage = ({
     []
   )
 
-  const {data: agendasData} = useSWR<CosmicObjectResponse<AgendaMetadata>>(
-    agendasUrl,
-    {fallbackData: agendaFallbackData, refreshInterval}
-  )
-
-  const {data: meetingDatesData} = useSWR<
-    CosmicObjectResponse<MeetingDatesMetadata>
-  >(meetingDatesUrl, {fallbackData: meetingDatesFallbackData, refreshInterval})
-
-  console.log(meetingDatesData?.objects)
-
   const handleClose = useCallback(() => {
     setAnchorEl(null)
   }, [])
@@ -191,7 +243,7 @@ const MeetingAgendasPage = ({
     const noUrlICalEvent = iCalEvent.replace(/url:.+?%0a/i, '')
     setAnchorEl(null)
     saveAs(noUrlICalEvent, `pcwa-board-meeting_${filenameSuffix}.ics`)
-  }, [])
+  }, [iCalEvent, nextBoardMeeting])
 
   const agendas: MappedAgenda[] = useMemo(
     () =>
@@ -317,8 +369,8 @@ const MeetingAgendasPage = ({
                             In {formatDistanceToNow(nextBoardMeeting.date)}
                           </Type>
                           <Type variant="body2" component="p">
-                            {nextBoardMeeting.note
-                              ? nextBoardMeeting.note
+                            {nextBoardMeeting.notes
+                              ? nextBoardMeeting.notes
                               : "Next Regular Board of Directors' meeting."}
                           </Type>
                         </CardContent>

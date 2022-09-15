@@ -1,3 +1,7 @@
+/*
+NOTE - THIS IS DEPRECATED, DO NOT EDIT SINCE IT IS NOT USED. See Cosmicjs (https://app.cosmicjs.com/pcwa/objects/?type=board-meeting-dates) for all board dates
+*/
+
 import {parse, isFuture, isBefore} from 'date-fns'
 
 interface BoardMeeting {
