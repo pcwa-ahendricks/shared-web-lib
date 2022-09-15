@@ -16,7 +16,7 @@ import {
 import DeleteIcon from '@material-ui/icons/CloseRounded'
 import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
-import {useWindowSize} from '@react-hook/window-size'
+import {useWindowSize} from 'react-use'
 
 /*
 Two approaches:
@@ -89,7 +89,7 @@ const MediaPreviewDialog = ({
   ...rest
 }: MediaPreviewDialogProps) => {
   const classes = useStyles()
-  const [ww, wh] = useWindowSize()
+  const {width: ww, height: wh} = useWindowSize()
   const factor = factorWidth ? factorWidth * 100 : 86
   const isPortraitWindow = ww <= wh
   const imageAspectRatio =
