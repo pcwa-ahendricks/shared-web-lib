@@ -58,11 +58,28 @@ import slugify from 'slugify'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
-  fallbackData?: CosmicObjectResponse<AgendaMetadata>
+  agendaFallbackData?: CosmicObjectResponse<AgendaMetadata>
+  meetingDatesFallbackData?: CosmicObjectResponse<MeetingDatesMetadata>
 }
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 const endOfBusinessDayHour = 17
+
+interface MeetingDatesMetadata {
+  date: string
+  time: string
+  notes: string
+}
+
+const meetingDatesParams = {
+  hide_metafields: true,
+  props: 'id,metadata,status',
+  query: JSON.stringify({
+    type: 'board-meeting-dates'
+  })
+}
+const meetingDatesQs = stringify({...meetingDatesParams}, true)
+const meetingDatesUrl = `/api/cosmic/objects${meetingDatesQs}`
 
 type MappedAgenda = {
   dateTime: Date
@@ -126,7 +143,10 @@ const googleEventHref =
 const outlookEventHref =
   outlook && typeof outlook === 'function' && event ? outlook(event) : ''
 
-const MeetingAgendasPage = ({fallbackData}: Props) => {
+const MeetingAgendasPage = ({
+  agendaFallbackData,
+  meetingDatesFallbackData
+}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
@@ -146,8 +166,14 @@ const MeetingAgendasPage = ({fallbackData}: Props) => {
 
   const {data: agendasData} = useSWR<CosmicObjectResponse<AgendaMetadata>>(
     agendasUrl,
-    {fallbackData, refreshInterval}
+    {fallbackData: agendaFallbackData, refreshInterval}
   )
+
+  const {data: meetingDatesData} = useSWR<
+    CosmicObjectResponse<MeetingDatesMetadata>
+  >(meetingDatesUrl, {fallbackData: meetingDatesFallbackData, refreshInterval})
+
+  console.log(meetingDatesData?.objects)
 
   const handleClose = useCallback(() => {
     setAnchorEl(null)
@@ -289,7 +315,7 @@ const MeetingAgendasPage = ({fallbackData}: Props) => {
                           <Type variant="body2" component="p">
                             {nextBoardMeeting.note
                               ? nextBoardMeeting.note
-                              : 'Next Regular Board of Directors’ meeting.'}
+                              : "Next Regular Board of Directors' meeting."}
                           </Type>
                         </CardContent>
                         <CardActions>
