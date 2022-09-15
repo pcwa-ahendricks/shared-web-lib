@@ -7,6 +7,7 @@ import {
   ListItemIconProps,
   SvgIconProps
 } from '@material-ui/core'
+import clsx from 'clsx'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 
 type ListBulletItemIconProps = {
@@ -44,11 +45,18 @@ const ListBulletItemIcon = ({
 const ListBulletItem = ({
   children,
   ListBulletItemIconProps,
+  classes: classesProp,
   ...rest
 }: ListBulletItemProps) => {
   const classes = useStyles()
   return (
-    <ListItem classes={{root: classes.listItem}} {...rest}>
+    <ListItem
+      classes={{
+        ...classesProp,
+        root: clsx([classes.listItem, classesProp?.root])
+      }}
+      {...rest}
+    >
       <ListBulletItemIcon {...ListBulletItemIconProps} />
       {children}
     </ListItem>
