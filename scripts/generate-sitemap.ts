@@ -64,7 +64,8 @@ async function generateSitemap() {
     '!src/pages/_*.tsx', // ignore Next.js specific files (e.g., _app.tsx) and API routes
     '!src/pages/**/__*.tsx', // ignore debug pages
     '!src/pages/api', // ignore api routes
-    '!src/pages/**/[*.tsx' // ignore dynamic pages (manually added below)
+    '!src/pages/**/[*.tsx', // ignore dynamic pages (manually added below)
+    '!src/pages/board-of-directors/meeting-dates-subject-to-change.tsx' // for internal use only
   ])
 
   const piPages = gages
