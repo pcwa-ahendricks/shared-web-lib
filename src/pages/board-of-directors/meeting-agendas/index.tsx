@@ -122,27 +122,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-// Set event as an object
-const event = nextBoardMeeting?.date
-  ? {
-      title: 'PCWA Board Meeting',
-      description: nextBoardMeeting?.note || '',
-      start: nextBoardMeeting?.date,
-      end: addHours(nextBoardMeeting.date, 2),
-      // duration: [2, 'hour'],
-      allDay: false
-    }
-  : null
-
-const iCalEvent = ics && typeof ics === 'function' && event ? ics(event) : ''
-// standard ICS calendar base on https://icalendar.org/
-const yahooEventHref =
-  yahoo && typeof yahoo === 'function' && event ? yahoo(event) : ''
-const googleEventHref =
-  google && typeof google === 'function' && event ? google(event) : ''
-const outlookEventHref =
-  outlook && typeof outlook === 'function' && event ? outlook(event) : ''
-
 const MeetingAgendasPage = ({
   agendaFallbackData,
   meetingDatesFallbackData
@@ -154,6 +133,31 @@ const MeetingAgendasPage = ({
     () => futureBoardMeetingDates.sort(compareAsc).slice(1, 5), // Skip the next meeting/date and take 4 dates.
     []
   )
+  console.log(nextBoardMeeting)
+  // Set event as an object
+  const event = useMemo(
+    () =>
+      nextBoardMeeting?.date
+        ? {
+            title: 'PCWA Board Meeting',
+            description: nextBoardMeeting?.note || '',
+            start: nextBoardMeeting?.date,
+            end: addHours(nextBoardMeeting.date, 2),
+            // duration: [2, 'hour'],
+            allDay: false
+          }
+        : null,
+    []
+  )
+
+  const iCalEvent = ics && typeof ics === 'function' && event ? ics(event) : ''
+  // standard ICS calendar base on https://icalendar.org/
+  const yahooEventHref =
+    yahoo && typeof yahoo === 'function' && event ? yahoo(event) : ''
+  const googleEventHref =
+    google && typeof google === 'function' && event ? google(event) : ''
+  const outlookEventHref =
+    outlook && typeof outlook === 'function' && event ? outlook(event) : ''
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
