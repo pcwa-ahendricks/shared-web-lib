@@ -36,7 +36,7 @@ const getImgixBlurHash = async (
   )
   const url = `${urlPrefix}${filename}${queryParamsStr}`
   try {
-    const blurhash = await pTimeout(textFetcher(url), 3500)
+    const blurhash = await pTimeout(textFetcher(url), {milliseconds: 3500})
     return {filename, url, blurhash}
   } catch (e) {
     console.log(e)

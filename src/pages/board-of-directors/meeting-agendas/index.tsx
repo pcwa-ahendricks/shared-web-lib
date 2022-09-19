@@ -56,6 +56,8 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ics, google, yahoo, outlook} from '@lib/calendar-link'
 import slugify from 'slugify'
+import fetcher from '@lib/fetcher'
+import {GetStaticProps} from 'next'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -575,6 +577,27 @@ const MeetingAgendasPage = ({
       </MainBox>
     </PageLayout>
   )
+}
+
+// Called at build time.
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const agendaFallbackData = await fetcher<
+      CosmicObjectResponse<AgendaMetadata>
+    >(`${baseUrl}${agendasUrl}`)
+    const meetingDatesFallbackData = await fetcher<
+      CosmicObjectResponse<MeetingDatesMetadata>
+    >(`${baseUrl}${meetingDatesUrl}`)
+
+    return {
+      props: {meetingDatesFallbackData, agendaFallbackData},
+      revalidate: 5
+    }
+  } catch (error) {
+    console.log('There was an error fetching outages.', error)
+    return {props: {}}
+  }
 }
 
 export default MeetingAgendasPage

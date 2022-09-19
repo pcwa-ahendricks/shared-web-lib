@@ -30,7 +30,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = jsonStringify(query) || 'empty-query'
     try {
-      const cacheData = await pTimeout(get(hash), TIMEOUT)
+      const cacheData = await pTimeout(get(hash), {milliseconds: TIMEOUT})
       const result = typeof cacheData === 'object' ? cacheData.result : ''
       if (result && typeof result === 'string') {
         const data = JSON.parse(result)
@@ -55,7 +55,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     if (!cosmicId) {
       try {
         const params = {EX: 60 * 5} // 5 minutes
-        await pTimeout(set(hash, media, {params}), TIMEOUT)
+        await pTimeout(set(hash, media, {params}), {milliseconds: TIMEOUT})
       } catch (error) {
         console.log(error)
       }
@@ -72,7 +72,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     try {
       const params = {EX: 60 * 5} // 5 minutes
-      await pTimeout(set(hash, filteredMedia, {params}), TIMEOUT)
+      await pTimeout(set(hash, filteredMedia, {params}), {
+        milliseconds: TIMEOUT
+      })
     } catch (error) {
       console.log(error)
     }
