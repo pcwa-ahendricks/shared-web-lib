@@ -43,7 +43,8 @@ const imgixImages = [
   '329b7180-cdfd-11eb-a17a-1d11087b211e-WaterSense.png',
   'cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
-  '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg'
+  '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
+  '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg'
 ]
 
 type Props = {
@@ -154,22 +155,19 @@ const Index = ({
               imgixURL="https://imgix.cosmicjs.com/23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg"
               alt="Go paperless"
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES"
+              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
             />
           </ChildBox>
 
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Drought Recommendations"
+              title="American River Basin Study"
               readMore="Learn more"
-              linkHref="/smart-water-use/drought"
-              // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
-              // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
-              imgixURL="https://imgix.cosmicjs.com/58581660-e5d7-11ec-9447-f98173199613-Limit-Landscape-Watering-graphic.jpg"
-              alt="Water less banner"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              linkHref="/planning/arbs"
+              imgixURL="https://imgix.cosmicjs.com/7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg"
+              alt="A photo of the American River near the American River Pump Station"
+              body="The American River Basin Study (ARBS) was released in August 2022. The study highlights a changing climate's impact to water resources and recommends evaluating adaptation strategies to address these vulnerabilities to the water supply."
             />
           </ChildBox>
         </RowBox>
@@ -187,6 +185,21 @@ const Index = ({
               imgixParams={{
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
+            />
+          </ChildBox>
+
+          <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Drought Recommendations"
+              readMore="Learn more"
+              linkHref="/smart-water-use/drought"
+              // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
+              imgixURL="https://imgix.cosmicjs.com/58581660-e5d7-11ec-9447-f98173199613-Limit-Landscape-Watering-graphic.jpg"
+              alt="Water less banner"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
             />
           </ChildBox>
 
