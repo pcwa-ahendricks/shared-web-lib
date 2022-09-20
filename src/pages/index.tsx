@@ -43,7 +43,6 @@ const imgixImages = [
   '329b7180-cdfd-11eb-a17a-1d11087b211e-WaterSense.png',
   'cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
-  '1f067450-3871-11ed-adfd-ddb1795c6ac6-go-paperless-eblast-graphic.jpg',
   '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg'
 ]
 
@@ -148,14 +147,14 @@ const Index = ({
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Paperless Billing"
-              readMore="Learn more"
+              title="Paperless Billing Available"
+              readMore="Go paperless today"
               linkHref="https://ipn.paymentus.com/cp/plco"
               flexLinkProps={{isNextLink: false}}
               imgixURL="https://imgix.cosmicjs.com/23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg"
               alt="Go paperless"
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Sign up for paperless billing today."
+              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES"
             />
           </ChildBox>
 
@@ -188,20 +187,6 @@ const Index = ({
               imgixParams={{
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
-            />
-          </ChildBox>
-
-          <ChildBox flex="0 0 50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Paperless Billing"
-              readMore="Learn more"
-              linkHref="https://ipn.paymentus.com/cp/plco"
-              flexLinkProps={{isNextLink: false}}
-              imgixURL="https://imgix.cosmicjs.com/1f067450-3871-11ed-adfd-ddb1795c6ac6-go-paperless-eblast-graphic.jpg"
-              alt="Go paperless"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Sign up for paperless billing today."
             />
           </ChildBox>
 
