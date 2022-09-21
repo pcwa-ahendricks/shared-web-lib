@@ -135,7 +135,7 @@ class MyDocument extends Document {
           />
 
           <link
-            href="https://api.mapbox.com/mapbox-gl-js/v2.7.1/mapbox-gl.css"
+            href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css"
             rel="stylesheet"
             key="mapbox-gl.css"
           />

@@ -11,18 +11,16 @@ import {
   useMediaQuery,
   Theme,
   LinearProgress,
-  createStyles,
-  makeStyles,
   useTheme
 } from '@material-ui/core'
 import isNumber from 'is-number'
-// import StnMapMarker from './StnMapMarker'
-// import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 import CrossHairIcon from '@material-ui/icons/CloseRounded'
-// import {PiMetadata} from '../PiStore'
 import {StationMeta} from '@pages/water-year-dashboard'
 import {orange} from '@material-ui/core/colors'
 import delay from 'then-sleep'
+// import {PiMetadata} from '../PiStore'
+// import StnMapMarker from './StnMapMarker'
+// import PiMetadataDl from '../PiMetadataDl/PiMetadataDl'
 const API_KEY = process.env.NEXT_PUBLIC_STATION_MAP_MAPBOX_API_KEY ?? ''
 
 type Props = {
@@ -30,21 +28,21 @@ type Props = {
   stationInfo?: StationMeta | null
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    metadataDataList: {
-      position: 'absolute',
-      right: 0,
-      padding: 10,
-      zIndex: 1, // If this is changed ensure that mega menu covers the data list.
-      maxHeight: 'calc(100% - 25px)', // Don't let this overlay get too big or cover the Mapbox attributes.
-      overflowY: 'scroll'
-    }
-  })
-)
+// const useStyles = makeStyles(() =>
+//   createStyles({
+// metadataDataList: {
+//   position: 'absolute',
+//   right: 0,
+//   padding: 10,
+//   zIndex: 1, // If this is changed ensure that mega menu covers the data list.
+//   maxHeight: 'calc(100% - 25px)', // Don't let this overlay get too big or cover the Mapbox attributes.
+//   overflowY: 'scroll'
+// }
+//   })
+// )
 
 const StnMap = ({isLoading = false, stationInfo}: Props) => {
-  const classes = useStyles()
+  // const classes = useStyles()
   const theme = useTheme<Theme>()
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
   const [mapWest, setMapWest] = useState<number>()
@@ -63,11 +61,11 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     }
   }, [stationInfo])
 
-  const [viewport, setViewport] = useState({
-    ...(latitude && {latitude}),
-    ...(longitude && {longitude}),
-    zoom: 10
-  })
+  // const [viewport, setViewport] = useState({
+  //   ...(latitude && {latitude}),
+  //   ...(longitude && {longitude}),
+  //   zoom: 10
+  // })
 
   useEffect(() => {
     if (longitude && latitude && mapWest && mapEast) {
@@ -136,12 +134,15 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     <Box position="relative" height="100%">
       <Progress />
       <Map
-        {...viewport}
+        initialViewState={{
+          zoom: 10
+        }}
         ref={mapRef}
         mapStyle="mapbox://styles/pcwa-mapbox/ckiyzqma45qx619qizeilljwg"
-        onMove={(evt) => setViewport(evt.viewState)}
-        mapboxAccessToken={API_KEY}
+        // {...viewport}
+        // onMove={(evt) => setViewport(evt.viewState)}
         // scrollZoom={isSmDown ? false : true}
+        mapboxAccessToken={API_KEY}
         scrollZoom={false}
         dragPan={isSmDown ? false : true}
         onError={(e) => console.log('An error occurred', e)}
@@ -149,15 +150,13 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
       >
         <MapMarker />
 
-        {/* {this._renderPopup()} */}
-
         {/* <div className={classes.fullscreen}>
           <FullscreenControl />
         </div> */}
         <NavigationControl position="top-left" />
-        <div className={classes.metadataDataList}>
-          {/* <PiMetadataDl isLoading={isLoading} streamSetMeta={streamSetMeta} /> */}
-        </div>
+        {/* <div className={classes.metadataDataList}> */}
+        {/* <PiMetadataDl isLoading={isLoading} streamSetMeta={streamSetMeta} /> */}
+        {/* </div> */}
 
         {/* <ControlPanel containerComponent={this.props.containerComponent} /> */}
       </Map>
