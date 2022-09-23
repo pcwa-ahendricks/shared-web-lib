@@ -62,8 +62,8 @@ const COVID19FaqsPage = () => {
             impacted by PCWA's response to COVID-19. While wait times may be
             longer than normal, Customer Services staff are still available to
             assist customers by phone <MainPhone /> or email (
-            <CustomerServicesEmail />) between 8:00 a.m. and 5:00 p.m., Monday
-            through Friday.
+            <CustomerServicesEmail />) between 8:00am and 5:30pm, Monday through
+            Thursday, and between 8:00am and 5:00pm on Friday.
           </Type>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>

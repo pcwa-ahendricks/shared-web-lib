@@ -27,7 +27,7 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {FlexBox, ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
+import {ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -44,6 +44,7 @@ import {Alert} from '@material-ui/lab'
 import FormTextField from '@components/formFields/FormTextField'
 import EditLocIcon from '@material-ui/icons/Spellcheck'
 import ContactUsGeolocator from '@components/ContactUsGeolocator/ContactUsGeolocator'
+import HoursOfOperation from '@components/HoursOfOperation/HoursOfOperation'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -106,21 +107,20 @@ const ContactUsPage = () => {
           <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%">
               <Type paragraph>
-                The PCWA Business Center is open Monday - Thursday from 8:00
-                a.m. to 5:00 p.m. except major holidays. Customer Service
-                Representatives are available by phone at <MainPhone /> or{' '}
-                <EightHundredPhone /> weekdays (Monday through Friday) from 8:00
-                a.m. to 5:00 p.m. except major holidays, or by email at{' '}
+                The PCWA Business Center Lobby is open Monday through Thursday:
+                8am-5pm, and closed Friday. Customer Service Representatives are
+                available by phone at <MainPhone /> or <EightHundredPhone />{' '}
+                Monday through Thursday: 8am-5:30pm, Friday: 8am-5:00pm.
+                Customer Services can also be reached by email at{' '}
                 <CustomerServicesEmail /> (please allow two business days for a
-                response to your email inquiry).
+                response to your email inquiry). PCWA is closed on all major
+                holidays.
               </Type>
               <Type paragraph>
                 If you have an after-hours emergency, please call <MainPhone />{' '}
                 and our answering service will relay your call to standby
-                personnel who can assist you.
-              </Type>
-              <Type paragraph>
-                If you are wanting to report water waste, please do so at{' '}
+                personnel who can assist you. If you are wanting to report water
+                waste incident, please visit{' '}
                 <MuiNextLink href="/report-water-waste">
                   Report Water Waste
                 </MuiNextLink>
@@ -144,7 +144,9 @@ const ContactUsPage = () => {
               </Box>
             </ChildBox>
           </RowBox>
-          <Spacing />
+          <Spacing size="x-small" />
+          <HoursOfOperation />
+          <Spacing factor={2} />
           <Box
             bgcolor={theme.palette.grey['100']}
             border={1}
@@ -163,23 +165,23 @@ const ContactUsPage = () => {
                   Auburn, CA 95603
                 </MuiNextLink>
               </ChildBox>
-              <ChildBox>
+              {/* <ChildBox>
                 <FlexBox
                   position="relative"
                   justifyContent="center"
                   alignItems="center"
                   height="100%"
-                >
-                  <Box
+                > */}
+              {/* <Box
                     position="absolute"
                     bgcolor={theme.palette.grey['100']}
                     p={0.25}
                   >
-                    <Type variant="h6">or</Type>
-                  </Box>
-                  <Divider orientation="vertical" />
-                </FlexBox>
-              </ChildBox>
+                    <Type variant="h6" />
+                  </Box> */}
+              {/* <Divider orientation="vertical" /> */}
+              {/* </FlexBox>
+              </ChildBox> */}
               <ChildBox p={3}>
                 <Type>
                   <em>Mailing Address</em>
