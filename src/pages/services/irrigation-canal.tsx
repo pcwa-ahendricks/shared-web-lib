@@ -37,7 +37,6 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import EightHundredPhone from '@components/links/EightHundredPhone'
 import FlexLink from '@components/FlexLink/FlexLink'
 
 // type Props = {
