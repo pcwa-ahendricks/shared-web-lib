@@ -8,6 +8,7 @@ import {RowBox, ChildBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/image'
+import FlexLink from '@components/FlexLink/FlexLink'
 
 const AccountMaintenancePage = () => {
   return (
@@ -19,12 +20,17 @@ const AccountMaintenancePage = () => {
             <ChildBox flex="75%">
               <Type paragraph>
                 To open or close a water service account with PCWA, call PCWA
-                Customer Services at <MainPhone /> weekdays from 8:00 a.m. to
-                5:00 p.m. or stop by our office at 144 Ferguson Road, Auburn,
-                during our regular business hours of 8:00 a.m. to 5:00 p.m.,
-                Monday through Thursday. Please be prepared to provide a PIN #
-                or password when signing up for water service. Deposits are
-                required when signing up for water service.
+                Customer Services at <MainPhone />, or visit our Business Center
+                Lobby at 144 Ferguson Road, Auburn, during our regular business
+                hours. Our{' '}
+                <FlexLink href="/contact-us#contact-us">
+                  Hours of Operation
+                </FlexLink>{' '}
+                can be found on our{' '}
+                <FlexLink href="/contact-us">Contact Us</FlexLink> page. Please
+                be prepared to provide a PIN # or password when signing up for
+                water service. Deposits are required when signing up for water
+                service.
               </Type>
             </ChildBox>
             <ChildBox flex="25%">
@@ -49,7 +55,7 @@ const AccountMaintenancePage = () => {
               Treated Water
             </Type>
             <Type paragraph>
-              PCWA’s water is a metered service. When a new service begins, PCWA
+              PCWA's water is a metered service. When a new service begins, PCWA
               will send a Water Efficiency Specialist to read the meter in order
               to start your account. PCWA reads water meters and bills accounts
               on either a monthly or bi-monthly basis, depending upon the
@@ -85,7 +91,7 @@ const AccountMaintenancePage = () => {
               days in advance. Tenants are responsible for all services provided
               and charges until the date of termination/moving out. Property
               owners are responsible for all services provided and charges owed
-              once a tenant’s termination notice is effective, and until close
+              once a tenant's termination notice is effective, and until close
               of escrow or recording of deed when the property is sold.
             </Type>
           </Box>

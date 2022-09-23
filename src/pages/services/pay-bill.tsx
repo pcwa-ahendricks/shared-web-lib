@@ -29,6 +29,7 @@ import Spacing from '@components/boxes/Spacing'
 import LookHere from '@components/LookHere/LookHere'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 import imgixLoader from '@lib/imageLoader'
+import FlexLink from '@components/FlexLink/FlexLink'
 
 const useStyles = makeStyles({
   link: {
@@ -107,7 +108,7 @@ const PayBillPage = () => {
                           <ClickOrTap titlecase /> here to Pay Online
                         </Link>{' '}
                         with credit card or electronic check only. Payments made
-                        prior to 3:00 p.m. will be posted in one business day.
+                        prior to 3:00pm will be posted in one business day.
                       </Type>
                     </Box>
                   </RowBox>
@@ -122,8 +123,8 @@ const PayBillPage = () => {
                       <Type paragraph>
                         Call <MainPhone /> option #1 to use our{' '}
                         <strong>automated phone system</strong> to pay with a
-                        credit card between hours 4:00 AM and 11:00 PM, 7 days a
-                        week. Payments made prior to 9:00 PM will be processed
+                        credit card between hours 4:00am and 11:00pm, 7 days a
+                        week. Payments made prior to 9:00pm will be processed
                         the next business day.
                       </Type>
                     </Box>
@@ -142,11 +143,11 @@ const PayBillPage = () => {
                         <NextLink href="/about-pcwa/directions">
                           144 Ferguson Road, Auburn.
                         </NextLink>{' '}
-                        Our office is open Monday through Thursday from 8:00
-                        a.m. to 5:00 p.m. An after hours night lock box is
-                        available for payments (checks or money orders only).
-                        Payments received after 8:00 a.m. are processed the next
-                        business day.
+                        Our Business Center Lobby is open Monday through
+                        Thursday from 8:00am to 5:00pm. An after hours night
+                        lock box is available for payments (checks or money
+                        orders only). Payments received after 8:00am are
+                        processed the next business day.
                       </Type>
                     </Box>
                   </RowBox>
@@ -205,9 +206,16 @@ const PayBillPage = () => {
             </Type>
 
             <Type paragraph>
-              Customer Service Representatives are available Monday through
-              Friday from 8:00 a.m. to 5:00 p.m. by phone at <MainPhone /> or{' '}
-              <EightHundredPhone />, or by email at <CustomerServicesEmail />.
+              Customer Service Representatives are available during our regular
+              business hours. Our{' '}
+              <FlexLink href="/contact-us#contact-us">
+                Hours of Operation
+              </FlexLink>{' '}
+              can be found on our{' '}
+              <FlexLink href="/contact-us">Contact Us</FlexLink> page. Customer
+              Service Representatives can be reached by phone at <MainPhone />{' '}
+              or <EightHundredPhone />, or by email at <CustomerServicesEmail />
+              .
             </Type>
           </Box>
         </NarrowContainer>

@@ -132,7 +132,7 @@ const Footer = () => {
                       Auburn, CA 95604
                     </MuiNextLink>
                   </GlowLightGreen>
-                  <Type variant="body2">Mon. - Thurs., 8am - 5pm </Type>
+                  <Type variant="body2">Mon. - Thurs., 8am - 5pm</Type>
                 </Box>
               </RowBox>
               <RowBox mt={3}>

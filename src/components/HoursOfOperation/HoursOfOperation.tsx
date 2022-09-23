@@ -4,10 +4,10 @@ import React from 'react'
 export default function HoursOfOperation() {
   return (
     <Box>
+      <Type id="hours-of-operation" variant="subtitle1" gutterBottom={false}>
+        Hours of Operation:
+      </Type>
       <Type>
-        <Type variant="subtitle1" gutterBottom={false}>
-          Hours of Operation:
-        </Type>
         <Type
           variant="body2"
           component="span"

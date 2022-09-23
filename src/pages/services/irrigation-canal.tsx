@@ -38,6 +38,7 @@ import {stringify} from 'querystringify'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import EightHundredPhone from '@components/links/EightHundredPhone'
+import FlexLink from '@components/FlexLink/FlexLink'
 
 // type Props = {
 //   fallbackData?: PlayListItems
@@ -301,11 +302,11 @@ const IrrigationCanalPage = () => {
               <Box p={2}>
                 <Type variant="body2" paragraph>
                   Call PCWA Customer Services at <MainPhone /> weekdays, Monday
-                  through Friday from 8:00 a.m. to 5:00 p.m. After hours, our
-                  answering service will receive your call. If you call after
-                  9:00 p.m., your call will often be referred to the office the
-                  next morning, as we are not able to send canal operators to
-                  unplug individual service lines during evenings and
+                  through Thursday: 8am-5:30pm, Friday: 8am-5:00pm. After hours,
+                  our answering service will receive your call. If you call
+                  after 9:00pm, your call will often be referred to the office
+                  the next morning, as we are not able to send canal operators
+                  to unplug individual service lines during evenings and
                   non-working hours. We recommend that customers keep an
                   adequate supply in storage (pond or tank) for emergencies or
                   outages.
@@ -345,9 +346,13 @@ const IrrigationCanalPage = () => {
               Need More Assistance?
             </Type>
             <Type paragraph>
-              Customer Service Representatives are available Monday through
-              Friday from 8:00 a.m. to 5:00 p.m. by phone at <MainPhone /> or{' '}
-              <EightHundredPhone />, or by email at <CustomerServicesEmail />.
+              Customer Service Representatives are available during our regular
+              business hours. Our{' '}
+              <FlexLink href="/contact-us#contact-us">
+                Hours of Operation
+              </FlexLink>{' '}
+              can be found on our{' '}
+              <FlexLink href="/contact-us">Contact Us</FlexLink> page.
             </Type>
           </Box>
         </NarrowContainer>

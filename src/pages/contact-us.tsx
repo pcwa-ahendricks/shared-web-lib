@@ -103,7 +103,7 @@ const ContactUsPage = () => {
     () => (
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Contact Us" />
+          <PageTitle id="contact-us" title="Contact Us" />
           <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%">
               <Type paragraph>
