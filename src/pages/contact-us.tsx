@@ -106,12 +106,13 @@ const ContactUsPage = () => {
           <RowBox responsive flexSpacing={4}>
             <ChildBox flex="65%">
               <Type paragraph>
-                The PCWA Business Center is open Monday – Friday from 8:00 a.m.
-                to 5:00 p.m. except major holidays. Customer Services is
-                available by phone at <MainPhone /> or <EightHundredPhone />{' '}
-                weekdays from 8:00 a.m. to 5:00 p.m. except major holidays or by
-                email at <CustomerServicesEmail /> (please allow two business
-                days for a response to your email inquiry).
+                The PCWA Business Center is open Monday - Thursday from 8:00
+                a.m. to 5:00 p.m. except major holidays. Customer Service
+                Representatives are available by phone at <MainPhone /> or{' '}
+                <EightHundredPhone /> weekdays (Monday through Friday) from 8:00
+                a.m. to 5:00 p.m. except major holidays, or by email at{' '}
+                <CustomerServicesEmail /> (please allow two business days for a
+                response to your email inquiry).
               </Type>
               <Type paragraph>
                 If you have an after-hours emergency, please call <MainPhone />{' '}

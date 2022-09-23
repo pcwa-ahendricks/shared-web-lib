@@ -49,7 +49,7 @@ const COVID19FaqsPage = () => {
           <Type paragraph>
             Yes. The Environmental Protection Agency (EPA) recommends that
             Americans continue to use and drink tap water as usual. Further,
-            EPA’s drinking water regulations require treatment at public water
+            EPA's drinking water regulations require treatment at public water
             systems, which includes PCWA, to remove or kill pathogens, including
             viruses.
           </Type>
@@ -59,11 +59,11 @@ const COVID19FaqsPage = () => {
           </Type>
           <Type paragraph>
             No. Deliveries of drinking water and canal water will not be
-            impacted by PCWA’s response to COVID-19. While wait times may be
+            impacted by PCWA's response to COVID-19. While wait times may be
             longer than normal, Customer Services staff are still available to
             assist customers by phone <MainPhone /> or email (
-            <CustomerServicesEmail />) between 8:00am and 5:00pm, Monday –
-            Friday.
+            <CustomerServicesEmail />) between 8:00 a.m. and 5:00 p.m., Monday
+            through Friday.
           </Type>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>
@@ -74,13 +74,13 @@ const COVID19FaqsPage = () => {
             advisories. Our lobbies are currently closed to until further
             notice, and PCWA is implementing “social distancing” practices for
             staff. The health and of safety of staff and customers remains
-            PCWA’s highest priority and the Agency will continue to modify
+            PCWA's highest priority and the Agency will continue to modify
             operations in accordance with changing circumstances.
           </Type>
           <Spacing size="large" />
           <Type variant="h3" gutterBottom>
-            I’m experiencing a hardship due to the economic downturn. What if
-            I’m having trouble paying my bill?
+            I'm experiencing a hardship due to the economic downturn. What if
+            I'm having trouble paying my bill?
           </Type>
           <Type paragraph>
             PCWA is temporarily suspending water shutoffs for customers unable

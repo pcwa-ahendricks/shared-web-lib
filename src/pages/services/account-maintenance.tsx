@@ -18,14 +18,13 @@ const AccountMaintenancePage = () => {
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="75%">
               <Type paragraph>
-                To open or close&nbsp;a water service account with PCWA, call
-                PCWA Customer Services at <MainPhone /> weekdays from 8:00 a.m.
-                to 5:00 p.m.&nbsp;or stop by our office at 144 Ferguson Road,
-                Auburn, during our regular business hours of 8:00 a.m&nbsp;to
-                5:00 p.m., Monday - Friday.&nbsp;&nbsp;Please be prepared to
-                provide a PIN # or password when signing up for water
-                service.&nbsp; Deposits are required when signing up for water
-                service.
+                To open or close a water service account with PCWA, call PCWA
+                Customer Services at <MainPhone /> weekdays from 8:00 a.m. to
+                5:00 p.m. or stop by our office at 144 Ferguson Road, Auburn,
+                during our regular business hours of 8:00 a.m. to 5:00 p.m.,
+                Monday through Thursday. Please be prepared to provide a PIN #
+                or password when signing up for water service. Deposits are
+                required when signing up for water service.
               </Type>
             </ChildBox>
             <ChildBox flex="25%">

@@ -142,11 +142,11 @@ const PayBillPage = () => {
                         <NextLink href="/about-pcwa/directions">
                           144 Ferguson Road, Auburn.
                         </NextLink>{' '}
-                        Our office is open Monday through Friday from 8:00 a.m.
-                        to 5:00 p.m. An after hours night lock box is available
-                        for payments (checks or money orders only). Payments
-                        received after 8:00 a.m. are processed the next business
-                        day.
+                        Our office is open Monday through Thursday from 8:00
+                        a.m. to 5:00 p.m. An after hours night lock box is
+                        available for payments (checks or money orders only).
+                        Payments received after 8:00 a.m. are processed the next
+                        business day.
                       </Type>
                     </Box>
                   </RowBox>
@@ -205,12 +205,9 @@ const PayBillPage = () => {
             </Type>
 
             <Type paragraph>
-              {/* <span style={{fontSize: '1.1em'}}> */}
               Customer Service Representatives are available Monday through
-              Friday&nbsp;from 8:00 a.m. to 5:00&nbsp;p.m. by Phone:&nbsp;
-              <MainPhone />
-              &nbsp;or <EightHundredPhone /> or email at{' '}
-              <CustomerServicesEmail />.{/* </span> */}
+              Friday from 8:00 a.m. to 5:00 p.m. by phone at <MainPhone /> or{' '}
+              <EightHundredPhone />, or by email at <CustomerServicesEmail />.
             </Type>
           </Box>
         </NarrowContainer>

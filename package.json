@@ -46,7 +46,7 @@
     "@types/url-parse": "^1.4.8",
     "@types/valid-url": "^1.0.3",
     "@vercel/ncc": "^0.34.0",
-    "@vercel/node": "^2.5.14",
+    "@vercel/node": "^2.5.18",
     "ava": "^4.3.3",
     "cross-env": "^7.0.2",
     "eslint": "8.23.1",
@@ -127,7 +127,7 @@
     "url-parse": "^1.5.10",
     "use-debounce": "^8.0.4",
     "valid-url": "^1.0.9",
-    "vercel": "^28.2.5",
+    "vercel": "^28.4.2",
     "yup": "^0.32.11"
   }
 }
