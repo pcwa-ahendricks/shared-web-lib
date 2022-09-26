@@ -5,7 +5,8 @@ import {
   Box,
   useTheme,
   Link,
-  BoxProps
+  BoxProps,
+  Paper
 } from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -21,6 +22,8 @@ import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
+import colorAlpha from 'color-alpha'
+import {yellow} from '@material-ui/core/colors'
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -80,13 +83,21 @@ const RebateProgramsPage = () => {
     return <FancyButton {...props} {...ref} />
   })
 
-  const ApplyNowButton = ({href, label}: {href: string; label: string}) => {
+  const ApplyNowButton = ({
+    href,
+    label,
+    ...rest
+  }: {
+    href: string
+    label: string
+  } & Partial<FancyButtonProps>) => {
     return (
       <NextLink href={href} passHref>
         <ForwardFancyButton
           color="primary"
           aria-label={label}
           hoverText="Apply Now"
+          {...rest}
         >
           <RowBox alignItems="center">
             {/* <Type
@@ -353,12 +364,26 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
+                      <Paper elevation={1}>
+                        <Box
+                          bgcolor={colorAlpha(yellow[50], 0.8)}
+                          paddingY={2}
+                          paddingX={4}
+                        >
+                          <Type>
+                            We are no longer accepting applications in 2022 for
+                            this rebate. Please check back in 2023.
+                          </Type>
+                        </Box>
+                      </Paper>
+                      <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
                           href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
                           label="Lawn Replacement Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
+                          disabled
                           href="/forms/rebates/lawn-replacement"
                           label="Apply for Lawn Replacement Rebate Online"
                         />
@@ -444,12 +469,26 @@ const RebateProgramsPage = () => {
                       </Type>
                       .
                     </Type>
+                    <Paper elevation={1}>
+                      <Box
+                        bgcolor={colorAlpha(yellow[50], 0.8)}
+                        paddingY={2}
+                        paddingX={4}
+                      >
+                        <Type>
+                          We are no longer accepting applications in 2022 for
+                          this rebate. Please check back in 2023.
+                        </Type>
+                      </Box>
+                    </Paper>
+                    <Spacing size="small" />
                     <ColumnBox>
                       <TermsAndConditionsButton
                         href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
                         caption="Smart Controller Rebate Requirements"
                       />
                       <ApplyNowButton
+                        disabled
                         href="/forms/rebates/smart-controller"
                         label="Apply for Smart Controller Rebate Online"
                       />
@@ -491,12 +530,26 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
+                      <Paper elevation={1}>
+                        <Box
+                          bgcolor={colorAlpha(yellow[50], 0.8)}
+                          paddingY={2}
+                          paddingX={4}
+                        >
+                          <Type>
+                            We are no longer accepting applications in 2022 for
+                            this rebate. Please check back in 2023.
+                          </Type>
+                        </Box>
+                      </Paper>
+                      <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
                           href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
+                          disabled
                           href="/forms/rebates/irrigation-efficiencies"
                           label="Apply for Efficiencies Rebate Online"
                         />
