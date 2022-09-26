@@ -382,11 +382,11 @@ const RebateProgramsPage = () => {
                           href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
                           label="Lawn Replacement Rebate Terms and Conditions"
                         />
-                        <ApplyNowButton
+                        {/* <ApplyNowButton
                           disabled
                           href="/forms/rebates/lawn-replacement"
                           label="Apply for Lawn Replacement Rebate Online"
-                        />
+                        /> */}
                       </ColumnBox>
                     </RebateCard>
                   </ChildBox>
@@ -487,11 +487,11 @@ const RebateProgramsPage = () => {
                         href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
                         caption="Smart Controller Rebate Requirements"
                       />
-                      <ApplyNowButton
+                      {/* <ApplyNowButton
                         disabled
                         href="/forms/rebates/smart-controller"
                         label="Apply for Smart Controller Rebate Online"
-                      />
+                      /> */}
                     </ColumnBox>
                   </RebateCard>
                 </ChildBox>
@@ -548,11 +548,11 @@ const RebateProgramsPage = () => {
                           href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
-                        <ApplyNowButton
+                        {/* <ApplyNowButton
                           disabled
                           href="/forms/rebates/irrigation-efficiencies"
                           label="Apply for Efficiencies Rebate Online"
-                        />
+                        /> */}
                       </ColumnBox>
                     </RebateCard>
                   </ChildBox>
