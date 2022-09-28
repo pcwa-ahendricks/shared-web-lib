@@ -150,11 +150,10 @@ const ServicesPage = () => {
               Auburn, CA 95603
             </Type>
             <Type paragraph>
-              Mailing Address <br />
+              <em>Mailing Address</em> <br />
               P.O. Box 6570 <br />
               Auburn, CA 95604-6570 <br />
               <br />
-              Telephone: <MainPhone /> (8 a.m. - 5 p.m.)
             </Type>
           </Box>
         </NarrowContainer>
