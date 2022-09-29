@@ -6,6 +6,7 @@ import {get, set} from '@lib/api/upstash'
 const isDev = process.env.NODE_ENV === 'development'
 
 // Since there is no clever way to expire the edge cache, the interval between a stale forecast and the current will likely be higher than this number.
+// Since edge caching is no longer being used I should revisit this.
 const threeMinInSec = 60 * 3 // three minutes
 
 const OPENWEATHERMAP_API_KEY = process.env.NODE_OPENWEATHERMAP_API_KEY || ''
@@ -53,7 +54,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
     const hash = `openweathermap-${latLngStr}${isDev ? '-dev' : ''}`
-    const upstashData = await get(hash, {edge: true, fbOnEmptyEdge: true})
+    const upstashData = await get(hash)
     const result = typeof upstashData === 'object' ? upstashData.result : ''
 
     // console.log('hash: ', hash)
