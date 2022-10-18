@@ -123,6 +123,12 @@ const indexPageRedirects = [
 
 // In time these can be removed. They include misc. redirects to moved pages and legacy urls used with previous versions (ng) of the website.
 const legacyRedirects = [
+  // B. Cornthwaite mentioned this is printed on the back of the bills
+  {
+    source: 'https://www.pcwa.net/water-use-efficiency',
+    destination: '/smart-water-use',
+    permanent: true
+  },
   // I (abe h.) changed where these 2 webinars are located to better reflect page structure/hierarchy
   {
     source: '/newsroom/state-of-our-water-webinar',
