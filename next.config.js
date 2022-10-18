@@ -125,7 +125,7 @@ const indexPageRedirects = [
 const legacyRedirects = [
   // B. Cornthwaite mentioned this is printed on the back of the bills
   {
-    source: 'https://www.pcwa.net/water-use-efficiency',
+    source: '/water-use-efficiency',
     destination: '/smart-water-use',
     permanent: true
   },
