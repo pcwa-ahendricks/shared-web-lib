@@ -138,7 +138,7 @@ const WaterShortageContingencyPlan = () => {
               or smart controller systems.
             </Type>
             <Type component="li">
-              Turf watering shall be limited to a maximum of three days per week
+              Turf watering shall be limited to a maximum of two days per week
               during the months of July, August, and September, a maximum of two
               days per week in April, May, June, October and November, and shall
               not be watered during the remaining winter months unless PCWA
