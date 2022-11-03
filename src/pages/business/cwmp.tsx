@@ -36,7 +36,7 @@ type UseStylesProps = {
   activeStep: number
 }
 
-const ACTIVE_STEP = 1 // 1-7
+const ACTIVE_STEP = 3 // 1-7
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
