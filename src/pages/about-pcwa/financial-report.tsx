@@ -256,6 +256,12 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
+                    aria-label="View 2023 Budget"
+                    href="https://docs.pcwa.net/pcwa-2023-annual-budget.pdf"
+                  >
+                    2023 Budget
+                  </BudgetDoc>
+                  <BudgetDoc
                     aria-label="View 2022 Budget"
                     href="https://docs.pcwa.net/pcwa-2022-annual-budget.pdf"
                   >
