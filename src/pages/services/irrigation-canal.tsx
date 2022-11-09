@@ -13,7 +13,8 @@ import {
   useMediaQuery,
   createStyles,
   makeStyles,
-  useTheme
+  useTheme,
+  Link
 } from '@material-ui/core'
 import {grey, yellow, blueGrey} from '@material-ui/core/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -32,12 +33,15 @@ import EyeIcon from '@material-ui/icons/RemoveRedEye'
 import InletIcon from '@material-ui/icons/VerticalAlignTop'
 import NeighborsIcon from '@material-ui/icons/People'
 import ContactUsIcon from '@material-ui/icons/Phone'
+import EventIcon from '@material-ui/icons/Event'
 import WarningIcon from '@material-ui/icons/WarningRounded'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import FlexLink from '@components/FlexLink/FlexLink'
+import Spacing from '@components/boxes/Spacing'
+import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 
 // type Props = {
 //   fallbackData?: PlayListItems
@@ -128,6 +132,45 @@ const IrrigationCanalPage = () => {
                   width={1080}
                   height={1480}
                 />
+              </Box>
+              <Spacing />
+              <Box
+                // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
+                bgcolor={theme.palette.common.white}
+                p={2}
+                boxShadow={2}
+                color={theme.palette.grey['800']}
+              >
+                <RowBox alignItems="center">
+                  <EventIcon
+                    color="inherit"
+                    style={{
+                      marginRight: theme.spacing(1),
+                      alignSelf: 'stretch'
+                      // color: blueGrey[400]
+                    }}
+                  />
+                  <Type gutterBottom variant="subtitle2" color="textPrimary">
+                    2022 Annual PG&E Fall Canal Outage Schedule
+                  </Type>
+                </RowBox>
+                <Type paragraph variant="body2" color="inherit">
+                  Every year PG&E conducts it's Fall Canal Water Outage in order
+                  to perform maintenance and inspection of it's canals. During
+                  this time, PCWA conducts annual maintenance at customer
+                  turnouts (CTO) along the canals. To see start and end dates
+                  for the PG&E outage and the PCWA CTO maintenance schedule{' '}
+                  <Link
+                    href="https://cdn.cosmicjs.com/b42ced10-4f29-11ed-a2c4-b5a49b133277-2022-Orifice-changing-chart.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Link to 2022 Annual PG&E Fall Canal Outage Schedule"
+                    underline="always"
+                  >
+                    <ClickOrTap /> here to view the 2022 Schedule
+                  </Link>
+                  .
+                </Type>
               </Box>
             </ChildBox>
           </RowBox>
