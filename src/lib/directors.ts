@@ -59,7 +59,7 @@ export const directors: Director[] = [
     alt: 'Photo of Primo Santini',
     district: 2,
     districtCaption: 'Supervisorial District 2',
-    termExp: 2022,
+    termExp: 2026,
     email: 'district2@pcwa.net',
     bio: `
       Appointed in June 2013 to the PCWA Board of Directors to fill the unexpired term of
