@@ -20,7 +20,7 @@ export const directors: Director[] = [
     alt: 'Photo of Gray Allen',
     district: 1,
     districtCaption: 'Supervisorial District 1',
-    termExp: 2022,
+    termExp: 2026,
     email: 'district1@pcwa.net',
     bio: `Elected in November 2006 to the PCWA Board of Directors. He represents
       District 1, which includes most of the City of Roseville, plus portions of
