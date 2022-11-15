@@ -273,7 +273,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
             {/* <DistrictBoundariesMap /> */}
             <Box>
               {/* <MediaDialogOnClick
-                mediaUrl="https://imgix.cosmicjs.com/0f13db20-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.png"
+                mediaUrl="https://imgix.cosmicjs.com/296efa40-647a-11ed-ac6e-953bfe2b7aee-DirectorDistricts.pdf"
                 mediaName="PCWA Board of Directors' District Boundaries Map"
                 mediaPreviewDialogProps={{
                   width: 700,
@@ -285,7 +285,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
                 width={3300}
                 height={2550}
                 alt="PCWA Board of Directors' District Boundaries Map"
-                src={`https://imgix.cosmicjs.com/0f13db20-8ebf-11ec-8eb7-31ef43f419bf-DirectorDistricts.png${stringify(
+                src={`https://imgix.cosmicjs.com/296efa40-647a-11ed-ac6e-953bfe2b7aee-DirectorDistricts.pdf${stringify(
                   {border: '1,AAAAAA'},
                   true
                 )}`}
