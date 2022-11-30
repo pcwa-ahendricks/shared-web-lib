@@ -44,7 +44,8 @@ const imgixImages = [
   'cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
   '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
-  '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg'
+  '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg',
+  '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png'
 ]
 
 type Props = {
@@ -71,8 +72,9 @@ const Index = ({
 
   const tileWidth = isLGUp ? 176 : 160
 
+  const coverStoryImageRatio = '5/3' // hibernating bear image
   // const coverStoryImageRatio = '2/1'
-  const coverStoryImageRatio = '9/4.6' // summer of savings image
+  // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
   // const coverStoryPadPerc = 45.05 // default ratio for a 250h x 555w image.
 
@@ -191,15 +193,17 @@ const Index = ({
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Drought Recommendations"
+              title="Water Conservation"
               readMore="Learn more"
               linkHref="/smart-water-use/drought"
               // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
               // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
-              imgixURL="https://imgix.cosmicjs.com/f7f84d40-50d3-11ed-86fb-49bee3bbe632-Limit-Landscape-Watering-graphic-2-days.png"
+              imgixURL="https://imgix.cosmicjs.com/8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png"
+              imgixParams={{crop: 'top'}}
               alt="Water less banner"
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
             />
           </ChildBox>
 

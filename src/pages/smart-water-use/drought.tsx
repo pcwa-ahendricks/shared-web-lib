@@ -166,12 +166,12 @@ export default function DroughtPage() {
                       .
                     </Type> */}
                         <Type variant="inherit">
-                          Stress your lawn and save your trees. Reduce each
-                          sprinkler cycle by two minutes to achieve an instant
-                          water savings of 20 percent. But remember to take
-                          special care of your trees. Follow{' '}
+                          Stress your lawn and save your trees. Turn off
+                          sprinklers for winter and let Mother Nature do the
+                          watering. But remember to take special care of your
+                          trees should the weather stay dry.{' '}
                           <Link href="/smart-water-use/trees">
-                            this link to learn tree watering tips
+                            Follow this link to learn tree watering tips
                           </Link>
                           .
                         </Type>
