@@ -19,6 +19,7 @@ export const directors: Director[] = [
     name: 'Gray Allen',
     alt: 'Photo of Gray Allen',
     district: 1,
+    viceChair: true,
     districtCaption: 'Supervisorial District 1',
     termExp: 2026,
     email: 'district1@pcwa.net',
@@ -40,8 +41,6 @@ export const directors: Director[] = [
     alt: 'Photo of Josh Alpine',
     district: 5,
     districtCaption: 'Supervisorial District 5',
-    // viceChair: false,
-    chair: false,
     termExp: 2024,
     email: 'district5@pcwa.net',
     bio: `
@@ -85,7 +84,7 @@ export const directors: Director[] = [
     alt: 'Photo of Robert Dugan',
     district: 4,
     districtCaption: 'Supervisorial District 4',
-    viceChair: true,
+    chair: true,
     termExp: 2024,
     email: 'district4@pcwa.net',
     bio: `
@@ -104,7 +103,6 @@ export const directors: Director[] = [
     name: 'Mike Lee',
     alt: 'Photo of Mike Lee',
     district: 3,
-    chair: true,
     districtCaption: 'Supervisorial District 3',
     termExp: 2024,
     email: 'district3@pcwa.net',

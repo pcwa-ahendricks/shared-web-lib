@@ -144,7 +144,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
                   layout="responsive"
                   loader={imgixLoader}
                   sizes="(max-width: 600px) 100vw, 40vw"
-                  src="d79af700-c4d8-11ec-bf80-e74645a81647-Board-members-2022.jpg"
+                  src="6e8caa50-7596-11ed-8951-b39aeeb44ac4-PCWA-Board-of-Directors-2023.jpg"
                   alt="PCWA Board of Directors - 2022"
                   width={6400}
                   height={4480}
@@ -153,9 +153,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
               <Type variant="caption">
                 PCWA Board of Directors, from left:
                 <br />
-                Primo Santini, District 2; Joshua Alpine, District 5; Mike Lee
-                (Chair), District 3; Gray Allen, District 1; and Robert Dugan
-                (Vice Chair), District 4
+                Primo Santini, District 2; Joshua Alpine, District 5; Mike Lee,
+                District 3; Gray Allen (Vice Chair), District 1; and Robert
+                Dugan (Chair), District 4
               </Type>
             </ColumnBox>
           </RowBox>
