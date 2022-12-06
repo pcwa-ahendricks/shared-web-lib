@@ -135,6 +135,43 @@ const IrrigationCanalPage = () => {
               </Box>
               <Spacing />
               <Box
+                // bgcolor={theme.palette.grey['100']}
+                bgcolor={theme.palette.common.white}
+                p={2}
+                boxShadow={2}
+                color={theme.palette.grey['800']}
+              >
+                <RowBox alignItems="center">
+                  <EventIcon
+                    color="inherit"
+                    style={{
+                      marginRight: theme.spacing(1),
+                      alignSelf: 'stretch'
+                    }}
+                  />
+                  <Type gutterBottom variant="subtitle2" color="textPrimary">
+                    2023 Canal Cleaning Schedule
+                  </Type>
+                </RowBox>
+                <Type paragraph variant="body2" color="inherit">
+                  Every year canals are cleaned during winter months, and are to
+                  be out of water during cleaning. Outage times listed are
+                  approximate. Recovery time for water service is approximately
+                  12 hours. To see start and end dates and to find out more
+                  information about these outages{' '}
+                  <Link
+                    href="https://cdn.cosmicjs.com/c421c990-759c-11ed-8951-b39aeeb44ac4-2023-Canal-cleaning-schedule.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Link to 2023 Canal Cleaning Schedule"
+                    underline="always"
+                  >
+                    <ClickOrTap /> here for Zone 1 and Zone 3
+                  </Link>
+                  .
+                </Type>
+              </Box>
+              {/* <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
                 p={2}
@@ -171,7 +208,7 @@ const IrrigationCanalPage = () => {
                   </Link>
                   .
                 </Type>
-              </Box>
+              </Box> */}
             </ChildBox>
           </RowBox>
 

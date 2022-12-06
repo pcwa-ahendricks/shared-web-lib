@@ -242,6 +242,44 @@ const OutageInformationPage = ({fallbackData}: Props) => {
             </ColumnBox>
             <ChildBox flex="35%">
               <Box
+                // bgcolor={theme.palette.grey['100']}
+                bgcolor={theme.palette.common.white}
+                p={2}
+                boxShadow={2}
+                color={theme.palette.grey['800']}
+              >
+                <RowBox alignItems="center">
+                  <EventIcon
+                    color="inherit"
+                    style={{
+                      marginRight: theme.spacing(1),
+                      alignSelf: 'stretch'
+                    }}
+                  />
+                  <Type gutterBottom variant="subtitle2" color="textPrimary">
+                    2023 Canal Cleaning Schedule
+                  </Type>
+                </RowBox>
+                <Type paragraph variant="body2" color="inherit">
+                  Every year canals are cleaned during winter months, and are to
+                  be out of water during cleaning. Outage times listed are
+                  approximate. Recovery time for water service is approximately
+                  12 hours. To see start and end dates and to find out more
+                  information about these outages{' '}
+                  <MuiLink
+                    href="https://cdn.cosmicjs.com/c421c990-759c-11ed-8951-b39aeeb44ac4-2023-Canal-cleaning-schedule.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Link to 2023 Canal Cleaning Schedule"
+                    underline="always"
+                  >
+                    <ClickOrTap /> here for Zone 1 and Zone 3
+                  </MuiLink>
+                  .
+                </Type>
+              </Box>
+              <Spacing />
+              <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
                 p={2}
@@ -278,48 +316,13 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   .
                 </Type>
               </Box>
-              {/* <Spacing />
-              <Box
-                bgcolor={theme.palette.grey['100']}
-                p={2}
-                boxShadow={2}
-                color={theme.palette.grey['800']}
-              >
-                <RowBox alignItems="center">
-                  <EventIcon
-                    color="inherit"
-                    style={{
-                      marginRight: theme.spacing(1),
-                      alignSelf: 'stretch'
-                    }}
-                  />
-                  <Type gutterBottom variant="subtitle2" color="textPrimary">
-                    2020 Canal Cleaning Schedule
-                  </Type>
-                </RowBox>
-                <Type paragraph variant="body2" color="inherit">
-                  Every year canals are cleaned and are to be out of water
-                  during cleaning. Outage times listed are approximate. Recovery
-                  time for water service is approximately 12 hours. To see start
-                  and end dates and to find out more information about these
-                  outages{' '}
-                  <MuiLink
-                    href="https://cdn.cosmicjs.com/82f51820-4f50-11ea-b34a-6902eaea712b-2020-canal-cleaning.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Link to 2020 Canal Cleaning Schedule"
-                    underline="always"
-                  >
-                    <ClickOrTap /> here for Zone 1 and Zone 3
-                  </MuiLink>
-                  .
-                </Type>
-              </Box> */}
+
               <Spacing size="large" />
               <Box
                 boxShadow={2}
                 p={2}
-                bgcolor={theme.palette.grey['100']}
+                // bgcolor={theme.palette.grey['100']}
+                bgcolor={theme.palette.common.white}
                 color={theme.palette.grey['800']}
               >
                 <ShowMore
