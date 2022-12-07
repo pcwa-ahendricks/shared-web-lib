@@ -92,7 +92,7 @@ export default function BasicTemplatePage() {
               <Link href="/board-of-directors/meeting-agendas">
                 https://www.pcwa.net/board-of-directors/meeting-agendas
               </Link>{' '}
-              for all upcoming Board Meeting dates and Board Meeting agendas.
+              for all scheduled Board Meeting dates and Board Meeting agendas.
             </Typography>
           </Box>
           <Spacing size="large" />
