@@ -238,7 +238,7 @@ const Footer = () => {
         <WideContainer mt={3} mb={3}>
           <Box bgcolor="inherit">
             <Type variant="body2" component="span" className={classes.subtle}>
-              Copyright &copy; 2019
+              Copyright &copy; 2023
             </Type>{' '}
             <MuiNextLink href="/" className={classes.link}>
               Placer County Water Agency
