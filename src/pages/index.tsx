@@ -622,11 +622,11 @@ const Index = ({
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
-              title="PCWA 2022 Annual Budget"
-              imgixURL="https://imgix.cosmicjs.com/a86375b0-6340-11ec-a8a3-53f360c99be6-PCWA-2022-Adopted-Budget-for-Website.pdf"
-              linkHref="https://docs.pcwa.net/pcwa-2022-annual-budget.pdf"
+              title="PCWA 2023 Annual Budget"
+              imgixURL="https://imgix.cosmicjs.com/62748ce0-5fb8-11ed-8cf5-3be6a6f9365d-PCWA-2023-Adopted-Budget-for-Website.pdf"
+              linkHref="https://docs.pcwa.net/pcwa-2023-annual-budget.pdf"
               flexLinkProps={{isNextLink: false}}
-              alt="Thumbnail and link for PCWA 2022 Annual Budget"
+              alt="Thumbnail and link for PCWA 2023 Annual Budget"
               imgixParams={{crop: 'top'}}
             />
           </ChildBox>
