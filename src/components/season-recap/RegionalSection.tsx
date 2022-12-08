@@ -143,6 +143,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
+
 export default function RegionalSection({
   countyResponse,
   regionalWaterYear
@@ -223,23 +224,28 @@ export default function RegionalSection({
     () => format(subMonths(twoMonthsAgo, diff), 'yyyy'),
     [twoMonthsAgo, diff]
   )
-  const begYr = 1895
-  const begBaseYr = 1895
-  const begTrendYr = 1895
+
+  const noaaAvgTempQs = stringify(
+    {
+      twoMonthsAgoYr,
+      useMonthDiff,
+      twoMonthsAgoMo,
+      climChangeEndYear
+    },
+    true
+  )
 
   // example url for api (json): https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/time-series/CA-061-tavg-9-6-1895-2022.json?base_prd=true&begbaseyear=1895&endbaseyear=2022&trend=true&trend_base=10&begtrendyear=1895&endtrendyear=2022
-  const url = `https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/time-series/CA-061-tavg-${useMonthDiff}-${twoMonthsAgoMo}-${begYr}-${climChangeEndYear}.json?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
+  const url = `/api/noaa/avg-temp${noaaAvgTempQs}`
 
   const {data: climChgData, isValidating: climChgIsValidating} =
-    useSWR<ClimChgResponse>(url, {
-      revalidateOnFocus: false
-    })
+    useSWR<ClimChgResponse>(url)
   // console.log('[NOAA Avg Response]:', climChgData)
 
   // Including the Trend in the URL doesn't seem to work with NOAA site; The trend params are omitted until NOAA fixes this.
   // const noaaClimChgUrl = `https://www.ncdc.noaa.gov/cag/county/time-series/CA-061/tavg/${useMonthDiff}/${twoMonthsAgoMo}/${begYr}-${climChangeEndYear}?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=${begTrendYr}&endtrendyear=${twoMonthsAgoYr}`
   // example url for chart: https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/time-series/CA-061/tavg/9/6/1895-2022?base_prd=true&begbaseyear=1895&endbaseyear=2022
-  const noaaClimChgUrl = `https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/time-series/CA-061/tavg/${useMonthDiff}/${twoMonthsAgoMo}/${begYr}-${climChangeEndYear}?base_prd=true&begbaseyear=${begBaseYr}&endbaseyear=${twoMonthsAgoYr}`
+  const noaaClimChgUrl = `https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/time-series/CA-061/tavg/${useMonthDiff}/${twoMonthsAgoMo}/1895-${climChangeEndYear}?base_prd=true&begbaseyear=1895&endbaseyear=${twoMonthsAgoYr}&trend=true&trend_base=10&begtrendyear=1895&endtrendyear=${twoMonthsAgoYr}`
 
   const climChgChartData = useMemo(
     () =>
