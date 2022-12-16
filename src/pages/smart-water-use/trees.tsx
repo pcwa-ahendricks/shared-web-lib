@@ -173,6 +173,13 @@ export default function TreesPage() {
                           used in the public service video!
                         </em>
                       </Type>
+                      <Type paragraph variant="caption">
+                        <strong>
+                          Warning: Children can fall into buckets and drown.
+                          Keep children away from buckets with even a small
+                          amount of liquid.
+                        </strong>
+                      </Type>
                     </Box>
                   </Paper>
                 </ChildBox>
