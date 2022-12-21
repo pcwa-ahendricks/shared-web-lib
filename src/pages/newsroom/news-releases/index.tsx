@@ -220,8 +220,21 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                     <NextLink
                       key={n.id}
                       passHref
-                      href="/newsroom/news-releases/[release-date]"
-                      as={`/newsroom/news-releases/${n.derivedFilenameAttr?.date}`}
+                      href={
+                        n.derivedFilenameAttr?.date === '12-20-2022'
+                          ? 'https://docs.pcwa.net/mosquito-fire-update-pcwa-has-filed-suit-against-pacific-gas-electric-company.pdf'
+                          : '/newsroom/news-releases/[release-date]'
+                      }
+                      as={
+                        n.derivedFilenameAttr?.date === '12-20-2022'
+                          ? undefined
+                          : `/newsroom/news-releases/${n.derivedFilenameAttr?.date}`
+                      }
+                      target={
+                        n.derivedFilenameAttr?.date === '12-20-2022'
+                          ? '_blank'
+                          : undefined
+                      }
                       scroll
                     >
                       <ListItem button component="a">
