@@ -212,7 +212,7 @@ const NewDevelopmentPage = () => {
           </Type>
           <ul>
             <TightListItem
-              url="https://cdn.cosmicjs.com/80286b30-6f1d-11ec-8245-d9998a66fe08-2022-WCC-Lower-Zone-6.pdf"
+              url="https://docs.pcwa.net/wcc-lower-zone-6.pdf"
               title="Lower Zone 6"
               description="From Rocklin to Auburn"
             />
@@ -233,12 +233,12 @@ const NewDevelopmentPage = () => {
           </Type>
           <ul>
             <TightListItem
-              url="https://imgix.cosmicjs.com/8c480e70-6f1d-11ec-8245-d9998a66fe08-2022-WCC-CAW.pdf"
+              url="https://docs.pcwa.net/wcc-caw.pdf"
               title="Zone 6 California American Water Company"
               description="South of Roseville"
             />
             <TightListItem
-              url="https://cdn.cosmicjs.com/891767f0-6f1d-11ec-8245-d9998a66fe08-2022-WCC-Lincoln.pdf"
+              url="https://docs.pcwa.net/wcc-lincoln.pdf"
               title="Zone 6 Lincoln"
               description="City of Lincoln"
             />
