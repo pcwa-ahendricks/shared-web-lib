@@ -195,7 +195,7 @@ const NewDevelopmentPage = () => {
                 Improvement Standards, Standard Specifications, and Standard
                 Drawings
               </MuiNextLink>{' '}
-              - The Agency’s standard specifications for water system design.
+              - The Agency's standard specifications for water system design.
             </Type>
           </Box>
           <Spacing />
@@ -307,8 +307,8 @@ const NewDevelopmentPage = () => {
             </TightBullet>
             <TightBullet>
               <Type component="span" color="textPrimary">
-                $147 Application Fee to open a project account and $2,500
-                initial deposit for plan checking, a total of $2,647.
+                $157 Application Fee to open a project account and $2,500
+                initial deposit for plan checking, a total of $2,657.
               </Type>
             </TightBullet>
             <TightBullet>
@@ -370,7 +370,7 @@ const NewDevelopmentPage = () => {
           </Type>
           <Type paragraph>
             For more information or to obtain distribution maps and as-built
-            drawings, please contact the Agency’s GIS Department at{' '}
+            drawings, please contact the Agency's GIS Department at{' '}
             <EngineeringPhone /> or email at <GisDeptEmail />.
           </Type>
           <Spacing size="x-large" />
@@ -379,7 +379,7 @@ const NewDevelopmentPage = () => {
           </Type>
           <Type paragraph>
             Fill out the{' '}
-            <LinkItem href="https://cdn.cosmicjs.com/9006ca40-7988-11ec-bc8e-0b22aad4e2bd-Fire-Flow-Request-Form-rev.2022.pdf">
+            <LinkItem href="https://docs.pcwa.net/fire-flow-request-form.pdf">
               Fire Flow Data Request
               <DescriptionOutlinedIcon className={classes.linkItemIcon} />
             </LinkItem>{' '}
