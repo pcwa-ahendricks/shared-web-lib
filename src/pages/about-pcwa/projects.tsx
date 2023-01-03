@@ -510,15 +510,15 @@ const ProjectsPage = () => {
                     contact the following PCWA Representative:
                   </Type>
                   <Type paragraph>
-                    Mitchell McCarthy
+                    Brian Rickards
                     <br />
-                    Associate Engineer
+                    Planning & Development Services Manager
                     <br />
-                    Phone: (530) 863-3889
+                    Phone: (530) 823-4845
                     <br />
                     E-mail:{' '}
-                    <Link href="mailto:mmccarthy@pcwa.net">
-                      mmccarthy@pcwa.net
+                    <Link href="mailto:brickards@pcwa.net ">
+                      brickards@pcwa.net
                     </Link>
                   </Type>
                   <Spacing size="large" />
