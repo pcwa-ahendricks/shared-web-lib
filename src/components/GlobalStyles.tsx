@@ -10,7 +10,7 @@ const GlobalStyles = withStyles((theme: Theme) => ({
       margin: 0,
       height: '100%',
       scrollBehavior: 'smooth',
-      scrollPaddingTop: '55px' // Provide offset for sticky header. Works with most browsers. See https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/ and https://caniuse.com/#search=scroll-padding-top for more info.
+      scrollPaddingTop: '65px' // Provide offset for sticky header. Works with most browsers. See https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/ and https://caniuse.com/#search=scroll-padding-top for more info.
     },
     body: {
       margin: 'inherit',
