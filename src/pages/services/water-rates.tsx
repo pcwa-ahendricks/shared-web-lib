@@ -473,7 +473,7 @@ const WaterRatesPage = () => {
                   rel="noopener noreferrer"
                   href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
                 >
-                  2022 Rules and Regulations
+                  2023 Rules and Regulations
                 </FancyButton>
               </Box>
             </Box>
