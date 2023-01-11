@@ -37,8 +37,7 @@ const BoardOfDirectorsQualificationsPage = () => {
               Each Director is eligible to receive the same Agency travel or
               business allowances and expenses that are provided to Agency
               management employees. All Director expense reimbursement claims
-              are agendized for the Board’s consideration and only paid if the
-              Board approves the reimbursement.
+              are agendized for the Board's notification.
             </Type>
             <Type variant="h3" gutterBottom>
               Board Meetings
