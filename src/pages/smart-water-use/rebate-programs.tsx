@@ -469,7 +469,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       .
                     </Type>
-                    <Paper elevation={1}>
+                    {/* <Paper elevation={1}>
                       <Box
                         bgcolor={colorAlpha(yellow[50], 0.8)}
                         paddingY={2}
@@ -480,18 +480,17 @@ const RebateProgramsPage = () => {
                           this rebate. Please check back in 2023.
                         </Type>
                       </Box>
-                    </Paper>
+                    </Paper> */}
                     <Spacing size="small" />
                     <ColumnBox>
                       <TermsAndConditionsButton
                         href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
                         caption="Smart Controller Rebate Requirements"
                       />
-                      {/* <ApplyNowButton
-                        disabled
+                      <ApplyNowButton
                         href="/forms/rebates/smart-controller"
                         label="Apply for Smart Controller Rebate Online"
-                      /> */}
+                      />
                     </ColumnBox>
                   </RebateCard>
                 </ChildBox>
