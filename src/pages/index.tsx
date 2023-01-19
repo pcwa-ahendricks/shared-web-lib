@@ -195,7 +195,7 @@ const Index = ({
               }}
             />
           </ChildBox>
-          <ChildBox flex="0 0 50%">
+          {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="American River Basin Study"
@@ -204,6 +204,19 @@ const Index = ({
               imgixURL="https://imgix.cosmicjs.com/7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg"
               alt="A photo of the American River near the American River Pump Station"
               body="The American River Basin Study (ARBS) was released in August 2022. The study highlights a changing climate's impact to water resources and recommends evaluating adaptation strategies to address these vulnerabilities to the water supply."
+            />
+          </ChildBox> */}
+
+          <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Water Year Dashboard"
+              readMore="View data"
+              linkHref="/water-year-dashboard"
+              imgixURL="https://imgix.cosmicjs.com/038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg"
+              alt="Link to PCWA's Water Year Dashboard page"
+              imgixParams={{crop: 'bottom'}}
+              body="See the latest hydrological conditions in the region including precipitation, snowpack, and temperature for the current water year."
             />
           </ChildBox>
 
@@ -611,6 +624,16 @@ const Index = ({
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
+              title="American River Basin Study"
+              imgixURL="https://imgix.cosmicjs.com/7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg"
+              linkHref="/planning/arbs"
+              flexLinkProps={{isNextLink: true}}
+              alt="American River Basin Study link"
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
               title="Tahoe Central Sierra Cal-FRAME Project for Biomass Management"
               imgixURL="https://imgix.cosmicjs.com/907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png"
               linkHref="https://youtu.be/ft1_RiK-xKY"
@@ -619,7 +642,7 @@ const Index = ({
               typeProps={{style: {fontSize: '1rem'}}}
             />
           </ChildBox>
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Water Year Dashboard"
@@ -629,7 +652,7 @@ const Index = ({
               alt="Link to PCWA's Water Year Dashboard page"
               imgixParams={{crop: 'bottom'}}
             />
-          </ChildBox>
+          </ChildBox> */}
 
           <ChildBox width={tileWidth}>
             <CoverTile
