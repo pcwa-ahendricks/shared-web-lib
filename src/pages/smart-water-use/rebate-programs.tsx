@@ -563,10 +563,10 @@ const RebateProgramsPage = () => {
                       <Type variant="h6" component="span">
                         High-Efficiency Toilet (HET)/Urinal -
                       </Type>{' '}
-                      Receive up to a $100 rebate per toilet for the replacement
+                      Receive up to a $50 rebate per toilet for the replacement
                       of old 3 Gallons Per Flush (GPF) or Pre-1994 toilets with
                       new high-efficiency 1.28 GPF toilets. For urinals, receive
-                      up to a $100 rebate per urinal for the replacement of
+                      up to a $50 rebate per urinal for the replacement of
                       commercial urinals with EPA WaterSense approved or
                       waterless urinals. See{' '}
                       <Type component="em" variant="inherit">
