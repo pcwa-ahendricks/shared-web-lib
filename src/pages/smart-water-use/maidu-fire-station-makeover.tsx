@@ -179,7 +179,7 @@ const FireResistantGardenPage = () => {
                   </TypeBullet>
 
                   <TypeBullet id="plantList">
-                    <ExtLink href="https://cdn.cosmicjs.com/32c386c0-b540-11e9-a915-41acc1bf515a-Maidu-Fire-Station-WaterWiseFireWise-Plant-List.pdf">
+                    <ExtLink href="https://docs.pcwa.net/maidu-fire-station-landscape-plants.pdf">
                       See the complete plant list
                     </ExtLink>
                   </TypeBullet>
