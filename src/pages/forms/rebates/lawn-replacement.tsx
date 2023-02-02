@@ -118,10 +118,8 @@ const formSchema = object()
           emailAttachments === 'true'
             ? schema
             : schema
-                .required(
-                  'Must provide 5 photos of your project pre-conversion'
-                )
-                .length(5)
+                .required('Must provide 5 photos of your pre-converted lawn')
+                .length(5, 'Must provide 5 photos of your  pre-converted lawn')
       )
       .of(
         object({
