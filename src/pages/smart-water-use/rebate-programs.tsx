@@ -660,7 +660,7 @@ const RebateProgramsPage = () => {
                   <Link
                     align="center"
                     display="block"
-                    href="https://cdn.cosmicjs.com/a7fbacf0-8c3e-11e8-bfba-83728ad33885-Water Smart Plant List.pdf"
+                    href="https://docs.pcwa.net/water-smart-plant-list-sac-region"
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Water Smart Plant List"
