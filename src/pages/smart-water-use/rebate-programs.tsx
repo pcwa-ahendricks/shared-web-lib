@@ -5,8 +5,7 @@ import {
   Box,
   useTheme,
   Link,
-  BoxProps,
-  Paper
+  BoxProps
 } from '@material-ui/core'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -22,8 +21,6 @@ import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
-import colorAlpha from 'color-alpha'
-import {yellow} from '@material-ui/core/colors'
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -364,7 +361,7 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      <Paper elevation={1}>
+                      {/* <Paper elevation={1}>
                         <Box
                           bgcolor={colorAlpha(yellow[50], 0.8)}
                           paddingY={2}
@@ -375,18 +372,18 @@ const RebateProgramsPage = () => {
                             this rebate. Please check back in 2023.
                           </Type>
                         </Box>
-                      </Paper>
+                      </Paper> */}
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
                           href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
                           label="Lawn Replacement Rebate Terms and Conditions"
                         />
-                        {/* <ApplyNowButton
-                          disabled
+                        <ApplyNowButton
+                          // disabled
                           href="/forms/rebates/lawn-replacement"
                           label="Apply for Lawn Replacement Rebate Online"
-                        /> */}
+                        />
                       </ColumnBox>
                     </RebateCard>
                   </ChildBox>
@@ -529,7 +526,7 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      <Paper elevation={1}>
+                      {/* <Paper elevation={1}>
                         <Box
                           bgcolor={colorAlpha(yellow[50], 0.8)}
                           paddingY={2}
@@ -540,18 +537,18 @@ const RebateProgramsPage = () => {
                             this rebate. Please check back in 2023.
                           </Type>
                         </Box>
-                      </Paper>
+                      </Paper> */}
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
                           href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
-                        {/* <ApplyNowButton
-                          disabled
+                        <ApplyNowButton
+                          // disabled
                           href="/forms/rebates/irrigation-efficiencies"
                           label="Apply for Efficiencies Rebate Online"
-                        /> */}
+                        />
                       </ColumnBox>
                     </RebateCard>
                   </ChildBox>

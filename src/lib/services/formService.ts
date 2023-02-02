@@ -75,6 +75,7 @@ export interface LawnReplacementRebateFormData {
   treatedCustomer: '' | 'Yes' | 'No'
   approxSqFeet: string
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
@@ -83,6 +84,7 @@ export interface LawnReplacementRebateFormData {
   useArtTurf: BooleanAsString
   alreadyStarted: BooleanAsString
   upgradeLocations: IrrigUpgradeLocationOpts
+  preConvPhotos: string[]
 }
 
 export interface LawnReplacementRequestBody {

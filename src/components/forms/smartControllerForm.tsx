@@ -367,7 +367,7 @@ const SmartControllerForm = ({
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
-              attachmentTitle="Receipt"
+              attachmentTitle="Receipt(s)"
               uploadRoute="smart-controller"
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
@@ -379,7 +379,7 @@ const SmartControllerForm = ({
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
-              attachmentTitle="Smart Controller installed photo"
+              attachmentTitle="Smart Controller installed photo(s)"
               uploadRoute="smart-controller"
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}

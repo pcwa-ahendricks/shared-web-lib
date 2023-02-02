@@ -593,7 +593,7 @@ export default function PoolCover() {
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="receipts"
-                              attachmentTitle="Receipt"
+                              attachmentTitle="Receipt(s)"
                               uploadRoute="pool-cover"
                               onIsUploadingChange={receiptIsUploadingHandler}
                               component={AttachmentField}
@@ -604,7 +604,7 @@ export default function PoolCover() {
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="installPhotos"
-                              attachmentTitle="Pool Cover installed photo"
+                              attachmentTitle="Pool Cover installed photo(s)"
                               uploadRoute="pool-cover"
                               onIsUploadingChange={
                                 installPhotosIsUploadingHandler

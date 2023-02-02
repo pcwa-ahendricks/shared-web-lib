@@ -412,7 +412,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
-              attachmentTitle="Receipt"
+              attachmentTitle="Receipt(s)"
               uploadRoute="toilet"
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
@@ -424,7 +424,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
-              attachmentTitle="Water-Efficient Toilet installed photo"
+              attachmentTitle="Water-Efficient Toilet installed photo(s)"
               uploadRoute="toilet"
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}

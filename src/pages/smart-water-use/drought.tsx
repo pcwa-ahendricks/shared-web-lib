@@ -182,7 +182,7 @@ export default function DroughtPage() {
                         classes={{root: classes.noBottomMargin}}
                         primary="Check soil moisture before turning on sprinklers. Stop by our main office to pick up a free moisture meter today."
                       />
-                    </ListBulletItem>{' '}
+                    </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
                         classes={{root: classes.noBottomMargin}}
