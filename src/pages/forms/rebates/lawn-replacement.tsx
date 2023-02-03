@@ -616,9 +616,7 @@ const LawnReplacement = () => {
                               variant="body1"
                               className={classes.liItem}
                             >
-                              <Type variant="inherit">
-                                Submit <strong>Five</strong> photographs
-                              </Type>
+                              Submit <strong>Five</strong> photographs
                             </Type>
                             <Type
                               component="li"
@@ -647,8 +645,8 @@ const LawnReplacement = () => {
                               variant="body1"
                               className={classes.liItem}
                             >
-                              Street number or address must be visible in at
-                              least one photograph.
+                              Street number or address must be visible in{' '}
+                              <strong>at least one</strong> photograph.
                             </Type>
                             <Type
                               component="li"
@@ -672,19 +670,17 @@ const LawnReplacement = () => {
                               className={classes.liItem}
                             >
                               Altered photographs will result in application
-                              being ineligible for rebate (see II. C. on page
-                              1).
+                              being ineligible for rebate{' '}
+                              <em>(see II. D. on page 1)</em>.
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
                               className={classes.liItem}
                             >
-                              <Type variant="inherit">
-                                Conversation area must{' '}
-                                <strong>include at least</strong> one picture of
-                                irrigation system operating.
-                              </Type>
+                              Conversation area must{' '}
+                              <strong>include at least</strong> one picture of
+                              irrigation system operating.
                             </Type>
                           </Box>
                           <Spacing size="small" />
@@ -750,7 +746,7 @@ const LawnReplacement = () => {
                               <ReviewTermsConditions
                                 pageCount={3}
                                 fileName="Lawn-Replacement-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/0c45ed20-ea73-11eb-b9a3-45a1d857b20f-Lawn-Replacement-Rebate-Terms-and-Conditions-072121.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/2933bb70-a3f3-11ed-8d58-2bb0c90a324a-Lawn-Replacement-Rebate-Terms-and-Conditions-2023.pdf"
                               />
                               <Field
                                 name="termsAgree"

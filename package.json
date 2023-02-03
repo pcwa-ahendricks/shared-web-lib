@@ -45,16 +45,16 @@
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/url-parse": "^1.4.8",
     "@types/valid-url": "^1.0.3",
-    "@vercel/ncc": "^0.34.0",
-    "@vercel/node": "^2.5.21",
+    "@vercel/ncc": "^0.36.1",
+    "@vercel/node": "^2.9.0",
     "ava": "^4.3.3",
     "cross-env": "^7.0.2",
-    "eslint": "8.24.0",
-    "eslint-config-next": "^12.3.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint": "8.33.0",
+    "eslint-config-next": "^13.1.6",
+    "eslint-config-prettier": "^8.6.0",
     "gensync": "^1.0.0-beta.2",
     "globby": "<12.0.0",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.3",
     "rimraf": "^3.0.2",
     "test-listen": "^1.1.0",
     "typescript": "<4.4.0"
@@ -127,7 +127,7 @@
     "url-parse": "^1.5.10",
     "use-debounce": "^8.0.4",
     "valid-url": "^1.0.9",
-    "vercel": "^28.4.5",
+    "vercel": "^28.15.0",
     "yup": "^0.32.11"
   }
 }

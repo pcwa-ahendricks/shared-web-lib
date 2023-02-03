@@ -46,12 +46,14 @@ export interface IrrigationEfficienciesRebateFormData {
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
   describe: string
   irrigMethod: string
   upgradeLocations: IrrigUpgradeLocationOpts
+  preConvPhotos: string[]
   upgradeOpts: IrrigSysUpgradeOpts
 }
 

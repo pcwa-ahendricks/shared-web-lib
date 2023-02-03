@@ -1,15 +1,17 @@
 // cspell:ignore addtl cbarnhill truthy
-import {string, object, StringSchema} from 'yup'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import {string, object, StringSchema, array, SchemaOf, ArraySchema} from 'yup'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema,
-  emailRecipientsSysAdmin
-} from '../../../lib/api/forms'
+  emailRecipientsSysAdmin,
+  AttachmentFieldValue
+} from '@lib/api/forms'
 
 import {VercelResponse, VercelRequest} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
+import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
@@ -40,7 +42,9 @@ interface FormDataObj {
   inspectAgree: string
   signature: string
   captcha: string
+  emailAttachments: BooleanAsString
   describe: string
+  preConvPhotos: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -77,6 +81,25 @@ const bodySchema = object()
           ['Yes'] // "Yes", "No"
         ),
         termsAgree: string().required().oneOf(['true']),
+        emailAttachments: string().label('Email Attachments'),
+        preConvPhotos: array()
+          .when(
+            'emailAttachments',
+            (
+              emailAttachments: BooleanAsString,
+              schema: ArraySchema<SchemaOf<string>>
+            ) =>
+              emailAttachments === 'true' ? schema : schema.required().length(5)
+          )
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(/success/),
+              url: string().required().url()
+            })
+          ),
         inspectAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required(),
@@ -136,6 +159,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       upgradeLocations,
       upgradeOpts,
       termsAgree,
+      emailAttachments = '',
+      preConvPhotos = [],
       signature,
       captcha,
       describe = ''
@@ -172,6 +197,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const mappedUpgradeLocations = mapTruthyKeys(upgradeLocations)
     const mappedUpgradeOpts = mapTruthyKeys(upgradeOpts)
+
+    const preConvImages = preConvPhotos.map((attachment) => attachment.url)
 
     const replyToName = `${firstName} ${lastName}`
     // since email is required, use that info for 'cc' and 'reply to'
@@ -212,6 +239,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             upgradeLocations: mappedUpgradeLocations,
             upgradeOpts: mappedUpgradeOpts,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
+            emailAttachments,
+            preConvImages,
             termsAgree,
             signature,
             describe

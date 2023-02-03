@@ -5,10 +5,11 @@ import {
   Theme,
   Typography as Type,
   makeStyles,
+  Box,
   createStyles
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
-import {string, object, StringSchema} from 'yup'
+import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
   postForm,
   IrrigationEfficienciesRequestBody as RequestBody,
@@ -52,6 +53,10 @@ import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
+import {BooleanAsString} from '@lib/safeCastBoolean'
+import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
+import RebatesEmail from '@components/links/RebatesEmail'
+import AttachmentField from '@components/formFields/AttachmentField'
 
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
 
@@ -101,6 +106,34 @@ const formSchema = object()
         'Must agree to Terms and Conditions by checking this box'
       )
       .label('Agree to Terms'),
+    emailAttachments: string().label('Email Attachments'),
+    preConvPhotos: array()
+      .when(
+        'emailAttachments',
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema
+                .required(
+                  'Must provide 5 photos of your pre-converted irrigation system'
+                )
+                .length(
+                  5,
+                  'Must provide 5 photos of your pre-converted irrigation system'
+                )
+      )
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/, 'Remove and/or retry un-successful uploads'),
+          url: string().required('Attachment URL is not available').url()
+        })
+      ),
     inspectAgree: string()
       .required()
       .oneOf(
@@ -150,12 +183,14 @@ const initialFormValues: RebateFormData = {
   treatedCustomer: '',
   termsAgree: '',
   inspectAgree: '',
+  emailAttachments: '',
   signature: '',
   captcha: '',
   describe: '',
   irrigMethod: '',
   upgradeLocations: {...initialIrrigUpgradeLocationOpts},
-  upgradeOpts: {...initialIrrigSysUpgradeOpts}
+  upgradeOpts: {...initialIrrigSysUpgradeOpts},
+  preConvPhotos: []
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -180,6 +215,17 @@ const useStyles = makeStyles((theme: Theme) =>
       flexBasis: 'auto',
       flexGrow: 0,
       flexShrink: 0
+    },
+    dropzoneContainer: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginBottom: theme.spacing(3),
+      marginTop: theme.spacing(3)
+    },
+    liItem: {
+      listStyleType: 'disc',
+      marginBottom: 2
     }
   })
 )
@@ -190,6 +236,7 @@ const IrrigationEfficiencies = () => {
   const [formValues, setFormValues] =
     useState<RebateFormData>(initialFormValues)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
+  const [photoIsUploading, setPhotoIsUploading] = useState<boolean>(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -199,6 +246,10 @@ const IrrigationEfficiencies = () => {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
+
+  const photoIsUploadingHandler = useCallback((isUploading) => {
+    setPhotoIsUploading(isUploading)
+  }, [])
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -294,6 +345,10 @@ const IrrigationEfficiencies = () => {
                     values.howDidYouHear.toLowerCase() === 'other'
                 )
 
+                const emailAttachments = Boolean(
+                  values.emailAttachments === 'true'
+                )
+
                 // If city field is updated clear out otherCity field.
                 const cityChangeHandler = () => {
                   setFieldValue('otherCity', '')
@@ -305,6 +360,8 @@ const IrrigationEfficiencies = () => {
                     setFieldValue('otherHowDidYouHear', '')
                   }
                 }
+
+                const attachmentsAreUploading = photoIsUploading
 
                 return (
                   <ProtectRouteChange>
@@ -519,6 +576,120 @@ const IrrigationEfficiencies = () => {
 
                         <div className={classes.formGroup}>
                           <Type
+                            variant="h4"
+                            color="textSecondary"
+                            gutterBottom
+                            className={classes.formGroupTitle}
+                          >
+                            Pre-Conversion Photograph Attachments
+                          </Type>
+                          <Type>Photo Attachment Requirements:</Type>
+                          <Box component="ul">
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Submit <strong>Five</strong> photographs
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              All photographs must be in color.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Irrigation system must be photographed while
+                              operating.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Stand far back enough to include your home,
+                              street, driveway, or fence as a reference point.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Street number or address must be visible in{' '}
+                              <strong>at least one</strong> photograph.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Photographs cannot be online images{' '}
+                              <em>(i.e Google, Bing, etc.)</em>.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Altered photographs will result in application
+                              being ineligible for rebate{' '}
+                              <em>(see II. E. on page 1)</em>.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Auto irrigation control valves{' '}
+                              <em>(i.e. manifolds)</em> must be included in{' '}
+                              <strong>at least one</strong> photograph.
+                            </Type>
+                          </Box>
+                          <Spacing size="small" />
+                          <Type variant="caption" color="textSecondary">
+                            Note - Only Image file formats can be uploaded (eg.
+                            .jpg, .png). PDF files <em>cannot</em> be uploaded
+                            here. If you are unable to attach the correct file
+                            type, or if any other issues with the attachments
+                            arise, you may select the box below and submit the
+                            files in an email.
+                          </Type>
+                          <Field
+                            name="emailAttachments"
+                            component={EmailAttachmentsSwitch}
+                            fullWidth={false}
+                            label={
+                              <span>
+                                Optionally, check here to email receipts and
+                                photos instead. Send email with attachments to{' '}
+                                <RebatesEmail /> with your name and account
+                                number in the subject line. Failure to do so may
+                                result in a delay or rejected application.
+                              </span>
+                            }
+                            disabled={ineligible}
+                          />
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="preConvPhotos"
+                              attachmentTitle="(5) Photos"
+                              uploadRoute="irrigation-efficiencies"
+                              onIsUploadingChange={photoIsUploadingHandler}
+                              component={AttachmentField}
+                            />
+                          </div>
+                        </div>
+                        <Divider variant="middle" />
+
+                        <div className={classes.formGroup}>
+                          <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
@@ -541,7 +712,7 @@ const IrrigationEfficiencies = () => {
                               <ReviewTermsConditions
                                 pageCount={3}
                                 fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/09232950-ea73-11eb-b9a3-45a1d857b20f-Irrigation-Efficiency-Terms-and-Conditions-072121.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/3da928b0-a3f3-11ed-8d58-2bb0c90a324a-Irrigation-Efficiencies-Terms-and-Conditions-2023.pdf"
                               />
                               <Field
                                 name="termsAgree"
@@ -666,7 +837,8 @@ const IrrigationEfficiencies = () => {
                             isSubmitting ||
                             // !isValid ||
                             ineligible ||
-                            (!formTouched && !dirty)
+                            (!formTouched && !dirty) ||
+                            attachmentsAreUploading
                           }
                         >
                           Submit Application
@@ -692,7 +864,9 @@ const IrrigationEfficiencies = () => {
       formValues,
       formIsTouched,
       eligibilityDialogOpen,
-      ineligible
+      ineligible,
+      photoIsUploading,
+      photoIsUploadingHandler
     ]
   )
 

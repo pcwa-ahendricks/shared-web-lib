@@ -1,6 +1,6 @@
 // cspell:ignore addtl cbarnhill truthy
 import {string, object, StringSchema, array, SchemaOf, ArraySchema} from 'yup'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import isNumber from 'is-number'
 import {
   getRecaptcha,
