@@ -653,8 +653,8 @@ const LawnReplacement = () => {
                               variant="body1"
                               className={classes.liItem}
                             >
-                              Photographs cannot be online images ( i.e Google,
-                              Bing, etc.).
+                              Photographs cannot be online images{' '}
+                              <em>(i.e Google, Bing, etc.)</em>.
                             </Type>
                             <Type
                               component="li"
