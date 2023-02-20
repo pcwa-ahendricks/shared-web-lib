@@ -46,7 +46,8 @@ const imgixImages = [
   '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
   '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg',
   '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
-  '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png'
+  '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
+  '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg'
 ]
 
 type Props = {
@@ -621,6 +622,17 @@ const Index = ({
             />
           </ChildBox> */}
 
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station"
+              imgixURL="https://imgix.cosmicjs.com/31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg"
+              linkHref="/smart-water-use/landscaping-lessons-at-auburn-fire-station"
+              flexLinkProps={{isNextLink: true}}
+              alt="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station link"
+              typeProps={{style: {fontSize: '1rem'}}}
+            />
+          </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}

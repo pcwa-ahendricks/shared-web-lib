@@ -99,7 +99,7 @@ const FireWiseLandscapingPage = () => {
             <Spacing factor={2} />
             {/* <Type variant="h3">Fire-Wise, Water-Wise Landscaping</Type> */}
             <Type paragraph>
-              Much of PCWA’s service area is located in the wildland-urban
+              Much of PCWA's service area is located in the wildland-urban
               interface, where beautiful forests meet new and existing
               neighborhoods. As the threat of wildfire becomes ever-more present
               with a changing climate, a new type of landscaping—one that is not
@@ -501,6 +501,14 @@ const FireWiseLandscapingPage = () => {
               >
                 <ListItemText primary="test" />
               </ListItem> */}
+              <Link
+                passHref
+                href="/smart-water-use/landscaping-lessons-at-auburn-fire-station"
+              >
+                <ListItem component="a" classes={{root: classes.listItem}}>
+                  <ListItemText primary="New Fire-Wise, Water Wise Makeover Debuts at Auburn Fire Station" />
+                </ListItem>
+              </Link>
             </List>
           </Box>
         </WideContainer>
