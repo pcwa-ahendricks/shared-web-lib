@@ -704,17 +704,16 @@ const ProjectsPage = () => {
                       Project Location
                     </Type>
                     <Type paragraph>
-                      At the Monte Vista Water Treatment Plant off of Ridge Road
-                      in Dutch Flat, CA.
+                      The Monte Vista Water Treatment Plant is located in Dutch
+                      Flat, near Ridge Road.
                     </Type>
                     <Type variant="subtitle1" gutterBottom>
-                      Construction Timeline
+                      Project Schedule
                     </Type>
                     <Type paragraph>
-                      The project is scheduled to be completed in late summer
-                      2022.
+                      The project is scheduled to be completed by Summer 2023.
                     </Type>
-                    <Spacing />
+                    {/* <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
                     </Type>
@@ -729,8 +728,75 @@ const ProjectsPage = () => {
                       <Link href="mailto:jjakobsen@pcwa.net">
                         jjakobsen@pcwa.net
                       </Link>
-                    </Type>
+                    </Type> */}
                   </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Dutch Flat Mutual Consolidation Project
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    The Dutch Flat Mutual Water Company (DFM) serves treated
+                    water to the Dutch Flat community located adjacent to Alta.
+                    DFM has a distribution system that was installed in 1965,
+                    which requires significant repairs due to numerous water
+                    leaks. In addition, DFM's water treatment plant needs many
+                    repairs and upgrades. Their system serves 106 connections
+                    and two unmetered services, a 0.33 million gallon per day
+                    (MGD) water treatment plant, three storage tanks, and
+                    approximately 8,600 linear feet of distribution main. The
+                    DFM board met on November 15, 2016, and voted unanimously to
+                    connect to PCWA's treated water system.
+                  </Type>
+                  <Spacing />
+                  <Type>The project improvements includes:</Type>
+                  <Box component="ul" marginTop={1}>
+                    <Type component="li" variant="body1">
+                      The replacement of approximately 8,800 feet of treated
+                      water pipelines,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      The replacement of 108 services, meters and vaults,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      A pressure reducing station,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      A connection to the Agency's Alta treated water system,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      The disconnection of the DFMs 0.33 million gallon per day
+                      water treatment plant, and
+                    </Type>
+                    <Type component="li" variant="body1">
+                      Other miscellaneous improvements.
+                    </Type>
+                  </Box>
+                  <Spacing size="small" />
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Location
+                  </Type>
+                  <Type paragraph>
+                    The project is located in Dutch Flat, CA.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText primary="Begin Construction - Summer 2023" />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText primary="End Construction - Spring 2024" />
+                    </TimelineListItem>
+                  </List>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnOne>
@@ -771,24 +837,21 @@ const ProjectsPage = () => {
                     <Spacing />
                     <Type variant="subtitle1">Project Schedule</Type>
                     <List disablePadding>
+                      {/* <TimelineListItem>
+                        <ListItemText primary="Survey, geotechnical exploration, and other information gathering - 2019" />
+                      </TimelineListItem> */}
                       <TimelineListItem>
-                        <ListItemText
-                          primary="Survey, geotechnical exploration, and other information gathering
-              – 2019"
-                        />
+                        <ListItemText primary="Design Completion - Spring 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Design – 2019-2021" />
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Advertise/Award – 2022" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Construction – 2022" />
+                        <ListItemText primary="Begin Construction - Spring 2023" />
                       </TimelineListItem>
                     </List>
-                    <Spacing />
-                    <Type variant="subtitle1" gutterBottom>
+                    {/* <Spacing /> */}
+                    {/* <Type variant="subtitle1" gutterBottom>
                       Frequently Asked Questions (FAQ’s)
                     </Type>
                     <Type gutterBottom>
@@ -805,7 +868,7 @@ const ProjectsPage = () => {
                       <em>Can I remove tree tags?</em>
                     </Type>
                     <Type paragraph>
-                      No please don’t; these will be critical through the design
+                      No please don't; these will be critical through the design
                       phase to accurately map the trees on the plans and
                       identify them in the field during construction.
                     </Type>
@@ -819,8 +882,8 @@ const ProjectsPage = () => {
                       feet for commercial and industrial areas. This will
                       require the construction of new hydrants.
                     </Type>
-                    <Spacing />
-                    <Type variant="subtitle1" gutterBottom>
+                    <Spacing /> */}
+                    {/* <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
                     </Type>
                     <Type paragraph>
@@ -834,7 +897,7 @@ const ProjectsPage = () => {
                       <Link href="mailto:jjakobsen@pcwa.net">
                         jjakobsen@pcwa.net
                       </Link>
-                    </Type>
+                    </Type> */}
                     <Spacing size="large" />
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
@@ -884,9 +947,9 @@ const ProjectsPage = () => {
                       The Lake Alta Dam project is a multi-year project to
                       address regulation changes since the two Lake Alta dams
                       were installed. Originally constructed for mining
-                      activities in the 1850’s, the dams have been in continuous
+                      activities in the 1850's, the dams have been in continuous
                       service ever since. This facility is an important
-                      component of PCWA’s water delivery system, and this
+                      component of PCWA's water delivery system, and this
                       project will ensure lake levels, vegetation, and drainage
                       comply with current regulatory requirements. See below for
                       document links for this project.
@@ -895,8 +958,8 @@ const ProjectsPage = () => {
                       Project Location
                     </Type>
                     <Type paragraph>
-                      The Lake Alta Dam Safety Project is located in the Town of
-                      Alta, near Bonny Nook Drive.
+                      The Lake Alta Dam Project is located in the Town of Alta,
+                      near Bonny Nook Drive.
                     </Type>
                     <Type variant="subtitle1" gutterBottom>
                       Construction Timeline
@@ -904,7 +967,7 @@ const ProjectsPage = () => {
                     <Type paragraph>
                       Consultants are currently gathering information on-site to
                       be used to design improvements to the dams. Completion of
-                      design of improvements to the dams is anticipated in 2022.
+                      design of improvements to the dams is anticipated in 2024.
                       Any future construction work will proceed upon completion
                       of design and regulatory approvals.
                     </Type>
@@ -915,11 +978,12 @@ const ProjectsPage = () => {
                       PCWA removed dead and dying trees in 2017 the vicinity of
                       the dams to comply with direction from the California
                       Division of Safety of Dams (DSOD). In winter of 2018/2019
-                      PCWA collected bore samples from each of the dams. These
-                      samples were analyzed and will be incorporated into design
-                      of the necessary improvements.
+                      PCWA collected bore samples from each of the dams.
+                      Additional samples collected from test pits and analyzed
+                      in 2021. Results from both sampling events will be used to
+                      support design of the necessary dam improvements..
                     </Type>
-                    <Spacing />
+                    {/* <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
                     </Type>
@@ -934,7 +998,163 @@ const ProjectsPage = () => {
                       <Link href="mailto:kshively@pcwa.net">
                         kshively@pcwa.net
                       </Link>
+                    </Type> */}
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Ginger Drive Pipeline Replacement - Sacramento Street/Valley
+                    View Drive/Ginger Drive
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
                     </Type>
+                    <Type paragraph>
+                      The project will consist of abandonment of existing
+                      backyard mains and installation of new mains in the
+                      streets. New meter boxes will be set near the back of
+                      sidewalks along the streets, and new service lines
+                      installed from the meter boxes to customer homes and
+                      reconnected.
+                    </Type>
+                    <Type paragraph>
+                      Approximately 1,920 feet of new 8-inch water main will be
+                      installed in both Valley View and Ginger Drives, including
+                      50 service connections, and 4 new hydrants.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The project is located in the City of Auburn, near Carolyn
+                      Street.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Schedule
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Summer 2023" />
+                      </TimelineListItem>
+                    </List>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Rocklin Main Replacements
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      A multi-year main replacement program to replace aging
+                      infrastructure is beginning with Phase 1, which is on
+                      Midas Avenue, between 2nd Street and Argonaut Road. The
+                      project will consist of replacing the existing main,
+                      services, and fire hydrants in this area. New meter boxes
+                      and new water meters will be included in the project. In
+                      cooperation with the City of Rocklin, the entire width of
+                      Midas Avenue is planned to be resurfaced as part of the
+                      Phase 1 project.
+                    </Type>
+                    <Type paragraph>
+                      Approximately 1,900 feet of new 12-inch water main will be
+                      installed, including 12 new water meters.
+                    </Type>
+                    <Type paragraph>
+                      Phase 2 main replacement project is currently in design.
+                      Phase 2 is on Midas Avenue, between Argonaut Road and
+                      Clover Valley Road.
+                    </Type>
+                    {/* <Type paragraph>
+                      Future anticipated Phases are shown below.
+                    </Type> */}
+                    <Spacing size="large" />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png"
+                      mediaName="Map Figure of future anticipated Phases for Rocklin Main Replacement"
+                      mediaPreviewDialogProps={{
+                        width: 1705,
+                        height: 1240
+                      }}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png`}
+                        alt="Map Figure of future anticipated Phases for Rocklin Main Replacement"
+                        width={1705}
+                        height={1240}
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                      />
+                    </MediaDialogOnClick>
+                    <ColumnBox alignItems="center">
+                      <Box mt={1} width="60%" textAlign="center">
+                        <Type variant="caption">
+                          Map Figure of Future Anticipated Phases{' '}
+                          <em>(click to enlarge)</em>
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The multi-year project area is located in the City of
+                      Rocklin, and includes Midas Avenue, Argonaut Drive,
+                      Whitney Boulevard, Clover Valley Roads.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Schedule
+                    </Type>
+                    <Type variant="body2" color="primary">
+                      <strong>Phase 1</strong>
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Summer 2023" />
+                      </TimelineListItem>
+                    </List>
+                    <Spacing size="x-small" />
+                    <Type variant="body2" color="primary">
+                      <strong>Phase 2</strong>
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Fall 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Winter 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2024" />
+                      </TimelineListItem>
+                    </List>
                   </article>
                 </ConstructionProject>
               </ProjectChild>
