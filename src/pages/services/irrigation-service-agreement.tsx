@@ -39,19 +39,28 @@ export default function irrigationServiceAgreement() {
               </Link> */}
             </Type>
           </Box>
-          <Type>
-            Untreated Water Customers - Please note the following:
-            <br />
-            1. A Signature on the Untreated Water Service Customer
-            Acknowledgements Form is required as a condition of service for
-            2023.
-            <br />
-            2. Customers are required to respond prior to April 14, 2023.
-            <br />
-            3. PCWA recommends signing the document electronically; customers
-            will need their customer identification number (account number left
-            of dash only).
-          </Type>
+          <Type>Untreated Water Customers - Please note the following:</Type>
+          <Box component="ol" mt={1}>
+            <Type component="li">
+              <strong>
+                A Signature on the Untreated Water Service Customer
+                Acknowledgements Form is required as a condition of service for
+                2023.
+              </strong>
+            </Type>
+            <Type component="li">
+              <strong>
+                Customers are required to respond prior to April 14, 2023.
+              </strong>
+            </Type>
+            <Type component="li">
+              <strong>
+                PCWA recommends signing the document electronically; customers
+                will need their customer identification number (account number
+                left of dash only).
+              </strong>
+            </Type>
+          </Box>
           <Spacing size="x-large" />
           <Box>
             <IrrigSvcAgreeFAQ />
