@@ -649,7 +649,7 @@ const ProjectsPage = () => {
                     FA. The 42-inch pipeline is served from the Agency's
                     Foothill Water Treatment Plant.
                   </Type>
-                  <Spacing />
+                  {/* <Spacing />
                   <Type variant="subtitle1" gutterBottom>
                     If you have any questions regarding the Project, please
                     contact the following PCWA Representative:
@@ -665,7 +665,7 @@ const ProjectsPage = () => {
                     <Link href="mailto:brickards@pcwa.net ">
                       brickards@pcwa.net
                     </Link>
-                  </Type>
+                  </Type> */}
                   {/* <Spacing size="large" /> */}
 
                   {/* <ColumnBox alignItems="center">
