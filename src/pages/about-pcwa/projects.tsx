@@ -1,4 +1,4 @@
-// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview bickford caperton
+// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview bickford caperton BRSP
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -28,11 +28,12 @@ import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
     listItem: {
-      paddingTop: theme.spacing(1) / 2,
-      paddingBottom: theme.spacing(1) / 2
+      // paddingTop: theme.spacing(1) / 2,
+      paddingTop: 1,
+      paddingBottom: 0
     },
     inlineFlex: {
       display: 'inline-flex'
@@ -414,7 +415,7 @@ const ProjectsPage = () => {
                   </article>
                 </ConstructionProject>
               </ProjectChild> */}
-              <ProjectChild>
+              {/* <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Bickford Ranch Phase 1 - Mass Grading
@@ -551,6 +552,130 @@ const ProjectsPage = () => {
                       </Type>
                     </Box>
                   </ColumnBox>
+                </ConstructionProject>
+              </ProjectChild> */}
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Bickford Ranch Water Tank and Pump Station
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    The Bickford Ranch Specific Plan (BRSP) is a master planned
+                    community with residential, parks, public facilities, and
+                    open space land uses located within an approximately
+                    1,928-acre plan area. The proposed development is located in
+                    Placer County, California, east of Sierra College Boulevard
+                    and south of Lincoln Newcastle Highway (Highway 193). The
+                    current specific plan was amended and approved in 2015 to
+                    serve 1,890 residential units. The BRSP project is
+                    anticipated to be built out in three phases over the next 15
+                    to 20 years. Additional information about the BRSP can be
+                    found at:{' '}
+                    <Link
+                      href="https://www.placer.ca.gov/3336/Bickford-Ranch-Specific-Plan"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Bickford Ranch Specific Plan | Placer County, CA
+                    </Link>
+                    .
+                  </Type>
+                  <Type paragraph>
+                    This Facilities Agreement (FA) Project is being funded and
+                    completed by Bickford Ranch Developers (Bickford) for the
+                    conveyance of water for the BRSP. Bickford began
+                    construction on Phase 1 of the Bickford Ranch Community
+                    Facility District in 2021 with mass grading portions of
+                    development and some undergrounding of major infrastructure.
+                    As part of this FA, an 18-inch transmission main will be
+                    constructed from the pump station to connect to the on-site
+                    Phase 1 water distribution system and ultimately connect to
+                    a future Tank at the top of BRSP. This $10 million tank and
+                    pump station provides the necessary flows to meet phased
+                    demands, including fire flow.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Design - Complete"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Tank - April 2021 - December 2022"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Pump Station May 2022-Fall 2023"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Homes - Fall 2023"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                  </List>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Frequently Asked Questions (FAQ's)
+                  </Type>
+                  <Type gutterBottom>
+                    <em>When will homes be built?</em>
+                  </Type>
+                  <Type paragraph>
+                    Model homes may be under construction in the latter part of
+                    2023. Occupancy of homes will not be allowed until this FA
+                    is accepted and PCWA accepts the facilities.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>Where is the water coming from?</em>
+                  </Type>
+                  <Type paragraph>
+                    The City of Lincoln recently installed a 42-inch pipeline
+                    for the Agency, which included an 18-inch stub-out for this
+                    FA. The 42-inch pipeline is served from the Agency's
+                    Foothill Water Treatment Plant.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    If you have any questions regarding the Project, please
+                    contact the following PCWA Representative:
+                  </Type>
+                  <Type paragraph>
+                    Brian Rickards
+                    <br />
+                    Planning & Development Services Manager
+                    <br />
+                    Phone: (530) 823-4845
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:brickards@pcwa.net ">
+                      brickards@pcwa.net
+                    </Link>
+                  </Type>
+                  {/* <Spacing size="large" /> */}
+
+                  {/* <ColumnBox alignItems="center">
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Bickford Ranch Phase I - Canal Services{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox> */}
                 </ConstructionProject>
               </ProjectChild>
               <ProjectChild>
