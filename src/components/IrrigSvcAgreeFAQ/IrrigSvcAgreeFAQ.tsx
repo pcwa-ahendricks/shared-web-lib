@@ -72,14 +72,13 @@ export default function IrrigSvcAgreeFAQ() {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              To keep Agency records current and help us responsibly manage the
-              County's water resources, PCWA requires all untreated water
-              customers to sign an untreated water application. Following recent
-              updates to the Agency's Rules & Regulations related to untreated
-              water service, PCWA updated its agreement. Customers must sign the
-              updated agreement for continued untreated water deliveries. The
-              agreement includes important changes that customers need to be
-              aware of as a condition of service.
+              PCWA requires all untreated water customers to sign an untreated
+              water application. Following recent updates to the Agency's Rules
+              & Regulations related to untreated water service, PCWA updated its
+              agreement. Customers must sign the updated agreement for continued
+              untreated water deliveries. The agreement includes important
+              changes that customers need to be aware of as a condition of
+              service.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -177,14 +176,14 @@ export default function IrrigSvcAgreeFAQ() {
               reflected on the bills of existing party line customers or through
               a single point of contact in the case of newly formed association.
             </Type>
-            <Type paragraph>
+            <Type variant="body2" paragraph>
               For new party lines, the Agency will only authorize the
               installation of one canal turnout and the customers on that party
               line will be required to setup one account (i.e. association) as
               the PCWA customer. Isolation valves are required on all new
               untreated water connections.
             </Type>
-            <Type paragraph>
+            <Type variant="body2" paragraph>
               The same requirements for new party lines applies to lot splits.
               The landowner would have to install an isolation valve after the
               Agency's canal turnout, and setup one account (for all lots) as

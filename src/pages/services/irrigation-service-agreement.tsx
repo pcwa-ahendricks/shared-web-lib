@@ -14,7 +14,7 @@ export default function irrigationServiceAgreement() {
         <NarrowContainer>
           <PageTitle title="Irrigation Service Agreement" subtitle="Services" />
           <Box>
-            <Type paragraph>
+            {/* <Type paragraph>
               As stewards of our local water resources, Placer County Water
               Agency (PCWA) is committed to protecting our water supplies for
               current and future residents. One way we do this is to demonstrate
@@ -25,13 +25,15 @@ export default function irrigationServiceAgreement() {
               Additionally, Under updated Rules & Regulations approved by the
               PCWA Board of Directors, the new methodology for allocating new
               untreated water deliveries will now be based upon intended use.
-            </Type>
+            </Type> */}
             <Type paragraph>
               In an effort to update Agency records and responsibly manage the
-              County's water resources, PCWA is requesting customer
-              acknowledgement of the updated Rules and Regulations for untreated
-              water service. Failure to agree to the Untreated Water Service
-              Customer Acknowledgements form could result in the interruption or
+              County's water resources, PCWA recently updated its Rules &
+              Regulations related to untreated water service. PCWA is requesting
+              customers' acknowledge the updated Rules and Regulations for
+              untreated water service by signing an updated acknowledgement
+              form. Failure to agree to the Untreated Water Service Customer
+              Acknowledgements form could result in the interruption or
               termination of service.
               {/* PCWA recommends signing the document electronically by using this link{' '}
               <Link target="_blank" href="https://arcg.is/01b4Wj">
@@ -39,7 +41,7 @@ export default function irrigationServiceAgreement() {
               </Link> */}
             </Type>
           </Box>
-          <Type>Untreated Water Customers - Please note the following:</Type>
+          <Type>Untreated water customers please note the following:</Type>
           <Box component="ol" mt={1}>
             <Type component="li">
               <strong>
