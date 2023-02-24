@@ -64,7 +64,7 @@ export default function IrrigSvcAgreeFAQ() {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Type variant="subtitle2">
+          <Type variant="subtitle2" color="primary">
             Why is PCWA requiring I sign an agreement for untreated water
             service?
           </Type>
@@ -94,7 +94,7 @@ export default function IrrigSvcAgreeFAQ() {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Type variant="subtitle2">
+          <Type variant="subtitle2" color="primary">
             What are my options if I need to make a private repair to an
             untreated water leak on my property?
           </Type>
@@ -126,7 +126,7 @@ export default function IrrigSvcAgreeFAQ() {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Type variant="subtitle2">
+          <Type variant="subtitle2" color="primary">
             Can PCWA employees access my property?
           </Type>
         </AccordionSummary>
@@ -157,7 +157,7 @@ export default function IrrigSvcAgreeFAQ() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Type variant="subtitle2">
+          <Type variant="subtitle2" color="primary">
             Are there any changes for customers on a party line?
           </Type>
         </AccordionSummary>
@@ -203,7 +203,7 @@ export default function IrrigSvcAgreeFAQ() {
           aria-controls="panel5bh-content"
           id="panel5bh-header"
         >
-          <Type variant="subtitle2">
+          <Type variant="subtitle2" color="primary">
             I am currently on a waitlist for untreated water service. How will
             the new prioritization for allocations affect me?
           </Type>
