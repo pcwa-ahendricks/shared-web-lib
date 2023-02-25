@@ -213,6 +213,22 @@ const IrrigationCanalPage = () => {
           </RowBox>
 
           <Box mt={6}>
+            <Type variant="h3" gutterBottom>
+              Irrigation Service Agreement
+            </Type>
+            <Type paragraph>
+              PCWA recently updated its Rules & Regulations related to untreated
+              water service. PCWA is requesting customers' acknowledge the
+              updated Rules and Regulations for untreated water service by
+              signing an updated acknowledgement form. Visit our{' '}
+              <NextLink href="/services//irrigation-service-agreement" passHref>
+                <Link>Irrigation Service Agreement FAQs</Link>
+              </NextLink>{' '}
+              page to find out more information.
+            </Type>
+          </Box>
+
+          <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>
             <Box mt={4} mb={4}>
               <FancyButton
