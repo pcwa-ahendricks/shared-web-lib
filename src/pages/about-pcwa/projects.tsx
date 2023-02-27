@@ -797,6 +797,37 @@ const ProjectsPage = () => {
                       <ListItemText primary="End Construction - Spring 2024" />
                     </TimelineListItem>
                   </List>
+                  <Spacing size="large" />
+
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/6f979010-b6d0-11ed-ac22-eb594d52cfd7-DFMCP.png"
+                    mediaName="Map Figure of Dutch Flat Mutual Consolidation Project"
+                    mediaPreviewDialogProps={{
+                      width: 917,
+                      height: 1187
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      src={`https://imgix.cosmicjs.com/6f979010-b6d0-11ed-ac22-eb594d52cfd7-DFMCP.png${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      alt="Map Figure of Dutch Flat Mutual Consolidation Project"
+                      width={917}
+                      height={1187}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 45vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Dutch Flat Mutual Consolidation Project{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnOne>
