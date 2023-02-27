@@ -19,6 +19,7 @@ import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
 import Head from 'next/head'
 import GlobalStyles from '@components/GlobalStyles'
+import {Analytics} from '@vercel/analytics/react'
 import * as gtag from '@lib/gtag'
 import '@lib/css/styles.css'
 // import '@lib/css/NoCollapseVerticalTimeline.css'
@@ -127,6 +128,7 @@ export default function MyApp({Component, pageProps}: AppProps) {
                           {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
                           <Component {...pageProps} />
+                          <Analytics />
                         </ParallaxProvider>
                       </MuiPickersUtilsProvider>
                     </SearchProvider>

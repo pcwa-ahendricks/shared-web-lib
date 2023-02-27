@@ -72,6 +72,7 @@
     "@nivo/legends": "0.80.0",
     "@nivo/line": "0.80.0",
     "@nivo/tooltip": "0.80.0",
+    "@vercel/analytics": "^0.1.10",
     "animate.css": "^4.1.1",
     "blurhash": "^2.0.2",
     "busboy": "^1.6.0",
