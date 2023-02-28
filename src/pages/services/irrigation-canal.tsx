@@ -264,13 +264,14 @@ const IrrigationCanalPage = () => {
                 >
                   <Box mx="auto" width="100%">
                     <Image
-                      src="6f397f90-b796-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgement2x.png"
-                      alt="PCWA Canal photo"
+                      role="link"
+                      src="8bcb7700-b799-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgement.png"
+                      alt="QR Code for PCWA Irrigation Customer Acknowledgement Form"
                       loader={imgixLoader}
                       layout="responsive"
                       sizes="(max-width: 600px) 60vw, 40vw"
-                      width={744}
-                      height={744}
+                      width={1116}
+                      height={1116}
                     />
                   </Box>
                 </a>

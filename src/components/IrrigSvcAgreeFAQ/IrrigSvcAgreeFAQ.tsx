@@ -8,10 +8,14 @@ import {
   Box,
   makeStyles,
   createStyles,
-  useTheme
+  useTheme,
+  Link
 } from '@material-ui/core'
+import Image from 'next/image'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {ChildBox, ColumnBox} from 'mui-sleazebox'
+import Spacing from '@components/boxes/Spacing'
+import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -233,6 +237,43 @@ export default function IrrigSvcAgreeFAQ() {
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
+      <Spacing size="x-large" factor={2} />
+      <ColumnBox child flex="30%">
+        <ChildBox flex width="100%">
+          <a
+            href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Box mx="auto" width="60%">
+              <Image
+                role="link"
+                src="2662b390-b79b-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgementbg.png"
+                alt="QR Code for PCWA Irrigation Customer Acknowledgement Form"
+                loader={imgixLoader}
+                layout="responsive"
+                sizes="60vw"
+                width={1116}
+                height={1116}
+              />
+            </Box>
+          </a>
+        </ChildBox>
+        <Spacing size="x-small" />
+        <ChildBox textAlign="center">
+          <Link
+            variant="subtitle1"
+            href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <em>
+              Complete the Customer Acknowledgement Online Today by using the QR
+              code above, or simply click the link
+            </em>
+          </Link>
+        </ChildBox>
+      </ColumnBox>
     </Box>
   )
 }
