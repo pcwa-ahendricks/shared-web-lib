@@ -1,5 +1,5 @@
 // cspell:ignore Cutrine amazonaws
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import {
   Box,
   Typography as Type,
@@ -42,6 +42,8 @@ import imgixLoader from '@lib/imageLoader'
 import FlexLink from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
+import {setAnimateDone, UiContext} from '@components/ui/UiStore'
+import IrrigSvcAgreeLookHere from '@components/LookHere/IrrigSvcAgreeLookHere'
 
 // type Props = {
 //   fallbackData?: PlayListItems
@@ -77,6 +79,16 @@ const IrrigationCanalPage = () => {
 
   const theme = useTheme<Theme>()
   const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
+
+  const uiContext = useContext(UiContext)
+  const {state: uiState, dispatch: uiDispatch} = uiContext
+  const {irrigSvcAgree: irrigSvcAgreeAnimateDone} = uiState.animateDone
+
+  useEffect(() => {
+    return () => {
+      uiDispatch(setAnimateDone('irrigSvcAgree', true))
+    }
+  }, [uiDispatch])
 
   return (
     <PageLayout title="Irrigation Canal Information" waterSurface>
@@ -211,22 +223,70 @@ const IrrigationCanalPage = () => {
               </Box> */}
             </ChildBox>
           </RowBox>
-
-          <Box mt={6}>
-            <Type variant="h3" gutterBottom>
-              Irrigation Service Agreement
-            </Type>
-            <Type paragraph>
-              PCWA recently updated its Rules & Regulations related to untreated
-              water service. PCWA is requesting customers' acknowledge the
-              updated Rules and Regulations for untreated water service by
-              signing an updated acknowledgement form. Visit our{' '}
-              <NextLink href="/services//irrigation-service-agreement" passHref>
-                <Link>Irrigation Service Agreement FAQs</Link>
-              </NextLink>{' '}
-              page to find out more information.
-            </Type>
-          </Box>
+          <Spacing size="large" />
+          <RowBox flexSpacing={2} responsive="xs">
+            <ChildBox flex="70%">
+              <Type variant="h3" gutterBottom>
+                Irrigation Service Agreement
+              </Type>
+              <Type paragraph>
+                PCWA recently updated its Rules & Regulations related to
+                untreated water service. PCWA is requesting customers'
+                acknowledge the updated Rules and Regulations for untreated
+                water service by signing an updated acknowledgement form.{' '}
+              </Type>
+              <Box display="flex" alignItems="center">
+                <IrrigSvcAgreeLookHere animate={!irrigSvcAgreeAnimateDone}>
+                  <Type>
+                    Visit our{' '}
+                    <NextLink
+                      href="/services/irrigation-service-agreement"
+                      passHref
+                    >
+                      <Link
+                        underline="always"
+                        style={{backgroundColor: blueGrey[50]}}
+                      >
+                        <strong>Irrigation Service Agreement FAQs</strong>
+                      </Link>
+                    </NextLink>{' '}
+                    page to find out more information.
+                  </Type>
+                </IrrigSvcAgreeLookHere>
+              </Box>
+            </ChildBox>
+            <ColumnBox child flex="30%">
+              <ChildBox flex width="100%">
+                <a
+                  href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Box mx="auto" width="100%">
+                    <Image
+                      src="6f397f90-b796-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgement2x.png"
+                      alt="PCWA Canal photo"
+                      loader={imgixLoader}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 60vw, 40vw"
+                      width={744}
+                      height={744}
+                    />
+                  </Box>
+                </a>
+              </ChildBox>
+              <ChildBox textAlign="center">
+                <Link
+                  variant="caption"
+                  href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <em>Complete the Customer Acknowledgement Online Today</em>
+                </Link>
+              </ChildBox>
+            </ColumnBox>
+          </RowBox>
 
           <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>
