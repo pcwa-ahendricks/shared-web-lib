@@ -5,7 +5,7 @@
       "schedule": "7 4,16 * * *"
     },
     {
-      "path": "//api/acis/multi-stn-precip-last7-smry?waterYear=2021&bust=true",
+      "path": "/api/acis/multi-stn-precip-last7-smry?waterYear=2021&bust=true",
       "schedule": "4 4,16 * * *"
     }
   ]
