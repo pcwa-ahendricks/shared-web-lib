@@ -80,3 +80,17 @@ See `next.config.js` for redirects.
 - `/career/salary-schedule` Was used on NG version of website. Use plural route instead.
 - `/career/employee-benefits-summary` Was used on NG version of website. Use plural route instead.
 - `/career/recruitment` Was used on NG version of website. Use plural route instead.
+
+### Cronjobs
+
+Below are the cronjobs on Vercel in order:
+
+- Snow Summary - Water Year
+- Snow Summary - Last 7 Days
+- Snow Summary - Last 30 Days
+- Precipitation Summary - Water Year
+- Precipitation Summary - Last 7 Days
+- Precipitation Summary - Last 30 Days
+- Max Temp Summary - Water Year
+- Max Temp Summary - Last 7 Days
+- Max Temp Summary - Last 30 Days
