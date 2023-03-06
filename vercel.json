@@ -1,46 +1,37 @@
 {
   "crons": [
-    // Snow Summary - Water Year
     {
       "path": "/api/acis/multi-stn-snow-seas-smry?waterYear=2021&bust=true",
       "schedule": "0 4,16 * * *"
     },
-    // Snow Summary - Last 7 Days
     {
       "path": "/api/acis/multi-stn-snow-last7-smry?waterYear=2021&bust=true",
       "schedule": "1 4,16 * * *"
     },
-    // Snow Summary - Last 30 Days
     {
       "path": "/api/acis/multi-stn-snow-last30-smry?waterYear=2021&bust=true",
       "schedule": "2 4,16 * * *"
     },
-    // Precipitation Summary - Water Year
     {
       "path": "/api/acis/multi-stn-precip-seas-smry?waterYear=2021&bust=true",
       "schedule": "3 4,16 * * *"
     },
-    // Precipitation Summary - Last 7 Days
     {
       "path": "/api/acis/multi-stn-precip-last7-smry?waterYear=2021&bust=true",
       "schedule": "4 4,16 * * *"
     },
-    // Precipitation Summary - Last 30 Days
     {
       "path": "/api/acis/multi-stn-precip-last30-smry?waterYear=2021&bust=true",
       "schedule": "5 4,16 * * *"
     },
-    // Max Temp Summary - Water Year
     {
       "path": "/api/acis/multi-stn-mxtemp-seas-smry?waterYear=2021&bust=true",
       "schedule": "6 4,16 * * *"
     },
-    // Max Temp Summary - Last 7 Days
     {
       "path": "/api/acis/multi-stn-mxtemp-last7-smry?waterYear=2021&bust=true",
       "schedule": "7 4,16 * * *"
     },
-    // Max Temp Summary - Last 30 Days
     {
       "path": "/api/acis/multi-stn-mxtemp-last30-smry?waterYear=2021&bust=true",
       "schedule": "8 4,16 * * *"
