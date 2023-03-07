@@ -8,8 +8,8 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden,
-  rgbToHex
+  Hidden
+  // rgbToHex
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
