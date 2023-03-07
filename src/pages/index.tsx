@@ -8,7 +8,8 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden
+  Hidden,
+  rgbToHex
   // rgbToHex
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
@@ -149,17 +150,19 @@ const Index = ({
             />
           </ChildBox> */}
 
-          <ChildBox flex="0 0 50%">
+          {/* not sure why min width is needed */}
+          <ChildBox flex="50%" minWidth="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Paperless Billing Available"
-              readMore="Go paperless today"
-              linkHref="https://ipn.paymentus.com/cp/plco"
-              flexLinkProps={{isNextLink: false}}
-              imgixURL="https://imgix.cosmicjs.com/23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg"
-              alt="Go paperless"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
+              title="Year End Report for 2022"
+              readMore="Learn more"
+              linkHref="/newsroom/publications/year-end"
+              imgixURL="https://imgix.cosmicjs.com/404a8540-bd12-11ed-b7c8-73c00a6d38c7-Year-End-Report-2022Mock-up01.png"
+              alt="2022 Year End Report graphic"
+              body="Take a look at our Year End Report for 2022 to learn more about how PCWA serves the community and protects our customers' investments."
+              imgixParams={{
+                bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+              }}
             />
           </ChildBox>
 
@@ -185,6 +188,19 @@ const Index = ({
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="Paperless Billing Available"
+              readMore="Go paperless today"
+              linkHref="https://ipn.paymentus.com/cp/plco"
+              flexLinkProps={{isNextLink: false}}
+              imgixURL="https://imgix.cosmicjs.com/23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg"
+              alt="Go paperless"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
+            />
+          </ChildBox>
+          <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Multiyear Rate Adjustment"
               readMore="Learn more"
               linkHref="/services/rate-adjust"
@@ -196,6 +212,7 @@ const Index = ({
               // }}
             />
           </ChildBox>
+
           {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -208,7 +225,7 @@ const Index = ({
             />
           </ChildBox> */}
 
-          <ChildBox flex="0 0 50%">
+          {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Water Year Dashboard"
@@ -219,7 +236,7 @@ const Index = ({
               imgixParams={{crop: 'bottom'}}
               body="See the latest hydrological conditions in the region including precipitation, snowpack, and temperature for the current water year."
             />
-          </ChildBox>
+          </ChildBox> */}
 
           {/*
           <ChildBox flex="50%">
@@ -654,7 +671,7 @@ const Index = ({
               typeProps={{style: {fontSize: '1rem'}}}
             />
           </ChildBox>
-          {/* <ChildBox width={tileWidth}>
+          <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Water Year Dashboard"
@@ -664,7 +681,7 @@ const Index = ({
               alt="Link to PCWA's Water Year Dashboard page"
               imgixParams={{crop: 'bottom'}}
             />
-          </ChildBox> */}
+          </ChildBox>
 
           <ChildBox width={tileWidth}>
             <CoverTile

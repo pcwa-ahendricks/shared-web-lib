@@ -83,7 +83,9 @@ See `next.config.js` for redirects.
 
 ### Cronjobs
 
-Below are the cronjobs on Vercel in order:
+Below are the cronjobs on Vercel in order
+
+ACIS jobs run at 12 am and 12 pm local time
 
 - Snow Summary - Water Year
 - Snow Summary - Last 7 Days

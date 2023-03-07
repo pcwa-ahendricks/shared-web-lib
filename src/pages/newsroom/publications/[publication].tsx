@@ -606,6 +606,17 @@ const PublicationsPage = ({
                 >
                   <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="2022 Year End Report"
+                      publishedDate={parse(
+                        '3/07/2023',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://imgix.cosmicjs.com/b00956e0-bd0d-11ed-b7c8-73c00a6d38c7-PCWA-Year-End-Report-2022.pdf"
+                    />
+                  </ChildBox>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="2021 Year End Report"
                       publishedDate={parse(
                         '1/28/2022',
