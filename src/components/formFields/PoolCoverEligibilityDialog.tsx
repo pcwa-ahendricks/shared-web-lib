@@ -88,7 +88,9 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
       [errors.treatedCustomer]
         .filter(
           (error) =>
-            error && typeof error === 'string' && !/required/i.test(error)
+            error &&
+            typeof error === 'string' &&
+            !/is a required field/i.test(error)
         )
         .some(Boolean),
     [errors]
@@ -158,7 +160,9 @@ const PoolCoverEligibilityDialog = ({open = false, onClose}: Props) => {
     (fieldName: PoolCoverRebateFormDataProp) => {
       const error = errors[fieldName]
       return (
-        Boolean(error) && typeof error === 'string' && !/required/i.test(error)
+        Boolean(error) &&
+        typeof error === 'string' &&
+        !/is a required field/i.test(error)
       )
     },
     [errors]
@@ -310,7 +314,7 @@ const QuestionOne = () => {
         const hasApplicableError =
           Boolean(currentError) &&
           typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
+          !/is a required field/i.test(currentError)
 
         const fieldTouched = Boolean(touched[name])
         return (

@@ -698,11 +698,11 @@ const LawnReplacement = () => {
                             fullWidth={false}
                             label={
                               <span>
-                                Optionally, check here to email receipts and
-                                photos instead. Send email with attachments to{' '}
-                                <RebatesEmail /> with your name and account
-                                number in the subject line. Failure to do so may
-                                result in a delay or rejected application.
+                                Optionally, check here to email photos instead.
+                                Send email with attachments to <RebatesEmail />{' '}
+                                with your name and account number in the subject
+                                line. Failure to do so may result in a delay or
+                                rejected application.
                               </span>
                             }
                             disabled={ineligible}

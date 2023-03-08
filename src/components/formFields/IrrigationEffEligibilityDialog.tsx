@@ -90,7 +90,9 @@ const IrrigationEffEligibilityDialog = ({
       [errors.treatedCustomer, errors.irrigMethod]
         .filter(
           (error) =>
-            error && typeof error === 'string' && !/required/i.test(error)
+            error &&
+            typeof error === 'string' &&
+            !/is a required field/i.test(error)
         )
         .some(Boolean),
     [errors]
@@ -160,7 +162,9 @@ const IrrigationEffEligibilityDialog = ({
     (fieldName: string) => {
       const error = errors[fieldName]
       return (
-        Boolean(error) && typeof error === 'string' && !/required/i.test(error)
+        Boolean(error) &&
+        typeof error === 'string' &&
+        !/is a required field/i.test(error)
       )
     },
     [errors]
@@ -303,7 +307,7 @@ const QuestionOne = () => {
         const hasApplicableError =
           Boolean(currentError) &&
           typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
+          !/is a required field/i.test(currentError)
 
         const fieldTouched = Boolean(touched[name])
         return (
@@ -364,7 +368,7 @@ const QuestionTwo = () => {
         const hasApplicableError =
           Boolean(currentError) &&
           typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
+          !/is a required field/i.test(currentError)
 
         const fieldTouched = Boolean(touched[name])
         return (

@@ -9,25 +9,18 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListSubheader,
   Step,
   StepLabel,
   StepContent,
   Theme,
-  Box,
   makeStyles,
   createStyles,
   useTheme
-  // Typography as Type
 } from '@material-ui/core'
-import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
-// import {ANSWERS as q2Answers} from '@components/formFields/AlreadyStartedSelect'
-import {ANSWERS as q2Answers} from '@components/formFields/ArtTurfSelect'
-import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps, useFormikContext} from 'formik'
+import {Field, connect, FormikProps, FieldProps} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
@@ -37,7 +30,7 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
-import {LawnReplacementRebateFormData} from '@lib/services/formService'
+import RebatesEmail from '@components/links/RebatesEmail'
 
 type Props = {
   open: boolean
@@ -69,7 +62,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+const PostConvLawnReplEligibilityDialog = ({
+  open = false,
+  onClose,
+  formik
+}: Props) => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -85,10 +82,10 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const eligibleFieldsTouched = useMemo(
     () =>
       [
-        touched.treatedCustomer,
-        touched.useArtTurf,
-        touched.approxSqFeet,
-        touched.irrigMethod
+        touched.rebateCustomer,
+        touched.projectCompleted,
+        touched.worksheetCompleted,
+        touched.photosTaken
       ].every(Boolean),
     [touched]
   )
@@ -96,10 +93,10 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const eligibleFieldsHaveError = useMemo(
     () =>
       [
-        errors.treatedCustomer,
-        errors.useArtTurf,
-        errors.approxSqFeet,
-        errors.irrigMethod
+        errors.rebateCustomer,
+        errors.projectCompleted,
+        errors.worksheetCompleted,
+        errors.photosTaken
       ]
         .filter(
           (error) =>
@@ -174,11 +171,11 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   const stepHasError = useCallback(
     (fieldName: string) => {
       const error = errors[fieldName]
-      return (
+      const hasError =
         Boolean(error) &&
         typeof error === 'string' &&
         !/is a required field/i.test(error)
-      )
+      return hasError
     },
     [errors]
   )
@@ -192,45 +189,49 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
     },
     [touched]
   )
-
   return (
     <EligibilityDialog
       open={open}
       onClose={onClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Check Rebate Eligibility</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        Check Application Eligibility
+      </DialogTitle>
       <DialogContent>
         <div>
           <EligibilityStepper activeStep={activeStep}>
-            {steps.map(({label, index, fieldName}) => (
-              <Step key={label} completed={stepCompleted(fieldName)}>
-                {/* <StepLabel>{label}</StepLabel> */}
-                <StepLabel
-                  error={stepHasError(fieldName)}
-                  classes={{
-                    iconContainer: classes.stepLabelIcon,
-                    labelContainer: classes.stepLabelLabel
-                  }}
-                  optional={
-                    <DialogContentText
-                      variant="h4"
-                      color="textSecondary"
-                      className={clsx({
-                        [classes.stepLabelError]: stepHasError(fieldName),
-                        [classes.stepLabelActive]: activeStep === index
-                      })}
-                    >
-                      {label}
-                    </DialogContentText>
-                  }
-                  onClick={stepLabelClickHandler(index)}
-                >
-                  {''}
-                </StepLabel>
-                <StepContent>{getStepContent(index)}</StepContent>
-              </Step>
-            ))}
+            {steps.map(({label, index, fieldName}) => {
+              const hasError = stepHasError(fieldName)
+              return (
+                <Step key={label} completed={stepCompleted(fieldName)}>
+                  {/* <StepLabel>{label}</StepLabel> */}
+                  <StepLabel
+                    error={hasError}
+                    classes={{
+                      iconContainer: classes.stepLabelIcon,
+                      labelContainer: classes.stepLabelLabel
+                    }}
+                    optional={
+                      <DialogContentText
+                        variant="h4"
+                        color="textSecondary"
+                        className={clsx({
+                          [classes.stepLabelError]: hasError,
+                          [classes.stepLabelActive]: activeStep === index
+                        })}
+                      >
+                        {label}
+                      </DialogContentText>
+                    }
+                    onClick={stepLabelClickHandler(index)}
+                  >
+                    {''}
+                  </StepLabel>
+                  <StepContent>{getStepContent(index)}</StepContent>
+                </Step>
+              )
+            })}
           </EligibilityStepper>
           <WaitToGrow isIn={rebateEligibility}>
             <DialogContentText
@@ -238,9 +239,9 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
               color="textPrimary"
               className={classes.qualifyMsg}
             >
-              Excellent. You may now submit your application for the Lawn
-              Replacement Rebate. Please close this message now to continue the
-              rebate application process.
+              Excellent. You meet the requirements for submitting this
+              application. Please close this message now to continue the
+              application process.
             </DialogContentText>
           </WaitToGrow>
         </div>
@@ -292,7 +293,7 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 }
 
-export default connect(LawnReplEligibilityDialog)
+export default connect(PostConvLawnReplEligibilityDialog)
 
 function getStepContent(stepNo: number) {
   const found = getSteps().find((step) => step.index === stepNo)
@@ -315,14 +316,14 @@ const useQuestionStyles = makeStyles((theme: Theme) =>
 const QuestionOne = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="treatedCustomer">
+    <Field name="rebateCustomer">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
         const currentError = errors[name]
 
-        const clickHandler = (isTreatedCustomer: string) => () => {
-          setFieldValue(name, isTreatedCustomer, true)
+        const clickHandler = (newValue: string) => () => {
+          setFieldValue(name, newValue, true)
           setFieldTouched(name, true)
         }
 
@@ -336,11 +337,11 @@ const QuestionOne = () => {
         return (
           <div>
             <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
+            // subheader={
+            //   <ListSubheader component="div">
+            //     Choose one of the following
+            //   </ListSubheader>
+            // }
             >
               {yesNoAnswers.map((answer) => (
                 <ListItem
@@ -361,9 +362,8 @@ const QuestionOne = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                Unfortunately, you do not qualify for the Lawn Replacement
-                Rebate. Lawn Replacement Rebates are only available for PCWA
-                treated water customers.
+                This application is only to be submitted by customers that are
+                currently participating in the Lawn Replacement Rebate Program.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -373,71 +373,10 @@ const QuestionOne = () => {
   )
 }
 
-// const QuestionTwo = () => {
-//   const classes = useQuestionStyles()
-//   return (
-//     <Field name="alreadyStarted">
-//       {({field, form}: FieldProps<any>) => {
-//         const {setFieldValue, errors, setFieldTouched, touched} = form
-//         const {name, value} = field
-//         const currentError = errors[name]
-
-//         const clickHandler = (newValue: string) => () => {
-//           setFieldValue(name, newValue, true)
-//           setFieldTouched(name, true)
-//         }
-
-//         // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-//         const hasApplicableError =
-//           Boolean(currentError) &&
-//           typeof currentError === 'string' &&
-//           !/is a required field/i.test(currentError)
-
-//         const fieldTouched = Boolean(touched[name])
-//         return (
-//           <div>
-//             <List
-//               subheader={
-//                 <ListSubheader component="div">
-//                   Choose one of the following
-//                 </ListSubheader>
-//               }
-//             >
-//               {q2Answers.map((answer) => (
-//                 <ListItem
-//                   key={answer.caption}
-//                   button
-//                   divider
-//                   selected={answer.value === value}
-//                   // disabled={fieldTouched}
-//                   onClick={clickHandler(answer.value)}
-//                 >
-//                   <ListItemText primary={answer.caption} />
-//                 </ListItem>
-//               ))}
-//             </List>
-//             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-//               <DialogContentText
-//                 variant="body1"
-//                 color="textPrimary"
-//                 className={classes.qualifyMsg}
-//               >
-//                 Unfortunately you do not qualify for the Lawn Replacement
-//                 Rebate. Conversions that are initiated prior to PCWA's approval
-//                 are ineligible. No exceptions will be made.
-//               </DialogContentText>
-//             </WaitToGrow>
-//           </div>
-//         )
-//       }}
-//     </Field>
-//   )
-// }
-
 const QuestionTwo = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="useArtTurf">
+    <Field name="projectCompleted">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
@@ -458,22 +397,22 @@ const QuestionTwo = () => {
         return (
           <div>
             <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
+            // subheader={
+            //   <ListSubheader component="div">
+            //     Choose one of the following
+            //   </ListSubheader>
+            // }
             >
-              {q2Answers.map((answer) => (
+              {yesNoAnswers.map((answer) => (
                 <ListItem
-                  key={answer.caption}
+                  key={answer}
                   button
                   divider
-                  selected={answer.value === value}
+                  selected={answer === value}
                   // disabled={fieldTouched}
-                  onClick={clickHandler(answer.value)}
+                  onClick={clickHandler(answer)}
                 >
-                  <ListItemText primary={answer.caption} />
+                  <ListItemText primary={answer} />
                 </ListItem>
               ))}
             </List>
@@ -483,10 +422,7 @@ const QuestionTwo = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                Unfortunately you do not qualify for the lawn replacement
-                rebate. To qualify, you must have at least 300 square feet of
-                lawn being replaced by water efficient landscape as defined in
-                the program's terms and conditions.
+                Project must be completed in order to submit application.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -498,40 +434,10 @@ const QuestionTwo = () => {
 
 const QuestionThree = () => {
   const classes = useQuestionStyles()
-  const {touched, errors} = useFormikContext<LawnReplacementRebateFormData>()
-  const fieldName = 'approxSqFeet'
-  const fieldError = errors[fieldName]
-
-  // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
-  const hasApplicableError =
-    Boolean(fieldError) &&
-    typeof fieldError === 'string' &&
-    !/is a required field/i.test(fieldError)
-
-  const fieldTouched = Boolean(touched[fieldName])
   return (
-    <Box>
-      <LawnApproxSqFootField name={fieldName} />
-      <WaitToGrow isIn={hasApplicableError && fieldTouched}>
-        <DialogContentText
-          variant="body1"
-          color="textPrimary"
-          className={classes.qualifyMsg}
-        >
-          Unfortunately you do not qualify for the Lawn Replacement Rebate. A
-          minimum of 300 square feet of lawn must be converted.
-        </DialogContentText>
-      </WaitToGrow>
-    </Box>
-  )
-}
-
-const QuestionFour = () => {
-  const classes = useQuestionStyles()
-  return (
-    <Field name="irrigMethod">
+    <Field name="worksheetCompleted">
       {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, touched, errors, setFieldTouched} = form
+        const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
         const currentError = errors[name]
 
@@ -550,22 +456,21 @@ const QuestionFour = () => {
         return (
           <div>
             <List
-              subheader={
-                <ListSubheader component="div">
-                  Choose one of the following
-                </ListSubheader>
-              }
+            // subheader={
+            //   <ListSubheader component="div">
+            //     Choose one of the following
+            //   </ListSubheader>
+            // }
             >
-              {IRRIGATION_METHODS.map((method) => (
+              {yesNoAnswers.map((answer) => (
                 <ListItem
-                  key={method}
+                  key={answer}
                   button
                   divider
-                  selected={method === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(method)}
+                  selected={answer === value}
+                  onClick={clickHandler(answer)}
                 >
-                  <ListItemText primary={method} />
+                  <ListItemText primary={answer} />
                 </ListItem>
               ))}
             </List>
@@ -575,9 +480,69 @@ const QuestionFour = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                Unfortunately you do not qualify for the Lawn Replacement
-                Rebate. Lawn areas to be converted must be currently maintained
-                and irrigated by an operating sprinkler system.
+                Plant Coverage Worksheet is required in order to submit
+                application. Please contact <RebatesEmail /> and request the
+                Plant Coverage Worksheet.
+              </DialogContentText>
+            </WaitToGrow>
+          </div>
+        )
+      }}
+    </Field>
+  )
+}
+
+const QuestionFour = () => {
+  const classes = useQuestionStyles()
+  return (
+    <Field name="photosTaken">
+      {({field, form}: FieldProps<any>) => {
+        const {setFieldValue, errors, setFieldTouched, touched} = form
+        const {name, value} = field
+        const currentError = errors[name]
+
+        const clickHandler = (newValue: string) => () => {
+          setFieldValue(name, newValue, true)
+          setFieldTouched(name, true)
+        }
+
+        // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
+        const hasApplicableError =
+          Boolean(currentError) &&
+          typeof currentError === 'string' &&
+          !/is a required field/i.test(currentError)
+
+        const fieldTouched = Boolean(touched[name])
+        return (
+          <div>
+            <List
+            // subheader={
+            //   <ListSubheader component="div">
+            //     Choose one of the following
+            //   </ListSubheader>
+            // }
+            >
+              {yesNoAnswers.map((answer) => (
+                <ListItem
+                  key={answer}
+                  button
+                  divider
+                  selected={answer === value}
+                  // disabled={fieldTouched}
+                  onClick={clickHandler(answer)}
+                >
+                  <ListItemText primary={answer} />
+                </ListItem>
+              ))}
+            </List>
+            <WaitToGrow isIn={hasApplicableError && fieldTouched}>
+              <DialogContentText
+                variant="body1"
+                color="textPrimary"
+                className={classes.qualifyMsg}
+              >
+                Post Conversion photographs (5) are required. Please refer to
+                Lawn Replacement terms and conditions, section, VI.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -591,33 +556,28 @@ function getSteps() {
   return [
     {
       index: 0,
-      label: 'Are you a Placer County Water Agency treated water customer? ',
-      fieldName: 'treatedCustomer',
+      label:
+        'Are you currently participating in the PCWA Lawn Replacement Rebate Program?',
+      fieldName: 'rebateCustomer',
       content: <QuestionOne />
     },
-    // {
-    //   index: 1,
-    //   label: 'Have you already started the Lawn Replacement project?',
-    //   fieldName: 'alreadyStarted',
-    //   content: <QuestionTwo />
-    // },
     {
       index: 1,
-      label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
-      fieldName: 'useArtTurf',
+      label: 'Is your project completed?',
+      fieldName: 'projectCompleted',
       content: <QuestionTwo />
     },
     {
       index: 2,
-      label:
-        'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
-      fieldName: 'approxSqFeet',
+      label: "Have you completed the '50% Plant Coverage worksheet'?",
+      fieldName: 'worksheetCompleted',
       content: <QuestionThree />
     },
     {
       index: 3,
-      label: 'How is the existing lawn currently irrigated?',
-      fieldName: 'irrigMethod',
+      label:
+        'Have you taken 5 post conversion photographs following requirements stated in terms and conditions?',
+      fieldName: 'photosTaken',
       content: <QuestionFour />
     }
   ]

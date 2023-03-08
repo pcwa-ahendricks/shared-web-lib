@@ -1,6 +1,7 @@
 // cspell:ignore supportsTouch
 import React, {useState, useCallback} from 'react'
 import {
+  Typography as Type,
   Box,
   Button,
   Tooltip,
@@ -16,11 +17,12 @@ import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
 import useSupportsTouch from '@hooks/useSupportsTouch'
 import {ColumnBox} from 'mui-sleazebox'
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
 
 type Props = {
   file: DroppedFile
   isUploading?: boolean
-  onClick: (file: DroppedFile) => void
+  onClick?: (file: DroppedFile) => void
   onRemoveUpload?: (file: DroppedFile) => void
   uploadedFiles?: UploadedFileAttr[]
 }
@@ -59,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     thumbInner: {
       display: 'flex',
-      cursor: 'pointer',
       minWidth: 0,
       overflow: 'hidden',
       width: '100%'
@@ -102,7 +103,7 @@ const ThumbPreview = ({
 
   const clickHandler = useCallback(
     (file: DroppedFile) => () => {
-      onClick(file)
+      onClick?.(file)
     },
     [onClick]
   )
@@ -155,27 +156,45 @@ const ThumbPreview = ({
           <Tooltip title={file.originalName ?? ''} enterDelay={500}>
             {/* [TODO] - figure out what these eslint errors mean */}
             {/* eslint-disable-next-line */}
-            <div
-              className={classes.thumbInner}
-              onMouseEnter={() => setThumbHover(file.name)}
-              onClick={clickHandler(file)}
-              role="dialog"
-            >
-              {/* Old n/a comment - Using data-src="..." as a fallback shouldn't be necessary with
+            {/^image\/.*/i.test(file.type) ? (
+              <div
+                className={classes.thumbInner}
+                onMouseEnter={() => setThumbHover(file.name)}
+                onClick={clickHandler(file)}
+                role="dialog"
+                // style={{cursor: 'pointer'}}
+              >
+                {/* Old n/a comment - Using data-src="..." as a fallback shouldn't be necessary with
               IE11 if polyfill is used. See
               https://github.com/aFarkas/lazysizes/blob/gh-pages/README.md#responsive-image-support-picture-andor-srcset
               for more info. */}
-              <img
-                object-fit="contain"
-                src={file.previewUrl}
-                alt={`Thumbnail for ${file.name} upload`}
-                className={classes.thumbImg}
-                // src="/static/images/placeholder-camera.png"
-                // data-sizes="auto"
-                // srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                // data-srcset={file.previewUrl}
-              />
-            </div>
+                <img
+                  object-fit="contain"
+                  src={file.previewUrl}
+                  alt={`Thumbnail for ${file.name} upload`}
+                  className={classes.thumbImg}
+                  // src="/static/images/placeholder-camera.png"
+                  // data-sizes="auto"
+                  // srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                  // data-srcset={file.previewUrl}
+                />
+              </div>
+            ) : (
+              <div
+                className={classes.thumbInner}
+                onMouseEnter={() => setThumbHover(file.name)}
+              >
+                <Box display="flex" flexDirection="column" textAlign="center">
+                  <DescriptionOutlinedIcon
+                    style={{fontSize: '58px'}}
+                    color="primary"
+                  />
+                  <Type variant="h6" color="primary">
+                    {file.ext}
+                  </Type>
+                </Box>
+              </div>
+            )}
           </Tooltip>
           {/* <div className={classes.fileNameOverlay}>
               <Type color="inherit" variant="caption">

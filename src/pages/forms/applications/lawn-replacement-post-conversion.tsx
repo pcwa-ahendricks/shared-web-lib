@@ -12,8 +12,8 @@ import {Formik, Field} from 'formik'
 import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
   postForm,
-  LawnReplacementRequestBody as RequestBody,
-  LawnReplacementRebateFormData as RebateFormData
+  PostConvLawnReplacementRequestBody as RequestBody,
+  PostConvLawnReplacementRebateFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
@@ -22,7 +22,6 @@ import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
-import IrrigationMethodSelect from '@components/formFields/IrrigationMethodSelect'
 import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
@@ -34,30 +33,20 @@ import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTerms
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import LawnReplEligibilityDialog from '@components/formFields/LawnReplEligibilityDialog'
-import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
-import ArtTurfSelect from '@components/formFields/ArtTurfSelect'
-import AlreadyStartedSelect from '@components/formFields/AlreadyStartedSelect'
-import isNumber from 'is-number'
 import delay from 'then-sleep'
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
-import FormTextField from '@components/formFields/FormTextField'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
-import IrrigUpgradeLocationCheckboxes, {
-  formControlItems as initialIrrigUpgradeLocationOpts
-} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
-import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
-import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 import RebatesEmail from '@components/links/RebatesEmail'
 import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import AttachmentField from '@components/formFields/AttachmentField'
+import PostConvLawnReplEligibilityDialog from '@components/formFields/PostConvLawnReplEligibilityDialog'
 
 const SERVICE_URI_PATH = 'lawn-replacement-post-conversion-app'
 
@@ -83,22 +72,38 @@ const formSchema = object()
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string().required().min(10).label('Phone Number'),
-    howDidYouHear: string()
-      .required()
-      .label('How Did You Hear About this Rebate Program'),
-    otherHowDidYouHear: string()
-      .label('How Did You Hear About this Rebate Program')
-      .when(
-        'howDidYouHear',
-        (howDidYouHear: string | null, schema: StringSchema) =>
-          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-            ? schema.required()
-            : schema
-      ),
     propertyType: string().required().label('Property Type'),
-    treatedCustomer: string().required().label('Treated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency treated water customer'
+    rebateCustomer: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'You must be currently participating in the Lawn Replacement Rebate Program'
+      )
+      .label('Lawn Replacement Rebate Applicant'),
+    projectCompleted: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'Project must be completed'
+      )
+      .label('Project Completion'),
+    worksheetCompleted: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'Plant Coverage Worksheet is required in order to submit application'
+      )
+      .label('Worksheet Completion'),
+    photosTaken: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'Post Conversion photographs (5) are required in order to submit application'
+      )
+      .label('Post Conversion photographs Taken'),
+    artTurfInstalled: string().required().label('Artificial Turf Installed'),
+    approxSqFeet: string().label(
+      'Approximate Square Feet of Installed Artificial Turf'
     ),
     termsAgree: string()
       .required()
@@ -108,7 +113,7 @@ const formSchema = object()
       )
       .label('Agree to Terms'),
     emailAttachments: string().label('Email Attachments'),
-    preConvPhotos: array()
+    postConvPhotos: array()
       .when(
         'emailAttachments',
         (
@@ -118,8 +123,8 @@ const formSchema = object()
           emailAttachments === 'true'
             ? schema
             : schema
-                .required('Must provide 5 photos of your pre-converted lawn')
-                .length(5, 'Must provide 5 photos of your pre-converted lawn')
+                .required('You must provide 5 photos')
+                .length(5, 'You must provide 5 photos')
       )
       .of(
         object({
@@ -140,49 +145,7 @@ const formSchema = object()
     signature: string().required().label('Your signature'),
     captcha: string()
       .required('Checking this box is required for security purposes')
-      .label('This checkbox'),
-    describe: string()
-      .max(300, 'Description must be less than 300 characters.')
-      .label('Description'),
-    useArtTurf: string()
-      .required()
-      .oneOf(
-        ['false'],
-        'Artificial grass is not allowed in the rebated portion of the converted landscape'
-      )
-      .label('Replace lawn with artificial turf'),
-    alreadyStarted: string().required().label('Project Status'),
-    // .oneOf(
-    //   ['false'],
-    //   "Conversions that are initiated prior to PCWA's approval are ineligible"
-    // )
-    // .label('Already started replacement of lawn'),
-    approxSqFeet: string()
-      .required()
-      .test(
-        'min-sq-feet',
-        'A minimum of 300 square feet of lawn must be converted',
-        (val) => {
-          const stripped = (val && val.replace(/[^0-9.]/, '')) ?? ''
-          if (isNumber(stripped)) {
-            const valAsNo = Math.round(parseFloat(stripped))
-            return valAsNo >= 300
-          }
-          return false
-        }
-      )
-      .label('Approximate Square Feet of Existing Lawn'),
-    irrigMethod: string().required().label('Irrigation Method').notOneOf(
-      ['Hand water'], // Case sensitive
-      'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
-    ),
-    upgradeLocations: object()
-      .required()
-      .test(
-        'has-one-location-option',
-        'You must select at least one location option',
-        hasTrueValue
-      )
+      .label('This checkbox')
   })
 
 const initialFormValues: RebateFormData = {
@@ -194,22 +157,19 @@ const initialFormValues: RebateFormData = {
   city: '',
   otherCity: '',
   phone: '',
-  howDidYouHear: '',
-  otherHowDidYouHear: '',
   propertyType: '',
-  treatedCustomer: '',
+  rebateCustomer: '',
+  projectCompleted: '',
+  worksheetCompleted: '',
+  photosTaken: '',
+  artTurfInstalled: '',
+  approxSqFeet: '',
   termsAgree: '',
   inspectAgree: '',
   emailAttachments: '',
   signature: '',
   captcha: '',
-  describe: '',
-  irrigMethod: '',
-  approxSqFeet: '',
-  useArtTurf: '',
-  alreadyStarted: '',
-  upgradeLocations: {...initialIrrigUpgradeLocationOpts},
-  preConvPhotos: []
+  postConvPhotos: []
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -248,7 +208,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-
 const LawnReplacementPostConversion = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
@@ -345,10 +304,10 @@ const LawnReplacementPostConversion = () => {
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.
                 const rebateIneligibility = [
-                  errors['treatedCustomer'],
-                  errors['useArtTurf'],
-                  errors['approxSqFeet'],
-                  errors['irrigMethod']
+                  errors['rebateCustomer'],
+                  errors['projectCompleted'],
+                  errors['worksheetCompleted'],
+                  errors['photosTaken']
                 ].some(Boolean)
                 if (rebateIneligibility !== ineligible) {
                   setIneligible(rebateIneligibility)
@@ -362,11 +321,6 @@ const LawnReplacementPostConversion = () => {
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
                 )
-                const otherHowDidYouHearSelected = Boolean(
-                  values.howDidYouHear &&
-                    values.howDidYouHear.toLowerCase() === 'other'
-                )
-
                 const emailAttachments = Boolean(
                   values.emailAttachments === 'true'
                 )
@@ -375,13 +329,7 @@ const LawnReplacementPostConversion = () => {
                 const cityChangeHandler = () => {
                   setFieldValue('otherCity', '')
                 }
-                // If howDidYouHear field is updated clear out otherHowDidYouHear field.
-                const howDidYouHearChangeHandler = (evt: any) => {
-                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                  if (evt.target.value.toLowerCase() !== 'other') {
-                    setFieldValue('otherHowDidYouHear', '')
-                  }
-                }
+
                 const attachmentsAreUploading = photoIsUploading
 
                 return (
@@ -481,31 +429,6 @@ const LawnReplacementPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                name="howDidYouHear"
-                                disabled={ineligible}
-                                onChange={howDidYouHearChangeHandler}
-                                component={HowDidYouHearSelectField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <WaitToGrow isIn={otherHowDidYouHearSelected}>
-                            <Grid container spacing={5}>
-                              <Grid item xs={12}>
-                                <Field
-                                  disabled={
-                                    !otherHowDidYouHearSelected || ineligible
-                                  }
-                                  name="otherHowDidYouHear"
-                                  component={OtherHowDidYouHearField}
-                                />
-                              </Grid>
-                            </Grid>
-                          </WaitToGrow>
                         </div>
 
                         <Divider variant="middle" />
@@ -521,78 +444,47 @@ const LawnReplacementPostConversion = () => {
                           </Type>
 
                           <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                name="alreadyStarted"
-                                disabled={ineligible}
-                                component={AlreadyStartedSelect}
-                              />
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Type
-                                variant="subtitle1"
-                                color="textSecondary"
-                                gutterBottom
-                              >
-                                Location of the irrigation equipment you plan to
-                                upgrade
-                              </Type>
-
-                              <Field
-                                name="upgradeLocations"
-                                disabled={ineligible}
-                                component={IrrigUpgradeLocationCheckboxes}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <FormTextField
-                                required
-                                name="describe"
-                                multiline
-                                rows={3} // That's about 200 characters
-                                label="Briefly describe your project plans"
-                                disabled={ineligible}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
-                                name="treatedCustomer"
-                                inputLabel="PCWA Treated Customer"
-                                inputId="treated-water-select"
-                                labelWidth={200}
+                                name="rebateCustomer"
+                                inputLabel="Participating in Lawn Replacement Rebate Program"
+                                inputId="rebate-customer-select"
+                                labelWidth={315}
                                 component={YesNoSelectField}
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
-                                name="useArtTurf"
-                                component={ArtTurfSelect}
+                                name="projectCompleted"
+                                inputLabel="Lawn Conversion Project Completed"
+                                inputId="project-completed-select"
+                                labelWidth={280}
+                                component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
 
                           <Grid container spacing={5}>
-                            <Grid item xs={12} sm={8}>
-                              <LawnApproxSqFootField
-                                disabled
-                                name="approxSqFeet"
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={6}>
                               <Field
                                 disabled
-                                name="irrigMethod"
-                                component={IrrigationMethodSelect}
+                                name="worksheetCompleted"
+                                inputLabel="Plant Coverage Worksheet Completed"
+                                inputId="plant-coverage-completed-select"
+                                labelWidth={290}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="photosTaken"
+                                inputLabel="Have Taken Photos"
+                                inputId="have-taken-photos-select"
+                                labelWidth={155}
+                                component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
@@ -607,7 +499,7 @@ const LawnReplacementPostConversion = () => {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Pre-Conversion Photograph Attachments
+                            Post-Conversion Photograph Attachments
                           </Type>
                           <Type>Photo Attachment Requirements:</Type>
                           <Box component="ul">
@@ -673,7 +565,7 @@ const LawnReplacementPostConversion = () => {
                               being ineligible for rebate{' '}
                               <em>(see II. D. on page 1)</em>.
                             </Type>
-                            <Type
+                            {/* <Type
                               component="li"
                               variant="body1"
                               className={classes.liItem}
@@ -681,16 +573,17 @@ const LawnReplacementPostConversion = () => {
                               Conversation area must{' '}
                               <strong>include at least</strong> one picture of
                               irrigation system operating.
-                            </Type>
+                            </Type> */}
                           </Box>
                           <Spacing size="small" />
                           <Type variant="caption" color="textSecondary">
-                            Note - Only Image file formats can be uploaded (eg.
-                            .jpg, .png). PDF files <em>cannot</em> be uploaded
-                            here. If you are unable to attach the correct file
-                            type, or if any other issues with the attachments
-                            arise, you may select the box below and submit the
-                            files in an email.
+                            Note - Image file formats are preferred (eg. .jpg,
+                            .png) for uploads. PDF files and Word Documents can
+                            be uploaded too but they <em>must be less than</em>{' '}
+                            4.5 MB in size. If you are unable to attach the
+                            correct file type, or if any other issues with the
+                            attachments arise, you may select the box below and
+                            submit the files in an email.
                           </Type>
                           <Field
                             name="emailAttachments"
@@ -698,11 +591,11 @@ const LawnReplacementPostConversion = () => {
                             fullWidth={false}
                             label={
                               <span>
-                                Optionally, check here to email receipts and
-                                photos instead. Send email with attachments to{' '}
-                                <RebatesEmail /> with your name and account
-                                number in the subject line. Failure to do so may
-                                result in a delay or rejected application.
+                                Optionally, check here to email photos instead.
+                                Send email with attachments to <RebatesEmail />{' '}
+                                with your name and account number in the subject
+                                line. Failure to do so may result in a delay or
+                                rejected application.
                               </span>
                             }
                             disabled={ineligible}
@@ -711,9 +604,9 @@ const LawnReplacementPostConversion = () => {
                           <div className={classes.dropzoneContainer}>
                             <Field
                               disabled={ineligible || emailAttachments}
-                              name="preConvPhotos"
-                              attachmentTitle="(5) Photos"
-                              uploadRoute="lawn-replacement"
+                              name="postConvPhotos"
+                              attachmentTitle="(5) Post Conversion Photos"
+                              uploadRoute="post-conv-lawn-replacement"
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
@@ -756,10 +649,10 @@ const LawnReplacementPostConversion = () => {
                               />
                               <Type variant="body1">
                                 You must agree to participate in a
-                                pre-conversion site inspection conducted by PCWA
-                                prior to the removal of any lawn. You may not be
-                                required to be present; arrangements will be
-                                made by a PCWA Water Efficiency Specialist.
+                                post-conversion site inspection conducted by
+                                PCWA. You may not be required to be present;
+                                arrangements will be made by a PCWA Water
+                                Efficiency Specialist.
                               </Type>
                               <Field
                                 name="inspectAgree"
@@ -877,7 +770,7 @@ const LawnReplacementPostConversion = () => {
                         </SubmitFormButton>
                       </FormBox>
 
-                      <LawnReplEligibilityDialog
+                      <PostConvLawnReplEligibilityDialog
                         open={eligibilityDialogOpen}
                         onClose={() => setEligibilityDialogOpen(false)}
                       />
@@ -925,11 +818,3 @@ const LawnReplacementPostConversion = () => {
 }
 
 export default LawnReplacementPostConversion
-
-function hasTrueValue(value: any): boolean {
-  return (
-    value &&
-    typeof value === 'object' &&
-    Object.keys(value).some((chkBoxVal) => value[chkBoxVal] === true)
-  )
-}

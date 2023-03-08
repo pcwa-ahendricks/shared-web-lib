@@ -161,7 +161,9 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
       ]
         .filter(
           (error) =>
-            error && typeof error === 'string' && !/required/i.test(error)
+            error &&
+            typeof error === 'string' &&
+            !/is a required field/i.test(error)
         )
         .some(Boolean),
     [errors]
@@ -233,7 +235,9 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
     (fieldName: Sb998SelfCertFormDataProp) => {
       const error = errors[fieldName]
       return (
-        Boolean(error) && typeof error === 'string' && !/required/i.test(error)
+        Boolean(error) &&
+        typeof error === 'string' &&
+        !/is a required field/i.test(error)
       )
     },
     [errors]
@@ -524,7 +528,7 @@ const QuestionOne = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
   const hasApplicableError =
     Boolean(currentError) &&
     typeof currentError === 'string' &&
-    !/required field/i.test(currentError)
+    !/is a required field/i.test(currentError)
 
   const fieldTouched = Boolean(touched[name])
 
@@ -595,7 +599,7 @@ const QuestionTwo = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
   const hasApplicableError =
     Boolean(currentError) &&
     typeof currentError === 'string' &&
-    !/required field/i.test(currentError)
+    !/is a required field/i.test(currentError)
 
   const fieldTouched = Boolean(touched[name])
 
@@ -660,7 +664,7 @@ const QuestionThree = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
   const hasApplicableError =
     Boolean(currentError) &&
     typeof currentError === 'string' &&
-    !/required field/i.test(currentError)
+    !/is a required field/i.test(currentError)
 
   const fieldTouched = Boolean(touched[name])
 
@@ -727,7 +731,7 @@ const QuestionFour = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
   const hasApplicableError =
     Boolean(currentError) &&
     typeof currentError === 'string' &&
-    !/required field/i.test(currentError)
+    !/is a required field/i.test(currentError)
 
   const fieldTouched = Boolean(touched[name])
 
@@ -785,7 +789,7 @@ const QuestionFive = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
   const hasApplicableError =
     Boolean(currentError) &&
     typeof currentError === 'string' &&
-    !/required field/i.test(currentError)
+    !/is a required field/i.test(currentError)
 
   const fieldTouched = Boolean(touched[name])
 
