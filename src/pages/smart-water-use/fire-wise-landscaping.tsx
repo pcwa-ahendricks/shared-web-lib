@@ -173,14 +173,14 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/e27c49f0-05d2-11ec-b6f4-332534522a48-FirehouseKevin.mp4"
+                  href="https://youtu.be/MJidh-EuCWQ"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
                 <MatLink
-                  href="https://cdn.cosmicjs.com/e27c49f0-05d2-11ec-b6f4-332534522a48-FirehouseKevin.mp4"
+                  href="https://youtu.be/MJidh-EuCWQ"
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
@@ -295,14 +295,14 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/e340d270-05d2-11ec-b6f4-332534522a48-FirehouseJeff.mp4"
+                  href="https://youtu.be/D4BGXX5uvrM"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
                 <MatLink
-                  href="https://cdn.cosmicjs.com/e340d270-05d2-11ec-b6f4-332534522a48-FirehouseJeff.mp4"
+                  href="https://youtu.be/D4BGXX5uvrM"
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
