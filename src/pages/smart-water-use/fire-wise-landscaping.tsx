@@ -197,16 +197,13 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
+                  href="https://youtu.be/cykUV_vtKTE"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
-                <MatLink
-                  href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
-                  variant="h3"
-                >
+                <MatLink href="https://youtu.be/cykUV_vtKTE" variant="h3">
                   Watch a brief video: Water-Wise Plants with Greg Gayton, Green
                   Acres Nursery & Supply, interviewed by PCWA’s Linda Higgins.
                 </MatLink>

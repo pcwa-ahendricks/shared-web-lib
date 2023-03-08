@@ -115,9 +115,9 @@ const ThumbPreview = ({
     [onRemoveUpload]
   )
 
-  const uploadSuccessHandler = useCallback(() => {
-    // setUploadSuccess(true)
-  }, [])
+  // const uploadSuccessHandler = useCallback(() => {
+  // setUploadSuccess(true)
+  // }, [])
 
   // Just show Remove Upload Button on Mobile Devices since the Fab on hover will likely be impossible to click.
   const RemoveUploadButton = useCallback(
@@ -150,7 +150,7 @@ const ThumbPreview = ({
         <UploadStatusIndicator
           uploadedFiles={uploadedFiles}
           file={file}
-          onSuccess={uploadSuccessHandler}
+          // onSuccess={uploadSuccessHandler}
           isUploading={isUploading}
         >
           <Tooltip title={file.originalName ?? ''} enterDelay={500}>
