@@ -612,7 +612,7 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://imgix.cosmicjs.com/b00956e0-bd0d-11ed-b7c8-73c00a6d38c7-PCWA-Year-End-Report-2022.pdf"
+                      imgixURL="https://imgix.cosmicjs.com/68eb2be0-bec9-11ed-8d25-f939d70386f2-Year-End-Report-2022spreads.pdf"
                     />
                   </ChildBox>
                   <ChildBox width={isXS ? '100%' : 'auto'}>

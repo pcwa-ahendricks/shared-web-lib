@@ -580,7 +580,7 @@ const LawnReplacementPostConversion = () => {
                             Note - Image file formats are preferred (eg. .jpg,
                             .png) for uploads. PDF files and Word Documents can
                             be uploaded too but they <em>must be less than</em>{' '}
-                            4.5 MB in size. If you are unable to attach the
+                            4 MB in size. If you are unable to attach the
                             correct file type, or if any other issues with the
                             attachments arise, you may select the box below and
                             submit the files in an email.
