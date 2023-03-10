@@ -89,7 +89,7 @@ const bodySchema = object()
               emailAttachments: BooleanAsString,
               schema: ArraySchema<SchemaOf<string>>
             ) =>
-              emailAttachments === 'true' ? schema : schema.required().length(5)
+              emailAttachments === 'true' ? schema : schema.required().min(5)
           )
           .of(
             object({
