@@ -78,12 +78,16 @@ export interface PostConvLawnReplacementRebateFormData {
   photosTaken: '' | 'Yes' | 'No'
   artTurfInstalled: '' | 'Yes' | 'No'
   approxSqFeet: string
+  partsReceipts: '' | 'Yes' | 'No'
   termsAgree: BooleanAsString
   emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
   postConvPhotos: string[]
+  worksheetUploads: string[]
+  checklistUploads: string[]
+  itemizedReceipts: string[]
 }
 
 export interface PostConvLawnReplacementRequestBody {

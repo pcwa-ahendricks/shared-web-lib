@@ -27,6 +27,7 @@ import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
+import FormTextField from '@components/formFields/FormTextField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import SignatureField from '@components/formFields/SignatureField'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
@@ -105,6 +106,9 @@ const formSchema = object()
     approxSqFeet: string().label(
       'Approximate Square Feet of Installed Artificial Turf'
     ),
+    partsReceipts: string()
+      .required()
+      .label('Itemized Receipts for Irrigation Parts Installed'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -124,7 +128,7 @@ const formSchema = object()
             ? schema
             : schema
                 .required('You must provide 5 photos')
-                .length(5, 'You must provide 5 photos')
+                .min(5, 'You must provide 5 photos')
       )
       .of(
         object({
@@ -135,6 +139,54 @@ const formSchema = object()
           url: string().required('Attachment URL is not available').url()
         })
       ),
+    worksheetUploads: array()
+      .when(
+        'emailAttachments',
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required('You must provide Plant Coverage Worksheet')
+      )
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/, 'Remove and/or retry un-successful uploads'),
+          url: string().required('Attachment URL is not available').url()
+        })
+      ),
+    checklistUploads: array()
+      .when(
+        'emailAttachments',
+        (
+          emailAttachments: BooleanAsString,
+          schema: ArraySchema<SchemaOf<string>>
+        ) =>
+          emailAttachments === 'true'
+            ? schema
+            : schema.required('You must provide Customer Check List')
+      )
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/, 'Remove and/or retry un-successful uploads'),
+          url: string().required('Attachment URL is not available').url()
+        })
+      ),
+    itemizedReceipts: array().of(
+      object({
+        status: string()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
     inspectAgree: string()
       .required()
       .oneOf(
@@ -164,12 +216,16 @@ const initialFormValues: RebateFormData = {
   photosTaken: '',
   artTurfInstalled: '',
   approxSqFeet: '',
+  partsReceipts: '',
   termsAgree: '',
   inspectAgree: '',
   emailAttachments: '',
   signature: '',
   captcha: '',
-  postConvPhotos: []
+  postConvPhotos: [],
+  worksheetUploads: [],
+  checklistUploads: [],
+  itemizedReceipts: []
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -321,14 +377,24 @@ const LawnReplacementPostConversion = () => {
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
                 )
-                const emailAttachments = Boolean(
-                  values.emailAttachments === 'true'
-                )
-
                 // If city field is updated clear out otherCity field.
                 const cityChangeHandler = () => {
                   setFieldValue('otherCity', '')
                 }
+                const emailAttachments = Boolean(
+                  values.emailAttachments === 'true'
+                )
+                const artTurfSelected = Boolean(
+                  values.artTurfInstalled?.toLowerCase() === 'yes'
+                )
+                // If artTurfInstalled is updated clear out approxSqFeet field.
+                const artTurfHandler = () => {
+                  setFieldValue('approxSqFeet', '')
+                }
+
+                const shouldUploadReceipts = Boolean(
+                  values.partsReceipts?.toLowerCase() === 'yes'
+                )
 
                 const attachmentsAreUploading = photoIsUploading
 
@@ -442,6 +508,42 @@ const LawnReplacementPostConversion = () => {
                           >
                             Rebate Information
                           </Type>
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                name="artTurfInstalled"
+                                inputLabel="Artificial Turf Installed?"
+                                inputId="art-turf-installed-select"
+                                labelWidth={190}
+                                component={YesNoSelectField}
+                                disabled={ineligible}
+                                onChange={artTurfHandler}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <WaitToGrow isIn={artTurfSelected}>
+                                <FormTextField
+                                  disabled={!artTurfSelected || ineligible}
+                                  name="approxSqFeet"
+                                  label="Installed Artificial Turf, Approx. Sq. Ft."
+                                />
+                              </WaitToGrow>
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Field
+                                disabled
+                                name="partsReceipts"
+                                inputLabel="Have receipts for Irrigation Efficiencies Rebate?"
+                                inputId="parts-receipts-select"
+                                labelWidth={365}
+                                component={YesNoSelectField}
+                                // onChange={partsReceipts}
+                              />
+                            </Grid>
+                          </Grid>
 
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
@@ -499,7 +601,7 @@ const LawnReplacementPostConversion = () => {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Post-Conversion Photograph Attachments
+                            Post-Conversion Attachments
                           </Type>
                           <Type>Photo Attachment Requirements:</Type>
                           <Box component="ul">
@@ -606,11 +708,46 @@ const LawnReplacementPostConversion = () => {
                               disabled={ineligible || emailAttachments}
                               name="postConvPhotos"
                               attachmentTitle="(5) Post Conversion Photos"
-                              uploadRoute="post-conv-lawn-replacement"
+                              uploadRoute="post-conv-lawn-replacement-photos"
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
                           </div>
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="worksheetUploads"
+                              attachmentTitle="Plant Coverage Worksheet"
+                              uploadRoute="post-conv-lawn-replacement-worksheet"
+                              onIsUploadingChange={photoIsUploadingHandler}
+                              component={AttachmentField}
+                            />
+                          </div>
+
+                          <div className={classes.dropzoneContainer}>
+                            <Field
+                              disabled={ineligible || emailAttachments}
+                              name="checklistUploads"
+                              attachmentTitle="Customer Check List"
+                              uploadRoute="post-conv-lawn-replacement-checklist"
+                              onIsUploadingChange={photoIsUploadingHandler}
+                              component={AttachmentField}
+                            />
+                          </div>
+
+                          <WaitToGrow isIn={shouldUploadReceipts}>
+                            <div className={classes.dropzoneContainer}>
+                              <Field
+                                disabled={ineligible || emailAttachments}
+                                name="itemizedReceipts"
+                                attachmentTitle="Optional Itemized Receipts"
+                                uploadRoute="post-conv-lawn-replacement-receipts"
+                                onIsUploadingChange={photoIsUploadingHandler}
+                                component={AttachmentField}
+                              />
+                            </div>
+                          </WaitToGrow>
                         </div>
 
                         <Divider variant="middle" />

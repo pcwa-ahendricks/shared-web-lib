@@ -85,7 +85,8 @@ const PostConvLawnReplEligibilityDialog = ({
         touched.rebateCustomer,
         touched.projectCompleted,
         touched.worksheetCompleted,
-        touched.photosTaken
+        touched.photosTaken,
+        touched.partsReceipts
       ].every(Boolean),
     [touched]
   )
@@ -96,7 +97,8 @@ const PostConvLawnReplEligibilityDialog = ({
         errors.rebateCustomer,
         errors.projectCompleted,
         errors.worksheetCompleted,
-        errors.photosTaken
+        errors.photosTaken,
+        errors.partsReceipts
       ]
         .filter(
           (error) =>
@@ -552,6 +554,61 @@ const QuestionFour = () => {
   )
 }
 
+const QuestionFive = () => {
+  const classes = useQuestionStyles()
+  return (
+    <Field name="partsReceipts">
+      {({field, form}: FieldProps<any>) => {
+        const {setFieldValue, setFieldTouched, touched} = form
+        const {name, value} = field
+        // const currentError = errors[name]
+
+        const clickHandler = (newValue: string) => () => {
+          setFieldValue(name, newValue, true)
+          setFieldTouched(name, true)
+        }
+
+        const fieldTouched = Boolean(touched[name])
+        return (
+          <div>
+            <List
+            // subheader={
+            //   <ListSubheader component="div">
+            //     Choose one of the following
+            //   </ListSubheader>
+            // }
+            >
+              {yesNoAnswers.map((answer) => (
+                <ListItem
+                  key={answer}
+                  button
+                  divider
+                  selected={answer === value}
+                  // disabled={fieldTouched}
+                  onClick={clickHandler(answer)}
+                >
+                  <ListItemText primary={answer} />
+                </ListItem>
+              ))}
+            </List>
+            <WaitToGrow isIn={fieldTouched && value?.toLowerCase() === 'no'}>
+              <DialogContentText
+                variant="body1"
+                color="textPrimary"
+                className={classes.qualifyMsg}
+              >
+                Note, if you are unable to obtain itemized receipts you cannot
+                participate in our irrigation efficiencies rebate. Receipts are
+                not required for Lawn Replacement Rebate.
+              </DialogContentText>
+            </WaitToGrow>
+          </div>
+        )
+      }}
+    </Field>
+  )
+}
+
 function getSteps() {
   return [
     {
@@ -579,6 +636,13 @@ function getSteps() {
         'Have you taken 5 post conversion photographs following requirements stated in terms and conditions?',
       fieldName: 'photosTaken',
       content: <QuestionFour />
+    },
+    {
+      index: 4,
+      label:
+        'Do you have clear pictures of itemized receipts for irrigation parts installed?',
+      fieldName: 'partsReceipts',
+      content: <QuestionFive />
     }
   ]
 }
