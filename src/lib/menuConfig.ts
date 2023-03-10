@@ -53,10 +53,6 @@ const menuConfig: MenuConfig[] = [
             href: 'https://careers.pcwa.net'
           },
           {
-            title: 'Recruitment Video',
-            nextLink: '/careers/recruitment'
-          },
-          {
             title: 'Employee Benefits Summary',
             nextLink: '/careers/employee-benefits-summary'
           },
