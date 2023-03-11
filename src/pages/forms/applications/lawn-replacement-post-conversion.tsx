@@ -13,7 +13,7 @@ import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
   postForm,
   PostConvLawnReplacementRequestBody as RequestBody,
-  PostConvLawnReplacementRebateFormData as RebateFormData
+  PostConvLawnReplacementFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
@@ -307,13 +307,13 @@ const LawnReplacementPostConversion = () => {
       <>
         <NarrowContainer>
           <MainBox>
-            <Type variant="h1" color="primary" gutterBottom>
-              Water Efficiency Rebate Form
-            </Type>
-
-            <Type variant="h3" color="primary" gutterBottom>
+            <Type variant="h2" color="primary" gutterBottom>
               Lawn Replacement Post-Conversion Application
             </Type>
+
+            {/* <Type variant="h3" color="primary" gutterBottom>
+              Water Efficiency Rebate Form
+            </Type> */}
 
             <Formik
               initialValues={initialFormValues}
@@ -934,7 +934,7 @@ const LawnReplacementPostConversion = () => {
 
   return (
     <>
-      <PageLayout title="Lawn Replacement Rebate Form" waterSurface>
+      <PageLayout title="Lawn Replacement Post Conversion Form" waterSurface>
         {mainEl}
       </PageLayout>
 
@@ -942,8 +942,8 @@ const LawnReplacementPostConversion = () => {
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Lawn Replacement Rebate Application"
-        dialogTitle="Your Rebate Application Has Been Submitted"
+        description="Lawn Replacement Post Conversion Application"
+        dialogTitle="Your Application Has Been Submitted"
       />
       <FormSubmissionDialogError
         open={formSubmitDialogErrorOpen}

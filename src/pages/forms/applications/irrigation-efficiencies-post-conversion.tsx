@@ -1,4 +1,4 @@
-// cspell:ignore addtl mnfg USBR
+// cspell:ignore conv
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {
   Divider,
@@ -6,52 +6,51 @@ import {
   Theme,
   Typography as Type,
   makeStyles,
-  createStyles
+  createStyles,
+  Box
 } from '@material-ui/core'
 import {Formik, Field} from 'formik'
-import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
+import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
   postForm,
-  WashingMachineRebateFormData as RebateFormData,
-  WashingMachineRequestBody as RequestBody
+  PostConvIrrigEffRequestBody as RequestBody,
+  PostConvIrrigEffFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
+import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
+import FirstNameField from '@components/formFields/FirstNameField'
+import LastNameField from '@components/formFields/LastNameField'
 import EmailField from '@components/formFields/EmailField'
 import AccountNoField from '@components/formFields/AccountNoField'
 import CitySelectField from '@components/formFields/CitySelectField'
 import OtherCityField from '@components/formFields/OtherCityField'
-import WashMachineCeeRadioField from '@components/formFields/WashMachineCeeRadioField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import FormTextField from '@components/formFields/FormTextField'
-import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
+import FormTextField from '@components/formFields/FormTextField'
 import RecaptchaField from '@components/formFields/RecaptchaField'
-import AttachmentField from '@components/formFields/AttachmentField'
 import SignatureField from '@components/formFields/SignatureField'
-import WashEffEligibilityDialog from '@components/formFields/WashEffEligibilityDialog'
 import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTermsConditions'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
 import delay from 'then-sleep'
+import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
+import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
+import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
+import Spacing from '@components/boxes/Spacing'
+import RebatesEmail from '@components/links/RebatesEmail'
 import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import {BooleanAsString} from '@lib/safeCastBoolean'
-import RebatesEmail from '@components/links/RebatesEmail'
-import FormValidate from '@components/forms/FormValidate/FormValidate'
-import Spacing from '@components/boxes/Spacing'
-import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
-import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
-import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
-import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
-// Loading Recaptcha with Next dynamic isn't necessary.
-// import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
+import AttachmentField from '@components/formFields/AttachmentField'
+import PostConvIrrigEffEligibilityDialog from '@components/formFields/PostConvIrrigEffEligibilityDialog'
 
-const SERVICE_URI_PATH = 'washing-machine-rebate'
+const SERVICE_URI_PATH = 'irrigation-efficiencies-post-conversion-app'
 
 const formSchema = object()
   .camelCase()
@@ -75,37 +74,39 @@ const formSchema = object()
         city && city.toLowerCase() === 'other' ? schema.required() : schema
       ),
     phone: string().required().min(10).label('Phone Number'),
-    howDidYouHear: string()
-      .required()
-      .label('How Did You Hear About this Rebate Program'),
-    otherHowDidYouHear: string()
-      .label('How Did You Hear About this Rebate Program')
-      .when(
-        'howDidYouHear',
-        (howDidYouHear: string | null, schema: StringSchema) =>
-          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-            ? schema.required()
-            : schema
-      ),
     propertyType: string().required().label('Property Type'),
-    treatedCustomer: string().required().label('Treated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency treated water customer'
-    ),
-    existingHigh: string()
+    rebateCustomer: string()
       .required()
-      .label('Replacing Existing High-Efficiency Washer')
       .oneOf(
-        ['No'], // "Yes", "No"
-        'Replacement of an existing high efficiency washer is not covered by rebate'
-      ),
-    newConstruction: string().required().label('New Construction').oneOf(
-      ['No'], // "Yes", "No"
-      'New constructions are not eligible for rebate'
-    ),
-    manufacturer: string().required().label('Washing Machine Manufacturer'),
-    model: string().required().label('Washing Machine Model'),
-    ceeQualify: string().required().label('CEE Tier 3 Water Factor'),
+        ['Yes'], // "Yes", "No"
+        'You must be currently participating in the Irrigation Efficiencies Rebate Program'
+      )
+      .label('Irrigation Efficiencies Rebate Applicant'),
+    projectCompleted: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'Project must be completed'
+      )
+      .label('Project Completion'),
+    photosTaken: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'Post Conversion photographs (5) are required in order to submit application'
+      )
+      .label('Post Conversion photographs Taken'),
+    partsReceipts: string()
+      .required()
+      .oneOf(
+        ['Yes'], // "Yes", "No"
+        'You must have itemized receipts or invoices to receive this rebate'
+      )
+      .label('Itemized Receipts for Irrigation Parts Installed'),
+    describe: string()
+      .required()
+      .max(600, 'Description must be less than 600 characters.')
+      .label('Project Summary'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -114,14 +115,7 @@ const formSchema = object()
       )
       .label('Agree to Terms'),
     emailAttachments: string().label('Email Attachments'),
-    signature: string().required().label('Your signature'),
-    captcha: string()
-      .required('Checking this box is required for security purposes')
-      .label('This checkbox'),
-    comments: string()
-      .max(200, 'Comments must be less than 200 characters.')
-      .label('Comments'),
-    receipts: array()
+    postConvPhotos: array()
       .when(
         'emailAttachments',
         (
@@ -130,7 +124,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('Must provide receipt(s) or proof of purchase')
+            : schema
+                .required('You must provide 5 photos')
+                .min(5, 'You must provide 5 photos')
       )
       .of(
         object({
@@ -141,7 +137,7 @@ const formSchema = object()
           url: string().required('Attachment URL is not available').url()
         })
       ),
-    installPhotos: array()
+    itemizedReceipts: array()
       .when(
         'emailAttachments',
         (
@@ -150,9 +146,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required(
-                'Must provide photo(s) of installed washing machine'
-              )
+            : schema
+                .required('You must provide itemized receipt(s)')
+                .min(1, 'You must provide itemized receipt(s)')
       )
       .of(
         object({
@@ -162,7 +158,18 @@ const formSchema = object()
             .matches(/success/, 'Remove and/or retry un-successful uploads'),
           url: string().required('Attachment URL is not available').url()
         })
+      ),
+    inspectAgree: string()
+      .required()
+      .oneOf(
+        ['true'],
+        'Must agree to a scheduled site inspection by checking this box'
       )
+      .label('Agree to Site Inspection'),
+    signature: string().required().label('Your signature'),
+    captcha: string()
+      .required('Checking this box is required for security purposes')
+      .label('This checkbox')
   })
 
 const initialFormValues: RebateFormData = {
@@ -174,45 +181,29 @@ const initialFormValues: RebateFormData = {
   city: '',
   otherCity: '',
   phone: '',
-  howDidYouHear: '',
-  otherHowDidYouHear: '',
   propertyType: '',
-  treatedCustomer: '',
-  existingHigh: '',
-  newConstruction: '',
-  manufacturer: '',
-  model: '',
-  ceeQualify: '',
+  rebateCustomer: '',
+  projectCompleted: '',
+  photosTaken: '',
+  partsReceipts: '',
+  describe: '',
   termsAgree: '',
+  inspectAgree: '',
   emailAttachments: '',
   signature: '',
   captcha: '',
-  comments: '',
-  receipts: [],
-  installPhotos: []
+  postConvPhotos: [],
+  itemizedReceipts: []
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // formikContainer: {
-    //   height: '100%',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   width: '100%'
-    // },
     form: {
       display: 'flex',
       flexDirection: 'column',
       margin: 'auto',
       // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
       width: '100%'
-    },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
     },
     formGroup: {
       flex: '0 0 auto', // IE fix
@@ -228,20 +219,26 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 0,
       flexShrink: 0
     },
-    reserveRight: {
+    dropzoneContainer: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginBottom: theme.spacing(3),
       marginTop: theme.spacing(3)
+    },
+    liItem: {
+      listStyleType: 'disc',
+      marginBottom: 2
     }
   })
 )
-const WashingMachine = () => {
+const IrrigationEfficienciesPostConversion = () => {
   const classes = useStyles()
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
     useState<RebateFormData>(initialFormValues)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
-  const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
-  const [installPhotosIsUploading, setInstallPhotosIsUploading] =
-    useState<boolean>(false)
+  const [photoIsUploading, setPhotoIsUploading] = useState<boolean>(false)
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -252,12 +249,8 @@ const WashingMachine = () => {
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
 
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
-    setReceiptIsUploading(isUploading)
-  }, [])
-
-  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setInstallPhotosIsUploading(isUploading)
+  const photoIsUploadingHandler = useCallback((isUploading) => {
+    setPhotoIsUploading(isUploading)
   }, [])
 
   const dialogCloseHandler = useCallback(() => {
@@ -282,15 +275,13 @@ const WashingMachine = () => {
       <>
         <NarrowContainer>
           <MainBox>
-            <Type variant="h1" color="primary" gutterBottom>
-              Water Efficiency Rebate Form
+            <Type variant="h2" color="primary" gutterBottom>
+              Irrigation Efficiencies Post-Conversion Application
             </Type>
 
-            <Type variant="h3" color="primary" gutterBottom>
-              High-Efficiency Clothes Washing Machine
-              {/* PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient
-                Clothes Washing Machine */}
-            </Type>
+            {/* <Type variant="h3" color="primary" gutterBottom>
+              Water Efficiency Rebate Form
+            </Type> */}
 
             <Formik
               initialValues={initialFormValues}
@@ -322,23 +313,25 @@ const WashingMachine = () => {
                   touched = {},
                   dirty,
                   isSubmitting,
-                  errors,
                   // isValid,
+                  errors,
                   setFieldValue
                 } = formik
 
                 if (dirty !== formIsDirty) {
                   setFormIsDirty(dirty)
                 }
+
                 if (values !== formValues) {
                   setFormValues(values)
                 }
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.
                 const rebateIneligibility = [
-                  errors['treatedCustomer'],
-                  errors['existingHigh'],
-                  errors['newConstruction']
+                  errors['rebateCustomer'],
+                  errors['projectCompleted'],
+                  errors['partsReceipts'],
+                  errors['photosTaken']
                 ].some(Boolean)
                 if (rebateIneligibility !== ineligible) {
                   setIneligible(rebateIneligibility)
@@ -352,32 +345,15 @@ const WashingMachine = () => {
                 const otherCitySelected = Boolean(
                   values.city && values.city.toLowerCase() === 'other'
                 )
-                const otherHowDidYouHearSelected = Boolean(
-                  values.howDidYouHear &&
-                    values.howDidYouHear.toLowerCase() === 'other'
-                )
-
+                // If city field is updated clear out otherCity field.
+                const cityChangeHandler = () => {
+                  setFieldValue('otherCity', '')
+                }
                 const emailAttachments = Boolean(
                   values.emailAttachments === 'true'
                 )
 
-                // If city field is updated clear out otherCity field.
-                const cityChangeHandler = (evt: any) => {
-                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                  if (evt.target.value.toLowerCase() !== 'other') {
-                    setFieldValue('otherCity', '')
-                  }
-                }
-                // If howDidYouHear field is updated clear out otherHowDidYouHear field.
-                const howDidYouHearChangeHandler = (evt: any) => {
-                  // Only need to clear out value if the city actually changed, ie. User doesn't select Other again.
-                  if (evt.target.value.toLowerCase() !== 'other') {
-                    setFieldValue('otherHowDidYouHear', '')
-                  }
-                }
-
-                const attachmentsAreUploading =
-                  receiptIsUploading || installPhotosIsUploading
+                const attachmentsAreUploading = photoIsUploading
 
                 return (
                   <ProtectRouteChange>
@@ -394,21 +370,17 @@ const WashingMachine = () => {
                           </Type>
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                required
+                              <Field
                                 disabled={ineligible}
                                 name="firstName"
-                                label="First Name"
-                                autoComplete="billing given-name"
+                                component={FirstNameField}
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                required
+                              <Field
                                 disabled={ineligible}
                                 name="lastName"
-                                label="Last Name"
-                                autoComplete="billing family-name"
+                                component={LastNameField}
                               />
                             </Grid>
                           </Grid>
@@ -436,16 +408,16 @@ const WashingMachine = () => {
                           >
                             <Grid item xs={12} sm={8}>
                               <Field
-                                disabled={ineligible}
                                 name="address"
+                                disabled={ineligible}
                                 component={StreetAddressField}
                               />
                             </Grid>
 
                             <Grid item xs={12} sm={4}>
                               <Field
-                                disabled={ineligible}
                                 name="city"
+                                disabled={ineligible}
                                 onChange={cityChangeHandler}
                                 component={CitySelectField}
                               />
@@ -456,8 +428,8 @@ const WashingMachine = () => {
                             <Grid container spacing={5}>
                               <Grid item xs={12}>
                                 <Field
-                                  disabled={!otherCitySelected || ineligible}
                                   name="otherCity"
+                                  disabled={!otherCitySelected || ineligible}
                                   component={OtherCityField}
                                 />
                               </Grid>
@@ -468,43 +440,18 @@ const WashingMachine = () => {
                             <Grid item xs={12} sm={6}>
                               <Field
                                 name="phone"
-                                disabled={ineligible}
                                 component={PhoneNoField}
+                                disabled={ineligible}
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Field
                                 name="email"
-                                disabled={ineligible}
                                 component={EmailField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
-                              <Field
-                                name="howDidYouHear"
                                 disabled={ineligible}
-                                onChange={howDidYouHearChangeHandler}
-                                component={HowDidYouHearSelectField}
                               />
                             </Grid>
                           </Grid>
-
-                          <WaitToGrow isIn={otherHowDidYouHearSelected}>
-                            <Grid container spacing={5}>
-                              <Grid item xs={12}>
-                                <Field
-                                  disabled={
-                                    !otherHowDidYouHearSelected || ineligible
-                                  }
-                                  name="otherHowDidYouHear"
-                                  component={OtherHowDidYouHearField}
-                                />
-                              </Grid>
-                            </Grid>
-                          </WaitToGrow>
                         </div>
 
                         <Divider variant="middle" />
@@ -520,88 +467,64 @@ const WashingMachine = () => {
                           </Type>
 
                           <Grid container spacing={5}>
-                            <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                disabled={ineligible}
-                                name="manufacturer"
-                                label="Washing Machine Manufacturer"
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <FormTextField
-                                disabled={ineligible}
-                                name="model"
-                                label="Washing Machine Model"
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid
-                            container
-                            spacing={5}
-                            justifyContent="space-between"
-                          >
                             <Grid item xs={12}>
-                              <Field
+                              <FormTextField
+                                required
+                                name="describe"
+                                multiline
+                                minRows={3} // That's about 200 characters
+                                label="Briefly summarize your completed Irrigation Efficiencies project"
                                 disabled={ineligible}
-                                name="ceeQualify"
-                                component={WashMachineCeeRadioField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid
-                            container
-                            spacing={5}
-                            justifyContent="space-between"
-                          >
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="treatedCustomer"
-                                inputLabel="PCWA Treated Customer"
-                                inputId="treated-water-select"
-                                labelWidth={200}
-                                component={YesNoSelectField}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="existingHigh"
-                                inputLabel="Existing High Efficiency Washer"
-                                inputId="existing-high-efficiency-washer-select"
-                                labelWidth={255}
-                                component={YesNoSelectField}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid
-                            container
-                            spacing={5}
-                            justifyContent="space-between"
-                          >
-                            <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="newConstruction"
-                                inputLabel="For New Construction"
-                                inputId="for-new-construction-select"
-                                labelWidth={178}
-                                component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
 
                           <Grid container spacing={5}>
                             <Grid item xs={12}>
-                              <FormTextField
-                                name="comments"
-                                multiline
-                                minRows={3} // That's about 200 characters
-                                label="Optionally, you can provide us any comments"
-                                disabled={ineligible}
+                              <Field
+                                disabled
+                                name="partsReceipts"
+                                inputLabel="Have receipts for Irrigation Efficiencies Rebate?"
+                                inputId="parts-receipts-select"
+                                labelWidth={365}
+                                component={YesNoSelectField}
+                                // onChange={partsReceipts}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="rebateCustomer"
+                                inputLabel="Participating in Irrigation Efficiencies Rebate Program"
+                                inputId="rebate-customer-select"
+                                labelWidth={285}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="projectCompleted"
+                                inputLabel="Irrigation Efficiencies Project Completed"
+                                inputId="project-completed-select"
+                                labelWidth={311}
+                                component={YesNoSelectField}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          <Grid container spacing={5}>
+                            <Grid item xs={12} sm={6}>
+                              <Field
+                                disabled
+                                name="photosTaken"
+                                inputLabel="Have Taken Photos"
+                                inputId="have-taken-photos-select"
+                                labelWidth={155}
+                                component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
@@ -616,15 +539,84 @@ const WashingMachine = () => {
                             gutterBottom
                             className={classes.formGroupTitle}
                           >
-                            Provide Attachments
+                            Post-Conversion Attachments
                           </Type>
+                          <Type>Photo Attachment Requirements:</Type>
+                          <Box component="ul">
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Submit <strong>Five</strong> photographs
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              All photographs must be in color.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Irrigation system must be photographed while
+                              operating.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Stand far back enough to include your home,
+                              street, driveway, or fence as a reference point.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Street number or address must be visible in{' '}
+                              <strong>at least one</strong> photograph.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Photographs cannot be online images{' '}
+                              <em>(i.e Google, Bing, etc.)</em>.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Altered photographs will result in application
+                              being ineligible for rebate{' '}
+                              <em>(see II. E. on page 1)</em>.
+                            </Type>
+                            <Type
+                              component="li"
+                              variant="body1"
+                              className={classes.liItem}
+                            >
+                              Auto irrigation control valves{' '}
+                              <em>(i.e. manifolds)</em> must be included in{' '}
+                              <strong>at least one</strong> photograph.
+                            </Type>
+                          </Box>
+                          <Spacing size="small" />
                           <Type variant="caption" color="textSecondary">
-                            Note - Only Image file formats can be uploaded (eg.
-                            .jpg, .png). PDF files <em>cannot</em> be uploaded
-                            here. If you are unable to attach the correct file
-                            type, or if any other issues with the attachments
-                            arise, you may select the box below and submit the
-                            files in an email.
+                            Note - Image file formats are preferred (eg. .jpg,
+                            .png) for uploads. PDF files and Word Documents can
+                            be uploaded too but they <em>must be less than</em>{' '}
+                            4 MB in size. If you are unable to attach the
+                            correct file type, or if any other issues with the
+                            attachments arise, you may select the box below and
+                            submit the files in an email.
                           </Type>
                           <Field
                             name="emailAttachments"
@@ -632,11 +624,11 @@ const WashingMachine = () => {
                             fullWidth={false}
                             label={
                               <span>
-                                Optionally, check here to email receipts and
-                                photos instead. Send email with attachments to{' '}
-                                <RebatesEmail /> with your name and account
-                                number in the subject line. Failure to do so may
-                                result in a delay or rejected application.
+                                Optionally, check here to email photos instead.
+                                Send email with attachments to <RebatesEmail />{' '}
+                                with your name and account number in the subject
+                                line. Failure to do so may result in a delay or
+                                rejected application.
                               </span>
                             }
                             disabled={ineligible}
@@ -645,10 +637,10 @@ const WashingMachine = () => {
                           <div className={classes.dropzoneContainer}>
                             <Field
                               disabled={ineligible || emailAttachments}
-                              name="receipts"
-                              attachmentTitle="Receipt(s)"
-                              uploadRoute="washing-machine"
-                              onIsUploadingChange={receiptIsUploadingHandler}
+                              name="postConvPhotos"
+                              attachmentTitle="(5) Post Conversion Photos"
+                              uploadRoute="post-conv-irrig-eff-photos"
+                              onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
                           </div>
@@ -656,12 +648,10 @@ const WashingMachine = () => {
                           <div className={classes.dropzoneContainer}>
                             <Field
                               disabled={ineligible || emailAttachments}
-                              name="installPhotos"
-                              attachmentTitle="Water-Efficient Clothes Washing Machine installed photo(s)"
-                              uploadRoute="washing-machine"
-                              onIsUploadingChange={
-                                installPhotosIsUploadingHandler
-                              }
+                              name="itemizedReceipts"
+                              attachmentTitle="Itemized Receipts or Invoices"
+                              uploadRoute="post-conv-irrig-eff-receipts"
+                              onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
                           </div>
@@ -679,54 +669,39 @@ const WashingMachine = () => {
                             Acknowledge Terms & Conditions
                           </Type>
                           <Grid container direction="column" spacing={1}>
+                            {/* <Grid
+                            item
+                            xs={12}
+                            className={classes.ieFixFlexColumnDirection}
+                          >
+                          </Grid> */}
                             <Grid
                               item
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
                               <ReviewTermsConditions
-                                pageCount={2}
-                                fileName="Washing-Machine-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/fa376450-e3fc-11eb-be9a-bfe30c7c12b9-WASHING-MACHINE-REBATE-REQUIREMENTS.pdf"
+                                pageCount={3}
+                                fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/6d709cb0-a8bf-11ed-a8ba-dd2d9e563519-Irrigation-Efficiencies-Terms-and-Conditions-2023.pdf"
                               />
-                              <Type
-                                variant="body1"
-                                paragraph
-                                className={classes.reserveRight}
-                              >
-                                <em>
-                                  I have read, understand, and agree to the{' '}
-                                  {/* <Link
-                                    variant="inherit"
-                                    href="https://cdn.cosmicjs.com/d4391f10-99e3-11e9-b332-27d55c4a47a2-washer-requirements-06262019.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  > */}
-                                  {/* PCWA/USBR Energy Star® Residential/Multi
-                                    Family Water-Efficient Clothes Washing
-                                    Machine Rebate Terms and Conditions. */}
-                                  High-Efficiency Clothes Washing Machine Rebate
-                                  Terms and Conditions.
-                                  {/* </Link> */}
-                                </em>
-                              </Type>
-                              <Type
-                                variant="body1"
-                                paragraph
-                                className={classes.reserveRight}
-                              >
-                                <em>
-                                  I understand that PCWA reserves the right to
-                                  have an Agency representative verify the
-                                  installation of the product(s) at the service
-                                  address on the application.
-                                </em>
-                              </Type>
                               <Field
-                                disabled={ineligible}
                                 name="termsAgree"
+                                disabled={ineligible}
                                 component={AgreeTermsCheckbox}
                                 fullWidth={false}
+                              />
+                              <Type variant="body1">
+                                You must agree to participate in a
+                                post-conversion site inspection conducted by
+                                PCWA. You may not be required to be present;
+                                arrangements will be made by a PCWA Water
+                                Efficiency Specialist.
+                              </Type>
+                              <Field
+                                name="inspectAgree"
+                                disabled={ineligible}
+                                component={AgreeInspectionCheckbox}
                               />
                             </Grid>
                           </Grid>
@@ -750,19 +725,23 @@ const WashingMachine = () => {
                               xs={12}
                               className={classes.ieFixFlexColumnDirection}
                             >
+                              {/* [TODO] Need new wording from Cassandra. */}
                               <Type variant="body1" paragraph color="primary">
-                                Placer County Water Agency (PCWA) reserves the
-                                right to deny an application of any participant
-                                who does not meet all requirements as outlined.
-                                PCWA reserves the right to change the terms of
-                                this program at their discretion. PCWA cannot
-                                guarantee that the installation of the
-                                product(s) will result in lower water utility
-                                costs. The number of rebates is dependent upon
-                                the availability of program funds. Applications
-                                will be processed when all required information
-                                is provided by the applicant on a first-come,
-                                first-served basis.
+                                PCWA may deny any application that does not meet
+                                all of the Program requirements. PCWA reserves
+                                the right to alter the Program at any time. PCWA
+                                does not warrant or guarantee lower water bills
+                                as a result of participating in the Program.
+                                PCWA is not responsible for any damage that may
+                                occur to participants' property as a result of
+                                this Program. The undersigned agrees to hold
+                                harmless PCWA, its directors, officers, and
+                                employees from and against all loss, damage,
+                                expense and liability resulting from or
+                                otherwise relating to the installation of water
+                                efficient landscape. By signing this form I
+                                agree that I have read, understand, and agree to
+                                the Terms and Conditions of this rebate program.
                               </Type>
                             </Grid>
 
@@ -775,8 +754,8 @@ const WashingMachine = () => {
                                 You must sign this form by typing your name
                               </Type>
                               <Field
-                                disabled={ineligible}
                                 name="signature"
+                                disabled={ineligible}
                                 component={SignatureField}
                               />
                             </Grid>
@@ -787,14 +766,34 @@ const WashingMachine = () => {
                               className={classes.ieFixFlexColumnDirection}
                             >
                               <Field
-                                disabled={ineligible}
                                 name="captcha"
+                                disabled={ineligible}
                                 component={RecaptchaField}
                               />
                             </Grid>
                           </Grid>
                         </div>
 
+                        {/* For debugging form reset */}
+                        {/* <Button
+                      variant="outlined"
+                      type="submit"
+                      onClick={handleReset}
+                    >
+                      Reset Form
+                    </Button> */}
+
+                        {/* For debugging dialog */}
+                        {/* <Button
+                        variant="outlined"
+                        type="submit"
+                        onClick={() => {
+                          setProvidedEmail(values.email)
+                          setFormSubmitDialogOpen(true)
+                        }}
+                      >
+                        Show Dialog
+                      </Button> */}
                         <Spacing />
                         <SubmitFormButton
                           boxProps={{
@@ -804,9 +803,9 @@ const WashingMachine = () => {
                           variant="outlined"
                           color="primary"
                           disabled={
-                            ineligible ||
                             isSubmitting ||
                             // !isValid ||
+                            ineligible ||
                             (!formTouched && !dirty) ||
                             attachmentsAreUploading
                           }
@@ -815,7 +814,7 @@ const WashingMachine = () => {
                         </SubmitFormButton>
                       </FormBox>
 
-                      <WashEffEligibilityDialog
+                      <PostConvIrrigEffEligibilityDialog
                         open={eligibilityDialogOpen}
                         onClose={() => setEligibilityDialogOpen(false)}
                       />
@@ -833,26 +832,28 @@ const WashingMachine = () => {
       formIsDirty,
       formValues,
       formIsTouched,
-      receiptIsUploading,
-      receiptIsUploadingHandler,
-      installPhotosIsUploading,
-      installPhotosIsUploadingHandler,
       eligibilityDialogOpen,
-      ineligible
+      ineligible,
+      photoIsUploading,
+      photoIsUploadingHandler
     ]
   )
 
   return (
     <>
-      <PageLayout title="Washing Machine Rebate Form" waterSurface>
+      <PageLayout
+        title="Irrigation Efficiencies Post Conversion Form"
+        waterSurface
+      >
         {mainEl}
       </PageLayout>
+
       <FormSubmissionDialog
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="PCWA/USBR Energy Star® Residential/Multi-Family Water-Efficient Clothes Washing Machine Rebate Application"
-        dialogTitle="Your Rebate Application Has Been Submitted"
+        description="Irrigation Efficiencies Post Conversion Application"
+        dialogTitle="Your Application Has Been Submitted"
       />
       <FormSubmissionDialogError
         open={formSubmitDialogErrorOpen}
@@ -863,4 +864,4 @@ const WashingMachine = () => {
   )
 }
 
-export default WashingMachine
+export default IrrigationEfficienciesPostConversion

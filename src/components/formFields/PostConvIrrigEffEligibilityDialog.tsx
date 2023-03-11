@@ -30,7 +30,6 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
-import RebatesEmail from '@components/links/RebatesEmail'
 
 type Props = {
   open: boolean
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const PostConvLawnReplEligibilityDialog = ({
+const PostConvIrrigEffEligibilityDialog = ({
   open = false,
   onClose,
   formik
@@ -84,9 +83,8 @@ const PostConvLawnReplEligibilityDialog = ({
       [
         touched.rebateCustomer,
         touched.projectCompleted,
-        touched.worksheetCompleted,
-        touched.photosTaken,
-        touched.partsReceipts
+        touched.partsReceipts,
+        touched.photosTaken
       ].every(Boolean),
     [touched]
   )
@@ -96,9 +94,8 @@ const PostConvLawnReplEligibilityDialog = ({
       [
         errors.rebateCustomer,
         errors.projectCompleted,
-        errors.worksheetCompleted,
-        errors.photosTaken,
-        errors.partsReceipts
+        errors.partsReceipts,
+        errors.photosTaken
       ]
         .filter(
           (error) =>
@@ -295,7 +292,7 @@ const PostConvLawnReplEligibilityDialog = ({
   )
 }
 
-export default connect(PostConvLawnReplEligibilityDialog)
+export default connect(PostConvIrrigEffEligibilityDialog)
 
 function getStepContent(stepNo: number) {
   const found = getSteps().find((step) => step.index === stepNo)
@@ -365,7 +362,8 @@ const QuestionOne = () => {
                 className={classes.qualifyMsg}
               >
                 This application is only to be submitted by customers that are
-                currently participating in the Lawn Replacement Rebate Program.
+                currently participating in the Irrigation Efficiencies Rebate
+                Program.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -437,7 +435,7 @@ const QuestionTwo = () => {
 const QuestionThree = () => {
   const classes = useQuestionStyles()
   return (
-    <Field name="worksheetCompleted">
+    <Field name="partsReceipts">
       {({field, form}: FieldProps<any>) => {
         const {setFieldValue, errors, setFieldTouched, touched} = form
         const {name, value} = field
@@ -470,6 +468,7 @@ const QuestionThree = () => {
                   button
                   divider
                   selected={answer === value}
+                  // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
@@ -482,9 +481,8 @@ const QuestionThree = () => {
                 color="textPrimary"
                 className={classes.qualifyMsg}
               >
-                Plant Coverage Worksheet is required in order to submit
-                application. Please contact <RebatesEmail /> and request the
-                Plant Coverage Worksheet.
+                To receive a rebate for irrigation efficiencies you must have
+                itemized receipts or invoices.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -544,62 +542,7 @@ const QuestionFour = () => {
                 className={classes.qualifyMsg}
               >
                 Post Conversion photographs (5) are required. Please refer to
-                Lawn Replacement terms and conditions, section, VI.
-              </DialogContentText>
-            </WaitToGrow>
-          </div>
-        )
-      }}
-    </Field>
-  )
-}
-
-const QuestionFive = () => {
-  const classes = useQuestionStyles()
-  return (
-    <Field name="partsReceipts">
-      {({field, form}: FieldProps<any>) => {
-        const {setFieldValue, setFieldTouched, touched} = form
-        const {name, value} = field
-        // const currentError = errors[name]
-
-        const clickHandler = (newValue: string) => () => {
-          setFieldValue(name, newValue, true)
-          setFieldTouched(name, true)
-        }
-
-        const fieldTouched = Boolean(touched[name])
-        return (
-          <div>
-            <List
-            // subheader={
-            //   <ListSubheader component="div">
-            //     Choose one of the following
-            //   </ListSubheader>
-            // }
-            >
-              {yesNoAnswers.map((answer) => (
-                <ListItem
-                  key={answer}
-                  button
-                  divider
-                  selected={answer === value}
-                  // disabled={fieldTouched}
-                  onClick={clickHandler(answer)}
-                >
-                  <ListItemText primary={answer} />
-                </ListItem>
-              ))}
-            </List>
-            <WaitToGrow isIn={fieldTouched && value?.toLowerCase() === 'no'}>
-              <DialogContentText
-                variant="body1"
-                color="textPrimary"
-                className={classes.qualifyMsg}
-              >
-                Note, if you are unable to obtain itemized receipts you cannot
-                participate in our irrigation efficiencies rebate. Receipts are
-                not required for Lawn Replacement Rebate.
+                Irrigation Efficiencies terms and conditions, section, VII.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -614,7 +557,7 @@ function getSteps() {
     {
       index: 0,
       label:
-        'Are you currently participating in the PCWA Lawn Replacement Rebate Program?',
+        'Are you currently participating in the PCWA Irrigation Efficiencies Rebate Program?',
       fieldName: 'rebateCustomer',
       content: <QuestionOne />
     },
@@ -626,8 +569,9 @@ function getSteps() {
     },
     {
       index: 2,
-      label: "Have you completed the '50% Plant Coverage worksheet'?",
-      fieldName: 'worksheetCompleted',
+      label:
+        'Do you have itemized receipts or invoices for irrigation parts installed?',
+      fieldName: 'partsReceipts',
       content: <QuestionThree />
     },
     {
@@ -636,13 +580,6 @@ function getSteps() {
         'Have you taken 5 post conversion photographs following requirements stated in terms and conditions?',
       fieldName: 'photosTaken',
       content: <QuestionFour />
-    },
-    {
-      index: 4,
-      label:
-        'Do you have itemized receipts or invoices for irrigation parts installed?',
-      fieldName: 'partsReceipts',
-      content: <QuestionFive />
     }
   ]
 }

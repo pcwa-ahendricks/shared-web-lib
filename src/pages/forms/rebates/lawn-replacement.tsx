@@ -552,7 +552,7 @@ const LawnReplacement = () => {
                                 required
                                 name="describe"
                                 multiline
-                                rows={3} // That's about 200 characters
+                                minRows={3} // That's about 200 characters
                                 label="Briefly describe your project plans"
                                 disabled={ineligible}
                               />
