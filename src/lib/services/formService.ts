@@ -62,7 +62,7 @@ export interface IrrigationEfficienciesRequestBody {
   formData: IrrigationEfficienciesRebateFormData
 }
 
-export interface PostConvLawnReplacementRebateFormData {
+export interface PostConvLawnReplacementFormData {
   firstName: string
   lastName: string
   email: string
@@ -92,7 +92,36 @@ export interface PostConvLawnReplacementRebateFormData {
 
 export interface PostConvLawnReplacementRequestBody {
   // recipients: Array<{Name: string, Email: string}>,
-  formData: PostConvLawnReplacementRebateFormData
+  formData: PostConvLawnReplacementFormData
+}
+
+export interface PostConvIrrigEffFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  propertyType: string
+  rebateCustomer: '' | 'Yes' | 'No'
+  projectCompleted: '' | 'Yes' | 'No'
+  photosTaken: '' | 'Yes' | 'No'
+  partsReceipts: '' | 'Yes' | 'No'
+  describe: string
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  inspectAgree: BooleanAsString
+  signature: string
+  captcha: string
+  postConvPhotos: string[]
+  itemizedReceipts: string[]
+}
+
+export interface PostConvIrrigEffRequestBody {
+  // recipients: Array<{Name: string, Email: string}>,
+  formData: PostConvIrrigEffFormData
 }
 
 export interface LawnReplacementRebateFormData {
@@ -382,6 +411,7 @@ type RequestBody =
   | Sb998SelfCertRequestBody
   | CwmpContactUsRequestBody
   | PostConvLawnReplacementRequestBody
+  | PostConvIrrigEffRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`

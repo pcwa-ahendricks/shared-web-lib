@@ -41,8 +41,8 @@ const ContactUsMessageField = ({
       disabled={disabled || isSubmitting}
       fullWidth={fullWidth}
       multiline
-      rows={4}
-      rowsMax={10}
+      minRows={4}
+      maxRows={10}
       {...other}
     />
   )

@@ -371,7 +371,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <FormTextField
                 name="comments"
                 multiline
-                rows={3} // That's about 200 characters
+                minRows={3} // That's about 200 characters
                 label="Optionally, you can provide us any comments"
                 disabled={ineligible}
               />
