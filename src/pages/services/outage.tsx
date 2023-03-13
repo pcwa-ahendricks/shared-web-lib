@@ -278,7 +278,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   .
                 </Type>
               </Box>
-              <Spacing />
+              {/* <Spacing />
               <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
@@ -315,7 +315,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   </MuiLink>
                   .
                 </Type>
-              </Box>
+              </Box> */}
 
               <Spacing size="large" />
               <Box
