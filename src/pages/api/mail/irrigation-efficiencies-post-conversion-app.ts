@@ -1,21 +1,21 @@
-// cspell:ignore cbarnhill
-// import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+// cspell:ignore addtl cbarnhill truthy conv
+import {string, object, StringSchema, array, SchemaOf, ArraySchema} from 'yup'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
-  AttachmentFieldValue,
-  emailRecipientsAppliance,
+  emailRecipientsIrrigation,
   validateSchema,
-  emailRecipientsSysAdmin
-} from '../../../lib/api/forms'
-import {VercelRequest, VercelResponse} from '@vercel/node'
+  emailRecipientsSysAdmin,
+  AttachmentFieldValue
+} from '@lib/api/forms'
+import {VercelResponse, VercelRequest} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
-const MAILJET_TEMPLATE_ID = 3035066
+
+const MAILJET_TEMPLATE_ID = 4662558
 
 interface FormDataObj {
   firstName: string
@@ -24,22 +24,21 @@ interface FormDataObj {
   accountNo: string
   address: string
   city: string
-  otherCity?: string
+  otherCity: string
   phone: string
-  howDidYouHear: string
-  otherHowDidYouHear?: string
   propertyType: string
-  treatedCustomer: '' | 'Yes' | 'No'
-  sizeSqFt: string
-  manufacturer: string
-  model: string
-  termsAgree: string
+  rebateCustomer: '' | 'Yes' | 'No'
+  projectCompleted: '' | 'Yes' | 'No'
+  photosTaken: '' | 'Yes' | 'No'
+  partsReceipts: '' | 'Yes' | 'No'
+  describe: string
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  inspectAgree: BooleanAsString
   signature: string
   captcha: string
-  emailAttachments: BooleanAsString
-  comments: string
-  receipts: AttachmentFieldValue[]
-  installPhotos: AttachmentFieldValue[]
+  postConvPhotos: AttachmentFieldValue[]
+  itemizedReceipts: AttachmentFieldValue[]
 }
 
 const bodySchema = object()
@@ -53,70 +52,108 @@ const bodySchema = object()
         lastName: string().required(),
         email: string().email().required(),
         accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
+          .matches(
+            /^\d+-\d+$/,
+            'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+          )
+          .required(
+            'An Account Number is required (leading zeros are optional)'
+          ),
         address: string().required(),
         city: string().required(),
         otherCity: string().when(
           'city',
-          (city: string | undefined, schema: StringSchema) =>
+          (city: string | null, schema: StringSchema) =>
             city && city.toLowerCase() === 'other' ? schema.required() : schema
         ),
-        phone: string().min(10).required(),
-        howDidYouHear: string().required(),
-        otherHowDidYouHear: string().when(
-          'howDidYouHear',
-          (howDidYouHear: string | undefined, schema: StringSchema) =>
-            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-              ? schema.required()
-              : schema
-        ),
+        phone: string().required().min(10),
         propertyType: string().required(),
-        treatedCustomer: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
+        rebateCustomer: string().required().oneOf(
+          ['Yes'], // "Yes", "No"
+          'You must be currently participating in the Irrigation Efficiencies Rebate Program'
         ),
-        sizeSqFt: string().required(),
-        manufacturer: string().required(),
-        model: string().required(),
-        termsAgree: string().required().oneOf(['true']),
-        signature: string().required(),
-        captcha: string().required(),
-        comments: string().max(200),
+        projectCompleted: string().required().oneOf(
+          ['Yes'], // "Yes", "No"
+          'Project must be completed'
+        ),
+        photosTaken: string().required().oneOf(
+          ['Yes'], // "Yes", "No"
+          'Post Conversion photographs (5) are required in order to submit application'
+        ),
+        partsReceipts: string().required().oneOf(
+          ['Yes'], // "Yes", "No"
+          'You must have itemized receipts or invoices to receive this rebate'
+        ),
+        describe: string()
+          .required()
+          .max(600, 'Description must be less than 600 characters.'),
+        termsAgree: string()
+          .required()
+          .oneOf(
+            ['true'],
+            'Must agree to Terms and Conditions by checking this box'
+          ),
         emailAttachments: string(),
-        receipts: array()
+        postConvPhotos: array()
           .when(
             'emailAttachments',
             (
               emailAttachments: BooleanAsString,
               schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
+            ) =>
+              emailAttachments === 'true'
+                ? schema
+                : schema
+                    .required('You must provide 5 photos')
+                    .min(5, 'You must provide 5 photos')
           )
           .of(
             object({
               status: string()
                 .required()
                 .lowercase()
-                .matches(/success/),
-              url: string().required().url()
+                .matches(
+                  /success/,
+                  'Remove and/or retry un-successful uploads'
+                ),
+              url: string().required('Attachment URL is not available').url()
             })
           ),
-        installPhotos: array()
+        itemizedReceipts: array()
           .when(
             'emailAttachments',
             (
               emailAttachments: BooleanAsString,
               schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
+            ) =>
+              emailAttachments === 'true'
+                ? schema
+                : schema
+                    .required('You must provide itemized receipt(s)')
+                    .min(1, 'You must provide itemized receipt(s)')
           )
           .of(
             object({
               status: string()
                 .required()
                 .lowercase()
-                .matches(/success/),
-              url: string().required().url()
+                .matches(
+                  /success/,
+                  'Remove and/or retry un-successful uploads'
+                ),
+              url: string().required('Attachment URL is not available').url()
             })
-          )
+          ),
+        inspectAgree: string()
+          .required()
+          .oneOf(
+            ['true'],
+            'Must agree to a scheduled site inspection by checking this box'
+          ),
+        signature: string().required().label('Your signature'),
+        captcha: string().required(
+          'Checking this box is required for security purposes'
+        )
       })
   })
 
@@ -138,6 +175,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     await validateSchema(bodySchema, bodyParsed)
 
+    // const sendEmail = Mailjet.post('send', {
+    //   version: 'v3.1'
+    // })
+
     const {formData} = bodyParsed
     const {
       email,
@@ -146,21 +187,20 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       address,
       otherCity = '',
       phone,
-      otherHowDidYouHear = '',
       propertyType,
-      sizeSqFt,
-      manufacturer,
-      model,
-      emailAttachments = '',
-      receipts = [],
-      installPhotos = [],
+      rebateCustomer,
+      projectCompleted,
+      photosTaken,
+      partsReceipts,
+      describe = '',
       termsAgree,
+      emailAttachments = '',
       signature,
       captcha,
-      comments = '',
-      treatedCustomer
+      postConvPhotos = [],
+      itemizedReceipts = []
     } = formData
-    let {city = '', howDidYouHear = '', accountNo} = formData
+    let {city = '', accountNo} = formData
 
     // Remove leading zeros from account number.
     accountNo = accountNo
@@ -185,19 +225,15 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     if (city.toLowerCase() === 'other') {
       city = otherCity
     }
-    // Overwrite "howDidYouHear" with "otherHowDidYouHear"
-    if (howDidYouHear.toLowerCase() === 'other') {
-      howDidYouHear = otherHowDidYouHear
-    }
 
-    const receiptImages = receipts.map((attachment) => attachment.url)
-    const installImages = installPhotos.map((attachment) => attachment.url)
+    const postConvImages = postConvPhotos.map((attachment) => attachment.url)
+    const itemizedReceiptImages = itemizedReceipts.map(
+      (attachment) => attachment.url
+    )
 
     const replyToName = `${firstName} ${lastName}`
     // since email is required, use that info for 'cc' and 'reply to'
     const ccAndReplyToRecipient = {Email: email, Name: replyToName}
-
-    const commentsLength = comments.length
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the
@@ -209,7 +245,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             Email: MAILJET_SENDER,
             Name: 'PCWA Forms'
           },
-          To: [...emailRecipientsAppliance],
+          To: [...emailRecipientsIrrigation],
           Cc: [ccAndReplyToRecipient],
           Bcc: emailRecipientsSysAdmin,
           ReplyTo: ccAndReplyToRecipient,
@@ -220,27 +256,25 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           TemplateID: MAILJET_TEMPLATE_ID,
           TemplateLanguage: true,
           Variables: {
+            email,
             firstName,
             lastName,
-            accountNo,
-            city,
             address,
-            email,
+            city,
             phone,
-            howDidYouHear,
             propertyType,
-            sizeSqFt,
-            manufacturer,
-            model,
-            treatedCustomer,
-            submitDate: localFormat(localDate(), 'MMMM do, yyyy'),
-            emailAttachments,
-            receiptImages,
-            installImages,
+            rebateCustomer,
+            projectCompleted,
+            photosTaken,
+            partsReceipts,
+            describe,
             termsAgree,
+            emailAttachments,
             signature,
-            comments,
-            commentsLength
+            captcha,
+            postConvImages,
+            itemizedReceiptImages,
+            submitDate: localFormat(localDate(), 'MMMM do, yyyy')
           }
         }
       ]
@@ -255,6 +289,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const postMailData = await postMailJetRequest(requestBody)
     res.status(200).json(postMailData)
   } catch (error) {
+    // isDev && console.log(error)
     console.error('Mailjet sendMail error status: ', error.statusCode)
     res.status(500).end()
   }
