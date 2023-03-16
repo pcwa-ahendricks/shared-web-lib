@@ -190,7 +190,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     if (city.toLowerCase() === 'other') {
       city = otherCity
     }
-    // Overwrite "howDidYouHear" with "otherHowDidYouHear" if another city was specified.
+    // Overwrite "howDidYouHear" with "otherHowDidYouHear"
     if (howDidYouHear.toLowerCase() === 'other') {
       howDidYouHear = otherHowDidYouHear
     }
