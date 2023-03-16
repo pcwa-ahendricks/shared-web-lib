@@ -195,7 +195,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       describe = '',
       // termsAgree,
       // emailAttachments = '',
-      // signature,
+      signature,
       captcha,
       postConvPhotos = [],
       itemizedReceipts = []
@@ -270,8 +270,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             describe,
             // termsAgree,
             // emailAttachments,
-            // signature,
             // captcha,
+            signature,
             postConvImages,
             itemizedReceiptImages,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy')
