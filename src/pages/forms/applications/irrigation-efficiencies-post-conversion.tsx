@@ -78,28 +78,25 @@ const formSchema = object()
     rebateCustomer: string()
       .required()
       .oneOf(
-        ['Yes'], // "Yes", "No"
+        ['Yes'],
         'You must be currently participating in the Irrigation Efficiencies Rebate Program'
       )
       .label('Irrigation Efficiencies Rebate Applicant'),
     projectCompleted: string()
       .required()
-      .oneOf(
-        ['Yes'], // "Yes", "No"
-        'Project must be completed'
-      )
+      .oneOf(['Yes'], 'Project must be completed')
       .label('Project Completion'),
     photosTaken: string()
       .required()
       .oneOf(
-        ['Yes'], // "Yes", "No"
+        ['Yes'],
         'Post Conversion photographs (5) are required in order to submit application'
       )
       .label('Post Conversion photographs Taken'),
     partsReceipts: string()
       .required()
       .oneOf(
-        ['Yes'], // "Yes", "No"
+        ['Yes'],
         'You must have itemized receipts or invoices to receive this rebate'
       )
       .label('Itemized Receipts for Irrigation Parts Installed'),
