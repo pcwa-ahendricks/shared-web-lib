@@ -181,9 +181,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const {formData} = bodyParsed
     const {
-      email,
       firstName,
       lastName,
+      email,
       address,
       otherCity = '',
       phone,
@@ -256,9 +256,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           TemplateID: MAILJET_TEMPLATE_ID,
           TemplateLanguage: true,
           Variables: {
-            email,
             firstName,
             lastName,
+            email,
+            accountNo,
             address,
             city,
             phone,
