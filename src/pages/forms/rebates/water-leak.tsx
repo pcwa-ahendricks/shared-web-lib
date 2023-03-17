@@ -2,7 +2,15 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Typography as Type} from '@material-ui/core'
 import {Formik} from 'formik'
-import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
+import {
+  string,
+  object,
+  array,
+  StringSchema,
+  ArraySchema,
+  SchemaOf,
+  date
+} from 'yup'
 import {
   postForm,
   WaterLeakFormData as RebateFormData,
@@ -59,6 +67,16 @@ const formSchema = object()
       ['Yes'], // "Yes", "No"
       'You must be a current Placer County Water Agency treated water customer'
     ),
+    leakBeginDate: date().nullable().label('Leak Begin Date'), // prevent error msg from displaying
+    // .required('Please specify a date and time for this incident')
+    leakIdentifyDate: date()
+      .nullable() // prevent error msg from displaying
+      .required('Please specify a date for when this leak was identified')
+      .label('Leak Identified Date'),
+    leakRepairDate: date()
+      .nullable() // prevent error msg from displaying
+      .required('Please specify a date for when this leak was repaired')
+      .label('Leak Repair Date'),
     termsAgree: string()
       .required()
       .oneOf(
@@ -84,7 +102,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('Must provide receipt(s) or proof of purchase')
+            : schema
+                .required('Must provide receipt(s) or proof of purchase')
+                .min(1, 'Must provide receipt(s) or proof of purchase')
       )
       .of(
         object({
@@ -104,7 +124,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('Must provide photo(s) of Water Leak')
+            : schema
+                .required('Must provide photo(s) of Water Leak')
+                .min(1, 'Must provide photo(s) of Water Leak')
       )
       .of(
         object({
@@ -124,7 +146,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('Must provide photo(s) of Leak Repair')
+            : schema
+                .required('Must provide photo(s) of Leak Repair')
+                .min(1, 'Must provide photo(s) of Leak Repair')
       )
       .of(
         object({

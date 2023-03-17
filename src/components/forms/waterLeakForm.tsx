@@ -6,7 +6,9 @@ import {
   Theme,
   Typography as Type,
   createStyles,
-  makeStyles
+  makeStyles,
+  InputAdornment,
+  IconButton
 } from '@material-ui/core'
 import {useFormikContext, Field} from 'formik'
 import {WaterLeakFormData} from '@lib/services/formService'
@@ -34,6 +36,8 @@ import {ColumnBox} from 'mui-sleazebox'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
+import FormDateField from '@components/formFields/FormDateField'
+import CalendarIcon from '@material-ui/icons/Event'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
@@ -135,8 +139,6 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
       setFieldValue('otherHowDidYouHear', '')
     }
   }
-
-  console.log('ineligible', ineligible)
 
   const attachmentsAreUploading = receiptIsUploading || installPhotosIsUploading
 
@@ -263,7 +265,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
           <Spacing />
 
           <Grid container spacing={5} justifyContent="space-between">
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={5}>
               <Field
                 disabled
                 name="treatedCustomer"
@@ -271,6 +273,80 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 inputId="treated-water-select"
                 labelWidth={200}
                 component={YesNoSelectField}
+              />
+            </Grid>
+            <Grid item xs={12} sm={7}>
+              <FormDateField
+                name="leakBeginDate"
+                label="Leak Begin Date"
+                placeholder="Begin Date of Leak (approx.)"
+                // required
+                fullWidth
+                disableFuture
+                margin="normal"
+                showTodayButton
+                inputVariant="outlined"
+                format="M/dd/yyyy"
+                // show Calendar icon
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <CalendarIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={5} justifyContent="space-between">
+            <Grid item xs={12} sm={6}>
+              <FormDateField
+                name="leakIdentifyDate"
+                label="Leak Identified Date"
+                placeholder="Date Leak was Identified"
+                required
+                fullWidth
+                disableFuture
+                margin="normal"
+                showTodayButton
+                inputVariant="outlined"
+                format="M/dd/yyyy"
+                // show Calendar icon
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <CalendarIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormDateField
+                name="leakRepairDate"
+                label="Leak Repair Date"
+                placeholder="Date Leak was Repaired"
+                required
+                fullWidth
+                disableFuture
+                margin="normal"
+                showTodayButton
+                inputVariant="outlined"
+                format="M/dd/yyyy"
+                // show Calendar icon
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <CalendarIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
             </Grid>
           </Grid>
