@@ -15,7 +15,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''
 
-const MAILJET_TEMPLATE_ID = 4662558
+const MAILJET_TEMPLATE_ID = 4662607
 
 interface FormDataObj {
   firstName: string
@@ -29,15 +29,19 @@ interface FormDataObj {
   propertyType: string
   rebateCustomer: '' | 'Yes' | 'No'
   projectCompleted: '' | 'Yes' | 'No'
+  worksheetCompleted: '' | 'Yes' | 'No'
   photosTaken: '' | 'Yes' | 'No'
+  artTurfInstalled: '' | 'Yes' | 'No'
   partsReceipts: '' | 'Yes' | 'No'
-  describe: string
+  approxSqFeet: string
   termsAgree: BooleanAsString
   emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
   postConvPhotos: AttachmentFieldValue[]
+  worksheetUploads: AttachmentFieldValue[]
+  checklistUploads: AttachmentFieldValue[]
   itemizedReceipts: AttachmentFieldValue[]
 }
 
@@ -188,16 +192,19 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       otherCity = '',
       phone,
       propertyType,
-      // rebateCustomer,
-      // projectCompleted,
-      // photosTaken,
-      // partsReceipts,
-      describe = '',
-      // termsAgree,
       emailAttachments = '',
       signature,
       captcha,
+      // rebateCustomer,
+      // projectCompleted,
+      // worksheetCompleted,
+      // photosTaken,
+      artTurfInstalled,
+      partsReceipts,
+      approxSqFeet,
       postConvPhotos = [],
+      worksheetUploads = [],
+      checklistUploads = [],
       itemizedReceipts = []
     } = formData
     let {city = '', accountNo} = formData
@@ -269,7 +276,6 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             // projectCompleted,
             // photosTaken,
             // partsReceipts,
-            describe,
             // termsAgree,
             emailAttachments,
             // captcha,
