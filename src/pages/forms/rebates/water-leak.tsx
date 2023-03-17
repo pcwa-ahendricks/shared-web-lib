@@ -25,6 +25,8 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import WaterLeakForm from '@components/forms/waterLeakForm'
+import {formControlItems as eligibilityOpts} from '@components/formFields/WaterLeakRequireCheckboxes'
+import LeakFixEffEligibilityDialog from '@components/formFields/LeakFixEffEligibilityDialog'
 
 const SERVICE_URI_PATH = 'water-leak'
 
@@ -63,10 +65,6 @@ const formSchema = object()
             : schema
       ),
     propertyType: string().required().label('Property Type'),
-    treatedCustomer: string().required().label('Treated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency treated water customer'
-    ),
     leakBeginDate: date().nullable().label('Leak Begin Date'), // prevent error msg from displaying
     // .required('Please specify a date and time for this incident')
     leakIdentifyDate: date()
@@ -93,6 +91,13 @@ const formSchema = object()
       .required('Please briefly describe your leak and repair')
       .max(400, 'Comments must be less than 400 characters.')
       .label('Describe Leak and Repair'),
+    eligibilityRequirements: object()
+      .required()
+      .test(
+        'is-eligible',
+        'You must meet all the requirements to apply for Water Leak Rebate',
+        hasAllTrueValue
+      ),
     receipts: array()
       .when(
         'emailAttachments',
@@ -173,8 +178,8 @@ const initialFormValues: RebateFormData = {
   howDidYouHear: '',
   otherHowDidYouHear: '',
   propertyType: '',
-  treatedCustomer: 'Yes',
   describe: '',
+  eligibilityRequirements: {...eligibilityOpts},
   leakBeginDate: null,
   leakIdentifyDate: null,
   leakRepairDate: null,
@@ -216,7 +221,6 @@ const WaterLeak = () => {
   }, [])
 
   const ineligibleChangeHandler = useCallback((value: boolean) => {
-    console.log('changing inel', value)
     setIneligible(value)
   }, [])
 
@@ -271,10 +275,10 @@ const WaterLeak = () => {
                   ineligible={ineligible}
                   onIneligibleChange={ineligibleChangeHandler}
                 />
-                {/* <LeakFixEffEligibilityDialog
+                <LeakFixEffEligibilityDialog
                   open={eligibilityDialogOpen}
                   onClose={() => setEligibilityDialogOpen(false)}
-                /> */}
+                />
               </ProtectRouteChange>
             </Formik>
           </MainBox>
@@ -306,3 +310,11 @@ const WaterLeak = () => {
 }
 
 export default WaterLeak
+
+function hasAllTrueValue(value: any): boolean {
+  return (
+    value &&
+    typeof value === 'object' &&
+    Object.keys(value).every((chkBoxVal) => value[chkBoxVal] === true)
+  )
+}
