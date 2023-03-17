@@ -184,7 +184,7 @@ const formSchema = object()
       .when(
         'partsReceipts',
         (partsReceipts: string, schema: ArraySchema<SchemaOf<string>>) =>
-          partsReceipts?.toLowerCase() === 'yes'
+          partsReceipts?.toLowerCase() === 'no'
             ? schema
             : schema
                 .required('Please provide itemized receipt(s)')
