@@ -72,25 +72,30 @@ const bodySchema = object()
         ),
         phone: string().required().min(10),
         propertyType: string().required(),
-        rebateCustomer: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'You must be currently participating in the Irrigation Efficiencies Rebate Program'
-        ),
-        projectCompleted: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'Project must be completed'
-        ),
-        photosTaken: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'Post Conversion photographs (5) are required in order to submit application'
-        ),
-        partsReceipts: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'You must have itemized receipts or invoices to receive this rebate'
-        ),
-        describe: string()
+        rebateCustomer: string()
           .required()
-          .max(600, 'Description must be less than 600 characters.'),
+          .oneOf(
+            ['Yes'],
+            'You must be currently participating in the Lawn Replacement Rebate Program'
+          ),
+        projectCompleted: string()
+          .required()
+          .oneOf(['Yes'], 'Project must be completed'),
+        worksheetCompleted: string()
+          .required()
+          .oneOf(
+            ['Yes'],
+            'Plant Coverage Worksheet is required in order to submit application'
+          ),
+        photosTaken: string()
+          .required()
+          .oneOf(
+            ['Yes'],
+            'Post Conversion photographs (5) are required in order to submit application'
+          ),
+        artTurfInstalled: string().required(),
+        approxSqFeet: string(),
+        partsReceipts: string().required(),
         termsAgree: string()
           .required()
           .oneOf(
@@ -123,7 +128,7 @@ const bodySchema = object()
               url: string().required('Attachment URL is not available').url()
             })
           ),
-        itemizedReceipts: array()
+        worksheetUploads: array()
           .when(
             'emailAttachments',
             (
@@ -133,13 +138,59 @@ const bodySchema = object()
               emailAttachments === 'true'
                 ? schema
                 : schema
-                    .required('You must provide itemized receipt(s)')
-                    .min(1, 'You must provide itemized receipt(s)')
+                    .required('You must provide Plant Coverage Worksheet')
+                    .min(1, 'You must provide Plant Coverage Worksheet')
           )
           .of(
             object({
               status: string()
                 .required()
+                .lowercase()
+                .matches(
+                  /success/,
+                  'Remove and/or retry un-successful uploads'
+                ),
+              url: string().required('Attachment URL is not available').url()
+            })
+          ),
+        checklistUploads: array()
+          .when(
+            'emailAttachments',
+            (
+              emailAttachments: BooleanAsString,
+              schema: ArraySchema<SchemaOf<string>>
+            ) =>
+              emailAttachments === 'true'
+                ? schema
+                : schema
+                    .required('You must provide Customer Check List')
+                    .min(1, 'You must provide Customer Check List')
+          )
+          .of(
+            object({
+              status: string()
+                .required()
+                .lowercase()
+                .matches(
+                  /success/,
+                  'Remove and/or retry un-successful uploads'
+                ),
+              url: string().required('Attachment URL is not available').url()
+            })
+          ),
+        itemizedReceipts: array()
+          .when(
+            'partsReceipts',
+            (partsReceipts: string, schema: ArraySchema<SchemaOf<string>>) =>
+              partsReceipts?.toLowerCase() === 'yes'
+                ? schema
+                : schema
+                    .required('Please provide itemized receipt(s)')
+                    .min(1, 'Please provide itemized receipt(s)')
+          )
+          .of(
+            object({
+              status: string()
                 .lowercase()
                 .matches(
                   /success/,
@@ -154,7 +205,7 @@ const bodySchema = object()
             ['true'],
             'Must agree to a scheduled site inspection by checking this box'
           ),
-        signature: string().required().label('Your signature'),
+        signature: string().required(),
         captcha: string().required(
           'Checking this box is required for security purposes'
         )
@@ -192,13 +243,14 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       otherCity = '',
       phone,
       propertyType,
-      emailAttachments = '',
-      signature,
-      captcha,
       // rebateCustomer,
       // projectCompleted,
       // worksheetCompleted,
       // photosTaken,
+      // termsAgree,
+      emailAttachments = '',
+      signature,
+      captcha,
       artTurfInstalled,
       partsReceipts,
       approxSqFeet,
@@ -237,6 +289,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const itemizedReceiptImages = itemizedReceipts.map(
       (attachment) => attachment.url
     )
+    const worksheetImages = worksheetUploads.map((attachment) => attachment.url)
+    const checklistImages = checklistUploads.map((attachment) => attachment.url)
 
     const replyToName = `${firstName} ${lastName}`
     // since email is required, use that info for 'cc' and 'reply to'
@@ -274,13 +328,17 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
             propertyType,
             // rebateCustomer,
             // projectCompleted,
+            // worksheetCompleted,
             // photosTaken,
-            // partsReceipts,
-            // termsAgree,
+            artTurfInstalled,
+            partsReceipts,
+            approxSqFeet,
             emailAttachments,
             // captcha,
             signature,
             postConvImages,
+            worksheetImages,
+            checklistImages,
             itemizedReceiptImages,
             submitDate: localFormat(localDate(), 'MMMM do, yyyy')
           }
