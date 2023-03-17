@@ -607,13 +607,14 @@ const IrrigationEfficienciesPostConversion = () => {
                           </Box>
                           <Spacing size="small" />
                           <Type variant="caption" color="textSecondary">
-                            Note - Image file formats are preferred (eg. .jpg,
-                            .png) for uploads. PDF files and Word Documents can
-                            be uploaded too but they <em>must be less than</em>{' '}
-                            4 MB in size. If you are unable to attach the
-                            correct file type, or if any other issues with the
-                            attachments arise, you may select the box below and
-                            submit the files in an email.
+                            Note - Image file formats are preferred{' '}
+                            <em>(eg. JPG, PNG)</em> for uploads. PDF files and
+                            Word Documents can be uploaded too but they{' '}
+                            <em>must be less than</em> 4 MB in size. If you are
+                            unable to attach the correct file type, or if any
+                            other issues with the attachments arise, you may
+                            select the box below and submit the files in an
+                            email.
                           </Type>
                           <Field
                             name="emailAttachments"
