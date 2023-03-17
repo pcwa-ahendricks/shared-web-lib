@@ -150,7 +150,7 @@ const bodySchema = object()
             ['true'],
             'Must agree to a scheduled site inspection by checking this box'
           ),
-        signature: string().required().label('Your signature'),
+        signature: string().required(),
         captcha: string().required(
           'Checking this box is required for security purposes'
         )
