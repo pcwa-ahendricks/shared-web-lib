@@ -4,6 +4,35 @@ import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocat
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import fetcher from '@lib/fetcher'
 
+export interface WaterLeakFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
+  propertyType: string
+  treatedCustomer: '' | 'Yes' | 'No'
+  leakBeginDate: Date | null
+  leakIdentifyDate: Date | null
+  leakRepairDate: Date | null
+  describe: string
+  receipts: string[]
+  leakPhotos: string[]
+  repairPhotos: string[]
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  signature: string
+  captcha: string
+}
+
+export interface WaterLeakRequestBody {
+  formData: WaterLeakFormData
+}
 export interface IrrigationControllerRebateFormData {
   firstName: string
   lastName: string
@@ -412,6 +441,7 @@ type RequestBody =
   | CwmpContactUsRequestBody
   | PostConvLawnReplacementRequestBody
   | PostConvIrrigEffRequestBody
+  | WaterLeakRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`
