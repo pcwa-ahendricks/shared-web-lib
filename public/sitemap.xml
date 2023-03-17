@@ -156,6 +156,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/forms/rebates/water-leak</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/services/monthly-billing</loc>
     <changefreq>daily</changefreq>
   </url>
