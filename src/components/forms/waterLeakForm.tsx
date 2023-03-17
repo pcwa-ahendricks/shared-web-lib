@@ -19,7 +19,6 @@ import OtherCityField from '@components/formFields/OtherCityField'
 import StreetAddressField from '@components/formFields/StreetAddressField'
 import PhoneNoField from '@components/formFields/PhoneNoField'
 import PropertyTypeSelectField from '@components/formFields/PropertyTypeSelectField'
-import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import AgreeTermsCheckbox from '@components/formFields/AgreeTermsCheckbox'
 import RecaptchaField from '@components/formFields/RecaptchaField'
 import AttachmentField from '@components/formFields/AttachmentField'
@@ -264,8 +263,15 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
           <Type variant="h4" color="textSecondary" gutterBottom>
             Rebate Information
           </Type>
+          <Spacing size="small" />
+          <Type paragraph variant="body2">
+            Please provide us the following information relating to your treated
+            leak and leak fix. We would like to know approximately when the leak
+            started, when you identified the leak, and when the leak was fixed.
+            Additionally, we would like a brief description of the leak and the
+            summary for the repairs that were made to fix the leak.
+          </Type>
           <Spacing />
-
           <Grid container spacing={5} justifyContent="space-between">
             <Grid item xs={12} sm={6}>
               <FormDateField

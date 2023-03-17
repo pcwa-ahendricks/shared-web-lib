@@ -28,7 +28,7 @@ import WaterLeakForm from '@components/forms/waterLeakForm'
 import {formControlItems as eligibilityOpts} from '@components/formFields/WaterLeakRequireCheckboxes'
 import LeakFixEffEligibilityDialog from '@components/formFields/LeakFixEffEligibilityDialog'
 
-const SERVICE_URI_PATH = 'water-leak'
+const SERVICE_URI_PATH = 'water-leak-rebate'
 
 const formSchema = object()
   .camelCase()
