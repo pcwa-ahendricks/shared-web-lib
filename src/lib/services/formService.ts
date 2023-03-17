@@ -77,8 +77,8 @@ export interface PostConvLawnReplacementFormData {
   worksheetCompleted: '' | 'Yes' | 'No'
   photosTaken: '' | 'Yes' | 'No'
   artTurfInstalled: '' | 'Yes' | 'No'
-  approxSqFeet: string
   partsReceipts: '' | 'Yes' | 'No'
+  approxSqFeet: string
   termsAgree: BooleanAsString
   emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString

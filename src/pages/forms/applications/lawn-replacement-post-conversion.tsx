@@ -77,28 +77,25 @@ const formSchema = object()
     rebateCustomer: string()
       .required()
       .oneOf(
-        ['Yes'], // "Yes", "No"
+        ['Yes'],
         'You must be currently participating in the Lawn Replacement Rebate Program'
       )
       .label('Lawn Replacement Rebate Applicant'),
     projectCompleted: string()
       .required()
-      .oneOf(
-        ['Yes'], // "Yes", "No"
-        'Project must be completed'
-      )
+      .oneOf(['Yes'], 'Project must be completed')
       .label('Project Completion'),
     worksheetCompleted: string()
       .required()
       .oneOf(
-        ['Yes'], // "Yes", "No"
+        ['Yes'],
         'Plant Coverage Worksheet is required in order to submit application'
       )
       .label('Worksheet Completion'),
     photosTaken: string()
       .required()
       .oneOf(
-        ['Yes'], // "Yes", "No"
+        ['Yes'],
         'Post Conversion photographs (5) are required in order to submit application'
       )
       .label('Post Conversion photographs Taken'),
@@ -148,7 +145,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('You must provide Plant Coverage Worksheet')
+            : schema
+                .required('You must provide Plant Coverage Worksheet')
+                .min(1, 'You must provide Plant Coverage Worksheet')
       )
       .of(
         object({
@@ -168,7 +167,9 @@ const formSchema = object()
         ) =>
           emailAttachments === 'true'
             ? schema
-            : schema.required('You must provide Customer Check List')
+            : schema
+                .required('You must provide Customer Check List')
+                .min(1, 'You must provide Customer Check List')
       )
       .of(
         object({
@@ -179,14 +180,24 @@ const formSchema = object()
           url: string().required('Attachment URL is not available').url()
         })
       ),
-    itemizedReceipts: array().of(
-      object({
-        status: string()
-          .lowercase()
-          .matches(/success/, 'Remove and/or retry un-successful uploads'),
-        url: string().required('Attachment URL is not available').url()
-      })
-    ),
+    itemizedReceipts: array()
+      .when(
+        'partsReceipts',
+        (partsReceipts: string, schema: ArraySchema<SchemaOf<string>>) =>
+          partsReceipts?.toLowerCase() === 'yes'
+            ? schema
+            : schema
+                .required('Please provide itemized receipt(s)')
+                .min(1, 'Please provide itemized receipt(s)')
+      )
+      .of(
+        object({
+          status: string()
+            .lowercase()
+            .matches(/success/, 'Remove and/or retry un-successful uploads'),
+          url: string().required('Attachment URL is not available').url()
+        })
+      ),
     inspectAgree: string()
       .required()
       .oneOf(
@@ -741,7 +752,7 @@ const LawnReplacementPostConversion = () => {
                               <Field
                                 disabled={ineligible || emailAttachments}
                                 name="itemizedReceipts"
-                                attachmentTitle="Optional Itemized Receipts"
+                                attachmentTitle="Itemized Receipts"
                                 uploadRoute="post-conv-lawn-replacement-receipts"
                                 onIsUploadingChange={photoIsUploadingHandler}
                                 component={AttachmentField}
