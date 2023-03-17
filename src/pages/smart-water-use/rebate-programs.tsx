@@ -290,31 +290,6 @@ const RebateProgramsPage = () => {
                   </RebateCard>
                 </ChildBox>
                 <ChildBox position="relative">
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Untreated Water Tank -
-                      </Type>{' '}
-                      Receive up to a $500 rebate for purchasing and installing
-                      a water storage tank. For additional information see{' '}
-                      <Type component="em" variant="inherit">
-                        Untreated Water Tank Rebate Requirements
-                      </Type>
-                      . Rebate for untreated water customers only.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/untreated-water-tank-rebate-requirements.pdf"
-                        caption="Untreated Water Tank Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/untreated-water-tank"
-                        label="Apply for Untreated Water Tank Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
-                <ChildBox position="relative">
                   {/* <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -454,6 +429,31 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
+                <ChildBox position="relative">
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        Untreated Water Tank -
+                      </Type>{' '}
+                      Receive up to a $500 rebate for purchasing and installing
+                      a water storage tank. For additional information see{' '}
+                      <Type component="em" variant="inherit">
+                        Untreated Water Tank Rebate Requirements
+                      </Type>
+                      . Rebate for untreated water customers only.
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://docs.pcwa.net/untreated-water-tank-rebate-requirements.pdf"
+                        caption="Untreated Water Tank Rebate Requirements"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/untreated-water-tank"
+                        label="Apply for Untreated Water Tank Rebate Online"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
+                </ChildBox>
                 <ChildBox position="relative">
                   {/* <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon

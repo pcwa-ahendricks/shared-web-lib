@@ -38,6 +38,7 @@ import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelect
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 import FormDateField from '@components/formFields/FormDateField'
 import CalendarIcon from '@material-ui/icons/Event'
+import WaterLeakRequireCheckboxes from '@components/formFields/WaterLeakRequireCheckboxes'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
@@ -106,7 +107,8 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
   }
 
   // Check if user is in-eligible for rebate and disable all form controls if so.
-  const rebateIneligibility = [errors['treatedCustomer']].some(Boolean)
+  const rebateIneligibility = [errors['eligibilityRequirements']].some(Boolean)
+
   if (rebateIneligibility !== ineligible) {
     onIneligibleChange?.(rebateIneligibility)
   }
@@ -265,17 +267,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
           <Spacing />
 
           <Grid container spacing={5} justifyContent="space-between">
-            <Grid item xs={12} sm={5}>
-              <Field
-                disabled
-                name="treatedCustomer"
-                inputLabel="PCWA Treated Customer"
-                inputId="treated-water-select"
-                labelWidth={200}
-                component={YesNoSelectField}
-              />
-            </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} sm={6}>
               <FormDateField
                 name="leakBeginDate"
                 label="Leak Begin Date"
@@ -299,8 +291,6 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 }}
               />
             </Grid>
-          </Grid>
-          <Grid container spacing={5} justifyContent="space-between">
             <Grid item xs={12} sm={6}>
               <FormDateField
                 name="leakIdentifyDate"
@@ -325,6 +315,8 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 }}
               />
             </Grid>
+          </Grid>
+          <Grid container spacing={5} justifyContent="space-between">
             <Grid item xs={12} sm={6}>
               <FormDateField
                 name="leakRepairDate"
@@ -359,6 +351,23 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 minRows={3} // That's about 200 characters
                 label="Describe Leak and Repair"
                 disabled={ineligible}
+              />
+            </Grid>
+          </Grid>
+        </div>
+
+        <Divider variant="middle" />
+
+        <div className={classes.formGroup}>
+          <Type variant="h4" color="textSecondary" gutterBottom>
+            Rebate Eligibility Requirements
+          </Type>
+          <Spacing />
+          <Grid container spacing={5} justifyContent="space-between">
+            <Grid item xs={12}>
+              <Field
+                name="eligibilityRequirements"
+                component={WaterLeakRequireCheckboxes}
               />
             </Grid>
           </Grid>

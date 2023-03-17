@@ -3,6 +3,7 @@ import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsChe
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import fetcher from '@lib/fetcher'
+import {LeakEligibleOpts} from '@components/formFields/WaterLeakRequireCheckboxes'
 
 export interface WaterLeakFormData {
   firstName: string
@@ -16,11 +17,11 @@ export interface WaterLeakFormData {
   howDidYouHear: string
   otherHowDidYouHear: string
   propertyType: string
-  treatedCustomer: '' | 'Yes' | 'No'
   leakBeginDate: Date | null
   leakIdentifyDate: Date | null
   leakRepairDate: Date | null
   describe: string
+  eligibilityRequirements: LeakEligibleOpts
   receipts: string[]
   leakPhotos: string[]
   repairPhotos: string[]
