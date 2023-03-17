@@ -372,8 +372,9 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
           </Type>
           <Spacing />
           <Type variant="caption" color="textSecondary">
-            Note - Only Image file formats can be uploaded (eg. .jpg, .png). PDF
-            files <em>cannot</em> be uploaded here. If you are unable to attach
+            Note - Image file formats are preferred <em>(eg. JPG, PNG)</em> for
+            uploads. PDF files and Word Documents can be uploaded too but they{' '}
+            <em>must be less than</em> 4 MB in size. If you are unable to attach
             the correct file type, or if any other issues with the attachments
             arise, you may select the box below and submit the files in an
             email.
