@@ -268,6 +268,31 @@ const RebateProgramsPage = () => {
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
+                        Water Leak -
+                      </Type>{' '}
+                      Receive up to a $500 rebate for repairing an indoor or
+                      outdoor treated water leak. For additional information see{' '}
+                      <Type component="em" variant="inherit">
+                        Treated Water Leak Rebate Requirements
+                      </Type>
+                      . Rebate for treated water customers only.
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
+                        caption="Treated Water Leak Rebate Requirements"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/water-leak"
+                        label="Apply Now"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
+                </ChildBox>
+                <ChildBox position="relative">
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
                         Untreated Water Tank -
                       </Type>{' '}
                       Receive up to a $500 rebate for purchasing and installing
