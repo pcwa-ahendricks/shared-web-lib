@@ -48,7 +48,7 @@ export const formControlItems = {
   'I certify that I have read the Treated Water Leak Rebate Requirements.':
     false,
   'I certify that I have proof of the leak prior to repairs being made.': false,
-  'I certify that I have receipts/Invoices for the repairs.': false
+  'I certify that I have receipts/invoices for the repairs.': false
 }
 
 export type LeakEligibleOpts = typeof formControlItems
