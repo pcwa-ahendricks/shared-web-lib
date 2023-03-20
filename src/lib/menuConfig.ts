@@ -38,11 +38,11 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Board Meeting Minutes',
             nextLink: '/board-of-directors/meeting-minutes'
-          },
-          {
-            title: 'MFPFA Board Meeting Agendas',
-            nextLink: '/board-of-directors/mfpfa-meeting-agendas'
           }
+          // {
+          //   title: 'MFPFA Board Meeting Agendas',
+          //   nextLink: '/board-of-directors/mfpfa-meeting-agendas'
+          // }
         ]
       },
       {

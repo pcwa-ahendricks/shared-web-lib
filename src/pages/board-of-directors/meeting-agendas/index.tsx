@@ -8,7 +8,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
   Typography as Type,
-  Link,
   Card,
   CardContent,
   CardActions,
@@ -19,6 +18,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Link,
   useMediaQuery,
   CircularProgress,
   makeStyles,
@@ -302,13 +302,14 @@ const MeetingAgendasPage = ({
               . Please email your request to <ClerkToBoardEmail /> or mail to
               Placer County Water Agency, Attention: Clerk to the Board, PO Box
               6570, Auburn CA 95604-6570. Note, Middle Fork Project Finance
-              Authority Board Meeting agendas can be found on our website on the{' '}
-              <MuiNextLink
-                href="/board-of-directors/mfpfa-meeting-agendas"
-                passHref
+              Authority Board Meeting agendas can be found on the{' '}
+              <Link
+                href="https://mfpfa.pcwa.net/agendas"
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                MFPFA Board Meeting Agendas page
-              </MuiNextLink>
+                MFPFA website, MFPFA Board Meeting Agendas page
+              </Link>
               .
             </Type>
           </Box>
