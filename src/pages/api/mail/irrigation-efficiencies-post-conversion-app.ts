@@ -52,13 +52,8 @@ const bodySchema = object()
         lastName: string().required(),
         email: string().email().required(),
         accountNo: string()
-          .matches(
-            /^\d+-\d+$/,
-            'Account Number must contain a dash ("-") character and should not include any letters or spaces'
-          )
-          .required(
-            'An Account Number is required (leading zeros are optional)'
-          ),
+          .matches(/^\d+-\d+$/)
+          .required(),
         address: string().required(),
         city: string().required(),
         otherCity: string().when(
@@ -68,31 +63,12 @@ const bodySchema = object()
         ),
         phone: string().required().min(10),
         propertyType: string().required(),
-        rebateCustomer: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'You must be currently participating in the Irrigation Efficiencies Rebate Program'
-        ),
-        projectCompleted: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'Project must be completed'
-        ),
-        photosTaken: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'Post Conversion photographs (5) are required in order to submit application'
-        ),
-        partsReceipts: string().required().oneOf(
-          ['Yes'], // "Yes", "No"
-          'You must have itemized receipts or invoices to receive this rebate'
-        ),
-        describe: string()
-          .required()
-          .max(600, 'Description must be less than 600 characters.'),
-        termsAgree: string()
-          .required()
-          .oneOf(
-            ['true'],
-            'Must agree to Terms and Conditions by checking this box'
-          ),
+        rebateCustomer: string().required().oneOf(['Yes']),
+        projectCompleted: string().required().oneOf(['Yes']),
+        photosTaken: string().required().oneOf(['Yes']),
+        partsReceipts: string().required().oneOf(['Yes']),
+        describe: string().required().max(600),
+        termsAgree: string().required().oneOf(['true']),
         emailAttachments: string(),
         postConvPhotos: array()
           .when(
@@ -101,22 +77,15 @@ const bodySchema = object()
               emailAttachments: BooleanAsString,
               schema: ArraySchema<SchemaOf<string>>
             ) =>
-              emailAttachments === 'true'
-                ? schema
-                : schema
-                    .required('You must provide 5 photos')
-                    .min(5, 'You must provide 5 photos')
+              emailAttachments === 'true' ? schema : schema.required().min(5)
           )
           .of(
             object({
               status: string()
                 .required()
                 .lowercase()
-                .matches(
-                  /success/,
-                  'Remove and/or retry un-successful uploads'
-                ),
-              url: string().required('Attachment URL is not available').url()
+                .matches(/success/),
+              url: string().required().url()
             })
           ),
         itemizedReceipts: array()
@@ -126,34 +95,20 @@ const bodySchema = object()
               emailAttachments: BooleanAsString,
               schema: ArraySchema<SchemaOf<string>>
             ) =>
-              emailAttachments === 'true'
-                ? schema
-                : schema
-                    .required('You must provide itemized receipt(s)')
-                    .min(1, 'You must provide itemized receipt(s)')
+              emailAttachments === 'true' ? schema : schema.required().min(1)
           )
           .of(
             object({
               status: string()
                 .required()
                 .lowercase()
-                .matches(
-                  /success/,
-                  'Remove and/or retry un-successful uploads'
-                ),
-              url: string().required('Attachment URL is not available').url()
+                .matches(/success/),
+              url: string().required().url()
             })
           ),
-        inspectAgree: string()
-          .required()
-          .oneOf(
-            ['true'],
-            'Must agree to a scheduled site inspection by checking this box'
-          ),
+        inspectAgree: string().required().oneOf(['true']),
         signature: string().required(),
-        captcha: string().required(
-          'Checking this box is required for security purposes'
-        )
+        captcha: string().required()
       })
   })
 
