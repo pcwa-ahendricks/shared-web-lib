@@ -7,10 +7,9 @@ const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
-    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+    // res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const {query: reqQuery} = req
     const {query, ...restQuery} = reqQuery
-    console.log(query)
     const qs = stringify(
       {
         read_key: COSMIC_READ_ACCESS_KEY,
@@ -19,9 +18,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       },
       true
     )
-    console.log(
-      `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
-    )
+    // console.log(
+    //   `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
+    // )
     const response = await fetch(
       `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
     )

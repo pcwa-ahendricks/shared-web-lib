@@ -882,17 +882,18 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const placeholders = await getImgixBlurHashes(imgixImages)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const alertsParams = {
-      hide_metafields: true,
-      props: 'id,content,metadata,status,title',
-      query: JSON.stringify({
-        type: 'alerts'
-      })
-    }
+    // TODO - initialAlertsData broke website when I duplicated a news alert in Cosmic. Not sure why.
+    // const alertsParams = {
+    //   hide_metafields: true,
+    //   props: 'id,content,metadata,status,title',
+    //   query: JSON.stringify({
+    //     type: 'alerts'
+    //   })
+    // }
 
-    const alertsQs = stringify(alertsParams, true)
-    const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
-    const initialAlertsData = await fetcher(alertsUrl)
+    // const alertsQs = stringify(alertsParams, true)
+    // const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
+    // const initialAlertsData = await fetcher(alertsUrl)
     /* */
     const newsBlurbsParams = {
       hide_metafields: true,
@@ -906,7 +907,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
     return {
-      props: {initialAlertsData, initialNewsBlurbsData, placeholders}
+      props: {initialNewsBlurbsData, placeholders}
       // revalidate: 5
     }
   } catch (error) {
