@@ -183,12 +183,21 @@ const formSchema = object()
     itemizedReceipts: array()
       .when(
         'partsReceipts',
-        (partsReceipts: string, schema: ArraySchema<SchemaOf<string>>) =>
-          partsReceipts?.toLowerCase() === 'no'
-            ? schema
+        (partsReceipts, schema: ArraySchema<SchemaOf<string>>) =>
+          partsReceipts?.toLowerCase() === 'yes'
+            ? schema.when(
+                'emailAttachments',
+                (
+                  emailAttachments: BooleanAsString,
+                  schema: ArraySchema<SchemaOf<string>>
+                ) =>
+                  emailAttachments === 'true'
+                    ? schema
+                    : schema
+                        .required('Please provide itemized receipt(s)')
+                        .min(1, 'Please provide itemized receipt(s)')
+              )
             : schema
-                .required('Please provide itemized receipt(s)')
-                .min(1, 'Please provide itemized receipt(s)')
       )
       .of(
         object({

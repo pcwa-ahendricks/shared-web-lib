@@ -130,22 +130,22 @@ const bodySchema = object()
               url: string().required().url()
             })
           ),
-        itemizedReceipts: array()
-          .when(
-            'partsReceipts',
-            (partsReceipts: string, schema: ArraySchema<SchemaOf<string>>) =>
-              partsReceipts?.toLowerCase() === 'yes'
-                ? schema
-                : schema.required().min(1)
-          )
-          .of(
-            object({
-              status: string()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
+        itemizedReceipts: array().when(
+          'partsReceipts',
+          (partsReceipts, schema: ArraySchema<SchemaOf<string>>) =>
+            partsReceipts?.toLowerCase() === 'yes'
+              ? schema.when(
+                  'emailAttachments',
+                  (
+                    emailAttachments: BooleanAsString,
+                    schema: ArraySchema<SchemaOf<string>>
+                  ) =>
+                    emailAttachments === 'true'
+                      ? schema
+                      : schema.required().min(1)
+                )
+              : schema
+        ),
         inspectAgree: string().required().oneOf(['true']),
         signature: string().required(),
         captcha: string().required()
