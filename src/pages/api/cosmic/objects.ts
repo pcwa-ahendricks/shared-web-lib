@@ -1,5 +1,6 @@
 import {stringify} from 'querystringify'
 import {VercelRequest, VercelResponse} from '@vercel/node'
+const isDev = process.env.NODE_ENV === 'development'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
@@ -18,12 +19,14 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       },
       true
     )
-    // console.log(
-    //   `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
-    // )
+    isDev &&
+      console.log(
+        `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
+      )
     const response = await fetch(
       `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
     )
+
     if (!response.ok) {
       res.status(400).send('Response not ok')
       return
