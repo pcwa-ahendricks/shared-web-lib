@@ -42,7 +42,7 @@ const params = {
 const qs = stringify({...params}, true)
 const alertsUrl = `/api/cosmic/objects${qs}`
 
-const refreshInterval = 1000 * 60 * 2 // Two minute interval.
+const refreshInterval = 1000 * 60 * 5 // Two minute interval.
 
 export default function Alerts({
   bottomBgGradient,

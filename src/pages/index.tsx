@@ -29,8 +29,11 @@ import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobil
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import pTimeout from 'p-timeout'
 // import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
 // import Whammy from '@components/Whammy/Whammy'
+
+const FETCHER_TIMEOUT = 2000
 
 const imgixImages = [
   'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
@@ -882,6 +885,7 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const placeholders = await getImgixBlurHashes(imgixImages)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // initialAlertsData broke website in production when I duplicated a news alert in Cosmic at one time. Not sure why.
     const alertsParams = {
       hide_metafields: true,
       props: 'id,content,metadata,status,title',
@@ -892,7 +896,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const alertsQs = stringify(alertsParams, true)
     const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
-    const initialAlertsData = await fetcher(alertsUrl)
+    const initialAlertsData = await pTimeout(fetcher(alertsUrl), {
+      milliseconds: FETCHER_TIMEOUT
+    })
     /* */
     const newsBlurbsParams = {
       hide_metafields: true,
@@ -903,7 +909,9 @@ export const getStaticProps: GetStaticProps = async () => {
     }
     const newsBlurbsQs = stringify(newsBlurbsParams, true)
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
-    const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
+    const initialNewsBlurbsData = await pTimeout(fetcher(newsBlurbsUrl), {
+      milliseconds: FETCHER_TIMEOUT
+    })
     /* */
     return {
       props: {initialAlertsData, initialNewsBlurbsData, placeholders}
