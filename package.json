@@ -46,7 +46,7 @@
     "@types/url-parse": "^1.4.8",
     "@types/valid-url": "^1.0.3",
     "@vercel/ncc": "^0.36.1",
-    "@vercel/node": "^2.9.0",
+    "@vercel/node": "^2.10.1",
     "ava": "^4.3.3",
     "cross-env": "^7.0.2",
     "eslint": "8.33.0",
@@ -72,7 +72,7 @@
     "@nivo/legends": "0.80.0",
     "@nivo/line": "0.80.0",
     "@nivo/tooltip": "0.80.0",
-    "@vercel/analytics": "^0.1.10",
+    "@vercel/analytics": "^0.1.11",
     "animate.css": "^4.1.1",
     "blurhash": "^2.0.2",
     "busboy": "^1.6.0",
@@ -128,7 +128,7 @@
     "url-parse": "^1.5.10",
     "use-debounce": "^8.0.4",
     "valid-url": "^1.0.9",
-    "vercel": "^28.17.0",
+    "vercel": "^28.18.2",
     "yup": "^0.32.11"
   }
 }
