@@ -49,9 +49,10 @@ const imgixImages = [
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
   '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
   '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg',
-  '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
+  // '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
-  '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg'
+  '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
+  '9dcf2750-cd9a-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost4.jpg'
 ]
 
 type Props = {
