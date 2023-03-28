@@ -157,6 +157,21 @@ const Index = ({
           <ChildBox flex="50%" minWidth="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="State of PCWA's Water Supplies 2023"
+              readMore="Learn more and register today"
+              linkHref="/education-center/webinars/state-of-our-water-0323"
+              imgixURL="https://imgix.cosmicjs.com/9dcf2750-cd9a-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost4.jpg"
+              imgixParams={{crop: 'top'}}
+              alt="State of our Water Webinar flier"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="PCWA will host a free webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
+            />
+          </ChildBox>
+
+          <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Year End Report for 2022"
               readMore="Learn more"
               linkHref="/newsroom/publications/year-end"
@@ -167,10 +182,7 @@ const Index = ({
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
             />
-          </ChildBox>
-
-          <ChildBox flex="0 0 50%">
-            <CoverStory
+            {/* <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Water Conservation"
               readMore="Learn more"
@@ -183,7 +195,7 @@ const Index = ({
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
               // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
               body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
-            />
+            /> */}
           </ChildBox>
         </RowBox>
         <Spacing />
