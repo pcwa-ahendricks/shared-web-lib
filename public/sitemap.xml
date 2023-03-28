@@ -348,6 +348,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-0323</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/forms/applications/lawn-replacement-post-conversion</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -2925,6 +2929,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/01-03-2003</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2023-04-06-Finance-Committee</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
