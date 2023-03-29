@@ -19,7 +19,7 @@ import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+// import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
 
 // const useStyles = makeStyles((theme: Theme) =>
@@ -252,7 +252,7 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                <ChildBox position="relative">
+                {/* <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -288,20 +288,8 @@ const RebateProgramsPage = () => {
                       />
                     </ColumnBox>
                   </RebateCard>
-                </ChildBox>
+                </ChildBox> */}
                 <ChildBox position="relative">
-                  {/* <RibbonContainer minHeight={theme.spacing(3)}>
-                    <LeftLargeRibbon
-                      backgroundColor="#cc4400"
-                      color="#f0f0f0"
-                      fontFamily="Arial"
-                      zIndex={3}
-                    >
-                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
-                        New
-                      </span>
-                    </LeftLargeRibbon>
-                  </RibbonContainer> */}
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
