@@ -63,7 +63,7 @@ const StateOfOurWaterWebinarPage = () => {
               aria-label="Link to State of our Water Webinar registration"
             >
               <Image
-                src="9dcf2750-cd9a-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost4.jpg"
+                src="bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg"
                 alt="State of our Water Webinar flier"
                 layout="responsive"
                 loader={imgixLoader}

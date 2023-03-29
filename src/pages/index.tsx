@@ -52,7 +52,7 @@ const imgixImages = [
   // '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
-  '9dcf2750-cd9a-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost4.jpg'
+  'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg'
 ]
 
 type Props = {
@@ -161,7 +161,7 @@ const Index = ({
               title="State of PCWA's Water Supplies 2023"
               readMore="Learn more and register today"
               linkHref="/education-center/webinars/state-of-our-water-0323"
-              imgixURL="https://imgix.cosmicjs.com/9dcf2750-cd9a-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost4.jpg"
+              imgixURL="https://imgix.cosmicjs.com/bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg"
               imgixParams={{crop: 'top'}}
               alt="State of our Water Webinar flier"
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
