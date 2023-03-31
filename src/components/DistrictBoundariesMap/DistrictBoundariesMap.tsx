@@ -12,10 +12,10 @@ import {
   CircularProgress,
   useMediaQuery,
   useTheme,
-  makeStyles,
-  createStyles,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {directors, Director} from '@lib/directors'
 import {ColumnBox} from 'mui-sleazebox'
 import useMapUnsupported from '@hooks/useMapIsUnsupported'
@@ -66,7 +66,7 @@ const DistrictBoundariesMap = () => {
   const onViewStateChange = useCallback(({viewState}) => {
     setViewState({...viewState})
   }, [])
-  const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
+  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [activeDistrict, setActiveDistrict] = useState<string>()
   const [activeDirector, setActiveDirector] = useState<Director | null>()

@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   Slide
-} from '@material-ui/core'
+} from '@mui/material'
 import CollectionsPhone from '@components/links/CollectionsPhone'
 
 type Props = {

@@ -5,7 +5,7 @@ import WideContainer from '@components/containers/WideContainer'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-import {Box} from '@material-ui/core'
+import {Box} from '@mui/material'
 
 export default function AcwaLeadershipAward2021Page() {
   return (

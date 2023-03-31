@@ -4,8 +4,8 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
-import InboxIcon from '@material-ui/icons/Inbox'
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
+import InboxIcon from '@mui/icons-material/Inbox'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import {
   Typography as Type,
@@ -15,19 +15,19 @@ import {
   Tabs,
   Divider,
   Button,
-  createStyles,
-  makeStyles,
   useTheme,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
-import PublicIcon from '@material-ui/icons/Public'
+import PublicIcon from '@mui/icons-material/Public'
 import PublicPurchaseIframe from '@components/PublicPurchaseIframe/PublicPurchaseIframe'
 import EngineeringEmail from '@components/links/EngineeringEmail'
 import EngineeringPhone from '@components/links/EngineeringPhone'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import MailOutlinedIcon from '@material-ui/icons/MailOutlined'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>

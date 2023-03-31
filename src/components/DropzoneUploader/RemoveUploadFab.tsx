@@ -1,14 +1,9 @@
 import React, {useState} from 'react'
-import {
-  Fab,
-  Theme,
-  Grow as Transition,
-  makeStyles,
-  createStyles,
-  FabProps
-} from '@material-ui/core'
-// import CloseIcon from '@material-ui/icons/Close'
-import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
+import {Fab, Theme, Grow as Transition, FabProps} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+// import CloseIcon from '@mui/icons-material/Close'
+import DeleteIcon from '@mui/icons-material/DeleteForeverRounded'
 
 type Props = {
   thumbName: string

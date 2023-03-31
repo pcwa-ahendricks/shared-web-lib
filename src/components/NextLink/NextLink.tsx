@@ -2,11 +2,9 @@ import React, {forwardRef} from 'react'
 import clsx from 'clsx'
 import {useRouter} from 'next/router'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
-import {
-  makeStyles,
-  Link as MuiLink,
-  LinkProps as MuiLinkProps
-} from '@material-ui/core'
+import {Link as MuiLink, LinkProps as MuiLinkProps} from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 /*
   Adapted from https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/Link.tsx

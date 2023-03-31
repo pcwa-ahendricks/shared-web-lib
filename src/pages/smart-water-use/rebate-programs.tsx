@@ -4,10 +4,11 @@ import {
   Typography as Type,
   Box,
   useTheme,
+  alpha,
   Link,
   BoxProps,
   Paper
-} from '@material-ui/core'
+} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -22,8 +23,7 @@ import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
-import colorAlpha from 'color-alpha'
-import {yellow} from '@material-ui/core/colors'
+import {yellow} from '@mui/material/colors'
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -366,7 +366,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       <Paper elevation={1}>
                         <Box
-                          bgcolor={colorAlpha(yellow[50], 0.8)}
+                          bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
                           paddingX={4}
                         >
@@ -471,7 +471,7 @@ const RebateProgramsPage = () => {
                     </Type>
                     <Paper elevation={1}>
                       <Box
-                        bgcolor={colorAlpha(yellow[50], 0.8)}
+                        bgcolor={alpha(yellow[50], 0.8)}
                         paddingY={2}
                         paddingX={4}
                       >
@@ -532,7 +532,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       <Paper elevation={1}>
                         <Box
-                          bgcolor={colorAlpha(yellow[50], 0.8)}
+                          bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
                           paddingX={4}
                         >

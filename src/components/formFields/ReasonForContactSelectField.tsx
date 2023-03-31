@@ -6,8 +6,8 @@ import {
   MenuItem,
   OutlinedInput,
   Select
-} from '@material-ui/core'
-import {FormControlProps} from '@material-ui/core/FormControl'
+} from '@mui/material'
+import {FormControlProps} from '@mui/material/FormControl'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 

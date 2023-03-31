@@ -1,6 +1,6 @@
 // cspell:ignore frmt
 import React, {useCallback} from 'react'
-import {TableRow, TableCell} from '@material-ui/core'
+import {TableRow, TableCell} from '@mui/material'
 import {format, isValid} from 'date-fns'
 import {UnclaimedProperty} from './UnclaimedPropertyTable'
 

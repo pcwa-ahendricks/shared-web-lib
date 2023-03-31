@@ -1,12 +1,8 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {
-  Box,
-  Theme,
-  createStyles,
-  makeStyles,
-  useTheme,
-  BoxProps
-} from '@material-ui/core'
+import {Box, Theme, useTheme, BoxProps} from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 export type GlowGreenProps = {
   children: React.ReactNode

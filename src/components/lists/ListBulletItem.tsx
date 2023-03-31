@@ -1,12 +1,12 @@
 import {
-  createStyles,
   ListItem,
-  makeStyles,
   ListItemIcon,
   ListItemProps,
   ListItemIconProps,
   SvgIconProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 

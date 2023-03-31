@@ -1,6 +1,6 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React from 'react'
-import {Typography as Type} from '@material-ui/core'
+import {Typography as Type} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import PageLayout from '@components/PageLayout/PageLayout'
 import PageTitle from '@components/PageTitle/PageTitle'

@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react'
-import {TextField} from '@material-ui/core'
+import {TextField, Autocomplete} from '@mui/material'
 import {FieldProps} from 'formik'
-import {Autocomplete} from '@material-ui/lab'
 
 type Props = {
   fullWidth?: boolean

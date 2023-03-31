@@ -4,14 +4,9 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  Typography as Type,
-  Divider,
-  Link,
-  createStyles,
-  TypographyProps,
-  makeStyles
-} from '@material-ui/core'
+import {Typography as Type, Divider, Link, TypographyProps} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import PurchasingEmail from '@components/links/PurchasingEmail'

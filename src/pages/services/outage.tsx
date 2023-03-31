@@ -9,16 +9,16 @@ import {
   Divider,
   CircularProgress,
   useTheme
-} from '@material-ui/core'
-// import {blueGrey} from '@material-ui/core/colors'
+} from '@mui/material'
+// import {blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import MainPhone from '@components/links/MainPhone'
 import Link from '@components/NextLink/NextLink'
-import EventIcon from '@material-ui/icons/Event'
-// import WavesIcon from '@material-ui/icons/Waves'
+import EventIcon from '@mui/icons-material/Event'
+// import WavesIcon from '@mui/icons-material/Waves'
 import {FlexBox, ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
@@ -94,7 +94,7 @@ const options: HTMLReactParserOptions = {
 
 const OutageInformationPage = ({fallbackData}: Props) => {
   const theme = useTheme<Theme>()
-  // const paletteType = theme.palette.type === 'light' ? lighten : darken
+  // const paletteType = theme.palette.mode === 'light' ? lighten : darken
 
   const {data: outages} = useSWR<CosmicObjectResponse<OutageMetadata>>(
     outagesUrl,

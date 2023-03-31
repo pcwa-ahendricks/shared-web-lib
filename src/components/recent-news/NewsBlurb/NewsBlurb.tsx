@@ -4,10 +4,10 @@ import {
   BoxProps,
   Typography as Type,
   TypographyProps,
-  makeStyles,
-  createStyles,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Spacing from '@components/boxes/Spacing'
 import FlexLink from '@components/FlexLink/FlexLink'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'

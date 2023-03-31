@@ -1,5 +1,5 @@
 import React from 'react'
-import {Typography as Type} from '@material-ui/core'
+import {Typography as Type} from '@mui/material'
 import useSupportsTouch from '@hooks/useSupportsTouch'
 import toTitleCase from '@lib/toTitleCase'
 

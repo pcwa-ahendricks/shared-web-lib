@@ -1,13 +1,13 @@
 // cspell:ignore customerservices pcwamain
 import {string, object, array} from 'yup'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
   validateSchema,
   AttachmentFieldValue,
   emailRecipientsSysAdmin,
   emailRecipientsWtrWaste
-} from '../../../lib/api/forms'
+} from '@lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localDateFrom, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'

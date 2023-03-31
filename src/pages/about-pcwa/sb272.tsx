@@ -13,15 +13,15 @@ import {
   Typography as Type,
   Theme,
   Link,
-  createStyles,
-  makeStyles,
   useTheme,
   TypographyProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
 import WideContainer from '@components/containers/WideContainer'
-import StorageRoundedIcon from '@material-ui/icons/StorageRounded'
+import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
 import {RowBox} from 'mui-sleazebox'
 
 const useStyles = makeStyles((theme: Theme) =>

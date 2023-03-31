@@ -16,14 +16,14 @@ import {
   MenuItem,
   Divider,
   useTheme,
-  createStyles,
-  makeStyles,
   Theme,
   List,
   ListItem,
   ListItemIcon,
   ListItemText
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
@@ -1106,11 +1106,12 @@ const ShutoffProtectionPage = () => {
             <Divider />
           </Spacing> */}
 
-          <FormControl className={classes.formControl}>
+          <FormControl variant="standard" className={classes.formControl}>
             <InputLabel id="language-select-label">
               Select your Language
             </InputLabel>
             <Select
+              variant="standard"
               labelId="language-select-label"
               id="language-select"
               value={language}

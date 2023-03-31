@@ -1,7 +1,7 @@
 // cspell:ignore focusable
 import React, {useCallback, useEffect, useState} from 'react'
-import {makeStyles, createStyles, SvgIcon} from '@material-ui/core'
-import {AlertTitle} from '@material-ui/lab'
+import {makeStyles, createStyles} from '@mui/styles'
+import {AlertTitle, SvgIcon} from '@mui/material'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import useSWR from 'swr'
 import {textFetcher} from '@lib/fetcher'

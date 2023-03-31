@@ -1,11 +1,11 @@
 import {string, object, StringSchema} from 'yup'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
   validateSchema,
   emailRecipientsEffRebates,
   emailRecipientsSysAdmin
-} from '../../../lib/api/forms'
+} from '@lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'

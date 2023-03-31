@@ -5,12 +5,12 @@ import {
   Paper,
   Theme,
   Typography as Type,
-  makeStyles,
-  createStyles,
   useMediaQuery,
   useTheme
-} from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import IconButton from '@mui/material/IconButton'
 import colorAlpha from 'color-alpha'
 import search from '@lib/services/googleSearchService'
 import SearchResultsDialog from '../SearchResultsDialog/SearchResultsDialog'
@@ -29,7 +29,7 @@ import {UiContext, setError} from '@components/ui/UiStore'
 import {ErrorDialogError} from '@components/ui/ErrorDialog/ErrorDialog'
 import {GoogleCseResponse} from '../SearchResponse'
 import WebmasterEmail from '@components/links/WebmasterEmail'
-import SearchIcon from '@material-ui/icons/Search'
+import SearchIcon from '@mui/icons-material/Search'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 // import delay from 'then-sleep'
 
@@ -286,7 +286,9 @@ const SearchInput = () => {
               color="inherit"
               aria-label="Site Search"
               onClick={sButtonMobileClickHandler}
-              disabled={inputMobFocused} // Button already transparent, but disable click as well
+              // Button already transparent, but disable click as well
+              disabled={inputMobFocused}
+              size="large"
             >
               <SearchIcon />
             </IconButton>
@@ -326,6 +328,7 @@ const SearchInput = () => {
           color="primary"
           aria-label="Search"
           onClick={clickHandler}
+          size="large"
         >
           <SearchIcon />
         </IconButton>

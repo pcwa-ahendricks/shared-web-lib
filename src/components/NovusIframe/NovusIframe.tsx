@@ -1,12 +1,8 @@
 // cspell:ignore novus mfpfa
 import React, {useCallback, useState} from 'react'
-import {
-  Typography as Type,
-  Box,
-  BoxProps,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Typography as Type, Box, BoxProps} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
 import JackinBox from 'mui-jackinbox'

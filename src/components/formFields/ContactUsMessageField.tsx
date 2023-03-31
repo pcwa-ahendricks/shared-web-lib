@@ -1,6 +1,6 @@
 import React from 'react'
-import {TextField} from '@material-ui/core'
-import {TextFieldProps} from '@material-ui/core/TextField'
+import {TextField} from '@mui/material'
+import {TextFieldProps} from '@mui/material/TextField'
 import {FieldProps} from 'formik'
 
 type Props = {
@@ -42,7 +42,7 @@ const ContactUsMessageField = ({
       fullWidth={fullWidth}
       multiline
       rows={4}
-      rowsMax={10}
+      maxRows={10}
       {...other}
     />
   )

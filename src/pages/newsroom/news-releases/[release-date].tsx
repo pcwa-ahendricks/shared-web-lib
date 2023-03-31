@@ -23,15 +23,15 @@ import {
   Divider,
   Breadcrumbs,
   LinearProgress,
-  useTheme,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import {format, parseJSON, isValid} from 'date-fns'
 import ErrorPage from '@pages/_error'
-import UndoIcon from '@material-ui/icons/UndoOutlined'
-import DocIcon from '@material-ui/icons/DescriptionOutlined'
+import UndoIcon from '@mui/icons-material/UndoOutlined'
+import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import {useRouter} from 'next/router'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
@@ -75,8 +75,8 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
   const uiContext = useContext(UiContext)
   const {dispatch: uiDispatch} = uiContext
 
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
-  const isXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
+  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
 
   const classes = useStyles()
   const router = useRouter()

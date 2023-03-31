@@ -13,14 +13,14 @@ import {
   ListItemText,
   Paper,
   Typography as Type
-} from '@material-ui/core'
+} from '@mui/material'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import {blueGrey} from '@material-ui/core/colors'
-import OndemandVideoIcon from '@material-ui/icons/OndemandVideoOutlined'
-import DescriptionIcon from '@material-ui/icons/DescriptionOutlined'
-// import PhotoIcon from '@material-ui/icons/PhotoOutlined'
-import LanguageIcon from '@material-ui/icons/LanguageOutlined'
+import {blueGrey} from '@mui/material/colors'
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideoOutlined'
+import DescriptionIcon from '@mui/icons-material/DescriptionOutlined'
+// import PhotoIcon from '@mui/icons-material/PhotoOutlined'
+import LanguageIcon from '@mui/icons-material/LanguageOutlined'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import Spacing from '@components/boxes/Spacing'
 

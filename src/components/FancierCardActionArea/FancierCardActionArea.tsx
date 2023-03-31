@@ -4,7 +4,7 @@ import {
   CardMedia,
   CardActionAreaProps,
   CardMediaProps
-} from '@material-ui/core'
+} from '@mui/material'
 import ImageFancier, {
   ImageFancierProps
 } from '@components/ImageFancier/ImageFancier'

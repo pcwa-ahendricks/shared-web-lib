@@ -15,21 +15,21 @@ import {
   ListItemTextProps,
   ListItemAvatarProps,
   Link,
-  makeStyles,
-  createStyles,
   useTheme,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Spacing from '@components/boxes/Spacing'
-// import DoneIcon from '@material-ui/icons/Done'
-// import MenuBookIcon from '@material-ui/icons/MenuBook'
-// import EventIcon from '@material-ui/icons/Event'
+// import DoneIcon from '@mui/icons-material/Done'
+// import MenuBookIcon from '@mui/icons-material/MenuBook'
+// import EventIcon from '@mui/icons-material/Event'
 // import NoCollapseVerticalTimeline from '@components/NoCollapseVerticalTimeline/NoCollapseVerticalTimeline'
 // import {
 //   VerticalTimelineElement,
 //   VerticalTimelineElementProps
 // } from 'react-vertical-timeline-component'
-// import {lightBlue} from '@material-ui/core/colors'
+// import {lightBlue} from '@mui/material/colors'
 // import alpha from 'color-alpha'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
@@ -71,14 +71,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     timeline: {
       '& .vertical-timeline-element': {
-        margin: `${theme.spacing(4)}px 0`,
+        margin: `${theme.spacing(4)} 0`,
         '& .vertical-timeline-element-icon': {
           zIndex: 2, // Icon should appear over call-out arrow tips if and when overlap occurs
           width: 36, // defaults to 60px
           height: 36, // defaults to 60px
           top: 15 // defaults to 0
         },
-        [`${theme.breakpoints.down('sm')}`]: {
+        [`${theme.breakpoints.down('md')}`]: {
           '& .vertical-timeline-element-icon': {
             width: 28, // defaults to 60px
             height: 28 // defaults to 60px

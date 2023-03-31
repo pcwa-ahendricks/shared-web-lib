@@ -1,12 +1,6 @@
 // cspell:ignore accum
 import React, {useMemo, useState, useEffect, useCallback} from 'react'
-import {
-  Typography as Type,
-  Divider,
-  Box,
-  Paper,
-  Hidden
-} from '@material-ui/core'
+import {Typography as Type, Divider, Box, Paper, Hidden} from '@mui/material'
 import SnowfallAccumLine from '@components/season-recap/SnowAccumLine'
 import useSWR from 'swr'
 import slugify from 'slugify'
@@ -281,7 +275,7 @@ export default function StationSnowfall({waterYear, sid}: Props) {
           <Paper elevation={2} square>
             <Box p={1}>
               <Type variant="caption" align="center" component="header">
-                <Hidden smDown>Accumulated </Hidden>
+                <Hidden mdDown>Accumulated </Hidden>
                 <strong>{snowfallAccumDiff}%</strong> of Normal Average
               </Type>
             </Box>

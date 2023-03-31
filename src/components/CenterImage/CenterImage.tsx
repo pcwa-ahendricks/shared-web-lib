@@ -1,9 +1,10 @@
 import React from 'react'
-import {Box, createStyles, makeStyles} from '@material-ui/core'
-import {BoxProps} from '@material-ui/core/Box'
+import {Box, BoxProps} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 /*
-  This component was adapted from https://jonathannicol.com/blog/2014/06/16/centre-crop-thumbnails-with-css/. 
+  This component was adapted from https://jonathannicol.com/blog/2014/06/16/centre-crop-thumbnails-with-css/.
 
   An example of use use would be to replace the background image and wrapper use in fire-resistant-garden with the following. Note, the translateY seems to require a slightly different value due to differences in centering when compared with the object-position method:
       <FlexBox>

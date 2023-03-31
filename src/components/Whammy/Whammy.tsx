@@ -9,7 +9,7 @@ import imgixLoader from '@lib/imageLoader'
 import {useIntersection, useTimeoutFn} from 'react-use'
 import JackinBox from 'mui-jackinbox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
-import {BoxProps, useMediaQuery, useTheme, Box} from '@material-ui/core'
+import {BoxProps, useMediaQuery, useTheme, Box} from '@mui/material'
 import Image from 'next/image'
 
 const SHOW_WHAMMY = false // change this to true when we are ready to use this animation

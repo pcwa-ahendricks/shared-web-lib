@@ -1,7 +1,7 @@
 import prettyBytes from 'pretty-bytes'
 import busboy from 'busboy'
 import FormData from 'form-data'
-import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
+import BusboyError, {BusboyErrorCode} from '@lib/api/busboy-error'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {dLog} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'

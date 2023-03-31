@@ -6,10 +6,10 @@ import {
   FormHelperText,
   FormGroup,
   FormLabel
-} from '@material-ui/core'
+} from '@mui/material'
 import {FieldProps} from 'formik'
-import {FormControlProps} from '@material-ui/core/FormControl'
-import {FormLabelProps} from '@material-ui/core/FormLabel'
+import {FormControlProps} from '@mui/material/FormControl'
+import {FormLabelProps} from '@mui/material/FormLabel'
 
 type Props = {
   onChange?: (e: React.FormEvent<HTMLDivElement>) => void

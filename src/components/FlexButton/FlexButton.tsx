@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react'
-import {Button} from '@material-ui/core'
-import {ButtonProps} from '@material-ui/core/Button'
+import {Button, ButtonProps} from '@mui/material'
 import NextLink, {LinkProps} from 'next/link'
 // import usePrefetchHandler from '@hooks/usePrefetchHandler'
 

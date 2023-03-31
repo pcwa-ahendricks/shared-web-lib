@@ -1,11 +1,7 @@
 import React, {useState, useCallback} from 'react'
-import {
-  Box,
-  Button,
-  createStyles,
-  makeStyles,
-  ButtonProps
-} from '@material-ui/core'
+import {Box, Button, ButtonProps} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import NativeListener from 'react-native-listener'
 
 export type FancyButtonProps = {

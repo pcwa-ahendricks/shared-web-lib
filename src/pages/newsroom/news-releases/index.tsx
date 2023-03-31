@@ -19,14 +19,15 @@ import {
   Select,
   MenuItem,
   Theme,
-  createStyles,
-  makeStyles,
   List,
   useTheme,
-  ListItem,
   ListItemText,
-  ListItemAvatar
-} from '@material-ui/core'
+  ListItemAvatar,
+  SelectChangeEvent,
+  ListItemButton
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
@@ -123,8 +124,9 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
   const selectYear = newsReleaseYear ?? maxYear
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<{value: unknown}>) => {
-      newsroomDispatch(setNewsReleaseYear(event.target.value as number))
+    (event: SelectChangeEvent) => {
+      const year = parseInt(event.target.value, 10)
+      newsroomDispatch(setNewsReleaseYear(year))
     },
     [newsroomDispatch]
   )
@@ -136,6 +138,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
         ?.values.map((n, idx) => ({...n, id: idx})) ?? [],
     [newsReleases, selectYear]
   )
+
+  const selectValue = selectYear.toString()
 
   return (
     <PageLayout title="News Releases" waterSurface>
@@ -181,14 +185,15 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                   Filter News Releases by Year
                 </Type>
                 <Spacing size="x-small" />
-                <FormControl className={classes.formControl}>
+                <FormControl variant="standard" className={classes.formControl}>
                   <InputLabel id="news-release-year-select-label">
                     Year
                   </InputLabel>
                   <Select
+                    variant="standard"
                     labelId="news-release-year-select-label"
                     id="news-release-year-select"
-                    value={selectYear}
+                    value={selectValue}
                     onChange={handleChange}
                     MenuProps={{
                       keepMounted: true,
@@ -237,7 +242,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                       }
                       scroll
                     >
-                      <ListItem button component="a">
+                      <ListItemButton component="a">
                         <ListItemAvatar>
                           <ColumnBox
                             bgcolor={theme.palette.common.white}
@@ -267,7 +272,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                             'MMMM do'
                           )}
                         />
-                      </ListItem>
+                      </ListItemButton>
                     </NextLink>
                   ))}
                 </List>

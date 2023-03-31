@@ -27,7 +27,7 @@ import {
   useTheme,
   BoxProps,
   Link
-} from '@material-ui/core'
+} from '@mui/material'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
 import {ChildBox, RowBox} from 'mui-sleazebox'
@@ -610,9 +610,10 @@ export default function WaterYearDashboardPage() {
           <Spacing />
           <RowBox justifyContent="flex-start" flexSpacing={5}>
             <ChildBox flex="0 1 25%">
-              <FormControl style={{minWidth: 140}} fullWidth>
+              <FormControl variant="standard" style={{minWidth: 140}} fullWidth>
                 <InputLabel id="water-year-select-label">Water Year</InputLabel>
                 <Select
+                  variant="standard"
                   labelId="water-year-select-label"
                   id="water-year-select"
                   value={waterYear}
@@ -634,9 +635,10 @@ export default function WaterYearDashboardPage() {
               </FormControl>
             </ChildBox>
             <ChildBox flex="0 1 25%">
-              <FormControl fullWidth>
+              <FormControl variant="standard" fullWidth>
                 <InputLabel id="station-select-label">Station</InputLabel>
                 <Select
+                  variant="standard"
                   labelId="station-select-label"
                   id="station-select"
                   value={sid}
@@ -725,7 +727,7 @@ export default function WaterYearDashboardPage() {
                 <Paper elevation={2} square>
                   <Box p={1}>
                     <Type variant="caption" align="center" component="header">
-                      <Hidden smDown>Accumulated </Hidden>
+                      <Hidden mdDown>Accumulated </Hidden>
                       <strong>{precipAccumDiff}%</strong> of Normal Average
                     </Type>
                   </Box>
@@ -772,7 +774,11 @@ export default function WaterYearDashboardPage() {
             </Fade>
             <RowBox justifyContent="flex-end" mt={3}>
               <ChildBox>
-                <FormControl component="fieldset" size="small">
+                <FormControl
+                  variant="standard"
+                  component="fieldset"
+                  size="small"
+                >
                   <FormLabel component="legend">Chart Options</FormLabel>
                   <FormGroup>
                     <FormControlLabel

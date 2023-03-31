@@ -1,5 +1,5 @@
 import {stringify} from 'querystringify'
-import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
+import {CosmicGetMediaResponse} from '@lib/api/cosmic'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 
 const COSMIC_BUCKET = 'pcwa'

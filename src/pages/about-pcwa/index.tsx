@@ -1,12 +1,6 @@
 // cspell:ignore Einar Maisch
 import React from 'react'
-import {
-  Box,
-  Divider,
-  Typography as Type,
-  List,
-  ListItem
-} from '@material-ui/core'
+import {Box, Divider, Typography as Type, List, ListItem} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -15,7 +9,7 @@ import MainPhone from '@components/links/MainPhone'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {blueGrey} from '@material-ui/core/colors'
+import {blueGrey} from '@mui/material/colors'
 import GeneralManagerEmail from '@components/links/GeneralManagerEmail'
 import PublicAffairsEmail from '@components/links/PublicAffairsEmail'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'

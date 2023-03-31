@@ -1,6 +1,6 @@
 // cspell:ignore Lightbox
 import React, {Fragment, useCallback, useMemo} from 'react'
-import {Box, List, Divider, Typography} from '@material-ui/core'
+import {Box, List, Divider, Typography} from '@mui/material'
 import {fileNameUtil} from '@lib/services/cosmicService'
 import MultimediaPublication from '../MultimediaPublication/MultimediaPublication'
 import Spacing from '@components/boxes/Spacing'

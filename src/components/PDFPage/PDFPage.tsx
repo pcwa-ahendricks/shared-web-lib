@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Theme, LinearProgress, useTheme, Box} from '@material-ui/core'
+import {Theme, LinearProgress, useTheme, Box} from '@mui/material'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {useTimeoutFn} from 'react-use'

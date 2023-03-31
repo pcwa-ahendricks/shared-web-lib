@@ -1,6 +1,6 @@
 // cspell:ignore firewise ondemand
 import React from 'react'
-import {Box, Typography as Type, Button} from '@material-ui/core'
+import {Box, Typography as Type, Button} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import Spacing from '@components/boxes/Spacing'

@@ -1,11 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import {
-  Box,
-  Typography as Type,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Box, Typography as Type} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {RowBox, ColumnBox} from 'mui-sleazebox'
 import imgixLoader from '@lib/imageLoader'
 

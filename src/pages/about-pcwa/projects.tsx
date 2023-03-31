@@ -6,8 +6,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ChildBoxProps, ColumnBox, RowBox} from 'mui-sleazebox'
 import {
-  makeStyles,
-  createStyles,
   Theme,
   Typography as Type,
   Divider,
@@ -16,13 +14,15 @@ import {
   ListItemText,
   ListItemProps,
   Link,
-  Box
   // TypographyProps
-} from '@material-ui/core'
+  Box
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import ConstructionProject from '@components/ConstructionProject/ConstructionProject'
 import Spacing from '@components/boxes/Spacing'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-// import DownloadIcon from '@material-ui/icons/GetApp'
+// import DownloadIcon from '@mui/icons-material/GetApp'
 // import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -31,8 +31,8 @@ import {stringify} from 'querystringify'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     listItem: {
-      paddingTop: theme.spacing(1) / 2,
-      paddingBottom: theme.spacing(1) / 2
+      paddingTop: theme.spacing(0.5),
+      paddingBottom: theme.spacing(0.5)
     },
     inlineFlex: {
       display: 'inline-flex'
@@ -47,7 +47,7 @@ const ProjectsPage = () => {
   // const margin = 4 // Used with left and top margin of flexWrap items.
   const classes = useStyles()
 
-  // const itemFlex = `1 0 calc(50% - ${theme.spacing(4)}px)`
+  // const itemFlex = `1 0 calc(50% - ${theme.spacing(4)})`
 
   const ProjectChild = ({children}: ChildBoxProps) => {
     // return <ChildBox mt={margin}>{children}</ChildBox>

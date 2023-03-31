@@ -6,19 +6,20 @@ import {
   lighten,
   darken,
   Theme,
-  makeStyles,
   useTheme,
-  createStyles,
-  useMediaQuery
-} from '@material-ui/core'
-import {Alert, AlertProps} from '@material-ui/lab'
+  useMediaQuery,
+  Alert,
+  AlertProps
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {
   UiContext,
   setAlertHidden,
   setAlertActive,
   addAlert
 } from '@components/ui/UiStore'
-import CloseIcon from '@material-ui/icons/Close'
+import CloseIcon from '@mui/icons-material/Close'
 
 export type CollapsibleAlertProps = {
   position: number
@@ -85,7 +86,7 @@ export default function CollapsibleAlert({
   const {dispatch: uiDispatch, state: uiState} = uiContext
   const {alerts} = uiState
   const theme = useTheme()
-  const paletteType = theme.palette.type === 'light' ? lighten : darken
+  const paletteType = theme.palette.mode === 'light' ? lighten : darken
   let palette: string
   switch (severity) {
     case 'success':

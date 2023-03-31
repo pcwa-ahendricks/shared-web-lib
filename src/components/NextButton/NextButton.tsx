@@ -1,7 +1,7 @@
 import React from 'react'
-import {Button} from '@material-ui/core'
+import {Button} from '@mui/material'
 import Link, {LinkProps} from 'next/link'
-import {ButtonProps} from '@material-ui/core/Button'
+import {ButtonProps} from '@mui/material/Button'
 
 type Props = {
   children: React.ReactNode

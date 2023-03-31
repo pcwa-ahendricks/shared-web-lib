@@ -1,13 +1,9 @@
 import React from 'react'
-import {
-  Paper,
-  Theme,
-  Tooltip,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Paper, Theme, Tooltip} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import TrendingLink from '../TrendingLink/TrendingLink'
-import {TrendingUp} from '@material-ui/icons'
+import {TrendingUp} from '@mui/icons-material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

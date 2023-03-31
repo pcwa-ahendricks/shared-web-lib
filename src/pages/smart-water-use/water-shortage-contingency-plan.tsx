@@ -1,5 +1,5 @@
 import React from 'react'
-import {Typography as Type, Link, Box} from '@material-ui/core'
+import {Typography as Type, Link, Box} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'

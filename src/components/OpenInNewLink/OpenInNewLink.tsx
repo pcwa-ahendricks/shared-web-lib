@@ -1,16 +1,12 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {
-  Fade,
-  SvgIconProps,
-  createStyles,
-  makeStyles,
-  IconProps
-} from '@material-ui/core'
+import {Fade, SvgIconProps, IconProps} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import NativeListener from 'react-native-listener'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
-import AltIcon from '@material-ui/icons/Language'
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
+import AltIcon from '@mui/icons-material/Language'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 export type OpenInNewLinkProps = {

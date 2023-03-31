@@ -1,4 +1,4 @@
-import {CircularProgress, Box, Fade} from '@material-ui/core'
+import {CircularProgress, Box, Fade} from '@mui/material'
 import React from 'react'
 
 export default function CenterProgress({show = false}: {show?: boolean}) {

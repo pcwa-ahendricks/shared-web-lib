@@ -1,5 +1,5 @@
 import {stringify} from 'querystringify'
-import {CseResponse} from '../../../lib/api/google-cse'
+import {CseResponse} from '@lib/api/google-cse'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 
 const BASE_URL = 'https://www.googleapis.com/customsearch/v1'

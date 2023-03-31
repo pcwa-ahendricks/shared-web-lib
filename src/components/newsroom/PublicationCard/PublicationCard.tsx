@@ -9,13 +9,13 @@ import {
   CardContent,
   CardActions,
   TypographyProps,
-  makeStyles,
-  createStyles,
   useMediaQuery,
   useTheme,
   BoxProps
-} from '@material-ui/core'
-import DownloadIcon from '@material-ui/icons/CloudDownload'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import DownloadIcon from '@mui/icons-material/CloudDownload'
 import {format} from 'date-fns'
 import fileExtension from '@lib/fileExtension'
 import ImageFancier from '@components/ImageFancier/ImageFancier'

@@ -6,8 +6,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import {
-  createStyles,
-  makeStyles,
   Theme,
   useTheme,
   Box,
@@ -24,11 +22,13 @@ import {
   ListItemIcon,
   ListItemText,
   Button
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
 import Spacing from '@components/boxes/Spacing'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
-import DocIcon from '@material-ui/icons/LibraryBooks'
+import DocIcon from '@mui/icons-material/LibraryBooks'
 import CwmpContactUsDialog from '@components/CwmpContactUsDialog/CwmpContactUsDialog'
 
 type UseStylesProps = {

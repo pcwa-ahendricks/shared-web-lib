@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   Slide
-} from '@material-ui/core'
+} from '@mui/material'
 import MainPhone from '@components/links/MainPhone'
 // import {SlideTransition as Transition} from '@components/Transition/Transition'
 

@@ -10,7 +10,7 @@ import {
   useTheme,
   Hidden,
   rgbToHex
-} from '@material-ui/core'
+} from '@mui/material'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'

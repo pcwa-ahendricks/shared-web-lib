@@ -1,8 +1,6 @@
 // cspell:ignore bewatersmart arwec usbr
 import React, {useCallback} from 'react'
 import {
-  createStyles,
-  makeStyles,
   useTheme,
   Theme,
   Box,
@@ -10,12 +8,14 @@ import {
   BoxProps,
   TypographyProps,
   Link
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import LocalDrinkIcon from '@material-ui/icons/LocalDrink'
+import LocalDrinkIcon from '@mui/icons-material/LocalDrink'
 import DetectiveIcon from 'mdi-material-ui/AccountSearch'
 import Spacing from '@components/boxes/Spacing'
 import {FlexBox} from 'mui-sleazebox'

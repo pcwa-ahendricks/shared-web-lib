@@ -1,6 +1,6 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
-import {Typography as Type} from '@material-ui/core'
+import {Typography as Type} from '@mui/material'
 import {Formik} from 'formik'
 import {string, object, StringSchema} from 'yup'
 import {

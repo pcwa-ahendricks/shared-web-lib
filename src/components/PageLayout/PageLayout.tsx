@@ -8,7 +8,7 @@ import React, {
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {Hidden, useMediaQuery, useTheme, BoxProps} from '@material-ui/core'
+import {Hidden, useMediaQuery, useTheme, BoxProps} from '@mui/material'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError, setPageLoading} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'

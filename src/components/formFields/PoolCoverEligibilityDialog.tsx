@@ -14,14 +14,14 @@ import {
   StepLabel,
   StepContent,
   Theme,
-  makeStyles,
-  createStyles,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import {Field, connect, FormikProps, FieldProps, useFormikContext} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'

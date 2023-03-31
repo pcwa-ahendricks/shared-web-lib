@@ -13,7 +13,7 @@ import {
   List,
   ListItem,
   ListItemText
-} from '@material-ui/core'
+} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton from '@components/FancyButton/FancyButton'
 import NextLink from 'next/link'

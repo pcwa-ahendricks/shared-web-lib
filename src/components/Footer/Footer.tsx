@@ -8,10 +8,10 @@ import {
   Theme,
   Typography as Type,
   useMediaQuery,
-  createStyles,
-  makeStyles,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
 import {RowBox, ColumnBox} from 'mui-sleazebox'

@@ -1,7 +1,5 @@
 import React, {useCallback, useContext} from 'react'
 import {
-  makeStyles,
-  createStyles,
   // Typography as Type,
   List,
   ListItem,
@@ -10,7 +8,9 @@ import {
   Theme,
   ListSubheader,
   Box
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 // import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'

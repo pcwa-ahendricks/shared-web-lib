@@ -6,10 +6,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  makeStyles,
-  createStyles,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {
   NewsroomContext,
   setEnewsDialogOpen

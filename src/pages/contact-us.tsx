@@ -1,12 +1,6 @@
 // cspell:ignore cc'd
 import React, {useState, useCallback, useMemo} from 'react'
-import {
-  Divider,
-  Typography as Type,
-  Box,
-  useTheme,
-  Hidden
-} from '@material-ui/core'
+import {Divider, Typography as Type, Box, useTheme, Hidden} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -40,9 +34,9 @@ import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRout
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
-import {Alert} from '@material-ui/lab'
+import {Alert} from '@mui/material'
 import FormTextField from '@components/formFields/FormTextField'
-import EditLocIcon from '@material-ui/icons/Spellcheck'
+import EditLocIcon from '@mui/icons-material/Spellcheck'
 import ContactUsGeolocator from '@components/ContactUsGeolocator/ContactUsGeolocator'
 import HoursOfOperation from '@components/HoursOfOperation/HoursOfOperation'
 

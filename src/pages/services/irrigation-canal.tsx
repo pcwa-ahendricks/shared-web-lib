@@ -11,12 +11,12 @@ import {
   Theme,
   Divider,
   useMediaQuery,
-  createStyles,
-  makeStyles,
   useTheme,
   Link
-} from '@material-ui/core'
-import {grey, yellow, blueGrey} from '@material-ui/core/colors'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import {grey, yellow, blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -29,12 +29,12 @@ import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {PlayListItems} from '@lib/types/youtube'
 import YoutubePlaylistGridList from '@components/YoutubePlaylistGridList/YoutubePlaylistGridList'
-import EyeIcon from '@material-ui/icons/RemoveRedEye'
-import InletIcon from '@material-ui/icons/VerticalAlignTop'
-import NeighborsIcon from '@material-ui/icons/People'
-import ContactUsIcon from '@material-ui/icons/Phone'
-import EventIcon from '@material-ui/icons/Event'
-import WarningIcon from '@material-ui/icons/WarningRounded'
+import EyeIcon from '@mui/icons-material/RemoveRedEye'
+import InletIcon from '@mui/icons-material/VerticalAlignTop'
+import NeighborsIcon from '@mui/icons-material/People'
+import ContactUsIcon from '@mui/icons-material/Phone'
+import EventIcon from '@mui/icons-material/Event'
+import WarningIcon from '@mui/icons-material/WarningRounded'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import Image from 'next/image'
@@ -76,7 +76,7 @@ const IrrigationCanalPage = () => {
   )
 
   const theme = useTheme<Theme>()
-  const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
+  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <PageLayout title="Irrigation Canal Information" waterSurface>

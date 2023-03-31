@@ -1,11 +1,5 @@
 // cspell:ignore accum rnge nrml
-import {
-  brown,
-  green,
-  red,
-  blue,
-  blueGrey as grey
-} from '@material-ui/core/colors'
+import {brown, green, red, blue, blueGrey as grey} from '@mui/material/colors'
 import {
   Serie,
   CustomLayer,
@@ -16,10 +10,10 @@ import {
 import React, {useCallback, useMemo} from 'react'
 import {Defs} from '@nivo/core'
 import {area, curveMonotoneX} from 'd3-shape'
-import {Box, useTheme, Typography as Type} from '@material-ui/core'
-import ShowChartIcon from '@material-ui/icons/ShowChart'
-import DragHandleIcon from '@material-ui/icons/DragHandle'
-import BarChartIcon from '@material-ui/icons/BarChart'
+import {Box, useTheme, Typography as Type} from '@mui/material'
+import ShowChartIcon from '@mui/icons-material/ShowChart'
+import DragHandleIcon from '@mui/icons-material/DragHandle'
+import BarChartIcon from '@mui/icons-material/BarChart'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import {LegendProps} from '@nivo/legends'
 import isNumber from 'is-number'
@@ -431,7 +425,7 @@ export default function TempRangeLine({tempDataset}: Props) {
             px={1}
             py={0.5}
             boxShadow={4}
-            borderRadius={3}
+            borderRadius="3px"
           >
             {/* <div>x: {slice.id}</div> */}
             <Type variant="caption">{points[0].data.xFormatted}</Type>

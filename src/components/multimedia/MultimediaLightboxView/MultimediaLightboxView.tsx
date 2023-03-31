@@ -1,6 +1,7 @@
 // cspell:ignore lightbox
 import React, {useCallback, useState, useEffect} from 'react'
-import {Box, CircularProgress, makeStyles, useTheme} from '@material-ui/core'
+import {Box, CircularProgress, useTheme} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import {FlexBox} from 'mui-sleazebox'
 import {stringify} from 'querystringify'
 import Image from 'next/image'

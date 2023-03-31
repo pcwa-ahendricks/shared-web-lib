@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemText,
   Slide
-} from '@material-ui/core'
+} from '@mui/material'
 // import {DroppedFile} from './types'
 // import {SlideTransition as Transition} from '@components/Transition/Transition'
 import {FileRejection} from 'react-dropzone'

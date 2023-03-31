@@ -6,10 +6,11 @@ import {
   Box,
   BoxProps,
   CircularProgress,
-  makeStyles,
-  createStyles,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 type Props = {boxProps?: BoxProps} & Omit<ButtonProps, 'onClick' | 'type'>
 

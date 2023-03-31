@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, useTheme, BoxProps} from '@material-ui/core'
+import {Box, useTheme, BoxProps} from '@mui/material'
 
 const ConstructionProject = ({children, ...rest}: BoxProps) => {
   const theme = useTheme()

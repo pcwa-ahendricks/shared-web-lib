@@ -6,8 +6,8 @@ import {
   InputAdornment,
   IconButton,
   Hidden
-} from '@material-ui/core'
-import EditLocIcon from '@material-ui/icons/Spellcheck'
+} from '@mui/material'
+import EditLocIcon from '@mui/icons-material/Spellcheck'
 import {Formik, Field} from 'formik'
 import {string, object, array, date} from 'yup'
 import {
@@ -35,10 +35,10 @@ import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRout
 import AttachmentField from '@components/formFields/AttachmentField'
 import FormTextField from '@components/formFields/FormTextField'
 import FormDateTimeField from '@components/formFields/FormDateTimeField'
-import CalendarIcon from '@material-ui/icons/Event'
+import CalendarIcon from '@mui/icons-material/Event'
 import WtrWasteSelectField from '@components/formFields/WtrWasteSelectField'
 import WaterWasteGeolocator from '@components/WaterWasteGeolocator/WaterWasteGeolocator'
-import {Alert} from '@material-ui/lab'
+import {Alert} from '@mui/material'
 
 const SERVICE_URI_PATH = 'water-waste'
 
@@ -254,7 +254,7 @@ const ReportWaterWastePage = () => {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <IconButton>
+                              <IconButton size="large">
                                 <CalendarIcon />
                               </IconButton>
                             </InputAdornment>

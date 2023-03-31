@@ -1,4 +1,4 @@
-import {SortDirection} from '@material-ui/core/TableCell'
+import {SortDirection} from '@mui/material/TableCell'
 
 const desc = <T extends {[index: string]: any}>(
   a: T,

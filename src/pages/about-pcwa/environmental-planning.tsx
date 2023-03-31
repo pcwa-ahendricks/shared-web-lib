@@ -5,28 +5,22 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import {
-  Typography as Type,
-  Box,
-  useTheme,
-  makeStyles,
-  createStyles,
-  Theme,
-  Link
-} from '@material-ui/core'
+import {Typography as Type, Box, useTheme, Theme, Link} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
-import {TreeView} from '@material-ui/lab'
-import ExpandMoreIcon from '@material-ui/icons/AddBoxOutlined'
-import ExpandLessIcon from '@material-ui/icons/IndeterminateCheckBoxOutlined'
-import DescriptionIcon from '@material-ui/icons/DescriptionOutlined'
-import ImageIcon from '@material-ui/icons/ImageOutlined'
-import VideoIcon from '@material-ui/icons/OndemandVideoOutlined'
-import TreeItem from '@material-ui/lab/TreeItem'
+import {TreeView} from '@mui/lab'
+import ExpandMoreIcon from '@mui/icons-material/AddBoxOutlined'
+import ExpandLessIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined'
+import DescriptionIcon from '@mui/icons-material/DescriptionOutlined'
+import ImageIcon from '@mui/icons-material/ImageOutlined'
+import VideoIcon from '@mui/icons-material/OndemandVideoOutlined'
+import TreeItem from '@mui/lab/TreeItem'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

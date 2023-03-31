@@ -11,11 +11,11 @@ import {
   Box,
   Typography as Type,
   useMediaQuery,
-  createStyles,
-  makeStyles,
   useTheme,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
@@ -94,7 +94,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSM = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSM = useMediaQuery(theme.breakpoints.down('md'))
   const isMD = useMediaQuery(theme.breakpoints.only('md'))
   const isLG = useMediaQuery(theme.breakpoints.up('lg'))
   const multimediaContext = useContext(MultimediaContext)

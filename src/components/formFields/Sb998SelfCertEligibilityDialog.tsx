@@ -2,6 +2,7 @@
 import React, {useState, useMemo, useCallback, useRef, useEffect} from 'react'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import {
+  alpha,
   Typography as Type,
   TypographyProps,
   Button,
@@ -17,8 +18,6 @@ import {
   StepLabel,
   StepContent,
   Theme,
-  makeStyles,
-  createStyles,
   useTheme,
   Box,
   ListItemIcon,
@@ -29,11 +28,13 @@ import {
   TableRow,
   TableCell,
   TableBody
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import {connect, FormikProps, useFormikContext, useField} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
@@ -46,9 +47,8 @@ import {
 import {Sb998SelfCertFormData} from '@lib/services/formService'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
-import {blueGrey, yellow} from '@material-ui/core/colors'
+import {blueGrey, yellow} from '@mui/material/colors'
 import CollectionsPhone from '@components/links/CollectionsPhone'
-import colorAlpha from 'color-alpha'
 import MuiNextLink from '@components/NextLink/NextLink'
 
 type Sb998SelfCertFormDataProp = keyof Sb998SelfCertFormData
@@ -556,7 +556,7 @@ const QuestionOne = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
           color="textPrimary"
           className={classes.qualifyMsg}
         >
-          <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
+          <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             You must be a current PCWA treated water customer, WSPA does not
             apply to untreated water. To inquire about payment options to avoid
             discontinuation of irrigation water services, please contact
@@ -694,7 +694,7 @@ const QuestionThree = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
           color="textPrimary"
           className={classes.qualifyMsg}
         >
-          <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
+          <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             Specific income conditions must be met to avoid service interruption
             under the Water Shutoff Protection Act. A customer who is unable to
             pay for water service within the normal payment period may request
@@ -817,7 +817,7 @@ const QuestionFive = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
           color="textPrimary"
           className={classes.qualifyMsg}
         >
-          <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
+          <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             WSPA requires a customer be willing to enter an amortization
             agreement, alternative payment schedule, or plan for a deferred or
             reduced payment.

@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import {Box, ButtonBase, Collapse, Tooltip} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/CloseRounded'
-import {BoxProps} from '@material-ui/core/Box'
+import {Box, BoxProps, ButtonBase, Collapse, Tooltip} from '@mui/material'
+import CloseIcon from '@mui/icons-material/CloseRounded'
 
 type Props = {children?: React.ReactNode} & BoxProps
 

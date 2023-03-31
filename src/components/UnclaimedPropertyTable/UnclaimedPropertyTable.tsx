@@ -12,10 +12,10 @@ import {
   Theme,
   Toolbar,
   Typography as Type,
-  useTheme,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import {useDebounce} from 'use-debounce'
@@ -232,6 +232,7 @@ const UnclaimedPropertyTable = ({fallbackData}: Props) => {
         </Toolbar>
         <Box ml={3} mb={3}>
           <TextField
+            variant="standard"
             id="table-filter-by-owner"
             label="Filter by Owner"
             classes={{root: classes.textField}}

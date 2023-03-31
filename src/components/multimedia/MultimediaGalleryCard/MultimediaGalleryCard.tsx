@@ -6,7 +6,7 @@ import {
   CardMedia,
   CardContent,
   Typography as Type
-} from '@material-ui/core'
+} from '@mui/material'
 import {ChildBox} from 'mui-sleazebox'
 import {MultimediaPhotoGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {MultimediaVideoGallery} from '../MultimediaVideoGalleries/MultimediaVideoGalleries'

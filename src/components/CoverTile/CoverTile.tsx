@@ -5,7 +5,7 @@ import {
   Typography as Type,
   useTheme,
   TypographyProps
-} from '@material-ui/core'
+} from '@mui/material'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -81,7 +81,7 @@ const CoverTile = ({
         {...flexLinkProps}
       >
         <Box
-          borderRadius={4}
+          borderRadius="4px"
           overflow="hidden"
           borderColor={theme.palette.grey['300']}
           border={1}

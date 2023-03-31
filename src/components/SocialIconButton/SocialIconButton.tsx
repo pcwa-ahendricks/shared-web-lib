@@ -1,11 +1,8 @@
 import React from 'react'
-import {
-  IconButton,
-  makeStyles,
-  createStyles,
-  Theme,
-  IconButtonProps
-} from '@material-ui/core'
+import {IconButton, Theme, IconButtonProps} from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 type Props = {
   children: React.ReactNode
@@ -36,6 +33,7 @@ const SocialIconButton = ({children, ...rest}: Props) => {
         root: classes.root
       }}
       {...rest}
+      size="large"
     >
       {children}
     </IconButton>

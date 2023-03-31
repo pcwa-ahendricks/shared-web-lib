@@ -1,10 +1,8 @@
 import React from 'react'
-import {
-  createStyles,
-  makeStyles,
-  Typography as Type,
-  TypographyProps
-} from '@material-ui/core'
+import {Typography as Type, TypographyProps} from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 type Props = {
   attribs?: any

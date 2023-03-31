@@ -11,11 +11,11 @@ import {
   useMediaQuery,
   Theme,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
 
 const DoingBusinessPage = () => {
   const theme = useTheme<Theme>()
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSmDown = useMediaQuery(theme.breakpoints.down('md'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   const commonImageDimmerProps = {

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Box, BoxProps} from '@material-ui/core'
+import {Box, BoxProps} from '@mui/material'
 import styles from './Ribbons.module.css'
 
 export const RibbonContainer = ({children, className, ...rest}: BoxProps) => {

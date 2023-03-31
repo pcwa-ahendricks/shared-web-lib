@@ -8,11 +8,11 @@ import {
   Typography as Type,
   Box,
   TypographyProps,
-  createStyles,
   Link,
-  makeStyles,
   Theme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/image'

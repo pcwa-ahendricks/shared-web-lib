@@ -6,9 +6,9 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import MovieIcon from '@material-ui/icons/Movie'
-import PhotoIcon from '@material-ui/icons/Photo'
-import YouTubeIcon from '@material-ui/icons/YouTube'
+import MovieIcon from '@mui/icons-material/Movie'
+import PhotoIcon from '@mui/icons-material/Photo'
+import YouTubeIcon from '@mui/icons-material/YouTube'
 import {
   AppBar,
   Box,
@@ -17,8 +17,6 @@ import {
   Card,
   Link as MatLink,
   Typography as Type,
-  createStyles,
-  makeStyles,
   TabProps,
   Breadcrumbs,
   CardActions,
@@ -26,9 +24,11 @@ import {
   CardContent,
   useMediaQuery,
   useTheme
-} from '@material-ui/core'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import DescriptionIcon from '@material-ui/icons/Description'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import DescriptionIcon from '@mui/icons-material/Description'
 import {GetStaticPaths, GetStaticProps} from 'next'
 // import ErrorPage from '@pages/_error'
 import Spacing from '@components/boxes/Spacing'

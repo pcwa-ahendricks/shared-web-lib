@@ -1,7 +1,7 @@
 // cspell:ignore Eisley Normac Selec
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Typography as Type, Divider, Box} from '@material-ui/core'
+import {Typography as Type, Divider, Box} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -11,8 +11,8 @@ import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
-import {TypographyProps} from '@material-ui/core/Typography'
-import {DividerProps} from '@material-ui/core/Divider'
+import {TypographyProps} from '@mui/material/Typography'
+import {DividerProps} from '@mui/material/Divider'
 import imgixLoader from '@lib/imageLoader'
 
 // const useStyles = makeStyles(() =>

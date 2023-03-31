@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Box, Grow} from '@material-ui/core'
-import {GrowProps} from '@material-ui/core/Grow'
+import {Box, Grow} from '@mui/material'
+import {GrowProps} from '@mui/material/Grow'
 
 type Props = {
   isIn: boolean

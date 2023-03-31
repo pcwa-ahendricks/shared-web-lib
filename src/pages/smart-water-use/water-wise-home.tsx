@@ -5,13 +5,9 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Image from 'next/image'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import {
-  Button,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography
-} from '@material-ui/core'
+import {Button, Theme, Typography} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import {RowBox} from 'mui-sleazebox'
 

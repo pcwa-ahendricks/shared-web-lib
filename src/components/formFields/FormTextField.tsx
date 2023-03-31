@@ -1,5 +1,5 @@
 import React from 'react'
-import {TextField, TextFieldProps} from '@material-ui/core'
+import {TextField, TextFieldProps} from '@mui/material'
 import {useFormikContext, useField} from 'formik'
 
 type Props = TextFieldProps

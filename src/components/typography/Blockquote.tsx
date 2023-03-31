@@ -4,10 +4,11 @@ import {
   Typography as Type,
   BoxProps,
   TypographyProps,
-  useTheme,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 const useStyles = makeStyles(() =>
   createStyles({

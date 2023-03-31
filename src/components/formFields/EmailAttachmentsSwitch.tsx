@@ -1,12 +1,7 @@
 import React, {useCallback} from 'react'
-import {
-  Switch,
-  FormControl,
-  FormControlLabel,
-  makeStyles,
-  createStyles
-  // FormHelperText
-} from '@material-ui/core'
+import {Switch, FormControl, FormControlLabel} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {FieldProps} from 'formik'
 import {safeCastBooleanToStr, safeCastStrToBoolean} from '@lib/safeCastBoolean'
 

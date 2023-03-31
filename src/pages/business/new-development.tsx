@@ -7,8 +7,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {FlexBox, RowBox} from 'mui-sleazebox'
 import {
   useTheme,
-  createStyles,
-  makeStyles,
   Theme,
   Box,
   Typography as Type,
@@ -16,10 +14,12 @@ import {
   BoxProps,
   LinkProps,
   TypographyProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Image from 'next/image'
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
-import AssignmentLateOutlinedIcon from '@material-ui/icons/AssignmentLateOutlined'
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
+import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined'
 import Spacing from '@components/boxes/Spacing'
 import EngineeringPhone from '@components/links/EngineeringPhone'
 import EngineeringEmail from '@components/links/EngineeringEmail'

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {useField, useFormikContext} from 'formik'
-import {DateTimePicker, DateTimePickerProps} from '@material-ui/pickers'
-import {useMediaQuery, useTheme} from '@material-ui/core'
+import {DateTimePicker} from '@mui/x-date-pickers-pro'
+import {TextField, TextFieldProps, useMediaQuery, useTheme} from '@mui/material'
 
-type Props = Omit<DateTimePickerProps, 'onChange' | 'value'>
+type Props = Partial<React.ComponentProps<typeof DateTimePicker>>
 
 /*
 See https://material-ui-pickers.dev/guides/form-integration for more info on Formik integration
@@ -19,8 +19,8 @@ const FormDateTimeField = ({disabled, ...other}: Props) => {
   const fieldHasError = Boolean(error)
   const fieldIsTouchedWithError = fieldHasError && touched && !open // don't immediately show error message
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  const isXs = useMediaQuery(theme.breakpoints.down('xs'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
@@ -38,17 +38,19 @@ const FormDateTimeField = ({disabled, ...other}: Props) => {
 
   return (
     <DateTimePicker
-      fullWidth={isXs}
-      // type={type}
-      // variant={variant}
+      renderInput={(props: TextFieldProps) => (
+        <TextField
+          fullWidth={isXs}
+          name={name}
+          helperText={fieldIsTouchedWithError ? error : null}
+          error={fieldIsTouchedWithError}
+          onBlur={onBlur}
+          {...props}
+        />
+      )}
       disabled={disabled || isSubmitting}
-      // fullWidth={fullWidth}
-      name={name}
       value={value || null}
-      helperText={fieldIsTouchedWithError ? error : null}
-      error={fieldIsTouchedWithError}
       onChange={(date) => setFieldValue(name, date, false)}
-      onBlur={onBlur}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       {...other}

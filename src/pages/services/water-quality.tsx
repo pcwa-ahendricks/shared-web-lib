@@ -14,11 +14,11 @@ import {
   ListSubheader,
   useTheme,
   Typography as Type
-} from '@material-ui/core'
+} from '@mui/material'
 import Image from 'next/image'
 import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
-import {blueGrey} from '@material-ui/core/colors'
-// import QuoteCloseIcon from '@material-ui/icons/FormatQuote'
+import {blueGrey} from '@mui/material/colors'
+// import QuoteCloseIcon from '@mui/icons-material/FormatQuote'
 import QuoteOpenIcon from 'mdi-material-ui/FormatQuoteOpen'
 import QuoteCloseIcon from 'mdi-material-ui/FormatQuoteClose'
 import FancyButton from '@components/FancyButton/FancyButton'
@@ -109,7 +109,7 @@ const WaterQualityPage = () => {
                   bgcolor={theme.palette.common.white}
                   border={1}
                   borderColor={theme.palette.grey[200]}
-                  borderRadius={2}
+                  borderRadius="2px"
                 >
                   <List
                     aria-label="PCWA Consumer Confidence Report links"

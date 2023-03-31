@@ -9,12 +9,12 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  createStyles,
-  makeStyles,
   useTheme,
   Theme,
   BoxProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -110,7 +110,7 @@ const WaterRatesPage = () => {
   const TableLayoutBox = ({children, ...rest}: BoxProps) => {
     return (
       <ChildBox
-        flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)}px)`}
+        flex={`0 1 calc(50% - ${theme.spacing(flexLeftMargin)})`}
         {...rest}
       >
         {children}

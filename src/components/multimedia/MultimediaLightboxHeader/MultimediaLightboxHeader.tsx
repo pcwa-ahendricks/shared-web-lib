@@ -1,22 +1,15 @@
 import React, {useState, useCallback, useContext, useEffect} from 'react'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import FullscreenIcon from '@material-ui/icons/Fullscreen'
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit'
-import DownloadIcon from '@material-ui/icons/GetApp'
-import CloseIcon from '@material-ui/icons/Close'
+import FullscreenIcon from '@mui/icons-material/Fullscreen'
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
+import DownloadIcon from '@mui/icons-material/GetApp'
+import CloseIcon from '@mui/icons-material/Close'
 // [TODO] why?
 // eslint-disable-next-line import/named
 import {CommonProps, ViewType} from 'react-images'
-import {
-  makeStyles,
-  createStyles,
-  Box,
-  IconButton,
-  Tooltip,
-  Menu,
-  MenuItem,
-  Hidden
-} from '@material-ui/core'
+import {Box, IconButton, Tooltip, Menu, MenuItem, Hidden} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {MultimediaContext, setLvDownloadMenuOpen} from '../MultimediaStore'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
 import fileExtension from '@lib/fileExtension'
@@ -127,6 +120,7 @@ const MultimediaLightboxHeader = ({
                 onClick={downloadPhotoClickHandler}
                 aria-controls="download-image-menu"
                 aria-haspopup="true"
+                size="large"
               >
                 <DownloadIcon fontSize="large" style={{fill: '#FFFFFF'}} />
               </IconButton>
@@ -184,6 +178,7 @@ const MultimediaLightboxHeader = ({
               <IconButton
                 className={classes.headerButton}
                 onClick={modalProps?.toggleFullscreen}
+                size="large"
               >
                 {!isFullscreen ? (
                   <FullscreenIcon fontSize="large" style={{fill: '#FFFFFF'}} />
@@ -199,7 +194,11 @@ const MultimediaLightboxHeader = ({
         </Hidden>
         <ChildBox>
           <Tooltip title="close (esc)" enterDelay={400}>
-            <IconButton className={classes.headerButton} onClick={closeHandler}>
+            <IconButton
+              className={classes.headerButton}
+              onClick={closeHandler}
+              size="large"
+            >
               <CloseIcon fontSize="large" style={{fill: '#FFFFFF'}} />
             </IconButton>
           </Tooltip>

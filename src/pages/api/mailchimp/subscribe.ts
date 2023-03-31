@@ -1,6 +1,6 @@
-import {MailchimpSubscribeResponse} from '../../../lib/api/mailchimp'
+import {MailchimpSubscribeResponse} from '@lib/api/mailchimp'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {getStatus} from '../../../lib/api/mailchimp-util'
+import {getStatus} from '@lib/api/mailchimp-util'
 
 const MAILCHIMP_DC = process.env.NODE_MAILCHIMP_DC || ''
 const MAILCHIMP_USERNAME = process.env.NODE_MAILCHIMP_USERNAME || ''

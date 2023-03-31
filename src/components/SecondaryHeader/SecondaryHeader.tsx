@@ -3,12 +3,11 @@ import {
   Box,
   Toolbar,
   Theme,
-  useMediaQuery,
-  makeStyles,
-  // Typography as Type,
-  useTheme,
-  createStyles
-} from '@material-ui/core'
+  useMediaQuery, // Typography as Type,
+  useTheme
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'

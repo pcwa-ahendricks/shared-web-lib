@@ -1,13 +1,8 @@
 //cspell:ignore publicpurchase
 import React, {useCallback, useState} from 'react'
-import {
-  Typography as Type,
-  createStyles,
-  makeStyles,
-  Box,
-  BoxProps,
-  useTheme
-} from '@material-ui/core'
+import {Typography as Type, Box, BoxProps, useTheme} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import JackinBox from 'mui-jackinbox'
 
 const useStyles = makeStyles(() =>

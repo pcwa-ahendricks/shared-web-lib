@@ -1,6 +1,6 @@
 // cspell:ignore unparse
 import React from 'react'
-import Button, {ButtonProps} from '@material-ui/core/Button'
+import {Button, ButtonProps} from '@mui/material'
 import {unparse} from 'papaparse'
 import {saveAs} from 'file-saver'
 

@@ -1,14 +1,9 @@
 // cspell:ignore supportsTouch
 import React, {useState, useCallback} from 'react'
-import {
-  Box,
-  Button,
-  Tooltip,
-  Theme,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/DeleteForeverRounded'
+import {Box, Button, Tooltip, Theme} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import DeleteIcon from '@mui/icons-material/DeleteForeverRounded'
 import {DroppedFile, UploadedFileAttr} from './types'
 import RemoveUploadFab from './RemoveUploadFab'
 import UploadStatusIndicator from './UploadStatusIndicator'
@@ -48,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       padding: 4,
       boxSizing: 'border-box',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         borderRadius: 1,
         width: 100,
         height: 100,

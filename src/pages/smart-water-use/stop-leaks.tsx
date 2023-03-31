@@ -3,17 +3,17 @@ import React from 'react'
 import {
   Typography as Type,
   Link,
-  createStyles,
-  makeStyles,
   Box,
-  useTheme
-} from '@material-ui/core'
+  useTheme,
+  TypographyProps
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
-import {TypographyProps} from '@material-ui/core/Typography'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import Image from 'next/image'

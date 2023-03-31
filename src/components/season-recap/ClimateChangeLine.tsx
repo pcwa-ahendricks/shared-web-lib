@@ -1,13 +1,8 @@
 // cspell:ignore accum rnge nrml clim arry
-import {grey, lightBlue, orange} from '@material-ui/core/colors'
+import {grey, lightBlue, orange} from '@mui/material/colors'
 import {ComputedSerie, CustomLayer, ResponsiveLine, Serie} from '@nivo/line'
 import React, {useMemo} from 'react'
-import {
-  Box,
-  useTheme,
-  Typography as Type,
-  useMediaQuery
-} from '@material-ui/core'
+import {Box, useTheme, Typography as Type, useMediaQuery} from '@mui/material'
 import SquareIcon from 'mdi-material-ui/Square'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
@@ -243,7 +238,7 @@ export default function ClimateChangeLine({
             px={1}
             py={0.5}
             boxShadow={4}
-            borderRadius={3}
+            borderRadius="3px"
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>

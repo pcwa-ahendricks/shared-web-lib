@@ -1,10 +1,5 @@
 import React, {useCallback, useMemo} from 'react'
-import {
-  Box,
-  BoxProps,
-  Typography as Type,
-  TypographyProps
-} from '@material-ui/core'
+import {Box, BoxProps, Typography as Type, TypographyProps} from '@mui/material'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 // import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'

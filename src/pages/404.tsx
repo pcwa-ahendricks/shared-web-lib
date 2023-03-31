@@ -2,7 +2,7 @@ import React, {useCallback} from 'react'
 import {ColumnBox, RowBox} from 'mui-sleazebox'
 import Head from 'next/head'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
-import {Box, Typography as Type} from '@material-ui/core'
+import {Box, Typography as Type} from '@mui/material'
 import WebmasterEmail from '@components/links/WebmasterEmail'
 
 /*

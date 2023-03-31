@@ -19,12 +19,12 @@ import {
   CardContent,
   CardActions,
   useMediaQuery,
-  createStyles,
-  makeStyles,
   useTheme,
   Theme,
   Divider
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -33,14 +33,14 @@ import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink from '@components/NextLink/NextLink'
 import SectionBox from '@components/boxes/SectionBox'
-import FeedbackIcon from '@material-ui/icons/Feedback'
-import BuildIcon from '@material-ui/icons/BuildOutlined'
+import FeedbackIcon from '@mui/icons-material/Feedback'
+import BuildIcon from '@mui/icons-material/BuildOutlined'
 import GaugeIcon from 'mdi-material-ui/Gauge'
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined'
-import DripSystemIcon from '@material-ui/icons/AccountTreeOutlined'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
+import DripSystemIcon from '@mui/icons-material/AccountTreeOutlined'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import NextButton from '@components/NextButton/NextButton'
-import WebsiteIcon from '@material-ui/icons/Language'
+import WebsiteIcon from '@mui/icons-material/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -76,7 +76,7 @@ const SmartWaterUsePage = () => {
     []
   )
 
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <PageLayout title="Smart Water Use" waterSurface>

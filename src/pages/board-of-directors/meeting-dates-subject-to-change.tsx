@@ -14,12 +14,12 @@ import {
   TableContainer,
   Table,
   TableHead,
-  TableBody,
-  makeStyles
-} from '@material-ui/core'
+  TableBody
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
 import colorAlpha from 'color-alpha'
-import {yellow} from '@material-ui/core/colors'
+import {yellow} from '@mui/material/colors'
 import Spacing from '@components/boxes/Spacing'
 import useSWR from 'swr'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'

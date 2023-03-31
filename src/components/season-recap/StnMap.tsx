@@ -12,11 +12,11 @@ import {
   Theme,
   LinearProgress,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
 import isNumber from 'is-number'
-import CrossHairIcon from '@material-ui/icons/CloseRounded'
+import CrossHairIcon from '@mui/icons-material/CloseRounded'
 import {StationMeta} from '@pages/water-year-dashboard'
-import {orange} from '@material-ui/core/colors'
+import {orange} from '@mui/material/colors'
 import delay from 'then-sleep'
 // import {PiMetadata} from '../PiStore'
 // import StnMapMarker from './StnMapMarker'
@@ -44,7 +44,7 @@ type Props = {
 const StnMap = ({isLoading = false, stationInfo}: Props) => {
   // const classes = useStyles()
   const theme = useTheme<Theme>()
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSmDown = useMediaQuery(theme.breakpoints.down('md'))
   const [mapWest, setMapWest] = useState<number>()
   const [mapEast, setMapEast] = useState<number>()
 

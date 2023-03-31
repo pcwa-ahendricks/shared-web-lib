@@ -9,12 +9,12 @@ import {
   Box,
   Link,
   Theme,
-  createStyles,
-  makeStyles,
   useTheme,
   ButtonProps,
   LinkProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'

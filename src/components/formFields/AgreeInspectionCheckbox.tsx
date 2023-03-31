@@ -4,7 +4,7 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText
-} from '@material-ui/core'
+} from '@mui/material'
 import {FieldProps} from 'formik'
 import {safeCastBooleanToStr, safeCastStrToBoolean} from '@lib/safeCastBoolean'
 

@@ -6,14 +6,14 @@ import {
   Divider,
   Link,
   LinkProps,
-  useTheme,
-  makeStyles,
-  createStyles,
-  Theme
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Spacing from '@components/boxes/Spacing'
 import MuiNextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
 import NavBox from '@components/boxes/NavBox'
+import {Theme} from '@lib/material-theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1)
     },
     noIndexList: {
-      paddingInlineStart: `${theme.spacing(3)}px`
+      paddingInlineStart: theme.spacing(3)
     },
     safeLink: {
       '&:not(:last-child)': {
-        marginBottom: theme.spacing(1) / 2
+        marginBottom: theme.spacing(0.5)
       }
     },
     wrapText: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const ARBSSidebar = () => {
-  const theme = useTheme()
+  const theme = useTheme<Theme>()
   const classes = useStyles()
 
   const PageLink = useCallback(
@@ -89,7 +89,7 @@ const ARBSSidebar = () => {
       p={2}
       bgcolor={theme.palette.grey['100']}
       borderColor={theme.palette.grey['300']}
-      borderRadius={1}
+      borderRadius="1px"
       border={1}
     >
       <NavBox color={theme.palette.primary.light}>

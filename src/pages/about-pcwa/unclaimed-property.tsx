@@ -9,17 +9,17 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  ListItemIcon
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import UnclaimedPropertyTable, {
   csvDataUrl
 } from '@components/UnclaimedPropertyTable/UnclaimedPropertyTable'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
-import CheckIcon from '@material-ui/icons/Check'
-import {green} from '@material-ui/core/colors'
+import CheckIcon from '@mui/icons-material/Check'
+import {green} from '@mui/material/colors'
 import {RowBox} from 'mui-sleazebox'
 import UnclaimedPropertyEmail from '@components/links/UnclaimedPropertyEmail'
 import {GetStaticProps} from 'next'

@@ -2,12 +2,9 @@ import React from 'react'
 // [TODO] why?
 // eslint-disable-next-line import/named
 import {CommonProps, ViewType} from 'react-images'
-import {
-  makeStyles,
-  createStyles,
-  useTheme,
-  useMediaQuery
-} from '@material-ui/core'
+import {useTheme, useMediaQuery} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 
@@ -78,7 +75,7 @@ const MultimediaLightboxFooter = ({
   }
 }) => {
   const theme = useTheme()
-  const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
+  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles({interactionIsIdle, smallDevice: isXsDown, isModal})
   const {caption} = currentView || {}
   const activeView = currentIndex + 1

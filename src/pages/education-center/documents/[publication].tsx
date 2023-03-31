@@ -19,14 +19,14 @@ import {
   Divider,
   Breadcrumbs,
   LinearProgress,
-  useTheme,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import ErrorPage from '@pages/_error'
-import UndoIcon from '@material-ui/icons/UndoOutlined'
-import DocIcon from '@material-ui/icons/DescriptionOutlined'
+import UndoIcon from '@mui/icons-material/UndoOutlined'
+import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import fetcher from '@lib/fetcher'
@@ -79,8 +79,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
   const theme = useTheme<Theme>()
 
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
-  const isXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
+  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
 
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])

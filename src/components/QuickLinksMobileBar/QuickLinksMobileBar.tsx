@@ -1,5 +1,6 @@
 import React from 'react'
-import {Box, makeStyles, Typography} from '@material-ui/core'
+import {Box, Typography} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import {ColumnBox, RowBox} from 'mui-sleazebox'
 import FlexButton from '@components/FlexButton/FlexButton'
 

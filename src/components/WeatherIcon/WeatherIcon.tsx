@@ -1,6 +1,8 @@
 // cspell:ignore climacell clima
 import React, {useMemo} from 'react'
-import {Icon, IconProps, makeStyles, createStyles} from '@material-ui/core'
+import {Icon, IconProps} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
 import {isAfter, isBefore} from 'date-fns'
 // Font loading using @font-face seems to work with css modules but I don't see where that's documented online. See https://nextjs.org/docs/basic-features/built-in-css-support for more info.

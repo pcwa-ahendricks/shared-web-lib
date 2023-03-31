@@ -10,8 +10,8 @@ import {
   useScrollTrigger,
   IconProps,
   FabProps
-} from '@material-ui/core'
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp'
+} from '@mui/material'
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import {backToTopAnchorId} from '@components/PageLayout/PageLayout'
 
 /*

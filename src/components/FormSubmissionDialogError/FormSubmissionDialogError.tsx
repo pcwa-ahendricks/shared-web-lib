@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   Slide
-} from '@material-ui/core'
+} from '@mui/material'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 
 type Props = {

@@ -8,12 +8,12 @@ import {
   useMediaQuery,
   Link,
   Hidden,
-  createStyles,
-  makeStyles,
   LinkProps,
   TypographyProps,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -51,8 +51,8 @@ const FireResistantGardenPage = () => {
   const plantImgChildFlex = useMemo(
     () =>
       isSMUp
-        ? `calc(50% - ${theme.spacing(plantImgSpacing)}px)`
-        : `calc(25% - ${theme.spacing(plantImgSpacing)}px)`,
+        ? `calc(50% - ${theme.spacing(plantImgSpacing)})`
+        : `calc(25% - ${theme.spacing(plantImgSpacing)})`,
     [isSMUp, theme, plantImgSpacing]
   )
 

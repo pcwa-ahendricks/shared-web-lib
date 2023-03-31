@@ -6,10 +6,10 @@ import {
   Typography as Type,
   useMediaQuery,
   useTheme,
-  createStyles,
-  makeStyles,
   BoxProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {ColumnBox} from 'mui-sleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'

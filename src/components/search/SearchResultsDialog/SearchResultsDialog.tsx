@@ -8,12 +8,12 @@ import {
   DialogActions,
   DialogTitle,
   Theme,
-  createStyles,
-  makeStyles,
   useTheme,
   useMediaQuery,
   DialogProps
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
 import Pagination from '@components/Pagination'

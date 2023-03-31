@@ -1,19 +1,19 @@
 // cspell:ignore Eisley Normac watersavingplants Newsom
 import React from 'react'
-import GovtIcon from '@material-ui/icons/AccountBalance'
+import GovtIcon from '@mui/icons-material/AccountBalance'
 // import WaterIcon from 'mdi-material-ui/WaterPercent'
-// import EcoIcon from '@material-ui/icons/Eco'
+// import EcoIcon from '@mui/icons-material/Eco'
 import {
   Typography as Type,
   Box,
   List,
   ListItemText,
-  createStyles,
-  makeStyles,
   Paper,
   useMediaQuery,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'

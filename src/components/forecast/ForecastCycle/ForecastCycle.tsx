@@ -10,7 +10,8 @@ import ForecastDisplay, {
   ForecastDataset
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {Box, makeStyles, BoxProps} from '@material-ui/core'
+import {Box, BoxProps} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
 import {maxInt} from '@lib/util'
 import {

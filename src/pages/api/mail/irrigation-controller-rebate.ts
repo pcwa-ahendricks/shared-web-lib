@@ -9,13 +9,13 @@ import {
   SchemaOf
 } from 'yup'
 import {parseISO} from 'date-fns'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema,
   emailRecipientsSysAdmin
-} from '../../../lib/api/forms'
+} from '@lib/api/forms'
 const isDev = process.env.NODE_ENV === 'development'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'

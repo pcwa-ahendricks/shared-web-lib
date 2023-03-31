@@ -1,4 +1,4 @@
-import {Fade, Box, LinearProgress} from '@material-ui/core'
+import {Fade, Box, LinearProgress} from '@mui/material'
 import React from 'react'
 
 export default function PageProgress({show}: {show: boolean}) {

@@ -6,9 +6,9 @@ import {
   Theme,
   Link,
   useTheme,
-  Divider,
-  makeStyles
-} from '@material-ui/core'
+  Divider
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import NextLink from 'next/link'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -18,10 +18,10 @@ import {FlexBox, ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-import ComputerIcon from '@material-ui/icons/Computer'
-import PhoneIcon from '@material-ui/icons/Phone'
-import BusinessIcon from '@material-ui/icons/Business'
-import EmailIcon from '@material-ui/icons/EmailOutlined'
+import ComputerIcon from '@mui/icons-material/Computer'
+import PhoneIcon from '@mui/icons-material/Phone'
+import BusinessIcon from '@mui/icons-material/Business'
+import EmailIcon from '@mui/icons-material/EmailOutlined'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Image from 'next/image'

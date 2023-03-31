@@ -1,7 +1,10 @@
 // cspell:ignore ffprobe
 import React from 'react'
 import YouTubePlayer, {ReactPlayerProps} from 'react-player'
-import {Box, createStyles, makeStyles, BoxProps} from '@material-ui/core'
+import {Box, BoxProps} from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 type Props = {
   aspectRatio?: number

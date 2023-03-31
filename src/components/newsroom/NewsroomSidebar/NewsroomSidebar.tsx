@@ -1,12 +1,6 @@
 // cspell:ignore
 import React from 'react'
-import {
-  Box,
-  Typography as Type,
-  Divider,
-  Link,
-  useTheme
-} from '@material-ui/core'
+import {Box, Typography as Type, Divider, Link, useTheme} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 
 // const useStyles = makeStyles((theme: Theme) =>
@@ -25,7 +19,7 @@ const NewsroomSidebar = () => {
       p={2}
       bgcolor={theme.palette.grey['100']}
       borderColor={theme.palette.grey['300']}
-      borderRadius={1}
+      borderRadius="1px"
       border={1}
       minWidth={{xs: 0, sm: 210}}
     >

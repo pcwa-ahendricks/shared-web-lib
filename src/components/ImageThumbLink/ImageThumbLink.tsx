@@ -1,13 +1,7 @@
 import React, {useState, useMemo, useCallback} from 'react'
-import {
-  Box,
-  Theme,
-  Typography as Type,
-  // useMediaQuery,
-  // useTheme,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+import {Box, Theme, Typography as Type} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {ColumnBox} from 'mui-sleazebox'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import slugify from 'slugify'

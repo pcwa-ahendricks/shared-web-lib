@@ -6,12 +6,12 @@ import {
   FormHelperText,
   FormGroup,
   FormLabel,
-  Theme,
-  makeStyles
-} from '@material-ui/core'
+  Theme
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import {FieldProps} from 'formik'
-import {FormControlProps} from '@material-ui/core/FormControl'
-import {FormLabelProps} from '@material-ui/core/FormLabel'
+import {FormControlProps} from '@mui/material/FormControl'
+import {FormLabelProps} from '@mui/material/FormLabel'
 
 /**
  * This is used to correct Types so "legend" and "fieldset" can be used.
@@ -33,7 +33,7 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) => ({
   fcLabel: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       marginBottom: 2,
       marginTop: 2
     }

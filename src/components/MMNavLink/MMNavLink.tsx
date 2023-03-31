@@ -1,7 +1,8 @@
 import React from 'react'
 import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
-import {Theme, makeStyles, createStyles} from '@material-ui/core'
-import colorAlpha from 'color-alpha'
+import {Theme, alpha} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 // import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 type Props = {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover, &:active': {
         // color: theme.palette.common.white,
         color: theme.palette.grey[50],
-        backgroundColor: colorAlpha(theme.palette.primary.main, 0.85),
+        backgroundColor: alpha(theme.palette.primary.main, 0.85),
         fontWeight: 500
         // opacity: 1
       }

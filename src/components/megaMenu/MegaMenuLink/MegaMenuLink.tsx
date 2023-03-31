@@ -1,11 +1,7 @@
 import React, {useRef, useCallback} from 'react'
-import {
-  Box,
-  Theme,
-  Typography as Type,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Box, Theme, Typography as Type} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
 import {ColumnBox} from 'mui-sleazebox'

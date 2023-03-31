@@ -10,10 +10,10 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon
-} from '@material-ui/core'
+} from '@mui/material'
 import Image from 'next/image'
 import Spacing from '@components/boxes/Spacing'
-// import ArrowRightIcon from '@material-ui/icons/ArrowForwardIosOutlined'
+// import ArrowRightIcon from '@mui/icons-material/ArrowForwardIosOutlined'
 // import UntreatedIcon from 'mdi-material-ui/Waves'
 // import TreatedIcon from 'mdi-material-ui/CupWater'
 import BulletIcon from 'mdi-material-ui/CircleSmall'

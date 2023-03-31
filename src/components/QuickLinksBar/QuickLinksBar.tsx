@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Box
   // Paper,
-} from '@material-ui/core'
+} from '@mui/material'
 import {RowBox} from 'mui-sleazebox'
 import QuickLinkButton from './QuickLinkButton'
 

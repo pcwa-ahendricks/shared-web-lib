@@ -4,14 +4,9 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import {
-  Typography as Type,
-  Box,
-  makeStyles,
-  createStyles,
-  TypographyProps,
-  Theme
-} from '@material-ui/core'
+import {Typography as Type, Box, TypographyProps, Theme} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'

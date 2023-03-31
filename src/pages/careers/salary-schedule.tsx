@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type} from '@material-ui/core'
+import {Typography as Type} from '@mui/material'
 import SalaryScheduleTable, {
   SalaryScheduleResponse
 } from '@components/SalaryScheduleTable/SalaryScheduleTable'

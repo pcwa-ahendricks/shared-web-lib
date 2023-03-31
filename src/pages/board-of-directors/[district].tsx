@@ -3,15 +3,15 @@ import React, {useEffect, useState, useCallback} from 'react'
 import {
   useTheme,
   Theme,
-  makeStyles,
-  createStyles,
   Typography as Type,
   Link,
   Box,
   Divider,
   Badge,
   Button
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Image from 'next/image'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -28,7 +28,7 @@ import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import MuiNextLink from '@components/NextLink/NextLink'
-import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
@@ -195,7 +195,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
                 bgcolor={theme.palette.common.white}
                 boxShadow={3}
                 p={4}
-                borderRadius={3}
+                borderRadius="3px"
               >
                 <RowBox responsive flexSpacing={6}>
                   <ChildBox flex="auto">

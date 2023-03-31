@@ -1,7 +1,7 @@
 import React, {useCallback, useState, useEffect, useRef} from 'react'
-import {DatePicker} from '@material-ui/pickers'
-import {FormControl} from '@material-ui/core'
+import {FormControl, TextField, TextFieldProps} from '@mui/material'
 import {FieldProps} from 'formik'
+import {DatePicker} from '@mui/x-date-pickers-pro'
 
 type Props = {
   fullWidth?: boolean
@@ -66,25 +66,26 @@ const PurchaseDateField = ({
       error={fieldIsTouchedWithError}
     >
       <DatePicker
-        inputVariant="outlined"
-        required={required}
-        // Deprecated - keyboard
-        // clearable
         disableFuture
-        name={name}
+        renderInput={(props: TextFieldProps) => (
+          <TextField
+            placeholder="mm/dd/yyyy"
+            required={required}
+            name={name}
+            helperText={fieldIsTouchedWithError ? currentError : null}
+            error={fieldIsTouchedWithError}
+            onBlur={handleBlur}
+            {...props}
+          />
+        )}
+        label="Purchase Date"
         disabled={disabledControl}
         value={value}
-        format="MM/dd/yyyy"
-        placeholder="mm/dd/yyyy"
-        variant="dialog"
-        label="Purchase Date"
-        helperText={fieldIsTouchedWithError ? currentError : null}
-        error={fieldIsTouchedWithError}
+        inputFormat="MM/dd/yyyy"
         onError={errorHandler}
         onChange={changeHandler}
         // Deprecated - onInputChange={changeHandler}
         // Deprecated - disableOpenOnEnter
-        onBlur={handleBlur}
         // Deprecated - mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         {...other}
       />

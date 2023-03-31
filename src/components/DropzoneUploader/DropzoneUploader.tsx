@@ -6,17 +6,13 @@ import React, {
   useImperativeHandle
 } from 'react'
 import clsx from 'clsx'
-import {
-  Button,
-  Typography as Type,
-  Theme,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Button, Typography as Type, Theme} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {uploadFile} from '@lib/services/uploadService'
-import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined'
-import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined'
-import DeleteIcon from '@material-ui/icons/Delete'
+import CloudUploadIcon from '@mui/icons-material/CloudUploadOutlined'
+import CloudDoneIcon from '@mui/icons-material/CloudDoneOutlined'
+import DeleteIcon from '@mui/icons-material/Delete'
 import {generate} from 'shortid'
 import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'

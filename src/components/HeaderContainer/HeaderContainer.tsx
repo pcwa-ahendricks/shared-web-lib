@@ -1,7 +1,7 @@
 import React from 'react'
 import SecondaryHeader from '../SecondaryHeader/SecondaryHeader'
 import PrimaryHeader from '../PrimaryHeader/PrimaryHeader'
-import {Hidden} from '@material-ui/core'
+import {Hidden} from '@mui/material'
 
 const HeaderContainer = () => {
   return (

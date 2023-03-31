@@ -4,18 +4,18 @@ import {
   Fade,
   Hidden,
   Popper,
+  alpha,
   Theme,
   Typography as Type,
   useMediaQuery,
   BoxProps,
-  useTheme,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import MediaPreviewDialog, {
   MediaPreviewDialogProps
 } from '@components/MediaPreviewDialog/MediaPreviewDialog'
-import colorAlpha from 'color-alpha'
 
 type Props = {
   mediaName: string
@@ -61,7 +61,7 @@ const MediaDialogOnClick = ({
   // Div element helps with Popper positioning.
   const popperAnchorEl = useRef<HTMLDivElement>(null)
 
-  const noTransPaper = colorAlpha(theme.palette.background.paper, 1)
+  const noTransPaper = alpha(theme.palette.background.paper, 1)
 
   const [mediaDialogOpen, setMediaDialogOpen] =
     useState<boolean>(mediaDialogOpenProp)
@@ -120,7 +120,7 @@ const MediaDialogOnClick = ({
             {({TransitionProps}) => (
               <Fade {...TransitionProps} timeout={timeout}>
                 <Box
-                  borderRadius={3}
+                  borderRadius="3px"
                   borderColor={theme.palette.grey['300']}
                   border={1}
                   p={1}

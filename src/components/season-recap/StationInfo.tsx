@@ -1,12 +1,9 @@
 import React from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Typography as Type
-} from '@material-ui/core'
+import {Box, Typography as Type} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import colorAlpha from 'color-alpha'
-import {blueGrey} from '@material-ui/core/colors'
+import {blueGrey} from '@mui/material/colors'
 import {StationMeta} from '@pages/water-year-dashboard'
 import JackinBox from 'mui-jackinbox'
 // import round from '@lib/round'
@@ -47,7 +44,7 @@ export default function StationInfo({stationInfo}: Props) {
         className={classes.blurry}
       />
 
-      <Box className={classes.infoBoxPanel} borderRadius={4} p={2}>
+      <Box className={classes.infoBoxPanel} borderRadius="4px" p={2}>
         <Type variant="subtitle1" color="primary">
           {name}
         </Type>

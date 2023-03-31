@@ -9,13 +9,14 @@ import {
   Slide,
   Theme,
   useMediaQuery,
-  makeStyles,
-  createStyles,
   useTheme,
   MobileStepperProps,
   StepperProps,
   DialogProps
-} from '@material-ui/core'
+} from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stepperPaper: {
       backgroundColor: 'transparent',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         padding: 0
       },
       [theme.breakpoints.only('sm')]: {
@@ -49,7 +50,7 @@ const EligibilityDialog = ({
   ...rest
 }: EligibilityDialogProps) => {
   const theme = useTheme<Theme>()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Dialog

@@ -3,7 +3,7 @@ import React, {useMemo, useCallback, Fragment, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
-import InboxRoundedIcon from '@material-ui/icons/InboxRounded'
+import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
@@ -21,12 +21,12 @@ import {
   ListItemText,
   useMediaQuery,
   CircularProgress,
-  makeStyles,
-  createStyles,
   Theme,
   useTheme
-} from '@material-ui/core'
-import GavelRoundedIcon from '@material-ui/icons/GavelRounded'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import GavelRoundedIcon from '@mui/icons-material/GavelRounded'
 import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import NovusIframe from '@components/NovusIframe/NovusIframe'
 import Spacing from '@components/boxes/Spacing'
@@ -49,7 +49,7 @@ import {
 import {saveAs} from 'file-saver'
 import {FlexBox, ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
-import {green} from '@material-ui/core/colors'
+import {green} from '@mui/material/colors'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
@@ -481,7 +481,7 @@ const MeetingAgendasPage = ({
               p={3}
               bgcolor={theme.palette.common.white}
               boxShadow={1}
-              borderRadius={2}
+              borderRadius="2px"
             >
               {!agendas ? (
                 <FlexBox height={75}>

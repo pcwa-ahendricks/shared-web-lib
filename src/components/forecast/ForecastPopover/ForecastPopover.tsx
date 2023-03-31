@@ -1,5 +1,7 @@
 import React from 'react'
-import {Popover, Theme, makeStyles, createStyles} from '@material-ui/core'
+import {Popover, Theme} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'

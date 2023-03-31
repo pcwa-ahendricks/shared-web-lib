@@ -1,10 +1,10 @@
 // cspell:ignore accum
 import SquareIcon from 'mdi-material-ui/Square'
 import alpha from 'color-alpha'
-import {orange, teal, brown, blue} from '@material-ui/core/colors'
+import {orange, teal, brown, blue} from '@mui/material/colors'
 import {BarDatum, ResponsiveBar} from '@nivo/bar'
 import React, {useMemo} from 'react'
-import {Box, useTheme, Typography as Type} from '@material-ui/core'
+import {Box, useTheme, Typography as Type} from '@mui/material'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import round from '@lib/round'
 
@@ -185,7 +185,7 @@ export default function PrecipMonthGroupBar({
             px={1}
             py={0.5}
             boxShadow={4}
-            borderRadius={3}
+            borderRadius="3px"
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>

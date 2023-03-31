@@ -4,13 +4,13 @@ import {
   MailJetSendRequest,
   MailJetMessage,
   postMailJetRequest
-} from '../../../lib/api/mailjet'
+} from '@lib/api/mailjet'
 import {
   emailRecipientsContactUs,
   emailRecipientsSysAdmin,
   getRecaptcha,
   validateSchema
-} from '../../../lib/api/forms'
+} from '@lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'

@@ -2,12 +2,9 @@ import React, {useMemo} from 'react'
 import CoverTile, {CoverTileProps} from '@components/CoverTile/CoverTile'
 import {fileNameUtil, CosmicMediaMeta} from '@lib/services/cosmicService'
 import {compareDesc, parseJSON} from 'date-fns'
-import {
-  Box,
-  CircularProgress,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Box, CircularProgress} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 

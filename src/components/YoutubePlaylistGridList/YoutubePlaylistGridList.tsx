@@ -5,11 +5,11 @@ import {
   ImageListItemBar,
   IconButton,
   Theme,
-  Tooltip,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
-import PlayIcon from '@material-ui/icons/PlayCircleOutline'
+  Tooltip
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import PlayIcon from '@mui/icons-material/PlayCircleOutline'
 import {PlayListItem} from '@lib/types/youtube'
 
 /*
@@ -52,6 +52,7 @@ export default function YoutubePlaylistImageList({items = []}: Props) {
                       rel="noopener noreferrer"
                       aria-label={`Play video titled ${item.snippet.title}`}
                       className={classes.icon}
+                      size="large"
                     >
                       <PlayIcon />
                     </IconButton>

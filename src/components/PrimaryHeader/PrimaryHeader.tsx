@@ -9,19 +9,20 @@ import React, {
 // [TODO] Preferred <Collapse/> onEnter transition is not working/firing. All other transition components enter as expected. In future updates to Material-UI I will revisit this.
 import {
   AppBar,
+  alpha,
   Box,
   Hidden,
   IconButton,
   Toolbar,
   PopperProps,
-  makeStyles,
-  createStyles,
   useTheme,
   Theme,
   useScrollTrigger,
   useMediaQuery
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import MenuIcon from '@mui/icons-material/Menu'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import MegaMenuLink from '@components/megaMenu/MegaMenuLink/MegaMenuLink'
 import MegaMenuPopper from '@components/megaMenu/MegaMenuPopper/MegaMenuPopper'
@@ -30,7 +31,6 @@ import NextLink from '@components/NextLink/NextLink'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import {ColumnBox, RowBox, ChildBox} from 'mui-sleazebox'
 import menuConfig from '@lib/menuConfig'
-import colorAlpha from 'color-alpha'
 import {useDebounce} from 'use-debounce'
 import SearchInput from '@components/search/SearchInput/SearchInput'
 import {SearchContext} from '@components/search/SearchStore'
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) => {
       top: 0, // We don't need top to toggle, but it does need set for 'fixed' positioning.
       backgroundColor: stuck
         ? !isXS
-          ? colorAlpha(theme.palette.background.paper, 0.98)
+          ? alpha(theme.palette.background.paper, 0.98)
           : theme.palette.primary.main
         : isXS
         ? theme.palette.primary.main
@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme: Theme) => {
       maxHeight: stuck ? APP_BAR_HEIGHT.dense : APP_BAR_HEIGHT.regular,
       maxWidth: stuck ? 140 : 200,
       // transition: 'max-height 80ms ease-in, max-width 80ms ease-in',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         maxWidth: stuck ? 100 : 140
       }
     }),
@@ -257,6 +257,7 @@ const PrimaryHeader = () => {
                 color="inherit"
                 aria-label="Menu"
                 onClick={handleMenuButtonClick}
+                size="large"
               >
                 <MenuIcon />
               </IconButton>

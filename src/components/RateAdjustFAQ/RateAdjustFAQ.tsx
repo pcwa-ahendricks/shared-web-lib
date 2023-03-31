@@ -6,8 +6,6 @@ import {
   Typography as Type,
   Theme,
   Box,
-  makeStyles,
-  createStyles,
   useTheme,
   Table,
   TableHead,
@@ -15,8 +13,10 @@ import {
   TableCell,
   TableBody,
   Link
-} from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import ProjectGoPhone from '@components/links/ProjectGoPhone'

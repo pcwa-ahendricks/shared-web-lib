@@ -1,4 +1,4 @@
-import {Box, Typography as Type} from '@material-ui/core'
+import {Box, Typography as Type} from '@mui/material'
 import React from 'react'
 
 export default function HoursOfOperation() {

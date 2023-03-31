@@ -6,25 +6,25 @@ import {
   Theme,
   Tooltip,
   Typography as Type,
-  makeStyles,
-  createStyles,
   useTheme,
   useMediaQuery
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import delay from 'then-sleep'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
-// import MessageIcon from '@material-ui/icons/AnnouncementOutlined'
+// import MessageIcon from '@mui/icons-material/AnnouncementOutlined'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
       margin: theme.spacing(4),
       color: theme.palette.grey[50],
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '0.9em'
       }
     },
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: 300,
         height: 125
       }

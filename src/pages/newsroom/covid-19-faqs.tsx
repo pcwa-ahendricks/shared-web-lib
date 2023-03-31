@@ -11,7 +11,7 @@ import {
   ListItemText,
   ListItemProps,
   Link
-} from '@material-ui/core'
+} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'

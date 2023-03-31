@@ -12,14 +12,9 @@ import {
   setSelectedGallery
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {
-  useMediaQuery,
-  Typography as Type,
-  Box,
-  createStyles,
-  makeStyles,
-  useTheme
-} from '@material-ui/core'
+import {useMediaQuery, Typography as Type, Box, useTheme} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
@@ -94,7 +89,7 @@ const useStyles = makeStyles(() =>
 const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
   const classes = useStyles()
   const theme = useTheme()
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const [mappedMultimedia, setMappedMultimedia] = useState<VideoList>([])
   const multimediaContext = useContext(MultimediaContext)

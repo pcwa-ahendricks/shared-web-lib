@@ -1,6 +1,7 @@
 import React from 'react'
-import {makeStyles, createStyles} from '@material-ui/core'
-import {BoxProps} from '@material-ui/core/Box'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import {BoxProps} from '@mui/material'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 
 type Props = {children: React.ReactNode; containerProps?: BoxProps} & BoxProps

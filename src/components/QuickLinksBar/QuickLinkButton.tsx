@@ -1,13 +1,13 @@
 import {
   Fab,
-  makeStyles,
   useTheme,
   useMediaQuery,
   FabProps,
   Link as MatLink,
   LinkProps as MatLinkProps
-} from '@material-ui/core'
-import {blue as hl} from '@material-ui/core/colors'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import {blue as hl} from '@mui/material/colors'
 import {ChildBox, ColumnBox} from 'mui-sleazebox'
 import imgixLoader from '@lib/imageLoader'
 import React, {useCallback, useState} from 'react'

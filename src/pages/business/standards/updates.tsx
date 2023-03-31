@@ -2,7 +2,7 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn'
 import {
   Typography as Type,
   Divider,
@@ -13,11 +13,11 @@ import {
   Breadcrumbs,
   Box,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import {format, parse} from 'date-fns'
 import MuiNextLink from '@components/NextLink/NextLink'
 import NarrowContainer from '@components/containers/NarrowContainer'

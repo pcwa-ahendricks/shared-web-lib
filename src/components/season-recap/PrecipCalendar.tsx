@@ -5,13 +5,8 @@ import {
   EnhancedCalendarSvgProps
 } from '@kevinmoe/nivo-fork-calendar'
 import round from '@lib/round'
-import {
-  Box,
-  Typography as Type,
-  useMediaQuery,
-  useTheme
-} from '@material-ui/core'
-import {blueGrey, blue} from '@material-ui/core/colors'
+import {Box, Typography as Type, useMediaQuery, useTheme} from '@mui/material'
+import {blueGrey, blue} from '@mui/material/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
 
@@ -73,7 +68,7 @@ export default function PrecipCalendar({
             px={1}
             py={0.5}
             boxShadow={4}
-            borderRadius={3}
+            borderRadius="3px"
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>

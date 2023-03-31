@@ -43,11 +43,11 @@ import {
   TabProps,
   Button,
   useMediaQuery,
-  createStyles,
-  makeStyles,
   Theme,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
@@ -436,11 +436,15 @@ const PublicationsPage = ({
                     Filter Newsletters by Year
                   </Type>
                   <Spacing size="x-small" />
-                  <FormControl className={classes.formControl}>
+                  <FormControl
+                    variant="standard"
+                    className={classes.formControl}
+                  >
                     <InputLabel id="newsletter-year-select-label">
                       Year
                     </InputLabel>
                     <Select
+                      variant="standard"
                       labelId="newsletter-year-select-label"
                       id="newsletter-year-select"
                       value={selectYear}

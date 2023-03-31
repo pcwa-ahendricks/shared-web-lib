@@ -12,7 +12,7 @@ import {
   ListItemText,
   ListSubheader,
   Box
-} from '@material-ui/core'
+} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import {FlexBox} from 'mui-sleazebox'
 import Blockquote from '@components/typography/Blockquote'

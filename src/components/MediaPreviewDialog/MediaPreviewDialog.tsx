@@ -8,12 +8,12 @@ import {
   Theme,
   DialogProps,
   Zoom,
-  makeStyles,
-  createStyles,
   Box,
   BoxProps
-} from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/CloseRounded'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import DeleteIcon from '@mui/icons-material/CloseRounded'
 import Image, {ImageProps} from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {useWindowSize} from 'react-use'
@@ -142,7 +142,7 @@ const MediaPreviewDialog = ({
       showActions ? (
         <DialogActions>
           {dlUrl ? (
-            <Button color="default" href={dlUrl} target="_blank" rel="noopener">
+            <Button href={dlUrl} target="_blank" rel="noopener">
               Download Copy
             </Button>
           ) : null}

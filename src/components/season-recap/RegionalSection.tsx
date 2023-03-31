@@ -8,21 +8,21 @@ import {
   Paper,
   Link,
   Popover,
-  createStyles,
   CircularProgress,
-  makeStyles,
   Theme,
   useMediaQuery,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
-import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab'
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import {ChildBox, ColumnBox, RowBox, FlexBox} from 'mui-sleazebox'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import toTitleCase from '@lib/toTitleCase'
 import isNumber from 'is-number'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import {grey} from '@material-ui/core/colors'
+import {grey} from '@mui/material/colors'
 import Image from 'next/image'
 import {stringify} from 'querystringify'
 import {

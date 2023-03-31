@@ -9,12 +9,7 @@ import {
 import {compareDesc, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import NextLink from 'next/link'
-import {
-  Typography as Type,
-  Link,
-  Box,
-  CircularProgress
-} from '@material-ui/core'
+import {Typography as Type, Link, Box, CircularProgress} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'

@@ -5,19 +5,15 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
-  Select
-} from '@material-ui/core'
-import {FormControlProps} from '@material-ui/core/FormControl'
+  Select,
+  FormControlProps,
+  SelectChangeEvent
+} from '@mui/material'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
-  onChange?: (
-    e: React.ChangeEvent<{
-      name?: string | undefined
-      value: unknown
-    }>
-  ) => void
+  onChange?: (e: SelectChangeEvent) => void
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any> &
@@ -52,12 +48,7 @@ const HowDidYouHearSelectField = ({
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
 
   const changeHandler = useCallback(
-    (
-      e: React.ChangeEvent<{
-        name?: string | undefined
-        value: unknown
-      }>
-    ) => {
+    (e: SelectChangeEvent) => {
       handleChange(e)
       onChange?.(e)
     },
@@ -86,7 +77,7 @@ const HowDidYouHearSelectField = ({
           <OutlinedInput
             id="how-did-you-hear-select"
             name={name}
-            labelWidth={359}
+            // labelWidth={359}
             error={fieldIsTouchedWithError}
           />
         }

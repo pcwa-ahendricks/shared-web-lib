@@ -15,8 +15,8 @@ import {
   ListItemText,
   useTheme,
   ListSubheader
-} from '@material-ui/core'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+} from '@mui/material'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import {isBefore, parseISO, isAfter, format, compareDesc} from 'date-fns'

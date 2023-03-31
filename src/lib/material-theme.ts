@@ -1,5 +1,5 @@
-import {createTheme, responsiveFontSizes} from '@material-ui/core'
-// import {indigo, green, red} from '@material-ui/core/colors'
+import {createTheme, responsiveFontSizes} from '@mui/material'
+// import {indigo, green, red} from '@mui/material/colors'
 
 const systemFonts = [
   '-apple-system',
@@ -16,116 +16,121 @@ const systemFonts = [
 
 // All the following keys are optional.
 // We try our best to provide a great default value.
-const theme = createTheme({
-  typography: {
-    // Use the system font instead of the default Roboto font.
-    // fontFamily: ['Asap', ...systemFonts].join(','),
-    fontFamily: ['Dona', ...systemFonts].join(','),
-    h1: {
-      fontSize: '2.6rem' // Default: 6rem
-    },
-    h2: {
-      fontSize: '1.95rem' // Default: 3.75rem
-      // fontWeight: 400 // Default: 300
-    },
-    h3: {
-      fontSize: '1.55rem' // Default: 3rem
-      // fontWeight: 300 // Default: 400
-    },
-    h4: {
-      fontSize: '1.23rem' // Default: 2.125rem
-      // fontWeight: 400 // Default: 400
-    },
-    h5: {
-      fontSize: '1.15rem' // Default: 1.5rem
-      // fontWeight: 400 // Default: 400
-    },
-    h6: {
-      fontSize: '1.1rem' // Default: 1.25rem
-      // fontWeight: 500 // Default: 500
-    },
-    caption: {
-      fontSize: '0.9rem' // Default: 0.75rem
-      // fontWeight: xxx // Default: 400
-    },
-    body2: {
-      // fontFamily: ['Open Sans', ...systemFonts].join(',')
-      fontFamily: ['Kiperman', ...systemFonts].join(','),
-      fontSize: '1.1rem' // Default: 0.875rem
-    },
-    body1: {
-      // fontFamily: ['Open Sans', ...systemFonts].join(',')
-      fontFamily: ['Kiperman', ...systemFonts].join(','),
-      fontSize: '1.2rem' // Default: 1rem
-    },
-    button: {
-      // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
-      // fontWeight: 600, // Default: 500
+const theme = responsiveFontSizes(
+  createTheme({
+    typography: {
+      // Use the system font instead of the default Roboto font.
+      // fontFamily: ['Asap', ...systemFonts].join(','),
       fontFamily: ['Dona', ...systemFonts].join(','),
-      fontSize: '0.92rem' // Default: 0.875rem
+      h1: {
+        fontSize: '2.6rem' // Default: 6rem
+      },
+      h2: {
+        fontSize: '1.95rem' // Default: 3.75rem
+        // fontWeight: 400 // Default: 300
+      },
+      h3: {
+        fontSize: '1.55rem' // Default: 3rem
+        // fontWeight: 300 // Default: 400
+      },
+      h4: {
+        fontSize: '1.23rem' // Default: 2.125rem
+        // fontWeight: 400 // Default: 400
+      },
+      h5: {
+        fontSize: '1.15rem' // Default: 1.5rem
+        // fontWeight: 400 // Default: 400
+      },
+      h6: {
+        fontSize: '1.1rem' // Default: 1.25rem
+        // fontWeight: 500 // Default: 500
+      },
+      caption: {
+        fontSize: '0.9rem' // Default: 0.75rem
+        // fontWeight: xxx // Default: 400
+      },
+      body2: {
+        // fontFamily: ['Open Sans', ...systemFonts].join(',')
+        fontFamily: ['Kiperman', ...systemFonts].join(','),
+        fontSize: '1.1rem' // Default: 0.875rem
+      },
+      body1: {
+        // fontFamily: ['Open Sans', ...systemFonts].join(',')
+        fontFamily: ['Kiperman', ...systemFonts].join(','),
+        fontSize: '1.2rem' // Default: 1rem
+      },
+      button: {
+        // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
+        // fontWeight: 600, // Default: 500
+        fontFamily: ['Dona', ...systemFonts].join(','),
+        fontSize: '0.92rem' // Default: 0.875rem
+      },
+      overline: {
+        fontSize: '0.85rem', // Default: 0.75rem
+        lineHeight: '1.66' // Default: 2.66
+      },
+      subtitle1: {
+        fontSize: '1.1rem', // Default: 1rem
+        lineHeight: 1.5 // default: 1.75
+      },
+      subtitle2: {
+        fontSize: '1rem', // Default: 0.875rem
+        // fontWeight: 400 // Default: 500
+        lineHeight: 1.4 // default: 1.57
+      }
     },
-    overline: {
-      fontSize: '0.85rem', // Default: 0.75rem
-      lineHeight: '1.66' // Default: 2.66
-    },
-    subtitle1: {
-      fontSize: '1.1rem', // Default: 1rem
-      lineHeight: 1.5 // default: 1.75
-    },
-    subtitle2: {
-      fontSize: '1rem', // Default: 0.875rem
-      // fontWeight: 400 // Default: 500
-      lineHeight: 1.4 // default: 1.57
+    palette: {
+      common: {
+        black: '#000',
+        white: '#fff'
+      },
+      background: {
+        paper: 'rgba(242, 242, 242, 1)',
+        default: 'rgba(250, 250, 250, 1)'
+      },
+      primary: {
+        // V2:
+        // light: 'rgba(65, 131, 196, 1)',
+        // main: 'rgba(0, 55, 104, 1)',
+        // dark: 'rgba(1, 40, 73, 1)',
+        // V3:
+        dark: '#2e394e',
+        main: '#435270',
+        light: '#68748c',
+        contrastText: '#fff'
+      },
+      secondary: {
+        // V1:
+        // light: 'rgba(126, 201, 80, 1)',
+        // main: 'rgba(114, 181, 73, 1)',
+        // dark: 'rgba(95, 150, 61, 1)',
+        // V2:
+        // light: 'rgba(143, 199, 106, 1)',
+        // main: 'rgba(95, 150, 61, 1)',
+        // dark: 'rgba(48, 104, 14, 1)',
+        // V3:
+        dark: '#3e6f31',
+        main: '#599F46',
+        light: '#7ab26b',
+        contrastText: '#fff'
+      },
+      error: {
+        light: '#e57373',
+        main: '#f44336',
+        dark: '#d32f2f',
+        contrastText: '#fff'
+      }
+      // text: {
+      //   primary: 'rgba(0, 0, 0, 0.87)',
+      //   secondary: 'rgba(0, 0, 0, 0.54)',
+      //   disabled: 'rgba(0, 0, 0, 0.38)',
+      //   hint: 'rgba(0, 0, 0, 0.38)'
+      // }
     }
-  },
-  palette: {
-    common: {
-      black: '#000',
-      white: '#fff'
-    },
-    background: {
-      paper: 'rgba(242, 242, 242, 1)',
-      default: 'rgba(250, 250, 250, 1)'
-    },
-    primary: {
-      // V2:
-      // light: 'rgba(65, 131, 196, 1)',
-      // main: 'rgba(0, 55, 104, 1)',
-      // dark: 'rgba(1, 40, 73, 1)',
-      // V3:
-      dark: '#2e394e',
-      main: '#435270',
-      light: '#68748c',
-      contrastText: '#fff'
-    },
-    secondary: {
-      // V1:
-      // light: 'rgba(126, 201, 80, 1)',
-      // main: 'rgba(114, 181, 73, 1)',
-      // dark: 'rgba(95, 150, 61, 1)',
-      // V2:
-      // light: 'rgba(143, 199, 106, 1)',
-      // main: 'rgba(95, 150, 61, 1)',
-      // dark: 'rgba(48, 104, 14, 1)',
-      // V3:
-      dark: '#3e6f31',
-      main: '#599F46',
-      light: '#7ab26b',
-      contrastText: '#fff'
-    },
-    error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
-      contrastText: '#fff'
-    }
-    // text: {
-    //   primary: 'rgba(0, 0, 0, 0.87)',
-    //   secondary: 'rgba(0, 0, 0, 0.54)',
-    //   disabled: 'rgba(0, 0, 0, 0.38)',
-    //   hint: 'rgba(0, 0, 0, 0.38)'
-    // }
-  }
-})
+  })
+)
 
-export default responsiveFontSizes(theme)
+type Theme = typeof theme
+
+export default theme
+export type {Theme}

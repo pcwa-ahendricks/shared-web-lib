@@ -6,13 +6,13 @@ import {
   TableRow,
   TableCell,
   Theme,
-  createStyles,
-  makeStyles,
   TableCellProps,
   Tooltip
-} from '@material-ui/core'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import {SalaryScheduleData} from '@components/SalaryScheduleTable/SalaryScheduleTable'
 
 type Props = {

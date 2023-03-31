@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useEffect, useMemo} from 'react'
-import {FormControl, FormHelperText} from '@material-ui/core'
+import {FormControl, FormHelperText} from '@mui/material'
 import Recaptcha from 'react-google-recaptcha'
 import {FieldProps} from 'formik'
 
@@ -66,6 +66,7 @@ const RecaptchaField = ({
     () =>
       disabled ? null : (
         <FormControl
+          variant="standard"
           required={required}
           margin="normal"
           // Since we are using FormHelperText error prop is required.

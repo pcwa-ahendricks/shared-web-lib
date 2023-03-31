@@ -8,10 +8,10 @@ import {
   Radio,
   RadioGroup,
   Theme,
-  Typography as Type,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+  Typography as Type
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {FieldProps} from 'formik'
 
 type Props = {

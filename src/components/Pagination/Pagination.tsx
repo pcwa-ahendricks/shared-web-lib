@@ -1,13 +1,8 @@
 import React, {useMemo, useCallback} from 'react'
-import {
-  Box,
-  BoxProps,
-  PropTypes,
-  StandardProps,
-  createStyles,
-  WithStyles,
-  withStyles
-} from '@material-ui/core'
+import {Box, BoxProps, PropTypes, StandardProps} from '@mui/material'
+import {WithStyles} from '@mui/styles'
+import createStyles from '@mui/styles/createStyles'
+import withStyles from '@mui/styles/withStyles'
 import clsx from 'clsx'
 import PageButton, {PageButtonClassKey, PageVariant} from './PageButton'
 

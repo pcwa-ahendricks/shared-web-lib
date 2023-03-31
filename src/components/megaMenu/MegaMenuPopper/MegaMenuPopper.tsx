@@ -1,12 +1,7 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react'
-import {
-  Popper,
-  Fade as Collapse,
-  Theme,
-  makeStyles,
-  createStyles,
-  PopperProps
-} from '@material-ui/core'
+import {Popper, Fade as Collapse, Theme, PopperProps} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {useDebounce} from 'use-debounce'
 import {ToolbarVariant} from '@components/PrimaryHeader/PrimaryHeader'
 

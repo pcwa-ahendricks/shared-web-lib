@@ -1,9 +1,9 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react'
-import ArrowDownIcon from '@material-ui/icons/ArrowDropDown'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight'
-import {ListItemProps} from '@material-ui/core/ListItem'
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import ArrowDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
+  ListItemProps,
+  SwipeableDrawer,
   List,
   ListItem,
   ListItemText,
@@ -13,16 +13,17 @@ import {
   Collapse,
   Typography as Type,
   Divider,
-  makeStyles,
   useTheme,
-  createStyles,
+  alpha,
   ListItemIcon
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import menuConfig from '@lib/menuConfig'
 import Link from 'next/link'
 import FlexLink from '@components/FlexLink/FlexLink'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import clsx from 'clsx'
 import {ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
 // import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
@@ -32,7 +33,6 @@ import YoutubeIcon from 'mdi-material-ui/Youtube'
 import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import {useRouter} from 'next/router'
 // import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
-import colorAlpha from 'color-alpha'
 import Spacing from '@components/boxes/Spacing'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
     subheader: {
       // color: theme.palette.common.black,
       // color: theme.palette.primary.main,
-      color: colorAlpha(theme.palette.text.secondary, 0.5), // Defaults to 0.54
+      color: alpha(theme.palette.text.secondary, 0.5), // Defaults to 0.54
       textTransform: 'uppercase',
       // fontStyle: 'italic',
       backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
@@ -73,8 +73,10 @@ const SwipeableTemporaryDrawer = () => {
     [dispatch]
   )
 
-  // See https://material-ui.com/components/drawers/#swipeable-temporary-drawer for more info.
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  // See https://mui.com/material-ui/react-drawer/#swipeable for more info.
+  const iOS =
+    typeof navigator !== 'undefined' &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   const groupSelectHandler = useCallback(
     (groupKey: number) => () => {

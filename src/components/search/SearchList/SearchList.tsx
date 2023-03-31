@@ -1,6 +1,6 @@
 import React, {useContext, useMemo} from 'react'
-import {List} from '@material-ui/core'
-import {ListProps} from '@material-ui/core/List'
+import {List} from '@mui/material'
+import {ListProps} from '@mui/material/List'
 import {SearchContext} from '../SearchStore'
 import SearchListItem from '../SearchListItem/SearchListItem'
 

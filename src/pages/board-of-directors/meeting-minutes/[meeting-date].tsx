@@ -17,16 +17,16 @@ import {
   Divider,
   Breadcrumbs,
   LinearProgress,
-  useTheme,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  useTheme
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {format, parseJSON} from 'date-fns'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import ErrorPage from '@pages/_error'
-// import HomeIcon from '@material-ui/icons/Home'
-import MinutesIcon from '@material-ui/icons/UndoOutlined'
-import DocIcon from '@material-ui/icons/DescriptionOutlined'
+// import HomeIcon from '@mui/icons-material/Home'
+import MinutesIcon from '@mui/icons-material/UndoOutlined'
+import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
@@ -67,8 +67,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
   const theme = useTheme<Theme>()
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'))
-  const isXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
+  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
 

@@ -11,7 +11,7 @@ import Image, {ImageProps} from 'next/image'
 import {stringify} from 'querystringify'
 import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
-import {makeStyles} from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
 import pTimeout from 'p-timeout'
 import {sequenceArray} from '@lib/util'
 

@@ -2,12 +2,12 @@ import React, {useCallback} from 'react'
 import {
   List,
   ListItem,
-  makeStyles,
   Typography as Type,
   ListItemText,
   ListItemIcon,
   ListItemIconProps
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -17,8 +17,9 @@ import Spacing from '@components/boxes/Spacing'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   listItemBullet: {
     minWidth: theme.spacing(5)
   },

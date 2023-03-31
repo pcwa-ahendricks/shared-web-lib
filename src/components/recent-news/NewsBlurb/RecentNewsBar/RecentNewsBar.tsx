@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {BoxProps, Box} from '@material-ui/core'
+import {BoxProps, Box} from '@mui/material'
 import NewsBlurb from '../NewsBlurb'
 import {compareDesc, parseJSON, parse} from 'date-fns'
 import {RowBox, ChildBox} from 'mui-sleazebox'

@@ -1,14 +1,8 @@
 // cspell:ignore cust
 import React, {useState, useCallback, useMemo} from 'react'
-import {
-  Box,
-  Divider,
-  Grid,
-  Theme,
-  Typography as Type,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Box, Divider, Grid, Theme, Typography as Type} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {

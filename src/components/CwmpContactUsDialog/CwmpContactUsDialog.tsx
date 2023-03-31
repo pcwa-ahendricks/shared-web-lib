@@ -6,11 +6,11 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  makeStyles,
-  createStyles,
   Theme,
   Box
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {Formik, Form, FormikHelpers} from 'formik'
 import {object, string} from 'yup'
 import FormTextField from '@components/formFields/FormTextField'

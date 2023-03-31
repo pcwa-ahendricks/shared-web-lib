@@ -1,10 +1,7 @@
 import React from 'react'
-import {
-  Box,
-  Typography as Type,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+import {Box, Typography as Type} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'

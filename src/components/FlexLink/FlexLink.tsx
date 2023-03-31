@@ -1,10 +1,7 @@
 import React, {useMemo, useState, useEffect} from 'react'
-import {
-  Link,
-  Typography as Type,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Link, Typography as Type} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import MuiNextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
 import {parse} from 'url'
 import clsx from 'clsx'

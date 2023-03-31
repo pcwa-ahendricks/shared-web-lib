@@ -5,9 +5,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'
 import {
-  createStyles,
   List,
-  makeStyles,
   Typography as Type,
   ListItemText,
   ListItemTextProps,
@@ -15,7 +13,9 @@ import {
   Divider,
   useMediaQuery,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import ListBulletItem, {
   ListBulletItemProps
 } from '@components/lists/ListBulletItem'

@@ -1,6 +1,6 @@
 import React from 'react'
-import {Button} from '@material-ui/core'
-import {ButtonProps} from '@material-ui/core/Button'
+import {Button} from '@mui/material'
+import {ButtonProps} from '@mui/material/Button'
 import {saveAs} from 'file-saver'
 
 type Props = {

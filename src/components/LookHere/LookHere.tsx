@@ -5,7 +5,7 @@ import {
   Typography as Type,
   useMediaQuery,
   useTheme
-} from '@material-ui/core'
+} from '@mui/material'
 import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import HandIcon from 'mdi-material-ui/HandPointingRight'
 import {useTimeoutFn} from 'react-use'

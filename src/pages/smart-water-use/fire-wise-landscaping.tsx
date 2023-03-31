@@ -1,6 +1,6 @@
 // cspell:ignore firewise ondemand
 import React, {useCallback} from 'react'
-import OndemandVideoIcon from '@material-ui/icons/OndemandVideo'
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo'
 import {
   Paper,
   ListItemText,
@@ -9,10 +9,10 @@ import {
   Typography as Type,
   List,
   ListItem,
-  makeStyles,
   IconButton,
   IconButtonProps
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -38,7 +38,7 @@ const FireWiseLandscapingPage = () => {
   const OndemandVideoBtn = useCallback(
     ({href, ...rest}: Partial<IconButtonProps<'a'>>) => {
       return (
-        <IconButton href={href ?? ''} {...rest}>
+        <IconButton href={href ?? ''} {...rest} size="large">
           <OndemandVideoIcon color="action" />
         </IconButton>
       )

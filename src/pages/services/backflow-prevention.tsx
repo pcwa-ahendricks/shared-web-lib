@@ -7,12 +7,12 @@ import {
   ListItem,
   ListItemText,
   Theme,
-  makeStyles,
-  createStyles,
   useTheme,
   Typography as Type,
   useMediaQuery
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() =>
 
 const CrossControlPreventionPage = () => {
   const theme = useTheme<Theme>()
-  const isXsDown = useMediaQuery(theme.breakpoints.down('xs'))
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const classes = useStyles()
 
   const CompactListItem = (props: any) => (
@@ -71,7 +71,7 @@ const CrossControlPreventionPage = () => {
                 <Type variant="h4" gutterBottom>
                   Why We Administer A Cross-Connection Control Program
                 </Type>
-                <Type paragraph={!isXsDown}>
+                <Type paragraph={!isXs}>
                   In accordance with the requirements of the California
                   Administrative code, Title 17, Chapter V, Sections 7583-7605,
                   PCWA requires backflow protection on any treated water service

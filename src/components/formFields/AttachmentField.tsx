@@ -1,9 +1,5 @@
 import React, {useCallback, useRef, useEffect} from 'react'
-import {
-  FormControl,
-  FormHelperText,
-  Typography as Type
-} from '@material-ui/core'
+import {FormControl, FormHelperText, Typography as Type} from '@mui/material'
 import DropzoneUploader, {
   DropzoneUploaderHandles
 } from '@components/DropzoneUploader/DropzoneUploader'
@@ -105,6 +101,7 @@ const AttachmentField = ({
 
   return (
     <FormControl
+      variant="standard"
       required={required}
       margin="normal"
       // Since we are using FormHelperText error prop is required.

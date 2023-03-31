@@ -13,10 +13,10 @@ import {
   Theme,
   Toolbar,
   useTheme,
-  LinearProgress,
-  createStyles,
-  makeStyles
-} from '@material-ui/core'
+  LinearProgress
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import round from '@lib/round'
@@ -313,6 +313,7 @@ const SalaryScheduleTable = ({
         </Toolbar>
         <Box ml={3} mb={3}>
           <TextField
+            variant="standard"
             id="table-filter-by-job-class-title"
             // placeholder="Filter"
             label="Filter by Class Title (eg. Account)"
@@ -380,7 +381,7 @@ const SalaryScheduleTable = ({
             'aria-label': 'next page'
           }}
           onPageChange={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Box>
       <Box m={3}>

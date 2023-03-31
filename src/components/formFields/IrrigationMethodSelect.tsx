@@ -6,7 +6,7 @@ import {
   MenuItem,
   OutlinedInput,
   Select
-} from '@material-ui/core'
+} from '@mui/material'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 

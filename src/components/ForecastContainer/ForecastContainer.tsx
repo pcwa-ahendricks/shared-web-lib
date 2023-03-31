@@ -2,13 +2,9 @@ import React, {useMemo, useState, useEffect} from 'react'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastDataset} from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  useMediaQuery,
-  BoxProps
-} from '@material-ui/core'
+import {Box, useMediaQuery, BoxProps} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import dynamic from 'next/dynamic'
 // import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 const DynamicForecastCycle = dynamic(

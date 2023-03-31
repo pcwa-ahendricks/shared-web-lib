@@ -1,12 +1,12 @@
 // cspell:ignore addtl cbarnhill truthy
 import {string, object, StringSchema} from 'yup'
-import {MailJetSendRequest, postMailJetRequest} from '../../../lib/api/mailjet'
+import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
   emailRecipientsIrrigation,
   validateSchema,
   emailRecipientsSysAdmin
-} from '../../../lib/api/forms'
+} from '@lib/api/forms'
 
 import {VercelResponse, VercelRequest} from '@vercel/node'
 import {localDate, localFormat} from '@lib/api/shared'

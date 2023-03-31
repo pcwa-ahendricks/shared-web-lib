@@ -5,8 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
-  Box,
-  // Divider,
+  Box, // Divider,
   Link,
   List,
   ListItem,
@@ -14,13 +13,13 @@ import {
   ListSubheader,
   Typography as Type,
   useTheme,
-  createStyles,
-  makeStyles,
   Theme,
   ListItemIcon
-} from '@material-ui/core'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
 import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
 import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
@@ -95,7 +94,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 bgcolor={theme.palette.common.white}
                 border={1}
                 borderColor={theme.palette.grey[200]}
-                borderRadius={2}
+                borderRadius="2px"
               >
                 <List
                   dense
@@ -128,7 +127,7 @@ const EmployeeBenefitsSummaryPage = () => {
                 bgcolor={theme.palette.common.white}
                 border={1}
                 borderColor={theme.palette.grey[200]}
-                borderRadius={2}
+                borderRadius="2px"
               >
                 <List
                   dense

@@ -8,12 +8,12 @@ import {
   Box,
   Link
   // Divider
-} from '@material-ui/core'
+} from '@mui/material'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'
-// import {yellow, brown, grey} from '@material-ui/core/colors'
+// import {yellow, brown, grey} from '@mui/material/colors'
 // import MainPhone from '@components/links/MainPhone'
 // import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import Spacing from '@components/boxes/Spacing'

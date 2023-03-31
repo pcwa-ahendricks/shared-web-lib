@@ -1,13 +1,9 @@
 import React, {useState, useCallback, useEffect} from 'react'
-import {
-  Box,
-  BoxProps,
-  makeStyles,
-  createStyles,
-  useTheme
-} from '@material-ui/core'
+import {Box, BoxProps, useTheme} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import {FlexBox} from 'mui-sleazebox'
-import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import JackinBox from 'mui-jackinbox'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'

@@ -1,6 +1,5 @@
 import React from 'react'
-import {Link} from '@material-ui/core'
-import {LinkProps} from '@material-ui/core/Link'
+import {Link, LinkProps} from '@mui/material'
 
 type Props = Partial<LinkProps>
 

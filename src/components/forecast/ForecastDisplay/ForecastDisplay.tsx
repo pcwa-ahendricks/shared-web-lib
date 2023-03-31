@@ -1,12 +1,7 @@
 // cspell:ignore frmt
 import React, {useMemo} from 'react'
-import {
-  Link,
-  Typography as Type,
-  Theme,
-  ButtonBase,
-  makeStyles
-} from '@material-ui/core'
+import {Link, Typography as Type, Theme, ButtonBase} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import {RowBox} from 'mui-sleazebox'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 

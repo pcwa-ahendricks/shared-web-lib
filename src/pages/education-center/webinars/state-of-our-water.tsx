@@ -6,13 +6,13 @@ import {
   Typography as Type,
   List,
   ListItem,
-  makeStyles,
   ListSubheader,
   Button,
   ListItemIcon,
   ListItemIconProps,
   Paper
-} from '@material-ui/core'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import Spacing from '@components/boxes/Spacing'

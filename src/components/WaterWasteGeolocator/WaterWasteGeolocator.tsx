@@ -5,12 +5,12 @@ import {
   CircularProgress,
   CircularProgressProps,
   Fab,
-  makeStyles,
   Tooltip
-} from '@material-ui/core'
-import GpsFixedIcon from '@material-ui/icons/GpsFixed'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import GpsFixedIcon from '@mui/icons-material/GpsFixed'
 import {GoogleGeocodeApiResponse} from '@lib/types/googleGeocode'
-import CheckIcon from '@material-ui/icons/Check'
+import CheckIcon from '@mui/icons-material/Check'
 import clsx from 'clsx'
 import {useFormikContext} from 'formik'
 

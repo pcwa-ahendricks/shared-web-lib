@@ -1,14 +1,8 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {
-  Button,
-  Snackbar,
-  SnackbarContent,
-  Theme,
-  Slide,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
-// import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import {Button, Snackbar, SnackbarContent, Theme, Slide} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+// import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'
 // import {SlideTransition as Transition} from '@components/Transition/Transition'

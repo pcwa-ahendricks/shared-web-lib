@@ -1,13 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 import {
-  makeStyles,
   CardActionArea,
   CardContent,
   CardMedia,
   Card,
   Typography as Type
-} from '@material-ui/core'
+} from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 type Props = {
   district: number

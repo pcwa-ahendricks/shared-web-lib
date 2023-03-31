@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  useMediaQuery,
-  Box,
-  Typography as Type,
-  useTheme
-} from '@material-ui/core'
+import {useMediaQuery, Box, Typography as Type, useTheme} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'

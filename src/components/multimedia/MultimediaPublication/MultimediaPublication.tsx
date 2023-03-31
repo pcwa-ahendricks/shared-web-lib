@@ -1,12 +1,7 @@
 // cspell:ignore Lightbox
 import React, {useMemo, Fragment} from 'react'
 import NextLink from 'next/link'
-import {
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  useTheme
-} from '@material-ui/core'
+import {ListItem, ListItemAvatar, ListItemText, useTheme} from '@mui/material'
 import slugify from 'slugify'
 import {ColumnBox} from 'mui-sleazebox'
 import Image from 'next/image'
