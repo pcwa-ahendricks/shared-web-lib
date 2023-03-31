@@ -96,6 +96,7 @@ const WatersenseRadioField = ({
           href="https://www.epa.gov/watersense/product-search"
           target="_blank"
           rel="noopener noreferrer"
+          underline="hover"
         >
           https://www.epa.gov/watersense/product-search
         </Link>

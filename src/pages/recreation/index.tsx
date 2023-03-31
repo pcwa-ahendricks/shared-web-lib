@@ -94,6 +94,7 @@ const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
                     href={recreationMapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Recreational Area Map
                   </Link>{' '}
@@ -189,6 +190,7 @@ const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
                     href={exploringTheMfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Exploring the Middle Fork American River Watershed
                   </Link>{' '}

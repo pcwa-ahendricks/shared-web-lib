@@ -162,6 +162,7 @@ const WaterSpots2020Page = () => {
               href="https://bewatersmart.info/"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               BeWaterSmart.info
             </Link>
@@ -175,6 +176,7 @@ const WaterSpots2020Page = () => {
               href="https://www.youtube.com/user/BeWaterSmartinfo"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               YouTube.com/BeWaterSmartinfo
             </Link>

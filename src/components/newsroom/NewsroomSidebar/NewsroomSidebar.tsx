@@ -36,12 +36,21 @@ const NewsroomSidebar = () => {
           Ross Branch
         </Type>
         <Box>
-          <Link href="tel:530-823-1937" variant="body2" noWrap>
+          <Link
+            href="tel:530-823-1937"
+            variant="body2"
+            noWrap
+            underline="hover"
+          >
             (530) 823-1937
           </Link>
         </Box>
         <Box>
-          <Link href="mailto:rbranch@pcwa.net" variant="body2">
+          <Link
+            href="mailto:rbranch@pcwa.net"
+            variant="body2"
+            underline="hover"
+          >
             rbranch@pcwa.net
           </Link>
         </Box>
@@ -56,12 +65,21 @@ const NewsroomSidebar = () => {
           Brie Coleman
         </Type>
         <Box>
-          <Link href="tel:530-863-2883" variant="body2" noWrap>
+          <Link
+            href="tel:530-863-2883"
+            variant="body2"
+            noWrap
+            underline="hover"
+          >
             (530) 863-2883
           </Link>
         </Box>
         <Box>
-          <Link href="mailto:bcoleman@pcwa.net" variant="body2">
+          <Link
+            href="mailto:bcoleman@pcwa.net"
+            variant="body2"
+            underline="hover"
+          >
             bcoleman@pcwa.net
           </Link>
         </Box>
@@ -76,12 +94,21 @@ const NewsroomSidebar = () => {
           Abe Hendricks
         </Type>
         <Box>
-          <Link href="tel:530-906-5998" variant="body2" noWrap>
+          <Link
+            href="tel:530-906-5998"
+            variant="body2"
+            noWrap
+            underline="hover"
+          >
             (530) 906-5998
           </Link>
         </Box>
         <Box>
-          <Link href="mailto:ahendricks@pcwa.net" variant="body2">
+          <Link
+            href="mailto:ahendricks@pcwa.net"
+            variant="body2"
+            underline="hover"
+          >
             ahendricks@pcwa.net
           </Link>
         </Box>

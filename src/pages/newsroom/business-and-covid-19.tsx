@@ -39,6 +39,7 @@ const BusinessAndCovid19Page = () => {
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.cdc.gov/coronavirus/2019-ncov/php/building-water-system.html"
+              underline="hover"
             >
               https://www.cdc.gov/coronavirus/2019-ncov/php/building-water-system.html
             </Link>{' '}

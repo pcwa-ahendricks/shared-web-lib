@@ -185,6 +185,7 @@ const CountyWideMasterPlanPage = () => {
                           href="https://opti.rmcwater.com/pcwa/login.php"
                           target="_blank"
                           rel="noopener noreferrer"
+                          underline="hover"
                         >
                           Project Database *
                         </Link>
@@ -212,6 +213,7 @@ const CountyWideMasterPlanPage = () => {
                           href="https://cdn.cosmicjs.com/2aa65450-a0d3-11ec-a634-2f1716dd45af-CWMP-Overview-and-Guidelines-Feb-25-2022.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
+                          underline="hover"
                         >
                           County-Wide Master Plan
                         </Link>

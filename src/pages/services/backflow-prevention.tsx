@@ -173,6 +173,7 @@ const CrossControlPreventionPage = () => {
                       href="https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/documents/lawbook/dwregulations-2016-09-23.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      underline="hover"
                     >
                       California Health and Safety Code Title 17 Code of
                       Regulation
@@ -187,6 +188,7 @@ const CrossControlPreventionPage = () => {
                       href="https://cdn.cosmicjs.com/c916db10-6b30-11e7-b8ae-eb2280fc8c40-Cross-Connection_Brochure.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      underline="hover"
                     >
                       PCWA Cross-Connection Control Program Brochure
                     </Link>
@@ -200,6 +202,7 @@ const CrossControlPreventionPage = () => {
                       href="https://emd.saccounty.net/EC/Documents/BACKFLOW%20PREVENTION%20PUBLIC%20TESTER%20LIST.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      underline="hover"
                     >
                       Tester List for Western Placer County - County of
                       Sacramento, Environmental Management Department
@@ -214,6 +217,7 @@ const CrossControlPreventionPage = () => {
                       href="https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      underline="hover"
                     >
                       PCWA's Improvement Standards, Standard Specifications, and
                       Standard Drawings
@@ -228,6 +232,7 @@ const CrossControlPreventionPage = () => {
                       href="https://cdn.cosmicjs.com/b8b01840-6b30-11e7-a2a2-c992b2b93cb7-Program_Changes_BSI_Transition_Blank.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      underline="hover"
                     >
                       Customer/Tester letter, Cross-Connection Control Program
                       Changes (BSI)

@@ -78,6 +78,7 @@ const NewDevelopmentPage = () => {
         color="primary"
         href={href}
         className={classes.linkItem}
+        underline="hover"
         {...rest}
       >
         {children}

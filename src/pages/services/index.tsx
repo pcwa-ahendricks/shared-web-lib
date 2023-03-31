@@ -42,6 +42,7 @@ const ServicesPage = () => {
                     href="https://ipn.paymentus.com/cp/plco"
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     View &amp; Pay Your Bill Online
                   </Link>

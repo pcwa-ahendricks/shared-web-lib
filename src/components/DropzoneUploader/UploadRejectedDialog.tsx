@@ -60,9 +60,11 @@ Props) => {
           attachment to a smaller size prior to upload attempt if the image is
           larger than 7MB. If you feel you have reached this message in error
           please contact us by sending an email to{' '}
-          <Link href="mailto:webmaster@pcwa.net">webmaster@pcwa.net</Link> with
-          a description of the problem and an attachments with the files you are
-          trying to submit. Thank you.
+          <Link href="mailto:webmaster@pcwa.net" underline="hover">
+            webmaster@pcwa.net
+          </Link>{' '}
+          with a description of the problem and an attachments with the files
+          you are trying to submit. Thank you.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

@@ -133,6 +133,7 @@ const ConstructionBidsPage = () => {
               href="https://www.publicpurchase.com/gems/register/vendor/register"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               Public Purchase
             </Link>{' '}
@@ -144,6 +145,7 @@ const ConstructionBidsPage = () => {
               target="_blank"
               rel="noopener noreferrer"
               variant="body1"
+              underline="hover"
             >
               <Box component="span" display="inline-flex" alignItems="center">
                 how to register your company
@@ -151,18 +153,21 @@ const ConstructionBidsPage = () => {
               </Box>
             </Link>{' '}
             with Public Purchase, or see{' '}
-            <Link href="#publicPurchaseInstructions">instruction overview</Link>{' '}
+            <Link href="#publicPurchaseInstructions" underline="hover">
+              instruction overview
+            </Link>{' '}
             below. Click to{' '}
             <Link
               href="https://www.publicpurchase.com/gems/login/login?&amp;dst="
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               login to Public Purchase
             </Link>
             . If you need any assistance with this process please contact Public
             Purchase at{' '}
-            <Link href="mailto:support@publicpurchase.com">
+            <Link href="mailto:support@publicpurchase.com" underline="hover">
               support@publicpurchase.com
             </Link>
             , or use their Live Chat during business hours. Live Chat can be
@@ -269,6 +274,7 @@ const ConstructionBidsPage = () => {
                   href="https://www.publicpurchase.com"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   Public Purchase
                 </Link>{' '}

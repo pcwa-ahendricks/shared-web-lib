@@ -258,6 +258,7 @@ const Footer = () => {
               href="https://openweathermap.org/"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               OpenWeather
             </Link>

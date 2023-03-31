@@ -11004,7 +11004,7 @@ const REPLACERS = [
 
         // > Otherwise, Git treats the pattern as a shell glob suitable for
         // >   consumption by fnmatch(3)
-        : '^'
+        : '^';
     }
   ],
 
@@ -14754,7 +14754,7 @@ module.exports = path => {
         }
         return result + appendChar
           // remove not allowed characters
-          .replace(options.remove || /[^\w\s$*_+~.()'"!\-:@]+/g, '')
+          .replace(options.remove || /[^\w\s$*_+~.()'"!\-:@]+/g, '');
       }, '');
 
     if (options.strict) {
@@ -16197,7 +16197,7 @@ findBy) => {
         // Use date property by default.
         findBy = (m) => m.derivedFilenameAttr?.['date'] === keyValue;
     }
-    return (media
+    return media
         // In case Cosmic API is busted and cdn url is being returned instead of imgix url. Such a rare occurrence will cause page parameter to keep returning the first page (up to requestLimit defined below.) indefinitely and repeatedly.
         .map((m) => /imgix/i.test(m.imgix_url ?? '')
         ? m
@@ -16210,7 +16210,7 @@ findBy) => {
         // Match slug with keyValue for given keyProp.
         .filter((m) => (m.derivedFilenameAttr?.extension ?? '').toLowerCase() === 'pdf' &&
         m.imgix_url)
-        .find(findBy));
+        .find(findBy);
 };
 const getMediaPages = async (imgixUrl) => {
     if (!imgixUrl) {

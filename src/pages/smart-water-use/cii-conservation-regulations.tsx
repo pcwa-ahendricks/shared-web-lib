@@ -131,6 +131,7 @@ export default function CiiConservationRegulationsPage({
               rel="noopener noreferrer"
               target="_blank"
               noWrap
+              underline="hover"
             >
               bit.ly/conservationreg
             </Link>

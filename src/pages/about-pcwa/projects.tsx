@@ -489,7 +489,7 @@ const ProjectsPage = () => {
                       (209) 969-5631
                     </Type>{' '}
                     or{' '}
-                    <Link href="mailto:genemancebo@gmail.com">
+                    <Link href="mailto:genemancebo@gmail.com" underline="hover">
                       genemancebo@gmail.com
                     </Link>
                     .
@@ -517,7 +517,7 @@ const ProjectsPage = () => {
                     Phone: (530) 863-3889
                     <br />
                     E-mail:{' '}
-                    <Link href="mailto:mmccarthy@pcwa.net">
+                    <Link href="mailto:mmccarthy@pcwa.net" underline="hover">
                       mmccarthy@pcwa.net
                     </Link>
                   </Type>
@@ -601,7 +601,7 @@ const ProjectsPage = () => {
                       Phone: (530) 823-4950
                       <br />
                       E-mail:{' '}
-                      <Link href="mailto:jjakobsen@pcwa.net">
+                      <Link href="mailto:jjakobsen@pcwa.net" underline="hover">
                         jjakobsen@pcwa.net
                       </Link>
                     </Type>
@@ -706,7 +706,7 @@ const ProjectsPage = () => {
                       Phone: (530) 823-4950
                       <br />
                       E-mail:{' '}
-                      <Link href="mailto:jjakobsen@pcwa.net">
+                      <Link href="mailto:jjakobsen@pcwa.net" underline="hover">
                         jjakobsen@pcwa.net
                       </Link>
                     </Type>
@@ -806,7 +806,7 @@ const ProjectsPage = () => {
                       Phone: (530) 863-8384
                       <br />
                       E-mail:{' '}
-                      <Link href="mailto:kshively@pcwa.net">
+                      <Link href="mailto:kshively@pcwa.net" underline="hover">
                         kshively@pcwa.net
                       </Link>
                     </Type>

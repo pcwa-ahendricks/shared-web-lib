@@ -97,6 +97,7 @@ export default function CoverStoryVideo({
           aria-label={title}
           target="_blank"
           rel="noopener noreferrer"
+          underline="hover"
           {...linkProps}
         >
           {readMore}

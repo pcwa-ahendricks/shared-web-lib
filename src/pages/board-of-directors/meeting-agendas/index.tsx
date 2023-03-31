@@ -296,6 +296,7 @@ const MeetingAgendasPage = ({
                 href="https://docs.pcwa.net/public-records-request.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                underline="hover"
               >
                 Public Records Request
               </Link>

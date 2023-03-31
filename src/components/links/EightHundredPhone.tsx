@@ -5,7 +5,7 @@ type Props = Partial<LinkProps>
 
 const EightHundredPhone = ({...rest}: Props) => {
   return (
-    <Link href="tel:800-464-0030" noWrap {...rest}>
+    <Link href="tel:800-464-0030" noWrap underline="hover" {...rest}>
       (800) 464-0030
     </Link>
   )

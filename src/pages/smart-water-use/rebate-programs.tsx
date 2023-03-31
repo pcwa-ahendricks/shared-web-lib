@@ -405,6 +405,7 @@ const RebateProgramsPage = () => {
                         rel="noopener noreferrer"
                         target="_blank"
                         href="https://library.cee1.org/content/qualifying-product-lists-residential-clothes-washers"
+                        underline="hover"
                       >
                         Consortium for Energy Efficiency - Super Efficient Home
                         Appliances Initiative
@@ -610,6 +611,7 @@ const RebateProgramsPage = () => {
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Lawn Replacement Plant Coverage Worksheet"
+                    underline="hover"
                   >
                     Lawn Replacement Plant Coverage Worksheet
                   </Link>
@@ -623,6 +625,7 @@ const RebateProgramsPage = () => {
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Lawn Replacement & Irrigation Efficiencies Rebate FAQ’s"
+                    underline="hover"
                   >
                     Lawn Replacement & Irrigation Efficiencies Rebate FAQ’s
                   </Link>
@@ -641,6 +644,7 @@ const RebateProgramsPage = () => {
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Water Efficient Equipment List"
+                    underline="hover"
                   >
                     Water Efficient Equipment List
                   </Link>
@@ -653,6 +657,7 @@ const RebateProgramsPage = () => {
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Landscape and Irrigation Resources"
+                    underline="hover"
                   >
                     Landscape and Irrigation Resources
                   </Link>
@@ -665,6 +670,7 @@ const RebateProgramsPage = () => {
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Water Smart Plant List"
+                    underline="hover"
                   >
                     Water Smart Plant List
                   </Link>

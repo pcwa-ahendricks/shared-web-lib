@@ -103,6 +103,7 @@ const WashMachineCeeRadioField = ({
           href="https://www.cee1.org/content/cee-program-resources"
           target="_blank"
           rel="noopener noreferrer"
+          underline="hover"
         >
           https://www.cee1.org/content/cee-program-resources
         </Link>

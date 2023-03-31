@@ -162,6 +162,7 @@ const AmericanRiverPage = () => {
                     href="https://cdn.cosmicjs.com/9c9fe0b0-6b3d-11e7-a6ad-b9442b1befcc-Michigan_Bluff_20120327.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Michigan Bluff Area
                   </Link>

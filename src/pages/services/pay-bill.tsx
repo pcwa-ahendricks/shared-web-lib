@@ -104,6 +104,7 @@ const PayBillPage = () => {
                           href="https://ipn.paymentus.com/cp/plco"
                           target="_blank"
                           rel="noopener noreferrer"
+                          underline="hover"
                         >
                           <ClickOrTap titlecase /> here to Pay Online
                         </Link>{' '}

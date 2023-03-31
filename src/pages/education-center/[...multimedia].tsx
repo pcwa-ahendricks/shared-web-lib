@@ -277,7 +277,9 @@ const ResourceLibraryPage = ({
                 <MatLink
                   color="inherit"
                   onClick={backToGalleriesHandler}
-                  style={{cursor: 'pointer'}} // [HACK] Not sure why this is needed (onClick?), but it is.
+                  // [HACK] Not sure why this is needed (onClick?), but it is.
+                  style={{cursor: 'pointer'}}
+                  underline="hover"
                 >
                   Galleries
                 </MatLink>

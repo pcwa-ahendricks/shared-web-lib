@@ -6,6 +6,7 @@ const PcwaWeb = ({...rest}: LinkProps) => (
     href="https://www.pcwa.net"
     target="_blank"
     rel="noopener noreferrer"
+    underline="hover"
     {...rest}
   >
     PCWA.net

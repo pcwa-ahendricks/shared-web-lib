@@ -112,6 +112,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href="https://www.placerelections.com/"
+                  underline="hover"
                 >
                   Placer County Elections Office.
                 </Link>
@@ -208,7 +209,10 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
                       </Type>
                     </Box>
                     <Type gutterBottom>
-                      <Link href={`mailto:${activeDirector?.email ?? ''}`}>
+                      <Link
+                        href={`mailto:${activeDirector?.email ?? ''}`}
+                        underline="hover"
+                      >
                         {/* Prevent "The prop `children` is marked as required..." in in console w/ Logical Or.  */}
                         {activeDirector?.email ?? ''}
                       </Link>

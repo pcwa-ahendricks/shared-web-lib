@@ -407,6 +407,7 @@ const SmartWaterUsePage = () => {
                       href="https://bewatersmart.info/be-water-smart-dirtiest-car-contest"
                       target="_blank"
                       rel="noopener noreferrer"
+                      underline="hover"
                     >
                       Be Water Smart-certified carwash
                     </Link>

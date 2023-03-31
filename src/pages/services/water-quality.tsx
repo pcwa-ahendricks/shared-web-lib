@@ -230,6 +230,7 @@ const WaterQualityPage = () => {
                   href="https://www.wikihow.com/Winterize-a-Vacant-Home"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   WikiHow
                 </Link>

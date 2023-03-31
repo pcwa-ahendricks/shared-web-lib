@@ -732,6 +732,7 @@ const RateAdjustFAQ = () => {
                 href="https://projectgoinc.org"
                 target="_blank"
                 rel="noopener noreferrer"
+                underline="hover"
               >
                 projectgoinc.org
               </Link>

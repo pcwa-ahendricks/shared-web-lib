@@ -100,6 +100,7 @@ const FlexLink = ({
           rel={rel ?? 'noopener noreferrer'}
           target={target ?? '_blank'}
           variant={variant}
+          underline="hover"
           {...rest}
           className={clsx([classes.link, classNameProp])}
         >

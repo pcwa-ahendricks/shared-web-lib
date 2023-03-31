@@ -92,6 +92,7 @@ const COVID19FaqsPage = () => {
               href="https://cdn.cosmicjs.com/0e0cabe0-90a0-11ea-b5d0-a7204a671dc9-COVID-19-Bilingual-Factsheet-5.5.2020.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               Fact Sheet on Water Shutoffs
             </Link>

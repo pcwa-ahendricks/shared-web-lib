@@ -71,6 +71,7 @@ const FireResistantGardenPage = () => {
         variant="inherit"
         rel="noopener noreferrer"
         target="_blank"
+        underline="hover"
       >
         {children}
       </Link>

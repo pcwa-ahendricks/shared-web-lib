@@ -95,6 +95,7 @@ const MuiNextLink = ({
       component={ForwardNextComposed}
       className={classNames}
       href={href}
+      underline="hover"
       {...other}
     >
       {children}

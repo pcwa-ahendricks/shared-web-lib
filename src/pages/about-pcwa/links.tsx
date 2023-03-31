@@ -109,6 +109,7 @@ const LinksPage = () => {
                     href="https://www.placer.ca.gov/3331/Consumer-Fraud-Environmental-Crimes-Unit"
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Consumer Fraud and Environmental Crimes Unit
                   </Link>

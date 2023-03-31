@@ -77,6 +77,7 @@ const ResponsiveImageTemplatePage = () => {
                   href="https://cdec.water.ca.gov/jspplot/jspPlotServlet.jsp?sensor_no=7712&end=&geom=&interval=&cookies="
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   Middle Fork American River Flows near Oxbow Powerhouse
                 </Link>{' '}
@@ -134,6 +135,7 @@ const ResponsiveImageTemplatePage = () => {
                       rel="noopener noreferrer"
                       target="_blank"
                       href="https://www.middleforkfun.com/rivers-and-reservoirs"
+                      underline="hover"
                     >
                       MiddleForkFun.com
                     </Link>

@@ -86,6 +86,7 @@ const FireWiseLandscapingPage = () => {
                   variant="h3"
                   target="blank"
                   aria-label="Watch a video of PCWA's webinar on Fire-Wise, Water-Wise Landscaping (opens in a new window)"
+                  underline="hover"
                 >
                   Watch a video of PCWA's webinar on Fire-Wise, Water-Wise
                   Landscaping, hosted on{' '}
@@ -184,6 +185,7 @@ const FireWiseLandscapingPage = () => {
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
+                  underline="hover"
                 >
                   Watch a brief video: Introduction to Fire-Wise, Water-Wise
                   Landscaping with Kevin Marini, Placer County Master Gardener,
@@ -206,6 +208,7 @@ const FireWiseLandscapingPage = () => {
                 <MatLink
                   href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
                   variant="h3"
+                  underline="hover"
                 >
                   Watch a brief video: Water-Wise Plants with Greg Gayton, Green
                   Acres Nursery & Supply, interviewed by PCWA’s Linda Higgins.
@@ -309,6 +312,7 @@ const FireWiseLandscapingPage = () => {
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
+                  underline="hover"
                 >
                   Watch a brief video: Landscape and Irrigation Design with Jeff
                   Ambrosia, Yamaski Landscape Architecture, interviewed by
@@ -432,7 +436,10 @@ const FireWiseLandscapingPage = () => {
                     and hand tools. Educational materials regarding defensible
                     space and wildfire prevention are also available for events.
                     For information, please contact George Alves at{' '}
-                    <MatLink href="mailto:George@placerrcd.org">
+                    <MatLink
+                      href="mailto:George@placerrcd.org"
+                      underline="hover"
+                    >
                       George@placerrcd.org
                     </MatLink>
                   </Type>

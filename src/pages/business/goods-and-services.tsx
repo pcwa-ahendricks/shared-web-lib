@@ -124,7 +124,7 @@ const GoodsAndServicesPage = () => {
           <Type paragraph>
             If you have any problems with this process please contact Public
             Purchase at{' '}
-            <Link href="mailto:support@publicpurchase.com">
+            <Link href="mailto:support@publicpurchase.com" underline="hover">
               support@publicpurchase.com
             </Link>
           </Type>

@@ -148,6 +148,7 @@ const StopLeaksPage = () => {
                   href="https://www.epa.gov/watersense/fix-leak-week"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   EPA website
                 </Link>{' '}
@@ -156,6 +157,7 @@ const StopLeaksPage = () => {
                   href="https://BeWaterSmart.info"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   BeWaterSmart.info
                 </Link>

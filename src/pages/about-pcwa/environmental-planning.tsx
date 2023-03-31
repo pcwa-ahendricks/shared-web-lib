@@ -253,6 +253,7 @@ const EnvironmentalPlanningPage = () => {
                         href="https://docs.pcwa.net/wcc-cost-study-2017.pdf"
                         target="blank"
                         rel="noopener noreferrer"
+                        underline="hover"
                       >
                         2017 WCC Cost Study
                       </Link>
@@ -273,6 +274,7 @@ const EnvironmentalPlanningPage = () => {
                             href="https://docs.pcwa.net/wcc-presentation-slides-2022_06_28.pdf"
                             target="blank"
                             rel="noopener noreferrer"
+                            underline="hover"
                           >
                             Presentation Slides
                           </Link>
@@ -288,6 +290,7 @@ const EnvironmentalPlanningPage = () => {
                             href="https://docs.pcwa.net/wcc-presentation-video-2022_06_28.pdf"
                             target="blank"
                             rel="noopener noreferrer"
+                            underline="hover"
                           >
                             Presentation Video
                           </Link>
@@ -308,6 +311,7 @@ const EnvironmentalPlanningPage = () => {
                             href="https://cdn.cosmicjs.com/06a6d530-0e9b-11ed-b476-13ceb56f12f2-2022WCCWorkshopAgenda2022.07.26.pdf"
                             target="blank"
                             rel="noopener noreferrer"
+                            underline="hover"
                           >
                             Presentation Agenda
                           </Link>
@@ -322,6 +326,7 @@ const EnvironmentalPlanningPage = () => {
                             href="https://cdn.cosmicjs.com/06b68ca0-0e9b-11ed-b476-13ceb56f12f2-2022-WCC-Presentation-2022.07.pdf"
                             target="blank"
                             rel="noopener noreferrer"
+                            underline="hover"
                           >
                             Presentation Slides
                           </Link>
@@ -336,6 +341,7 @@ const EnvironmentalPlanningPage = () => {
                             href="https://cdn.cosmicjs.com/06f0d680-0e9b-11ed-b476-13ceb56f12f2-WCC2022Project-ListDRAFT.pdf"
                             target="blank"
                             rel="noopener noreferrer"
+                            underline="hover"
                           >
                             Summary of Water Connection Charge Projects
                           </Link>
@@ -351,6 +357,7 @@ const EnvironmentalPlanningPage = () => {
                             href="https://cdn.cosmicjs.com/07150050-0e9b-11ed-b476-13ceb56f12f2-WestPlacerFutureProjects20220725.pdf"
                             target="blank"
                             rel="noopener noreferrer"
+                            underline="hover"
                           >
                             West Placer Planning and Water Connection Charge
                             Projects - Map Figure

@@ -207,6 +207,7 @@ const RateAdjustPage = () => {
                     href="https://www.lao.ca.gov/1996/120196_prop_218/understanding_prop218_1296.html"
                     rel="noopener noreferrer"
                     target="_blank"
+                    underline="hover"
                   >
                     Understanding Proposition 218 - Legislative Analyst's Office
                   </Link>

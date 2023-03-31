@@ -61,7 +61,13 @@ const ARBSSidebar = () => {
   const SafeLink = useCallback(
     ({href, children, ...rest}: {children: React.ReactNode} & LinkProps) => {
       return (
-        <Link href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+        <Link
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="hover"
+          {...rest}
+        >
           {children}
         </Link>
       )
@@ -180,6 +186,7 @@ const ARBSSidebar = () => {
           href="mailto:brickards@pcwa.net"
           variant="body2"
           classes={{root: classes.wrapText}}
+          underline="hover"
         >
           brickards@pcwa.net
         </Link>
@@ -196,6 +203,7 @@ const ARBSSidebar = () => {
           href="mailto:mdietl@usbr.gov"
           variant="body2"
           classes={{root: classes.wrapText}}
+          underline="hover"
         >
           mdietl@usbr.gov
         </Link>

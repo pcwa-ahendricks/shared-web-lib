@@ -43,6 +43,7 @@ const EmployeeBenefitsSummaryPage = () => {
         rel="noopener noreferrer"
         target="_blank"
         className={classes.olderReportLink}
+        underline="hover"
         {...props}
       >
         {children}
@@ -458,6 +459,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     target="_blank"
                     href="https://www.DACBond.com"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     www.DACBond.com
                   </Link>

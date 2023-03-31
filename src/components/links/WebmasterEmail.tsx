@@ -5,7 +5,7 @@ import {Link, LinkProps} from '@mui/material'
 
 const WebmasterEmail = ({...rest}: LinkProps) => {
   return (
-    <Link href="mailto:webmaster@pcwa.net" {...rest}>
+    <Link href="mailto:webmaster@pcwa.net" underline="hover" {...rest}>
       webmaster@pcwa.net
     </Link>
   )

@@ -656,8 +656,8 @@ export default function RegionalSection({
       </Box>
       <Spacing />
       {/* <Type align="center" variant="body1">
-            <em>The greater region has received</em>
-          </Type> */}
+          <em>The greater region has received</em>
+        </Type> */}
       <Paper square={false} elevation={0} component={FlexBox}>
         <RowBox
           responsive
@@ -1116,28 +1116,28 @@ export default function RegionalSection({
               </ColumnBox>
             </ChildBox>
             {/* <ChildBox flex="33.33%">
-          <MediaDialogOnClick
-            mediaName="Departure from Normal"
-            mediaUrl={departNormalPrecipSrc}
-            mediaPreviewDialogProps={{
-              width: 850,
-              height: 1100
-            }}
-          >
-            <Image
-              src={departNormalPrecipSrc}
-              layout="responsive"
-              sizes="(max-width: 600px) 100vw, 33vw"
-              height={850}
-              width={1100}
-              alt="Departure from Normal Precipitation for California"
-              className={classes.mediaDialogImg}
-            />
-          </MediaDialogOnClick>
-          <ColumnBox mt={1} alignItems="center">
-            <Type variant="caption">Departure from Normal</Type>
-          </ColumnBox>
-        </ChildBox> */}
+        <MediaDialogOnClick
+          mediaName="Departure from Normal"
+          mediaUrl={departNormalPrecipSrc}
+          mediaPreviewDialogProps={{
+            width: 850,
+            height: 1100
+          }}
+        >
+          <Image
+            src={departNormalPrecipSrc}
+            layout="responsive"
+            sizes="(max-width: 600px) 100vw, 33vw"
+            height={850}
+            width={1100}
+            alt="Departure from Normal Precipitation for California"
+            className={classes.mediaDialogImg}
+          />
+        </MediaDialogOnClick>
+        <ColumnBox mt={1} alignItems="center">
+          <Type variant="caption">Departure from Normal</Type>
+        </ColumnBox>
+      </ChildBox> */}
             <ChildBox flex="33.33%">
               <MediaDialogOnClick
                 mediaName="Percent of Normal"
@@ -1276,6 +1276,7 @@ export default function RegionalSection({
               href="https://hprcc.unl.edu"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               High Plains Regional Climate Center
             </Link>
@@ -1293,6 +1294,7 @@ export default function RegionalSection({
               href={noaaClimChgUrl}
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               National Oceanic and Atmospheric Administration (NOAA)
             </Link>

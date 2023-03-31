@@ -47,6 +47,7 @@ const ImprovementStandardsPage = () => {
                   href="https://cdn.cosmicjs.com/f0b37df0-68af-11e7-93e2-c90edc3b7006-PCWA_Improvement_Standards.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   Improvement Standards – Standard Specifications, Standard
                   Drawings

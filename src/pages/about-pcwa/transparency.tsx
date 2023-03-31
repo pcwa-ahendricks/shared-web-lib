@@ -42,6 +42,7 @@ const TransparencyPage = () => {
                   href="https://www.sdlf.org/home#!transparency/cl0u"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   Special District Leadership Foundation
                 </Link>
@@ -121,6 +122,7 @@ const TransparencyPage = () => {
               href="http://www.fppc.ca.gov/content/dam/fppc/NS-Documents/LegalDiv/Regulations/Index/Chapter9-5/18944.2.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               Regulation 18944.2
             </Link>{' '}
@@ -141,6 +143,7 @@ const TransparencyPage = () => {
               href="http://www.fppc.ca.gov"
               target="_blank"
               rel="noopener noreferrer"
+              underline="hover"
             >
               www.fppc.ca.gov
             </Link>

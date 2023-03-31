@@ -41,6 +41,7 @@ const WaterShortageContingencyPlan = () => {
               href="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan"
               rel="noopener noreferrer"
               target="_blank"
+              underline="hover"
             >
               here
             </Link>

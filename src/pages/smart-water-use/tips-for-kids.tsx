@@ -190,6 +190,7 @@ const TipsForKidsPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://BeWaterSmart.info"
+                  underline="hover"
                 >
                   BeWaterSmart.info
                 </Link>
@@ -269,6 +270,7 @@ const TipsForKidsPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://www.roseville.ca.us/explore"
+                  underline="hover"
                 >
                   www.roseville.ca.us/explore
                 </Link>
@@ -284,6 +286,7 @@ const TipsForKidsPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://bewatersmart.info/residential-resources"
+                  underline="hover"
                 >
                   bewatersmart.info/residential-resources
                 </Link>
@@ -296,6 +299,7 @@ const TipsForKidsPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://www.usbr.gov/mp/arwec"
+                  underline="hover"
                 >
                   www.usbr.gov/mp/arwec
                 </Link>

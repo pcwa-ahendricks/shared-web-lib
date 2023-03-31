@@ -74,6 +74,7 @@ const FrenchMeadowsPage = () => {
                   href="https://www.fs.usda.gov/recarea/tahoe/recarea/?recid=55740"
                   target="_blank"
                   rel="noopener noreferrer"
+                  underline="hover"
                 >
                   boat launch
                 </Link>{' '}
@@ -173,6 +174,7 @@ const FrenchMeadowsPage = () => {
                     href="https://cdn.cosmicjs.com/a0e45da0-6b3c-11e7-b4b0-738ba83d40d7-Bunker_Hill_20120327.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Bunker Hill Area
                   </Link>

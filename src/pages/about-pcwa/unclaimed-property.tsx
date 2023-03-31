@@ -115,7 +115,11 @@ const UnclaimedPropertyPage = ({fallbackData}: Props) => {
             <Type variant="subtitle1" gutterBottom>
               For A Full List Of Unclaimed Property See Below
             </Type>
-            <Link href="#unclaimedPropertyList" variant="body1">
+            <Link
+              href="#unclaimedPropertyList"
+              variant="body1"
+              underline="hover"
+            >
               See Full Unclaimed Property List
             </Link>
           </Box>
@@ -148,6 +152,7 @@ const UnclaimedPropertyPage = ({fallbackData}: Props) => {
                     href="https://cdn.cosmicjs.com/171150a0-adeb-11e7-ae97-05d188137947-PCWA Unclaimed Property Form 2017.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Claim Form
                   </Link>{' '}
@@ -156,6 +161,7 @@ const UnclaimedPropertyPage = ({fallbackData}: Props) => {
                     href="https://cdn.cosmicjs.com/6d63beb0-adec-11e7-b53b-17f51103f11d-Instructions to Claim Form Unclaimed Property.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
+                    underline="hover"
                   >
                     Form Instructions
                   </Link>

@@ -250,6 +250,7 @@ const ARBSPage = () => {
                   href="https://www.usbr.gov/newsroom/news-release/4312"
                   rel="noopener noreferrer"
                   target="_blank"
+                  underline="hover"
                 >
                   American River Basin Study finds that increasing temperatures
                   and changing precipitation will impact basin through rest of
@@ -260,6 +261,7 @@ const ARBSPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://www.usbr.gov/watersmart/bsp/arbs/#:~:text=Municipal%20users%20in%20the%20basin%20use%20516%2C000%20acre-feet,change%20adaptation%20strategies%20for%20the%20American%20River%20Basin."
+                  underline="hover"
                 >
                   USBR's ARBS webpage
                 </Link>
@@ -273,6 +275,7 @@ const ARBSPage = () => {
                 href="https://docs.pcwa.net/american-river-basin-study-2022_08.pdf"
                 rel="noopener noreferrer"
                 target="_blank"
+                underline="hover"
               >
                 American River Basin Study Report
               </Link>
@@ -287,6 +290,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20A_Communic_Outreach.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix A - Communication and Outreach Activities
                     </Link>
@@ -301,6 +305,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20B_Devel_Future_Climate_Hydro_Scenarios.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix B - Development of Future Climate and Hydrology
                       Scenarios
@@ -316,6 +321,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20C_CalSim3_UAR_Module_Doc.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix C - CalSim 3 Upper American River Module
                       Documentation
@@ -331,6 +337,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20D_Develop_Urban_Agri_Demands.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix D - Development of Urban and Agricultural Demands
                     </Link>
@@ -345,6 +352,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20E_Adapt_Meas_Prelim_Screen_Results.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix E - Adaptation Measure Preliminary Screening
                       Results
@@ -360,6 +368,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20F_Draft_Adapt_Portfolios.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix F - Draft Description of Adaptaion Portfolios
                     </Link>
@@ -374,6 +383,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20G_Adaptation_Portfolios_%20Eval_Results.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix G - Adaptation Portfolios Evaluation Results
                     </Link>
@@ -388,6 +398,7 @@ const ARBSPage = () => {
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20H_%20LowerAR_Water_Temp_Model_Doc_Results.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
+                      underline="hover"
                     >
                       Appendix H - Lower American River Water Temperature
                       Modeling Documentation and Results
@@ -708,7 +719,7 @@ const ARBSPage = () => {
                 ARBS development process. Stakeholders and interested members of
                 the public can be notified of public meetings/workshops via the
                 ARBS Web site, or elect to sign up for email notifications here.{' '}
-                <Link href="mailto:brickards@pcwa.net">
+                <Link href="mailto:brickards@pcwa.net" underline="hover">
                   “Request to join ARBS Stakeholder distribution list.”
                 </Link>{' '}
                 Email distribution will be an important tool to keep interested
@@ -850,7 +861,7 @@ const ARBSPage = () => {
                       144 Ferguson Road <br />
                       Auburn, California 95604 <br />
                       (530) 823-4845 <br />
-                      <Link href="mailto:brickards@pcwa.net">
+                      <Link href="mailto:brickards@pcwa.net" underline="hover">
                         brickards@pcwa.net
                       </Link>
                     </Type>
@@ -872,7 +883,9 @@ const ARBSPage = () => {
                       Sacramento, California 95825
                       <br />
                       (916) 978-5070 <br />
-                      <Link href="mailto:mdietl@usbr.gov">mdietl@usbr.gov</Link>
+                      <Link href="mailto:mdietl@usbr.gov" underline="hover">
+                        mdietl@usbr.gov
+                      </Link>
                     </Type>
                   </ChildBox>
                 </RowBox>

@@ -137,6 +137,7 @@ const Sb272Page = () => {
                 href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160SB272"
                 target="_blank"
                 rel="noopener noreferrer"
+                underline="hover"
               >
                 full text of <abbr title="senate bill">SB</abbr> 272
               </Link>

@@ -246,7 +246,12 @@ const ARBSMeetingsPage = () => {
           {agendaUrl ? (
             <>
               <Spacing size="x-small" />
-              <Link href={agendaUrl} rel="noopener noreferrer" target="_blank">
+              <Link
+                href={agendaUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+                underline="hover"
+              >
                 View Agenda
               </Link>
             </>
