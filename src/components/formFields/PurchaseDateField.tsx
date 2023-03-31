@@ -37,7 +37,7 @@ const PurchaseDateField = ({
     [name, setFieldValue]
   )
 
-  // To prevent onError from calling a bunch and halting the execution of the app due to infinite re-renders we are using a ref to store the previous error, then comparing the incoming error to the previous, and only calling setFieldError() when error changes. This may not be necessary with future versions of @material-ui/pickers.
+  // To prevent onError from calling a bunch and halting the execution of the app due to infinite re-renders we are using a ref to store the previous error, then comparing the incoming error to the previous, and only calling setFieldError() when error changes. This may not be necessary with future versions of pickers.
   const prevDatePickerErrorRef = useRef<any>()
   const [datePickerError, setDatePickerError] = useState<any>()
   const errorHandler = useCallback((e) => {

@@ -452,7 +452,7 @@ const PublicationsPage = ({
                       MenuProps={{
                         keepMounted: true,
                         PaperProps: {
-                          // This won't work. Use style directly. See https://material-ui.com/components/menus/#max-height-menus.
+                          // This won't work. Use style directly. See https://mui.com/components/menus/#max-height-menus.
                           // classes: {
                           //   root: classes.selectMenu
                           // }

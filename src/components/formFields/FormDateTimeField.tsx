@@ -5,10 +5,6 @@ import {TextField, TextFieldProps, useMediaQuery, useTheme} from '@mui/material'
 
 type Props = Partial<React.ComponentProps<typeof DateTimePicker>>
 
-/*
-See https://material-ui-pickers.dev/guides/form-integration for more info on Formik integration
-*/
-
 const FormDateTimeField = ({disabled, ...other}: Props) => {
   const {isSubmitting, setFieldValue} = useFormikContext<any>()
   const [field, meta] = useField(other as any) // [HACK] Fix type.

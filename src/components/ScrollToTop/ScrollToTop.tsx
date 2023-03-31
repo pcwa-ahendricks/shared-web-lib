@@ -15,7 +15,7 @@ import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import {backToTopAnchorId} from '@components/PageLayout/PageLayout'
 
 /*
-  See https://material-ui.com/components/app-bar/#back-to-top for example.
+  See https://mui.com/components/app-bar/#back-to-top for example.
   Previous version of this component used custom useWindowScroll hook.
 */
 
