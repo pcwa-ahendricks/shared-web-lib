@@ -1,7 +1,7 @@
 // cspell:ignore rbranch
 
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const PublicAffairsEmail = ({...rest}: LinkProps) => {
   return (

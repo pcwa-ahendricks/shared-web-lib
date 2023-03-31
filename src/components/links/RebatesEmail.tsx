@@ -1,5 +1,5 @@
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const RebatesEmail = ({...rest}: LinkProps) => {
   return (

@@ -1,7 +1,7 @@
 // cspell:ignore generalmanager
 
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const GeneralManagerEmail = ({...rest}: LinkProps) => {
   return (

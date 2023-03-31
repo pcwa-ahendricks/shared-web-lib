@@ -1,7 +1,7 @@
 // cspell:ignore unclaimedproperty
 
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const UnclaimedPropertyEmail = ({...rest}: LinkProps) => {
   return (

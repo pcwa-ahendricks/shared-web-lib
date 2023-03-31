@@ -1,7 +1,7 @@
 // cspell:ignore customerservices
 
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const WebmasterEmail = ({...rest}: LinkProps) => {
   return (

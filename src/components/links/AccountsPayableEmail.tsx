@@ -1,7 +1,7 @@
 // cspell:ignore accountspayable
 
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const AccountsPayableEmail = ({...rest}: LinkProps) => {
   return (

@@ -1,7 +1,7 @@
 // cspell:ignore waterefficiency
 
 import React from 'react'
-import Link, {LinkProps} from '@mui/material/Link'
+import {Link, LinkProps} from '@mui/material'
 
 const WaterEfficiencyEmail = ({...rest}: LinkProps) => {
   return (
