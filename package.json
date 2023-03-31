@@ -62,6 +62,7 @@
   "dependencies": {
     "@date-io/date-fns": "<2",
     "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.5",
     "@kevinmoe/nivo-fork-calendar": "^0.63.0",
     "@mui/icons-material": "^5.11.0",

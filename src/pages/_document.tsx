@@ -4,106 +4,110 @@
 
 // ./pages/_document.js
 import React from 'react'
-import Document, {Html, Head, Main, NextScript} from 'next/document'
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets'
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentProps,
+  DocumentContext
+} from 'next/document'
+import {AppType} from 'next/app'
 import theme from '@lib/material-theme'
+import createEmotionServer from '@emotion/server/create-instance'
+import createEmotionCache from '../lib/createEmotionCache'
 
 const isDev = process.env.NODE_ENV === 'development'
 import {GA_TRACKING_ID} from '@lib/gtag'
+import {MyAppProps} from './_app'
 
-class MyDocument extends Document {
-  // static async getInitialProps(ctx) {
-  //   const initialProps = await Document.getInitialProps(ctx)
-  //   return {...initialProps}
-  // }
+interface MyDocumentProps extends DocumentProps {
+  emotionStyleTags: JSX.Element[]
+}
+export default function MyDocument({emotionStyleTags}: MyDocumentProps) {
+  return (
+    <Html lang="en" dir="ltr">
+      <Head>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="PCWA is a water and energy provider for Placer County, CA."
+        />
+        {/* PWA primary color */}
+        <meta name="theme-color" content={theme.palette.primary.main} />
+        {/* IE compat.  */}
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-  render() {
-    return (
-      <Html lang="en" dir="ltr">
-        <Head>
-          <meta charSet="utf-8" />
-          <meta
-            name="description"
-            content="PCWA is a water and energy provider for Placer County, CA."
-          />
-          {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          {/* IE compat.  */}
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-
-          {/* {!isDev ? (
+        {/* {!isDev ? (
             <link rel="preconnect" href="https://www.google-analytics.com" />
           ) : null} */}
-          <link rel="preconnect" href="https://cosmic-s3.imgix.net" />
-          <link rel="preconnect" href="https://imgix.cosmicjs.com" />
-          <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="preconnect" href="https://cosmic-s3.imgix.net" />
+        <link rel="preconnect" href="https://imgix.cosmicjs.com" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
-          {isDev ? (
-            <>
-              {/* Development Favicon */}
-              <link
-                rel="apple-touch-icon"
-                sizes="180x180"
-                href="/static/favicon-dev/apple-touch-icon.png"
-              />
-              <link
-                rel="icon"
-                type="image/png"
-                sizes="32x32"
-                href="/static/favicon-dev/favicon-32x32.png"
-              />
-              <link
-                rel="icon"
-                type="image/png"
-                sizes="16x16"
-                href="/static/favicon-dev/favicon-16x16.png"
-              />
-              <link
-                rel="manifest"
-                href="/static/favicon-dev/site.webmanifest"
-              />
-            </>
-          ) : (
-            <>
-              {/* Production Favicon */}
-              <link
-                rel="apple-touch-icon"
-                sizes="180x180"
-                href="/static/favicon/apple-touch-icon.png"
-              />
-              <link
-                rel="icon"
-                type="image/png"
-                sizes="32x32"
-                href="/static/favicon/favicon-32x32.png"
-              />
-              <link
-                rel="icon"
-                type="image/png"
-                sizes="16x16"
-                href="/static/favicon/favicon-16x16.png"
-              />
-              <link rel="manifest" href="/static/favicon/site.webmanifest" />
-            </>
-          )}
-          {/* Typography / Font */}
-          {/* <link
+        {isDev ? (
+          <>
+            {/* Development Favicon */}
+            <link
+              rel="apple-touch-icon"
+              sizes="180x180"
+              href="/static/favicon-dev/apple-touch-icon.png"
+            />
+            <link
+              rel="icon"
+              type="image/png"
+              sizes="32x32"
+              href="/static/favicon-dev/favicon-32x32.png"
+            />
+            <link
+              rel="icon"
+              type="image/png"
+              sizes="16x16"
+              href="/static/favicon-dev/favicon-16x16.png"
+            />
+            <link rel="manifest" href="/static/favicon-dev/site.webmanifest" />
+          </>
+        ) : (
+          <>
+            {/* Production Favicon */}
+            <link
+              rel="apple-touch-icon"
+              sizes="180x180"
+              href="/static/favicon/apple-touch-icon.png"
+            />
+            <link
+              rel="icon"
+              type="image/png"
+              sizes="32x32"
+              href="/static/favicon/favicon-32x32.png"
+            />
+            <link
+              rel="icon"
+              type="image/png"
+              sizes="16x16"
+              href="/static/favicon/favicon-16x16.png"
+            />
+            <link rel="manifest" href="/static/favicon/site.webmanifest" />
+          </>
+        )}
+        {/* Typography / Font */}
+        {/* <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           /> */}
-          {/* <link
+        {/* <link
             href="https://fonts.googleapis.com/css?family=Asap+Condensed:600|Asap:400,500,600|Open+Sans"
             rel="stylesheet"
           /> */}
-          {/* Use Google Web Font Loader for font loading. */}
-          {/* <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" /> */}
-          {/* <script
+        {/* Use Google Web Font Loader for font loading. */}
+        {/* <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" /> */}
+        {/* <script
             dangerouslySetInnerHTML={{
               __html: `WebFont.load(${JSON.stringify(webFontConfig)})`
             }}
           /> */}
-          {/* Async Web Font Loader */}
-          {/* <script
+        {/* Async Web Font Loader */}
+        {/* <script
             dangerouslySetInnerHTML={{
               __html: `WebFontConfig = ${JSON.stringify(webFontConfig)};
                 (function(d) {
@@ -116,14 +120,14 @@ class MyDocument extends Document {
             }}
           /> */}
 
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -131,25 +135,29 @@ class MyDocument extends Document {
               page_path: window.location.pathname,
             });
           `
-            }}
-          />
+          }}
+        />
 
-          <link
-            href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css"
-            rel="stylesheet"
-            key="mapbox-gl.css"
-          />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    )
-  }
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css"
+          rel="stylesheet"
+          key="mapbox-gl.css"
+        />
+
+        <meta name="emotion-insertion-point" content="" />
+        {emotionStyleTags}
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
 }
 
-MyDocument.getInitialProps = async (ctx) => {
+// `getInitialProps` belongs to `_document` (instead of `_app`),
+// it's compatible with static-site generation (SSG).
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Resolution order
   //
   // On the server:
@@ -172,27 +180,38 @@ MyDocument.getInitialProps = async (ctx) => {
   // 3. app.render
   // 4. page.render
 
-  // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets()
   const originalRenderPage = ctx.renderPage
+
+  // You can consider sharing the same Emotion cache between all the SSR requests to speed up performance.
+  // However, be aware that it can have global side effects.
+  const cache = createEmotionCache()
+  const {extractCriticalToChunks} = createEmotionServer(cache)
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
+      enhanceApp: (
+        App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>
+      ) =>
+        function EnhanceApp(props) {
+          return <App emotionCache={cache} {...props} />
+        }
     })
 
   const initialProps = await Document.getInitialProps(ctx)
+  // This is important. It prevents Emotion to render invalid HTML.
+  // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
+  const emotionStyles = extractCriticalToChunks(initialProps.html)
+  const emotionStyleTags = emotionStyles.styles.map((style) => (
+    <style
+      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      key={style.key}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{__html: style.css}}
+    />
+  ))
 
   return {
     ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [
-      <React.Fragment key="styles">
-        {initialProps.styles}
-        {sheets.getStyleElement()}
-      </React.Fragment>
-    ]
+    emotionStyleTags
   }
 }
-
-export default MyDocument

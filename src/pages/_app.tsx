@@ -38,7 +38,7 @@ Global External Styles
 // Load Animate.css globally
 import 'animate.css'
 
-interface MyAppProps extends AppProps {
+export interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
@@ -50,11 +50,9 @@ LicenseInfo.setLicenseKey(MUI_LICENSE_KEY)
 
 const isDev = process.env.NODE_ENV === 'development'
 
-export default function MyApp({
-  Component,
-  pageProps,
-  emotionCache = clientSideEmotionCache
-}: MyAppProps) {
+export default function MyApp(props: MyAppProps) {
+  const {Component, emotionCache = clientSideEmotionCache, pageProps} = props
+
   useEffect(() => {
     isDev && console.log('Applying smoothscroll polyfill')
     smoothscroll.polyfill()
