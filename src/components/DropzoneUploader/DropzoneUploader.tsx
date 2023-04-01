@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderWidth: 2,
       borderStyle: 'dashed',
       borderColor: 'grey',
-      '&$isActive': {
+      '&.isActive': {
         borderWidth: 2,
         borderStyle: 'dashed',
         borderColor: theme.palette.primary.light
@@ -89,14 +89,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dropzoneTitle: {
       color: theme.palette.secondary.main,
-      '&$disabled': {
+      '&.disabled': {
         color: theme.palette.text.disabled
       }
     },
     dropzoneSubTitle: {
       textAlign: 'center',
       color: theme.palette.text.secondary,
-      '&$disabled': {
+      '&.disabled': {
         color: theme.palette.text.disabled
       }
     },

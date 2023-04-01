@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 100,
       '-webkit-transition': 'max-width 500ms ease',
       transition: 'max-width 500ms ease',
-      '&$inputFocus': {
+      '&.inputFocus': {
         maxWidth: 175
       },
       marginLeft: theme.spacing(2),

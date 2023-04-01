@@ -223,7 +223,7 @@ const useStyles = makeStyles((theme: Theme) =>
     //     bottom: theme.spacing(1),
     //     top: theme.spacing(1)
     //   },
-    //   '&$dropzoneContainer': {
+    //   '&.dropzoneContainer': {
     //     flexDirection: 'column',
     //     justifyContent: 'flex-start',
     //     alignItems: 'flex-start',

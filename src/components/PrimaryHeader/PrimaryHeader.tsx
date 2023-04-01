@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
     popper: {
       zIndex: 1,
-      '& $arrow': {
+      '& .arrow': {
         top: 0,
         left: 0,
         marginTop: '-0.9em',

@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center'
     },
     tabIcon: {
-      '& $tabWrapper': {
+      '& .tabWrapper': {
         '& .MuiSvgIcon-root': {
           margin: 0,
           marginRight: theme.spacing(1)

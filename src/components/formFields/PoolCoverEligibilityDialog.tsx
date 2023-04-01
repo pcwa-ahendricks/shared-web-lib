@@ -50,10 +50,10 @@ const useStyles = makeStyles((theme: Theme) =>
     stepLabelLabel: {
       marginLeft: theme.spacing(1),
       cursor: 'pointer',
-      '& $stepLabelActive': {
+      '& .stepLabelActive': {
         color: theme.palette.primary.main
       },
-      '& $stepLabelError': {
+      '& .stepLabelError': {
         color: theme.palette.error.main
       }
     },

@@ -23,7 +23,7 @@ const useStyles = makeStyles(() =>
       padding: 0,
       transition: 'opacity 300ms ease',
       opacity: 1,
-      '&$isPaging': {
+      '&.isPaging': {
         opacity: 0.4,
         color: 'transparent',
         textShadow: '0 0 8px rgba(0,0,0,0.6)'

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     popper: {
       zIndex: 3, // Mapbox attribution is 2 so this should be higher than that.
-      '& $arrow': {
+      '& .arrow': {
         top: 0,
         left: 0,
         marginTop: '-0.9em',

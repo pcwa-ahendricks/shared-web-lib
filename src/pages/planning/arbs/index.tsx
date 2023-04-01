@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
           }
       }
       // '&:not(.vertical-timeline--two-columns)': {
-      //   '& $verticalTimelineBar': {
+      //   '& .verticalTimelineBar': {
       //     display: 'none'
       //   }
       // }

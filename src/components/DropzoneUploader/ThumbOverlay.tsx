@@ -16,7 +16,7 @@ const useStyles = makeStyles(() =>
       position: 'relative',
       overflow: 'hidden',
       width: 400,
-      '& $img': {
+      '& .img': {
         position: 'absolute',
         left: 0,
         '-webkit-transition': 'all 300ms ease-out',
