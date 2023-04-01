@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     }),
     listItem: {
-      paddingTop: theme.spacing(1) / 2,
-      paddingBottom: theme.spacing(1) / 2
+      paddingTop: theme.spacing(1 / 2),
+      paddingBottom: theme.spacing(1 / 2)
     }
   })
 )
