@@ -1,16 +1,13 @@
 // cspell:ignore COVID perc
 import React from 'react'
 import HeroImage from '@components/hero/HeroImage'
-// import {, RightRibbon} from '@components/Ribbons/Ribbons'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden,
-  rgbToHex
-  // rgbToHex
+  Hidden
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
@@ -30,8 +27,6 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
-// import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
-// import Whammy from '@components/Whammy/Whammy'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -52,7 +47,8 @@ const imgixImages = [
   // '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
-  'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg'
+  'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
+  '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg'
 ]
 
 type Props = {
@@ -142,17 +138,19 @@ const Index = ({
             />
           </ChildBox> */}
 
-          {/* <ChildBox flex="50%">
+          {/* not sure why min width is needed */}
+          <ChildBox flex="50%" minWidth="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Mulch Mayhem Coming Soon"
               readMore="Find out more"
-              linkHref="/smart-water-use/mulch-mayhem"
-              imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
+              linkHref="/smart-water-use/mulch-mayhem-2023"
+              imgixURL="https://imgix.cosmicjs.com/275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg"
+              imgixParams={{crop: 'right'}}
               alt="Mulch Mayhem Event flier"
-              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
+              body="Join us for Mulch Mayhem Saturday, May 6th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
             />
-          </ChildBox> */}
+          </ChildBox>
 
           {/* not sure why min width is needed */}
           <ChildBox flex="50%" minWidth="50%">
@@ -170,7 +168,7 @@ const Index = ({
             />
           </ChildBox>
 
-          <ChildBox flex="0 0 50%">
+          {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Year End Report for 2022"
@@ -183,7 +181,8 @@ const Index = ({
                 bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
               }}
             />
-            {/* <CoverStory
+          </ChildBox> */}
+          {/* <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Water Conservation"
               readMore="Learn more"
@@ -197,7 +196,6 @@ const Index = ({
               // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
               body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
             /> */}
-          </ChildBox>
         </RowBox>
         <Spacing />
         <RowBox responsive flexSpacing={4}>
