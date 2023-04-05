@@ -17,7 +17,7 @@ import {
 } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined'
 import Spacing from '@components/boxes/Spacing'

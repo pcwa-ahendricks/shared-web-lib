@@ -17,7 +17,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 

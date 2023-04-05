@@ -10,7 +10,7 @@ import {
 import {ChildBox} from 'mui-sleazebox'
 import {MultimediaPhotoGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {MultimediaVideoGallery} from '../MultimediaVideoGalleries/MultimediaVideoGalleries'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {

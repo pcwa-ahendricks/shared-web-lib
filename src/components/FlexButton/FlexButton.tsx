@@ -1,7 +1,6 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import {Button, ButtonProps} from '@mui/material'
 import NextLink, {LinkProps} from 'next/link'
-// import usePrefetchHandler from '@hooks/usePrefetchHandler'
 
 export type FlexButtonProps = {
   children: React.ReactNode
@@ -17,27 +16,18 @@ const FlexButton = ({
   isNextLink = true,
   ...rest
 }: FlexButtonProps) => {
-  // const mouseEnterHandler = usePrefetchHandler()
-
-  const flexButton = useMemo(
-    () =>
-      isNextLink ? (
-        <>
-          <NextLink href={href} as={as} passHref>
-            <Button component="a" {...rest}>
-              {children}
-            </Button>
-          </NextLink>
-        </>
-      ) : (
-        <Button href={href} target="_blank" rel="noopener noreferrer" {...rest}>
-          {children}
-        </Button>
-      ),
-    [children, href, isNextLink, rest, as]
+  if (isNextLink) {
+    return (
+      <Button component={NextLink} as={as} href={href} {...rest}>
+        {children}
+      </Button>
+    )
+  }
+  return (
+    <Button href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+      {children}
+    </Button>
   )
-
-  return <>{flexButton}</>
 }
 
 export default FlexButton

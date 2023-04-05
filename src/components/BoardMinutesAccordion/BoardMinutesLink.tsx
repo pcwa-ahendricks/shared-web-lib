@@ -15,7 +15,7 @@ import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'
 import clsx from 'clsx'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
 const MAX_IMAGE_WIDTH = 85
@@ -92,7 +92,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   )
 
   return (
-    <Link href={url} as={as} passHref>
+    <Link href={url} as={as} passHref legacyBehavior>
       <ColumnBoxEx
         role="link"
         tabIndex={0}

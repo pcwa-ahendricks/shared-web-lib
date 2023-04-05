@@ -14,7 +14,7 @@ import {
   Paper,
   Typography as Type
 } from '@mui/material'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import {blueGrey} from '@mui/material/colors'
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideoOutlined'

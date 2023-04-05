@@ -1,6 +1,6 @@
 // cspell:ignore mfpfa novus
 import React, {useMemo, useState, useCallback, useEffect} from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {
   fileNameUtil,
   CosmicMediaMeta,
@@ -160,6 +160,7 @@ export default function MfpfaMeetingAgendaPage({fallbackData}: Props) {
                   <NextLink
                     href="/board-of-directors/mfpfa-meeting-agendas#archive"
                     passHref
+                    legacyBehavior
                   >
                     {/* <Link
                       href="https://www.placer.ca.gov/AgendaCenter/Search/?term=&CIDs=4"

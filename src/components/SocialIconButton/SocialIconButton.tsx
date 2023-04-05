@@ -1,36 +1,26 @@
 import React from 'react'
-import {IconButton, Theme, IconButtonProps} from '@mui/material'
-
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {IconButton, IconButtonProps, useTheme} from '@mui/material'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   children: React.ReactNode
 } & IconButtonProps &
   Omit<React.HTMLProps<HTMLAnchorElement>, 'size'>
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      padding: theme.spacing(1), // Defaults to 12px,
-      // Don't use :focus pseudo selector cause icon will remain in focus after link is clicked which isn't ideal.
-      '&:hover, &:active': {
-        color: theme.palette.secondary.main
-      }
-    }
-  })
-)
-
 const SocialIconButton = ({children, ...rest}: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
   return (
     <IconButton
       aria-label="Link"
       color="inherit"
       target="_blank"
       rel="noopener noreferrer"
-      classes={{
-        root: classes.root
+      sx={{
+        padding: theme.spacing(1), // Defaults to 12px,
+        // Don't use :focus pseudo selector cause icon will remain in focus after link is clicked which isn't ideal.
+        '&:hover, &:active': {
+          color: theme.palette.secondary.main
+        }
       }}
       {...rest}
       size="large"

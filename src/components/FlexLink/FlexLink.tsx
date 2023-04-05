@@ -1,28 +1,18 @@
 import React, {useMemo, useState, useEffect} from 'react'
-import {Link, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-import MuiNextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
+import {Link, LinkProps, Typography as Type} from '@mui/material'
 import {parse} from 'url'
-import clsx from 'clsx'
+import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 
 export type FlexLinkProps = {
   children: React.ReactNode
   isNextLink?: boolean
   detectNext?: boolean
-} & Partial<MuiNextLinkProps>
+} & Partial<LinkProps> &
+  NextLinkProps
 
 const IS_NEXT_RE = /^http(s)?:\/\/(www\.)?pcwa\.net/i // http or https. www sub-domain optional. url lib requires protocol so regular expression should expect protocol too.
 const IS_NEWS_RELEASE_RE = /^\/newsroom\/news-releases\/.+/i
 const IS_NEWSLETTER_RE = /^\/newsroom\/publications\/newsletters\/.+/i
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    link: {
-      cursor: 'pointer'
-    }
-  })
-)
 
 const FlexLink = ({
   children,
@@ -31,16 +21,15 @@ const FlexLink = ({
   scroll,
   isNextLink: isNextLinkProp = true,
   detectNext = false,
-  className: classNameProp,
   target,
   rel,
-  variant = 'body1', // [TODO] - not sure why i need to force this default setting, but without it variant body2 is getting default'ed on Env/Planning page
+  variant = 'body1' as LinkProps['variant'], // [TODO] - not sure why i need to force this default setting, but without it variant body2 is getting default'ed on Env/Planning page
+  sx,
   ...rest
 }: FlexLinkProps) => {
   const [href, setHref] = useState(hrefProp)
   const [detectedNext, setDetectedNext] = useState<boolean>()
   const [as, setAs] = useState(asProp)
-  const classes = useStyles()
 
   // Need to set as when asProp prop changes.
   useEffect(() => {
@@ -78,62 +67,45 @@ const FlexLink = ({
 
   // wait for detection to complete (if "detectNext" is true) to pass href to Next Link
   const muiNextLinkHref = !href || (detectNext && !detectedNext) ? '#' : href
-
-  const flexLinkEl = useMemo(
-    () =>
-      isNextLink ? (
-        <MuiNextLink
-          href={muiNextLinkHref}
-          as={as}
-          scroll={scroll}
-          rel={rel}
-          target={target}
-          variant={variant}
-          {...rest}
-          className={clsx([classes.link, classNameProp])}
-        >
-          {children}
-        </MuiNextLink>
-      ) : hasHref ? (
-        <Link
-          href={href}
-          rel={rel ?? 'noopener noreferrer'}
-          target={target ?? '_blank'}
-          variant={variant}
-          underline="hover"
-          {...rest}
-          className={clsx([classes.link, classNameProp])}
-        >
-          {children}
-        </Link>
-      ) : (
-        <Type
-          color="primary"
-          variant={variant}
-          {...rest}
-          className={classNameProp}
-        >
-          {children}
-        </Type>
-      ),
-    [
-      children,
-      href,
-      variant,
-      isNextLink,
-      as,
-      muiNextLinkHref,
-      rest,
-      scroll,
-      hasHref,
-      classes,
-      rel,
-      target,
-      classNameProp
-    ]
-  )
-
-  return <>{flexLinkEl}</>
+  if (isNextLink) {
+    return (
+      <Link
+        component={NextLink}
+        href={muiNextLinkHref}
+        scroll={scroll}
+        // IMPORTANT - WHOLE PAGE MAY BE ALL WHITE/BLANK PAGE IF THERE IS AN ERROR WITH MUI AND AN A ROUTE THAT GETS CALL WITH 'as'. To debug error simply console.log 'as' prop to see which routes are getting loaded.
+        as={as}
+        target={target}
+        variant={variant}
+        sx={{
+          cursor: 'pointer',
+          ...sx
+        }}
+        {...rest}
+      >
+        {children}
+      </Link>
+    )
+  }
+  if (hasHref) {
+    return (
+      <Link
+        href={href}
+        rel={rel ?? 'noopener noreferrer'}
+        target={target ?? '_blank'}
+        variant={variant}
+        sx={{
+          cursor: 'pointer',
+          ...sx
+        }}
+        underline="hover"
+        {...rest}
+      >
+        {children}
+      </Link>
+    )
+  }
+  return <Type variant={variant}>{children}</Type>
 }
 
 export default FlexLink

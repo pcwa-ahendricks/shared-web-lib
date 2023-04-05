@@ -43,6 +43,7 @@ const BoardMemberCard = ({
       as={`/board-of-directors/district-${district}`}
       passHref
       scroll={false}
+      legacyBehavior
     >
       <Card className={classes.card}>
         <CardActionArea>

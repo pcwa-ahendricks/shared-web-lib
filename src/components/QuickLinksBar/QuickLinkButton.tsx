@@ -3,45 +3,19 @@ import {
   useTheme,
   useMediaQuery,
   FabProps,
-  Link as MatLink,
-  LinkProps as MatLinkProps
+  Link as MuiLink,
+  LinkProps as MuiLinkProps,
+  SxProps
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import {blue as hl} from '@mui/material/colors'
 import {ChildBox, ColumnBox} from 'mui-sleazebox'
 import imgixLoader from '@lib/imageLoader'
 import React, {useCallback, useState} from 'react'
-import Image, {ImageProps} from 'next/image'
+import Image, {ImageProps} from 'next/legacy/image'
 import Link from 'next/link'
 import Overline from '@components/Overline/Overline'
 import alpha from 'color-alpha'
-
-const useStyles = makeStyles({
-  fabRoot: ({
-    width,
-    height,
-    highlight
-  }: {
-    width: number
-    height: number
-    highlight: boolean
-  }) => ({
-    height,
-    width,
-    borderWidth: 0,
-    transition: 'box-shadow 400ms ease',
-    // Conditional CSS Properties
-    ...(highlight && {
-      borderColor: 'transparent' /* remove the border's colour */,
-      /* emulate the border */
-      boxShadow: `0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12),
-      0px 0px 4px 1px ${alpha(hl[400], 0.7)},0px 0px 7px 0px ${alpha(
-        hl[400],
-        0.5
-      )},0px 0px 4px 0px ${alpha(hl[400], 0.6)}`
-    })
-  })
-})
+import {Theme} from '@lib/material-theme'
 
 export default function QuickLinkButton({
   href,
@@ -57,8 +31,8 @@ export default function QuickLinkButton({
   caption: string
   imageAlt: ImageProps['alt']
   imageSrc: string
-} & Partial<FabProps<'a'>>) {
-  const theme = useTheme()
+} & Partial<FabProps<any>>) {
+  const theme = useTheme<Theme>()
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
   const fabSize = isSm ? 70 : 90
 
@@ -74,13 +48,25 @@ export default function QuickLinkButton({
     )
   }, [fabSize, imageSrc, imageAlt])
 
-  const btnCaptionVariant: MatLinkProps['variant'] = isSm ? 'subtitle2' : 'h6'
+  const btnCaptionVariant: MuiLinkProps['variant'] = isSm ? 'subtitle2' : 'h6'
   const [overlineVisible, setOverlineVisible] = useState(false)
-  const classes = useStyles({
+
+  const fabSxProps: SxProps<Theme> = {
     height: fabSize,
     width: fabSize,
-    highlight: overlineVisible
-  })
+    borderWidth: 0,
+    transition: 'box-shadow 400ms ease',
+    // Conditional CSS Properties
+    ...(overlineVisible && {
+      borderColor: 'transparent' /* remove the border's colour */,
+      /* emulate the border */
+      boxShadow: `0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12),
+      0px 0px 4px 1px ${alpha(hl[400], 0.7)},0px 0px 7px 0px ${alpha(
+        hl[400],
+        0.5
+      )},0px 0px 4px 0px ${alpha(hl[400], 0.6)}`
+    })
+  }
 
   const mouseLeaveHandler = useCallback(() => {
     setOverlineVisible(false)
@@ -96,11 +82,13 @@ export default function QuickLinkButton({
           onMouseEnter={mouseEnterHandler}
           onMouseLeave={mouseLeaveHandler}
         >
-          <Link href={href} passHref>
-            <Fab href={href} classes={{root: classes.fabRoot}} {...rest}>
-              <FabImage />
-            </Fab>
-          </Link>
+          <Fab
+            LinkComponent={() => <Link href={href} />}
+            sx={{...fabSxProps}}
+            {...rest}
+          >
+            <FabImage />
+          </Fab>
         </ChildBox>
         <ChildBox
           mt={1}
@@ -112,16 +100,16 @@ export default function QuickLinkButton({
             underline
             visible={overlineVisible}
           >
-            <Link href={href} passHref>
-              <MatLink
-                variant={btnCaptionVariant}
-                color="primary"
-                align="center"
-                underline="none"
-              >
-                {caption}
-              </MatLink>
-            </Link>
+            <MuiLink
+              component={Link}
+              href={href}
+              variant={btnCaptionVariant}
+              color="primary"
+              align="center"
+              underline="none"
+            >
+              {caption}
+            </MuiLink>
           </Overline>
         </ChildBox>
       </ColumnBox>
@@ -134,12 +122,7 @@ export default function QuickLinkButton({
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
       >
-        <Fab
-          href={href}
-          target={target}
-          classes={{root: classes.fabRoot}}
-          {...rest}
-        >
+        <Fab href={href} target={target} sx={{...fabSxProps}} {...rest}>
           <FabImage />
         </Fab>
       </ChildBox>
@@ -153,7 +136,7 @@ export default function QuickLinkButton({
           underline
           visible={overlineVisible}
         >
-          <MatLink
+          <MuiLink
             variant={btnCaptionVariant}
             color="primary"
             align="center"
@@ -162,7 +145,7 @@ export default function QuickLinkButton({
             underline="none"
           >
             {caption}
-          </MatLink>
+          </MuiLink>
         </Overline>
       </ChildBox>
     </ColumnBox>

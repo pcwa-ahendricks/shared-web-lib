@@ -4,7 +4,7 @@ import {Box, CircularProgress, useTheme} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import {FlexBox} from 'mui-sleazebox'
 import {stringify} from 'querystringify'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {useWindowSize} from 'react-use'
 

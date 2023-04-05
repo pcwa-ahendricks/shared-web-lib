@@ -42,7 +42,7 @@ export default function TempRangeLine({tempDataset}: Props) {
         }
       }))
 
-      const areaGenerator = area<typeof seriesData[0]>()
+      const areaGenerator = area<(typeof seriesData)[0]>()
         .x(({data}) => (xScale as any)(data.x ? data.x : ''))
         .y0(({data}) => (yScale as any)(data.y0 ? data.y0 : ''))
         .y1(({data}) => (yScale as any)(data.y1 ? data.y1 : ''))

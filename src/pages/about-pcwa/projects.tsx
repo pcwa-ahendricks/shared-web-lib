@@ -24,7 +24,7 @@ import Spacing from '@components/boxes/Spacing'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 // import DownloadIcon from '@mui/icons-material/GetApp'
 // import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 

@@ -21,7 +21,7 @@ import {
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import PublicIcon from '@mui/icons-material/Public'
 import PublicPurchaseIframe from '@components/PublicPurchaseIframe/PublicPurchaseIframe'
 import EngineeringEmail from '@components/links/EngineeringEmail'

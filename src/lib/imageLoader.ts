@@ -1,4 +1,4 @@
-import {ImageLoader} from 'next/image'
+import {ImageLoader} from 'next/legacy/image'
 import {stringify} from 'querystringify'
 import parse from 'url-parse'
 

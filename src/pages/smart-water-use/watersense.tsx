@@ -8,7 +8,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import MuiNextLink from '@components/NextLink/NextLink'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 

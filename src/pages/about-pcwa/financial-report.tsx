@@ -19,7 +19,7 @@ import {ChildBox, RowBox} from 'mui-sleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 // import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
 

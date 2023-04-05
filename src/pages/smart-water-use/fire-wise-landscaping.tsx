@@ -22,7 +22,7 @@ import {ChildBox, RowBox} from 'mui-sleazebox'
 import WideContainer from '@components/containers/WideContainer'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 
 const useStyles = makeStyles(() => ({
@@ -400,6 +400,7 @@ const FireWiseLandscapingPage = () => {
                     href="/smart-water-use/maidu-fire-station-makeover"
                     as="/smart-water-use/maidu-fire-station-makeover"
                     passHref
+                    legacyBehavior
                   >
                     <ListItem component="a" classes={{root: classes.listItem}}>
                       <ListItemText primary="Maidu Fire Station Makeover in Auburn" />

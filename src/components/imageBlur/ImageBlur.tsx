@@ -6,7 +6,7 @@ import React, {
   useEffect
 } from 'react'
 import {textFetcher} from '@lib/fetcher'
-import Image, {ImageProps} from 'next/image'
+import Image, {ImageProps} from 'next/legacy/image'
 // import {decode} from 'blurhash'
 import {stringify} from 'querystringify'
 import {BlurhashCanvas} from 'react-blurhash'

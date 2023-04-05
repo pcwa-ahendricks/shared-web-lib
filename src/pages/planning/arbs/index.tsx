@@ -36,7 +36,7 @@ import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClic
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'
 import WideContainer from '@components/containers/WideContainer'
 import imgixLoader from '@lib/imageLoader'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import ListBulletItem from '@components/lists/ListBulletItem'
 
 const useStyles = makeStyles((theme: Theme) =>

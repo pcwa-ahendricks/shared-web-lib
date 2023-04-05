@@ -23,7 +23,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
 import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
 import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>

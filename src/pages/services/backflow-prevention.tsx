@@ -24,7 +24,7 @@ import BackflowEmail from '@components/links/BackflowEmail'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>

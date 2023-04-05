@@ -9,7 +9,7 @@ import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import MuiNextLink from '@components/NextLink/NextLink'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 // const useStyles = makeStyles(() =>

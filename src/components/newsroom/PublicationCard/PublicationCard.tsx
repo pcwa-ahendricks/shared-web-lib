@@ -21,7 +21,7 @@ import fileExtension from '@lib/fileExtension'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'
-import {ImageProps} from 'next/image'
+import {ImageProps} from 'next/legacy/image'
 
 export type PublicationCardProps = {
   title: string

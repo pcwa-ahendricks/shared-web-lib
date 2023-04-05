@@ -170,7 +170,11 @@ const ShutoffProtectionPage = () => {
                 To inquire about eligibility requirements please contact
                 Customer Services at <CollectionsPhone /> or click the link to
                 complete the{' '}
-                <Link passHref href="/forms/account/sb998-self-certification">
+                <Link
+                  passHref
+                  href="/forms/account/sb998-self-certification"
+                  legacyBehavior
+                >
                   <MuiLink variant="inherit" underline="hover">
                     Water Shutoff Protection Self Certification Form
                   </MuiLink>
@@ -352,7 +356,11 @@ const ShutoffProtectionPage = () => {
                 Si tiene consultas sobre los requisitos de elegibilidad, entre
                 en contacto con Atención al cliente en el teléfono{' '}
                 <CollectionsPhone /> o haga clic en{' '}
-                <Link passHref href="/forms/account/sb998-self-certification">
+                <Link
+                  passHref
+                  href="/forms/account/sb998-self-certification"
+                  legacyBehavior
+                >
                   <MuiLink variant="inherit" underline="hover">
                     el enlace para completar un Formulario de Autocertificación
                   </MuiLink>
@@ -511,7 +519,11 @@ const ShutoffProtectionPage = () => {
               <Type paragraph>
                 자격 요건에 관한 문의사항은 로 전화하여 고객 서비스에{' '}
                 <CollectionsPhone />, 또는{' '}
-                <Link passHref href="/forms/account/sb998-self-certification">
+                <Link
+                  passHref
+                  href="/forms/account/sb998-self-certification"
+                  legacyBehavior
+                >
                   <MuiLink variant="inherit" underline="hover">
                     링크를 클릭하여 자가 인증 양식을 작성하십시오
                   </MuiLink>
@@ -655,7 +667,11 @@ const ShutoffProtectionPage = () => {
 
               <Type paragraph>
                 如欲查詢資格要求，請聯絡客戶服務部，電話為 <CollectionsPhone />{' '}
-                <Link passHref href="/forms/account/sb998-self-certification">
+                <Link
+                  passHref
+                  href="/forms/account/sb998-self-certification"
+                  legacyBehavior
+                >
                   <MuiLink variant="inherit" underline="hover">
                     或按一下連結，以填寫 自行核證表
                   </MuiLink>
@@ -815,7 +831,11 @@ const ShutoffProtectionPage = () => {
               <Type paragraph>
                 Để hỏi về các yêu cầu đủ điều kiện, vui lòng liên hệ Dịch Vụ
                 Khách Hàng theo số <CollectionsPhone />{' '}
-                <Link passHref href="/forms/account/sb998-self-certification">
+                <Link
+                  passHref
+                  href="/forms/account/sb998-self-certification"
+                  legacyBehavior
+                >
                   <MuiLink variant="inherit" underline="hover">
                     hoặc nhấp vào liên kết để hoàn thành Mẫu Tự Chứng Nhận
                   </MuiLink>
@@ -986,7 +1006,11 @@ const ShutoffProtectionPage = () => {
                 Upang magtanong tungkol sa mga kinakailangan sa pagiging
                 karapat-dapat, mangyaring tawagan ang Mga Serbisyo sa Kostumer
                 sa <CollectionsPhone /> o i-click ang link{' '}
-                <Link passHref href="/forms/account/sb998-self-certification">
+                <Link
+                  passHref
+                  href="/forms/account/sb998-self-certification"
+                  legacyBehavior
+                >
                   <MuiLink variant="inherit" underline="hover">
                     upang kumpletuhin ang Form ng Sariling Sertipikasyon
                   </MuiLink>

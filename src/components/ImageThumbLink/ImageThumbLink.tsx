@@ -5,7 +5,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import {ColumnBox} from 'mui-sleazebox'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import slugify from 'slugify'
-import Image, {ImageProps} from 'next/image'
+import Image, {ImageProps} from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {

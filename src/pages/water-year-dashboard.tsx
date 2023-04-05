@@ -1,6 +1,6 @@
 // cspell:ignore actl accum climdiv frmt perc Prcp dprt Nrml rgnl stns mxtemp
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -72,7 +72,7 @@ const stationIds = [
   // '047516 2'
 ] as const
 
-export type StationId = typeof stationIds[number]
+export type StationId = (typeof stationIds)[number]
 
 type StationInfo =
   | Partial<{

@@ -23,7 +23,7 @@ import toTitleCase from '@lib/toTitleCase'
 import isNumber from 'is-number'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import {grey} from '@mui/material/colors'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {stringify} from 'querystringify'
 import {
   differenceInMonths,

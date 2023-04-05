@@ -41,6 +41,6 @@ export const openInNewTab = (url: string): void => {
 }
 
 // figure out what this is doing before use
-export const devLog = (...params: Parameters<typeof console['log']>) => {
+export const devLog = (...params: Parameters<(typeof console)['log']>) => {
   isDev && console.log(params)
 }

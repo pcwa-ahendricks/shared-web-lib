@@ -60,7 +60,7 @@ import {
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 import {isWebUri} from 'valid-url'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import PublicationCard, {
   PublicationCardProps
 } from '@components/newsroom/PublicationCard/PublicationCard'
@@ -262,7 +262,7 @@ const PublicationsPage = ({
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
     ({href, as, ...rest}: TabProps<'a'> & LinkProps) => (
-      <NextLink passHref href={href} as={as} shallow>
+      <NextLink passHref href={href} as={as} shallow legacyBehavior>
         <Tab component="a" {...rest} />
       </NextLink>
     ),
@@ -482,6 +482,7 @@ const PublicationsPage = ({
                           href="/newsroom/publications/newsletters/[publish-date]"
                           as={`/newsroom/publications/newsletters/${n.derivedFilenameAttr?.date}`}
                           scroll
+                          legacyBehavior
                         >
                           <ListItem
                             button

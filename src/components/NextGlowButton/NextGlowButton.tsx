@@ -28,7 +28,7 @@ const NextGlowButton = ({
   ...rest
 }: NextGlowButtonProps) => {
   return (
-    <Link href={href} passHref {...linkProps}>
+    <Link href={href} passHref {...linkProps} legacyBehavior>
       <ForwardGlowButton color="inherit" size={size} {...rest}>
         {children}
       </ForwardGlowButton>

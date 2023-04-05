@@ -4,8 +4,6 @@ import {useRouter} from 'next/router'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import {Link as MuiLink, LinkProps as MuiLinkProps} from '@mui/material'
 
-import makeStyles from '@mui/styles/makeStyles'
-
 /*
   Adapted from https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/Link.tsx
 */
@@ -15,12 +13,6 @@ type NextComposedProps = Omit<
   'href'
 > &
   NextLinkProps
-
-const useStyles = makeStyles({
-  root: {
-    cursor: 'pointer'
-  }
-})
 
 const NextComposed = ({
   as,
@@ -42,8 +34,9 @@ const NextComposed = ({
       scroll={scroll}
       shallow={shallow}
       passHref={passHref}
+      {...other}
     >
-      <a {...other}>{children}</a>
+      {children}
     </NextLink>
   )
 }
@@ -74,11 +67,11 @@ const MuiNextLink = ({
   naked,
   href,
   children,
+  sx,
   ...other
 }: MuiNextLinkProps) => {
-  const classes = useStyles()
   const router = useRouter()
-  const classNames = clsx(className, classes.root, {
+  const classNames = clsx(className, {
     [activeClassName]: router.pathname === href && activeClassName
   })
 
@@ -93,6 +86,10 @@ const MuiNextLink = ({
   return (
     <MuiLink
       component={ForwardNextComposed}
+      sx={{
+        cursor: 'pointer',
+        ...sx
+      }}
       className={classNames}
       href={href}
       underline="hover"

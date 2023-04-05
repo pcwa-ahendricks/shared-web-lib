@@ -10,7 +10,7 @@ import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 const HellHolePage = () => {

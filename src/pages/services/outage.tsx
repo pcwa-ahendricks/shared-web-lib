@@ -29,7 +29,7 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 type Props = {

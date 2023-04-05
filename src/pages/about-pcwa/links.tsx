@@ -20,7 +20,7 @@ import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import imgixLoader from '@lib/imageLoader'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 const useStyles = makeStyles(() =>
   createStyles({

@@ -230,11 +230,7 @@ const ResourceLibraryPage = ({
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
     ({href, as, ...rest}: LinkProps & TabProps<'a'>) => {
-      return (
-        <Link passHref as={as} href={href} shallow>
-          <Tab component="a" {...rest} />
-        </Link>
-      )
+      return <Tab component={Link} href={href} as={as} shallow {...rest} />
     },
     []
   )
@@ -248,9 +244,12 @@ const ResourceLibraryPage = ({
     router.push('/education-center/[...multimedia]', hrefAs)
   }, [multimediaDispatch, router])
 
-  const tabChangeHandler = useCallback((_, newValue) => {
-    setTabIndex(newValue)
-  }, [])
+  const tabChangeHandler = useCallback(
+    (_event: React.SyntheticEvent, newValue: any) => {
+      setTabIndex(newValue)
+    },
+    []
+  )
 
   if (err?.statusCode) {
     console.log(err)
@@ -356,46 +355,41 @@ const ResourceLibraryPage = ({
               <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
                 <Box width={440} marginRight="auto">
                   <Card title="From the Mountain Tops to Your Tap">
-                    <Link
-                      href="/education-center/webinars/mountain-tops-to-tap"
-                      passHref
+                    <FancierCardActionArea
+                      LinkComponent={() => (
+                        <Link
+                          href="/education-center/webinars/mountain-tops-to-tap"
+                          className="reset-a"
+                        />
+                      )}
+                      CardMediaProps={{
+                        style: {overflow: 'hidden', width: '100%'}
+                      }}
+                      ImageFancierProps={{
+                        src: 'https://imgix.cosmicjs.com/b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg',
+                        objectFit: 'cover',
+                        objectPosition: 'top center',
+                        alt: `Thumbnail image and link for 'From the Mountain Tops to Your Tap' webinar`,
+                        height: 220,
+                        width: 440
+                      }}
                     >
-                      <a className="reset-a">
-                        <FancierCardActionArea
-                          CardMediaProps={{
-                            style: {overflow: 'hidden', width: '100%'}
-                          }}
-                          ImageFancierProps={{
-                            src: 'https://imgix.cosmicjs.com/b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg',
-                            objectFit: 'cover',
-                            objectPosition: 'top center',
-                            alt: `Thumbnail image and link for 'From the Mountain Tops to Your Tap' webinar`,
-                            height: 220,
-                            width: 440
-                          }}
+                      <CardContent>
+                        <Type
+                          gutterBottom
+                          variant={isMDUp ? 'subtitle1' : 'subtitle2'}
                         >
-                          <CardContent>
-                            <Type
-                              gutterBottom
-                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
-                            >
-                              From the Mountain Tops to Your Tap
-                            </Type>
-                            <Type
-                              variant="body2"
-                              color="textSecondary"
-                              paragraph
-                            >
-                              Recorded{' '}
-                              {format(
-                                parse('8/10/2022', 'MM/dd/yyyy', new Date()),
-                                'M/dd/yyyy'
-                              )}
-                            </Type>
-                          </CardContent>
-                        </FancierCardActionArea>
-                      </a>
-                    </Link>
+                          From the Mountain Tops to Your Tap
+                        </Type>
+                        <Type variant="body2" color="textSecondary" paragraph>
+                          Recorded{' '}
+                          {format(
+                            parse('8/10/2022', 'MM/dd/yyyy', new Date()),
+                            'M/dd/yyyy'
+                          )}
+                        </Type>
+                      </CardContent>
+                    </FancierCardActionArea>
                     <CardActions>
                       <Button
                         size="small"
@@ -424,56 +418,52 @@ const ResourceLibraryPage = ({
                     // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
                     // objectPosition="top center"
                   >
-                    <Link
-                      href="/education-center/webinars/state-of-our-water"
-                      passHref
+                    <FancierCardActionArea
+                      LinkComponent={() => (
+                        <Link
+                          href="/education-center/webinars/state-of-our-water"
+                          className="reset-a"
+                        />
+                      )}
+                      className="reset-a"
+                      CardMediaProps={{
+                        style: {overflow: 'hidden', width: '100%'}
+                      }}
+                      ImageFancierProps={{
+                        src: 'https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg',
+                        objectFit: 'cover',
+                        objectPosition: 'top center',
+                        alt: `Thumbnail image and link for State of Our Water Supplies webinar`,
+                        height: 220,
+                        width: 440
+                        // isHover={actionAreaIsHover}
+                        // sizes={sizes}
+                      }}
                     >
-                      <a className="reset-a">
-                        <FancierCardActionArea
-                          CardMediaProps={{
-                            style: {overflow: 'hidden', width: '100%'}
-                          }}
-                          ImageFancierProps={{
-                            src: 'https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg',
-                            objectFit: 'cover',
-                            objectPosition: 'top center',
-                            alt: `Thumbnail image and link for State of Our Water Supplies webinar`,
-                            height: 220,
-                            width: 440
-                            // isHover={actionAreaIsHover}
-                            // sizes={sizes}
-                          }}
-                        >
-                          {/* <CardMedia
-                          component="Img"
-                          alt="Contemplative Reptile"
-                          height="140"
-                          image="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
-                          title="Contemplative Reptile"
-                        > */}
+                      {/* <CardMedia
+                        component="Img"
+                        alt="Contemplative Reptile"
+                        height="140"
+                        image="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                        title="Contemplative Reptile"
+                      > */}
 
-                          <CardContent>
-                            <Type
-                              gutterBottom
-                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
-                            >
-                              State of Our Water Supplies Webinar
-                            </Type>
-                            <Type
-                              variant="body2"
-                              color="textSecondary"
-                              paragraph
-                            >
-                              Recorded{' '}
-                              {format(
-                                parse('4/13/2022', 'MM/dd/yyyy', new Date()),
-                                'M/dd/yyyy'
-                              )}
-                            </Type>
-                          </CardContent>
-                        </FancierCardActionArea>
-                      </a>
-                    </Link>
+                      <CardContent>
+                        <Type
+                          gutterBottom
+                          variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                        >
+                          State of Our Water Supplies Webinar
+                        </Type>
+                        <Type variant="body2" color="textSecondary" paragraph>
+                          Recorded{' '}
+                          {format(
+                            parse('4/13/2022', 'MM/dd/yyyy', new Date()),
+                            'M/dd/yyyy'
+                          )}
+                        </Type>
+                      </CardContent>
+                    </FancierCardActionArea>
                     <CardActions>
                       <Button
                         size="small"
@@ -496,48 +486,43 @@ const ResourceLibraryPage = ({
               <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
                 <Box width={440} marginRight="auto">
                   <Card title="Fire-Wise, Water-Wise Landscaping">
-                    <Link
-                      href="/smart-water-use/fire-wise-landscaping"
-                      passHref
+                    <FancierCardActionArea
+                      LinkComponent={() => (
+                        <Link
+                          href="/smart-water-use/fire-wise-landscaping"
+                          className="reset-a"
+                        />
+                      )}
+                      CardMediaProps={{
+                        style: {overflow: 'hidden', width: '100%'}
+                      }}
+                      ImageFancierProps={{
+                        src: `https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg`,
+                        objectFit: 'cover',
+                        objectPosition: 'top center',
+                        alt: `Thumbnail image and link for Fire-wise, Water-wise Landscaping webinar`,
+                        height: 220,
+                        width: 440
+                        // isHover={actionAreaIsHover}
+                        // sizes={sizes}
+                      }}
                     >
-                      <a className="reset-a">
-                        <FancierCardActionArea
-                          CardMediaProps={{
-                            style: {overflow: 'hidden', width: '100%'}
-                          }}
-                          ImageFancierProps={{
-                            src: `https://imgix.cosmicjs.com/c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg`,
-                            objectFit: 'cover',
-                            objectPosition: 'top center',
-                            alt: `Thumbnail image and link for Fire-wise, Water-wise Landscaping webinar`,
-                            height: 220,
-                            width: 440
-                            // isHover={actionAreaIsHover}
-                            // sizes={sizes}
-                          }}
+                      <CardContent>
+                        <Type
+                          gutterBottom
+                          variant={isMDUp ? 'subtitle1' : 'subtitle2'}
                         >
-                          <CardContent>
-                            <Type
-                              gutterBottom
-                              variant={isMDUp ? 'subtitle1' : 'subtitle2'}
-                            >
-                              Fire-Wise, Water-Wise Landscaping
-                            </Type>
-                            <Type
-                              variant="body2"
-                              color="textSecondary"
-                              paragraph
-                            >
-                              Recorded{' '}
-                              {format(
-                                parse('8/25/2021', 'MM/dd/yyyy', new Date()),
-                                'M/dd/yyyy'
-                              )}
-                            </Type>
-                          </CardContent>
-                        </FancierCardActionArea>
-                      </a>
-                    </Link>
+                          Fire-Wise, Water-Wise Landscaping
+                        </Type>
+                        <Type variant="body2" color="textSecondary" paragraph>
+                          Recorded{' '}
+                          {format(
+                            parse('8/25/2021', 'MM/dd/yyyy', new Date()),
+                            'M/dd/yyyy'
+                          )}
+                        </Type>
+                      </CardContent>
+                    </FancierCardActionArea>
                     <CardActions>
                       <Button
                         size="small"

@@ -4,7 +4,7 @@ import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
 import {stringify} from 'querystringify'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
 type Props = {
@@ -101,7 +101,7 @@ const ImageDimmerLink = ({
   const classes = useStyles({isHovering})
 
   return (
-    <Link href={href} passHref>
+    <Link href={href} passHref legacyBehavior>
       <Box
         className={classes.container}
         position="relative"

@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type, Link} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 const BusinessAndCovid19Page = () => {
   return (

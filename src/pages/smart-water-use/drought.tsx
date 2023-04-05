@@ -20,7 +20,7 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader from '@lib/imageLoader'
 import Link from 'next/link'
@@ -230,7 +230,11 @@ export default function DroughtPage() {
                 <ChildBox flex="nogrow">
                   <Box maxWidth="70vw" margin="auto">
                     <Box style={{cursor: 'pointer'}}>
-                      <Link href="/smart-water-use/trees" passHref>
+                      <Link
+                        href="/smart-water-use/trees"
+                        passHref
+                        legacyBehavior
+                      >
                         <Image
                           aria-label="image link to Tree Care page"
                           role="link"

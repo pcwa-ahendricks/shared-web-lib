@@ -4,7 +4,7 @@ import NextLink from 'next/link'
 import {ListItem, ListItemAvatar, ListItemText, useTheme} from '@mui/material'
 import slugify from 'slugify'
 import {ColumnBox} from 'mui-sleazebox'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {PickedPublicationResponse} from '@lib/types/multimedia'
 
@@ -41,6 +41,7 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
         href="/education-center/documents/[publication]"
         as={`/education-center/documents/${publicationSlug}`}
         scroll
+        legacyBehavior
       >
         <ListItem button component="a">
           <ListItemAvatar>

@@ -16,7 +16,7 @@ import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 

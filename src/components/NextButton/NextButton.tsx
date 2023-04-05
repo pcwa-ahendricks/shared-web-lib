@@ -6,16 +6,14 @@ import {ButtonProps} from '@mui/material/Button'
 type Props = {
   children: React.ReactNode
   href: string
-  linkProps?: LinkProps
-} & ButtonProps<'a'>
+} & ButtonProps<typeof Link> &
+  LinkProps
 
-const NextButton = ({children, href, linkProps, ...rest}: Props) => {
+const NextButton = ({children, href, ...rest}: Props) => {
   return (
-    <Link href={href} passHref {...linkProps}>
-      <Button color="inherit" component="a" {...rest}>
-        {children}
-      </Button>
-    </Link>
+    <Button color="inherit" component={Link} href={href} {...rest}>
+      {children}
+    </Button>
   )
 }
 

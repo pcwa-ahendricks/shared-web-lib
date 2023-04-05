@@ -24,7 +24,7 @@ import BusinessIcon from '@mui/icons-material/Business'
 import EmailIcon from '@mui/icons-material/EmailOutlined'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Spacing from '@components/boxes/Spacing'
 import LookHere from '@components/LookHere/LookHere'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
@@ -61,7 +61,11 @@ const PayBillPage = () => {
           <RowBox justifyContent="space-around">
             <ChildBox flex={{xs: 'auto', sm: '0 1 80%'}}>
               <LookHere animate={!payBillAnimateDone}>
-                <NextLink href="/services/monthly-billing" passHref>
+                <NextLink
+                  href="/services/monthly-billing"
+                  passHref
+                  legacyBehavior
+                >
                   <div aria-label="Link to Monthly Billing FAQs page">
                     <Image
                       className={classes.link}

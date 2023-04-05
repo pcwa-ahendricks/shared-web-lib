@@ -21,7 +21,7 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox} from 'mui-sleazebox'
 import FancyButton from '@components/FancyButton/FancyButton'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 function createData(tier: string, cost: number) {

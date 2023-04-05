@@ -10,7 +10,7 @@ import {useIntersection, useTimeoutFn} from 'react-use'
 import JackinBox from 'mui-jackinbox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {BoxProps, useMediaQuery, useTheme, Box} from '@mui/material'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 const SHOW_WHAMMY = false // change this to true when we are ready to use this animation
 const animateKey = 'homeWhammy'

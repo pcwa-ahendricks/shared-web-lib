@@ -20,7 +20,7 @@ import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 // import defaultPageGage from '@components/pi/defaultPageGage'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 

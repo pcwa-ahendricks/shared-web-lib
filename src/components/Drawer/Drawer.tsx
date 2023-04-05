@@ -2,10 +2,8 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import ArrowDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
-  ListItemProps,
   SwipeableDrawer,
   List,
-  ListItem,
   ListItemText,
   ListSubheader,
   Theme,
@@ -15,16 +13,15 @@ import {
   Divider,
   useTheme,
   alpha,
-  ListItemIcon
+  ListItemIcon,
+  ListItemButton,
+  ListItemButtonProps,
+  useMediaQuery
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import menuConfig from '@lib/menuConfig'
 import Link from 'next/link'
 import FlexLink from '@components/FlexLink/FlexLink'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import clsx from 'clsx'
 import {ColumnBox, ChildBox, RowBox} from 'mui-sleazebox'
 // import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FacebookIcon from 'mdi-material-ui/Facebook'
@@ -35,30 +32,7 @@ import {useRouter} from 'next/router'
 // import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
 import Spacing from '@components/boxes/Spacing'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    listItemIcon: {
-      minWidth: 28
-    },
-    bolder: {
-      fontWeight: 500
-    },
-    nested: {
-      paddingLeft: theme.spacing(4)
-    },
-    subheader: {
-      // color: theme.palette.common.black,
-      // color: theme.palette.primary.main,
-      color: alpha(theme.palette.text.secondary, 0.5), // Defaults to 0.54
-      textTransform: 'uppercase',
-      // fontStyle: 'italic',
-      backgroundColor: theme.palette.background.paper // Cover other ListItems when scrolling via sticky positioning.
-    }
-  })
-)
-
 const SwipeableTemporaryDrawer = () => {
-  const classes = useStyles()
   const [activeGroup, setActiveGroup] = useState<number | null>(null)
   const router = useRouter()
 
@@ -91,12 +65,12 @@ const SwipeableTemporaryDrawer = () => {
     ({
       title,
       ...rest
-    }: {title: string} & ListItemProps<'li', {button?: true}>) => {
+    }: {title: string} & ListItemButtonProps<'div', {button?: true}>) => {
       return (
-        <ListItem
-          component="li"
-          className={classes.nested}
-          button
+        <ListItemButton
+          sx={{
+            paddingLeft: theme.spacing(4)
+          }}
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
           {...rest}
@@ -106,20 +80,18 @@ const SwipeableTemporaryDrawer = () => {
               {title}
             </Type>
           </ListItemText>
-        </ListItem>
+        </ListItemButton>
       )
     },
-    [classes, toggleDrawer]
+    [theme, toggleDrawer]
   )
 
   const SideList = useCallback(
     () => (
       <>
         <List component="nav">
-          <Link href="/" passHref>
-            <ListItem
-              button
-              component="a"
+          <Link href="/" passHref legacyBehavior>
+            <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
             >
@@ -127,19 +99,18 @@ const SwipeableTemporaryDrawer = () => {
                 primary="Home"
                 primaryTypographyProps={{
                   color: 'primary',
-                  classes: {colorPrimary: classes.bolder}
+                  sx: {fontWeight: 500}
                 }}
               />
-            </ListItem>
+            </ListItemButton>
           </Link>
           {menuConfig.map((cfg, idxLvl1) => (
-            <React.Fragment key={idxLvl1}>
-              <ListItem
-                button
+            <Box key={idxLvl1}>
+              <ListItemButton
                 onClick={groupSelectHandler(cfg.key)}
                 onKeyDown={groupSelectHandler(cfg.key)}
               >
-                <ListItemIcon classes={{root: classes.listItemIcon}}>
+                <ListItemIcon sx={{minWidth: 28}}>
                   {activeGroup === cfg.key ? (
                     <ArrowDownIcon color="action" />
                   ) : (
@@ -150,18 +121,24 @@ const SwipeableTemporaryDrawer = () => {
                   primary={cfg.menuName}
                   primaryTypographyProps={{
                     color: 'primary',
-                    classes: {colorPrimary: classes.bolder}
+                    sx: {fontWeight: 500}
                   }}
                 />
-              </ListItem>
+              </ListItemButton>
               <Collapse in={activeGroup === cfg.key} timeout="auto">
                 <List component="div" disablePadding>
                   {cfg.groups.map((g, idxLvl2) => (
-                    <React.Fragment key={idxLvl2}>
+                    <Box key={idxLvl2}>
                       <Box mb={2}>
                         <ListSubheader
-                          classes={{
-                            root: clsx([classes.nested, classes.subheader])
+                          sx={{
+                            // color: theme.palette.common.black,
+                            // color: theme.palette.primary.main,
+                            color: alpha(theme.palette.text.secondary, 0.5), // Defaults to 0.54
+                            textTransform: 'uppercase',
+                            // fontStyle: 'italic',
+                            backgroundColor: theme.palette.background.paper, // Cover other ListItems when scrolling via sticky positioning.
+                            paddingLeft: theme.spacing(4)
                           }}
                         >
                           {g.groupName}
@@ -182,22 +159,20 @@ const SwipeableTemporaryDrawer = () => {
                           </FlexLink>
                         ))}
                       </Box>
-                    </React.Fragment>
+                    </Box>
                   ))}
                 </List>
               </Collapse>
-            </React.Fragment>
+            </Box>
           ))}
         </List>
         <Spacing size="x-small">
           <Divider />
         </Spacing>
         <List dense>
-          <ListItem
+          <ListItemButton
             href="https://ipn.paymentus.com/cp/plco"
             target="_blank"
-            button
-            component="a"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
           >
@@ -205,14 +180,12 @@ const SwipeableTemporaryDrawer = () => {
               primary="Pay Bill"
               primaryTypographyProps={{
                 color: 'secondary',
-                classes: {colorSecondary: classes.bolder}
+                sx: {fontWeight: 500}
               }}
             />
-          </ListItem>
-          <Link href="/services/outage" passHref>
-            <ListItem
-              button
-              component="a"
+          </ListItemButton>
+          <Link href="/services/outage" passHref legacyBehavior>
+            <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
             >
@@ -220,15 +193,14 @@ const SwipeableTemporaryDrawer = () => {
                 primary="Outages"
                 primaryTypographyProps={{
                   color: 'secondary',
-                  classes: {colorSecondary: classes.bolder}
+                  sx: {fontWeight: 500}
                 }}
               />
-            </ListItem>
+            </ListItemButton>
           </Link>
-          <ListItem
+          <ListItemButton
             href="https://careers.pcwa.net/"
             target="_blank"
-            button
             component="a"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
@@ -237,14 +209,16 @@ const SwipeableTemporaryDrawer = () => {
               primary="Careers"
               primaryTypographyProps={{
                 color: 'secondary',
-                classes: {colorSecondary: classes.bolder}
+                sx: {fontWeight: 500}
               }}
             />
-          </ListItem>
-          <Link href="/board-of-directors/meeting-agendas" passHref>
-            <ListItem
-              button
-              component="a"
+          </ListItemButton>
+          <Link
+            href="/board-of-directors/meeting-agendas"
+            passHref
+            legacyBehavior
+          >
+            <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
             >
@@ -252,15 +226,13 @@ const SwipeableTemporaryDrawer = () => {
                 primary="Board Meetings"
                 primaryTypographyProps={{
                   color: 'secondary',
-                  classes: {colorSecondary: classes.bolder}
+                  sx: {fontWeight: 500}
                 }}
               />
-            </ListItem>
+            </ListItemButton>
           </Link>
-          <Link href="/smart-water-use/rebate-programs" passHref>
-            <ListItem
-              button
-              component="a"
+          <Link href="/smart-water-use/rebate-programs" passHref legacyBehavior>
+            <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
             >
@@ -268,23 +240,16 @@ const SwipeableTemporaryDrawer = () => {
                 primary="Rebates"
                 primaryTypographyProps={{
                   color: 'secondary',
-                  classes: {colorSecondary: classes.bolder}
+                  sx: {fontWeight: 500}
                 }}
               />
-            </ListItem>
+            </ListItemButton>
           </Link>
         </List>
         {/* <Divider /> */}
       </>
     ),
-    [
-      classes,
-      toggleDrawer,
-      activeGroup,
-      router,
-      groupSelectHandler,
-      NavListItem
-    ]
+    [toggleDrawer, activeGroup, router, groupSelectHandler, NavListItem, theme]
   )
 
   // Close the drawer if it's open and window is resized larger.

@@ -13,12 +13,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Theme
+  useTheme
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-// import {TransitionProps} from '@mui/material/transitions'
 import {UiContext} from '@components/ui/UiStore'
+import {Theme} from '@lib/material-theme'
 
 export type ErrorDialogError = {
   title?: string
@@ -32,14 +30,6 @@ type Props = {
   onExited?: (event: any) => void
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    dialogPaper: {
-      backgroundColor: theme.palette.common.white
-    }
-  })
-)
-
 // const Transition = React.forwardRef<unknown, TransitionProps>(
 //   function Transition(props, ref) {
 //     return <Slide direction="up" ref={ref} {...props} />
@@ -52,7 +42,6 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
 
   const uiContext = useContext(UiContext)
   const uiState = uiContext.state
-  const classes = useStyles()
   const {error} = uiState
 
   const prevErrorRef = useRef<ErrorDialogError | null>()
@@ -106,6 +95,8 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
     [error]
   )
 
+  const theme = useTheme<Theme>()
+
   // The idea behind using this is that either the MessageComponent will be provided or a simple message property, not both.
   return (
     <Dialog
@@ -113,7 +104,11 @@ const ErrorDialog = ({onClose, onExited}: Props) => {
       aria-describedby="error-dialog-description"
       open={open}
       onClose={closeHandler}
-      classes={{paper: classes.dialogPaper}}
+      PaperProps={{
+        sx: {
+          backgroundColor: theme.palette.common.white
+        }
+      }}
       TransitionProps={{
         onExited: exitedHandler
       }}

@@ -161,7 +161,7 @@ const Footer = () => {
               alignItems="center"
             >
               <GlowLightGreen>
-                <NextLink href="/report-water-waste" passHref>
+                <NextLink href="/report-water-waste" passHref legacyBehavior>
                   <ButtonBase>
                     <ColumnBox alignItems="center">
                       <WaterIcon />
@@ -173,7 +173,7 @@ const Footer = () => {
               <SubtleDivider />
 
               <GlowLightGreen>
-                <NextLink href="/contact-us" passHref>
+                <NextLink href="/contact-us" passHref legacyBehavior>
                   <ButtonBase>
                     <ColumnBox alignItems="center">
                       <ChatIcon />

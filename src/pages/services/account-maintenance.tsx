@@ -7,7 +7,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import MainPhone from '@components/links/MainPhone'
 import imgixLoader from '@lib/imageLoader'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import FlexLink from '@components/FlexLink/FlexLink'
 
 const AccountMaintenancePage = () => {

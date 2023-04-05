@@ -1,6 +1,6 @@
 // cspell:ignore Yamasaki
 import React, {useMemo} from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {stringify} from 'querystringify'
 import {
   Box,

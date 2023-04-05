@@ -19,7 +19,7 @@ import FancyButton, {
 } from '@components/FancyButton/FancyButton'
 import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
@@ -92,7 +92,7 @@ const RebateProgramsPage = () => {
     label: string
   } & Partial<FancyButtonProps>) => {
     return (
-      <NextLink href={href} passHref>
+      <NextLink href={href} passHref legacyBehavior>
         <ForwardFancyButton
           color="primary"
           aria-label={label}

@@ -17,7 +17,7 @@ import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
 import {GetStaticProps} from 'next'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 type GroupedBoardMinutes = Array<{

@@ -14,7 +14,7 @@ import FilterHdrIcon from '@mui/icons-material/FilterHdr'
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk'
 import PeopleIcon from '@mui/icons-material/People'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 type TypeWithAdornProps = {

@@ -40,7 +40,7 @@ import {GetStaticProps} from 'next'
 import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
@@ -241,6 +241,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                           : undefined
                       }
                       scroll
+                      legacyBehavior
                     >
                       <ListItemButton component="a">
                         <ListItemAvatar>

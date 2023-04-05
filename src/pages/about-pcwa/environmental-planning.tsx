@@ -12,7 +12,7 @@ import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
 import Spacing from '@components/boxes/Spacing'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import {TreeView} from '@mui/lab'
 import ExpandMoreIcon from '@mui/icons-material/AddBoxOutlined'

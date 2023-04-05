@@ -11,7 +11,7 @@ import {
   ListItemText,
   ListItemIcon
 } from '@mui/material'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Spacing from '@components/boxes/Spacing'
 // import ArrowRightIcon from '@mui/icons-material/ArrowForwardIosOutlined'
 // import UntreatedIcon from 'mdi-material-ui/Waves'

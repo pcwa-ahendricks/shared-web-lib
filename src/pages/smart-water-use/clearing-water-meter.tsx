@@ -12,7 +12,7 @@ import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import imgixLoader from '@lib/imageLoader'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

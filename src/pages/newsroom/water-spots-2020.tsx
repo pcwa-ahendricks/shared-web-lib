@@ -9,7 +9,7 @@ import Spacing from '@components/boxes/Spacing'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 
 const WaterSpots2020Page = () => {
