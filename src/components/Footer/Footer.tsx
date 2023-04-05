@@ -1,18 +1,16 @@
 // cspell:ignore bgcolor
 import React, {useCallback, useContext} from 'react'
+import Link from '@components/Link'
 import {
   Box,
   ButtonBase,
   Divider,
-  Link,
+  SxProps,
   Theme,
   Typography as Type,
   useMediaQuery,
   useTheme
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-import MuiNextLink from '@components/NextLink/NextLink'
 import WideContainer from '@components/containers/WideContainer'
 import {RowBox, ColumnBox} from 'mui-sleazebox'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
@@ -27,55 +25,28 @@ import MapIcon from 'mdi-material-ui/MapMarkerOutline'
 import PhoneIcon from 'mdi-material-ui/PhoneOutline'
 import {GlowLightGreen} from '@components/GlowGreen/GlowGreen'
 import MainPhone from '@components/links/MainPhone'
-import NextLink from 'next/link'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {
   NewsroomContext,
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
 
-const useFooterStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    subtle: {
-      color: theme.palette.grey[400],
-      fontSize: '0.9rem'
-    },
-    link: {
-      color: theme.palette.grey[200],
-      fontSize: '0.9rem'
-    },
-    weatherIcon: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      fontSize: '1rem'
-    }
-  })
-)
-
-const useDividerStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    subtleDivider: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-      backgroundColor: theme.palette.grey[600],
-      opacity: 0.4,
-      width: '80%'
-    }
-    // [theme.breakpoints.only('xs')]: {
-    //   subtleDivider: {
-    //     width: '100%'
-    //   }
-    // }
-  })
-)
-
 const SubtleDivider = () => {
-  const classes = useDividerStyles()
-  return <Divider className={classes.subtleDivider} />
+  const theme = useTheme<Theme>()
+  return (
+    <Divider
+      sx={{
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+        backgroundColor: theme.palette.grey[600],
+        opacity: 0.4,
+        width: '80%'
+      }}
+    />
+  )
 }
 
 const Footer = () => {
-  const classes = useFooterStyles()
   const theme = useTheme()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const newsroomContext = useContext(NewsroomContext)
@@ -84,6 +55,22 @@ const Footer = () => {
   const subscribeEnewsHandler = useCallback(() => {
     newsroomDispatch(setEnewsDialogOpen(true))
   }, [newsroomDispatch])
+
+  const style = {
+    subtle: {
+      color: theme.palette.grey[400],
+      fontSize: '0.9rem'
+    } as SxProps<Theme>,
+    link: {
+      color: theme.palette.grey[200],
+      fontSize: '0.9rem'
+    } as SxProps<Theme>,
+    weatherIcon: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      fontSize: '1rem'
+    } as SxProps<Theme>
+  }
 
   return (
     <Box>
@@ -120,7 +107,7 @@ const Footer = () => {
                 </Box>
                 <Box ml={1}>
                   <GlowLightGreen>
-                    <MuiNextLink
+                    <Link
                       variant="body2"
                       color="inherit"
                       href="/about-pcwa/directions"
@@ -130,7 +117,7 @@ const Footer = () => {
                       144 Ferguson Road <br />
                       P.O. Box 6570 <br />
                       Auburn, CA 95604
-                    </MuiNextLink>
+                    </Link>
                   </GlowLightGreen>
                   <Type variant="body2">Mon. - Thurs., 8am - 5pm</Type>
                 </Box>
@@ -161,26 +148,26 @@ const Footer = () => {
               alignItems="center"
             >
               <GlowLightGreen>
-                <NextLink href="/report-water-waste" passHref legacyBehavior>
+                <Link href="/report-water-waste">
                   <ButtonBase>
                     <ColumnBox alignItems="center">
                       <WaterIcon />
                       <Type variant="body1">Report Water Waste</Type>
                     </ColumnBox>
                   </ButtonBase>
-                </NextLink>
+                </Link>
               </GlowLightGreen>
               <SubtleDivider />
 
               <GlowLightGreen>
-                <NextLink href="/contact-us" passHref legacyBehavior>
+                <Link href="/contact-us">
                   <ButtonBase>
                     <ColumnBox alignItems="center">
                       <ChatIcon />
                       <Type>Contact Us</Type>
                     </ColumnBox>
                   </ButtonBase>
-                </NextLink>
+                </Link>
               </GlowLightGreen>
               <SubtleDivider />
               <GlowLightGreen>
@@ -237,24 +224,24 @@ const Footer = () => {
       <Box bgcolor={theme.palette.primary.dark}>
         <WideContainer mt={3} mb={3}>
           <Box bgcolor="inherit">
-            <Type variant="body2" component="span" className={classes.subtle}>
+            <Type variant="body2" component="span" sx={{...style.subtle}}>
               Copyright &copy; 2023
             </Type>{' '}
-            <MuiNextLink href="/" className={classes.link}>
+            <Link href="/" sx={{...style.link}}>
               Placer County Water Agency
-            </MuiNextLink>{' '}
-            <Type variant="body2" component="span" className={classes.subtle}>
+            </Link>{' '}
+            <Type variant="body2" component="span" sx={{...style.subtle}}>
               All Rights Reserved
               <WeatherIcon
                 name="cloud"
                 fontSize="small"
-                className={classes.weatherIcon}
+                sx={{...style.weatherIcon}}
               />
               Weather Provided by
             </Type>{' '}
             <Link
               variant="body2"
-              className={classes.link}
+              sx={{...style.link}}
               href="https://openweathermap.org/"
               target="_blank"
               rel="noopener noreferrer"
