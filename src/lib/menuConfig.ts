@@ -108,11 +108,11 @@ const menuConfig: MenuConfig[] = [
           //   title: 'Middle Fork American River Project Relicensing',
           //   href: 'http://relicensing.pcwa.net'
           // },
-          {
-            title: 'Education Center',
-            nextLink: '/education-center/[...multimedia]',
-            as: '/education-center/documents'
-          },
+          // {
+          //   title: 'Education Center',
+          //   nextLink: '/education-center/[...multimedia]',
+          //   as: '/education-center/documents'
+          // },
           {
             title: 'Water Year Dashboard',
             nextLink: '/water-year-dashboard'
@@ -327,12 +327,12 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'News Releases',
             nextLink: '/newsroom/news-releases'
-          },
-          {
-            title: 'Publications',
-            nextLink: '/newsroom/publications/[publication]',
-            as: '/newsroom/publications/newsletters'
           }
+          // {
+          //   title: 'Publications',
+          //   nextLink: '/newsroom/publications/[publication]',
+          //   as: '/newsroom/publications/newsletters'
+          // }
           // {
           //   title: 'Legislation & Letters',
           //   nextLink: '/newsroom/legislation-letters'
