@@ -148,7 +148,7 @@ const Index = ({
               imgixURL="https://imgix.cosmicjs.com/275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg"
               imgixParams={{crop: 'right'}}
               alt="Mulch Mayhem Event flier"
-              body="Join us for Mulch Mayhem Saturday, May 6th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
+              body="Join us for Mulch Mayhem on Saturday, May 6th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
             />
           </ChildBox>
 

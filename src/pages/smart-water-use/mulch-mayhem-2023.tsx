@@ -65,7 +65,8 @@ export default function MulchMayhemPage() {
               </Type>
               <Spacing />
               <Type variant="h4" gutterBottom>
-                Join us for Mulch Mayhem Saturday, May 6th, from 8 am to 12 pm.
+                Join us for Mulch Mayhem on Saturday, May 6th, from 8 am to 12
+                pm.
               </Type>
               <Spacing size="small" />
               <Type variant="subtitle1">Sierra College, Overflow Lot</Type>
