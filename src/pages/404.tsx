@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react'
-import {ColumnBox, RowBox} from 'mui-sleazebox'
+import {ColumnBox, RowBox} from '@components/MuiSleazebox'
 import Head from 'next/head'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import {Box, Typography as Type} from '@mui/material'

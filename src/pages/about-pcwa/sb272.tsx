@@ -22,7 +22,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
 import WideContainer from '@components/containers/WideContainer'
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

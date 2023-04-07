@@ -25,7 +25,7 @@ import {
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'

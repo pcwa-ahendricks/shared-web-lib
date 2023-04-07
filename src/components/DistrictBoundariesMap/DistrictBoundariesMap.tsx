@@ -17,7 +17,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import {directors, Director} from '@lib/directors'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/MuiSleazebox'
 import useMapUnsupported from '@hooks/useMapIsUnsupported'
 import ContentDimmer from '@components/ContentDimmer/ContentDimmer'
 //import usePrevious from 'react-use'

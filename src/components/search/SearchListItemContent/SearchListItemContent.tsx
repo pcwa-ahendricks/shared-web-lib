@@ -4,7 +4,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 import Parser from 'html-react-parser'
 import SearchListItemUrlIcon from '../SearchListItemUrlIcon/SearchListItemUrlIcon'
 

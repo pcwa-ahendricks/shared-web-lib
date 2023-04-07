@@ -10,7 +10,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import BoardMinutesAccordion from '@components/BoardMinutesAccordion/BoardMinutesAccordion'
 import {Box, CircularProgress} from '@mui/material'
 import {stringify} from 'querystringify'

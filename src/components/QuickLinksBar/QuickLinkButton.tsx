@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import Link from '@components/Link'
 import {blue as hl} from '@mui/material/colors'
-import {ChildBox, ColumnBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import imgixLoader from '@lib/imageLoader'
 import React, {useCallback, useMemo, useState} from 'react'
 import Image, {ImageProps} from 'next/legacy/image'

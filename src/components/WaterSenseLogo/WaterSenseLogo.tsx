@@ -3,7 +3,7 @@ import Image from 'next/legacy/image'
 import {Box, Typography as Type} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import {RowBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox} from '@components/MuiSleazebox'
 import imgixLoader from '@lib/imageLoader'
 
 const useStyles = makeStyles(() =>

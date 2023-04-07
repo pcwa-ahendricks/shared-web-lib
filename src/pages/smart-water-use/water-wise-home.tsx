@@ -9,7 +9,7 @@ import {Button, Theme, Typography} from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

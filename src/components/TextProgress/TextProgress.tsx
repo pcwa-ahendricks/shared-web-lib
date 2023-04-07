@@ -3,7 +3,7 @@ import {Theme, Typography as Type, Box, LinearProgress} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import styles from './TextProgress.module.css'
-import {FlexBox} from 'mui-sleazebox'
+import {FlexBox} from '@components/MuiSleazebox'
 
 type Props = {
   caption?: string

@@ -25,7 +25,7 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',

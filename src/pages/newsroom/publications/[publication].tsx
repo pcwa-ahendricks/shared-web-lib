@@ -51,7 +51,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
-import {ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
+import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import {
   NewsroomContext,

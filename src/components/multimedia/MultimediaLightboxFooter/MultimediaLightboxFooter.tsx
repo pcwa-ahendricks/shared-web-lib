@@ -6,7 +6,7 @@ import {useTheme, useMediaQuery} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 
 type UseStylesProps = {
   interactionIsIdle?: boolean

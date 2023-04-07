@@ -18,7 +18,7 @@ import {
 } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
 import HumanResourcesEmail from '@components/links/HumanResourcesEmail'

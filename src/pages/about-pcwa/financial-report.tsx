@@ -15,7 +15,7 @@ import {
 } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 // import Spacing from '@components/boxes/Spacing'

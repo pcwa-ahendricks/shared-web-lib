@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, Typography} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import {ColumnBox, RowBox} from 'mui-sleazebox'
+import {ColumnBox, RowBox} from '@components/MuiSleazebox'
 import FlexButton from '@components/FlexButton/FlexButton'
 
 const useStyles = makeStyles({

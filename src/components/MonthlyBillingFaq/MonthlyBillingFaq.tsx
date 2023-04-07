@@ -16,7 +16,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/MuiSleazebox'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

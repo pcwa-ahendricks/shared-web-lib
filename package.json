@@ -97,7 +97,6 @@
     "mapbox-gl": "2.10.0",
     "mdi-material-ui": "^7.6.0",
     "mui-jackinbox": "^1.0.0",
-    "mui-sleazebox": "^1.0.3",
     "next": "13.2.4",
     "next-transpile-modules": "^10.0.0",
     "p-timeout": "^6.0.0",

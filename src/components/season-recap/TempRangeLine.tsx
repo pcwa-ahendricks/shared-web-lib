@@ -14,7 +14,7 @@ import {Box, useTheme, Typography as Type} from '@mui/material'
 import ShowChartIcon from '@mui/icons-material/ShowChart'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import BarChartIcon from '@mui/icons-material/BarChart'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import {LegendProps} from '@nivo/legends'
 import isNumber from 'is-number'
 

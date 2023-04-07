@@ -18,7 +18,7 @@ import {
 } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/legacy/image'
 

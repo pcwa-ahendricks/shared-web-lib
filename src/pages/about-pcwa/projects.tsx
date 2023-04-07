@@ -4,7 +4,12 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {ChildBox, ChildBoxProps, ColumnBox, RowBox} from 'mui-sleazebox'
+import {
+  ChildBox,
+  ChildBoxProps,
+  ColumnBox,
+  RowBox
+} from '@components/MuiSleazebox'
 import {
   Theme,
   Typography as Type,

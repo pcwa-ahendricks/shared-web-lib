@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'

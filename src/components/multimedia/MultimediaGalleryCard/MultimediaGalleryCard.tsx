@@ -7,7 +7,7 @@ import {
   CardContent,
   Typography as Type
 } from '@mui/material'
-import {ChildBox} from 'mui-sleazebox'
+import {ChildBox} from '@components/MuiSleazebox'
 import {MultimediaPhotoGallery} from '../MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {MultimediaVideoGallery} from '../MultimediaVideoGalleries/MultimediaVideoGalleries'
 import Image from 'next/legacy/image'

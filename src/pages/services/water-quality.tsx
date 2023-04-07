@@ -16,7 +16,7 @@ import {
   Typography as Type
 } from '@mui/material'
 import Image from 'next/legacy/image'
-import {RowBox, ColumnBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox, ChildBox} from '@components/MuiSleazebox'
 import {blueGrey} from '@mui/material/colors'
 // import QuoteCloseIcon from '@mui/icons-material/FormatQuote'
 import QuoteOpenIcon from 'mdi-material-ui/FormatQuoteOpen'

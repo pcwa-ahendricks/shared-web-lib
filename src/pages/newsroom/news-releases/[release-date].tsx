@@ -27,7 +27,7 @@ import {
 } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import {format, parseJSON, isValid} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@mui/icons-material/UndoOutlined'

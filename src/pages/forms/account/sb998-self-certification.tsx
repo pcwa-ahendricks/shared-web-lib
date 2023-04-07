@@ -33,7 +33,7 @@ import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButto
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import Sb998SelfCertEligibilityDialog from '@components/formFields/Sb998SelfCertEligibilityDialog'
 import OwnerTenantRadioField from '@components/formFields/OwnerTenantRadioField'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import Sb998FormSubDialog from '@components/FormSubmissionDialog/Sb998FormSubDialog'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'

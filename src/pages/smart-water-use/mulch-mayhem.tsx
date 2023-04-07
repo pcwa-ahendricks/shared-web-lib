@@ -16,7 +16,7 @@ import imgixLoader from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import WideContainer from '@components/containers/WideContainer'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import {Theme} from '@lib/material-theme'
 
 const useStyles = makeStyles((theme: Theme) => ({

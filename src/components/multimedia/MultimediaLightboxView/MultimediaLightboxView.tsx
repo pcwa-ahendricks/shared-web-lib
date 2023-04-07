@@ -2,7 +2,7 @@
 import React, {useCallback, useState, useEffect} from 'react'
 import {Box, CircularProgress, useTheme} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import {FlexBox} from 'mui-sleazebox'
+import {FlexBox} from '@components/MuiSleazebox'
 import {stringify} from 'querystringify'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'

@@ -22,7 +22,7 @@ import {
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import {format, parse} from 'date-fns'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import ErrorPage from '@pages/_error'
 // import HomeIcon from '@mui/icons-material/Home'
 import BackIcon from '@mui/icons-material/UndoOutlined'

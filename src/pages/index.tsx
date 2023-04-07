@@ -11,7 +11,7 @@ import {
   Hidden,
   rgbToHex
 } from '@mui/material'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'

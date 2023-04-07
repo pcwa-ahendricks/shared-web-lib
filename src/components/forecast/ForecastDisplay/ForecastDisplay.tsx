@@ -2,7 +2,7 @@
 import React, {useMemo} from 'react'
 import {Link, Typography as Type, Theme, ButtonBase} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 
 type Props = {

@@ -17,7 +17,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import MainPhone from '@components/links/MainPhone'
 import ProjectGoPhone from '@components/links/ProjectGoPhone'
 import Spacing from '@components/boxes/Spacing'

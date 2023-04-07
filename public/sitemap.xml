@@ -488,6 +488,10 @@
     <changefreq>never</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/04-06-2023</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/news-releases/02-23-2023</loc>
     <changefreq>never</changefreq>
   </url>
@@ -3712,11 +3716,11 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2006-10-11</loc>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2007-04-05</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2007-04-05</loc>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2006-10-11</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -3917,6 +3921,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/03-02-2023</loc>
     <changefreq>never</changefreq>
   </url>
   <url>

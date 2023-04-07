@@ -13,7 +13,7 @@ import JackinBox from 'mui-jackinbox'
 import {useMediaQuery, useTheme} from '@mui/material'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 
 const animateKey = 'homeHeroOverly'
 

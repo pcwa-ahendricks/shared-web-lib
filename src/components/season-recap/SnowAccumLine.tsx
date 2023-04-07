@@ -1,5 +1,5 @@
 // cspell:ignore accum
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import round from '@lib/round'
 import {Box, Typography as Type, useTheme} from '@mui/material'
 import SquareIcon from 'mdi-material-ui/Square'

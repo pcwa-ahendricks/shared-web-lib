@@ -7856,13 +7856,6 @@ mui-jackinbox@^1.0.0:
   dependencies:
     clsx "^1.1.1"
 
-mui-sleazebox@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/mui-sleazebox/-/mui-sleazebox-1.0.3.tgz#dee10494ccc951ca8733932cb39796717773395a"
-  integrity sha512-Hl7GpjwpbzebFZhSvLmTNQltfDs4EPE57pJhPv6jCVmiSQNNiTGft5iim/n7NDsMTkI3OKKwbWABs3wvQpkkxw==
-  dependencies:
-    clsx "^1.1.1"
-
 multipipe@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/multipipe/-/multipipe-1.0.2.tgz#cc13efd833c9cda99f224f868461b8e1a3fd939d"

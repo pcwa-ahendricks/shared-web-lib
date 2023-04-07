@@ -14,7 +14,7 @@ import {
   Box,
   useTheme
 } from '@mui/material'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'

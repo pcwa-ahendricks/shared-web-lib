@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useContext, useEffect} from 'react'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 import DownloadIcon from '@mui/icons-material/GetApp'

@@ -5,7 +5,7 @@ import createStyles from '@mui/styles/createStyles'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
 import menuConfig from '@lib/menuConfig'
-import {RowBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox} from '@components/MuiSleazebox'
 
 type Props = {
   contentKey?: number | null

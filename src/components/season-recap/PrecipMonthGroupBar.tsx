@@ -5,7 +5,7 @@ import {orange, teal, brown, blue} from '@mui/material/colors'
 import {BarDatum, ResponsiveBar} from '@nivo/bar'
 import React, {useMemo} from 'react'
 import {Box, useTheme, Typography as Type} from '@mui/material'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import round from '@lib/round'
 
 type Props = {

@@ -26,7 +26,7 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox, RowBox, ChildBox} from 'mui-sleazebox'
+import {ColumnBox, RowBox, ChildBox} from '@components/MuiSleazebox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'

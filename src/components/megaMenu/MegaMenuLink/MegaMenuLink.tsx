@@ -4,7 +4,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
 import Overline from '@components/Overline/Overline'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/MuiSleazebox'
 
 type Props = {
   typographyClass?: any

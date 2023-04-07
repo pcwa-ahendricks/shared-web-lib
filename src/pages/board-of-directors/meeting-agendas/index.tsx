@@ -47,7 +47,7 @@ import {
   isBefore
 } from 'date-fns'
 import {saveAs} from 'file-saver'
-import {FlexBox, ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
+import {FlexBox, ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@mui/material/colors'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'

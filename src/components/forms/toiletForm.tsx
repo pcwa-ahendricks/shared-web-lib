@@ -28,7 +28,7 @@ import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitc
 import RebatesEmail from '@components/links/RebatesEmail'
 import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/MuiSleazebox'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'

@@ -6,7 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import InboxIcon from '@mui/icons-material/Inbox'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import {
   Typography as Type,
   Box,

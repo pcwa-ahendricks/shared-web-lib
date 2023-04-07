@@ -63,7 +63,7 @@ import {
   publicationsUrl,
   VideoList
 } from '@lib/types/multimedia'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import FancierCardActionArea from '@components/FancierCardActionArea/FancierCardActionArea'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'

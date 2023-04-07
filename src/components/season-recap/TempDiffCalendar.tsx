@@ -1,4 +1,4 @@
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import {
   ResponsiveEnhancedCalendar,
   CalendarDatum

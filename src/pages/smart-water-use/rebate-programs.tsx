@@ -12,7 +12,7 @@ import {
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton, {
   FancyButtonProps

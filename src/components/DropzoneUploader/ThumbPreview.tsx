@@ -10,7 +10,7 @@ import UploadStatusIndicator from './UploadStatusIndicator'
 import useUploadStatus from './useUploadStatus'
 import {UploadStatus} from '@lib/services/uploadService'
 import useSupportsTouch from '@hooks/useSupportsTouch'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/MuiSleazebox'
 
 type Props = {
   file: DroppedFile

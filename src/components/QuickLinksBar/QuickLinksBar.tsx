@@ -3,7 +3,7 @@ import {
   Box
   // Paper,
 } from '@mui/material'
-import {RowBox} from 'mui-sleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 import QuickLinkButton from './QuickLinkButton'
 
 export default function QuickLinksBar() {

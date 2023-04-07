@@ -30,7 +30,7 @@ import {
 } from '@mui/material'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import {getMonth, getYear, parse} from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'

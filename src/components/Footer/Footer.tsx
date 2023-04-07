@@ -12,7 +12,7 @@ import {
   useTheme
 } from '@mui/material'
 import WideContainer from '@components/containers/WideContainer'
-import {RowBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ColumnBox} from '@components/MuiSleazebox'
 import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -72,6 +72,9 @@ const Footer = () => {
     } as SxProps<Theme>
   }
 
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  console.log('is XS: ', isXs)
+
   return (
     <Box>
       <Box bgcolor={theme.palette.primary.main} color={theme.palette.grey[200]}>
@@ -80,6 +83,14 @@ const Footer = () => {
             responsive
             bgcolor="inherit"
             alignItems={{xs: 'center', sm: 'stretch'}} // IE doesn't like 'initial'
+            sx={{
+              [theme.breakpoints.only('xs')]: {
+                alignItems: 'center'
+              },
+              [theme.breakpoints.up('sm')]: {
+                alignItems: 'stretch' // IE doesn't like 'initial'
+              }
+            }}
           >
             <Box flex={{xs: '0 0 auto', sm: '1 1 25%'}}>
               <PcwaLogo
@@ -145,12 +156,18 @@ const Footer = () => {
               ml={{xs: 0, sm: 2}}
               mt={{xs: 4, sm: 0}}
               flex={{xs: '0 0 auto', sm: '1 1 25%'}}
-              alignItems="center"
+              sx={{
+                alignItems: 'center'
+              }}
             >
               <GlowLightGreen>
                 <Link href="/report-water-waste">
                   <ButtonBase>
-                    <ColumnBox alignItems="center">
+                    <ColumnBox
+                      sx={{
+                        alignItems: 'center'
+                      }}
+                    >
                       <WaterIcon />
                       <Type variant="body1">Report Water Waste</Type>
                     </ColumnBox>
@@ -162,7 +179,11 @@ const Footer = () => {
               <GlowLightGreen>
                 <Link href="/contact-us">
                   <ButtonBase>
-                    <ColumnBox alignItems="center">
+                    <ColumnBox
+                      sx={{
+                        alignItems: 'center'
+                      }}
+                    >
                       <ChatIcon />
                       <Type>Contact Us</Type>
                     </ColumnBox>
@@ -186,7 +207,9 @@ const Footer = () => {
               ml={{xs: 0, sm: 2}}
               mt={{xs: 4, sm: 0}}
               flex={{xs: '0 0 auto', sm: '1 1 25%'}}
-              alignItems="center"
+              sx={{
+                alignItems: 'center'
+              }}
             >
               <Type variant="body2" color="inherit">
                 Also on

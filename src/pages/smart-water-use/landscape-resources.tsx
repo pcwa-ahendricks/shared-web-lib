@@ -5,7 +5,7 @@ import {Typography as Type, Divider, Box} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {ChildBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import Image from 'next/legacy/image'
 import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink, {

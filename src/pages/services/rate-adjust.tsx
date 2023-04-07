@@ -9,7 +9,7 @@ import {
   Link
   // Divider
 } from '@mui/material'
-import {ChildBox, ColumnBox, RowBox} from 'mui-sleazebox'
+import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import RateAdjustFAQ from '@components/RateAdjustFAQ/RateAdjustFAQ'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import WideContainer from '@components/containers/WideContainer'

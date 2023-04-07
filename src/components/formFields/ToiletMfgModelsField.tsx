@@ -6,7 +6,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import {FieldArrayRenderProps, FormikProps} from 'formik'
 import FormTextField from '@components/formFields/FormTextField'
 import {ToiletRebateFormData as RebateFormData} from '@lib/services/formService'
-import {FlexBox} from 'mui-sleazebox'
+import {FlexBox} from '@components/MuiSleazebox'
 
 type Props = {
   disabled?: boolean

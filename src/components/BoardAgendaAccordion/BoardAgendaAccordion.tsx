@@ -6,7 +6,7 @@ import {
   AccordionDetails
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import BoardAgendaLink from './BoardAgendaLink'
 

@@ -3,7 +3,7 @@ import {Box, Typography as Type} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox} from 'mui-sleazebox'
+import {ColumnBox} from '@components/MuiSleazebox'
 
 const TypographyPage = () => {
   return (

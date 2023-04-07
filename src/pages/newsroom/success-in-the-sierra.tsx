@@ -14,7 +14,7 @@ import {
   Box
 } from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
-import {FlexBox} from 'mui-sleazebox'
+import {FlexBox} from '@components/MuiSleazebox'
 import Blockquote from '@components/typography/Blockquote'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
