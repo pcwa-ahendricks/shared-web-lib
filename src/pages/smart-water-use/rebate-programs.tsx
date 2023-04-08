@@ -423,8 +423,10 @@ const RebateProgramsPage = () => {
                       <Type variant="h6" component="span">
                         Untreated Water Tank -
                       </Type>{' '}
-                      Receive up to a $500 rebate for purchasing and installing
-                      a water storage tank. For additional information see{' '}
+                      Receive up to a $1,000 rebate for purchasing and
+                      installing a water storage tank more than 2,000 gallons
+                      and up to $500 for a tank less than 2,000 gallons. For
+                      additional information see{' '}
                       <Type component="em" variant="inherit">
                         Untreated Water Tank Rebate Requirements
                       </Type>
