@@ -26,7 +26,8 @@ import {
   Hidden,
   useTheme,
   BoxProps,
-  Link
+  Link,
+  SelectChangeEvent
 } from '@mui/material'
 // import {BasicTooltip} from '@nivo/tooltip'
 import isNumber from 'is-number'
@@ -442,20 +443,18 @@ export default function WaterYearDashboardPage() {
   const [tabValue, setTabValue] = useState(0)
 
   const handleChange = useCallback(
-    (_event: React.ChangeEvent<Record<string, unknown>>, newValue: any) => {
+    (_event: React.SyntheticEvent<Element, Event>, newValue: any) => {
       setTabValue(newValue)
     },
     []
   )
 
-  const yearSelectHandler = useCallback(
-    (event: React.ChangeEvent<{value: unknown}>) => {
-      setWaterYear(event.target.value as number)
-    },
-    []
-  )
+  const yearSelectHandler = useCallback((event: SelectChangeEvent<number>) => {
+    setWaterYear(event.target.value as number)
+  }, [])
+
   const stationSelectHandler = useCallback(
-    (event: React.ChangeEvent<{value: unknown}>) => {
+    (event: SelectChangeEvent<StationId>) => {
       setSid(event.target.value as StationId)
     },
     []

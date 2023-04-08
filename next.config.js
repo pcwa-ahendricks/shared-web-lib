@@ -1,13 +1,5 @@
 // cspell:ignore nskarda hprcc
 /* eslint @typescript-eslint/no-var-requires: 0 */
-// Fix error w/ Vercel and d3, fix error w/ swr and IE11
-const withTM = require('next-transpile-modules')([
-  'd3-shape',
-  'swr'
-  // 'TextProgress', // uses css modules
-  // 'WeatherIcon', // uses css modules
-  // 'StrongEmphasis' // uses css modules
-]) // Pass the modules you would like to see transpiled
 // const {STATS} = process.env
 const isDev = process.env.NODE_ENV === 'development'
 const fileExtRe = '(.[a-z]{1,4})?'
@@ -461,7 +453,9 @@ const legacyRedirects = [
 // }
 // ]
 
-module.exports = withTM({
+module.exports = {
+  // Fix error w/ Vercel and d3, fix error w/ swr and IE11
+  transpilePackages: ['d3-shape', 'swr'],
   // https://github.com/martpie/next-transpile-modules/releases/tag/7.0.0
   async redirects() {
     return [
@@ -595,4 +589,4 @@ module.exports = withTM({
 
     return config
   }
-})
+}

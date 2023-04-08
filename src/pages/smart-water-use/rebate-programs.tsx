@@ -600,7 +600,14 @@ const RebateProgramsPage = () => {
             <RowBox justifyContent="space-around" width="80%">
               <ColumnBox
                 flex="40%"
-                alignItems={{xs: 'flex-start', sm: 'center'}}
+                sx={{
+                  [theme.breakpoints.only('xs')]: {
+                    alignItems: 'flex-start'
+                  },
+                  [theme.breakpoints.up('sm')]: {
+                    alignItems: 'center'
+                  }
+                }}
                 flexSpacing={1}
               >
                 <ChildBox>
@@ -633,7 +640,14 @@ const RebateProgramsPage = () => {
               </ColumnBox>
               <ColumnBox
                 flex="40%"
-                alignItems={{xs: 'flex-start', sm: 'center'}}
+                sx={{
+                  [theme.breakpoints.only('xs')]: {
+                    alignItems: 'flex-start'
+                  },
+                  [theme.breakpoints.up('sm')]: {
+                    alignItems: 'center'
+                  }
+                }}
                 flexSpacing={1}
               >
                 <ChildBox>

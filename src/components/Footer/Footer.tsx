@@ -72,9 +72,6 @@ const Footer = () => {
     } as SxProps<Theme>
   }
 
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  console.log('is XS: ', isXs)
-
   return (
     <Box>
       <Box bgcolor={theme.palette.primary.main} color={theme.palette.grey[200]}>
@@ -82,7 +79,6 @@ const Footer = () => {
           <RowBox
             responsive
             bgcolor="inherit"
-            alignItems={{xs: 'center', sm: 'stretch'}} // IE doesn't like 'initial'
             sx={{
               [theme.breakpoints.only('xs')]: {
                 alignItems: 'center'

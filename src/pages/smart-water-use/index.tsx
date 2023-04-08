@@ -67,10 +67,7 @@ const SmartWaterUsePage = () => {
 
   const handleChange = useCallback(
     (panel: string) =>
-      (
-        _event: React.ChangeEvent<Record<string, unknown>>,
-        isExpanded: boolean
-      ) => {
+      (_event: React.SyntheticEvent<Element, Event>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false)
       },
     []
@@ -739,7 +736,14 @@ const SmartWaterUsePage = () => {
               responsive
               flexSpacing={isSMDown ? 4 : 6}
               justifyContent={{xs: 'flex-start', sm: 'center'}}
-              alignItems={{xs: 'center', sm: 'stretch'}}
+              sx={{
+                [theme.breakpoints.only('xs')]: {
+                  alignItems: 'center'
+                },
+                [theme.breakpoints.up('sm')]: {
+                  alignItems: 'stretch' // IE doesn't like 'initial'
+                }
+              }}
             >
               {/* <ChildBox maxWidth={300}>
                 <Card>

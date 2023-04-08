@@ -575,7 +575,14 @@ const Index = ({
         >
           {/* <RowBox responsive
           flexWrap="nowrap"
-          alignItems={{xs: 'center', sm: 'flex-start'}}
+          sx={{
+            [theme.breakpoints.only('xs')]: {
+              alignItems: 'center'
+            },
+            [theme.breakpoints.up('sm')]: {
+              alignItems: 'flex-start'
+            }
+          }}
           flexSpacing={4}
           justifyContent="space-around"
         > */}
