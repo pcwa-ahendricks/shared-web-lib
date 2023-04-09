@@ -30,7 +30,6 @@ import Spacing from '@components/boxes/Spacing'
 //   VerticalTimelineElementProps
 // } from 'react-vertical-timeline-component'
 // import {lightBlue} from '@mui/material/colors'
-// import alpha from 'color-alpha'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import ARBSSidebar from '@components/ARBSSidebar/ARBSSidebar'

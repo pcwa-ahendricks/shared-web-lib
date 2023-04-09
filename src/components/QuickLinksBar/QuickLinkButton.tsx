@@ -4,7 +4,8 @@ import {
   useMediaQuery,
   FabProps,
   LinkProps as MuiLinkProps,
-  SxProps
+  SxProps,
+  alpha
 } from '@mui/material'
 import Link from '@components/Link'
 import {blue as hl} from '@mui/material/colors'
@@ -13,7 +14,6 @@ import imgixLoader from '@lib/imageLoader'
 import React, {useCallback, useMemo, useState} from 'react'
 import Image, {ImageProps} from 'next/legacy/image'
 import Overline from '@components/Overline/Overline'
-import alpha from 'color-alpha'
 import {Theme} from '@lib/material-theme'
 
 export default function QuickLinkButton({

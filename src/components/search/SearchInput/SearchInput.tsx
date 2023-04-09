@@ -1,5 +1,6 @@
 import React, {useCallback, useContext, useState, useRef} from 'react'
 import {
+  alpha,
   Box,
   InputBase,
   Paper,
@@ -11,7 +12,6 @@ import {
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import IconButton from '@mui/material/IconButton'
-import colorAlpha from 'color-alpha'
 import search from '@lib/services/googleSearchService'
 import SearchResultsDialog from '../SearchResultsDialog/SearchResultsDialog'
 import {
@@ -42,7 +42,7 @@ const maxBetterTotalResultsHackIterations = 5 // This count doesn't include the 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: colorAlpha(theme.palette.primary.main, 0.07),
+      backgroundColor: alpha(theme.palette.primary.main, 0.07),
       margin: theme.spacing(1),
       height: theme.spacing(4),
       display: 'flex',

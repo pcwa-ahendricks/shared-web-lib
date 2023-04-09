@@ -1,8 +1,7 @@
 import React from 'react'
-import {Box, Typography as Type} from '@mui/material'
+import {Box, Typography as Type, alpha} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import colorAlpha from 'color-alpha'
 import {blueGrey} from '@mui/material/colors'
 import {StationMeta} from '@pages/water-year-dashboard'
 import JackinBox from 'mui-jackinbox'
@@ -16,7 +15,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     infoBoxPanel: {
       pointerEvents: 'none',
-      backgroundColor: colorAlpha(blueGrey[50], 0.7),
+      backgroundColor: alpha(blueGrey[50], 0.7),
       color: blueGrey[800],
       backdropFilter: 'blur(2px)'
     },

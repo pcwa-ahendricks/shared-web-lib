@@ -6,6 +6,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
+  alpha,
   Paper,
   Typography,
   Box,
@@ -18,7 +19,6 @@ import {
 } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
-import colorAlpha from 'color-alpha'
 import {yellow} from '@mui/material/colors'
 import Spacing from '@components/boxes/Spacing'
 import useSWR from 'swr'
@@ -85,7 +85,7 @@ export default function BasicTemplatePage() {
             title="Board Meeting Dates"
             subtitle="for administrative use"
           />
-          <Box bgcolor={colorAlpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
+          <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             <Typography variant="body1">
               Please note, any and all future Board Meeting dates and times
               listed below are subject to change. Please visit{' '}

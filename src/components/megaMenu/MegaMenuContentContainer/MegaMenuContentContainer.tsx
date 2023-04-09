@@ -1,8 +1,7 @@
 import React from 'react'
-import {Paper, Theme} from '@mui/material'
+import {Paper, Theme, alpha} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import colorAlpha from 'color-alpha'
 
 type Props = {
   children: React.ReactNode
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100vw',
     minHeight: '30vh',
     // backgroundColor: theme.palette.primary.dark // Dark background
-    backgroundColor: colorAlpha(theme.palette.background.paper, 0.96) // Light, transparent background
+    backgroundColor: alpha(theme.palette.background.paper, 0.96) // Light, transparent background
   },
   trans: ({crossFadeDuration}: Partial<Props>) => ({
     '& .cross-fade-leave': {
