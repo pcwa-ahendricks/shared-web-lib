@@ -9,9 +9,7 @@ import React, {
 import ForecastDisplay, {
   ForecastDataset
 } from '@components/forecast/ForecastDisplay/ForecastDisplay'
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import {Box, BoxProps} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import ForecastPopover from '@components/forecast/ForecastPopover/ForecastPopover'
 import {maxInt} from '@lib/util'
 import {
@@ -25,33 +23,7 @@ type Props = {
   cycleInterval?: number
   crossFadeDuration?: number
   forecasts?: ForecastDataset[]
-} & BoxProps
-
-interface UseStylesProps {
-  crossFadeDuration: Props['crossFadeDuration']
-}
-
-const useStyles = makeStyles({
-  trans: ({crossFadeDuration}: UseStylesProps) => ({
-    '& .cross-fade-leave': {
-      opacity: 1,
-      transition: `opacity ${crossFadeDuration}ms linear`
-    },
-    '& .cross-fade-leave.cross-fade-leave-active': {
-      opacity: 0
-    },
-    '& .cross-fade-enter': {
-      opacity: 0,
-      transition: `opacity ${crossFadeDuration}ms linear`
-    },
-    '& .cross-fade-enter.cross-fade-enter-active': {
-      opacity: 1
-    },
-    '&.cross-fade-height': {
-      transition: `height ${crossFadeDuration}ms ease-in-out`
-    }
-  })
-})
+} & Partial<BoxProps>
 
 const ForecastCycle = ({
   forecasts = [],
@@ -59,9 +31,7 @@ const ForecastCycle = ({
   crossFadeDuration = 1000 * 1, // 1 second
   ...rest
 }: Props) => {
-  const classes = useStyles({crossFadeDuration})
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const [transitionEnter, setTransitionEnter] = useState<boolean>(false)
 
   const forecastContext = useContext(ForecastContext)
   const forecastDispatch = forecastContext.dispatch
@@ -94,7 +64,7 @@ const ForecastCycle = ({
     [forecasts, activeCycleForecastId]
   )
 
-  const handlePopoverOpen = useCallback((event) => {
+  const handlePopoverOpen = useCallback((event: any) => {
     setAnchorEl(event.currentTarget)
   }, [])
 
@@ -107,19 +77,15 @@ const ForecastCycle = ({
   const hasAnchorEl = useMemo(() => Boolean(anchorEl), [anchorEl])
 
   const forecastDisplay = useMemo(
-    () =>
-      forecast && forecast.id ? (
-        <ForecastDisplay key={forecast.id} forecast={forecast} />
-      ) : null,
+    () => (
+      <Box>
+        {forecast && forecast.id ? (
+          <ForecastDisplay key={forecast.id} forecast={forecast} />
+        ) : null}
+      </Box>
+    ),
     [forecast]
   )
-
-  const transitionLeaveHandler = useCallback(() => {
-    // Shorten the "Enter" transition during first enter (every page load). See below.
-    if (!transitionEnter) {
-      setTransitionEnter(true)
-    }
-  }, [transitionEnter])
 
   return (
     <Box
@@ -127,19 +93,10 @@ const ForecastCycle = ({
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
       onMouseLeave={handlePopoverClose}
+      className="transContainer"
       {...rest}
     >
-      <ReactCSSTransitionReplace
-        className={classes.trans}
-        transitionName="cross-fade"
-        transitionEnterTimeout={
-          !transitionEnter ? crossFadeDuration * 0.1 : crossFadeDuration
-        }
-        transitionLeaveTimeout={crossFadeDuration}
-        onTransitionEnd={transitionLeaveHandler}
-      >
-        {forecastDisplay}
-      </ReactCSSTransitionReplace>
+      {forecastDisplay}
       <ForecastPopover
         open={hasAnchorEl}
         anchorEl={anchorEl}

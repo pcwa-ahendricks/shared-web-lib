@@ -1,14 +1,14 @@
 import React from 'react'
 import SecondaryHeader from '../SecondaryHeader/SecondaryHeader'
+import {Box} from '@mui/material'
 // import PrimaryHeader from '../PrimaryHeader/PrimaryHeader'
-import {Hidden} from '@mui/material'
 
 const HeaderContainer = () => {
   return (
     <>
-      <Hidden only="xs" implementation="css">
+      <Box sx={{display: {xs: 'none', sm: 'block'}}}>
         <SecondaryHeader />
-      </Hidden>
+      </Box>
       {/* <PrimaryHeader /> */}
     </>
   )

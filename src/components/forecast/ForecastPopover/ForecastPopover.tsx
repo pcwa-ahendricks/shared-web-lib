@@ -1,10 +1,9 @@
 import React from 'react'
-import {Popover, Theme} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Popover, useTheme} from '@mui/material'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
+import {Theme} from '@lib/material-theme'
 
 const imageHeight = 25
 const imageWidth = 130
@@ -15,35 +14,20 @@ type Props = {
   open?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none'
-    },
-    paper: {
-      padding: theme.spacing(1),
-      backgroundColor: '#FFFFFF'
-    },
-    popoverContent: {
-      height: imageHeight,
-      width: imageWidth,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  })
-)
-
 const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
-  const classes = useStyles()
   const hasAnchorEl = Boolean(anchorEl)
+  const theme = useTheme<Theme>()
   return (
     <Popover
       id="mouse-over-popover"
-      className={classes.popover}
-      classes={{
-        paper: classes.paper
+      sx={{
+        pointerEvents: 'none'
+      }}
+      PaperProps={{
+        sx: {
+          padding: theme.spacing(1),
+          backgroundColor: '#FFFFFF'
+        }
       }}
       open={open && hasAnchorEl}
       anchorEl={anchorEl}
@@ -58,7 +42,16 @@ const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
       onClose={onPopoverClose}
       disableRestoreFocus
     >
-      <div className={classes.popoverContent}>
+      <Box
+        sx={{
+          height: imageHeight,
+          width: imageWidth,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Image
           loader={imgixUrlLoader}
           height={imageHeight}
@@ -70,7 +63,7 @@ const ForecastPopover = ({onPopoverClose, anchorEl, open = false}: Props) => {
           alt="OpenWeather logo"
           objectFit="cover"
         />
-      </div>
+      </Box>
     </Popover>
   )
 }

@@ -3,12 +3,11 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ForecastDataset} from '@components/forecast/ForecastDisplay/ForecastDisplay'
 import {Box, useMediaQuery, BoxProps} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import dynamic from 'next/dynamic'
 // import ForecastCycle from '@components/forecast/ForecastCycle/ForecastCycle'
 const DynamicForecastCycle = dynamic(
-  () => import('@components/forecast/ForecastCycle/ForecastCycle')
+  () => import('@components/forecast/ForecastCycle/ForecastCycle'),
+  {ssr: false}
 )
 
 type ForecastData = ForecastDataset['data']
@@ -42,17 +41,7 @@ const dutchFlatForecastUrl = `${apiUrl}${stringify(
   true
 )}`
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    forecast: {
-      width: '100%',
-      position: 'relative'
-    }
-  })
-)
-
 const ForecastContainer = ({...props}: BoxProps) => {
-  const classes = useStyles()
   const [ready, setReady] = useState(false)
   const noForecast = useMediaQuery('@media screen and (max-width: 885px)')
 
@@ -135,7 +124,10 @@ const ForecastContainer = ({...props}: BoxProps) => {
   return (
     <Box {...props}>
       <DynamicForecastCycle
-        className={classes.forecast}
+        sx={{
+          width: '100%',
+          position: 'relative'
+        }}
         forecasts={forecasts}
       />
     </Box>
