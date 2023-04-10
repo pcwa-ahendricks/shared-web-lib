@@ -1,9 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Box, Theme, useTheme, BoxProps} from '@mui/material'
 
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-
 export type GlowGreenProps = {
   children: React.ReactNode
   active?: boolean
@@ -11,29 +8,12 @@ export type GlowGreenProps = {
   inactiveColor?: string
 } & BoxProps
 
-interface UseStylesProps {
-  active: boolean
-  inactiveColor: string
-  activeColor: string
-}
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    glowGreenButton: ({
-      active,
-      inactiveColor,
-      activeColor
-    }: UseStylesProps) => ({
-      color: active ? activeColor : inactiveColor
-    })
-  })
-)
-
 const GlowGreen = ({
   children,
   active: activeProp,
   activeColor,
   inactiveColor,
+  sx,
   ...rest
 }: GlowGreenProps) => {
   const theme = useTheme<Theme>()
@@ -45,11 +25,6 @@ const GlowGreen = ({
     () => (activeProp !== undefined ? activeProp : active),
     [activeProp, active]
   )
-  const classes = useStyles({
-    active: isActive,
-    activeColor,
-    inactiveColor
-  })
 
   const buttonEnterHandler = useCallback(() => {
     setActive(true)
@@ -61,7 +36,10 @@ const GlowGreen = ({
 
   return (
     <Box
-      className={classes.glowGreenButton}
+      sx={{
+        ...sx,
+        color: isActive ? activeColor : inactiveColor
+      }}
       onMouseEnter={buttonEnterHandler}
       onMouseLeave={buttonLeaveHandler}
       {...rest}

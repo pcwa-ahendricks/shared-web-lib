@@ -30,6 +30,7 @@ import {
   NewsroomContext,
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
+import styles from './Footer.module.css'
 
 const SubtleDivider = () => {
   const theme = useTheme<Theme>()
@@ -62,8 +63,7 @@ const Footer = () => {
       fontSize: '0.9rem'
     } as SxProps<Theme>,
     link: {
-      color: theme.palette.grey[200],
-      fontSize: '0.9rem'
+      color: theme.palette.grey[200]
     } as SxProps<Theme>,
     weatherIcon: {
       marginLeft: theme.spacing(1),
@@ -153,48 +153,60 @@ const Footer = () => {
               mt={{xs: 4, sm: 0}}
               flex={{xs: '0 0 auto', sm: '1 1 25%'}}
               sx={{
-                alignItems: 'center'
+                alignItems: 'center',
+                color: 'grey.200'
               }}
             >
               <GlowLightGreen>
-                <Link href="/report-water-waste">
+                <Link
+                  href="/report-water-waste"
+                  sx={{
+                    color: 'inherit'
+                  }}
+                >
                   <ButtonBase>
-                    <ColumnBox
-                      sx={{
-                        alignItems: 'center'
-                      }}
-                    >
-                      <WaterIcon />
-                      <Type variant="body1">Report Water Waste</Type>
-                    </ColumnBox>
+                    <Box display="flex" flexDirection="column">
+                      <Box>
+                        <WaterIcon />
+                      </Box>
+                      <Type variant="body1" sx={{color: 'inherit'}}>
+                        Report Water Waste
+                      </Type>
+                    </Box>
                   </ButtonBase>
                 </Link>
               </GlowLightGreen>
+
               <SubtleDivider />
 
               <GlowLightGreen>
-                <Link href="/contact-us">
+                <Link
+                  href="/contact-us"
+                  sx={{
+                    color: 'inherit'
+                  }}
+                >
                   <ButtonBase>
-                    <ColumnBox
-                      sx={{
-                        alignItems: 'center'
-                      }}
-                    >
-                      <ChatIcon />
+                    <Box display="flex" flexDirection="column">
+                      <Box>
+                        <ChatIcon />
+                      </Box>
                       <Type>Contact Us</Type>
-                    </ColumnBox>
+                    </Box>
                   </ButtonBase>
                 </Link>
               </GlowLightGreen>
+
               <SubtleDivider />
+
               <GlowLightGreen>
                 <ButtonBase onClick={subscribeEnewsHandler}>
-                  <ColumnBox>
+                  <Box display="flex" flexDirection="column">
                     <Box>
                       <EmailIcon />
                     </Box>
                     <Type>Subscribe to E-News</Type>
-                  </ColumnBox>
+                  </Box>
                 </ButtonBase>
               </GlowLightGreen>
             </ColumnBox>
@@ -242,14 +254,33 @@ const Footer = () => {
       </Box>
       <Box bgcolor={theme.palette.primary.dark}>
         <WideContainer mt={3} mb={3}>
-          <Box bgcolor="inherit">
-            <Type variant="body2" component="span" sx={{...style.subtle}}>
+          <Box bgcolor="inherit" sx={{fontSize: '0.9rem'}}>
+            <Type
+              variant="body2"
+              component="span"
+              classes={{body2: styles.copyright}}
+              sx={{...style.subtle, fontSize: 'inherit'}}
+            >
               Copyright &copy; 2023
             </Type>{' '}
-            <Link href="/" sx={{...style.link}}>
+            <Link
+              variant="body2"
+              sx={{...style.link}}
+              TypographyClasses={{
+                body2: styles.copyright
+              }}
+              classes={{root: styles.copyright}}
+              href="/"
+              underline="hover"
+            >
               Placer County Water Agency
             </Link>{' '}
-            <Type variant="body2" component="span" sx={{...style.subtle}}>
+            <Type
+              variant="body2"
+              component="span"
+              classes={{body2: styles.copyright}}
+              sx={{...style.subtle}}
+            >
               All Rights Reserved
               <WeatherIcon
                 name="cloud"
@@ -260,6 +291,10 @@ const Footer = () => {
             </Type>{' '}
             <Link
               variant="body2"
+              TypographyClasses={{
+                body2: styles.copyright
+              }}
+              classes={{root: styles.copyright}}
               sx={{...style.link}}
               href="https://openweathermap.org/"
               target="_blank"

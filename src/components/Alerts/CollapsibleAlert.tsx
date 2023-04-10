@@ -5,14 +5,11 @@ import {
   IconButton,
   lighten,
   darken,
-  Theme,
   useTheme,
   useMediaQuery,
   Alert,
   AlertProps
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {
   UiContext,
   setAlertHidden,
@@ -31,45 +28,6 @@ export type CollapsibleAlertProps = {
   topBgGradient?: boolean
 } & AlertProps
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    alertRoot: ({
-      bgColor,
-      isFirstAlert,
-      topBgGradient,
-      isFirstAndLastAlert,
-      bottomBgGradient,
-      isLastAlert,
-      isSMUp,
-      isXS
-    }: any) => ({
-      // First Alert (SM)
-      ...(isFirstAlert &&
-        isSMUp &&
-        topBgGradient &&
-        (!isFirstAndLastAlert ||
-          (isFirstAndLastAlert && !bottomBgGradient)) && {
-          // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
-          background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${bgColor} 8%)`
-        }),
-      // First and Last Alert (SM)
-      ...(isSMUp &&
-        isFirstAndLastAlert &&
-        topBgGradient &&
-        bottomBgGradient && {
-          background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${bgColor} 8%, ${bgColor} 92%, ${theme.palette.background.default} 100%  )`
-        }),
-      // First and Last Alert (XS), or Last Alert
-      ...((isXS && isFirstAndLastAlert && topBgGradient && bottomBgGradient) ||
-        (isLastAlert &&
-          bottomBgGradient &&
-          (!isFirstAndLastAlert || (isFirstAndLastAlert && !topBgGradient)) && {
-            background: `linear-gradient(0deg, ${theme.palette.background.default} 0%, ${bgColor} 8%)`
-          }))
-    })
-  })
-)
-
 export default function CollapsibleAlert({
   position,
   hidden,
@@ -80,6 +38,7 @@ export default function CollapsibleAlert({
   bottomBgGradient = true,
   topBgGradient = true,
   severity,
+  sx,
   ...rest
 }: CollapsibleAlertProps) {
   const uiContext = useContext(UiContext)
@@ -149,19 +108,8 @@ export default function CollapsibleAlert({
     return idx === activeAlerts.length - 1 && idx === 0
   }, [activeAlerts, position])
 
-  const classes = useStyles({
-    bgColor,
-    isXS,
-    // matchesIe,
-    isFirstAlert,
-    topBgGradient,
-    isFirstAndLastAlert,
-    bottomBgGradient,
-    isLastAlert,
-    isSMUp
-  })
   const collapseHandler = useCallback(
-    (hidden) => () => {
+    (hidden: boolean) => () => {
       uiDispatch(setAlertHidden({position, hidden}))
     },
     [uiDispatch, position]
@@ -170,6 +118,18 @@ export default function CollapsibleAlert({
   const exitedHandler = useCallback(() => {
     uiDispatch(setAlertActive({position, active: false}))
   }, [uiDispatch, position])
+
+  // First and Last Alert (XS), or Last Alert
+  const isFirstAndLastOnXs =
+    isXS && isFirstAndLastAlert && topBgGradient && bottomBgGradient
+  const isFirstAndLastWithNoTopGradient = isFirstAndLastAlert && !topBgGradient
+  const notFirstAndLastAlertOrIsFirstAndLastWithNoTopGradient =
+    !isFirstAndLastAlert || isFirstAndLastWithNoTopGradient
+  const firstAndLastOnXsOrLast =
+    isFirstAndLastOnXs ||
+    (isLastAlert &&
+      bottomBgGradient &&
+      notFirstAndLastAlertOrIsFirstAndLastWithNoTopGradient)
 
   return (
     <Collapse in={showAlert} onExited={exitedHandler}>
@@ -187,7 +147,28 @@ export default function CollapsibleAlert({
           ) : null
         }
         severity={severity}
-        classes={{root: classes.alertRoot}}
+        sx={{
+          // First Alert (SM)
+          ...(isFirstAlert &&
+            isSMUp &&
+            topBgGradient &&
+            (!isFirstAndLastAlert ||
+              (isFirstAndLastAlert && !bottomBgGradient)) && {
+              // Use a CSS color gradient the spans from the background color, to the standard warning color. Built with https://cssgradient.io. See https://github.com/mui-org/material-ui/blob/4e12b951f64fd47864b4dea8ec8631387a89ddb1/packages/material-ui-lab/src/Alert/Alert.js#L46 for more info.
+              background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${bgColor} 8%)`
+            }),
+          // First and Last Alert (SM)
+          ...(isSMUp &&
+            isFirstAndLastAlert &&
+            topBgGradient &&
+            bottomBgGradient && {
+              background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${bgColor} 8%, ${bgColor} 92%, ${theme.palette.background.default} 100%  )`
+            }),
+          ...(firstAndLastOnXsOrLast && {
+            background: `linear-gradient(0deg, ${theme.palette.background.default} 0%, ${bgColor} 8%)`
+          }),
+          ...sx
+        }}
         {...rest}
       >
         {children}

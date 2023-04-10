@@ -1,6 +1,5 @@
 // cspell:ignore focusable
 import React, {useCallback, useEffect, useState} from 'react'
-import {makeStyles, createStyles} from '@mui/styles'
 import {AlertTitle, SvgIcon} from '@mui/material'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import useSWR from 'swr'
@@ -81,14 +80,6 @@ const bodyParserOptions: HTMLReactParserOptions = {
   }
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    alertTitle: {
-      marginBottom: 4
-    }
-  })
-)
-
 function CollapsibleCosmicAlert({
   children,
   muiIconFamily = 'baseline',
@@ -124,7 +115,6 @@ function CollapsibleCosmicAlert({
     () => (svgIconText ? <ParsedSvgIcon /> : <EmptyIcon />),
     [svgIconText, ParsedSvgIcon]
   )
-  const classes = useStyles()
   const router = useRouter()
   const {asPath} = router
   const [showAlert, setShowAlert] = useState(false)
@@ -142,7 +132,7 @@ function CollapsibleCosmicAlert({
 
   return (
     <CollapsibleAlert icon={<SvgIconEx />} {...props}>
-      <AlertTitle classes={{root: classes.alertTitle}}>
+      <AlertTitle>
         <ParsedHeading />
       </AlertTitle>
       <ParsedContent />

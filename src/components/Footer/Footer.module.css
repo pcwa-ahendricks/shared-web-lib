@@ -1,0 +1,4 @@
+/* There could be a specifity issue with using <Typography sx={{fontSize: 0.9rem}} .../> with responsizeFontSizes used in theme. Instead of using !important, use class specificity here. See https://github.com/mui/material-ui/issues/31078 for more info */
+.copyright {
+	font-size: 0.9rem;
+}

@@ -8,7 +8,7 @@ import React, {
 import Head from 'next/head'
 import HeaderContainer from '@components/HeaderContainer/HeaderContainer'
 import Drawer from '@components/Drawer/Drawer'
-import {Hidden, useMediaQuery, useTheme, BoxProps} from '@mui/material'
+import {useMediaQuery, useTheme, BoxProps, Box} from '@mui/material'
 import ErrorDialog from '@components/ui/ErrorDialog/ErrorDialog'
 import {UiContext, dismissError, setPageLoading} from '@components/ui/UiStore'
 import Footer from '@components/Footer/Footer'
@@ -122,9 +122,9 @@ const PageLayout = ({
       {/* <Header/> is using a z-index of 1100 .MuiAppBar-root selector, so this modal should appear above header by over-riding styling. See https://github.com/jossmac/react-images/issues/315#issuecomment-527159930. */}
       <PageProgress show={pageLoading} />
       <ColumnBox height="100%" id={backToTopAnchorId}>
-        <Hidden smUp implementation="css">
+        <Box sx={{display: {xs: 'none', sm: 'block'}}}>
           <Drawer />
-        </Hidden>
+        </Box>
         <HeaderContainer />
         <ChildBox flex="0 0 auto">
           <Alerts fallbackData={initialAlertsData} {...alertsProps} />
