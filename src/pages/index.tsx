@@ -27,6 +27,11 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
+import {
+  LeftLargeRibbon,
+  LeftRibbon,
+  RibbonContainer
+} from '@components/Ribbons/Ribbons'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -653,6 +658,37 @@ const Index = ({
             />
           </ChildBox> */}
 
+          <ChildBox width={tileWidth}>
+            <RibbonContainer
+              minHeight={theme.spacing(3)}
+              style={{zIndex: 2, transform: 'scale(1.5)', transformOrigin: -2}}
+            >
+              <LeftRibbon
+                backgroundColor="#cc4400"
+                color="#f0f0f0"
+                fontFamily="Arial"
+                zIndex={3}
+              >
+                <span
+                  style={{
+                    verticalAlign: 'top',
+                    fontSize: '0.6rem'
+                  }}
+                >
+                  Sign Online
+                </span>
+              </LeftRibbon>
+            </RibbonContainer>
+            <CoverTile
+              width={tileWidth}
+              title="Irrigation Service Agreement"
+              imgixURL="https://imgix.cosmicjs.com/2662b390-b79b-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgementbg.png"
+              linkHref="/services/irrigation-service-agreement"
+              flexLinkProps={{isNextLink: true}}
+              imgixParams={{fit: 'fill', bg: '#013769'}}
+              alt="Irrigation Service Agreement QR Code"
+            />
+          </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
