@@ -21,6 +21,7 @@ import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 // import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
+import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -252,7 +253,7 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                {/* <ChildBox position="relative">
+                <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -288,7 +289,7 @@ const RebateProgramsPage = () => {
                       />
                     </ColumnBox>
                   </RebateCard>
-                </ChildBox> */}
+                </ChildBox>
                 <ChildBox position="relative">
                   <RebateCard pt={4}>
                     <Type paragraph>
