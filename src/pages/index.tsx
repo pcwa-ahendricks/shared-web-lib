@@ -27,11 +27,7 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
-import {
-  LeftLargeRibbon,
-  LeftRibbon,
-  RibbonContainer
-} from '@components/Ribbons/Ribbons'
+import {LeftRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
 const FETCHER_TIMEOUT = 2000
 
