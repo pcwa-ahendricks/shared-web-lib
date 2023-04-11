@@ -59,8 +59,8 @@ export default function MulchMayhemPage() {
             <ChildBox flex="60%">
               <Type variant="h3" color="primary" gutterBottom>
                 <em>
-                  Free Mulch available for Drive Thru Customers of Hosting
-                  Agencies
+                  Free Mulch available for Customers of PCWA and San Juan Water
+                  District
                 </em>
               </Type>
               <Spacing />
@@ -76,8 +76,9 @@ export default function MulchMayhemPage() {
               </Type>
 
               <Type variant="body1">
-                A Drive Thru Only Event for Trucks and Trailers. (Bring your own
-                tarp to cover.)
+                There will be a Drive-thru pickup option and Do-it-yourself pile
+                available at the event. Please note, Drive-thru pickup will
+                require a truck and/or trailer (bring your own tarp to cover).
               </Type>
               <List dense>
                 <ListItem classes={{root: classes.listItem}}>
