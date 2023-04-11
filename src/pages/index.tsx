@@ -27,7 +27,6 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
-import {LeftRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -654,27 +653,7 @@ const Index = ({
             />
           </ChildBox> */}
 
-          <ChildBox width={tileWidth}>
-            <RibbonContainer
-              minHeight={theme.spacing(3)}
-              style={{zIndex: 2, transform: 'scale(1.5)', transformOrigin: -2}}
-            >
-              <LeftRibbon
-                backgroundColor="#cc4400"
-                color="#f0f0f0"
-                fontFamily="Arial"
-                zIndex={3}
-              >
-                <span
-                  style={{
-                    verticalAlign: 'top',
-                    fontSize: '0.6rem'
-                  }}
-                >
-                  Sign Online
-                </span>
-              </LeftRibbon>
-            </RibbonContainer>
+          <ChildBox width={tileWidth} position="relative">
             <CoverTile
               width={tileWidth}
               title="Irrigation Service Agreement"
