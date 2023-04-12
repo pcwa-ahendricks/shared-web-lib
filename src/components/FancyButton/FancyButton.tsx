@@ -1,7 +1,5 @@
 import React, {useState, useCallback} from 'react'
 import {Box, Button, ButtonProps} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import NativeListener from 'react-native-listener'
 
 export type FancyButtonProps = {
@@ -11,60 +9,16 @@ export type FancyButtonProps = {
   transitionDuration?: string
 } & ButtonProps<'a'>
 
-type UseStylesProps = {
-  isHovering: boolean
-  transition: FancyButtonProps['transition']
-  transitionDuration: FancyButtonProps['transitionDuration']
-}
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: ({transition}: UseStylesProps) => ({
-      overflow: transition === 'slideUp' ? 'hidden' : 'visible' // Hide translated content with slideUp button.
-    }),
-    hoverText: ({
-      isHovering,
-      transition,
-      transitionDuration
-    }: UseStylesProps) => ({
-      opacity: transition !== 'fade' ? 1 : isHovering ? 1 : 0,
-      transform:
-        transition !== 'slideUp'
-          ? 'none'
-          : isHovering
-          ? 'translateY(0)'
-          : 'translateY(50px)',
-      transition: `all ${transitionDuration} ease`,
-      transitionProperty: 'opacity, transform'
-    }),
-    children: ({
-      isHovering,
-      transition,
-      transitionDuration
-    }: UseStylesProps) => ({
-      opacity: transition !== 'fade' ? 1 : isHovering ? 0 : 1,
-      transform:
-        transition !== 'slideUp'
-          ? 'none'
-          : isHovering
-          ? 'translateY(-50px)'
-          : 'translateY(0)',
-      transition: `all ${transitionDuration} ease`,
-      transitionProperty: 'opacity, transform'
-    })
-  })
-)
-
 const FancyButton = ({
   hoverText,
   transition = 'fade',
   children,
   transitionDuration = '150ms',
   href,
+  sx,
   ...rest
 }: FancyButtonProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
-  const classes = useStyles({isHovering, transition, transitionDuration})
 
   // [HACK] Next <Link/> will block React's synthetic events, such as onMouseEnter and onMouseLeave. Use react-native-listener as a workaround for this behavior.
   const onMouseEnterHandler = useCallback(() => {
@@ -80,16 +34,48 @@ const FancyButton = ({
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
-      <Button component="a" href={href} className={classes.root} {...rest}>
+      <Button
+        component="a"
+        href={href}
+        sx={{
+          ...sx,
+          overflow: transition === 'slideUp' ? 'hidden' : 'visible' // Hide translated content with slideUp button.
+        }}
+        {...rest}
+      >
         <Box
           component="span"
           position="absolute"
           zIndex="2"
-          className={classes.hoverText}
+          sx={{
+            opacity: transition !== 'fade' ? 1 : isHovering ? 1 : 0,
+            transform:
+              transition !== 'slideUp'
+                ? 'none'
+                : isHovering
+                ? 'translateY(0)'
+                : 'translateY(50px)',
+            transition: `all ${transitionDuration} ease`,
+            transitionProperty: 'opacity, transform'
+          }}
         >
           {hoverText ?? children}
         </Box>
-        <Box component="span" zIndex="1" className={classes.children}>
+        <Box
+          component="span"
+          zIndex="1"
+          sx={{
+            opacity: transition !== 'fade' ? 1 : isHovering ? 0 : 1,
+            transform:
+              transition !== 'slideUp'
+                ? 'none'
+                : isHovering
+                ? 'translateY(-50px)'
+                : 'translateY(0)',
+            transition: `all ${transitionDuration} ease`,
+            transitionProperty: 'opacity, transform'
+          }}
+        >
           {children}
         </Box>
       </Button>

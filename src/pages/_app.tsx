@@ -49,6 +49,7 @@ const MUI_LICENSE_KEY = process.env.NEXT_MUI_LICENSE_KEY ?? ''
 LicenseInfo.setLicenseKey(MUI_LICENSE_KEY)
 
 const isDev = process.env.NODE_ENV === 'development'
+export const mmCrossFadeDuration = 250
 
 export default function MyApp(props: MyAppProps) {
   const {Component, emotionCache = clientSideEmotionCache, pageProps} = props
@@ -210,7 +211,24 @@ export default function MyApp(props: MyAppProps) {
                 color: 'inherit',
                 outline: 0,
                 cursor: 'auto'
-              }
+              },
+            '.mm-cross-fade-leave': {
+              opacity: 1,
+              transition: `opacity ${mmCrossFadeDuration}ms linear`
+            },
+            '.mm-cross-fade-leave.mm-cross-fade-leave-active': {
+              opacity: 0
+            },
+            '.mm-cross-fade-enter': {
+              opacity: 0,
+              transition: `opacity ${mmCrossFadeDuration}ms linear`
+            },
+            '.mm-cross-fade-enter.mm-cross-fade-enter-active': {
+              opacity: 1
+            },
+            '.mm-cross-fade-height': {
+              transition: `height ${mmCrossFadeDuration}ms ease-in-out`
+            }
             // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
             // '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
             //   color: theme.palette.secondary.dark

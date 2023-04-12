@@ -1,37 +1,16 @@
 import React, {useMemo} from 'react'
-import {Box, Typography as Type, Theme, Divider} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Typography as Type, Divider, useTheme} from '@mui/material'
 import MegaMenuContentContainer from '../megaMenu/MegaMenuContentContainer/MegaMenuContentContainer'
 import MMNavLink from '../MMNavLink/MMNavLink'
 import menuConfig from '@lib/menuConfig'
 import {RowBox, ColumnBox} from '@components/MuiSleazebox'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   contentKey?: number | null
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    groupName: {
-      color: theme.palette.primary.dark,
-      // color: theme.palette.grey[100]
-      paddingLeft: 8 // Match NavLink buttonText class and this divider class.
-    },
-    divider: {
-      backgroundColor: theme.palette.grey[600],
-      // backgroundColor: theme.palette.primary.dark,
-      opacity: 0.3,
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-      marginLeft: 8 // Match NavLink buttonText class and this groupName class.
-    }
-  })
-)
-
 const MMContent = ({contentKey = 1}: Props) => {
-  const classes = useStyles()
-
   const menuItem = useMemo(
     () => menuConfig.find((entry) => entry.key === contentKey),
     [contentKey]
@@ -39,6 +18,8 @@ const MMContent = ({contentKey = 1}: Props) => {
 
   const groups =
     menuItem && Object.keys(menuItem).length > 0 ? menuItem.groups : []
+
+  const theme = useTheme<Theme>()
 
   return (
     <MegaMenuContentContainer>
@@ -50,11 +31,25 @@ const MMContent = ({contentKey = 1}: Props) => {
               <Type
                 variant="overline"
                 noWrap={true}
-                className={classes.groupName}
+                sx={{
+                  color: theme.palette.primary.dark,
+                  // color: theme.palette.grey[100]
+                  paddingLeft: 8 // Match NavLink buttonText class and this divider class.
+                }}
               >
                 {menuGroup.groupName}
               </Type>
-              <Divider variant="fullWidth" className={classes.divider} />
+              <Divider
+                variant="fullWidth"
+                sx={{
+                  backgroundColor: theme.palette.grey[600],
+                  // backgroundColor: theme.palette.primary.dark,
+                  opacity: 0.3,
+                  marginTop: theme.spacing(1),
+                  marginBottom: theme.spacing(1),
+                  marginLeft: 8 // Match NavLink buttonText class and this groupName class.
+                }}
+              />
               {menuGroup.items.map((item, itemIdx) => (
                 <Box key={itemIdx}>
                   {item.nextLink ? (

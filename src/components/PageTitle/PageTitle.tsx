@@ -7,23 +7,12 @@ import {
   TypographyProps
 } from '@mui/material'
 
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-
 type Props = {
   subtitle?: string
   title: string
   hideDivider?: boolean
   titleProps?: Partial<TypographyProps>
 } & BoxProps
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    subtitle: {
-      textTransform: 'uppercase'
-    }
-  })
-)
 
 const PageTitle = ({
   subtitle = '',
@@ -32,8 +21,6 @@ const PageTitle = ({
   titleProps,
   ...rest
 }: Props) => {
-  const classes = useStyles()
-
   const subtitleEl = useMemo(
     () =>
       subtitle ? (
@@ -41,12 +28,14 @@ const PageTitle = ({
           variant="subtitle2"
           color="primary"
           gutterBottom
-          className={classes.subtitle}
+          sx={{
+            textTransform: 'uppercase'
+          }}
         >
           {subtitle}
         </Type>
       ) : null,
-    [subtitle, classes]
+    [subtitle]
   )
 
   const dividerEl = useMemo(

@@ -1,7 +1,5 @@
 import React, {useMemo, useContext} from 'react'
-import {Box, ListItem} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, ListItemButton} from '@mui/material'
 // import {ListItemProps} from '@mui/material/ListItem'
 import {SearchContext} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
@@ -9,7 +7,6 @@ import {GoogleCseItem} from '../SearchResponse'
 // import NextLink from '@components/NextLink/NextLink'
 import Link from 'next/link'
 import SearchListItemContent from '../SearchListItemContent/SearchListItemContent'
-import clsx from 'clsx'
 
 /*
   [todo] Don't use usePrefetchHandler hook here until we know it won't crash page if route doesn't exist.
@@ -17,25 +14,9 @@ import clsx from 'clsx'
 
 const nextLinkRe = /^http(s)?:\/\/(www\.)?pcwa\.net/i
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    listItem: {
-      padding: 0,
-      transition: 'opacity 300ms ease',
-      opacity: 1,
-      '&.isPaging': {
-        opacity: 0.4,
-        color: 'transparent',
-        textShadow: '0 0 8px rgba(0,0,0,0.6)'
-      }
-    },
-    isPaging: {}
-  })
-)
 type Props = {result: GoogleCseItem}
 
 const SearchListItem = ({result}: Props) => {
-  const classes = useStyles()
   const searchContext = useContext(SearchContext)
   // const searchDispatch = searchContext.dispatch
   const searchState = searchContext.state
@@ -72,12 +53,20 @@ const SearchListItem = ({result}: Props) => {
   // const clickHandler = () => {}
 
   return (
-    <ListItem
-      button
-      className={clsx([classes.listItem, {[classes.isPaging]: isPaging}])}
+    <ListItemButton
+      sx={{
+        padding: 0,
+        transition: 'opacity 300ms ease',
+        opacity: 1,
+        ...(isPaging && {
+          opacity: 0.4,
+          color: 'transparent',
+          textShadow: '0 0 8px rgba(0,0,0,0.6)'
+        })
+      }}
     >
       {resultLinkEl}
-    </ListItem>
+    </ListItemButton>
   )
 }
 

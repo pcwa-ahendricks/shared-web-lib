@@ -1,30 +1,30 @@
 import React, {useMemo} from 'react'
-import {Box, Theme} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, SxProps, useTheme} from '@mui/material'
 import {GoogleCseItem} from '../SearchResponse'
 import WebIcon from 'mdi-material-ui/Web'
 import FileImageOutlineIcon from 'mdi-material-ui/FileImageOutline'
 import FileDocumentOutlineIcon from 'mdi-material-ui/FileDocumentOutline'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    webIcon: {
-      verticalAlign: 'middle',
-      // color: theme.palette.secondary.dark
-      color: theme.palette.grey[500]
-    }
-  })
-)
 type Props = {result: GoogleCseItem}
 
 const pdfRe = /pdf/i
 const imageRe = /jpg|jpeg|png|svg/i
 
 const SearchListItemUrlIcon = ({result}: Props) => {
-  const classes = useStyles()
   // const searchContext = useContext(SearchContext)
 
+  const theme = useTheme<Theme>()
+  const style = useMemo(
+    () => ({
+      webIcon: {
+        verticalAlign: 'middle',
+        // color: theme.palette.secondary.dark
+        color: theme.palette.grey[500]
+      } as SxProps<Theme>
+    }),
+    [theme]
+  )
   const {fileFormat = ''} = result
 
   const isPdfLink = useMemo(() => pdfRe.test(fileFormat), [fileFormat])
@@ -35,14 +35,21 @@ const SearchListItemUrlIcon = ({result}: Props) => {
       isPdfLink ? (
         <FileDocumentOutlineIcon
           fontSize="inherit"
-          className={classes.webIcon}
+          sx={{
+            ...style.webIcon
+          }}
         />
       ) : isImageLink ? (
-        <FileImageOutlineIcon fontSize="inherit" className={classes.webIcon} />
+        <FileImageOutlineIcon
+          fontSize="inherit"
+          sx={{
+            ...style.webIcon
+          }}
+        />
       ) : (
-        <WebIcon fontSize="inherit" className={classes.webIcon} />
+        <WebIcon fontSize="inherit" sx={{...style.webIcon}} />
       ),
-    [isPdfLink, classes, isImageLink]
+    [isPdfLink, style, isImageLink]
   )
 
   // Avoid "Div cannot be a descendant of <p>" errors with <span>.

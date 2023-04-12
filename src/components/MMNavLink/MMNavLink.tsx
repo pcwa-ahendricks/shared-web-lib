@@ -1,52 +1,42 @@
 import React from 'react'
 import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
-import {Theme, alpha} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-// import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
+import {alpha, useTheme} from '@mui/material'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   children: React.ReactNode
 } & FlexButtonProps
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      margin: '-1px 0',
-      borderRadius: '2px', // Default: 4px
-      justifyContent: 'normal',
-      transition: 'none', // Need to unset Mui Button styling for background-color transition property.
-      // color: theme.palette.grey[50],
-      // opacity: 0.85,
-      textTransform: 'none',
-      '&:hover, &:active': {
-        // color: theme.palette.common.white,
-        color: theme.palette.grey[50],
-        backgroundColor: alpha(theme.palette.primary.main, 0.85),
-        fontWeight: 500
-        // opacity: 1
-      }
-    },
-    buttonText: {
-      color: theme.palette.primary.dark,
-      fontSize: '0.9rem',
-      textAlign: 'inherit',
-      padding: '3px 8px' // Default: 6px 8px;
-      // whiteSpace: 'nowrap'
-    }
-  })
-)
-
 const MMNavLink = ({children, href, as, isNextLink = true}: Props) => {
-  const classes = useStyles()
-  // const theme = useTheme<Theme>()
+  const theme = useTheme<Theme>()
 
   return (
     <FlexButton
       href={href}
       as={as}
       isNextLink={isNextLink}
-      classes={{root: classes.button, text: classes.buttonText}}
+      sx={{
+        margin: '-1px 0',
+        borderRadius: '2px', // Default: 4px
+        justifyContent: 'normal',
+        transition: 'none', // Need to unset Mui Button styling for background-color transition property.
+        // color: theme.palette.grey[50],
+        // opacity: 0.85,
+        textTransform: 'none',
+        '&:hover, &:active': {
+          // color: theme.palette.common.white,
+          color: theme.palette.grey[50],
+          backgroundColor: alpha(theme.palette.primary.main, 0.85),
+          fontWeight: 500
+          // opacity: 1
+        },
+        '&.MuiButton-text': {
+          // color: theme.palette.primary.dark,
+          fontSize: '0.9rem',
+          textAlign: 'inherit',
+          padding: '3px 8px' // Default: 6px 8px;
+        }
+      }}
     >
       {children}
     </FlexButton>

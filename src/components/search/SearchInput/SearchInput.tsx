@@ -4,13 +4,10 @@ import {
   Box,
   InputBase,
   Paper,
-  Theme,
   Typography as Type,
   useMediaQuery,
   useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import IconButton from '@mui/material/IconButton'
 import search from '@lib/services/googleSearchService'
 import SearchResultsDialog from '../SearchResultsDialog/SearchResultsDialog'
@@ -33,56 +30,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 // import delay from 'then-sleep'
 
-type UseStylesProps = {
-  inputMobFocused: boolean
-}
+const maxBetterTotalResultsHackIterations = 7 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
 
-const maxBetterTotalResultsHackIterations = 5 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: alpha(theme.palette.primary.main, 0.07),
-      margin: theme.spacing(1),
-      height: theme.spacing(4),
-      display: 'flex',
-      alignItems: 'center',
-      color: theme.palette.common.white
-    },
-    inputFocus: {},
-    input: {
-      maxWidth: 100,
-      '-webkit-transition': 'max-width 500ms ease',
-      transition: 'max-width 500ms ease',
-      '&.inputFocus': {
-        maxWidth: 175
-      },
-      marginLeft: theme.spacing(2),
-      flex: '1 1 auto'
-    },
-    inputMobile: {
-      marginLeft: theme.spacing(2)
-    },
-    // withStartAdornment: {
-    //   paddingLeft: theme.spacing( 1)
-    // }
-    searchButtonMobile: {
-      marginRight: -12
-    },
-    sBtnMobContainer: ({inputMobFocused}: UseStylesProps) => ({
-      transition: 'opacity 300ms ease-out',
-      opacity: inputMobFocused ? 0 : 1
-    }),
-    sInputMobContainer: ({inputMobFocused}: UseStylesProps) => ({
-      opacity: inputMobFocused ? 1 : 0,
-      maxWidth: inputMobFocused ? 175 : 0,
-      transition:
-        'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease',
-      '-webkit-transition':
-        'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease'
-    })
-  })
-)
 const SearchInput = () => {
   // const inputRef = useRef<HTMLInputElement>()
   const {dispatch: searchDispatch, state: searchState} =
@@ -94,15 +43,14 @@ const SearchInput = () => {
   const [searchValue, setSearchValue] = useState('')
   const theme = useTheme()
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
-  const classes = useStyles({inputMobFocused})
   const inputMobileRef = useRef<HTMLInputElement>()
 
-  const inputChangeHandler = useCallback((e) => {
+  const inputChangeHandler = useCallback((e: any) => {
     setSearchValue(e.target.value)
   }, [])
 
   const searchErrorHandler = useCallback(
-    (error) => {
+    (error: any) => {
       searchDispatch(setIsIterating(false))
       searchDispatch(setIsSearching(false))
       searchDispatch(setIsPaging(false))
@@ -260,7 +208,12 @@ const SearchInput = () => {
     return (
       <>
         <RowBox alignItems="center" justifyContent="flex-end">
-          <ChildBox className={classes.sInputMobContainer}>
+          <ChildBox
+            sx={{
+              transition: 'opacity 300ms ease-out',
+              opacity: inputMobFocused ? 0 : 1
+            }}
+          >
             <Paper elevation={0} square={false}>
               <InputBase
                 inputRef={inputMobileRef}
@@ -269,7 +222,9 @@ const SearchInput = () => {
                 margin="none"
                 onChange={inputChangeHandler}
                 onKeyPress={keyPressHandler}
-                className={classes.inputMobile}
+                sx={{
+                  marginLeft: theme.spacing(2)
+                }}
                 placeholder="Search..."
                 onFocus={focusHandler}
                 onBlur={blurHandler}
@@ -280,9 +235,18 @@ const SearchInput = () => {
               />
             </Paper>
           </ChildBox>
-          <ChildBox className={classes.sBtnMobContainer}>
+          <ChildBox
+            sx={{
+              opacity: inputMobFocused ? 1 : 0,
+              maxWidth: inputMobFocused ? 175 : 0,
+              transition:
+                'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease'
+            }}
+          >
             <IconButton
-              className={classes.searchButtonMobile}
+              sx={{
+                marginRight: -12
+              }}
               color="inherit"
               aria-label="Site Search"
               onClick={sButtonMobileClickHandler}
@@ -301,7 +265,18 @@ const SearchInput = () => {
 
   return (
     <>
-      <Paper className={classes.root} elevation={0} square={false}>
+      <Paper
+        sx={{
+          backgroundColor: alpha(theme.palette.primary.main, 0.07),
+          margin: theme.spacing(1),
+          height: theme.spacing(4),
+          display: 'flex',
+          alignItems: 'center',
+          color: theme.palette.common.white
+        }}
+        elevation={0}
+        square={false}
+      >
         <InputBase
           // inputProps={{
           //   ref: inputRef
@@ -312,12 +287,20 @@ const SearchInput = () => {
           // startAdornment={<SearchIcon />}
           onChange={inputChangeHandler}
           onKeyPress={keyPressHandler}
-          className={classes.input}
-          placeholder="Search..."
-          classes={{
-            // inputAdornedStart: classes.withStartAdornment,
-            focused: classes.inputFocus
+          sx={{
+            maxWidth: 100,
+            transition: 'max-width 500ms ease',
+            marginLeft: theme.spacing(2),
+            flex: '1 1 auto',
+            '&.Mui-focused': {
+              maxWidth: 175
+            }
           }}
+          placeholder="Search..."
+          // classes={{
+          // inputAdornedStart: classes.withStartAdornment,
+          // focused: classes.inputFocus
+          // }}
           inputProps={{
             'aria-label': 'site search',
             id: 'site-search'

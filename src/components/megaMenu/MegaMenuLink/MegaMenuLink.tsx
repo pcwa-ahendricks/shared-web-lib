@@ -1,10 +1,8 @@
 import React, {useRef, useCallback} from 'react'
-import {Box, Theme, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-import clsx from 'clsx'
+import {Box, Typography as Type, TypographyProps, useTheme} from '@mui/material'
 import Overline from '@components/Overline/Overline'
 import {ColumnBox} from '@components/MuiSleazebox'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   typographyClass?: any
@@ -16,20 +14,8 @@ type Props = {
   linkMargin?: string | number
   describedbyId?: string
   parentActiveEl?: HTMLElement | null
-}
+} & TypographyProps
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    typography: {
-      flex: '0 0 auto',
-      color: theme.palette.primary.main,
-      cursor: 'pointer',
-      '&:hover,&:focus,&.linkActive': {
-        color: theme.palette.primary.dark
-      }
-    }
-  })
-)
 const MegaMenuLink = ({
   children,
   describedbyId,
@@ -40,9 +26,9 @@ const MegaMenuLink = ({
   parentActiveEl,
   typographyClass,
   linkMargin,
+  sx,
   ...rest
 }: Props) => {
-  const classes = useStyles()
   const typeRef = useRef(null)
   // Prevent null === null validity, resulting with a flash of Overline during initial page load.
   const isActive = Boolean(
@@ -50,11 +36,12 @@ const MegaMenuLink = ({
   )
 
   const handleLinkEnter = useCallback(
-    (evt) => {
+    (evt: any) => {
       onLinkEnter(evt, typeRef.current)
     },
     [onLinkEnter, typeRef]
   )
+  const theme = useTheme<Theme>()
 
   return (
     <Overline
@@ -67,9 +54,16 @@ const MegaMenuLink = ({
         <Box flex="1 0 auto" />
         <Type
           ref={typeRef}
-          className={clsx(classes.typography, typographyClass, {
-            linkActive: isActive
-          })}
+          className={isActive ? 'linkActive' : ''}
+          sx={{
+            ...sx,
+            flex: '0 0 auto',
+            color: theme.palette.primary.main,
+            cursor: 'pointer',
+            '&:hover,&:focus,&.linkActive': {
+              color: theme.palette.primary.dark
+            }
+          }}
           // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.
           style={{paddingLeft: linkMargin, paddingRight: linkMargin}}
           aria-describedby={describedbyId}

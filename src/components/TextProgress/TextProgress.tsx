@@ -1,30 +1,15 @@
 import React from 'react'
-import {Theme, Typography as Type, Box, LinearProgress} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Typography as Type, Box, LinearProgress, useTheme} from '@mui/material'
 import styles from './TextProgress.module.css'
 import {FlexBox} from '@components/MuiSleazebox'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   caption?: string
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    loadingMessageProgress: {
-      height: 2
-    },
-    barColorSecondary: {
-      backgroundColor: theme.palette.grey['300']
-    },
-    colorSecondary: {
-      backgroundColor: theme.palette.grey['200']
-    }
-  })
-)
-
 const TextProgress = ({caption = 'Loading...'}: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
   return (
     <FlexBox>
       <Box>
@@ -33,10 +18,14 @@ const TextProgress = ({caption = 'Loading...'}: Props) => {
         </Type>
         <LinearProgress
           color="secondary"
-          classes={{
-            root: classes.loadingMessageProgress,
-            barColorSecondary: classes.barColorSecondary,
-            colorSecondary: classes.colorSecondary
+          sx={{
+            height: 2,
+            '&.MuiLinearProgress-barColorSecondary': {
+              backgroundColor: theme.palette.grey['300']
+            },
+            '&.MuiLinearProgress-colorSecondary': {
+              backgroundColor: theme.palette.grey['200']
+            }
           }}
         />
       </Box>

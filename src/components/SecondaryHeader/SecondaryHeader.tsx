@@ -6,8 +6,6 @@ import {
   useMediaQuery, // Typography as Type,
   useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
 import YoutubeIcon from 'mdi-material-ui/Youtube'
@@ -35,27 +33,8 @@ import {
 // )
 
 // Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    survey: {
-      color: theme.palette.secondary.dark,
-      fontWeight: 600,
-      fontSize: '0.9rem',
-      paddingLeft: 16
-    },
-    toolbar: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      flexGrow: 1,
-      overflowX: 'hidden'
-    }
-  })
-)
 
 const SecondaryHeader = () => {
-  const classes = useStyles()
   const theme = useTheme<Theme>()
   // Custom width defined by point at which menu links overlap each other.
   const noSocialIcons = useMediaQuery('@media screen and (max-width: 690px)')
@@ -68,7 +47,17 @@ const SecondaryHeader = () => {
   }, [newsroomDispatch])
 
   return (
-    <Toolbar variant="dense" className={classes.toolbar}>
+    <Toolbar
+      variant="dense"
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexGrow: 1,
+        overflowX: 'hidden'
+      }}
+    >
       {/* Don't use CSS implementation of <Hidden/> cause it will allow and trigger Forecast timers and fetch requests on mobile devices that won't display Forecast. */}
       <ForecastContainer width={155} overflow="hidden" />
       {/* <NextGlowButton
@@ -76,7 +65,12 @@ const SecondaryHeader = () => {
         aria-label="Link"
         href="/services/annual-canal-survey"
       >
-        <Type variant="inherit" className={classes.survey}>
+        <Type variant="inherit" className={classes.survey} sx={{
+          color: theme.palette.secondary.dark,
+          fontWeight: 600,
+          fontSize: '0.9rem',
+          paddingLeft: 16
+        }}>
           Canal Survey
         </Type>
       </NextGlowButton> */}

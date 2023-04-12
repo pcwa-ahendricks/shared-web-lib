@@ -5,11 +5,8 @@ import {
   Dialog,
   DialogContent,
   DialogContentText,
-  DialogActions,
-  Theme
+  DialogActions
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {
   NewsroomContext,
   setEnewsDialogOpen
@@ -36,15 +33,6 @@ const schema = object().shape({
 const generalErrorStr =
   'An unknown error occurred. Please try again later and reach out to our Customer Services Department to report this issue if it persists.'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textField: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1)
-    }
-  })
-)
-
 const EnewsSubscribeDialog = () => {
   const [submittedSuccess, setSubmittedSuccess] = useState(false)
   const newsroomContext = useContext(NewsroomContext)
@@ -52,7 +40,6 @@ const EnewsSubscribeDialog = () => {
     useState<Partial<MailchimpSubscribeResponseBody> | null>(null)
   const newsroomDispatch = newsroomContext.dispatch
   const {enewsDialogOpen} = newsroomContext.state
-  const classes = useStyles()
 
   const handleClose = useCallback(() => {
     newsroomDispatch(setEnewsDialogOpen(false))
@@ -158,13 +145,12 @@ const EnewsSubscribeDialog = () => {
                   <FormTextField
                     name="email"
                     // autoFocus
-                    margin="dense"
+                    margin="normal"
                     id="email"
                     label="Email Address"
                     type="email"
                     fullWidth
                     variant="standard"
-                    className={classes.textField}
                   />
                 </WaitToGrow>
               </DialogContent>

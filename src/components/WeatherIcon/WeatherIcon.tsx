@@ -1,8 +1,6 @@
 // cspell:ignore climacell clima
 import React, {useMemo} from 'react'
 import {Icon, IconProps} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
 import {isAfter, isBefore} from 'date-fns'
 // Font loading using @font-face seems to work with css modules but I don't see where that's documented online. See https://nextjs.org/docs/basic-features/built-in-css-support for more info.
@@ -20,14 +18,6 @@ type Props = {
   className?: any // [TODO]
 } & IconProps
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    icon: {
-      overflow: 'visible'
-    }
-  })
-)
-
 export default function WeatherIcon({
   name,
   className: classNameProp,
@@ -38,7 +28,6 @@ export default function WeatherIcon({
   observationTime,
   ...rest
 }: Props) {
-  const classes = useStyles()
   const sunriseDate = useMemo(
     () => (typeof sunrise === 'number' ? new Date(sunrise * 1000) : null),
     [sunrise]
@@ -209,7 +198,9 @@ export default function WeatherIcon({
   return (
     <Icon
       fontSize="small"
-      classes={{root: classes.icon}}
+      sx={{
+        overflow: 'visible'
+      }}
       className={clsx([
         styles.wi,
         {[styles[`wi-${name ?? switchName}`]]: Boolean(name ?? switchName)},

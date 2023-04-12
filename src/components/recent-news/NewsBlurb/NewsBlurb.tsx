@@ -4,13 +4,13 @@ import {
   BoxProps,
   Typography as Type,
   TypographyProps,
-  Theme
+  useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import Spacing from '@components/boxes/Spacing'
 import FlexLink from '@components/FlexLink/FlexLink'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
+import {Theme} from '@lib/material-theme'
+import Link from '@components/Link'
 
 type Props = {
   linkURL?: string
@@ -21,14 +21,6 @@ type Props = {
   readMoreCaption: string
 } & Partial<BoxProps>
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    readMoreCaption: {
-      color: theme.palette.primary.light
-    }
-  })
-)
-
 const NewsBlurb = ({
   title,
   linkURL = '',
@@ -36,7 +28,7 @@ const NewsBlurb = ({
   readMoreCaption,
   ...rest
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
   const [hover, setHover] = useState<boolean>()
 
   const linkEnterHandler = useCallback(() => {
@@ -65,15 +57,16 @@ const NewsBlurb = ({
       <Spacing size="x-small" />
       <Type paragraph variant="body2">
         {summary}{' '}
-        <FlexLink
+        <Link
           scroll
-          detectNext
           variant="inherit"
           href={linkURL}
-          className={classes.readMoreCaption}
+          sx={{
+            color: theme.palette.primary.light
+          }}
         >
           <StrongEmphasis>{readMoreCaption}</StrongEmphasis>
-        </FlexLink>
+        </Link>
       </Type>
     </Box>
   )

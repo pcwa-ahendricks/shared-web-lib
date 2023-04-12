@@ -1,17 +1,16 @@
 import React from 'react'
-import {Box, Typography} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import {SxProps, Box, Typography} from '@mui/material'
 import {ColumnBox, RowBox} from '@components/MuiSleazebox'
 import FlexButton from '@components/FlexButton/FlexButton'
-
-const useStyles = makeStyles({
-  button: {
-    marginBottom: '8px'
-  }
-})
+import {Theme} from '@lib/material-theme'
 
 export default function QuickLinksMobileBar() {
-  const classes = useStyles()
+  const style = {
+    button: {
+      marginBottom: '8px'
+    } as SxProps<Theme>
+  }
+
   return (
     <Box mx={4}>
       <RowBox flexSpacing={4}>
@@ -29,7 +28,9 @@ export default function QuickLinksMobileBar() {
             // imageSrc="5662a7f0-c943-11eb-ba89-e7f98c8c358b-BoardAgenda.png"
             // caption="Board Meetings"
             isNextLink
-            className={classes.button}
+            sx={{
+              marginBottom: '8px'
+            }}
           >
             <Typography noWrap variant="inherit">
               Board Meetings
@@ -44,7 +45,9 @@ export default function QuickLinksMobileBar() {
             // imageSrc="e7a5cf40-c942-11eb-ba89-e7f98c8c358b-Careers.png"
             // caption="Careers"
             isNextLink={false}
-            className={classes.button}
+            sx={{
+              ...style.button
+            }}
           >
             Careers
           </FlexButton>
@@ -62,7 +65,9 @@ export default function QuickLinksMobileBar() {
             // imageAlt="Outages link icon"
             // imageSrc="2795ba30-c951-11eb-ba89-e7f98c8c358b-Outage.png"
             // caption="Outages"
-            className={classes.button}
+            sx={{
+              ...style.button
+            }}
           >
             Outages
           </FlexButton>
@@ -82,7 +87,9 @@ export default function QuickLinksMobileBar() {
             // imageSrc="1938eb70-c941-11eb-ba89-e7f98c8c358b-PayBill.png"
             // caption="Pay My Bill"
             isNextLink={false}
-            className={classes.button}
+            sx={{
+              ...style.button
+            }}
           >
             <Typography noWrap variant="inherit">
               Pay My Bill
@@ -96,7 +103,9 @@ export default function QuickLinksMobileBar() {
             isNextLink
             color="primary"
             variant="outlined"
-            className={classes.button}
+            sx={{
+              ...style.button
+            }}
           >
             Rebates
           </FlexButton>

@@ -1,7 +1,7 @@
 import React from 'react'
 import SecondaryHeader from '../SecondaryHeader/SecondaryHeader'
 import {Box} from '@mui/material'
-// import PrimaryHeader from '../PrimaryHeader/PrimaryHeader'
+import PrimaryHeader from '../PrimaryHeader/PrimaryHeader'
 
 const HeaderContainer = () => {
   return (
@@ -9,7 +9,7 @@ const HeaderContainer = () => {
       <Box sx={{display: {xs: 'none', sm: 'block'}}}>
         <SecondaryHeader />
       </Box>
-      {/* <PrimaryHeader /> */}
+      <PrimaryHeader />
     </>
   )
 }

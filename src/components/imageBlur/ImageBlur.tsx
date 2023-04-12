@@ -11,9 +11,9 @@ import Image, {ImageProps} from 'next/legacy/image'
 import {stringify} from 'querystringify'
 import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
-import makeStyles from '@mui/styles/makeStyles'
 import pTimeout from 'p-timeout'
 import {sequenceArray} from '@lib/util'
+import {Box} from '@mui/material'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
@@ -54,19 +54,6 @@ const getImgixBlurHashes = async (
   )
   return blurHashes
 }
-
-type UseStylesProps = {
-  isFillLayout?: boolean
-}
-
-const useStyles = makeStyles(() => ({
-  container: ({isFillLayout}: UseStylesProps) => ({
-    position: 'relative',
-    ...(isFillLayout && {
-      height: '100%' // required by <CoverStory/>
-    })
-  })
-}))
 
 type Props = {
   src: string
@@ -116,7 +103,7 @@ const ImageBlur = ({
   }, [imageLoaded])
 
   const loadedHandler = useCallback(
-    (props) => {
+    (props: any) => {
       setImageLoaded(true)
       onLoadingComplete?.(props)
     },
@@ -124,10 +111,16 @@ const ImageBlur = ({
   )
 
   const isFillLayout = useMemo(() => layout === 'fill', [layout])
-  const classes = useStyles({isFillLayout})
 
   return (
-    <div className={classes.container}>
+    <Box
+      sx={{
+        position: 'relative',
+        ...(isFillLayout && {
+          height: '100%' // required by <CoverStory/>
+        })
+      }}
+    >
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         src={src}
@@ -159,7 +152,7 @@ const ImageBlur = ({
           }}
         />
       ) : null}
-    </div>
+    </Box>
   )
 }
 

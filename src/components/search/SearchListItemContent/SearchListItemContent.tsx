@@ -1,25 +1,16 @@
 import React, {useCallback, useContext, useMemo} from 'react'
-import {Box, Theme, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Typography as Type, useTheme} from '@mui/material'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
 import {RowBox} from '@components/MuiSleazebox'
 import Parser from 'html-react-parser'
 import SearchListItemUrlIcon from '../SearchListItemUrlIcon/SearchListItemUrlIcon'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    url: {
-      paddingLeft: theme.spacing(1),
-      color: theme.palette.secondary.dark
-    }
-  })
-)
 type Props = {result: GoogleCseItem}
 
 const SearchListItemContent = ({result}: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
   const searchContext = useContext(SearchContext)
   const searchDispatch = searchContext.dispatch
 
@@ -65,7 +56,14 @@ const SearchListItemContent = ({result}: Props) => {
         <Type color="secondary" variant="body2">
           <SearchListItemUrlIcon result={result} />
         </Type>
-        <Type color="secondary" variant="body2" className={classes.url}>
+        <Type
+          color="secondary"
+          variant="body2"
+          sx={{
+            paddingLeft: theme.spacing(1),
+            color: theme.palette.secondary.dark
+          }}
+        >
           {parsedFormattedUrl}
         </Type>
       </RowBox>
