@@ -160,11 +160,12 @@ const PrimaryHeader = () => {
             height: '100%'
           }}
         >
-          <RowBox
+          <Box
             alignItems="center"
             width="100%"
             justifyContent="space-between"
             display={isXS ? 'flex' : 'none'}
+            flexDirection="row"
           >
             <ChildBox flex="1 0 auto">
               <IconButton
@@ -195,7 +196,7 @@ const PrimaryHeader = () => {
               />
             </ChildBox>
             <ChildBox flex="0 1 auto">{isXS ? <SearchInput /> : null}</ChildBox>
-          </RowBox>
+          </Box>
           {/* See media query above for class logoContainer. */}
           {/* <Hidden only="xs" implementation="css"> */}
           <ColumnBox
@@ -204,8 +205,8 @@ const PrimaryHeader = () => {
             justifyContent="center"
             alignItems="flex-start"
             /*
-      [HACK] Logo is pushing out the rest of the primary nav menu off the page for some reason in IE. This is the fix for IE.
-    */
+              [HACK] Logo is pushing out the rest of the primary nav menu off the page for some reason in IE. This is the fix for IE.
+            */
             sx={{
               '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)':
                 {
@@ -239,8 +240,7 @@ const PrimaryHeader = () => {
               />
             ) : null}
           </ColumnBox>
-          {/* Should use js implementation here so that the flex layout doesn't break with child's alignSelf attribute. */}
-          <Hidden only="xs" implementation="js">
+          {isXS ? null : (
             <RowBox
               flex="auto"
               alignSelf="stretch"
@@ -254,8 +254,12 @@ const PrimaryHeader = () => {
                 ml="1vw"
                 mr="1vw"
               >
-                <ColumnBox justifyContent="center" height="100%">
-                  <Box flex="0 0 auto">
+                <ColumnBox height="100%" justifyContent="center">
+                  <ChildBox
+                    sx={{
+                      transform: 'translateY(-1px)' // manually adjust Home button text so that it's inline (centered) with other mega menu text
+                    }}
+                  >
                     <Link
                       href="/"
                       color="primary"
@@ -265,7 +269,7 @@ const PrimaryHeader = () => {
                     >
                       Home
                     </Link>
-                  </Box>
+                  </ChildBox>
                 </ColumnBox>
               </Box>
               {menuConfig.map((menuItem) => (
@@ -288,7 +292,7 @@ const PrimaryHeader = () => {
                 </Box>
               ))}
             </RowBox>
-          </Hidden>
+          )}
         </Toolbar>
       </AppBar>
       <MegaMenuPopper
