@@ -1,16 +1,13 @@
 // cspell:ignore bewatersmart arwec usbr
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {
   useTheme,
-  Theme,
   Box,
   Typography as Type,
   BoxProps,
   TypographyProps,
   Link
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -21,60 +18,80 @@ import Spacing from '@components/boxes/Spacing'
 import {FlexBox} from '@components/MuiSleazebox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    bulletLi: {
-      listStyleType: 'circle',
-      marginBottom: 10
-    },
-    tightBulletLi: {
-      listStyleType: 'none',
-      marginBottom: 5
-    },
-    disc: {
-      display: 'inline-block',
-      width: '1em',
-      marginLeft: '-1em',
-      color: theme.palette.grey['800']
-    }
-  })
-)
+import {Theme} from '@lib/material-theme'
 
 const TipsForKidsPage = () => {
-  const classes = useStyles()
-  const theme = useTheme()
+  const theme = useTheme<Theme>()
+  const style = useMemo(
+    () => ({
+      bulletLi: {
+        listStyleType: 'circle',
+        marginBottom: '10px'
+      },
+      tightBulletLi: {
+        listStyleType: 'none',
+        marginBottom: '5px'
+      },
+      disc: {
+        display: 'inline-block',
+        width: '1em',
+        marginLeft: '-1em',
+        color: theme.palette.grey['800']
+      }
+    }),
+    [theme]
+  )
 
   const TypeBullet = useCallback(
-    ({children, ...rest}: TypographyProps<'li'>) => {
+    ({children, sx, ...rest}: TypographyProps<'li'>) => {
       return (
-        <Type component="li" className={classes.bulletLi} {...rest}>
+        <Type
+          component="li"
+          sx={{
+            ...sx,
+            ...style.bulletLi
+          }}
+          {...rest}
+        >
           {children}
         </Type>
       )
     },
-    [classes]
+    [style]
   )
 
   const Disc = useCallback(
-    ({...rest}: BoxProps) => (
-      <Box className={classes.disc} {...rest}>
+    ({sx, ...rest}: BoxProps) => (
+      <Box
+        sx={{
+          ...sx,
+          ...style.disc
+        }}
+        {...rest}
+      >
         •
       </Box>
     ),
-    [classes]
+    [style]
   )
 
   const TightBullet = useCallback(
-    ({children, ...rest}: TypographyProps<'li'>) => {
+    ({children, sx, ...rest}: TypographyProps<'li'>) => {
       return (
-        <Type component="li" className={classes.tightBulletLi} {...rest}>
+        <Type
+          component="li"
+          sx={{
+            ...sx,
+            ...style.tightBulletLi
+          }}
+          {...rest}
+        >
           <Disc />
           {children}
         </Type>
       )
     },
-    [classes, Disc]
+    [Disc, style]
   )
 
   return (
