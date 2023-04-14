@@ -6,7 +6,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import {
-  Theme,
   useTheme,
   Box,
   Typography as Type,
@@ -21,60 +20,21 @@ import {
   ListItemProps,
   ListItemIcon,
   ListItemText,
-  Button
+  Button,
+  ListItemButton
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-import clsx from 'clsx'
 import Spacing from '@components/boxes/Spacing'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import DocIcon from '@mui/icons-material/LibraryBooks'
 import CwmpContactUsDialog from '@components/CwmpContactUsDialog/CwmpContactUsDialog'
-
-type UseStylesProps = {
-  activeIndex: number
-  activeStep: number
-}
+import {Theme} from '@lib/material-theme'
 
 const ACTIVE_STEP = 3 // 1-7
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    isActiveStep: {
-      '& .MuiStepIcon-root': {
-        color: theme.palette.secondary.main
-      },
-      '& .MuiStepLabel-label': {
-        fontWeight: 500
-      }
-    },
-    stepLabel: {
-      textAlign: 'start',
-      '&.MuiStepLabel-label': {
-        '&.MuiStepLabel-completed': {
-          fontWeight: 400
-        }
-      }
-    },
-    stepLabelIcon: ({activeIndex, activeStep}: UseStylesProps) => ({
-      '&.MuiStepIcon-active': {
-        color:
-          activeIndex === activeStep
-            ? theme.palette.secondary.main
-            : theme.palette.text.secondary
-      }
-    }),
-    listItem: {
-      paddingTop: theme.spacing(1 / 2),
-      paddingBottom: theme.spacing(1 / 2)
-    }
-  })
-)
-
 const CountyWideMasterPlanPage = () => {
-  const theme = useTheme()
+  const theme = useTheme<Theme>()
   const [activeIndex, setActiveIndex] = useState<number>(ACTIVE_STEP - 1)
-  const classes = useStyles({activeIndex, activeStep: ACTIVE_STEP - 1})
+  const activeStep = ACTIVE_STEP - 1
   const [dialogOpen, setDialogOpen] = useState(false)
   const closeDialogHandler = useCallback(() => {
     setDialogOpen(false)
@@ -91,6 +51,37 @@ const CountyWideMasterPlanPage = () => {
     (index: number) => index < ACTIVE_STEP - 1,
     []
   )
+
+  const style = {
+    isActiveStep: {
+      '& .MuiStepIcon-root': {
+        color: theme.palette.secondary.main
+      },
+      '& .MuiStepLabel-label': {
+        fontWeight: 500
+      }
+    },
+    stepLabel: {
+      textAlign: 'start',
+      '&.MuiStepLabel-label': {
+        '&.MuiStepLabel-completed': {
+          fontWeight: 400
+        }
+      }
+    },
+    stepLabelIcon: {
+      '&.MuiStepIcon-active': {
+        color:
+          activeIndex === activeStep
+            ? theme.palette.secondary.main
+            : theme.palette.text.secondary
+      }
+    },
+    listItem: {
+      paddingTop: theme.spacing(1 / 2),
+      paddingBottom: theme.spacing(1 / 2)
+    }
+  }
 
   const getSteps = useCallback(() => {
     return [
@@ -127,11 +118,14 @@ const CountyWideMasterPlanPage = () => {
     }
   }, [])
 
-  const CompactListItem = ({
-    children,
-    ...rest
-  }: ListItemProps<'li', {button?: false}>) => (
-    <ListItem classes={{root: classes.listItem}} {...rest}>
+  const CompactListItem = ({children, sx, ...rest}: ListItemProps) => (
+    <ListItem
+      sx={{
+        ...style.listItem,
+        ...sx
+      }}
+      {...rest}
+    >
       {children}
     </ListItem>
   )
@@ -374,11 +368,16 @@ const CountyWideMasterPlanPage = () => {
               </article>
             </ChildBox>
             <ChildBox flex="40%">
-              <Box>
-                <Type variant="subtitle2" color="textSecondary">
+              <Box
+                sx={{
+                  backgroundColor: theme.palette.background.paper,
+                  padding: theme.spacing(2)
+                }}
+              >
+                <Type variant="subtitle1" color="textSecondary">
                   <strong>Funding Timeline for 2023</strong>
                 </Type>
-                <Spacing size="small" />
+                <Spacing />
                 <Box>
                   <Stepper
                     activeStep={activeIndex}
@@ -387,25 +386,24 @@ const CountyWideMasterPlanPage = () => {
                   >
                     {steps.map((label, index) => (
                       <Step key={label}>
-                        <StepButton
-                          onClick={handleStep(index)}
-                          completed={isStepComplete(index)}
-                        >
+                        <StepButton onClick={handleStep(index)}>
                           <StepLabel
-                            classes={{
-                              completed: classes.stepLabel,
-                              label: classes.stepLabel,
-                              root: clsx([
-                                classes.stepLabel,
-                                {
-                                  [classes.isActiveStep]:
-                                    index === ACTIVE_STEP - 1
-                                }
-                              ])
+                            sx={{
+                              ...style.stepLabel,
+                              ...(index === ACTIVE_STEP - 1 && {
+                                ...style.isActiveStep
+                              }),
+                              '&.Mui-completed': {
+                                ...style.stepLabel
+                              },
+                              '&.MuiStepLabel-label': {
+                                ...style.stepLabel
+                              }
                             }}
                             StepIconProps={{
-                              classes: {
-                                root: classes.stepLabelIcon
+                              completed: isStepComplete(index),
+                              sx: {
+                                ...style.stepLabelIcon
                               }
                             }}
                           >
@@ -424,15 +422,13 @@ const CountyWideMasterPlanPage = () => {
                   </Stepper>
                 </Box>
               </Box>
-              <Spacing size="large" />
+              <Spacing size="large" factor={2} />
               <Box>
                 <Type variant="subtitle2" color="textSecondary">
                   <strong>Supporting Documents</strong>
                 </Type>
                 <List>
-                  <ListItem
-                    component="a"
-                    button
+                  <ListItemButton
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://docs.pcwa.net/financial-assistance-program-policy"
@@ -445,13 +441,18 @@ const CountyWideMasterPlanPage = () => {
                       secondary="Read about PCWA's Board Adopted Financial Assistance Program
                 General Policy."
                     />
-                  </ListItem>
+                  </ListItemButton>
                 </List>
               </Box>
+
+              <Spacing />
+              <Type variant="subtitle2" color="textSecondary">
+                <strong>Questions regarding CWMP?</strong>
+              </Type>
               <Spacing />
               <Button
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 // color="secondary"
                 aria-label="Open Contact Us Dialog"
                 onClick={() => setDialogOpen(true)}

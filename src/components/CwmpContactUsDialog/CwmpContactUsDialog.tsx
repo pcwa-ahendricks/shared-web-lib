@@ -6,11 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Theme,
   Box
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {Formik, Form, FormikHelpers} from 'formik'
 import {object, string} from 'yup'
 import FormTextField from '@components/formFields/FormTextField'
@@ -21,6 +18,7 @@ import {
   CwmpContactUsRequestBody,
   postForm
 } from '@lib/services/formService'
+import Spacing from '@components/boxes/Spacing'
 
 const SERVICE_URI_PATH = 'cwmp-contact-us'
 
@@ -50,19 +48,9 @@ const schema = object()
 const generalErrorStr =
   'An unknown error occurred. Please try again later and reach out to our Customer Services Department to report this issue if it persists.'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textField: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1)
-    }
-  })
-)
-
 const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
   const [submittedSuccess, setSubmittedSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const classes = useStyles()
 
   const handleEnter = useCallback(() => {
     setSubmittedSuccess(false)
@@ -107,14 +95,14 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
       // maxWidth="xs"
       // fullWidth
       open={open}
-      onClose={(_event, reason) => {
-        if (reason !== 'backdropClick') {
-          // onClose?.(event, reason)
-          onCloseDialog?.()
-        }
+      onClose={(_event, _reason) => {
+        // if (reason !== 'backdropClick') {
+        // onClose?.(event, reason)
+        onCloseDialog?.()
+        // }
       }}
       aria-labelledby="form-dialog-title"
-      keepMounted={false} // Be explicit about this even though it is the default behavior. We want the form to reset each time the modal opens.
+      keepMounted
       TransitionProps={{
         onEnter: handleEnter
       }}
@@ -151,35 +139,33 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                       id="name"
                       name="name"
                       // autoFocus
-                      margin="dense"
+                      margin="normal"
                       label="Name"
                       type="text"
                       autoComplete="name"
                       fullWidth
-                      variant="outlined"
-                      className={classes.textField}
+                      variant="standard"
                     />
                     <FormTextField
                       id="email"
                       name="email"
                       // autoFocus
-                      margin="dense"
+                      margin="normal"
                       label="Email Address"
                       type="email"
                       fullWidth
-                      variant="outlined"
-                      className={classes.textField}
+                      variant="standard"
                     />
+                    <Spacing />
                     <FormTextField
                       id="message"
                       name="message"
                       // autoFocus
-                      margin="dense"
+                      margin="normal"
                       label="Message"
                       type="text"
                       fullWidth
                       variant="outlined"
-                      className={classes.textField}
                       multiline
                       minRows={3}
                     />
@@ -198,6 +184,7 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                 {!submittedWithoutError ? (
                   <SubmitFormButton
                     color="secondary"
+                    sx={{marginLeft: 3}}
                     variant="contained"
                     aria-label="Send us a message via email"
                     disabled={
