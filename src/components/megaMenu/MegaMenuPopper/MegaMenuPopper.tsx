@@ -1,7 +1,5 @@
-import React, {useState, useRef, useEffect, useCallback} from 'react'
-import {Popper, Fade as Collapse, Theme, PopperProps} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import React, {useState, useEffect, useCallback} from 'react'
+import {Popper, Fade as Collapse, PopperProps} from '@mui/material'
 import {useDebounce} from 'use-debounce'
 import {ToolbarVariant} from '@components/PrimaryHeader/PrimaryHeader'
 
@@ -18,42 +16,6 @@ type Props = {
   anchorEl: PopperProps['anchorEl']
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popper: {
-      zIndex: 3, // Mapbox attribution is 2 so this should be higher than that.
-      '& .arrow': {
-        top: 0,
-        left: 0,
-        marginTop: '-0.9em',
-        width: '3em',
-        height: '1em',
-        '&::before': {
-          borderWidth: '0 1em 1em 1em',
-          // borderColor: `transparent transparent ${theme.palette.primary.dark} transparent` // Dark Background
-          borderColor: `transparent transparent ${theme.palette.grey['300']} transparent` // Light Background
-        }
-      }
-    },
-    arrow: {
-      position: 'absolute',
-      fontSize: 7,
-      width: '3em',
-      height: '3em',
-      '&::before': {
-        content: '""',
-        margin: 'auto',
-        display: 'block',
-        width: 0,
-        height: 0,
-        borderStyle: 'solid',
-        transform: 'translate3d(-50%, 0, 0)', // Keep arrow centered.
-        '-webkit-transform': 'translate3d(-50%, 0 ,0)'
-      }
-    }
-  })
-)
-
 const MegaMenuPopper = ({
   children,
   anchorEl,
@@ -64,8 +26,6 @@ const MegaMenuPopper = ({
   id,
   open = false
 }: Props) => {
-  const classes = useStyles()
-  const arrowRef = useRef(null)
   const [popperTransActive, setPopperTransActive] = useState(false)
   const [debouncedPopperTransActive] = useDebounce(
     popperTransActive,
@@ -85,29 +45,45 @@ const MegaMenuPopper = ({
   }, [])
 
   const hasAnchorEl = Boolean(anchorEl)
+
+  const style = {
+    popper: {
+      zIndex: 3 // Mapbox attribution is 2 so this should be higher than that.
+    }
+  }
   return (
     <>
       <Popper
         // Logical Or for type checking only.
         id={id ?? undefined}
-        className={classes.popper}
+        sx={{
+          ...style.popper
+        }}
         open={open && hasAnchorEl}
         anchorEl={anchorEl}
         transition
-        modifiers={{
-          // flip: {
-          //   enabled: true
+        modifiers={[
+          // TODO - make an arrow
+          // {
+          //   name: 'arrow',
+          //   options: {
+          //     element: arrow
+          //   }
           // },
-          offset: {
-            enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 17'}`
+          {
+            name: 'offset',
+            options: {
+              offset: [0, toolbarVariant === 'dense' ? 10 : 17]
+            }
           },
-          preventOverflow: {
-            enabled: true,
-            boundariesElement: 'window',
-            padding: 0
+          {
+            name: 'preventOverflow',
+            options: {
+              // boundariesElement: 'window', // Not sure if this is necessary, commented out during Mui v5 upgrade due to lack of documentation. It might be a deprecated Popper.js v1 option.
+              padding: 0
+            }
           }
-        }}
+        ]}
       >
         {({TransitionProps}) => (
           <Collapse
@@ -122,50 +98,9 @@ const MegaMenuPopper = ({
               onMouseEnter={onOpen}
               onFocus={onOpen}
             >
+              {/* <Box data-popper-arrow sx={{...style.arrow}} /> */}
               {children}
             </div>
-          </Collapse>
-        )}
-      </Popper>
-      <Popper
-        // for type checking only.
-        id={id ?? undefined}
-        open={open && toolbarVariant === 'regular' && hasAnchorEl}
-        className={classes.popper}
-        transition
-        anchorEl={anchorEl}
-        modifiers={{
-          // flip: {
-          //   enabled: true
-          // },
-          offset: {
-            enabled: true,
-            offset: `${toolbarVariant === 'dense' ? '0, 10' : '0, 18'}`
-          },
-          preventOverflow: {
-            enabled: true,
-            boundariesElement: 'window',
-            padding: 0
-          },
-          arrow: {
-            enabled: arrowRef.current,
-            element: arrowRef.current
-          }
-        }}
-      >
-        {({TransitionProps}) => (
-          <Collapse
-            {...TransitionProps}
-            timeout={{enter: 300, exit: POPOVER_TRAN_EXIT_DURATION}}
-          >
-            <span
-              className={classes.arrow}
-              ref={arrowRef}
-              onMouseLeave={onClose}
-              onBlur={onClose}
-              onMouseEnter={onOpen}
-              onFocus={onOpen}
-            />
           </Collapse>
         )}
       </Popper>

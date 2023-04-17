@@ -130,6 +130,7 @@ const PrimaryHeader = () => {
         // elevation={parentFixed ? 3 : 1}
         position="relative"
         sx={{
+          zIndex: 4, // Show AppBar above mega menu popper with box shadow
           minHeight: stuck ? APP_BAR_HEIGHT.dense : APP_BAR_HEIGHT.regular,
           position: stuck ? 'fixed' : 'relative',
           top: 0, // We don't need top to toggle, but it does need set for 'fixed' positioning.
