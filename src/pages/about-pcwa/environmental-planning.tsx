@@ -140,6 +140,13 @@ const EnvironmentalPlanningPage = () => {
               </Type>
               <OpenInNewLinkBox
                 {...linkProps}
+                href="https://docs.pcwa.net/TCS-CalFrame_water-agency-role-in-forest-health-report"
+              >
+                Tahoe Central Sierra Cal FRAME Project - Water Agency Role in
+                Forest Health Report
+              </OpenInNewLinkBox>
+              <OpenInNewLinkBox
+                {...linkProps}
                 href="https://docs.pcwa.net/mvgb-sgma-alt-2018-annual-report"
               >
                 Annual Report for the Martis Valley Groundwater Basin,
