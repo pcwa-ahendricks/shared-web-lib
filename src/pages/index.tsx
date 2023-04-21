@@ -47,8 +47,9 @@ const imgixImages = [
   // '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
-  'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
-  '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg'
+  // 'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
+  '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg',
+  'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg'
 ]
 
 type Props = {
@@ -153,8 +154,8 @@ const Index = ({
           </ChildBox>
 
           {/* not sure why min width is needed */}
-          <ChildBox flex="50%" minWidth="50%">
-            <CoverStory
+          {/* <ChildBox flex="50%" minWidth="50%">
+             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="State of PCWA's Water Supplies 2023"
               readMore="Learn more and register today"
@@ -165,6 +166,20 @@ const Index = ({
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
               // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
               body="PCWA will host a free webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
+            />
+          </ChildBox> */}
+          <ChildBox flex="50%" minWidth="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="State of PCWA's Water Supplies 2023"
+              readMore="View the recording here"
+              linkHref="/education-center/webinars/state-of-our-water-0323"
+              imgixURL="https://imgix.cosmicjs.com/aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg"
+              imgixParams={{crop: 'top'}}
+              alt="State of our Water recorded webinar flier"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="The recording is now posted for PCWA’s webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
             />
           </ChildBox>
 

@@ -58,38 +58,33 @@ const StateOfOurWaterWebinarPage = () => {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              // href="https://us02web.zoom.us/webinar/register/WN_WU82zUvrRDy_lxTRoHkTng"
-              href="https://www.youtube.com/watch?v=46A1b6lUOZw&feature=youtu.be"
-              // aria-label="Link to State of our Water Webinar registration"
-              aria-label="Link to State of our Water Webinar recording on YouTube.com"
+              href="https://us02web.zoom.us/webinar/register/WN_WU82zUvrRDy_lxTRoHkTng"
+              // aria-label="Link to State of our Water Webinar recording on YouTube.com"
+              aria-label="Link to State of our Water Webinar registration"
             >
               <Image
-                // src="bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg"
-                src="aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg"
-                // alt="State of our Water Webinar flier"
-                alt="State of our Water Webinar recording"
+                src="bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg"
+                alt="State of our Water Webinar flier"
                 layout="responsive"
                 loader={imgixLoader}
-                // width={5333}
-                width={1280}
-                // height={3000}
-                height={720}
+                width={5333}
+                height={3000}
               />
             </a>
             <Spacing size="x-large" />
-            {/* <Type gutterBottom variant="h3">
-              <em>Join us for our April Lunch & Learn Webinar</em>
-            </Type> */}
             <Type gutterBottom variant="h3">
-              <em>Watch the recording: PCWA Presents...</em>
+              <em>Join us for our April Lunch & Learn Webinar</em>
             </Type>
             <Spacing size="small" />
+            {/* <Type gutterBottom variant="h3">
+              <em>Watch the recording: PCWA Presents...</em>
+            </Type> */}
             <Type variant="h1">State of PCWA's Water Supplies 2023</Type>
             <Spacing size="x-small" />
-            {/* <Type variant="h3">
+            <Type variant="h3">
               <em>Thursday, April 20, 2023, 12-12:45 p.m.</em>
-            </Type> */}
-            <Type variant="h4">Recorded April 20th, 2023</Type>
+            </Type>
+            {/* <Type variant="h4">Recorded April 13th, 2023</Type> */}
             <Spacing />
             {/* <Type variant="h4" paragraph>
               A free webinar and live audience Q&A exploring the state of PCWA's
@@ -110,10 +105,10 @@ const StateOfOurWaterWebinarPage = () => {
               <Box pb={2}>
                 <List dense>
                   {/* <ListSubheader style={{fontSize: '1rem'}}>
-                    Discussion topics explore:
+                    Discussion topics will explore:
                   </ListSubheader> */}
                   <ListSubheader style={{fontSize: '1rem'}}>
-                    Discussion topics explored:
+                    Discussion topics explore:
                   </ListSubheader>
                   <ListItem classes={{root: classes.listItem}}>
                     <ListItemBullet />
@@ -139,7 +134,7 @@ const StateOfOurWaterWebinarPage = () => {
               </Box>
             </Paper>
             <Spacing size="large" />
-            {/* <Button
+            <Button
               variant="contained"
               color="secondary"
               href="https://us02web.zoom.us/webinar/register/WN_WU82zUvrRDy_lxTRoHkTng"
@@ -148,17 +143,17 @@ const StateOfOurWaterWebinarPage = () => {
               aria-label="Register for Webinar button link, opens in new tab"
             >
               Learn More & Register here
-            </Button> */}
-            <Button
+            </Button>
+            {/* <Button
               variant="contained"
               color="secondary"
-              href="https://www.youtube.com/watch?v=46A1b6lUOZw&feature=youtu.be"
+              href="https://www.youtube.com/watch?v=p4gmgAPqAK0&feature=youtu.be"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Watch recording of Webinar button link, opens in new tab"
             >
               Watch the Recording
-            </Button>
+            </Button> */}
           </Box>
         </WideContainer>
       </MainBox>
