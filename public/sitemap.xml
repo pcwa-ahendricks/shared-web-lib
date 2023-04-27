@@ -139,10 +139,10 @@
     <loc>https://www.pcwa.net/careers/salary-schedule</loc>
     <changefreq>daily</changefreq>
   </url>
-  <url>
+  <!-- <url>
     <loc>https://www.pcwa.net/smart-water-use/drought</loc>
     <changefreq>daily</changefreq>
-  </url>
+  </url> -->
   <url>
     <loc>https://www.pcwa.net/business/new-development</loc>
     <changefreq>daily</changefreq>
@@ -343,10 +343,10 @@
     <loc>https://www.pcwa.net/education-center/webinars/mountain-tops-to-tap</loc>
     <changefreq>daily</changefreq>
   </url>
-  <url>
+  <!-- <url>
     <loc>https://www.pcwa.net/smart-water-use/water-shortage-contingency-plan</loc>
     <changefreq>daily</changefreq>
-  </url>
+  </url> -->
   <url>
     <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-0323</loc>
     <changefreq>daily</changefreq>
