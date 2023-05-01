@@ -298,9 +298,9 @@ const IrrigationCanalPage = () => {
                 variant="contained"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://cdn.cosmicjs.com/ca672950-a3d6-11ec-a536-8726e3bb3867-2022-PCWA-AQUATIC-WEED-CONTROL-SCHEDULE.pdf"
+                href="https://docs.pcwa.net/aquatic-weed-control-schedule.pdf"
               >
-                2022 Algae Control Schedule
+                2023 Aquatic Weed Control Schedule
               </FancyButton>
             </Box>
             <CloseableInfoBox
