@@ -48,7 +48,7 @@ const imgixImages = [
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
   // 'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
-  '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg',
+  // '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg',
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg'
 ]
 
@@ -140,7 +140,7 @@ const Index = ({
           </ChildBox> */}
 
           {/* not sure why min width is needed */}
-          <ChildBox flex="50%" minWidth="50%">
+          {/* <ChildBox flex="50%" minWidth="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Mulch Mayhem Coming Soon"
@@ -151,7 +151,7 @@ const Index = ({
               alt="Mulch Mayhem Event flier"
               body="Join us for Mulch Mayhem on Saturday, May 6th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
             />
-          </ChildBox>
+          </ChildBox> */}
 
           {/* not sure why min width is needed */}
           {/* <ChildBox flex="50%" minWidth="50%">
@@ -211,9 +211,6 @@ const Index = ({
               // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
               body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
             /> */}
-        </RowBox>
-        <Spacing />
-        <RowBox responsive flexSpacing={4}>
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -227,6 +224,9 @@ const Index = ({
               body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
             />
           </ChildBox>
+        </RowBox>
+        <Spacing />
+        <RowBox responsive flexSpacing={4} justifyContent="center">
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
