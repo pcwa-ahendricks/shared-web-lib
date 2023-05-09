@@ -566,6 +566,35 @@ module.exports = {
       {
         source: `/docs/ccr/colfax${fileExtRe}`,
         destination: 'https://docs.pcwa.net/ccr/colfax.pdf'
+      },
+      // recently added in 2023, since this is how Bryan is printing them
+      {
+        source: `/ccr/alta${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/alta.pdf'
+      },
+      {
+        source: `/ccr/foothill-sunset${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/foothill-sunset.pdf'
+      },
+      {
+        source: `/ccr/monte(-|_)vista${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/monte-vista.pdf'
+      },
+      {
+        source: `/ccr/applegate${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/applegate.pdf'
+      },
+      {
+        source: `/ccr/auburn-bowman${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/auburn-bowman.pdf'
+      },
+      {
+        source: `/ccr/bianchi${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/bianchi.pdf'
+      },
+      {
+        source: `/ccr/colfax${fileExtRe}`,
+        destination: 'https://docs.pcwa.net/ccr/colfax.pdf'
       }
     ]
   },

@@ -30,8 +30,9 @@ const BoardOfDirectorsQualificationsPage = () => {
               responsibility to pay.
             </Type>
             <Type paragraph>
-              The Agency provides $24,000 life insurance policy for each
-              Director.
+              The Agency provides $24,000 in life insurance for each Director.
+              However, per our benefit plan design, there is a progressive
+              coverage reduction for Directors over the age of 65.
             </Type>
             <Type paragraph>
               Each Director is eligible to receive the same Agency travel or

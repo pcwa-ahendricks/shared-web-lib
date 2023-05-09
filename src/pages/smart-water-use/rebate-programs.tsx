@@ -15,6 +15,7 @@ import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 // import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
+import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
 const RebateProgramsPage = () => {
   const theme = useTheme()
@@ -229,7 +230,7 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                {/* <ChildBox position="relative">
+                <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -250,14 +251,14 @@ const RebateProgramsPage = () => {
                       Receive up to a $500 rebate for repairing an indoor or
                       outdoor treated water leak. For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        Treated Water Leak Rebate Requirements
+                        Water Leak Rebate Requirements
                       </Type>
                       . Rebate for treated water customers only.
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
                         href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
-                        caption="Treated Water Leak Rebate Requirements"
+                        caption="Water Leak Rebate Requirements"
                       />
                       <ApplyNowButton
                         href="/forms/rebates/water-leak"
@@ -265,7 +266,7 @@ const RebateProgramsPage = () => {
                       />
                     </ColumnBox>
                   </RebateCard>
-                </ChildBox> */}
+                </ChildBox>
                 <ChildBox position="relative">
                   <RebateCard pt={4}>
                     <Type paragraph>
@@ -401,8 +402,10 @@ const RebateProgramsPage = () => {
                       <Type variant="h6" component="span">
                         Untreated Water Tank -
                       </Type>{' '}
-                      Receive up to a $500 rebate for purchasing and installing
-                      a water storage tank. For additional information see{' '}
+                      Receive up to a $1,000 rebate for purchasing and
+                      installing a water storage tank more than 2,000 gallons
+                      and up to $500 for a tank less than 2,000 gallons. For
+                      additional information see{' '}
                       <Type component="em" variant="inherit">
                         Untreated Water Tank Rebate Requirements
                       </Type>

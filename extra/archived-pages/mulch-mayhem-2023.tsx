@@ -62,8 +62,10 @@ export default function MulchMayhemPage() {
             <ChildBox flex="60%">
               <Type variant="h3" color="primary" gutterBottom>
                 <em>
-                  Free Mulch available for Drive Thru Customers of Hosting
-                  Agencies
+                  {/* Free Mulch available for Drive Thru Customers of Hosting
+                  Agencies */}
+                  Free Mulch Available for PCWA and San Juan Water District
+                  Customers
                 </em>
               </Type>
               <Spacing />
@@ -78,10 +80,10 @@ export default function MulchMayhemPage() {
                 Rocklin
               </Type>
 
-              <Type variant="body1">
+              {/* <Type variant="body1">
                 A Drive Thru Only Event for Trucks and Trailers. (Bring your own
                 tarp to cover.)
-              </Type>
+              </Type> */}
               <List dense>
                 <ListItem sx={{...style.listItem}}>
                   <ListItemBullet>

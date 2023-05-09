@@ -46,11 +46,11 @@
     "@types/url-parse": "^1.4.8",
     "@types/valid-url": "^1.0.3",
     "@vercel/ncc": "^0.36.1",
-    "@vercel/node": "^2.10.2",
+    "@vercel/node": "^2.12.0",
     "ava": "^4.3.3",
     "cross-env": "^7.0.2",
-    "eslint": "8.37.0",
-    "eslint-config-next": "^13.2.4",
+    "eslint": "8.38.0",
+    "eslint-config-next": "^13.3.0",
     "eslint-config-prettier": "^8.8.0",
     "gensync": "^1.0.0-beta.2",
     "globby": "<12.0.0",
@@ -129,7 +129,7 @@
     "url-parse": "^1.5.10",
     "use-debounce": "^8.0.4",
     "valid-url": "^1.0.9",
-    "vercel": "^28.18.3",
+    "vercel": "^28.20.0",
     "yup": "^0.32.11"
   }
 }

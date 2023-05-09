@@ -212,14 +212,14 @@ const menuConfig: MenuConfig[] = [
             title: 'Smart Water Use',
             nextLink: '/smart-water-use'
           },
-          {
-            title: 'Drought',
-            nextLink: '/smart-water-use/drought'
-          },
-          {
-            title: 'Water Shortage Contingency Plan',
-            nextLink: '/smart-water-use/water-shortage-contingency-plan'
-          },
+          // {
+          //   title: 'Drought',
+          //   nextLink: '/smart-water-use/drought'
+          // },
+          // {
+          //   title: 'Water Shortage Contingency Plan',
+          //   nextLink: '/smart-water-use/water-shortage-contingency-plan'
+          // },
           {
             title: 'Landscaping Resources',
             nextLink: '/smart-water-use/landscape-resources'
