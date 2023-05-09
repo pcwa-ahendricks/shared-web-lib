@@ -15,7 +15,7 @@ type Props = {
 } & FieldProps<any>
 
 const UPLOAD_MB_LIMIT = 30 // Now lambda functions must be less than 5MB, but we are resizing dropped files so this can be higher.
-const UPLOAD_FILE_LIMIT = 5
+const UPLOAD_FILE_LIMIT = 10
 
 const AttachmentField = ({
   field,
@@ -109,19 +109,20 @@ const AttachmentField = ({
       fullWidth={fullWidth}
     >
       <Type variant="caption" color="textSecondary" gutterBottom>
-        Attach {`${attachmentTitle}(s)`}
+        Attach {`${attachmentTitle}`}
       </Type>
       {/* withStyles (used in <DropzoneUploader/>) produces a higher order component. To access clearUploads() method use innerRef over ref prop. See https://github.com/mui-org/material-ui/issues/10106 and https://mui.com/customization/css-in-js/ for more info. */}
       <DropzoneUploader
         ref={dropzoneUploaderRef}
-        subtitle={`your ${attachmentTitle.toLowerCase()}(s) here or click to browse`}
+        subtitle={`your ${attachmentTitle.toLowerCase()} here or click to browse`}
         uploadRoute={uploadRoute}
         onUploadedChange={uploadedAttachmentsHandler}
         height={200}
         width="100%"
-        // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
+        // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4.5 MB. See https://vercel.com/docs/concepts/limits/overview#serverless-function-payload-size-limit for more info.
         // accept="image/*, application/pdf"
-        accept="image/*"
+        // Post conversion application will need to upload (occasional) pdf and/or word document.
+        accept="image/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/pdf"
         disabled={
           disabled || isSubmitting || value?.length >= UPLOAD_FILE_LIMIT
         }

@@ -308,7 +308,8 @@ export default function PoolCover() {
                   setFormIsDirty(dirty)
                 }
                 if (values !== formValues) {
-                  setFormValues(values)
+                  // prevent max depth error with setTimeout()
+                  setTimeout(() => setFormValues(values), 0)
                 }
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.
@@ -541,7 +542,7 @@ export default function PoolCover() {
                               <FormTextField
                                 name="comments"
                                 multiline
-                                rows={3} // That's about 200 characters
+                                minRows={3} // That's about 200 characters
                                 label="Optionally, you can provide us any comments"
                                 disabled={ineligible}
                               />
@@ -588,7 +589,7 @@ export default function PoolCover() {
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="receipts"
-                              attachmentTitle="Receipt"
+                              attachmentTitle="Receipt(s)"
                               uploadRoute="pool-cover"
                               onIsUploadingChange={receiptIsUploadingHandler}
                               component={AttachmentField}
@@ -599,7 +600,7 @@ export default function PoolCover() {
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="installPhotos"
-                              attachmentTitle="Pool Cover installed photo"
+                              attachmentTitle="Pool Cover installed photo(s)"
                               uploadRoute="pool-cover"
                               onIsUploadingChange={
                                 installPhotosIsUploadingHandler

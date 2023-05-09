@@ -1,7 +1,5 @@
 import React, {useCallback} from 'react'
 import {Switch, FormControl, FormControlLabel} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {FieldProps} from 'formik'
 import {safeCastBooleanToStr, safeCastStrToBoolean} from '@lib/safeCastBoolean'
 
@@ -10,14 +8,6 @@ type Props = {
   disabled?: boolean
   label: React.ReactNode
 } & FieldProps<any>
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    label: {
-      maxWidth: '100%' // IE11 fix.
-    }
-  })
-)
 
 const EmailAttachmentsSwitch = ({
   field,
@@ -42,8 +32,6 @@ const EmailAttachmentsSwitch = ({
   const fieldHasError = Boolean(currentError)
   const fieldWasTouched = Boolean(touched[name])
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
-
-  const classes = useStyles()
 
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched.
   const changeHandler = useCallback(
@@ -70,7 +58,9 @@ const EmailAttachmentsSwitch = ({
       {...other}
     >
       <FormControlLabel
-        classes={{root: classes.label}}
+        sx={{
+          maxWidth: '100%' // IE11 fix.
+        }}
         label={label}
         control={
           <Switch

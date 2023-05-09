@@ -92,7 +92,9 @@ const UntreatedWaterTankEligibilityDialog = ({
       [errors.untreatedCustomer]
         .filter(
           (error) =>
-            error && typeof error === 'string' && !/required/i.test(error)
+            error &&
+            typeof error === 'string' &&
+            !/is a required field/i.test(error)
         )
         .some(Boolean),
     [errors]
@@ -165,7 +167,9 @@ const UntreatedWaterTankEligibilityDialog = ({
     (fieldName: UntreatedWaterTankRebateFormDataProp) => {
       const error = errors[fieldName]
       return (
-        Boolean(error) && typeof error === 'string' && !/required/i.test(error)
+        Boolean(error) &&
+        typeof error === 'string' &&
+        !/is a required field/i.test(error)
       )
     },
     [errors]
@@ -320,7 +324,7 @@ const QuestionOneField = (props: any) => {
   const hasApplicableError =
     Boolean(error) &&
     typeof error === 'string' &&
-    !/required field/i.test(error)
+    !/is a required field/i.test(error)
 
   return (
     <>

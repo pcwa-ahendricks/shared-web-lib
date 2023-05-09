@@ -1,26 +1,26 @@
 import React, {useState, useCallback} from 'react'
 import {
   Fade as Transition,
+  Box,
   Popover,
   IconButton,
-  Theme,
   Tooltip,
   Typography as Type,
   useTheme,
   useMediaQuery
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
 import delay from 'then-sleep'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
+import {Theme} from '@lib/material-theme'
 // import InformationIcon from 'mdi-material-ui/InformationVariant'
 // import MessageIcon from '@mui/icons-material/AnnouncementOutlined'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const ShowMeAccountInfo = () => {
+  const theme = useTheme<Theme>()
+  const style = {
     typography: {
       margin: theme.spacing(4),
       color: theme.palette.grey[50],
@@ -55,17 +55,13 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       background: `radial-gradient(rgba(40, 44, 47, 0.95), rgba(40, 44, 47, 0.85), rgba(40, 44, 47, 0.7), rgba(0, 0, 0, 0.2))`
     }
-  })
-)
-const ShowMeAccountInfo = () => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
+  }
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [anchorEl, setAnchorEl] = useState(null)
   const [tooltipOpen, setTooltipOpen] = useState(false)
   const [showTextOverlay, setShowTextOverlay] = useState<boolean>(true)
 
-  const handleClick = useCallback((event) => {
+  const handleClick = useCallback((event: any) => {
     setTooltipOpen(false)
     setAnchorEl(event.currentTarget)
   }, [])
@@ -116,7 +112,11 @@ const ShowMeAccountInfo = () => {
             onExited: popoverExitedHandler
           }}
         >
-          <div className={classes.popoverContent}>
+          <Box
+            sx={{
+              ...style.popoverContent
+            }}
+          >
             <Image
               height={200}
               width={500}
@@ -135,15 +135,24 @@ const ShowMeAccountInfo = () => {
               alt="Find My Account Number"
             />
             <Transition in={showTextOverlay} timeout={{enter: 0, exit: 2700}}>
-              <div className={classes.textOverlay}>
-                <Type className={classes.typography} variant="h5">
+              <Box
+                sx={{
+                  ...style.textOverlay
+                }}
+              >
+                <Type
+                  sx={{
+                    ...style.typography
+                  }}
+                  variant="h5"
+                >
                   Find your account number on the upper right of your printed
                   bill statement. Entering leading zeros on this form is
                   optional.
                 </Type>
-              </div>
+              </Box>
             </Transition>
-          </div>
+          </Box>
         </Popover>
       </div>
     </Tooltip>

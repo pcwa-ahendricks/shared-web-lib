@@ -3,7 +3,37 @@ import {IrrigSysUpgradeOpts} from '@components/formFields/IrrigSysUpgradeOptsChe
 import {IrrigUpgradeLocationOpts} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import fetcher from '@lib/fetcher'
+import {LeakEligibleOpts} from '@components/formFields/WaterLeakRequireCheckboxes'
 
+export interface WaterLeakFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  howDidYouHear: string
+  otherHowDidYouHear: string
+  propertyType: string
+  leakBeginDate: Date | null
+  leakIdentifyDate: Date | null
+  leakRepairDate: Date | null
+  describe: string
+  eligibilityRequirements: LeakEligibleOpts
+  receipts: string[]
+  leakPhotos: string[]
+  repairPhotos: string[]
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  signature: string
+  captcha: string
+}
+
+export interface WaterLeakRequestBody {
+  formData: WaterLeakFormData
+}
 export interface IrrigationControllerRebateFormData {
   firstName: string
   lastName: string
@@ -46,18 +76,82 @@ export interface IrrigationEfficienciesRebateFormData {
   propertyType: string
   treatedCustomer: '' | 'Yes' | 'No'
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
   describe: string
   irrigMethod: string
   upgradeLocations: IrrigUpgradeLocationOpts
+  preConvPhotos: string[]
   upgradeOpts: IrrigSysUpgradeOpts
 }
 
 export interface IrrigationEfficienciesRequestBody {
   // recipients: {Name: string, Email: string}[],
   formData: IrrigationEfficienciesRebateFormData
+}
+
+export interface PostConvLawnReplacementFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  propertyType: string
+  rebateCustomer: '' | 'Yes' | 'No'
+  projectCompleted: '' | 'Yes' | 'No'
+  worksheetCompleted: '' | 'Yes' | 'No'
+  photosTaken: '' | 'Yes' | 'No'
+  artTurfInstalled: '' | 'Yes' | 'No'
+  partsReceipts: '' | 'Yes' | 'No'
+  approxSqFeet: string
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  inspectAgree: BooleanAsString
+  signature: string
+  captcha: string
+  postConvPhotos: string[]
+  worksheetUploads: string[]
+  checklistUploads: string[]
+  itemizedReceipts: string[]
+}
+
+export interface PostConvLawnReplacementRequestBody {
+  // recipients: Array<{Name: string, Email: string}>,
+  formData: PostConvLawnReplacementFormData
+}
+
+export interface PostConvIrrigEffFormData {
+  firstName: string
+  lastName: string
+  email: string
+  accountNo: string
+  address: string
+  city: string
+  otherCity: string
+  phone: string
+  propertyType: string
+  rebateCustomer: '' | 'Yes' | 'No'
+  projectCompleted: '' | 'Yes' | 'No'
+  photosTaken: '' | 'Yes' | 'No'
+  partsReceipts: '' | 'Yes' | 'No'
+  describe: string
+  termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
+  inspectAgree: BooleanAsString
+  signature: string
+  captcha: string
+  postConvPhotos: string[]
+  itemizedReceipts: string[]
+}
+
+export interface PostConvIrrigEffRequestBody {
+  // recipients: Array<{Name: string, Email: string}>,
+  formData: PostConvIrrigEffFormData
 }
 
 export interface LawnReplacementRebateFormData {
@@ -75,6 +169,7 @@ export interface LawnReplacementRebateFormData {
   treatedCustomer: '' | 'Yes' | 'No'
   approxSqFeet: string
   termsAgree: BooleanAsString
+  emailAttachments: BooleanAsString
   inspectAgree: BooleanAsString
   signature: string
   captcha: string
@@ -83,6 +178,7 @@ export interface LawnReplacementRebateFormData {
   useArtTurf: BooleanAsString
   alreadyStarted: BooleanAsString
   upgradeLocations: IrrigUpgradeLocationOpts
+  preConvPhotos: string[]
 }
 
 export interface LawnReplacementRequestBody {
@@ -344,6 +440,9 @@ type RequestBody =
   | WaterWasteRequestBody
   | Sb998SelfCertRequestBody
   | CwmpContactUsRequestBody
+  | PostConvLawnReplacementRequestBody
+  | PostConvIrrigEffRequestBody
+  | WaterLeakRequestBody
 
 async function postForm(serviceUriPath: string, body: RequestBody) {
   const url = `/api/mail/${serviceUriPath}`

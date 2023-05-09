@@ -1,39 +1,46 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
-import {Typography as Type, Box, TypographyProps, Theme} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Typography as Type, Box, TypographyProps, useTheme} from '@mui/material'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/legacy/image'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    bulletLi: {
-      listStyleType: 'disc',
-      marginBottom: theme.spacing(1)
-    }
-  })
-)
+import {Theme} from '@lib/material-theme'
 
 const ClearingWaterMeterPage = () => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = useMemo(
+    () => ({
+      bulletLi: {
+        listStyleType: 'disc',
+        marginBottom: theme.spacing(1)
+      }
+    }),
+    [theme]
+  )
+
   const TypeBullet = useCallback(
-    ({children, ...rest}: TypographyProps<'li'>) => {
+    ({children, sx, ...rest}: TypographyProps<'li'>) => {
       return (
-        <Type component="li" className={classes.bulletLi} {...rest}>
+        <Type
+          component="li"
+          sx={{
+            ...style.bulletLi,
+            ...sx
+          }}
+          {...rest}
+        >
           {children}
         </Type>
       )
     },
-    [classes]
+    [style]
   )
 
   return (
@@ -44,9 +51,11 @@ const ClearingWaterMeterPage = () => {
             title="Please Keep Your Water Meter Clear"
             subtitle="Smart Water Use"
           />
-          <StrongEmphasis variant="subtitle1" color="secondary" paragraph>
-            PCWA requires clear access to water meters at all times!
-          </StrongEmphasis>
+          <Type paragraph>
+            <StrongEmphasis variant="subtitle1" color="secondary">
+              PCWA requires clear access to water meters at all times!
+            </StrongEmphasis>
+          </Type>
           <Type paragraph>
             Parked vehicles, overgrown plants, yard debris and construction
             materials prevent meter readers and maintenance crews from doing

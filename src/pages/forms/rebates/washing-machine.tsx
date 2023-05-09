@@ -326,7 +326,8 @@ const WashingMachine = () => {
                   setFormIsDirty(dirty)
                 }
                 if (values !== formValues) {
-                  setFormValues(values)
+                  // prevent max depth error with setTimeout()
+                  setTimeout(() => setFormValues(values), 0)
                 }
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.
@@ -594,7 +595,7 @@ const WashingMachine = () => {
                               <FormTextField
                                 name="comments"
                                 multiline
-                                rows={3} // That's about 200 characters
+                                minRows={3} // That's about 200 characters
                                 label="Optionally, you can provide us any comments"
                                 disabled={ineligible}
                               />
@@ -641,7 +642,7 @@ const WashingMachine = () => {
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="receipts"
-                              attachmentTitle="Receipt"
+                              attachmentTitle="Receipt(s)"
                               uploadRoute="washing-machine"
                               onIsUploadingChange={receiptIsUploadingHandler}
                               component={AttachmentField}
@@ -652,7 +653,7 @@ const WashingMachine = () => {
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="installPhotos"
-                              attachmentTitle="Water-Efficient Clothes Washing Machine installed photo"
+                              attachmentTitle="Water-Efficient Clothes Washing Machine installed photo(s)"
                               uploadRoute="washing-machine"
                               onIsUploadingChange={
                                 installPhotosIsUploadingHandler

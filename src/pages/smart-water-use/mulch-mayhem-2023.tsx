@@ -1,13 +1,13 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {
   List,
   ListItem,
   Typography as Type,
   ListItemText,
   ListItemIcon,
-  ListItemIconProps
+  ListItemIconProps,
+  useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -17,28 +17,31 @@ import Spacing from '@components/boxes/Spacing'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
+import MainPhone from '@components/links/MainPhone'
 import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  listItemBullet: {
-    minWidth: theme.spacing(5)
-  },
-  listItem: {
-    paddingBottom: 0
-  }
-}))
-
 export default function MulchMayhemPage() {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = useMemo(
+    () => ({
+      listItemBullet: {
+        minWidth: theme.spacing(5)
+      },
+      listItem: {
+        paddingBottom: 0
+      }
+    }),
+    [theme]
+  )
   const ListItemBullet = useCallback(
     ({children, ...rest}: ListItemIconProps) => {
       return (
-        <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
+        <ListItemIcon sx={{...style.listItemBullet}} {...rest}>
           {children}
         </ListItemIcon>
       )
     },
-    [classes]
+    [style]
   )
 
   return (
@@ -47,7 +50,7 @@ export default function MulchMayhemPage() {
         <WideContainer>
           <PageTitle title="Mulch Mayhem" />
           <Image
-            src="d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
+            src="275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg"
             alt="Mulch Mayhem Flier"
             layout="responsive"
             loader={imgixLoader}
@@ -57,66 +60,50 @@ export default function MulchMayhemPage() {
           <Spacing factor={2} size="large" />
           <RowBox flexSpacing={10} responsive>
             <ChildBox flex="60%">
-              <Type variant="h2" color="primary" gutterBottom>
-                <em>Free Mulch Available for Customers of Hosting Agencies.</em>
+              <Type variant="h3" color="primary" gutterBottom>
+                <em>
+                  Free Mulch available for Drive Thru Customers of Hosting
+                  Agencies
+                </em>
               </Type>
               <Spacing />
-              <Type paragraph>
-                Join us for Mulch Mayhem{' '}
-                <strong>Saturday, May 14th from 8:00 am - 12:00 pm</strong> at a
-                NEW LOCATION: Del Oro High School Football Stadium Parking Lot
-                off of Boyington Road in Loomis (Google search “Del Oro Football
-                Stadium”)—also see map.
+              <Type variant="h4" gutterBottom>
+                Join us for Mulch Mayhem on Saturday, May 6th, from 8 am to 12
+                pm.
               </Type>
-              {/* <Type variant="body1">
+              <Spacing size="small" />
+              <Type variant="subtitle1">Sierra College, Overflow Lot</Type>
+              <Type paragraph>
+                Corner of Rocklin Rd. and El Don Dr. (opposite the campus) in
+                Rocklin
+              </Type>
+
+              <Type variant="body1">
                 A Drive Thru Only Event for Trucks and Trailers. (Bring your own
-                tarp to cover).
-              </Type> */}
-              <List>
-                {/* <ListItem>
+                tarp to cover.)
+              </Type>
+              <List dense>
+                <ListItem sx={{...style.listItem}}>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="A Drive Thru Only Event for Trucks and Trailers. (Bring your own tarp to cover)" />
-                </ListItem> */}
-                <ListItem classes={{root: classes.listItem}}>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
-                  <ListItemText primary="For trucks and trailers: bring your own tarp to cover your load." />
+                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone" />
                 </ListItem>
 
-                <ListItem classes={{root: classes.listItem}}>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
-                  <ListItemText
-                    primary="For cars: bring your own tools for picking up and loading by
-                hand (event staff is unable to assist)."
-                  />
-                </ListItem>
-                <ListItem classes={{root: classes.listItem}}>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
-                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone." />
-                </ListItem>
-                <ListItem classes={{root: classes.listItem}}>
+                <ListItem sx={{...style.listItem}}>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
                   <ListItemText primary="For personal use only; not for resale or commercial use." />
                 </ListItem>
-                <ListItem classes={{root: classes.listItem}}>
-                  <ListItemBullet>
-                    <BulletIcon fontSize="large" />
-                  </ListItemBullet>
-                  <ListItemText primary="One cubic yard per customer." />
-                </ListItem>
               </List>
-              <Type variant="body1" paragraph>
+              <Spacing size="small" />
+              {/* <Type variant="body1" paragraph>
                 Hosted by PCWA in partnership with San Juan Water District and
                 the City of Lincoln.
+              </Type> */}
+              <Type variant="body1" paragraph>
+                Hosted by PCWA in partnership with San Juan Water District.
               </Type>
               <Spacing />
               <Type variant="subtitle1" gutterBottom>
@@ -127,11 +114,11 @@ export default function MulchMayhemPage() {
                 the way icing keeps a cake moist. Mulch slows evaporation
                 allowing water to sink into the soil, moderates soil temperature
                 and breaks down into nutrients for plants. Be sure to add three
-                to four inches of organic mulch (e.g. leaves, wood chips) around
+                to four inches or organic mulch (e.g. leaves, wood chips) around
                 trees and plants for the greatest benefit.
               </Type>
               <Spacing />
-              <Type variant="subtitle1" gutterBottom>
+              {/* <Type variant="subtitle1" gutterBottom>
                 Directions
               </Type>
               <Type paragraph>
@@ -160,15 +147,20 @@ export default function MulchMayhemPage() {
                 <br />
                 Turn right into Del Oro Stadium Parking
               </Type>
-              <Spacing />
-              <Image
+              <Spacing /> */}
+              {/* <Image
                 src="f2d8cf20-aeed-11ec-abde-779eab3b09ef-Visio-Mulch-Mayhem-Del-Oro.png"
                 alt="Mulch Mayhem Map Directions"
                 layout="responsive"
                 loader={imgixLoader}
                 width={1583}
                 height={1599}
-              />
+              /> */}
+              <Type paragraph>
+                <em>
+                  Questions? Contact Customer Services at <MainPhone />.
+                </em>
+              </Type>
             </ChildBox>
             <ColumnBox child flex="40%">
               <ChildBox>

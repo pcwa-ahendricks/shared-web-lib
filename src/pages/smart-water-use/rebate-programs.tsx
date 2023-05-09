@@ -1,14 +1,6 @@
 import React, {forwardRef} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {
-  Typography as Type,
-  Box,
-  useTheme,
-  alpha,
-  Link,
-  BoxProps,
-  Paper
-} from '@mui/material'
+import {Typography as Type, Box, useTheme, Link, BoxProps} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -21,26 +13,8 @@ import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
-import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+// import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
-import {yellow} from '@mui/material/colors'
-
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     // verticalAlign: 'super' changes styling in an unfavorable way. Workaround consists of using Flex layout.
-//     annotate: {
-//       textTransform: 'capitalize',
-//       alignSelf: 'flex-start',
-//       fontSize: '0.95rem',
-//       paddingRight: theme.spacing(1),
-//       color: theme.palette.secondary.main
-//     },
-//     listItem: {paddingBottom: 0},
-//     darkSecondary: {
-//       color: theme.palette.secondary.dark
-//     }
-//   })
-// )
 
 const RebateProgramsPage = () => {
   const theme = useTheme()
@@ -255,7 +229,7 @@ const RebateProgramsPage = () => {
             <ChildBox flex="50%">
               <Spacing />
               <ColumnBox flexSpacing={3}>
-                <ChildBox position="relative">
+                {/* <ChildBox position="relative">
                   <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -271,40 +245,28 @@ const RebateProgramsPage = () => {
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
-                        Untreated Water Tank -
+                        Water Leak -
                       </Type>{' '}
-                      Receive up to a $500 rebate for purchasing and installing
-                      a water storage tank. For additional information see{' '}
+                      Receive up to a $500 rebate for repairing an indoor or
+                      outdoor treated water leak. For additional information see{' '}
                       <Type component="em" variant="inherit">
-                        Untreated Water Tank Rebate Requirements
+                        Treated Water Leak Rebate Requirements
                       </Type>
-                      . Rebate for untreated water customers only.
+                      . Rebate for treated water customers only.
                     </Type>
                     <ColumnBox>
                       <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/untreated-water-tank-rebate-requirements.pdf"
-                        caption="Untreated Water Tank Rebate Requirements"
+                        href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
+                        caption="Treated Water Leak Rebate Requirements"
                       />
                       <ApplyNowButton
-                        href="/forms/rebates/untreated-water-tank"
-                        label="Apply for Untreated Water Tank Rebate Online"
+                        href="/forms/rebates/water-leak"
+                        label="Apply Now"
                       />
                     </ColumnBox>
                   </RebateCard>
-                </ChildBox>
+                </ChildBox> */}
                 <ChildBox position="relative">
-                  {/* <RibbonContainer minHeight={theme.spacing(3)}>
-                    <LeftLargeRibbon
-                      backgroundColor="#cc4400"
-                      color="#f0f0f0"
-                      fontFamily="Arial"
-                      zIndex={3}
-                    >
-                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
-                        New
-                      </span>
-                    </LeftLargeRibbon>
-                  </RibbonContainer> */}
                   <RebateCard pt={4}>
                     <Type paragraph>
                       <Type variant="h6" component="span">
@@ -364,7 +326,7 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      <Paper elevation={1}>
+                      {/* <Paper elevation={1}>
                         <Box
                           bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
@@ -375,18 +337,18 @@ const RebateProgramsPage = () => {
                             this rebate. Please check back in 2023.
                           </Type>
                         </Box>
-                      </Paper>
+                      </Paper> */}
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
                           href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
                           label="Lawn Replacement Rebate Terms and Conditions"
                         />
-                        {/* <ApplyNowButton
-                          disabled
+                        <ApplyNowButton
+                          // disabled
                           href="/forms/rebates/lawn-replacement"
                           label="Apply for Lawn Replacement Rebate Online"
-                        /> */}
+                        />
                       </ColumnBox>
                     </RebateCard>
                   </ChildBox>
@@ -434,6 +396,31 @@ const RebateProgramsPage = () => {
               <Spacing />
               <ColumnBox flexSpacing={3}>
                 <ChildBox position="relative">
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        Untreated Water Tank -
+                      </Type>{' '}
+                      Receive up to a $500 rebate for purchasing and installing
+                      a water storage tank. For additional information see{' '}
+                      <Type component="em" variant="inherit">
+                        Untreated Water Tank Rebate Requirements
+                      </Type>
+                      . Rebate for untreated water customers only.
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://docs.pcwa.net/untreated-water-tank-rebate-requirements.pdf"
+                        caption="Untreated Water Tank Rebate Requirements"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/untreated-water-tank"
+                        label="Apply for Untreated Water Tank Rebate Online"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
+                </ChildBox>
+                <ChildBox position="relative">
                   {/* <RibbonContainer minHeight={theme.spacing(3)}>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
@@ -470,7 +457,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       .
                     </Type>
-                    <Paper elevation={1}>
+                    {/* <Paper elevation={1}>
                       <Box
                         bgcolor={alpha(yellow[50], 0.8)}
                         paddingY={2}
@@ -481,18 +468,17 @@ const RebateProgramsPage = () => {
                           this rebate. Please check back in 2023.
                         </Type>
                       </Box>
-                    </Paper>
+                    </Paper> */}
                     <Spacing size="small" />
                     <ColumnBox>
                       <TermsAndConditionsButton
                         href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
                         caption="Smart Controller Rebate Requirements"
                       />
-                      {/* <ApplyNowButton
-                        disabled
+                      <ApplyNowButton
                         href="/forms/rebates/smart-controller"
                         label="Apply for Smart Controller Rebate Online"
-                      /> */}
+                      />
                     </ColumnBox>
                   </RebateCard>
                 </ChildBox>
@@ -531,7 +517,7 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      <Paper elevation={1}>
+                      {/* <Paper elevation={1}>
                         <Box
                           bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
@@ -542,18 +528,18 @@ const RebateProgramsPage = () => {
                             this rebate. Please check back in 2023.
                           </Type>
                         </Box>
-                      </Paper>
+                      </Paper> */}
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
                           href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
-                        {/* <ApplyNowButton
-                          disabled
+                        <ApplyNowButton
+                          // disabled
                           href="/forms/rebates/irrigation-efficiencies"
                           label="Apply for Efficiencies Rebate Online"
-                        /> */}
+                        />
                       </ColumnBox>
                     </RebateCard>
                   </ChildBox>
@@ -565,10 +551,10 @@ const RebateProgramsPage = () => {
                       <Type variant="h6" component="span">
                         High-Efficiency Toilet (HET)/Urinal -
                       </Type>{' '}
-                      Receive up to a $100 rebate per toilet for the replacement
+                      Receive up to a $50 rebate per toilet for the replacement
                       of old 3 Gallons Per Flush (GPF) or Pre-1994 toilets with
                       new high-efficiency 1.28 GPF toilets. For urinals, receive
-                      up to a $100 rebate per urinal for the replacement of
+                      up to a $50 rebate per urinal for the replacement of
                       commercial urinals with EPA WaterSense approved or
                       waterless urinals. See{' '}
                       <Type component="em" variant="inherit">
@@ -680,7 +666,7 @@ const RebateProgramsPage = () => {
                   <Link
                     align="center"
                     display="block"
-                    href="https://cdn.cosmicjs.com/a7fbacf0-8c3e-11e8-bfba-83728ad33885-Water Smart Plant List.pdf"
+                    href="https://docs.pcwa.net/water-smart-plant-list-sac-region"
                     rel="noopener noreferrer"
                     target="_blank"
                     title="Water Smart Plant List"

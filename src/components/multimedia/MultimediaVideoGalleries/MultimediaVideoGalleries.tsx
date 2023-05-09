@@ -22,6 +22,7 @@ import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import {useRouter} from 'next/router'
 import FilePlayer from 'react-player'
+import YouTubePlayer from 'react-player/youtube'
 import Spacing from '@components/boxes/Spacing'
 import {
   VideoList,
@@ -230,9 +231,14 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
       >
         {selectedGallery ? (
           <>
-            <RowBox key={0} flexWrap="wrap" flexSpacing={margin}>
+            <RowBox
+              key={0}
+              flexWrap="wrap"
+              flexSpacing={margin}
+              paddingBottom={5}
+            >
               {currentGallery?.videos.map((p) => (
-                <ChildBox key={p.index}>
+                <ChildBox key={p.index} paddingBottom={5}>
                   <FilePlayer
                     className={classes.player}
                     controls
@@ -254,6 +260,19 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
                   </Box>
                 </ChildBox>
               ))}
+              <ChildBox width="100%">
+                <YouTubePlayer
+                  className={classes.player}
+                  controls
+                  url="https://www.youtube.com/watch?v=Oazkk7VrlAY"
+                  width={videoWidth}
+                  height="100%"
+                />
+                <Spacing size="x-small" />
+                <Box textAlign="center" maxWidth={`calc(${videoWidth} - 24px)`}>
+                  <Type variant="subtitle1">Wettest Drought Ever</Type>
+                </Box>
+              </ChildBox>
             </RowBox>
           </>
         ) : (

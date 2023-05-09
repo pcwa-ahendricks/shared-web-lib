@@ -13,8 +13,9 @@ const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
 const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
 
 // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
-// const ACCEPTING_MIME_TYPES_RE = /^image\/.*|^application\/pdf$/i
-const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
+// const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
+const ACCEPTING_MIME_TYPES_RE =
+  /^image\/.*|^application\/pdf$|^application\/msword$|^application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document$/i
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate')

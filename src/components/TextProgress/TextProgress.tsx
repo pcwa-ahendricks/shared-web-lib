@@ -13,7 +13,11 @@ const TextProgress = ({caption = 'Loading...'}: Props) => {
   return (
     <FlexBox>
       <Box>
-        <Type color="textSecondary" className={styles.blinkingText}>
+        <Type
+          color="textSecondary"
+          className={styles.blinkingText}
+          paragraph={false}
+        >
           <em>{caption}</em>
         </Type>
         <LinearProgress

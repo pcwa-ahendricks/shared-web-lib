@@ -1,10 +1,9 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Button, Snackbar, SnackbarContent, Theme, Slide} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Button, Snackbar, SnackbarContent, Slide, useTheme} from '@mui/material'
 // import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import {stringify} from 'querystringify'
+import {Theme} from '@lib/material-theme'
 // import {SlideTransition as Transition} from '@components/Transition/Transition'
 
 type Props = {
@@ -13,17 +12,6 @@ type Props = {
   termsConditionsUrl: string
   caption?: string
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    snackbar: {
-      marginBottom: theme.spacing(2)
-    },
-    snackbarContentRoot: {
-      justifyContent: 'center'
-    }
-  })
-)
 
 // Imgix API query parameters.
 const baseOpts = {
@@ -37,7 +25,15 @@ const ReviewTermsConditions = ({
   fileName,
   caption = 'Review Terms & Conditions'
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = {
+    snackbar: {
+      marginBottom: theme.spacing(2)
+    },
+    snackbarContentRoot: {
+      justifyContent: 'center'
+    }
+  }
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
   const [scrollSnackOpen, setScrollSnackOpen] = useState<boolean>(false)
 
@@ -73,8 +69,8 @@ const ReviewTermsConditions = ({
   }, [])
 
   const scrollHandler = useCallback(
-    (evt) => {
-      if (scrollSnackOpen && evt.target.scrollTop > 100) {
+    (evt: any) => {
+      if (scrollSnackOpen && evt?.target?.scrollTop > 100) {
         setScrollSnackOpen(false)
       }
     },
@@ -109,10 +105,13 @@ const ReviewTermsConditions = ({
             onEntered: () => setScrollSnackOpen(true),
             onExiting: () => setScrollSnackOpen(false)
           }}
+          ImageProps={{width: 3840, height: 4969}}
         />
       </div>
       <Snackbar
-        className={classes.snackbar}
+        sx={{
+          ...style.snackbar
+        }}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center'
@@ -127,7 +126,9 @@ const ReviewTermsConditions = ({
       >
         <SnackbarContent
           message={<span id="message-id">Scroll down to continue</span>}
-          classes={{root: classes.snackbarContentRoot}}
+          sx={{
+            ...style.snackbarContentRoot
+          }}
         />
       </Snackbar>
     </>

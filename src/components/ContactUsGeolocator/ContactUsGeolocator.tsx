@@ -5,14 +5,14 @@ import {
   CircularProgress,
   CircularProgressProps,
   Fab,
-  Tooltip
+  Tooltip,
+  useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import GpsFixedIcon from '@mui/icons-material/GpsFixed'
 import {GoogleGeocodeApiResponse} from '@lib/types/googleGeocode'
 import CheckIcon from '@mui/icons-material/Check'
-import clsx from 'clsx'
 import {useFormikContext} from 'formik'
+import {Theme} from '@lib/material-theme'
 
 const googleGeocodeApiKey = process.env.NEXT_PUBLIC_GOOGLE_GEOCODE_KEY || ''
 
@@ -28,35 +28,6 @@ type Props = {
   cityFieldName: string
 } & Partial<FabProps>
 
-// Using modified example from https://v4.mui.com/components/progress/#interactive-integration
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    position: 'relative'
-  },
-  buttonSuccess: {
-    color: theme.palette.common.white, // white checkmark
-    backgroundColor: theme.palette.secondary.main,
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.dark
-    }
-  },
-  fabProgress: {
-    color: theme.palette.secondary.main,
-    position: 'absolute',
-    top: -6,
-    left: -6,
-    zIndex: 1
-  },
-  buttonProgress: {
-    color: theme.palette.secondary.main,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12
-  }
-}))
-
 const ContactUsGeolocator = ({
   timeout = DEFAULT_TIMEOUT,
   size,
@@ -68,7 +39,38 @@ const ContactUsGeolocator = ({
   cityFieldName,
   ...rest
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  // Using modified example from https://v4.mui.com/components/progress/#interactive-integration
+  const style = useMemo(
+    () => ({
+      wrapper: {
+        position: 'relative'
+      },
+      buttonSuccess: {
+        color: theme.palette.common.white, // white checkmark
+        backgroundColor: theme.palette.secondary.main,
+        '&:hover': {
+          backgroundColor: theme.palette.secondary.dark
+        }
+      },
+      fabProgress: {
+        color: theme.palette.secondary.main,
+        position: 'absolute',
+        top: -6,
+        left: -6,
+        zIndex: 1
+      },
+      buttonProgress: {
+        color: theme.palette.secondary.main,
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -12
+      }
+    }),
+    [theme]
+  )
   const [locating, setLocating] = useState(false)
   const [success, setSuccess] = useState(false)
 
@@ -131,35 +133,33 @@ const ContactUsGeolocator = ({
 
   const progress = useMemo(() => {
     // const {className: classNameProp, sx, ...props} = circularProgressProps ?? {}
-    const {
-      className: classNameProp,
-      style,
-      ...props
-    } = circularProgressProps ?? {}
+    const {className: classNameProp, ...props} = circularProgressProps ?? {}
     return (
       locating && (
         <CircularProgress
           size={68}
           color="secondary"
-          className={classes.fabProgress}
+          sx={{...style.fabProgress}}
           {...props}
         />
       )
     )
-  }, [locating, circularProgressProps, classes])
-
-  const buttonClassname = clsx({
-    [classes.buttonSuccess]: success
-  })
+  }, [locating, circularProgressProps, style])
 
   return (
     <Tooltip title="Find my address">
-      <Box className={classes.wrapper}>
+      <Box
+        sx={{
+          ...style.wrapper
+        }}
+      >
         <Fab
           // size={size}
           aria-label="geolocate control"
           onClick={locate}
-          className={buttonClassname}
+          sx={{
+            ...(success && style.buttonSuccess)
+          }}
           {...rest}
         >
           {success ? <CheckIcon /> : <GpsFixedIcon />}

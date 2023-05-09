@@ -1,15 +1,13 @@
 // cspell:ignore COVID perc
 import React from 'react'
 import HeroImage from '@components/hero/HeroImage'
-// import {, RightRibbon} from '@components/Ribbons/Ribbons'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden,
-  rgbToHex
+  Box
 } from '@mui/material'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
@@ -28,8 +26,9 @@ import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobil
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
-// import CoverStoryVideo from '@components/CoverStoryVideo/CoverStoryVideo'
-// import Whammy from '@components/Whammy/Whammy'
+import pTimeout from 'p-timeout'
+
+const FETCHER_TIMEOUT = 2000
 
 const imgixImages = [
   'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
@@ -45,7 +44,11 @@ const imgixImages = [
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
   '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
   '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg',
-  '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png'
+  // '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
+  '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
+  '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
+  'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
+  '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg'
 ]
 
 type Props = {
@@ -101,14 +104,14 @@ const Index = ({
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
       </Hidden> */}
-      <Hidden only="xs" implementation="css">
+      <Box sx={{display: {xs: 'none', sm: 'block'}}}>
         <QuickLinksBar />
         <Spacing />
-      </Hidden>
-      <Hidden smUp implementation="css">
+      </Box>
+      <Box sx={{display: {xs: 'block', sm: 'none'}}}>
         <QuickLinksMobileBar />
         <Spacing size="small" />
-      </Hidden>
+      </Box>
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
           {/* <ChildBox flex="50%">
@@ -135,18 +138,67 @@ const Index = ({
             />
           </ChildBox> */}
 
-          {/* <ChildBox flex="50%">
+          {/* not sure why min width is needed */}
+          <ChildBox flex="50%" minWidth="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Mulch Mayhem Coming Soon"
               readMore="Find out more"
-              linkHref="/smart-water-use/mulch-mayhem"
-              imgixURL="https://imgix.cosmicjs.com/d73771e0-aeed-11ec-abde-779eab3b09ef-PCWA-Mulch-Mayhem-Graphic-for-Web.jpg"
+              linkHref="/smart-water-use/mulch-mayhem-2023"
+              imgixURL="https://imgix.cosmicjs.com/275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg"
+              imgixParams={{crop: 'right'}}
               alt="Mulch Mayhem Event flier"
-              body="Join us for Mulch Mayhem Saturday, May 14th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
+              body="Join us for Mulch Mayhem on Saturday, May 6th from 8:00 am - 12:00 pm. Free mulch available on a first-come, first-served basis for customers of hosting agencies."
+            />
+          </ChildBox>
+
+          {/* not sure why min width is needed */}
+          <ChildBox flex="50%" minWidth="50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="State of PCWA's Water Supplies 2023"
+              readMore="Learn more and register today"
+              linkHref="/education-center/webinars/state-of-our-water-0323"
+              imgixURL="https://imgix.cosmicjs.com/bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg"
+              imgixParams={{crop: 'top'}}
+              alt="State of our Water Webinar flier"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="PCWA will host a free webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
+            />
+          </ChildBox>
+
+          {/* <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Year End Report for 2022"
+              readMore="Learn more"
+              linkHref="/newsroom/publications/year-end"
+              imgixURL="https://imgix.cosmicjs.com/404a8540-bd12-11ed-b7c8-73c00a6d38c7-Year-End-Report-2022Mock-up01.png"
+              alt="2022 Year End Report graphic"
+              body="Take a look at our Year End Report for 2022 to learn more about how PCWA serves the community and protects our customers' investments."
+              imgixParams={{
+                bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+              }}
             />
           </ChildBox> */}
-
+          {/* <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Water Conservation"
+              readMore="Learn more"
+              linkHref="/smart-water-use/drought"
+              // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
+              imgixURL="https://imgix.cosmicjs.com/8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png"
+              imgixParams={{crop: 'top'}}
+              alt="Water less banner"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
+            /> */}
+        </RowBox>
+        <Spacing />
+        <RowBox responsive flexSpacing={4}>
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -160,26 +212,6 @@ const Index = ({
               body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
             />
           </ChildBox>
-
-          <ChildBox flex="0 0 50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Water Conservation"
-              readMore="Learn more"
-              linkHref="/smart-water-use/drought"
-              // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
-              // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
-              imgixURL="https://imgix.cosmicjs.com/8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png"
-              imgixParams={{crop: 'top'}}
-              alt="Water less banner"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
-              body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
-            />
-          </ChildBox>
-        </RowBox>
-        <Spacing />
-        <RowBox responsive flexSpacing={4}>
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -189,12 +221,13 @@ const Index = ({
               imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
               alt="Sacramento Street Pipe Abandonment and Transfer Project in Auburn"
               body="The PCWA Board of Directors has adopted new rates, fees, and charges for water service to take effect on January 1, 2023. PCWA has set up a page complete with FAQs about the new rates and rate-setting process."
-              imgixParams={{
-                bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
-              }}
+              // imgixParams={{
+              //   bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+              // }}
             />
           </ChildBox>
-          <ChildBox flex="0 0 50%">
+
+          {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="American River Basin Study"
@@ -204,7 +237,20 @@ const Index = ({
               alt="A photo of the American River near the American River Pump Station"
               body="The American River Basin Study (ARBS) was released in August 2022. The study highlights a changing climate's impact to water resources and recommends evaluating adaptation strategies to address these vulnerabilities to the water supply."
             />
-          </ChildBox>
+          </ChildBox> */}
+
+          {/* <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Water Year Dashboard"
+              readMore="View data"
+              linkHref="/water-year-dashboard"
+              imgixURL="https://imgix.cosmicjs.com/038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg"
+              alt="Link to PCWA's Water Year Dashboard page"
+              imgixParams={{crop: 'bottom'}}
+              body="See the latest hydrological conditions in the region including precipitation, snowpack, and temperature for the current water year."
+            />
+          </ChildBox> */}
 
           {/*
           <ChildBox flex="50%">
@@ -617,6 +663,38 @@ const Index = ({
           <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
+              title="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station"
+              imgixURL="https://imgix.cosmicjs.com/31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg"
+              linkHref="/smart-water-use/landscaping-lessons-at-auburn-fire-station"
+              flexLinkProps={{isNextLink: true}}
+              alt="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station link"
+              typeProps={{style: {fontSize: '1rem'}}}
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="American River Basin Study"
+              imgixURL="https://imgix.cosmicjs.com/7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg"
+              linkHref="/planning/arbs"
+              flexLinkProps={{isNextLink: true}}
+              alt="American River Basin Study link"
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="Tahoe Central Sierra Cal-FRAME Project for Biomass Management"
+              imgixURL="https://imgix.cosmicjs.com/907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png"
+              linkHref="https://youtu.be/ft1_RiK-xKY"
+              flexLinkProps={{isNextLink: false}}
+              alt="YouTube link to Tahoe Central Sierra Cal-FRAME Project for Biomass Management webinar"
+              typeProps={{style: {fontSize: '1rem'}}}
+            />
+          </ChildBox>
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
               title="Water Year Dashboard"
               imgixURL="https://imgix.cosmicjs.com/038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg"
               linkHref="/water-year-dashboard"
@@ -825,6 +903,7 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const placeholders = await getImgixBlurHashes(imgixImages)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // initialAlertsData broke website in production when I duplicated a news alert in Cosmic at one time. Not sure why.
     const alertsParams = {
       hide_metafields: true,
       props: 'id,content,metadata,status,title',
@@ -835,7 +914,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const alertsQs = stringify(alertsParams, true)
     const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
-    const initialAlertsData = await fetcher(alertsUrl)
+    const initialAlertsData = await pTimeout(fetcher(alertsUrl), {
+      milliseconds: FETCHER_TIMEOUT
+    })
     /* */
     const newsBlurbsParams = {
       hide_metafields: true,
@@ -846,7 +927,9 @@ export const getStaticProps: GetStaticProps = async () => {
     }
     const newsBlurbsQs = stringify(newsBlurbsParams, true)
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
-    const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
+    const initialNewsBlurbsData = await pTimeout(fetcher(newsBlurbsUrl), {
+      milliseconds: FETCHER_TIMEOUT
+    })
     /* */
     return {
       props: {initialAlertsData, initialNewsBlurbsData, placeholders}

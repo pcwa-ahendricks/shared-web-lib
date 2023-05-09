@@ -6,25 +6,18 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  Theme
+  SelectChangeEvent,
+  useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuItem: {
-      minWidth: theme.spacing(8)
-    }
-  })
-)
 export const ANSWERS = [
   {caption: 'Yes', value: 'true'},
   {caption: 'No', value: 'false'}
@@ -37,7 +30,12 @@ const ArtTurfSelect = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = {
+    menuItem: {
+      minWidth: theme.spacing(8)
+    }
+  }
   const {name, value} = field
   const {
     errors,
@@ -55,7 +53,7 @@ const ArtTurfSelect = ({
   // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
     (
-      e: React.ChangeEvent<{
+      e: SelectChangeEvent<{
         name?: string | undefined
         value: unknown
       }>
@@ -76,7 +74,10 @@ const ArtTurfSelect = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor="irrigation-method-select">
+      <InputLabel
+        htmlFor="irrigation-method-select"
+        sx={{bgcolor: 'background.default', paddingX: 1}}
+      >
         Converting to Artificial Turf
       </InputLabel>
       <Select
@@ -87,7 +88,6 @@ const ArtTurfSelect = ({
           <OutlinedInput
             id="irrigation-method-select"
             name={name}
-            labelWidth={221}
             error={fieldIsTouchedWithError}
           />
         }
@@ -99,16 +99,22 @@ const ArtTurfSelect = ({
           <MenuItem
             key={caption}
             value={value}
-            classes={{root: classes.menuItem}}
+            sx={{
+              ...style.menuItem
+            }}
           >
             {caption}
           </MenuItem>
         ))}
       </Select>
       <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
+        {fieldIsTouchedWithError ? (
+          <FormHelperText error={fieldIsTouchedWithError}>
+            currentError
+          </FormHelperText>
+        ) : (
+          <></>
+        )}
       </WaitToGrow>
     </FormControl>
   )

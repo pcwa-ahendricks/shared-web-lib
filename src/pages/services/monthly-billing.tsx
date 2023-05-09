@@ -27,7 +27,7 @@ export default function MonthlyBillingPage() {
       <MainBox>
         <NarrowContainer>
           <PageTitle
-            title="We’re Transitioning to Monthly Billing"
+            title="We're Transitioning to Monthly Billing"
             // subtitle="Services"
           />
           <Spacing size="large" />
@@ -118,7 +118,7 @@ export default function MonthlyBillingPage() {
           <Type>
             Thank you for your patience during the transition to monthly
             billing. Should you have any questions, please refer to the Monthly
-            Billing FAQ’s below or email our Customer Services team at{' '}
+            Billing FAQ's below or email our Customer Services team at{' '}
             <CustomerServicesEmail />
           </Type>
 

@@ -258,7 +258,7 @@ const UntreatedWaterTankForm = ({
               <FormTextField
                 name="comments"
                 multiline
-                rows={3} // That's about 200 characters
+                minRows={3} // That's about 200 characters
                 label="Optionally, you can provide us any comments"
                 disabled={ineligible}
               />
@@ -278,7 +278,7 @@ const UntreatedWaterTankForm = ({
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Untreated-Water-Tank-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/dd3252a0-03b5-11ed-b7be-d956591ad437-Untreated-Water-Tank-Rebate-Terms-and-Conditions-071422.pdf"
+                termsConditionsUrl="https://imgix.cosmicjs.com/113dd820-c991-11ed-9596-71d4cd07e2cb-Untreated-Water-Tank-Rebate-Terms-and-Conditions-2023.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>

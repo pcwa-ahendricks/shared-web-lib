@@ -358,7 +358,8 @@ const IrrigationController = () => {
                   setFormIsDirty(dirty)
                 }
                 if (values !== formValues) {
-                  setFormValues(values)
+                  // prevent max depth error with setTimeout()
+                  setTimeout(() => setFormValues(values), 0)
                 }
                 // Use state to save a boolean version of 'touched'.
                 const formTouched = Object.keys(touched).length > 0
@@ -579,7 +580,7 @@ const IrrigationController = () => {
                           <div className={classes.dropzoneContainer}>
                             <Field
                               name="receipts"
-                              attachmentTitle="Receipt"
+                              attachmentTitle="Receipt(s)"
                               uploadRoute="irrigation-controller"
                               onIsUploadingChange={receiptIsUploadingHandler}
                               component={AttachmentField}
@@ -590,7 +591,7 @@ const IrrigationController = () => {
                           <div className={classes.dropzoneContainer}>
                             <Field
                               name="cntrlPhotos"
-                              attachmentTitle="Installed Irrigation Controller Photo"
+                              attachmentTitle="Installed Irrigation Controller Photo(s)"
                               uploadRoute="irrigation-controller"
                               onIsUploadingChange={
                                 cntrlPhotosIsUploadingHandler
@@ -604,7 +605,7 @@ const IrrigationController = () => {
                             <div className={classes.dropzoneContainer}>
                               <Field
                                 name="addtlSensorPhotos"
-                                attachmentTitle="Additional Sensor/Outdoor Cover Photo"
+                                attachmentTitle="Additional Sensor/Outdoor Cover Photo(s)"
                                 uploadRoute="irrigation-controller"
                                 onIsUploadingChange={
                                   addtlSensorPhotosIsUploadingHandler

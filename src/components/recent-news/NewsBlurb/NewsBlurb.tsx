@@ -7,7 +7,6 @@ import {
   useTheme
 } from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
-import FlexLink from '@components/FlexLink/FlexLink'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import {Theme} from '@lib/material-theme'
 import Link from '@components/Link'
@@ -42,18 +41,20 @@ const NewsBlurb = ({
   const titleColor: TypographyProps['color'] = hover ? 'secondary' : 'primary'
   return (
     <Box {...rest}>
-      <FlexLink
+      <Link
+        paragraph={false}
         scroll
-        detectNext
         variant="subtitle2"
-        color={titleColor}
         href={linkURL}
         underline="none"
         onMouseEnter={linkEnterHandler}
         onMouseLeave={linkLeaveHandler}
+        color={titleColor}
+        // inline-block fixes line-spacing with anchor tag link. See https://stackoverflow.com/a/22816831 for more info.
+        display="inline-block"
       >
         {title}
-      </FlexLink>
+      </Link>
       <Spacing size="x-small" />
       <Type paragraph variant="body2">
         {summary}{' '}
@@ -61,6 +62,7 @@ const NewsBlurb = ({
           scroll
           variant="inherit"
           href={linkURL}
+          underline="hover"
           sx={{
             color: theme.palette.primary.light
           }}

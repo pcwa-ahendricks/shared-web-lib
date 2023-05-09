@@ -1,18 +1,20 @@
 import React from 'react'
 import {
-  Box
+  Box,
+  BoxProps
   // Paper,
 } from '@mui/material'
 import {RowBox} from '@components/MuiSleazebox'
 import QuickLinkButton from './QuickLinkButton'
 
-export default function QuickLinksBar() {
+export default function QuickLinksBar(props: BoxProps) {
   return (
     <Box
       maxWidth={{xs: '100vw', sm: '90vw', md: '85vw', lg: '80vw', xl: '65vw'}}
       m="auto"
       marginTop={2}
       position="relative"
+      {...props}
       // zIndex={2}
     >
       {/* <Paper elevation={4}> */}

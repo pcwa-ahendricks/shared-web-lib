@@ -20,6 +20,7 @@ import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
 import createEmotionCache from '@lib/createEmotionCache'
 import {CacheProvider, EmotionCache} from '@emotion/react'
+import {Analytics} from '@vercel/analytics/react'
 import * as gtag from '@lib/gtag'
 
 import '@lib/css/styles.css'
@@ -266,6 +267,7 @@ export default function MyApp(props: MyAppProps) {
                           {/* Pass pageContext to the _document though the renderPage enhancer
                     to render collected styles on server side. */}
                           <Component {...pageProps} />
+                          <Analytics />
                         </ParallaxProvider>
                       </SearchProvider>
                     </ForecastProvider>

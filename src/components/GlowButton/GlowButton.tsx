@@ -45,7 +45,6 @@ const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
             color: theme.palette.secondary.main
           },
           whiteSpace: 'nowrap',
-          '-webkit-transition': 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
           transition: 'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
           fontSize:
             size === 'small'

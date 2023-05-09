@@ -8,8 +8,6 @@ import {
   useTheme,
   Divider
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import NextLink from 'next/link'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -30,16 +28,10 @@ import LookHere from '@components/LookHere/LookHere'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 import imgixLoader from '@lib/imageLoader'
 import FlexLink from '@components/FlexLink/FlexLink'
-
-const useStyles = makeStyles({
-  link: {
-    cursor: 'pointer'
-  }
-})
+import NextLink from 'next/link'
 
 const PayBillPage = () => {
   const theme = useTheme<Theme>()
-  const classes = useStyles()
   const uiContext = useContext(UiContext)
   const {state: uiState, dispatch: uiDispatch} = uiContext
   const {payBill: payBillAnimateDone} = uiState.animateDone
@@ -63,12 +55,12 @@ const PayBillPage = () => {
               <LookHere animate={!payBillAnimateDone}>
                 <NextLink
                   href="/services/monthly-billing"
-                  passHref
-                  legacyBehavior
+                  style={{
+                    cursor: 'pointer'
+                  }}
                 >
                   <div aria-label="Link to Monthly Billing FAQs page">
                     <Image
-                      className={classes.link}
                       width={700}
                       height={452}
                       layout="responsive"
@@ -89,9 +81,13 @@ const PayBillPage = () => {
               <Type paragraph>
                 There are several ways that you can pay your PCWA water bill.
                 Our electronic and automated options are{' '}
-                <span style={{fontSize: '1.2rem'}}>
-                  <StrongEmphasis>secure, free and easy to use!</StrongEmphasis>
-                </span>
+                <StrongEmphasis
+                  sx={{
+                    fontSize: '1.2rem'
+                  }}
+                >
+                  secure, free and easy to use!
+                </StrongEmphasis>
               </Type>
               <ColumnBox>
                 <PayOptionBox>
@@ -145,9 +141,9 @@ const PayBillPage = () => {
                       <Type paragraph>
                         You can pay your bill in person with cash, check or
                         money order at the PCWA Business Center at{' '}
-                        <NextLink href="/about-pcwa/directions">
+                        <Link href="/about-pcwa/directions" underline="hover">
                           144 Ferguson Road, Auburn.
-                        </NextLink>{' '}
+                        </Link>{' '}
                         Our Business Center Lobby is open Monday through
                         Thursday from 8:00am to 5:00pm. An after hours night
                         lock box is available for payments (checks or money

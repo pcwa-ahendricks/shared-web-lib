@@ -1,43 +1,18 @@
 // cspell:ignore subheader USBR
 import React from 'react'
-
 import {
   Box,
   Dialog,
   MobileStepper,
   Stepper,
   Slide,
-  Theme,
   useMediaQuery,
   useTheme,
   MobileStepperProps,
   StepperProps,
   DialogProps
 } from '@mui/material'
-
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    mobileStepper: {
-      width: '100%'
-    },
-    mobileStepperPaper: {
-      backgroundColor: 'transparent',
-      padding: 0
-    },
-    stepperPaper: {
-      backgroundColor: 'transparent',
-      [theme.breakpoints.down('sm')]: {
-        padding: 0
-      },
-      [theme.breakpoints.only('sm')]: {
-        padding: theme.spacing(2) // defaults to 24px
-      }
-    }
-  })
-)
+import {Theme} from '@lib/material-theme'
 
 type EligibilityDialogProps = {
   children: React.ReactNode
@@ -74,12 +49,19 @@ const EligibilityDialog = ({
 type EligibilityMobileStepperProps = MobileStepperProps
 
 const EligibilityMobileStepper = ({...rest}: EligibilityMobileStepperProps) => {
-  const classes = useStyles()
+  const style = {
+    mobileStepper: {
+      width: '100%',
+      backgroundColor: 'transparent',
+      padding: 0
+    }
+  }
   return (
     <MobileStepper
       position="static"
-      className={classes.mobileStepper}
-      classes={{root: classes.mobileStepperPaper}}
+      sx={{
+        ...style.mobileStepper
+      }}
       {...rest}
     />
   )
@@ -88,12 +70,25 @@ const EligibilityMobileStepper = ({...rest}: EligibilityMobileStepperProps) => {
 type EligibilityStepperProps = {children: React.ReactNode} & StepperProps
 
 const EligibilityStepper = ({children, ...rest}: EligibilityStepperProps) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = {
+    stepper: {
+      backgroundColor: 'transparent',
+      [theme.breakpoints.down('sm')]: {
+        padding: 0
+      },
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(2) // defaults to 24px
+      }
+    }
+  }
   return (
     <Box width={{xs: '95%', sm: '90%'}}>
       <Stepper
         orientation="vertical"
-        classes={{root: classes.stepperPaper}}
+        sx={{
+          ...style.stepper
+        }}
         {...rest}
       >
         {children}

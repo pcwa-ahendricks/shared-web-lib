@@ -2,7 +2,6 @@
 import React, {useEffect, useState, useCallback} from 'react'
 import {
   useTheme,
-  Theme,
   Typography as Type,
   Link,
   Box,
@@ -10,8 +9,6 @@ import {
   Badge,
   Button
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import Image from 'next/legacy/image'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -32,6 +29,7 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import {Theme} from '@lib/material-theme'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -45,8 +43,9 @@ function getMaxDistrict() {
   )
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
+  const theme = useTheme<Theme>()
+  const style = {
     bulletLi: {
       listStyleType: 'none',
       marginBottom: theme.spacing(1 / 2),
@@ -56,13 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.common.white,
       borderRadius: 16
     }
-  })
-)
-
-const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
-  const classes = useStyles()
-  const theme = useTheme()
-  const margin = theme.spacing(1) // Used with left and top margin of flexWrap items.
+  }
   const [activeDirector, setActiveDirector] = useState<Director | null>()
 
   const setDirector = useCallback((district: number) => {
@@ -81,9 +74,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
     ...rest
   }: React.HTMLAttributes<HTMLLIElement>) => {
     return (
-      <li className={classes.bulletLi} {...rest}>
+      <Box component="li" sx={{...style.bulletLi}} {...rest}>
         {children}
-      </li>
+      </Box>
     )
   }
 
@@ -167,7 +160,7 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
               biography below.
             </Type>
             <Spacing />
-            <RowBox flexWrap="wrap" flexSpacing={margin}>
+            <RowBox flexWrap="wrap" flexSpacing={8}>
               {directors.map((director, idx) => (
                 <ChildBox key={idx}>
                   <Badge
@@ -175,7 +168,9 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
                     badgeContent={
                       <CheckCircleRoundedIcon
                         color="secondary"
-                        className={classes.badgeIcon}
+                        sx={{
+                          ...style.badgeIcon
+                        }}
                       />
                     }
                   >
@@ -191,57 +186,59 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
               ))}
             </RowBox>
             <Spacing />
-            <WaitToGrow isIn={Boolean(activeDirector)}>
-              <Box
-                bgcolor={theme.palette.common.white}
-                boxShadow={3}
-                p={4}
-                borderRadius="3px"
-              >
-                <RowBox responsive flexSpacing={6}>
-                  <ChildBox flex="auto">
-                    <Box textAlign="center">
-                      <Type variant="h3" color="primary" gutterBottom>
-                        {activeDirector?.name}, District{' '}
-                        {activeDirector?.district}
-                        {activeDirector?.chair ? ' (Chair)' : null}
-                        {activeDirector?.viceChair ? ' (Vice Chair)' : null}
+            <Box id="bio">
+              <WaitToGrow isIn={Boolean(activeDirector)}>
+                <Box
+                  bgcolor={theme.palette.common.white}
+                  boxShadow={3}
+                  p={4}
+                  borderRadius={3}
+                >
+                  <RowBox responsive flexSpacing={6}>
+                    <ChildBox flex="auto">
+                      <Box textAlign="center">
+                        <Type variant="h3" color="primary" gutterBottom>
+                          {activeDirector?.name}, District{' '}
+                          {activeDirector?.district}
+                          {activeDirector?.chair ? ' (Chair)' : null}
+                          {activeDirector?.viceChair ? ' (Vice Chair)' : null}
+                        </Type>
+                      </Box>
+                      <Type gutterBottom>
+                        <Link
+                          href={`mailto:${activeDirector?.email ?? ''}`}
+                          underline="hover"
+                        >
+                          {/* Prevent "The prop `children` is marked as required..." in in console w/ Logical Or.  */}
+                          {activeDirector?.email ?? ''}
+                        </Link>
                       </Type>
-                    </Box>
-                    <Type gutterBottom>
-                      <Link
-                        href={`mailto:${activeDirector?.email ?? ''}`}
-                        underline="hover"
+                      <Type variant="subtitle2" gutterBottom>
+                        {`Term of office expires in ${activeDirector?.termExp}`}
+                      </Type>
+                      <Type paragraph>{activeDirector?.bio}</Type>
+                    </ChildBox>
+                    <ChildBox minWidth={250} maxWidth="100vw">
+                      <Box
+                        mx="auto"
+                        width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
                       >
-                        {/* Prevent "The prop `children` is marked as required..." in in console w/ Logical Or.  */}
-                        {activeDirector?.email ?? ''}
-                      </Link>
-                    </Type>
-                    <Type variant="subtitle2" gutterBottom>
-                      {`Term of office expires in ${activeDirector?.termExp}`}
-                    </Type>
-                    <Type paragraph>{activeDirector?.bio}</Type>
-                  </ChildBox>
-                  <ChildBox minWidth={250} maxWidth="100vw">
-                    <Box
-                      mx="auto"
-                      width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
-                    >
-                      <Image
-                        loader={imgixUrlLoader}
-                        src={activeDirector?.imgSrc ?? ''}
-                        layout="intrinsic"
-                        objectFit="cover"
-                        sizes="(max-width: 600px) 50vw, 25vw"
-                        width={256}
-                        height={337}
-                        alt={`Photo of District ${activeDirector?.district} Director`}
-                      />
-                    </Box>
-                  </ChildBox>
-                </RowBox>
-              </Box>
-            </WaitToGrow>
+                        <Image
+                          loader={imgixUrlLoader}
+                          src={activeDirector?.imgSrc ?? ''}
+                          layout="intrinsic"
+                          objectFit="cover"
+                          sizes="(max-width: 600px) 50vw, 25vw"
+                          width={256}
+                          height={337}
+                          alt={`Photo of District ${activeDirector?.district} Director`}
+                        />
+                      </Box>
+                    </ChildBox>
+                  </RowBox>
+                </Box>
+              </WaitToGrow>
+            </Box>
           </SectionBox>
           <Spacing size="x-large">
             <Divider />

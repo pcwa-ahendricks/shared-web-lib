@@ -4,7 +4,6 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo'
 import {
   Paper,
   ListItemText,
-  Link as MatLink,
   Box,
   Typography as Type,
   List,
@@ -12,28 +11,25 @@ import {
   IconButton,
   IconButtonProps
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'
-import Link from 'next/link'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import WideContainer from '@components/containers/WideContainer'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
-
-const useStyles = makeStyles(() => ({
-  listItem: {
-    paddingTop: 4,
-    paddingBottom: 4
-  }
-}))
+import Link from '@components/Link'
 
 const FireWiseLandscapingPage = () => {
-  const classes = useStyles()
+  const style = {
+    listItem: {
+      paddingTop: '4px',
+      paddingBottom: '4px'
+    }
+  }
 
   const OndemandVideoBtn = useCallback(
     ({href, ...rest}: Partial<IconButtonProps<'a'>>) => {
@@ -80,7 +76,7 @@ const FireWiseLandscapingPage = () => {
                 />
               </ChildBox>
               <ChildBox>
-                <MatLink
+                <Link
                   href="https://youtu.be/dSXMOGczI1o"
                   rel="noopener noreferrer"
                   variant="h3"
@@ -94,13 +90,13 @@ const FireWiseLandscapingPage = () => {
                     August 25, 2021
                   </Type>
                   . You can find it here.
-                </MatLink>
+                </Link>
               </ChildBox>
             </RowBox>
             <Spacing factor={2} />
             {/* <Type variant="h3">Fire-Wise, Water-Wise Landscaping</Type> */}
             <Type paragraph>
-              Much of PCWA’s service area is located in the wildland-urban
+              Much of PCWA's service area is located in the wildland-urban
               interface, where beautiful forests meet new and existing
               neighborhoods. As the threat of wildfire becomes ever-more present
               with a changing climate, a new type of landscaping—one that is not
@@ -174,14 +170,14 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/e27c49f0-05d2-11ec-b6f4-332534522a48-FirehouseKevin.mp4"
+                  href="https://youtu.be/MJidh-EuCWQ"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
-                <MatLink
-                  href="https://cdn.cosmicjs.com/e27c49f0-05d2-11ec-b6f4-332534522a48-FirehouseKevin.mp4"
+                <Link
+                  href="https://youtu.be/MJidh-EuCWQ"
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
@@ -191,7 +187,7 @@ const FireWiseLandscapingPage = () => {
                   Landscaping with Kevin Marini, Placer County Master Gardener,
                   interviewed by Battalion Chief Rob Zaucha of the Auburn Fire
                   Department.
-                </MatLink>
+                </Link>
               </ChildBox>
             </RowBox>
             <Spacing size="large" />
@@ -199,20 +195,20 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
+                  href="https://youtu.be/cykUV_vtKTE"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
-                <MatLink
-                  href="https://cdn.cosmicjs.com/e5d2c7f0-05d2-11ec-b6f4-332534522a48-GreenAcres.mp4"
+                <Link
+                  href="https://youtu.be/cykUV_vtKTE"
                   variant="h3"
                   underline="hover"
                 >
                   Watch a brief video: Water-Wise Plants with Greg Gayton, Green
                   Acres Nursery & Supply, interviewed by PCWA’s Linda Higgins.
-                </MatLink>
+                </Link>
               </ChildBox>
             </RowBox>
             <Spacing size="large" />
@@ -223,7 +219,7 @@ const FireWiseLandscapingPage = () => {
                     component="a"
                     target="_blank"
                     rel="noopener noreferrer"
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                     href="https://docs.pcwa.net/maidu-fire-station-landscape-plants.pdf"
                   >
                     <ListItemText primary="See the plant list used in the Maidu Fire Station Makeover in Auburn" />
@@ -232,13 +228,13 @@ const FireWiseLandscapingPage = () => {
                     component="a"
                     target="_blank"
                     rel="noopener noreferrer"
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                     href="https://docs.pcwa.net/cnps-redbud-fire-resistant.pdf"
                   >
                     <ListItemText primary="Selected Fire-Resistant Native Plants for Nevada and Placer County Landscapes" />
                   </ListItem>
                   <ListItem
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                     component="a"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -247,7 +243,7 @@ const FireWiseLandscapingPage = () => {
                     <ListItemText primary="Learn more about Fire-Wise, Water-Wise plants from FIRESafe Marin" />
                   </ListItem>
                   <ListItem
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                     component="a"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -256,7 +252,7 @@ const FireWiseLandscapingPage = () => {
                     <ListItemText primary="Learn about fire-resistant mulch from FIRESafe Marin" />
                   </ListItem>
                   <ListItem
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                     component="a"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -301,14 +297,14 @@ const FireWiseLandscapingPage = () => {
             <RowBox alignItems="center" flexSpacing={3}>
               <ChildBox>
                 <OndemandVideoBtn
-                  href="https://cdn.cosmicjs.com/e340d270-05d2-11ec-b6f4-332534522a48-FirehouseJeff.mp4"
+                  href="https://youtu.be/D4BGXX5uvrM"
                   rel="noopener noreferrer"
                   target="blank"
                 />
               </ChildBox>
               <ChildBox>
-                <MatLink
-                  href="https://cdn.cosmicjs.com/e340d270-05d2-11ec-b6f4-332534522a48-FirehouseJeff.mp4"
+                <Link
+                  href="https://youtu.be/D4BGXX5uvrM"
                   rel="noopener noreferrer"
                   variant="h3"
                   target="blank"
@@ -317,7 +313,7 @@ const FireWiseLandscapingPage = () => {
                   Watch a brief video: Landscape and Irrigation Design with Jeff
                   Ambrosia, Yamaski Landscape Architecture, interviewed by
                   Battalion Chief Rob Zaucha of the Auburn Fire Department.
-                </MatLink>
+                </Link>
               </ChildBox>
             </RowBox>
             <Spacing size="large" />
@@ -327,7 +323,7 @@ const FireWiseLandscapingPage = () => {
                 <List>
                   <ListItem
                     component="a"
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://docs.pcwa.net/maidu-fire-station-landscape-dev-plans.pdf"
@@ -339,7 +335,7 @@ const FireWiseLandscapingPage = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://www.firesafemarin.org/fire-smart-yard"
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                   >
                     <ListItemText primary="Find more about creating a Fire-Smart Yard from FIRESafe Marin, including several helpful videos" />
                   </ListItem>
@@ -348,7 +344,7 @@ const FireWiseLandscapingPage = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                   >
                     <ListItemText primary="Learn more about planting zones" />
                   </ListItem>
@@ -381,10 +377,10 @@ const FireWiseLandscapingPage = () => {
             </Type>
 
             <List>
-              <ListItem classes={{root: classes.listItem}}>
+              <ListItem sx={{...style.listItem}}>
                 <ListItemText primary="A home on a brushy site above a south- or west-facing slope will require more extensive defensible space landscape planning than a home located on a flat lot with little vegetation." />
               </ListItem>
-              <ListItem classes={{root: classes.listItem}}>
+              <ListItem sx={{...style.listItem}}>
                 <ListItemText primary="Prevailing winds, seasonal weather, local fire history and the characteristics of native vegetation are also important to consider when creating your Fire-Wise, Water-Wise landscape." />
               </ListItem>
             </List>
@@ -399,10 +395,8 @@ const FireWiseLandscapingPage = () => {
                   <Link
                     href="/smart-water-use/maidu-fire-station-makeover"
                     as="/smart-water-use/maidu-fire-station-makeover"
-                    passHref
-                    legacyBehavior
                   >
-                    <ListItem component="a" classes={{root: classes.listItem}}>
+                    <ListItem component="a" sx={{...style.listItem}}>
                       <ListItemText primary="Maidu Fire Station Makeover in Auburn" />
                     </ListItem>
                   </Link>
@@ -411,7 +405,7 @@ const FireWiseLandscapingPage = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://climate.asla.org/FirescapeDemonstrationGarden.html"
-                    classes={{root: classes.listItem}}
+                    sx={{...style.listItem}}
                   >
                     <ListItemText primary="Firescape Demonstration Garden at Santa Barbara’s Firehouse #7" />
                   </ListItem>
@@ -437,12 +431,9 @@ const FireWiseLandscapingPage = () => {
                     and hand tools. Educational materials regarding defensible
                     space and wildfire prevention are also available for events.
                     For information, please contact George Alves at{' '}
-                    <MatLink
-                      href="mailto:George@placerrcd.org"
-                      underline="hover"
-                    >
+                    <Link href="mailto:George@placerrcd.org" underline="hover">
                       George@placerrcd.org
-                    </MatLink>
+                    </Link>
                   </Type>
                 </ListItemText>
               </ListItem>
@@ -450,7 +441,7 @@ const FireWiseLandscapingPage = () => {
                 component="a"
                 target="_blank"
                 rel="noopener noreferrer"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
                 href="http://sonomamg.ucanr.edu/Firewise_Landscaping/"
               >
                 <ListItemText primary="Firewise Landscaping Information from the UC Master Gardener Program of Sonoma County" />
@@ -460,7 +451,7 @@ const FireWiseLandscapingPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.readyforwildfire.org/prepare-for-wildfire/get-ready/fire-resistant-landscaping/"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
               >
                 <ListItemText primary="Fire-Resistant Landscaping Information from CalFire" />
               </ListItem>
@@ -469,7 +460,7 @@ const FireWiseLandscapingPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://ucanr.edu/sites/fire/Prepare/"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
               >
                 <ListItemText primary="UC Cooperative Extension: Fire in California: Wildfire Preparation" />
               </ListItem>
@@ -478,7 +469,7 @@ const FireWiseLandscapingPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.placer.ca.gov/5721/Fire-Safe-Alliance"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
               >
                 <ListItemText primary="Placer County Fire Safe Alliance" />
               </ListItem>
@@ -487,7 +478,7 @@ const FireWiseLandscapingPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://ucanr.edu/sites/SoCo/files/308873.pdf"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
               >
                 <ListItemText primary="Produce Safety after Urban Wildfire" />
               </ListItem>
@@ -496,7 +487,7 @@ const FireWiseLandscapingPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="http://pcmg.ucanr.org/Drought_Advice/"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
               >
                 <ListItemText primary="UC Master Gardeners of Placer County Drought Advice" />
               </ListItem>
@@ -505,10 +496,15 @@ const FireWiseLandscapingPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://docs.pcwa.net/test.png"
-                classes={{root: classes.listItem}}
+                sx={{...style.listItem}}
               >
                 <ListItemText primary="test" />
               </ListItem> */}
+              <Link href="/smart-water-use/landscaping-lessons-at-auburn-fire-station">
+                <ListItem component="a" sx={{...style.listItem}}>
+                  <ListItemText primary="New Fire-Wise, Water Wise Makeover Debuts at Auburn Fire Station" />
+                </ListItem>
+              </Link>
             </List>
           </Box>
         </WideContainer>

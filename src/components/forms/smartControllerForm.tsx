@@ -321,7 +321,7 @@ const SmartControllerForm = ({
               <FormTextField
                 name="comments"
                 multiline
-                rows={3} // That's about 200 characters
+                minRows={3} // That's about 200 characters
                 label="Optionally, you can provide us any comments"
                 disabled={ineligible}
               />
@@ -362,7 +362,7 @@ const SmartControllerForm = ({
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
-              attachmentTitle="Receipt"
+              attachmentTitle="Receipt(s)"
               uploadRoute="smart-controller"
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
@@ -374,7 +374,7 @@ const SmartControllerForm = ({
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
-              attachmentTitle="Smart Controller installed photo"
+              attachmentTitle="Smart Controller installed photo(s)"
               uploadRoute="smart-controller"
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}

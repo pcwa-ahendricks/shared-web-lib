@@ -76,10 +76,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/careers/recruitment</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/forms/rebates/toilet</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -160,6 +156,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/forms/rebates/water-leak</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/services/monthly-billing</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -189,6 +189,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/forms/account/contact-info</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/check-fraud-alert</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -225,10 +229,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/services/backflow-prevention</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/smart-water-use/mulch-mayhem</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -280,6 +280,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/smart-water-use/mulch-mayhem-2023</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/board-of-directors/meeting-agendas</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -312,15 +316,15 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/services/irrigation-service-agreement</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/fire-wise-landscaping</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://www.pcwa.net/forms/account/sb998-self-certification</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/board-of-directors/mfpfa-meeting-agendas</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -341,6 +345,22 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/water-shortage-contingency-plan</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-0323</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/forms/applications/lawn-replacement-post-conversion</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/forms/applications/irrigation-efficiencies-post-conversion</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/smart-water-use/landscaping-lessons-at-auburn-fire-station</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -2072,11 +2092,11 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/news-releases/05-20-2004</loc>
+    <loc>https://www.pcwa.net/newsroom/news-releases/05-12-2015</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/news-releases/05-12-2015</loc>
+    <loc>https://www.pcwa.net/newsroom/news-releases/05-20-2004</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -3724,11 +3744,11 @@
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2007-04-05</loc>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2006-10-11</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2006-10-11</loc>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2007-04-05</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -3929,6 +3949,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/04-06-2023</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/03-16-2023</loc>
     <changefreq>never</changefreq>
   </url>
   <url>

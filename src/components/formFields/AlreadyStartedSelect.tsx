@@ -7,26 +7,18 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  Theme,
-  Typography as Type
+  SelectChangeEvent,
+  Typography as Type,
+  useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuItem: {
-      minWidth: theme.spacing(8)
-    }
-  })
-)
 
 export const ANSWERS = [
   'I have not started my project yet',
@@ -41,7 +33,12 @@ const AlreadyStartedSelect = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = {
+    menuItem: {
+      minWidth: theme.spacing(8)
+    }
+  }
   const {name, value} = field
   const {
     errors,
@@ -58,7 +55,7 @@ const AlreadyStartedSelect = ({
 
   // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
-    (e: React.ChangeEvent<any>) => {
+    (e: SelectChangeEvent) => {
       handleChange(e)
       setFieldTouched(name, true, true)
     },
@@ -81,7 +78,10 @@ const AlreadyStartedSelect = ({
         fullWidth={fullWidth}
         {...other}
       >
-        <InputLabel htmlFor="already-started-select">
+        <InputLabel
+          htmlFor="already-started-select"
+          sx={{bgcolor: 'background.default', paddingX: 1}}
+        >
           What is the status of your Lawn Replacement project?
         </InputLabel>
         <Select
@@ -92,7 +92,6 @@ const AlreadyStartedSelect = ({
             <OutlinedInput
               id="already-started-select"
               name={name}
-              labelWidth={415}
               error={fieldIsTouchedWithError}
             />
           }
@@ -101,19 +100,19 @@ const AlreadyStartedSelect = ({
           SelectDisplayProps={{style: {minWidth: 100}}}
         >
           {ANSWERS.map((answer) => (
-            <MenuItem
-              key={answer}
-              value={answer}
-              classes={{root: classes.menuItem}}
-            >
+            <MenuItem key={answer} value={answer} sx={{...style.menuItem}}>
               {answer}
             </MenuItem>
           ))}
         </Select>
         <WaitToGrow isIn={fieldIsTouchedWithError}>
-          <FormHelperText error={fieldIsTouchedWithError}>
-            {fieldIsTouchedWithError ? currentError : null}
-          </FormHelperText>
+          {fieldIsTouchedWithError ? (
+            <FormHelperText error={fieldIsTouchedWithError}>
+              currentError
+            </FormHelperText>
+          ) : (
+            <></>
+          )}
         </WaitToGrow>
       </FormControl>
     </Box>

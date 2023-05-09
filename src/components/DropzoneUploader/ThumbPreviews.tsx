@@ -1,6 +1,5 @@
-import React, {useState, useMemo, useCallback} from 'react'
+import React, {useCallback} from 'react'
 import {DroppedFile, UploadedFileAttr} from './types'
-import MediaPreviewDialog from '@components/MediaPreviewDialog/MediaPreviewDialog'
 import ThumbPreview from './ThumbPreview'
 
 type Props = {
@@ -18,22 +17,22 @@ const ThumbPreviews = ({
   isUploading = false,
   isUploadingFileNames = []
 }: Props) => {
-  const [showThumbDialog, setShowThumbDialog] = useState<boolean>(false)
-  const [showThumbDialogFile, setShowThumbDialogFile] = useState<DroppedFile>()
+  // const [showThumbDialog, setShowThumbDialog] = useState<boolean>(false)
+  // const [showThumbDialogFile, setShowThumbDialogFile] = useState<DroppedFile>()
 
-  const thumbDialogMemo = useMemo(
-    () =>
-      showThumbDialogFile ? (
-        <MediaPreviewDialog
-          native
-          url={showThumbDialogFile.previewUrl}
-          name={showThumbDialogFile.name}
-          open={showThumbDialog}
-          onClose={() => setShowThumbDialog(false)}
-        />
-      ) : null,
-    [showThumbDialogFile, showThumbDialog]
-  )
+  // const thumbDialogMemo = useMemo(
+  //   () =>
+  //     showThumbDialogFile ? (
+  //       <MediaPreviewDialog
+  //         // native
+  //         url={showThumbDialogFile.previewUrl}
+  //         name={showThumbDialogFile.name}
+  //         open={showThumbDialog}
+  //         onClose={() => setShowThumbDialog(false)}
+  //       />
+  //     ) : null,
+  //   [showThumbDialogFile, showThumbDialog]
+  // )
 
   const removeUploadHandler = useCallback(
     (file: DroppedFile) => {
@@ -42,10 +41,10 @@ const ThumbPreviews = ({
     [onRemoveUpload]
   )
 
-  const clickHandler = useCallback((file: DroppedFile) => {
-    setShowThumbDialog(true)
-    setShowThumbDialogFile(file)
-  }, [])
+  // const clickHandler = useCallback((file: DroppedFile) => {
+  //   setShowThumbDialog(true)
+  //   setShowThumbDialogFile(file)
+  // }, [])
 
   const thumbIsUploading = useCallback(
     (fileName = '') =>
@@ -60,13 +59,12 @@ const ThumbPreviews = ({
           key={file.name}
           file={file}
           uploadedFiles={uploadedFiles}
-          onClick={clickHandler}
+          // onClick={clickHandler}
           onRemoveUpload={removeUploadHandler}
           isUploading={thumbIsUploading(file.name)}
         />
       ))}
-
-      {thumbDialogMemo}
+      {/* {thumbDialogMemo} */}
     </>
   )
 }

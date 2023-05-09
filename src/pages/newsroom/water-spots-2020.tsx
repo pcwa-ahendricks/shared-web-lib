@@ -30,7 +30,7 @@ const WaterSpots2020Page = () => {
             Water Spots Video Contest! Winning videos were among the 90
             submitted by middle and high school students from throughout the
             Sacramento region. Students were invited to 'Be a Leak Detective',
-            the contest’s 2020 theme.
+            the contest's 2020 theme.
           </Type>
           <Type paragraph>
             PCWA is pleased to announce that the <em>top 3</em> video winners

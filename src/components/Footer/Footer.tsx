@@ -109,16 +109,20 @@ const Footer = () => {
               flex={{xs: '0 0 auto', sm: '1 1 25%'}}
             >
               <RowBox>
-                <Box color={theme.palette.grey[300]}>
-                  <MapIcon fontSize="small" />
-                </Box>
+                <MapIcon
+                  // fontSize="small"
+                  sx={{
+                    color: 'grey.300',
+                    paddingTop: '4px'
+                  }}
+                />
                 <Box ml={1}>
                   <GlowLightGreen>
                     <Link
+                      display="inline-block" // fix anchor line spacing
                       variant="body2"
                       color="inherit"
                       href="/about-pcwa/directions"
-                      gutterBottom
                       underline="none"
                     >
                       144 Ferguson Road <br />
@@ -130,9 +134,13 @@ const Footer = () => {
                 </Box>
               </RowBox>
               <RowBox mt={3}>
-                <Box color={theme.palette.grey[300]}>
-                  <PhoneIcon fontSize="small" />
-                </Box>
+                <PhoneIcon
+                  // fontSize="small"
+                  sx={{
+                    color: 'grey.300',
+                    paddingTop: '6px'
+                  }}
+                />
                 <Box ml={1}>
                   <GlowLightGreen>
                     <MainPhone

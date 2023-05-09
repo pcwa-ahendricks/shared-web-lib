@@ -2,19 +2,17 @@ import React, {useState, useRef} from 'react'
 import {
   Box,
   Fade,
-  Hidden,
   Popper,
-  alpha,
   Theme,
+  styled,
   Typography as Type,
   useMediaQuery,
   BoxProps,
-  useTheme
+  useTheme,
+  alpha
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import MediaPreviewDialog, {
-  MediaPreviewDialogProps
+  MediaPreviewDialogProps as MediaPreviewDialogPropsType
 } from '@components/MediaPreviewDialog/MediaPreviewDialog'
 
 type Props = {
@@ -24,24 +22,28 @@ type Props = {
   timeout?: number
   popperMessage?: string
   popperAnchorStyle?: React.CSSProperties
-  mediaPreviewDialogProps?: Partial<MediaPreviewDialogProps>
+  MediaPreviewDialogProps: Partial<MediaPreviewDialogPropsType>
   mediaDialogOpen?: boolean
 } & Partial<Omit<BoxProps, 'width' | 'height'>>
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popper: {
-      position: 'absolute',
-      zIndex: 5,
-      pointerEvents: 'none'
-    },
-    childrenRoot: {
-      [theme.breakpoints.up('sm')]: {
-        cursor: 'pointer'
-      }
+const PREFIX = 'StyledMediaDialogOnClick'
+const classes = {
+  popper: `${PREFIX}-popper`,
+  childrenRoot: `${PREFIX}-childrenRoot`
+}
+// [TODO] remove any type
+const Root = styled(Box)(({theme}: any) => ({
+  [`& .${classes.popper}`]: {
+    position: 'absolute',
+    zIndex: 5,
+    pointerEvents: 'none'
+  },
+  [`& .${classes.childrenRoot}`]: {
+    [theme.breakpoints.up('sm')]: {
+      cursor: 'pointer'
     }
-  })
-)
+  }
+}))
 
 const MediaDialogOnClick = ({
   children,
@@ -50,18 +52,15 @@ const MediaDialogOnClick = ({
   mediaName,
   mediaUrl,
   timeout = 350,
-  mediaPreviewDialogProps,
+  MediaPreviewDialogProps,
   mediaDialogOpen: mediaDialogOpenProp = false,
   ...rest
 }: Props) => {
   const theme = useTheme<Theme>()
-  const classes = useStyles()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const isXs = useMediaQuery<Theme>(theme.breakpoints.only('xs'))
 
   // Div element helps with Popper positioning.
   const popperAnchorEl = useRef<HTMLDivElement>(null)
-
-  const noTransPaper = alpha(theme.palette.background.paper, 1)
 
   const [mediaDialogOpen, setMediaDialogOpen] =
     useState<boolean>(mediaDialogOpenProp)
@@ -83,13 +82,9 @@ const MediaDialogOnClick = ({
   }
 
   const open = Boolean(anchorEl)
-  const {
-    children: mediaPreviewDialogPropsChildren,
-    ...mediaPreviewDialogPropsRest
-  } = mediaPreviewDialogProps || {}
 
   return (
-    <Box {...rest}>
+    <Root {...rest}>
       <Box
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
@@ -108,7 +103,7 @@ const MediaDialogOnClick = ({
           }}
         />
         {/* Css implementation won't work here (eg. Popper will still show on xs devices). */}
-        <Hidden only="xs" implementation="js">
+        {isXs ? null : (
           <Popper
             id="mouse-over-popover"
             className={classes.popper}
@@ -120,19 +115,21 @@ const MediaDialogOnClick = ({
             {({TransitionProps}) => (
               <Fade {...TransitionProps} timeout={timeout}>
                 <Box
-                  borderRadius="3px"
-                  borderColor={theme.palette.grey['300']}
-                  border={1}
-                  p={1}
-                  fontStyle="italic"
-                  bgcolor={noTransPaper}
+                  sx={{
+                    borderRadius: 1,
+                    border: 1,
+                    borderColor: theme.palette.grey['300'], // Must be specified after border prop. Might not be necessary in future versions of @mui/material.
+                    p: 1,
+                    fontStyle: 'italic',
+                    bgcolor: alpha(theme.palette.background.paper, 1)
+                  }}
                 >
                   <Type variant="body2">{popperMessage}</Type>
                 </Box>
               </Fade>
             )}
           </Popper>
-        </Hidden>
+        )}
         <Box className={classes.childrenRoot}>{children}</Box>
       </Box>
       <MediaPreviewDialog
@@ -143,13 +140,12 @@ const MediaDialogOnClick = ({
         scroll="body"
         fullWidth={false}
         maxWidth="xl"
-        {...mediaPreviewDialogPropsRest}
+        {...MediaPreviewDialogProps}
+        ImageProps={{...MediaPreviewDialogProps.ImageProps}}
         // showActions
         // dlUrl={`${ImageUrl}${qsDownloadUrl}`}
-      >
-        {mediaPreviewDialogPropsChildren}
-      </MediaPreviewDialog>
-    </Box>
+      />
+    </Root>
   )
 }
 

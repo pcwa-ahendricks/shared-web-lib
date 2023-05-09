@@ -7,22 +7,19 @@ import {
   DialogContentText,
   DialogTitle,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   ListSubheader,
   Step,
   StepLabel,
   StepContent,
-  Theme,
   useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
+import {Field, connect, FormikProps, FieldProps, FormikTouched} from 'formik'
 import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
@@ -32,6 +29,7 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   open: boolean
@@ -40,42 +38,30 @@ type Props = {
   formik?: FormikProps<any>
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    },
-    stepLabelLabel: {
-      marginLeft: theme.spacing(1),
-      cursor: 'pointer',
-      '& .stepLabelActive': {
-        color: theme.palette.primary.main
-      },
-      '& .stepLabelError': {
-        color: theme.palette.error.main
-      }
-    },
-    stepLabelError: {},
-    stepLabelActive: {},
-    stepLabelIcon: {
-      cursor: 'pointer'
-    }
-  })
-)
-
 const IrrigationEffEligibilityDialog = ({
   open = false,
   onClose,
   formik
 }: Props) => {
-  const classes = useStyles()
   const theme = useTheme<Theme>()
+  const style = {
+    qualifyMsg: {
+      marginTop: theme.spacing(3)
+    },
+    stepLabelLabel: {
+      marginLeft: theme.spacing(1),
+      cursor: 'pointer'
+    },
+    stepLabelIcon: {
+      cursor: 'pointer'
+    }
+  }
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps(), [])
   const maxSteps = useMemo(() => getSteps().length, [])
-  const prevTouched = useRef<Record<string, unknown>>()
+  const prevTouched = useRef<FormikTouched<any>>()
   const prevLastTouchedIndex = useRef<number>()
 
   const {touched = {}, errors = {}} = formik || {}
@@ -90,22 +76,27 @@ const IrrigationEffEligibilityDialog = ({
       [errors.treatedCustomer, errors.irrigMethod]
         .filter(
           (error) =>
-            error && typeof error === 'string' && !/required/i.test(error)
+            error &&
+            typeof error === 'string' &&
+            !/is a required field/i.test(error)
         )
         .some(Boolean),
     [errors]
   )
 
-  const touchedChangedHandler = useCallback((prev, curr) => {
-    const diff = addedDiff(prev, curr) || {}
-    const newProp = Object.keys({...diff})[0]
-    const stepIndex = newProp && getStepIndex(newProp)
-    // Don't use Boolean(nextStepIndex) cause 0 is false.
-    const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
-    if (nextStepIndex) {
-      setLastTouchedIndex(nextStepIndex)
-    }
-  }, [])
+  const touchedChangedHandler = useCallback(
+    (prev: FormikTouched<any>, curr: FormikTouched<any>) => {
+      const diff = addedDiff(prev, curr) || {}
+      const newProp = Object.keys({...diff})[0]
+      const stepIndex = newProp && getStepIndex(newProp)
+      // Don't use Boolean(nextStepIndex) cause 0 is false.
+      const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
+      if (nextStepIndex) {
+        setLastTouchedIndex(nextStepIndex)
+      }
+    },
+    []
+  )
 
   useEffect(() => {
     touchedChangedHandler({...prevTouched.current}, {...touched})
@@ -160,7 +151,9 @@ const IrrigationEffEligibilityDialog = ({
     (fieldName: string) => {
       const error = errors[fieldName]
       return (
-        Boolean(error) && typeof error === 'string' && !/required/i.test(error)
+        Boolean(error) &&
+        typeof error === 'string' &&
+        !/is a required field/i.test(error)
       )
     },
     [errors]
@@ -191,18 +184,27 @@ const IrrigationEffEligibilityDialog = ({
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
                   error={stepHasError(fieldName)}
-                  classes={{
-                    iconContainer: classes.stepLabelIcon,
-                    labelContainer: classes.stepLabelLabel
+                  sx={{
+                    '.MuiStepLabel-iconContainer': {
+                      ...style.stepLabelIcon
+                    },
+                    '.MuiStepLabel-labelContainer': {
+                      ...style.stepLabelLabel
+                    }
                   }}
                   optional={
                     <DialogContentText
                       variant="h4"
                       color="textSecondary"
-                      className={clsx({
-                        [classes.stepLabelError]: stepHasError(fieldName),
-                        [classes.stepLabelActive]: activeStep === index
-                      })}
+                      sx={{
+                        ...(stepHasError(fieldName) && {
+                          color: theme.palette.error.main
+                        }),
+                        ...(activeStep === index &&
+                          !stepHasError(fieldName) && {
+                            color: theme.palette.primary.main
+                          })
+                      }}
                     >
                       {label}
                     </DialogContentText>
@@ -219,7 +221,7 @@ const IrrigationEffEligibilityDialog = ({
             <DialogContentText
               variant="body1"
               color="textPrimary"
-              className={classes.qualifyMsg}
+              sx={{...style.qualifyMsg}}
             >
               Excellent. You may now submit your application for the Irrigation
               Efficiencies Rebate. Please close this message now to continue the
@@ -277,16 +279,15 @@ const IrrigationEffEligibilityDialog = ({
 
 export default connect(IrrigationEffEligibilityDialog)
 
-const useQuestionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
+const useQuestionStyles = (theme: Theme) => ({
+  qualifyMsg: {
+    marginTop: theme.spacing(3)
+  }
+})
 
 const QuestionOne = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme<Theme>()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="treatedCustomer">
       {({field, form}: FieldProps<any>) => {
@@ -303,7 +304,7 @@ const QuestionOne = () => {
         const hasApplicableError =
           Boolean(currentError) &&
           typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
+          !/is a required field/i.test(currentError)
 
         const fieldTouched = Boolean(touched[name])
         return (
@@ -316,23 +317,22 @@ const QuestionOne = () => {
               }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Unfortunately, you do not qualify for the Irrigation
                 Efficiencies Rebate. Irrigation Efficiencies Rebates are only
@@ -347,7 +347,8 @@ const QuestionOne = () => {
 }
 
 const QuestionTwo = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme<Theme>()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="irrigMethod">
       {({field, form}: FieldProps<any>) => {
@@ -364,7 +365,7 @@ const QuestionTwo = () => {
         const hasApplicableError =
           Boolean(currentError) &&
           typeof currentError === 'string' &&
-          !/required field/i.test(currentError)
+          !/is a required field/i.test(currentError)
 
         const fieldTouched = Boolean(touched[name])
         return (
@@ -377,23 +378,22 @@ const QuestionTwo = () => {
               }
             >
               {IRRIGATION_METHODS.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Unfortunately, you do not qualify for the Irrigation
                 Efficiencies Rebate. Irrigation Efficiencies Rebates are only

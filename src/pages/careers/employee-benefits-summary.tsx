@@ -39,9 +39,9 @@ const EmployeeBenefitsSummaryPage = () => {
   const classes = useStyles()
 
   const healthInsuranceAmounts = {
-    employeeOnly: 1116.01,
-    employeePlusOne: 1667.0,
-    employeePlusFamily: 2167.0
+    employeeOnly: 1035.21,
+    employeePlusOne: 1676.0,
+    employeePlusFamily: 2178.0
   }
 
   const ListItemLink = (props: any) => {

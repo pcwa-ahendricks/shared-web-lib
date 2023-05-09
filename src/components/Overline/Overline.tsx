@@ -50,7 +50,6 @@ const Overline = ({
       sx={{
         display: 'inline-block',
         verticalAlign: 'middle',
-        '-webkit-transform': 'perspective(1px) translate3d(0, 0, 0)',
         transform: 'perspective(1px) translate3d(0, 0, 0)',
         boxShadow: '0 0 1px rgba(0, 0, 0, 0)',
         position: 'relative',
@@ -68,9 +67,7 @@ const Overline = ({
           left: visible ? 0 : '51%',
           right: visible ? 0 : '51%',
           backgroundColor: color ?? theme.palette.secondary.main,
-          '-webkit-transition-property': 'left, right',
           transitionProperty: 'left, right',
-          '-webkit-transition-timing-function': 'ease-out',
           transitionTimingFunction: 'ease-out',
           height: lineHeight,
           marginRight: lineMargin,

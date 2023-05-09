@@ -20,6 +20,12 @@ type Props = {
   labelWidth?: number
   SelectDisplayProps?: SelectProps['SelectDisplayProps']
   required?: boolean
+  onChange?: (
+    e: React.ChangeEvent<{
+      name?: string | undefined
+      value: unknown
+    }>
+  ) => void
 } & FieldProps<any>
 export type {Props as YesNoSelectFieldProps}
 
@@ -35,6 +41,7 @@ const YesNoSelectField = ({
   inputId = 'form-select-id',
   labelWidth = 0, // Material-UI default.
   SelectDisplayProps = {style: {minWidth: 50}}, // Adequate minimum.
+  onChange,
   ...other
 }: Props) => {
   const {name, value} = field
@@ -56,8 +63,9 @@ const YesNoSelectField = ({
     (evt: React.ChangeEvent<any>) => {
       handleChange(evt)
       setFieldTouched(name, true, true)
+      onChange?.(evt)
     },
-    [handleChange, setFieldTouched, name]
+    [handleChange, setFieldTouched, name, onChange]
   )
 
   return (

@@ -47,7 +47,7 @@ const Sb272Page = () => {
   const theme = useTheme()
   const classes = useStyles()
 
-  const lastReviewDate = 'March 29, 2022'
+  const lastReviewDate = 'January, 2023'
 
   const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (

@@ -1,50 +1,37 @@
 // cspell:ignore overbox overtext
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
+import {Box} from '@mui/material'
 
 type Props = {
   src: string
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    box: {
-      cursor: 'pointer',
-      height: '300',
-      position: 'relative',
-      overflow: 'hidden',
-      width: 400,
-      '& .img': {
-        position: 'absolute',
-        left: 0,
-        '-webkit-transition': 'all 300ms ease-out',
-        '-moz-transition': 'all 300ms ease-out',
-        '-o-transition': 'all 300ms ease-out',
-        '-ms-transition': 'all 300ms ease-out',
-        transition: 'all 300ms ease-out'
-      }
-    },
-    img: {}
-  })
-)
-
 const ThumbOverlay = ({src}: Props) => {
-  const classes = useStyles()
-
   return (
-    <div className={classes.box}>
+    <Box
+      sx={{
+        cursor: 'pointer',
+        height: '300',
+        position: 'relative',
+        overflow: 'hidden',
+        width: 400
+      }}
+    >
       <img
+        style={{
+          position: 'absolute',
+          left: 0,
+          transition: 'all 300ms ease-out'
+        }}
         src={src}
-        className={classes.img}
         alt="Thumbnail for uploaded file"
       />
       <div className="overbox">
         <div className={clsx('title overtext')}> Title </div>
         <div className={clsx('tagline overtext')}> Tagline </div>
       </div>
-    </div>
+    </Box>
   )
 }
 

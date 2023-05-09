@@ -366,7 +366,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <FormTextField
                 name="comments"
                 multiline
-                rows={3} // That's about 200 characters
+                minRows={3} // That's about 200 characters
                 label="Optionally, you can provide us any comments"
                 disabled={ineligible}
               />
@@ -407,7 +407,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
-              attachmentTitle="Receipt"
+              attachmentTitle="Receipt(s)"
               uploadRoute="toilet"
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
@@ -419,7 +419,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
-              attachmentTitle="Water-Efficient Toilet installed photo"
+              attachmentTitle="Water-Efficient Toilet installed photo(s)"
               uploadRoute="toilet"
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}
@@ -439,7 +439,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Toilet-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/f72457f0-e3fc-11eb-be9a-bfe30c7c12b9-TOILET-REBATE-PROGRAM-REQUIREMENTS.pdf"
+                termsConditionsUrl="https://imgix.cosmicjs.com/8c41df20-9792-11ed-93ee-cb9a2cd68754-Toilet-Rebate-Terms-and-Condtions-Revised-01182023.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>

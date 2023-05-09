@@ -1,11 +1,10 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, SyntheticEvent} from 'react'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography as Type,
-  Theme,
   Box,
   useTheme,
   List,
@@ -13,13 +12,13 @@ import {
   ListItemIcon,
   ListItemText
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ColumnBox} from '@components/MuiSleazebox'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const MonthlyBillingFaq = () => {
+  const theme = useTheme<Theme>()
+  const style = {
     expansionPanel: {
       backgroundColor: theme.palette.common.white
     },
@@ -28,25 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
       // flexBasis: '33.33%',
       // flexShrink: 0
     }
-  })
-)
-
-const MonthlyBillingFaq = () => {
-  const classes = useStyles()
+  }
   const [expanded, setExpanded] = useState<string | false>(false)
 
   const handleChange = useCallback(
     (panel: string) =>
-      (
-        _event: React.ChangeEvent<Record<string, unknown>>,
-        isExpanded: boolean
-      ) => {
+      (_event: SyntheticEvent<Element, Event>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false)
       },
     []
   )
-
-  const theme = useTheme<Theme>()
 
   return (
     <Box>
@@ -64,7 +54,9 @@ const MonthlyBillingFaq = () => {
       <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1')}
-        classes={{root: classes.expansionPanel}}
+        sx={{
+          ...style.expansionPanel
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -120,7 +112,9 @@ const MonthlyBillingFaq = () => {
       <Accordion
         expanded={expanded === 'panel3'}
         onChange={handleChange('panel3')}
-        classes={{root: classes.expansionPanel}}
+        sx={{
+          ...style.expansionPanel
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -144,7 +138,9 @@ const MonthlyBillingFaq = () => {
       <Accordion
         expanded={expanded === 'panel4'}
         onChange={handleChange('panel4')}
-        classes={{root: classes.expansionPanel}}
+        sx={{
+          ...style.expansionPanel
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -173,7 +169,9 @@ const MonthlyBillingFaq = () => {
       <Accordion
         expanded={expanded === 'panel5'}
         onChange={handleChange('panel5')}
-        classes={{root: classes.expansionPanel}}
+        sx={{
+          ...style.expansionPanel
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -204,7 +202,9 @@ const MonthlyBillingFaq = () => {
       <Accordion
         expanded={expanded === 'panel6'}
         onChange={handleChange('panel6')}
-        classes={{root: classes.expansionPanel}}
+        sx={{
+          ...style.expansionPanel
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -252,7 +252,9 @@ const MonthlyBillingFaq = () => {
       <Accordion
         expanded={expanded === 'panel7'}
         onChange={handleChange('panel7')}
-        classes={{root: classes.expansionPanel}}
+        sx={{
+          ...style.expansionPanel
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

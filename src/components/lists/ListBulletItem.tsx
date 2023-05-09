@@ -1,13 +1,12 @@
+import {Theme} from '@lib/material-theme'
 import {
   ListItem,
   ListItemIcon,
   ListItemProps,
   ListItemIconProps,
-  SvgIconProps
+  SvgIconProps,
+  useTheme
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-import clsx from 'clsx'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 
 type ListBulletItemIconProps = {
@@ -18,25 +17,26 @@ type ListBulletItemProps = {
   ListBulletItemIconProps?: ListBulletItemIconProps
 } & Omit<ListItemProps, 'button'>
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    listItem: {
-      alignItems: 'flex-start'
-    },
-    listItemBullet: {
-      minWidth: theme.spacing(5)
-    }
-  })
-)
-
 const ListBulletItemIcon = ({
   children,
   IconProps,
+  sx,
   ...rest
 }: ListBulletItemIconProps) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = {
+    listItemBullet: {
+      minWidth: theme.spacing(5)
+    }
+  }
   return (
-    <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
+    <ListItemIcon
+      sx={{
+        ...style.listItemBullet,
+        ...sx
+      }}
+      {...rest}
+    >
       <BulletIcon fontSize="large" {...IconProps} />
     </ListItemIcon>
   )
@@ -46,14 +46,19 @@ const ListBulletItem = ({
   children,
   ListBulletItemIconProps,
   classes: classesProp,
+  sx,
   ...rest
 }: ListBulletItemProps) => {
-  const classes = useStyles()
+  const style = {
+    listItem: {
+      alignItems: 'flex-start'
+    }
+  }
   return (
     <ListItem
-      classes={{
-        ...classesProp,
-        root: clsx([classes.listItem, classesProp?.root])
+      sx={{
+        ...style.listItem,
+        ...sx
       }}
       {...rest}
     >

@@ -3,17 +3,10 @@ import React from 'react'
 import YouTubePlayer, {ReactPlayerProps} from 'react-player'
 import {Box, BoxProps} from '@mui/material'
 
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-
 type Props = {
   aspectRatio?: number
-} & Partial<ReactPlayerProps>
-
-type UseStylesProps = {
-  aspectRatio: Props['aspectRatio']
   playerWrapperProps?: BoxProps
-}
+} & Partial<ReactPlayerProps>
 
 /* This component was adapter from:
     https://www.npmjs.com/package/react-player#responsive-player
@@ -25,9 +18,13 @@ type UseStylesProps = {
       "Stream #0:0: Video: h264 (High), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 23.98 fps, 23.98 tbr, 1k tbn, 47.95 tbc (default)"
 */
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    playerWrapper: ({aspectRatio}: UseStylesProps) => ({
+const ResponsiveYouTubePlayer = ({
+  aspectRatio = 56.25, // 16:9 Ratio (9 / 16 * 100 = 56.25).
+  playerWrapperProps,
+  ...rest
+}: Props) => {
+  const style = {
+    playerWrapper: {
       float: 'none',
       clear: 'both',
       width: '100%',
@@ -35,25 +32,25 @@ const useStyles = makeStyles(() =>
       position: 'relative',
       paddingBottom: `${aspectRatio}% !important`
       // paddingTop: 25 // Not sure how this helps, but it is documented on https://alistapart.com/article/creating-intrinsic-ratios-for-video and states that "the chrome" is static; However, I'm uncertain what "the chrome" is, but either way, it simply adds black bars (or space) to the top and bottom of the video when added so it's left out here.
-    }),
+    },
     player: {
       position: 'absolute',
       top: 0,
       left: 0
     }
-  })
-)
+  }
+  const {sx = {} as any, ...restPlayerWrapperProps} = playerWrapperProps || {}
 
-const ResponsiveYouTubePlayer = ({
-  aspectRatio = 56.25, // 16:9 Ratio (9 / 16 * 100 = 56.25).
-  playerWrapperProps,
-  ...rest
-}: Props) => {
-  const classes = useStyles({aspectRatio})
   return (
-    <Box className={classes.playerWrapper} {...playerWrapperProps}>
+    <Box
+      sx={{
+        ...style.playerWrapper,
+        ...sx
+      }}
+      {...restPlayerWrapperProps}
+    >
       <YouTubePlayer
-        className={classes.player}
+        style={{...style.player}}
         width="100%"
         height="100%"
         {...rest}

@@ -1,13 +1,11 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Fade, SvgIconProps, IconProps} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AltIcon from '@mui/icons-material/Language'
-import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
+import Link, {LinkProps} from '@components/Link'
 
 export type OpenInNewLinkProps = {
   children?: React.ReactNode
@@ -21,25 +19,7 @@ export type OpenInNewLinkProps = {
   centerIcon?: boolean
   iconColor?: SvgIconProps['color']
   altIcon?: boolean
-} & FlexLinkProps
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    link: {
-      display: 'inline-flex'
-    },
-    icon: ({
-      startAdornment,
-      iconPadding
-    }: {
-      startAdornment: boolean
-      iconPadding: number
-    }) => ({
-      paddingLeft: startAdornment ? 0 : iconPadding,
-      paddingRight: startAdornment ? iconPadding : 0
-    })
-  })
-)
+} & LinkProps
 
 // [TODO] Why does icon appear to move down a pixel or so after transitioning in? It does the same thing when applying styles/transition directly w/o the use of <Fade/>. It seems this may only happen in Safari; Chrome looks fine.
 
@@ -54,11 +34,10 @@ const OpenInNewLink = ({
   centerIcon = true,
   iconColor = 'inherit',
   altIcon = false,
-  isNextLink = false,
+  sx,
   ...rest
 }: OpenInNewLinkProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
-  const classes = useStyles({startAdornment, iconPadding})
 
   // [HACK] Next <Link/> will block React's synthetic events, such as onMouseEnter and onMouseLeave. Use react-native-listener as a workaround for this behavior.
   const onMouseEnterHandler = useCallback(() => {
@@ -69,9 +48,24 @@ const OpenInNewLink = ({
     setIsHovering(false)
   }, [])
 
+  const style = useMemo(
+    () => ({
+      link: {
+        display: 'inline-flex'
+      },
+      icon: {
+        paddingLeft: startAdornment ? 0 : iconPadding,
+        paddingRight: startAdornment ? iconPadding : 0
+      }
+    }),
+    [startAdornment, iconPadding]
+  )
+
   const linkIconEl = useMemo(() => {
     const linkIconElProps = {
-      className: classes.icon,
+      sx: {
+        ...style.icon
+      },
       color: iconColor,
       fontSize: iconFontSize
     }
@@ -82,7 +76,7 @@ const OpenInNewLink = ({
     ) : (
       <OpenInNewIcon {...linkIconElProps} />
     )
-  }, [pdf, classes, iconFontSize, iconColor, altIcon])
+  }, [pdf, iconFontSize, iconColor, altIcon, style])
 
   return (
     <NativeListener
@@ -90,12 +84,7 @@ const OpenInNewLink = ({
       onMouseLeave={onMouseLeaveHandler}
     >
       <RowBox display="inline-flex" component="span">
-        <FlexLink
-          className={classes.link}
-          noWrap
-          isNextLink={isNextLink}
-          {...rest}
-        >
+        <Link sx={{...style.link, ...sx}} underline="hover" noWrap {...rest}>
           <RowBox
             display="inline-flex"
             component="span"
@@ -115,7 +104,7 @@ const OpenInNewLink = ({
               </Fade>
             </ColumnBox>
           </RowBox>
-        </FlexLink>
+        </Link>
       </RowBox>
     </NativeListener>
   )

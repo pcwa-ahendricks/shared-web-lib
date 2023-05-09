@@ -1,7 +1,5 @@
 import React, {useEffect, useMemo} from 'react'
 import {Box, Badge, LinearProgress} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import CheckIcon from '@mui/icons-material/Check'
 import BlockIcon from '@mui/icons-material/Block'
 import {DroppedFile, UploadedFileAttr} from './types'
@@ -15,27 +13,6 @@ type Props = {
   onSuccess?: () => void
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    badgeRoot: {
-      maxWidth: '100%',
-      display: 'flex', // defaults to inline-flex
-      flexDirection: 'column',
-      justifyContent: 'center'
-    },
-    badge: {
-      width: 20,
-      height: 20
-    },
-    progress: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      top: 0
-    }
-  })
-)
-
 const UploadStatusIndicator = ({
   children,
   uploadedFiles,
@@ -43,8 +20,27 @@ const UploadStatusIndicator = ({
   onSuccess,
   isUploading = false
 }: Props) => {
-  const classes = useStyles()
-
+  const style = useMemo(
+    () => ({
+      badgeRoot: {
+        maxWidth: '100%',
+        display: 'flex', // defaults to inline-flex
+        flexDirection: 'column',
+        justifyContent: 'center'
+      },
+      badge: {
+        width: 20,
+        height: 20
+      },
+      progress: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0
+      }
+    }),
+    []
+  )
   const uploadStatus = useUploadStatus(uploadedFiles, file)
 
   useEffect(() => {
@@ -68,15 +64,25 @@ const UploadStatusIndicator = ({
   const progressEl = useMemo(
     () =>
       isUploading ? (
-        <LinearProgress className={classes.progress} color="secondary" />
+        <LinearProgress
+          sx={{
+            ...style.progress
+          }}
+          color="secondary"
+        />
       ) : null,
-    [classes, isUploading]
+    [isUploading, style]
   )
 
   return (
     <Box m={2}>
       <Badge
-        classes={{root: classes.badgeRoot, badge: classes.badge}}
+        sx={{
+          ...style.badgeRoot,
+          '.MuiBadge-badge': {
+            ...style.badge
+          }
+        }}
         badgeContent={fileStatusBadgeContentEl}
         color={uploadStatus === 'success' ? 'secondary' : 'error'}
         invisible={uploadStatus === 'unknown'}

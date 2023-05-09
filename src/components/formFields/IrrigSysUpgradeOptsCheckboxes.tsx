@@ -6,12 +6,12 @@ import {
   FormHelperText,
   FormGroup,
   FormLabel,
-  Theme
+  useTheme
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import {FieldProps} from 'formik'
 import {FormControlProps} from '@mui/material/FormControl'
 import {FormLabelProps} from '@mui/material/FormLabel'
+import {Theme} from '@lib/material-theme'
 
 /**
  * This is used to correct Types so "legend" and "fieldset" can be used.
@@ -30,15 +30,6 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles((theme: Theme) => ({
-  fcLabel: {
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: 2,
-      marginTop: 2
-    }
-  }
-}))
 
 export const formControlItems = {
   'Conversion of existing high volume sprinkler systems to low volume drip irrigation systems':
@@ -64,7 +55,18 @@ const IrrigSysUpgradeOptsCheckboxes = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = useMemo(
+    () => ({
+      fcLabel: {
+        [theme.breakpoints.down('sm')]: {
+          marginBottom: 2,
+          marginTop: 2
+        }
+      }
+    }),
+    [theme]
+  )
   const {name, value = formControlItems} = field
   const {
     errors,
@@ -82,7 +84,7 @@ const IrrigSysUpgradeOptsCheckboxes = ({
 
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched for entire formGroup (not individual check boxes).
   const handleChange = useCallback(
-    (cbVal) => (event: React.ChangeEvent<any>) => {
+    (cbVal: string) => (event: React.ChangeEvent<any>) => {
       const newValue = {...value, [cbVal]: event.target.checked}
       setFieldTouched(name, true)
       setFieldValue(name, newValue, true)
@@ -106,10 +108,12 @@ const IrrigSysUpgradeOptsCheckboxes = ({
               onBlur={handleBlur}
             />
           }
-          classes={{root: classes.fcLabel}}
+          sx={{
+            ...style.fcLabel
+          }}
         />
       )),
-    [handleBlur, handleChange, value, classes]
+    [handleBlur, handleChange, value, style]
   )
 
   return (
@@ -127,9 +131,11 @@ const IrrigSysUpgradeOptsCheckboxes = ({
       <FormGroup>
         <>{formControlItemsEl}</>
       </FormGroup>
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      {fieldIsTouchedWithError ? (
+        <FormHelperText error={fieldIsTouchedWithError}>
+          currentError
+        </FormHelperText>
+      ) : null}
     </MyFormControl>
   )
 }

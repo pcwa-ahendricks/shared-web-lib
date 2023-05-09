@@ -385,7 +385,7 @@ const ReportWaterWastePage = () => {
                       <Field
                         // disabled={ineligible}
                         name="photos"
-                        attachmentTitle="Photos"
+                        attachmentTitle="Photo(s)"
                         uploadRoute="water-waste"
                         onIsUploadingChange={photosAreUploadingHandler}
                         component={AttachmentField}

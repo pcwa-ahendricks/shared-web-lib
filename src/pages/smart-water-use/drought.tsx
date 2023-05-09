@@ -12,8 +12,6 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -25,28 +23,15 @@ import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader from '@lib/imageLoader'
 import Link from 'next/link'
 import ListBulletItem from '@components/lists/ListBulletItem'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    headingIcon: {
-      paddingRight: theme.spacing(1)
-    },
-    expansionPanel: {
-      backgroundColor: theme.palette.common.white
-    },
-    cardMedia: {
-      height: 200
-    },
+export default function DroughtPage() {
+  const theme = useTheme<Theme>()
+  const style = {
     noBottomMargin: {
       marginBottom: 0
     }
-  })
-)
-
-export default function DroughtPage() {
-  const classes = useStyles()
-
-  const theme = useTheme()
+  }
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
@@ -141,6 +126,7 @@ export default function DroughtPage() {
             </ChildBox>
           </RowBox>
         </WideContainer>
+        <Spacing size="x-large" />
         <Box my={2} mb={4}>
           <Paper elevation={0}>
             <WideContainer py={3}>
@@ -152,7 +138,11 @@ export default function DroughtPage() {
                   </Type>
                   <List dense disablePadding>
                     <ListBulletItem>
-                      <ListItemText classes={{root: classes.noBottomMargin}}>
+                      <ListItemText
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
+                      >
                         {/* <Type variant="inherit">
                       Stress your lawn and save your trees. Now's the time to
                       turn off sprinklers and let Mother Nature do the watering.
@@ -179,49 +169,65 @@ export default function DroughtPage() {
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Check soil moisture before turning on sprinklers. Stop by our main office to pick up a free moisture meter today."
                       />
-                    </ListBulletItem>{' '}
+                    </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Replace older sprinklers with more efficient nozzles."
                       />
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Upgrade to a WaterSense-labeled, weather-based sprinkler timer."
                       />
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Water plants early in the morning to reduce evaporation."
                       />
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Check for and fix leaks. The most common type of leak inside a home is a toilet leak, which can waste 200 gallons of water per day.  That’s enough to wash seven loads of laundry every day for a month."
                       />
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        sx={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Add a layer of mulch on top of soil, 2-3 inches thick. Mulch is like icing on a cake, because it keeps the soil moist the way icing keeps a cake moist."
                       />
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        style={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil."
                       />
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        classes={{root: classes.noBottomMargin}}
+                        style={{
+                          ...style.noBottomMargin
+                        }}
                         primary="Adjust sprinklers to reduce overspray."
                       />
                     </ListBulletItem>
@@ -324,31 +330,41 @@ export default function DroughtPage() {
               <List dense disablePadding>
                 <ListBulletItem>
                   <ListItemText
-                    classes={{root: classes.noBottomMargin}}
+                    sx={{
+                      ...style.noBottomMargin
+                    }}
                     primary="Operating PCWA's western Placer groundwater wells to reduce surface water demands."
                   />
                 </ListBulletItem>
                 <ListBulletItem>
                   <ListItemText
-                    classes={{root: classes.noBottomMargin}}
+                    sx={{
+                      ...style.noBottomMargin
+                    }}
                     primary="Shifting a portion of wholesale demands to groundwater."
                   />
                 </ListBulletItem>
                 <ListBulletItem>
                   <ListItemText
-                    classes={{root: classes.noBottomMargin}}
+                    sx={{
+                      ...style.noBottomMargin
+                    }}
                     primary="Enhancing water efficiency rebate programs."
                   />
                 </ListBulletItem>
                 <ListBulletItem>
                   <ListItemText
-                    classes={{root: classes.noBottomMargin}}
+                    sx={{
+                      ...style.noBottomMargin
+                    }}
                     primary="Expanding canal operation hours to monitor for and minimize water losses."
                   />
                 </ListBulletItem>
                 <ListBulletItem>
                   <ListItemText
-                    classes={{root: classes.noBottomMargin}}
+                    sx={{
+                      ...style.noBottomMargin
+                    }}
                     primary="Meeting our Water Forum commitment to the lower American River by releasing extra water from our reservoirs for fishery benefits."
                   />
                 </ListBulletItem>

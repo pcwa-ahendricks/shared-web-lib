@@ -115,6 +115,12 @@ const indexPageRedirects = [
 
 // In time these can be removed. They include misc. redirects to moved pages and legacy urls used with previous versions (ng) of the website.
 const legacyRedirects = [
+  // C. Parks & D. Reintjes
+  {
+    source: '/board-of-directors/mfpfa-meeting-agendas',
+    destination: 'https://mfpfa.pcwa.net/agendas',
+    permanent: true
+  },
   // B. Cornthwaite mentioned this is printed on the back of the bills
   {
     source: '/water-use-efficiency',

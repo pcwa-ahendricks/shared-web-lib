@@ -1,14 +1,15 @@
 import React from 'react'
-import {SxProps, Box, Typography} from '@mui/material'
+import {Box, Typography, useTheme} from '@mui/material'
 import {ColumnBox, RowBox} from '@components/MuiSleazebox'
 import FlexButton from '@components/FlexButton/FlexButton'
 import {Theme} from '@lib/material-theme'
 
 export default function QuickLinksMobileBar() {
+  const theme = useTheme<Theme>()
   const style = {
     button: {
-      marginBottom: '8px'
-    } as SxProps<Theme>
+      marginBottom: theme.spacing(1)
+    }
   }
 
   return (

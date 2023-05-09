@@ -8,8 +8,6 @@ import {
   Typography as Type
 } from '@mui/material'
 
-import makeStyles from '@mui/styles/makeStyles'
-
 type Props = {
   district: number
   imageSrc: string
@@ -18,16 +16,6 @@ type Props = {
   viceChair?: boolean
 }
 
-const useStyles = makeStyles({
-  card: {
-    width: 170
-  },
-  media: {
-    height: 235,
-    position: 'relative'
-  }
-})
-
 const BoardMemberCard = ({
   district,
   name,
@@ -35,8 +23,15 @@ const BoardMemberCard = ({
   chair = false,
   viceChair = false
 }: Props) => {
-  const classes = useStyles()
-
+  const style = {
+    card: {
+      width: 170
+    },
+    media: {
+      height: 235,
+      position: 'relative'
+    }
+  }
   return (
     <Link
       href="/board-of-directors/[district]"
@@ -45,7 +40,7 @@ const BoardMemberCard = ({
       scroll={false}
       legacyBehavior
     >
-      <Card className={classes.card}>
+      <Card sx={{...style.card}}>
         <CardActionArea>
           {/* <Box position="absolute" bottom={5} right={5}>
             {chair ? <Chip size="small" label="Chair" color="primary" /> : null}
@@ -56,7 +51,7 @@ const BoardMemberCard = ({
             ) : null}
           </Box> */}
           <CardMedia
-            className={classes.media}
+            sx={{...style.media}}
             image={imageSrc}
             // title={`District ${district}`}
           />

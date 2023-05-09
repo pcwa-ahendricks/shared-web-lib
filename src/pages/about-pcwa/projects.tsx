@@ -1,4 +1,4 @@
-// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview bickford caperton
+// cspell:ignore Bonnynook Glenview Knutson hknutson kshively Intertie UPRR Shively dsod Hillview bickford caperton BRSP
 import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -11,7 +11,6 @@ import {
   RowBox
 } from '@components/MuiSleazebox'
 import {
-  Theme,
   Typography as Type,
   Divider,
   List,
@@ -20,10 +19,9 @@ import {
   ListItemProps,
   Link,
   // TypographyProps
-  Box
+  Box,
+  BoxProps
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import ConstructionProject from '@components/ConstructionProject/ConstructionProject'
 import Spacing from '@components/boxes/Spacing'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
@@ -33,11 +31,14 @@ import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const ProjectsPage = () => {
+  // const margin = 4 // Used with left and top margin of flexWrap items.
+
+  const style = {
     listItem: {
-      paddingTop: theme.spacing(0.5),
-      paddingBottom: theme.spacing(0.5)
+      // paddingTop: theme.spacing(1) / 2,
+      paddingTop: 1,
+      paddingBottom: 0
     },
     inlineFlex: {
       display: 'inline-flex'
@@ -46,11 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
       // listStyleType: 'none',
       marginBottom: 3
     }
-  })
-)
-const ProjectsPage = () => {
-  // const margin = 4 // Used with left and top margin of flexWrap items.
-  const classes = useStyles()
+  }
 
   // const itemFlex = `1 0 calc(50% - ${theme.spacing(4)})`
 
@@ -69,13 +66,13 @@ const ProjectsPage = () => {
 
   const TimelineListItem = ({children}: ListItemProps) => {
     return (
-      <ListItem disableGutters className={classes.listItem}>
+      <ListItem disableGutters sx={{...style.listItem}}>
         {children}
       </ListItem>
     )
   }
 
-  const ColumnOne = useCallback(({children, ...props}) => {
+  const ColumnOne = useCallback(({children, ...props}: BoxProps) => {
     return (
       <ColumnBox child flex="1 1 50%" {...props}>
         {children}
@@ -83,7 +80,7 @@ const ProjectsPage = () => {
     )
   }, [])
 
-  const ColumnTwo = useCallback(({children, ...props}) => {
+  const ColumnTwo = useCallback(({children, ...props}: BoxProps) => {
     return (
       <ColumnBox child flex="1 1 50%" {...props}>
         {children}
@@ -419,7 +416,7 @@ const ProjectsPage = () => {
                   </article>
                 </ConstructionProject>
               </ProjectChild> */}
-              <ProjectChild>
+              {/* <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Bickford Ranch Phase 1 - Mass Grading
@@ -515,15 +512,15 @@ const ProjectsPage = () => {
                     contact the following PCWA Representative:
                   </Type>
                   <Type paragraph>
-                    Mitchell McCarthy
+                    Brian Rickards
                     <br />
-                    Associate Engineer
+                    Planning & Development Services Manager
                     <br />
-                    Phone: (530) 863-3889
+                    Phone: (530) 823-4845
                     <br />
                     E-mail:{' '}
-                    <Link href="mailto:mmccarthy@pcwa.net" underline="hover">
-                      mmccarthy@pcwa.net
+                    <Link href="mailto:brickards@pcwa.net ">
+                      brickards@pcwa.net
                     </Link>
                   </Type>
                   <Spacing size="large" />
@@ -557,6 +554,130 @@ const ProjectsPage = () => {
                     </Box>
                   </ColumnBox>
                 </ConstructionProject>
+              </ProjectChild> */}
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Bickford Ranch Water Tank and Pump Station
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    The Bickford Ranch Specific Plan (BRSP) is a master planned
+                    community with residential, parks, public facilities, and
+                    open space land uses located within an approximately
+                    1,928-acre plan area. The proposed development is located in
+                    Placer County, California, east of Sierra College Boulevard
+                    and south of Lincoln Newcastle Highway (Highway 193). The
+                    current specific plan was amended and approved in 2015 to
+                    serve 1,890 residential units. The BRSP project is
+                    anticipated to be built out in three phases over the next 15
+                    to 20 years. Additional information about the BRSP can be
+                    found at:{' '}
+                    <Link
+                      href="https://www.placer.ca.gov/3336/Bickford-Ranch-Specific-Plan"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Bickford Ranch Specific Plan | Placer County, CA
+                    </Link>
+                    .
+                  </Type>
+                  <Type paragraph>
+                    This Facilities Agreement (FA) Project is being funded and
+                    completed by Bickford Ranch Developers (Bickford) for the
+                    conveyance of water for the BRSP. Bickford began
+                    construction on Phase 1 of the Bickford Ranch Community
+                    Facility District in 2021 with mass grading portions of
+                    development and some undergrounding of major infrastructure.
+                    As part of this FA, an 18-inch transmission main will be
+                    constructed from the pump station to connect to the on-site
+                    Phase 1 water distribution system and ultimately connect to
+                    a future Tank at the top of BRSP. This $10 million tank and
+                    pump station provides the necessary flows to meet phased
+                    demands, including fire flow.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Design - Complete"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Tank - April 2021 - December 2022"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Pump Station May 2022-Fall 2023"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Homes - Fall 2023"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                  </List>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Frequently Asked Questions (FAQ's)
+                  </Type>
+                  <Type gutterBottom>
+                    <em>When will homes be built?</em>
+                  </Type>
+                  <Type paragraph>
+                    Model homes may be under construction in the latter part of
+                    2023. Occupancy of homes will not be allowed until this FA
+                    is accepted and PCWA accepts the facilities.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>Where is the water coming from?</em>
+                  </Type>
+                  <Type paragraph>
+                    The City of Lincoln recently installed a 42-inch pipeline
+                    for the Agency, which included an 18-inch stub-out for this
+                    FA. The 42-inch pipeline is served from the Agency's
+                    Foothill Water Treatment Plant.
+                  </Type>
+                  {/* <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    If you have any questions regarding the Project, please
+                    contact the following PCWA Representative:
+                  </Type>
+                  <Type paragraph>
+                    Brian Rickards
+                    <br />
+                    Planning & Development Services Manager
+                    <br />
+                    Phone: (530) 823-4845
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:brickards@pcwa.net ">
+                      brickards@pcwa.net
+                    </Link>
+                  </Type> */}
+                  {/* <Spacing size="large" /> */}
+
+                  {/* <ColumnBox alignItems="center">
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Bickford Ranch Phase I - Canal Services{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox> */}
+                </ConstructionProject>
               </ProjectChild>
               <ProjectChild>
                 <ConstructionProject>
@@ -584,17 +705,16 @@ const ProjectsPage = () => {
                       Project Location
                     </Type>
                     <Type paragraph>
-                      At the Monte Vista Water Treatment Plant off of Ridge Road
-                      in Dutch Flat, CA.
+                      The Monte Vista Water Treatment Plant is located in Dutch
+                      Flat, near Ridge Road.
                     </Type>
                     <Type variant="subtitle1" gutterBottom>
-                      Construction Timeline
+                      Project Schedule
                     </Type>
                     <Type paragraph>
-                      The project is scheduled to be completed in late summer
-                      2022.
+                      The project is scheduled to be completed by Summer 2023.
                     </Type>
-                    <Spacing />
+                    {/* <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
                     </Type>
@@ -609,8 +729,108 @@ const ProjectsPage = () => {
                       <Link href="mailto:jjakobsen@pcwa.net" underline="hover">
                         jjakobsen@pcwa.net
                       </Link>
-                    </Type>
+                    </Type> */}
                   </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Dutch Flat Mutual Consolidation Project
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    The Dutch Flat Mutual Water Company (DFM) serves treated
+                    water to the Dutch Flat community located adjacent to Alta.
+                    DFM has a distribution system that was installed in 1965,
+                    which requires significant repairs due to numerous water
+                    leaks. In addition, DFM's water treatment plant needs many
+                    repairs and upgrades. Their system serves 106 connections
+                    and two unmetered services, a 0.33 million gallon per day
+                    (MGD) water treatment plant, three storage tanks, and
+                    approximately 8,600 linear feet of distribution main. The
+                    DFM board met on November 15, 2016, and voted unanimously to
+                    connect to PCWA's treated water system.
+                  </Type>
+                  <Spacing />
+                  <Type>The project improvements includes:</Type>
+                  <Box component="ul" marginTop={1}>
+                    <Type component="li" variant="body1">
+                      The replacement of approximately 8,800 feet of treated
+                      water pipelines,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      The replacement of 108 services, meters and vaults,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      A pressure reducing station,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      A connection to the Agency's Alta treated water system,
+                    </Type>
+                    <Type component="li" variant="body1">
+                      The disconnection of the DFMs 0.33 million gallon per day
+                      water treatment plant, and
+                    </Type>
+                    <Type component="li" variant="body1">
+                      Other miscellaneous improvements.
+                    </Type>
+                  </Box>
+                  <Spacing size="small" />
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Location
+                  </Type>
+                  <Type paragraph>
+                    The project is located in Dutch Flat, CA.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText primary="Begin Construction - Summer 2023" />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText primary="End Construction - Spring 2024" />
+                    </TimelineListItem>
+                  </List>
+                  <Spacing size="large" />
+
+                  <MediaDialogOnClick
+                    mediaUrl="https://imgix.cosmicjs.com/6f979010-b6d0-11ed-ac22-eb594d52cfd7-DFMCP.png"
+                    mediaName="Map Figure of Dutch Flat Mutual Consolidation Project"
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 917,
+                        height: 1187
+                      }
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      src={`https://imgix.cosmicjs.com/6f979010-b6d0-11ed-ac22-eb594d52cfd7-DFMCP.png${stringify(
+                        {border: '1,AAAAAA'},
+                        true
+                      )}`}
+                      alt="Map Figure of Dutch Flat Mutual Consolidation Project"
+                      width={917}
+                      height={1187}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 100vw, 45vw"
+                    />
+                  </MediaDialogOnClick>
+                  <ColumnBox alignItems="center">
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Dutch Flat Mutual Consolidation Project{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox>
                 </ConstructionProject>
               </ProjectChild>
             </ColumnOne>
@@ -651,24 +871,21 @@ const ProjectsPage = () => {
                     <Spacing />
                     <Type variant="subtitle1">Project Schedule</Type>
                     <List disablePadding>
+                      {/* <TimelineListItem>
+                        <ListItemText primary="Survey, geotechnical exploration, and other information gathering - 2019" />
+                      </TimelineListItem> */}
                       <TimelineListItem>
-                        <ListItemText
-                          primary="Survey, geotechnical exploration, and other information gathering
-              – 2019"
-                        />
+                        <ListItemText primary="Design Completion - Spring 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Design – 2019-2021" />
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Advertise/Award – 2022" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Construction – 2022" />
+                        <ListItemText primary="Begin Construction - Spring 2023" />
                       </TimelineListItem>
                     </List>
-                    <Spacing />
-                    <Type variant="subtitle1" gutterBottom>
+                    {/* <Spacing /> */}
+                    {/* <Type variant="subtitle1" gutterBottom>
                       Frequently Asked Questions (FAQ’s)
                     </Type>
                     <Type gutterBottom>
@@ -685,7 +902,7 @@ const ProjectsPage = () => {
                       <em>Can I remove tree tags?</em>
                     </Type>
                     <Type paragraph>
-                      No please don’t; these will be critical through the design
+                      No please don't; these will be critical through the design
                       phase to accurately map the trees on the plans and
                       identify them in the field during construction.
                     </Type>
@@ -699,8 +916,8 @@ const ProjectsPage = () => {
                       feet for commercial and industrial areas. This will
                       require the construction of new hydrants.
                     </Type>
-                    <Spacing />
-                    <Type variant="subtitle1" gutterBottom>
+                    <Spacing /> */}
+                    {/* <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
                     </Type>
                     <Type paragraph>
@@ -714,14 +931,16 @@ const ProjectsPage = () => {
                       <Link href="mailto:jjakobsen@pcwa.net" underline="hover">
                         jjakobsen@pcwa.net
                       </Link>
-                    </Type>
+                    </Type> */}
                     <Spacing size="large" />
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
                       mediaName="Map Figure of Alta Loop Pipeline Project"
-                      mediaPreviewDialogProps={{
-                        width: 700,
-                        height: 535
+                      MediaPreviewDialogProps={{
+                        ImageProps: {
+                          width: 700,
+                          height: 535
+                        }
                       }}
                     >
                       <Image
@@ -764,9 +983,9 @@ const ProjectsPage = () => {
                       The Lake Alta Dam project is a multi-year project to
                       address regulation changes since the two Lake Alta dams
                       were installed. Originally constructed for mining
-                      activities in the 1850’s, the dams have been in continuous
+                      activities in the 1850's, the dams have been in continuous
                       service ever since. This facility is an important
-                      component of PCWA’s water delivery system, and this
+                      component of PCWA's water delivery system, and this
                       project will ensure lake levels, vegetation, and drainage
                       comply with current regulatory requirements. See below for
                       document links for this project.
@@ -775,8 +994,8 @@ const ProjectsPage = () => {
                       Project Location
                     </Type>
                     <Type paragraph>
-                      The Lake Alta Dam Safety Project is located in the Town of
-                      Alta, near Bonny Nook Drive.
+                      The Lake Alta Dam Project is located in the Town of Alta,
+                      near Bonny Nook Drive.
                     </Type>
                     <Type variant="subtitle1" gutterBottom>
                       Construction Timeline
@@ -784,7 +1003,7 @@ const ProjectsPage = () => {
                     <Type paragraph>
                       Consultants are currently gathering information on-site to
                       be used to design improvements to the dams. Completion of
-                      design of improvements to the dams is anticipated in 2022.
+                      design of improvements to the dams is anticipated in 2024.
                       Any future construction work will proceed upon completion
                       of design and regulatory approvals.
                     </Type>
@@ -795,11 +1014,12 @@ const ProjectsPage = () => {
                       PCWA removed dead and dying trees in 2017 the vicinity of
                       the dams to comply with direction from the California
                       Division of Safety of Dams (DSOD). In winter of 2018/2019
-                      PCWA collected bore samples from each of the dams. These
-                      samples were analyzed and will be incorporated into design
-                      of the necessary improvements.
+                      PCWA collected bore samples from each of the dams.
+                      Additional samples collected from test pits and analyzed
+                      in 2021. Results from both sampling events will be used to
+                      support design of the necessary dam improvements..
                     </Type>
-                    <Spacing />
+                    {/* <Spacing />
                     <Type variant="subtitle1" gutterBottom>
                       For questions regarding this project, contact:
                     </Type>
@@ -814,7 +1034,165 @@ const ProjectsPage = () => {
                       <Link href="mailto:kshively@pcwa.net" underline="hover">
                         kshively@pcwa.net
                       </Link>
+                    </Type> */}
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Ginger Drive Pipeline Replacement - Sacramento Street/Valley
+                    View Drive/Ginger Drive
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
                     </Type>
+                    <Type paragraph>
+                      The project will consist of abandonment of existing
+                      backyard mains and installation of new mains in the
+                      streets. New meter boxes will be set near the back of
+                      sidewalks along the streets, and new service lines
+                      installed from the meter boxes to customer homes and
+                      reconnected.
+                    </Type>
+                    <Type paragraph>
+                      Approximately 1,920 feet of new 8-inch water main will be
+                      installed in both Valley View and Ginger Drives, including
+                      50 service connections, and 4 new hydrants.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The project is located in the City of Auburn, near Carolyn
+                      Street.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Schedule
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Summer 2023" />
+                      </TimelineListItem>
+                    </List>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Rocklin Main Replacements
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      A multi-year main replacement program to replace aging
+                      infrastructure is beginning with Phase 1, which is on
+                      Midas Avenue, between 2nd Street and Argonaut Road. The
+                      project will consist of replacing the existing main,
+                      services, and fire hydrants in this area. New meter boxes
+                      and new water meters will be included in the project. In
+                      cooperation with the City of Rocklin, the entire width of
+                      Midas Avenue is planned to be resurfaced as part of the
+                      Phase 1 project.
+                    </Type>
+                    <Type paragraph>
+                      Approximately 1,900 feet of new 12-inch water main will be
+                      installed, including 12 new water meters.
+                    </Type>
+                    <Type paragraph>
+                      Phase 2 main replacement project is currently in design.
+                      Phase 2 is on Midas Avenue, between Argonaut Road and
+                      Clover Valley Road.
+                    </Type>
+                    {/* <Type paragraph>
+                      Future anticipated Phases are shown below.
+                    </Type> */}
+                    <Spacing size="large" />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png"
+                      mediaName="Map Figure of future anticipated Phases for Rocklin Main Replacement"
+                      MediaPreviewDialogProps={{
+                        ImageProps: {
+                          width: 1705,
+                          height: 1240
+                        }
+                      }}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png`}
+                        alt="Map Figure of future anticipated Phases for Rocklin Main Replacement"
+                        width={1705}
+                        height={1240}
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                      />
+                    </MediaDialogOnClick>
+                    <ColumnBox alignItems="center">
+                      <Box mt={1} width="60%" textAlign="center">
+                        <Type variant="caption">
+                          Map Figure of Future Anticipated Phases{' '}
+                          <em>(click to enlarge)</em>
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The multi-year project area is located in the City of
+                      Rocklin, and includes Midas Avenue, Argonaut Drive,
+                      Whitney Boulevard, Clover Valley Roads.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Schedule
+                    </Type>
+                    <Type variant="body2" color="primary">
+                      <strong>Phase 1</strong>
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Summer 2023" />
+                      </TimelineListItem>
+                    </List>
+                    <Spacing size="x-small" />
+                    <Type variant="body2" color="primary">
+                      <strong>Phase 2</strong>
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Fall 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Winter 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2024" />
+                      </TimelineListItem>
+                    </List>
                   </article>
                 </ConstructionProject>
               </ProjectChild>

@@ -29,7 +29,7 @@ import DocIcon from '@mui/icons-material/LibraryBooks'
 import CwmpContactUsDialog from '@components/CwmpContactUsDialog/CwmpContactUsDialog'
 import {Theme} from '@lib/material-theme'
 
-const ACTIVE_STEP = 3 // 1-7
+const ACTIVE_STEP = 5 // 1-7
 
 const CountyWideMasterPlanPage = () => {
   const theme = useTheme<Theme>()

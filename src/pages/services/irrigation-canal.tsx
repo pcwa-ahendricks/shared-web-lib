@@ -1,5 +1,5 @@
 // cspell:ignore Cutrine amazonaws
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import {
   Box,
   Typography as Type,
@@ -8,14 +8,11 @@ import {
   ListItemText,
   ListItemAvatar,
   Avatar,
-  Theme,
   Divider,
   useMediaQuery,
   useTheme,
   Link
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {grey, yellow, blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -42,19 +39,13 @@ import imgixLoader from '@lib/imageLoader'
 import FlexLink from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
+import {setAnimateDone, UiContext} from '@components/ui/UiStore'
+import IrrigSvcAgreeLookHere from '@components/LookHere/IrrigSvcAgreeLookHere'
+import {Theme} from '@lib/material-theme'
 
 // type Props = {
 //   fallbackData?: PlayListItems
 // }
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    listItem: {
-      paddingTop: 0,
-      paddingBottom: 4 // Defaults to 8px
-    }
-  })
-)
 
 const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY || ''
 const howToPlaylistId = 'PLMxUiBU9iHj2PTGeMEPIIX_CyFTrefMb9'
@@ -69,14 +60,29 @@ const fetcherUrl = `${youtubeApiUrl}/playlistItems${qs}`
 const IrrigationCanalPage = () => {
   const {data: playlistItems} = useSWR<PlayListItems>(fetcherUrl)
 
-  const classes = useStyles()
+  const style = {
+    listItem: {
+      paddingTop: 0,
+      paddingBottom: 4 // Defaults to 8px
+    }
+  }
 
   const CompactListItem = (props: any) => (
-    <ListItem classes={{root: classes.listItem}} {...props} />
+    <ListItem sx={{...style.listItem}} {...props} />
   )
 
   const theme = useTheme<Theme>()
   const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const uiContext = useContext(UiContext)
+  const {state: uiState, dispatch: uiDispatch} = uiContext
+  const {irrigSvcAgree: irrigSvcAgreeAnimateDone} = uiState.animateDone
+
+  useEffect(() => {
+    return () => {
+      uiDispatch(setAnimateDone('irrigSvcAgree', true))
+    }
+  }, [uiDispatch])
 
   return (
     <PageLayout title="Irrigation Canal Information" waterSurface>
@@ -210,6 +216,71 @@ const IrrigationCanalPage = () => {
                 </Type>
               </Box> */}
             </ChildBox>
+          </RowBox>
+          <Spacing size="large" />
+          <RowBox flexSpacing={2} responsive="xs">
+            <ChildBox flex="70%">
+              <Type variant="h3" gutterBottom>
+                Irrigation Service Agreement
+              </Type>
+              <Type paragraph>
+                PCWA recently updated its Rules & Regulations related to
+                untreated water service. PCWA is requesting customers'
+                acknowledge the updated Rules and Regulations for untreated
+                water service by signing an updated acknowledgement form.{' '}
+              </Type>
+              <Box display="flex" alignItems="center">
+                <IrrigSvcAgreeLookHere animate={!irrigSvcAgreeAnimateDone}>
+                  <Type>
+                    Visit our{' '}
+                    <NextLink
+                      href="/services/irrigation-service-agreement"
+                      passHref
+                    >
+                      <Link
+                        underline="always"
+                        style={{backgroundColor: blueGrey[50]}}
+                      >
+                        <strong>Irrigation Service Agreement FAQs</strong>
+                      </Link>
+                    </NextLink>{' '}
+                    page to find out more information.
+                  </Type>
+                </IrrigSvcAgreeLookHere>
+              </Box>
+            </ChildBox>
+            <ColumnBox child flex="30%">
+              <ChildBox flex width="100%">
+                <a
+                  href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Box mx="auto" width="100%">
+                    <Image
+                      role="link"
+                      src="8bcb7700-b799-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgement.png"
+                      alt="QR Code for PCWA Irrigation Customer Acknowledgement Form"
+                      loader={imgixLoader}
+                      layout="responsive"
+                      sizes="(max-width: 600px) 60vw, 40vw"
+                      width={1116}
+                      height={1116}
+                    />
+                  </Box>
+                </a>
+              </ChildBox>
+              <ChildBox textAlign="center">
+                <Link
+                  variant="caption"
+                  href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <em>Complete the Customer Acknowledgement Online Today</em>
+                </Link>
+              </ChildBox>
+            </ColumnBox>
           </RowBox>
 
           <Box mt={6}>

@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-import {Fab, Theme, Grow as Transition, FabProps} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-// import CloseIcon from '@mui/icons-material/Close'
+import {Fab, Grow as Transition, FabProps, useTheme, Box} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/DeleteForeverRounded'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   thumbName: string
@@ -11,8 +9,10 @@ type Props = {
   thumbHover?: string | null
 } & Partial<FabProps>
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const RemoveUploadFab = ({thumbHover, thumbName, onRemove, ...rest}: Props) => {
+  const [active, setActive] = useState<boolean>(false)
+  const theme = useTheme<Theme>()
+  const style = {
     root: {
       position: 'absolute'
     },
@@ -22,26 +22,24 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: theme.palette.error.main
       }
-    },
-    active: {}
-  })
-)
-
-const RemoveUploadFab = ({thumbHover, thumbName, onRemove, ...rest}: Props) => {
-  const classes = useStyles()
-  const [active, setActive] = useState<boolean>(false)
+    }
+  }
 
   const transIn = Boolean(thumbHover === thumbName ?? active)
   return (
-    <div
-      className={classes.root}
+    <Box
+      sx={{
+        ...style.root
+      }}
       onMouseLeave={() => setActive(false)}
       onMouseEnter={() => setActive(true)}
     >
       <Transition in={transIn}>
         <Fab
           size="small"
-          className={classes.fab}
+          sx={{
+            ...style.fab
+          }}
           onClick={onRemove}
           aria-label="Remove Upload"
           {...rest}
@@ -49,7 +47,7 @@ const RemoveUploadFab = ({thumbHover, thumbName, onRemove, ...rest}: Props) => {
           <DeleteIcon />
         </Fab>
       </Transition>
-    </div>
+    </Box>
   )
 }
 

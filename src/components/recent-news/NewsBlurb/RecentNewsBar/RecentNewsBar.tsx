@@ -63,33 +63,31 @@ const RecentNewsBar = ({
     return sortedAndFiltered.slice(0, noOfBlurbs)
   }, [recentNews, noOfBlurbs])
 
-  const recentNewsBarEl = useMemo(
-    () =>
-      !recentNewsBlurbs ? (
-        <TextProgress caption="Loading Recent News..." />
-      ) : (
-        <RowBox
-          responsive
-          justifyContent="space-between"
-          flexSpacing={4}
-          {...rest}
-        >
-          {sortedAndFilteredNews.map((blurb) => (
-            <ChildBox key={blurb.id} flex="25%">
-              <NewsBlurb
-                title={blurb.title}
-                readMoreCaption={blurb.readMoreCaption}
-                summary={blurb.summary}
-                linkURL={blurb.linkURL}
-              />
-            </ChildBox>
-          ))}
-        </RowBox>
-      ),
-    [sortedAndFilteredNews, recentNewsBlurbs, rest]
-  )
+  if (!recentNewsBlurbs) {
+    return <TextProgress caption="Loading Recent News..." />
+  }
 
-  return <Box minHeight={200}>{recentNewsBarEl}</Box>
+  return (
+    <Box minHeight={200}>
+      <RowBox
+        responsive
+        justifyContent="space-between"
+        flexSpacing={4}
+        {...rest}
+      >
+        {sortedAndFilteredNews.map((blurb) => (
+          <ChildBox key={blurb.id} flex="25%">
+            <NewsBlurb
+              title={blurb.title}
+              readMoreCaption={blurb.readMoreCaption}
+              summary={blurb.summary}
+              linkURL={blurb.linkURL}
+            />
+          </ChildBox>
+        ))}
+      </RowBox>
+    </Box>
+  )
 }
 
 export default RecentNewsBar

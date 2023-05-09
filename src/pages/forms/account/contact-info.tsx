@@ -189,7 +189,7 @@ const ContactInfo = () => {
                           <FormTextField
                             name="address"
                             multiline
-                            rows={1}
+                            minRows={1}
                             label="Mailing Address"
                             autoComplete="street-address"
                           />
@@ -304,7 +304,7 @@ const ContactInfo = () => {
                             <FormTextField
                               name="previousAddress"
                               multiline
-                              rows={2}
+                              minRows={2}
                               label="Previous Address(es)"
                             />
                           </ColumnBox>

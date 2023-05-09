@@ -6,6 +6,7 @@ import styles from './StrongEmphasis.module.css'
 const StrongEmphasis = ({children, ...rest}: TypographyProps) => {
   return (
     <Type
+      component="span"
       color="inherit"
       variant="inherit"
       className={styles.strongEm}

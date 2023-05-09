@@ -268,7 +268,8 @@ export default function Sb998SelfCertification() {
                   setFormIsDirty(dirty)
                 }
                 if (values !== formValues) {
-                  setFormValues(values)
+                  // prevent max depth error with setTimeout()
+                  setTimeout(() => setFormValues(values), 0)
                 }
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.

@@ -3,12 +3,10 @@ import React, {
   useEffect,
   useCallback,
   forwardRef,
-  useImperativeHandle
+  useImperativeHandle,
+  useMemo
 } from 'react'
-import clsx from 'clsx'
-import {Button, Typography as Type, Theme} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Button, Typography as Type, useTheme} from '@mui/material'
 import {uploadFile} from '@lib/services/uploadService'
 import CloudUploadIcon from '@mui/icons-material/CloudUploadOutlined'
 import CloudDoneIcon from '@mui/icons-material/CloudDoneOutlined'
@@ -23,6 +21,7 @@ import {DroppedFile, UploadedFileAttr} from './types'
 import extension from '@lib/fileExtension'
 import {sequenceArray} from '@lib/util'
 import slugify from 'slugify'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   onUploadedChange?: (files: any) => void
@@ -43,68 +42,7 @@ export interface DropzoneUploaderHandles {
 
 const IMG_PX_THRESHOLD = 1600
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-    dropzone: {
-      padding: 20,
-      backgroundColor: '#eee',
-      borderRadius: 10,
-      borderWidth: 2,
-      borderStyle: 'dashed',
-      borderColor: 'grey',
-      '&.isActive': {
-        borderWidth: 2,
-        borderStyle: 'dashed',
-        borderColor: theme.palette.primary.light
-      }
-    },
-    isActive: {},
-    thumbsContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      marginTop: 16
-    },
-    captionContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100%'
-    },
-    leftIcon: {
-      marginLeft: theme.spacing(1)
-    },
-    clearUploadsButton: {
-      // margin & width: 100% won't play well together. Using padding w/ container instead.
-      // margin: theme.spacing( 1)
-      color: theme.palette.error.main
-    },
-    clearUploadsContainer: {
-      padding: theme.spacing(2)
-    },
-    primaryLight: {
-      color: theme.palette.primary.light
-    },
-    dropzoneTitle: {
-      color: theme.palette.secondary.main,
-      '&.disabled': {
-        color: theme.palette.text.disabled
-      }
-    },
-    dropzoneSubTitle: {
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-      '&.disabled': {
-        color: theme.palette.text.disabled
-      }
-    },
-    disabled: {}
-  })
-)
-
-const DropzoneUploader: React.RefForwardingComponent<
+const DropzoneUploader: React.ForwardRefRenderFunction<
   DropzoneUploaderHandles,
   Props
 > = (
@@ -123,7 +61,6 @@ const DropzoneUploader: React.RefForwardingComponent<
   },
   ref
 ) => {
-  const classes = useStyles()
   const [droppedFiles, setDroppedFiles] = useState<DroppedFile[]>([])
   const [rejectedFiles, setRejectedFiles] = useState<FileRejection[]>([])
   const [uploadDroppedFiles, setUploadDroppedFiles] = useState<DroppedFile[]>()
@@ -142,6 +79,8 @@ const DropzoneUploader: React.RefForwardingComponent<
   useEffect(() => {
     onIsUploadingChange && onIsUploadingChange(isUploading)
   }, [isUploading, onIsUploadingChange])
+
+  const theme = useTheme<Theme>()
 
   const resizeHandler = useCallback((file: DroppedFile) => {
     const promise = new Promise<DroppedFile>((resolve) => {
@@ -420,21 +359,86 @@ const DropzoneUploader: React.RefForwardingComponent<
     disabled,
     ...rest
   })
+
+  const style = useMemo(
+    () => ({
+      dropzone: {
+        padding: 20,
+        backgroundColor: '#eee',
+        borderRadius: 10,
+        borderWidth: 2,
+        borderStyle: 'dashed',
+        borderColor: 'grey',
+        ...(isDragActive && {
+          borderWidth: 2,
+          borderStyle: 'dashed',
+          borderColor: theme.palette.primary.light
+        })
+      },
+      thumbsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 16
+      },
+      captionContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%'
+      },
+      leftIcon: {
+        marginLeft: theme.spacing(1)
+      },
+      clearUploadsButton: {
+        // margin & width: 100% won't play well together. Using padding w/ container instead.
+        // margin: theme.spacing( 1)
+        color: theme.palette.error.main
+      },
+      clearUploadsContainer: {
+        padding: theme.spacing(2)
+      },
+      primaryLight: {
+        color: theme.palette.primary.light
+      },
+      dropzoneTitle: {
+        color: theme.palette.secondary.main,
+        ...(disabled && {
+          color: theme.palette.text.disabled
+        })
+      },
+      dropzoneSubTitle: {
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        ...(disabled && {
+          color: theme.palette.text.disabled
+        })
+      }
+    }),
+    [theme, disabled, isDragActive]
+  )
+
   // <PageLayout title="Irrigation Canal Information">
   return (
     <div>
-      <div className={classes.root} style={{width: width}}>
-        <div
+      <Box
+        sx={{
+          width
+        }}
+      >
+        <Box
           {...getRootProps()}
-          className={clsx(classes.dropzone, {
-            [classes.isActive]: isDragActive
-          })}
-          style={{height}}
+          className={`${isDragActive ? 'isActive' : ''}`}
+          sx={{
+            ...style.dropzone,
+            height
+          }}
         >
           <input type="text" {...getInputProps()} />
-          <div className={classes.captionContainer}>
+          <Box sx={{...style.captionContainer}}>
             {isDragActive ? (
-              <Type variant="h4" className={classes.primaryLight}>
+              <Type variant="h4" sx={{...style.primaryLight}}>
                 Drop files here...
               </Type>
             ) : (
@@ -446,25 +450,25 @@ const DropzoneUploader: React.RefForwardingComponent<
                 )}
                 <Type
                   variant="h3"
-                  className={clsx(classes.dropzoneTitle, {
-                    [classes.disabled]: disabled
-                  })}
+                  sx={{
+                    ...style.dropzoneTitle
+                  }}
                 >
                   Drag & drop
                 </Type>
                 <Type
                   variant="subtitle1"
-                  className={clsx(classes.dropzoneSubTitle, {
-                    [classes.disabled]: disabled
-                  })}
+                  sx={{
+                    ...style.dropzoneSubTitle
+                  }}
                 >
                   {disabled ? 'uploading has been disabled' : subtitle}
                 </Type>
               </>
             )}
-          </div>
-        </div>
-        <aside className={classes.thumbsContainer}>
+          </Box>
+        </Box>
+        <Box component="aside" sx={{...style.thumbsContainer}}>
           <ThumbPreviews
             isUploading={isUploading}
             isUploadingFileNames={isUploadingFileNames}
@@ -472,7 +476,7 @@ const DropzoneUploader: React.RefForwardingComponent<
             droppedFiles={droppedFiles}
             onRemoveUpload={tryRemoveUploadHandler}
           />
-        </aside>
+        </Box>
         {/* <aside className={classes.thumbsContainer}>
           <ThumbPreviewList
             uploadedFiles={uploadedFiles}
@@ -481,20 +485,30 @@ const DropzoneUploader: React.RefForwardingComponent<
           />
         </aside> */}
         {showClearUploadsButton ? (
-          <div className={classes.clearUploadsContainer}>
+          <Box
+            sx={{
+              ...style.clearUploadsContainer
+            }}
+          >
             <Button
               variant="outlined"
               fullWidth={true}
-              className={classes.clearUploadsButton}
+              sx={{
+                ...style.clearUploadsButton
+              }}
               onClick={() => setShowConfirmClearUploads(true)}
               size="small"
             >
               Clear Uploads
-              <DeleteIcon className={classes.leftIcon} />
+              <DeleteIcon
+                sx={{
+                  ...style.leftIcon
+                }}
+              />
             </Button>
-          </div>
+          </Box>
         ) : null}
-      </div>
+      </Box>
       <ConfirmRemoveUploadDialog
         open={showConfirmRemoveUpload}
         onClose={() => setConfirmRemoveUpload(null)}

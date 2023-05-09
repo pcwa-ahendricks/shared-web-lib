@@ -38,11 +38,11 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Board Meeting Minutes',
             nextLink: '/board-of-directors/meeting-minutes'
-          },
-          {
-            title: 'MFPFA Board Meeting Agendas',
-            nextLink: '/board-of-directors/mfpfa-meeting-agendas'
           }
+          // {
+          //   title: 'MFPFA Board Meeting Agendas',
+          //   nextLink: '/board-of-directors/mfpfa-meeting-agendas'
+          // }
         ]
       },
       {
@@ -51,10 +51,6 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Careers at PCWA',
             href: 'https://careers.pcwa.net'
-          },
-          {
-            title: 'Recruitment Video',
-            nextLink: '/careers/recruitment'
           },
           {
             title: 'Employee Benefits Summary',
@@ -102,7 +98,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Middle Fork Project Finance Authority - JPA',
-            href: 'https://www.placer.ca.gov/5413/Middle-Fork-Project-Finance-Authority'
+            href: 'https://mfpfa.pcwa.net'
           },
           // {
           //   title: 'Middle Fork American River Project Relicensing',
