@@ -9,6 +9,7 @@ import {
   ListItemAvatar,
   Avatar,
   Divider,
+  Paper,
   useMediaQuery,
   useTheme,
   Link
@@ -218,70 +219,95 @@ const IrrigationCanalPage = () => {
             </ChildBox>
           </RowBox>
           <Spacing size="large" />
-          <RowBox flexSpacing={2} responsive="xs">
-            <ChildBox flex="70%">
-              <Type variant="h3" gutterBottom>
-                Irrigation Service Agreement
-              </Type>
-              <Type paragraph>
-                PCWA recently updated its Rules & Regulations related to
-                untreated water service. PCWA is requesting customers'
-                acknowledge the updated Rules and Regulations for untreated
-                water service by signing an updated acknowledgement form.{' '}
-              </Type>
-              <Box display="flex" alignItems="center">
-                <IrrigSvcAgreeLookHere animate={!irrigSvcAgreeAnimateDone}>
-                  <Type>
-                    Visit our{' '}
-                    <NextLink
-                      href="/services/irrigation-service-agreement"
-                      passHref
-                    >
-                      <Link
-                        underline="always"
-                        style={{backgroundColor: blueGrey[50]}}
-                      >
-                        <strong>Irrigation Service Agreement FAQs</strong>
-                      </Link>
-                    </NextLink>{' '}
-                    page to find out more information.
+          <Type variant="h3">Irrigation Canal Season</Type>
+          <Spacing size="small" />
+          <Type variant="h4" gutterBottom>
+            Zone 1 (Auburn - Rocklin)
+          </Type>
+          <Type>Summer Season: April 15th - October 15th</Type>
+          <Type>Winter Season: October 15th - April 15th</Type>
+          <Spacing />
+          <Type variant="h4" gutterBottom>
+            Zone 3 (Alta - Applegate)
+          </Type>
+          <Type>Summer Season: May 1st - October 1st</Type>
+          <Type>Winter: October 1st - May 1st</Type>
+          <Spacing size="x-large" />
+          <Paper square elevation={3}>
+            <Box
+              style={{
+                backgroundColor: theme.palette.common.white,
+                padding: theme.spacing(3)
+              }}
+            >
+              <RowBox flexSpacing={2} responsive="xs">
+                <ChildBox flex="70%">
+                  <Type variant="h3" gutterBottom>
+                    Irrigation Service Agreement
                   </Type>
-                </IrrigSvcAgreeLookHere>
-              </Box>
-            </ChildBox>
-            <ColumnBox child flex="30%">
-              <ChildBox flex width="100%">
-                <a
-                  href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Box mx="auto" width="100%">
-                    <Image
-                      role="link"
-                      src="8bcb7700-b799-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgement.png"
-                      alt="QR Code for PCWA Irrigation Customer Acknowledgement Form"
-                      loader={imgixLoader}
-                      layout="responsive"
-                      sizes="(max-width: 600px) 60vw, 40vw"
-                      width={1116}
-                      height={1116}
-                    />
+                  <Type paragraph>
+                    PCWA recently updated its Rules & Regulations related to
+                    untreated water service. PCWA is requesting customers'
+                    acknowledge the updated Rules and Regulations for untreated
+                    water service by signing an updated acknowledgement form.{' '}
+                  </Type>
+                  <Box display="flex" alignItems="center">
+                    <IrrigSvcAgreeLookHere animate={!irrigSvcAgreeAnimateDone}>
+                      <Type>
+                        Visit our{' '}
+                        <NextLink
+                          href="/services/irrigation-service-agreement"
+                          passHref
+                        >
+                          <Link
+                            underline="always"
+                            style={{backgroundColor: blueGrey[50]}}
+                          >
+                            <strong>Irrigation Service Agreement FAQs</strong>
+                          </Link>
+                        </NextLink>{' '}
+                        page to find out more information.
+                      </Type>
+                    </IrrigSvcAgreeLookHere>
                   </Box>
-                </a>
-              </ChildBox>
-              <ChildBox textAlign="center">
-                <Link
-                  variant="caption"
-                  href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <em>Complete the Customer Acknowledgement Online Today</em>
-                </Link>
-              </ChildBox>
-            </ColumnBox>
-          </RowBox>
+                </ChildBox>
+                <ColumnBox child flex="30%">
+                  <ChildBox flex width="100%">
+                    <a
+                      href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Box mx="auto" width="100%">
+                        <Image
+                          role="link"
+                          src="8bcb7700-b799-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgement.png"
+                          alt="QR Code for PCWA Irrigation Customer Acknowledgement Form"
+                          loader={imgixLoader}
+                          layout="responsive"
+                          sizes="(max-width: 600px) 60vw, 40vw"
+                          width={1116}
+                          height={1116}
+                        />
+                      </Box>
+                    </a>
+                  </ChildBox>
+                  <ChildBox textAlign="center">
+                    <Link
+                      variant="caption"
+                      href="https://survey123.arcgis.com/share/eb6a26325a6840b69c5460d97306e7bb"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <em>
+                        Complete the Customer Acknowledgement Online Today
+                      </em>
+                    </Link>
+                  </ChildBox>
+                </ColumnBox>
+              </RowBox>
+            </Box>
+          </Paper>
 
           <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>

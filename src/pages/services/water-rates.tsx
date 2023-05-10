@@ -220,6 +220,10 @@ const WaterRatesPage = () => {
                 Capacity, formerly known as an equivalent dwelling unit, shall
                 be a 5/8-inch meter with a peak day demand of 1,150 gallons.
               </Type>
+              <Type paragraph>
+                These rates below are based on a perfect 30 days, each billing
+                cycle can range from 25-35 days
+              </Type>
             </article>
             <Box mt={3}>
               <Type variant="h4">Fixed Rates</Type>
