@@ -69,7 +69,7 @@ const PublicationCard = ({
   const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
 
   // Don't use filenamify with imgix dl query parameter since it requires a safe URL.
-  const downloadAs = useMemo(
+  const imgixDownloadAs = useMemo(
     () => `${slugify(title)}.${fileExtension(imgixURL)}`,
     [imgixURL, title]
   )
@@ -133,8 +133,9 @@ const PublicationCard = ({
           <Button
             size="small"
             startIcon={<DownloadIcon color="action" />}
-            href={downloadUrl || `${imgixURL}?dl=${downloadAs}`}
-            // download={downloadAs}
+            href={downloadUrl || `${imgixURL}?dl=${imgixDownloadAs}`}
+            // It's unclear if the download attribute helps in this regard, so leaving it commented out.
+            // download
             target="_blank"
           >
             <Type variant="inherit" color="textSecondary">
