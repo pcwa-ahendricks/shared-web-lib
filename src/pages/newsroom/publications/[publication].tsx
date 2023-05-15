@@ -703,6 +703,8 @@ const PublicationsPage = ({
                         new Date()
                       )}
                       imgixURL="https://imgix.cosmicjs.com/0ce1e4c0-a6cd-11ec-8a0f-d90ff9705f55-2022-Strategic-Plan.pdf"
+                      linkUrl="https://docs.pcwa.net/strategic-plan-2022.pdf"
+                      downloadUrl="https://docs.pcwa.net/strategic-plan-2022.pdf?dl=PCWA-Strategic-Plan-2022.pdf"
                     />
                   </ChildBox>
                   <ChildBox width={isXS ? '100%' : 'auto'}>
@@ -714,6 +716,8 @@ const PublicationsPage = ({
                         new Date()
                       )}
                       imgixURL="https://imgix.cosmicjs.com/7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf"
+                      linkUrl="https://docs.pcwa.net/strategic-plan-2021.pdf"
+                      downloadUrl="https://docs.pcwa.net/strategic-plan-2021.pdf?dl=PCWA-Strategic-Plan-2021.pdf"
                     />
                   </ChildBox>
                 </RowBox>
