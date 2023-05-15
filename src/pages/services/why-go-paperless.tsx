@@ -99,7 +99,7 @@ export default function ResponsiveImageTemplatePage() {
       key: 1,
       element: (
         <Type variant="inherit" style={{...style.step}}>
-          Log into your account
+          Log into your account.
         </Type>
       )
     },
@@ -107,7 +107,7 @@ export default function ResponsiveImageTemplatePage() {
       key: 2,
       element: (
         <Type variant="inherit" style={{...style.step}}>
-          Toggle the Paperless Billing option to "Yes"
+          Toggle the Paperless Billing option to "Yes".
         </Type>
       )
     }
@@ -118,7 +118,7 @@ export default function ResponsiveImageTemplatePage() {
       element: (
         <Type variant="inherit" style={{...style.step}}>
           Locate your account number. It's located in the upper right hand
-          corner of your monthly bill
+          corner of your monthly bill.
         </Type>
       )
     },
@@ -131,7 +131,7 @@ export default function ResponsiveImageTemplatePage() {
           style={{...style.step}}
           underline="always"
         >
-          Click here to create an online account
+          Click here to create an online account.
         </OpenInNewLink>
       )
     },
@@ -140,7 +140,7 @@ export default function ResponsiveImageTemplatePage() {
       element: (
         <Type variant="inherit" style={{...style.step}}>
           After setting up your online account, switch the Paperless Billing
-          option to "Yes"
+          option to "Yes".
         </Type>
       )
     }
@@ -172,8 +172,8 @@ export default function ResponsiveImageTemplatePage() {
                 Cut the Clutter
               </Type>
               <Type>
-                Love clutter? Neither do we. Paperless billing is clean and
-                convenient
+                Tired of loose stacks of papers? Swap clutter for clean and
+                convenient.
               </Type>
             </ChildBox>
             <ChildBox
@@ -195,7 +195,7 @@ export default function ResponsiveImageTemplatePage() {
                 Pay Anywhere, Anytime
               </Type>
               <Type>
-                View and pay your bill online from anywhere at anytime.
+                Receive e-mail bill reminders and pay online from anywhere 24/7.
               </Type>
             </ChildBox>
             <ChildBox
@@ -204,21 +204,22 @@ export default function ResponsiveImageTemplatePage() {
               width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <Image
-                src="c986d460-f0ef-11ed-b7bd-57cb4c9665a9-out-of-stamps.jpg"
-                alt="Don't worry about stamps ever again"
+                src="c3f7a7a0-f364-11ed-9f0e-e959935e64bf-dreamstimexs158227081.jpg"
+                alt="Safe Secure and Seamless"
                 loader={imgixLoader}
                 layout="responsive"
                 sizes="(max-width: 600px) 60vw, 33vw"
-                width={1000}
-                height={667}
+                width={480}
+                height={319}
               />
               <Spacing />
               <Type variant="h3" color="primary" gutterBottom>
-                Never Worry About Stamps Again
+                Safe, Secure, & Seamless
               </Type>
               <Type>
-                Don't waste time searching for misplaced stamps. Go online and
-                never worry about a late payment again.
+                Electronic billing helps prevent identify theft and provides
+                instant payment confirmations. Never worry about a late payment
+                again.
               </Type>
             </ChildBox>
           </RowBox>
@@ -301,7 +302,7 @@ export default function ResponsiveImageTemplatePage() {
               <ListItemIcon>
                 <TodayIcon />
               </ListItemIcon>
-              <ListItemText primary="Each month you will receive an email saying your monthly bill is ready for viewing" />
+              <ListItemText primary="Each month you will receive an email saying your monthly bill is ready for viewing." />
             </ListItem>
             <ListItem classes={{root: classes.lessPadding}}>
               <ListItemIcon>
@@ -309,20 +310,20 @@ export default function ResponsiveImageTemplatePage() {
               </ListItemIcon>
               <ListItemText>
                 Click on the link in the email or go to PCWA.net and sign into
-                your account
+                your account.
               </ListItemText>
             </ListItem>
             <ListItem classes={{root: classes.lessPadding}}>
               <ListItemIcon>
                 <CreditCardIcon />
               </ListItemIcon>
-              <ListItemText primary="Pay your bill online" />
+              <ListItemText primary="Pay your bill online." />
             </ListItem>
             <ListItem classes={{root: classes.lessPadding}}>
               <ListItemIcon>
                 <TrendingUpIcon />
               </ListItemIcon>
-              <ListItemText primary="If you notice a sudden spike in your water usage, contact us and we will investigate" />
+              <ListItemText primary="If you notice a sudden spike in your water usage, contact us and we will investigate." />
             </ListItem>
           </List>
 
