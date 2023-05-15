@@ -27,6 +27,8 @@ export type PublicationCardProps = {
   title: string
   publishedDate: Date
   imgixURL: string
+  downloadUrl?: string
+  linkUrl?: string
   thumbImgixURL?: string
   cardMediaWidth?: number
   cardMediaHeight?: number
@@ -51,6 +53,8 @@ const PublicationCard = ({
   title,
   publishedDate,
   imgixURL,
+  linkUrl,
+  downloadUrl,
   thumbImgixURL: thumbImgixURLProp,
   cardMediaWidth = 300,
   cardMediaHeight = 250,
@@ -86,7 +90,7 @@ const PublicationCard = ({
     <Box width={cardMediaWidth} {...rest}>
       <Card>
         <CardActionArea
-          href={imgixURL}
+          href={linkUrl || imgixURL}
           target="_blank"
           rel="noopener noreferrer"
           onMouseEnter={enterHandler}
@@ -129,7 +133,9 @@ const PublicationCard = ({
           <Button
             size="small"
             startIcon={<DownloadIcon color="action" />}
-            href={`${imgixURL}?dl=${downloadAs}`}
+            href={downloadUrl || `${imgixURL}?dl=${downloadAs}`}
+            // download={downloadAs}
+            target="_blank"
           >
             <Type variant="inherit" color="textSecondary">
               Download
