@@ -217,7 +217,6 @@ const Index = ({
               title="Paperless Billing Available"
               readMore="Go paperless today"
               linkHref="/services/why-go-paperless"
-              flexLinkProps={{isNextLink: false}}
               imgixURL="https://imgix.cosmicjs.com/23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg"
               alt="Go paperless"
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
