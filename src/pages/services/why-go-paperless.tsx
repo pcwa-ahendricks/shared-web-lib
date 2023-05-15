@@ -307,7 +307,10 @@ export default function ResponsiveImageTemplatePage() {
               <ListItemIcon>
                 <OpenInBrowserIcon />
               </ListItemIcon>
-              <ListItemText primary="Click on the link in the email or go to pcwa.net and sign into your account" />
+              <ListItemText>
+                Click on the link in the email or go to PCWA.net and sign into
+                your account
+              </ListItemText>
             </ListItem>
             <ListItem classes={{root: classes.lessPadding}}>
               <ListItemIcon>
