@@ -2,7 +2,7 @@ import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RowBox, ChildBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
 import {
   Box,
   Step,
@@ -57,6 +57,22 @@ const useStyles = makeStyles(() =>
         transition: 'transform 500ms linear'
       }
     },
+    zoomInLoginScreen: {
+      cursor: 'pointer',
+      '&:hover': {
+        transform: 'scale(1.15)',
+        transformOrigin: '90% 25%',
+        transition: 'transform 500ms linear'
+      }
+    },
+    zoomInHeaderMenu: {
+      cursor: 'pointer',
+      '&:hover': {
+        transform: 'scale(1.15)',
+        transformOrigin: '50% 0%',
+        transition: 'transform 500ms linear'
+      }
+    },
     lessPadding: {
       paddingBottom: 4
     },
@@ -79,6 +95,65 @@ export default function WhyGoPaperlessPage() {
     }
   }
   const isLgUp = useMediaQuery(theme.breakpoints.up('lg'))
+
+  const LogIntoAcctContent = useCallback(
+    () => (
+      <Box padding={2} display="flex">
+        <ColumnBox flexSpacing={2} alignItems="center">
+          <ChildBox>
+            <Box className={classes.imgContainer}>
+              <Image
+                className={classes.zoomInHeaderMenu}
+                height={50}
+                width={500}
+                objectFit="cover"
+                objectPosition="center 10%"
+                loader={imgixUrlLoader}
+                src="https://imgix.cosmicjs.com/ac90ebf0-f416-11ed-bb44-790a83f99a24-Homepage.JPG"
+                alt="PCWA.net Pay My Bill Button in menu"
+              />
+            </Box>
+          </ChildBox>
+          <ChildBox>
+            <DoubleArrowIcon
+              style={{
+                rotate: '90deg'
+              }}
+            />
+          </ChildBox>
+          <ChildBox>
+            <Box className={classes.imgContainer}>
+              <Image
+                className={classes.zoomInLoginScreen}
+                height={200}
+                width={500}
+                objectFit="cover"
+                objectPosition="center 10%"
+                loader={imgixUrlLoader}
+                src="https://imgix.cosmicjs.com/aca44ce0-f416-11ed-bb44-790a83f99a24-Customer-portal.JPG"
+                alt="Customer Portal Login Screen"
+              />
+            </Box>
+          </ChildBox>
+        </ColumnBox>
+      </Box>
+    ),
+    [classes]
+  )
+
+  const getHaveAcctStepContent = useCallback(
+    (step: any) => {
+      switch (step) {
+        case 1:
+          return <LogIntoAcctContent />
+        case 2:
+          return ''
+        default:
+          return ''
+      }
+    },
+    [LogIntoAcctContent]
+  )
 
   const getNoAcctStepContent = (step: any) => {
     switch (step) {
@@ -110,7 +185,21 @@ export default function WhyGoPaperlessPage() {
       case 2:
         return ''
       case 3:
-        return ''
+        return (
+          <Box padding={2} display="flex">
+            <Box className={classes.imgContainer}>
+              <Image
+                className={classes.zoomInToggleOpt}
+                height={200}
+                width={500}
+                objectFit="cover"
+                loader={imgixUrlLoader}
+                src={`https://imgix.cosmicjs.com/0cd7f830-f41e-11ed-bb44-790a83f99a24-Paperless-toggled.png`}
+                alt="Un-toggle Paperless Billing Option"
+              />
+            </Box>
+          </Box>
+        )
       default:
         return ''
     }
@@ -120,10 +209,10 @@ export default function WhyGoPaperlessPage() {
     (step: any) => {
       switch (step) {
         case 1:
-          return ''
+          return <LogIntoAcctContent />
         case 2:
           return (
-            <Box padding={2}>
+            <Box padding={2} display="flex">
               <RowBox flexSpacing={4} responsive="md" alignItems="center">
                 <ChildBox>
                   <Box className={classes.imgContainer}>
@@ -167,15 +256,17 @@ export default function WhyGoPaperlessPage() {
           return ''
       }
     },
-    [isLgUp, classes]
+    [isLgUp, classes, LogIntoAcctContent]
   )
 
   const haveAcctSteps = [
     {
       key: 1,
       element: (
-        <Type variant="inherit" style={{...style.step}}>
-          Log into your account.
+        <Type variant="inherit" style={{...style.step}} component="div">
+          Log into your account. You can use the "Pay My Bill" button, found
+          near the top right of the PCWA.net website to access the Customer
+          Account login screen.
         </Type>
       )
     },
@@ -225,8 +316,10 @@ export default function WhyGoPaperlessPage() {
     {
       key: 1,
       element: (
-        <Type variant="inherit" style={{...style.step}}>
-          Log into your account.
+        <Type variant="inherit" style={{...style.step}} component="div">
+          Log into your account. You can use the "Pay My Bill" button, found
+          near the top right of the PCWA.net website to access the Customer
+          Account login screen.
         </Type>
       )
     },
@@ -471,15 +564,4 @@ export default function WhyGoPaperlessPage() {
       </MainBox>
     </PageLayout>
   )
-}
-
-function getHaveAcctStepContent(step: any) {
-  switch (step) {
-    case 1:
-      return ''
-    case 2:
-      return ''
-    default:
-      return ''
-  }
 }
