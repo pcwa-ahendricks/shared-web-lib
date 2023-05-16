@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -16,27 +16,32 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon
+  ListItemIcon,
+  useMediaQuery
 } from '@material-ui/core'
 import Image from 'next/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
-import CheckIcon from '@material-ui/icons/Check'
-import UnCheckIcon from '@material-ui/icons/Block'
+// import CheckIcon from '@material-ui/icons/Check'
+// import UnCheckIcon from '@material-ui/icons/Block'
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser'
 import CreditCardIcon from '@material-ui/icons/CreditCard'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import TodayIcon from '@material-ui/icons/Today'
-import {green, red} from '@material-ui/core/colors'
+import {brown, green, grey, red} from '@material-ui/core/colors'
 import {stringify} from 'querystringify'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import EmailRemoveIcon from 'mdi-material-ui/EmailRemove'
+import AcctCheckIcon from 'mdi-material-ui/AccountCheck'
+import AcctCancelIcon from 'mdi-material-ui/AccountCancel'
 
 const useStyles = makeStyles(() =>
   createStyles({
-    zoomIn: {
+    zoomInAcctNo: {
       cursor: 'pointer',
       '&:hover': {
         transform: 'scale(1.45)',
@@ -44,13 +49,27 @@ const useStyles = makeStyles(() =>
         transition: 'transform 500ms linear'
       }
     },
+    zoomInToggleOpt: {
+      cursor: 'pointer',
+      '&:hover': {
+        transform: 'scale(1.45)',
+        transformOrigin: '10% 20%',
+        transition: 'transform 500ms linear'
+      }
+    },
     lessPadding: {
       paddingBottom: 4
+    },
+    imgContainer: {
+      borderWidth: 0.5,
+      borderColor: grey[500],
+      borderStyle: 'solid',
+      display: 'inline-flex'
     }
   })
 )
 
-export default function ResponsiveImageTemplatePage() {
+export default function WhyGoPaperlessPage() {
   const theme = useTheme()
   const classes = useStyles()
   const style = {
@@ -59,30 +78,33 @@ export default function ResponsiveImageTemplatePage() {
       marginLeft: 5
     }
   }
+  const isLgUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   const getNoAcctStepContent = (step: any) => {
     switch (step) {
       case 1:
         return (
-          <Box padding={2}>
-            <Image
-              className={classes.zoomIn}
-              height={200}
-              width={500}
-              objectFit="cover"
-              loader={imgixUrlLoader}
-              src={`https://imgix.cosmicjs.com/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png${stringify(
-                {
-                  crop: 'focalpoint', // cspell:disable-line
-                  'fp-x': 1,
-                  'fp-y': 0,
-                  'fp-z': 1,
-                  fit: 'crop'
-                },
-                true
-              )}`}
-              alt="Find My Account Number"
-            />
+          <Box padding={2} display="flex">
+            <Box className={classes.imgContainer}>
+              <Image
+                className={classes.zoomInAcctNo}
+                height={200}
+                width={500}
+                objectFit="cover"
+                loader={imgixUrlLoader}
+                src={`https://imgix.cosmicjs.com/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png${stringify(
+                  {
+                    crop: 'focalpoint', // cspell:disable-line
+                    'fp-x': 1,
+                    'fp-y': 0,
+                    'fp-z': 1,
+                    fit: 'crop'
+                  },
+                  true
+                )}`}
+                alt="Find My Account Number"
+              />
+            </Box>
           </Box>
         )
       case 2:
@@ -93,6 +115,60 @@ export default function ResponsiveImageTemplatePage() {
         return ''
     }
   }
+
+  const getStopMailContent = useCallback(
+    (step: any) => {
+      switch (step) {
+        case 1:
+          return ''
+        case 2:
+          return (
+            <Box padding={2}>
+              <RowBox flexSpacing={4} responsive="md" alignItems="center">
+                <ChildBox>
+                  <Box className={classes.imgContainer}>
+                    <Image
+                      className={classes.zoomInToggleOpt}
+                      height={200}
+                      width={500}
+                      objectFit="cover"
+                      loader={imgixUrlLoader}
+                      src={
+                        'https://imgix.cosmicjs.com/0cd1b6a0-f41e-11ed-bb44-790a83f99a24-Paperless-untoggled.png'
+                      }
+                      alt="Un-toggle Paperless Billing Option"
+                    />
+                  </Box>
+                </ChildBox>
+                <ChildBox>
+                  <DoubleArrowIcon
+                    style={{
+                      rotate: !isLgUp ? '90deg' : 'none'
+                    }}
+                  />
+                </ChildBox>
+                <ChildBox>
+                  <Box className={classes.imgContainer}>
+                    <Image
+                      className={classes.zoomInToggleOpt}
+                      height={200}
+                      width={500}
+                      objectFit="cover"
+                      loader={imgixUrlLoader}
+                      src={`https://imgix.cosmicjs.com/0cd7f830-f41e-11ed-bb44-790a83f99a24-Paperless-toggled.png`}
+                      alt="Un-toggle Paperless Billing Option"
+                    />
+                  </Box>
+                </ChildBox>
+              </RowBox>
+            </Box>
+          )
+        default:
+          return ''
+      }
+    },
+    [isLgUp, classes]
+  )
 
   const haveAcctSteps = [
     {
@@ -141,6 +217,24 @@ export default function ResponsiveImageTemplatePage() {
         <Type variant="inherit" style={{...style.step}}>
           After setting up your online account, switch the Paperless Billing
           option to "Yes".
+        </Type>
+      )
+    }
+  ]
+  const stopMailSteps = [
+    {
+      key: 1,
+      element: (
+        <Type variant="inherit" style={{...style.step}}>
+          Log into your account.
+        </Type>
+      )
+    },
+    {
+      key: 2,
+      element: (
+        <Type variant="inherit" style={{...style.step}}>
+          Turn off the Paperless Billing option and then turn it back on.
         </Type>
       )
     }
@@ -223,9 +317,10 @@ export default function ResponsiveImageTemplatePage() {
               </Type>
             </ChildBox>
           </RowBox>
-          <Spacing />
-
-          <Type variant="h3">Setting Up Paperless Billing is Simple</Type>
+          <Spacing size="large" />
+          <Type variant="h1" color="primary">
+            Setting Up Paperless Billing is Simple
+          </Type>
           <Spacing size="large" />
           <Box
             style={{
@@ -233,7 +328,7 @@ export default function ResponsiveImageTemplatePage() {
               alignItems: 'center'
             }}
           >
-            <CheckIcon
+            <AcctCheckIcon
               style={{
                 fontSize: '32px',
                 color: green[400],
@@ -268,7 +363,7 @@ export default function ResponsiveImageTemplatePage() {
               alignItems: 'center'
             }}
           >
-            <UnCheckIcon
+            <AcctCancelIcon
               style={{
                 fontSize: '32px',
                 color: red[400],
@@ -288,6 +383,43 @@ export default function ResponsiveImageTemplatePage() {
                   <StepLabel>{element}</StepLabel>
                   <StepContent>
                     <Type>{getNoAcctStepContent(key)}</Type>
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
+          <Spacing factor={2} />
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <EmailRemoveIcon
+              style={{
+                fontSize: '32px',
+                color: brown[400],
+                paddingRight: 8
+              }}
+            />
+            <Type variant="h4">
+              Already signed up for paperless billing, but still receiving a
+              paper copy?
+            </Type>
+          </Box>
+          <Spacing size="x-small" />
+          <Type>
+            No worries. Just follow the directions below to resolve this issues.
+          </Type>
+          <Spacing size="small" />
+          <Box>
+            <Stepper activeStep={-1} orientation="vertical">
+              {stopMailSteps.map(({key, element}) => (
+                <Step key={key} active>
+                  ={false}
+                  <StepLabel>{element}</StepLabel>
+                  <StepContent>
+                    <Type>{getStopMailContent(key)}</Type>
                   </StepContent>
                 </Step>
               ))}
