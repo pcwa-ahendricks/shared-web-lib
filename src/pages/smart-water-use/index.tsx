@@ -1,6 +1,7 @@
 // cspell:ignore Eisley Normac watersavingplants
 import React, {useState, useCallback} from 'react'
 import {
+  Paper,
   Typography as Type,
   Box,
   Link,
@@ -42,6 +43,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import NextButton from '@components/NextButton/NextButton'
 import WebsiteIcon from '@material-ui/icons/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import Image from 'next/image'
+import NextLink from 'next/link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -244,7 +248,7 @@ const SmartWaterUsePage = () => {
               Water Efficiency
             </Type>
             <RowBox responsive flexSpacing={6} justifyContent="space-between">
-              <ChildBox flex="0 1 50%">
+              <ChildBox flex="0 1 70%">
                 <Type paragraph>
                   We in Placer County are fortunate to be surrounded by
                   beautiful waterways and natural resources that make our
@@ -263,8 +267,54 @@ const SmartWaterUsePage = () => {
                   </MuiNextLink>
                   .
                 </Type>
+                <Spacing size="large" />
+                <Box>
+                  <Paper>
+                    <Box bgcolor={theme.palette.common.white}>
+                      <Image
+                        loader={imgixUrlLoader}
+                        src="https://imgix.cosmicjs.com/51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg"
+                        width={1080}
+                        height={755}
+                        alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
+                      />
+                      <Box paddingY={1} paddingX={2}>
+                        <Type variant="h3" gutterBottom>
+                          Summer Strong
+                        </Type>
+                        <Type paragraph>
+                          PCWA is partnering with the UC Master Gardeners of
+                          Placer County to highlight Summer Strong
+                          plants—flowers, shrubs and trees that are water-wise,
+                          well-suited to Placer County's environment and
+                          available at local nurseries.
+                        </Type>
+                        <Type paragraph>
+                          New plants will be featured each month through October
+                          2023. Learn about this month's plant and find the
+                          complete list of Summer Strong plants on our{' '}
+                          <NextLink
+                            href="/smart-water-use/summer-strong"
+                            passHref
+                          >
+                            <Link>Summer Strong</Link>
+                          </NextLink>{' '}
+                          page.
+                        </Type>
+                        <NextLink
+                          href="/smart-water-use/summer-strong"
+                          passHref
+                        >
+                          <Button color="primary">
+                            View Complete List of Summer Strong Plants
+                          </Button>
+                        </NextLink>
+                      </Box>
+                    </Box>
+                  </Paper>
+                </Box>
               </ChildBox>
-              <ChildBox flex="0 1 50%">
+              <ChildBox flex="0 1 30%">
                 <Box
                   bgcolor={theme.palette.grey['100']}
                   p={2}
@@ -311,7 +361,7 @@ const SmartWaterUsePage = () => {
                 </Box>
               </ChildBox>
             </RowBox>
-            <Spacing />
+            <Spacing size="x-large" />
             <Box bgcolor={theme.palette.common.white} p={3} boxShadow={1}>
               <Type variant="h4" gutterBottom>
                 Rethink Your Yard
