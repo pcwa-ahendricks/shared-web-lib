@@ -16,6 +16,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Link,
   ListItemIcon,
   useMediaQuery
 } from '@material-ui/core'
@@ -76,11 +77,13 @@ const useStyles = makeStyles(() =>
     lessPadding: {
       paddingBottom: 4
     },
-    imgContainer: {
+    imgInline: {
+      display: 'inline-flex'
+    },
+    imgBorder: {
       borderWidth: 0.5,
       borderColor: grey[500],
-      borderStyle: 'solid',
-      display: 'inline-flex'
+      borderStyle: 'solid'
     }
   })
 )
@@ -101,7 +104,7 @@ export default function WhyGoPaperlessPage() {
       <Box padding={2} display="flex">
         <ColumnBox flexSpacing={2} alignItems="center">
           <ChildBox>
-            <Box className={classes.imgContainer}>
+            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
               <Image
                 className={classes.zoomInHeaderMenu}
                 height={50}
@@ -122,7 +125,7 @@ export default function WhyGoPaperlessPage() {
             />
           </ChildBox>
           <ChildBox>
-            <Box className={classes.imgContainer}>
+            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
               <Image
                 className={classes.zoomInLoginScreen}
                 height={200}
@@ -147,12 +150,37 @@ export default function WhyGoPaperlessPage() {
         case 1:
           return <LogIntoAcctContent />
         case 2:
+        case 3:
+        case 4:
           return ''
+        case 5:
+          return (
+            <Box padding={2} display="flex">
+              <RowBox flexSpacing={4} responsive="md" alignItems="center">
+                <ChildBox>
+                  <Box className={classes.imgBorder} width={600}>
+                    <Image
+                      height={1441}
+                      width={1362}
+                      sizes="(max-width: 600px) 100vw, 75vw"
+                      layout="responsive"
+                      objectFit="cover"
+                      loader={imgixUrlLoader}
+                      src={
+                        'https://imgix.cosmicjs.com/9dc313a0-f44d-11ed-bb44-790a83f99a24-Paperless-toggled.JPG'
+                      }
+                      alt="Paperless Billing Options Setup on Paymentus Customer Portal"
+                    />
+                  </Box>
+                </ChildBox>
+              </RowBox>
+            </Box>
+          )
         default:
           return ''
       }
     },
-    [LogIntoAcctContent]
+    [LogIntoAcctContent, classes]
   )
 
   const getNoAcctStepContent = (step: any) => {
@@ -160,7 +188,7 @@ export default function WhyGoPaperlessPage() {
       case 1:
         return (
           <Box padding={2} display="flex">
-            <Box className={classes.imgContainer}>
+            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
               <Image
                 className={classes.zoomInAcctNo}
                 height={200}
@@ -187,7 +215,7 @@ export default function WhyGoPaperlessPage() {
       case 3:
         return (
           <Box padding={2} display="flex">
-            <Box className={classes.imgContainer}>
+            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
               <Image
                 className={classes.zoomInToggleOpt}
                 height={200}
@@ -215,7 +243,7 @@ export default function WhyGoPaperlessPage() {
             <Box padding={2} display="flex">
               <RowBox flexSpacing={4} responsive="md" alignItems="center">
                 <ChildBox>
-                  <Box className={classes.imgContainer}>
+                  <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
                     <Image
                       className={classes.zoomInToggleOpt}
                       height={200}
@@ -237,7 +265,7 @@ export default function WhyGoPaperlessPage() {
                   />
                 </ChildBox>
                 <ChildBox>
-                  <Box className={classes.imgContainer}>
+                  <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
                     <Image
                       className={classes.zoomInToggleOpt}
                       height={200}
@@ -264,9 +292,17 @@ export default function WhyGoPaperlessPage() {
       key: 1,
       element: (
         <Type variant="inherit" style={{...style.step}} component="div">
-          Log into your account. You can use the "Pay My Bill" button, found
-          near the top right of the PCWA.net website to access the Customer
-          Account login screen.
+          <Link
+            variant="inherit"
+            href="https://ipn.paymentus.com/cp/plco"
+            target="_blank"
+            rel="noopener noreferrer"
+            underline="always"
+          >
+            Log into your account
+          </Link>{' '}
+          or select the “Pay My Bill” option in the top right corner of the
+          page.
         </Type>
       )
     },
@@ -275,6 +311,31 @@ export default function WhyGoPaperlessPage() {
       element: (
         <Type variant="inherit" style={{...style.step}}>
           Toggle the Paperless Billing option to "Yes".
+        </Type>
+      )
+    },
+    {
+      key: 3,
+      element: (
+        <Type variant="inherit" style={{...style.step}}>
+          Choose how to receive your bill notifications by email, mobile phone,
+          or both.
+        </Type>
+      )
+    },
+    {
+      key: 4,
+      element: (
+        <Type variant="inherit" style={{...style.step}}>
+          Agree to Terms & Conditions by clicking box.
+        </Type>
+      )
+    },
+    {
+      key: 5,
+      element: (
+        <Type variant="inherit" style={{...style.step}}>
+          Click the “Add Account” box.
         </Type>
       )
     }
