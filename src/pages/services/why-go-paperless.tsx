@@ -99,6 +99,32 @@ export default function WhyGoPaperlessPage() {
   }
   const isLgUp = useMediaQuery(theme.breakpoints.up('lg'))
 
+  const AddAcctContent = useCallback(
+    () => (
+      <Box padding={2} display="flex">
+        <RowBox flexSpacing={4} responsive="md" alignItems="center">
+          <ChildBox>
+            <Box className={classes.imgBorder} width={600}>
+              <Image
+                height={1441}
+                width={1362}
+                sizes="(max-width: 600px) 100vw, 75vw"
+                layout="responsive"
+                objectFit="cover"
+                loader={imgixUrlLoader}
+                src={
+                  'https://imgix.cosmicjs.com/9dc313a0-f44d-11ed-bb44-790a83f99a24-Paperless-toggled.JPG'
+                }
+                alt="Paperless Billing Options Setup on Paymentus Customer Portal"
+              />
+            </Box>
+          </ChildBox>
+        </RowBox>
+      </Box>
+    ),
+    [classes]
+  )
+
   const LogIntoAcctContent = useCallback(
     () => (
       <Box padding={2} display="flex">
@@ -154,33 +180,12 @@ export default function WhyGoPaperlessPage() {
         case 4:
           return ''
         case 5:
-          return (
-            <Box padding={2} display="flex">
-              <RowBox flexSpacing={4} responsive="md" alignItems="center">
-                <ChildBox>
-                  <Box className={classes.imgBorder} width={600}>
-                    <Image
-                      height={1441}
-                      width={1362}
-                      sizes="(max-width: 600px) 100vw, 75vw"
-                      layout="responsive"
-                      objectFit="cover"
-                      loader={imgixUrlLoader}
-                      src={
-                        'https://imgix.cosmicjs.com/9dc313a0-f44d-11ed-bb44-790a83f99a24-Paperless-toggled.JPG'
-                      }
-                      alt="Paperless Billing Options Setup on Paymentus Customer Portal"
-                    />
-                  </Box>
-                </ChildBox>
-              </RowBox>
-            </Box>
-          )
+          return <AddAcctContent />
         default:
           return ''
       }
     },
-    [LogIntoAcctContent, classes]
+    [LogIntoAcctContent, AddAcctContent]
   )
 
   const getNoAcctStepContent = (step: any) => {
@@ -228,6 +233,11 @@ export default function WhyGoPaperlessPage() {
             </Box>
           </Box>
         )
+      case 4:
+      case 5:
+        return ''
+      case 6:
+        return <AddAcctContent />
       default:
         return ''
     }
@@ -280,17 +290,21 @@ export default function WhyGoPaperlessPage() {
               </RowBox>
             </Box>
           )
+        case 3:
+          return ''
+        case 4:
+          return <AddAcctContent />
         default:
           return ''
       }
     },
-    [isLgUp, classes, LogIntoAcctContent]
+    [isLgUp, classes, LogIntoAcctContent, AddAcctContent]
   )
 
   const haveAcctSteps = [
     {
       key: 1,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}} component="div">
           <Link
             variant="inherit"
@@ -308,7 +322,7 @@ export default function WhyGoPaperlessPage() {
     },
     {
       key: 2,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
           Toggle the Paperless Billing option to "Yes".
         </Type>
@@ -316,16 +330,16 @@ export default function WhyGoPaperlessPage() {
     },
     {
       key: 3,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
-          Choose how to receive your bill notifications by email, mobile phone,
-          or both.
+          Choose how to receive your bill notifications by email, SMS text
+          message, or both.
         </Type>
       )
     },
     {
       key: 4,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
           Agree to Terms & Conditions by clicking box.
         </Type>
@@ -333,7 +347,7 @@ export default function WhyGoPaperlessPage() {
     },
     {
       key: 5,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
           Click the “Add Account” box.
         </Type>
@@ -343,7 +357,7 @@ export default function WhyGoPaperlessPage() {
   const noAcctSteps = [
     {
       key: 1,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
           Locate your account number. It's located in the upper right hand
           corner of your monthly bill.
@@ -352,7 +366,7 @@ export default function WhyGoPaperlessPage() {
     },
     {
       key: 2,
-      element: (
+      cmp: (
         <OpenInNewLink
           variant="inherit"
           href="https://ipn.paymentus.com/cp/signup.action?client=8080766779&lang=en"
@@ -365,10 +379,35 @@ export default function WhyGoPaperlessPage() {
     },
     {
       key: 3,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
           After setting up your online account, switch the Paperless Billing
           option to "Yes".
+        </Type>
+      )
+    },
+    {
+      key: 4,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          Choose how to receive your bill notifications by email, mobile phone,
+          or both.
+        </Type>
+      )
+    },
+    {
+      key: 5,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          Agree to Terms & Conditions by clicking box.
+        </Type>
+      )
+    },
+    {
+      key: 6,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          Click the “Add Account” box.
         </Type>
       )
     }
@@ -376,19 +415,44 @@ export default function WhyGoPaperlessPage() {
   const stopMailSteps = [
     {
       key: 1,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}} component="div">
-          Log into your account. You can use the "Pay My Bill" button, found
-          near the top right of the PCWA.net website to access the Customer
-          Account login screen.
+          <Link
+            variant="inherit"
+            href="https://ipn.paymentus.com/cp/plco"
+            target="_blank"
+            rel="noopener noreferrer"
+            underline="always"
+          >
+            Log into your account
+          </Link>{' '}
+          or select the “Pay My Bill” option in the top right corner of the
+          page.
         </Type>
       )
     },
     {
       key: 2,
-      element: (
+      cmp: (
         <Type variant="inherit" style={{...style.step}}>
           Turn off the Paperless Billing option and then turn it back on.
+        </Type>
+      )
+    },
+    {
+      key: 3,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          You will need to re-choose how to receive your bill notifications and
+          agree to Terms & Conditions by clicking box.
+        </Type>
+      )
+    },
+    {
+      key: 4,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          Click the “Add Account” box.
         </Type>
       )
     }
@@ -499,10 +563,10 @@ export default function WhyGoPaperlessPage() {
           <Spacing size="small" />
           <Box>
             <Stepper activeStep={-1} orientation="vertical">
-              {haveAcctSteps.map(({key, element}) => (
+              {haveAcctSteps.map(({key, cmp}) => (
                 <Step key={key} active>
                   ={false}
-                  <StepLabel>{element}</StepLabel>
+                  <StepLabel>{cmp}</StepLabel>
                   <StepContent>
                     <Type>{getHaveAcctStepContent(key)}</Type>
                   </StepContent>
@@ -531,10 +595,10 @@ export default function WhyGoPaperlessPage() {
           <Spacing size="small" />
           <Box>
             <Stepper activeStep={-1} orientation="vertical">
-              {noAcctSteps.map(({key, element}) => (
+              {noAcctSteps.map(({key, cmp}) => (
                 <Step key={key} active>
                   ={false}
-                  <StepLabel>{element}</StepLabel>
+                  <StepLabel>{cmp}</StepLabel>
                   <StepContent>
                     <Type>{getNoAcctStepContent(key)}</Type>
                   </StepContent>
@@ -568,10 +632,10 @@ export default function WhyGoPaperlessPage() {
           <Spacing size="small" />
           <Box>
             <Stepper activeStep={-1} orientation="vertical">
-              {stopMailSteps.map(({key, element}) => (
+              {stopMailSteps.map(({key, cmp}) => (
                 <Step key={key} active>
                   ={false}
-                  <StepLabel>{element}</StepLabel>
+                  <StepLabel>{cmp}</StepLabel>
                   <StepContent>
                     <Type>{getStopMailContent(key)}</Type>
                   </StepContent>
@@ -588,7 +652,7 @@ export default function WhyGoPaperlessPage() {
               <ListItemIcon>
                 <TodayIcon />
               </ListItemIcon>
-              <ListItemText primary="Each month you will receive an email saying your monthly bill is ready for viewing." />
+              <ListItemText primary="Each month you will receive an email or text message saying your monthly bill is ready for viewing." />
             </ListItem>
             <ListItem classes={{root: classes.lessPadding}}>
               <ListItemIcon>
