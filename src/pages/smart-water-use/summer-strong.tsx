@@ -49,14 +49,14 @@ const StrongGrey = ({children, ...props}: TypographyProps) => {
   )
 }
 
-const UcMasterGardnersLogo = () => {
+const UcMasterGardenersLogo = () => {
   return (
     <>
       <Image
         // src="29837ac0-f4d4-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-050823.jpg"
-        src="50ee78b0-f5a8-11ed-a7ff-83a764999c5f-UC-Master-Gardners-logo.png"
+        src="853a4840-f5d2-11ed-a7ff-83a764999c5f-UC-Master-Gardeners-logo.png"
         priority
-        alt="UC Master Gardners logo"
+        alt="UC Master Gardeners logo"
         loader={imgixLoader}
         layout="responsive"
         sizes="(max-width: 600px) 60vw, 20vw"
@@ -72,7 +72,7 @@ const UcMasterGardnersLogo = () => {
           href="https://pcmg.ucanr.org"
           rel="noopener noreferrer"
         >
-          UC Master Gardners
+          UC Master Gardeners
           <br />
           of Placer County
         </Link>
@@ -137,7 +137,7 @@ export default function SummerStrongPage({placeholders}: Props) {
               textAlign="center"
               display={isXs ? 'none' : 'block'}
             >
-              <UcMasterGardnersLogo />
+              <UcMasterGardenersLogo />
             </ChildBox>
           </RowBox>
           <Spacing size="large" />
@@ -311,7 +311,7 @@ export default function SummerStrongPage({placeholders}: Props) {
             display={isXs ? 'block' : 'none'}
             width="40vw"
           >
-            <UcMasterGardnersLogo />
+            <UcMasterGardenersLogo />
           </Box>
         </WideContainer>
       </MainBox>
