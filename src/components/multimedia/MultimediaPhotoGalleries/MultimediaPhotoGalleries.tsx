@@ -17,7 +17,7 @@ import {
   useTheme,
   Theme
 } from '@material-ui/core'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
