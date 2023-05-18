@@ -8,7 +8,8 @@ import {
   Box,
   Link,
   useMediaQuery,
-  useTheme
+  useTheme,
+  TypographyProps
 } from '@material-ui/core'
 // import LeafIcon from 'mdi-material-ui/Leaf'
 import BirdIcon from 'mdi-material-ui/Bird'
@@ -23,7 +24,7 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import WideContainer from '@components/containers/WideContainer'
-import {blueGrey} from '@material-ui/core/colors'
+import {blueGrey, grey} from '@material-ui/core/colors'
 
 type Props = {
   placeholders: Placeholders
@@ -35,6 +36,18 @@ const imgixImages = [
   '297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG',
   '296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG'
 ]
+
+const StrongGrey = ({children, ...props}: TypographyProps) => {
+  return (
+    <Type
+      component="strong"
+      style={{color: grey[800], ...props.style}}
+      {...props}
+    >
+      {children}
+    </Type>
+  )
+}
 
 const UcMasterGardnersLogo = () => {
   return (
@@ -72,6 +85,7 @@ export default function SummerStrongPage({placeholders}: Props) {
   usePlaceholders(placeholders)
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const imgixArParams = '?ar=5:4&fit=crop&crop=top'
 
   return (
     <PageLayout title="Summer Strong" waterSurface>
@@ -129,7 +143,7 @@ export default function SummerStrongPage({placeholders}: Props) {
           <Spacing size="large" />
           <Box>
             <RowBox flexSpacing={6} responsive>
-              <ChildBox flex="40%">
+              <ChildBox flex="33%">
                 <MediaDialogOnClick
                   mediaUrl="https://imgix.cosmicjs.com/29536a10-f4d4-11ed-bb44-790a83f99a24-FL-Salvia-clevelandii-State-Fair-7-24.JPG"
                   mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
@@ -140,16 +154,16 @@ export default function SummerStrongPage({placeholders}: Props) {
                 >
                   <ImageFancier
                     alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
-                    src="https://imgix.cosmicjs.com/29536a10-f4d4-11ed-bb44-790a83f99a24-FL-Salvia-clevelandii-State-Fair-7-24.JPG"
+                    src={`https://imgix.cosmicjs.com/29536a10-f4d4-11ed-bb44-790a83f99a24-FL-Salvia-clevelandii-State-Fair-7-24.JPG${imgixArParams}`}
                     width={1975}
-                    height={2688}
+                    height={1580}
                     defaultGrey
-                    sizes="(max-width: 600px) 100vw, 40vw"
+                    sizes="(max-width: 600px) 100vw, 33vw"
                     objectFit="contain"
                   />
                 </MediaDialogOnClick>
               </ChildBox>
-              <ChildBox flex="60%">
+              <ChildBox flex="33%">
                 <MediaDialogOnClick
                   mediaUrl="https://imgix.cosmicjs.com/297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG"
                   mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
@@ -160,37 +174,39 @@ export default function SummerStrongPage({placeholders}: Props) {
                 >
                   <ImageFancier
                     alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
-                    src="https://imgix.cosmicjs.com/297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG"
+                    src={`https://imgix.cosmicjs.com/297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG${imgixArParams}`}
                     width={3939}
-                    height={3456}
+                    height={3151}
                     defaultGrey
-                    sizes="(max-width: 600px) 100vw, 60vw"
+                    sizes="(max-width: 600px) 100vw, 33vw"
+                    objectFit="contain"
+                  />
+                </MediaDialogOnClick>
+              </ChildBox>
+              <ChildBox flex="33%">
+                <MediaDialogOnClick
+                  // transPaper={0.2}
+                  // popperTypeProps={{style: {color: '#fff', fontWeight: 'bold'}}}
+                  mediaUrl="https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG"
+                  mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
+                  mediaPreviewDialogProps={{
+                    width: 5167,
+                    height: 3445
+                  }}
+                >
+                  <ImageFancier
+                    alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
+                    src={`https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG${imgixArParams}`}
+                    width={4306}
+                    height={3445}
+                    defaultGrey
+                    sizes="(max-width: 600px) 100vw, 33vw"
                     objectFit="contain"
                   />
                 </MediaDialogOnClick>
               </ChildBox>
             </RowBox>
             <Spacing size="x-large" />
-            <Box>
-              <MediaDialogOnClick
-                mediaUrl="https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG"
-                mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
-                mediaPreviewDialogProps={{
-                  width: 5167,
-                  height: 3445
-                }}
-              >
-                <ImageFancier
-                  alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
-                  src="https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG"
-                  width={5167}
-                  height={3445}
-                  defaultGrey
-                  sizes="(max-width: 600px) 100vw, (min-width: 1700px) 60vw, 95vw"
-                  objectFit="contain"
-                />
-              </MediaDialogOnClick>
-            </Box>
           </Box>
           <Spacing size="x-large" />
           <Type variant="h4">'Winnifred Gilman' Cleveland Sage</Type>
@@ -216,37 +232,43 @@ export default function SummerStrongPage({placeholders}: Props) {
             beloved by hummingbirds, bees, and butterflies.
           </Type>
           <Type paragraph>
-            Bloom: 'Winifred Gilman' blooms in late spring into early summer,
-            with a light bloom later in the summer. The distinctive whorled
-            flowers are shades of blue and violet. When not in bloom, the plant
-            forms a mound of gray-green leaves that are very aromatic on warm
-            summer days.
-          </Type>
-          <Type paragraph>Water needs: Low to Very Low once established.</Type>
-          <Type paragraph>Sun: Full sun, part shade.</Type>
-          <Type paragraph>
-            Size: 'Winifred Gilman' Cleveland sage grows 3-4' x 3-4' mounded
-            shrub if unpruned. Other cultivars may be slightly larger and wider
-            if unpruned.
+            <StrongGrey>Bloom</StrongGrey>: 'Winifred Gilman' blooms in late
+            spring into early summer, with a light bloom later in the summer.
+            The distinctive whorled flowers are shades of blue and violet. When
+            not in bloom, the plant forms a mound of gray-green leaves that are
+            very aromatic on warm summer days.
           </Type>
           <Type paragraph>
-            Care: Low water requirements. Lightly prune in late fall to maintain
-            compact form.
+            <StrongGrey>Water needs</StrongGrey>: Low to Very Low once
+            established.
           </Type>
           <Type paragraph>
-            Availability: Cleveland sage is seasonally available. Local
-            nurseries typically stock either 'Winifred Gilman' Cleveland Sage or
-            'Allan Chickering' Cleveland Sage throughout the spring and summer
-            months.
+            <StrongGrey>Sun</StrongGrey>: Full sun, part shade.
           </Type>
           <Type paragraph>
-            Bonus plants: Many other salvias or sages are Summer Strong plants
-            with low water requirements and good summer looks. Besides
-            'Winnifred Gilman', 'Allen Chickering', and other Cleveland sages
-            and cultivars, check out these readily available salvias: 'Bee's
-            Bliss' Sage (Salvia 'Bees Bliss'), White Sage (Salvia apiana), and
-            Hummingbird Sage (Salvia spathacea). A fantastic and popular family
-            of plants! Available seasonally at local nurseries.
+            <StrongGrey>Size</StrongGrey>: 'Winifred Gilman' Cleveland sage
+            grows 3-4' x 3-4' mounded shrub if unpruned. Other cultivars may be
+            slightly larger and wider if unpruned.
+          </Type>
+          <Type paragraph>
+            <StrongGrey>Care</StrongGrey>: Low water requirements. Lightly prune
+            in late fall to maintain compact form.
+          </Type>
+          <Type paragraph>
+            <StrongGrey>Availability</StrongGrey>: Cleveland sage is seasonally
+            available. Local nurseries typically stock either 'Winifred Gilman'
+            Cleveland Sage or 'Allan Chickering' Cleveland Sage throughout the
+            spring and summer months.
+          </Type>
+          <Type paragraph>
+            <StrongGrey>Bonus plants</StrongGrey>: Many other salvias or sages
+            are Summer Strong plants with low water requirements and good summer
+            looks. Besides 'Winnifred Gilman', 'Allen Chickering', and other
+            Cleveland sages and cultivars, check out these readily available
+            salvias: 'Bee's Bliss' Sage (Salvia 'Bees Bliss'), White Sage
+            (Salvia apiana), and Hummingbird Sage (Salvia spathacea). A
+            fantastic and popular family of plants! Available seasonally at
+            local nurseries.
           </Type>
           <Spacing />
           <Type variant="subtitle1" gutterBottom>
