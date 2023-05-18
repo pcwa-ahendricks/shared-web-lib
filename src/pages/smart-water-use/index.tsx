@@ -247,27 +247,28 @@ const SmartWaterUsePage = () => {
             <Type variant="h3" gutterBottom color="primary">
               Water Efficiency
             </Type>
+            <Box>
+              <Type paragraph>
+                We in Placer County are fortunate to be surrounded by beautiful
+                waterways and natural resources that make our community unique.
+                As stewards of these resources, we all have a responsibility to
+                do our part to use water efficiently and to not waste water.
+              </Type>
+              <Type paragraph>
+                Rebates are available! PCWA offers rebates on efficient
+                irrigation equipment and timers. Learn more{' '}
+                <MuiNextLink
+                  aria-label="link to PCWA's Rebate Program Page"
+                  href="/smart-water-use/rebate-programs"
+                >
+                  here by clicking this link
+                </MuiNextLink>
+                .
+              </Type>
+            </Box>
+            <Spacing size="x-large" />
             <RowBox responsive flexSpacing={6} justifyContent="space-between">
-              <ChildBox flex="0 1 70%">
-                <Type paragraph>
-                  We in Placer County are fortunate to be surrounded by
-                  beautiful waterways and natural resources that make our
-                  community unique. As stewards of these resources, we all have
-                  a responsibility to do our part to use water efficiently and
-                  to not waste water.
-                </Type>
-                <Type paragraph>
-                  Rebates are available! PCWA offers rebates on efficient
-                  irrigation equipment and timers. Learn more{' '}
-                  <MuiNextLink
-                    aria-label="link to PCWA's Rebate Program Page"
-                    href="/smart-water-use/rebate-programs"
-                  >
-                    here by clicking this link
-                  </MuiNextLink>
-                  .
-                </Type>
-                <Spacing size="large" />
+              <ChildBox flex="0 1 55%">
                 <Box>
                   <Paper>
                     <Box bgcolor={theme.palette.common.white}>
@@ -280,18 +281,18 @@ const SmartWaterUsePage = () => {
                         alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                         sizes="(max-width: 600px) 100vw, 70vw"
                       />
-                      <Box paddingY={1} paddingX={2}>
+                      <Box padding={2}>
                         <Type variant="h3" gutterBottom>
                           Summer Strong
                         </Type>
-                        <Type paragraph>
+                        <Type paragraph variant="body2">
                           PCWA is partnering with the UC Master Gardeners of
                           Placer County to highlight Summer Strong
                           plants—flowers, shrubs and trees that are water-wise,
                           well-suited to Placer County's environment and
                           available at local nurseries.
                         </Type>
-                        <Type paragraph>
+                        <Type paragraph variant="body2">
                           New plants will be featured each month through October
                           2023. Learn about this month's plant and find the
                           complete list of Summer Strong plants on our{' '}
@@ -316,7 +317,7 @@ const SmartWaterUsePage = () => {
                   </Paper>
                 </Box>
               </ChildBox>
-              <ChildBox flex="0 1 30%">
+              <ChildBox flex="0 1 45%">
                 <Box
                   bgcolor={theme.palette.grey['100']}
                   p={2}

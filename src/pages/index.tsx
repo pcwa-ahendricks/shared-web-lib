@@ -119,7 +119,7 @@ const Index = ({
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Low-water Use Plants"
+              title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use"
               imgixURL="https://imgix.cosmicjs.com/51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg"

@@ -38,8 +38,8 @@ export default function SummerStrongPage({placeholders}: Props) {
       <MainBox>
         <WideContainer>
           <PageTitle title="Summer Strong" subtitle="Smart Water Use" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="50%">
+          <RowBox responsive flexSpacing={6}>
+            <ChildBox flex="80%">
               <Type paragraph>
                 Summer Strong plants are not only beautiful but tough enough to
                 handle the hottest days. PCWA is pleased to partner with the UC
@@ -63,22 +63,39 @@ export default function SummerStrongPage({placeholders}: Props) {
               </Type>
             </ChildBox>
             <ChildBox
-              flex="40%"
+              flex="20%"
               mx="auto"
               width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
+              textAlign="center"
             >
               <Image
-                src="29837ac0-f4d4-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-050823.jpg"
-                alt="Cleveland Sage"
+                // src="29837ac0-f4d4-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-050823.jpg"
+                src="50ee78b0-f5a8-11ed-a7ff-83a764999c5f-UC-Master-Gardners-logo.png"
+                priority
+                alt="UC Master Gardners logo"
                 loader={imgixLoader}
                 layout="responsive"
-                sizes="(max-width: 600px) 60vw, 40vw"
-                width={1080}
-                height={1080}
+                sizes="(max-width: 600px) 60vw, 20vw"
+                width={900}
+                height={900}
               />
+              <Type variant="caption">
+                <em>partnered with</em>
+                <br />
+                <Link
+                  variant="inherit"
+                  target="_blank"
+                  href="https://pcmg.ucanr.org"
+                  rel="noopener noreferrer"
+                >
+                  UC Master Gardners
+                  <br />
+                  of Placer County
+                </Link>
+              </Type>
             </ChildBox>
           </RowBox>
-          <Spacing size="x-large" />
+          <Spacing />
           <Box>
             <Type variant="h2" color="primary">
               Featured Plant of the Month
