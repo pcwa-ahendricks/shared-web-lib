@@ -93,7 +93,7 @@ export default function SummerStrongPage({placeholders}: Props) {
         <WideContainer>
           <PageTitle title="Summer Strong" subtitle="Smart Water Use" />
           <RowBox responsive flexSpacing={6}>
-            <ChildBox flex="80%">
+            <ChildBox flex="85%">
               <Type paragraph>
                 Summer Strong plants are not only beautiful but tough enough to
                 handle the hottest days. PCWA is pleased to partner with the UC
@@ -132,7 +132,7 @@ export default function SummerStrongPage({placeholders}: Props) {
               <Type variant="h3">Cleveland Sage (and other Salvias)</Type>
             </ChildBox>
             <ChildBox
-              flex="20%"
+              flex="15%"
               mx="auto"
               textAlign="center"
               display={isXs ? 'none' : 'block'}
