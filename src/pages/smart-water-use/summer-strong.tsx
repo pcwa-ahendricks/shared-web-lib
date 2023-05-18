@@ -106,13 +106,12 @@ export default function SummerStrongPage({placeholders}: Props) {
                   }}
                 >
                   <ImageFancier
-                    boxProps={{width: '100%', height: 'auto'}}
                     alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                     src="https://imgix.cosmicjs.com/29536a10-f4d4-11ed-bb44-790a83f99a24-FL-Salvia-clevelandii-State-Fair-7-24.JPG"
                     width={1975}
                     height={2688}
                     defaultGrey
-                    sizes="50vw"
+                    sizes="(max-width: 600px) 100vw, 40vw"
                     objectFit="contain"
                   />
                 </MediaDialogOnClick>
@@ -127,13 +126,12 @@ export default function SummerStrongPage({placeholders}: Props) {
                   }}
                 >
                   <ImageFancier
-                    boxProps={{width: '100%', height: 'auto'}}
                     alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                     src="https://imgix.cosmicjs.com/297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG"
                     width={3939}
                     height={3456}
                     defaultGrey
-                    sizes="50vw"
+                    sizes="(max-width: 600px) 100vw, 60vw"
                     objectFit="contain"
                   />
                 </MediaDialogOnClick>
@@ -150,13 +148,12 @@ export default function SummerStrongPage({placeholders}: Props) {
                 }}
               >
                 <ImageFancier
-                  boxProps={{width: '100%', height: 'auto'}}
                   alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                   src="https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG"
                   width={5167}
                   height={3445}
                   defaultGrey
-                  sizes="50vw"
+                  sizes="(max-width: 600px) 100vw, (min-width: 1700px) 60vw, 95vw"
                   objectFit="contain"
                 />
               </MediaDialogOnClick>

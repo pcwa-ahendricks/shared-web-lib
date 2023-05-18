@@ -104,6 +104,7 @@ const PublicationCard = ({
           >
             <ImageFancier
               // In case imgix returns a partially transparent image when converting PDF use bg to background fill w/ white.
+              layout="responsive"
               src={`${thumbImgixURL}${stringify(
                 {
                   bg: 'ffffff'

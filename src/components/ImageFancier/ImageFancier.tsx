@@ -4,7 +4,8 @@ import {
   BoxProps,
   makeStyles,
   createStyles,
-  useTheme
+  useTheme,
+  useMediaQuery
 } from '@material-ui/core'
 import {FlexBox} from 'mui-sleazebox'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded'
@@ -62,20 +63,22 @@ const ImageFancier = ({
   isHover: isHoverProp,
   ...rest
 }: Props) => {
+  const theme = useTheme()
   const [isHover, setIsHover] = useState<boolean>() // For animation to work properly this must be initialized as undefined
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   useEffect(() => {
+    if (isXs && isHoverProp) {
+      return
+    }
     setIsHover(isHoverProp)
-  }, [isHoverProp])
-
-  const theme = useTheme()
+  }, [isHoverProp, isXs])
 
   const mouseEnterHandler = useCallback(() => {
-    // Use of isHoverProp is exclusive
-    if (isHoverProp === undefined) {
+    if (isHoverProp === undefined && !isXs) {
       setIsHover(true)
     }
-  }, [isHoverProp])
+  }, [isHoverProp, isXs])
 
   const mouseLeaveHandler = useCallback(() => {
     // Use of isHoverProp is exclusive
@@ -93,9 +96,7 @@ const ImageFancier = ({
   const classes = useStyles({isHover, imgIsLoaded})
   return (
     <Box
-      width={width}
-      height={height}
-      className={classes.clickableImg}
+      className={isXs ? '' : classes.clickableImg}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       boxShadow={2}

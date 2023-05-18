@@ -272,11 +272,13 @@ const SmartWaterUsePage = () => {
                   <Paper>
                     <Box bgcolor={theme.palette.common.white}>
                       <Image
+                        layout="responsive"
                         loader={imgixUrlLoader}
                         src="https://imgix.cosmicjs.com/51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg"
                         width={1080}
                         height={755}
                         alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
+                        sizes="(max-width: 600px) 100vw, 70vw"
                       />
                       <Box paddingY={1} paddingX={2}>
                         <Type variant="h3" gutterBottom>
