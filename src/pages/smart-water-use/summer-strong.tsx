@@ -96,42 +96,42 @@ export default function SummerStrongPage({placeholders}: Props) {
             <Type variant="h3">Cleveland Sage (and other Salvias)</Type>
             <Spacing size="large" />
             <RowBox flexSpacing={6} responsive>
-              <ChildBox>
+              <ChildBox flex="40%">
                 <MediaDialogOnClick
                   mediaUrl="https://imgix.cosmicjs.com/29536a10-f4d4-11ed-bb44-790a83f99a24-FL-Salvia-clevelandii-State-Fair-7-24.JPG"
                   mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                   mediaPreviewDialogProps={{
-                    width: 1975 * 0.15,
-                    height: 2688 * 0.15
+                    width: 1975,
+                    height: 2688
                   }}
                 >
                   <ImageFancier
-                    layout="intrinsic"
+                    boxProps={{width: '100%', height: 'auto'}}
                     alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                     src="https://imgix.cosmicjs.com/29536a10-f4d4-11ed-bb44-790a83f99a24-FL-Salvia-clevelandii-State-Fair-7-24.JPG"
-                    width={1975 * 0.15}
-                    height={2688 * 0.15}
+                    width={1975}
+                    height={2688}
                     defaultGrey
                     sizes="50vw"
                     objectFit="contain"
                   />
                 </MediaDialogOnClick>
               </ChildBox>
-              <ChildBox>
+              <ChildBox flex="60%">
                 <MediaDialogOnClick
                   mediaUrl="https://imgix.cosmicjs.com/297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG"
                   mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                   mediaPreviewDialogProps={{
-                    width: 3939 * 0.1,
-                    height: 3456 * 0.1
+                    width: 3939,
+                    height: 3456
                   }}
                 >
                   <ImageFancier
-                    layout="intrinsic"
+                    boxProps={{width: '100%', height: 'auto'}}
                     alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                     src="https://imgix.cosmicjs.com/297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG"
-                    width={3939 * 0.1}
-                    height={3456 * 0.1}
+                    width={3939}
+                    height={3456}
                     defaultGrey
                     sizes="50vw"
                     objectFit="contain"
@@ -140,21 +140,21 @@ export default function SummerStrongPage({placeholders}: Props) {
               </ChildBox>
             </RowBox>
             <Spacing size="x-large" />
-            <Box display="flex">
+            <Box>
               <MediaDialogOnClick
                 mediaUrl="https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG"
                 mediaName="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                 mediaPreviewDialogProps={{
-                  width: 5167 * 0.15,
-                  height: 3445 * 0.15
+                  width: 5167,
+                  height: 3445
                 }}
               >
                 <ImageFancier
-                  layout="intrinsic"
+                  boxProps={{width: '100%', height: 'auto'}}
                   alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
                   src="https://imgix.cosmicjs.com/296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG"
-                  width={5167 * 0.15}
-                  height={3445 * 0.15}
+                  width={5167}
+                  height={3445}
                   defaultGrey
                   sizes="50vw"
                   objectFit="contain"
