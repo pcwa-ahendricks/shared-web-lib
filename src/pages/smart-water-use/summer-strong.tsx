@@ -3,7 +3,13 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from 'mui-sleazebox'
-import {Typography as Type, Box, Link} from '@material-ui/core'
+import {
+  Typography as Type,
+  Box,
+  Link,
+  useMediaQuery,
+  useTheme
+} from '@material-ui/core'
 // import LeafIcon from 'mdi-material-ui/Leaf'
 import BirdIcon from 'mdi-material-ui/Bird'
 import Image from 'next/image'
@@ -30,8 +36,42 @@ const imgixImages = [
   '296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG'
 ]
 
+const UcMasterGardnersLogo = () => {
+  return (
+    <>
+      <Image
+        // src="29837ac0-f4d4-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-050823.jpg"
+        src="50ee78b0-f5a8-11ed-a7ff-83a764999c5f-UC-Master-Gardners-logo.png"
+        priority
+        alt="UC Master Gardners logo"
+        loader={imgixLoader}
+        layout="responsive"
+        sizes="(max-width: 600px) 60vw, 20vw"
+        width={900}
+        height={900}
+      />
+      <Type variant="caption">
+        <em>partnered with</em>
+        <br />
+        <Link
+          variant="inherit"
+          target="_blank"
+          href="https://pcmg.ucanr.org"
+          rel="noopener noreferrer"
+        >
+          UC Master Gardners
+          <br />
+          of Placer County
+        </Link>
+      </Type>
+    </>
+  )
+}
+
 export default function SummerStrongPage({placeholders}: Props) {
   usePlaceholders(placeholders)
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
     <PageLayout title="Summer Strong" waterSurface>
@@ -61,57 +101,33 @@ export default function SummerStrongPage({placeholders}: Props) {
                 </NextLink>{' '}
                 page.
               </Type>
+              <Spacing size="x-large" />
+              <Type variant="h2" color="primary">
+                Featured Plant of the Month
+              </Type>
+              <Spacing />
+              <RowBox>
+                {/* <LeafIcon color="secondary" style={{marginRight: 8}} /> */}
+                <BirdIcon
+                  style={{marginRight: 8, color: blueGrey[500], fontSize: 32}}
+                />
+                <Type variant="h2" gutterBottom>
+                  Hello Hummingbirds!
+                </Type>
+              </RowBox>
+              <Type variant="h3">Cleveland Sage (and other Salvias)</Type>
             </ChildBox>
             <ChildBox
               flex="20%"
               mx="auto"
-              width={{xs: '50vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
               textAlign="center"
+              display={isXs ? 'none' : 'block'}
             >
-              <Image
-                // src="29837ac0-f4d4-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-050823.jpg"
-                src="50ee78b0-f5a8-11ed-a7ff-83a764999c5f-UC-Master-Gardners-logo.png"
-                priority
-                alt="UC Master Gardners logo"
-                loader={imgixLoader}
-                layout="responsive"
-                sizes="(max-width: 600px) 60vw, 20vw"
-                width={900}
-                height={900}
-              />
-              <Type variant="caption">
-                <em>partnered with</em>
-                <br />
-                <Link
-                  variant="inherit"
-                  target="_blank"
-                  href="https://pcmg.ucanr.org"
-                  rel="noopener noreferrer"
-                >
-                  UC Master Gardners
-                  <br />
-                  of Placer County
-                </Link>
-              </Type>
+              <UcMasterGardnersLogo />
             </ChildBox>
           </RowBox>
-          <Spacing />
+          <Spacing size="large" />
           <Box>
-            <Type variant="h2" color="primary">
-              Featured Plant of the Month
-            </Type>
-            <Spacing />
-            <RowBox>
-              {/* <LeafIcon color="secondary" style={{marginRight: 8}} /> */}
-              <BirdIcon
-                style={{marginRight: 8, color: blueGrey[500], fontSize: 32}}
-              />
-              <Type variant="h2" gutterBottom>
-                Hello Hummingbirds!
-              </Type>
-            </RowBox>
-            <Type variant="h3">Cleveland Sage (and other Salvias)</Type>
-            <Spacing size="large" />
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="40%">
                 <MediaDialogOnClick
@@ -266,6 +282,15 @@ export default function SummerStrongPage({placeholders}: Props) {
               CalScape (https://calscape.org)
             </Link>
           </Type>
+          <Spacing size="x-large" />
+          <Box
+            margin="auto"
+            textAlign="center"
+            display={isXs ? 'block' : 'none'}
+            width="40vw"
+          >
+            <UcMasterGardnersLogo />
+          </Box>
         </WideContainer>
       </MainBox>
     </PageLayout>
