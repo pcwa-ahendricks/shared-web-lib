@@ -68,10 +68,13 @@ const ImageFancier = ({
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   useEffect(() => {
-    if (isXs && isHoverProp) {
-      return
+    if (isXs) {
+      setIsHover(false)
+    } else {
+      if (isHoverProp) {
+        setIsHover(isHoverProp)
+      }
     }
-    setIsHover(isHoverProp)
   }, [isHoverProp, isXs])
 
   const mouseEnterHandler = useCallback(() => {

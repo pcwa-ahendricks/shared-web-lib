@@ -10,7 +10,8 @@ import {
   BoxProps,
   useTheme,
   createStyles,
-  makeStyles
+  makeStyles,
+  TypographyProps
 } from '@material-ui/core'
 import MediaPreviewDialog, {
   MediaPreviewDialogProps
@@ -26,6 +27,8 @@ type Props = {
   popperAnchorStyle?: React.CSSProperties
   mediaPreviewDialogProps?: Partial<MediaPreviewDialogProps>
   mediaDialogOpen?: boolean
+  transPaper?: number
+  popperTypeProps?: TypographyProps
 } & Partial<Omit<BoxProps, 'width' | 'height'>>
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -50,8 +53,10 @@ const MediaDialogOnClick = ({
   mediaName,
   mediaUrl,
   timeout = 350,
+  transPaper: transPaperProp,
   mediaPreviewDialogProps,
   mediaDialogOpen: mediaDialogOpenProp = false,
+  popperTypeProps,
   ...rest
 }: Props) => {
   const theme = useTheme<Theme>()
@@ -60,8 +65,10 @@ const MediaDialogOnClick = ({
 
   // Div element helps with Popper positioning.
   const popperAnchorEl = useRef<HTMLDivElement>(null)
-
-  const noTransPaper = colorAlpha(theme.palette.background.paper, 1)
+  const paperColor = theme.palette.background.paper
+  const popupBgColor = transPaperProp
+    ? colorAlpha(paperColor, transPaperProp)
+    : colorAlpha(paperColor, 1)
 
   const [mediaDialogOpen, setMediaDialogOpen] =
     useState<boolean>(mediaDialogOpenProp)
@@ -123,11 +130,14 @@ const MediaDialogOnClick = ({
                   borderRadius={3}
                   borderColor={theme.palette.grey['300']}
                   border={1}
-                  p={1}
+                  paddingY={1 / 2}
+                  paddingX={1}
                   fontStyle="italic"
-                  bgcolor={noTransPaper}
+                  bgcolor={popupBgColor}
                 >
-                  <Type variant="body2">{popperMessage}</Type>
+                  <Type variant="body2" {...popperTypeProps}>
+                    {popperMessage}
+                  </Type>
                 </Box>
               </Fade>
             )}
