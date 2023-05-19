@@ -599,7 +599,7 @@ export default function WhyGoPaperlessPage() {
               </Type>
             </ChildBox>
           </RowBox>
-          <Spacing size="large" />
+          <Spacing size="x-large" />
           <Type variant="h1" color="primary">
             Setting Up Paperless Billing is Simple
           </Type>
@@ -607,7 +607,7 @@ export default function WhyGoPaperlessPage() {
 
           <Box>
             <Stepper activeStep={-1} orientation="vertical">
-              {stopMailSteps.map(({key, cmp}) => (
+              {genericSteps.map(({key, cmp}) => (
                 <Step key={key} active>
                   ={false}
                   <StepLabel>{cmp}</StepLabel>
@@ -773,7 +773,7 @@ export default function WhyGoPaperlessPage() {
             </AccordionDetails>
           </Accordion>
 
-          <Spacing factor={2} />
+          <Spacing size="large" factor={2} />
 
           <Type variant="h3">How Does Paperless Billing Work?</Type>
           <Spacing size="small" />
