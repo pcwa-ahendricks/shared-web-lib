@@ -370,7 +370,7 @@ const SmartWaterUsePage = () => {
                 Rethink Your Yard
               </Type>
               <Type paragraph>
-                For many people, the drought provides an opportunity to rethink
+                For many people, the drought provided an opportunity to rethink
                 the way they view and use their landscape and to consider
                 whether it's time for a change.
               </Type>
