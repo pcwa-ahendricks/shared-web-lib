@@ -217,22 +217,22 @@ export default function SummerStrongPage({placeholders}: Props) {
             <em>By Laurie Meyerpeter, Master Gardener</em>
           </Type>
           <Type paragraph>
-            Along with gorgeous flowers, the leaves of 'Winifred Gilman' and
+            Along with gorgeous flowers, the leaves of 'Winnifred Gilman' and
             other Cleveland sage cultivars are highly aromatic. When the Placer
             County Master Gardeners teach a propagation class at Del Oro High
             School, this plant is a huge favorite of the teens because of its
             beautiful aroma and the unique flowers.
           </Type>
           <Type paragraph>
-            'Winifred Gilman' is one cultivar of Cleveland sage but local
+            'Winnifred Gilman' is one cultivar of Cleveland sage but local
             nurseries may stock similar and interchangeable Cleveland sage
-            cultivars such as 'Allen Chickering'. And the terms “salvia” and
-            “sage” are both used interchangeable to describe this very large
+            cultivars such as 'Allen Chickering'. And the terms "salvia" and
+            “sage” are both used interchangeably to describe this very large
             family of plants. Many of them are California natives. Salvias are
             beloved by hummingbirds, bees, and butterflies.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: 'Winifred Gilman' blooms in late
+            <StrongGrey>Bloom</StrongGrey>: 'Winnifred Gilman' blooms in late
             spring into early summer, with a light bloom later in the summer.
             The distinctive whorled flowers are shades of blue and violet. When
             not in bloom, the plant forms a mound of gray-green leaves that are
@@ -246,7 +246,7 @@ export default function SummerStrongPage({placeholders}: Props) {
             <StrongGrey>Sun</StrongGrey>: Full sun, part shade.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: 'Winifred Gilman' Cleveland sage
+            <StrongGrey>Size</StrongGrey>: 'Winnifred Gilman' Cleveland sage
             grows 3-4' x 3-4' mounded shrub if unpruned. Other cultivars may be
             slightly larger and wider if unpruned.
           </Type>
@@ -256,7 +256,7 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Type paragraph>
             <StrongGrey>Availability</StrongGrey>: Cleveland sage is seasonally
-            available. Local nurseries typically stock either 'Winifred Gilman'
+            available. Local nurseries typically stock either 'Winnifred Gilman'
             Cleveland Sage or 'Allan Chickering' Cleveland Sage throughout the
             spring and summer months.
           </Type>
