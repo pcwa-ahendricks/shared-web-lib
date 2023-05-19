@@ -1,6 +1,34 @@
 export default function homepage() {
   return (
     <>
+      {/* <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Year End Report for 2022"
+              readMore="Learn more"
+              linkHref="/newsroom/publications/year-end"
+              imgixURL="https://imgix.cosmicjs.com/404a8540-bd12-11ed-b7c8-73c00a6d38c7-Year-End-Report-2022Mock-up01.png"
+              alt="2022 Year End Report graphic"
+              body="Take a look at our Year End Report for 2022 to learn more about how PCWA serves the community and protects our customers' investments."
+              imgixParams={{
+                bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+              }}
+            />
+          </ChildBox> */}
+      {/* <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Water Conservation"
+              readMore="Learn more"
+              linkHref="/smart-water-use/drought"
+              // imgixURL="https://imgix.cosmicjs.com/acae4b60-207c-11ec-99dc-57488d0e52ad-WaterHereLessHerewebsite-banner.jpg"
+              // imgixURL="https://imgix.cosmicjs.com/3f575590-d579-11ec-bb19-d9085ce408df-water-here-not-here.png"
+              imgixURL="https://imgix.cosmicjs.com/8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png"
+              imgixParams={{crop: 'top'}}
+              alt="Water less banner"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="With shorter, cooler days, it's time for sprinklers to hibernate so that Mother Nature can do the watering."
+            /> */}
       {/* <ChildBox flex="50%">
             <CoverStory
               aria-label="Link to Water Year Dashboard page"
