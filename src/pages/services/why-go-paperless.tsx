@@ -476,7 +476,7 @@ export default function WhyGoPaperlessPage() {
   )
 
   return (
-    <PageLayout title="Why Go Paperless?" waterSurface>
+    <PageLayout title="Why Go Paperless" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle title="Why Go Paperless?" hideDivider />
