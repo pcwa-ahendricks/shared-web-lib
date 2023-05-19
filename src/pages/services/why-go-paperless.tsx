@@ -347,7 +347,7 @@ export default function WhyGoPaperlessPage() {
       key: 4,
       cmp: (
         <Type variant="inherit" style={{...style.step}}>
-          Click box for Payment Authorization Term and “Add Account”.
+          Click box for Payment Authorization Terms and "Add Account".
         </Type>
       )
     }
@@ -571,7 +571,8 @@ export default function WhyGoPaperlessPage() {
                 Pay Anywhere, Anytime
               </Type>
               <Type>
-                Receive e-mail bill reminders and pay online from anywhere 24/7.
+                Receive e-mail or text bill reminders and pay online from
+                anywhere 24/7.
               </Type>
             </ChildBox>
             <ChildBox
@@ -653,11 +654,11 @@ export default function WhyGoPaperlessPage() {
             </AccordionSummary>
             <AccordionDetails>
               <Box>
-                <Type variant="subtitle1" className={classes.accordionCaption}>
+                {/* <Type variant="subtitle1" className={classes.accordionCaption}>
                   Great! You're only one step away from making the switch to
                   paperless billing.
                 </Type>
-                <Spacing size="small" />
+                <Spacing size="small" /> */}
                 <Box>
                   <Stepper activeStep={-1} orientation="vertical">
                     {haveAcctSteps.map(({key, cmp}) => (
@@ -701,10 +702,10 @@ export default function WhyGoPaperlessPage() {
             </AccordionSummary>
             <AccordionDetails>
               <Box>
-                <Type variant="subtitle1" className={classes.accordionCaption}>
+                {/* <Type variant="subtitle1" className={classes.accordionCaption}>
                   No worries. It takes no time to set one up.
                 </Type>
-                <Spacing size="small" />
+                <Spacing size="small" /> */}
                 <Box>
                   <Stepper activeStep={-1} orientation="vertical">
                     {noAcctSteps.map(({key, cmp}) => (
@@ -751,11 +752,11 @@ export default function WhyGoPaperlessPage() {
             </AccordionSummary>
             <AccordionDetails>
               <Box>
-                <Type variant="subtitle1" className={classes.accordionCaption}>
+                {/* <Type variant="subtitle1" className={classes.accordionCaption}>
                   No worries. Just follow the directions below to resolve this
                   issues.
                 </Type>
-                <Spacing size="small" />
+                <Spacing size="small" /> */}
                 <Box>
                   <Stepper activeStep={-1} orientation="vertical">
                     {stopMailSteps.map(({key, cmp}) => (
