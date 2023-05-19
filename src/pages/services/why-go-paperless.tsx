@@ -88,6 +88,9 @@ const useStyles = makeStyles(() =>
       borderWidth: 0.5,
       borderColor: grey[500],
       borderStyle: 'solid'
+    },
+    accordionCaption: {
+      paddingLeft: 30
     }
   })
 )
@@ -305,6 +308,50 @@ export default function WhyGoPaperlessPage() {
     [isLgUp, classes, LogIntoAcctContent, AddAcctContent]
   )
 
+  const genericSteps = [
+    {
+      key: 1,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}} component="div">
+          <Link
+            variant="inherit"
+            href="https://ipn.paymentus.com/cp/plco"
+            target="_blank"
+            rel="noopener noreferrer"
+            underline="always"
+          >
+            Log into your online account
+          </Link>{' '}
+          or register for an online account.
+        </Type>
+      )
+    },
+    {
+      key: 2,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          When on your profile, set the Paperless Billing tab to “Yes”.
+        </Type>
+      )
+    },
+    {
+      key: 3,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          Choose whether you want to receive bill notifications by email, text
+          message, or both.
+        </Type>
+      )
+    },
+    {
+      key: 4,
+      cmp: (
+        <Type variant="inherit" style={{...style.step}}>
+          Click box for Payment Authorization Term and “Add Account”.
+        </Type>
+      )
+    }
+  ]
   const haveAcctSteps = [
     {
       key: 1,
@@ -557,12 +604,27 @@ export default function WhyGoPaperlessPage() {
             Setting Up Paperless Billing is Simple
           </Type>
           <Spacing size="large" />
-          {/* <Spacing size="x-small" /> */}
-          <Type>
-            For Step by Step Instructions you can select from one of the
-            following dropdowns below.
-          </Type>
 
+          <Box>
+            <Stepper activeStep={-1} orientation="vertical">
+              {stopMailSteps.map(({key, cmp}) => (
+                <Step key={key} active>
+                  ={false}
+                  <StepLabel>{cmp}</StepLabel>
+                  <StepContent>
+                    {/* <Type>{getStopMailContent(key)}</Type> */}
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
+
+          <Spacing factor={2} />
+          <Type variant="h4">
+            For detailed step by step instructions you can select from one of
+            the following dropdowns below.
+          </Type>
+          <Spacing />
           <Accordion
             expanded={expanded === 'panel1'}
             onChange={handleChange('panel1')}
@@ -591,7 +653,7 @@ export default function WhyGoPaperlessPage() {
             </AccordionSummary>
             <AccordionDetails>
               <Box>
-                <Type variant="subtitle1">
+                <Type variant="subtitle1" className={classes.accordionCaption}>
                   Great! You're only one step away from making the switch to
                   paperless billing.
                 </Type>
@@ -612,77 +674,107 @@ export default function WhyGoPaperlessPage() {
               </Box>
             </AccordionDetails>
           </Accordion>
-          {/* <Spacing factor={2} /> */}
-          <Box
-            style={{
-              display: 'flex',
-              alignItems: 'center'
-            }}
+          <Accordion
+            expanded={expanded === 'panel2'}
+            onChange={handleChange('panel2')}
           >
-            <AcctCancelIcon
-              style={{
-                fontSize: '32px',
-                color: red[400],
-                paddingRight: 8
-              }}
-            />
-            <Type variant="h4">Don't have an online account?</Type>
-          </Box>
-          <Spacing size="x-small" />
-          <Type>No worries. It takes no time to set one up.</Type>
-          <Spacing size="small" />
-          <Box>
-            <Stepper activeStep={-1} orientation="vertical">
-              {noAcctSteps.map(({key, cmp}) => (
-                <Step key={key} active>
-                  ={false}
-                  <StepLabel>{cmp}</StepLabel>
-                  <StepContent>
-                    <Type>{getNoAcctStepContent(key)}</Type>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-          <Spacing factor={2} />
-          <Box
-            style={{
-              display: 'flex',
-              alignItems: 'center'
-            }}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2bh-content"
+              id="panel2bh-header"
+            >
+              <Box
+                style={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <AcctCancelIcon
+                  style={{
+                    fontSize: '32px',
+                    color: red[400],
+                    paddingRight: 8
+                  }}
+                />
+                <Type variant="h4">Don't have an online account?</Type>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box>
+                <Type variant="subtitle1" className={classes.accordionCaption}>
+                  No worries. It takes no time to set one up.
+                </Type>
+                <Spacing size="small" />
+                <Box>
+                  <Stepper activeStep={-1} orientation="vertical">
+                    {noAcctSteps.map(({key, cmp}) => (
+                      <Step key={key} active>
+                        ={false}
+                        <StepLabel>{cmp}</StepLabel>
+                        <StepContent>
+                          <Type>{getNoAcctStepContent(key)}</Type>
+                        </StepContent>
+                      </Step>
+                    ))}
+                  </Stepper>
+                </Box>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === 'panel3'}
+            onChange={handleChange('panel3')}
           >
-            <EmailRemoveIcon
-              style={{
-                fontSize: '32px',
-                color: brown[400],
-                paddingRight: 8
-              }}
-            />
-            <Type variant="h4">
-              Already signed up for paperless billing, but still receiving a
-              paper copy?
-            </Type>
-          </Box>
-          <Spacing size="x-small" />
-          <Type>
-            No worries. Just follow the directions below to resolve this issues.
-          </Type>
-          <Spacing size="small" />
-          <Box>
-            <Stepper activeStep={-1} orientation="vertical">
-              {stopMailSteps.map(({key, cmp}) => (
-                <Step key={key} active>
-                  ={false}
-                  <StepLabel>{cmp}</StepLabel>
-                  <StepContent>
-                    <Type>{getStopMailContent(key)}</Type>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3bh-content"
+              id="panel3bh-header"
+            >
+              <Box
+                style={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <EmailRemoveIcon
+                  style={{
+                    fontSize: '32px',
+                    color: brown[400],
+                    paddingRight: 8
+                  }}
+                />
+                <Type variant="h4">
+                  Already signed up for paperless billing, but still receiving a
+                  paper copy?
+                </Type>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box>
+                <Type variant="subtitle1" className={classes.accordionCaption}>
+                  No worries. Just follow the directions below to resolve this
+                  issues.
+                </Type>
+                <Spacing size="small" />
+                <Box>
+                  <Stepper activeStep={-1} orientation="vertical">
+                    {stopMailSteps.map(({key, cmp}) => (
+                      <Step key={key} active>
+                        ={false}
+                        <StepLabel>{cmp}</StepLabel>
+                        <StepContent>
+                          <Type>{getStopMailContent(key)}</Type>
+                        </StepContent>
+                      </Step>
+                    ))}
+                  </Stepper>
+                </Box>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
 
-          <Spacing size="large" factor={2} />
+          <Spacing factor={2} />
+
           <Type variant="h3">How Does Paperless Billing Work?</Type>
           <Spacing size="small" />
           <List>
@@ -715,8 +807,8 @@ export default function WhyGoPaperlessPage() {
             </ListItem>
           </List>
 
-          <Spacing size="large" factor={2} />
-          <Type variant="h3">Need Help</Type>
+          <Spacing size="large" />
+          <Type variant="h3">Need Additional Help</Type>
           <Spacing size="small" />
           <Type paragraph>
             If you have any questions about Paperless Billing, please contact
