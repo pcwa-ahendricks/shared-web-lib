@@ -1,4 +1,5 @@
-import React, {useCallback} from 'react'
+import React, {useState, useCallback} from 'react'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -18,7 +19,10 @@ import {
   ListItemText,
   Link,
   ListItemIcon,
-  useMediaQuery
+  useMediaQuery,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@material-ui/core'
 import Image from 'next/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
@@ -458,6 +462,19 @@ export default function WhyGoPaperlessPage() {
     }
   ]
 
+  const [expanded, setExpanded] = useState<string | false>(false)
+
+  const handleChange = useCallback(
+    (panel: string) =>
+      (
+        _event: React.ChangeEvent<Record<string, unknown>>,
+        isExpanded: boolean
+      ) => {
+        setExpanded(isExpanded ? panel : false)
+      },
+    []
+  )
+
   return (
     <PageLayout title="Why Go Paperless?" waterSurface>
       <MainBox>
@@ -540,41 +557,62 @@ export default function WhyGoPaperlessPage() {
             Setting Up Paperless Billing is Simple
           </Type>
           <Spacing size="large" />
-          <Box
-            style={{
-              display: 'flex',
-              alignItems: 'center'
-            }}
-          >
-            <AcctCheckIcon
-              style={{
-                fontSize: '32px',
-                color: green[400],
-                paddingRight: 8
-              }}
-            />
-            <Type variant="h4">Already have an online account?</Type>
-          </Box>
-          <Spacing size="x-small" />
+          {/* <Spacing size="x-small" /> */}
           <Type>
-            Great! You're only one step away from making the switch to paperless
-            billing.
+            For Step by Step Instructions you can select from one of the
+            following dropdowns below.
           </Type>
-          <Spacing size="small" />
-          <Box>
-            <Stepper activeStep={-1} orientation="vertical">
-              {haveAcctSteps.map(({key, cmp}) => (
-                <Step key={key} active>
-                  ={false}
-                  <StepLabel>{cmp}</StepLabel>
-                  <StepContent>
-                    <Type>{getHaveAcctStepContent(key)}</Type>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-          <Spacing factor={2} />
+
+          <Accordion
+            expanded={expanded === 'panel1'}
+            onChange={handleChange('panel1')}
+            // classes={{root: classes.expansionPanel}}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Box
+                style={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <AcctCheckIcon
+                  style={{
+                    fontSize: '32px',
+                    color: green[400],
+                    paddingRight: 8
+                  }}
+                />
+                <Type variant="h4">Already have an online account?</Type>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box>
+                <Type variant="subtitle1">
+                  Great! You're only one step away from making the switch to
+                  paperless billing.
+                </Type>
+                <Spacing size="small" />
+                <Box>
+                  <Stepper activeStep={-1} orientation="vertical">
+                    {haveAcctSteps.map(({key, cmp}) => (
+                      <Step key={key} active>
+                        ={false}
+                        <StepLabel>{cmp}</StepLabel>
+                        <StepContent>
+                          <Type>{getHaveAcctStepContent(key)}</Type>
+                        </StepContent>
+                      </Step>
+                    ))}
+                  </Stepper>
+                </Box>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          {/* <Spacing factor={2} /> */}
           <Box
             style={{
               display: 'flex',
