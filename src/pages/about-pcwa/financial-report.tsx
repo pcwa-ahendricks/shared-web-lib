@@ -337,14 +337,29 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
+                    aria-label="View 2022 Lower Zone 6 Report"
+                    href="https://docs.pcwa.net/wcc-annual-report-2022-lower-zone-6.pdf"
+                  >
+                    2022 Lower Zone 6 Report
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2022 Upper Zone 6 Report"
+                    href="https://docs.pcwa.net/wcc-annual-report-2022-upper-zone-6.pdf"
+                  >
+                    2022 Upper Zone 6 Report
+                  </BudgetDoc>
+                </RowBox>
+                <Spacing />
+                <RowBox flexWrap="wrap" flexSpacing={3}>
+                  <BudgetDoc
                     aria-label="View 2021 Lower Zone 6 Report"
-                    href="https://cdn.cosmicjs.com/8bb2f700-e906-11ec-9177-7506dda64181-Final-Report---2021-Lower-Zone-6.pdf"
+                    href="https://docs.pcwa.net/wcc-annual-report-2021-lower-zone-6.pdf"
                   >
                     2021 Lower Zone 6 Report
                   </BudgetDoc>
                   <BudgetDoc
                     aria-label="View 2021 Upper Zone 6 Report"
-                    href="https://cdn.cosmicjs.com/8f1a16d0-e906-11ec-9177-7506dda64181-Final-Report---2021-Upper-Zone-6.pdf"
+                    href="https://docs.pcwa.net/wcc-annual-report-2021-upper-zone-6.pdf"
                   >
                     2021 Upper Zone 6 Report
                   </BudgetDoc>
