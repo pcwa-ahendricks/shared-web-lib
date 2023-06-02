@@ -374,7 +374,7 @@ const EmployeeBenefitsSummaryPage = () => {
                       title="2021 Water Connection Charge Report Link"
                       href="https://docs.pcwa.net/wcc-annual-report-2021-zone-6-combined.pdf"
                     >
-                      2020
+                      2021
                     </OlderReportLink>
                     •
                     <OlderReportLink
