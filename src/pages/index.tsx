@@ -50,7 +50,8 @@ const imgixImages = [
   // 'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
   // '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg',
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
-  '51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg'
+  '51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg',
+  'feb5c750-03f9-11ee-98b3-493f864afadf-SSSBDaisy8.5.jpg'
 ]
 
 type Props = {
@@ -122,7 +123,7 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://imgix.cosmicjs.com/51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg"
+              imgixURL="https://imgix.cosmicjs.com/feb5c750-03f9-11ee-98b3-493f864afadf-SSSBDaisy8.5.jpg"
               alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
