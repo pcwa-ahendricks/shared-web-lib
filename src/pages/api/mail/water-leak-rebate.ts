@@ -77,7 +77,7 @@ const bodySchema = object()
               : schema
         ),
         propertyType: string().required(),
-        leakBeginDate: string(), // not required
+        leakBeginDate: string().nullable(), // not required, nullable() required so api route doesn't error if no date is given on form
         leakIdentifyDate: string().required(),
         leakRepairDate: string().required(),
         termsAgree: string().required().oneOf(['true']),
