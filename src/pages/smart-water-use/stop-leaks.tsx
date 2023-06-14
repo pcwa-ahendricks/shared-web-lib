@@ -7,8 +7,6 @@ import {
   useTheme,
   TypographyProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -19,9 +17,11 @@ import WideContainer from '@components/containers/WideContainer'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles(() =>
-  createStyles({
+const StopLeaksPage = () => {
+  const theme = useTheme<Theme>()
+  const style = {
     greenColor: {
       color: '#468949'
     },
@@ -30,18 +30,13 @@ const useStyles = makeStyles(() =>
     },
     leakItem: {
       listStyleType: 'none',
-      marginBottom: 10
+      marginBottom: '10px'
     }
-  })
-)
-
-const StopLeaksPage = () => {
-  const classes = useStyles()
-  const theme = useTheme()
+  }
 
   const LeakItem = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.leakItem} {...rest}>
+      <Type component="li" sx={{...style.leakItem}} {...rest}>
         {children}
       </Type>
     )
@@ -61,7 +56,7 @@ const StopLeaksPage = () => {
               <Type paragraph>
                 Small drips in your home can quickly add up to many gallons
                 lost. A dripping faucet can waste 15 to 20 gallons a day. A
-                steady leak – from a hole only 1/16th inch in size – can add up
+                steady leak - from a hole only 1/16th inch in size - can add up
                 to more than 1,000 gallons of water wasted each day.
               </Type>
 
@@ -76,7 +71,7 @@ const StopLeaksPage = () => {
                   <strong>Your water meter: </strong>Your water meter is a great
                   place to check for leaks that are not readily apparent. Here
                   is what to do: First, turn off all water inside and outside
-                  your home. Then, look at the meter’s leak detector gauge (this
+                  your home. Then, look at the meter's leak detector gauge (this
                   is the small red, black or blue dial or triangle). If the
                   triangle is spinning when everything is off, you likely have a
                   leak that needs repair.
@@ -196,8 +191,8 @@ const StopLeaksPage = () => {
                       for 10 months)!
                     </Type>
                     <Type variant="body2" paragraph color="inherit">
-                      We’re inviting everyone to take the 10-Minute Challenge to
-                      find and fix household leaks. It’s easy! You could spend
+                      We're inviting everyone to take the 10-Minute Challenge to
+                      find and fix household leaks. It's easy! You could spend
                       just 10 minutes walking your home checking for leaks. Or,
                       you can do one thing each day from our list here.
                     </Type>

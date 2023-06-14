@@ -1,8 +1,7 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Fade, SvgIconProps, IconProps} from '@mui/material'
+import {Fade, SvgIconProps, IconProps, Box} from '@mui/material'
 import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AltIcon from '@mui/icons-material/Language'
 import Link, {LinkProps} from '@components/Link'
@@ -15,7 +14,7 @@ export type OpenInNewLinkProps = {
   iconFontSize?: IconProps['fontSize']
   showIconAlways?: boolean
   startAdornment?: boolean
-  iconPadding?: number
+  iconPadding?: number | string
   centerIcon?: boolean
   iconColor?: SvgIconProps['color']
   altIcon?: boolean
@@ -61,7 +60,7 @@ const OpenInNewLink = ({
     [startAdornment, iconPadding]
   )
 
-  const linkIconEl = useMemo(() => {
+  const LinkIcon = useCallback(() => {
     const linkIconElProps = {
       sx: {
         ...style.icon
@@ -83,16 +82,17 @@ const OpenInNewLink = ({
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
-      <RowBox display="inline-flex" component="span">
+      <Box display="inline-flex" flexDirection="row" component="span">
         <Link sx={{...style.link, ...sx}} underline="hover" noWrap {...rest}>
-          <RowBox
+          <Box
             display="inline-flex"
             component="span"
             flexDirection={startAdornment ? 'row-reverse' : 'row'}
           >
-            <ChildBox>{children}</ChildBox>
-            <ColumnBox
-              child
+            <Box>{children}</Box>
+            <Box
+              flexDirection="column"
+              flex="auto"
               component="span"
               justifyContent={centerIcon ? 'center' : 'flex-start'}
             >
@@ -100,12 +100,14 @@ const OpenInNewLink = ({
                 in={isHovering || showIconAlways}
                 timeout={transitionDuration}
               >
-                {linkIconEl}
+                <Box>
+                  <LinkIcon />
+                </Box>
               </Fade>
-            </ColumnBox>
-          </RowBox>
+            </Box>
+          </Box>
         </Link>
-      </RowBox>
+      </Box>
     </NativeListener>
   )
 }

@@ -9,7 +9,6 @@ import {
   Box,
   BoxProps,
   Divider,
-  Link,
   List,
   ListItem,
   ListItemText,
@@ -20,6 +19,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import {isBefore, parseISO, isAfter, format, compareDesc} from 'date-fns'
+import Link from '@components/Link'
 // import PageTitle from '@components/PageTitle/PageTitle'
 
 interface Meeting {

@@ -1,13 +1,11 @@
 // cspell:ignore Macroinvertebrate Streamflow ferc
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
-import {Typography as Type, Box, useTheme, Theme, Link} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Typography as Type, Box} from '@mui/material'
 import OpenInNewLink, {
   OpenInNewLinkProps
 } from '@components/OpenInNewLink/OpenInNewLink'
@@ -21,20 +19,21 @@ import DescriptionIcon from '@mui/icons-material/DescriptionOutlined'
 import ImageIcon from '@mui/icons-material/ImageOutlined'
 import VideoIcon from '@mui/icons-material/OndemandVideoOutlined'
 import TreeItem from '@mui/lab/TreeItem'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    openInNewLinkBox: {
-      '& strong, b': {
-        color: theme.palette.primary.light
-      }
-    }
-  })
-)
+import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 
 const EnvironmentalPlanningPage = () => {
-  const classes = useStyles()
   const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      openInNewLinkBox: {
+        '& strong, b': {
+          color: theme.palette.primary.light
+        }
+      }
+    }),
+    [theme]
+  )
 
   const linkProps: Partial<OpenInNewLinkProps> = {
     noWrap: false,
@@ -49,11 +48,11 @@ const EnvironmentalPlanningPage = () => {
 
   const OpenInNewLinkBox = useCallback(
     (props: OpenInNewLinkProps) => (
-      <Box className={classes.openInNewLinkBox}>
-        <OpenInNewLink {...props} />
+      <Box sx={{...style.openInNewLinkBox}}>
+        <OpenInNewLink startAdornment {...props} />
       </Box>
     ),
-    [classes]
+    [style]
   )
 
   return (
@@ -219,7 +218,6 @@ const EnvironmentalPlanningPage = () => {
                 pdf={false}
                 altIcon
                 href="/planning/arbs"
-                isNextLink
               >
                 2016 American River Basin Study
               </OpenInNewLinkBox>

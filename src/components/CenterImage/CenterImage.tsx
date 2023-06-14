@@ -1,7 +1,5 @@
 import React from 'react'
 import {Box, BoxProps} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 
 /*
   This component was adapted from https://jonathannicol.com/blog/2014/06/16/centre-crop-thumbnails-with-css/.
@@ -30,16 +28,18 @@ type Props = {
   translateY?: number
 } & BoxProps
 
-type UseStylesProps = {
-  portrait?: Props['portrait']
-  translateX?: Props['translateX']
-  translateY?: Props['translateY']
-}
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    imgWrapper: ({portrait, translateY, translateX}: UseStylesProps) => ({
-      position: 'relative',
+const CenterImage = ({
+  children,
+  portrait = false,
+  translateX = 50,
+  translateY = 50,
+  sx,
+  ...rest
+}: Props) => {
+  const style = {
+    imgWrapper: {
+      // TODO - typescript doesn't like including position here, maybe this will be fixed in future versions of Material-ui.
+      // position: 'relative',
       overflow: 'hidden',
       '& img': {
         position: 'absolute',
@@ -49,20 +49,11 @@ const useStyles = makeStyles(() =>
         width: portrait ? '100%' : 'auto',
         transform: `translate(-${translateX}%,-${translateY}%)`
       }
-    })
-  })
-)
+    }
+  }
 
-const CenterImage = ({
-  children,
-  portrait = false,
-  translateX = 50,
-  translateY = 50,
-  ...rest
-}: Props) => {
-  const classes = useStyles({portrait, translateX, translateY})
   return (
-    <Box className={classes.imgWrapper} {...rest}>
+    <Box position="relative" sx={{...sx, ...style.imgWrapper}} {...rest}>
       {children}
     </Box>
   )

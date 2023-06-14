@@ -162,7 +162,7 @@ const RowBox = ({
           },
           [theme.breakpoints.up(respBreakAt)]: {
             // see note above regarding flexDirection and media query
-            flexDirection: 'row',
+            flexDirection: flexDirectionProp || 'row',
             flexWrap,
             ...(typeof flexSpacing === 'number' && {
               marginLeft: theme.spacing(flexSpacing * -1)
@@ -181,7 +181,7 @@ const RowBox = ({
           }
         }),
         ...(!responsive && {
-          flexDirection: 'row',
+          flexDirection: flexDirectionProp || 'row',
           ...(typeof flexSpacing === 'number' && {
             marginLeft: theme.spacing(flexSpacing * -1)
           }),

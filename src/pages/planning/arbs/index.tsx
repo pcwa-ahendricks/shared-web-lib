@@ -8,18 +8,13 @@ import {
   TypographyProps,
   Box,
   List,
-  ListItem,
   ListItemAvatar,
   ListItemText,
   ListItemProps,
   ListItemTextProps,
   ListItemAvatarProps,
-  Link,
-  useTheme,
-  Theme
+  ListItemButton
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import Spacing from '@components/boxes/Spacing'
 // import DoneIcon from '@mui/icons-material/Done'
 // import MenuBookIcon from '@mui/icons-material/MenuBook'
@@ -37,16 +32,19 @@ import WideContainer from '@components/containers/WideContainer'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/legacy/image'
 import ListBulletItem from '@components/lists/ListBulletItem'
+import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    compactItem: {paddingBottom: 0, paddingTop: 0, marginBottom: -4},
+const ARBSPage = () => {
+  const theme = useTheme()
+  const style = {
+    compactItem: {paddingBottom: 0, paddingTop: 0, marginBottom: '-4px'},
     noBottomMargin: {
       marginBottom: 0
     },
     bulletLi: {
       listStyleType: 'disc',
-      marginBottom: 2
+      marginBottom: '2px'
     },
     listItemText: {
       paddingLeft: theme.spacing(4)
@@ -115,16 +113,11 @@ const useStyles = makeStyles((theme: Theme) =>
     timelineTitle: {
       marginTop: 0
     }
-  })
-)
+  }
 
-const ARBSPage = () => {
-  const classes = useStyles()
-  const theme = useTheme()
-
-  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
+  const TypeBullet = ({children, sx, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.bulletLi} {...rest}>
+      <Type component="li" sx={{...sx, ...style.bulletLi}} {...rest}>
         {children}
       </Type>
     )
@@ -133,28 +126,28 @@ const ARBSPage = () => {
   const ListItemAnchor = ({
     children,
     ...rest
-  }: {children: React.ReactNode} & ListItemProps<'a', {button?: true}>) => {
+  }: {children: React.ReactNode} & ListItemProps<'a'>) => {
     return (
-      <ListItem
+      <ListItemButton
         component="a"
-        button
         target="_blank"
         rel="noopener noreferrer"
         {...rest}
       >
         {children}
-      </ListItem>
+      </ListItemButton>
     )
   }
 
   const LIText = ({
     children,
+    sx,
     ...rest
   }: {children?: React.ReactNode} & ListItemTextProps) => {
     return (
       <ListItemText
         disableTypography
-        classes={{root: classes.listItemText}}
+        sx={{...sx, ...style.listItemText}}
         {...rest}
       >
         {/* Using a div here will help with padding-left property for wrapping text. */}
@@ -165,12 +158,16 @@ const ARBSPage = () => {
 
   const LIAvatar = ({
     portrait = false,
+    sx,
     children,
     ...rest
   }: {portrait?: boolean; children: React.ReactNode} & ListItemAvatarProps) => {
     return (
       <ListItemAvatar
-        classes={{root: portrait ? classes.listItemAvatarPortrait : undefined}}
+        sx={{
+          ...sx,
+          ...(portrait && style.listItemAvatarPortrait)
+        }}
         {...rest}
       >
         {children}
@@ -270,7 +267,7 @@ const ARBSPage = () => {
               <Link
                 variant="body1"
                 color="primary"
-                TypographyClasses={{colorPrimary: classes.link}}
+                sx={{...style.link}}
                 href="https://docs.pcwa.net/american-river-basin-study-2022_08.pdf"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -280,12 +277,12 @@ const ARBSPage = () => {
               </Link>
               <Spacing size="x-small" />
               <List dense disablePadding>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20A_Communic_Outreach.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -295,12 +292,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20B_Devel_Future_Climate_Hydro_Scenarios.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -311,12 +308,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20C_CalSim3_UAR_Module_Doc.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -327,12 +324,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20D_Develop_Urban_Agri_Demands.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -342,12 +339,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20E_Adapt_Meas_Prelim_Screen_Results.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -358,12 +355,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20F_Draft_Adapt_Portfolios.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -373,12 +370,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20G_Adaptation_Portfolios_%20Eval_Results.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -388,12 +385,12 @@ const ARBSPage = () => {
                     </Link>
                   </ListItemText>
                 </ListBulletItem>
-                <ListBulletItem classes={{root: classes.compactItem}}>
-                  <ListItemText classes={{root: classes.noBottomMargin}}>
+                <ListBulletItem sx={{...style.compactItem}}>
+                  <ListItemText sx={{...style.noBottomMargin}}>
                     <Link
                       variant="body2"
                       color="primary"
-                      TypographyClasses={{colorPrimary: classes.link}}
+                      sx={{...style.link}}
                       href="https://www.usbr.gov/watersmart/bsp/docs/arbs/Appendix%20H_%20LowerAR_Water_Temp_Model_Doc_Results.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -565,9 +562,11 @@ const ARBSPage = () => {
                 <MediaDialogOnClick
                   mediaUrl="https://imgix.cosmicjs.com/421bc920-6b37-11e7-860a-a98685e05496-AmRiver_Basin_Study_Area_20160609.jpg"
                   mediaName="Map of American River Basin Study Area"
-                  mediaPreviewDialogProps={{
-                    width: 700,
-                    height: 525
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 700,
+                      height: 525
+                    }
                   }}
                 >
                   <Image

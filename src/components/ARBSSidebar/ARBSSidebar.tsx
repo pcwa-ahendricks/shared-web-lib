@@ -1,61 +1,48 @@
 // cspell:ignore Rickards brickards Arlan usbr anickel Ankur Bhattacharya
-import React, {useCallback} from 'react'
-import {
-  Box,
-  Typography as Type,
-  Divider,
-  Link,
-  LinkProps,
-  useTheme
-} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import React, {useCallback, useMemo} from 'react'
+import {Box, Typography as Type, Divider, useTheme} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
-import MuiNextLink, {MuiNextLinkProps} from '@components/NextLink/NextLink'
 import NavBox from '@components/boxes/NavBox'
 import {Theme} from '@lib/material-theme'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    link: {
-      marginBottom: theme.spacing(1)
-    },
-    noIndexList: {
-      paddingInlineStart: theme.spacing(3)
-    },
-    safeLink: {
-      '&:not(:last-child)': {
-        marginBottom: theme.spacing(0.5)
-      }
-    },
-    wrapText: {
-      wordBreak: 'break-word'
-    }
-  })
-)
+import Link, {LinkProps} from '@components/Link'
 
 const ARBSSidebar = () => {
   const theme = useTheme<Theme>()
-  const classes = useStyles()
-
+  const style = useMemo(
+    () => ({
+      link: {
+        marginBottom: theme.spacing(1)
+      },
+      noIndexList: {
+        paddingInlineStart: theme.spacing(3)
+      },
+      safeLink: {
+        '&:not(:last-child)': {
+          marginBottom: theme.spacing(0.5)
+        }
+      },
+      wrapText: {
+        wordBreak: 'break-word'
+      }
+    }),
+    [theme]
+  )
   const PageLink = useCallback(
-    ({
-      href,
-      children,
-      ...rest
-    }: {children: React.ReactNode} & MuiNextLinkProps) => {
+    ({href, children, ...rest}: {children: React.ReactNode} & LinkProps) => {
       return (
-        <MuiNextLink
+        <Link
           href={href}
+          underline="hover"
           color="inherit"
-          className={classes.link}
+          variant="body2"
+          sx={(theme) => ({...style.link, color: theme.palette.primary.dark})}
           {...rest}
         >
           {children}
-        </MuiNextLink>
+        </Link>
       )
     },
-    [classes]
+    [style]
   )
 
   const SafeLink = useCallback(
@@ -66,6 +53,12 @@ const ARBSSidebar = () => {
           target="_blank"
           rel="noopener noreferrer"
           underline="hover"
+          color="inherit"
+          variant="body2"
+          sx={(theme) => ({
+            display: 'inherit',
+            color: theme.palette.primary.dark
+          })}
           {...rest}
         >
           {children}
@@ -81,22 +74,25 @@ const ARBSSidebar = () => {
       ...rest
     }: {children: React.ReactNode} & React.HTMLAttributes<HTMLLIElement>) => {
       return (
-        <li className={classes.safeLink} {...rest}>
+        <Box component="li" sx={{...style.safeLink}} {...rest}>
           {children}
-        </li>
+        </Box>
       )
     },
-    [classes]
+    [style]
   )
 
   return (
     <Box
-      width={{xs: '100%', sm: 175}}
-      p={2}
-      bgcolor={theme.palette.grey['100']}
-      borderColor={theme.palette.grey['300']}
-      borderRadius="1px"
-      border={1}
+      sx={{
+        width: {xs: '100%', sm: 175},
+        padding: 2,
+        bgcolor: theme.palette.grey['100'],
+        borderWidth: 1,
+        borderRadius: 1,
+        borderColor: theme.palette.grey['300'],
+        borderStyle: 'solid'
+      }}
     >
       <NavBox color={theme.palette.primary.light}>
         <Type variant="subtitle2" color="primary">
@@ -149,7 +145,7 @@ const ARBSSidebar = () => {
           Documents
         </Type>
         {/* <Spacing size="x-small" /> */}
-        <ul className={classes.noIndexList}>
+        <Box component="ul" sx={{...style.noIndexList}}>
           <Li>
             <SafeLink href="https://docs.pcwa.net/american-river-basin-study-2022_08.pdf">
               American River Basin Study
@@ -170,7 +166,7 @@ const ARBSSidebar = () => {
               Memorandum of Agreement
             </SafeLink>
           </Li>
-        </ul>
+        </Box>
 
         <Spacing>
           <Divider />
@@ -185,7 +181,10 @@ const ARBSSidebar = () => {
         <Link
           href="mailto:brickards@pcwa.net"
           variant="body2"
-          classes={{root: classes.wrapText}}
+          sx={(theme) => ({
+            ...style.wrapText,
+            color: theme.palette.primary.dark
+          })}
           underline="hover"
         >
           brickards@pcwa.net
@@ -202,8 +201,11 @@ const ARBSSidebar = () => {
         <Link
           href="mailto:mdietl@usbr.gov"
           variant="body2"
-          classes={{root: classes.wrapText}}
           underline="hover"
+          sx={(theme) => ({
+            ...style.wrapText,
+            color: theme.palette.primary.dark
+          })}
         >
           mdietl@usbr.gov
         </Link>
