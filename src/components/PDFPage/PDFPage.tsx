@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Theme, LinearProgress, useTheme, Box} from '@mui/material'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {useTimeoutFn} from 'react-use'
 
@@ -8,9 +8,10 @@ type Props = {
   url?: string
   alt: string
   showLoading?: boolean
+  useMaxWidth?: boolean
 }
 
-const PDFPage = ({alt, url, showLoading = true}: Props) => {
+const PDFPage = ({alt, url, useMaxWidth = true, showLoading = true}: Props) => {
   const theme = useTheme<Theme>()
   const {lg} = theme.breakpoints.values
 
@@ -36,18 +37,22 @@ const PDFPage = ({alt, url, showLoading = true}: Props) => {
   return (
     <Box position="relative">
       {progressEl}
-      <Box maxWidth={lg} width="100%" height="100%" margin="auto">
+      <Box
+        maxWidth={useMaxWidth ? lg : '100%'}
+        width="100%"
+        height="100vh"
+        margin="auto"
+        position="relative"
+      >
         {url ? (
           <Image
             loader={imgixUrlLoader}
             src={url}
             onLoadingComplete={onLoadHandler}
             alt={alt}
-            objectFit="contain"
             quality={100}
-            layout="responsive"
-            width="100%"
-            height="100%"
+            style={{objectFit: 'contain'}}
+            fill
             priority
             // {...rest}
           />

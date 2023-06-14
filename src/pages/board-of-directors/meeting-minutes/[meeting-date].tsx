@@ -10,17 +10,13 @@ import {
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
-  Theme,
   useMediaQuery,
   Box,
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress,
-  useTheme
+  LinearProgress
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {format, parseJSON} from 'date-fns'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import ErrorPage from '@pages/_error'
@@ -30,7 +26,6 @@ import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {
   boardMinutesUrl,
@@ -38,6 +33,8 @@ import {
   bodMinutesMediaResponses,
   bodMinutesDateFrmt
 } from '@lib/types/bodMinutes'
+import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -47,26 +44,8 @@ type Props = {
   meetingDate?: string
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    pageNo: {
-      cursor: 'default'
-    },
-    bcLink: {
-      display: 'flex',
-      cursor: 'pointer'
-    },
-    bcIcon: {
-      alignSelf: 'center',
-      marginRight: theme.spacing(0.5),
-      width: 20,
-      height: 20
-    }
-  })
-)
-
 const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
   const isXS = useMediaQuery(theme.breakpoints.down('sm'))
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
@@ -117,7 +96,26 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
   //   threshold: 200
   // })
   // const classes = useStyles({trigger})
-  const classes = useStyles()
+
+  const style = useMemo(
+    () => ({
+      pageNo: {
+        cursor: 'default'
+      },
+      // bcLink: {
+      //   display: 'flex',
+      //   cursor: 'pointer'
+      // },
+      bcIcon: {
+        // alignSelf: 'center',
+        marginRight: theme.spacing(0.5),
+        width: 20,
+        height: 20
+      }
+    }),
+    [theme]
+  )
+
   const boardMeetingDateFormatted = media
     ? format(
         parseJSON(media.derivedFilenameAttr?.publishedDate ?? ''),
@@ -148,31 +146,35 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
           flexSpacing={2}
         >
           <ChildBox>
-            <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+            <Breadcrumbs
+              // separator="-"
+              aria-label="breadcrumb"
+            >
+              <Link
                 color="inherit"
-                // href="/board-of-directors/meeting-minutes"
-                className={classes.bcLink}
                 href="/board-of-directors/meeting-minutes"
+                underline="hover"
+                sx={{display: 'flex', alignItems: 'center'}}
               >
-                <>
-                  <MinutesIcon className={classes.bcIcon} />
-                  Board Minutes
-                </>
+                <MinutesIcon sx={{...style.bcIcon}} />
+                Board Minutes
                 {/* {selfReferred ? (
                   <>
-                    <MinutesIcon className={classes.bcIcon} />
+                    <MinutesIcon sx={{...style.bcIcon}} />
                     Board Minutes
                   </>
                 ) : (
                   <>
-                    <HomeIcon className={classes.bcIcon} />
+                    <HomeIcon sx={{...style.bcIcon}} />
                     Go Home
                   </>
                 )} */}
-              </MuiNextLink>
-              <Type color="textPrimary" style={{display: 'flex'}}>
-                <DocIcon className={classes.bcIcon} />
+              </Link>
+              <Type
+                color="textPrimary"
+                sx={{display: 'flex', alignItems: 'center'}}
+              >
+                <DocIcon sx={{...style.bcIcon}} />
                 {boardMeetingDateFormatted}
               </Type>
             </Breadcrumbs>
@@ -189,6 +191,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
           </ChildBox>
         </RowBox>
         <PDFPage
+          useMaxWidth={false}
           // Fixes SSR issue with infinite spinner on SSR loads. Assumes that if the additional pages are done loading that the first page is likely done loading.
           showLoading={loadingAddPages}
           alt={`Board Minutes document image for ${meetingDate} - page 1/${pageCount}`}
@@ -208,7 +211,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
                 justifyContent="center"
                 width="100%"
                 fontStyle="italic"
-                className={classes.pageNo}
+                sx={{...style.pageNo}}
               >
                 <Type color="primary">{`Page ${number}`}</Type>
               </RowBox>

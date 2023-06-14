@@ -8,12 +8,9 @@ import {
   useTheme,
   BoxProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {ColumnBox} from '@components/MuiSleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'
-import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -30,39 +27,6 @@ type Props = {
   title: string
   imgixUrl: CosmicMediaMeta['imgix_url']
 }
-
-type UseStylesProps = {
-  isHover: boolean
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    caption: {
-      fontStyle: 'italic',
-      lineHeight: 1.2
-    },
-    dateCaption: ({isHover}: UseStylesProps) => ({
-      color: !isHover ? theme.palette.text.primary : theme.palette.primary.main
-    }),
-    titleCaption: ({isHover}: UseStylesProps) => ({
-      maxWidth: MAX_IMAGE_WIDTH, // Force break on white-space.
-      color: !isHover
-        ? theme.palette.text.secondary
-        : theme.palette.primary.main
-    }),
-    link: {
-      textDecoration: 'none',
-      cursor: 'pointer'
-    },
-    thumbnailContainer: ({isHover}: UseStylesProps) => ({
-      backgroundColor: theme.palette.common.white,
-      boxShadow: '1px 1px 4px #ccc',
-      border: !isHover
-        ? '1px solid transparent'
-        : '1px solid rgba(180, 191, 205, 0.7)'
-    })
-  })
-)
 
 const ColumnBoxEx = forwardRef(function forwardColumnBoxEx(
   {children, ...props}: BoxProps,
@@ -81,7 +45,37 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
   const imageWidth = isXs ? 70 : isSm ? 75 : MAX_IMAGE_WIDTH
   const [isHover, setIsHover] = useState<boolean>(false)
-  const classes = useStyles({isHover})
+  const style = useMemo(
+    () => ({
+      caption: {
+        fontStyle: 'italic',
+        lineHeight: 1.2
+      },
+      dateCaption: {
+        color: !isHover
+          ? theme.palette.text.primary
+          : theme.palette.primary.main
+      },
+      titleCaption: {
+        maxWidth: MAX_IMAGE_WIDTH, // Force break on white-space.
+        color: !isHover
+          ? theme.palette.text.secondary
+          : theme.palette.primary.main
+      },
+      link: {
+        textDecoration: 'none',
+        cursor: 'pointer'
+      },
+      thumbnailContainer: {
+        backgroundColor: theme.palette.common.white,
+        boxShadow: '1px 1px 4px #ccc',
+        border: !isHover
+          ? '1px solid transparent'
+          : '1px solid rgba(180, 191, 205, 0.7)'
+      }
+    }),
+    [theme, isHover]
+  )
 
   const url = `/board-of-directors/meeting-minutes/[meeting-date]`
   const as = `/board-of-directors/meeting-minutes/${date}`
@@ -97,11 +91,11 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
         role="link"
         tabIndex={0}
         alignItems="center"
-        className={classes.link}
+        sx={{...style.link}}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <Box width={imageWidth} className={classes.thumbnailContainer}>
+        <Box width={imageWidth} sx={{...style.thumbnailContainer}}>
           <Image
             loader={imgixUrlLoader}
             src={imgixUrl}
@@ -115,13 +109,19 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
         <ColumnBox textAlign="center" mt={1}>
           <Type
             variant="body2"
-            className={clsx([classes.caption, classes.dateCaption])}
+            sx={{
+              ...style.caption,
+              ...style.dateCaption
+            }}
           >
             {format(boardMeetingDate, 'MM-dd-yyyy')}
           </Type>
           <Type
             variant="body2"
-            className={clsx([classes.caption, classes.titleCaption])}
+            sx={{
+              ...style.caption,
+              ...style.titleCaption
+            }}
           >
             {title}
           </Type>
