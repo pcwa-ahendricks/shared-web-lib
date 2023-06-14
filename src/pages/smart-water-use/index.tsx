@@ -20,11 +20,9 @@ import {
   CardActions,
   useMediaQuery,
   useTheme,
-  Theme,
-  Divider
+  Divider,
+  Unstable_Grid2 as Grid
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -42,9 +40,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import NextButton from '@components/NextButton/NextButton'
 import WebsiteIcon from '@mui/icons-material/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
+import {Theme} from '@lib/material-theme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const SmartWaterUsePage = () => {
+  const theme = useTheme<Theme>()
+  const style = {
     listItemBullet: {
       minWidth: theme.spacing(5)
     },
@@ -52,17 +52,12 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(1)
     },
     expansionPanel: {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: 'common.white'
     },
     cardMedia: {
-      height: 200
+      height: '200px'
     }
-  })
-)
-
-const SmartWaterUsePage = () => {
-  const classes = useStyles()
-  const theme = useTheme()
+  }
   const [expanded, setExpanded] = useState<string | false>(false)
 
   const handleChange = useCallback(
@@ -271,7 +266,7 @@ const SmartWaterUsePage = () => {
                   <RowBox justifyContent="center">
                     <ColumnBox justifyContent="center">
                       <FeedbackIcon
-                        className={classes.headingIcon}
+                        sx={{...style.headingIcon}}
                         color="inherit"
                       />
                     </ColumnBox>
@@ -380,7 +375,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel1'}
               onChange={handleChange('panel1')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -430,7 +425,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel2'}
               onChange={handleChange('panel2')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -476,7 +471,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel3'}
               onChange={handleChange('panel3')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -505,7 +500,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel4'}
               onChange={handleChange('panel4')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -536,7 +531,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel5'}
               onChange={handleChange('panel5')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -570,7 +565,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel6'}
               onChange={handleChange('panel6')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -603,7 +598,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel7'}
               onChange={handleChange('panel7')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -635,7 +630,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel8'}
               onChange={handleChange('panel8')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -688,7 +683,7 @@ const SmartWaterUsePage = () => {
             <Accordion
               expanded={expanded === 'panel9'}
               onChange={handleChange('panel9')}
-              classes={{root: classes.expansionPanel}}
+              sx={{...style.expansionPanel}}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -732,19 +727,25 @@ const SmartWaterUsePage = () => {
               Water-Wise Landscape Resources
             </Type>
             <Spacing />
-            <RowBox
+            <Grid
+              container
+              spacing={isSMDown ? 4 : 6}
+              sx={{flexGrow: 1, justifyContent: 'center'}}
+            >
+              {/* <RowBox
               responsive
               flexSpacing={isSMDown ? 4 : 6}
-              justifyContent={{xs: 'flex-start', sm: 'center'}}
               sx={{
                 [theme.breakpoints.only('xs')]: {
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  justifyContent: 'flex-start'
                 },
                 [theme.breakpoints.up('sm')]: {
-                  alignItems: 'stretch' // IE doesn't like 'initial'
+                  alignItems: 'stretch', // IE doesn't like 'initial'
+                  justifyContent: 'center'
                 }
               }}
-            >
+            > */}
               {/* <ChildBox maxWidth={300}>
                 <Card>
                   <CardActionArea
@@ -753,7 +754,7 @@ const SmartWaterUsePage = () => {
                     rel="noopener noreferrer"
                   >
                     <CardMedia
-                      className={classes.cardMedia}
+                      sx={{...style.cardMedia}}
                       component="img"
                       src="https://cosmicjs.imgix.net/169e7430-6b48-11e7-80fa-8bf0863a196c-Screen_Shot_2016-08-12_at_4.26.00_PM_ttbpsa.jpg?h=400"
                       alt="Design for the New California Landscape"
@@ -787,7 +788,13 @@ const SmartWaterUsePage = () => {
                 </Card>
               </ChildBox> */}
 
-              <ChildBox maxWidth={300}>
+              <Grid
+                xs={10}
+                sm={4}
+                display="flex"
+                justifyContent="center"
+                alignItems="flex-start"
+              >
                 <Card>
                   <CardActionArea
                     href="https://cdn.cosmicjs.com/69900400-6b49-11e7-8970-3b688d290373-Landscape_Survival_Tips_w0slls.pdf"
@@ -795,7 +802,7 @@ const SmartWaterUsePage = () => {
                     rel="noopener noreferrer"
                   >
                     <CardMedia
-                      className={classes.cardMedia}
+                      sx={{...style.cardMedia}}
                       component="img"
                       src="https://cosmicjs.imgix.net/69900400-6b49-11e7-8970-3b688d290373-Landscape_Survival_Tips_w0slls.pdf?auto=format&w=600&h=300&fit=crop&crop=top"
                       alt="Design for the New California Landscape"
@@ -822,9 +829,15 @@ const SmartWaterUsePage = () => {
                     </NextButton>
                   </CardActions>
                 </Card>
-              </ChildBox>
+              </Grid>
 
-              <ChildBox maxWidth={300}>
+              <Grid
+                xs={10}
+                sm={4}
+                display="flex"
+                justifyContent="center"
+                alignItems="flex-start"
+              >
                 <Card>
                   <CardActionArea
                     href="https://www.rwa.watersavingplants.com"
@@ -832,7 +845,7 @@ const SmartWaterUsePage = () => {
                     rel="noopener noreferrer"
                   >
                     <CardMedia
-                      className={classes.cardMedia}
+                      sx={{...style.cardMedia}}
                       component="img"
                       src="https://cosmicjs.imgix.net/0bf5f5b0-6b4a-11e7-b3a3-fbbc226e29f5-Openingscreen_kqywly.jpg?w=600&h=400&fit=crop"
                       alt="Design for the New California Landscape"
@@ -863,8 +876,8 @@ const SmartWaterUsePage = () => {
                     </Button>
                   </CardActions>
                 </Card>
-              </ChildBox>
-            </RowBox>
+              </Grid>
+            </Grid>
           </SectionBox>
         </WideContainer>
       </MainBox>

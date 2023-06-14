@@ -1,22 +1,16 @@
 import React from 'react'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import {Box, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {RowBox, ColumnBox} from '@components/MuiSleazebox'
 import imgixLoader from '@lib/imageLoader'
 
-const useStyles = makeStyles(() =>
-  createStyles({
+const WaterSenseLogo = ({noCaption = false}: {noCaption?: boolean}) => {
+  const style = {
     lookFor: {
       textTransform: 'uppercase',
       color: '#377cae'
     }
-  })
-)
-
-const WaterSenseLogo = ({noCaption = false}: {noCaption?: boolean}) => {
-  const classes = useStyles()
+  }
   return (
     <RowBox
       height="100%"
@@ -27,18 +21,18 @@ const WaterSenseLogo = ({noCaption = false}: {noCaption?: boolean}) => {
         <ColumnBox alignItems="center">
           {noCaption ? null : (
             <Box flex="none">
-              <Type variant="h6" className={classes.lookFor} noWrap>
+              <Type variant="h6" sx={{...style.lookFor}} noWrap>
                 Look For
               </Type>
             </Box>
           )}
           <Image
-            layout="intrinsic"
             loader={imgixLoader}
             src="80a20d10-9909-11e9-b1da-a39cf63c183d-watersense-logo2x.png"
             alt="WaterSense Logo"
-            width="100%"
-            height="100%"
+            style={{width: '100%', height: 'auto'}}
+            width={1140}
+            height={1140}
           />
         </ColumnBox>
       </Box>

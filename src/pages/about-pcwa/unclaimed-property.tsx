@@ -5,14 +5,11 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
   Typography as Type,
-  Link,
   List,
   ListItem,
   ListItemText,
   ListItemIcon
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import UnclaimedPropertyTable, {
   csvDataUrl
 } from '@components/UnclaimedPropertyTable/UnclaimedPropertyTable'
@@ -26,21 +23,18 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import {UnclaimedPropertyResponse} from '@lib/services/cosmicService'
 import {format, isBefore} from 'date-fns'
+import Link from '@components/Link'
 
 type Props = {
   fallbackData?: UnclaimedPropertyResponse[]
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
+const UnclaimedPropertyPage = ({fallbackData}: Props) => {
+  const style = {
     checkIcon: {
       color: green[500]
     }
-  })
-)
-
-const UnclaimedPropertyPage = ({fallbackData}: Props) => {
-  const classes = useStyles()
+  }
   const deadlineDate = useMemo(() => new Date('2022-07-15T17:00:00'), [])
 
   const deadlinePassedEl = useMemo(
@@ -134,7 +128,7 @@ const UnclaimedPropertyPage = ({fallbackData}: Props) => {
             <List>
               <ListItem>
                 <ListItemIcon>
-                  <CheckIcon classes={{root: classes.checkIcon}} />
+                  <CheckIcon sx={{...style.checkIcon}} />
                 </ListItemIcon>
                 <ListItemText>
                   The owner of record, or any other person who has a legal right
@@ -144,7 +138,7 @@ const UnclaimedPropertyPage = ({fallbackData}: Props) => {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <CheckIcon classes={{root: classes.checkIcon}} />
+                  <CheckIcon sx={{...style.checkIcon}} />
                 </ListItemIcon>
                 <ListItemText>
                   Claimants must complete the Agency’s{' '}

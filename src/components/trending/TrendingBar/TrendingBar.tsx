@@ -1,30 +1,27 @@
 import React from 'react'
-import {Paper, Theme, Tooltip} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Paper, Tooltip} from '@mui/material'
 import TrendingLink from '../TrendingLink/TrendingLink'
 import {TrendingUp} from '@mui/icons-material'
+import useTheme from '@hooks/useTheme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexGrow: 1,
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      backgroundColor: theme.palette.primary.main,
-      height: theme.spacing(6), // 48px (dense <Toolbar/>)
-      boxSizing: 'border-box',
-      padding: theme.spacing(1),
-      color: theme.palette.grey[300]
-    }
-  })
-)
 const TrendingBar = () => {
-  const classes = useStyles()
+  const theme = useTheme()
   return (
-    <Paper square className={classes.root}>
+    <Paper
+      square
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexGrow: 1,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: theme.palette.primary.main,
+        height: theme.spacing(6), // 48px (dense <Toolbar/>)
+        boxSizing: 'border-box',
+        padding: theme.spacing(1),
+        color: theme.palette.grey[300]
+      }}
+    >
       <Tooltip title="Trending Links" placement="top">
         <TrendingUp fontSize="small" />
       </Tooltip>

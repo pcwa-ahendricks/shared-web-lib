@@ -203,7 +203,7 @@ const EnvironmentalPlanningPage = () => {
               </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
-                href="//cdn.cosmicjs.com/8d12fc20-70c5-11e8-98f8-b18c468f0295-East-Loomis-Canal-Efficiency-Study-Executive-Summary.pdf"
+                href="https://cdn.cosmicjs.com/8d12fc20-70c5-11e8-98f8-b18c468f0295-East-Loomis-Canal-Efficiency-Study-Executive-Summary.pdf"
               >
                 2008 East Loomis Basin Canal Efficiency Study June
               </OpenInNewLinkBox>

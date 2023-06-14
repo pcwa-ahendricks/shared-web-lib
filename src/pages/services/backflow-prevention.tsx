@@ -6,13 +6,11 @@ import {
   List,
   ListItem,
   ListItemText,
-  Theme,
   useTheme,
   Typography as Type,
-  useMediaQuery
+  useMediaQuery,
+  ListItemProps
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -26,23 +24,20 @@ import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    listItem: {
-      paddingTop: 0,
-      paddingBottom: 4 // Defaults to 8px
-    }
-  })
-)
+import {Theme} from '@lib/material-theme'
 
 const CrossControlPreventionPage = () => {
   const theme = useTheme<Theme>()
+  const style = {
+    listItem: {
+      paddingTop: 0,
+      paddingBottom: '4px' // Defaults to 8px
+    }
+  }
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const classes = useStyles()
 
-  const CompactListItem = (props: any) => (
-    <ListItem classes={{root: classes.listItem}} {...props} />
+  const CompactListItem = ({sx, ...props}: ListItemProps) => (
+    <ListItem sx={{...sx, ...style.listItem}} {...props} />
   )
 
   return (

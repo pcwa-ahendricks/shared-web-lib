@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -9,48 +9,48 @@ import {
   Box,
   TypographyProps,
   Link,
-  Theme
+  useTheme
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    ul: {
-      listStyleType: 'none',
-      margin: 0,
-      // marginLeft: theme.spacing(2),
-      padding: 0
-    },
-    li: {
-      marginBottom: theme.spacing(1 / 2)
-    }
-  })
-)
+import {Theme} from '@lib/material-theme'
 
 const CampgroundsPage = () => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+
+  const style = useMemo(
+    () => ({
+      ul: {
+        listStyleType: 'none',
+        margin: 0,
+        // marginLeft: theme.spacing(2),
+        padding: 0
+      },
+      li: {
+        marginBottom: theme.spacing(1 / 2)
+      }
+    }),
+    [theme]
+  )
 
   const TypeLi = useCallback(
     ({children, ...rest}: TypographyProps<'li'>) => (
-      <Type component="li" variant="body2" className={classes.li} {...rest}>
+      <Type component="li" variant="body2" sx={{...style.li}} {...rest}>
         {children}
       </Type>
     ),
-    [classes]
+    [style]
   )
 
   const Ul = useCallback(
     ({children, ...rest}: React.HTMLAttributes<HTMLUListElement>) => (
-      <ul className={classes.ul} {...rest}>
+      <Box component="ul" sx={{...style.ul}} {...rest}>
         {children}
-      </ul>
+      </Box>
     ),
-    [classes]
+    [style]
   )
 
   return (

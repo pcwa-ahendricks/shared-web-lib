@@ -5,24 +5,13 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Image from 'next/legacy/image'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import {Button, Theme, Typography} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Button, Typography, useTheme} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import {RowBox} from '@components/MuiSleazebox'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    mediaDialogImg: {
-      borderWidth: '1px !important',
-      borderColor: `${theme.palette.grey[300]} !important`,
-      borderStyle: 'solid !important'
-    }
-  })
-)
+import {Theme} from '@lib/material-theme'
 
 export default function WaterWiseHomePage() {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
   return (
     <PageLayout title="Water-Wise Home" waterSurface>
       <MainBox>
@@ -32,9 +21,11 @@ export default function WaterWiseHomePage() {
             mediaDialogOpen
             mediaName="Water-Wise Home"
             mediaUrl="https://imgix.cosmicjs.com/465fed20-5c21-11eb-afa6-e9412ba0a77c-WaterSaver-Home-Infographic.JPG"
-            mediaPreviewDialogProps={{
-              width: 1817,
-              height: 842
+            MediaPreviewDialogProps={{
+              ImageProps: {
+                width: 1817,
+                height: 842
+              }
             }}
           >
             <Image
@@ -45,7 +36,11 @@ export default function WaterWiseHomePage() {
               sizes="(max-width: 1127px) 100vw, 1127px"
               width={1817}
               height={842}
-              className={classes.mediaDialogImg}
+              style={{
+                borderWidth: '1px !important',
+                borderColor: `${theme.palette.grey[300]} !important`,
+                borderStyle: 'solid !important'
+              }}
             />
           </MediaDialogOnClick>
           <Spacing size="small" />

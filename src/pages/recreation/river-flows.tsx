@@ -13,11 +13,9 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Theme,
   Button
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+
 import Spacing from '@components/boxes/Spacing'
 // import defaultPageGage from '@components/pi/defaultPageGage'
 import Image from 'next/legacy/image'
@@ -26,25 +24,18 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 
 const cardImageHeight = 200
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    buttonLabel: {
-      display: 'inline-flex'
-    },
+const ResponsiveImageTemplatePage = () => {
+  const style = {
     card: {
       margin: 'auto',
       maxWidth: 345,
-      backgroundColor: theme.palette.common.white
+      backgroundColor: 'common.white'
     },
     media: {
       height: cardImageHeight,
       overflow: 'hidden'
     }
-  })
-)
-
-const ResponsiveImageTemplatePage = () => {
-  const classes = useStyles()
+  }
 
   // const cardClickHandler = useCallback(() => {
   //   router.push(
@@ -104,14 +95,14 @@ const ResponsiveImageTemplatePage = () => {
 
           <Spacing size="x-large" />
           <FlexBox>
-            <Card className={classes.card}>
+            <Card sx={{...style.card}}>
               {/* <CardActionArea onClick={cardClickHandler}> */}
               <CardActionArea
                 href="https://www.middleforkfun.com/rivers-and-reservoirs"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <CardMedia component="div" className={classes.media}>
+                <CardMedia component="div" sx={{...style.media}}>
                   <Image
                     loader={imgixLoader}
                     src="6635fa60-61c3-11e7-9d28-7b65c66a2644-French_Meadows_Inlet_04.jpg"
@@ -154,7 +145,6 @@ const ResponsiveImageTemplatePage = () => {
                   rel="noopener noreferrer"
                   target="_blank"
                   endIcon={<OpenInNewIcon />}
-                  classes={{label: classes.buttonLabel}}
                   variant="text"
                 >
                   <Type variant="inherit" style={{textTransform: 'none'}}>
