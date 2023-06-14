@@ -59,62 +59,48 @@ const ForecastDisplay = ({forecast}: Props) => {
   const temperatureFrmt =
     temperature || temperature === 0 ? Math.round(temperature).toString() : '?'
 
-  const animatedWeatherEl = useMemo(
-    () =>
-      isValidForecast && temperature ? (
-        <RowBox justifyContent="flex-start" alignItems="center">
-          <ButtonBase {...linkProps}>
-            {/* <img
+  if (!(isValidForecast && temperature)) {
+    return null
+  }
+
+  return (
+    <Box>
+      <RowBox justifyContent="flex-start" alignItems="center">
+        <ButtonBase {...linkProps}>
+          {/* <img
               data-sizes="auto"
               className="lazyload"
               alt={`Current Conditions: ${description} in ${name}`}
               data-src={iconUrl}
               data-srcset={`${iconUrl} 1x, ${iconUrl2x} 2x`}
             /> */}
-            <WeatherIcon
-              temp={temperature}
-              weatherCode={weatherId}
-              observationTime={dateTime}
-              sunrise={sunrise}
-              sunset={sunset}
-              color="primary"
-            />
-          </ButtonBase>
-          <Type
-            variant="subtitle2"
-            sx={{
-              opacity: isValidForecast && Boolean(temperature) ? 1 : 0,
-              transition: 'opacity 1200ms ease',
-              paddingLeft: theme.spacing(2),
-              fontWeight: 500 // Subtitle2 is set to 400.
-            }}
-            noWrap
-          >
-            <Link
-              {...linkProps}
-              underline="none"
-            >{`${temperatureFrmt}° ${title} `}</Link>
-          </Type>
-        </RowBox>
-      ) : null,
-    [
-      isValidForecast,
-      weatherId,
-      linkProps,
-      temperature,
-      title,
-      temperatureFrmt,
-      theme,
-      // iconUrl,
-      // iconUrl2x,
-      // name,
-      sunrise,
-      sunset,
-      dateTime
-    ]
+          <WeatherIcon
+            temp={temperature}
+            weatherCode={weatherId}
+            observationTime={dateTime}
+            sunrise={sunrise}
+            sunset={sunset}
+            color="primary"
+          />
+        </ButtonBase>
+        <Type
+          variant="subtitle2"
+          sx={{
+            opacity: isValidForecast && Boolean(temperature) ? 1 : 0,
+            transition: 'opacity 1200ms ease',
+            paddingLeft: theme.spacing(2),
+            fontWeight: 500 // Subtitle2 is set to 400.
+          }}
+          noWrap
+        >
+          <Link
+            {...linkProps}
+            underline="none"
+          >{`${temperatureFrmt}° ${title} `}</Link>
+        </Type>
+      </RowBox>
+    </Box>
   )
-
-  return <Box>{animatedWeatherEl}</Box>
 }
 
 export default ForecastDisplay

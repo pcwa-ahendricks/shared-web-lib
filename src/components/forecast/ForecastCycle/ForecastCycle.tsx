@@ -18,17 +18,17 @@ import {
   setCycleTimeoutId
 } from '../ForecastStore'
 import useTimeoutId from '@hooks/useTimeoutId'
+import ReactCSSTransitionReplace from 'react-css-transition-replace'
+import {forecastCrossFadeDuration} from '@pages/_app'
 
 type Props = {
   cycleInterval?: number
-  crossFadeDuration?: number
   forecasts?: ForecastDataset[]
 } & Partial<BoxProps>
 
 const ForecastCycle = ({
   forecasts = [],
   cycleInterval = 1000 * 10, // 10 seconds
-  crossFadeDuration = 1000 * 1, // 1 second
   ...rest
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -76,16 +76,13 @@ const ForecastCycle = ({
 
   const hasAnchorEl = useMemo(() => Boolean(anchorEl), [anchorEl])
 
-  const forecastDisplay = useMemo(
-    () => (
-      <Box>
-        {forecast && forecast.id ? (
-          <ForecastDisplay key={forecast.id} forecast={forecast} />
-        ) : null}
-      </Box>
-    ),
-    [forecast]
-  )
+  const [transitionEnter, setTransitionEnter] = useState<boolean>(false)
+  const transitionLeaveHandler = useCallback(() => {
+    // Shorten the "Enter" transition during first enter (every page load). See below.
+    if (!transitionEnter) {
+      setTransitionEnter(true)
+    }
+  }, [transitionEnter])
 
   return (
     <Box
@@ -93,10 +90,22 @@ const ForecastCycle = ({
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
       onMouseLeave={handlePopoverClose}
-      className="transContainer"
       {...rest}
     >
-      {forecastDisplay}
+      <ReactCSSTransitionReplace
+        transitionName="forecast-cross-fade"
+        transitionEnterTimeout={
+          !transitionEnter
+            ? forecastCrossFadeDuration * 0.1
+            : forecastCrossFadeDuration
+        }
+        transitionLeaveTimeout={forecastCrossFadeDuration}
+        onTransitionEnd={transitionLeaveHandler}
+      >
+        {forecast && forecast.id ? (
+          <ForecastDisplay key={forecast.id} forecast={forecast} />
+        ) : null}
+      </ReactCSSTransitionReplace>
       <ForecastPopover
         open={hasAnchorEl}
         anchorEl={anchorEl}

@@ -1,18 +1,22 @@
 import React from 'react'
-import {Theme, useTheme, Fab, FabProps, Typography as Type} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Fab, FabProps, Typography as Type} from '@mui/material'
 import prettyBytes from 'pretty-bytes'
 import DownloadIcon from '@mui/icons-material/CloudDownload'
 import {CosmicMedia} from '@lib/services/cosmicService'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   fileSize?: CosmicMedia['size']
   caption?: string
 } & Partial<FabProps>
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const DownloadResourceFab = ({
+  fileSize,
+  caption = 'Download Resource',
+  ...rest
+}: Props) => {
+  const theme = useTheme()
+  const style = {
     // downloadIcon: ({trigger}: {trigger: boolean}) => ({
     //   marginRight: trigger ? 0 : theme.spacing(1)
     // })
@@ -22,32 +26,30 @@ const useStyles = makeStyles((theme: Theme) =>
     muiFabSmall: {
       fontSize: '0.8rem' // Defaults to 0.92rem.
     }
-  })
-)
+  }
 
-const DownloadResourceFab = ({
-  fileSize,
-  caption = 'Download Resource',
-  ...rest
-}: Props) => {
-  const classes = useStyles()
-  const theme = useTheme()
   return (
     <Fab
       // variant={trigger ? 'round' : 'extended'}
       variant="extended"
-      classes={{sizeSmall: classes.muiFabSmall}}
+      sx={{
+        '&.MuiFab-sizeSmall': {
+          ...style.muiFabSmall
+        }
+      }}
       {...rest}
     >
       <>
-        <DownloadIcon className={classes.downloadIcon} />
+        <DownloadIcon sx={{...style.downloadIcon}} />
         {caption}
         {fileSize ? (
           <Type
             component="span"
             variant="caption"
             color="textSecondary"
-            style={{paddingLeft: theme.spacing(1)}}
+            sx={(theme) => ({
+              paddingLeft: theme.spacing(1)
+            })}
           >
             {/* Don't use ?? here since it won't catch NaN parameter. */}(
             {prettyBytes(Number(fileSize) || 0)})

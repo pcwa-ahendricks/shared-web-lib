@@ -132,15 +132,13 @@ const ContactUsGeolocator = ({
   }, [success, onClick, onGeolocateError, reverseGeocode, timeout])
 
   const progress = useMemo(() => {
-    // const {className: classNameProp, sx, ...props} = circularProgressProps ?? {}
-    const {className: classNameProp, ...props} = circularProgressProps ?? {}
     return (
       locating && (
         <CircularProgress
           size={68}
           color="secondary"
           sx={{...style.fabProgress}}
-          {...props}
+          {...circularProgressProps}
         />
       )
     )
