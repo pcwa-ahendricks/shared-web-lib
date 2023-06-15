@@ -81,7 +81,7 @@ const EmployeeBenefitsSummaryPage = () => {
             >
               <Image
                 loader={imgixLoader}
-                src="10be14f0-ecd3-11ec-aad0-63c3465ecebb-2021-ACFR-for-website-final.pdf"
+                src="5b811d20-0b0e-11ee-ae37-df4d4894726e-PCWA-2022-Annual-Report-for-Web.pdf"
                 layout="responsive"
                 sizes="(max-width: 600px) 50vw, 20vw"
                 width={85}
