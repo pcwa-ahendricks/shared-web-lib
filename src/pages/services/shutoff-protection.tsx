@@ -1141,7 +1141,7 @@ const ShutoffProtectionPage = () => {
           <Spacing factor={2} />
           <Type variant="h3">Treated Water Shutoffs</Type>
           <Spacing />
-          <RowBox justifyContent="space-around">
+          <RowBox justifyContent="space-around" flexDirection="row-reverse">
             <ColumnBox child alignItems="center" flexSpacing={1}>
               <ChildBox mb={-1}>
                 <Type variant="h4">2020</Type>
@@ -1165,6 +1165,19 @@ const ShutoffProtectionPage = () => {
               <ChildBox>
                 <Type variant="subtitle1">
                   <strong>0</strong>
+                </Type>
+              </ChildBox>
+            </ColumnBox>
+            <ColumnBox child alignItems="center" flexSpacing={1}>
+              <ChildBox mb={-1}>
+                <Type variant="h4">2022</Type>
+              </ChildBox>
+              <ChildBox width="100%">
+                <Divider />
+              </ChildBox>
+              <ChildBox>
+                <Type variant="subtitle1">
+                  <strong>420</strong>
                 </Type>
               </ChildBox>
             </ColumnBox>
