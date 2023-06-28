@@ -192,7 +192,7 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/services/backflow-prevention'
           },
           {
-            title: 'Water Rates',
+            title: 'Water Rates & Rules and Regulations',
             nextLink: '/services/water-rates'
           },
           {

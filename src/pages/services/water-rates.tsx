@@ -23,6 +23,7 @@ import {ChildBox, RowBox} from 'mui-sleazebox'
 import FancyButton from '@components/FancyButton/FancyButton'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
+import Spacing from '@components/boxes/Spacing'
 
 function createData(tier: string, cost: number) {
   return {tier, cost}
@@ -133,12 +134,27 @@ const WaterRatesPage = () => {
   }
 
   return (
-    <PageLayout title="Water Rates" waterSurface>
+    <PageLayout title="Water Rates & Rules and Regulations" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle title="Water Rates" subtitle="Services" />
+          <PageTitle
+            title="Water Rates & Rules and Regulations"
+            subtitle="Services"
+          />
           <RowBox responsive flexSpacing={8}>
             <ChildBox flex="70%">
+              <Spacing size="small" />
+              <FancyButton
+                variant="contained"
+                hoverText="View PDF"
+                target="_blank"
+                color="secondary"
+                rel="noopener noreferrer"
+                href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
+              >
+                2023 Rules and Regulations
+              </FancyButton>
+              <Spacing size="large" />
               <Type variant="h3" gutterBottom>
                 Overview of Treated Water Billing Components
               </Type>
@@ -467,19 +483,6 @@ const WaterRatesPage = () => {
                   </TableContainer>
                 </TableLayoutBox>
               </TableLayoutRow>
-
-              <Box mt={6}>
-                <FancyButton
-                  variant="contained"
-                  hoverText="View PDF"
-                  target="_blank"
-                  color="secondary"
-                  rel="noopener noreferrer"
-                  href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
-                >
-                  2023 Rules and Regulations
-                </FancyButton>
-              </Box>
             </Box>
           </Box>
         </WideContainer>
