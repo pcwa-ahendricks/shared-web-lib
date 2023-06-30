@@ -803,7 +803,7 @@ const SmartWaterUsePage = () => {
                     <CardMedia
                       className={classes.cardMedia}
                       component="img"
-                      src="https://cosmicjs.imgix.net/169e7430-6b48-11e7-80fa-8bf0863a196c-Screen_Shot_2016-08-12_at_4.26.00_PM_ttbpsa.jpg?h=400"
+                      src="https://imgix.cosmicjs.com/169e7430-6b48-11e7-80fa-8bf0863a196c-Screen_Shot_2016-08-12_at_4.26.00_PM_ttbpsa.jpg?h=400"
                       alt="Design for the New California Landscape"
                     />
                     <CardContent>
@@ -845,7 +845,7 @@ const SmartWaterUsePage = () => {
                     <CardMedia
                       className={classes.cardMedia}
                       component="img"
-                      src="https://cosmicjs.imgix.net/69900400-6b49-11e7-8970-3b688d290373-Landscape_Survival_Tips_w0slls.pdf?auto=format&w=600&h=300&fit=crop&crop=top"
+                      src="https://imgix.cosmicjs.com/69900400-6b49-11e7-8970-3b688d290373-Landscape_Survival_Tips_w0slls.pdf?auto=format&w=600&h=300&fit=crop&crop=top"
                       alt="Design for the New California Landscape"
                     />
                     <CardContent>
@@ -882,7 +882,7 @@ const SmartWaterUsePage = () => {
                     <CardMedia
                       className={classes.cardMedia}
                       component="img"
-                      src="https://cosmicjs.imgix.net/0bf5f5b0-6b4a-11e7-b3a3-fbbc226e29f5-Openingscreen_kqywly.jpg?w=600&h=400&fit=crop"
+                      src="https://imgix.cosmicjs.com/0bf5f5b0-6b4a-11e7-b3a3-fbbc226e29f5-Openingscreen_kqywly.jpg?w=600&h=400&fit=crop"
                       alt="Design for the New California Landscape"
                     />
                     <CardContent>
