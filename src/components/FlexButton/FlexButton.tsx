@@ -18,9 +18,11 @@ const FlexButton = ({
 }: FlexButtonProps) => {
   if (isNextLink) {
     return (
-      <Button component={NextLink} as={as} href={href} {...rest}>
-        {children}
-      </Button>
+      <NextLink as={as} href={href} legacyBehavior passHref>
+        <Button component="a" {...rest}>
+          {children}
+        </Button>
+      </NextLink>
     )
   }
   return (

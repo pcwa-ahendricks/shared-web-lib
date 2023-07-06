@@ -19,8 +19,6 @@ import {
   useMediaQuery
 } from '@mui/material'
 import menuConfig from '@lib/menuConfig'
-import Link from 'next/link'
-import FlexLink from '@components/FlexLink/FlexLink'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import {ColumnBox, ChildBox, RowBox} from '@components/MuiSleazebox'
 // import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
@@ -31,6 +29,8 @@ import SocialIconButton from '@components/SocialIconButton/SocialIconButton'
 import {useRouter} from 'next/router'
 // import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
 import Spacing from '@components/boxes/Spacing'
+import Link from '@components/Link'
+import NextLink from 'next/link'
 
 const SwipeableTemporaryDrawer = () => {
   const [activeGroup, setActiveGroup] = useState<number | null>(null)
@@ -90,7 +90,7 @@ const SwipeableTemporaryDrawer = () => {
     () => (
       <>
         <List component="nav">
-          <Link href="/" passHref legacyBehavior>
+          <NextLink href="/" passHref legacyBehavior>
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
@@ -103,7 +103,7 @@ const SwipeableTemporaryDrawer = () => {
                 }}
               />
             </ListItemButton>
-          </Link>
+          </NextLink>
           {menuConfig.map((cfg, idxLvl1) => (
             <Box key={idxLvl1}>
               <ListItemButton
@@ -144,19 +144,18 @@ const SwipeableTemporaryDrawer = () => {
                           {g.groupName}
                         </ListSubheader>
                         {g.items.map((i, idxLvl3) => (
-                          <FlexLink
+                          <Link
                             key={idxLvl3}
                             href={i.nextLink || i.href || '/'}
                             underline="none"
                             color="primary"
                             as={i.as}
-                            isNextLink={Boolean(i.nextLink)}
                           >
                             <NavListItem
                               title={i.title}
                               selected={i.nextLink === router.pathname}
                             />
-                          </FlexLink>
+                          </Link>
                         ))}
                       </Box>
                     </Box>
@@ -184,7 +183,7 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItemButton>
-          <Link href="/services/outage" passHref legacyBehavior>
+          <NextLink href="/services/outage" passHref legacyBehavior>
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
@@ -197,7 +196,7 @@ const SwipeableTemporaryDrawer = () => {
                 }}
               />
             </ListItemButton>
-          </Link>
+          </NextLink>
           <ListItemButton
             href="https://careers.pcwa.net/"
             target="_blank"
@@ -213,7 +212,7 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItemButton>
-          <Link
+          <NextLink
             href="/board-of-directors/meeting-agendas"
             passHref
             legacyBehavior
@@ -230,8 +229,12 @@ const SwipeableTemporaryDrawer = () => {
                 }}
               />
             </ListItemButton>
-          </Link>
-          <Link href="/smart-water-use/rebate-programs" passHref legacyBehavior>
+          </NextLink>
+          <NextLink
+            href="/smart-water-use/rebate-programs"
+            passHref
+            legacyBehavior
+          >
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
@@ -244,7 +247,7 @@ const SwipeableTemporaryDrawer = () => {
                 }}
               />
             </ListItemButton>
-          </Link>
+          </NextLink>
         </List>
         {/* <Divider /> */}
       </>
