@@ -164,7 +164,7 @@ export default function SummerStrongPage({placeholders}: Props) {
               <UcMasterGardenersLogo />
             </ChildBox>
           </RowBox>
-          <Spacing size="large" />
+          <Spacing />
 
           <Box>
             <RowBox flexSpacing={6} responsive>
@@ -190,13 +190,13 @@ export default function SummerStrongPage({placeholders}: Props) {
                 </MediaDialogOnClick>
               </ChildBox>
             </RowBox>
-            <Spacing size="x-large" />
           </Box>
           <Spacing size="x-large" />
           <Type variant="h4">De La Mina Verbena or Cedros Island Verbena</Type>
           <Type variant="subtitle1" gutterBottom>
             <em>Verbena lilacina ‘De La Mina’, Glandularia lilacina. </em>
           </Type>
+          <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
             <em>By Laurie Meyerpeter, Master Gardener</em>
           </Type>
