@@ -32,10 +32,8 @@ const FETCHER_TIMEOUT = 2000
 
 const imgixImages = [
   'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
-  // 'b633afa0-e5d8-11ec-9447-f98173199613-Summer-of-Savings-FB-Image-cropped2.png',
   'f7f84d40-50d3-11ed-86fb-49bee3bbe632-Limit-Landscape-Watering-graphic-2-days.png',
   'ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg',
-  // 'b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg',
   '038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg',
   'a86375b0-6340-11ec-a8a3-53f360c99be6-PCWA-2022-Adopted-Budget-for-Website.pdf',
   '68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg',
@@ -44,14 +42,10 @@ const imgixImages = [
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
   '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
   '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg',
-  // '8fa6f4c0-70d2-11ed-8951-b39aeeb44ac4-PCWA-Bear-Hibernate-Graphic.png',
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
-  // 'bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg',
-  // '275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg',
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
-  '51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg',
-  'feb5c750-03f9-11ee-98b3-493f864afadf-SSSBDaisy8.5.jpg'
+  '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg'
 ]
 
 type Props = {
@@ -123,8 +117,8 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://imgix.cosmicjs.com/feb5c750-03f9-11ee-98b3-493f864afadf-SSSBDaisy8.5.jpg"
-              alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
+              imgixURL="https://imgix.cosmicjs.com/35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg"
+              alt="Verbena lilacina 'De La Mina'"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
           </ChildBox>
